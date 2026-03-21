@@ -8,7 +8,7 @@ Website: https://contractspec.io
 
 - **Layer**: lib.
 - **Consumers**: bundles.
-- Related ContractSpec packages include `@contractspec/lib.ai-agent`, `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.knowledge`, `@contractspec/lib.schema`, `@contractspec/tool.bun`, ...
+- Related ContractSpec packages include `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.knowledge`, `@contractspec/lib.schema`, `@contractspec/tool.bun`, ...
 
 ## Installation
 

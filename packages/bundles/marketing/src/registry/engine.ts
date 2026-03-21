@@ -4,7 +4,7 @@ import {
 	registerDefaultReactRenderer,
 	registerReactToMarkdownRenderer,
 	type TransformEngine,
-} from '@contractspec/lib.contracts-spec/presentations/transform-engine';
+} from '@contractspec/lib.contracts-runtime-client-react/transform-engine';
 import { componentMap } from './registry';
 import type { ComponentMap } from './types';
 

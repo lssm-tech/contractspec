@@ -123,9 +123,6 @@
 		"./schema/schema-output": "./src/schema/schema-output.ts",
 		"./session": "./src/session/index.ts",
 		"./session/store": "./src/session/store.ts",
-		"./spec": "./src/spec/index.ts",
-		"./spec/registry": "./src/spec/registry.ts",
-		"./spec/spec": "./src/spec/spec.ts",
 		"./telemetry": "./src/telemetry/index.ts",
 		"./telemetry/adapter": "./src/telemetry/adapter.ts",
 		"./telemetry/posthog": "./src/telemetry/posthog.ts",
@@ -426,24 +423,6 @@
 				"bun": "./dist/session/store.js",
 				"node": "./dist/node/session/store.js",
 				"default": "./dist/session/store.js"
-			},
-			"./spec": {
-				"types": "./dist/spec/index.d.ts",
-				"bun": "./dist/spec/index.js",
-				"node": "./dist/node/spec/index.js",
-				"default": "./dist/spec/index.js"
-			},
-			"./spec/registry": {
-				"types": "./dist/spec/registry.d.ts",
-				"bun": "./dist/spec/registry.js",
-				"node": "./dist/node/spec/registry.js",
-				"default": "./dist/spec/registry.js"
-			},
-			"./spec/spec": {
-				"types": "./dist/spec/spec.d.ts",
-				"bun": "./dist/spec/spec.js",
-				"node": "./dist/node/spec/spec.js",
-				"default": "./dist/spec/spec.js"
 			},
 			"./telemetry": {
 				"types": "./dist/telemetry/index.d.ts",

@@ -1,5 +1,6 @@
 import { randomUUID } from 'node:crypto';
 import type { ModelSelector } from '@contractspec/lib.ai-providers/selector-types';
+import { agentKey, type AgentSpec } from '@contractspec/lib.contracts-spec/agent';
 import type { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations/registry';
 import type { KnowledgeRetriever } from '@contractspec/lib.knowledge/retriever';
 import {
@@ -13,8 +14,6 @@ import {
 import * as z from 'zod';
 import { injectStaticKnowledge } from '../knowledge/injector';
 import { type AgentSessionStore, generateSessionId } from '../session/store';
-import type { AgentSpec } from '../spec/spec';
-import { agentKey } from '../spec/spec';
 import { type TelemetryCollector, trackAgentStep } from '../telemetry/adapter';
 import type {
 	PostHogLLMConfig,

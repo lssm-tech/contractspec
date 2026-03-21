@@ -5,6 +5,8 @@ export * from './constants';
 export * from './contracts';
 export * from './events';
 export * from './forms';
+export * from './registry';
 export * from './presentations';
 export * from './queries';
+export * from './spec';
 export * from './views';

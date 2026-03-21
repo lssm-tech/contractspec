@@ -1,8 +1,8 @@
+import type { AgentKnowledgeRef } from '@contractspec/lib.contracts-spec/agent';
 import type { KnowledgeRetriever } from '@contractspec/lib.knowledge/retriever';
 import { type Tool, tool } from 'ai';
 import * as z from 'zod';
 import { createAgentI18n } from '../i18n';
-import type { AgentKnowledgeRef } from '../spec/spec';
 
 /**
  * Create a knowledge query tool for dynamic RAG.

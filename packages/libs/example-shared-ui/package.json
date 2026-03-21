@@ -271,7 +271,8 @@
 		"framer-motion": "^12.38.0",
 		"lucide-react": "^0.577.0",
 		"react": "catalog:",
-		"react-dom": "catalog:"
+		"react-dom": "catalog:",
+		"@contractspec/lib.presentation-runtime-core": "workspace:*"
 	},
 	"optionalDependencies": {
 		"@contractspec/lib.surface-runtime": "workspace:*"

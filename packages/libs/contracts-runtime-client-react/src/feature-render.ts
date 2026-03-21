@@ -1,20 +1,20 @@
-import type { BlockConfig } from '@blocknote/core';
 import {
 	type FeatureModuleSpec,
 	FeatureRegistry,
 } from '@contractspec/lib.contracts-spec/features';
 import type {
+	BlockConfig,
 	PresentationSpec,
 	PresentationTarget,
 } from '@contractspec/lib.contracts-spec/presentations';
 import {
-	type ComponentMap,
 	createDefaultTransformEngine,
-	type ReactRenderDescriptor,
 	registerBasicValidation,
 	registerDefaultReactRenderer,
+	type ComponentMap,
+	type ReactRenderDescriptor,
 	TransformEngine,
-} from '@contractspec/lib.contracts-spec/presentations/transform-engine';
+} from './transform-engine';
 import React from 'react';
 
 export function createEngineWithDefaults(): TransformEngine {

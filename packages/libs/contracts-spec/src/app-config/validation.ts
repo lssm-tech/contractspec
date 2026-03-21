@@ -1,10 +1,10 @@
 import type { CapabilityRef, CapabilityRegistry } from '../capabilities';
 import type { DataViewRegistry } from '../data-views';
-import type { IntegrationConnection } from '../integrations/connection';
 import type {
+	IntegrationConnection,
 	IntegrationSpec,
 	IntegrationSpecRegistry,
-} from '../integrations/spec';
+} from '@contractspec/lib.contracts-integrations';
 import type { KnowledgeSourceConfig } from '../knowledge/source';
 import type { KnowledgeSpaceRegistry } from '../knowledge/spec';
 import type {

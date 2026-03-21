@@ -5,11 +5,10 @@
  * @opencode-ai/sdk (JSON config and markdown agent files).
  */
 
+import { agentKey, type AgentSpec } from '@contractspec/lib.contracts-spec/agent';
 import { createAgentI18n } from '../i18n';
 import { inferAgentType } from '../providers/opencode-sdk/agent-bridge';
 import type { OpenCodeAgentType } from '../providers/types';
-import type { AgentSpec } from '../spec/spec';
-import { agentKey } from '../spec/spec';
 import type {
 	Exporter,
 	OpenCodeAgentJSON,

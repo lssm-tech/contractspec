@@ -5,7 +5,7 @@
  * Data is fetched via the CrmPipelineBoard component's internal hooks.
  */
 
-import type { PresentationRenderer } from '@contractspec/lib.contracts-spec/presentations/transform-engine';
+import type { PresentationRenderer } from '@contractspec/lib.presentation-runtime-core/transform-engine';
 import * as React from 'react';
 import { CrmPipelineBoard } from '../CrmPipelineBoard';
 import { useDealList } from '../hooks/useDealList';

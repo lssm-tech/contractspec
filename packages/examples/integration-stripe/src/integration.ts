@@ -1,4 +1,4 @@
-import { defineIntegration } from '@contractspec/lib.contracts-spec/integrations/spec';
+import { defineIntegration } from '@contractspec/lib.contracts-integrations';
 import {
 	OwnersEnum,
 	StabilityEnum,

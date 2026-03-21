@@ -10,7 +10,7 @@ import {
 	createAgentConsoleDemoHandlers,
 } from '@contractspec/example.agent-console/shared';
 import type { PresentationSpec } from '@contractspec/lib.contracts-spec/presentations';
-import type { PresentationRenderer } from '@contractspec/lib.contracts-spec/presentations/transform-engine';
+import type { PresentationRenderer } from '@contractspec/lib.presentation-runtime-core/transform-engine';
 
 interface ToolItem {
 	id: string;

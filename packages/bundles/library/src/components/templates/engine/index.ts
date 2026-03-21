@@ -16,7 +16,7 @@ import {
 	registerBasicValidation,
 	registerDefaultReactRenderer,
 	TransformEngine,
-} from '@contractspec/lib.contracts-spec/presentations/transform-engine';
+} from '@contractspec/lib.contracts-runtime-client-react/transform-engine';
 
 /**
  * Create a configured TransformEngine for template rendering

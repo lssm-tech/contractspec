@@ -2,7 +2,7 @@
   {
     "id": "unknown/ai-llm.mistral",
     "title": "ai-llm.mistral",
-    "summary": "Mistral integration providing chat completions and embedding generation.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: ai, llm, embeddings\n- **File**: `packages/libs/contracts-spec/src/integrations/providers/mistral.ts`",
+    "summary": "Mistral integration providing chat completions and embedding generation.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: ai, llm, embeddings\n- **File**: `packages/libs/contracts-integrations/src/integrations/providers/mistral.ts`",
     "route": "/docs/reference/unknown/ai-llm.mistral",
     "source": "generated",
     "contentPath": "unknown/ai-llm.mistral.md"
@@ -10,7 +10,7 @@
   {
     "id": "unknown/ai-voice.elevenlabs",
     "title": "ai-voice.elevenlabs",
-    "summary": "ElevenLabs integration for neural voice synthesis and voice catalog access.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: voice, tts\n- **File**: `packages/libs/contracts-spec/src/integrations/providers/elevenlabs.ts`",
+    "summary": "ElevenLabs integration for neural voice synthesis and voice catalog access.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: voice, tts\n- **File**: `packages/libs/contracts-integrations/src/integrations/providers/elevenlabs.ts`",
     "route": "/docs/reference/unknown/ai-voice.elevenlabs",
     "source": "generated",
     "contentPath": "unknown/ai-voice.elevenlabs.md"
@@ -18,7 +18,7 @@
   {
     "id": "unknown/ai-voice.fal",
     "title": "ai-voice.fal",
-    "summary": "Fal integration for voice synthesis using Chatterbox text-to-speech models.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: voice, tts, chatterbox\n- **File**: `packages/libs/contracts-spec/src/integrations/providers/fal.ts`",
+    "summary": "Fal integration for voice synthesis using Chatterbox text-to-speech models.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: voice, tts, chatterbox\n- **File**: `packages/libs/contracts-integrations/src/integrations/providers/fal.ts`",
     "route": "/docs/reference/unknown/ai-voice.fal",
     "source": "generated",
     "contentPath": "unknown/ai-voice.fal.md"
@@ -26,7 +26,7 @@
   {
     "id": "unknown/ai-voice.gradium",
     "title": "ai-voice.gradium",
-    "summary": "Gradium integration for low-latency voice synthesis and voice catalog access.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: voice, tts, realtime\n- **File**: `packages/libs/contracts-spec/src/integrations/providers/gradium.ts`",
+    "summary": "Gradium integration for low-latency voice synthesis and voice catalog access.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: voice, tts, realtime\n- **File**: `packages/libs/contracts-integrations/src/integrations/providers/gradium.ts`",
     "route": "/docs/reference/unknown/ai-voice.gradium",
     "source": "generated",
     "contentPath": "unknown/ai-voice.gradium.md"
@@ -162,7 +162,7 @@
   {
     "id": "unknown/email.gmail",
     "title": "email.gmail",
-    "summary": "Gmail integration supporting inbound thread ingestion and outbound transactional email.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.messaging\n- **Tags**: email, gmail\n- **File**: `packages/libs/contracts-spec/src/integrations/providers/gmail.ts`",
+    "summary": "Gmail integration supporting inbound thread ingestion and outbound transactional email.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.messaging\n- **Tags**: email, gmail\n- **File**: `packages/libs/contracts-integrations/src/integrations/providers/gmail.ts`",
     "route": "/docs/reference/unknown/email.gmail",
     "source": "generated",
     "contentPath": "unknown/email.gmail.md"
@@ -170,7 +170,7 @@
   {
     "id": "unknown/email.postmark",
     "title": "email.postmark",
-    "summary": "Postmark integration for transactional email delivery.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.messaging\n- **Tags**: email, transactional\n- **File**: `packages/libs/contracts-spec/src/integrations/providers/postmark.ts`",
+    "summary": "Postmark integration for transactional email delivery.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.messaging\n- **Tags**: email, transactional\n- **File**: `packages/libs/contracts-integrations/src/integrations/providers/postmark.ts`",
     "route": "/docs/reference/unknown/email.postmark",
     "source": "generated",
     "contentPath": "unknown/email.postmark.md"
@@ -178,7 +178,7 @@
   {
     "id": "unknown/integrations",
     "title": "integrations",
-    "summary": "Core integrations capability for third-party connections\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: @platform.core\n- **Tags**: integrations, platform\n- **File**: `packages/libs/contracts-spec/src/integrations/integrations.capability.ts`",
+    "summary": "Core integrations capability for third-party connections\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: @platform.core\n- **Tags**: integrations, platform\n- **File**: `packages/libs/contracts-integrations/src/integrations/integrations.capability.ts`",
     "route": "/docs/reference/unknown/integrations",
     "source": "generated",
     "contentPath": "unknown/integrations.md"
@@ -194,7 +194,7 @@
   {
     "id": "unknown/integrations.connection.delete",
     "title": "integrations.connection.delete",
-    "summary": "Delete an integration connection for a tenant.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: integration, connections\n- **File**: `packages/libs/contracts-spec/src/integrations/operations.ts`",
+    "summary": "Delete an integration connection for a tenant.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: integration, connections\n- **File**: `packages/libs/contracts-integrations/src/integrations/operations.ts`",
     "route": "/docs/reference/unknown/integrations.connection.delete",
     "source": "generated",
     "contentPath": "unknown/integrations.connection.delete.md"
@@ -202,7 +202,7 @@
   {
     "id": "unknown/integrations.connection.list",
     "title": "integrations.connection.list",
-    "summary": "List integration connections for a tenant.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: integration, connections\n- **File**: `packages/libs/contracts-spec/src/integrations/operations.ts`",
+    "summary": "List integration connections for a tenant.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: integration, connections\n- **File**: `packages/libs/contracts-integrations/src/integrations/operations.ts`",
     "route": "/docs/reference/unknown/integrations.connection.list",
     "source": "generated",
     "contentPath": "unknown/integrations.connection.list.md"
@@ -274,7 +274,7 @@
   {
     "id": "unknown/meeting-recorder",
     "title": "meeting-recorder",
-    "summary": "Meeting recorder integrations capability\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: @platform.integrations\n- **Tags**: meeting-recorder, transcripts, integrations\n- **File**: `packages/libs/contracts-spec/src/integrations/meeting-recorder/meeting-recorder.capability.ts`",
+    "summary": "Meeting recorder integrations capability\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: @platform.integrations\n- **Tags**: meeting-recorder, transcripts, integrations\n- **File**: `packages/libs/contracts-integrations/src/integrations/meeting-recorder/meeting-recorder.capability.ts`",
     "route": "/docs/reference/unknown/meeting-recorder",
     "source": "generated",
     "contentPath": "unknown/meeting-recorder.md"
@@ -354,7 +354,7 @@
   {
     "id": "unknown/openbanking",
     "title": "openbanking",
-    "summary": "Open Banking integrations capability\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: @platform.finance\n- **Tags**: openbanking, finance, integrations\n- **File**: `packages/libs/contracts-spec/src/integrations/openbanking/openbanking.capability.ts`",
+    "summary": "Open Banking integrations capability\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: @platform.finance\n- **Tags**: openbanking, finance, integrations\n- **File**: `packages/libs/contracts-integrations/src/integrations/openbanking/openbanking.capability.ts`",
     "route": "/docs/reference/unknown/openbanking",
     "source": "generated",
     "contentPath": "unknown/openbanking.md"
@@ -426,7 +426,7 @@
   {
     "id": "unknown/payments.stripe",
     "title": "payments.stripe",
-    "summary": "Stripe integration for payment processing, charges, and payouts.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.payments\n- **Tags**: payments, psp\n- **File**: `packages/libs/contracts-spec/src/integrations/providers/stripe.ts`",
+    "summary": "Stripe integration for payment processing, charges, and payouts.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.payments\n- **Tags**: payments, psp\n- **File**: `packages/libs/contracts-integrations/src/integrations/providers/stripe.ts`",
     "route": "/docs/reference/unknown/payments.stripe",
     "source": "generated",
     "contentPath": "unknown/payments.stripe.md"
@@ -450,7 +450,7 @@
   {
     "id": "unknown/project-management.jira",
     "title": "project-management.jira",
-    "summary": "Jira Cloud integration for creating and tracking work items.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: @platform.integrations\n- **Tags**: project-management, jira\n- **File**: `packages/libs/contracts-spec/src/integrations/providers/jira.ts`",
+    "summary": "Jira Cloud integration for creating and tracking work items.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: @platform.integrations\n- **Tags**: project-management, jira\n- **File**: `packages/libs/contracts-integrations/src/integrations/providers/jira.ts`",
     "route": "/docs/reference/unknown/project-management.jira",
     "source": "generated",
     "contentPath": "unknown/project-management.jira.md"
@@ -482,7 +482,7 @@
   {
     "id": "unknown/sms.twilio",
     "title": "sms.twilio",
-    "summary": "Twilio SMS integration for transactional and notification messaging.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.messaging\n- **Tags**: sms, messaging\n- **File**: `packages/libs/contracts-spec/src/integrations/providers/twilio-sms.ts`",
+    "summary": "Twilio SMS integration for transactional and notification messaging.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.messaging\n- **Tags**: sms, messaging\n- **File**: `packages/libs/contracts-integrations/src/integrations/providers/twilio-sms.ts`",
     "route": "/docs/reference/unknown/sms.twilio",
     "source": "generated",
     "contentPath": "unknown/sms.twilio.md"
@@ -490,7 +490,7 @@
   {
     "id": "unknown/storage.gcs",
     "title": "storage.gcs",
-    "summary": "Google Cloud Storage integration for object storage and retrieval.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.infrastructure\n- **Tags**: storage, gcs, google-cloud\n- **File**: `packages/libs/contracts-spec/src/integrations/providers/gcs-storage.ts`",
+    "summary": "Google Cloud Storage integration for object storage and retrieval.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.infrastructure\n- **Tags**: storage, gcs, google-cloud\n- **File**: `packages/libs/contracts-integrations/src/integrations/providers/gcs-storage.ts`",
     "route": "/docs/reference/unknown/storage.gcs",
     "source": "generated",
     "contentPath": "unknown/storage.gcs.md"
@@ -498,7 +498,7 @@
   {
     "id": "unknown/vectordb.qdrant",
     "title": "vectordb.qdrant",
-    "summary": "Qdrant integration for vector search and embeddings storage.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: vector-db, search\n- **File**: `packages/libs/contracts-spec/src/integrations/providers/qdrant.ts`",
+    "summary": "Qdrant integration for vector search and embeddings storage.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: vector-db, search\n- **File**: `packages/libs/contracts-integrations/src/integrations/providers/qdrant.ts`",
     "route": "/docs/reference/unknown/vectordb.qdrant",
     "source": "generated",
     "contentPath": "unknown/vectordb.qdrant.md"

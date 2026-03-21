@@ -1,3 +1,4 @@
+import type { AgentToolConfig } from '@contractspec/lib.contracts-spec/agent';
 /**
  * Tool bridge for converting between ContractSpec and Claude Agent SDK tool formats.
  *
@@ -7,7 +8,6 @@
  */
 
 import { createAgentI18n } from '../../i18n';
-import type { AgentToolConfig } from '../../spec/spec';
 import type { ToolExecutionContext, ToolHandler } from '../../types';
 import type { ExternalToolDefinition } from '../types';
 

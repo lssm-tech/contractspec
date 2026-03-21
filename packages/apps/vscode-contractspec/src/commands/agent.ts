@@ -9,7 +9,7 @@ import {
 	exportToClaudeAgent,
 	exportToOpenCode,
 } from '@contractspec/lib.ai-agent/exporters';
-import type { AgentSpec } from '@contractspec/lib.ai-agent/spec';
+import type { AgentSpec } from '@contractspec/lib.contracts-spec/agent';
 import { loadSpecFromSource } from '@contractspec/module.workspace';
 import * as fs from 'fs';
 import * as path from 'path';

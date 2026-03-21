@@ -33,7 +33,6 @@
 	},
 	"dependencies": {
 		"@ai-sdk/provider-utils": "^4.0.19",
-		"@contractspec/lib.ai-agent": "workspace:*",
 		"@contractspec/lib.contracts-spec": "workspace:*",
 		"@contractspec/lib.contracts-integrations": "workspace:*",
 		"@contractspec/lib.knowledge": "workspace:*",

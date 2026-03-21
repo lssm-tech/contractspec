@@ -200,7 +200,7 @@ export class ChatService {
 		}
 		const contractsCtx = config.contractsContext;
 		if (contractsCtx?.agentSpecs?.length) {
-			const allTools: import('@contractspec/lib.ai-agent').AgentToolConfig[] =
+			const allTools: import('@contractspec/lib.contracts-spec/agent').AgentToolConfig[] =
 				[];
 			for (const agent of contractsCtx.agentSpecs) {
 				if (agent.tools?.length) allTools.push(...agent.tools);

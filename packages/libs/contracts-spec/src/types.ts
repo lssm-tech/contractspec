@@ -39,7 +39,7 @@ import type {
 } from './app-config/runtime';
 import type { EventRegistry } from './events';
 import type { SpecVariantResolver } from './experiments/spec-resolver';
-import type { SecretProvider } from './integrations/secrets/provider';
+import type { SecretProvider } from '@contractspec/lib.contracts-integrations/integrations/secrets/provider';
 import type {
 	ConsentDefinition,
 	PolicySpec,

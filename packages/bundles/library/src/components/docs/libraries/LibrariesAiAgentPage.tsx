@@ -23,10 +23,17 @@ export function LibrariesAiAgentPage() {
 				<h2 className="font-bold text-2xl">Define & register</h2>
 				<CodeBlock
 					language="typescript"
-					code={`import { defineAgent, AgentRegistry } from '@contractspec/lib.ai-agent';
+					code={`import { defineAgent, AgentRegistry } from '@contractspec/lib.contracts-spec/agent';
 
 const SupportBot = defineAgent({
-  meta: { name: 'support.bot', version: '1.0.0' },
+  meta: {
+    key: 'support.bot',
+    version: '1.0.0',
+    description: 'Resolve tickets and escalate low-confidence decisions.',
+    owners: ['support'],
+    tags: ['support'],
+    stability: 'experimental',
+  },
   instructions: 'Resolve tickets. Escalate when confidence < 0.75.',
   tools: [{ name: 'support_resolve_ticket' }],
   policy: {
@@ -43,19 +50,17 @@ const registry = new AgentRegistry().register(SupportBot);`}
 				<h2 className="font-bold text-2xl">Run with approvals</h2>
 				<CodeBlock
 					language="typescript"
-					code={`import { AgentRunner, ToolExecutor, ApprovalWorkflow } from '@contractspec/lib.ai-agent';
+					code={`import { createUnifiedAgent, ApprovalWorkflow } from '@contractspec/lib.ai-agent';
 
-const runner = new AgentRunner({
-  registry,
-  llm: mistralProvider,
-  toolExecutor: new ToolExecutor({ tools: supportTools }),
-  approvalWorkflow: new ApprovalWorkflow(),
+const approvals = new ApprovalWorkflow();
+const agent = createUnifiedAgent(SupportBot, {
+  backend: 'ai-sdk',
+  tools: new Map([['support_resolve_ticket', async (input) => resolveTicket(input)]]),
 });
 
-const result = await runner.run({ agent: 'support.bot', input: ticket.body });
-if (result.approvalRequestId) {
-  // show in ApprovalQueue UI
-}`}
+const result = await agent.run(ticket.body);
+// Route low-confidence or manual-review flows through approvals when needed.
+`}
 				/>
 			</div>
 
@@ -63,11 +68,11 @@ if (result.approvalRequestId) {
 				<h2 className="font-bold text-2xl">What's inside</h2>
 				<ul className="list-inside list-disc space-y-2 text-muted-foreground">
 					<li>
-						<code>defineAgent</code>, <code>AgentRegistry</code>,{' '}
-						<code>AgentRunner</code>
+						<code>createUnifiedAgent</code>, <code>ContractSpecAgent</code>,{' '}
+						<code>UnifiedAgent</code>
 					</li>
 					<li>
-						<code>ToolExecutor</code> with schema-enforced tool definitions
+						MCP, operation-backed, memory, and subagent tool adapters
 					</li>
 					<li>
 						<code>InMemoryAgentMemory</code> plus interfaces for custom stores

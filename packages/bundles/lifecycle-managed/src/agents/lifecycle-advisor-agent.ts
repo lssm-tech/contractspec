@@ -1,4 +1,4 @@
-import { defineAgent } from '@contractspec/lib.ai-agent/spec';
+import { defineAgent } from '@contractspec/lib.contracts-spec/agent';
 
 export const LifecycleAdvisorAgent = defineAgent({
 	meta: {

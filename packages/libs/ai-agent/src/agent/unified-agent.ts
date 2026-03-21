@@ -8,7 +8,7 @@
  *
  * @example
  * ```typescript
- * import { UnifiedAgent, createUnifiedAgent } from '@contractspec/lib.ai-agent';
+ * import { createUnifiedAgent } from '@contractspec/lib.ai-agent';
  *
  * // Create agent with AI SDK backend (default)
  * const agent = createUnifiedAgent(mySpec, {
@@ -31,6 +31,7 @@ import type {
 	ModelSelector,
 } from '@contractspec/lib.ai-providers/selector-types';
 import type { ProviderConfig } from '@contractspec/lib.ai-providers/types';
+import type { AgentSpec } from '@contractspec/lib.contracts-spec/agent';
 import type { LanguageModel } from 'ai';
 import { createAgentI18n } from '../i18n';
 import type {
@@ -40,7 +41,6 @@ import type {
 	ExternalExecuteResult,
 	OpenCodeSDKConfig,
 } from '../providers/types';
-import type { AgentSpec } from '../spec/spec';
 import type { McpClientConfig } from '../tools/mcp-client';
 import type {
 	AgentCallOptions,

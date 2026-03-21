@@ -1,7 +1,7 @@
 'use client';
 
 import type { PresentationTarget } from '@contractspec/lib.contracts-spec/presentations';
-import type { TransformEngine } from '@contractspec/lib.contracts-spec/presentations/transform-engine';
+import type { TransformEngine } from '@contractspec/lib.presentation-runtime-core/transform-engine';
 import { useCallback, useEffect, useState } from 'react';
 
 interface MarkdownOutput {

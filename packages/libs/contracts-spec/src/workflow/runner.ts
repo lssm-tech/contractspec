@@ -8,7 +8,7 @@ import type {
 } from '../app-config/runtime';
 import type { CapabilityRef } from '../capabilities';
 import type { OpRef } from '../features';
-import type { SecretProvider } from '../integrations/secrets/provider';
+import type { SecretProvider } from '@contractspec/lib.contracts-integrations/integrations/secrets/provider';
 import type { TranslationResolver } from '../types';
 import { evaluateExpression } from './expression';
 import type {

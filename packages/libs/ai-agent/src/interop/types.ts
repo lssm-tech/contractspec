@@ -1,11 +1,13 @@
+import type {
+	AgentSpec,
+	AgentToolConfig,
+} from '@contractspec/lib.contracts-spec/agent';
 /**
  * Types for the interop layer.
  *
  * The interop layer enables bidirectional integration between
  * ContractSpec and external agent SDKs.
  */
-
-import type { AgentSpec, AgentToolConfig } from '../spec/spec';
 import type { ToolHandler } from '../types';
 
 // ============================================================================

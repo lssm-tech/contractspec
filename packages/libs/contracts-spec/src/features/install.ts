@@ -1,7 +1,7 @@
 import type { CapabilityRegistry } from '../capabilities';
 import type { DataViewRegistry } from '../data-views/registry';
 import type { FormRegistry } from '../forms/forms';
-import type { IntegrationSpecRegistry } from '../integrations/spec';
+import type { IntegrationSpecRegistry } from '@contractspec/lib.contracts-integrations';
 import type { JobSpecRegistry } from '../jobs/spec';
 import type { KnowledgeSpaceRegistry } from '../knowledge/spec';
 import type { PolicyRegistry } from '../policy/registry';

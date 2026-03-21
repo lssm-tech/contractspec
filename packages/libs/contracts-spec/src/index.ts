@@ -34,26 +34,6 @@ export * from './features';
 export * from './forms';
 export * from './harness';
 export * from './install';
-export type {
-	EmailInboundProvider,
-	EmailThread,
-} from './integrations/providers/email';
-export type {
-	EmbeddingDocument,
-	EmbeddingProvider,
-	EmbeddingResult,
-} from './integrations/providers/embedding';
-export type {
-	LLMMessage,
-	LLMProvider,
-	LLMResponse,
-} from './integrations/providers/llm';
-export type { GetObjectResult } from './integrations/providers/storage';
-export type {
-	VectorSearchResult,
-	VectorStoreProvider,
-	VectorUpsertRequest,
-} from './integrations/providers/vector-store';
 export type { KnowledgeCategory } from './knowledge/spec';
 export * from './migrations';
 export * from './operations';

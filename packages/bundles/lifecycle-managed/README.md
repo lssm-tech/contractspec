@@ -9,7 +9,7 @@ Website: https://contractspec.io
 - **Layer**: bundle.
 - **Consumers**: `examples/lifecycle-cli`.
 - `src/services/` contains business logic services and workflows.
-- Related ContractSpec packages include `@contractspec/lib.ai-agent`, `@contractspec/lib.analytics`, `@contractspec/lib.lifecycle`, `@contractspec/lib.observability`, `@contractspec/module.lifecycle-advisor`, `@contractspec/module.lifecycle-core`, ...
+- Related ContractSpec packages include `@contractspec/lib.analytics`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.lifecycle`, `@contractspec/lib.observability`, `@contractspec/module.lifecycle-advisor`, `@contractspec/module.lifecycle-core`, ...
 - `src/services/` contains business logic services and workflows.
 
 ## Installation
@@ -61,6 +61,6 @@ Import the root entrypoint from `@contractspec/bundle.lifecycle-managed`, or cho
 
 ## Notes
 
-- Depends on six workspace packages (`lib.ai-agent`, `lib.analytics`, `lib.lifecycle`, `lib.observability`, `module.lifecycle-advisor`, `module.lifecycle-core`); changes to those APIs propagate here.
+- Depends on six workspace packages (`lib.analytics`, `lib.contracts-spec`, `lib.lifecycle`, `lib.observability`, `module.lifecycle-advisor`, `module.lifecycle-core`); changes to those APIs propagate here.
 - Events must remain serializable for cross-service consumption.
 - Keep REST handlers thin; domain logic belongs in services.

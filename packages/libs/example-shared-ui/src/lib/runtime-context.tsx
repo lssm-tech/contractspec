@@ -1,7 +1,7 @@
 'use client';
 
 import type { ApolloClient } from '@apollo/client';
-import type { TransformEngine } from '@contractspec/lib.contracts-spec/presentations/transform-engine';
+import type { TransformEngine } from '@contractspec/lib.presentation-runtime-core/transform-engine';
 import { createContext, useContext } from 'react';
 import type {
 	TemplateDefinition,

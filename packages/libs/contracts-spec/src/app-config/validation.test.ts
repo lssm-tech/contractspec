@@ -1,6 +1,8 @@
 import { describe, expect, it } from 'bun:test';
-import type { IntegrationConnection } from '../integrations/connection';
-import { IntegrationSpecRegistry } from '../integrations/spec';
+import {
+	type IntegrationConnection,
+	IntegrationSpecRegistry,
+} from '@contractspec/lib.contracts-integrations';
 import { KnowledgeSpaceRegistry } from '../knowledge/spec';
 import type { ResolvedAppConfig } from './runtime';
 import type {

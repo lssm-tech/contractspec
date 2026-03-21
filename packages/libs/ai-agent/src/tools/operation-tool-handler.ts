@@ -7,7 +7,7 @@
  */
 import type { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations/registry';
 import type { HandlerCtx } from '@contractspec/lib.contracts-spec/types';
-import type { OperationRef } from '../spec/spec';
+import type { OperationRef } from '@contractspec/lib.contracts-spec/agent';
 import type { ToolExecutionContext, ToolHandler } from '../types';
 
 /**

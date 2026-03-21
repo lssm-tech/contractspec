@@ -1,3 +1,4 @@
+import type { AgentToolConfig } from '@contractspec/lib.contracts-spec/agent';
 /* eslint-disable @typescript-eslint/no-explicit-any */
 
 import type { AnyOperationSpec } from '@contractspec/lib.contracts-spec/operations/operation';
@@ -6,7 +7,6 @@ import { type Tool, tool } from 'ai';
 import * as z from 'zod';
 import { createAgentI18n } from '../i18n';
 import { jsonSchemaToZodSafe } from '../schema/json-schema-to-zod';
-import type { AgentToolConfig } from '../spec/spec';
 import type { ToolExecutionContext, ToolHandler } from '../types';
 import { createOperationToolHandler } from './operation-tool-handler';
 import { createSubagentTool, type SubagentLike } from './subagent-tool';

@@ -1,10 +1,10 @@
+import type { AgentSpec } from '@contractspec/lib.contracts-spec/agent';
 import { sanitizeMcpName } from '@contractspec/lib.contracts-spec/jsonschema';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import * as z from 'zod';
 import type { ContractSpecAgent } from '../agent/contract-spec-agent';
 import { createAgentI18n } from '../i18n';
 import { jsonSchemaToZodSafe } from '../schema/json-schema-to-zod';
-import type { AgentSpec } from '../spec/spec';
 
 /**
  * Generate an MCP server that exposes a ContractSpec agent as a tool.

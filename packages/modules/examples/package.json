@@ -89,7 +89,9 @@
 		"@contractspec/lib.contracts-spec": "workspace:*",
 		"@contractspec/lib.example-shared-ui": "workspace:*",
 		"@contractspec/lib.runtime-sandbox": "workspace:*",
-		"zod": "catalog:"
+		"zod": "catalog:",
+		"@contractspec/lib.contracts-runtime-client-react": "workspace:*",
+		"@contractspec/lib.presentation-runtime-core": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",

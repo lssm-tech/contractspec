@@ -1,9 +1,9 @@
 import { describe, expect, it } from 'bun:test';
+import { IntegrationSpecRegistry } from '@contractspec/lib.contracts-integrations';
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
 import { CapabilityRegistry, type CapabilitySpec } from '../capabilities';
 import { DataViewRegistry } from '../data-views/registry';
 import { FormRegistry, type FormSpec } from '../forms/forms';
-import { IntegrationSpecRegistry } from '../integrations/spec';
 import { JobSpecRegistry } from '../jobs/spec';
 import { KnowledgeSpaceRegistry } from '../knowledge/spec';
 import { StabilityEnum } from '../ownership';

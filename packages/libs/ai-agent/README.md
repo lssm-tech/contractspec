@@ -9,6 +9,7 @@ Website: https://contractspec.io
 - Provides the central agent runtime used by chat, automation, and higher-level orchestration packages.
 - Supports tools, sessions, memory, approvals, providers, telemetry, and MCP-aware workflows.
 - Acts as the stable public API for agent execution across multiple runtimes and delivery surfaces.
+- Consumes agent definitions from `@contractspec/lib.contracts-spec/agent`.
 - `src/providers/` contains provider integrations and provider-facing adapters.
 
 ## Installation
@@ -21,13 +22,13 @@ or
 
 ## Usage
 
-Import the root entrypoint from `@contractspec/lib.ai-agent`, or choose a documented subpath when you only need one part of the package surface.
+Define agents in `@contractspec/lib.contracts-spec/agent`, then run or export them with `@contractspec/lib.ai-agent`.
 
 ## Architecture
 
 - `src/agent/`, `src/session/`, and `src/memory/` contain the runtime core for execution state and persistence hooks.
 - `src/tools/`, `src.providers/`, and `src.interop/` connect providers, tools, and MCP-aware runtime surfaces.
-- `src.telemetry/`, `src.approval/`, `src.knowledge/`, `src.schema/`, and `src.spec/` round out agent policy and observability surfaces.
+- `src.telemetry/`, `src.approval/`, `src.knowledge/`, and `src.schema/` round out runtime policy and observability surfaces.
 - `src/index.ts` is the root public barrel and package entrypoint.
 - `src/types.ts` is shared public type definitions.
 
@@ -44,7 +45,7 @@ Import the root entrypoint from `@contractspec/lib.ai-agent`, or choose a docume
 - Export `./approval/workflow` resolves through `./src/approval/workflow.ts`.
 - Export `./exporters` resolves through `./src/exporters/index.ts`.
 - Export `./exporters/claude-agent-exporter` resolves through `./src/exporters/claude-agent-exporter.ts`.
-- The package publishes 66 total export subpaths; keep docs aligned with `package.json`.
+- Additional runtime subpaths are published through `package.json`; keep docs aligned with the manifest.
 
 ## Local Commands
 
@@ -74,5 +75,5 @@ Import the root entrypoint from `@contractspec/lib.ai-agent`, or choose a docume
 ## Notes
 
 - High blast radius — used by multiple bundles and libs.
-- `AgentSpec` interface is a public contract; do not change its shape without a migration plan.
+- Agent definitions are owned by `@contractspec/lib.contracts-spec/agent`.
 - MCP transport adapters must stay runtime-agnostic (no Node/browser-specific globals).

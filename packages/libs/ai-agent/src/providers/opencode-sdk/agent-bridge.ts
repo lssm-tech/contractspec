@@ -1,3 +1,4 @@
+import type { AgentSpec } from '@contractspec/lib.contracts-spec/agent';
 /**
  * Agent bridge for mapping between ContractSpec AgentSpec and OpenCode agent configuration.
  *
@@ -9,7 +10,6 @@
  */
 
 import { createAgentI18n } from '../../i18n';
-import type { AgentSpec } from '../../spec/spec';
 import type { OpenCodeAgentType } from '../types';
 import { type OpenCodeTool, specToolsToOpenCodeTools } from './tool-bridge';
 

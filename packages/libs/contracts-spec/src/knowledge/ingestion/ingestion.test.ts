@@ -2,14 +2,12 @@ import { describe, expect, it, vi } from 'bun:test';
 import type {
 	EmailInboundProvider,
 	EmailThread,
-} from '../../integrations/providers/email';
-import type {
 	EmbeddingDocument,
 	EmbeddingProvider,
 	EmbeddingResult,
-} from '../../integrations/providers/embedding';
-import type { GetObjectResult } from '../../integrations/providers/storage';
-import type { VectorStoreProvider } from '../../integrations/providers/vector-store';
+	GetObjectResult,
+	VectorStoreProvider,
+} from '@contractspec/lib.contracts-integrations';
 import { DocumentProcessor } from './document-processor';
 import { EmbeddingService } from './embedding-service';
 import { GmailIngestionAdapter } from './gmail-adapter';

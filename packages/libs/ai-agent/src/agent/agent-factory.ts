@@ -1,10 +1,12 @@
 import type { ModelSelector } from '@contractspec/lib.ai-providers/selector-types';
+import type {
+	AgentRegistry,
+	AgentSpec,
+} from '@contractspec/lib.contracts-spec/agent';
 import type { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations/registry';
 import type { KnowledgeRetriever } from '@contractspec/lib.knowledge/retriever';
 import type { LanguageModel, Tool } from 'ai';
 import type { AgentSessionStore } from '../session/store';
-import type { AgentRegistry } from '../spec/registry';
-import type { AgentSpec } from '../spec/spec';
 import type { TelemetryCollector } from '../telemetry/adapter';
 import type {
 	PostHogLLMConfig,

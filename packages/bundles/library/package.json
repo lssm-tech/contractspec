@@ -360,7 +360,8 @@
 		"zod": "catalog:",
 		"@contractspec/lib.contracts-integrations": "workspace:*",
 		"@contractspec/lib.contracts-runtime-server-rest": "workspace:*",
-		"@contractspec/lib.contracts-runtime-server-graphql": "workspace:*"
+		"@contractspec/lib.contracts-runtime-server-graphql": "workspace:*",
+		"@contractspec/lib.contracts-runtime-client-react": "workspace:*"
 	},
 	"devDependencies": {
 		"@types/react": "~19.2.14",

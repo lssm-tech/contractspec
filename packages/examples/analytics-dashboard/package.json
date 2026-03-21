@@ -27,7 +27,8 @@
 		"@contractspec/lib.design-system": "workspace:*",
 		"@contractspec/lib.runtime-sandbox": "workspace:*",
 		"react": "catalog:",
-		"react-dom": "catalog:"
+		"react-dom": "catalog:",
+		"@contractspec/lib.presentation-runtime-core": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",

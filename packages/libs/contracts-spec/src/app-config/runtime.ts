@@ -14,12 +14,12 @@ import type {
 	FeatureRef,
 	FeatureRegistry,
 } from '../features';
-import type { AppIntegrationBinding } from '../integrations/binding';
-import type { IntegrationConnection } from '../integrations/connection';
 import type {
+	AppIntegrationBinding,
+	IntegrationConnection,
 	IntegrationSpec,
 	IntegrationSpecRegistry,
-} from '../integrations/spec';
+} from '@contractspec/lib.contracts-integrations';
 import type { AppKnowledgeBinding } from '../knowledge/binding';
 import type { KnowledgeSourceConfig } from '../knowledge/source';
 import type {

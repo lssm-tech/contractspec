@@ -32,12 +32,14 @@
 	},
 	"dependencies": {
 		"@contractspec/lib.contracts-spec": "workspace:*",
-		"echarts": "^6.0.0"
+		"echarts": "^6.0.0",
+		"turndown": "^7.2.2"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",
 		"typescript": "catalog:",
-		"@contractspec/tool.bun": "workspace:*"
+		"@contractspec/tool.bun": "workspace:*",
+		"@types/turndown": "^5.0.6"
 	},
 	"files": [
 		"dist",
@@ -52,7 +54,8 @@
 		"./visualization.model.builders": "./src/visualization.model.builders.ts",
 		"./visualization.model.helpers": "./src/visualization.model.helpers.ts",
 		"./visualization.types": "./src/visualization.types.ts",
-		"./visualization.utils": "./src/visualization.utils.ts"
+		"./visualization.utils": "./src/visualization.utils.ts",
+		"./transform-engine": "./src/transform-engine.ts"
 	},
 	"publishConfig": {
 		"access": "public",
@@ -119,6 +122,13 @@
 				"bun": "./dist/visualization.utils.js",
 				"node": "./dist/node/visualization.utils.js",
 				"default": "./dist/visualization.utils.js"
+			},
+			"./transform-engine": {
+				"types": "./dist/transform-engine.d.ts",
+				"browser": "./dist/browser/transform-engine.js",
+				"bun": "./dist/transform-engine.js",
+				"node": "./dist/node/transform-engine.js",
+				"default": "./dist/transform-engine.js"
 			}
 		},
 		"registry": "https://registry.npmjs.org/"

@@ -1,13 +1,13 @@
 import { describe, expect, it } from 'bun:test';
+import {
+	type IntegrationConnection,
+	type IntegrationSpec,
+	IntegrationSpecRegistry,
+} from '@contractspec/lib.contracts-integrations';
 import { CapabilityRegistry, type CapabilitySpec } from '../capabilities';
 import { DataViewRegistry, type DataViewSpec } from '../data-views';
 import { ExperimentRegistry, type ExperimentSpec } from '../experiments/spec';
 import { type FeatureModuleSpec, FeatureRegistry } from '../features';
-import type { IntegrationConnection } from '../integrations/connection';
-import {
-	type IntegrationSpec,
-	IntegrationSpecRegistry,
-} from '../integrations/spec';
 import { type JobSpec, JobSpecRegistry } from '../jobs/spec';
 import type { KnowledgeSourceConfig } from '../knowledge/source';
 import {

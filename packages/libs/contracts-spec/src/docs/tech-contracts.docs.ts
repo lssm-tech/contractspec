@@ -66,7 +66,7 @@ interface PresentationMeta extends Partial<OwnerShipMeta> {
 
 ### Engine
 
-Use \`createDefaultTransformEngine()\` and register custom renderers as needed (e.g., high-fidelity BlockNote → Markdown). The default engine supports markdown/json/xml; a React renderer returns a serializable descriptor the host app renders via a \`componentMap\` or a BlockNote renderer. The canonical source type string is \`blocknotejs\` (not \`blocknote\`).
+Use \`createDefaultTransformEngine()\` from \`@contractspec/lib.presentation-runtime-core/transform-engine\` and register custom renderers as needed. React hosts add \`registerDefaultReactRenderer()\` from \`@contractspec/lib.contracts-runtime-client-react/transform-engine\`. The core engine supports markdown/json/xml; the React renderer returns a serializable descriptor the host app renders via a \`componentMap\` or a BlockNote renderer. The canonical source type string is \`blocknotejs\` (not \`blocknote\`).
 
 PII paths (JSON-like) are redacted from rendered outputs.
 

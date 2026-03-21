@@ -1,9 +1,9 @@
 import { describe, expect, it, vi } from 'bun:test';
+import type { ConnectionStatus } from '@contractspec/lib.contracts-integrations';
 import type {
 	ResolvedAppConfig,
 	ResolvedIntegration,
 } from '../app-config/runtime';
-import type { ConnectionStatus } from '../integrations/connection';
 import { OwnersEnum, StabilityEnum, TagsEnum } from '../ownership';
 import { InMemoryStateStore } from './adapters/memory-store';
 import {

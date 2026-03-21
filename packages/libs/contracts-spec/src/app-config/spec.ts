@@ -1,11 +1,11 @@
 import type { CapabilityRef } from '../capabilities';
 import type { ExperimentRef } from '../experiments/spec';
 import type { FeatureRef } from '../features';
-import type { AppIntegrationBinding } from '../integrations/binding';
 import type {
+	AppIntegrationBinding,
 	IntegrationCategory,
 	IntegrationOwnershipMode,
-} from '../integrations/spec';
+} from '@contractspec/lib.contracts-integrations';
 import type { AppKnowledgeBinding } from '../knowledge/binding';
 import type { OwnerShipMeta } from '../ownership';
 import type { PolicyRef } from '../policy/spec';
