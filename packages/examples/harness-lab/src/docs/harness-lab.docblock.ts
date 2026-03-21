@@ -1,16 +1,16 @@
-import type { DocBlock } from "@contractspec/lib.contracts-spec/docs";
-import { registerDocBlocks } from "@contractspec/lib.contracts-spec/docs";
+import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
+import { registerDocBlocks } from '@contractspec/lib.contracts-spec/docs';
 
 const blocks: DocBlock[] = [
 	{
-		id: "docs.examples.harness-lab",
-		title: "Harness Lab",
+		id: 'docs.examples.harness-lab',
+		title: 'Harness Lab',
 		summary:
-			"Focused harness reference package for scenario contracts, suites, orchestration, and runtime adapters.",
-		kind: "reference",
-		visibility: "public",
-		route: "/docs/examples/harness-lab",
-		tags: ["harness", "scenario", "suite", "example"],
+			'Focused harness reference package for scenario contracts, suites, orchestration, and runtime adapters.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/examples/harness-lab',
+		tags: ['harness', 'scenario', 'suite', 'example'],
 		body: `## Included assets
 - Sandbox scenario using inline scripts through the sandboxed code-execution adapter.
 - Browser scenario using a local HTTP fixture and the Playwright browser adapter.
@@ -21,14 +21,14 @@ const blocks: DocBlock[] = [
 - Show how contracts, orchestration, replay, and runtime adapters fit together.`,
 	},
 	{
-		id: "docs.examples.harness-lab.usage",
-		title: "Harness Lab Usage",
+		id: 'docs.examples.harness-lab.usage',
+		title: 'Harness Lab Usage',
 		summary:
-			"How to import the focused harness contracts and run sandbox or browser evaluations.",
-		kind: "usage",
-		visibility: "public",
-		route: "/docs/examples/harness-lab/usage",
-		tags: ["harness", "usage"],
+			'How to import the focused harness contracts and run sandbox or browser evaluations.',
+		kind: 'usage',
+		visibility: 'public',
+		route: '/docs/examples/harness-lab/usage',
+		tags: ['harness', 'usage'],
 		body: `## Usage
 1) Import \`HarnessLabSandboxScenario\`, \`HarnessLabBrowserScenario\`, or \`HarnessLabDualModeSuite\`.
 2) Run \`runHarnessLabSandboxEvaluation()\` for the offline code-execution lane.
@@ -39,14 +39,14 @@ const blocks: DocBlock[] = [
 - Install Chromium with \`bunx playwright install chromium\` before running browser tests.`,
 	},
 	{
-		id: "docs.examples.harness-lab.reference",
-		title: "Harness Lab Reference",
+		id: 'docs.examples.harness-lab.reference',
+		title: 'Harness Lab Reference',
 		summary:
-			"Package surfaces for the focused harness example, including scenarios, suite, and runtime helpers.",
-		kind: "reference",
-		visibility: "public",
-		route: "/docs/examples/harness-lab/reference",
-		tags: ["harness", "reference"],
+			'Package surfaces for the focused harness example, including scenarios, suite, and runtime helpers.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/examples/harness-lab/reference',
+		tags: ['harness', 'reference'],
 		body: `## Public exports
 - \`./scenarios\` exposes the sandbox and browser harness scenarios.
 - \`./suite\` exposes the dual-mode harness suite.

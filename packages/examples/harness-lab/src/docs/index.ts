@@ -1,1 +1,1 @@
-import "./harness-lab.docblock";
+import './harness-lab.docblock';

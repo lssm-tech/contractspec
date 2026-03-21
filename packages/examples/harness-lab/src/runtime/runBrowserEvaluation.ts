@@ -1,6 +1,6 @@
-import { HarnessLabBrowserScenario } from "../scenarios";
-import { startHarnessLabBrowserFixture } from "./browserFixtureServer";
-import { createHarnessLabEvaluationTools } from "./createHarnessLabEvaluationTools";
+import { HarnessLabBrowserScenario } from '../scenarios';
+import { startHarnessLabBrowserFixture } from './browserFixtureServer';
+import { createHarnessLabEvaluationTools } from './createHarnessLabEvaluationTools';
 
 export async function runHarnessLabBrowserEvaluation() {
 	const fixture = await startHarnessLabBrowserFixture();
@@ -11,10 +11,10 @@ export async function runHarnessLabBrowserEvaluation() {
 		});
 		const evaluation = await tools.evaluationRunner.runScenarioEvaluation({
 			scenario: HarnessLabBrowserScenario,
-			mode: "deterministic-browser",
+			mode: 'deterministic-browser',
 			context: {
 				metadata: {
-					lane: "browser-evaluation",
+					lane: 'browser-evaluation',
 				},
 			},
 		});

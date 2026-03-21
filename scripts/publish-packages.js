@@ -8,6 +8,12 @@ import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
 const repoRoot = process.cwd();
+const NPM_NOT_FOUND_ERROR_RE =
+	/E404|404 Not Found|npm ERR! code E404|No match found|is not in this registry/i;
+const RETRYABLE_NPM_ERROR_RE =
+	/ECONNRESET|ETIMEDOUT|EAI_AGAIN|ENOTFOUND|ECONNREFUSED|EHOSTUNREACH|EPIPE|socket hang up|fetch failed|network connectivity|502 Bad Gateway|503 Service Unavailable|504 Gateway Timeout|Invalid response body while trying to fetch/i;
+const DIST_TAG_RETRY_COUNT = 4;
+const DIST_TAG_RETRY_DELAY_MS = 3000;
 
 function parseBoolean(value) {
 	if (typeof value !== 'string') return false;
@@ -71,6 +77,18 @@ function sanitizePackageName(name) {
 
 function ensureDir(dirPath) {
 	fs.mkdirSync(dirPath, { recursive: true });
+}
+
+function sleepMs(delayMs) {
+	Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, delayMs);
+}
+
+function isNpmNotFoundError(output) {
+	return NPM_NOT_FOUND_ERROR_RE.test(output);
+}
+
+function isRetryableNpmError(output) {
+	return isNpmNotFoundError(output) || RETRYABLE_NPM_ERROR_RE.test(output);
 }
 
 function createNpmEnvironment(npmCacheDir) {
@@ -290,9 +308,7 @@ function npmViewVersionExists(name, version, npmEnv) {
 	}
 
 	const combinedOutput = `${result.stdout ?? ''}${result.stderr ?? ''}`;
-	if (
-		/E404|404 Not Found|npm ERR! code E404|No match found/i.test(combinedOutput)
-	) {
+	if (isNpmNotFoundError(combinedOutput)) {
 		return false;
 	}
 
@@ -301,7 +317,7 @@ function npmViewVersionExists(name, version, npmEnv) {
 	);
 }
 
-function getDistTags(name, npmEnv) {
+function getDistTags(name, npmEnv, options = {}) {
 	const result = runCommand('npm', ['view', name, 'dist-tags', '--json'], {
 		capture: true,
 		allowFailure: true,
@@ -310,6 +326,9 @@ function getDistTags(name, npmEnv) {
 
 	if (result.status !== 0) {
 		const combinedOutput = `${result.stdout ?? ''}${result.stderr ?? ''}`;
+		if (options.allowMissing && isNpmNotFoundError(combinedOutput)) {
+			return {};
+		}
 		throw new Error(
 			`[publish] Failed to read dist-tags for ${name}: ${combinedOutput.trim()}`
 		);
@@ -321,20 +340,56 @@ function getDistTags(name, npmEnv) {
 }
 
 function ensureDistTag(name, version, tag, npmEnv) {
-	const currentDistTags = getDistTags(name, npmEnv);
-	if (currentDistTags[tag] === version) {
-		return version;
+	let lastErrorMessage = '';
+
+	for (let attempt = 0; attempt < DIST_TAG_RETRY_COUNT; attempt += 1) {
+		if (attempt > 0) {
+			const delayMs = DIST_TAG_RETRY_DELAY_MS * attempt;
+			console.log(
+				`[publish] Waiting ${delayMs}ms before retrying dist-tag verification for ${name}@${version} (${attempt + 1}/${DIST_TAG_RETRY_COUNT})`
+			);
+			sleepMs(delayMs);
+		}
+
+		try {
+			const currentDistTags = getDistTags(name, npmEnv, {
+				allowMissing: true,
+			});
+			if (currentDistTags[tag] === version) {
+				return version;
+			}
+
+			console.log(
+				`[publish] Updating dist-tag ${tag} -> ${name}@${version} (was ${currentDistTags[tag] ?? 'unset'})`
+			);
+			runCommand('npm', ['dist-tag', 'add', `${name}@${version}`, tag], {
+				env: npmEnv,
+			});
+
+			const updatedDistTags = getDistTags(name, npmEnv, {
+				allowMissing: true,
+			});
+			if (updatedDistTags[tag] === version) {
+				return version;
+			}
+
+			lastErrorMessage = `[publish] Dist-tag ${tag} for ${name} is ${updatedDistTags[tag] ?? 'unset'} after publish; expected ${version}.`;
+		} catch (error) {
+			lastErrorMessage =
+				error instanceof Error ? error.message : String(error);
+			if (
+				attempt === DIST_TAG_RETRY_COUNT - 1 ||
+				!isRetryableNpmError(lastErrorMessage)
+			) {
+				throw error;
+			}
+		}
 	}
 
-	console.log(
-		`[publish] Updating dist-tag ${tag} -> ${name}@${version} (was ${currentDistTags[tag] ?? 'unset'})`
+	throw new Error(
+		lastErrorMessage ||
+			`[publish] Failed to verify dist-tag ${tag} for ${name}@${version}.`
 	);
-	runCommand('npm', ['dist-tag', 'add', `${name}@${version}`, tag], {
-		env: npmEnv,
-	});
-
-	const updatedDistTags = getDistTags(name, npmEnv);
-	return updatedDistTags[tag];
 }
 
 function publishTarball({ tarballPath, tag, dryRun, npmEnv }) {

@@ -1,24 +1,24 @@
 import {
+	DefaultHarnessTargetResolver,
+	InMemoryHarnessArtifactStore,
+	PlaywrightBrowserHarnessAdapter,
+	SandboxedCodeExecutionAdapter,
+} from '@contractspec/integration.harness-runtime';
+import {
 	HarnessScenarioRegistry,
 	HarnessSuiteRegistry,
-} from "@contractspec/lib.contracts-spec";
+} from '@contractspec/lib.contracts-spec';
 import {
 	HarnessEvaluationRunner,
 	type HarnessReplayBundle,
 	type HarnessReplaySink,
 	HarnessRunner,
-} from "@contractspec/lib.harness";
-import {
-	DefaultHarnessTargetResolver,
-	InMemoryHarnessArtifactStore,
-	PlaywrightBrowserHarnessAdapter,
-	SandboxedCodeExecutionAdapter,
-} from "@contractspec/integration.harness-runtime";
+} from '@contractspec/lib.harness';
 import {
 	HarnessLabBrowserScenario,
 	HarnessLabSandboxScenario,
-} from "../scenarios";
-import { HarnessLabDualModeSuite } from "../suite";
+} from '../scenarios';
+import { HarnessLabDualModeSuite } from '../suite';
 
 export interface HarnessLabEvaluationToolsOptions {
 	previewBaseUrl?: string;
@@ -28,7 +28,7 @@ export interface HarnessLabEvaluationToolsOptions {
 
 export function createHarnessLabNow() {
 	let tick = 0;
-	const base = Date.parse("2026-03-20T10:00:00.000Z");
+	const base = Date.parse('2026-03-20T10:00:00.000Z');
 	return () => new Date(base + tick++ * 1_000);
 }
 
@@ -39,12 +39,12 @@ export function createHarnessLabIdFactory(prefix: string) {
 
 function isHarnessReplayBundle(value: unknown): value is HarnessReplayBundle {
 	return (
-		typeof value === "object" &&
+		typeof value === 'object' &&
 		value !== null &&
-		"version" in value &&
-		"run" in value &&
-		"assertions" in value &&
-		"artifacts" in value
+		'version' in value &&
+		'run' in value &&
+		'assertions' in value &&
+		'artifacts' in value
 	);
 }
 
@@ -55,13 +55,13 @@ function createReplayCapture(delegate?: HarnessReplaySink) {
 	const sink: HarnessReplaySink = {
 		async save(candidate: unknown) {
 			if (!isHarnessReplayBundle(candidate)) {
-				throw new Error("Harness lab replay sink received an invalid bundle.");
+				throw new Error('Harness lab replay sink received an invalid bundle.');
 			}
 
 			bundle = candidate;
 			replayUri =
 				(await delegate?.save(candidate)) ??
-				`memory://${candidate.run.scenarioKey ?? candidate.run.suiteKey ?? "harness-lab"}`;
+				`memory://${candidate.run.scenarioKey ?? candidate.run.suiteKey ?? 'harness-lab'}`;
 			return replayUri;
 		},
 	};
@@ -70,7 +70,7 @@ function createReplayCapture(delegate?: HarnessReplaySink) {
 		sink,
 		getBundle() {
 			if (!bundle) {
-				throw new Error("Harness lab evaluation did not emit a replay bundle.");
+				throw new Error('Harness lab evaluation did not emit a replay bundle.');
 			}
 			return bundle;
 		},
@@ -81,7 +81,7 @@ function createReplayCapture(delegate?: HarnessReplaySink) {
 }
 
 export function createHarnessLabEvaluationTools(
-	options: HarnessLabEvaluationToolsOptions = {},
+	options: HarnessLabEvaluationToolsOptions = {}
 ) {
 	const now = createHarnessLabNow();
 	const replayCapture = createReplayCapture(options.replaySink);
@@ -90,7 +90,8 @@ export function createHarnessLabEvaluationTools(
 		targetResolver: new DefaultHarnessTargetResolver({
 			previewBaseUrl: options.previewBaseUrl,
 			sandboxBaseUrl:
-				options.sandboxBaseUrl ?? "https://sandbox.contractspec.local/harness-lab",
+				options.sandboxBaseUrl ??
+				'https://sandbox.contractspec.local/harness-lab',
 		}),
 		artifactStore,
 		adapters: [
@@ -99,12 +100,12 @@ export function createHarnessLabEvaluationTools(
 		],
 		approvalGateway: {
 			async approve() {
-				return { approved: true, approverId: "harness-lab" };
+				return { approved: true, approverId: 'harness-lab' };
 			},
 		},
 		now,
-		idFactory: createHarnessLabIdFactory("harness-lab-run"),
-		defaultMode: "code-execution",
+		idFactory: createHarnessLabIdFactory('harness-lab-run'),
+		defaultMode: 'code-execution',
 	});
 
 	const evaluationRunner = new HarnessEvaluationRunner({
@@ -116,7 +117,7 @@ export function createHarnessLabEvaluationTools(
 		suiteRegistry: new HarnessSuiteRegistry([HarnessLabDualModeSuite]),
 		replaySink: replayCapture.sink,
 		now,
-		idFactory: createHarnessLabIdFactory("harness-lab-evaluation"),
+		idFactory: createHarnessLabIdFactory('harness-lab-evaluation'),
 	});
 
 	return {

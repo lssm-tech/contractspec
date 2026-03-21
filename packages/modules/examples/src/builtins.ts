@@ -8,6 +8,7 @@ import ContentGeneration from '@contractspec/example.content-generation/example'
 import CrmPipeline from '@contractspec/example.crm-pipeline/example';
 import DataGridShowcase from '@contractspec/example.data-grid-showcase/example';
 import EmailGmail from '@contractspec/example.email-gmail/example';
+import HarnessLab from '@contractspec/example.harness-lab/example';
 import InAppDocs from '@contractspec/example.in-app-docs/example';
 import IntegrationHub from '@contractspec/example.integration-hub/example';
 import IntegrationPosthog from '@contractspec/example.integration-posthog/example';
@@ -64,6 +65,7 @@ export const EXAMPLE_REGISTRY: readonly ExampleSpec[] = [
 	CrmPipeline,
 	DataGridShowcase,
 	EmailGmail,
+	HarnessLab,
 	InAppDocs,
 	IntegrationHub,
 	IntegrationPosthog,

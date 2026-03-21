@@ -1,1 +1,1 @@
-export * from "./harnessLabDualMode.suite";
+export * from './harnessLabDualMode.suite';

@@ -1,2 +1,2 @@
-export * from "./harnessLabBrowser.scenario";
-export * from "./harnessLabSandbox.scenario";
+export * from './harnessLabBrowser.scenario';
+export * from './harnessLabSandbox.scenario';

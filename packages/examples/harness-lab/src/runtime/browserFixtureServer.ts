@@ -1,5 +1,5 @@
-import { createServer } from "node:http";
-import type { AddressInfo } from "node:net";
+import { createServer } from 'node:http';
+import type { AddressInfo } from 'node:net';
 
 const HARNESS_LAB_BROWSER_FIXTURE_HTML = `<!doctype html>
 <html lang="en">
@@ -39,24 +39,24 @@ export interface HarnessLabBrowserFixtureServer {
 
 export async function startHarnessLabBrowserFixture(): Promise<HarnessLabBrowserFixtureServer> {
 	const server = createServer((request, response) => {
-		if (request.url !== "/" && request.url !== "/index.html") {
+		if (request.url !== '/' && request.url !== '/index.html') {
 			response.statusCode = 404;
-			response.end("Not found");
+			response.end('Not found');
 			return;
 		}
 
 		response.statusCode = 200;
-		response.setHeader("content-type", "text/html; charset=utf-8");
+		response.setHeader('content-type', 'text/html; charset=utf-8');
 		response.end(HARNESS_LAB_BROWSER_FIXTURE_HTML);
 	});
 
 	await new Promise<void>((resolve) => {
-		server.listen(0, "127.0.0.1", () => resolve());
+		server.listen(0, '127.0.0.1', () => resolve());
 	});
 
 	const address = server.address();
-	if (!address || typeof address === "string") {
-		throw new Error("Harness lab browser fixture did not expose a TCP port.");
+	if (!address || typeof address === 'string') {
+		throw new Error('Harness lab browser fixture did not expose a TCP port.');
 	}
 
 	return {

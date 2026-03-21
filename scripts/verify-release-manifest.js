@@ -9,7 +9,7 @@ import { pathToFileURL } from 'node:url';
 const DEFAULT_DIST_TAG_RETRY_COUNT = 3;
 const DEFAULT_DIST_TAG_RETRY_DELAY_MS = 5000;
 const RETRYABLE_NPM_ERROR_RE =
-	/ECONNRESET|ETIMEDOUT|EAI_AGAIN|ENOTFOUND|ECONNREFUSED|EHOSTUNREACH|EPIPE|socket hang up|fetch failed|network connectivity|502 Bad Gateway|503 Service Unavailable|504 Gateway Timeout|Invalid response body while trying to fetch/i;
+	/E404|404 Not Found|is not in this registry|ECONNRESET|ETIMEDOUT|EAI_AGAIN|ENOTFOUND|ECONNREFUSED|EHOSTUNREACH|EPIPE|socket hang up|fetch failed|network connectivity|502 Bad Gateway|503 Service Unavailable|504 Gateway Timeout|Invalid response body while trying to fetch/i;
 
 function parseArgs(argv) {
 	const options = {
