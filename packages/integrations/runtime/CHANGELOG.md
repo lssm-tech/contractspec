@@ -1,5 +1,16 @@
 # @contractspec/integration.runtime
 
+## 3.8.4
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies [81256ea]
+- Updated dependencies [2619dd8]
+- Updated dependencies [81256ea]
+  - @contractspec/lib.contracts-spec@5.0.0
+  - @contractspec/lib.contracts-integrations@3.8.4
+
 ## 3.8.3
 
 ### Patch Changes

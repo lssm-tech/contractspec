@@ -1,5 +1,48 @@
 # @contractspec/lib.presentation-runtime-core
 
+## 3.9.0
+
+### Minor Changes
+
+- 81256ea: Make `@contractspec/lib.contracts-spec` contract-model only and move concrete
+  runtime and integration code to dedicated packages.
+
+  Major changes:
+
+  - Remove `@contractspec/lib.contracts-spec/presentations/transform-engine`.
+  - Remove all `@contractspec/lib.contracts-spec/integrations*` export paths.
+  - Remove `@contractspec/lib.contracts-spec/jobs/scaleway-sqs-queue`.
+  - Remove provider-type re-exports for email, embedding, LLM, storage, and
+    vector-store surfaces from the `@contractspec/lib.contracts-spec` root
+    barrel.
+  - Keep `PresentationSpec` unchanged while moving transform-engine runtime logic
+    out of the contract package.
+
+  New runtime surfaces:
+
+  - Add `@contractspec/lib.presentation-runtime-core/transform-engine` for the
+    core transform engine, validators, and markdown/json/xml rendering support.
+  - Add `@contractspec/lib.contracts-runtime-client-react/transform-engine` for
+    React render descriptors and React-specific transform-engine helpers.
+  - Update `@contractspec/lib.contracts-runtime-server-mcp` to use the core
+    transform engine without React registration.
+
+  Migration notes:
+
+  - Import integration provider and secret types from
+    `@contractspec/lib.contracts-integrations`.
+  - Import transform-engine core APIs from
+    `@contractspec/lib.presentation-runtime-core/transform-engine`.
+  - Import React-specific transform-engine helpers from
+    `@contractspec/lib.contracts-runtime-client-react/transform-engine`.
+
+### Patch Changes
+
+- Updated dependencies [81256ea]
+- Updated dependencies [2619dd8]
+- Updated dependencies [81256ea]
+  - @contractspec/lib.contracts-spec@5.0.0
+
 ## 3.8.4
 
 ### Patch Changes

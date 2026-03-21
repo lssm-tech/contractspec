@@ -1,5 +1,17 @@
 # @contractspec/module.context-storage
 
+## 0.7.12
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies
+- Updated dependencies [2619dd8]
+- Updated dependencies [6de2f1c]
+  - @contractspec/lib.knowledge@3.7.12
+  - @contractspec/lib.contracts-integrations@3.8.4
+  - @contractspec/lib.schema@3.7.10
+
 ## 0.7.11
 
 ### Patch Changes

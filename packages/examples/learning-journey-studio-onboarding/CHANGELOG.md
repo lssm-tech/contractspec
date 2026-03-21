@@ -1,5 +1,19 @@
 # @contractspec/example.learning-journey-studio-onboarding
 
+## 3.7.12
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies [81256ea]
+- Updated dependencies
+- Updated dependencies [2619dd8]
+- Updated dependencies [6de2f1c]
+- Updated dependencies [81256ea]
+  - @contractspec/lib.contracts-spec@5.0.0
+  - @contractspec/module.learning-journey@3.7.12
+  - @contractspec/lib.schema@3.7.10
+
 ## 3.7.11
 
 ### Patch Changes

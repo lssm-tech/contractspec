@@ -1,5 +1,15 @@
 # @contractspec/lib.harness
 
+## 0.2.5
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies [81256ea]
+- Updated dependencies [2619dd8]
+- Updated dependencies [81256ea]
+  - @contractspec/lib.contracts-spec@5.0.0
+
 ## 0.2.4
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # spec-driven-development
 
+## 3.7.12
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies [81256ea]
+  - @contractspec/app.cli-contractspec@4.1.4
+
 ## 3.7.11
 
 ### Patch Changes

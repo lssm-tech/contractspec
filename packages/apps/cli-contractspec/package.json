@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/app.cli-contractspec",
-	"version": "4.1.3",
+	"version": "4.1.4",
 	"description": "CLI tool for creating, building, and validating contract specifications",
 	"type": "module",
 	"main": "./dist/index.js",

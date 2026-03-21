@@ -1,5 +1,15 @@
 # @contractspec/lib.accessibility
 
+## 3.7.12
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies
+  - @contractspec/lib.design-system@3.8.5
+  - @contractspec/lib.ui-kit@3.8.5
+  - @contractspec/lib.ui-kit-web@3.9.4
+
 ## 3.7.11
 
 ### Patch Changes
