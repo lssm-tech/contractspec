@@ -13,6 +13,11 @@ const latMin = -90;
 const latMax = 90;
 const lonMin = -180;
 const lonMax = 180;
+const coercedDateSchema = z.coerce.date();
+
+function parseDateValue(value: unknown): Date {
+	return coercedDateSchema.parse(value);
+}
 
 /**
  * Factory functions for common scalar FieldTypes with zod/GraphQL/JSON Schema.
@@ -109,26 +114,26 @@ const scalarTypeFactories = {
 			serialize: (v) => (v ?? {}) as Record<string, unknown>,
 			jsonSchema: { type: 'object' },
 		}),
-	Date: (): FieldType<Date, string> =>
-		new FieldType<Date, string>({
-			name: 'Date',
-			zod: z.date(),
-			parseValue: (v) => (v instanceof Date ? v : new Date(String(v))),
-			serialize: (v) =>
-				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
-				v instanceof Date ? v.toISOString().split('T')[0]! : String(v),
-			jsonSchema: { type: 'string', format: 'date' },
-		}),
-	DateTime: (): FieldType<Date, string> =>
-		new FieldType<Date, string>({
-			name: 'DateTime',
-			zod: z.date(),
-			parseValue: (v) => (v instanceof Date ? v : new Date(String(v))),
-			serialize: (v) => {
-				return v instanceof Date ? v.toISOString() : String(v);
-			},
-			jsonSchema: { type: 'string', format: 'date-time' },
-		}),
+		Date: (): FieldType<Date, string> =>
+			new FieldType<Date, string>({
+				name: 'Date',
+				zod: z.date(),
+				parseValue: (v) => parseDateValue(v),
+				serialize: (v) =>
+					// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
+					v instanceof Date ? v.toISOString().split('T')[0]! : String(v),
+				jsonSchema: { type: 'string', format: 'date' },
+			}),
+		DateTime: (): FieldType<Date, string> =>
+			new FieldType<Date, string>({
+				name: 'DateTime',
+				zod: z.date(),
+				parseValue: (v) => parseDateValue(v),
+				serialize: (v) => {
+					return v instanceof Date ? v.toISOString() : String(v);
+				},
+				jsonSchema: { type: 'string', format: 'date-time' },
+			}),
 	Time: (): FieldType<string> =>
 		new FieldType<string>({
 			name: 'Time',
