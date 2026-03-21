@@ -1,5 +1,11 @@
 # @contractspec/biome-config
 
+## 3.8.3
+
+### Patch Changes
+
+- fix: release
+
 ## 3.8.2
 
 ### Patch Changes

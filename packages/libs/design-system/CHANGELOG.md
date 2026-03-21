@@ -1,5 +1,18 @@
 # @contractspec/lib.design-system
 
+## 3.8.4
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-runtime-client-react@3.7.11
+  - @contractspec/lib.presentation-runtime-react@35.0.4
+  - @contractspec/lib.contracts-spec@4.1.3
+  - @contractspec/lib.ui-kit-web@3.9.3
+  - @contractspec/lib.ai-agent@7.0.11
+  - @contractspec/lib.ui-kit@3.8.4
+
 ## 3.8.3
 
 ### Patch Changes

@@ -1,5 +1,19 @@
 # @contractspec/lib.evolution
 
+## 3.7.11
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-integrations@3.8.3
+  - @contractspec/lib.contracts-spec@4.1.3
+  - @contractspec/lib.observability@3.7.11
+  - @contractspec/lib.ai-providers@3.7.9
+  - @contractspec/lib.lifecycle@3.7.11
+  - @contractspec/lib.ai-agent@7.0.11
+  - @contractspec/lib.schema@3.7.9
+
 ## 3.7.10
 
 ### Patch Changes

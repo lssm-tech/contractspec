@@ -1,5 +1,20 @@
 # Changelog
 
+## 3.7.11
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-transformers@3.7.11
+  - @contractspec/lib.contracts-spec@4.1.3
+  - @contractspec/bundle.workspace@4.0.4
+  - @contractspec/lib.ai-providers@3.7.9
+  - @contractspec/module.workspace@4.0.4
+  - @contractspec/module.examples@3.8.3
+  - @contractspec/module.ai-chat@4.3.11
+  - @contractspec/lib.ai-agent@7.0.11
+
 ## 3.7.10
 
 ### Patch Changes

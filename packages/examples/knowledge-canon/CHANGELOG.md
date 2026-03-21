@@ -1,5 +1,13 @@
 # @contractspec/example.knowledge-canon
 
+## 3.7.11
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@4.1.3
+
 ## 3.7.10
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @contractspec/module.lifecycle-advisor
 
+## 3.7.11
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@4.1.3
+  - @contractspec/lib.lifecycle@3.7.11
+
 ## 3.7.10
 
 ### Patch Changes

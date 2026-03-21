@@ -1,5 +1,13 @@
 # @contractspec/lib.harness
 
+## 0.2.4
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@4.1.3
+
 ## 0.2.3
 
 ### Patch Changes

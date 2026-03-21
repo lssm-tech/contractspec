@@ -1,5 +1,14 @@
 # @contractspec/integration.example-generator
 
+## 36.0.3
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@4.1.3
+  - @contractspec/lib.schema@3.7.9
+
 ## 36.0.2
 
 ### Patch Changes

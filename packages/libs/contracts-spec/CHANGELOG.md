@@ -1,5 +1,13 @@
 # @contractspec/lib.contracts-spec
 
+## 4.1.3
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.schema@3.7.9
+
 ## 4.1.2
 
 ### Patch Changes

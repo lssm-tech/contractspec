@@ -1,5 +1,14 @@
 # @contractspec/tool.create-contractspec-plugin
 
+## 3.8.4
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@4.1.3
+  - @contractspec/lib.schema@3.7.9
+
 ## 3.8.3
 
 ### Patch Changes

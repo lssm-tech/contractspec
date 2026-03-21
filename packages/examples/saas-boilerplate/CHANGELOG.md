@@ -1,5 +1,21 @@
 # @contractspec/example.saas-boilerplate
 
+## 3.8.3
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.example-shared-ui@6.0.11
+  - @contractspec/module.notifications@3.7.11
+  - @contractspec/lib.runtime-sandbox@2.7.10
+  - @contractspec/lib.contracts-spec@4.1.3
+  - @contractspec/module.audit-trail@3.7.11
+  - @contractspec/lib.design-system@3.8.4
+  - @contractspec/lib.identity-rbac@3.7.11
+  - @contractspec/lib.schema@3.7.9
+  - @contractspec/lib.jobs@3.7.11
+
 ## 3.8.2
 
 ### Patch Changes

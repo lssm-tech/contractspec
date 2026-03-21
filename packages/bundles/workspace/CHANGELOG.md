@@ -1,5 +1,21 @@
 # @contractspec/bundle.workspace
 
+## 4.0.4
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-integrations@3.8.3
+  - @contractspec/lib.contracts-transformers@3.7.11
+  - @contractspec/lib.source-extractors@2.7.11
+  - @contractspec/lib.utils-typescript@3.7.9
+  - @contractspec/lib.contracts-spec@4.1.3
+  - @contractspec/biome-config@3.8.3
+  - @contractspec/lib.ai-providers@3.7.9
+  - @contractspec/module.workspace@4.0.4
+  - @contractspec/lib.ai-agent@7.0.11
+
 ## 4.0.3
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # contractspec
 
+## 3.7.11
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/app.cli-contractspec@4.1.3
+
 ## 3.7.10
 
 ### Patch Changes

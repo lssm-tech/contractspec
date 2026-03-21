@@ -1,5 +1,21 @@
 # @contractspec/example.crm-pipeline
 
+## 3.7.11
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.example-shared-ui@6.0.11
+  - @contractspec/module.notifications@3.7.11
+  - @contractspec/lib.runtime-sandbox@2.7.10
+  - @contractspec/lib.contracts-spec@4.1.3
+  - @contractspec/module.audit-trail@3.7.11
+  - @contractspec/lib.design-system@3.8.4
+  - @contractspec/lib.identity-rbac@3.7.11
+  - @contractspec/lib.ui-kit-web@3.9.3
+  - @contractspec/lib.schema@3.7.9
+
 ## 3.7.10
 
 ### Patch Changes

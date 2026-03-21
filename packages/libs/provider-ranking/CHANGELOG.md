@@ -1,5 +1,11 @@
 # @contractspec/lib.provider-ranking
 
+## 0.7.9
+
+### Patch Changes
+
+- fix: release
+
 ## 0.7.8
 
 ### Patch Changes

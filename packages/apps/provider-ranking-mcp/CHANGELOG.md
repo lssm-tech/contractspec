@@ -1,5 +1,18 @@
 # @contractspec/app.provider-ranking-mcp
 
+## 1.6.11
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.11
+  - @contractspec/module.provider-ranking@0.7.11
+  - @contractspec/lib.provider-ranking@0.7.9
+  - @contractspec/lib.contracts-spec@4.1.3
+  - @contractspec/lib.ai-providers@3.7.9
+  - @contractspec/lib.logger@3.7.9
+
 ## 1.6.10
 
 ### Patch Changes

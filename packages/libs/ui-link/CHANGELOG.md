@@ -1,5 +1,13 @@
 # @contractspec/lib.ui-link
 
+## 3.7.9
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.ui-kit-core@3.7.9
+
 ## 3.7.8
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @contractspec/example.pocket-family-office
 
+## 3.7.11
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-integrations@3.8.3
+  - @contractspec/lib.contracts-spec@4.1.3
+  - @contractspec/lib.knowledge@3.7.11
+  - @contractspec/lib.schema@3.7.9
+
 ## 3.7.10
 
 ### Patch Changes

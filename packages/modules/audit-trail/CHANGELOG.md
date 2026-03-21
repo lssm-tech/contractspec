@@ -1,5 +1,15 @@
 # @contractspec/module.audit-trail
 
+## 3.7.11
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@4.1.3
+  - @contractspec/lib.schema@3.7.9
+  - @contractspec/lib.bus@3.7.11
+
 ## 3.7.10
 
 ### Patch Changes

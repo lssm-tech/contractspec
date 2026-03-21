@@ -1,5 +1,22 @@
 # @contractspec/module.ai-chat
 
+## 4.3.11
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.workflow-composer@3.7.11
+  - @contractspec/lib.surface-runtime@0.5.11
+  - @contractspec/lib.contracts-spec@4.1.3
+  - @contractspec/lib.cost-tracking@3.7.9
+  - @contractspec/lib.design-system@3.8.4
+  - @contractspec/lib.ai-providers@3.7.9
+  - @contractspec/lib.ui-kit-web@3.9.3
+  - @contractspec/lib.ai-agent@7.0.11
+  - @contractspec/lib.metering@3.7.11
+  - @contractspec/lib.schema@3.7.9
+
 ## 4.3.10
 
 ### Patch Changes

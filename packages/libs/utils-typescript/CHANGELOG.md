@@ -1,5 +1,11 @@
 # @contractspec/lib.utils-typescript
 
+## 3.7.9
+
+### Patch Changes
+
+- fix: release
+
 ## 3.7.8
 
 ### Patch Changes

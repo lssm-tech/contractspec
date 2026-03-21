@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.exporter",
-	"version": "3.7.8",
+	"version": "3.7.9",
 	"description": "Generic CSV and XML exporters usable across web and mobile.",
 	"keywords": [
 		"contractspec",

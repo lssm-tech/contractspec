@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.9.3
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@4.1.3
+  - @contractspec/lib.design-system@3.8.4
+
 ## 3.9.2
 
 ### Patch Changes

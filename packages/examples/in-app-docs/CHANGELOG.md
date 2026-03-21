@@ -1,5 +1,14 @@
 # @contractspec/example.in-app-docs
 
+## 3.7.11
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.example-shared-ui@6.0.11
+  - @contractspec/lib.contracts-spec@4.1.3
+
 ## 3.7.10
 
 ### Patch Changes

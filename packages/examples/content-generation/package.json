@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/example.content-generation",
-	"version": "3.7.10",
+	"version": "3.7.11",
 	"description": "Content generation example using @contractspec/lib.content-gen.",
 	"type": "module",
 	"types": "./dist/index.d.ts",

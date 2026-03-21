@@ -1,5 +1,17 @@
 # @contractspec/example.personalization
 
+## 3.7.11
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.workflow-composer@3.7.11
+  - @contractspec/lib.personalization@6.0.11
+  - @contractspec/lib.contracts-spec@4.1.3
+  - @contractspec/lib.overlay-engine@3.7.11
+  - @contractspec/lib.logger@3.7.9
+
 ## 3.7.10
 
 ### Patch Changes

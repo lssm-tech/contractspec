@@ -1,5 +1,15 @@
 # @contractspec/lib.contracts-runtime-server-graphql
 
+## 3.7.11
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-runtime-server-rest@3.7.11
+  - @contractspec/lib.contracts-spec@4.1.3
+  - @contractspec/lib.schema@3.7.9
+
 ## 3.7.10
 
 ### Patch Changes

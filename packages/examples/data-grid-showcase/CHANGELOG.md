@@ -1,5 +1,17 @@
 # @contractspec/example.data-grid-showcase
 
+## 3.8.3
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.presentation-runtime-react@35.0.4
+  - @contractspec/lib.contracts-spec@4.1.3
+  - @contractspec/lib.design-system@3.8.4
+  - @contractspec/lib.ui-kit-web@3.9.3
+  - @contractspec/lib.schema@3.7.9
+
 ## 3.8.2
 
 ### Patch Changes

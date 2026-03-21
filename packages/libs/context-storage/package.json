@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.context-storage",
-	"version": "0.7.8",
+	"version": "0.7.9",
 	"description": "Context pack and snapshot storage primitives",
 	"keywords": [
 		"contractspec",

@@ -1,5 +1,16 @@
 # @contractspec/example.ai-chat-assistant
 
+## 3.8.3
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@4.1.3
+  - @contractspec/module.ai-chat@4.3.11
+  - @contractspec/lib.ai-agent@7.0.11
+  - @contractspec/lib.schema@3.7.9
+
 ## 3.8.2
 
 ### Patch Changes

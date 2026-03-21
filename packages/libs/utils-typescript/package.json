@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.utils-typescript",
-	"version": "3.7.8",
+	"version": "3.7.9",
 	"description": "TypeScript utility types and helpers",
 	"keywords": [
 		"contractspec",

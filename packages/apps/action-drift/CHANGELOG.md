@@ -1,5 +1,14 @@
 # Changelog
 
+## 2.7.11
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@4.1.3
+  - @contractspec/bundle.workspace@4.0.4
+
 ## 2.7.10
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @contractspec/bundle.alpic
 
+## 3.7.11
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/module.alpic@3.7.11
+
 ## 3.7.10
 
 ### Patch Changes

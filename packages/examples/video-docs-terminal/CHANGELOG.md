@@ -1,5 +1,16 @@
 # @contractspec/example.video-docs-terminal
 
+## 3.7.11
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-integrations@3.8.3
+  - @contractspec/lib.contracts-spec@4.1.3
+  - @contractspec/lib.content-gen@3.7.11
+  - @contractspec/lib.video-gen@2.7.11
+
 ## 3.7.10
 
 ### Patch Changes

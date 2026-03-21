@@ -1,5 +1,15 @@
 # @contractspec/lib.image-gen
 
+## 1.7.11
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-integrations@3.8.3
+  - @contractspec/lib.contracts-spec@4.1.3
+  - @contractspec/lib.content-gen@3.7.11
+
 ## 1.7.10
 
 ### Patch Changes

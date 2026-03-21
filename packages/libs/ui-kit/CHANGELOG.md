@@ -1,5 +1,14 @@
 # @contractspec/lib.ui-kit
 
+## 3.8.4
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.presentation-runtime-core@3.8.4
+  - @contractspec/lib.ui-kit-core@3.7.9
+
 ## 3.8.3
 
 ### Patch Changes

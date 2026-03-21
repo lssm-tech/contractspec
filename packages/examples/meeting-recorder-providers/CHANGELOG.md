@@ -1,5 +1,15 @@
 # @contractspec/example.meeting-recorder-providers
 
+## 3.7.11
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/integration.providers-impls@3.8.3
+  - @contractspec/lib.contracts-integrations@3.8.3
+  - @contractspec/lib.contracts-spec@4.1.3
+
 ## 3.7.10
 
 ### Patch Changes

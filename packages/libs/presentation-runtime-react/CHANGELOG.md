@@ -1,5 +1,15 @@
 # @contractspec/lib.presentation-runtime-react
 
+## 35.0.4
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.presentation-runtime-core@3.8.4
+  - @contractspec/lib.contracts-spec@4.1.3
+  - @contractspec/lib.ui-kit-web@3.9.3
+
 ## 35.0.3
 
 ### Patch Changes

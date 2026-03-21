@@ -1,5 +1,11 @@
 # @contractspec/app.cursor-marketplace
 
+## 1.7.9
+
+### Patch Changes
+
+- fix: release
+
 ## 1.7.8
 
 ### Patch Changes

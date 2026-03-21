@@ -1,5 +1,16 @@
 # @contractspec/example.lifecycle-cli
 
+## 3.7.11
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/bundle.lifecycle-managed@3.7.11
+  - @contractspec/lib.contracts-spec@4.1.3
+  - @contractspec/lib.lifecycle@3.7.11
+  - @contractspec/lib.logger@3.7.9
+
 ## 3.7.10
 
 ### Patch Changes

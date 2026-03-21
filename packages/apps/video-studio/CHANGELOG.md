@@ -1,5 +1,16 @@
 # @contractspec/app.video-studio
 
+## 2.7.11
+
+### Patch Changes
+
+- fix: release
+- Updated dependencies
+  - @contractspec/lib.contracts-spec@4.1.3
+  - @contractspec/lib.design-system@3.8.4
+  - @contractspec/lib.content-gen@3.7.11
+  - @contractspec/lib.video-gen@2.7.11
+
 ## 2.7.10
 
 ### Patch Changes
