@@ -170,6 +170,12 @@
 		"./control-plane/queries/controlPlaneSkillList.query": "./src/control-plane/queries/controlPlaneSkillList.query.ts",
 		"./control-plane/queries/controlPlaneSkillVerify.query": "./src/control-plane/queries/controlPlaneSkillVerify.query.ts",
 		"./control-plane/queries/controlPlaneTraceGet.query": "./src/control-plane/queries/controlPlaneTraceGet.query.ts",
+		"./control-plane/skills": "./src/control-plane/skills/index.ts",
+		"./control-plane/skills/schema": "./src/control-plane/skills/schema.ts",
+		"./control-plane/skills/signer": "./src/control-plane/skills/signer.ts",
+		"./control-plane/skills/types": "./src/control-plane/skills/types.ts",
+		"./control-plane/skills/validator": "./src/control-plane/skills/validator.ts",
+		"./control-plane/skills/verifier": "./src/control-plane/skills/verifier.ts",
 		"./data-views": "./src/data-views/index.ts",
 		"./data-views/data-views": "./src/data-views/data-views.ts",
 		"./data-views/query-generator": "./src/data-views/query-generator.ts",
@@ -1143,6 +1149,42 @@
 				"bun": "./dist/control-plane/queries/controlPlaneTraceGet.query.js",
 				"node": "./dist/node/control-plane/queries/controlPlaneTraceGet.query.js",
 				"default": "./dist/control-plane/queries/controlPlaneTraceGet.query.js"
+			},
+			"./control-plane/skills": {
+				"types": "./dist/control-plane/skills/index.d.ts",
+				"bun": "./dist/control-plane/skills/index.js",
+				"node": "./dist/node/control-plane/skills/index.js",
+				"default": "./dist/control-plane/skills/index.js"
+			},
+			"./control-plane/skills/schema": {
+				"types": "./dist/control-plane/skills/schema.d.ts",
+				"bun": "./dist/control-plane/skills/schema.js",
+				"node": "./dist/node/control-plane/skills/schema.js",
+				"default": "./dist/control-plane/skills/schema.js"
+			},
+			"./control-plane/skills/signer": {
+				"types": "./dist/control-plane/skills/signer.d.ts",
+				"bun": "./dist/control-plane/skills/signer.js",
+				"node": "./dist/node/control-plane/skills/signer.js",
+				"default": "./dist/control-plane/skills/signer.js"
+			},
+			"./control-plane/skills/types": {
+				"types": "./dist/control-plane/skills/types.d.ts",
+				"bun": "./dist/control-plane/skills/types.js",
+				"node": "./dist/node/control-plane/skills/types.js",
+				"default": "./dist/control-plane/skills/types.js"
+			},
+			"./control-plane/skills/validator": {
+				"types": "./dist/control-plane/skills/validator.d.ts",
+				"bun": "./dist/control-plane/skills/validator.js",
+				"node": "./dist/node/control-plane/skills/validator.js",
+				"default": "./dist/control-plane/skills/validator.js"
+			},
+			"./control-plane/skills/verifier": {
+				"types": "./dist/control-plane/skills/verifier.d.ts",
+				"bun": "./dist/control-plane/skills/verifier.js",
+				"node": "./dist/node/control-plane/skills/verifier.js",
+				"default": "./dist/control-plane/skills/verifier.js"
 			},
 			"./data-views": {
 				"types": "./dist/data-views/index.d.ts",

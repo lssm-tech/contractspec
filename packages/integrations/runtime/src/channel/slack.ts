@@ -114,15 +114,19 @@ export function normalizeSlackInboundEvent(
 	if (!threadId) {
 		return null;
 	}
+	const occurredAt = input.payload.event_time
+		? new Date(input.payload.event_time * 1000)
+		: new Date();
+	if (Number.isNaN(occurredAt.getTime())) {
+		return null;
+	}
 
 	return {
 		workspaceId: input.workspaceId,
 		providerKey: 'messaging.slack',
 		externalEventId,
 		eventType: `slack.${event.type}`,
-		occurredAt: input.payload.event_time
-			? new Date(input.payload.event_time * 1000)
-			: new Date(),
+		occurredAt,
 		signatureValid: input.signatureValid,
 		traceId: input.traceId,
 		rawPayload: input.rawBody,

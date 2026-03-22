@@ -1,7 +1,10 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
-import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
+import {
+	type DocBlock,
+	registerDocBlocks,
+} from '@contractspec/lib.contracts-spec/docs';
 import chalk from 'chalk';
 import { Command, Help } from 'commander';
 import { actionDriftCommand } from './commands/action-drift/index';
@@ -14,6 +17,7 @@ import { chatCommand } from './commands/chat/index';
 import { ciCommand } from './commands/ci/index';
 import { cicdCommand } from './commands/cicd/index';
 import { cleanCommand } from './commands/clean/index';
+import { controlPlaneCommand } from './commands/control-plane/index';
 import { createCommand } from './commands/create/index';
 import { deleteCommand } from './commands/delete/index';
 import { depsCommand } from './commands/deps/index';
@@ -229,6 +233,7 @@ program.addCommand(withCategory(agentCommand, CATEGORY_AI));
 
 // Operations
 program.addCommand(withCategory(createImpactCommand(), CATEGORY_OPERATIONS));
+program.addCommand(withCategory(controlPlaneCommand, CATEGORY_OPERATIONS));
 program.addCommand(withCategory(cicdCommand, CATEGORY_OPERATIONS));
 program.addCommand(withCategory(createVersionCommand(), CATEGORY_OPERATIONS));
 program.addCommand(withCategory(createChangelogCommand(), CATEGORY_OPERATIONS));
@@ -527,8 +532,6 @@ export const ContractSpecCliDocBlock = {
 
 The \`@contractspec/app.cli-contractspec\` package provides the command-line interface for the ContractSpec ecosystem.
 
-It is also exposed via \`@contractspec/apps-registry/contractspec\` for convenience.
-
 ## Installation
 
 \`\`\`bash
@@ -538,102 +541,37 @@ bun add -D @contractspec/app.cli-contractspec
 ## Quick Start
 
 \`\`\`bash
-# Create a new contract spec interactively
 contractspec create
-
-# Create with AI assistance
-contractspec create --ai
-
-# Build implementation from spec
 contractspec build src/contracts/mySpec.ts
-
-# Validate a spec
 contractspec validate src/contracts/mySpec.ts
 \`\`\`
 
+## Operator Flows
+
+### \`control-plane\`
+
+Use the CLI to inspect approvals, traces, and deterministic replay state.
+
+\`\`\`bash
+contractspec control-plane approval list --workspace-id workspace-1
+contractspec control-plane approval approve <decisionId> --actor-id operator-1 --capability-grants control-plane.execution.approve
+contractspec control-plane trace list --workspace-id workspace-1 --provider-key messaging.slack
+contractspec control-plane trace replay <decisionId>
+\`\`\`
+
+Environment:
+
+- \`CHANNEL_RUNTIME_STORAGE\` defaults to \`postgres\`
+- Supported storage modes are \`memory\` and \`postgres\`; invalid values fail fast
+- \`CHANNEL_RUNTIME_DATABASE_URL\` or \`DATABASE_URL\` is required for postgres-backed flows
+
 ## Core Commands
 
-### \`create\`
-
-Interactive wizard to create contract specifications.
-
-\`\`\`bash
-contractspec create --type operation --ai
-\`\`\`
-
-### \`build\`
-
-Generate implementation code from contract specs using AI agents or templates.
-
-\`\`\`bash
-contractspec build src/contracts/signup.contracts.ts --agent-mode claude-code
-\`\`\`
-
-Available agent modes: simple, cursor, claude-code, openai-codex, opencode (alias for opencode-sdk).
-
-OpenCode uses \`@opencode-ai/sdk\` via dynamic import and is ideal for teams running a self-hosted, open backend.
-
-### \`validate\`
-
-Validate contract specifications and verify implementations.
-
-\`\`\`bash
-contractspec validate src/contracts/signup.contracts.ts --check-implementation
-\`\`\`
-
-You can also validate with OpenCode:
-
-\`\`\`bash
-contractspec validate src/contracts/signup.contracts.ts --check-implementation --agent-mode opencode
-\`\`\`
-
-### \`watch\`
-
-Watch contract specifications and auto-regenerate on changes.
-
-\`\`\`bash
-contractspec watch --build --validate
-\`\`\`
-
-### \`list\`
-
-List all contract specifications in the project.
-
-\`\`\`bash
-contractspec list --owner @team-platform
-\`\`\`
-
-### \`cleanup\` / \`clean\`
-
-Clean generated files and build artifacts.
-
-\`\`\`bash
-contractspec clean
-\`\`\`
-
-### \`deps\`
-
-Analyze contract dependencies and relationships (circular dependencies, missing refs).
-
-\`\`\`bash
-contractspec deps --circular
-\`\`\`
-
-### \`diff\`
-
-Compare contract specifications and show differences (breaking changes, semantic diff).
-
-\`\`\`bash
-contractspec diff spec1.ts spec2.ts --breaking
-\`\`\`
-
-### \`ci\`
-
-Run all validation checks for CI/CD pipelines (structure, integrity, deps, doctor, handlers, tests).
-
-\`\`\`bash
-contractspec ci --format sarif --output results.sarif
-\`\`\`
+- \`create\` — interactive contract authoring
+- \`build\` — implementation generation from specs
+- \`validate\` — contract and implementation validation
+- \`impact\` — breaking-change detection against a baseline
+- \`doctor\` and \`ci\` — repository health and CI-oriented checks
 
 ## Configuration
 
@@ -644,10 +582,10 @@ The CLI is configured via \`.contractsrc.json\` in your project root.
   "aiProvider": "claude",
   "aiModel": "claude-3-7-sonnet-20250219",
   "agentMode": "claude-code",
-  "outputDir": "./src"
+		"outputDir": "./src"
 }
 \`\`\`
-
-For full documentation, refer to the [package README](https://github.com/contractspec/monorepo/tree/main/packages/apps/cli-contractspec).
 `,
 } satisfies DocBlock;
+
+registerDocBlocks([ContractSpecCliDocBlock]);

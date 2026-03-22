@@ -43,6 +43,27 @@ set
 where id = $1
 `;
 
+export const GET_RECEIPT_SQL = `
+select
+  id,
+  workspace_id,
+  provider_key,
+  external_event_id,
+  event_type,
+  status,
+  signature_valid,
+  payload_hash,
+  trace_id,
+  first_seen_at,
+  last_seen_at,
+  processed_at,
+  error_code,
+  error_message
+from channel_event_receipts
+where id = $1
+limit 1
+`;
+
 export const UPSERT_THREAD_SQL = `
 insert into channel_threads (
   id,
@@ -75,6 +96,23 @@ returning
   updated_at
 `;
 
+export const GET_THREAD_SQL = `
+select
+  id,
+  workspace_id,
+  provider_key,
+  external_thread_id,
+  external_channel_id,
+  external_user_id,
+  state,
+  last_provider_event_ts,
+  created_at,
+  updated_at
+from channel_threads
+where id = $1
+limit 1
+`;
+
 export const INSERT_DECISION_SQL = `
 insert into channel_ai_decisions (
   id,
@@ -88,9 +126,146 @@ insert into channel_ai_decisions (
   policy_version,
   tool_trace,
   action_plan,
-  requires_approval
+  requires_approval,
+  approval_status
 )
-values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10::jsonb, $11::jsonb, $12)
+values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10::jsonb, $11::jsonb, $12, $13)
+`;
+
+export const GET_DECISION_SQL = `
+select
+  id,
+  receipt_id,
+  thread_id,
+  policy_mode,
+  risk_tier,
+  confidence,
+  model_name,
+  prompt_version,
+  policy_version,
+  tool_trace,
+  action_plan,
+  requires_approval,
+  approval_status,
+  approval_updated_at,
+  approval_context,
+  approved_by,
+  approved_at,
+  rejected_by,
+  rejected_at,
+  rejection_reason,
+  created_at
+from channel_ai_decisions
+where id = $1
+limit 1
+`;
+
+export const LIST_PENDING_APPROVALS_SQL = `
+select
+  id,
+  receipt_id,
+  thread_id,
+  policy_mode,
+  risk_tier,
+  confidence,
+  model_name,
+  prompt_version,
+  policy_version,
+  tool_trace,
+  action_plan,
+  requires_approval,
+  approval_status,
+  approval_updated_at,
+  approval_context,
+  approved_by,
+  approved_at,
+  rejected_by,
+  rejected_at,
+  rejection_reason,
+  created_at
+from channel_ai_decisions
+where approval_status = 'pending'
+  and ($1::text is null or (action_plan ->> 'workspaceId') = $1)
+  and ($2::text is null or (action_plan ->> 'providerKey') = $2)
+order by created_at asc
+limit $3
+`;
+
+export const LIST_DECISIONS_SQL = `
+select
+  id,
+  receipt_id,
+  thread_id,
+  policy_mode,
+  risk_tier,
+  confidence,
+  model_name,
+  prompt_version,
+  policy_version,
+  tool_trace,
+  action_plan,
+  requires_approval,
+  approval_status,
+  approval_updated_at,
+  approval_context,
+  approved_by,
+  approved_at,
+  rejected_by,
+  rejected_at,
+  rejection_reason,
+  created_at
+from channel_ai_decisions
+where ($1::text is null or (action_plan ->> 'workspaceId') = $1)
+  and ($2::text is null or (action_plan ->> 'providerKey') = $2)
+  and ($3::text is null or (action_plan ->> 'traceId') = $3)
+  and ($4::text is null or receipt_id = $4::uuid)
+  and ($5::text is null or (action_plan -> 'intent' ->> 'externalEventId') = $5)
+  and ($6::text is null or approval_status = $6)
+  and ($7::text is null or (action_plan -> 'actor' ->> 'id') = $7)
+  and ($8::text is null or (action_plan -> 'audit' ->> 'sessionId') = $8)
+  and ($9::text is null or (action_plan -> 'audit' ->> 'workflowId') = $9)
+  and ($10::timestamptz is null or created_at >= $10)
+  and ($11::timestamptz is null or created_at <= $11)
+order by created_at desc
+limit $12
+`;
+
+export const RESOLVE_DECISION_APPROVAL_SQL = `
+update channel_ai_decisions
+set
+  approval_status = $2,
+  approval_updated_at = $3,
+  approval_context = $6::jsonb,
+  approved_by = case when $2 = 'approved' then $4 else approved_by end,
+  approved_at = case when $2 = 'approved' then $3 else approved_at end,
+  rejected_by = case when $2 in ('rejected', 'expired') then $4 else rejected_by end,
+  rejected_at = case when $2 in ('rejected', 'expired') then $3 else rejected_at end,
+  rejection_reason = case when $2 in ('rejected', 'expired') then $5 else rejection_reason end,
+  action_plan = $7::jsonb,
+  tool_trace = $8::jsonb
+where id = $1
+returning
+  id,
+  receipt_id,
+  thread_id,
+  policy_mode,
+  risk_tier,
+  confidence,
+  model_name,
+  prompt_version,
+  policy_version,
+  tool_trace,
+  action_plan,
+  requires_approval,
+  approval_status,
+  approval_updated_at,
+  approval_context,
+  approved_by,
+  approved_at,
+  rejected_by,
+  rejected_at,
+  rejection_reason,
+  created_at
 `;
 
 export const ENQUEUE_OUTBOX_SQL = `
@@ -158,6 +333,31 @@ returning
   actions.sent_at
 `;
 
+export const LIST_OUTBOX_ACTIONS_FOR_DECISION_SQL = `
+select
+  id,
+  workspace_id,
+  provider_key,
+  decision_id,
+  thread_id,
+  action_type,
+  idempotency_key,
+  target,
+  payload,
+  status,
+  attempt_count,
+  next_attempt_at,
+  provider_message_id,
+  last_error_code,
+  last_error_message,
+  created_at,
+  updated_at,
+  sent_at
+from channel_outbox_actions
+where decision_id = $1
+order by created_at asc
+`;
+
 export const INSERT_DELIVERY_ATTEMPT_SQL = `
 insert into channel_delivery_attempts (
   action_id,
@@ -181,6 +381,20 @@ returning
   response_body,
   latency_ms,
   created_at
+`;
+
+export const LIST_DELIVERY_ATTEMPTS_FOR_ACTION_SQL = `
+select
+  id,
+  action_id,
+  attempt,
+  response_status,
+  response_body,
+  latency_ms,
+  created_at
+from channel_delivery_attempts
+where action_id = $1
+order by attempt asc
 `;
 
 export const MARK_OUTBOX_SENT_SQL = `

@@ -34,6 +34,8 @@ const telemetryEmitter: ChannelTelemetryEmitter = {
 			providerKey: event.providerKey,
 			receiptId: event.receiptId,
 			actionId: event.actionId,
+			sessionId: event.sessionId,
+			workflowId: event.workflowId,
 			traceId: event.traceId,
 			latencyMs: event.latencyMs,
 			attempt: event.attempt,
@@ -61,8 +63,28 @@ export async function getChannelRuntimeResources(): Promise<RuntimeResources> {
 			? new InMemoryChannelRuntimeStore()
 			: createPostgresChannelRuntimeStore(databaseUrl as string);
 	const asyncProcessing = process.env.CHANNEL_RUNTIME_ASYNC_PROCESSING !== '0';
+	const defaultCapabilityGrants = (
+		process.env.CHANNEL_RUNTIME_DEFAULT_CAPABILITY_GRANTS ?? ''
+	)
+		.split(',')
+		.map((grant) => grant.trim())
+		.filter(Boolean);
 	const service = new ChannelRuntimeService(store, {
 		asyncProcessing,
+		actorResolver(event) {
+			return {
+				type: 'service',
+				id:
+					process.env.CHANNEL_RUNTIME_ACTOR_ID ??
+					'app.api-library.channel-runtime',
+				tenantId: event.workspaceId,
+				sessionId: event.metadata?.['sessionId'],
+				capabilitySource: 'app.api-library.channel-runtime',
+				capabilityGrants: [...defaultCapabilityGrants],
+			};
+		},
+		defaultCapabilityGrants,
+		defaultCapabilitySource: 'app.api-library.channel-runtime',
 		telemetry: telemetryEmitter,
 	});
 	const dispatcher = new ChannelOutboxDispatcher(store, {

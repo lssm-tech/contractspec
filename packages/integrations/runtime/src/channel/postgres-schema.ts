@@ -47,8 +47,14 @@ create table if not exists channel_ai_decisions (
   tool_trace jsonb not null default '[]'::jsonb,
   action_plan jsonb not null,
   requires_approval boolean not null default false,
+  approval_status text not null default 'not_required',
+  approval_updated_at timestamptz,
+  approval_context jsonb,
   approved_by text,
   approved_at timestamptz,
+  rejected_by text,
+  rejected_at timestamptz,
+  rejection_reason text,
   created_at timestamptz not null default now()
 )
 `,
@@ -86,4 +92,10 @@ create table if not exists channel_delivery_attempts (
   unique (action_id, attempt)
 )
 `,
+	`alter table if exists channel_ai_decisions add column if not exists approval_status text not null default 'not_required'`,
+	`alter table if exists channel_ai_decisions add column if not exists approval_updated_at timestamptz`,
+	`alter table if exists channel_ai_decisions add column if not exists approval_context jsonb`,
+	`alter table if exists channel_ai_decisions add column if not exists rejected_by text`,
+	`alter table if exists channel_ai_decisions add column if not exists rejected_at timestamptz`,
+	`alter table if exists channel_ai_decisions add column if not exists rejection_reason text`,
 ];

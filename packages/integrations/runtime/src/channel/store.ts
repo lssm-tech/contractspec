@@ -1,8 +1,12 @@
 import type {
+	ChannelApprovalContext,
+	ChannelApprovalStatus,
+	ChannelCompiledPlan,
 	ChannelDecisionRecord,
 	ChannelDeliveryAttemptRecord,
 	ChannelEventReceiptRecord,
 	ChannelOutboxActionRecord,
+	ChannelPlanTraceEntry,
 	ChannelThreadRecord,
 } from './types';
 
@@ -34,15 +38,51 @@ export interface UpsertThreadInput {
 export interface SaveDecisionInput {
 	receiptId: string;
 	threadId: string;
-	policyMode: 'suggest' | 'assist' | 'autonomous';
+	policyMode: 'suggest' | 'assist' | 'autonomous' | 'blocked';
 	riskTier: 'low' | 'medium' | 'high' | 'blocked';
 	confidence: number;
 	modelName: string;
 	promptVersion: string;
 	policyVersion: string;
-	toolTrace?: Record<string, unknown>[];
-	actionPlan: Record<string, unknown>;
+	toolTrace?: ChannelPlanTraceEntry[];
+	actionPlan: ChannelCompiledPlan;
 	requiresApproval: boolean;
+	approvalStatus: ChannelApprovalStatus;
+}
+
+export interface ListPendingApprovalsInput {
+	workspaceId?: string;
+	providerKey?: string;
+	limit?: number;
+}
+
+export interface ListDecisionsInput {
+	workspaceId?: string;
+	providerKey?: string;
+	traceId?: string;
+	receiptId?: string;
+	externalEventId?: string;
+	approvalStatus?: ChannelApprovalStatus;
+	actorId?: string;
+	sessionId?: string;
+	workflowId?: string;
+	createdAfter?: Date;
+	createdBefore?: Date;
+	limit?: number;
+}
+
+export interface ResolveDecisionApprovalInput {
+	decisionId: string;
+	approvalStatus: Extract<
+		ChannelApprovalStatus,
+		'approved' | 'rejected' | 'expired'
+	>;
+	actorId?: string;
+	actedAt: Date;
+	reason?: string;
+	approvalContext?: ChannelApprovalContext;
+	actionPlan: ChannelCompiledPlan;
+	toolTrace: ChannelPlanTraceEntry[];
 }
 
 export interface EnqueueOutboxActionInput {
@@ -93,6 +133,16 @@ export interface ChannelRuntimeStore {
 	): Promise<void>;
 	upsertThread(input: UpsertThreadInput): Promise<ChannelThreadRecord>;
 	saveDecision(input: SaveDecisionInput): Promise<ChannelDecisionRecord>;
+	getReceipt(receiptId: string): Promise<ChannelEventReceiptRecord | null>;
+	getThread(threadId: string): Promise<ChannelThreadRecord | null>;
+	getDecision(decisionId: string): Promise<ChannelDecisionRecord | null>;
+	listDecisions(input?: ListDecisionsInput): Promise<ChannelDecisionRecord[]>;
+	listPendingApprovals(
+		input?: ListPendingApprovalsInput
+	): Promise<ChannelDecisionRecord[]>;
+	resolveDecisionApproval(
+		input: ResolveDecisionApprovalInput
+	): Promise<ChannelDecisionRecord | null>;
 	enqueueOutboxAction(
 		input: EnqueueOutboxActionInput
 	): Promise<EnqueueOutboxActionResult>;
@@ -100,9 +150,15 @@ export interface ChannelRuntimeStore {
 		limit: number,
 		now?: Date
 	): Promise<ChannelOutboxActionRecord[]>;
+	listOutboxActionsForDecision(
+		decisionId: string
+	): Promise<ChannelOutboxActionRecord[]>;
 	recordDeliveryAttempt(
 		input: RecordDeliveryAttemptInput
 	): Promise<ChannelDeliveryAttemptRecord>;
+	listDeliveryAttemptsForAction(
+		actionId: string
+	): Promise<ChannelDeliveryAttemptRecord[]>;
 	markOutboxSent(actionId: string, providerMessageId?: string): Promise<void>;
 	markOutboxRetry(input: MarkOutboxRetryInput): Promise<void>;
 	markOutboxDeadLetter(input: MarkOutboxDeadLetterInput): Promise<void>;

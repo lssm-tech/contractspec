@@ -15,6 +15,11 @@ export const ControlPlaneSkillInstalledPayload = new SchemaModel({
 		version: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
 		installedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
 		publisher: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+		provenance: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+		manifestDigest: {
+			type: ScalarTypeEnum.String_unsecure(),
+			isOptional: true,
+		},
 	},
 });
 

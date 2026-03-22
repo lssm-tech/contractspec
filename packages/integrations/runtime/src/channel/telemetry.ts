@@ -1,6 +1,7 @@
 export type ChannelTelemetryStage =
 	| 'ingest'
 	| 'decision'
+	| 'approval'
 	| 'outbox'
 	| 'dispatch';
 
@@ -8,7 +9,10 @@ export type ChannelTelemetryStatus =
 	| 'accepted'
 	| 'duplicate'
 	| 'rejected'
+	| 'pending'
 	| 'processed'
+	| 'approved'
+	| 'expired'
 	| 'failed'
 	| 'sent'
 	| 'retry'

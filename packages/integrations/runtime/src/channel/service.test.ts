@@ -20,6 +20,8 @@ function makeEvent(id: string, text: string): ChannelInboundEvent {
 		metadata: {
 			sessionId: 'sess-1',
 			workflowId: 'wf-1',
+			capabilityGrants:
+				'control-plane.channel-runtime.reply.autonomous,control-plane.approval.request',
 		},
 		message: { text },
 	};
@@ -30,6 +32,11 @@ describe('ChannelRuntimeService', () => {
 		const store = new InMemoryChannelRuntimeStore();
 		const service = new ChannelRuntimeService(store, {
 			asyncProcessing: false,
+			defaultCapabilityGrants: [
+				'control-plane.channel-runtime.reply.autonomous',
+				'control-plane.approval.request',
+			],
+			now: () => new Date('2026-03-22T10:00:00.000Z'),
 		});
 
 		const result = await service.ingest(
@@ -40,6 +47,29 @@ describe('ChannelRuntimeService', () => {
 		expect(store.receipts.size).toBe(1);
 		expect(store.decisions.size).toBe(1);
 		expect(store.outbox.size).toBe(1);
+		expect([...store.decisions.values()][0]).toMatchObject({
+			policyMode: 'autonomous',
+			actionPlan: {
+				approval: {
+					required: false,
+					status: 'not_required',
+				},
+				actor: {
+					type: 'service',
+					id: 'runtime:messaging.slack:workspace-1',
+				},
+				steps: [
+					{ contractKey: 'controlPlane.intent.submit', status: 'completed' },
+					{ contractKey: 'controlPlane.plan.verify', status: 'completed' },
+					{ contractKey: 'controlPlane.execution.start', status: 'completed' },
+				],
+			},
+			toolTrace: [
+				{ contractKey: 'controlPlane.intent.submit', status: 'completed' },
+				{ contractKey: 'controlPlane.plan.verify', status: 'completed' },
+				{ contractKey: 'controlPlane.execution.start', status: 'completed' },
+			],
+		});
 	});
 
 	it('returns duplicate for already-claimed events', async () => {
@@ -77,6 +107,9 @@ describe('ChannelRuntimeService', () => {
 		const store = new InMemoryChannelRuntimeStore();
 		const service = new ChannelRuntimeService(store, {
 			asyncProcessing: false,
+			defaultCapabilityGrants: ['control-plane.approval.request'],
+			approvalTimeoutMs: 5 * 60 * 1000,
+			now: () => new Date('2026-03-22T10:00:00.000Z'),
 		});
 
 		await service.ingest(
@@ -88,6 +121,21 @@ describe('ChannelRuntimeService', () => {
 
 		expect(store.decisions.size).toBe(1);
 		expect(store.outbox.size).toBe(0);
+		expect([...store.decisions.values()][0]).toMatchObject({
+			policyMode: 'blocked',
+			actionPlan: {
+				approval: {
+					required: true,
+					status: 'pending',
+					timeoutAt: '2026-03-22T10:05:00.000Z',
+				},
+				steps: [
+					{ contractKey: 'controlPlane.intent.submit', status: 'completed' },
+					{ contractKey: 'controlPlane.plan.verify', status: 'completed' },
+					{ contractKey: 'controlPlane.execution.start', status: 'blocked' },
+				],
+			},
+		});
 	});
 
 	it('emits telemetry events for ingest and decision stages', async () => {
@@ -117,6 +165,10 @@ describe('ChannelRuntimeService', () => {
 		const calls: unknown[] = [];
 		const service = new ChannelRuntimeService(store, {
 			asyncProcessing: false,
+			defaultCapabilityGrants: [
+				'control-plane.channel-runtime.reply.autonomous',
+				'control-plane.approval.request',
+			],
 			policy: {
 				evaluate(input) {
 					calls.push(input);
@@ -140,16 +192,41 @@ describe('ChannelRuntimeService', () => {
 
 		expect(calls).toHaveLength(1);
 		expect(calls[0]).toMatchObject({
+			actor: {
+				type: 'service',
+				id: 'runtime:messaging.slack:workspace-1',
+			},
+			compiledPlan: {
+				steps: [
+					{ contractKey: 'controlPlane.intent.submit', status: 'completed' },
+					{ contractKey: 'controlPlane.plan.verify', status: 'planned' },
+					{ contractKey: 'controlPlane.execution.start', status: 'planned' },
+				],
+			},
 			sessionId: 'sess-1',
 			workflowId: 'wf-1',
 		});
 		expect([...store.decisions.values()][0]?.actionPlan).toMatchObject({
-			policyRef: {
-				key: 'channel.contract-policy',
-				version: '2.0.0',
+			actor: {
+				type: 'service',
+				id: 'runtime:messaging.slack:workspace-1',
+				capabilityGrants: [
+					'control-plane.channel-runtime.reply.autonomous',
+					'control-plane.approval.request',
+				],
 			},
-			sessionId: 'sess-1',
-			workflowId: 'wf-1',
+			policy: {
+				policyRef: {
+					key: 'channel.contract-policy',
+					version: '2.0.0',
+				},
+			},
+			audit: {
+				actorId: 'runtime:messaging.slack:workspace-1',
+				actorType: 'service',
+				sessionId: 'sess-1',
+				workflowId: 'wf-1',
+			},
 		});
 	});
 });

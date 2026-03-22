@@ -25,20 +25,44 @@ Runtime integration with secret management.
 
 - Export `.` resolves through `./src/index.ts`.
 - Export `./channel` resolves through `./src/channel/index.ts`.
+- Export `./channel/approval` resolves through `./src/channel/approval.ts`.
+- Export `./channel/authorization` resolves through `./src/channel/authorization.ts`.
 - Export `./channel/dispatcher` resolves through `./src/channel/dispatcher.ts`.
 - Export `./channel/github` resolves through `./src/channel/github.ts`.
 - Export `./channel/memory-store` resolves through `./src/channel/memory-store.ts`.
+- Export `./channel/planner` resolves through `./src/channel/planner.ts`.
 - Export `./channel/policy` resolves through `./src/channel/policy.ts`.
 - Export `./channel/postgres-queries` resolves through `./src/channel/postgres-queries.ts`.
 - Export `./channel/postgres-schema` resolves through `./src/channel/postgres-schema.ts`.
 - Export `./channel/postgres-store` resolves through `./src/channel/postgres-store.ts`.
 - Export `./channel/replay-fixtures` resolves through `./src/channel/replay-fixtures.ts`.
-- The package publishes 28 total export subpaths; keep docs aligned with `package.json`.
+- Export `./channel/service` resolves through `./src/channel/service.ts`.
+- Export `./channel/slack` resolves through `./src/channel/slack.ts`.
+- Export `./channel/store` resolves through `./src/channel/store.ts`.
+- Export `./channel/telegram` resolves through `./src/channel/telegram.ts`.
+- Export `./channel/telemetry` resolves through `./src/channel/telemetry.ts`.
+- Export `./channel/trace` resolves through `./src/channel/trace.ts`.
+- Export `./channel/types` resolves through `./src/channel/types.ts`.
+- Export `./channel/whatsapp-meta` resolves through `./src/channel/whatsapp-meta.ts`.
+- Export `./channel/whatsapp-twilio` resolves through `./src/channel/whatsapp-twilio.ts`.
+- Export `./health` resolves through `./src/health.ts`.
+- Export `./runtime` resolves through `./src/runtime.ts`.
+- Export `./secrets` resolves through `./src/secrets/index.ts`.
+- Export `./secrets/env-secret-provider` resolves through `./src/secrets/env-secret-provider.ts`.
+- Export `./secrets/gcp-secret-manager` resolves through `./src/secrets/gcp-secret-manager.ts`.
+- Export `./secrets/manager` resolves through `./src/secrets/manager.ts`.
+- Export `./secrets/provider` resolves through `./src/secrets/provider.ts`.
+- Export `./transport` resolves through `./src/transport/index.ts`.
+- Export `./transport/auth-resolver` resolves through `./src/transport/auth-resolver.ts`.
+- Export `./transport/transport-factory` resolves through `./src/transport/transport-factory.ts`.
+- Export `./transport/version-negotiator` resolves through `./src/transport/version-negotiator.ts`.
+- The package publishes 33 total export subpaths; keep docs aligned with `package.json`.
 
 ## Guardrails
 
 - Secret providers must implement the `provider` interface; never read secrets directly.
 - Channel stores (memory, postgres) are swappable; do not couple to a specific backend.
+- Bind actor identity and capability grants from trusted host configuration (`actorResolver`, server env, auth context), never from inbound channel payload claims.
 - Never import from apps or bundles.
 - Changes here can affect downstream packages such as `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.logger`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 

@@ -35,6 +35,107 @@ export type ChannelRiskTier = 'low' | 'medium' | 'high' | 'blocked';
 
 export type ChannelPolicyVerdict = 'autonomous' | 'assist' | 'blocked';
 
+export type ChannelActorType = 'human' | 'service' | 'agent' | 'tool';
+
+export type ChannelPlanStepKind =
+	| 'intent.submit'
+	| 'plan.verify'
+	| 'execution.start';
+
+export type ChannelPlanStepStatus = 'planned' | 'completed' | 'blocked';
+
+export type ChannelApprovalStatus =
+	| 'not_required'
+	| 'pending'
+	| 'approved'
+	| 'rejected'
+	| 'expired';
+
+export interface ChannelExecutionActor {
+	type: ChannelActorType;
+	id: string;
+	tenantId?: string;
+	sessionId?: string;
+	capabilitySource?: string;
+	capabilityGrants: string[];
+}
+
+export interface ChannelApprovalContext {
+	actorType?: ChannelActorType;
+	sessionId?: string;
+	capabilitySource?: string;
+	capabilityGrants?: string[];
+}
+
+export interface ChannelPlanStep {
+	id: string;
+	contractKey: string;
+	title: string;
+	kind: ChannelPlanStepKind;
+	dependsOn: string[];
+	status: ChannelPlanStepStatus;
+	input: Record<string, unknown>;
+	output?: Record<string, unknown>;
+}
+
+export interface ChannelPlanTraceEntry {
+	stepId: string;
+	contractKey: string;
+	status: ChannelPlanStepStatus;
+	metadata?: Record<string, string | number | boolean>;
+}
+
+export interface ChannelCompiledPlan {
+	id: string;
+	workspaceId: string;
+	providerKey: ChannelProviderKey;
+	traceId: string;
+	receiptId: string;
+	threadId: string;
+	compiledAt: string;
+	actor: ChannelExecutionActor;
+	audit: {
+		actorId: string;
+		actorType: ChannelActorType;
+		capabilityGrants: string[];
+		tenantId?: string;
+		sessionId?: string;
+		workflowId?: string;
+		capabilitySource?: string;
+	};
+	intent: {
+		eventType: string;
+		externalEventId: string;
+		occurredAt: string;
+		messageText?: string;
+		summary: string;
+		rawPayload?: string;
+		metadata?: Record<string, string>;
+		thread: {
+			externalThreadId: string;
+			externalChannelId?: string;
+			externalUserId?: string;
+		};
+	};
+	approval: {
+		required: boolean;
+		status: ChannelApprovalStatus;
+		fallback: 'block_on_timeout';
+		timeoutAt?: string;
+	};
+	policy?: {
+		verdict: ChannelPolicyVerdict;
+		riskTier: ChannelRiskTier;
+		confidence: number;
+		reasons: string[];
+		policyRef?: {
+			key: string;
+			version: string;
+		};
+	};
+	steps: ChannelPlanStep[];
+}
+
 export interface ChannelPolicyDecision {
 	confidence: number;
 	riskTier: ChannelRiskTier;
@@ -88,17 +189,23 @@ export interface ChannelDecisionRecord {
 	id: string;
 	receiptId: string;
 	threadId: string;
-	policyMode: 'suggest' | 'assist' | 'autonomous';
+	policyMode: 'suggest' | 'assist' | 'autonomous' | 'blocked';
 	riskTier: ChannelRiskTier;
 	confidence: number;
 	modelName: string;
 	promptVersion: string;
 	policyVersion: string;
-	toolTrace: Record<string, unknown>[];
-	actionPlan: Record<string, unknown>;
+	toolTrace: ChannelPlanTraceEntry[];
+	actionPlan: ChannelCompiledPlan;
 	requiresApproval: boolean;
+	approvalStatus: ChannelApprovalStatus;
+	approvalUpdatedAt?: Date;
 	approvedBy?: string;
 	approvedAt?: Date;
+	rejectedBy?: string;
+	rejectedAt?: Date;
+	rejectionReason?: string;
+	approvalContext?: ChannelApprovalContext;
 	createdAt: Date;
 }
 

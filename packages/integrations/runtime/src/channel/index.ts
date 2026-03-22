@@ -1,6 +1,9 @@
+export * from './approval';
+export * from './authorization';
 export * from './dispatcher';
 export * from './github';
 export * from './memory-store';
+export * from './planner';
 export * from './policy';
 export * from './postgres-schema';
 export * from './postgres-store';
@@ -10,6 +13,7 @@ export * from './slack';
 export * from './store';
 export * from './telegram';
 export * from './telemetry';
+export * from './trace';
 export * from './types';
 export * from './whatsapp-meta';
 export * from './whatsapp-twilio';

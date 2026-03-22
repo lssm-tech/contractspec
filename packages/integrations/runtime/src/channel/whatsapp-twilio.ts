@@ -57,7 +57,14 @@ export function normalizeTwilioWhatsappInboundEvent(input: {
 	const from = input.formBody.get('From');
 	const to = input.formBody.get('To');
 	const body = input.formBody.get('Body');
+	const timestamp = input.formBody.get('Timestamp');
 	if (!messageSid || !from || !body) {
+		return null;
+	}
+	const occurredAt = timestamp
+		? new Date(Number(timestamp) * 1000)
+		: new Date();
+	if (Number.isNaN(occurredAt.getTime())) {
 		return null;
 	}
 
@@ -66,7 +73,7 @@ export function normalizeTwilioWhatsappInboundEvent(input: {
 		providerKey: 'messaging.whatsapp.twilio',
 		externalEventId: messageSid,
 		eventType: 'whatsapp.twilio.message',
-		occurredAt: new Date(),
+		occurredAt,
 		signatureValid: input.signatureValid,
 		traceId: input.traceId,
 		rawPayload: input.rawBody,

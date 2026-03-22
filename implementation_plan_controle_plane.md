@@ -112,7 +112,7 @@ Status: Completed
 - [x] Define all v1 control plane command/query/event/capability contracts.
 - [x] Add explicit meta/goal/context/owners/tags for each contract.
 - [x] Register contracts in module registries and root exports.
-- [ ] Generate docs artifacts under `generated/docs/control-plane/`.
+- [x] Generate docs artifacts under `generated/docs/control-plane/`.
 - [x] Add contract-level tests and schema validation coverage.
 
 Primary paths (proposed):
@@ -315,3 +315,4 @@ Primary paths (proposed):
 - 2026-02-27: Initial implementation plan drafted from OpenClaw audit synthesis and ContractSpec architecture constraints.
 - 2026-02-27: WS1 completed in `@contractspec/lib.contracts-spec` with control-plane command/query/event/capability contracts, registration helpers, and contract tests.
 - 2026-02-27: WS2-WS8 execution deferred pending open architecture decisions on runtime package location, approval surface, skill trust authority, and trace retention policy.
+- 2026-03-22: Added compatibility docs artifacts under `generated/docs/control-plane/` mapped to the canonical generated `platform.control-plane` reference set.

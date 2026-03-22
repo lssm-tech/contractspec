@@ -1,0 +1,40 @@
+{
+  "feature": "generated/docs/platform.control-plane/platform.control-plane.md",
+  "operations": {
+    "controlPlane.intent.submit": "generated/docs/platform.control-plane/controlPlane.intent.submit.md",
+    "controlPlane.plan.compile": "generated/docs/platform.control-plane/controlPlane.plan.compile.md",
+    "controlPlane.plan.verify": "generated/docs/platform.control-plane/controlPlane.plan.verify.md",
+    "controlPlane.execution.start": "generated/docs/platform.control-plane/controlPlane.execution.start.md",
+    "controlPlane.execution.approve": "generated/docs/platform.control-plane/controlPlane.execution.approve.md",
+    "controlPlane.execution.reject": "generated/docs/platform.control-plane/controlPlane.execution.reject.md",
+    "controlPlane.execution.cancel": "generated/docs/platform.control-plane/controlPlane.execution.cancel.md",
+    "controlPlane.execution.get": "generated/docs/platform.control-plane/controlPlane.execution.get.md",
+    "controlPlane.execution.list": "generated/docs/platform.control-plane/controlPlane.execution.list.md",
+    "controlPlane.trace.get": "generated/docs/platform.control-plane/controlPlane.trace.get.md",
+    "controlPlane.policy.explain": "generated/docs/platform.control-plane/controlPlane.policy.explain.md",
+    "controlPlane.skill.install": "generated/docs/platform.control-plane/controlPlane.skill.install.md",
+    "controlPlane.skill.disable": "generated/docs/platform.control-plane/controlPlane.skill.disable.md",
+    "controlPlane.skill.list": "generated/docs/platform.control-plane/controlPlane.skill.list.md",
+    "controlPlane.skill.verify": "generated/docs/platform.control-plane/controlPlane.skill.verify.md"
+  },
+  "events": {
+    "controlPlane.intent.received": "generated/docs/platform.control-plane/controlPlane.intent.received.md",
+    "controlPlane.plan.compiled": "generated/docs/platform.control-plane/controlPlane.plan.compiled.md",
+    "controlPlane.plan.rejected": "generated/docs/platform.control-plane/controlPlane.plan.rejected.md",
+    "controlPlane.execution.step.started": "generated/docs/platform.control-plane/controlPlane.execution.step.started.md",
+    "controlPlane.execution.step.blocked": "generated/docs/platform.control-plane/controlPlane.execution.step.blocked.md",
+    "controlPlane.execution.step.completed": "generated/docs/platform.control-plane/controlPlane.execution.step.completed.md",
+    "controlPlane.execution.completed": "generated/docs/platform.control-plane/controlPlane.execution.completed.md",
+    "controlPlane.execution.failed": "generated/docs/platform.control-plane/controlPlane.execution.failed.md",
+    "controlPlane.skill.installed": "generated/docs/platform.control-plane/controlPlane.skill.installed.md",
+    "controlPlane.skill.rejected": "generated/docs/platform.control-plane/controlPlane.skill.rejected.md"
+  },
+  "capabilities": {
+    "control-plane.core": "generated/docs/platform.control-plane/control-plane.core.md",
+    "control-plane.approval": "generated/docs/platform.control-plane/control-plane.approval.md",
+    "control-plane.audit": "generated/docs/platform.control-plane/control-plane.audit.md",
+    "control-plane.skill-registry": "generated/docs/platform.control-plane/control-plane.skill-registry.md",
+    "control-plane.channel-runtime": "generated/docs/platform.control-plane/control-plane.channel-runtime.md"
+  },
+  "canonicalDirectory": "generated/docs/platform.control-plane/"
+}

@@ -1,4 +1,9 @@
-import type { ChannelInboundEvent, ChannelPolicyDecision } from './types';
+import type {
+	ChannelCompiledPlan,
+	ChannelExecutionActor,
+	ChannelInboundEvent,
+	ChannelPolicyDecision,
+} from './types';
 
 export interface MessagingPolicyConfig {
 	autoResolveMinConfidence: number;
@@ -57,6 +62,8 @@ export interface PolicyEvaluationInput {
 	sessionId?: string;
 	workflowId?: string;
 	threadState?: Record<string, unknown>;
+	compiledPlan?: ChannelCompiledPlan;
+	actor?: ChannelExecutionActor;
 }
 
 export interface MessagingPolicyEvaluator {

@@ -20,6 +20,7 @@ export interface GithubIssueCommentPayload {
 	comment?: {
 		id?: number;
 		body?: string;
+		created_at?: string;
 	};
 	sender?: {
 		login?: string;
@@ -83,8 +84,14 @@ export function normalizeGithubInboundEvent(
 		input.payload.comment?.body ??
 		input.payload.issue?.body ??
 		input.payload.pull_request?.body;
+	const occurredAt = input.payload.comment?.created_at
+		? new Date(input.payload.comment.created_at)
+		: new Date();
 
 	if (!owner || !repo || !issueNumber || !messageText) {
+		return null;
+	}
+	if (Number.isNaN(occurredAt.getTime())) {
 		return null;
 	}
 
@@ -93,7 +100,7 @@ export function normalizeGithubInboundEvent(
 		providerKey: 'messaging.github',
 		externalEventId: input.deliveryId,
 		eventType: `github.${input.eventName}.${input.payload.action ?? 'unknown'}`,
-		occurredAt: new Date(),
+		occurredAt,
 		signatureValid: input.signatureValid,
 		traceId: input.traceId,
 		rawPayload: input.rawBody,

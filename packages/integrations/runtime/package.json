@@ -48,9 +48,12 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./channel": "./src/channel/index.ts",
+		"./channel/approval": "./src/channel/approval.ts",
+		"./channel/authorization": "./src/channel/authorization.ts",
 		"./channel/dispatcher": "./src/channel/dispatcher.ts",
 		"./channel/github": "./src/channel/github.ts",
 		"./channel/memory-store": "./src/channel/memory-store.ts",
+		"./channel/planner": "./src/channel/planner.ts",
 		"./channel/policy": "./src/channel/policy.ts",
 		"./channel/postgres-queries": "./src/channel/postgres-queries.ts",
 		"./channel/postgres-schema": "./src/channel/postgres-schema.ts",
@@ -61,6 +64,7 @@
 		"./channel/store": "./src/channel/store.ts",
 		"./channel/telegram": "./src/channel/telegram.ts",
 		"./channel/telemetry": "./src/channel/telemetry.ts",
+		"./channel/trace": "./src/channel/trace.ts",
 		"./channel/types": "./src/channel/types.ts",
 		"./channel/whatsapp-meta": "./src/channel/whatsapp-meta.ts",
 		"./channel/whatsapp-twilio": "./src/channel/whatsapp-twilio.ts",
@@ -91,6 +95,18 @@
 				"node": "./dist/node/channel/index.js",
 				"default": "./dist/channel/index.js"
 			},
+			"./channel/approval": {
+				"types": "./dist/channel/approval.d.ts",
+				"bun": "./dist/channel/approval.js",
+				"node": "./dist/node/channel/approval.js",
+				"default": "./dist/channel/approval.js"
+			},
+			"./channel/authorization": {
+				"types": "./dist/channel/authorization.d.ts",
+				"bun": "./dist/channel/authorization.js",
+				"node": "./dist/node/channel/authorization.js",
+				"default": "./dist/channel/authorization.js"
+			},
 			"./channel/dispatcher": {
 				"types": "./dist/channel/dispatcher.d.ts",
 				"bun": "./dist/channel/dispatcher.js",
@@ -108,6 +124,12 @@
 				"bun": "./dist/channel/memory-store.js",
 				"node": "./dist/node/channel/memory-store.js",
 				"default": "./dist/channel/memory-store.js"
+			},
+			"./channel/planner": {
+				"types": "./dist/channel/planner.d.ts",
+				"bun": "./dist/channel/planner.js",
+				"node": "./dist/node/channel/planner.js",
+				"default": "./dist/channel/planner.js"
 			},
 			"./channel/policy": {
 				"types": "./dist/channel/policy.d.ts",
@@ -168,6 +190,12 @@
 				"bun": "./dist/channel/telemetry.js",
 				"node": "./dist/node/channel/telemetry.js",
 				"default": "./dist/channel/telemetry.js"
+			},
+			"./channel/trace": {
+				"types": "./dist/channel/trace.d.ts",
+				"bun": "./dist/channel/trace.js",
+				"node": "./dist/node/channel/trace.js",
+				"default": "./dist/channel/trace.js"
 			},
 			"./channel/types": {
 				"types": "./dist/channel/types.d.ts",

@@ -5,9 +5,12 @@ import type {
 	ClaimEventReceiptResult,
 	EnqueueOutboxActionInput,
 	EnqueueOutboxActionResult,
+	ListDecisionsInput,
+	ListPendingApprovalsInput,
 	MarkOutboxDeadLetterInput,
 	MarkOutboxRetryInput,
 	RecordDeliveryAttemptInput,
+	ResolveDecisionApprovalInput,
 	SaveDecisionInput,
 	UpsertThreadInput,
 } from './store';
@@ -146,9 +149,133 @@ export class InMemoryChannelRuntimeStore implements ChannelRuntimeStore {
 			toolTrace: input.toolTrace ?? [],
 			actionPlan: input.actionPlan,
 			requiresApproval: input.requiresApproval,
+			approvalStatus: input.approvalStatus,
 			createdAt: new Date(),
 		};
 		this.decisions.set(id, record);
+		return record;
+	}
+
+	async getReceipt(
+		receiptId: string
+	): Promise<ChannelEventReceiptRecord | null> {
+		return this.receipts.get(receiptId) ?? null;
+	}
+
+	async getThread(threadId: string): Promise<ChannelThreadRecord | null> {
+		return this.threads.get(threadId) ?? null;
+	}
+
+	async getDecision(decisionId: string): Promise<ChannelDecisionRecord | null> {
+		return this.decisions.get(decisionId) ?? null;
+	}
+
+	async listDecisions(
+		input: ListDecisionsInput = {}
+	): Promise<ChannelDecisionRecord[]> {
+		const decisions = Array.from(this.decisions.values())
+			.filter((decision) =>
+				input.workspaceId
+					? decision.actionPlan.workspaceId === input.workspaceId
+					: true
+			)
+			.filter((decision) =>
+				input.providerKey
+					? decision.actionPlan.providerKey === input.providerKey
+					: true
+			)
+			.filter((decision) =>
+				input.traceId ? decision.actionPlan.traceId === input.traceId : true
+			)
+			.filter((decision) =>
+				input.receiptId ? decision.receiptId === input.receiptId : true
+			)
+			.filter((decision) =>
+				input.externalEventId
+					? decision.actionPlan.intent.externalEventId === input.externalEventId
+					: true
+			)
+			.filter((decision) =>
+				input.approvalStatus
+					? decision.approvalStatus === input.approvalStatus
+					: true
+			)
+			.filter((decision) =>
+				input.actorId ? decision.actionPlan.actor.id === input.actorId : true
+			)
+			.filter((decision) =>
+				input.sessionId
+					? decision.actionPlan.audit.sessionId === input.sessionId
+					: true
+			)
+			.filter((decision) =>
+				input.workflowId
+					? decision.actionPlan.audit.workflowId === input.workflowId
+					: true
+			)
+			.filter((decision) =>
+				input.createdAfter
+					? decision.createdAt.getTime() >= input.createdAfter.getTime()
+					: true
+			)
+			.filter((decision) =>
+				input.createdBefore
+					? decision.createdAt.getTime() <= input.createdBefore.getTime()
+					: true
+			)
+			.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+
+		const limit = Math.max(1, input.limit ?? (decisions.length || 1));
+		return decisions.slice(0, limit);
+	}
+
+	async listPendingApprovals(
+		input: ListPendingApprovalsInput = {}
+	): Promise<ChannelDecisionRecord[]> {
+		const decisions = Array.from(this.decisions.values())
+			.filter((decision) => decision.approvalStatus === 'pending')
+			.filter((decision) =>
+				input.workspaceId
+					? decision.actionPlan.workspaceId === input.workspaceId
+					: true
+			)
+			.filter((decision) =>
+				input.providerKey
+					? decision.actionPlan.providerKey === input.providerKey
+					: true
+			)
+			.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
+
+		const limit = Math.max(1, input.limit ?? (decisions.length || 1));
+		return decisions.slice(0, limit);
+	}
+
+	async resolveDecisionApproval(
+		input: ResolveDecisionApprovalInput
+	): Promise<ChannelDecisionRecord | null> {
+		const record = this.decisions.get(input.decisionId);
+		if (!record) {
+			return null;
+		}
+
+		record.approvalStatus = input.approvalStatus;
+		record.approvalUpdatedAt = input.actedAt;
+		record.approvalContext = input.approvalContext;
+		record.actionPlan = input.actionPlan;
+		record.toolTrace = input.toolTrace;
+		if (input.approvalStatus === 'approved') {
+			record.approvedBy = input.actorId;
+			record.approvedAt = input.actedAt;
+			record.rejectedBy = undefined;
+			record.rejectedAt = undefined;
+			record.rejectionReason = undefined;
+		} else {
+			record.rejectedBy = input.actorId;
+			record.rejectedAt = input.actedAt;
+			record.rejectionReason = input.reason;
+		}
+
+		this.decisions.set(record.id, record);
 		return record;
 	}
 
@@ -216,6 +343,14 @@ export class InMemoryChannelRuntimeStore implements ChannelRuntimeStore {
 		return claimed;
 	}
 
+	async listOutboxActionsForDecision(
+		decisionId: string
+	): Promise<ChannelOutboxActionRecord[]> {
+		return Array.from(this.outbox.values())
+			.filter((action) => action.decisionId === decisionId)
+			.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
+	}
+
 	async recordDeliveryAttempt(
 		input: RecordDeliveryAttemptInput
 	): Promise<ChannelDeliveryAttemptRecord> {
@@ -231,6 +366,14 @@ export class InMemoryChannelRuntimeStore implements ChannelRuntimeStore {
 		};
 		this.deliveryAttempts.set(`${input.actionId}:${input.attempt}`, record);
 		return record;
+	}
+
+	async listDeliveryAttemptsForAction(
+		actionId: string
+	): Promise<ChannelDeliveryAttemptRecord[]> {
+		return Array.from(this.deliveryAttempts.values())
+			.filter((attempt) => attempt.actionId === actionId)
+			.sort((a, b) => a.attempt - b.attempt);
 	}
 
 	async markOutboxSent(
