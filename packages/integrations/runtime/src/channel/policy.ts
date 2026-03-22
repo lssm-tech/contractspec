@@ -52,9 +52,18 @@ export const DEFAULT_MESSAGING_POLICY_CONFIG: MessagingPolicyConfig = {
 
 export interface PolicyEvaluationInput {
 	event: ChannelInboundEvent;
+	receiptId?: string;
+	threadId?: string;
+	sessionId?: string;
+	workflowId?: string;
+	threadState?: Record<string, unknown>;
 }
 
-export class MessagingPolicyEngine {
+export interface MessagingPolicyEvaluator {
+	evaluate(input: PolicyEvaluationInput): ChannelPolicyDecision;
+}
+
+export class MessagingPolicyEngine implements MessagingPolicyEvaluator {
 	private readonly config: MessagingPolicyConfig;
 
 	constructor(config?: Partial<MessagingPolicyConfig>) {

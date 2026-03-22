@@ -1,12 +1,12 @@
 import { createHash, randomUUID } from 'node:crypto';
 
-import { MessagingPolicyEngine } from './policy';
+import { MessagingPolicyEngine, type MessagingPolicyEvaluator } from './policy';
 import type { ChannelRuntimeStore } from './store';
 import type { ChannelTelemetryEmitter } from './telemetry';
 import type { ChannelInboundEvent, ChannelIngestResult } from './types';
 
 export interface ChannelRuntimeServiceOptions {
-	policy?: MessagingPolicyEngine;
+	policy?: MessagingPolicyEvaluator;
 	asyncProcessing?: boolean;
 	processInBackground?: (task: () => Promise<void>) => void;
 	modelName?: string;
@@ -16,7 +16,7 @@ export interface ChannelRuntimeServiceOptions {
 }
 
 export class ChannelRuntimeService {
-	private readonly policy: MessagingPolicyEngine;
+	private readonly policy: MessagingPolicyEvaluator;
 	private readonly asyncProcessing: boolean;
 	private readonly processInBackground: (task: () => Promise<void>) => void;
 	private readonly modelName: string;
@@ -77,6 +77,8 @@ export class ChannelRuntimeService {
 			workspaceId: event.workspaceId,
 			providerKey: event.providerKey,
 			receiptId: claim.receiptId,
+			sessionId: event.metadata?.['sessionId'],
+			workflowId: event.metadata?.['workflowId'],
 			traceId: event.traceId,
 			latencyMs: Date.now() - startedAtMs,
 		});
@@ -92,6 +94,8 @@ export class ChannelRuntimeService {
 				workspaceId: event.workspaceId,
 				providerKey: event.providerKey,
 				receiptId: claim.receiptId,
+				sessionId: event.metadata?.['sessionId'],
+				workflowId: event.metadata?.['workflowId'],
 				traceId: event.traceId,
 				latencyMs: Date.now() - startedAtMs,
 				metadata: {
@@ -136,13 +140,22 @@ export class ChannelRuntimeService {
 				occurredAt: event.occurredAt,
 			});
 
-			const policyDecision = this.policy.evaluate({ event });
+			const policyDecision = this.policy.evaluate({
+				event,
+				receiptId,
+				threadId: thread.id,
+				sessionId: event.metadata?.['sessionId'],
+				workflowId: event.metadata?.['workflowId'],
+				threadState: thread.state,
+			});
 			this.telemetry?.record({
 				stage: 'decision',
 				status: 'processed',
 				workspaceId: event.workspaceId,
 				providerKey: event.providerKey,
 				receiptId,
+				sessionId: event.metadata?.['sessionId'],
+				workflowId: event.metadata?.['workflowId'],
 				traceId: event.traceId,
 				metadata: {
 					verdict: policyDecision.verdict,
@@ -164,6 +177,8 @@ export class ChannelRuntimeService {
 					verdict: policyDecision.verdict,
 					reasons: policyDecision.reasons,
 					policyRef: policyDecision.policyRef,
+					sessionId: event.metadata?.['sessionId'],
+					workflowId: event.metadata?.['workflowId'],
 				},
 				requiresApproval: policyDecision.requiresApproval,
 			});
@@ -195,6 +210,8 @@ export class ChannelRuntimeService {
 					workspaceId: event.workspaceId,
 					providerKey: event.providerKey,
 					receiptId,
+					sessionId: event.metadata?.['sessionId'],
+					workflowId: event.metadata?.['workflowId'],
 					traceId: event.traceId,
 					metadata: {
 						actionType: 'reply',
@@ -209,6 +226,8 @@ export class ChannelRuntimeService {
 				workspaceId: event.workspaceId,
 				providerKey: event.providerKey,
 				receiptId,
+				sessionId: event.metadata?.['sessionId'],
+				workflowId: event.metadata?.['workflowId'],
 				traceId: event.traceId,
 			});
 		} catch (error) {
@@ -222,6 +241,8 @@ export class ChannelRuntimeService {
 				workspaceId: event.workspaceId,
 				providerKey: event.providerKey,
 				receiptId,
+				sessionId: event.metadata?.['sessionId'],
+				workflowId: event.metadata?.['workflowId'],
 				traceId: event.traceId,
 				metadata: {
 					errorCode: 'PROCESSING_FAILED',

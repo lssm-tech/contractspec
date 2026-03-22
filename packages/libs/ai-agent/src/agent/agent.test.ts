@@ -4,6 +4,7 @@ import {
 	agentKey,
 } from '@contractspec/lib.contracts-spec/agent';
 import { MockLanguageModelV3 } from 'ai/test';
+import { createApprovalWorkflow } from '../approval/workflow';
 import { createInMemorySessionStore } from '../session/store';
 import { ContractSpecAgent } from './contract-spec-agent';
 
@@ -137,6 +138,7 @@ describe('ContractSpecAgent', () => {
 
 	it('persists session messages and escalates when confidence is below threshold', async () => {
 		const sessionStore = createInMemorySessionStore();
+		const approvalWorkflow = createApprovalWorkflow();
 		const specWithEscalation: AgentSpec = {
 			...mockSpec,
 			policy: {
@@ -157,6 +159,7 @@ describe('ContractSpecAgent', () => {
 			}),
 			toolHandlers: new Map(),
 			sessionStore,
+			approvalWorkflow,
 		});
 
 		const result = await agent.generate({
@@ -170,5 +173,153 @@ describe('ContractSpecAgent', () => {
 		const session = await sessionStore.get('sess-timeout');
 		expect(session?.status).toBe('escalated');
 		expect(session?.messages.length).toBe(2);
+		expect(session?.pendingApprovalRequestId).toBeTruthy();
+	});
+
+	it('emits lifecycle events and persists workflow trace identifiers', async () => {
+		const sessionStore = createInMemorySessionStore();
+		const events: { event: string; payload: unknown }[] = [];
+		const agent = await ContractSpecAgent.create({
+			spec: mockSpec,
+			model: new MockLanguageModelV3({
+				doGenerate: async () => mockGenerateResult('Hello with trace'),
+			}),
+			toolHandlers: new Map(),
+			sessionStore,
+			eventEmitter(event, payload) {
+				events.push({ event, payload });
+			},
+		});
+
+		const result = await agent.generate({
+			prompt: 'trace me',
+			options: {
+				sessionId: 'sess-trace',
+				workflowId: 'wf-trace',
+				metadata: { traceId: 'trace-123' },
+			},
+		});
+
+		expect(result.session?.workflowId).toBe('wf-trace');
+		expect(result.session?.traceId).toBe('trace-123');
+		expect(events.some(({ event }) => event === 'agent.session.created')).toBe(
+			true
+		);
+		expect(events.some(({ event }) => event === 'agent.completed')).toBe(true);
+	});
+
+	it('restores checkpointed sessions through runtime adapters', async () => {
+		const savedCheckpoints = new Map<
+			string,
+			{ state: unknown; checkpointId?: string }
+		>();
+		const runtimeSpec: AgentSpec = {
+			...mockSpec,
+			runtime: {
+				capabilities: {
+					adapters: {
+						langgraph: true,
+					},
+					checkpointing: true,
+				},
+			},
+		};
+
+		const firstStore = createInMemorySessionStore();
+		const firstAgent = await ContractSpecAgent.create({
+			spec: runtimeSpec,
+			model: new MockLanguageModelV3({
+				doGenerate: async () => mockGenerateResult('first pass'),
+			}),
+			toolHandlers: new Map(),
+			sessionStore: firstStore,
+			runtimeAdapters: {
+				langgraph: {
+					key: 'langgraph',
+					checkpoint: {
+						async save(envelope) {
+							savedCheckpoints.set(envelope.sessionId, {
+								state: envelope.state,
+								checkpointId: envelope.checkpointId,
+							});
+						},
+						async load(sessionId) {
+							const checkpoint = savedCheckpoints.get(sessionId);
+							if (!checkpoint) {
+								return null;
+							}
+							return {
+								sessionId,
+								state: checkpoint.state as Awaited<
+									ReturnType<typeof firstStore.get>
+								> extends infer T
+									? Exclude<T, null>
+									: never,
+								checkpointId: checkpoint.checkpointId,
+								createdAt: new Date(),
+							};
+						},
+						async delete(sessionId) {
+							savedCheckpoints.delete(sessionId);
+						},
+					},
+				},
+			},
+		});
+
+		await firstAgent.generate({
+			prompt: 'remember me',
+			options: { sessionId: 'sess-checkpoint' },
+		});
+
+		const secondStore = createInMemorySessionStore();
+		const secondAgent = await ContractSpecAgent.create({
+			spec: runtimeSpec,
+			model: new MockLanguageModelV3({
+				doGenerate: async () => mockGenerateResult('second pass'),
+			}),
+			toolHandlers: new Map(),
+			sessionStore: secondStore,
+			runtimeAdapters: {
+				langgraph: {
+					key: 'langgraph',
+					checkpoint: {
+						async save(envelope) {
+							savedCheckpoints.set(envelope.sessionId, {
+								state: envelope.state,
+								checkpointId: envelope.checkpointId,
+							});
+						},
+						async load(sessionId) {
+							const checkpoint = savedCheckpoints.get(sessionId);
+							if (!checkpoint) {
+								return null;
+							}
+							return {
+								sessionId,
+								state: checkpoint.state as Awaited<
+									ReturnType<typeof secondStore.get>
+								> extends infer T
+									? Exclude<T, null>
+									: never,
+								checkpointId: checkpoint.checkpointId,
+								createdAt: new Date(),
+							};
+						},
+						async delete(sessionId) {
+							savedCheckpoints.delete(sessionId);
+						},
+					},
+				},
+			},
+		});
+
+		const result = await secondAgent.generate({
+			prompt: 'continue',
+			options: { sessionId: 'sess-checkpoint' },
+		});
+
+		expect(result.session?.messages.length).toBeGreaterThan(2);
+		expect(result.session?.checkpointId).toBeTruthy();
 	});
 });

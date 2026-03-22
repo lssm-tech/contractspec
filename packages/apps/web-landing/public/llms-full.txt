@@ -2,7 +2,7 @@
 
 > Aggregated content from all packages. For summary, see /llms
 
-Generated: 2026-03-22T10:09:30.212Z
+Generated: 2026-03-22T10:58:10.086Z
 Packages: 164
 
 ---
@@ -3218,6 +3218,13 @@ or
 
 Import the root entrypoint from `@contractspec/lib.workflow-composer`, or choose a documented subpath when you only need one part of the package surface.
 
+Workflow composition is deterministic by default:
+
+- Extensions are applied in stable priority order.
+- Duplicate injected step ids and invalid anchor combinations are rejected.
+- Hidden-step overlays are validated so they cannot orphan the remaining graph.
+- Extension `metadata` and `annotations` are merged into the composed workflow output.
+
 ## Architecture
 
 - `src/composer.test.ts` is part of the package's public or composition surface.
@@ -5331,6 +5338,13 @@ const agent = createUnifiedAgent(SupportBot, {
   backend: "ai-sdk",
 });
 ```
+
+Runtime portability stays adapter-first:
+
+- `AgentSpec.runtime` can declare checkpointing, suspend/resume, and approval-gateway capabilities.
+- `AgentFactory` and `ContractSpecAgent` accept optional runtime adapter bundles for LangGraph/LangChain-style integrations.
+- Session state now persists workflow, thread, trace, checkpoint, and approval metadata for replay-safe resumes.
+- Escalation policies can raise approval requests on timeout, tool failure, or confidence thresholds without coupling core contracts to a vendor runtime.
 
 ## Architecture
 
@@ -13275,6 +13289,12 @@ or
 ## Usage
 
 Import the root entrypoint from `@contractspec/integration.runtime`, or choose a documented subpath when you only need one part of the package surface.
+
+The channel runtime keeps policy evaluation deterministic and auditable:
+
+- Signature-invalid events are rejected before processing.
+- `MessagingPolicyEngine` can be replaced by a contract-backed policy evaluator through `ChannelRuntimeService`.
+- Telemetry now carries `traceId`, `sessionId`, and `workflowId` when callers provide them in inbound metadata.
 
 ## Architecture
 

@@ -1,4 +1,7 @@
-import type { WorkflowSpec } from '@contractspec/lib.contracts-spec/workflow';
+import type {
+	Transition,
+	WorkflowSpec,
+} from '@contractspec/lib.contracts-spec/workflow';
 import type { WorkflowExtension } from './types';
 
 export interface WorkflowExtensionValidationIssue {
@@ -12,6 +15,14 @@ export function validateExtension(
 ) {
 	const issues: WorkflowExtensionValidationIssue[] = [];
 	const baseStepIds = new Set(base.definition.steps.map((step) => step.id));
+	const hiddenSteps = new Set(extension.hiddenSteps ?? []);
+	const visibleStepIds = new Set(baseStepIds);
+	const visibleTransitions = base.definition.transitions
+		.filter(
+			(transition) =>
+				visibleStepIds.has(transition.from) && visibleStepIds.has(transition.to)
+		)
+		.map((transition) => ({ ...transition }));
 
 	if (!extension.workflow.trim()) {
 		issues.push({
@@ -27,15 +38,18 @@ export function validateExtension(
 		});
 	}
 
-	const hiddenSteps = new Set(extension.hiddenSteps ?? []);
 	hiddenSteps.forEach((stepId) => {
 		if (!baseStepIds.has(stepId)) {
 			issues.push({
 				code: 'workflow.extension.hidden-step',
 				message: `hidden step "${stepId}" does not exist`,
 			});
+			return;
 		}
+
+		visibleStepIds.delete(stepId);
 	});
+	removeHiddenTransitions(visibleTransitions, hiddenSteps);
 
 	const availableAnchorSteps = new Set(
 		[...baseStepIds].filter((stepId) => !hiddenSteps.has(stepId))
@@ -114,6 +128,21 @@ export function validateExtension(
 		}
 
 		availableAnchorSteps.add(injectionId);
+		visibleStepIds.add(injectionId);
+		if (injection.transitionFrom) {
+			visibleTransitions.push({
+				from: injection.transitionFrom,
+				to: injectionId,
+				condition: injection.when,
+			});
+		}
+		if (injection.transitionTo) {
+			visibleTransitions.push({
+				from: injectionId,
+				to: injection.transitionTo,
+				condition: injection.when,
+			});
+		}
 	});
 
 	const entryStepId =
@@ -125,6 +154,18 @@ export function validateExtension(
 		});
 	}
 
+	if (entryStepId && !hiddenSteps.has(entryStepId)) {
+		const reachable = collectReachableSteps(entryStepId, visibleTransitions);
+		for (const stepId of visibleStepIds) {
+			if (!reachable.has(stepId)) {
+				issues.push({
+					code: 'workflow.extension.hidden-step.orphan',
+					message: `extension leaves step "${stepId}" unreachable from entry step "${entryStepId}"`,
+				});
+			}
+		}
+	}
+
 	if (issues.length) {
 		const reason = issues
 			.map((issue) => `${issue.code}: ${issue.message}`)
@@ -133,4 +174,48 @@ export function validateExtension(
 			`Invalid workflow extension for ${extension.workflow}: ${reason}`
 		);
 	}
+}
+
+function removeHiddenTransitions(
+	transitions: Transition[],
+	hiddenSteps: ReadonlySet<string>
+): void {
+	for (let index = transitions.length - 1; index >= 0; index -= 1) {
+		const transition = transitions[index];
+		if (!transition) {
+			continue;
+		}
+
+		if (hiddenSteps.has(transition.from) || hiddenSteps.has(transition.to)) {
+			transitions.splice(index, 1);
+		}
+	}
+}
+
+function collectReachableSteps(
+	entryStepId: string,
+	transitions: Transition[]
+): Set<string> {
+	const adjacency = new Map<string, string[]>();
+	for (const transition of transitions) {
+		const next = adjacency.get(transition.from) ?? [];
+		next.push(transition.to);
+		adjacency.set(transition.from, next);
+	}
+
+	const reachable = new Set<string>();
+	const queue = [entryStepId];
+	while (queue.length > 0) {
+		const current = queue.shift();
+		if (!current || reachable.has(current)) {
+			continue;
+		}
+
+		reachable.add(current);
+		for (const next of adjacency.get(current) ?? []) {
+			queue.push(next);
+		}
+	}
+
+	return reachable;
 }

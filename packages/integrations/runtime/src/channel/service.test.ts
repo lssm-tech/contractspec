@@ -17,6 +17,10 @@ function makeEvent(id: string, text: string): ChannelInboundEvent {
 			externalChannelId: 'C123',
 			externalUserId: 'U123',
 		},
+		metadata: {
+			sessionId: 'sess-1',
+			workflowId: 'wf-1',
+		},
 		message: { text },
 	};
 }
@@ -104,5 +108,48 @@ describe('ChannelRuntimeService', () => {
 
 		expect(events.some((event) => event.stage === 'ingest')).toBe(true);
 		expect(events.some((event) => event.stage === 'decision')).toBe(true);
+		expect(events.some((event) => event.sessionId === 'sess-1')).toBe(true);
+		expect(events.some((event) => event.workflowId === 'wf-1')).toBe(true);
+	});
+
+	it('supports contract-backed policy evaluators with deterministic input context', async () => {
+		const store = new InMemoryChannelRuntimeStore();
+		const calls: unknown[] = [];
+		const service = new ChannelRuntimeService(store, {
+			asyncProcessing: false,
+			policy: {
+				evaluate(input) {
+					calls.push(input);
+					return {
+						confidence: 0.91,
+						riskTier: 'low',
+						verdict: 'autonomous',
+						reasons: ['contract_rule_match'],
+						responseText: 'Handled by contract policy.',
+						requiresApproval: false,
+						policyRef: {
+							key: 'channel.contract-policy',
+							version: '2.0.0',
+						},
+					};
+				},
+			},
+		});
+
+		await service.ingest(makeEvent('evt-contract', 'Please route via policy'));
+
+		expect(calls).toHaveLength(1);
+		expect(calls[0]).toMatchObject({
+			sessionId: 'sess-1',
+			workflowId: 'wf-1',
+		});
+		expect([...store.decisions.values()][0]?.actionPlan).toMatchObject({
+			policyRef: {
+				key: 'channel.contract-policy',
+				version: '2.0.0',
+			},
+			sessionId: 'sess-1',
+			workflowId: 'wf-1',
+		});
 	});
 });

@@ -21,6 +21,8 @@ export interface ChannelTelemetryEvent {
 	providerKey?: string;
 	receiptId?: string;
 	actionId?: string;
+	sessionId?: string;
+	workflowId?: string;
 	traceId?: string;
 	latencyMs?: number;
 	attempt?: number;

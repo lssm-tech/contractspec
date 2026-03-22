@@ -23,6 +23,13 @@ or
 
 Import the root entrypoint from `@contractspec/lib.workflow-composer`, or choose a documented subpath when you only need one part of the package surface.
 
+Workflow composition is deterministic by default:
+
+- Extensions are applied in stable priority order.
+- Duplicate injected step ids and invalid anchor combinations are rejected.
+- Hidden-step overlays are validated so they cannot orphan the remaining graph.
+- Extension `metadata` and `annotations` are merged into the composed workflow output.
+
 ## Architecture
 
 - `src/composer.test.ts` is part of the package's public or composition surface.

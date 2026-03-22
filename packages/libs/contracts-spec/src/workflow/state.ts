@@ -4,10 +4,18 @@ export interface StepExecution {
 	stepId: string;
 	startedAt: Date;
 	completedAt?: Date;
-	status: 'pending' | 'running' | 'completed' | 'failed';
+	status: 'pending' | 'running' | 'waiting' | 'completed' | 'failed';
 	input?: unknown;
 	output?: unknown;
 	error?: string;
+}
+
+export interface WorkflowWaitState {
+	reason: 'human_input' | 'retry';
+	stepId: string;
+	requestedAt: Date;
+	retryAt?: Date;
+	metadata?: Record<string, string>;
 }
 
 export interface WorkflowState<
@@ -22,6 +30,7 @@ export interface WorkflowState<
 	retryCounts?: Record<string, number>;
 	history: StepExecution[];
 	status: WorkflowStatus;
+	wait?: WorkflowWaitState;
 	createdAt: Date;
 	updatedAt: Date;
 }

@@ -23,6 +23,12 @@ or
 
 Import the root entrypoint from `@contractspec/integration.runtime`, or choose a documented subpath when you only need one part of the package surface.
 
+The channel runtime keeps policy evaluation deterministic and auditable:
+
+- Signature-invalid events are rejected before processing.
+- `MessagingPolicyEngine` can be replaced by a contract-backed policy evaluator through `ChannelRuntimeService`.
+- Telemetry now carries `traceId`, `sessionId`, and `workflowId` when callers provide them in inbound metadata.
+
 ## Architecture
 
 - `src/channel` is part of the package's public or composition surface.

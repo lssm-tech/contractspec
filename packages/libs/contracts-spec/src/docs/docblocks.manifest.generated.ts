@@ -2,7 +2,7 @@ import type { PackageDocManifest } from "./manifest";
 
 export const contractsSpecDocManifest = {
 	packageName: "@contractspec/lib.contracts-spec",
-	generatedAt: "2026-03-22T10:06:36.410Z",
+	generatedAt: "2026-03-22T10:54:23.880Z",
 	blocks: [
 		{
 			id: "docs.accessibility_wcag_compliance_specs",
@@ -1631,7 +1631,7 @@ export const contractsSpecDocManifest = {
 			{
 				"id": "docs.tech.workflows.overview",
 				"title": "WorkflowSpec Overview",
-				"summary": "WorkflowSpec provides a declarative, versioned format for long-running flows that mix automation and human review, including runtime adapter capabilities/ports for checkpointing and suspend-resume orchestration. Specs stay inside `@contractspec/lib.contracts-spec` (`src/workflow/spec.ts`) so the same definition powers runtime execution, documentation, and future generation.",
+				"summary": "WorkflowSpec provides a declarative, versioned format for long-running flows that mix automation and human review, including runtime adapter capabilities/ports for checkpointing, suspend-resume orchestration, and explicit waiting/retry states. Specs stay inside `@contractspec/lib.contracts-spec` (`src/workflow/spec.ts`) so the same definition powers runtime execution, documentation, and future generation.",
 				"kind": "reference",
 				"visibility": "public",
 				"route": "/docs/tech/workflows/overview",

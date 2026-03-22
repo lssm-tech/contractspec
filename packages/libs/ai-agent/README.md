@@ -46,6 +46,13 @@ const agent = createUnifiedAgent(SupportBot, {
 });
 ```
 
+Runtime portability stays adapter-first:
+
+- `AgentSpec.runtime` can declare checkpointing, suspend/resume, and approval-gateway capabilities.
+- `AgentFactory` and `ContractSpecAgent` accept optional runtime adapter bundles for LangGraph/LangChain-style integrations.
+- Session state now persists workflow, thread, trace, checkpoint, and approval metadata for replay-safe resumes.
+- Escalation policies can raise approval requests on timeout, tool failure, or confidence thresholds without coupling core contracts to a vendor runtime.
+
 ## Architecture
 
 - `src/agent/`, `src/session/`, and `src/memory/` contain the runtime core for execution state and persistence hooks.
