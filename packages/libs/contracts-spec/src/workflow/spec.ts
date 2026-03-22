@@ -1,10 +1,10 @@
 import type { CapabilityRef } from '../capabilities';
+import type { DocBlock } from '../docs/types';
 import type { ExperimentRef } from '../experiments/spec';
 import type { FormRef, OpRef } from '../features';
 import type { OwnerShipMeta } from '../ownership';
 import { SpecContractRegistry } from '../registry';
 
-import type { DocBlock } from '../docs/types';
 // Re-export for backwards compatibility
 export type { FormRef };
 

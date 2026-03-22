@@ -1,5 +1,5 @@
-import { defineFeature } from '../features';
 import type { DocBlock } from '../docs/types';
+import { defineFeature } from '../features';
 import {
 	PROVIDER_RANKING_DOMAIN,
 	PROVIDER_RANKING_OWNERS,

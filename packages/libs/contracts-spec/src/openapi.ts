@@ -7,11 +7,10 @@
 
 import type { AnySchemaModel } from '@contractspec/lib.schema';
 import { compareVersions } from 'compare-versions';
+import type { DocBlock } from './docs/types';
 import { defaultRestPath, jsonSchemaForSpec } from './jsonschema';
 import type { AnyOperationSpec, OperationSpec } from './operations/';
 import type { OperationSpecRegistry } from './operations/registry';
-
-import type { DocBlock } from './docs/types';
 export interface OpenApiServer {
 	url: string;
 	description?: string;

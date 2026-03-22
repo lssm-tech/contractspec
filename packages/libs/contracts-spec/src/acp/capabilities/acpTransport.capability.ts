@@ -1,6 +1,6 @@
 import { defineCapability } from '../../capabilities';
-import type { DocBlock } from '../../docs/types';
 import { docRef } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
 import { ACP_DOMAIN, ACP_OWNERS, ACP_STABILITY, ACP_TAGS } from '../constants';
 
 export const AcpTransportDocBlock = {

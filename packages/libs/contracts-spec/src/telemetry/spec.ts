@@ -1,7 +1,6 @@
+import type { DocBlock } from '../docs/types';
 import type { EventKey } from '../events';
 import type { OwnerShipMeta } from '../ownership';
-
-import type { DocBlock } from '../docs/types';
 export type TelemetryPrivacyLevel = 'public' | 'internal' | 'pii' | 'sensitive';
 
 export type TelemetryMeta = OwnerShipMeta;

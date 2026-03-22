@@ -1,7 +1,7 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
-import { defineCommand } from '../../operations';
-import type { DocBlock } from '../../docs/types';
 import { docRef } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { defineCommand } from '../../operations';
 import { ACP_DOMAIN, ACP_OWNERS, ACP_STABILITY, ACP_TAGS } from '../constants';
 
 const AcpTerminalExecInput = new SchemaModel({

@@ -1,9 +1,8 @@
 import { compareVersions } from 'compare-versions';
-import type { OwnerShipMeta } from '../ownership';
-import type { VersionedSpecRef } from '../versioning';
-
 /** Classification of capability types. */
 import type { DocBlock } from '../docs/types';
+import type { OwnerShipMeta } from '../ownership';
+import type { VersionedSpecRef } from '../versioning';
 export type CapabilityKind = 'api' | 'event' | 'data' | 'ui' | 'integration';
 
 /** Surfaces where capabilities can be exposed or consumed. */

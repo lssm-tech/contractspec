@@ -1,4 +1,4 @@
-import type { DocBlock } from "./types";
+import type { DocBlock } from './types';
 
 export interface DocBlockManifestEntry {
 	id: string;

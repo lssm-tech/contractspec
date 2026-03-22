@@ -1,5 +1,5 @@
-import type { DataViewRef, FormRef, PresentationRef } from '../features';
 import type { DocBlock } from '../docs/types';
+import type { DataViewRef, FormRef, PresentationRef } from '../features';
 import type { KnowledgeCategory } from '../knowledge/spec';
 import type { OwnerShipMeta } from '../ownership';
 import type { PolicyRef } from '../policy/spec';
@@ -50,7 +50,8 @@ Memory tools expose model-facing storage for cross-conversation recall. They are
 export const AgentWorkflowIntegrationDocBlock = {
 	id: 'docs.tech.agent.workflow-integration',
 	title: 'Workflow-agent integration',
-	summary: 'Patterns for orchestrator-worker, workflow steps, and evaluator loops.',
+	summary:
+		'Patterns for orchestrator-worker, workflow steps, and evaluator loops.',
 	kind: 'reference',
 	visibility: 'public',
 	route: '/docs/tech/agent/workflow-integration',

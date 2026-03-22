@@ -1,5 +1,4 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
-import type { DocBlock } from '../types';
 import { defineCommand } from '../../operations';
 import {
 	DOCS_DOMAIN,
@@ -9,6 +8,7 @@ import {
 } from '../constants';
 import { DocsGeneratedEvent } from '../events/docsGenerated.event';
 import { docId } from '../registry';
+import type { DocBlock } from '../types';
 
 const DocsArtifactModel = new SchemaModel({
 	name: 'DocsArtifact',

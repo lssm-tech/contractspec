@@ -1,6 +1,6 @@
 import { defineDataView } from '../../data-views';
-import type { DocBlock } from '../../docs/types';
 import { docId } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
 import {
 	AGENT_DOMAIN,
 	AGENT_OWNERS,

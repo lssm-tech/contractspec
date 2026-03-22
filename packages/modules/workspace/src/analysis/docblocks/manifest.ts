@@ -1,14 +1,14 @@
-import fs from "node:fs";
-import path from "node:path";
-import type { PackageDocManifest } from "@contractspec/lib.contracts-spec/docs";
-import { extractModuleDocData } from "./evaluator";
+import fs from 'node:fs';
+import path from 'node:path';
+import type { PackageDocManifest } from '@contractspec/lib.contracts-spec/docs';
+import { extractModuleDocData } from './evaluator';
 
 function shouldIgnoreSourceFile(filePath: string): boolean {
 	return (
 		!/\.[cm]?[jt]sx?$/.test(filePath) ||
-		filePath.endsWith(".d.ts") ||
-		filePath.endsWith(".test.ts") ||
-		filePath.endsWith(".generated.ts") ||
+		filePath.endsWith('.d.ts') ||
+		filePath.endsWith('.test.ts') ||
+		filePath.endsWith('.generated.ts') ||
 		filePath.includes(`${path.sep}dist${path.sep}`)
 	);
 }
@@ -29,8 +29,8 @@ function listSourceFiles(srcRoot: string): string[] {
 function toSourceModule(srcRoot: string, filePath: string): string {
 	return path
 		.relative(srcRoot, filePath)
-		.replace(/\\/g, "/")
-		.replace(/\.[cm]?[jt]sx?$/, "");
+		.replace(/\\/g, '/')
+		.replace(/\.[cm]?[jt]sx?$/, '');
 }
 
 export function buildPackageDocManifest(options: {
@@ -41,8 +41,10 @@ export function buildPackageDocManifest(options: {
 	const allSourceFiles = listSourceFiles(srcRoot);
 
 	for (const filePath of allSourceFiles) {
-		if (filePath.endsWith(".docblock.ts")) {
-			throw new Error(`Standalone DocBlock sources are not allowed: ${filePath}`);
+		if (filePath.endsWith('.docblock.ts')) {
+			throw new Error(
+				`Standalone DocBlock sources are not allowed: ${filePath}`
+			);
 		}
 
 		if (filePath.includes(`${path.sep}docs${path.sep}tech${path.sep}`)) {
@@ -50,13 +52,13 @@ export function buildPackageDocManifest(options: {
 		}
 	}
 
-	const entries: PackageDocManifest["blocks"] = [];
+	const entries: PackageDocManifest['blocks'] = [];
 	const seenIds = new Map<string, string>();
 	const seenRoutes = new Map<string, string>();
 	const docRefs = new Map<string, string[]>();
 
 	for (const filePath of allSourceFiles) {
-		const sourceText = fs.readFileSync(filePath, "utf8");
+		const sourceText = fs.readFileSync(filePath, 'utf8');
 		const sourceModule = toSourceModule(srcRoot, filePath);
 		const moduleData = extractModuleDocData(sourceText, filePath, sourceModule);
 
@@ -64,7 +66,9 @@ export function buildPackageDocManifest(options: {
 			const sourceRef = `${entry.sourceModule}:${entry.exportName}`;
 			const priorId = seenIds.get(entry.id);
 			if (priorId) {
-				throw new Error(`Duplicate DocBlock id ${entry.id} in ${sourceRef} and ${priorId}`);
+				throw new Error(
+					`Duplicate DocBlock id ${entry.id} in ${sourceRef} and ${priorId}`
+				);
 			}
 			seenIds.set(entry.id, sourceRef);
 
@@ -72,7 +76,7 @@ export function buildPackageDocManifest(options: {
 				const priorRoute = seenRoutes.get(entry.block.route);
 				if (priorRoute) {
 					throw new Error(
-						`Duplicate DocBlock route ${entry.block.route} in ${sourceRef} and ${priorRoute}`,
+						`Duplicate DocBlock route ${entry.block.route} in ${sourceRef} and ${priorRoute}`
 					);
 				}
 				seenRoutes.set(entry.block.route, sourceRef);
@@ -89,7 +93,9 @@ export function buildPackageDocManifest(options: {
 	for (const [sourceModule, refs] of docRefs) {
 		for (const ref of refs) {
 			if (!seenIds.has(ref)) {
-				throw new Error(`Missing DocBlock reference ${ref} from ${sourceModule}`);
+				throw new Error(
+					`Missing DocBlock reference ${ref} from ${sourceModule}`
+				);
 			}
 		}
 	}

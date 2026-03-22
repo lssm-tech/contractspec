@@ -1,6 +1,7 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import chalk from 'chalk';
 import { Command, Help } from 'commander';
 import { actionDriftCommand } from './commands/action-drift/index';
@@ -50,7 +51,6 @@ import { watchCommand } from './commands/watch/index';
 import { workspaceCommand } from './commands/workspace/index';
 import { loadConfig, mergeConfig } from './utils/config';
 
-import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 // Define categories
 const CATEGORY_ESSENTIALS = 'Essentials';
 const CATEGORY_DEVELOPMENT = 'Development';

@@ -1,11 +1,11 @@
 import { defineFeature } from '../features';
-import type { DocBlock } from './types';
 import {
 	DOCS_DOMAIN,
 	DOCS_OWNERS,
 	DOCS_STABILITY,
 	DOCS_TAGS,
 } from './constants';
+import type { DocBlock } from './types';
 
 export const DocsFeature = defineFeature({
 	meta: {

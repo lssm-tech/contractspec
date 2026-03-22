@@ -1,5 +1,4 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
-import type { DocBlock } from '../types';
 import { defineQuery } from '../../operations';
 import {
 	DOCS_DOMAIN,
@@ -8,6 +7,7 @@ import {
 	DOCS_TAGS,
 } from '../constants';
 import { docId } from '../registry';
+import type { DocBlock } from '../types';
 
 export const ContractReferenceInput = new SchemaModel({
 	name: 'ContractReferenceInput',

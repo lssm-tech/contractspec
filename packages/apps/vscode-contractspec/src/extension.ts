@@ -5,8 +5,8 @@
  * for ContractSpec-powered projects.
  */
 
-import * as vscode from 'vscode';
 import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
+import * as vscode from 'vscode';
 import { FixCodeActionProvider } from './code-actions/fix-provider';
 import { registerFixCommands } from './commands/fix';
 import { registerCommands } from './commands/index';

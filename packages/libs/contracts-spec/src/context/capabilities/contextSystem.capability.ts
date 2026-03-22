@@ -1,6 +1,6 @@
 import { defineCapability } from '../../capabilities';
-import type { DocBlock } from '../../docs/types';
 import { docRef } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
 import {
 	CONTEXT_DOMAIN,
 	CONTEXT_OWNERS,

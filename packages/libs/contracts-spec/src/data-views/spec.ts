@@ -1,6 +1,6 @@
+import type { DocBlock } from '../docs/types';
 import type { ExperimentRef } from '../experiments/spec';
 import type { DataViewRef } from '../features/types';
-import type { DocBlock } from '../docs/types';
 import type {
 	DataViewConfig,
 	DataViewMeta,

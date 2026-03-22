@@ -1,8 +1,8 @@
 import type { CapabilityRef } from '../capabilities';
+import type { DocBlock } from '../docs/types';
 import type { ExperimentRef } from '../experiments/spec';
 import type { FeatureRef } from '../features';
 import type { AppKnowledgeBinding } from '../knowledge/binding';
-import type { DocBlock } from '../docs/types';
 import type { OwnerShipMeta } from '../ownership';
 import type { PolicyRef } from '../policy/spec';
 import { SpecContractRegistry } from '../registry';

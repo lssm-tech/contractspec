@@ -1,9 +1,8 @@
+/** Scope at which a theme can be applied. */
+import type { DocBlock } from './docs/types';
 import type { OwnerShipMeta } from './ownership';
 import { SpecContractRegistry } from './registry';
 import type { VersionedSpecRef } from './versioning';
-
-/** Scope at which a theme can be applied. */
-import type { DocBlock } from './docs/types';
 export type ThemeScope = 'global' | 'tenant' | 'user';
 
 export interface ThemeToken<T> {

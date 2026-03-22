@@ -1,8 +1,8 @@
-import fs from "node:fs";
-import path from "node:path";
-import ts from "typescript";
-import type { DocBlock } from "./types";
-import type { DocBlockManifestEntry, PackageDocManifest } from "./manifest";
+import fs from 'node:fs';
+import path from 'node:path';
+import ts from 'typescript';
+import type { DocBlockManifestEntry, PackageDocManifest } from './manifest';
+import type { DocBlock } from './types';
 
 type JsonValue =
 	| string
@@ -18,16 +18,16 @@ type ModuleAnalysis = {
 };
 
 function isDocBlockValue(value: unknown): value is DocBlock {
-	if (!value || typeof value !== "object" || Array.isArray(value)) {
+	if (!value || typeof value !== 'object' || Array.isArray(value)) {
 		return false;
 	}
 
 	const candidate = value as Record<string, unknown>;
 
 	return (
-		typeof candidate.id === "string" &&
-		typeof candidate.title === "string" &&
-		typeof candidate.body === "string"
+		typeof candidate.id === 'string' &&
+		typeof candidate.title === 'string' &&
+		typeof candidate.body === 'string'
 	);
 }
 
@@ -44,7 +44,10 @@ function evaluateExpression(
 		return evaluateExpression(expression.expression, locals, _filePath);
 	}
 
-	if (ts.isStringLiteral(expression) || ts.isNoSubstitutionTemplateLiteral(expression)) {
+	if (
+		ts.isStringLiteral(expression) ||
+		ts.isNoSubstitutionTemplateLiteral(expression)
+	) {
 		return expression.text;
 	}
 
@@ -67,7 +70,11 @@ function evaluateExpression(
 	if (ts.isArrayLiteralExpression(expression)) {
 		const values: JsonValue[] = [];
 		for (const element of expression.elements) {
-			const value = evaluateExpression(element as ts.Expression, locals, _filePath);
+			const value = evaluateExpression(
+				element as ts.Expression,
+				locals,
+				_filePath
+			);
 			if (value === undefined) {
 				return undefined;
 			}
@@ -84,7 +91,7 @@ function evaluateExpression(
 				return undefined;
 			}
 
-			const name = property.name.getText().replace(/^["']|["']$/g, "");
+			const name = property.name.getText().replace(/^["']|["']$/g, '');
 			const propertyValue = evaluateExpression(
 				property.initializer,
 				locals,
@@ -105,17 +112,20 @@ function evaluateExpression(
 
 	if (ts.isPropertyAccessExpression(expression)) {
 		const parent = evaluateExpression(expression.expression, locals, _filePath);
-		if (!parent || typeof parent !== "object" || Array.isArray(parent)) {
+		if (!parent || typeof parent !== 'object' || Array.isArray(parent)) {
 			return undefined;
 		}
 
 		return parent[expression.name.text];
 	}
 
-	if (ts.isCallExpression(expression) && ts.isIdentifier(expression.expression)) {
+	if (
+		ts.isCallExpression(expression) &&
+		ts.isIdentifier(expression.expression)
+	) {
 		if (
-			(expression.expression.text === "docId" ||
-				expression.expression.text === "docRef") &&
+			(expression.expression.text === 'docId' ||
+				expression.expression.text === 'docRef') &&
 			expression.arguments.length === 1
 		) {
 			return evaluateExpression(expression.arguments[0]!, locals, _filePath);
@@ -141,15 +151,15 @@ function collectLocalValues(
 				continue;
 			}
 
-		let value: JsonValue | undefined;
-		try {
-			value = evaluateExpression(declaration.initializer, locals, filePath);
-		} catch {
-			value = undefined;
-		}
-		if (value !== undefined) {
-			locals.set(declaration.name.text, value);
-		}
+			let value: JsonValue | undefined;
+			try {
+				value = evaluateExpression(declaration.initializer, locals, filePath);
+			} catch {
+				value = undefined;
+			}
+			if (value !== undefined) {
+				locals.set(declaration.name.text, value);
+			}
 		}
 	}
 
@@ -176,7 +186,7 @@ function extractDocRefsFromExpression(
 
 	const metaProperty = candidate.properties.find(
 		(property) =>
-			ts.isPropertyAssignment(property) && property.name.getText() === "meta"
+			ts.isPropertyAssignment(property) && property.name.getText() === 'meta'
 	);
 	if (!metaProperty || !ts.isPropertyAssignment(metaProperty)) {
 		return [];
@@ -197,14 +207,17 @@ function extractDocRefsFromExpression(
 
 	const docIdProperty = metaInitializer.properties.find(
 		(property) =>
-			ts.isPropertyAssignment(property) && property.name.getText() === "docId"
+			ts.isPropertyAssignment(property) && property.name.getText() === 'docId'
 	);
 	if (!docIdProperty || !ts.isPropertyAssignment(docIdProperty)) {
 		return [];
 	}
 
 	const refs = evaluateExpression(docIdProperty.initializer, locals, filePath);
-	if (!Array.isArray(refs) || !refs.every((entry) => typeof entry === "string")) {
+	if (
+		!Array.isArray(refs) ||
+		!refs.every((entry) => typeof entry === 'string')
+	) {
 		throw new Error(
 			`Non-static DocBlock reference in ${filePath} at ${docIdProperty.initializer.getStart()}`
 		);
@@ -246,7 +259,11 @@ export function extractModuleDocData(
 				continue;
 			}
 
-			const value = evaluateExpression(declaration.initializer, locals, filePath);
+			const value = evaluateExpression(
+				declaration.initializer,
+				locals,
+				filePath
+			);
 			for (const ref of extractDocRefsFromExpression(
 				declaration.initializer,
 				locals,
@@ -257,8 +274,10 @@ export function extractModuleDocData(
 
 			if (value === undefined) {
 				if (
-					declaration.name.text.includes("DocBlock") ||
-					declaration.initializer.getText(sourceFile).includes("satisfies DocBlock")
+					declaration.name.text.includes('DocBlock') ||
+					declaration.initializer
+						.getText(sourceFile)
+						.includes('satisfies DocBlock')
 				) {
 					throw new Error(
 						`Non-static DocBlock source in ${filePath} at ${declaration.initializer.getStart(sourceFile)}`
@@ -276,7 +295,10 @@ export function extractModuleDocData(
 				});
 			}
 
-			if (Array.isArray(value) && value.every((entry) => isDocBlockValue(entry))) {
+			if (
+				Array.isArray(value) &&
+				value.every((entry) => isDocBlockValue(entry))
+			) {
 				for (const block of value) {
 					entries.push({
 						id: block.id,
@@ -286,7 +308,6 @@ export function extractModuleDocData(
 					});
 				}
 			}
-
 		}
 	}
 
@@ -295,9 +316,9 @@ export function extractModuleDocData(
 
 function shouldIgnoreSourceFile(filePath: string): boolean {
 	return (
-		!filePath.endsWith(".ts") ||
-		filePath.endsWith(".test.ts") ||
-		filePath.endsWith(".generated.ts") ||
+		!filePath.endsWith('.ts') ||
+		filePath.endsWith('.test.ts') ||
+		filePath.endsWith('.generated.ts') ||
 		filePath.includes(`${path.sep}dist${path.sep}`)
 	);
 }
@@ -316,7 +337,10 @@ function listSourceFiles(srcRoot: string): string[] {
 }
 
 function toSourceModule(srcRoot: string, filePath: string): string {
-	return path.relative(srcRoot, filePath).replace(/\\/g, "/").replace(/\.ts$/, "");
+	return path
+		.relative(srcRoot, filePath)
+		.replace(/\\/g, '/')
+		.replace(/\.ts$/, '');
 }
 
 export function buildPackageDocManifest(options: {
@@ -327,8 +351,10 @@ export function buildPackageDocManifest(options: {
 	const allSourceFiles = listSourceFiles(srcRoot);
 
 	for (const filePath of allSourceFiles) {
-		if (filePath.endsWith(".docblock.ts")) {
-			throw new Error(`Standalone DocBlock sources are not allowed: ${filePath}`);
+		if (filePath.endsWith('.docblock.ts')) {
+			throw new Error(
+				`Standalone DocBlock sources are not allowed: ${filePath}`
+			);
 		}
 
 		if (filePath.includes(`${path.sep}docs${path.sep}tech${path.sep}`)) {
@@ -342,7 +368,7 @@ export function buildPackageDocManifest(options: {
 	const docRefs = new Map<string, string[]>();
 
 	for (const filePath of allSourceFiles) {
-		const sourceText = fs.readFileSync(filePath, "utf8");
+		const sourceText = fs.readFileSync(filePath, 'utf8');
 		const sourceModule = toSourceModule(srcRoot, filePath);
 		const moduleData = extractModuleDocData(sourceText, filePath, sourceModule);
 
@@ -350,7 +376,9 @@ export function buildPackageDocManifest(options: {
 			const sourceRef = `${entry.sourceModule}:${entry.exportName}`;
 			const priorId = seenIds.get(entry.id);
 			if (priorId) {
-				throw new Error(`Duplicate DocBlock id ${entry.id} in ${sourceRef} and ${priorId}`);
+				throw new Error(
+					`Duplicate DocBlock id ${entry.id} in ${sourceRef} and ${priorId}`
+				);
 			}
 			seenIds.set(entry.id, sourceRef);
 
@@ -375,7 +403,9 @@ export function buildPackageDocManifest(options: {
 	for (const [sourceModule, refs] of docRefs) {
 		for (const ref of refs) {
 			if (!seenIds.has(ref)) {
-				throw new Error(`Missing DocBlock reference ${ref} from ${sourceModule}`);
+				throw new Error(
+					`Missing DocBlock reference ${ref} from ${sourceModule}`
+				);
 			}
 		}
 	}

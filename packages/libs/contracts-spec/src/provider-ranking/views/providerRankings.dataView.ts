@@ -1,6 +1,6 @@
 import { defineDataView } from '../../data-views';
-import type { DocBlock } from '../../docs/types';
 import { docId } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
 import {
 	PROVIDER_RANKING_DOMAIN,
 	PROVIDER_RANKING_OWNERS,

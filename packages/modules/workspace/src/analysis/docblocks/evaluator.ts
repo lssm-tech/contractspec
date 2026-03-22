@@ -1,13 +1,13 @@
-import ts from "typescript";
 import type {
 	DocBlock,
 	DocBlockManifestEntry,
-} from "@contractspec/lib.contracts-spec/docs";
+} from '@contractspec/lib.contracts-spec/docs';
+import ts from 'typescript';
 import {
-	type JsonValue,
 	collectLocalValues,
 	evaluateExpression,
-} from "./static-values";
+	type JsonValue,
+} from './static-values';
 
 export interface ModuleDocAnalysis {
 	entries: DocBlockManifestEntry[];
@@ -15,22 +15,22 @@ export interface ModuleDocAnalysis {
 }
 
 function isDocBlockValue(value: unknown): value is DocBlock {
-	if (!value || typeof value !== "object" || Array.isArray(value)) {
+	if (!value || typeof value !== 'object' || Array.isArray(value)) {
 		return false;
 	}
 
 	const candidate = value as Record<string, unknown>;
 	return (
-		typeof candidate.id === "string" &&
-		typeof candidate.title === "string" &&
-		typeof candidate.body === "string"
+		typeof candidate.id === 'string' &&
+		typeof candidate.title === 'string' &&
+		typeof candidate.body === 'string'
 	);
 }
 
 function extractDocRefsFromExpression(
 	expression: ts.Expression,
 	locals: Map<string, JsonValue>,
-	filePath: string,
+	filePath: string
 ): string[] {
 	let candidate = expression;
 	while (
@@ -47,7 +47,7 @@ function extractDocRefsFromExpression(
 
 	const metaProperty = candidate.properties.find(
 		(property) =>
-			ts.isPropertyAssignment(property) && property.name.getText() === "meta",
+			ts.isPropertyAssignment(property) && property.name.getText() === 'meta'
 	);
 	if (!metaProperty || !ts.isPropertyAssignment(metaProperty)) {
 		return [];
@@ -68,16 +68,19 @@ function extractDocRefsFromExpression(
 
 	const docIdProperty = metaInitializer.properties.find(
 		(property) =>
-			ts.isPropertyAssignment(property) && property.name.getText() === "docId",
+			ts.isPropertyAssignment(property) && property.name.getText() === 'docId'
 	);
 	if (!docIdProperty || !ts.isPropertyAssignment(docIdProperty)) {
 		return [];
 	}
 
 	const refs = evaluateExpression(docIdProperty.initializer, locals, filePath);
-	if (!Array.isArray(refs) || !refs.every((entry) => typeof entry === "string")) {
+	if (
+		!Array.isArray(refs) ||
+		!refs.every((entry) => typeof entry === 'string')
+	) {
 		throw new Error(
-			`Non-static DocBlock reference in ${filePath} at ${docIdProperty.initializer.getStart()}`,
+			`Non-static DocBlock reference in ${filePath} at ${docIdProperty.initializer.getStart()}`
 		);
 	}
 
@@ -87,14 +90,14 @@ function extractDocRefsFromExpression(
 export function extractModuleDocData(
 	sourceText: string,
 	filePath: string,
-	sourceModule: string,
+	sourceModule: string
 ): ModuleDocAnalysis {
 	const sourceFile = ts.createSourceFile(
 		filePath,
 		sourceText,
 		ts.ScriptTarget.Latest,
 		true,
-		ts.ScriptKind.TS,
+		ts.ScriptKind.TS
 	);
 	const locals = collectLocalValues(sourceFile, filePath);
 	const entries: DocBlockManifestEntry[] = [];
@@ -106,7 +109,7 @@ export function extractModuleDocData(
 		}
 
 		const isExported = statement.modifiers?.some(
-			(modifier) => modifier.kind === ts.SyntaxKind.ExportKeyword,
+			(modifier) => modifier.kind === ts.SyntaxKind.ExportKeyword
 		);
 		if (!isExported) {
 			continue;
@@ -117,24 +120,28 @@ export function extractModuleDocData(
 				continue;
 			}
 
-			const value = evaluateExpression(declaration.initializer, locals, filePath);
+			const value = evaluateExpression(
+				declaration.initializer,
+				locals,
+				filePath
+			);
 			for (const ref of extractDocRefsFromExpression(
 				declaration.initializer,
 				locals,
-				filePath,
+				filePath
 			)) {
 				docRefs.add(ref);
 			}
 
 			if (value === undefined) {
 				if (
-					declaration.name.text.includes("DocBlock") ||
+					declaration.name.text.includes('DocBlock') ||
 					declaration.initializer
 						.getText(sourceFile)
-						.includes("satisfies DocBlock")
+						.includes('satisfies DocBlock')
 				) {
 					throw new Error(
-						`Non-static DocBlock source in ${filePath} at ${declaration.initializer.getStart(sourceFile)}`,
+						`Non-static DocBlock source in ${filePath} at ${declaration.initializer.getStart(sourceFile)}`
 					);
 				}
 				continue;
@@ -149,7 +156,10 @@ export function extractModuleDocData(
 				});
 			}
 
-			if (Array.isArray(value) && value.every((entry) => isDocBlockValue(entry))) {
+			if (
+				Array.isArray(value) &&
+				value.every((entry) => isDocBlockValue(entry))
+			) {
 				for (const block of value) {
 					entries.push({
 						id: block.id,

@@ -1,7 +1,7 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { docId } from '../../docs/registry';
 import type { DocBlock } from '../../docs/types';
 import { defineFormSpec } from '../../forms/forms';
-import { docId } from '../../docs/registry';
 import {
 	PROVIDER_RANKING_DOMAIN,
 	PROVIDER_RANKING_OWNERS,

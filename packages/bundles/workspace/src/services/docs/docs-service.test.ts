@@ -1,7 +1,7 @@
+import { describe, expect, it } from 'bun:test';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { describe, expect, it } from 'bun:test';
 import type { WorkspaceAdapters } from '../../ports/logger';
 import {
 	loadAuthoredDocBlocksFromSourceFiles,
@@ -38,7 +38,9 @@ describe('docs-service authored DocBlocks', () => {
 	});
 
 	it('loads package authored DocBlocks through the shared manifest builder', () => {
-		const srcRoot = fs.mkdtempSync(path.join(os.tmpdir(), 'bundle-authored-docs-'));
+		const srcRoot = fs.mkdtempSync(
+			path.join(os.tmpdir(), 'bundle-authored-docs-')
+		);
 		fs.writeFileSync(
 			path.join(srcRoot, 'feature.ts'),
 			`

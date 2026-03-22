@@ -7,8 +7,6 @@
  *
  * @module @contractspec/lib.contracts-spec/llm
  */
-
-import type { DocBlock } from '../docs/types';
 // Exporters
 export {
 	docBlockToMarkdown,

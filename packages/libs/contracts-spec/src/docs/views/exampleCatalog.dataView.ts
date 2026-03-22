@@ -1,5 +1,4 @@
 import { defineDataView } from '../../data-views';
-import type { DocBlock } from '../types';
 import {
 	DOCS_DOMAIN,
 	DOCS_OWNERS,
@@ -8,6 +7,7 @@ import {
 } from '../constants';
 import { DocsIndexQuery } from '../queries/docsIndex.query';
 import { docId } from '../registry';
+import type { DocBlock } from '../types';
 
 export const ExampleCatalogDocBlock = {
 	id: 'docs.tech.docs-examples',

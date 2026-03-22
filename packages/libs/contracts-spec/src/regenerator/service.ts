@@ -1,5 +1,5 @@
-import type { SignalAdapters } from './adapters';
 import type { DocBlock } from '../docs/types';
+import type { SignalAdapters } from './adapters';
 import type {
 	ProposalSink,
 	RegenerationContext,

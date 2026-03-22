@@ -1,5 +1,4 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
-import type { DocBlock } from '../types';
 import { defineCommand } from '../../operations';
 import {
 	DOCS_DOMAIN,
@@ -9,6 +8,7 @@ import {
 } from '../constants';
 import { DocsPublishedEvent } from '../events/docsPublished.event';
 import { docId } from '../registry';
+import type { DocBlock } from '../types';
 
 const DocsPublishInput = new SchemaModel({
 	name: 'DocsPublishInput',

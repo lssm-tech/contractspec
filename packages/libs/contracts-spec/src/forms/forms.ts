@@ -1,8 +1,7 @@
 /* eslint-disable */
 import type { AnySchemaModel, ZodSchemaModel } from '@contractspec/lib.schema';
-import type { OwnerShipMeta } from '../ownership';
-
 import type { DocBlock } from '../docs/types';
+import type { OwnerShipMeta } from '../ownership';
 // ---- Core types
 
 export type PredicateOp =

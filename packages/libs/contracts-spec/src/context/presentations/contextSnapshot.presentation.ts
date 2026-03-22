@@ -1,6 +1,6 @@
-import { definePresentation } from '../../presentations';
-import type { DocBlock } from '../../docs/types';
 import { docRef } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { definePresentation } from '../../presentations';
 import {
 	CONTEXT_DOMAIN,
 	CONTEXT_OWNERS,

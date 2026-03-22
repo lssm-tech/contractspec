@@ -1,11 +1,10 @@
-import { GetContractVerificationStatusQuery } from '../../operations/report/getContractVerificationStatus';
-import { StabilityEnum } from '../../ownership';
-import { defineDataView } from '../spec';
-
 /**
  * Data view for the contract verification status table rendered in reports.
  */
 import type { DocBlock } from '../../docs/types';
+import { GetContractVerificationStatusQuery } from '../../operations/report/getContractVerificationStatus';
+import { StabilityEnum } from '../../ownership';
+import { defineDataView } from '../spec';
 export const ContractVerificationTableDataView = defineDataView({
 	meta: {
 		key: 'report.contractVerificationTable',

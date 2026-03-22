@@ -1,51 +1,53 @@
-import fs from "node:fs";
-import path from "node:path";
-import { buildPackageDocManifest } from "../src/docs/manifest-builder";
+import fs from 'node:fs';
+import path from 'node:path';
+import { buildPackageDocManifest } from '../src/docs/manifest-builder';
 
-const pkgRoot = path.resolve(import.meta.dir, "..");
-const srcRoot = path.join(pkgRoot, "src");
-const outFile = path.join(srcRoot, "docs", "docblocks.manifest.generated.ts");
-const packageName = "@contractspec/lib.contracts-spec";
+const pkgRoot = path.resolve(import.meta.dir, '..');
+const srcRoot = path.join(pkgRoot, 'src');
+const outFile = path.join(srcRoot, 'docs', 'docblocks.manifest.generated.ts');
+const packageName = '@contractspec/lib.contracts-spec';
 
 function quote(value: string): string {
 	return JSON.stringify(value);
 }
 
 function renderBlock(block: unknown): string {
-	const value = JSON.stringify(block, null, "\t");
+	const value = JSON.stringify(block, null, '\t');
 	return value
-		.split("\n")
+		.split('\n')
 		.map((line) => `\t\t\t${line}`)
-		.join("\n");
+		.join('\n');
 }
 
-function renderManifest(manifest: ReturnType<typeof buildPackageDocManifest>): string {
+function renderManifest(
+	manifest: ReturnType<typeof buildPackageDocManifest>
+): string {
 	const renderedEntries = manifest.blocks
 		.map((entry) =>
 			[
-				"\t\t{",
+				'\t\t{',
 				`\t\t\tid: ${quote(entry.id)},`,
 				`\t\t\texportName: ${quote(entry.exportName)},`,
 				`\t\t\tsourceModule: ${quote(entry.sourceModule)},`,
-				"\t\t\tblock: ",
+				'\t\t\tblock: ',
 				`${renderBlock(entry.block)},`,
-				"\t\t},",
-			].join("\n")
+				'\t\t},',
+			].join('\n')
 		)
-		.join("\n");
+		.join('\n');
 
 	return [
 		'import type { PackageDocManifest } from "./manifest";',
-		"",
-		"export const contractsSpecDocManifest = {",
+		'',
+		'export const contractsSpecDocManifest = {',
 		`\tpackageName: ${quote(manifest.packageName)},`,
 		`\tgeneratedAt: ${quote(manifest.generatedAt)},`,
-		"\tblocks: [",
+		'\tblocks: [',
 		renderedEntries,
-		"\t],",
-		"} satisfies PackageDocManifest;",
-		"",
-	].join("\n");
+		'\t],',
+		'} satisfies PackageDocManifest;',
+		'',
+	].join('\n');
 }
 
 async function main(): Promise<void> {
@@ -54,7 +56,7 @@ async function main(): Promise<void> {
 		srcRoot,
 	});
 
-	fs.writeFileSync(outFile, renderManifest(manifest), "utf8");
+	fs.writeFileSync(outFile, renderManifest(manifest), 'utf8');
 	console.log(
 		`docs:manifest wrote ${path.relative(pkgRoot, outFile)} with ${manifest.blocks.length} DocBlocks`
 	);

@@ -6,9 +6,9 @@ import {
 	docBlocksToPresentationRoutes,
 	listRegisteredDocBlocks,
 	metaDocs,
-	techContractsDocs,
 } from '@contractspec/lib.contracts-spec/docs';
 import type { PresentationSpec } from '@contractspec/lib.contracts-spec/presentations';
+import { techContractsDocs } from '@contractspec/lib.contracts-spec/presentations';
 // Import sub-registries
 import { docsComponentMap, docsPresentations } from './registry-docs';
 import {

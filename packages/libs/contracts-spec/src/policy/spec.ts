@@ -1,8 +1,7 @@
-import type { OwnerShipMeta } from '../ownership';
-import type { VersionedSpecRef } from '../versioning';
-
 /** Effect of a policy rule: allow or deny access. */
 import type { DocBlock } from '../docs/types';
+import type { OwnerShipMeta } from '../ownership';
+import type { VersionedSpecRef } from '../versioning';
 export type PolicyEffect = 'allow' | 'deny';
 
 export interface RelationshipDefinition {

@@ -1,4 +1,5 @@
 import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
+
 export * from './merger';
 export * from './registry';
 export * from './runtime';

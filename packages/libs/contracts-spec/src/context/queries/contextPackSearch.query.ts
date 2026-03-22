@@ -1,7 +1,7 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
-import { defineQuery } from '../../operations';
-import type { DocBlock } from '../../docs/types';
 import { docRef } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { defineQuery } from '../../operations';
 import {
 	CONTEXT_DOMAIN,
 	CONTEXT_OWNERS,

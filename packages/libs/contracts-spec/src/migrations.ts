@@ -1,6 +1,5 @@
-import type { OwnerShipMeta } from './ownership';
-
 import type { DocBlock } from './docs/types';
+import type { OwnerShipMeta } from './ownership';
 export type MigrationStepKind = 'schema' | 'data' | 'validation';
 
 export interface MigrationCheck {

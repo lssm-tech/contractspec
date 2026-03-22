@@ -1,4 +1,6 @@
 import type { CapabilityRef, CapabilityRequirement } from '../capabilities';
+/** Minimal metadata to identify and categorize a feature module. */
+import type { DocBlock } from '../docs/types';
 import type { ExperimentRef } from '../experiments/spec';
 import type { ImplementationRef } from '../operations/';
 import type { OwnerShipMeta } from '../ownership';
@@ -6,9 +8,6 @@ import type { PolicyRef } from '../policy/spec';
 import type { PresentationTarget } from '../presentations/presentations';
 import type { TranslationRef } from '../translations/spec';
 import type { SpecKeyRef, VersionedSpecRef } from '../versioning';
-
-/** Minimal metadata to identify and categorize a feature module. */
-import type { DocBlock } from '../docs/types';
 export type FeatureModuleMeta = OwnerShipMeta;
 
 // ── Versioned spec references ────────────────────────────────────────────────

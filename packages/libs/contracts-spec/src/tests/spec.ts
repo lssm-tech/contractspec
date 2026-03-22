@@ -1,12 +1,11 @@
 import { compareVersions } from 'compare-versions';
-import type { OwnerShipMeta } from '../ownership';
-import type { OptionalVersionedSpecRef } from '../versioning';
-
 /**
  * Reference to an operation to be tested.
  * Version is optional; when omitted, refers to the latest version.
  */
 import type { DocBlock } from '../docs/types';
+import type { OwnerShipMeta } from '../ownership';
+import type { OptionalVersionedSpecRef } from '../versioning';
 export type OperationTargetRef = OptionalVersionedSpecRef;
 
 /**

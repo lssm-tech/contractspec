@@ -132,7 +132,10 @@ export async function loadAuthoredDocBlocksFromSourceFiles(
 	sourceFiles: string[],
 	adapters: Pick<WorkspaceAdapters, 'fs'>
 ): Promise<DocBlock[]> {
-	const entries = await loadAuthoredDocEntriesFromSourceFiles(sourceFiles, adapters);
+	const entries = await loadAuthoredDocEntriesFromSourceFiles(
+		sourceFiles,
+		adapters
+	);
 	return entries.map(({ entry }) => entry.block);
 }
 

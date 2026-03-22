@@ -1,11 +1,10 @@
+/** Metadata for an experiment spec. */
+import type { DocBlock } from '../docs/types';
 import type { OwnerShipMeta } from '../ownership';
 import type { PolicyRef } from '../policy/spec';
 import { SpecContractRegistry } from '../registry';
 import type { TelemetryEventDef } from '../telemetry/spec';
 import type { OptionalVersionedSpecRef } from '../versioning';
-
-/** Metadata for an experiment spec. */
-import type { DocBlock } from '../docs/types';
 export type ExperimentMeta = OwnerShipMeta;
 
 /**

@@ -4,6 +4,7 @@
  */
 
 import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
+
 // Differ
 export {
 	createSpecDiff,

@@ -1,6 +1,6 @@
-import { definePresentation } from '../../presentations';
-import type { DocBlock } from '../../docs/types';
 import { docId } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { definePresentation } from '../../presentations';
 import {
 	AGENT_DOMAIN,
 	AGENT_OWNERS,

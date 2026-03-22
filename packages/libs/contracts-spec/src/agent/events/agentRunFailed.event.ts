@@ -1,7 +1,7 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { docId } from '../../docs/registry';
 import type { DocBlock } from '../../docs/types';
 import { defineEvent } from '../../events';
-import { docId } from '../../docs/registry';
 import {
 	AGENT_DOMAIN,
 	AGENT_OWNERS,

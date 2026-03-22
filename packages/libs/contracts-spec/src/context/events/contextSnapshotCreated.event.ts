@@ -1,7 +1,7 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
-import { defineEvent } from '../../events';
-import type { DocBlock } from '../../docs/types';
 import { docRef } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { defineEvent } from '../../events';
 import {
 	CONTEXT_DOMAIN,
 	CONTEXT_OWNERS,

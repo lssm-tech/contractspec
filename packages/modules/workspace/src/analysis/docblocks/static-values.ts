@@ -1,4 +1,4 @@
-import ts from "typescript";
+import ts from 'typescript';
 
 export type JsonValue =
 	| string
@@ -11,7 +11,7 @@ export type JsonValue =
 export function evaluateExpression(
 	expression: ts.Expression,
 	locals: Map<string, JsonValue>,
-	filePath: string,
+	filePath: string
 ): JsonValue | undefined {
 	if (ts.isParenthesizedExpression(expression)) {
 		return evaluateExpression(expression.expression, locals, filePath);
@@ -47,7 +47,11 @@ export function evaluateExpression(
 	if (ts.isArrayLiteralExpression(expression)) {
 		const values: JsonValue[] = [];
 		for (const element of expression.elements) {
-			const value = evaluateExpression(element as ts.Expression, locals, filePath);
+			const value = evaluateExpression(
+				element as ts.Expression,
+				locals,
+				filePath
+			);
 			if (value === undefined) {
 				return undefined;
 			}
@@ -64,11 +68,11 @@ export function evaluateExpression(
 				return undefined;
 			}
 
-			const name = property.name.getText().replace(/^["']|["']$/g, "");
+			const name = property.name.getText().replace(/^["']|["']$/g, '');
 			const propertyValue = evaluateExpression(
 				property.initializer,
 				locals,
-				filePath,
+				filePath
 			);
 			if (propertyValue === undefined) {
 				return undefined;
@@ -85,17 +89,20 @@ export function evaluateExpression(
 
 	if (ts.isPropertyAccessExpression(expression)) {
 		const parent = evaluateExpression(expression.expression, locals, filePath);
-		if (!parent || typeof parent !== "object" || Array.isArray(parent)) {
+		if (!parent || typeof parent !== 'object' || Array.isArray(parent)) {
 			return undefined;
 		}
 
 		return parent[expression.name.text];
 	}
 
-	if (ts.isCallExpression(expression) && ts.isIdentifier(expression.expression)) {
+	if (
+		ts.isCallExpression(expression) &&
+		ts.isIdentifier(expression.expression)
+	) {
 		if (
-			(expression.expression.text === "docId" ||
-				expression.expression.text === "docRef") &&
+			(expression.expression.text === 'docId' ||
+				expression.expression.text === 'docRef') &&
 			expression.arguments.length === 1
 		) {
 			return evaluateExpression(expression.arguments[0]!, locals, filePath);
@@ -107,7 +114,7 @@ export function evaluateExpression(
 
 export function collectLocalValues(
 	sourceFile: ts.SourceFile,
-	filePath: string,
+	filePath: string
 ): Map<string, JsonValue> {
 	const locals = new Map<string, JsonValue>();
 
@@ -121,7 +128,11 @@ export function collectLocalValues(
 				continue;
 			}
 
-			const value = evaluateExpression(declaration.initializer, locals, filePath);
+			const value = evaluateExpression(
+				declaration.initializer,
+				locals,
+				filePath
+			);
 			if (value !== undefined) {
 				locals.set(declaration.name.text, value);
 			}

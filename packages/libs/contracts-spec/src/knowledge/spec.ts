@@ -1,8 +1,7 @@
+import type { DocBlock } from '../docs/types';
 import type { OwnerShipMeta } from '../ownership';
 import type { PolicyRef } from '../policy/spec';
 import { SpecContractRegistry } from '../registry';
-
-import type { DocBlock } from '../docs/types';
 export type KnowledgeCategory =
 	| 'canonical' // Ground truth - product specs, schemas, official policies
 	| 'operational' // Internal docs - support tickets, runbooks, sales materials

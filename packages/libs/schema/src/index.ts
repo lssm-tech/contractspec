@@ -1,4 +1,5 @@
 import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
+
 export * from './EnumType';
 export * from './entity';
 export * from './FieldType';

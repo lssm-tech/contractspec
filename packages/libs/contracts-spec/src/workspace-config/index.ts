@@ -3,6 +3,7 @@
  */
 
 import type { DocBlock } from '../docs/types';
+
 export {
 	type BumpStrategy,
 	BumpStrategySchema,

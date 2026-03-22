@@ -1,9 +1,9 @@
 import type { AnySchemaModel } from '@contractspec/lib.schema';
 import type { CapabilityRef } from '../capabilities/capabilities';
+import type { DocBlock } from '../docs/types';
 import type { OwnerShipMeta } from '../ownership';
 import type { BlockConfig } from './shim-blocknotejs';
 
-import type { DocBlock } from '../docs/types';
 export type { BlockConfig } from './shim-blocknotejs';
 
 /** Supported render targets for the transform engine and descriptors. */

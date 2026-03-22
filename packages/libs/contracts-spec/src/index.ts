@@ -1,4 +1,5 @@
 import type { DocBlock } from './docs/types';
+
 export { defineSchemaModel } from '@contractspec/lib.schema';
 export * from './acp';
 export * from './agent';
@@ -14,6 +15,11 @@ export type {
 export * from './control-plane';
 export type { DataViewFieldFormat } from './data-views/types';
 export * from './database';
+export type {
+	DocBlockManifestEntry,
+	PackageDocManifest,
+	WorkspaceDocManifest,
+} from './docs/manifest';
 export {
 	DocRegistry,
 	defaultDocRegistry,
@@ -27,11 +33,6 @@ export type {
 	DocKind,
 	DocVisibility,
 } from './docs/types';
-export type {
-	DocBlockManifestEntry,
-	PackageDocManifest,
-	WorkspaceDocManifest,
-} from './docs/manifest';
 export * from './events';
 export { defineExample } from './examples/define';
 export { ExampleRegistry } from './examples/registry';

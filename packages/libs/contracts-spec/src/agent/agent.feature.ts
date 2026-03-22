@@ -1,5 +1,5 @@
-import { defineFeature } from '../features';
 import type { DocBlock } from '../docs/types';
+import { defineFeature } from '../features';
 import {
 	AGENT_DOMAIN,
 	AGENT_OWNERS,

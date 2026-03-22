@@ -199,12 +199,15 @@
 		"./docs/commands/docsPublish.command": "./src/docs/commands/docsPublish.command.ts",
 		"./docs/constants": "./src/docs/constants.ts",
 		"./docs/contracts": "./src/docs/contracts.ts",
+		"./docs/docblocks.manifest.generated": "./src/docs/docblocks.manifest.generated.ts",
 		"./docs/docs.feature": "./src/docs/docs.feature.ts",
 		"./docs/events": "./src/docs/events/index.ts",
 		"./docs/events/docsGenerated.event": "./src/docs/events/docsGenerated.event.ts",
 		"./docs/events/docsPublished.event": "./src/docs/events/docsPublished.event.ts",
 		"./docs/forms": "./src/docs/forms/index.ts",
 		"./docs/forms/docsSearch.form": "./src/docs/forms/docsSearch.form.ts",
+		"./docs/manifest": "./src/docs/manifest.ts",
+		"./docs/manifest-builder": "./src/docs/manifest-builder.ts",
 		"./docs/presentations": "./src/docs/presentations.ts",
 		"./docs/presentations/docsLayout.presentation": "./src/docs/presentations/docsLayout.presentation.ts",
 		"./docs/presentations/docsReferencePage.presentation": "./src/docs/presentations/docsReferencePage.presentation.ts",
@@ -1315,6 +1318,12 @@
 				"node": "./dist/node/docs/contracts.js",
 				"default": "./dist/docs/contracts.js"
 			},
+			"./docs/docblocks.manifest.generated": {
+				"types": "./dist/docs/docblocks.manifest.generated.d.ts",
+				"bun": "./dist/docs/docblocks.manifest.generated.js",
+				"node": "./dist/node/docs/docblocks.manifest.generated.js",
+				"default": "./dist/docs/docblocks.manifest.generated.js"
+			},
 			"./docs/docs.feature": {
 				"types": "./dist/docs/docs.feature.d.ts",
 				"bun": "./dist/docs/docs.feature.js",
@@ -1350,6 +1359,18 @@
 				"bun": "./dist/docs/forms/docsSearch.form.js",
 				"node": "./dist/node/docs/forms/docsSearch.form.js",
 				"default": "./dist/docs/forms/docsSearch.form.js"
+			},
+			"./docs/manifest": {
+				"types": "./dist/docs/manifest.d.ts",
+				"bun": "./dist/docs/manifest.js",
+				"node": "./dist/node/docs/manifest.js",
+				"default": "./dist/docs/manifest.js"
+			},
+			"./docs/manifest-builder": {
+				"types": "./dist/docs/manifest-builder.d.ts",
+				"bun": "./dist/docs/manifest-builder.js",
+				"node": "./dist/node/docs/manifest-builder.js",
+				"default": "./dist/docs/manifest-builder.js"
 			},
 			"./docs/presentations": {
 				"types": "./dist/docs/presentations.d.ts",
