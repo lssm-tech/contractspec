@@ -1,0 +1,46 @@
+# @contractspec/app.web-landing
+
+**Next.js delivery shell for the public ContractSpec website: marketing, docs, registry pages, `/llms*`, and selected operate/sandbox surfaces.**
+
+## What It Does
+
+- Owns the app shell, metadata, OG generation, route wrappers, and public site delivery.
+- Publishes the marketing experience while delegating most page-body composition to `@contractspec/bundle.marketing`.
+- Serves docs, registry, sandbox, and operate surfaces while keeping their shared shell consistent with the public brand system.
+- Publishes `/llms`, `/llms.txt`, `/llms-full.txt`, and package-specific `/llms/[slug]` endpoints for agent-friendly repo guidance.
+
+## Architecture
+
+- `src/app/` contains route groups for marketing, docs, sandbox, operate, registry, and API endpoints.
+- `src/components/` contains app-local shell concerns such as header, footer, SEO helpers, and local route UI.
+- `public/llms*.txt` contains machine-readable monorepo guidance exposed directly from the site.
+- `scripts/generate-llms-full.mjs` regenerates the public aggregated README corpus used by `/llms-full.txt`.
+
+This package should stay thin:
+- marketing page narratives belong in `@contractspec/bundle.marketing`
+- docs and library composition belong in `@contractspec/bundle.library`
+- shared reusable UI primitives belong in lower layers
+
+## Public Entry Points
+
+- Web routes under `/`, `/product`, `/pricing`, `/templates`, `/contact`, `/changelog`, `/docs/*`, `/sandbox`, `/operate/*`, and registry surfaces.
+- Agent-facing discovery surfaces under `/llms`, `/llms.txt`, `/llms-full.txt`, and `/llms/[slug]`.
+- API endpoints under `src/app/api/*`, including OG and MCP/chat-related surfaces used by the public site.
+
+## Local Commands
+
+- `bun run dev` — bun --bun next dev
+- `bun run start` — bun --bun next start
+- `bun run build` — bun run llms:generate && bun --bun next build
+- `bun run lint` — bun run lint:fix
+- `bun run lint:check` — biome check .
+- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run clean` — rimraf .next dist .turbo
+- `bun run llms:generate` — bun scripts/generate-llms-full.mjs
+- `bun run build:types` — tsc --noEmit
+
+## Notes
+
+- Route changes here affect SEO, external links, and agent-discovery flows; keep URL stability high.
+- Branding changes in this package must stay aligned with root docs, generated root AGENTS content, and `public/llms.txt`.
+- When updating the public shell, verify that docs and `/llms*` remain readable; this package serves more than the marketing homepage.

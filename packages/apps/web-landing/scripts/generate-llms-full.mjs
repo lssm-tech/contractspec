@@ -69,7 +69,10 @@ function getPackageSlug(pkgName) {
 function generate() {
 	const packages = findPackages();
 	const output = [];
-	const slugToReadme = {};
+	const packageGuidesDir = path.join(webLandingRoot, 'public', 'llms-packages');
+
+	fs.rmSync(packageGuidesDir, { recursive: true, force: true });
+	fs.mkdirSync(packageGuidesDir, { recursive: true });
 
 	output.push('# ContractSpec — LLM Guide (Full)');
 	output.push('');
@@ -108,7 +111,11 @@ function generate() {
 		if (fs.existsSync(readmePath)) {
 			const readme = fs.readFileSync(readmePath, 'utf8');
 			output.push(readme);
-			slugToReadme[slug] = `${pkg.relativePath}/README.md`;
+			fs.writeFileSync(
+				path.join(packageGuidesDir, `${slug}.txt`),
+				readme,
+				'utf8'
+			);
 		} else {
 			output.push('(No README.md)');
 		}
@@ -121,19 +128,7 @@ function generate() {
 	const outPath = path.join(webLandingRoot, 'public', 'llms-full.txt');
 	fs.writeFileSync(outPath, output.join('\n'), 'utf8');
 	console.log(`Wrote ${outPath} (${packages.length} packages)`);
-
-	// Generate slug -> relative README path manifest for /llms/[slug] route resolver.
-	// Avoids Turbopack "overly broad file pattern" warnings from runtime filesystem scanning.
-	const manifestPath = path.join(
-		webLandingRoot,
-		'src',
-		'lib',
-		'llms-package-manifest.generated.json'
-	);
-	fs.writeFileSync(manifestPath, JSON.stringify(slugToReadme, null, 0), 'utf8');
-	console.log(
-		`Wrote ${manifestPath} (${Object.keys(slugToReadme).length} slugs)`
-	);
+	console.log(`Wrote ${packageGuidesDir} (${packages.length} guides)`);
 }
 
 generate();
