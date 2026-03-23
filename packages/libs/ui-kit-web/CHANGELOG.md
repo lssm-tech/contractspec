@@ -1,5 +1,17 @@
 # @contractspec/lib.ui-kit-web
 
+## 3.9.4
+
+### Patch Changes
+
+- Updated dependencies [81256ea]
+- Updated dependencies [2619dd8]
+- Updated dependencies [81256ea]
+- Updated dependencies [a4489bb]
+- Updated dependencies [9cb304e]
+  - @contractspec/lib.contracts-spec@5.0.0
+  - @contractspec/lib.presentation-runtime-core@3.9.0
+
 ## 3.9.3
 
 ### Patch Changes

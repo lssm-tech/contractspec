@@ -1,5 +1,17 @@
 # @contractspec/lib.workflow-composer
 
+## 3.7.12
+
+### Patch Changes
+
+- a4489bb: Harden workflow, agent, and channel runtime loops with deterministic validation, replay-aware session metadata, and adapter-friendly policy/checkpoint surfaces.
+- Updated dependencies [81256ea]
+- Updated dependencies [2619dd8]
+- Updated dependencies [81256ea]
+- Updated dependencies [a4489bb]
+- Updated dependencies [9cb304e]
+  - @contractspec/lib.contracts-spec@5.0.0
+
 ## 3.7.11
 
 ### Patch Changes

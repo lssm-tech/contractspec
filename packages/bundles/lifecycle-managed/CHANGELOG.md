@@ -1,5 +1,41 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 3.7.12
+
+### Patch Changes
+
+- 81256ea: Split agent definition contracts out of `@contractspec/lib.ai-agent` and make
+  `@contractspec/lib.contracts-spec` the source of truth for agent declaration APIs.
+
+  Major changes:
+
+  - Move `AgentSpec`, `AgentToolConfig`, `AgentPolicy`, `AgentRegistry`,
+    `createAgentRegistry`, `defineAgent`, and related definition-only types into
+    `@contractspec/lib.contracts-spec/agent`.
+  - Add `@contractspec/lib.contracts-spec/agent/spec` and
+    `@contractspec/lib.contracts-spec/agent/registry` export subpaths.
+  - Remove `@contractspec/lib.ai-agent/spec`,
+    `@contractspec/lib.ai-agent/spec/spec`, and
+    `@contractspec/lib.ai-agent/spec/registry`.
+  - Remove the spec layer from the `@contractspec/lib.ai-agent` root barrel so it
+    is runtime-focused.
+
+  Workspace consumers were migrated to import agent-definition contracts from
+  `@contractspec/lib.contracts-spec/agent`, and packages that only needed the
+  contract layer dropped their direct dependency on `@contractspec/lib.ai-agent`.
+
+- Updated dependencies [81256ea]
+- Updated dependencies [2619dd8]
+- Updated dependencies [81256ea]
+- Updated dependencies [a4489bb]
+- Updated dependencies [9cb304e]
+  - @contractspec/lib.contracts-spec@5.0.0
+  - @contractspec/lib.analytics@3.7.12
+  - @contractspec/lib.lifecycle@3.7.12
+  - @contractspec/lib.observability@3.7.12
+  - @contractspec/module.lifecycle-advisor@3.7.12
+  - @contractspec/module.lifecycle-core@3.7.12
+
 ## 3.7.11
 
 ### Patch Changes

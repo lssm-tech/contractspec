@@ -1,5 +1,14 @@
 # spec-driven-development
 
+## 3.7.12
+
+### Patch Changes
+
+- Updated dependencies [81256ea]
+- Updated dependencies [85ddd6a]
+- Updated dependencies [9cb304e]
+  - @contractspec/app.cli-contractspec@4.2.0
+
 ## 3.7.11
 
 ### Patch Changes

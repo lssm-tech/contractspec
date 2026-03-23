@@ -1,5 +1,25 @@
 # @contractspec/example.crm-pipeline
 
+## 3.7.12
+
+### Patch Changes
+
+- Updated dependencies [81256ea]
+- Updated dependencies [2619dd8]
+- Updated dependencies [6de2f1c]
+- Updated dependencies [81256ea]
+- Updated dependencies [a4489bb]
+- Updated dependencies [9cb304e]
+  - @contractspec/lib.contracts-spec@5.0.0
+  - @contractspec/lib.presentation-runtime-core@3.9.0
+  - @contractspec/lib.schema@3.7.10
+  - @contractspec/lib.design-system@3.8.5
+  - @contractspec/lib.example-shared-ui@6.0.12
+  - @contractspec/lib.identity-rbac@3.7.12
+  - @contractspec/lib.ui-kit-web@3.9.4
+  - @contractspec/module.audit-trail@3.7.12
+  - @contractspec/module.notifications@3.7.12
+
 ## 3.7.11
 
 ### Patch Changes

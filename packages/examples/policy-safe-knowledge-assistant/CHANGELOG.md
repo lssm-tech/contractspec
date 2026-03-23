@@ -1,5 +1,24 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 3.7.12
+
+### Patch Changes
+
+- Updated dependencies [81256ea]
+- Updated dependencies [2619dd8]
+- Updated dependencies [81256ea]
+- Updated dependencies [a4489bb]
+- Updated dependencies [9cb304e]
+  - @contractspec/lib.contracts-spec@5.0.0
+  - @contractspec/example.kb-update-pipeline@3.7.12
+  - @contractspec/example.learning-patterns@3.7.12
+  - @contractspec/example.locale-jurisdiction-gate@3.7.12
+  - @contractspec/example.versioned-knowledge-base@3.7.12
+  - @contractspec/lib.design-system@3.8.5
+  - @contractspec/lib.example-shared-ui@6.0.12
+  - @contractspec/lib.ui-kit-web@3.9.4
+  - @contractspec/module.learning-journey@3.7.12
+
 ## 3.7.11
 
 ### Patch Changes

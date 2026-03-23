@@ -1,5 +1,20 @@
 # @contractspec/lib.example-shared-ui
 
+## 6.0.12
+
+### Patch Changes
+
+- Updated dependencies [81256ea]
+- Updated dependencies [2619dd8]
+- Updated dependencies [81256ea]
+- Updated dependencies [a4489bb]
+- Updated dependencies [9cb304e]
+  - @contractspec/lib.contracts-spec@5.0.0
+  - @contractspec/lib.presentation-runtime-core@3.9.0
+  - @contractspec/lib.design-system@3.8.5
+  - @contractspec/lib.surface-runtime@0.5.12
+  - @contractspec/lib.ui-kit-web@3.9.4
+
 ## 6.0.11
 
 ### Patch Changes

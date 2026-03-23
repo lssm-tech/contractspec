@@ -1,5 +1,21 @@
 # @contractspec/example.product-intent
 
+## 3.7.12
+
+### Patch Changes
+
+- Updated dependencies [81256ea]
+- Updated dependencies [2619dd8]
+- Updated dependencies [81256ea]
+- Updated dependencies [a4489bb]
+- Updated dependencies [9cb304e]
+  - @contractspec/lib.contracts-spec@5.0.0
+  - @contractspec/lib.contracts-integrations@3.8.4
+  - @contractspec/lib.ai-agent@8.0.0
+  - @contractspec/integration.providers-impls@3.8.4
+  - @contractspec/lib.analytics@3.7.12
+  - @contractspec/lib.product-intent-utils@3.7.12
+
 ## 3.7.11
 
 ### Patch Changes

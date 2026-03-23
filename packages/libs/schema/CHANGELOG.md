@@ -1,5 +1,12 @@
 # @contractspec/lib.schema
 
+## 3.7.10
+
+### Patch Changes
+
+- 6de2f1c: Reject invalid `Date` and `DateTime` scalar inputs during `parseValue()` so
+  runtime parsing stays aligned with the attached Zod schema.
+
 ## 3.7.9
 
 ### Patch Changes

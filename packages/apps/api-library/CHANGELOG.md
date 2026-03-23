@@ -1,5 +1,28 @@
 # @contractspec/app.api-library
 
+## 3.8.4
+
+### Patch Changes
+
+- 4544c5d: Stabilize release validation and package-scoped test fixtures so workspace checks fail only on real regressions.
+
+  - Make the release manifest verifier treat npm 404 responses as non-retryable errors.
+  - Resolve the VS Code snippet fixture relative to the test file so it works from repo-wide test runs.
+  - Seed channel runtime capability grants in the API library integration tests to match production host configuration.
+
+- Updated dependencies [81256ea]
+- Updated dependencies [2619dd8]
+- Updated dependencies [81256ea]
+- Updated dependencies [85ddd6a]
+- Updated dependencies [a4489bb]
+- Updated dependencies [9cb304e]
+  - @contractspec/lib.contracts-spec@5.0.0
+  - @contractspec/bundle.workspace@4.1.0
+  - @contractspec/bundle.library@3.8.4
+  - @contractspec/integration.runtime@3.8.4
+  - @contractspec/bundle.marketing@3.8.4
+  - @contractspec/integration.providers-impls@3.8.4
+
 ## 3.8.3
 
 ### Patch Changes

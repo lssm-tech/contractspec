@@ -1,5 +1,18 @@
 # Changelog
 
+## 2.7.12
+
+### Patch Changes
+
+- Updated dependencies [81256ea]
+- Updated dependencies [2619dd8]
+- Updated dependencies [81256ea]
+- Updated dependencies [85ddd6a]
+- Updated dependencies [a4489bb]
+- Updated dependencies [9cb304e]
+  - @contractspec/lib.contracts-spec@5.0.0
+  - @contractspec/bundle.workspace@4.1.0
+
 ## 2.7.11
 
 ### Patch Changes

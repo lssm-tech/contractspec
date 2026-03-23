@@ -1,5 +1,18 @@
 # @contractspec/example.video-marketing-clip
 
+## 3.7.12
+
+### Patch Changes
+
+- Updated dependencies [81256ea]
+- Updated dependencies [2619dd8]
+- Updated dependencies [81256ea]
+- Updated dependencies [a4489bb]
+- Updated dependencies [9cb304e]
+  - @contractspec/lib.contracts-spec@5.0.0
+  - @contractspec/lib.content-gen@3.7.12
+  - @contractspec/lib.video-gen@2.7.12
+
 ## 3.7.11
 
 ### Patch Changes
