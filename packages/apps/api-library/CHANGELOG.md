@@ -1,5 +1,13 @@
 # @contractspec/app.api-library
 
+## 3.8.5
+
+### Patch Changes
+
+- Updated dependencies [03724cf]
+  - @contractspec/bundle.library@3.8.5
+  - @contractspec/bundle.marketing@3.8.5
+
 ## 3.8.4
 
 ### Patch Changes

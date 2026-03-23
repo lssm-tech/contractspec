@@ -1,5 +1,14 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 3.8.5
+
+### Patch Changes
+
+- 15c20ae: Replace dynamic `/llms/[slug]` README serving with build-generated static guide files so Vercel deploys stay under the serverless function size limit.
+- Updated dependencies [03724cf]
+  - @contractspec/bundle.library@3.8.5
+  - @contractspec/bundle.marketing@3.8.5
+
 ## 3.8.4
 
 ### Patch Changes
