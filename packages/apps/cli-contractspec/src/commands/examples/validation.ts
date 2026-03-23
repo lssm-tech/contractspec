@@ -1,7 +1,7 @@
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 import type { ExampleSpec } from '@contractspec/lib.contracts-spec/examples/types';
-import { buildPackageDocManifest } from '@contractspec/module.workspace';
+import { analyzePackageDocBlocks } from '@contractspec/module.workspace';
 
 const EXAMPLE_SCRIPT_GRACE_DEADLINE = Date.parse('2026-03-26T00:00:00+01:00');
 const EXECUTABLE_TEST_FILE_PATTERN = /\.(test|spec)\.(?:[cm]?[jt]sx?)$/;
@@ -110,17 +110,15 @@ export async function validateWorkspaceExamplesFolder(
 			errors.push('missing src/docs/index.ts');
 		}
 
-		try {
-			buildPackageDocManifest({
-				packageName: packageName ?? path.basename(exampleDir),
-				srcRoot: path.join(exampleDir, 'src'),
-			});
-		} catch (error) {
-			errors.push(
-				error instanceof Error
-					? error.message
-					: `DocBlock validation failed for ${exampleDir}`
-			);
+		const docAnalysis = analyzePackageDocBlocks({
+			packageName: packageName ?? path.basename(exampleDir),
+			srcRoot: path.join(exampleDir, 'src'),
+		});
+		for (const diagnostic of docAnalysis.diagnostics) {
+			if (diagnostic.severity !== 'error') {
+				continue;
+			}
+			errors.push(`${diagnostic.ruleId}: ${diagnostic.message}`);
 		}
 
 		const example = packageName

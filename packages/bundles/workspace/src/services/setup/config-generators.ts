@@ -35,7 +35,7 @@ export function generateContractsrcConfig(options: SetupOptions): object {
 			type: 'biome',
 		},
 		ci: {
-			checks: ['structure', 'integrity', 'deps', 'doctor', 'policy'],
+			checks: ['structure', 'integrity', 'deps', 'doctor', 'docs', 'policy'],
 			failOnWarnings: false,
 			uploadSarif: true,
 		},

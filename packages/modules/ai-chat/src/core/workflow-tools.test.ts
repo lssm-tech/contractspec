@@ -72,6 +72,8 @@ describe('workflow-tools', () => {
 				customSteps: [
 					{
 						after: 'validate-invoice',
+						transitionFrom: 'validate-invoice',
+						transitionTo: 'approve',
 						inject: {
 							id: 'legal-review',
 							type: 'human',

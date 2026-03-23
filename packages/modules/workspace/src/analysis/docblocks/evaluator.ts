@@ -12,6 +12,7 @@ import {
 export interface ModuleDocAnalysis {
 	entries: DocBlockManifestEntry[];
 	docRefs: string[];
+	docRefExports: Array<{ exportName: string; refs: string[] }>;
 }
 
 function isDocBlockValue(value: unknown): value is DocBlock {
@@ -102,6 +103,7 @@ export function extractModuleDocData(
 	const locals = collectLocalValues(sourceFile, filePath);
 	const entries: DocBlockManifestEntry[] = [];
 	const docRefs = new Set<string>();
+	const docRefExports: Array<{ exportName: string; refs: string[] }> = [];
 
 	for (const statement of sourceFile.statements) {
 		if (!ts.isVariableStatement(statement)) {
@@ -125,12 +127,19 @@ export function extractModuleDocData(
 				locals,
 				filePath
 			);
-			for (const ref of extractDocRefsFromExpression(
+			const declarationRefs = extractDocRefsFromExpression(
 				declaration.initializer,
 				locals,
 				filePath
-			)) {
+			);
+			for (const ref of declarationRefs) {
 				docRefs.add(ref);
+			}
+			if (declarationRefs.length > 0) {
+				docRefExports.push({
+					exportName: declaration.name.text,
+					refs: declarationRefs,
+				});
 			}
 
 			if (value === undefined) {
@@ -172,5 +181,5 @@ export function extractModuleDocData(
 		}
 	}
 
-	return { entries, docRefs: [...docRefs] };
+	return { entries, docRefs: [...docRefs], docRefExports };
 }

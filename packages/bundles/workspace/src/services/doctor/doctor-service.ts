@@ -17,6 +17,7 @@ import {
 	runCliChecks,
 	runConfigChecks,
 	runDepsChecks,
+	runDocChecks,
 	runLayerChecks,
 	runMcpChecks,
 	runWorkspaceChecks,
@@ -36,6 +37,7 @@ interface DoctorCheckRunners {
 	runConfigChecks: typeof runConfigChecks;
 	runMcpChecks: typeof runMcpChecks;
 	runDepsChecks: typeof runDepsChecks;
+	runDocChecks: typeof runDocChecks;
 	runWorkspaceChecks: typeof runWorkspaceChecks;
 	runAiChecks: typeof runAiChecks;
 	runLayerChecks: typeof runLayerChecks;
@@ -59,6 +61,7 @@ const defaultDoctorDependencies: DoctorDependencies = {
 		runConfigChecks,
 		runMcpChecks,
 		runDepsChecks,
+		runDocChecks,
 		runWorkspaceChecks,
 		runAiChecks,
 		runLayerChecks,
@@ -199,6 +202,8 @@ async function runCategoryChecks(
 			return checks.runMcpChecks(fs, ctx);
 		case 'deps':
 			return checks.runDepsChecks(fs, ctx);
+		case 'docs':
+			return checks.runDocChecks(fs, ctx);
 		case 'workspace':
 			return checks.runWorkspaceChecks(fs, ctx);
 		case 'ai':

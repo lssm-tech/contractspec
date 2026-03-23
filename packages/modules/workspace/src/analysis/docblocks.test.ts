@@ -2,7 +2,11 @@ import { describe, expect, it } from 'bun:test';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
-import { buildPackageDocManifest, extractModuleDocData } from './docblocks';
+import {
+	analyzePackageDocBlocks,
+	buildPackageDocManifest,
+	extractModuleDocData,
+} from './docblocks';
 
 describe('extractModuleDocData', () => {
 	it('extracts same-file DocBlocks and doc refs without executing the module', () => {
@@ -98,13 +102,89 @@ describe('buildPackageDocManifest', () => {
 				packageName: '@test/package',
 				srcRoot: dir,
 			})
-		).toThrow(/Missing DocBlock reference docs\.missing/);
+		).toThrow(/docblock-missing-ref/);
+	});
+
+	it('reports cross-file DocBlock references', () => {
+		const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'workspace-docs-cross-'));
+		fs.writeFileSync(
+			path.join(dir, 'sample.command.ts'),
+			`
+				import { docRef } from "@contractspec/lib.contracts-spec/docs";
+				export const SampleCommand = {
+					meta: {
+						docId: [docRef("docs.sample.shared")]
+					}
+				};
+			`,
+			'utf8'
+		);
+		fs.writeFileSync(
+			path.join(dir, 'docs.ts'),
+			`
+				import type { DocBlock } from "@contractspec/lib.contracts-spec/docs";
+				export const SharedDocBlock = {
+					id: "docs.sample.shared",
+					title: "Shared",
+					kind: "reference",
+					visibility: "public",
+					route: "/docs/shared",
+					body: "Shared"
+				} satisfies DocBlock;
+			`,
+			'utf8'
+		);
+
+		const result = analyzePackageDocBlocks({
+			packageName: '@test/package',
+			srcRoot: dir,
+		});
+
+		expect(
+			result.diagnostics.some(
+				(diagnostic) => diagnostic.ruleId === 'docblock-cross-file-reference'
+			)
+		).toBeTrue();
+	});
+
+	it('reports orphan DocBlocks in docs-only helper modules', () => {
+		const dir = fs.mkdtempSync(
+			path.join(os.tmpdir(), 'workspace-docs-orphan-')
+		);
+		const docsDir = path.join(dir, 'docs');
+		fs.mkdirSync(docsDir, { recursive: true });
+		fs.writeFileSync(
+			path.join(docsDir, 'overview.ts'),
+			`
+				import type { DocBlock } from "@contractspec/lib.contracts-spec/docs";
+				export const OverviewDocBlock = {
+					id: "docs.sample.overview",
+					title: "Overview",
+					kind: "reference",
+					visibility: "public",
+					route: "/docs/overview",
+					body: "Overview"
+				} satisfies DocBlock;
+			`,
+			'utf8'
+		);
+
+		const result = analyzePackageDocBlocks({
+			packageName: '@test/package',
+			srcRoot: dir,
+		});
+
+		expect(
+			result.diagnostics.some(
+				(diagnostic) => diagnostic.ruleId === 'docblock-orphan-owner'
+			)
+		).toBeTrue();
 	});
 
 	it('fails on duplicate routes', () => {
 		const dir = fs.mkdtempSync(path.join(os.tmpdir(), 'workspace-docs-route-'));
 		fs.writeFileSync(
-			path.join(dir, 'first.ts'),
+			path.join(dir, 'first.command.ts'),
 			`
 				import type { DocBlock } from "@contractspec/lib.contracts-spec/docs";
 				export const FirstDocBlock = {
@@ -119,7 +199,7 @@ describe('buildPackageDocManifest', () => {
 			'utf8'
 		);
 		fs.writeFileSync(
-			path.join(dir, 'second.ts'),
+			path.join(dir, 'second.query.ts'),
 			`
 				import type { DocBlock } from "@contractspec/lib.contracts-spec/docs";
 				export const SecondDocBlock = {

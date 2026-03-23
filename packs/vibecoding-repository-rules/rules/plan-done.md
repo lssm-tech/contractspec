@@ -13,7 +13,7 @@ Trigger: Run after completing docblock-plan-completion tasks.
 Checks:
 
 - Re-assert all DocBlocks added/updated for this plan include `kind` and `visibility` using allowed values (kind: goal/how/usage/reference/faq; visibility: public/internal/mixed).
-- Confirm PLAN_VNEXT documentation items (docs quickstarts + BlockNote support) are present in codebase and registered via `registerDocBlocks` with stable routes.
+- Confirm PLAN_VNEXT documentation items (docs quickstarts + BlockNote support) are present in codebase as same-file DocBlocks with stable routes.
 - Ensure doc content is spec-first, includes purpose/steps/guardrails, and avoids PII/secrets.
 
 Actions:

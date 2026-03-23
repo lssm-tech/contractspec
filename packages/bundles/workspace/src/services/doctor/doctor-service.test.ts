@@ -13,6 +13,7 @@ const mockRunCliChecks = mock(() => Promise.resolve([] as CheckResult[]));
 const mockRunConfigChecks = mock(() => Promise.resolve([]));
 const mockRunMcpChecks = mock(() => Promise.resolve([]));
 const mockRunDepsChecks = mock(() => Promise.resolve([]));
+const mockRunDocChecks = mock(() => Promise.resolve([]));
 const mockRunWorkspaceChecks = mock(() => Promise.resolve([]));
 const mockRunAiChecks = mock(() => Promise.resolve([]));
 const mockRunLayerChecks = mock(() => Promise.resolve([]));
@@ -31,6 +32,7 @@ describe('Doctor Service', () => {
 			runConfigChecks: mockRunConfigChecks,
 			runMcpChecks: mockRunMcpChecks,
 			runDepsChecks: mockRunDepsChecks,
+			runDocChecks: mockRunDocChecks,
 			runWorkspaceChecks: mockRunWorkspaceChecks,
 			runAiChecks: mockRunAiChecks,
 			runLayerChecks: mockRunLayerChecks,
@@ -48,6 +50,7 @@ describe('Doctor Service', () => {
 		mockRunConfigChecks.mockClear();
 		mockRunMcpChecks.mockClear();
 		mockRunDepsChecks.mockClear();
+		mockRunDocChecks.mockClear();
 		mockRunWorkspaceChecks.mockClear();
 		mockRunAiChecks.mockClear();
 		mockRunLayerChecks.mockClear();
@@ -78,6 +81,7 @@ describe('Doctor Service', () => {
 		expect(mockRunConfigChecks).toHaveBeenCalled();
 		expect(mockRunMcpChecks).toHaveBeenCalled();
 		expect(mockRunDepsChecks).toHaveBeenCalled();
+		expect(mockRunDocChecks).toHaveBeenCalled();
 		expect(mockRunWorkspaceChecks).toHaveBeenCalled();
 		expect(mockRunAiChecks).toHaveBeenCalled();
 		expect(mockRunLayerChecks).toHaveBeenCalled();

@@ -15,17 +15,17 @@ cursor:
   globs:
     - '**/*'
 ---
-Docs as First‑Class, Synchronized DocBlocks (colocated, no barrels)
+Docs as First-Class, Synchronized Same-File DocBlocks
 
 Policy (mandatory)
 
 - Before any code edit:
-  - Read colocated DocBlocks near the code you touch (e.g., `packages/libs/contracts/src/docs/**` and feature/module-specific `*.docblock.ts` files). The legacy `/docs` markdown is empty and must not be used.
+  - Read the DocBlock exported from the owner module you are changing. Concrete docs belong in the exact command/query/event/form/view/presentation/capability/data-view file; domain docs belong only in `*.feature.ts`, `spec.ts`, or `index.ts`.
   - Identify mismatches between implementation and DocBlocks; plan DocBlock updates alongside code changes.
 - After the code edit (same turn when feasible):
   - Update the relevant DocBlocks (not markdown files) so they reflect new behavior, types, APIs, feature flags, metrics, and UX flows.
   - If no behavioral change, still fix DocBlock drift.
-  - Ensure DocBlock registration is intact (via `registerDocBlocks`/decorator) and required fields are present (`id/title/body/kind/route/visibility`).
+  - Ensure each authored DocBlock is a static `export const ... satisfies DocBlock` in the owner module with required fields present (`id/title/body/kind/route/visibility`).
   - If a required DocBlock is missing, create it or flag the gap explicitly with path and owner; do not skip silently.
 
 Traceability & Reversibility
@@ -36,17 +36,19 @@ Traceability & Reversibility
 Composability
 
 - When code introduces enums, feature flags, APIs, or specs referenced in ≥2 places, ensure the canonical DocBlock exists and is linked via `docId` on specs/features/presentations/capabilities/events.
-- Avoid barrel doc registries; use colocated DocBlocks and decorator-based registration.
+- `docId`/`docRef` references are lightweight and validated statically; loading all docs happens through generated manifests, not runtime registration or side-effect imports.
+- Avoid doc barrels and docs-only helper files.
 
 Heuristics
 ✅ Scan relevant DocBlocks before coding; update DocBlocks after coding.
 ✅ Prefer precise, implementation‑grounded updates; clearly label roadmap vs current.
 ✅ Capture deferred doc tasks when spanning domains.
 ✅ Keep naming/units consistent across code and DocBlocks; flag inconsistencies.
-✅ Ensure docIds are registered (`docId(...)` passes) and that routes/ids are unique.
+✅ Ensure routes and ids are unique, and each `meta.docId` points to a DocBlock exported from the same owner module.
 ✅ When introducing shared enums/flags/APIs referenced in ≥2 places, ensure the canonical DocBlock exists and link via `docId`.
 ❌ Do not add markdown under `/docs`; use DocBlocks only.
-❌ Do not create barrel doc registries; avoid aggregating DocBlocks in index files beyond required side-effect imports for registration.
+❌ Do not author `*.docblock.ts`, use `src/docs/tech`, or rely on `registerDocBlocks`.
+❌ Do not create doc barrels or side-effect doc loaders.
 
 Exceptions (narrow)
 

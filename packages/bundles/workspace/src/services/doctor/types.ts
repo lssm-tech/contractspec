@@ -12,6 +12,7 @@ export type CheckCategory =
 	| 'config'
 	| 'mcp'
 	| 'deps'
+	| 'docs'
 	| 'workspace'
 	| 'ai'
 	| 'layers';
@@ -24,6 +25,7 @@ export const ALL_CHECK_CATEGORIES: CheckCategory[] = [
 	'config',
 	'mcp',
 	'deps',
+	'docs',
 	'workspace',
 	'ai',
 	'layers',
@@ -37,6 +39,7 @@ export const CHECK_CATEGORY_LABELS: Record<CheckCategory, string> = {
 	config: 'Configuration Files',
 	mcp: 'MCP Server',
 	deps: 'Dependencies',
+	docs: 'DocBlock Ownership',
 	workspace: 'Workspace Structure',
 	ai: 'AI Provider',
 	layers: 'Contract Layers',

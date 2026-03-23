@@ -19,6 +19,7 @@ export function createCategorySummary(
 		integrity: 'Contract Integrity Analysis',
 		deps: 'Dependency Analysis',
 		doctor: 'Installation Health',
+		docs: 'DocBlock Ownership',
 		policy: 'Contract Policy Enforcement',
 		handlers: 'Handler Implementation',
 		tests: 'Test Coverage',
@@ -96,7 +97,7 @@ export function getChecksToRun(options: {
 	const allCategories: CICheckCategory[] =
 		configuredChecks && configuredChecks.length > 0
 			? [...(configuredChecks as CICheckCategory[])]
-			: ['structure', 'integrity', 'deps', 'doctor'];
+			: ['structure', 'integrity', 'deps', 'doctor', 'docs'];
 
 	// Add optional checks if explicitly requested
 	if (options.checkHandlers) {
