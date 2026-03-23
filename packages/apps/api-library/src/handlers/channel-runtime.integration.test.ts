@@ -23,6 +23,7 @@ const app = new Elysia()
 const TEST_ENV_KEYS = [
 	'CHANNEL_RUNTIME_STORAGE',
 	'CHANNEL_RUNTIME_ASYNC_PROCESSING',
+	'CHANNEL_RUNTIME_DEFAULT_CAPABILITY_GRANTS',
 	'CHANNEL_DISPATCH_TOKEN',
 	'CHANNEL_ALLOW_UNMAPPED_WORKSPACE',
 	'CHANNEL_WORKSPACE_MAP_SLACK',
@@ -57,6 +58,8 @@ beforeEach(() => {
 	}
 	process.env.CHANNEL_RUNTIME_STORAGE = 'memory';
 	process.env.CHANNEL_RUNTIME_ASYNC_PROCESSING = '0';
+	process.env.CHANNEL_RUNTIME_DEFAULT_CAPABILITY_GRANTS =
+		'control-plane.channel-runtime.reply.autonomous,control-plane.approval.request';
 	process.env.CHANNEL_DISPATCH_TOKEN = 'dispatch-token';
 	process.env.CHANNEL_ALLOW_UNMAPPED_WORKSPACE = '0';
 });
