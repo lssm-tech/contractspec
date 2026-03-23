@@ -28,6 +28,24 @@ export function buildDocResources(routes: DocPresentationRoute[]) {
 	resources.register(
 		defineResourceTemplate({
 			meta: {
+				uriTemplate: 'docs://index',
+				title: 'DocBlocks index',
+				description: 'Default ContractSpec docs index resource.',
+				mimeType: 'application/json',
+				tags: DOC_TAGS,
+			},
+			input: z.object({}),
+			resolve: async () => ({
+				uri: 'docs://index',
+				mimeType: 'application/json',
+				data: JSON.stringify(readDocIndex({}), null, 2),
+			}),
+		})
+	);
+
+	resources.register(
+		defineResourceTemplate({
+			meta: {
 				uriTemplate: 'docs://index{?query,tag,kind,visibility,limit,offset}',
 				title: 'DocBlocks index',
 				description:

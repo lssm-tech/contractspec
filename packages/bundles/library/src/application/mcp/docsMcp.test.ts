@@ -59,22 +59,34 @@ describe('docs MCP handler', () => {
 		expect(promptNames).toContain('docs_navigator');
 		expect(promptNames).toContain('docs_reference_guide');
 
-		const resourcesResponse = await mcpRequest('resources/templates/list');
-		const resourcesBody = await resourcesResponse.json();
-		const resources =
-			resourcesBody.result.resources ?? resourcesBody.result.resourceTemplates;
-		const resourceUris = resources.map(
+		const listedResourcesResponse = await mcpRequest('resources/list');
+		const listedResourcesBody = await listedResourcesResponse.json();
+		const listedResources = listedResourcesBody.result.resources ?? [];
+		const listedResourceUris = listedResources.map(
 			(resource: { uri?: string; uriTemplate?: string }) =>
 				resource.uriTemplate ?? resource.uri
 		);
-		expect(resourceUris).toContain(
+		expect(listedResourceUris).toContain('docs://index');
+		expect(listedResourceUris).toContain('docs://list');
+		expect(listedResourceUris).toContain('docs://facets');
+
+		const templatesResponse = await mcpRequest('resources/templates/list');
+		const templatesBody = await templatesResponse.json();
+		const templates = templatesBody.result.resourceTemplates ?? [];
+		const templateUris = templates.map(
+			(resource: { uri?: string; uriTemplate?: string }) =>
+				resource.uriTemplate ?? resource.uri
+		);
+		expect(templateUris).toContain(
 			'docs://index{?query,tag,kind,visibility,limit,offset}'
 		);
-		expect(resourceUris).toContain(
+		expect(templateUris).toContain(
 			'docs://contract-reference/{key}{?version,type,includeSchema}'
 		);
 		expect(
-			resourceUris.some((uri: string) => uri.startsWith('presentation://'))
+			listedResourceUris.some((uri: string) =>
+				uri.startsWith('presentation://')
+			)
 		).toBeFalse();
 	});
 
