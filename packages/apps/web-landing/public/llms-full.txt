@@ -2,7 +2,7 @@
 
 > Aggregated content from all packages. For summary, see /llms
 
-Generated: 2026-03-23T06:45:33.384Z
+Generated: 2026-03-24T10:52:51.566Z
 Packages: 164
 
 ---
@@ -13277,7 +13277,6 @@ Website: https://contractspec.io
 - **Layer**: integration.
 - **Consumers**: `providers-impls`, bundles, apps that need secrets or channel routing.
 - Related ContractSpec packages include `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.logger`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
-- Related ContractSpec packages include `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.logger`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
 ## Installation
 
@@ -13352,7 +13351,7 @@ The channel runtime keeps policy evaluation deterministic and auditable:
 - Export `./transport/auth-resolver` resolves through `./src/transport/auth-resolver.ts`.
 - Export `./transport/transport-factory` resolves through `./src/transport/transport-factory.ts`.
 - Export `./transport/version-negotiator` resolves through `./src/transport/version-negotiator.ts`.
-- The package publishes 37 total export subpaths; keep docs aligned with `package.json`.
+- The package publishes 41 total export subpaths; keep docs aligned with `package.json`.
 
 ## Local Commands
 
