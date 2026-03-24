@@ -1,5 +1,28 @@
 # @contractspec/app.provider-ranking-mcp
 
+## 1.6.14
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.14
+  - @contractspec/module.provider-ranking@0.7.13
+  - @contractspec/lib.provider-ranking@0.7.10
+  - @contractspec/lib.contracts-spec@5.0.2
+  - @contractspec/lib.ai-providers@3.7.10
+  - @contractspec/lib.logger@3.7.10
+
+## 1.6.13
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.13
+  - @contractspec/module.provider-ranking@0.7.13
+
 ## 1.6.12
 
 ### Patch Changes

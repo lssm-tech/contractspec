@@ -1,5 +1,34 @@
 # Changelog
 
+## 3.8.2
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-transformers@3.7.14
+  - @contractspec/lib.contracts-spec@5.0.2
+  - @contractspec/bundle.workspace@4.1.2
+  - @contractspec/lib.ai-providers@3.7.10
+  - @contractspec/module.workspace@4.1.1
+  - @contractspec/module.examples@3.8.6
+  - @contractspec/module.ai-chat@4.3.14
+  - @contractspec/lib.ai-agent@8.0.2
+
+## 3.8.1
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/bundle.workspace@4.1.1
+  - @contractspec/lib.ai-agent@8.0.1
+  - @contractspec/lib.contracts-transformers@3.7.13
+  - @contractspec/module.ai-chat@4.3.13
+  - @contractspec/module.examples@3.8.5
+  - @contractspec/module.workspace@4.1.1
+
 ## 3.8.0
 
 ### Minor Changes

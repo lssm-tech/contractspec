@@ -1,5 +1,13 @@
 # contractspec
 
+## 3.7.13
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+  - @contractspec/app.cli-contractspec@4.2.2
+
 ## 3.7.12
 
 ### Patch Changes

@@ -1,5 +1,25 @@
 # @contractspec/lib.presentation-runtime-react
 
+## 36.0.2
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.presentation-runtime-core@3.9.2
+  - @contractspec/lib.contracts-spec@5.0.2
+  - @contractspec/lib.ui-kit-web@3.9.6
+
+## 36.0.1
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/lib.presentation-runtime-core@3.9.1
+  - @contractspec/lib.ui-kit-web@3.9.5
+
 ## 36.0.0
 
 ### Patch Changes

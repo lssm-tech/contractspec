@@ -1,5 +1,37 @@
 # @contractspec/example.saas-boilerplate
 
+## 3.8.6
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.presentation-runtime-core@3.9.2
+  - @contractspec/lib.example-shared-ui@6.0.14
+  - @contractspec/module.notifications@3.7.13
+  - @contractspec/lib.runtime-sandbox@2.7.11
+  - @contractspec/lib.contracts-spec@5.0.2
+  - @contractspec/module.audit-trail@3.7.14
+  - @contractspec/lib.design-system@3.8.7
+  - @contractspec/lib.identity-rbac@3.7.14
+  - @contractspec/lib.schema@3.7.11
+  - @contractspec/lib.jobs@3.7.14
+
+## 3.8.5
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/lib.design-system@3.8.6
+  - @contractspec/lib.example-shared-ui@6.0.13
+  - @contractspec/lib.identity-rbac@3.7.13
+  - @contractspec/lib.jobs@3.7.13
+  - @contractspec/lib.presentation-runtime-core@3.9.1
+  - @contractspec/module.audit-trail@3.7.13
+  - @contractspec/module.notifications@3.7.13
+
 ## 3.8.4
 
 ### Patch Changes

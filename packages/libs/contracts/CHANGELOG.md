@@ -1,5 +1,11 @@
 # @contractspec/lib.contracts
 
+## 2.7.10
+
+### Patch Changes
+
+- chore: stability & release
+
 ## 2.7.9
 
 ### Patch Changes

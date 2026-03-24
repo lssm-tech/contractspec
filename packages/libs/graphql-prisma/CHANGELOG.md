@@ -1,5 +1,13 @@
 # @contractspec/lib.graphql-prisma
 
+## 3.7.11
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+  - @contractspec/lib.schema@3.7.11
+
 ## 3.7.10
 
 ### Patch Changes

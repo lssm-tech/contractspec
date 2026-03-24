@@ -1,5 +1,14 @@
 # @contractspec/lib.ui-kit
 
+## 3.8.6
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+  - @contractspec/lib.presentation-runtime-core@3.9.2
+  - @contractspec/lib.ui-kit-core@3.7.10
+
 ## 3.8.5
 
 ### Patch Changes

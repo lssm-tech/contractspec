@@ -1,5 +1,32 @@
 # @contractspec/lib.video-gen
 
+## 2.7.14
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-integrations@3.8.6
+  - @contractspec/lib.contracts-spec@5.0.2
+  - @contractspec/lib.design-system@3.8.7
+  - @contractspec/lib.ai-providers@3.7.10
+  - @contractspec/lib.content-gen@3.7.14
+  - @contractspec/lib.image-gen@1.7.14
+  - @contractspec/lib.voice@1.7.14
+
+## 2.7.13
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/lib.content-gen@3.7.13
+  - @contractspec/lib.contracts-integrations@3.8.5
+  - @contractspec/lib.design-system@3.8.6
+  - @contractspec/lib.image-gen@1.7.13
+  - @contractspec/lib.voice@1.7.13
+
 ## 2.7.12
 
 ### Patch Changes

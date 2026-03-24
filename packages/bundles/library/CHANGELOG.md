@@ -1,5 +1,55 @@
 # @contractspec/bundle.library
 
+## 3.8.7
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-runtime-server-graphql@3.7.14
+  - @contractspec/lib.contracts-runtime-client-react@3.8.2
+  - @contractspec/lib.contracts-runtime-server-rest@3.7.14
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.14
+  - @contractspec/lib.contracts-integrations@3.8.6
+  - @contractspec/module.context-storage@0.7.13
+  - @contractspec/lib.contracts-library@3.7.14
+  - @contractspec/lib.example-shared-ui@6.0.14
+  - @contractspec/lib.provider-ranking@0.7.10
+  - @contractspec/lib.runtime-sandbox@2.7.11
+  - @contractspec/lib.surface-runtime@0.5.14
+  - @contractspec/lib.contracts-spec@5.0.2
+  - @contractspec/lib.design-system@3.8.7
+  - @contractspec/lib.ai-providers@3.7.10
+  - @contractspec/lib.content-gen@3.7.14
+  - @contractspec/module.examples@3.8.6
+  - @contractspec/lib.ui-kit-web@3.9.6
+  - @contractspec/lib.knowledge@3.7.14
+  - @contractspec/lib.ui-link@3.7.10
+  - @contractspec/lib.logger@3.7.10
+  - @contractspec/lib.schema@3.7.11
+
+## 3.8.6
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/lib.content-gen@3.7.13
+  - @contractspec/lib.contracts-integrations@3.8.5
+  - @contractspec/lib.contracts-library@3.7.13
+  - @contractspec/lib.contracts-runtime-client-react@3.8.1
+  - @contractspec/lib.contracts-runtime-server-graphql@3.7.13
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.13
+  - @contractspec/lib.contracts-runtime-server-rest@3.7.13
+  - @contractspec/lib.design-system@3.8.6
+  - @contractspec/lib.example-shared-ui@6.0.13
+  - @contractspec/lib.knowledge@3.7.13
+  - @contractspec/lib.surface-runtime@0.5.13
+  - @contractspec/lib.ui-kit-web@3.9.5
+  - @contractspec/module.examples@3.8.5
+  - @contractspec/module.context-storage@0.7.13
+
 ## 3.8.5
 
 ### Patch Changes

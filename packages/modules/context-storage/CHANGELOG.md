@@ -1,5 +1,16 @@
 # @contractspec/module.context-storage
 
+## 0.7.13
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+  - @contractspec/lib.contracts-integrations@3.8.6
+  - @contractspec/lib.context-storage@0.7.10
+  - @contractspec/lib.knowledge@3.7.14
+  - @contractspec/lib.schema@3.7.11
+
 ## 0.7.12
 
 ### Patch Changes

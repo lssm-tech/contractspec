@@ -1,5 +1,11 @@
 # @contractspec/lib.provider-ranking
 
+## 0.7.10
+
+### Patch Changes
+
+- chore: stability & release
+
 ## 0.7.9
 
 ### Patch Changes

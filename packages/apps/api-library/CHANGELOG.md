@@ -1,5 +1,31 @@
 # @contractspec/app.api-library
 
+## 3.8.7
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/integration.providers-impls@3.8.6
+  - @contractspec/integration.runtime@3.8.6
+  - @contractspec/lib.contracts-spec@5.0.2
+  - @contractspec/bundle.marketing@3.8.7
+  - @contractspec/bundle.workspace@4.1.2
+  - @contractspec/bundle.library@3.8.7
+
+## 3.8.6
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/integration.runtime@3.8.5
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/integration.providers-impls@3.8.5
+  - @contractspec/bundle.library@3.8.6
+  - @contractspec/bundle.marketing@3.8.6
+  - @contractspec/bundle.workspace@4.1.1
+
 ## 3.8.5
 
 ### Patch Changes

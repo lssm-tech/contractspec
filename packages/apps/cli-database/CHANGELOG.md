@@ -1,5 +1,13 @@
 # @contractspec/app.cli-database
 
+## 3.7.12
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+  - @contractspec/lib.schema@3.7.11
+
 ## 3.7.11
 
 ### Patch Changes

@@ -1,5 +1,25 @@
 # @contractspec/integration.providers-impls
 
+## 3.8.6
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-integrations@3.8.6
+  - @contractspec/integration.runtime@3.8.6
+  - @contractspec/lib.contracts-spec@5.0.2
+
+## 3.8.5
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/integration.runtime@3.8.5
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/lib.contracts-integrations@3.8.5
+
 ## 3.8.4
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @contractspec/module.workspace
 
+## 4.1.1
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-integrations@3.8.6
+  - @contractspec/lib.contracts-spec@5.0.2
+  - @contractspec/lib.schema@3.7.11
+
 ## 4.1.0
 
 ### Minor Changes

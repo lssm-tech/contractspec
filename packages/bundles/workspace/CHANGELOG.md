@@ -1,5 +1,34 @@
 # @contractspec/bundle.workspace
 
+## 4.1.2
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-integrations@3.8.6
+  - @contractspec/lib.contracts-transformers@3.7.14
+  - @contractspec/lib.source-extractors@2.7.14
+  - @contractspec/lib.utils-typescript@3.7.10
+  - @contractspec/lib.contracts-spec@5.0.2
+  - @contractspec/biome-config@3.8.4
+  - @contractspec/lib.ai-providers@3.7.10
+  - @contractspec/module.workspace@4.1.1
+  - @contractspec/lib.ai-agent@8.0.2
+
+## 4.1.1
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/lib.ai-agent@8.0.1
+  - @contractspec/lib.contracts-integrations@3.8.5
+  - @contractspec/lib.contracts-transformers@3.7.13
+  - @contractspec/lib.source-extractors@2.7.13
+  - @contractspec/module.workspace@4.1.1
+
 ## 4.1.0
 
 ### Minor Changes

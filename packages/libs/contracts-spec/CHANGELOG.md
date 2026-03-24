@@ -1,5 +1,20 @@
 # @contractspec/lib.contracts-spec
 
+## 5.0.2
+
+### Patch Changes
+
+- chore: stability & release
+- dd6e074: Expand the control-plane runtime with contract-backed policy evaluation, persisted trace-chain events, deterministic DAG plans, and signed skill registry services for operators.
+- Updated dependencies
+  - @contractspec/lib.schema@3.7.11
+
+## 5.0.1
+
+### Patch Changes
+
+- dd6e074: Expand the control-plane runtime with contract-backed policy evaluation, persisted trace-chain events, deterministic DAG plans, and signed skill registry services for operators.
+
 ## 5.0.0
 
 ### Major Changes

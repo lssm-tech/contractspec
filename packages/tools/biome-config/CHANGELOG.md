@@ -1,5 +1,11 @@
 # @contractspec/biome-config
 
+## 3.8.4
+
+### Patch Changes
+
+- chore: stability & release
+
 ## 3.8.3
 
 ### Patch Changes

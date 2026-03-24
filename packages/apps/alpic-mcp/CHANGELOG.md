@@ -1,5 +1,14 @@
 # @contractspec/app.alpic-mcp
 
+## 3.7.13
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+  - @contractspec/bundle.alpic@3.7.13
+  - @contractspec/lib.logger@3.7.10
+
 ## 3.7.12
 
 ### Patch Changes

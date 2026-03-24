@@ -1,5 +1,25 @@
 # @contractspec/example.voice-providers
 
+## 3.7.14
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/integration.providers-impls@3.8.6
+  - @contractspec/lib.contracts-integrations@3.8.6
+  - @contractspec/lib.contracts-spec@5.0.2
+
+## 3.7.13
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/integration.providers-impls@3.8.5
+  - @contractspec/lib.contracts-integrations@3.8.5
+
 ## 3.7.12
 
 ### Patch Changes

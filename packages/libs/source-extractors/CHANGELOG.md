@@ -1,5 +1,22 @@
 # @contractspec/lib.source-extractors
 
+## 2.7.14
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.2
+  - @contractspec/lib.schema@3.7.11
+
+## 2.7.13
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+
 ## 2.7.12
 
 ### Patch Changes

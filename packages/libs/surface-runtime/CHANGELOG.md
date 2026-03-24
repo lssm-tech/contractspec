@@ -1,5 +1,25 @@
 # @contractspec/lib.surface-runtime
 
+## 0.5.14
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.2
+  - @contractspec/lib.overlay-engine@3.7.14
+  - @contractspec/lib.observability@3.7.14
+
+## 0.5.13
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/lib.observability@3.7.13
+  - @contractspec/lib.overlay-engine@3.7.13
+
 ## 0.5.12
 
 ### Patch Changes

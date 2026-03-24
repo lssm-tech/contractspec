@@ -1,5 +1,16 @@
 # @contractspec/module.notifications
 
+## 3.7.13
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.2
+  - @contractspec/lib.schema@3.7.11
+  - @contractspec/lib.bus@3.7.14
+
 ## 3.7.12
 
 ### Patch Changes

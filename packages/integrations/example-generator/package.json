@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/integration.example-generator",
-	"version": "37.0.0",
+	"version": "37.0.2",
 	"description": "Example plugin: Markdown documentation generator for ContractSpec specs",
 	"keywords": [
 		"contractspec",
@@ -54,8 +54,8 @@
 		"@contractspec/tool.bun": "workspace:*"
 	},
 	"peerDependencies": {
-		"@contractspec/lib.contracts-spec": "^5.0.0",
-		"@contractspec/lib.schema": "^3.7.10"
+		"@contractspec/lib.contracts-spec": "^5.0.2",
+		"@contractspec/lib.schema": "^3.7.11"
 	},
 	"publishConfig": {
 		"access": "public",

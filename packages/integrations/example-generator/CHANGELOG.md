@@ -1,5 +1,22 @@
 # @contractspec/integration.example-generator
 
+## 37.0.2
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.2
+  - @contractspec/lib.schema@3.7.11
+
+## 37.0.1
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+
 ## 37.0.0
 
 ### Patch Changes

@@ -1,5 +1,36 @@
 # @contractspec/module.ai-chat
 
+## 4.3.14
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.workflow-composer@3.7.14
+  - @contractspec/lib.surface-runtime@0.5.14
+  - @contractspec/lib.contracts-spec@5.0.2
+  - @contractspec/lib.cost-tracking@3.7.10
+  - @contractspec/lib.design-system@3.8.7
+  - @contractspec/lib.ai-providers@3.7.10
+  - @contractspec/lib.ui-kit-web@3.9.6
+  - @contractspec/lib.ai-agent@8.0.2
+  - @contractspec/lib.metering@3.7.14
+  - @contractspec/lib.schema@3.7.11
+
+## 4.3.13
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/lib.ai-agent@8.0.1
+  - @contractspec/lib.design-system@3.8.6
+  - @contractspec/lib.metering@3.7.13
+  - @contractspec/lib.surface-runtime@0.5.13
+  - @contractspec/lib.ui-kit-web@3.9.5
+  - @contractspec/lib.workflow-composer@3.7.13
+
 ## 4.3.12
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/example.visualization-showcase",
-	"version": "3.9.4",
+	"version": "3.9.6",
 	"description": "Focused visualization showcase for ContractSpec primitives and design-system wrappers",
 	"type": "module",
 	"types": "./dist/index.d.ts",

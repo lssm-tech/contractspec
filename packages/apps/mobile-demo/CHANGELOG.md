@@ -1,5 +1,29 @@
 # @contractspec/app.expo-demo
 
+## 1.1.14
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.presentation-runtime-react-native@36.0.1
+  - @contractspec/lib.presentation-runtime-core@3.9.2
+  - @contractspec/lib.contracts-spec@5.0.2
+  - @contractspec/lib.ui-kit-core@3.7.10
+  - @contractspec/lib.schema@3.7.11
+  - @contractspec/lib.ui-kit@3.8.6
+
+## 1.1.13
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/lib.presentation-runtime-core@3.9.1
+  - @contractspec/lib.presentation-runtime-react-native@36.0.1
+  - @contractspec/lib.ui-kit@3.8.6
+
 ## 1.1.12
 
 ### Patch Changes

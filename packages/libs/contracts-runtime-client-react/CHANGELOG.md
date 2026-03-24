@@ -1,5 +1,24 @@
 # @contractspec/lib.contracts-runtime-client-react
 
+## 3.8.2
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.presentation-runtime-core@3.9.2
+  - @contractspec/lib.contracts-spec@5.0.2
+  - @contractspec/lib.schema@3.7.11
+
+## 3.8.1
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/lib.presentation-runtime-core@3.9.1
+
 ## 3.8.0
 
 ### Minor Changes

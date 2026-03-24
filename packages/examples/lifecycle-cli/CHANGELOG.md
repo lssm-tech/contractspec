@@ -1,5 +1,26 @@
 # @contractspec/example.lifecycle-cli
 
+## 3.7.14
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/bundle.lifecycle-managed@3.7.14
+  - @contractspec/lib.contracts-spec@5.0.2
+  - @contractspec/lib.lifecycle@3.7.14
+  - @contractspec/lib.logger@3.7.10
+
+## 3.7.13
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/bundle.lifecycle-managed@3.7.13
+  - @contractspec/lib.lifecycle@3.7.13
+
 ## 3.7.12
 
 ### Patch Changes

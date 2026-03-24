@@ -1,5 +1,28 @@
 # @contractspec/example.data-grid-showcase
 
+## 3.8.6
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.presentation-runtime-react@36.0.2
+  - @contractspec/lib.contracts-spec@5.0.2
+  - @contractspec/lib.design-system@3.8.7
+  - @contractspec/lib.ui-kit-web@3.9.6
+  - @contractspec/lib.schema@3.7.11
+
+## 3.8.5
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/lib.design-system@3.8.6
+  - @contractspec/lib.presentation-runtime-react@36.0.1
+  - @contractspec/lib.ui-kit-web@3.9.5
+
 ## 3.8.4
 
 ### Patch Changes

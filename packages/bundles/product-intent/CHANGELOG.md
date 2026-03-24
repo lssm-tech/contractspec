@@ -1,5 +1,23 @@
 # @contractspec/bundle.product-intent
 
+## 3.7.14
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/module.product-intent-core@3.7.13
+  - @contractspec/lib.contracts-spec@5.0.2
+
+## 3.7.13
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/module.product-intent-core@3.7.13
+
 ## 3.7.12
 
 ### Patch Changes

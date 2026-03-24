@@ -1,5 +1,29 @@
 # @contractspec/lib.example-shared-ui
 
+## 6.0.14
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.presentation-runtime-core@3.9.2
+  - @contractspec/lib.surface-runtime@0.5.14
+  - @contractspec/lib.contracts-spec@5.0.2
+  - @contractspec/lib.design-system@3.8.7
+  - @contractspec/lib.ui-kit-web@3.9.6
+
+## 6.0.13
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/lib.design-system@3.8.6
+  - @contractspec/lib.presentation-runtime-core@3.9.1
+  - @contractspec/lib.surface-runtime@0.5.13
+  - @contractspec/lib.ui-kit-web@3.9.5
+
 ## 6.0.12
 
 ### Patch Changes

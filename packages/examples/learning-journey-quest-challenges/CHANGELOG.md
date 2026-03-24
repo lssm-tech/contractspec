@@ -1,5 +1,23 @@
 # @contractspec/example.learning-journey-quest-challenges
 
+## 3.7.14
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/module.learning-journey@3.7.13
+  - @contractspec/lib.contracts-spec@5.0.2
+
+## 3.7.13
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/module.learning-journey@3.7.13
+
 ## 3.7.12
 
 ### Patch Changes

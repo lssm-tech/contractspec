@@ -1,5 +1,58 @@
 # @contractspec/bundle.marketing
 
+## 3.8.7
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-runtime-client-react@3.8.2
+  - @contractspec/example.visualization-showcase@3.9.6
+  - @contractspec/example.analytics-dashboard@3.9.6
+  - @contractspec/example.data-grid-showcase@3.8.6
+  - @contractspec/example.saas-boilerplate@3.8.6
+  - @contractspec/example.integration-hub@3.8.6
+  - @contractspec/example.workflow-system@3.8.6
+  - @contractspec/example.agent-console@3.8.6
+  - @contractspec/lib.example-shared-ui@6.0.14
+  - @contractspec/example.crm-pipeline@3.7.14
+  - @contractspec/example.marketplace@3.8.6
+  - @contractspec/lib.runtime-sandbox@2.7.11
+  - @contractspec/lib.surface-runtime@0.5.14
+  - @contractspec/lib.contracts-spec@5.0.2
+  - @contractspec/lib.design-system@3.8.7
+  - @contractspec/lib.ui-kit-core@3.7.10
+  - @contractspec/module.examples@3.8.6
+  - @contractspec/bundle.library@3.8.7
+  - @contractspec/lib.ui-kit-web@3.9.6
+  - @contractspec/lib.ui-link@3.7.10
+  - @contractspec/lib.logger@3.7.10
+  - @contractspec/lib.email@3.7.10
+
+## 3.8.6
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/bundle.library@3.8.6
+  - @contractspec/example.agent-console@3.8.5
+  - @contractspec/example.analytics-dashboard@3.9.5
+  - @contractspec/example.crm-pipeline@3.7.13
+  - @contractspec/example.data-grid-showcase@3.8.5
+  - @contractspec/example.integration-hub@3.8.5
+  - @contractspec/example.marketplace@3.8.5
+  - @contractspec/example.saas-boilerplate@3.8.5
+  - @contractspec/example.visualization-showcase@3.9.5
+  - @contractspec/example.workflow-system@3.8.5
+  - @contractspec/lib.contracts-runtime-client-react@3.8.1
+  - @contractspec/lib.design-system@3.8.6
+  - @contractspec/lib.example-shared-ui@6.0.13
+  - @contractspec/lib.surface-runtime@0.5.13
+  - @contractspec/lib.ui-kit-web@3.9.5
+  - @contractspec/module.examples@3.8.5
+
 ## 3.8.5
 
 ### Patch Changes

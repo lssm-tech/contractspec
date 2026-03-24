@@ -1,5 +1,21 @@
 # @contractspec/lib.presentation-runtime-core
 
+## 3.9.2
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.2
+
+## 3.9.1
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+
 ## 3.9.0
 
 ### Minor Changes

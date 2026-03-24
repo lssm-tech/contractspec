@@ -1,5 +1,23 @@
 # @contractspec/example.in-app-docs
 
+## 3.7.14
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.example-shared-ui@6.0.14
+  - @contractspec/lib.contracts-spec@5.0.2
+
+## 3.7.13
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/lib.example-shared-ui@6.0.13
+
 ## 3.7.12
 
 ### Patch Changes

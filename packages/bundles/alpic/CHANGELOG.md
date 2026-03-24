@@ -1,5 +1,13 @@
 # @contractspec/bundle.alpic
 
+## 3.7.13
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+  - @contractspec/module.alpic@3.7.14
+
 ## 3.7.12
 
 ### Patch Changes

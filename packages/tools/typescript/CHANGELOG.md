@@ -1,5 +1,11 @@
 # @contractspec/tool.typescript
 
+## 3.7.10
+
+### Patch Changes
+
+- chore: stability & release
+
 ## 3.7.9
 
 ### Patch Changes

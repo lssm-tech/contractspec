@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/app.expo-demo",
-	"version": "1.1.12",
+	"version": "1.1.14",
 	"private": true,
 	"description": "Minimal Expo React Native app - Task List demo for ContractSpec mobile runtime",
 	"scripts": {

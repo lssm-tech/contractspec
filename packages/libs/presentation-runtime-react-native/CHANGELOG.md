@@ -1,5 +1,15 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 36.0.1
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+  - @contractspec/lib.presentation-runtime-react@36.0.2
+  - @contractspec/lib.presentation-runtime-core@3.9.2
+  - @contractspec/lib.ui-kit@3.8.6
+
 ## 36.0.0
 
 ### Patch Changes

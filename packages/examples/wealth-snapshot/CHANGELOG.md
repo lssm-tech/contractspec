@@ -1,5 +1,28 @@
 # @contractspec/example.wealth-snapshot
 
+## 3.7.14
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/module.notifications@3.7.13
+  - @contractspec/lib.contracts-spec@5.0.2
+  - @contractspec/module.audit-trail@3.7.14
+  - @contractspec/lib.identity-rbac@3.7.14
+  - @contractspec/lib.schema@3.7.11
+
+## 3.7.13
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/lib.identity-rbac@3.7.13
+  - @contractspec/module.audit-trail@3.7.13
+  - @contractspec/module.notifications@3.7.13
+
 ## 3.7.12
 
 ### Patch Changes

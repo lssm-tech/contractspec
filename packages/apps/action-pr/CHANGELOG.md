@@ -1,5 +1,23 @@
 # Changelog
 
+## 2.7.14
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.2
+  - @contractspec/bundle.workspace@4.1.2
+
+## 2.7.13
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/bundle.workspace@4.1.1
+
 ## 2.7.12
 
 ### Patch Changes

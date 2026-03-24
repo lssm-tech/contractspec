@@ -1,5 +1,11 @@
 # @contractspec/app.cursor-marketplace
 
+## 1.7.10
+
+### Patch Changes
+
+- chore: stability & release
+
 ## 1.7.9
 
 ### Patch Changes

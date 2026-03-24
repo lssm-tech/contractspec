@@ -1,5 +1,13 @@
 # @contractspec/lib.ai-providers
 
+## 3.7.10
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+  - @contractspec/lib.provider-ranking@0.7.10
+
 ## 3.7.9
 
 ### Patch Changes

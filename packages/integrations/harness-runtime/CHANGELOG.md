@@ -1,5 +1,23 @@
 # @contractspec/integration.harness-runtime
 
+## 0.2.7
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.2
+  - @contractspec/lib.harness@0.2.7
+
+## 0.2.6
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/lib.harness@0.2.6
+
 ## 0.2.5
 
 ### Patch Changes

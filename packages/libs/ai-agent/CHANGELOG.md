@@ -1,5 +1,26 @@
 # @contractspec/lib.ai-agent
 
+## 8.0.2
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.surface-runtime@0.5.14
+  - @contractspec/lib.contracts-spec@5.0.2
+  - @contractspec/lib.ai-providers@3.7.10
+  - @contractspec/lib.knowledge@3.7.14
+
+## 8.0.1
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/lib.knowledge@3.7.13
+  - @contractspec/lib.surface-runtime@0.5.13
+
 ## 8.0.0
 
 ### Major Changes

@@ -1,5 +1,15 @@
 # @contractspec/lib.accessibility
 
+## 3.7.13
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+  - @contractspec/lib.design-system@3.8.7
+  - @contractspec/lib.ui-kit-web@3.9.6
+  - @contractspec/lib.ui-kit@3.8.6
+
 ## 3.7.12
 
 ### Patch Changes

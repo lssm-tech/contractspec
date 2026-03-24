@@ -1,5 +1,25 @@
 # Changelog
 
+## 3.9.6
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.presentation-runtime-core@3.9.2
+  - @contractspec/lib.contracts-spec@5.0.2
+  - @contractspec/lib.design-system@3.8.7
+
+## 3.9.5
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/lib.design-system@3.8.6
+  - @contractspec/lib.presentation-runtime-core@3.9.1
+
 ## 3.9.4
 
 ### Patch Changes

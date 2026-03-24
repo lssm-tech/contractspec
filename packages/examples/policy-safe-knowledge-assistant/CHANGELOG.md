@@ -1,5 +1,38 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 3.7.14
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/example.locale-jurisdiction-gate@3.7.14
+  - @contractspec/example.versioned-knowledge-base@3.7.14
+  - @contractspec/example.kb-update-pipeline@3.7.14
+  - @contractspec/example.learning-patterns@3.7.14
+  - @contractspec/module.learning-journey@3.7.13
+  - @contractspec/lib.example-shared-ui@6.0.14
+  - @contractspec/lib.runtime-sandbox@2.7.11
+  - @contractspec/lib.contracts-spec@5.0.2
+  - @contractspec/lib.design-system@3.8.7
+  - @contractspec/lib.ui-kit-web@3.9.6
+
+## 3.7.13
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/example.kb-update-pipeline@3.7.13
+  - @contractspec/example.learning-patterns@3.7.13
+  - @contractspec/example.locale-jurisdiction-gate@3.7.13
+  - @contractspec/example.versioned-knowledge-base@3.7.13
+  - @contractspec/lib.design-system@3.8.6
+  - @contractspec/lib.example-shared-ui@6.0.13
+  - @contractspec/lib.ui-kit-web@3.9.5
+  - @contractspec/module.learning-journey@3.7.13
+
 ## 3.7.12
 
 ### Patch Changes

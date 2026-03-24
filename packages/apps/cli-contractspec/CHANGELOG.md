@@ -1,5 +1,43 @@
 # Changelog
 
+## 4.2.2
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-integrations@3.8.6
+  - @contractspec/lib.contracts-transformers@3.7.14
+  - @contractspec/integration.runtime@3.8.6
+  - @contractspec/lib.contracts-spec@5.0.2
+  - @contractspec/bundle.workspace@4.1.2
+  - @contractspec/lib.ai-providers@3.7.10
+  - @contractspec/module.workspace@4.1.1
+  - @contractspec/module.examples@3.8.6
+  - @contractspec/module.ai-chat@4.3.14
+  - @contractspec/lib.ai-agent@8.0.2
+  - @contractspec/lib.plugins@3.7.14
+  - @contractspec/lib.testing@3.7.14
+  - @contractspec/lib.schema@3.7.11
+
+## 4.2.1
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/integration.runtime@3.8.5
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/bundle.workspace@4.1.1
+  - @contractspec/lib.ai-agent@8.0.1
+  - @contractspec/lib.contracts-integrations@3.8.5
+  - @contractspec/lib.contracts-transformers@3.7.13
+  - @contractspec/lib.plugins@3.7.13
+  - @contractspec/lib.testing@3.7.13
+  - @contractspec/module.ai-chat@4.3.13
+  - @contractspec/module.examples@3.8.5
+  - @contractspec/module.workspace@4.1.1
+
 ## 4.2.0
 
 ### Minor Changes

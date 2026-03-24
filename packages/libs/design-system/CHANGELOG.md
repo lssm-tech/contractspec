@@ -1,5 +1,31 @@
 # @contractspec/lib.design-system
 
+## 3.8.7
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-runtime-client-react@3.8.2
+  - @contractspec/lib.presentation-runtime-react@36.0.2
+  - @contractspec/lib.contracts-spec@5.0.2
+  - @contractspec/lib.ui-kit-web@3.9.6
+  - @contractspec/lib.ai-agent@8.0.2
+  - @contractspec/lib.ui-kit@3.8.6
+
+## 3.8.6
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/lib.ai-agent@8.0.1
+  - @contractspec/lib.contracts-runtime-client-react@3.8.1
+  - @contractspec/lib.presentation-runtime-react@36.0.1
+  - @contractspec/lib.ui-kit-web@3.9.5
+  - @contractspec/lib.ui-kit@3.8.6
+
 ## 3.8.5
 
 ### Patch Changes

@@ -1,5 +1,11 @@
 # @contractspec/lib.runtime-sandbox
 
+## 2.7.11
+
+### Patch Changes
+
+- chore: stability & release
+
 ## 2.7.10
 
 ### Patch Changes
