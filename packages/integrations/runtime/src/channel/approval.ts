@@ -1,19 +1,15 @@
 import { createHash } from 'node:crypto';
-
+import { applyResolvedApprovalStatus } from './approval-plan';
 import {
 	ChannelAuthorizationEngine,
 	type ChannelAuthorizationEvaluator,
 } from './authorization';
 import { buildChannelPlanTrace, getExecutionStep } from './planner';
-import type {
-	ChannelRuntimeStore,
-	ListPendingApprovalsInput,
-	ResolveDecisionApprovalInput,
-} from './store';
+import type { ChannelRuntimeStore, ListPendingApprovalsInput } from './store';
 import type { ChannelTelemetryEmitter } from './telemetry';
+import { recordChannelTelemetry } from './telemetry-recorder';
 import type {
 	ChannelApprovalContext,
-	ChannelCompiledPlan,
 	ChannelDecisionRecord,
 	ChannelExecutionActor,
 } from './types';
@@ -86,68 +82,105 @@ export class ChannelApprovalService {
 			capabilityGrants: input.capabilityGrants,
 		});
 		const actedAt = input.approvedAt ?? this.now();
-		const actionPlan = updateApprovalPlan(decision.actionPlan, 'approved');
+		if (decision.actionPlan.policy?.verdict === 'blocked') {
+			throw new Error(
+				`Decision ${decision.id} is blocked and cannot be approved for dispatch.`
+			);
+		}
+		const actionPlan = applyResolvedApprovalStatus(
+			decision.actionPlan,
+			'approved'
+		);
 		const toolTrace = buildChannelPlanTrace(actionPlan);
 		const approvalContext = toApprovalContext(input);
-		const updated = await this.store.resolveDecisionApproval({
-			decisionId: decision.id,
-			approvalStatus: 'approved',
-			actorId: input.approvedBy,
-			actedAt,
-			approvalContext,
-			actionPlan,
-			toolTrace,
-		});
-		if (!updated) {
-			throw new Error(`Decision ${decision.id} no longer exists.`);
-		}
 
 		const executionStep = getExecutionStep(actionPlan);
-		const responseText = executionStep?.output?.['responseText'];
+		const responseText = executionStep?.output?.responseText;
 		if (!executionStep || typeof responseText !== 'string') {
 			throw new Error(
 				`Decision ${decision.id} is missing executable reply details.`
 			);
 		}
 
-		await this.store.enqueueOutboxAction({
-			workspaceId: actionPlan.workspaceId,
-			providerKey: actionPlan.providerKey,
-			decisionId: updated.id,
-			threadId: updated.threadId,
-			actionType: 'reply',
-			idempotencyKey: buildApprovalOutboxIdempotencyKey(
-				actionPlan.id,
-				executionStep.id,
-				responseText
-			),
-			target: {
-				externalThreadId: executionStep.input['externalThreadId'],
-				externalChannelId: executionStep.input['externalChannelId'],
-				externalUserId: executionStep.input['externalUserId'],
-			},
-			payload: {
-				text: responseText,
-			},
-		});
-
-		this.telemetry?.record({
-			stage: 'approval',
-			status: 'approved',
-			workspaceId: actionPlan.workspaceId,
-			providerKey: actionPlan.providerKey,
-			receiptId: updated.receiptId,
-			sessionId: actionPlan.audit.sessionId,
-			workflowId: actionPlan.audit.workflowId,
-			traceId: actionPlan.traceId,
-			metadata: {
-				decisionId: updated.id,
+		const approved = await this.store.approveDecisionAndEnqueueOutbox({
+			resolution: {
+				decisionId: decision.id,
+				approvalStatus: 'approved',
 				actorId: input.approvedBy,
-				actorType: input.actorType ?? 'human',
-				capabilitySource: input.capabilitySource ?? '',
-				approvedBy: input.approvedBy,
+				actedAt,
+				approvalContext,
+				actionPlan,
+				toolTrace,
+			},
+			outbox: {
+				workspaceId: actionPlan.workspaceId,
+				providerKey: actionPlan.providerKey,
+				decisionId: decision.id,
+				threadId: decision.threadId,
+				actionType: 'reply',
+				idempotencyKey: buildApprovalOutboxIdempotencyKey(
+					actionPlan.id,
+					executionStep.id,
+					responseText
+				),
+				target: {
+					externalThreadId: executionStep.input.externalThreadId,
+					externalChannelId: executionStep.input.externalChannelId,
+					externalUserId: executionStep.input.externalUserId,
+				},
+				payload: {
+					text: responseText,
+				},
 			},
 		});
+		if (!approved) {
+			throw new Error(`Decision ${decision.id} is no longer pending approval.`);
+		}
+		const { decision: updated, outboxAction } = approved;
+		await recordChannelTelemetry(
+			this.store,
+			this.telemetry,
+			{
+				stage: 'outbox',
+				status: 'accepted',
+				workspaceId: actionPlan.workspaceId,
+				providerKey: actionPlan.providerKey,
+				receiptId: updated.receiptId,
+				actionId: outboxAction.actionId,
+				sessionId: actionPlan.audit.sessionId,
+				workflowId: actionPlan.audit.workflowId,
+				traceId: actionPlan.traceId,
+				metadata: {
+					actionType: 'reply',
+					decisionId: updated.id,
+					actorId: input.approvedBy,
+				},
+			},
+			updated.id
+		);
+
+		await recordChannelTelemetry(
+			this.store,
+			this.telemetry,
+			{
+				stage: 'approval',
+				status: 'approved',
+				workspaceId: actionPlan.workspaceId,
+				providerKey: actionPlan.providerKey,
+				receiptId: updated.receiptId,
+				sessionId: actionPlan.audit.sessionId,
+				workflowId: actionPlan.audit.workflowId,
+				traceId: actionPlan.traceId,
+				metadata: {
+					decisionId: updated.id,
+					actorId: input.approvedBy,
+					actorType: input.actorType ?? 'human',
+					capabilitySource: input.capabilitySource ?? '',
+					approvedBy: input.approvedBy,
+				},
+			},
+			updated.id
+		);
 
 		return updated;
 	}
@@ -161,7 +194,10 @@ export class ChannelApprovalService {
 			actorId: input.rejectedBy,
 			capabilityGrants: input.capabilityGrants,
 		});
-		const actionPlan = updateApprovalPlan(decision.actionPlan, 'rejected');
+		const actionPlan = applyResolvedApprovalStatus(
+			decision.actionPlan,
+			'rejected'
+		);
 		const approvalContext = toApprovalContext(input);
 		const updated = await this.store.resolveDecisionApproval({
 			decisionId: decision.id,
@@ -174,26 +210,31 @@ export class ChannelApprovalService {
 			toolTrace: buildChannelPlanTrace(actionPlan),
 		});
 		if (!updated) {
-			throw new Error(`Decision ${decision.id} no longer exists.`);
+			throw new Error(`Decision ${decision.id} is no longer pending approval.`);
 		}
 
-		this.telemetry?.record({
-			stage: 'approval',
-			status: 'rejected',
-			workspaceId: actionPlan.workspaceId,
-			providerKey: actionPlan.providerKey,
-			receiptId: updated.receiptId,
-			sessionId: actionPlan.audit.sessionId,
-			workflowId: actionPlan.audit.workflowId,
-			traceId: actionPlan.traceId,
-			metadata: {
-				decisionId: updated.id,
-				actorId: input.rejectedBy,
-				actorType: input.actorType ?? 'human',
-				capabilitySource: input.capabilitySource ?? '',
-				rejectedBy: input.rejectedBy,
+		await recordChannelTelemetry(
+			this.store,
+			this.telemetry,
+			{
+				stage: 'approval',
+				status: 'rejected',
+				workspaceId: actionPlan.workspaceId,
+				providerKey: actionPlan.providerKey,
+				receiptId: updated.receiptId,
+				sessionId: actionPlan.audit.sessionId,
+				workflowId: actionPlan.audit.workflowId,
+				traceId: actionPlan.traceId,
+				metadata: {
+					decisionId: updated.id,
+					actorId: input.rejectedBy,
+					actorType: input.actorType ?? 'human',
+					capabilitySource: input.capabilitySource ?? '',
+					rejectedBy: input.rejectedBy,
+				},
 			},
-		});
+			updated.id
+		);
 
 		return updated;
 	}
@@ -221,7 +262,10 @@ export class ChannelApprovalService {
 
 		const results: ChannelDecisionRecord[] = [];
 		for (const decision of expired) {
-			const actionPlan = updateApprovalPlan(decision.actionPlan, 'expired');
+			const actionPlan = applyResolvedApprovalStatus(
+				decision.actionPlan,
+				'expired'
+			);
 			const updated = await this.store.resolveDecisionApproval({
 				decisionId: decision.id,
 				approvalStatus: 'expired',
@@ -233,22 +277,27 @@ export class ChannelApprovalService {
 				toolTrace: buildChannelPlanTrace(actionPlan),
 			});
 			if (updated) {
-				this.telemetry?.record({
-					stage: 'approval',
-					status: 'expired',
-					workspaceId: actionPlan.workspaceId,
-					providerKey: actionPlan.providerKey,
-					receiptId: updated.receiptId,
-					sessionId: actionPlan.audit.sessionId,
-					workflowId: actionPlan.audit.workflowId,
-					traceId: actionPlan.traceId,
-					metadata: {
-						decisionId: updated.id,
-						actorId: input.actorId ?? 'system:timeout',
-						actorType: input.actorType ?? 'service',
-						capabilitySource: input.capabilitySource ?? '',
+				await recordChannelTelemetry(
+					this.store,
+					this.telemetry,
+					{
+						stage: 'approval',
+						status: 'expired',
+						workspaceId: actionPlan.workspaceId,
+						providerKey: actionPlan.providerKey,
+						receiptId: updated.receiptId,
+						sessionId: actionPlan.audit.sessionId,
+						workflowId: actionPlan.audit.workflowId,
+						traceId: actionPlan.traceId,
+						metadata: {
+							decisionId: updated.id,
+							actorId: input.actorId ?? 'system:timeout',
+							actorType: input.actorType ?? 'service',
+							capabilitySource: input.capabilitySource ?? '',
+						},
 					},
-				});
+					updated.id
+				);
 				results.push(updated);
 			}
 		}
@@ -283,28 +332,6 @@ function toApprovalContext(
 		sessionId: input.sessionId,
 		capabilitySource: input.capabilitySource,
 		capabilityGrants: input.capabilityGrants,
-	};
-}
-
-function updateApprovalPlan(
-	plan: ChannelCompiledPlan,
-	status: Extract<
-		ResolveDecisionApprovalInput['approvalStatus'],
-		'approved' | 'rejected' | 'expired'
-	>
-): ChannelCompiledPlan {
-	return {
-		...plan,
-		approval: {
-			...plan.approval,
-			status,
-		},
-		steps: plan.steps.map((step) =>
-			step.contractKey === 'controlPlane.execution.start' &&
-			status === 'approved'
-				? { ...step, status: 'completed' }
-				: step
-		),
 	};
 }
 

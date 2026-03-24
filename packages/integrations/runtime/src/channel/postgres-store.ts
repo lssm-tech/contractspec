@@ -1,42 +1,59 @@
 import { randomUUID } from 'node:crypto';
 
-import type { Pool } from 'pg';
+import type { Pool, PoolClient } from 'pg';
 
 import {
 	CLAIM_EVENT_RECEIPT_SQL,
 	CLAIM_PENDING_OUTBOX_SQL,
+	COUNT_SKILL_INSTALLATIONS_SQL,
+	DISABLE_SKILL_INSTALLATION_SQL,
 	ENQUEUE_OUTBOX_SQL,
+	FIND_SKILL_INSTALLATION_SQL,
 	GET_DECISION_SQL,
+	GET_RECEIPT_ID_BY_EXTERNAL_EVENT_SQL,
 	GET_RECEIPT_SQL,
+	GET_SKILL_INSTALLATION_SQL,
 	GET_THREAD_SQL,
 	INSERT_DECISION_SQL,
 	INSERT_DELIVERY_ATTEMPT_SQL,
+	INSERT_TRACE_EVENT_SQL,
 	LIST_DECISIONS_SQL,
 	LIST_DELIVERY_ATTEMPTS_FOR_ACTION_SQL,
 	LIST_OUTBOX_ACTIONS_FOR_DECISION_SQL,
 	LIST_PENDING_APPROVALS_SQL,
+	LIST_SKILL_INSTALLATIONS_SQL,
+	LIST_TRACE_EVENTS_SQL,
 	MARK_OUTBOX_DEAD_LETTER_SQL,
 	MARK_OUTBOX_RETRY_SQL,
 	MARK_OUTBOX_SENT_SQL,
 	MARK_RECEIPT_DUPLICATE_SQL,
+	RECOVER_REJECTED_RECEIPT_SQL,
 	RESOLVE_DECISION_APPROVAL_SQL,
 	UPDATE_RECEIPT_STATUS_SQL,
+	UPSERT_SKILL_INSTALLATION_SQL,
 	UPSERT_THREAD_SQL,
 } from './postgres-queries';
 import { CHANNEL_RUNTIME_SCHEMA_STATEMENTS } from './postgres-schema';
 import type {
+	AppendTraceEventInput,
+	ApproveDecisionAndEnqueueOutboxInput,
 	ChannelRuntimeStore,
 	ClaimEventReceiptInput,
 	ClaimEventReceiptResult,
+	DisableSkillInstallationInput,
 	EnqueueOutboxActionInput,
 	EnqueueOutboxActionResult,
 	ListDecisionsInput,
 	ListPendingApprovalsInput,
+	ListSkillInstallationsInput,
+	ListSkillInstallationsResult,
+	ListTraceEventsInput,
 	MarkOutboxDeadLetterInput,
 	MarkOutboxRetryInput,
 	RecordDeliveryAttemptInput,
 	ResolveDecisionApprovalInput,
 	SaveDecisionInput,
+	SaveSkillInstallationInput,
 	UpsertThreadInput,
 } from './store';
 import type {
@@ -45,6 +62,8 @@ import type {
 	ChannelEventReceiptRecord,
 	ChannelOutboxActionRecord,
 	ChannelThreadRecord,
+	ChannelTraceEventRecord,
+	ControlPlaneSkillInstallationRecord,
 } from './types';
 
 interface IdInsertedRow {
@@ -65,7 +84,7 @@ export class PostgresChannelRuntimeStore implements ChannelRuntimeStore {
 		input: ClaimEventReceiptInput
 	): Promise<ClaimEventReceiptResult> {
 		const id = randomUUID();
-		const result = await this.pool.query<IdInsertedRow>(
+		const inserted = await this.pool.query<{ id: string }>(
 			CLAIM_EVENT_RECEIPT_SQL,
 			[
 				id,
@@ -78,19 +97,46 @@ export class PostgresChannelRuntimeStore implements ChannelRuntimeStore {
 				input.traceId ?? null,
 			]
 		);
+		const insertedRow = inserted.rows[0];
+		if (insertedRow) {
+			return {
+				receiptId: insertedRow.id,
+				duplicate: false,
+			};
+		}
 
-		const row = result.rows[0];
-		if (!row) {
+		const recovered = await this.pool.query<{ id: string }>(
+			RECOVER_REJECTED_RECEIPT_SQL,
+			[
+				input.workspaceId,
+				input.providerKey,
+				input.externalEventId,
+				input.signatureValid,
+				input.payloadHash ?? null,
+				input.traceId ?? null,
+			]
+		);
+		const recoveredRow = recovered.rows[0];
+		if (recoveredRow) {
+			return {
+				receiptId: recoveredRow.id,
+				duplicate: false,
+			};
+		}
+
+		const existing = await this.pool.query<{ id: string }>(
+			GET_RECEIPT_ID_BY_EXTERNAL_EVENT_SQL,
+			[input.workspaceId, input.providerKey, input.externalEventId]
+		);
+		const existingRow = existing.rows[0];
+		if (!existingRow) {
 			throw new Error('Failed to claim event receipt');
 		}
-
-		if (!row.inserted) {
-			await this.pool.query(MARK_RECEIPT_DUPLICATE_SQL, [row.id]);
-		}
+		await this.pool.query(MARK_RECEIPT_DUPLICATE_SQL, [existingRow.id]);
 
 		return {
-			receiptId: row.id,
-			duplicate: !row.inserted,
+			receiptId: existingRow.id,
+			duplicate: true,
 		};
 	}
 
@@ -262,11 +308,62 @@ export class PostgresChannelRuntimeStore implements ChannelRuntimeStore {
 		return row ? mapDecisionRow(row) : null;
 	}
 
+	async approveDecisionAndEnqueueOutbox(
+		input: ApproveDecisionAndEnqueueOutboxInput
+	): Promise<{
+		decision: ChannelDecisionRecord;
+		outboxAction: EnqueueOutboxActionResult;
+	} | null> {
+		const client = await this.pool.connect();
+		try {
+			await client.query('BEGIN');
+			const decisionResult = await client.query<DecisionRow>(
+				RESOLVE_DECISION_APPROVAL_SQL,
+				[
+					input.resolution.decisionId,
+					input.resolution.approvalStatus,
+					input.resolution.actedAt,
+					input.resolution.actorId ?? null,
+					input.resolution.reason ?? null,
+					JSON.stringify(input.resolution.approvalContext ?? null),
+					JSON.stringify(input.resolution.actionPlan),
+					JSON.stringify(input.resolution.toolTrace),
+				]
+			);
+			const decisionRow = decisionResult.rows[0];
+			if (!decisionRow) {
+				await client.query('ROLLBACK');
+				return null;
+			}
+			const outboxAction = await this.enqueueOutboxActionWithClient(
+				client,
+				input.outbox
+			);
+			await client.query('COMMIT');
+			return {
+				decision: mapDecisionRow(decisionRow),
+				outboxAction,
+			};
+		} catch (error) {
+			await client.query('ROLLBACK');
+			throw error;
+		} finally {
+			client.release();
+		}
+	}
+
 	async enqueueOutboxAction(
 		input: EnqueueOutboxActionInput
 	): Promise<EnqueueOutboxActionResult> {
+		return this.enqueueOutboxActionWithClient(this.pool, input);
+	}
+
+	private async enqueueOutboxActionWithClient(
+		client: Pick<Pool, 'query'> | PoolClient,
+		input: EnqueueOutboxActionInput
+	): Promise<EnqueueOutboxActionResult> {
 		const id = randomUUID();
-		const result = await this.pool.query<IdInsertedRow>(ENQUEUE_OUTBOX_SQL, [
+		const result = await client.query<IdInsertedRow>(ENQUEUE_OUTBOX_SQL, [
 			id,
 			input.workspaceId,
 			input.providerKey,
@@ -394,6 +491,137 @@ export class PostgresChannelRuntimeStore implements ChannelRuntimeStore {
 			input.lastErrorMessage,
 		]);
 	}
+
+	async appendTraceEvent(
+		input: AppendTraceEventInput
+	): Promise<ChannelTraceEventRecord> {
+		const result = await this.pool.query<TraceEventRow>(
+			INSERT_TRACE_EVENT_SQL,
+			[
+				input.traceId ?? null,
+				input.receiptId ?? null,
+				input.decisionId ?? null,
+				input.actionId ?? null,
+				input.workspaceId ?? null,
+				input.providerKey ?? null,
+				input.stage,
+				input.status,
+				input.sessionId ?? null,
+				input.workflowId ?? null,
+				input.latencyMs ?? null,
+				input.attempt ?? null,
+				JSON.stringify(input.metadata ?? null),
+			]
+		);
+		const row = result.rows[0];
+		if (!row) {
+			throw new Error('Failed to append trace event');
+		}
+		return mapTraceEventRow(row);
+	}
+
+	async listTraceEvents(
+		input: ListTraceEventsInput = {}
+	): Promise<ChannelTraceEventRecord[]> {
+		const limit = Math.max(1, input.limit ?? 500);
+		const result = await this.pool.query<TraceEventRow>(LIST_TRACE_EVENTS_SQL, [
+			input.traceId ?? null,
+			input.receiptId ?? null,
+			input.decisionId ?? null,
+			input.actionId ?? null,
+			limit,
+		]);
+		return result.rows.map(mapTraceEventRow);
+	}
+
+	async saveSkillInstallation(
+		input: SaveSkillInstallationInput
+	): Promise<ControlPlaneSkillInstallationRecord> {
+		const result = await this.pool.query<SkillInstallationRow>(
+			UPSERT_SKILL_INSTALLATION_SQL,
+			[
+				randomUUID(),
+				input.skillKey,
+				input.version,
+				input.artifactDigest,
+				JSON.stringify(input.manifest),
+				JSON.stringify(input.verificationReport),
+				input.status,
+				input.installedBy ?? null,
+				input.installedAt,
+				input.disabledBy ?? null,
+				input.disabledAt ?? null,
+			]
+		);
+		const row = result.rows[0];
+		if (!row) {
+			throw new Error('Failed to save skill installation');
+		}
+		return mapSkillInstallationRow(row);
+	}
+
+	async getSkillInstallation(
+		installationId: string
+	): Promise<ControlPlaneSkillInstallationRecord | null> {
+		const result = await this.pool.query<SkillInstallationRow>(
+			GET_SKILL_INSTALLATION_SQL,
+			[installationId]
+		);
+		const row = result.rows[0];
+		return row ? mapSkillInstallationRow(row) : null;
+	}
+
+	async findSkillInstallation(
+		skillKey: string,
+		version: string
+	): Promise<ControlPlaneSkillInstallationRecord | null> {
+		const result = await this.pool.query<SkillInstallationRow>(
+			FIND_SKILL_INSTALLATION_SQL,
+			[skillKey, version]
+		);
+		const row = result.rows[0];
+		return row ? mapSkillInstallationRow(row) : null;
+	}
+
+	async listSkillInstallations(
+		input: ListSkillInstallationsInput = {}
+	): Promise<ListSkillInstallationsResult> {
+		const limit = Math.max(1, input.limit ?? 100);
+		const offset = Math.max(0, input.offset ?? 0);
+		const result = await this.pool.query<
+			SkillInstallationRow & { total_count: string }
+		>(LIST_SKILL_INSTALLATIONS_SQL, [
+			input.includeDisabled ?? false,
+			input.skillKey ?? null,
+			limit,
+			offset,
+		]);
+		if (result.rows[0]) {
+			return {
+				items: result.rows.map(mapSkillInstallationRow),
+				total: Number.parseInt(result.rows[0].total_count, 10),
+			};
+		}
+		const countResult = await this.pool.query<{ total_count: string }>(
+			COUNT_SKILL_INSTALLATIONS_SQL,
+			[input.includeDisabled ?? false, input.skillKey ?? null]
+		);
+		return {
+			items: [],
+			total: Number.parseInt(countResult.rows[0]?.total_count ?? '0', 10),
+		};
+	}
+
+	async disableSkillInstallation(
+		input: DisableSkillInstallationInput
+	): Promise<ControlPlaneSkillInstallationRecord | null> {
+		const result = await this.pool.query<SkillInstallationRow>(
+			DISABLE_SKILL_INSTALLATION_SQL,
+			[input.installationId, input.disabledBy ?? null, input.disabledAt]
+		);
+		const row = result.rows[0];
+		return row ? mapSkillInstallationRow(row) : null;
+	}
 }
 
 interface DecisionRow {
@@ -481,6 +709,38 @@ interface DeliveryAttemptRow {
 	created_at: Date;
 }
 
+interface TraceEventRow {
+	id: number;
+	trace_id: string | null;
+	receipt_id: string | null;
+	decision_id: string | null;
+	action_id: string | null;
+	workspace_id: string | null;
+	provider_key: string | null;
+	stage: ChannelTraceEventRecord['stage'];
+	status: ChannelTraceEventRecord['status'];
+	session_id: string | null;
+	workflow_id: string | null;
+	latency_ms: number | null;
+	attempt: number | null;
+	metadata: Record<string, string | number | boolean> | null;
+	created_at: Date;
+}
+
+interface SkillInstallationRow {
+	id: string;
+	skill_key: string;
+	version: string;
+	artifact_digest: string;
+	manifest: ControlPlaneSkillInstallationRecord['manifest'];
+	verification_report: ControlPlaneSkillInstallationRecord['verificationReport'];
+	status: ControlPlaneSkillInstallationRecord['status'];
+	installed_by: string | null;
+	installed_at: Date;
+	disabled_by: string | null;
+	disabled_at: Date | null;
+}
+
 function mapReceiptRow(row: ReceiptRow): ChannelEventReceiptRecord {
 	return {
 		id: row.id,
@@ -549,6 +809,44 @@ function mapDeliveryAttemptRow(
 		responseBody: row.response_body ?? undefined,
 		latencyMs: row.latency_ms ?? undefined,
 		createdAt: row.created_at,
+	};
+}
+
+function mapTraceEventRow(row: TraceEventRow): ChannelTraceEventRecord {
+	return {
+		id: row.id,
+		stage: row.stage,
+		status: row.status,
+		workspaceId: row.workspace_id ?? undefined,
+		providerKey: row.provider_key ?? undefined,
+		receiptId: row.receipt_id ?? undefined,
+		decisionId: row.decision_id ?? undefined,
+		actionId: row.action_id ?? undefined,
+		sessionId: row.session_id ?? undefined,
+		workflowId: row.workflow_id ?? undefined,
+		traceId: row.trace_id ?? undefined,
+		latencyMs: row.latency_ms ?? undefined,
+		attempt: row.attempt ?? undefined,
+		metadata: row.metadata ?? undefined,
+		createdAt: row.created_at,
+	};
+}
+
+function mapSkillInstallationRow(
+	row: SkillInstallationRow
+): ControlPlaneSkillInstallationRecord {
+	return {
+		id: row.id,
+		skillKey: row.skill_key,
+		version: row.version,
+		artifactDigest: row.artifact_digest,
+		manifest: row.manifest,
+		verificationReport: row.verification_report,
+		status: row.status,
+		installedAt: row.installed_at,
+		installedBy: row.installed_by ?? undefined,
+		disabledAt: row.disabled_at ?? undefined,
+		disabledBy: row.disabled_by ?? undefined,
 	};
 }
 

@@ -25,6 +25,11 @@ const TEST_ENV_KEYS = [
 	'CHANNEL_RUNTIME_ASYNC_PROCESSING',
 	'CHANNEL_RUNTIME_DEFAULT_CAPABILITY_GRANTS',
 	'CHANNEL_DISPATCH_TOKEN',
+	'CONTROL_PLANE_API_TOKEN',
+	'CONTROL_PLANE_API_CAPABILITY_GRANTS',
+	'CONTROL_PLANE_SKILL_TRUST_POLICY_JSON',
+	'CONTROL_PLANE_SKILL_CONTRACTS_SPEC_VERSION',
+	'CONTROL_PLANE_SKILL_CONTROL_PLANE_VERSION',
 	'CHANNEL_ALLOW_UNMAPPED_WORKSPACE',
 	'CHANNEL_WORKSPACE_MAP_SLACK',
 	'CHANNEL_WORKSPACE_MAP_GITHUB',
@@ -233,7 +238,7 @@ describe('channel runtime integration', () => {
 
 		const dispatchResponse = await app.handle(
 			new Request('http://localhost/internal/channel/dispatch', {
-				method: 'GET',
+				method: 'POST',
 				headers: {
 					authorization: 'Bearer dispatch-token',
 				},

@@ -4,5 +4,6 @@ export * from './constants';
 export * from './contracts';
 export * from './control-plane.feature';
 export * from './events';
+export * from './policies';
 export * from './queries';
 export * from './skills';

@@ -4,6 +4,7 @@ import {
 	ChannelAuthorizationEngine,
 	type ChannelAuthorizationEvaluator,
 } from './authorization';
+import { resolveEventTraceId } from './plan-utils';
 import {
 	buildChannelPlanTrace,
 	compileChannelPlan,
@@ -14,6 +15,7 @@ import {
 import { MessagingPolicyEngine, type MessagingPolicyEvaluator } from './policy';
 import type { ChannelRuntimeStore } from './store';
 import type { ChannelTelemetryEmitter } from './telemetry';
+import { recordChannelTelemetry } from './telemetry-recorder';
 import type {
 	ChannelExecutionActor,
 	ChannelInboundEvent,
@@ -68,7 +70,8 @@ export class ChannelRuntimeService {
 			});
 		this.modelName = options.modelName ?? 'policy-heuristics-v1';
 		this.promptVersion = options.promptVersion ?? 'channel-runtime.v1';
-		this.policyVersion = options.policyVersion ?? 'messaging-policy.v1';
+		this.policyVersion =
+			options.policyVersion ?? 'channel.messaging-policy.v2.0.0';
 		this.approvalTimeoutMs = options.approvalTimeoutMs ?? 15 * 60 * 1000;
 		this.defaultCapabilityGrants = [...(options.defaultCapabilityGrants ?? [])];
 		this.defaultCapabilitySource = options.defaultCapabilitySource;
@@ -81,6 +84,7 @@ export class ChannelRuntimeService {
 
 	async ingest(event: ChannelInboundEvent): Promise<ChannelIngestResult> {
 		const startedAtMs = Date.now();
+		const traceId = resolveEventTraceId(event);
 		const claim = await this.store.claimEventReceipt({
 			workspaceId: event.workspaceId,
 			providerKey: event.providerKey,
@@ -88,17 +92,17 @@ export class ChannelRuntimeService {
 			eventType: event.eventType,
 			signatureValid: event.signatureValid,
 			payloadHash: event.rawPayload ? sha256(event.rawPayload) : undefined,
-			traceId: event.traceId,
+			traceId,
 		});
 
 		if (claim.duplicate) {
-			this.telemetry?.record({
+			await recordChannelTelemetry(this.store, this.telemetry, {
 				stage: 'ingest',
 				status: 'duplicate',
 				workspaceId: event.workspaceId,
 				providerKey: event.providerKey,
 				receiptId: claim.receiptId,
-				traceId: event.traceId,
+				traceId,
 				latencyMs: Date.now() - startedAtMs,
 			});
 			return {
@@ -107,7 +111,7 @@ export class ChannelRuntimeService {
 			};
 		}
 
-		this.telemetry?.record({
+		await recordChannelTelemetry(this.store, this.telemetry, {
 			stage: 'ingest',
 			status: 'accepted',
 			workspaceId: event.workspaceId,
@@ -115,7 +119,7 @@ export class ChannelRuntimeService {
 			receiptId: claim.receiptId,
 			sessionId: event.metadata?.['sessionId'],
 			workflowId: event.metadata?.['workflowId'],
-			traceId: event.traceId,
+			traceId,
 			latencyMs: Date.now() - startedAtMs,
 		});
 
@@ -124,7 +128,7 @@ export class ChannelRuntimeService {
 				code: 'INVALID_SIGNATURE',
 				message: 'Inbound event signature is invalid.',
 			});
-			this.telemetry?.record({
+			await recordChannelTelemetry(this.store, this.telemetry, {
 				stage: 'ingest',
 				status: 'rejected',
 				workspaceId: event.workspaceId,
@@ -132,7 +136,7 @@ export class ChannelRuntimeService {
 				receiptId: claim.receiptId,
 				sessionId: event.metadata?.['sessionId'],
 				workflowId: event.metadata?.['workflowId'],
-				traceId: event.traceId,
+				traceId,
 				latencyMs: Date.now() - startedAtMs,
 				metadata: {
 					errorCode: 'INVALID_SIGNATURE',
@@ -164,6 +168,7 @@ export class ChannelRuntimeService {
 		receiptId: string,
 		event: ChannelInboundEvent
 	): Promise<void> {
+		const traceId = resolveEventTraceId(event);
 		try {
 			await this.store.updateReceiptStatus(receiptId, 'processing');
 
@@ -210,24 +215,6 @@ export class ChannelRuntimeService {
 				approvalTimeoutMs: this.approvalTimeoutMs,
 				now: this.now(),
 			});
-			this.telemetry?.record({
-				stage: 'decision',
-				status: 'processed',
-				workspaceId: event.workspaceId,
-				providerKey: event.providerKey,
-				receiptId,
-				sessionId: event.metadata?.['sessionId'],
-				workflowId: event.metadata?.['workflowId'],
-				traceId: event.traceId,
-				metadata: {
-					verdict: authorizedDecision.verdict,
-					riskTier: authorizedDecision.riskTier,
-					confidence: authorizedDecision.confidence,
-					planId: finalizedPlan.id,
-					actorId: finalizedPlan.actor.id,
-					actorType: finalizedPlan.actor.type,
-				},
-			});
 			const decision = await this.store.saveDecision({
 				receiptId,
 				threadId: thread.id,
@@ -236,7 +223,9 @@ export class ChannelRuntimeService {
 				confidence: authorizedDecision.confidence,
 				modelName: this.modelName,
 				promptVersion: this.promptVersion,
-				policyVersion: this.policyVersion,
+				policyVersion: authorizedDecision.policyRef
+					? `${authorizedDecision.policyRef.key}.v${authorizedDecision.policyRef.version}`
+					: this.policyVersion,
 				toolTrace: buildChannelPlanTrace(finalizedPlan),
 				actionPlan: finalizedPlan,
 				requiresApproval: authorizedDecision.requiresApproval,
@@ -244,6 +233,29 @@ export class ChannelRuntimeService {
 					? 'pending'
 					: 'not_required',
 			});
+			await recordChannelTelemetry(
+				this.store,
+				this.telemetry,
+				{
+					stage: 'decision',
+					status: 'processed',
+					workspaceId: event.workspaceId,
+					providerKey: event.providerKey,
+					receiptId,
+					sessionId: event.metadata?.['sessionId'],
+					workflowId: event.metadata?.['workflowId'],
+					traceId: finalizedPlan.traceId,
+					metadata: {
+						verdict: authorizedDecision.verdict,
+						riskTier: authorizedDecision.riskTier,
+						confidence: authorizedDecision.confidence,
+						planId: finalizedPlan.id,
+						actorId: finalizedPlan.actor.id,
+						actorType: finalizedPlan.actor.type,
+					},
+				},
+				decision.id
+			);
 
 			if (authorizedDecision.verdict === 'autonomous') {
 				const executionStep = getExecutionStep(finalizedPlan);
@@ -252,7 +264,7 @@ export class ChannelRuntimeService {
 						'Autonomous dispatch requires a compiled execution step in completed state.'
 					);
 				}
-				await this.store.enqueueOutboxAction({
+				const outboxAction = await this.store.enqueueOutboxAction({
 					workspaceId: event.workspaceId,
 					providerKey: event.providerKey,
 					decisionId: decision.id,
@@ -273,26 +285,32 @@ export class ChannelRuntimeService {
 						text: authorizedDecision.responseText,
 					},
 				});
-				this.telemetry?.record({
-					stage: 'outbox',
-					status: 'accepted',
-					workspaceId: event.workspaceId,
-					providerKey: event.providerKey,
-					receiptId,
-					sessionId: event.metadata?.['sessionId'],
-					workflowId: event.metadata?.['workflowId'],
-					traceId: event.traceId,
-					metadata: {
-						actionType: 'reply',
-						actorId: finalizedPlan.actor.id,
-						actorType: finalizedPlan.actor.type,
-						planId: finalizedPlan.id,
+				await recordChannelTelemetry(
+					this.store,
+					this.telemetry,
+					{
+						stage: 'outbox',
+						status: 'accepted',
+						workspaceId: event.workspaceId,
+						providerKey: event.providerKey,
+						receiptId,
+						actionId: outboxAction.actionId,
+						sessionId: event.metadata?.['sessionId'],
+						workflowId: event.metadata?.['workflowId'],
+						traceId: finalizedPlan.traceId,
+						metadata: {
+							actionType: 'reply',
+							actorId: finalizedPlan.actor.id,
+							actorType: finalizedPlan.actor.type,
+							planId: finalizedPlan.id,
+						},
 					},
-				});
+					decision.id
+				);
 			}
 
 			await this.store.updateReceiptStatus(receiptId, 'processed');
-			this.telemetry?.record({
+			await recordChannelTelemetry(this.store, this.telemetry, {
 				stage: 'ingest',
 				status: 'processed',
 				workspaceId: event.workspaceId,
@@ -300,14 +318,14 @@ export class ChannelRuntimeService {
 				receiptId,
 				sessionId: event.metadata?.['sessionId'],
 				workflowId: event.metadata?.['workflowId'],
-				traceId: event.traceId,
+				traceId,
 			});
 		} catch (error) {
 			await this.store.updateReceiptStatus(receiptId, 'failed', {
 				code: 'PROCESSING_FAILED',
 				message: error instanceof Error ? error.message : String(error),
 			});
-			this.telemetry?.record({
+			await recordChannelTelemetry(this.store, this.telemetry, {
 				stage: 'ingest',
 				status: 'failed',
 				workspaceId: event.workspaceId,
@@ -315,7 +333,7 @@ export class ChannelRuntimeService {
 				receiptId,
 				sessionId: event.metadata?.['sessionId'],
 				workflowId: event.metadata?.['workflowId'],
-				traceId: event.traceId,
+				traceId,
 				metadata: {
 					errorCode: 'PROCESSING_FAILED',
 				},

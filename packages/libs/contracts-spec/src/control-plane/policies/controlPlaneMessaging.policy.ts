@@ -1,0 +1,86 @@
+import { definePolicy } from '../../policy';
+import {
+	CONTROL_PLANE_DOMAIN,
+	CONTROL_PLANE_OWNERS,
+	CONTROL_PLANE_STABILITY,
+	CONTROL_PLANE_TAGS,
+} from '../constants';
+
+export const ControlPlaneMessagingPolicy = definePolicy({
+	meta: {
+		key: 'channel.messaging-policy',
+		version: '2.0.0',
+		title: 'Deterministic Messaging Safety Policy',
+		description:
+			'Applies contract-backed blocked, assist, and autonomous routing for inbound messaging events.',
+		domain: CONTROL_PLANE_DOMAIN,
+		scope: 'operation',
+		owners: CONTROL_PLANE_OWNERS,
+		tags: [...CONTROL_PLANE_TAGS, 'policy', 'messaging'],
+		stability: CONTROL_PLANE_STABILITY,
+	},
+	rules: [
+		{
+			effect: 'deny',
+			actions: ['channel.reply'],
+			resource: { type: 'control-plane.message' },
+			conditions: [{ expression: 'context.blockedSignalDetected === true' }],
+			reason: 'blocked_signal_detected',
+		},
+		{
+			effect: 'allow',
+			actions: ['channel.reply'],
+			resource: { type: 'control-plane.message' },
+			conditions: [{ expression: 'context.highRiskDetected === true' }],
+			escalate: 'human_review',
+			reason: 'high_risk_topic_detected',
+		},
+		{
+			effect: 'allow',
+			actions: ['channel.reply'],
+			resource: { type: 'control-plane.message' },
+			conditions: [
+				{
+					expression:
+						'context.mediumRiskDetected === true && context.confidence >= context.assistMinConfidence',
+				},
+			],
+			escalate: 'human_review',
+			reason: 'needs_human_review',
+		},
+		{
+			effect: 'allow',
+			actions: ['channel.reply'],
+			resource: { type: 'control-plane.message' },
+			conditions: [
+				{
+					expression:
+						"context.riskTier === 'low' && context.confidence >= context.autoResolveMinConfidence",
+				},
+			],
+			reason: 'low_risk_high_confidence',
+		},
+		{
+			effect: 'allow',
+			actions: ['channel.reply'],
+			resource: { type: 'control-plane.message' },
+			conditions: [
+				{
+					expression:
+						'context.confidence >= context.assistMinConfidence && context.blockedSignalDetected !== true',
+				},
+			],
+			escalate: 'human_review',
+			reason: 'needs_human_review',
+		},
+		{
+			effect: 'deny',
+			actions: ['channel.reply'],
+			resource: { type: 'control-plane.message' },
+			conditions: [
+				{ expression: 'context.confidence < context.assistMinConfidence' },
+			],
+			reason: 'low_confidence',
+		},
+	],
+});

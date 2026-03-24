@@ -103,6 +103,28 @@ describe('ChannelRuntimeService', () => {
 		expect(store.outbox.size).toBe(0);
 	});
 
+	it('allows a valid retry after an invalid-signature rejection', async () => {
+		const store = new InMemoryChannelRuntimeStore();
+		const service = new ChannelRuntimeService(store, {
+			asyncProcessing: false,
+			defaultCapabilityGrants: [
+				'control-plane.channel-runtime.reply.autonomous',
+			],
+		});
+
+		const first = await service.ingest({
+			...makeEvent('evt-retry', 'hello'),
+			signatureValid: false,
+		});
+		expect(first.status).toBe('rejected');
+
+		const second = await service.ingest(makeEvent('evt-retry', 'hello'));
+		expect(second.status).toBe('accepted');
+		expect(store.receipts.size).toBe(1);
+		expect(store.decisions.size).toBe(1);
+		expect(store.outbox.size).toBe(1);
+	});
+
 	it('does not enqueue outbox for blocked decisions', async () => {
 		const store = new InMemoryChannelRuntimeStore();
 		const service = new ChannelRuntimeService(store, {
@@ -125,9 +147,8 @@ describe('ChannelRuntimeService', () => {
 			policyMode: 'blocked',
 			actionPlan: {
 				approval: {
-					required: true,
-					status: 'pending',
-					timeoutAt: '2026-03-22T10:05:00.000Z',
+					required: false,
+					status: 'not_required',
 				},
 				steps: [
 					{ contractKey: 'controlPlane.intent.submit', status: 'completed' },

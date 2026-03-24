@@ -1,34 +1,60 @@
 export const CLAIM_EVENT_RECEIPT_SQL = `
-with inserted as (
-  insert into channel_event_receipts (
-    id,
-    workspace_id,
-    provider_key,
-    external_event_id,
-    event_type,
-    status,
-    signature_valid,
-    payload_hash,
-    trace_id
-  )
-  values ($1, $2, $3, $4, $5, 'accepted', $6, $7, $8)
-  on conflict (workspace_id, provider_key, external_event_id)
-  do nothing
-  returning id
+insert into channel_event_receipts (
+  id,
+  workspace_id,
+  provider_key,
+  external_event_id,
+  event_type,
+  status,
+  signature_valid,
+  payload_hash,
+  trace_id
 )
-select id, true as inserted from inserted
-union all
-select id, false as inserted
+values ($1, $2, $3, $4, $5, 'accepted', $6, $7, $8)
+on conflict (workspace_id, provider_key, external_event_id)
+do nothing
+returning id
+`;
+
+export const RECOVER_REJECTED_RECEIPT_SQL = `
+update channel_event_receipts
+set
+  status = 'accepted',
+  signature_valid = $4,
+  payload_hash = $5,
+  trace_id = $6,
+  error_code = null,
+  error_message = null,
+  processed_at = null,
+  last_seen_at = now()
+where workspace_id = $1
+  and provider_key = $2
+  and external_event_id = $3
+  and (
+    status = 'failed'
+    or (
+      $4 = true
+      and status = 'rejected'
+      and signature_valid = false
+    )
+  )
+returning id
+`;
+
+export const GET_RECEIPT_ID_BY_EXTERNAL_EVENT_SQL = `
+select id
 from channel_event_receipts
-where workspace_id = $2
-  and provider_key = $3
-  and external_event_id = $4
+where workspace_id = $1
+  and provider_key = $2
+  and external_event_id = $3
 limit 1
 `;
 
 export const MARK_RECEIPT_DUPLICATE_SQL = `
 update channel_event_receipts
-set last_seen_at = now(), status = 'duplicate'
+set
+  last_seen_at = now(),
+  status = case when status = 'accepted' then 'duplicate' else status end
 where id = $1
 `;
 
@@ -132,6 +158,41 @@ insert into channel_ai_decisions (
 values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10::jsonb, $11::jsonb, $12, $13)
 `;
 
+export const INSERT_TRACE_EVENT_SQL = `
+insert into channel_trace_events (
+  trace_id,
+  receipt_id,
+  decision_id,
+  action_id,
+  workspace_id,
+  provider_key,
+  stage,
+  status,
+  session_id,
+  workflow_id,
+  latency_ms,
+  attempt,
+  metadata
+)
+values ($1, $2::uuid, $3::uuid, $4::uuid, $5, $6, $7, $8, $9, $10, $11, $12, $13::jsonb)
+returning
+  id,
+  trace_id,
+  receipt_id,
+  decision_id,
+  action_id,
+  workspace_id,
+  provider_key,
+  stage,
+  status,
+  session_id,
+  workflow_id,
+  latency_ms,
+  attempt,
+  metadata,
+  created_at
+`;
+
 export const GET_DECISION_SQL = `
 select
   id,
@@ -230,6 +291,32 @@ order by created_at desc
 limit $12
 `;
 
+export const LIST_TRACE_EVENTS_SQL = `
+select
+  id,
+  trace_id,
+  receipt_id,
+  decision_id,
+  action_id,
+  workspace_id,
+  provider_key,
+  stage,
+  status,
+  session_id,
+  workflow_id,
+  latency_ms,
+  attempt,
+  metadata,
+  created_at
+from channel_trace_events
+where ($1::text is null or trace_id = $1)
+  and ($2::text is null or receipt_id = $2::uuid)
+  and ($3::text is null or decision_id = $3::uuid)
+  and ($4::text is null or action_id = $4::uuid)
+order by created_at asc, id asc
+limit $5
+`;
+
 export const RESOLVE_DECISION_APPROVAL_SQL = `
 update channel_ai_decisions
 set
@@ -244,6 +331,7 @@ set
   action_plan = $7::jsonb,
   tool_trace = $8::jsonb
 where id = $1
+  and approval_status = 'pending'
 returning
   id,
   receipt_id,
@@ -266,6 +354,133 @@ returning
   rejected_at,
   rejection_reason,
   created_at
+`;
+
+export const UPSERT_SKILL_INSTALLATION_SQL = `
+insert into control_plane_skill_installations (
+  id,
+  skill_key,
+  version,
+  artifact_digest,
+  manifest,
+  verification_report,
+  status,
+  installed_by,
+  installed_at,
+  disabled_by,
+  disabled_at
+)
+values ($1, $2, $3, $4, $5::jsonb, $6::jsonb, $7, $8, $9, $10, $11)
+on conflict (skill_key, version)
+do update set
+  artifact_digest = excluded.artifact_digest,
+  manifest = excluded.manifest,
+  verification_report = excluded.verification_report,
+  status = excluded.status,
+  installed_by = excluded.installed_by,
+  installed_at = excluded.installed_at,
+  disabled_by = excluded.disabled_by,
+  disabled_at = excluded.disabled_at
+returning
+  id,
+  skill_key,
+  version,
+  artifact_digest,
+  manifest,
+  verification_report,
+  status,
+  installed_by,
+  installed_at,
+  disabled_by,
+  disabled_at
+`;
+
+export const GET_SKILL_INSTALLATION_SQL = `
+select
+  id,
+  skill_key,
+  version,
+  artifact_digest,
+  manifest,
+  verification_report,
+  status,
+  installed_by,
+  installed_at,
+  disabled_by,
+  disabled_at
+from control_plane_skill_installations
+where id = $1::uuid
+limit 1
+`;
+
+export const FIND_SKILL_INSTALLATION_SQL = `
+select
+  id,
+  skill_key,
+  version,
+  artifact_digest,
+  manifest,
+  verification_report,
+  status,
+  installed_by,
+  installed_at,
+  disabled_by,
+  disabled_at
+from control_plane_skill_installations
+where skill_key = $1
+  and version = $2
+limit 1
+`;
+
+export const LIST_SKILL_INSTALLATIONS_SQL = `
+select
+  id,
+  skill_key,
+  version,
+  artifact_digest,
+  manifest,
+  verification_report,
+  status,
+  installed_by,
+  installed_at,
+  disabled_by,
+  disabled_at,
+  count(*) over() as total_count
+from control_plane_skill_installations
+where ($1::boolean is true or status <> 'disabled')
+  and ($2::text is null or skill_key = $2)
+order by installed_at desc, id desc
+limit $3
+offset $4
+`;
+
+export const COUNT_SKILL_INSTALLATIONS_SQL = `
+select count(*) as total_count
+from control_plane_skill_installations
+where ($1::boolean is true or status <> 'disabled')
+  and ($2::text is null or skill_key = $2)
+`;
+
+export const DISABLE_SKILL_INSTALLATION_SQL = `
+update control_plane_skill_installations
+set
+  status = 'disabled',
+  disabled_by = $2,
+  disabled_at = $3
+where id = $1::uuid
+  and status = 'installed'
+returning
+  id,
+  skill_key,
+  version,
+  artifact_digest,
+  manifest,
+  verification_report,
+  status,
+  installed_by,
+  installed_at,
+  disabled_by,
+  disabled_at
 `;
 
 export const ENQUEUE_OUTBOX_SQL = `

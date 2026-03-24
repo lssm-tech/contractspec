@@ -92,10 +92,50 @@ create table if not exists channel_delivery_attempts (
   unique (action_id, attempt)
 )
 `,
+	`
+create table if not exists channel_trace_events (
+  id bigserial primary key,
+  trace_id text,
+  receipt_id uuid references channel_event_receipts (id),
+  decision_id uuid references channel_ai_decisions (id),
+  action_id uuid references channel_outbox_actions (id),
+  workspace_id text,
+  provider_key text,
+  stage text not null,
+  status text not null,
+  session_id text,
+  workflow_id text,
+  latency_ms integer,
+  attempt integer,
+  metadata jsonb,
+  created_at timestamptz not null default now()
+)
+`,
+	`
+create table if not exists control_plane_skill_installations (
+  id uuid primary key,
+  skill_key text not null,
+  version text not null,
+  artifact_digest text not null,
+  manifest jsonb not null,
+  verification_report jsonb not null,
+  status text not null,
+  installed_by text,
+  installed_at timestamptz not null default now(),
+  disabled_by text,
+  disabled_at timestamptz,
+  unique (skill_key, version)
+)
+`,
 	`alter table if exists channel_ai_decisions add column if not exists approval_status text not null default 'not_required'`,
 	`alter table if exists channel_ai_decisions add column if not exists approval_updated_at timestamptz`,
 	`alter table if exists channel_ai_decisions add column if not exists approval_context jsonb`,
 	`alter table if exists channel_ai_decisions add column if not exists rejected_by text`,
 	`alter table if exists channel_ai_decisions add column if not exists rejected_at timestamptz`,
 	`alter table if exists channel_ai_decisions add column if not exists rejection_reason text`,
+	`create index if not exists idx_channel_trace_events_trace_id on channel_trace_events (trace_id, created_at)`,
+	`create index if not exists idx_channel_trace_events_receipt_id on channel_trace_events (receipt_id, created_at)`,
+	`create index if not exists idx_channel_trace_events_decision_id on channel_trace_events (decision_id, created_at)`,
+	`create index if not exists idx_channel_trace_events_action_id on channel_trace_events (action_id, created_at)`,
+	`create index if not exists idx_control_plane_skill_installations_status on control_plane_skill_installations (status, installed_at desc)`,
 ];

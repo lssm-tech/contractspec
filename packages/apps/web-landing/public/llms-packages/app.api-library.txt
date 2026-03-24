@@ -7,6 +7,7 @@
 - This app is a thin HTTP layer — all business logic lives in `bundle.library`.
 - Elysia server with MCP endpoint integration.
 - `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
+- Internal control-plane endpoints expose approval queues, trace inspection, policy explanation, skill registry actions, and dashboard summaries for operators.
 - Related ContractSpec packages include `@contractspec/bundle.library`, `@contractspec/bundle.marketing`, `@contractspec/bundle.workspace`, `@contractspec/integration.providers-impls`, `@contractspec/integration.runtime`, `@contractspec/lib.contracts-spec`, ...
 - `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
 

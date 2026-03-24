@@ -1,4 +1,9 @@
-import { compileChannelPlan, finalizeChannelPlan } from './planner';
+import { applyResolvedApprovalStatus } from './approval-plan';
+import {
+	compileChannelPlan,
+	finalizeChannelPlan,
+	getExecutionStep,
+} from './planner';
 import type { ChannelRuntimeStore, ListDecisionsInput } from './store';
 import type {
 	ChannelDecisionRecord,
@@ -8,6 +13,7 @@ import type {
 	ChannelOutboxActionRecord,
 	ChannelPolicyDecision,
 	ChannelThreadRecord,
+	ChannelTraceEventRecord,
 } from './types';
 
 export interface ChannelTraceAction {
@@ -20,6 +26,7 @@ export interface ChannelExecutionTrace {
 	thread: ChannelThreadRecord | null;
 	decision: ChannelDecisionRecord;
 	actions: ChannelTraceAction[];
+	events: ChannelTraceEventRecord[];
 	replay: {
 		traceId: string;
 		planId: string;
@@ -69,11 +76,20 @@ async function buildExecutionTrace(
 	store: ChannelRuntimeStore,
 	decision: ChannelDecisionRecord
 ): Promise<ChannelExecutionTrace> {
-	const [receipt, thread, actions] = await Promise.all([
-		store.getReceipt(decision.receiptId),
-		store.getThread(decision.threadId),
-		store.listOutboxActionsForDecision(decision.id),
-	]);
+	const [receipt, thread, actions, receiptEvents, decisionEvents] =
+		await Promise.all([
+			store.getReceipt(decision.receiptId),
+			store.getThread(decision.threadId),
+			store.listOutboxActionsForDecision(decision.id),
+			store.listTraceEvents({
+				traceId: decision.actionPlan.traceId,
+				receiptId: decision.receiptId,
+			}),
+			store.listTraceEvents({
+				traceId: decision.actionPlan.traceId,
+				decisionId: decision.id,
+			}),
+		]);
 	const enrichedActions = await Promise.all(
 		actions.map(async (action) => ({
 			action,
@@ -81,11 +97,18 @@ async function buildExecutionTrace(
 		}))
 	);
 
+	const events = Array.from(
+		new Map(
+			[...receiptEvents, ...decisionEvents].map((event) => [event.id, event])
+		).values()
+	).sort((left, right) => left.createdAt.getTime() - right.createdAt.getTime());
+
 	return {
 		receipt,
 		thread,
 		decision,
 		actions: enrichedActions,
+		events,
 		replay: {
 			traceId: decision.actionPlan.traceId,
 			planId: decision.actionPlan.id,
@@ -99,37 +122,51 @@ export function replayExecutionTrace(
 	trace: ChannelExecutionTrace
 ): ChannelTraceReplayResult {
 	const sourcePlan = trace.decision.actionPlan;
-	const occurredAt = new Date(sourcePlan.intent.occurredAt);
-	const replayedPlan = finalizeChannelPlan({
+	const compiledAt = new Date(sourcePlan.compiledAt);
+	const finalizedPlan = finalizeChannelPlan({
 		plan: compileChannelPlan({
 			event: toReplayEvent(sourcePlan),
 			receiptId: sourcePlan.receiptId,
 			threadId: sourcePlan.threadId,
 			actor: sourcePlan.actor,
-			now: occurredAt,
+			now: compiledAt,
 		}),
 		decision: toReplayDecision(trace.decision),
-		approvalTimeoutMs: getApprovalTimeoutMs(sourcePlan, occurredAt),
-		now: occurredAt,
+		approvalTimeoutMs: getApprovalTimeoutMs(sourcePlan, compiledAt),
+		now: compiledAt,
 	});
+	const replayedPlan =
+		trace.decision.approvalStatus === 'approved' ||
+		trace.decision.approvalStatus === 'rejected' ||
+		trace.decision.approvalStatus === 'expired'
+			? applyResolvedApprovalStatus(
+					finalizedPlan,
+					trace.decision.approvalStatus
+				)
+			: finalizedPlan;
 
 	const mismatches = [
 		compareField('planId', sourcePlan.id, replayedPlan.id),
 		compareField('traceId', sourcePlan.traceId, replayedPlan.traceId),
 		compareField(
 			'actor',
-			JSON.stringify(sourcePlan.actor),
-			JSON.stringify(replayedPlan.actor)
+			stableSerialize(sourcePlan.actor),
+			stableSerialize(replayedPlan.actor)
 		),
 		compareField(
 			'audit',
-			JSON.stringify(sourcePlan.audit),
-			JSON.stringify(replayedPlan.audit)
+			stableSerialize(sourcePlan.audit),
+			stableSerialize(replayedPlan.audit)
 		),
 		compareField(
 			'intent',
-			JSON.stringify(sourcePlan.intent),
-			JSON.stringify(replayedPlan.intent)
+			stableSerialize(sourcePlan.intent),
+			stableSerialize(replayedPlan.intent)
+		),
+		compareField(
+			'approval',
+			stableSerialize(sourcePlan.approval),
+			stableSerialize(replayedPlan.approval)
 		),
 		compareField(
 			'stepIds',
@@ -137,9 +174,19 @@ export function replayExecutionTrace(
 			replayedPlan.steps.map((step) => step.id).join(',')
 		),
 		compareField(
+			'steps',
+			stableSerialize(sourcePlan.steps),
+			stableSerialize(replayedPlan.steps)
+		),
+		compareField(
+			'dag',
+			stableSerialize(sourcePlan.dag),
+			stableSerialize(replayedPlan.dag)
+		),
+		compareField(
 			'policy',
-			JSON.stringify(sourcePlan.policy ?? null),
-			JSON.stringify(replayedPlan.policy ?? null)
+			stableSerialize(sourcePlan.policy ?? null),
+			stableSerialize(replayedPlan.policy ?? null)
 		),
 	].filter((mismatch): mismatch is string => Boolean(mismatch));
 
@@ -174,9 +221,7 @@ function toReplayEvent(
 function toReplayDecision(
 	decision: ChannelDecisionRecord
 ): ChannelPolicyDecision {
-	const executionStep = decision.actionPlan.steps.find(
-		(step) => step.contractKey === 'controlPlane.execution.start'
-	);
+	const executionStep = getExecutionStep(decision.actionPlan);
 	return {
 		confidence: decision.actionPlan.policy?.confidence ?? decision.confidence,
 		riskTier: decision.actionPlan.policy?.riskTier ?? decision.riskTier,
@@ -184,7 +229,7 @@ function toReplayDecision(
 			decision.actionPlan.policy?.verdict ??
 			(decision.policyMode === 'suggest' ? 'assist' : decision.policyMode),
 		reasons: decision.actionPlan.policy?.reasons ?? [],
-		responseText: String(executionStep?.output?.['responseText'] ?? ''),
+		responseText: executionStep?.output?.responseText ?? '',
 		requiresApproval: decision.requiresApproval,
 		policyRef: decision.actionPlan.policy?.policyRef,
 	};
@@ -211,4 +256,22 @@ function compareField(
 	return expected === actual
 		? null
 		: `${name} mismatch: expected ${expected}, got ${actual}`;
+}
+
+function stableSerialize(value: unknown): string {
+	return JSON.stringify(sortValue(value));
+}
+
+function sortValue(value: unknown): unknown {
+	if (Array.isArray(value)) {
+		return value.map((entry) => sortValue(entry));
+	}
+	if (value && typeof value === 'object') {
+		return Object.fromEntries(
+			Object.entries(value as Record<string, unknown>)
+				.sort(([left], [right]) => left.localeCompare(right))
+				.map(([key, entry]) => [key, sortValue(entry)])
+		);
+	}
+	return value;
 }

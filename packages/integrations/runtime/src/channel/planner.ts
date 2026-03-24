@@ -1,37 +1,33 @@
-import { createHash } from 'node:crypto';
-
+import {
+	buildChannelPlanDag,
+	createStepIo,
+	deterministicId,
+	getExecutionStatus,
+	resolveEventTraceId,
+	summarizeIntent,
+} from './plan-utils';
+import type {
+	CompileChannelPlanInput,
+	FinalizeChannelPlanInput,
+	ResolveChannelExecutionActorOptions,
+} from './planner-types';
 import type {
 	ChannelCompiledPlan,
 	ChannelExecutionActor,
+	ChannelExecutionStartStep,
 	ChannelInboundEvent,
+	ChannelIntentSubmitStep,
 	ChannelPlanStep,
-	ChannelPlanTraceEntry,
-	ChannelPolicyDecision,
-	ChannelPolicyVerdict,
+	ChannelPlanVerifyStep,
 } from './types';
 
-export interface ResolveChannelExecutionActorOptions {
-	capabilityGrants?: string[];
-	capabilitySource?: string;
-	tenantId?: string;
-	sessionId?: string;
-	actorId?: string;
-	actorType?: ChannelExecutionActor['type'];
-}
-export interface CompileChannelPlanInput {
-	event: ChannelInboundEvent;
-	receiptId: string;
-	threadId: string;
-	actor: ChannelExecutionActor;
-	now?: Date;
-}
+export { buildChannelPlanTrace, getExecutionStep } from './plan-utils';
+export type {
+	CompileChannelPlanInput,
+	FinalizeChannelPlanInput,
+	ResolveChannelExecutionActorOptions,
+} from './planner-types';
 
-export interface FinalizeChannelPlanInput {
-	plan: ChannelCompiledPlan;
-	decision: ChannelPolicyDecision;
-	approvalTimeoutMs: number;
-	now?: Date;
-}
 export function resolveChannelExecutionActor(
 	event: ChannelInboundEvent,
 	options: ResolveChannelExecutionActorOptions = {}
@@ -57,14 +53,8 @@ export function resolveChannelExecutionActor(
 export function compileChannelPlan(
 	input: CompileChannelPlanInput
 ): ChannelCompiledPlan {
-	const traceId =
-		input.event.traceId ??
-		deterministicId(
-			'trace',
-			input.event.workspaceId,
-			input.event.providerKey,
-			input.event.externalEventId
-		);
+	const summary = summarizeIntent(input.event);
+	const traceId = resolveEventTraceId(input.event);
 	const planId = deterministicId(
 		'plan',
 		input.event.workspaceId,
@@ -80,6 +70,68 @@ export function compileChannelPlan(
 		'controlPlane.execution.start'
 	);
 	const compiledAt = (input.now ?? new Date()).toISOString();
+	const steps: ChannelPlanStep[] = [
+		{
+			id: intentStepId,
+			contractKey: 'controlPlane.intent.submit',
+			title: 'Interpret inbound intent',
+			kind: 'intent.submit',
+			dependsOn: [],
+			status: 'completed',
+			io: createStepIo(
+				'controlPlane.intent.submit',
+				'ChannelIntentSubmitStepInput',
+				'ChannelIntentSubmitStepOutput'
+			),
+			input: {
+				eventType: input.event.eventType,
+				externalEventId: input.event.externalEventId,
+				providerKey: input.event.providerKey,
+			},
+			output: {
+				summary,
+			},
+		} satisfies ChannelIntentSubmitStep,
+		{
+			id: verifyStepId,
+			contractKey: 'controlPlane.plan.verify',
+			title: 'Verify policy and execution eligibility',
+			kind: 'plan.verify',
+			dependsOn: [intentStepId],
+			status: 'planned',
+			io: createStepIo(
+				'controlPlane.plan.verify',
+				'ChannelPlanVerifyStepInput',
+				'ChannelPlanVerifyStepOutput'
+			),
+			input: {
+				receiptId: input.receiptId,
+				threadId: input.threadId,
+				traceId,
+			},
+		} satisfies ChannelPlanVerifyStep,
+		{
+			id: executionStepId,
+			contractKey: 'controlPlane.execution.start',
+			title: 'Queue outbound reply action',
+			kind: 'execution.start',
+			dependsOn: [verifyStepId],
+			status: 'planned',
+			io: createStepIo(
+				'controlPlane.execution.start',
+				'ChannelExecutionStartStepInput',
+				'ChannelExecutionStartStepOutput'
+			),
+			input: {
+				actionType: 'reply',
+				workspaceId: input.event.workspaceId,
+				providerKey: input.event.providerKey,
+				externalThreadId: input.event.thread.externalThreadId,
+				externalChannelId: input.event.thread.externalChannelId,
+				externalUserId: input.event.thread.externalUserId,
+			},
+		} satisfies ChannelExecutionStartStep,
+	];
 	return {
 		id: planId,
 		workspaceId: input.event.workspaceId,
@@ -103,7 +155,7 @@ export function compileChannelPlan(
 			externalEventId: input.event.externalEventId,
 			occurredAt: input.event.occurredAt.toISOString(),
 			messageText: input.event.message?.text,
-			summary: summarizeIntent(input.event),
+			summary,
 			rawPayload: input.event.rawPayload,
 			metadata: input.event.metadata,
 			thread: {
@@ -117,53 +169,8 @@ export function compileChannelPlan(
 			status: 'not_required',
 			fallback: 'block_on_timeout',
 		},
-		steps: [
-			{
-				id: intentStepId,
-				contractKey: 'controlPlane.intent.submit',
-				title: 'Interpret inbound intent',
-				kind: 'intent.submit',
-				dependsOn: [],
-				status: 'completed',
-				input: {
-					eventType: input.event.eventType,
-					externalEventId: input.event.externalEventId,
-					providerKey: input.event.providerKey,
-				},
-				output: {
-					summary: summarizeIntent(input.event),
-				},
-			},
-			{
-				id: verifyStepId,
-				contractKey: 'controlPlane.plan.verify',
-				title: 'Verify policy and execution eligibility',
-				kind: 'plan.verify',
-				dependsOn: [intentStepId],
-				status: 'planned',
-				input: {
-					receiptId: input.receiptId,
-					threadId: input.threadId,
-					traceId,
-				},
-			},
-			{
-				id: executionStepId,
-				contractKey: 'controlPlane.execution.start',
-				title: 'Queue outbound reply action',
-				kind: 'execution.start',
-				dependsOn: [verifyStepId],
-				status: 'planned',
-				input: {
-					actionType: 'reply',
-					workspaceId: input.event.workspaceId,
-					providerKey: input.event.providerKey,
-					externalThreadId: input.event.thread.externalThreadId,
-					externalChannelId: input.event.thread.externalChannelId,
-					externalUserId: input.event.thread.externalUserId,
-				},
-			},
-		],
+		dag: buildChannelPlanDag(steps),
+		steps,
 	};
 }
 export function finalizeChannelPlan(
@@ -177,6 +184,35 @@ export function finalizeChannelPlan(
 			).toISOString()
 		: undefined;
 	const executionStatus = getExecutionStatus(input.decision.verdict);
+	const steps = input.plan.steps.map((step): ChannelPlanStep => {
+		if (step.contractKey === 'controlPlane.plan.verify') {
+			return {
+				...step,
+				status: 'completed',
+				output: {
+					verdict: input.decision.verdict,
+					riskTier: input.decision.riskTier,
+					confidence: input.decision.confidence,
+					requiresApproval: input.decision.requiresApproval,
+				},
+			};
+		}
+
+		if (step.contractKey === 'controlPlane.execution.start') {
+			return {
+				...step,
+				status: executionStatus,
+				output: {
+					actionType: 'reply',
+					responseText: input.decision.responseText,
+					requiresApproval: input.decision.requiresApproval,
+					fallback: approvalRequired ? 'block_on_timeout' : 'none',
+				},
+			};
+		}
+
+		return step;
+	});
 
 	return {
 		...input.plan,
@@ -193,78 +229,7 @@ export function finalizeChannelPlan(
 			reasons: [...input.decision.reasons],
 			policyRef: input.decision.policyRef,
 		},
-		steps: input.plan.steps.map((step) => {
-			if (step.contractKey === 'controlPlane.plan.verify') {
-				return {
-					...step,
-					status: 'completed',
-					output: {
-						verdict: input.decision.verdict,
-						riskTier: input.decision.riskTier,
-						confidence: input.decision.confidence,
-						requiresApproval: input.decision.requiresApproval,
-					},
-				};
-			}
-
-			if (step.contractKey === 'controlPlane.execution.start') {
-				return {
-					...step,
-					status: executionStatus,
-					output: {
-						actionType: 'reply',
-						responseText: input.decision.responseText,
-						requiresApproval: input.decision.requiresApproval,
-						fallback: approvalRequired ? 'block_on_timeout' : 'none',
-					},
-				};
-			}
-
-			return step;
-		}),
+		dag: buildChannelPlanDag(steps),
+		steps,
 	};
-}
-export function buildChannelPlanTrace(
-	plan: ChannelCompiledPlan
-): ChannelPlanTraceEntry[] {
-	return plan.steps.map((step) => ({
-		stepId: step.id,
-		contractKey: step.contractKey,
-		status: step.status,
-		metadata: {
-			planId: plan.id,
-			actorType: plan.actor.type,
-			requiresApproval: plan.approval.required,
-			...(plan.policy
-				? {
-						verdict: plan.policy.verdict,
-						riskTier: plan.policy.riskTier,
-					}
-				: {}),
-		},
-	}));
-}
-export function getExecutionStep(
-	plan: ChannelCompiledPlan
-): ChannelPlanStep | undefined {
-	return plan.steps.find(
-		(step) => step.contractKey === 'controlPlane.execution.start'
-	);
-}
-function summarizeIntent(event: ChannelInboundEvent): string {
-	const text = event.message?.text?.trim();
-	return text
-		? text.slice(0, 240)
-		: `Received ${event.eventType} via ${event.providerKey}.`;
-}
-function deterministicId(...parts: string[]): string {
-	return createHash('sha256')
-		.update(parts.join(':'))
-		.digest('hex')
-		.slice(0, 24);
-}
-function getExecutionStatus(
-	verdict: ChannelPolicyVerdict
-): ChannelPlanStep['status'] {
-	return verdict === 'autonomous' ? 'completed' : 'blocked';
 }

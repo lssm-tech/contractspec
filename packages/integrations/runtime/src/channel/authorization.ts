@@ -8,6 +8,7 @@ export const CHANNEL_AUTONOMOUS_REPLY_CAPABILITY =
 	'control-plane.channel-runtime.reply.autonomous';
 export const CHANNEL_APPROVAL_REQUEST_CAPABILITY =
 	'control-plane.approval.request';
+export const CHANNEL_APPROVAL_CAPABILITY = 'control-plane.approval';
 export const CHANNEL_APPROVE_CAPABILITY = 'control-plane.execution.approve';
 export const CHANNEL_REJECT_CAPABILITY = 'control-plane.execution.reject';
 export const CHANNEL_EXPIRE_CAPABILITY = 'control-plane.execution.expire';
@@ -88,14 +89,18 @@ export class ChannelAuthorizationEngine
 				: input.action === 'reject'
 					? CHANNEL_REJECT_CAPABILITY
 					: CHANNEL_EXPIRE_CAPABILITY;
+		const acceptableCapabilities = [
+			CHANNEL_APPROVAL_CAPABILITY,
+			requiredCapability,
+		];
 
 		if (input.action === 'expire' && input.actorId?.startsWith('system:')) {
 			return;
 		}
 
-		if (!grants.has(requiredCapability)) {
+		if (!acceptableCapabilities.some((capability) => grants.has(capability))) {
 			throw new Error(
-				`Missing capability grant ${requiredCapability} for ${input.action} action.`
+				`Missing capability grant ${acceptableCapabilities.join(' or ')} for ${input.action} action.`
 			);
 		}
 	}

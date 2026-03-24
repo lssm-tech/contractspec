@@ -2,7 +2,7 @@
 
 > Aggregated content from all packages. For summary, see /llms
 
-Generated: 2026-03-23T00:59:21.230Z
+Generated: 2026-03-23T06:45:33.384Z
 Packages: 164
 
 ---
@@ -7655,6 +7655,7 @@ URL: /llms/app.api-library
 - This app is a thin HTTP layer — all business logic lives in `bundle.library`.
 - Elysia server with MCP endpoint integration.
 - `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
+- Internal control-plane endpoints expose approval queues, trace inspection, policy explanation, skill registry actions, and dashboard summaries for operators.
 - Related ContractSpec packages include `@contractspec/bundle.library`, `@contractspec/bundle.marketing`, `@contractspec/bundle.workspace`, `@contractspec/integration.providers-impls`, `@contractspec/integration.runtime`, `@contractspec/lib.contracts-spec`, ...
 - `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
 
@@ -13295,10 +13296,12 @@ The channel runtime keeps policy evaluation deterministic and auditable:
 - Signature-invalid events are rejected before processing.
 - `MessagingPolicyEngine` can be replaced by a contract-backed policy evaluator through `ChannelRuntimeService`.
 - `ChannelApprovalService` exposes a generic approval queue for CLI, API, web, or custom operator surfaces via the shared channel store.
-- Compiled plan metadata now carries deterministic plan and step IDs, actor audit context, and approval timeout fallback state.
+- `ControlPlaneSkillRegistryService` verifies, installs, lists, and disables signed skill artifacts against an allowlisted trust policy.
+- Compiled plans now carry deterministic plan and step IDs, DAG dependency metadata, typed step I/O schema refs, actor audit context, and approval timeout fallback state.
 - Capability grants are intended to be bound by the hosting application, for example through `CHANNEL_RUNTIME_DEFAULT_CAPABILITY_GRANTS`, rather than trusted from inbound event payload metadata.
 - Hosting applications should also bind a server-side actor via `actorResolver` so runtime approvals and execution are attributed to the authenticated service, operator, or agent principal rather than raw inbound channel claims.
 - Telemetry now carries `traceId`, `sessionId`, and `workflowId` when callers provide them in inbound metadata.
+- Trace services now persist stage-level trace events so operators can inspect the full intent -> plan -> policy -> action -> outcome chain.
 
 ## Architecture
 
@@ -13316,10 +13319,14 @@ The channel runtime keeps policy evaluation deterministic and auditable:
 - Export `./channel` resolves through `./src/channel/index.ts`.
 - Export `./channel/approval` resolves through `./src/channel/approval.ts`.
 - Export `./channel/authorization` resolves through `./src/channel/authorization.ts`.
+- Export `./channel/base-types` resolves through `./src/channel/base-types.ts`.
 - Export `./channel/dispatcher` resolves through `./src/channel/dispatcher.ts`.
 - Export `./channel/github` resolves through `./src/channel/github.ts`.
 - Export `./channel/memory-store` resolves through `./src/channel/memory-store.ts`.
+- Export `./channel/plan-types` resolves through `./src/channel/plan-types.ts`.
+- Export `./channel/plan-utils` resolves through `./src/channel/plan-utils.ts`.
 - Export `./channel/planner` resolves through `./src/channel/planner.ts`.
+- Export `./channel/planner-types` resolves through `./src/channel/planner-types.ts`.
 - Export `./channel/policy` resolves through `./src/channel/policy.ts`.
 - Export `./channel/postgres-queries` resolves through `./src/channel/postgres-queries.ts`.
 - Export `./channel/postgres-schema` resolves through `./src/channel/postgres-schema.ts`.
@@ -13345,7 +13352,7 @@ The channel runtime keeps policy evaluation deterministic and auditable:
 - Export `./transport/auth-resolver` resolves through `./src/transport/auth-resolver.ts`.
 - Export `./transport/transport-factory` resolves through `./src/transport/transport-factory.ts`.
 - Export `./transport/version-negotiator` resolves through `./src/transport/version-negotiator.ts`.
-- The package publishes 33 total export subpaths; keep docs aligned with `package.json`.
+- The package publishes 37 total export subpaths; keep docs aligned with `package.json`.
 
 ## Local Commands
 

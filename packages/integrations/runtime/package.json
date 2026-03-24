@@ -49,21 +49,30 @@
 		".": "./src/index.ts",
 		"./channel": "./src/channel/index.ts",
 		"./channel/approval": "./src/channel/approval.ts",
+		"./channel/approval-plan": "./src/channel/approval-plan.ts",
 		"./channel/authorization": "./src/channel/authorization.ts",
+		"./channel/base-types": "./src/channel/base-types.ts",
+		"./channel/control-plane-types": "./src/channel/control-plane-types.ts",
 		"./channel/dispatcher": "./src/channel/dispatcher.ts",
 		"./channel/github": "./src/channel/github.ts",
 		"./channel/memory-store": "./src/channel/memory-store.ts",
+		"./channel/plan-types": "./src/channel/plan-types.ts",
+		"./channel/plan-utils": "./src/channel/plan-utils.ts",
 		"./channel/planner": "./src/channel/planner.ts",
+		"./channel/planner-types": "./src/channel/planner-types.ts",
 		"./channel/policy": "./src/channel/policy.ts",
+		"./channel/policy-contract": "./src/channel/policy-contract.ts",
 		"./channel/postgres-queries": "./src/channel/postgres-queries.ts",
 		"./channel/postgres-schema": "./src/channel/postgres-schema.ts",
 		"./channel/postgres-store": "./src/channel/postgres-store.ts",
 		"./channel/replay-fixtures": "./src/channel/replay-fixtures.ts",
 		"./channel/service": "./src/channel/service.ts",
+		"./channel/skill-registry": "./src/channel/skill-registry.ts",
 		"./channel/slack": "./src/channel/slack.ts",
 		"./channel/store": "./src/channel/store.ts",
 		"./channel/telegram": "./src/channel/telegram.ts",
 		"./channel/telemetry": "./src/channel/telemetry.ts",
+		"./channel/telemetry-recorder": "./src/channel/telemetry-recorder.ts",
 		"./channel/trace": "./src/channel/trace.ts",
 		"./channel/types": "./src/channel/types.ts",
 		"./channel/whatsapp-meta": "./src/channel/whatsapp-meta.ts",
@@ -101,11 +110,29 @@
 				"node": "./dist/node/channel/approval.js",
 				"default": "./dist/channel/approval.js"
 			},
+			"./channel/approval-plan": {
+				"types": "./dist/channel/approval-plan.d.ts",
+				"bun": "./dist/channel/approval-plan.js",
+				"node": "./dist/node/channel/approval-plan.js",
+				"default": "./dist/channel/approval-plan.js"
+			},
 			"./channel/authorization": {
 				"types": "./dist/channel/authorization.d.ts",
 				"bun": "./dist/channel/authorization.js",
 				"node": "./dist/node/channel/authorization.js",
 				"default": "./dist/channel/authorization.js"
+			},
+			"./channel/base-types": {
+				"types": "./dist/channel/base-types.d.ts",
+				"bun": "./dist/channel/base-types.js",
+				"node": "./dist/node/channel/base-types.js",
+				"default": "./dist/channel/base-types.js"
+			},
+			"./channel/control-plane-types": {
+				"types": "./dist/channel/control-plane-types.d.ts",
+				"bun": "./dist/channel/control-plane-types.js",
+				"node": "./dist/node/channel/control-plane-types.js",
+				"default": "./dist/channel/control-plane-types.js"
 			},
 			"./channel/dispatcher": {
 				"types": "./dist/channel/dispatcher.d.ts",
@@ -125,17 +152,41 @@
 				"node": "./dist/node/channel/memory-store.js",
 				"default": "./dist/channel/memory-store.js"
 			},
+			"./channel/plan-types": {
+				"types": "./dist/channel/plan-types.d.ts",
+				"bun": "./dist/channel/plan-types.js",
+				"node": "./dist/node/channel/plan-types.js",
+				"default": "./dist/channel/plan-types.js"
+			},
+			"./channel/plan-utils": {
+				"types": "./dist/channel/plan-utils.d.ts",
+				"bun": "./dist/channel/plan-utils.js",
+				"node": "./dist/node/channel/plan-utils.js",
+				"default": "./dist/channel/plan-utils.js"
+			},
 			"./channel/planner": {
 				"types": "./dist/channel/planner.d.ts",
 				"bun": "./dist/channel/planner.js",
 				"node": "./dist/node/channel/planner.js",
 				"default": "./dist/channel/planner.js"
 			},
+			"./channel/planner-types": {
+				"types": "./dist/channel/planner-types.d.ts",
+				"bun": "./dist/channel/planner-types.js",
+				"node": "./dist/node/channel/planner-types.js",
+				"default": "./dist/channel/planner-types.js"
+			},
 			"./channel/policy": {
 				"types": "./dist/channel/policy.d.ts",
 				"bun": "./dist/channel/policy.js",
 				"node": "./dist/node/channel/policy.js",
 				"default": "./dist/channel/policy.js"
+			},
+			"./channel/policy-contract": {
+				"types": "./dist/channel/policy-contract.d.ts",
+				"bun": "./dist/channel/policy-contract.js",
+				"node": "./dist/node/channel/policy-contract.js",
+				"default": "./dist/channel/policy-contract.js"
 			},
 			"./channel/postgres-queries": {
 				"types": "./dist/channel/postgres-queries.d.ts",
@@ -167,6 +218,12 @@
 				"node": "./dist/node/channel/service.js",
 				"default": "./dist/channel/service.js"
 			},
+			"./channel/skill-registry": {
+				"types": "./dist/channel/skill-registry.d.ts",
+				"bun": "./dist/channel/skill-registry.js",
+				"node": "./dist/node/channel/skill-registry.js",
+				"default": "./dist/channel/skill-registry.js"
+			},
 			"./channel/slack": {
 				"types": "./dist/channel/slack.d.ts",
 				"bun": "./dist/channel/slack.js",
@@ -190,6 +247,12 @@
 				"bun": "./dist/channel/telemetry.js",
 				"node": "./dist/node/channel/telemetry.js",
 				"default": "./dist/channel/telemetry.js"
+			},
+			"./channel/telemetry-recorder": {
+				"types": "./dist/channel/telemetry-recorder.d.ts",
+				"bun": "./dist/channel/telemetry-recorder.js",
+				"node": "./dist/node/channel/telemetry-recorder.js",
+				"default": "./dist/channel/telemetry-recorder.js"
 			},
 			"./channel/trace": {
 				"types": "./dist/channel/trace.d.ts",

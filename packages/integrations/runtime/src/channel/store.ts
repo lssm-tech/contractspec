@@ -1,3 +1,4 @@
+import type { ChannelTelemetryEvent } from './telemetry';
 import type {
 	ChannelApprovalContext,
 	ChannelApprovalStatus,
@@ -8,6 +9,9 @@ import type {
 	ChannelOutboxActionRecord,
 	ChannelPlanTraceEntry,
 	ChannelThreadRecord,
+	ChannelTraceEventRecord,
+	ControlPlaneSkillInstallationRecord,
+	ControlPlaneSkillInstallationStatus,
 } from './types';
 
 export interface ClaimEventReceiptInput {
@@ -85,6 +89,49 @@ export interface ResolveDecisionApprovalInput {
 	toolTrace: ChannelPlanTraceEntry[];
 }
 
+export interface AppendTraceEventInput extends ChannelTelemetryEvent {
+	decisionId?: string;
+}
+
+export interface ListTraceEventsInput {
+	traceId?: string;
+	receiptId?: string;
+	decisionId?: string;
+	actionId?: string;
+	limit?: number;
+}
+
+export interface SaveSkillInstallationInput {
+	skillKey: string;
+	version: string;
+	artifactDigest: string;
+	manifest: ControlPlaneSkillInstallationRecord['manifest'];
+	verificationReport: ControlPlaneSkillInstallationRecord['verificationReport'];
+	status: ControlPlaneSkillInstallationStatus;
+	installedAt: Date;
+	installedBy?: string;
+	disabledAt?: Date;
+	disabledBy?: string;
+}
+
+export interface ListSkillInstallationsInput {
+	includeDisabled?: boolean;
+	limit?: number;
+	offset?: number;
+	skillKey?: string;
+}
+
+export interface ListSkillInstallationsResult {
+	items: ControlPlaneSkillInstallationRecord[];
+	total: number;
+}
+
+export interface DisableSkillInstallationInput {
+	installationId: string;
+	disabledAt: Date;
+	disabledBy?: string;
+}
+
 export interface EnqueueOutboxActionInput {
 	workspaceId: string;
 	providerKey: string;
@@ -99,6 +146,11 @@ export interface EnqueueOutboxActionInput {
 export interface EnqueueOutboxActionResult {
 	actionId: string;
 	duplicate: boolean;
+}
+
+export interface ApproveDecisionAndEnqueueOutboxInput {
+	resolution: ResolveDecisionApprovalInput;
+	outbox: EnqueueOutboxActionInput;
 }
 
 export interface RecordDeliveryAttemptInput {
@@ -143,6 +195,12 @@ export interface ChannelRuntimeStore {
 	resolveDecisionApproval(
 		input: ResolveDecisionApprovalInput
 	): Promise<ChannelDecisionRecord | null>;
+	approveDecisionAndEnqueueOutbox(
+		input: ApproveDecisionAndEnqueueOutboxInput
+	): Promise<{
+		decision: ChannelDecisionRecord;
+		outboxAction: EnqueueOutboxActionResult;
+	} | null>;
 	enqueueOutboxAction(
 		input: EnqueueOutboxActionInput
 	): Promise<EnqueueOutboxActionResult>;
@@ -162,4 +220,26 @@ export interface ChannelRuntimeStore {
 	markOutboxSent(actionId: string, providerMessageId?: string): Promise<void>;
 	markOutboxRetry(input: MarkOutboxRetryInput): Promise<void>;
 	markOutboxDeadLetter(input: MarkOutboxDeadLetterInput): Promise<void>;
+	appendTraceEvent(
+		input: AppendTraceEventInput
+	): Promise<ChannelTraceEventRecord>;
+	listTraceEvents(
+		input?: ListTraceEventsInput
+	): Promise<ChannelTraceEventRecord[]>;
+	saveSkillInstallation(
+		input: SaveSkillInstallationInput
+	): Promise<ControlPlaneSkillInstallationRecord>;
+	getSkillInstallation(
+		installationId: string
+	): Promise<ControlPlaneSkillInstallationRecord | null>;
+	findSkillInstallation(
+		skillKey: string,
+		version: string
+	): Promise<ControlPlaneSkillInstallationRecord | null>;
+	listSkillInstallations(
+		input?: ListSkillInstallationsInput
+	): Promise<ListSkillInstallationsResult>;
+	disableSkillInstallation(
+		input: DisableSkillInstallationInput
+	): Promise<ControlPlaneSkillInstallationRecord | null>;
 }

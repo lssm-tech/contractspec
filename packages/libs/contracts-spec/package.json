@@ -163,6 +163,8 @@
 		"./control-plane/events/controlPlanePlanRejected.event": "./src/control-plane/events/controlPlanePlanRejected.event.ts",
 		"./control-plane/events/controlPlaneSkillInstalled.event": "./src/control-plane/events/controlPlaneSkillInstalled.event.ts",
 		"./control-plane/events/controlPlaneSkillRejected.event": "./src/control-plane/events/controlPlaneSkillRejected.event.ts",
+		"./control-plane/policies": "./src/control-plane/policies/index.ts",
+		"./control-plane/policies/controlPlaneMessaging.policy": "./src/control-plane/policies/controlPlaneMessaging.policy.ts",
 		"./control-plane/queries": "./src/control-plane/queries/index.ts",
 		"./control-plane/queries/controlPlaneExecutionGet.query": "./src/control-plane/queries/controlPlaneExecutionGet.query.ts",
 		"./control-plane/queries/controlPlaneExecutionList.query": "./src/control-plane/queries/controlPlaneExecutionList.query.ts",
@@ -1107,6 +1109,18 @@
 				"bun": "./dist/control-plane/events/controlPlaneSkillRejected.event.js",
 				"node": "./dist/node/control-plane/events/controlPlaneSkillRejected.event.js",
 				"default": "./dist/control-plane/events/controlPlaneSkillRejected.event.js"
+			},
+			"./control-plane/policies": {
+				"types": "./dist/control-plane/policies/index.d.ts",
+				"bun": "./dist/control-plane/policies/index.js",
+				"node": "./dist/node/control-plane/policies/index.js",
+				"default": "./dist/control-plane/policies/index.js"
+			},
+			"./control-plane/policies/controlPlaneMessaging.policy": {
+				"types": "./dist/control-plane/policies/controlPlaneMessaging.policy.d.ts",
+				"bun": "./dist/control-plane/policies/controlPlaneMessaging.policy.js",
+				"node": "./dist/node/control-plane/policies/controlPlaneMessaging.policy.js",
+				"default": "./dist/control-plane/policies/controlPlaneMessaging.policy.js"
 			},
 			"./control-plane/queries": {
 				"types": "./dist/control-plane/queries/index.d.ts",

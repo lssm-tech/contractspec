@@ -1,5 +1,6 @@
 export * from './approval';
 export * from './authorization';
+export * from './control-plane-types';
 export * from './dispatcher';
 export * from './github';
 export * from './memory-store';
@@ -9,6 +10,7 @@ export * from './postgres-schema';
 export * from './postgres-store';
 export * from './replay-fixtures';
 export * from './service';
+export * from './skill-registry';
 export * from './slack';
 export * from './store';
 export * from './telegram';

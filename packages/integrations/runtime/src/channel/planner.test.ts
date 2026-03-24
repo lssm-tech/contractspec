@@ -63,9 +63,28 @@ describe('channel planner', () => {
 
 		expect(first.id).toBe(second.id);
 		expect(first.traceId).toBe(second.traceId);
+		expect(first.dag).toEqual({
+			rootStepIds: [first.steps[0]!.id],
+			terminalStepIds: [first.steps[2]!.id],
+			topologicalOrder: first.steps.map((step) => step.id),
+			edges: [
+				{ from: first.steps[0]!.id, to: first.steps[1]!.id },
+				{ from: first.steps[1]!.id, to: first.steps[2]!.id },
+			],
+		});
 		expect(first.steps.map((step) => step.id)).toEqual(
 			second.steps.map((step) => step.id)
 		);
+		expect(first.steps[0]).toMatchObject({
+			io: {
+				contract: {
+					key: 'controlPlane.intent.submit',
+					version: '1.0.0',
+				},
+				inputSchema: { name: 'ChannelIntentSubmitStepInput' },
+				outputSchema: { name: 'ChannelIntentSubmitStepOutput' },
+			},
+		});
 		expect(first.actor).toMatchObject({
 			type: 'human',
 			id: 'U123',
@@ -127,10 +146,18 @@ describe('channel planner', () => {
 				expect.objectContaining({
 					contractKey: 'controlPlane.plan.verify',
 					status: 'completed',
+					metadata: expect.objectContaining({
+						inputSchema: 'ChannelPlanVerifyStepInput',
+						outputSchema: 'ChannelPlanVerifyStepOutput',
+					}),
 				}),
 				expect.objectContaining({
 					contractKey: 'controlPlane.execution.start',
 					status: 'blocked',
+					metadata: expect.objectContaining({
+						dagIndex: 2,
+						outputSchema: 'ChannelExecutionStartStepOutput',
+					}),
 				}),
 			])
 		);

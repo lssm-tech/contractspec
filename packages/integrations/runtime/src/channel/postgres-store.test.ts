@@ -32,6 +32,12 @@ const pendingPlan: ChannelCompiledPlan = {
 		fallback: 'block_on_timeout',
 		timeoutAt: '2026-03-22T10:05:00.000Z',
 	},
+	dag: {
+		rootStepIds: [],
+		terminalStepIds: [],
+		topologicalOrder: [],
+		edges: [],
+	},
 	steps: [],
 };
 
@@ -63,8 +69,10 @@ class MockPool {
 describe('PostgresChannelRuntimeStore', () => {
 	it('claims event receipts and reports duplicate state', async () => {
 		const pool = new MockPool([
-			{ rows: [{ id: 'receipt-1', inserted: true }] },
-			{ rows: [{ id: 'receipt-1', inserted: false }] },
+			{ rows: [{ id: 'receipt-1' }] },
+			{ rows: [] },
+			{ rows: [] },
+			{ rows: [{ id: 'receipt-1' }] },
 			{ rows: [] },
 		]);
 		const store = new PostgresChannelRuntimeStore(

@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'bun:test';
+import { ChannelApprovalService } from './approval';
 import { InMemoryChannelRuntimeStore } from './memory-store';
 import { ChannelRuntimeService } from './service';
 import { ChannelTraceService } from './trace';
@@ -39,9 +40,49 @@ describe('ChannelTraceService', () => {
 		expect(trace?.receipt?.status).toBe('processed');
 		expect(trace?.decision.actionPlan.id).toBeDefined();
 		expect(trace?.actions).toHaveLength(1);
+		expect(trace?.events.length).toBeGreaterThan(0);
+		expect(
+			trace?.events.every(
+				(event) => event.traceId === trace.decision.actionPlan.traceId
+			)
+		).toBe(true);
 		expect(trace?.replay.traceId).toBe(trace?.decision.actionPlan.traceId);
 
 		const replay = await traceService.replayExecutionTrace(decisionId);
+		expect(replay?.matches).toBe(true);
+		expect(replay?.mismatches).toHaveLength(0);
+	});
+
+	it('replays approved decisions without approval-state drift', async () => {
+		const store = new InMemoryChannelRuntimeStore();
+		const service = new ChannelRuntimeService(store, {
+			asyncProcessing: false,
+			defaultCapabilityGrants: ['control-plane.approval.request'],
+			now: () => new Date('2026-03-22T10:00:00.000Z'),
+		});
+		await service.ingest({
+			workspaceId: 'workspace-1',
+			providerKey: 'messaging.slack',
+			externalEventId: 'evt-approval',
+			eventType: 'slack.message',
+			occurredAt: new Date('2026-03-22T10:00:00.000Z'),
+			signatureValid: true,
+			thread: { externalThreadId: 'thread-1' },
+			message: { text: 'Please refund this invoice.' },
+		});
+
+		const decisionId = [...store.decisions.keys()][0]!;
+		await new ChannelApprovalService(store, {
+			now: () => new Date('2026-03-22T10:01:00.000Z'),
+		}).approve({
+			decisionId,
+			approvedBy: 'operator-1',
+			capabilityGrants: ['control-plane.execution.approve'],
+		});
+
+		const replay = await new ChannelTraceService(store).replayExecutionTrace(
+			decisionId
+		);
 		expect(replay?.matches).toBe(true);
 		expect(replay?.mismatches).toHaveLength(0);
 	});

@@ -29,7 +29,14 @@
 		"./application/mcp/contractsMcpTools": "./src/application/mcp/contractsMcpTools.ts",
 		"./application/mcp/contractsMcpTypes": "./src/application/mcp/contractsMcpTypes.ts",
 		"./application/mcp/docsMcp": "./src/application/mcp/docsMcp.ts",
+		"./application/mcp/docsMcp.catalog": "./src/application/mcp/docsMcp.catalog.ts",
+		"./application/mcp/docsMcp.data": "./src/application/mcp/docsMcp.data.ts",
+		"./application/mcp/docsMcp.prompts": "./src/application/mcp/docsMcp.prompts.ts",
+		"./application/mcp/docsMcp.reference": "./src/application/mcp/docsMcp.reference.ts",
+		"./application/mcp/docsMcp.resources": "./src/application/mcp/docsMcp.resources.ts",
+		"./application/mcp/docsMcp.tools": "./src/application/mcp/docsMcp.tools.ts",
 		"./application/mcp/internalMcp": "./src/application/mcp/internalMcp.ts",
+		"./application/mcp/normalizeMcpRequest": "./src/application/mcp/normalizeMcpRequest.ts",
 		"./application/mcp/providerRankingMcp": "./src/application/mcp/providerRankingMcp.ts",
 		"./bundles": "./src/bundles/index.ts",
 		"./bundles/LibraryBundle": "./src/bundles/LibraryBundle.ts",
@@ -445,11 +452,53 @@
 				"node": "./dist/node/application/mcp/docsMcp.js",
 				"default": "./dist/application/mcp/docsMcp.js"
 			},
+			"./application/mcp/docsMcp.catalog": {
+				"types": "./dist/application/mcp/docsMcp.catalog.d.ts",
+				"bun": "./dist/application/mcp/docsMcp.catalog.js",
+				"node": "./dist/node/application/mcp/docsMcp.catalog.js",
+				"default": "./dist/application/mcp/docsMcp.catalog.js"
+			},
+			"./application/mcp/docsMcp.data": {
+				"types": "./dist/application/mcp/docsMcp.data.d.ts",
+				"bun": "./dist/application/mcp/docsMcp.data.js",
+				"node": "./dist/node/application/mcp/docsMcp.data.js",
+				"default": "./dist/application/mcp/docsMcp.data.js"
+			},
+			"./application/mcp/docsMcp.prompts": {
+				"types": "./dist/application/mcp/docsMcp.prompts.d.ts",
+				"bun": "./dist/application/mcp/docsMcp.prompts.js",
+				"node": "./dist/node/application/mcp/docsMcp.prompts.js",
+				"default": "./dist/application/mcp/docsMcp.prompts.js"
+			},
+			"./application/mcp/docsMcp.reference": {
+				"types": "./dist/application/mcp/docsMcp.reference.d.ts",
+				"bun": "./dist/application/mcp/docsMcp.reference.js",
+				"node": "./dist/node/application/mcp/docsMcp.reference.js",
+				"default": "./dist/application/mcp/docsMcp.reference.js"
+			},
+			"./application/mcp/docsMcp.resources": {
+				"types": "./dist/application/mcp/docsMcp.resources.d.ts",
+				"bun": "./dist/application/mcp/docsMcp.resources.js",
+				"node": "./dist/node/application/mcp/docsMcp.resources.js",
+				"default": "./dist/application/mcp/docsMcp.resources.js"
+			},
+			"./application/mcp/docsMcp.tools": {
+				"types": "./dist/application/mcp/docsMcp.tools.d.ts",
+				"bun": "./dist/application/mcp/docsMcp.tools.js",
+				"node": "./dist/node/application/mcp/docsMcp.tools.js",
+				"default": "./dist/application/mcp/docsMcp.tools.js"
+			},
 			"./application/mcp/internalMcp": {
 				"types": "./dist/application/mcp/internalMcp.d.ts",
 				"bun": "./dist/application/mcp/internalMcp.js",
 				"node": "./dist/node/application/mcp/internalMcp.js",
 				"default": "./dist/application/mcp/internalMcp.js"
+			},
+			"./application/mcp/normalizeMcpRequest": {
+				"types": "./dist/application/mcp/normalizeMcpRequest.d.ts",
+				"bun": "./dist/application/mcp/normalizeMcpRequest.js",
+				"node": "./dist/node/application/mcp/normalizeMcpRequest.js",
+				"default": "./dist/application/mcp/normalizeMcpRequest.js"
 			},
 			"./application/mcp/providerRankingMcp": {
 				"types": "./dist/application/mcp/providerRankingMcp.d.ts",
