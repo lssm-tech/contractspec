@@ -1,0 +1,125 @@
+{
+	"name": "@contractspec/integration.workflow-devkit",
+	"version": "0.1.0",
+	"description": "Workflow DevKit compiler and runtime bridges for ContractSpec workflows",
+	"keywords": [
+		"contractspec",
+		"workflow",
+		"workflow-devkit",
+		"durable",
+		"typescript"
+	],
+	"type": "module",
+	"main": "./dist/index.js",
+	"types": "./dist/index.d.ts",
+	"exports": {
+		".": "./src/index.ts",
+		"./agent-adapter": "./src/agent-adapter.ts",
+		"./chat-routes": "./src/chat-routes.ts",
+		"./compiler": "./src/compiler.ts",
+		"./helpers": "./src/helpers.ts",
+		"./next": "./src/next.ts",
+		"./runtime": "./src/runtime.ts",
+		"./types": "./src/types.ts"
+	},
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"scripts": {
+		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+		"publish:pkg:canary": "bun publish:pkg --tag canary",
+		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"dev": "contractspec-bun-build dev",
+		"clean": "rimraf dist .turbo",
+		"lint": "bun lint:fix",
+		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
+		"lint:check": "biome check .",
+		"test": "bun test",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@contractspec/lib.ai-agent": "workspace:*",
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@workflow/ai": "^4.1.0-beta.58",
+		"ai": "catalog:ai",
+		"workflow": "^4.2.0-beta.72"
+	},
+	"devDependencies": {
+		"@contractspec/tool.bun": "workspace:*",
+		"@contractspec/tool.typescript": "workspace:*",
+		"typescript": "catalog:"
+	},
+	"publishConfig": {
+		"access": "public",
+		"registry": "https://registry.npmjs.org/",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"browser": "./dist/browser/index.js",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./agent-adapter": {
+				"types": "./dist/agent-adapter.d.ts",
+				"browser": "./dist/browser/agent-adapter.js",
+				"bun": "./dist/agent-adapter.js",
+				"node": "./dist/node/agent-adapter.js",
+				"default": "./dist/agent-adapter.js"
+			},
+			"./chat-routes": {
+				"types": "./dist/chat-routes.d.ts",
+				"browser": "./dist/browser/chat-routes.js",
+				"bun": "./dist/chat-routes.js",
+				"node": "./dist/node/chat-routes.js",
+				"default": "./dist/chat-routes.js"
+			},
+			"./compiler": {
+				"types": "./dist/compiler.d.ts",
+				"browser": "./dist/browser/compiler.js",
+				"bun": "./dist/compiler.js",
+				"node": "./dist/node/compiler.js",
+				"default": "./dist/compiler.js"
+			},
+			"./helpers": {
+				"types": "./dist/helpers.d.ts",
+				"browser": "./dist/browser/helpers.js",
+				"bun": "./dist/helpers.js",
+				"node": "./dist/node/helpers.js",
+				"default": "./dist/helpers.js"
+			},
+			"./next": {
+				"types": "./dist/next.d.ts",
+				"browser": "./dist/browser/next.js",
+				"bun": "./dist/next.js",
+				"node": "./dist/node/next.js",
+				"default": "./dist/next.js"
+			},
+			"./runtime": {
+				"types": "./dist/runtime.d.ts",
+				"browser": "./dist/browser/runtime.js",
+				"bun": "./dist/runtime.js",
+				"node": "./dist/node/runtime.js",
+				"default": "./dist/runtime.js"
+			},
+			"./types": {
+				"types": "./dist/types.d.ts",
+				"browser": "./dist/browser/types.js",
+				"bun": "./dist/types.js",
+				"node": "./dist/node/types.js",
+				"default": "./dist/types.js"
+			}
+		}
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/integrations/workflow-devkit"
+	},
+	"homepage": "https://contractspec.io"
+}

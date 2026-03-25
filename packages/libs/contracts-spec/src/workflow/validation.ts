@@ -6,6 +6,7 @@ import type {
 	WorkflowDefinition,
 	WorkflowSpec,
 } from './spec';
+import { validateWorkflowDevkitConfig } from './validation-workflow-devkit';
 
 export type WorkflowValidationLevel = 'error' | 'warning';
 
@@ -68,6 +69,7 @@ export function validateWorkflowSpec(
 	const adjacency = buildAdjacency(definition, stepsById, issues);
 
 	validateRuntimeConfig(spec, issues);
+	validateWorkflowDevkitConfig(spec, issues);
 	validateStepActions(definition.steps, options, issues);
 	validateReachability(entryStepId, stepsById, adjacency, issues);
 	detectCycles(adjacency, issues);

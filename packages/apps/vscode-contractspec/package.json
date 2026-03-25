@@ -864,9 +864,9 @@
 	"scripts": {
 		"vscode:prepublish": "bun run build",
 		"build": "bun run build:types && bun run build:bundle",
-		"build:bundle": "bun build src/extension.ts --outfile=dist/extension.js --target=node --format=cjs --external=vscode --minify",
+		"build:bundle": "bun build src/extension.ts --outdir=dist --target=node --format=cjs --external=vscode --minify",
 		"build:types": "tsc --noEmit",
-		"dev": "bun build src/extension.ts --outfile=dist/extension.js --target=node --format=cjs --external=vscode --sourcemap=external --watch",
+		"dev": "bun build src/extension.ts --outdir=dist --target=node --format=cjs --external=vscode --sourcemap=external --watch",
 		"lint": "bun run lint:fix",
 		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
 		"lint:check": "biome check .",
@@ -884,6 +884,9 @@
 		"@contractspec/module.examples": "workspace:*",
 		"@contractspec/module.workspace": "workspace:*",
 		"ai": "catalog:ai"
+	},
+	"optionalDependencies": {
+		"@swc/wasm": "1.15.3"
 	},
 	"devDependencies": {
 		"@types/vscode": "^1.104.0",

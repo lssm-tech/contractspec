@@ -36,14 +36,14 @@ bun run dev
 
 ## Local Commands
 
-- `bun run dev` — bun build src/extension.ts --outfile=dist/extension.js --target=node --format=cjs --external=vscode --sourcemap=external --watch
+- `bun run dev` — bun build src/extension.ts --outdir=dist --target=node --format=cjs --external=vscode --sourcemap=external --watch
 - `bun run build` — bun run build:types && bun run build:bundle
 - `bun run test` — vscode-test
 - `bun run lint` — bun run lint:fix
 - `bun run lint:check` — biome check .
 - `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
 - `bun run vscode:prepublish` — bun run build
-- `bun run build:bundle` — bun build src/extension.ts --outfile=dist/extension.js --target=node --format=cjs --external=vscode --minify
+- `bun run build:bundle` — bun build src/extension.ts --outdir=dist --target=node --format=cjs --external=vscode --minify
 - `bun run build:types` — tsc --noEmit
 - `bun run package` — vsce package --no-dependencies
 - `bun run publish:off` — vsce publish --no-dependencies

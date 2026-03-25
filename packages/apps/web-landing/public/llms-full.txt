@@ -2,8 +2,8 @@
 
 > Aggregated content from all packages. For summary, see /llms
 
-Generated: 2026-03-24T10:52:51.566Z
-Packages: 164
+Generated: 2026-03-25T01:01:43.262Z
+Packages: 165
 
 ---
 
@@ -5702,10 +5702,11 @@ Import the root entrypoint from `@contractspec/module.ai-chat`, or choose a docu
 
 ## Public Entry Points
 
-- Exports the root module plus context, core, presentation, presentation/components, presentation/hooks, and providers subpaths.
+- Exports the root module plus context, core, core/workflow, presentation, presentation/components, presentation/hooks, and providers subpaths.
 - Export `.` resolves through `./src/index.ts`.
 - Export `./context` resolves through `./src/context/index.ts`.
 - Export `./core` resolves through `./src/core/index.ts`.
+- Export `./core/workflow` resolves through `./src/core/workflow.ts`.
 - Export `./presentation` resolves through `./src/presentation/index.ts`.
 - Export `./presentation/components` resolves through `./src/presentation/components/index.ts`.
 - Export `./presentation/hooks` resolves through `./src/presentation/hooks/index.ts`.
@@ -7263,14 +7264,14 @@ bun run dev
 
 ## Local Commands
 
-- `bun run dev` — bun build src/extension.ts --outfile=dist/extension.js --target=node --format=cjs --external=vscode --sourcemap=external --watch
+- `bun run dev` — bun build src/extension.ts --outdir=dist --target=node --format=cjs --external=vscode --sourcemap=external --watch
 - `bun run build` — bun run build:types && bun run build:bundle
 - `bun run test` — vscode-test
 - `bun run lint` — bun run lint:fix
 - `bun run lint:check` — biome check .
 - `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
 - `bun run vscode:prepublish` — bun run build
-- `bun run build:bundle` — bun build src/extension.ts --outfile=dist/extension.js --target=node --format=cjs --external=vscode --minify
+- `bun run build:bundle` — bun build src/extension.ts --outdir=dist --target=node --format=cjs --external=vscode --minify
 - `bun run build:types` — tsc --noEmit
 - `bun run package` — vsce package --no-dependencies
 - `bun run publish:off` — vsce publish --no-dependencies
@@ -13256,6 +13257,82 @@ Import the root entrypoint from `@contractspec/tool.tsdown`, or use one of the d
 - Changes affect every tsdown consumer's build output -- test downstream packages before merging
 - Peer-depends on `tsdown ^0.21` -- keep in sync with the workspace catalog version
 - Keep the preset minimal; package-specific overrides belong in each consumer's `tsdown.config.js`
+
+
+---
+
+## @contractspec/integration.workflow-devkit
+
+Description: Workflow DevKit compiler and runtime bridges for ContractSpec workflows
+Path: packages/integrations/workflow-devkit
+URL: /llms/integration.workflow-devkit
+
+# @contractspec/integration.workflow-devkit
+
+Workflow DevKit compiler and runtime bridges for ContractSpec `WorkflowSpec`.
+
+## What it provides
+
+- Compile a `WorkflowSpec` into a deterministic Workflow DevKit manifest.
+- Generate Workflow, Next.js, and generic-host scaffolding.
+- Run a `WorkflowSpec` through injected Workflow DevKit primitives such as `sleep`, hooks, and webhooks.
+- Create a Workflow-backed `AgentRuntimeAdapterBundle` for `@contractspec/lib.ai-agent`.
+- Expose chat route helpers and re-export `WorkflowChatTransport` for reconnectable chat UIs.
+
+## Entry points
+
+- `@contractspec/integration.workflow-devkit`
+- `@contractspec/integration.workflow-devkit/compiler`
+- `@contractspec/integration.workflow-devkit/runtime`
+- `@contractspec/integration.workflow-devkit/chat-routes`
+- `@contractspec/integration.workflow-devkit/agent-adapter`
+- `@contractspec/integration.workflow-devkit/next`
+
+## Next.js example
+
+```ts
+import { withContractSpecWorkflow } from "@contractspec/integration.workflow-devkit/next";
+import { createWorkflowChatRoutes } from "@contractspec/module.ai-chat/core/workflow";
+
+export default withContractSpecWorkflow({
+  experimental: {},
+});
+
+const routes = createWorkflowChatRoutes({
+  workflow: async (payload) => payload,
+  getFollowUpToken({ runId }) {
+    return `chat:${runId}`;
+  },
+});
+
+export const POST = routes.start;
+```
+
+## Generic host example
+
+```ts
+import { createHook, createWebhook, sleep } from "workflow";
+import {
+  runWorkflowSpecWithWorkflowDevkit,
+  type WorkflowDevkitRuntimeBridge,
+} from "@contractspec/integration.workflow-devkit";
+import { onboardingWorkflow } from "./onboarding.workflow";
+
+export async function runOnboarding(input: Record<string, unknown>, bridge: WorkflowDevkitRuntimeBridge) {
+  "use workflow";
+
+  return runWorkflowSpecWithWorkflowDevkit({
+    spec: onboardingWorkflow,
+    initialData: input,
+    bridge,
+    primitives: {
+      sleep,
+      createHook,
+      createWebhook,
+    },
+  });
+}
+```
 
 
 ---

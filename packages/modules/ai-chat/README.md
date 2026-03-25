@@ -36,10 +36,11 @@ Import the root entrypoint from `@contractspec/module.ai-chat`, or choose a docu
 
 ## Public Entry Points
 
-- Exports the root module plus context, core, presentation, presentation/components, presentation/hooks, and providers subpaths.
+- Exports the root module plus context, core, core/workflow, presentation, presentation/components, presentation/hooks, and providers subpaths.
 - Export `.` resolves through `./src/index.ts`.
 - Export `./context` resolves through `./src/context/index.ts`.
 - Export `./core` resolves through `./src/core/index.ts`.
+- Export `./core/workflow` resolves through `./src/core/workflow.ts`.
 - Export `./presentation` resolves through `./src/presentation/index.ts`.
 - Export `./presentation/components` resolves through `./src/presentation/components/index.ts`.
 - Export `./presentation/hooks` resolves through `./src/presentation/hooks/index.ts`.

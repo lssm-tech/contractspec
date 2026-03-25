@@ -2,7 +2,7 @@
  * Node.js git adapter implementation.
  */
 
-import { execSync } from 'node:child_process';
+import { execFileSync } from 'node:child_process';
 import { access } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import type { GitAdapter, GitCleanOptions, GitLogEntry } from '../ports/git';
@@ -16,7 +16,7 @@ export function createNodeGitAdapter(cwd?: string): GitAdapter {
 	return {
 		async showFile(ref: string, filePath: string): Promise<string> {
 			try {
-				return execSync(`git show ${ref}:${filePath}`, {
+				return execFileSync('git', ['show', `${ref}:${filePath}`], {
 					cwd: baseCwd,
 					encoding: 'utf-8',
 					stdio: ['ignore', 'pipe', 'pipe'],
@@ -37,7 +37,7 @@ export function createNodeGitAdapter(cwd?: string): GitAdapter {
 			if (options?.ignored) flags.push('-x');
 			if (options?.dryRun) flags.push('--dry-run');
 
-			execSync(`git clean ${flags.join(' ')}`, {
+			execFileSync('git', ['clean', ...flags], {
 				cwd: baseCwd,
 				stdio: 'inherit',
 			});
@@ -58,7 +58,7 @@ export function createNodeGitAdapter(cwd?: string): GitAdapter {
 			const format = '--format=%H|||%s|||%an|||%aI';
 
 			try {
-				const output = execSync(`git log ${ref}..HEAD ${format}`, {
+				const output = execFileSync('git', ['log', `${ref}..HEAD`, format], {
 					cwd: baseCwd,
 					encoding: 'utf-8',
 					stdio: ['ignore', 'pipe', 'pipe'],
@@ -84,12 +84,11 @@ export function createNodeGitAdapter(cwd?: string): GitAdapter {
 		async diffFiles(baseline: string, patterns?: string[]): Promise<string[]> {
 			try {
 				const pathSpecs =
-					patterns && patterns.length > 0
-						? `-- ${patterns.map((p) => `'${p}'`).join(' ')}`
-						: '';
+					patterns && patterns.length > 0 ? ['--', ...patterns] : [];
 
-				const output = execSync(
-					`git diff --name-only ${baseline}...HEAD ${pathSpecs}`,
+				const output = execFileSync(
+					'git',
+					['diff', '--name-only', `${baseline}...HEAD`, ...pathSpecs],
 					{
 						cwd: baseCwd,
 						encoding: 'utf-8',

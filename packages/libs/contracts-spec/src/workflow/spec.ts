@@ -4,7 +4,32 @@ import type { ExperimentRef } from '../experiments/spec';
 import type { FormRef, OpRef } from '../features';
 import type { OwnerShipMeta } from '../ownership';
 import { SpecContractRegistry } from '../registry';
+import type {
+	WorkflowDevkitRuntimeConfig,
+	WorkflowStepRuntimeConfig,
+} from './workflow-devkit';
 
+export type {
+	JsonValue,
+	WorkflowDevkitApprovalWaitStepConfig,
+	WorkflowDevkitHookTokenConfig,
+	WorkflowDevkitHookTokenStrategy,
+	WorkflowDevkitHookWaitStepConfig,
+	WorkflowDevkitHostTarget,
+	WorkflowDevkitIdentityConfig,
+	WorkflowDevkitIntegrationMode,
+	WorkflowDevkitResumeSource,
+	WorkflowDevkitRunIdentityStrategy,
+	WorkflowDevkitRuntimeConfig,
+	WorkflowDevkitSerializationConfig,
+	WorkflowDevkitSerializationMode,
+	WorkflowDevkitSleepStepConfig,
+	WorkflowDevkitStepBehavior,
+	WorkflowDevkitStepRuntimeConfig,
+	WorkflowDevkitStreamSessionStepConfig,
+	WorkflowDevkitWebhookWaitStepConfig,
+	WorkflowStepRuntimeConfig,
+} from './workflow-devkit';
 // Re-export for backwards compatibility
 export type { FormRef };
 
@@ -57,6 +82,7 @@ export interface WorkflowRuntimePorts {
 export interface WorkflowRuntimeConfig {
 	capabilities?: WorkflowRuntimeCapabilities;
 	ports?: WorkflowRuntimePorts;
+	workflowDevkit?: WorkflowDevkitRuntimeConfig;
 }
 
 export interface GuardCondition {
@@ -104,6 +130,8 @@ export interface Step {
 	requiredCapabilities?: CapabilityRef[];
 	/** Hints for ranking-driven AI model selection on this step. */
 	modelHints?: StepModelHints;
+	/** Runtime-specific execution metadata for adapter-backed orchestration. */
+	runtime?: WorkflowStepRuntimeConfig;
 }
 
 export interface Transition {

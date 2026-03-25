@@ -20,25 +20,27 @@ function chunkKeyForId(id: string): string {
 
 async function loadManifest(): Promise<DocsIndexManifest> {
 	if (!manifestPromise) {
-		manifestPromise = readFile(join(baseDir, DOCS_INDEX_MANIFEST), 'utf8').then(
-			(content) => JSON.parse(content) as DocsIndexManifest
-		);
+		manifestPromise = readFile(
+			join(baseDir, /* turbopackIgnore: true */ DOCS_INDEX_MANIFEST),
+			'utf8'
+		).then((content) => JSON.parse(content) as DocsIndexManifest);
 	}
 	return manifestPromise;
 }
 
 function resolveContentRoot(manifest: DocsIndexManifest): string {
 	const root = manifest.contentRoot ?? '.';
-	return join(baseDir, root);
+	return join(baseDir, /* turbopackIgnore: true */ root);
 }
 
 async function loadChunk(fileName: string): Promise<DocsIndexEntry[]> {
 	const cached = chunkCache.get(fileName);
 	if (cached) return cached;
 
-	const load = readFile(join(baseDir, fileName), 'utf8').then(
-		(content) => JSON.parse(content) as DocsIndexEntry[]
-	);
+	const load = readFile(
+		join(baseDir, /* turbopackIgnore: true */ fileName),
+		'utf8'
+	).then((content) => JSON.parse(content) as DocsIndexEntry[]);
 	chunkCache.set(fileName, load);
 	return load;
 }
@@ -74,7 +76,10 @@ export async function getGeneratedDocById(id: string): Promise<{
 	const entry = entries.find((doc) => doc.id === id);
 	if (!entry || !entry.contentPath) return null;
 
-	const contentPath = join(resolveContentRoot(manifest), entry.contentPath);
+	const contentPath = join(
+		resolveContentRoot(manifest),
+		/* turbopackIgnore: true */ entry.contentPath
+	);
 	try {
 		const content = await readFile(contentPath, 'utf8');
 		return { entry, content };

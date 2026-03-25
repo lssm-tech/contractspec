@@ -424,6 +424,8 @@
 		"./workflow/spec": "./src/workflow/spec.ts",
 		"./workflow/state": "./src/workflow/state.ts",
 		"./workflow/validation": "./src/workflow/validation.ts",
+		"./workflow/validation-workflow-devkit": "./src/workflow/validation-workflow-devkit.ts",
+		"./workflow/workflow-devkit": "./src/workflow/workflow-devkit.ts",
 		"./workspace-config": "./src/workspace-config/index.ts",
 		"./workspace-config/contractsrc-schema": "./src/workspace-config/contractsrc-schema.ts",
 		"./workspace-config/contractsrc-types": "./src/workspace-config/contractsrc-types.ts"
@@ -2675,6 +2677,18 @@
 				"bun": "./dist/workflow/validation.js",
 				"node": "./dist/node/workflow/validation.js",
 				"default": "./dist/workflow/validation.js"
+			},
+			"./workflow/validation-workflow-devkit": {
+				"types": "./dist/workflow/validation-workflow-devkit.d.ts",
+				"bun": "./dist/workflow/validation-workflow-devkit.js",
+				"node": "./dist/node/workflow/validation-workflow-devkit.js",
+				"default": "./dist/workflow/validation-workflow-devkit.js"
+			},
+			"./workflow/workflow-devkit": {
+				"types": "./dist/workflow/workflow-devkit.d.ts",
+				"bun": "./dist/workflow/workflow-devkit.js",
+				"node": "./dist/node/workflow/workflow-devkit.js",
+				"default": "./dist/workflow/workflow-devkit.js"
 			},
 			"./workspace-config": {
 				"types": "./dist/workspace-config/index.d.ts",

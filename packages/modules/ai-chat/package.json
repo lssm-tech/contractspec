@@ -35,6 +35,7 @@
 		"@contractspec/lib.surface-runtime": "workspace:*",
 		"@contractspec/lib.ai-providers": "workspace:*",
 		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/integration.workflow-devkit": "workspace:*",
 		"@contractspec/lib.workflow-composer": "workspace:*",
 		"@contractspec/lib.schema": "workspace:*",
 		"@contractspec/lib.metering": "workspace:*",

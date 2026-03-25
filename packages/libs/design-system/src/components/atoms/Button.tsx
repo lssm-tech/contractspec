@@ -45,6 +45,11 @@ export function Button({
 	...rest
 }: ButtonProps) {
 	const isDisabled = Boolean(disabled || loading);
+	const handleClick = onPress
+		? () => {
+				onPress();
+			}
+		: onClick;
 
 	const content = !rest.asChild ? (
 		<>
@@ -68,9 +73,7 @@ export function Button({
 			disabled={isDisabled}
 			aria-busy={loading ? true : undefined}
 			aria-disabled={isDisabled ? true : undefined}
-			// normalized + bridged events
-			onPress={onPress || onClick}
-			onClick={onPress || onClick}
+			onClick={handleClick}
 			onMouseDown={onMouseDown || onPressIn}
 			onMouseUp={onMouseUp || onPressOut}
 			onTouchStart={onTouchStart}

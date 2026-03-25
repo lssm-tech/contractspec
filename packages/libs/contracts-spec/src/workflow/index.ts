@@ -6,6 +6,7 @@ export * from './sla-monitor';
 export * from './spec';
 export * from './state';
 export * from './validation';
+export * from './workflow-devkit';
 
 import type { WorkflowSpec } from './spec';
 

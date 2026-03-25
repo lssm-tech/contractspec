@@ -1,5 +1,13 @@
 import type { WorkflowStatus } from './spec';
 
+export type WorkflowWaitReason =
+	| 'approval'
+	| 'hook'
+	| 'human_input'
+	| 'retry'
+	| 'stream'
+	| 'webhook';
+
 export interface StepExecution {
 	stepId: string;
 	startedAt: Date;
@@ -11,7 +19,7 @@ export interface StepExecution {
 }
 
 export interface WorkflowWaitState {
-	reason: 'human_input' | 'retry';
+	reason: WorkflowWaitReason;
 	stepId: string;
 	requestedAt: Date;
 	retryAt?: Date;
