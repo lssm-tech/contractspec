@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.harness",
-	"version": "0.2.7",
+	"version": "0.2.8",
 	"description": "Harness orchestration, policy, evidence, and evaluation runtime.",
 	"type": "module",
 	"types": "./dist/index.d.ts",

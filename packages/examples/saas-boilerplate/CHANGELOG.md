@@ -1,5 +1,25 @@
 # @contractspec/example.saas-boilerplate
 
+## 3.8.7
+
+### Patch Changes
+
+- cce2b13: Add first-class Workflow DevKit support for `WorkflowSpec`, including new runtime metadata, stricter validation for Workflow-backed workflows, a dedicated Workflow DevKit integration package, CLI artifact generation, and Workflow-aware chat route helpers exposed from `@contractspec/module.ai-chat/core/workflow` so standard chat imports do not pull Workflow-only runtime assets into non-Workflow builds.
+
+  Also harden supporting runtime surfaces by reusing Playwright browser instances in the harness runtime, mapping design-system button `onPress` handlers correctly to DOM clicks, and switching the workspace git adapter to argument-safe subprocess calls while tightening slow test coverage around those flows.
+
+- Updated dependencies [cce2b13]
+  - @contractspec/lib.presentation-runtime-core@3.9.3
+  - @contractspec/lib.example-shared-ui@6.0.15
+  - @contractspec/module.notifications@3.7.14
+  - @contractspec/lib.runtime-sandbox@2.7.12
+  - @contractspec/lib.contracts-spec@5.0.3
+  - @contractspec/module.audit-trail@3.7.15
+  - @contractspec/lib.design-system@3.8.8
+  - @contractspec/lib.identity-rbac@3.7.15
+  - @contractspec/lib.schema@3.7.12
+  - @contractspec/lib.jobs@3.7.15
+
 ## 3.8.6
 
 ### Patch Changes

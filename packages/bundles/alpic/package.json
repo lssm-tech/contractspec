@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/bundle.alpic",
-	"version": "3.7.13",
+	"version": "3.7.14",
 	"description": "Alpic MCP server and ChatGPT App hosting bundle",
 	"keywords": [
 		"contractspec",

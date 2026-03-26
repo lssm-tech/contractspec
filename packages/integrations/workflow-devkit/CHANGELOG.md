@@ -1,6 +1,6 @@
-# @contractspec/biome-config
+# @contractspec/integration.workflow-devkit
 
-## 3.8.5
+## 0.1.1
 
 ### Patch Changes
 
@@ -8,26 +8,6 @@
 
   Also harden supporting runtime surfaces by reusing Playwright browser instances in the harness runtime, mapping design-system button `onPress` handlers correctly to DOM clicks, and switching the workspace git adapter to argument-safe subprocess calls while tightening slow test coverage around those flows.
 
-## 3.8.4
-
-### Patch Changes
-
-- chore: stability & release
-
-## 3.8.3
-
-### Patch Changes
-
-- fix: release
-
-## 3.8.2
-
-### Patch Changes
-
-- 1a44cb6: feat: improve examples to increase coverage of Contracts type
-
-## 3.8.1
-
-### Patch Changes
-
-- fix: release
+- Updated dependencies [cce2b13]
+  - @contractspec/lib.contracts-spec@5.0.3
+  - @contractspec/lib.ai-agent@8.0.3

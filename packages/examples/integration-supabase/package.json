@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/example.integration-supabase",
-	"version": "3.7.14",
+	"version": "3.7.15",
 	"description": "Integration example - Supabase vector store + Postgres database wiring.",
 	"type": "module",
 	"types": "./dist/index.d.ts",
