@@ -1,7 +1,7 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
-import { defineCommand } from '../../operations';
-import '../ensure-docblocks';
 import { docId } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { defineCommand } from '../../operations';
 import {
 	AGENT_DOMAIN,
 	AGENT_OWNERS,
@@ -26,6 +26,20 @@ const AgentCancelOutput = new SchemaModel({
 		cancelledAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
 	},
 });
+
+export const AgentCancelDocBlock = {
+	id: 'docs.tech.agent.cancel',
+	title: 'Cancel agent run',
+	summary: 'Cancel an in-flight agent run.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/agent/cancel',
+	tags: ['agent', 'cancel'],
+	body: `# agent.cancel
+
+Stops an active agent run and records cancellation metadata.
+`,
+} satisfies DocBlock;
 
 export const AgentCancelCommand = defineCommand({
 	meta: {

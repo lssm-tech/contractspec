@@ -1,7 +1,7 @@
 /* eslint-disable */
 import type { AnySchemaModel, ZodSchemaModel } from '@contractspec/lib.schema';
+import type { DocBlock } from '../docs/types';
 import type { OwnerShipMeta } from '../ownership';
-
 // ---- Core types
 
 export type PredicateOp =
@@ -291,15 +291,39 @@ function getAtPath(values: unknown, path: string): unknown {
 	return cur;
 }
 
-export function evalPredicate(values: unknown, pred?: Predicate): boolean {
+function resolveIndexedPath(
+	path: string,
+	indices: readonly number[] = []
+): string {
+	let indexCursor = 0;
+	return path.replace(/\$index/g, () => {
+		const nextIndex = indices[indexCursor];
+		indexCursor += 1;
+		return nextIndex == null ? '$index' : String(nextIndex);
+	});
+}
+
+function toIssuePath(path: string): Array<string | number> {
+	return path
+		.split('.')
+		.filter(Boolean)
+		.map((segment) => (/^\d+$/.test(segment) ? Number(segment) : segment));
+}
+
+export function evalPredicate(
+	values: unknown,
+	pred?: Predicate,
+	indices: readonly number[] = []
+): boolean {
 	if (!pred) return true;
-	if (pred.not) return !evalPredicate(values, pred.not);
+	if (pred.not) return !evalPredicate(values, pred.not, indices);
 	if (pred.all && pred.all.length)
-		return pred.all.every((p) => evalPredicate(values, p));
+		return pred.all.every((p) => evalPredicate(values, p, indices));
 	if (pred.anyOf && pred.anyOf.length)
-		return pred.anyOf.some((p) => evalPredicate(values, p));
+		return pred.anyOf.some((p) => evalPredicate(values, p, indices));
 	if (pred.when) {
-		const { path, op = 'truthy', value } = pred.when;
+		const { op = 'truthy', value } = pred.when;
+		const path = resolveIndexedPath(pred.when.path, indices);
 		const v = getAtPath(values, path);
 		switch (op) {
 			case 'equals':
@@ -369,16 +393,21 @@ export function buildZodWithRelations(
 
 	return (base as any).superRefine(
 		(values: Record<string, unknown>, ctx: any) => {
-			const visit = (field: FieldSpec, parentPath?: string) => {
-				const path = field.name
+			const visit = (
+				field: FieldSpec,
+				parentPath?: string,
+				indices: readonly number[] = []
+			) => {
+				const rawPath = field.name
 					? parentPath
 						? `${parentPath}.${field.name}`
 						: field.name
 					: (parentPath ?? '');
+				const path = resolveIndexedPath(rawPath, indices);
 
 				// requiredWhen enforcement (UI also shows required)
 				if (field.requiredWhen) {
-					const should = evalPredicate(values, field.requiredWhen);
+					const should = evalPredicate(values, field.requiredWhen, indices);
 					if (should) {
 						const v = getAtPath(values, path);
 						const empty =
@@ -388,7 +417,7 @@ export function buildZodWithRelations(
 						if (empty)
 							ctx.addIssue({
 								code: 'custom',
-								path: path.split('.'),
+								path: toIssuePath(path),
 								message: 'required',
 							});
 					}
@@ -404,7 +433,7 @@ export function buildZodWithRelations(
 					) {
 						ctx.addIssue({
 							code: 'custom',
-							path: path.split('.'),
+							path: toIssuePath(path),
 							message: `min:${field.min}`,
 						});
 					}
@@ -415,14 +444,17 @@ export function buildZodWithRelations(
 					) {
 						ctx.addIssue({
 							code: 'custom',
-							path: path.split('.'),
+							path: toIssuePath(path),
 							message: `max:${field.max}`,
 						});
 					}
-					// child
-					visit(field.of, path);
+					if (Array.isArray(arr)) {
+						arr.forEach((_item, index) => {
+							visit(field.of, `${path}.${index}`, [...indices, index]);
+						});
+					}
 				} else if (field.kind === 'group') {
-					for (const child of field.fields) visit(child, path);
+					for (const child of field.fields) visit(child, path, indices);
 				}
 			};
 
@@ -437,7 +469,7 @@ export function buildZodWithRelations(
 					if (!res.ok) {
 						ctx.addIssue({
 							code: 'custom',
-							path: (res.path ?? c.paths[0] ?? '').split('.').filter(Boolean),
+							path: toIssuePath(res.path ?? c.paths[0] ?? ''),
 							message: res.message ?? c.messageI18n,
 						});
 					}
@@ -554,3 +586,17 @@ export function defineFormSpec<
 }): FormSpec<M> {
 	return spec as unknown as FormSpec<M>;
 }
+
+export const tech_contracts_forms_DocBlocks: DocBlock[] = [
+	{
+		id: 'docs.tech.contracts.forms',
+		title: 'Contracts: FormSpec',
+		summary:
+			'This document defines the canonical contracts for declarative forms.',
+		kind: 'reference',
+		visibility: 'public',
+		route: '/docs/tech/contracts/forms',
+		tags: ['tech', 'contracts', 'forms'],
+		body: '# Contracts: FormSpec\n\nThis document defines the canonical contracts for declarative forms.\n\n## Overview\n\n- `FormSpec` (in `@contractspec/lib.contracts-spec/forms`) declares:\n  - `meta` (extends `OwnerShipMeta`) + `key`/`version` for stability.\n  - `model` (`@contractspec/lib.schema` `SchemaModel`) as the single source of truth.\n  - `fields` built from `FieldSpec` kinds: `text`, `textarea`, `select`, `checkbox`, `radio`, `switch`, `group`, `array`.\n  - Optional `actions`, `policy.flags`, `constraints` and `renderHints`.\n- Relations DSL provides `visibleWhen`, `enabledWhen`, `requiredWhen` based on predicates.\n- `buildZodWithRelations(spec)` augments the base zod with conditional rules and constraints.\n- React adapter renders with React Hook Form + driver API for UI components (shadcn driver provided).\n\n## Driver API (UI-agnostic)\n\nHost apps supply a driver mapping slots \u2192 components:\n\n- Required: `Field`, `FieldLabel`, `FieldDescription`, `FieldError`, `Input`, `Textarea`, `Select`, `Checkbox`, `RadioGroup`, `Switch`, `Button`.\n- Optional: `FieldGroup`, `FieldSet`, `FieldLegend` and input group helpers.\n\nUse `createFormRenderer({ driver })` to obtain a `render(spec)` function.\n\n## Arrays and Groups\n\n- `array` items are rendered with `useFieldArray`, honoring `min`/`max` and add/remove controls.\n- `group` composes nested fields and provides optional legend/description.\n\n## Feature Flags\n\n- Declare `policy.flags` on forms to signal gating. Gate usage at host boundary; avoid scattering flags across individual fields.\n\n## Example\n\nSee `packages/hcircle/apps/web-coliving/src/forms/bug-report.spec.ts` for a concrete form spec and `components/forms/BugReportFormDemo.tsx` for rendering with a minimal shadcn driver mapping.\n',
+	},
+];

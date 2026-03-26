@@ -95,14 +95,14 @@ export * from './getUserById';
 // ...
 ```
 
-### Step 5: Create DocBlock
+### Step 5: Create Same-File DocBlock
 
 ```typescript
-// packages/libs/contracts/src/specs/users/createUser.docblock.ts
+// packages/libs/contracts/src/specs/users/createUser.ts
 
-import { registerDocBlock } from '@contractspec/lib.docs';
+import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 
-export const createUserDoc = registerDocBlock({
+export const createUserDocBlock = {
   id: 'spec-create-user',
   title: 'Create User Command',
   body: `
@@ -139,8 +139,13 @@ const user = await execute(createUserCommand, {
   kind: 'reference',
   route: '/docs/specs/users/create-user',
   visibility: 'public',
-});
+} satisfies DocBlock;
 ```
+
+Rules:
+- Keep the DocBlock in the same file as the spec or contract owner module.
+- Use `docRef(...)`/`docId(...)` only as lightweight references; do not add runtime registration.
+- Do not create `*.docblock.ts`, `src/docs/tech`, or doc barrels.
 
 ### Step 6: Verification
 
@@ -197,5 +202,5 @@ export const <name>Event = defineEvent({
 After completion, report:
 - Spec file created
 - Types exported
-- DocBlock created
+- Same-file DocBlock created
 - Next steps (implement handler, add tests)

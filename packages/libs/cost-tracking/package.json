@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.cost-tracking",
-	"version": "3.7.9",
+	"version": "3.7.11",
 	"description": "API cost tracking and budgeting",
 	"keywords": [
 		"contractspec",

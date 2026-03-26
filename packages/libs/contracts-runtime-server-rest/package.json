@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.contracts-runtime-server-rest",
-	"version": "3.7.11",
+	"version": "3.7.15",
 	"description": "REST server runtime adapters for ContractSpec contracts",
 	"type": "module",
 	"types": "./dist/index.d.ts",
@@ -31,7 +31,7 @@
 		"@pothos/core": "^4.9.1",
 		"elysia": "^1.4.28",
 		"express": "^5.2.1",
-		"next": "16.2.0"
+		"next": "16.2.1"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",

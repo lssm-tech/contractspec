@@ -42,6 +42,7 @@ interface TrackAgentStepContext {
 	sessionId?: string;
 	tenantId?: string;
 	actorId?: string;
+	workflowId?: string;
 	traceId?: string;
 	stepIndex?: number;
 	stepStartedAt?: Date;
@@ -153,6 +154,7 @@ export async function trackAgentStep(
 				agentId,
 				actorId: context?.actorId,
 				tenantId: context?.tenantId,
+				workflowId: context?.workflowId,
 				stepIndex: context?.stepIndex,
 				toolName: toolCall.toolName,
 				toolCallArgs: toolCall.input,
@@ -185,6 +187,7 @@ export async function trackAgentStep(
 			agentId,
 			actorId: context?.actorId,
 			tenantId: context?.tenantId,
+			workflowId: context?.workflowId,
 			stepIndex: context?.stepIndex,
 			stepStartedAt: context?.stepStartedAt,
 			finishReason: step.finishReason,

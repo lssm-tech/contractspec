@@ -1,6 +1,5 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
 import { defineCommand } from '../../operations';
-import '../ensure-docblocks';
 import {
 	DOCS_DOMAIN,
 	DOCS_OWNERS,
@@ -9,6 +8,7 @@ import {
 } from '../constants';
 import { DocsPublishedEvent } from '../events/docsPublished.event';
 import { docId } from '../registry';
+import type { DocBlock } from '../types';
 
 const DocsPublishInput = new SchemaModel({
 	name: 'DocsPublishInput',
@@ -37,6 +37,20 @@ const DocsPublishOutput = new SchemaModel({
 		},
 	},
 });
+
+export const DocsPublishDocBlock = {
+	id: 'docs.tech.docs-publish',
+	title: 'Docs publish',
+	summary: 'Publish generated artifacts to the docs host.',
+	kind: 'how',
+	visibility: 'public',
+	route: '/docs/tech/docs/publish',
+	tags: ['docs', 'publish'],
+	body: `# Docs publish
+
+Publishing moves generated artifacts to a hosting target with versioning and release metadata.
+`,
+} satisfies DocBlock;
 
 export const DocsPublishCommand = defineCommand({
 	meta: {

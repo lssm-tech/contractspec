@@ -1,52 +1,13 @@
-export type ChannelProviderKey =
-	| 'messaging.slack'
-	| 'messaging.github'
-	| 'messaging.telegram'
-	| 'messaging.whatsapp.meta'
-	| 'messaging.whatsapp.twilio'
-	| (string & {});
+import type {
+	ChannelApprovalContext,
+	ChannelApprovalStatus,
+	ChannelRiskTier,
+} from './base-types';
+import type { ChannelCompiledPlan, ChannelPlanTraceEntry } from './plan-types';
 
-export interface ChannelThreadRef {
-	externalThreadId: string;
-	externalChannelId?: string;
-	externalUserId?: string;
-}
-
-export interface InboundMessage {
-	text: string;
-	externalMessageId?: string;
-}
-
-export interface ChannelInboundEvent {
-	workspaceId: string;
-	providerKey: ChannelProviderKey;
-	externalEventId: string;
-	eventType: string;
-	occurredAt: Date;
-	signatureValid: boolean;
-	traceId?: string;
-	thread: ChannelThreadRef;
-	message?: InboundMessage;
-	metadata?: Record<string, string>;
-	rawPayload?: string;
-}
-
-export type ChannelRiskTier = 'low' | 'medium' | 'high' | 'blocked';
-
-export type ChannelPolicyVerdict = 'autonomous' | 'assist' | 'blocked';
-
-export interface ChannelPolicyDecision {
-	confidence: number;
-	riskTier: ChannelRiskTier;
-	verdict: ChannelPolicyVerdict;
-	reasons: string[];
-	responseText: string;
-	requiresApproval: boolean;
-	policyRef?: {
-		key: string;
-		version: string;
-	};
-}
+export * from './base-types';
+export * from './control-plane-types';
+export * from './plan-types';
 
 export interface ChannelEventReceiptRecord {
 	id: string;
@@ -88,17 +49,23 @@ export interface ChannelDecisionRecord {
 	id: string;
 	receiptId: string;
 	threadId: string;
-	policyMode: 'suggest' | 'assist' | 'autonomous';
+	policyMode: 'suggest' | 'assist' | 'autonomous' | 'blocked';
 	riskTier: ChannelRiskTier;
 	confidence: number;
 	modelName: string;
 	promptVersion: string;
 	policyVersion: string;
-	toolTrace: Record<string, unknown>[];
-	actionPlan: Record<string, unknown>;
+	toolTrace: ChannelPlanTraceEntry[];
+	actionPlan: ChannelCompiledPlan;
 	requiresApproval: boolean;
+	approvalStatus: ChannelApprovalStatus;
+	approvalUpdatedAt?: Date;
 	approvedBy?: string;
 	approvedAt?: Date;
+	rejectedBy?: string;
+	rejectedAt?: Date;
+	rejectionReason?: string;
+	approvalContext?: ChannelApprovalContext;
 	createdAt: Date;
 }
 

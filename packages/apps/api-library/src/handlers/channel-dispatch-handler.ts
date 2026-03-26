@@ -1,5 +1,6 @@
 import { appLogger } from '@contractspec/bundle.library/infrastructure/elysia/logger';
 import { Elysia } from 'elysia';
+import { isDispatchRequestAuthorized } from './channel-internal-auth';
 import { getChannelRuntimeResources } from './channel-runtime-resources';
 import { resolveMessagingSender } from './channel-sender-resolver';
 
@@ -67,24 +68,5 @@ function extractLimitFromBody(body: unknown): number | undefined {
 }
 
 function isDispatchAuthorized(request: Request): boolean {
-	const configuredTokens = [
-		process.env.CHANNEL_DISPATCH_TOKEN,
-		process.env.CRON_SECRET,
-	].filter((token): token is string => Boolean(token && token.length > 0));
-
-	if (configuredTokens.length === 0) {
-		return process.env.NODE_ENV !== 'production';
-	}
-
-	const headerToken = request.headers.get('x-channel-dispatch-token');
-	const bearerToken = parseBearerToken(request.headers.get('authorization'));
-	return configuredTokens.some(
-		(token) => token === headerToken || token === bearerToken
-	);
-}
-
-function parseBearerToken(value: string | null): string | null {
-	if (!value) return null;
-	const match = value.match(/^Bearer\s+(.+)$/i);
-	return match?.[1] ?? null;
+	return isDispatchRequestAuthorized(request);
 }

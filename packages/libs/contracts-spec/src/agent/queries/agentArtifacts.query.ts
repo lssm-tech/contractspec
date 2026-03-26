@@ -1,7 +1,7 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
-import { defineQuery } from '../../operations';
-import '../ensure-docblocks';
 import { docId } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { defineQuery } from '../../operations';
 import {
 	AGENT_DOMAIN,
 	AGENT_OWNERS,
@@ -39,6 +39,20 @@ const AgentArtifactsOutput = new SchemaModel({
 		nextOffset: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
 	},
 });
+
+export const AgentArtifactsDocBlock = {
+	id: 'docs.tech.agent.artifacts',
+	title: 'Agent artifacts',
+	summary: 'List artifacts produced by an agent run.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/agent/artifacts',
+	tags: ['agent', 'artifacts'],
+	body: `# agent.artifacts
+
+Lists files, diffs, and outputs produced during agent execution.
+`,
+} satisfies DocBlock;
 
 export const AgentArtifactsQuery = defineQuery({
 	meta: {

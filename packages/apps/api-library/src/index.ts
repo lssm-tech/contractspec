@@ -1,5 +1,6 @@
 import { appLogger } from '@contractspec/bundle.library/infrastructure/elysia/logger';
 import { Elysia } from 'elysia';
+import { channelControlPlaneHandler } from './handlers/channel-control-plane-handler';
 import { channelDispatchHandler } from './handlers/channel-dispatch-handler';
 import { startChannelDispatchScheduler } from './handlers/channel-dispatch-scheduler';
 import { githubWebhookHandler } from './handlers/github-webhook-handler';
@@ -28,6 +29,7 @@ const app = new Elysia()
 			whatsappMetaWebhook: '/webhooks/whatsapp/meta',
 			whatsappTwilioWebhook: '/webhooks/whatsapp/twilio',
 			channelDispatch: '/internal/channel/dispatch',
+			controlPlane: '/internal/control-plane/*',
 		},
 	}))
 	.use(markdownHandler)
@@ -37,6 +39,7 @@ const app = new Elysia()
 	.use(telegramWebhookHandler)
 	.use(githubWebhookHandler)
 	.use(whatsappWebhookHandler)
+	.use(channelControlPlaneHandler)
 	.use(channelDispatchHandler);
 
 startChannelDispatchScheduler();

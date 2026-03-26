@@ -20,6 +20,7 @@ import {
 	createNoopLoggerAdapter,
 	impact,
 } from '@contractspec/bundle.workspace';
+import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
 import { Command } from 'commander';
 
 export type ImpactOutputFormat = 'text' | 'json' | 'markdown' | 'check-run';
@@ -31,6 +32,69 @@ export interface ImpactCommandOptions {
 	pattern?: string;
 	quiet?: boolean;
 }
+
+export const ContractSpecImpactCommandDocBlock = {
+	id: 'cli.impact',
+	title: 'contractspec impact Command',
+	kind: 'usage',
+	visibility: 'public',
+	route: '/docs/cli/impact',
+	body: `
+# contractspec impact
+
+Detect breaking and non-breaking contract changes.
+
+## Usage
+
+\`\`\`bash
+contractspec impact [options]
+\`\`\`
+
+## Options
+
+- \`-b, --baseline <ref>\` - Git ref to compare against (branch, tag, commit)
+- \`-f, --format <format>\` - Output format: text, json, markdown, check-run (default: text)
+- \`--fail-on-breaking\` - Exit with error code if breaking changes detected
+- \`-p, --pattern <glob>\` - Glob pattern for spec discovery
+- \`-q, --quiet\` - Minimal output
+
+## Examples
+
+\`\`\`bash
+# Compare against main branch
+contractspec impact --baseline origin/main
+
+# Get JSON output for CI integration
+contractspec impact --format json > impact.json
+
+# Fail build on breaking changes
+contractspec impact --fail-on-breaking
+
+# Custom spec pattern
+contractspec impact --pattern "src/**/*.operation.ts"
+\`\`\`
+
+## Output Formats
+
+### Text (default)
+Human-readable console output with icons and summary.
+
+### JSON
+Machine-readable JSON with full impact result including deltas, summaries, and metadata.
+
+### Markdown
+GitHub-flavored markdown suitable for PR comments.
+
+### Check Run
+GitHub Check Run payload format for API integration.
+
+## Exit Codes
+
+- \`0\` - Success (no breaking changes, or breaking changes allowed)
+- \`1\` - Failure (breaking changes detected with --fail-on-breaking, or error)
+  `,
+	tags: ['cli', 'impact-detection'],
+} satisfies DocBlock;
 
 /**
  * Create the impact command.

@@ -1,7 +1,7 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
-import { defineFormSpec } from '../../forms/forms';
-import '../ensure-docblocks';
 import { docId } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { defineFormSpec } from '../../forms/forms';
 import {
 	PROVIDER_RANKING_DOMAIN,
 	PROVIDER_RANKING_OWNERS,
@@ -18,6 +18,20 @@ const BenchmarkRunCustomFormModel = new SchemaModel({
 		maxConcurrency: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
 	},
 });
+
+export const BenchmarkRunCustomFormDocBlock = {
+	id: 'docs.tech.provider-ranking.benchmark.run-custom.form',
+	title: 'Custom benchmark form',
+	summary: 'Form specification for launching custom benchmarks.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/provider-ranking/benchmark/run-custom/form',
+	tags: ['ai', 'ranking', 'form'],
+	body: `# provider-ranking.benchmark.run-custom.form
+
+Form surface used by Studio to launch custom benchmark evaluations.
+`,
+} satisfies DocBlock;
 
 export const BenchmarkRunCustomForm = defineFormSpec({
 	meta: {

@@ -1,5 +1,51 @@
 # @contractspec/lib.presentation-runtime-react
 
+## 36.0.3
+
+### Patch Changes
+
+- cce2b13: Add first-class Workflow DevKit support for `WorkflowSpec`, including new runtime metadata, stricter validation for Workflow-backed workflows, a dedicated Workflow DevKit integration package, CLI artifact generation, and Workflow-aware chat route helpers exposed from `@contractspec/module.ai-chat/core/workflow` so standard chat imports do not pull Workflow-only runtime assets into non-Workflow builds.
+
+  Also harden supporting runtime surfaces by reusing Playwright browser instances in the harness runtime, mapping design-system button `onPress` handlers correctly to DOM clicks, and switching the workspace git adapter to argument-safe subprocess calls while tightening slow test coverage around those flows.
+
+- Updated dependencies [cce2b13]
+  - @contractspec/lib.presentation-runtime-core@3.9.3
+  - @contractspec/lib.contracts-spec@5.0.3
+  - @contractspec/lib.ui-kit-web@3.9.7
+
+## 36.0.2
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.presentation-runtime-core@3.9.2
+  - @contractspec/lib.contracts-spec@5.0.2
+  - @contractspec/lib.ui-kit-web@3.9.6
+
+## 36.0.1
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/lib.presentation-runtime-core@3.9.1
+  - @contractspec/lib.ui-kit-web@3.9.5
+
+## 36.0.0
+
+### Patch Changes
+
+- Updated dependencies [81256ea]
+- Updated dependencies [2619dd8]
+- Updated dependencies [81256ea]
+- Updated dependencies [a4489bb]
+- Updated dependencies [9cb304e]
+  - @contractspec/lib.contracts-spec@5.0.0
+  - @contractspec/lib.presentation-runtime-core@3.9.0
+  - @contractspec/lib.ui-kit-web@3.9.4
+
 ## 35.0.4
 
 ### Patch Changes

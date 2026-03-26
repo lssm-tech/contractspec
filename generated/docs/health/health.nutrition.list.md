@@ -11,7 +11,7 @@ List normalized nutrition and hydration records from connected providers.
 - **Stability**: experimental
 - **Owners**: @platform.integrations
 - **Tags**: health, nutrition, wearables
-- **File**: `packages/libs/contracts-spec/src/integrations/health/contracts/nutrition.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/health/contracts/nutrition.ts`
 
 ## Goal
 

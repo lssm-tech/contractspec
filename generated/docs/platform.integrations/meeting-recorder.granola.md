@@ -10,7 +10,7 @@ Granola meeting notes and transcripts via Enterprise API or MCP transport.
 - **Version**: 1.0.0
 - **Owners**: platform.integrations
 - **Tags**: meeting-recorder, granola, transcripts
-- **File**: `packages/libs/contracts-spec/src/integrations/providers/granola.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/granola.ts`
 
 ## Source Definition
 
@@ -29,6 +29,9 @@ export const granolaIntegrationSpec = defineIntegration({
 		stability: StabilityEnum.Experimental,
 	},
 	supportedModes: ['byok'],
+	transports: [{ type: 'rest' }, { type: 'mcp', transport: 'http' }],
+	preferredTransport: 'mcp',
+	supportedAuthMethods: [{ type: 'api-key' }, { type: 'bearer' }],
 	capabilities: {
 		provides: [
 			{ key: 'meeting-recorder.meetings.read', version: '1.0.0' },
@@ -101,6 +104,8 @@ export const granolaIntegrationSpec = defineIntegration({
 	byokSetup: {
 		setupInstructions:
 			'Use Granola MCP for browser OAuth access, or configure an Enterprise API key for REST transport.',
+		keyRotationSupported: false,
+		quotaTrackingSupported: false,
 	},
 });
 ```

@@ -1,7 +1,7 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { docRef } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
 import { defineQuery } from '../../operations';
-import '../ensure-docblocks';
-import { docId } from '../../docs/registry';
 import {
 	DATABASE_DOMAIN,
 	DATABASE_OWNERS,
@@ -49,6 +49,20 @@ const DatabaseSchemaDescribeOutput = new SchemaModel({
 	},
 });
 
+export const DatabaseSchemaDescribeDocBlock = {
+	id: 'docs.tech.database.schema.describe',
+	title: 'Describe database schema',
+	summary: 'Describe schemas and models with PII signals.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/database/schema/describe',
+	tags: ['database', 'schema'],
+	body: `# database.schema.describe
+
+Returns deterministic schema summaries for agents and operators.
+`,
+} satisfies DocBlock;
+
 export const DatabaseSchemaDescribeQuery = defineQuery({
 	meta: {
 		key: 'database.schema.describe',
@@ -62,7 +76,7 @@ export const DatabaseSchemaDescribeQuery = defineQuery({
 		owners: DATABASE_OWNERS,
 		tags: [...DATABASE_TAGS, 'describe'],
 		stability: DATABASE_STABILITY,
-		docId: [docId('docs.tech.database.schema.describe')],
+		docId: [docRef(DatabaseSchemaDescribeDocBlock.id)],
 	},
 	capability: {
 		key: 'database.context',

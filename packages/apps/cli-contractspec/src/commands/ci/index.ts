@@ -67,7 +67,9 @@ function getRepositoryUri(): string | undefined {
 }
 
 export const ciCommand = new Command('ci')
-	.description('Run all CI/CD validation checks with machine-readable output')
+	.description(
+		'Run all CI/CD validation checks, including same-file DocBlock ownership'
+	)
 	.option('-p, --pattern <glob>', 'Glob pattern for spec discovery')
 	.option(
 		'-f, --format <format>',
@@ -85,7 +87,7 @@ export const ciCommand = new Command('ci')
 	)
 	.option(
 		'--skip <checks>',
-		'Skip specific checks (comma-separated: structure,integrity,deps,doctor,policy,handlers,tests)'
+		'Skip specific checks (comma-separated: structure,integrity,deps,doctor,docs,policy,handlers,tests)'
 	)
 	.option('--checks <checks>', 'Only run specific checks (comma-separated)')
 	.option('--check-handlers', 'Include handler implementation checks', false)

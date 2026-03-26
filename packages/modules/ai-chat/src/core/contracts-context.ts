@@ -2,7 +2,7 @@
  * Contracts-spec context for ai-chat.
  * Exposes agent, data-views, operations, forms, and presentations to the model.
  */
-import type { AgentToolConfig } from '@contractspec/lib.ai-agent';
+import type { AgentToolConfig } from '@contractspec/lib.contracts-spec/agent';
 
 export interface ContractsContextConfig {
 	/** Agent specs (for tool schemas, instructions) */

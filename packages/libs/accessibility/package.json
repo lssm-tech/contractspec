@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.accessibility",
-	"version": "3.7.11",
+	"version": "3.7.14",
 	"description": "WCAG compliance utilities and validators",
 	"keywords": [
 		"contractspec",
@@ -36,8 +36,8 @@
 		"@contractspec/tool.bun": "workspace:*"
 	},
 	"peerDependencies": {
-		"react": "19.2.0",
-		"next": "16.2.0"
+		"react": "19.2.4",
+		"next": "16.2.1"
 	},
 	"type": "module",
 	"types": "./dist/index.d.ts",

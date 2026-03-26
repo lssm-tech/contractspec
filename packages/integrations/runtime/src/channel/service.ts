@@ -1,27 +1,58 @@
 import { createHash, randomUUID } from 'node:crypto';
 
-import { MessagingPolicyEngine } from './policy';
+import {
+	ChannelAuthorizationEngine,
+	type ChannelAuthorizationEvaluator,
+} from './authorization';
+import { resolveEventTraceId } from './plan-utils';
+import {
+	buildChannelPlanTrace,
+	compileChannelPlan,
+	finalizeChannelPlan,
+	getExecutionStep,
+	resolveChannelExecutionActor,
+} from './planner';
+import { MessagingPolicyEngine, type MessagingPolicyEvaluator } from './policy';
 import type { ChannelRuntimeStore } from './store';
 import type { ChannelTelemetryEmitter } from './telemetry';
-import type { ChannelInboundEvent, ChannelIngestResult } from './types';
+import { recordChannelTelemetry } from './telemetry-recorder';
+import type {
+	ChannelExecutionActor,
+	ChannelInboundEvent,
+	ChannelIngestResult,
+} from './types';
 
 export interface ChannelRuntimeServiceOptions {
-	policy?: MessagingPolicyEngine;
+	policy?: MessagingPolicyEvaluator;
 	asyncProcessing?: boolean;
 	processInBackground?: (task: () => Promise<void>) => void;
 	modelName?: string;
 	promptVersion?: string;
 	policyVersion?: string;
+	approvalTimeoutMs?: number;
+	defaultCapabilityGrants?: string[];
+	defaultCapabilitySource?: string;
+	authorization?: ChannelAuthorizationEvaluator;
+	actorResolver?: (event: ChannelInboundEvent) => ChannelExecutionActor;
+	now?: () => Date;
 	telemetry?: ChannelTelemetryEmitter;
 }
 
 export class ChannelRuntimeService {
-	private readonly policy: MessagingPolicyEngine;
+	private readonly policy: MessagingPolicyEvaluator;
 	private readonly asyncProcessing: boolean;
 	private readonly processInBackground: (task: () => Promise<void>) => void;
 	private readonly modelName: string;
 	private readonly promptVersion: string;
 	private readonly policyVersion: string;
+	private readonly approvalTimeoutMs: number;
+	private readonly defaultCapabilityGrants: string[];
+	private readonly defaultCapabilitySource?: string;
+	private readonly authorization: ChannelAuthorizationEvaluator;
+	private readonly actorResolver?: (
+		event: ChannelInboundEvent
+	) => ChannelExecutionActor;
+	private readonly now: () => Date;
 	private readonly telemetry?: ChannelTelemetryEmitter;
 
 	constructor(
@@ -39,12 +70,21 @@ export class ChannelRuntimeService {
 			});
 		this.modelName = options.modelName ?? 'policy-heuristics-v1';
 		this.promptVersion = options.promptVersion ?? 'channel-runtime.v1';
-		this.policyVersion = options.policyVersion ?? 'messaging-policy.v1';
+		this.policyVersion =
+			options.policyVersion ?? 'channel.messaging-policy.v2.0.0';
+		this.approvalTimeoutMs = options.approvalTimeoutMs ?? 15 * 60 * 1000;
+		this.defaultCapabilityGrants = [...(options.defaultCapabilityGrants ?? [])];
+		this.defaultCapabilitySource = options.defaultCapabilitySource;
+		this.authorization =
+			options.authorization ?? new ChannelAuthorizationEngine();
+		this.actorResolver = options.actorResolver;
+		this.now = options.now ?? (() => new Date());
 		this.telemetry = options.telemetry;
 	}
 
 	async ingest(event: ChannelInboundEvent): Promise<ChannelIngestResult> {
 		const startedAtMs = Date.now();
+		const traceId = resolveEventTraceId(event);
 		const claim = await this.store.claimEventReceipt({
 			workspaceId: event.workspaceId,
 			providerKey: event.providerKey,
@@ -52,17 +92,17 @@ export class ChannelRuntimeService {
 			eventType: event.eventType,
 			signatureValid: event.signatureValid,
 			payloadHash: event.rawPayload ? sha256(event.rawPayload) : undefined,
-			traceId: event.traceId,
+			traceId,
 		});
 
 		if (claim.duplicate) {
-			this.telemetry?.record({
+			await recordChannelTelemetry(this.store, this.telemetry, {
 				stage: 'ingest',
 				status: 'duplicate',
 				workspaceId: event.workspaceId,
 				providerKey: event.providerKey,
 				receiptId: claim.receiptId,
-				traceId: event.traceId,
+				traceId,
 				latencyMs: Date.now() - startedAtMs,
 			});
 			return {
@@ -71,13 +111,15 @@ export class ChannelRuntimeService {
 			};
 		}
 
-		this.telemetry?.record({
+		await recordChannelTelemetry(this.store, this.telemetry, {
 			stage: 'ingest',
 			status: 'accepted',
 			workspaceId: event.workspaceId,
 			providerKey: event.providerKey,
 			receiptId: claim.receiptId,
-			traceId: event.traceId,
+			sessionId: event.metadata?.['sessionId'],
+			workflowId: event.metadata?.['workflowId'],
+			traceId,
 			latencyMs: Date.now() - startedAtMs,
 		});
 
@@ -86,13 +128,15 @@ export class ChannelRuntimeService {
 				code: 'INVALID_SIGNATURE',
 				message: 'Inbound event signature is invalid.',
 			});
-			this.telemetry?.record({
+			await recordChannelTelemetry(this.store, this.telemetry, {
 				stage: 'ingest',
 				status: 'rejected',
 				workspaceId: event.workspaceId,
 				providerKey: event.providerKey,
 				receiptId: claim.receiptId,
-				traceId: event.traceId,
+				sessionId: event.metadata?.['sessionId'],
+				workflowId: event.metadata?.['workflowId'],
+				traceId,
 				latencyMs: Date.now() - startedAtMs,
 				metadata: {
 					errorCode: 'INVALID_SIGNATURE',
@@ -124,6 +168,7 @@ export class ChannelRuntimeService {
 		receiptId: string,
 		event: ChannelInboundEvent
 	): Promise<void> {
+		const traceId = resolveEventTraceId(event);
 		try {
 			await this.store.updateReceiptStatus(receiptId, 'processing');
 
@@ -135,49 +180,100 @@ export class ChannelRuntimeService {
 				externalUserId: event.thread.externalUserId,
 				occurredAt: event.occurredAt,
 			});
-
-			const policyDecision = this.policy.evaluate({ event });
-			this.telemetry?.record({
-				stage: 'decision',
-				status: 'processed',
-				workspaceId: event.workspaceId,
-				providerKey: event.providerKey,
+			const actor =
+				this.actorResolver?.(event) ??
+				resolveChannelExecutionActor(event, {
+					capabilityGrants: this.defaultCapabilityGrants,
+					capabilitySource: this.defaultCapabilitySource,
+				});
+			const compiledPlan = compileChannelPlan({
+				event,
 				receiptId,
-				traceId: event.traceId,
-				metadata: {
-					verdict: policyDecision.verdict,
-					riskTier: policyDecision.riskTier,
-					confidence: policyDecision.confidence,
-				},
+				threadId: thread.id,
+				actor,
+				now: this.now(),
+			});
+
+			const policyDecision = this.policy.evaluate({
+				event,
+				receiptId,
+				threadId: thread.id,
+				sessionId: event.metadata?.['sessionId'],
+				workflowId: event.metadata?.['workflowId'],
+				threadState: thread.state,
+				compiledPlan,
+				actor,
+			});
+			const authorizedDecision = this.authorization.authorizePlan({
+				actor,
+				plan: compiledPlan,
+				decision: policyDecision,
+			});
+			const finalizedPlan = finalizeChannelPlan({
+				plan: compiledPlan,
+				decision: authorizedDecision,
+				approvalTimeoutMs: this.approvalTimeoutMs,
+				now: this.now(),
 			});
 			const decision = await this.store.saveDecision({
 				receiptId,
 				threadId: thread.id,
-				policyMode:
-					policyDecision.verdict === 'autonomous' ? 'autonomous' : 'assist',
-				riskTier: policyDecision.riskTier,
-				confidence: policyDecision.confidence,
+				policyMode: toPolicyMode(authorizedDecision.verdict),
+				riskTier: authorizedDecision.riskTier,
+				confidence: authorizedDecision.confidence,
 				modelName: this.modelName,
 				promptVersion: this.promptVersion,
-				policyVersion: this.policyVersion,
-				actionPlan: {
-					verdict: policyDecision.verdict,
-					reasons: policyDecision.reasons,
-					policyRef: policyDecision.policyRef,
-				},
-				requiresApproval: policyDecision.requiresApproval,
+				policyVersion: authorizedDecision.policyRef
+					? `${authorizedDecision.policyRef.key}.v${authorizedDecision.policyRef.version}`
+					: this.policyVersion,
+				toolTrace: buildChannelPlanTrace(finalizedPlan),
+				actionPlan: finalizedPlan,
+				requiresApproval: authorizedDecision.requiresApproval,
+				approvalStatus: authorizedDecision.requiresApproval
+					? 'pending'
+					: 'not_required',
 			});
+			await recordChannelTelemetry(
+				this.store,
+				this.telemetry,
+				{
+					stage: 'decision',
+					status: 'processed',
+					workspaceId: event.workspaceId,
+					providerKey: event.providerKey,
+					receiptId,
+					sessionId: event.metadata?.['sessionId'],
+					workflowId: event.metadata?.['workflowId'],
+					traceId: finalizedPlan.traceId,
+					metadata: {
+						verdict: authorizedDecision.verdict,
+						riskTier: authorizedDecision.riskTier,
+						confidence: authorizedDecision.confidence,
+						planId: finalizedPlan.id,
+						actorId: finalizedPlan.actor.id,
+						actorType: finalizedPlan.actor.type,
+					},
+				},
+				decision.id
+			);
 
-			if (policyDecision.verdict === 'autonomous') {
-				await this.store.enqueueOutboxAction({
+			if (authorizedDecision.verdict === 'autonomous') {
+				const executionStep = getExecutionStep(finalizedPlan);
+				if (!executionStep || executionStep.status !== 'completed') {
+					throw new Error(
+						'Autonomous dispatch requires a compiled execution step in completed state.'
+					);
+				}
+				const outboxAction = await this.store.enqueueOutboxAction({
 					workspaceId: event.workspaceId,
 					providerKey: event.providerKey,
 					decisionId: decision.id,
 					threadId: thread.id,
 					actionType: 'reply',
 					idempotencyKey: buildOutboxIdempotencyKey(
-						event,
-						policyDecision.responseText
+						finalizedPlan.id,
+						executionStep.id,
+						authorizedDecision.responseText
 					),
 					target: {
 						externalThreadId: event.thread.externalThreadId,
@@ -186,43 +282,58 @@ export class ChannelRuntimeService {
 					},
 					payload: {
 						id: randomUUID(),
-						text: policyDecision.responseText,
+						text: authorizedDecision.responseText,
 					},
 				});
-				this.telemetry?.record({
-					stage: 'outbox',
-					status: 'accepted',
-					workspaceId: event.workspaceId,
-					providerKey: event.providerKey,
-					receiptId,
-					traceId: event.traceId,
-					metadata: {
-						actionType: 'reply',
+				await recordChannelTelemetry(
+					this.store,
+					this.telemetry,
+					{
+						stage: 'outbox',
+						status: 'accepted',
+						workspaceId: event.workspaceId,
+						providerKey: event.providerKey,
+						receiptId,
+						actionId: outboxAction.actionId,
+						sessionId: event.metadata?.['sessionId'],
+						workflowId: event.metadata?.['workflowId'],
+						traceId: finalizedPlan.traceId,
+						metadata: {
+							actionType: 'reply',
+							actorId: finalizedPlan.actor.id,
+							actorType: finalizedPlan.actor.type,
+							planId: finalizedPlan.id,
+						},
 					},
-				});
+					decision.id
+				);
 			}
 
 			await this.store.updateReceiptStatus(receiptId, 'processed');
-			this.telemetry?.record({
+			await recordChannelTelemetry(this.store, this.telemetry, {
 				stage: 'ingest',
 				status: 'processed',
 				workspaceId: event.workspaceId,
 				providerKey: event.providerKey,
 				receiptId,
-				traceId: event.traceId,
+				sessionId: event.metadata?.['sessionId'],
+				workflowId: event.metadata?.['workflowId'],
+				traceId,
 			});
 		} catch (error) {
 			await this.store.updateReceiptStatus(receiptId, 'failed', {
 				code: 'PROCESSING_FAILED',
 				message: error instanceof Error ? error.message : String(error),
 			});
-			this.telemetry?.record({
+			await recordChannelTelemetry(this.store, this.telemetry, {
 				stage: 'ingest',
 				status: 'failed',
 				workspaceId: event.workspaceId,
 				providerKey: event.providerKey,
 				receiptId,
-				traceId: event.traceId,
+				sessionId: event.metadata?.['sessionId'],
+				workflowId: event.metadata?.['workflowId'],
+				traceId,
 				metadata: {
 					errorCode: 'PROCESSING_FAILED',
 				},
@@ -232,12 +343,17 @@ export class ChannelRuntimeService {
 }
 
 function buildOutboxIdempotencyKey(
-	event: ChannelInboundEvent,
+	planId: string,
+	stepId: string,
 	responseText: string
 ): string {
-	return sha256(
-		`${event.workspaceId}:${event.providerKey}:${event.externalEventId}:reply:${responseText}`
-	);
+	return sha256(`${planId}:${stepId}:reply:${responseText}`);
+}
+
+function toPolicyMode(
+	verdict: 'autonomous' | 'assist' | 'blocked'
+): 'autonomous' | 'assist' | 'blocked' {
+	return verdict;
 }
 
 function sha256(value: string): string {

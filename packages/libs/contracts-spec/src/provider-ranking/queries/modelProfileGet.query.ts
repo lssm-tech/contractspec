@@ -1,7 +1,7 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
-import { defineQuery } from '../../operations';
-import '../ensure-docblocks';
 import { docId } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { defineQuery } from '../../operations';
 import {
 	PROVIDER_RANKING_DOMAIN,
 	PROVIDER_RANKING_OWNERS,
@@ -46,6 +46,20 @@ const ModelProfileOutput = new SchemaModel({
 		updatedAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
 	},
 });
+
+export const ModelProfileGetDocBlock = {
+	id: 'docs.tech.provider-ranking.model.profile.get',
+	title: 'Get model profile',
+	summary: 'Get detailed profile for a single model.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/provider-ranking/model/profile/get',
+	tags: ['ai', 'ranking', 'model', 'profile'],
+	body: `# provider-ranking.model.profile.get
+
+Returns comprehensive model information including scores, metadata, cost, context window, and capabilities.
+`,
+} satisfies DocBlock;
 
 export const ModelProfileGetQuery = defineQuery({
 	meta: {

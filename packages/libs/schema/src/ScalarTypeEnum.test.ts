@@ -98,7 +98,13 @@ describe('ScalarTypeEnum', () => {
 			it('should parse and serialize dates', () => {
 				const field = ScalarTypeEnum.Date();
 				const date = new Date('2024-01-15');
+				expect(field.parseValue('2024-01-15')).toBeInstanceOf(Date);
 				expect(field.serialize(date)).toBe('2024-01-15');
+			});
+
+			it('should reject invalid dates', () => {
+				const field = ScalarTypeEnum.Date();
+				expect(() => field.parseValue('not-a-date')).toThrow();
 			});
 
 			it('should have correct JSON schema', () => {
@@ -114,7 +120,15 @@ describe('ScalarTypeEnum', () => {
 			it('should parse and serialize datetime', () => {
 				const field = ScalarTypeEnum.DateTime();
 				const date = new Date('2024-01-15T10:30:00.000Z');
+				expect(field.parseValue('2024-01-15T10:30:00.000Z')).toBeInstanceOf(
+					Date
+				);
 				expect(field.serialize(date)).toBe('2024-01-15T10:30:00.000Z');
+			});
+
+			it('should reject invalid datetimes', () => {
+				const field = ScalarTypeEnum.DateTime();
+				expect(() => field.parseValue('not-a-date')).toThrow();
 			});
 
 			it('should have correct JSON schema', () => {

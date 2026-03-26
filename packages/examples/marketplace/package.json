@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/example.marketplace",
-	"version": "3.8.3",
+	"version": "3.8.7",
 	"description": "Marketplace example with orders, payouts, and reviews for ContractSpec",
 	"types": "./dist/index.d.ts",
 	"type": "module",
@@ -25,7 +25,8 @@
 		"@contractspec/lib.design-system": "workspace:*",
 		"@contractspec/lib.runtime-sandbox": "workspace:*",
 		"react": "catalog:",
-		"react-dom": "catalog:"
+		"react-dom": "catalog:",
+		"@contractspec/lib.presentation-runtime-core": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",

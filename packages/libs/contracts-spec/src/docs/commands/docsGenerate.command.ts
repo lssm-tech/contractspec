@@ -1,6 +1,5 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
 import { defineCommand } from '../../operations';
-import '../ensure-docblocks';
 import {
 	DOCS_DOMAIN,
 	DOCS_OWNERS,
@@ -9,6 +8,7 @@ import {
 } from '../constants';
 import { DocsGeneratedEvent } from '../events/docsGenerated.event';
 import { docId } from '../registry';
+import type { DocBlock } from '../types';
 
 const DocsArtifactModel = new SchemaModel({
 	name: 'DocsArtifact',
@@ -60,6 +60,20 @@ const DocsGenerateOutput = new SchemaModel({
 		},
 	},
 });
+
+export const DocsGenerateDocBlock = {
+	id: 'docs.tech.docs-generator',
+	title: 'Docs generator',
+	summary: 'Generate reference docs and metadata from ContractSpecs.',
+	kind: 'how',
+	visibility: 'public',
+	route: '/docs/tech/docs/generator',
+	tags: ['docs', 'generator', 'cli'],
+	body: `# Docs generator
+
+The generator produces documentation artifacts, search metadata, and reference pages from ContractSpecs and DocBlocks.
+`,
+} satisfies DocBlock;
 
 export const DocsGenerateCommand = defineCommand({
 	meta: {

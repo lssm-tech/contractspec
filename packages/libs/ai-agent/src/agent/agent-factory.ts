@@ -1,10 +1,14 @@
 import type { ModelSelector } from '@contractspec/lib.ai-providers/selector-types';
+import type {
+	AgentRegistry,
+	AgentSpec,
+} from '@contractspec/lib.contracts-spec/agent';
 import type { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations/registry';
 import type { KnowledgeRetriever } from '@contractspec/lib.knowledge/retriever';
 import type { LanguageModel, Tool } from 'ai';
+import type { ApprovalWorkflow } from '../approval/workflow';
+import type { AgentRuntimeAdapterBundle } from '../interop/runtime-adapters';
 import type { AgentSessionStore } from '../session/store';
-import type { AgentRegistry } from '../spec/registry';
-import type { AgentSpec } from '../spec/spec';
 import type { TelemetryCollector } from '../telemetry/adapter';
 import type {
 	PostHogLLMConfig,
@@ -13,7 +17,11 @@ import type {
 import type { AgentMemoryStore } from '../tools/agent-memory-store';
 import type { McpClientConfig } from '../tools/mcp-client';
 import type { SubagentRegistry } from '../tools/tool-adapter';
-import type { ToolHandler } from '../types';
+import type {
+	AgentEventEmitter,
+	AgentSessionState,
+	ToolHandler,
+} from '../types';
 import { ContractSpecAgent } from './contract-spec-agent';
 
 /**
@@ -48,6 +56,14 @@ export interface AgentFactoryConfig {
 	mcpServers?: McpClientConfig[];
 	/** Ranking-driven model selector for dynamic per-call routing */
 	modelSelector?: ModelSelector;
+	/** Optional external adapter bundles keyed by runtime id. */
+	runtimeAdapters?: Partial<
+		Record<string, AgentRuntimeAdapterBundle<AgentSessionState>>
+	>;
+	/** Approval workflow used for escalation and tool approvals. */
+	approvalWorkflow?: ApprovalWorkflow;
+	/** Event emitter for lifecycle/audit events. */
+	eventEmitter?: AgentEventEmitter;
 }
 
 /**
@@ -66,6 +82,12 @@ export interface CreateAgentOptions {
 	operationRegistry?: OperationSpecRegistry;
 	/** Override SubagentRegistry for subagent-backed tools */
 	subagentRegistry?: SubagentRegistry;
+	/** Override runtime adapters for this instance. */
+	runtimeAdapters?: Partial<
+		Record<string, AgentRuntimeAdapterBundle<AgentSessionState>>
+	>;
+	/** Override approval workflow for this instance. */
+	approvalWorkflow?: ApprovalWorkflow;
 }
 
 /**
@@ -157,6 +179,10 @@ export class AgentFactory {
 			additionalTools: mergedTools,
 			mcpServers: mergedMcpServers.length > 0 ? mergedMcpServers : undefined,
 			modelSelector: this.config.modelSelector,
+			runtimeAdapters: options?.runtimeAdapters ?? this.config.runtimeAdapters,
+			approvalWorkflow:
+				options?.approvalWorkflow ?? this.config.approvalWorkflow,
+			eventEmitter: this.config.eventEmitter,
 		});
 	}
 

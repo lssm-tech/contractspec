@@ -50,7 +50,7 @@ import {
 	registerBasicValidation,
 	registerDefaultReactRenderer,
 	type TransformEngine,
-} from '@contractspec/lib.contracts-spec/presentations/transform-engine';
+} from '@contractspec/lib.contracts-runtime-client-react/transform-engine';
 
 /**
  * Create a TransformEngine configured for template rendering

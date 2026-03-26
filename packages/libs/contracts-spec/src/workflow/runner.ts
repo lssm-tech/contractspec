@@ -8,8 +8,7 @@ import type {
 } from '../app-config/runtime';
 import type { CapabilityRef } from '../capabilities';
 import type { OpRef } from '../features';
-import type { SecretProvider } from '../integrations/secrets/provider';
-import type { TranslationResolver } from '../types';
+import type { SecretProviderPort, TranslationResolver } from '../types';
 import { evaluateExpression } from './expression';
 import type {
 	GuardCondition,
@@ -29,7 +28,7 @@ export interface OperationExecutorContext {
 	branding?: ResolvedBranding;
 	translation?: ResolvedTranslation;
 	translationResolver?: TranslationResolver;
-	secretProvider?: SecretProvider;
+	secretProvider?: SecretProviderPort;
 }
 
 export type OperationExecutor = (
@@ -79,7 +78,7 @@ export interface WorkflowRunnerConfig {
 		operation: OpRef,
 		context: OperationExecutorContext
 	) => void | Promise<void>;
-	secretProvider?: SecretProvider;
+	secretProvider?: SecretProviderPort;
 	translationResolver?: TranslationResolver;
 }
 
@@ -152,17 +151,23 @@ export class WorkflowRunner {
 		}
 
 		const state: WorkflowState =
-			currentState.status === 'paused' && input !== undefined
+			(currentState.status === 'paused' || currentState.status === 'waiting') &&
+			(input !== undefined || currentState.wait?.reason === 'retry')
 				? {
 						...currentState,
 						status: 'running',
+						wait: undefined,
 						updatedAt: new Date(),
 					}
 				: currentState;
 
-		if (state.status === 'paused' && input === undefined) {
+		if (
+			(state.status === 'paused' || state.status === 'waiting') &&
+			input === undefined &&
+			state.wait?.reason !== 'retry'
+		) {
 			throw new Error(
-				`Workflow ${workflowId} is paused and requires input to resume.`
+				`Workflow ${workflowId} is waiting and requires input to resume.`
 			);
 		}
 
@@ -179,10 +184,22 @@ export class WorkflowRunner {
 		if (step.type === 'human' && input === undefined) {
 			const pausedState: WorkflowState = {
 				...state,
-				status: 'paused',
+				status: 'waiting',
+				wait: {
+					reason: 'human_input',
+					stepId: step.id,
+					requestedAt: new Date(),
+				},
 				updatedAt: new Date(),
 			};
 			await this.config.stateStore.update(workflowId, () => pausedState);
+			this.emit('workflow.waiting', {
+				workflowId,
+				traceId: state.traceId,
+				workflowName: state.workflowName,
+				stepId: step.id,
+				reason: 'human_input',
+			});
 			this.emit('workflow.waiting_for_input', {
 				workflowId,
 				traceId: state.traceId,
@@ -236,8 +253,10 @@ export class WorkflowRunner {
 			if (nextStepId) {
 				workingState.currentStep = nextStepId;
 				workingState.status = 'running';
+				workingState.wait = undefined;
 			} else if (!hasOutgoing(spec, step.id)) {
 				workingState.status = 'completed';
+				workingState.wait = undefined;
 			} else {
 				throw new Error(
 					`No transition matched after executing step "${step.id}".`
@@ -277,9 +296,27 @@ export class WorkflowRunner {
 						...(state.retryCounts ?? {}),
 						[step.id]: retries + 1,
 					};
-					workingState.status = 'running';
+					workingState.status = 'waiting';
+					workingState.wait = {
+						reason: 'retry',
+						stepId: step.id,
+						requestedAt: new Date(),
+						retryAt: new Date(Date.now() + cappedDelay),
+						metadata: {
+							attempt: String(retries + 1),
+							errorKind: classification.kind,
+						},
+					};
 
 					await this.config.stateStore.update(workflowId, () => workingState);
+					this.emit('workflow.waiting', {
+						workflowId,
+						traceId: state.traceId,
+						workflowName: state.workflowName,
+						stepId: step.id,
+						reason: 'retry',
+						retryAt: workingState.wait.retryAt?.toISOString(),
+					});
 					this.emit('workflow.step_retrying', {
 						workflowId,
 						traceId: state.traceId,
@@ -292,11 +329,18 @@ export class WorkflowRunner {
 					});
 
 					await new Promise((resolve) => setTimeout(resolve, cappedDelay));
+					await this.config.stateStore.update(workflowId, (current) => ({
+						...current,
+						status: 'running',
+						wait: undefined,
+						updatedAt: new Date(),
+					}));
 					return this.executeStep(workflowId, input);
 				}
 			}
 
 			workingState.status = 'failed';
+			workingState.wait = undefined;
 			await this.config.stateStore.update(workflowId, () => workingState);
 			this.emit('workflow.step_failed', {
 				workflowId,

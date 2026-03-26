@@ -1,5 +1,6 @@
-import { Github, Linkedin, Mail } from 'lucide-react';
+import { Mail } from 'lucide-react';
 import Link from 'next/link';
+import { FaGithub, FaLinkedinIn } from 'react-icons/fa6';
 import NewsletterSignup from './newsletter-signup';
 
 function FooterColumn({
@@ -68,13 +69,13 @@ export default function Footer() {
 								href="https://github.com/lssm-tech/contractspec"
 								className="hover:text-foreground"
 							>
-								<Github size={18} />
+								<FaGithub size={18} />
 							</Link>
 							<Link
 								href="https://linkedin.com/company/contractspec"
 								className="hover:text-foreground"
 							>
-								<Linkedin size={18} />
+								<FaLinkedinIn size={18} />
 							</Link>
 							<Link
 								href="mailto:contact@contractspec.io"

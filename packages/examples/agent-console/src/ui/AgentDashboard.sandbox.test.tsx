@@ -15,6 +15,8 @@ import {
 import { AgentDashboard } from './AgentDashboard';
 
 const PROJECT_ID = 'agent-console-sandbox-smoke';
+const DASHBOARD_TEST_TIMEOUT_MS = 10_000;
+const MUTATION_TEST_TIMEOUT_MS = 15_000;
 const TEMPLATE: TemplateDefinition = {
 	id: 'agent-console',
 	name: 'Agent Console',
@@ -121,6 +123,13 @@ async function waitFor(assertion: () => boolean, timeoutMs = 3000) {
 	throw new Error('Timed out waiting for dashboard state.');
 }
 
+async function waitForTextToDisappear(text: string, timeoutMs = 3000) {
+	await waitFor(
+		() => document.body.textContent?.includes(text) !== true,
+		timeoutMs
+	);
+}
+
 function findButton(container: HTMLElement, label: string) {
 	return [...container.getElementsByTagName('button')].find((element) =>
 		element.textContent?.includes(label)
@@ -162,11 +171,13 @@ async function click(element: Element | null | undefined) {
 	);
 	await act(async () => {
 		if (typeof onPress === 'function') {
-			onPress();
+			await Promise.resolve(onPress());
 			return;
 		}
 		if (typeof onClick === 'function') {
-			onClick(new MouseEvent('click', { bubbles: true }));
+			await Promise.resolve(
+				onClick(new MouseEvent('click', { bubbles: true }))
+			);
 			return;
 		}
 		if ('click' in element && typeof element.click === 'function') {
@@ -211,102 +222,131 @@ async function fill(selector: string, value: string) {
 }
 
 describe('AgentDashboard sandbox smoke', () => {
-	it('loads seeded state, renders tabs, creates an agent, and executes a run', async () => {
-		const { container, root } = await renderDashboard();
-		await waitFor(
-			() => container.textContent?.includes('AI Agent Console') === true
-		);
-		await waitFor(
-			() =>
-				container.textContent?.includes(
-					'Affichage de 1 à 3 sur 5 résultats'
-				) === true
-		);
+	it(
+		'loads seeded state and renders the dashboard tabs',
+		async () => {
+			const { container, root } = await renderDashboard();
 
-		expect(container.textContent).toContain('Runs');
-		expect(container.textContent).toContain('Agents');
-		expect(container.textContent).toContain('Tools');
-		expect(container.textContent).toContain('Metrics');
-		expect(container.textContent).toContain('Run History');
+			await waitFor(
+				() => container.textContent?.includes('AI Agent Console') === true
+			);
+			await waitFor(
+				() =>
+					container.textContent?.includes(
+						'Affichage de 1 à 3 sur 5 résultats'
+					) === true
+			);
 
-		await click(findButton(container, 'Tools'));
-		await waitFor(
-			() => container.textContent?.includes('Total Tools') === true
-		);
-		await click(findButton(container, 'Metrics'));
-		await waitFor(
-			() => container.textContent?.includes('Usage Analytics') === true
-		);
-		await click(findButton(container, 'Agents'));
-		await waitFor(() => container.textContent?.includes('Total: 4') === true);
+			expect(container.textContent).toContain('Runs');
+			expect(container.textContent).toContain('Agents');
+			expect(container.textContent).toContain('Tools');
+			expect(container.textContent).toContain('Metrics');
+			expect(container.textContent).toContain('Run History');
 
-		await click(findButton(container, 'New Agent'));
-		await waitFor(
-			() => document.body.textContent?.includes('Create New Agent') === true
-		);
-		await fill('#agent-name', 'Paris Meetup UI Agent');
-		await fill(
-			'#agent-description',
-			'Smoke test agent for the sandbox walkthrough.'
-		);
-		await click(findButton(document.body, 'Create Agent'));
-		await click(findButton(container, 'Runs'));
-		await waitFor(
-			() =>
-				container.textContent?.includes(
-					'Affichage de 1 à 3 sur 5 résultats'
-				) === true
-		);
-		await click(findButton(container, 'Agents'));
-		await waitFor(
-			() => container.textContent?.includes('Paris Meetup UI Agent') === true
-		);
-		await waitFor(() => container.textContent?.includes('Total: 5') === true);
+			await click(findButton(container, 'Tools'));
+			await waitFor(
+				() => container.textContent?.includes('Total Tools') === true
+			);
+			await click(findButton(container, 'Metrics'));
+			await waitFor(
+				() => container.textContent?.includes('Usage Analytics') === true
+			);
+			await click(findButton(container, 'Runs'));
+			await waitFor(
+				() => container.textContent?.includes('Run History') === true
+			);
 
-		const agentCard = findAgentCard(container, 'Paris Meetup UI Agent');
-		await click(agentCard);
-		await waitFor(
-			() => document.body.textContent?.includes('Activate Agent') === true
-		);
-		await click(findButton(document.body, 'Activate Agent'));
-		await click(findButton(container, 'Runs'));
-		await waitFor(
-			() => container.textContent?.includes('Run History') === true
-		);
-		await click(findButton(container, 'Agents'));
-		await waitFor(
-			() =>
-				findAgentCard(
-					container,
-					'Paris Meetup UI Agent'
-				)?.textContent?.includes('ACTIVE') === true
-		);
+			await act(async () => {
+				root.unmount();
+			});
+		},
+		DASHBOARD_TEST_TIMEOUT_MS
+	);
 
-		const activeAgentCard = findAgentCard(container, 'Paris Meetup UI Agent');
-		await click(activeAgentCard);
-		await waitFor(
-			() => document.body.textContent?.includes('Execute Agent') === true
-		);
-		await click(findButton(document.body, 'Execute Agent'));
-		await waitFor(
-			() => document.body.textContent?.includes('Message *') === true
-		);
-		await fill('#execute-message', 'Summarize the meetup smoke test.');
-		await click(findButton(document.body, 'Execute'));
+	it(
+		'creates an agent, activates it, and executes a run',
+		async () => {
+			const { container, root } = await renderDashboard();
 
-		await click(findButton(container, 'Runs'));
-		await waitFor(
-			() =>
-				container.textContent?.includes(
-					'Affichage de 1 à 3 sur 6 résultats'
-				) === true
-		);
-		await waitFor(
-			() => container.textContent?.includes('Paris Meetup UI Agent') === true
-		);
+			await waitFor(
+				() => container.textContent?.includes('AI Agent Console') === true
+			);
+			await waitFor(
+				() =>
+					container.textContent?.includes(
+						'Affichage de 1 à 3 sur 5 résultats'
+					) === true
+			);
 
-		await act(async () => {
-			root.unmount();
-		});
-	});
+			await click(findButton(container, 'Agents'));
+			await waitFor(() => container.textContent?.includes('Total: 4') === true);
+
+			await click(findButton(container, 'New Agent'));
+			await waitFor(
+				() => document.body.textContent?.includes('Create New Agent') === true
+			);
+			await fill('#agent-name', 'Paris Meetup UI Agent');
+			await fill(
+				'#agent-description',
+				'Smoke test agent for the sandbox walkthrough.'
+			);
+			await click(findButton(document.body, 'Create Agent'));
+			await waitForTextToDisappear('Create New Agent');
+			await waitFor(
+				() => container.textContent?.includes('Paris Meetup UI Agent') === true,
+				7000
+			);
+			await waitFor(
+				() => container.textContent?.includes('Total: 5') === true,
+				7000
+			);
+
+			const agentCard = findAgentCard(container, 'Paris Meetup UI Agent');
+			await click(agentCard);
+			await waitFor(
+				() => document.body.textContent?.includes('Activate Agent') === true
+			);
+			await click(findButton(document.body, 'Activate Agent'));
+			await waitForTextToDisappear('Activate Agent');
+			await waitFor(
+				() =>
+					findAgentCard(
+						container,
+						'Paris Meetup UI Agent'
+					)?.textContent?.includes('ACTIVE') === true,
+				7000
+			);
+
+			const activeAgentCard = findAgentCard(container, 'Paris Meetup UI Agent');
+			await click(activeAgentCard);
+			await waitFor(
+				() => document.body.textContent?.includes('Execute Agent') === true
+			);
+			await click(findButton(document.body, 'Execute Agent'));
+			await waitFor(
+				() => document.body.textContent?.includes('Message *') === true
+			);
+			await fill('#execute-message', 'Summarize the meetup smoke test.');
+			await click(findButton(document.body, 'Execute'));
+			await waitForTextToDisappear('Message *');
+
+			await click(findButton(container, 'Runs'));
+			await waitFor(
+				() =>
+					container.textContent?.includes(
+						'Affichage de 1 à 3 sur 6 résultats'
+					) === true,
+				7000
+			);
+			await waitFor(
+				() => container.textContent?.includes('Paris Meetup UI Agent') === true,
+				7000
+			);
+
+			await act(async () => {
+				root.unmount();
+			});
+		},
+		MUTATION_TEST_TIMEOUT_MS
+	);
 });

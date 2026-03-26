@@ -17,7 +17,7 @@ Keep documentation synchronized with code. Write for the reader, not the writer.
 # Documentation Types
 
 ## 1. DocBlocks (Primary)
-Located in `*.docblock.ts` files, colocated with code.
+Located in the owner module itself as static exports.
 
 Required fields:
 - `id`: Unique identifier
@@ -28,7 +28,9 @@ Required fields:
 - `visibility`: public | internal | mixed
 
 ```typescript
-export const myDocBlock = registerDocBlock({
+import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
+
+export const myFeatureDocBlock = {
   id: 'my-feature-overview',
   title: 'My Feature Overview',
   body: `
@@ -41,8 +43,13 @@ export const myDocBlock = registerDocBlock({
   kind: 'usage',
   route: '/docs/features/my-feature',
   visibility: 'public',
-});
+} satisfies DocBlock;
 ```
+
+Ownership rules:
+- Concrete docs live in the exact command/query/event/form/view/presentation/capability/data-view file they document.
+- Domain/system docs live only in `*.feature.ts`, `spec.ts`, or `index.ts`.
+- Do not create `*.docblock.ts`, `src/docs/tech`, doc barrels, or `registerDocBlocks` side effects.
 
 ## 2. JSDoc Comments
 For public APIs, functions, and types.
@@ -84,7 +91,7 @@ For packages and modules, explaining:
 
 # When to Update Docs
 
-- New feature: Add DocBlock + JSDoc
+- New feature: Add same-file DocBlock + JSDoc
 - API change: Update existing docs
 - Bug fix: Update if behavior changed
 - Refactor: Verify docs still accurate

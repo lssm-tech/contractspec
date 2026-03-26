@@ -1,4 +1,13 @@
-import type { ChannelInboundEvent, ChannelPolicyDecision } from './types';
+import {
+	explainMessagingPolicy,
+	type MessagingPolicyExplanation,
+} from './policy-contract';
+import type {
+	ChannelCompiledPlan,
+	ChannelExecutionActor,
+	ChannelInboundEvent,
+	ChannelPolicyDecision,
+} from './types';
 
 export interface MessagingPolicyConfig {
 	autoResolveMinConfidence: number;
@@ -52,9 +61,21 @@ export const DEFAULT_MESSAGING_POLICY_CONFIG: MessagingPolicyConfig = {
 
 export interface PolicyEvaluationInput {
 	event: ChannelInboundEvent;
+	receiptId?: string;
+	threadId?: string;
+	sessionId?: string;
+	workflowId?: string;
+	threadState?: Record<string, unknown>;
+	compiledPlan?: ChannelCompiledPlan;
+	actor?: ChannelExecutionActor;
 }
 
-export class MessagingPolicyEngine {
+export interface MessagingPolicyEvaluator {
+	evaluate(input: PolicyEvaluationInput): ChannelPolicyDecision;
+	explain?(input: PolicyEvaluationInput): MessagingPolicyExplanation;
+}
+
+export class MessagingPolicyEngine implements MessagingPolicyEvaluator {
 	private readonly config: MessagingPolicyConfig;
 
 	constructor(config?: Partial<MessagingPolicyConfig>) {
@@ -65,82 +86,19 @@ export class MessagingPolicyEngine {
 	}
 
 	evaluate(input: PolicyEvaluationInput): ChannelPolicyDecision {
-		const text = (input.event.message?.text ?? '').toLowerCase();
-
-		if (containsAny(text, this.config.blockedSignals)) {
-			return {
-				confidence: 0.2,
-				riskTier: 'blocked',
-				verdict: 'blocked',
-				reasons: ['blocked_signal_detected'],
-				responseText: this.config.safeAckTemplate,
-				requiresApproval: true,
-				policyRef: this.config.policyRef,
-			};
-		}
-
-		if (containsAny(text, this.config.highRiskSignals)) {
-			return {
-				confidence: 0.55,
-				riskTier: 'high',
-				verdict: 'assist',
-				reasons: ['high_risk_topic_detected'],
-				responseText: this.config.safeAckTemplate,
-				requiresApproval: true,
-				policyRef: this.config.policyRef,
-			};
-		}
-
-		const mediumRiskDetected = containsAny(text, this.config.mediumRiskSignals);
-		const confidence = mediumRiskDetected ? 0.74 : 0.92;
-		const riskTier = mediumRiskDetected ? 'medium' : 'low';
-
-		if (
-			confidence >= this.config.autoResolveMinConfidence &&
-			riskTier === 'low'
-		) {
-			return {
-				confidence,
-				riskTier,
-				verdict: 'autonomous',
-				reasons: ['low_risk_high_confidence'],
-				responseText: this.defaultResponseText(input.event),
-				requiresApproval: false,
-				policyRef: this.config.policyRef,
-			};
-		}
-
-		if (confidence >= this.config.assistMinConfidence) {
-			return {
-				confidence,
-				riskTier,
-				verdict: 'assist',
-				reasons: ['needs_human_review'],
-				responseText: this.config.safeAckTemplate,
-				requiresApproval: true,
-				policyRef: this.config.policyRef,
-			};
-		}
-
-		return {
-			confidence,
-			riskTier: 'blocked',
-			verdict: 'blocked',
-			reasons: ['low_confidence'],
-			responseText: this.config.safeAckTemplate,
-			requiresApproval: true,
-			policyRef: this.config.policyRef,
-		};
+		return this.explain(input).decision;
 	}
 
-	private defaultResponseText(event: ChannelInboundEvent): string {
-		if (!event.message?.text) {
-			return this.config.safeAckTemplate;
-		}
-		return `Acknowledged: ${event.message.text.slice(0, 240)}`;
+	explain(input: PolicyEvaluationInput): MessagingPolicyExplanation {
+		return explainMessagingPolicy({
+			event: input.event,
+			actor: input.actor,
+			autoResolveMinConfidence: this.config.autoResolveMinConfidence,
+			assistMinConfidence: this.config.assistMinConfidence,
+			blockedSignals: this.config.blockedSignals,
+			highRiskSignals: this.config.highRiskSignals,
+			mediumRiskSignals: this.config.mediumRiskSignals,
+			safeAckTemplate: this.config.safeAckTemplate,
+		});
 	}
-}
-
-function containsAny(text: string, candidates: string[]): boolean {
-	return candidates.some((candidate) => text.includes(candidate));
 }

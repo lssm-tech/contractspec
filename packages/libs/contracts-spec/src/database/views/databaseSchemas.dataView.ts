@@ -1,6 +1,6 @@
 import { defineDataView } from '../../data-views';
-import '../ensure-docblocks';
-import { docId } from '../../docs/registry';
+import { docRef } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
 import {
 	DATABASE_DOMAIN,
 	DATABASE_OWNERS,
@@ -8,6 +8,20 @@ import {
 	DATABASE_TAGS,
 } from '../constants';
 import { DatabaseSchemaDescribeQuery } from '../queries/databaseSchemaDescribe.query';
+
+export const DatabaseSchemasDataViewDocBlock = {
+	id: 'docs.tech.database.schema.index',
+	title: 'Database schema index view',
+	summary: 'Data view for listing schemas and model counts.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/database/schema/index',
+	tags: ['database', 'data-view'],
+	body: `# database.schema.index
+
+List view for database schemas and their metadata.
+`,
+} satisfies DocBlock;
 
 export const DatabaseSchemasDataView = defineDataView({
 	meta: {
@@ -20,7 +34,7 @@ export const DatabaseSchemasDataView = defineDataView({
 		tags: [...DATABASE_TAGS, 'schema', 'index'],
 		stability: DATABASE_STABILITY,
 		entity: 'database_schema',
-		docId: [docId('docs.tech.database.schema.index')],
+		docId: [docRef(DatabaseSchemasDataViewDocBlock.id)],
 	},
 	source: {
 		primary: {

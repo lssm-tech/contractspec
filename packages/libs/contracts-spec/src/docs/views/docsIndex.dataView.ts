@@ -1,5 +1,4 @@
 import { defineDataView } from '../../data-views';
-import '../ensure-docblocks';
 import {
 	DOCS_DOMAIN,
 	DOCS_OWNERS,

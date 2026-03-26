@@ -64,6 +64,7 @@ describe('JsonSchemaType', () => {
 				expect(
 					zodSchema.parse({ key1: 'value1', key2: 'value2' })
 				).toBeDefined();
+				expect(() => zodSchema.parse({ key1: 123 })).toThrow();
 			});
 		});
 
@@ -129,6 +130,7 @@ describe('JsonSchemaType', () => {
 
 				const zodSchema = jsonSchema.getZod();
 				expect(zodSchema.parse({ count: 5 })).toEqual({ count: 5 });
+				expect(() => zodSchema.parse({ count: 3.14 })).toThrow();
 			});
 
 			it('should convert boolean type', () => {

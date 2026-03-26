@@ -2,8 +2,8 @@
 
 > Aggregated content from all packages. For summary, see /llms
 
-Generated: 2026-03-21T09:27:19.545Z
-Packages: 164
+Generated: 2026-03-26T14:13:55.520Z
+Packages: 165
 
 ---
 
@@ -739,7 +739,7 @@ Website: https://contractspec.io
 
 - **Layer**: lib.
 - **Consumers**: bundles.
-- Related ContractSpec packages include `@contractspec/lib.ai-agent`, `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.knowledge`, `@contractspec/lib.schema`, `@contractspec/tool.bun`, ...
+- Related ContractSpec packages include `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.knowledge`, `@contractspec/lib.schema`, `@contractspec/tool.bun`, ...
 
 ## Installation
 
@@ -1931,6 +1931,7 @@ This spec-first flow improves determinism, regeneration safety, and multi-surfac
 Use this package for:
 
 - Contract declarations (`defineCommand`, `defineQuery`, `defineEvent`, `defineResourceTemplate`, etc.).
+- Agent definition contracts (`defineAgent`, `AgentRegistry`, `AgentSpec`, `AgentToolConfig`).
 - Core registries (`OperationSpecRegistry`, `EventRegistry`, `FormRegistry`, `ResourceRegistry`).
 - Shared execution/runtime-neutral types (`HandlerCtx`, policy decision types, telemetry trigger types).
 - Contract installation helpers (`installOp`, `op`, `makeEmit`).
@@ -1954,6 +1955,7 @@ bun add @contractspec/lib.contracts-spec @contractspec/lib.schema
 ## Core concepts
 
 - `defineCommand` / `defineQuery`: typed operation specs with metadata, I/O schema, policy, transport hints, and side effects.
+- `defineAgent` + `AgentRegistry`: typed agent-definition contracts that runtime packages execute, export, or adapt.
 - `OperationSpecRegistry`: registers specs, binds handlers, and executes with validation/policy/event guards.
 - `defineEvent` + `EventRegistry`: typed event contracts and lookup.
 - `defineResourceTemplate` + `ResourceRegistry`: URI-template-based resource contracts.
@@ -1961,13 +1963,48 @@ bun add @contractspec/lib.contracts-spec @contractspec/lib.schema
 - `installOp`: one-call helper to register + bind operation handlers.
 - `makeEmit`: typed helper for declared event emission in handlers.
 
+## Agent Definitions
+
+Agent declarations now live in `@contractspec/lib.contracts-spec/agent`.
+
+```ts
+import { AgentRegistry, defineAgent } from "@contractspec/lib.contracts-spec/agent";
+
+const SupportBot = defineAgent({
+  meta: {
+    key: "support.bot",
+    version: "1.0.0",
+    description: "Customer support assistant",
+    owners: ["support"],
+    tags: ["support"],
+    stability: "experimental",
+  },
+  instructions: "Resolve tickets and escalate low-confidence cases.",
+  tools: [{ name: "support.resolve" }],
+});
+
+const registry = new AgentRegistry().register(SupportBot);
+```
+
+Runtime execution, exporters, MCP bridges, and provider adapters stay in
+`@contractspec/lib.ai-agent`.
+
+## Migration Note
+
+If you previously imported agent-definition contracts from
+`@contractspec/lib.ai-agent/spec`, migrate to:
+
+- `@contractspec/lib.contracts-spec/agent`
+- `@contractspec/lib.contracts-spec/agent/spec`
+- `@contractspec/lib.contracts-spec/agent/registry`
+
 ## Bundle requires alignment
 
 When using `@contractspec/lib.surface-runtime`, bundle specs declare required features via `ModuleBundleSpec.requires` (e.g. `{ key: 'ai-chat', version: '1.0.0' }`). These entries should match `FeatureModuleSpec.meta` from `defineFeature`. Register features (e.g. `AiChatFeature` from `@contractspec/module.ai-chat`) in a `FeatureRegistry` when validating bundle requirements. The bundle runtime can call `registry.get(key)` to verify each required feature exists before resolution.
 
 ## Canonical self-contained examples by contract type
 
-Use these example packages when you want one focused, importable reference per contract layer. `agent`, `knowledge`, and `type` are covered through the exported agent surfaces, knowledge bindings/source configs, and schema models because this package does not expose a standalone `define*` helper for those three categories.
+Use these example packages when you want one focused, importable reference per contract layer. `knowledge` and `type` are covered through the exported knowledge bindings/source configs and schema models. `agent` definitions now live directly in this package via `@contractspec/lib.contracts-spec/agent`.
 
 - `operation`, `feature`, `example`, `type`: [`@contractspec/example.minimal`](../../examples/minimal/README.md)
 - `event`, `presentation`, `capability`, `test-spec`: [`@contractspec/example.workflow-system`](../../examples/workflow-system/README.md)
@@ -1988,7 +2025,7 @@ Use these example packages when you want one focused, importable reference per c
 
 <!-- CONTRACT_INVENTORY:START -->
 
-The package currently exposes **549 subpath exports**. This map is auto-generated for high-context navigation and AI grounding.
+The package currently exposes **375 subpath exports**. This map is auto-generated for high-context navigation and AI grounding.
 
 > Auto-generated by `bun run readme:inventory` (`scripts/update-readme-contract-inventory.ts`). Do not edit this section manually.
 
@@ -2028,41 +2065,40 @@ From `src/types.ts`, `ContractSpecType` currently includes:
 
 These are the concrete contract artifact kinds visible in package exports:
 
-- `.capability` (21)
-- `.feature` (14)
+- `.capability` (17)
+- `.feature` (10)
 - `.command` (28)
 - `.event` (28)
 - `.query` (24)
 - `.form` (5)
 - `.presentation` (6)
 - `.dataView` (11)
-- `.docs` (2)
+- `.docs` (0)
 - `.contracts` (1)
-- `.docblock` (49)
+- `.docblock` (0)
 
 ### 3) Category -> kinds matrix
 
-- `acp`: `capability(1)`, `feature(1)`, `command(7)`, `plain(6)`
-- `agent`: `capability(1)`, `feature(1)`, `command(3)`, `event(4)`, `query(2)`, `form(1)`, `presentation(1)`, `dataView(1)`, `plain(11)`
-- `app-config`: `capability(1)`, `feature(1)`, `contracts(1)`, `docblock(1)`, `plain(8)`
-- `capabilities`: `docblock(1)`, `plain(7)`
-- `context`: `capability(1)`, `feature(1)`, `command(1)`, `event(1)`, `query(2)`, `form(1)`, `presentation(1)`, `dataView(1)`, `plain(11)`
+- `acp`: `capability(1)`, `feature(1)`, `command(7)`, `plain(5)`
+- `agent`: `capability(1)`, `feature(1)`, `command(3)`, `event(4)`, `query(2)`, `form(1)`, `presentation(1)`, `dataView(1)`, `plain(12)`
+- `app-config`: `capability(1)`, `feature(1)`, `contracts(1)`, `plain(9)`
+- `capabilities`: `plain(7)`
+- `context`: `capability(1)`, `feature(1)`, `command(1)`, `event(1)`, `query(2)`, `form(1)`, `presentation(1)`, `dataView(1)`, `plain(10)`
 - `contract-registry`: `plain(3)`
-- `control-plane`: `capability(5)`, `feature(1)`, `command(9)`, `event(10)`, `query(6)`, `plain(7)`
-- `data-views`: `docblock(1)`, `plain(8)`
-- `database`: `capability(1)`, `feature(1)`, `query(4)`, `dataView(1)`, `plain(7)`
-- `docs`: `capability(1)`, `feature(1)`, `command(2)`, `event(2)`, `query(2)`, `form(1)`, `presentation(2)`, `dataView(3)`, `docs(2)`, `docblock(35)`, `plain(13)`
+- `control-plane`: `capability(5)`, `feature(1)`, `command(9)`, `event(10)`, `query(6)`, `plain(13)`
+- `data-views`: `plain(8)`
+- `database`: `capability(1)`, `feature(1)`, `query(4)`, `dataView(1)`, `plain(6)`
+- `docs`: `capability(1)`, `feature(1)`, `command(2)`, `event(2)`, `query(2)`, `form(1)`, `presentation(2)`, `dataView(3)`, `plain(12)`
 - `events`: `plain(1)`
-- `examples`: `docblock(1)`, `plain(6)`
-- `experiments`: `docblock(1)`, `plain(3)`
+- `examples`: `plain(6)`
+- `experiments`: `plain(3)`
 - `features`: `plain(6)`
-- `forms`: `docblock(1)`, `plain(2)`
+- `forms`: `plain(2)`
 - `harness`: `capability(4)`, `feature(1)`, `command(3)`, `event(8)`, `query(5)`, `presentation(1)`, `dataView(3)`, `plain(11)`
 - `install`: `plain(1)`
-- `integrations`: `capability(4)`, `feature(4)`, `docblock(1)`, `plain(105)`
-- `jobs`: `plain(12)`
+- `jobs`: `plain(4)`
 - `jsonschema`: `plain(1)`
-- `knowledge`: `capability(1)`, `feature(1)`, `docblock(1)`, `plain(21)`
+- `knowledge`: `capability(1)`, `feature(1)`, `plain(12)`
 - `llm`: `plain(4)`
 - `markdown`: `plain(1)`
 - `migrations`: `plain(1)`
@@ -2071,19 +2107,19 @@ These are the concrete contract artifact kinds visible in package exports:
 - `openapi`: `plain(1)`
 - `operations`: `plain(5)`
 - `ownership`: `plain(1)`
-- `policy`: `docblock(1)`, `plain(8)`
-- `presentations`: `docblock(1)`, `plain(4)`
+- `policy`: `plain(8)`
+- `presentations`: `plain(4)`
 - `product-intent`: `plain(16)`
 - `prompt`: `plain(1)`
 - `promptRegistry`: `plain(1)`
-- `provider-ranking`: `capability(1)`, `feature(1)`, `command(3)`, `event(3)`, `query(3)`, `form(2)`, `presentation(1)`, `dataView(2)`, `plain(11)`
-- `regenerator`: `docblock(1)`, `plain(7)`
+- `provider-ranking`: `capability(1)`, `feature(1)`, `command(3)`, `event(3)`, `query(3)`, `form(2)`, `presentation(1)`, `dataView(2)`, `plain(10)`
+- `regenerator`: `plain(7)`
 - `registry`: `plain(1)`
 - `registry-utils`: `plain(1)`
 - `resources`: `plain(1)`
 - `schema-to-markdown`: `plain(1)`
 - `serialization`: `plain(3)`
-- `telemetry`: `docblock(1)`, `plain(4)`
+- `telemetry`: `plain(4)`
 - `tests`: `plain(3)`
 - `themes`: `plain(1)`
 - `translations`: `plain(7)`
@@ -2091,8 +2127,8 @@ These are the concrete contract artifact kinds visible in package exports:
 - `utils`: `plain(1)`
 - `versioning`: `plain(4)`
 - `visualizations`: `plain(4)`
-- `workflow`: `docblock(1)`, `plain(12)`
-- `workspace-config`: `docblock(1)`, `plain(3)`
+- `workflow`: `plain(12)`
+- `workspace-config`: `plain(3)`
 
 ### 4) Fully enumerated named contracts by category
 
@@ -2110,7 +2146,7 @@ These are the concrete contract artifact kinds visible in package exports:
   - `acp/commands/acpSessionStop.command`
   - `acp/commands/acpTerminalExec.command`
   - `acp/commands/acpToolCalls.command`
-- Plain exports (non-suffix artifacts): `6`
+- Plain exports (non-suffix artifacts): `5`
 
 #### agent
 
@@ -2136,7 +2172,7 @@ These are the concrete contract artifact kinds visible in package exports:
   - `agent/presentations/agentRunAudit.presentation`
 - Data views (1):
   - `agent/views/agentRuns.dataView`
-- Plain exports (non-suffix artifacts): `11`
+- Plain exports (non-suffix artifacts): `12`
 
 #### app-config
 
@@ -2146,15 +2182,11 @@ These are the concrete contract artifact kinds visible in package exports:
   - `app-config/app-config.feature`
 - Contracts artifacts (1):
   - `app-config/app-config.contracts`
-- DocBlocks (1):
-  - `app-config/docs/app-config.docblock`
-- Plain exports (non-suffix artifacts): `8`
+- Plain exports (non-suffix artifacts): `9`
 
 #### capabilities
 
-- DocBlocks (1):
-  - `capabilities/docs/capabilities.docblock`
-- Plain exports (non-suffix artifacts): `7`
+- Plain exports (non-suffix artifacts): `13`
 
 #### context
 
@@ -2175,7 +2207,7 @@ These are the concrete contract artifact kinds visible in package exports:
   - `context/presentations/contextSnapshot.presentation`
 - Data views (1):
   - `context/views/contextSnapshots.dataView`
-- Plain exports (non-suffix artifacts): `11`
+- Plain exports (non-suffix artifacts): `10`
 
 #### contract-registry
 
@@ -2223,8 +2255,6 @@ These are the concrete contract artifact kinds visible in package exports:
 
 #### data-views
 
-- DocBlocks (1):
-  - `data-views/docs/data-views.docblock`
 - Plain exports (non-suffix artifacts): `8`
 
 #### database
@@ -2240,7 +2270,7 @@ These are the concrete contract artifact kinds visible in package exports:
   - `database/queries/databaseSchemaDescribe.query`
 - Data views (1):
   - `database/views/databaseSchemas.dataView`
-- Plain exports (non-suffix artifacts): `7`
+- Plain exports (non-suffix artifacts): `6`
 
 #### docs
 
@@ -2266,46 +2296,7 @@ These are the concrete contract artifact kinds visible in package exports:
   - `docs/views/contractReference.dataView`
   - `docs/views/docsIndex.dataView`
   - `docs/views/exampleCatalog.dataView`
-- Docs contracts (2):
-  - `docs/meta.docs`
-  - `docs/tech-contracts.docs`
-- DocBlocks (35):
-  - `docs/accessibility_wcag_compliance_specs.docblock`
-  - `docs/tech/acp/acp-transport.docblock`
-  - `docs/tech/agent/agent-execution.docblock`
-  - `docs/tech/auth/better-auth-nextjs.docblock`
-  - `docs/tech/cli.docblock`
-  - `docs/tech/context/context-system.docblock`
-  - `docs/tech/contracts/migrations.docblock`
-  - `docs/tech/contracts/openapi-export.docblock`
-  - `docs/tech/contracts/openapi-import.docblock`
-  - `docs/tech/contracts/ops-to-presentation-linking.docblock`
-  - `docs/tech/contracts/overlays.docblock`
-  - `docs/tech/contracts/README.docblock`
-  - `docs/tech/contracts/tests.docblock`
-  - `docs/tech/contracts/themes.docblock`
-  - `docs/tech/contracts/vertical-pocket-family-office.docblock`
-  - `docs/tech/database/database-context.docblock`
-  - `docs/tech/docs-system.docblock`
-  - `docs/tech/lifecycle-stage-system.docblock`
-  - `docs/tech/llm/llm-integration.docblock`
-  - `docs/tech/mcp-endpoints.docblock`
-  - `docs/tech/presentation-runtime.docblock`
-  - `docs/tech/provider-ranking/provider-ranking-system.docblock`
-  - `docs/tech/report-verification-table.docblock`
-  - `docs/tech/schema/README.docblock`
-  - `docs/tech/studio/learning-events.docblock`
-  - `docs/tech/studio/learning-journeys.docblock`
-  - `docs/tech/studio/platform-admin-panel.docblock`
-  - `docs/tech/studio/project-access-teams.docblock`
-  - `docs/tech/studio/project-routing.docblock`
-  - `docs/tech/studio/sandbox-unlogged.docblock`
-  - `docs/tech/studio/team-invitations.docblock`
-  - `docs/tech/studio/workspace-ops.docblock`
-  - `docs/tech/studio/workspaces.docblock`
-  - `docs/tech/telemetry-ingest.docblock`
-  - `docs/tech/vscode-extension.docblock`
-- Plain exports (non-suffix artifacts): `13`
+- Plain exports (non-suffix artifacts): `12`
 
 #### events
 
@@ -2313,14 +2304,10 @@ These are the concrete contract artifact kinds visible in package exports:
 
 #### examples
 
-- DocBlocks (1):
-  - `examples/docs/examples.docblock`
 - Plain exports (non-suffix artifacts): `6`
 
 #### experiments
 
-- DocBlocks (1):
-  - `experiments/docs/experiments.docblock`
 - Plain exports (non-suffix artifacts): `3`
 
 #### features
@@ -2329,8 +2316,6 @@ These are the concrete contract artifact kinds visible in package exports:
 
 #### forms
 
-- DocBlocks (1):
-  - `forms/docs/forms.docblock`
 - Plain exports (non-suffix artifacts): `2`
 
 #### harness
@@ -2373,25 +2358,9 @@ These are the concrete contract artifact kinds visible in package exports:
 
 - Plain exports (non-suffix artifacts): `1`
 
-#### integrations
-
-- Capabilities (4):
-  - `integrations/health/health.capability`
-  - `integrations/integrations.capability`
-  - `integrations/meeting-recorder/meeting-recorder.capability`
-  - `integrations/openbanking/openbanking.capability`
-- Features (4):
-  - `integrations/health/health.feature`
-  - `integrations/integrations.feature`
-  - `integrations/meeting-recorder/meeting-recorder.feature`
-  - `integrations/openbanking/openbanking.feature`
-- DocBlocks (1):
-  - `integrations/docs/integrations.docblock`
-- Plain exports (non-suffix artifacts): `105`
-
 #### jobs
 
-- Plain exports (non-suffix artifacts): `12`
+- Plain exports (non-suffix artifacts): `4`
 
 #### jsonschema
 
@@ -2403,9 +2372,7 @@ These are the concrete contract artifact kinds visible in package exports:
   - `knowledge/knowledge.capability`
 - Features (1):
   - `knowledge/knowledge.feature`
-- DocBlocks (1):
-  - `knowledge/docs/knowledge.docblock`
-- Plain exports (non-suffix artifacts): `21`
+- Plain exports (non-suffix artifacts): `12`
 
 #### llm
 
@@ -2441,14 +2408,10 @@ These are the concrete contract artifact kinds visible in package exports:
 
 #### policy
 
-- DocBlocks (1):
-  - `policy/docs/policy.docblock`
 - Plain exports (non-suffix artifacts): `8`
 
 #### presentations
 
-- DocBlocks (1):
-  - `presentations/docs/presentations-conventions.docblock`
 - Plain exports (non-suffix artifacts): `4`
 
 #### product-intent
@@ -2489,12 +2452,10 @@ These are the concrete contract artifact kinds visible in package exports:
 - Data views (2):
   - `provider-ranking/views/benchmarkResults.dataView`
   - `provider-ranking/views/providerRankings.dataView`
-- Plain exports (non-suffix artifacts): `11`
+- Plain exports (non-suffix artifacts): `10`
 
 #### regenerator
 
-- DocBlocks (1):
-  - `regenerator/docs/regenerator.docblock`
 - Plain exports (non-suffix artifacts): `7`
 
 #### registry
@@ -2519,8 +2480,6 @@ These are the concrete contract artifact kinds visible in package exports:
 
 #### telemetry
 
-- DocBlocks (1):
-  - `telemetry/docs/telemetry.docblock`
 - Plain exports (non-suffix artifacts): `4`
 
 #### tests
@@ -2553,35 +2512,16 @@ These are the concrete contract artifact kinds visible in package exports:
 
 #### workflow
 
-- DocBlocks (1):
-  - `workflow/overview.docblock`
 - Plain exports (non-suffix artifacts): `12`
 
 #### workspace-config
 
-- DocBlocks (1):
-  - `workspace-config/workspace-config.docblock`
 - Plain exports (non-suffix artifacts): `3`
 
 ### 5) DocBlock coverage map (for AI context retrieval)
 
-`*.docblock` exports are narrative/architecture assets and are high-value context for retrieval pipelines.
+DocBlocks are authored as same-file exports in their owner modules and loaded through generated manifests, not standalone `*.docblock` package exports.
 
-- `app-config`: 1
-- `capabilities`: 1
-- `data-views`: 1
-- `docs`: 35
-- `examples`: 1
-- `experiments`: 1
-- `forms`: 1
-- `integrations`: 1
-- `knowledge`: 1
-- `policy`: 1
-- `presentations`: 1
-- `regenerator`: 1
-- `telemetry`: 1
-- `workflow`: 1
-- `workspace-config`: 1
 
 <!-- CONTRACT_INVENTORY:END -->
 
@@ -3277,6 +3217,13 @@ or
 ## Usage
 
 Import the root entrypoint from `@contractspec/lib.workflow-composer`, or choose a documented subpath when you only need one part of the package surface.
+
+Workflow composition is deterministic by default:
+
+- Extensions are applied in stable priority order.
+- Duplicate injected step ids and invalid anchor combinations are rejected.
+- Hidden-step overlays are validated so they cannot orphan the remaining graph.
+- Extension `metadata` and `annotations` are merged into the composed workflow output.
 
 ## Architecture
 
@@ -5355,6 +5302,7 @@ Website: https://contractspec.io
 - Provides the central agent runtime used by chat, automation, and higher-level orchestration packages.
 - Supports tools, sessions, memory, approvals, providers, telemetry, and MCP-aware workflows.
 - Acts as the stable public API for agent execution across multiple runtimes and delivery surfaces.
+- Consumes agent definitions from `@contractspec/lib.contracts-spec/agent`.
 - `src/providers/` contains provider integrations and provider-facing adapters.
 
 ## Installation
@@ -5367,13 +5315,42 @@ or
 
 ## Usage
 
-Import the root entrypoint from `@contractspec/lib.ai-agent`, or choose a documented subpath when you only need one part of the package surface.
+Define agents in `@contractspec/lib.contracts-spec/agent`, then run or export them with `@contractspec/lib.ai-agent`.
+
+```ts
+import { defineAgent } from "@contractspec/lib.contracts-spec/agent";
+import { createUnifiedAgent } from "@contractspec/lib.ai-agent/agent/unified-agent";
+
+const SupportBot = defineAgent({
+  meta: {
+    key: "support.bot",
+    version: "1.0.0",
+    description: "Customer support assistant",
+    owners: ["support"],
+    tags: ["support"],
+    stability: "experimental",
+  },
+  instructions: "Resolve tickets and escalate low-confidence cases.",
+  tools: [{ name: "support.resolve" }],
+});
+
+const agent = createUnifiedAgent(SupportBot, {
+  backend: "ai-sdk",
+});
+```
+
+Runtime portability stays adapter-first:
+
+- `AgentSpec.runtime` can declare checkpointing, suspend/resume, and approval-gateway capabilities.
+- `AgentFactory` and `ContractSpecAgent` accept optional runtime adapter bundles for LangGraph/LangChain-style integrations.
+- Session state now persists workflow, thread, trace, checkpoint, and approval metadata for replay-safe resumes.
+- Escalation policies can raise approval requests on timeout, tool failure, or confidence thresholds without coupling core contracts to a vendor runtime.
 
 ## Architecture
 
 - `src/agent/`, `src/session/`, and `src/memory/` contain the runtime core for execution state and persistence hooks.
 - `src/tools/`, `src.providers/`, and `src.interop/` connect providers, tools, and MCP-aware runtime surfaces.
-- `src.telemetry/`, `src.approval/`, `src.knowledge/`, `src.schema/`, and `src.spec/` round out agent policy and observability surfaces.
+- `src.telemetry/`, `src.approval/`, `src.knowledge/`, and `src.schema/` round out runtime policy and observability surfaces.
 - `src/index.ts` is the root public barrel and package entrypoint.
 - `src/types.ts` is shared public type definitions.
 
@@ -5390,7 +5367,17 @@ Import the root entrypoint from `@contractspec/lib.ai-agent`, or choose a docume
 - Export `./approval/workflow` resolves through `./src/approval/workflow.ts`.
 - Export `./exporters` resolves through `./src/exporters/index.ts`.
 - Export `./exporters/claude-agent-exporter` resolves through `./src/exporters/claude-agent-exporter.ts`.
-- The package publishes 66 total export subpaths; keep docs aligned with `package.json`.
+- Additional runtime subpaths are published through `package.json`; keep docs aligned with the manifest.
+
+## Migration Note
+
+`@contractspec/lib.ai-agent` no longer owns the agent-definition contract layer.
+
+- Removed: `@contractspec/lib.ai-agent/spec`
+- Removed: `@contractspec/lib.ai-agent/spec/spec`
+- Removed: `@contractspec/lib.ai-agent/spec/registry`
+- Use `@contractspec/lib.contracts-spec/agent` for `AgentSpec`, `AgentToolConfig`,
+  `AgentRegistry`, `createAgentRegistry`, and `defineAgent`
 
 ## Local Commands
 
@@ -5420,7 +5407,8 @@ Import the root entrypoint from `@contractspec/lib.ai-agent`, or choose a docume
 ## Notes
 
 - High blast radius — used by multiple bundles and libs.
-- `AgentSpec` interface is a public contract; do not change its shape without a migration plan.
+- Agent definitions are owned by `@contractspec/lib.contracts-spec/agent`.
+- This package is runtime-focused: execution, exporters, MCP/tool bridges, sessions, memory, approvals, providers, and telemetry.
 - MCP transport adapters must stay runtime-agnostic (no Node/browser-specific globals).
 
 
@@ -5714,10 +5702,11 @@ Import the root entrypoint from `@contractspec/module.ai-chat`, or choose a docu
 
 ## Public Entry Points
 
-- Exports the root module plus context, core, presentation, presentation/components, presentation/hooks, and providers subpaths.
+- Exports the root module plus context, core, core/workflow, presentation, presentation/components, presentation/hooks, and providers subpaths.
 - Export `.` resolves through `./src/index.ts`.
 - Export `./context` resolves through `./src/context/index.ts`.
 - Export `./core` resolves through `./src/core/index.ts`.
+- Export `./core/workflow` resolves through `./src/core/workflow.ts`.
 - Export `./presentation` resolves through `./src/presentation/index.ts`.
 - Export `./presentation/components` resolves through `./src/presentation/components/index.ts`.
 - Export `./presentation/hooks` resolves through `./src/presentation/hooks/index.ts`.
@@ -6749,7 +6738,7 @@ Website: https://contractspec.io
 - **Layer**: bundle.
 - **Consumers**: `examples/lifecycle-cli`.
 - `src/services/` contains business logic services and workflows.
-- Related ContractSpec packages include `@contractspec/lib.ai-agent`, `@contractspec/lib.analytics`, `@contractspec/lib.lifecycle`, `@contractspec/lib.observability`, `@contractspec/module.lifecycle-advisor`, `@contractspec/module.lifecycle-core`, ...
+- Related ContractSpec packages include `@contractspec/lib.analytics`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.lifecycle`, `@contractspec/lib.observability`, `@contractspec/module.lifecycle-advisor`, `@contractspec/module.lifecycle-core`, ...
 - `src/services/` contains business logic services and workflows.
 
 ## Installation
@@ -6801,7 +6790,7 @@ Import the root entrypoint from `@contractspec/bundle.lifecycle-managed`, or cho
 
 ## Notes
 
-- Depends on six workspace packages (`lib.ai-agent`, `lib.analytics`, `lib.lifecycle`, `lib.observability`, `module.lifecycle-advisor`, `module.lifecycle-core`); changes to those APIs propagate here.
+- Depends on six workspace packages (`lib.analytics`, `lib.contracts-spec`, `lib.lifecycle`, `lib.observability`, `module.lifecycle-advisor`, `module.lifecycle-core`); changes to those APIs propagate here.
 - Events must remain serializable for cross-service consumption.
 - Keep REST handlers thin; domain logic belongs in services.
 
@@ -7275,14 +7264,14 @@ bun run dev
 
 ## Local Commands
 
-- `bun run dev` — bun build src/extension.ts --outfile=dist/extension.js --target=node --format=cjs --external=vscode --sourcemap=external --watch
+- `bun run dev` — bun build src/extension.ts --outdir=dist --target=node --format=cjs --external=vscode --sourcemap=external --watch
 - `bun run build` — bun run build:types && bun run build:bundle
 - `bun run test` — vscode-test
 - `bun run lint` — bun run lint:fix
 - `bun run lint:check` — biome check .
 - `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
 - `bun run vscode:prepublish` — bun run build
-- `bun run build:bundle` — bun build src/extension.ts --outfile=dist/extension.js --target=node --format=cjs --external=vscode --minify
+- `bun run build:bundle` — bun build src/extension.ts --outdir=dist --target=node --format=cjs --external=vscode --minify
 - `bun run build:types` — tsc --noEmit
 - `bun run package` — vsce package --no-dependencies
 - `bun run publish:off` — vsce publish --no-dependencies
@@ -7667,6 +7656,7 @@ URL: /llms/app.api-library
 - This app is a thin HTTP layer — all business logic lives in `bundle.library`.
 - Elysia server with MCP endpoint integration.
 - `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
+- Internal control-plane endpoints expose approval queues, trace inspection, policy explanation, skill registry actions, and dashboard summaries for operators.
 - Related ContractSpec packages include `@contractspec/bundle.library`, `@contractspec/bundle.marketing`, `@contractspec/bundle.workspace`, `@contractspec/integration.providers-impls`, `@contractspec/integration.runtime`, `@contractspec/lib.contracts-spec`, ...
 - `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
 
@@ -9191,6 +9181,7 @@ Use `@contractspec/example.data-grid-showcase` as a focused reference for Contra
 - Export `./contracts` resolves through `./src/contracts/index.ts`.
 - Export `./contracts/data-grid-showcase.data-view` resolves through `./src/contracts/data-grid-showcase.data-view.ts`.
 - Export `./contracts/data-grid-showcase.operation` resolves through `./src/contracts/data-grid-showcase.operation.ts`.
+- Export `./data-grid-showcase.feature` resolves through `./src/data-grid-showcase.feature.ts`.
 - Export `./docs` resolves through `./src/docs/index.ts`.
 - Export `./example` resolves through `./src/example.ts`.
 - Export `./ui` resolves through `./src/ui/index.ts`.
@@ -13270,6 +13261,82 @@ Import the root entrypoint from `@contractspec/tool.tsdown`, or use one of the d
 
 ---
 
+## @contractspec/integration.workflow-devkit
+
+Description: Workflow DevKit compiler and runtime bridges for ContractSpec workflows
+Path: packages/integrations/workflow-devkit
+URL: /llms/integration.workflow-devkit
+
+# @contractspec/integration.workflow-devkit
+
+Workflow DevKit compiler and runtime bridges for ContractSpec `WorkflowSpec`.
+
+## What it provides
+
+- Compile a `WorkflowSpec` into a deterministic Workflow DevKit manifest.
+- Generate Workflow, Next.js, and generic-host scaffolding.
+- Run a `WorkflowSpec` through injected Workflow DevKit primitives such as `sleep`, hooks, and webhooks.
+- Create a Workflow-backed `AgentRuntimeAdapterBundle` for `@contractspec/lib.ai-agent`.
+- Expose chat route helpers and re-export `WorkflowChatTransport` for reconnectable chat UIs.
+
+## Entry points
+
+- `@contractspec/integration.workflow-devkit`
+- `@contractspec/integration.workflow-devkit/compiler`
+- `@contractspec/integration.workflow-devkit/runtime`
+- `@contractspec/integration.workflow-devkit/chat-routes`
+- `@contractspec/integration.workflow-devkit/agent-adapter`
+- `@contractspec/integration.workflow-devkit/next`
+
+## Next.js example
+
+```ts
+import { withContractSpecWorkflow } from "@contractspec/integration.workflow-devkit/next";
+import { createWorkflowChatRoutes } from "@contractspec/module.ai-chat/core/workflow";
+
+export default withContractSpecWorkflow({
+  experimental: {},
+});
+
+const routes = createWorkflowChatRoutes({
+  workflow: async (payload) => payload,
+  getFollowUpToken({ runId }) {
+    return `chat:${runId}`;
+  },
+});
+
+export const POST = routes.start;
+```
+
+## Generic host example
+
+```ts
+import { createHook, createWebhook, sleep } from "workflow";
+import {
+  runWorkflowSpecWithWorkflowDevkit,
+  type WorkflowDevkitRuntimeBridge,
+} from "@contractspec/integration.workflow-devkit";
+import { onboardingWorkflow } from "./onboarding.workflow";
+
+export async function runOnboarding(input: Record<string, unknown>, bridge: WorkflowDevkitRuntimeBridge) {
+  "use workflow";
+
+  return runWorkflowSpecWithWorkflowDevkit({
+    spec: onboardingWorkflow,
+    initialData: input,
+    bridge,
+    primitives: {
+      sleep,
+      createHook,
+      createWebhook,
+    },
+  });
+}
+```
+
+
+---
+
 ## @contractspec/integration.runtime
 
 Description: Runtime integration with secret management
@@ -13287,7 +13354,6 @@ Website: https://contractspec.io
 - **Layer**: integration.
 - **Consumers**: `providers-impls`, bundles, apps that need secrets or channel routing.
 - Related ContractSpec packages include `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.logger`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
-- Related ContractSpec packages include `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.logger`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
 ## Installation
 
@@ -13300,6 +13366,18 @@ or
 ## Usage
 
 Import the root entrypoint from `@contractspec/integration.runtime`, or choose a documented subpath when you only need one part of the package surface.
+
+The channel runtime keeps policy evaluation deterministic and auditable:
+
+- Signature-invalid events are rejected before processing.
+- `MessagingPolicyEngine` can be replaced by a contract-backed policy evaluator through `ChannelRuntimeService`.
+- `ChannelApprovalService` exposes a generic approval queue for CLI, API, web, or custom operator surfaces via the shared channel store.
+- `ControlPlaneSkillRegistryService` verifies, installs, lists, and disables signed skill artifacts against an allowlisted trust policy.
+- Compiled plans now carry deterministic plan and step IDs, DAG dependency metadata, typed step I/O schema refs, actor audit context, and approval timeout fallback state.
+- Capability grants are intended to be bound by the hosting application, for example through `CHANNEL_RUNTIME_DEFAULT_CAPABILITY_GRANTS`, rather than trusted from inbound event payload metadata.
+- Hosting applications should also bind a server-side actor via `actorResolver` so runtime approvals and execution are attributed to the authenticated service, operator, or agent principal rather than raw inbound channel claims.
+- Telemetry now carries `traceId`, `sessionId`, and `workflowId` when callers provide them in inbound metadata.
+- Trace services now persist stage-level trace events so operators can inspect the full intent -> plan -> policy -> action -> outcome chain.
 
 ## Architecture
 
@@ -13315,15 +13393,42 @@ Import the root entrypoint from `@contractspec/integration.runtime`, or choose a
 
 - Export `.` resolves through `./src/index.ts`.
 - Export `./channel` resolves through `./src/channel/index.ts`.
+- Export `./channel/approval` resolves through `./src/channel/approval.ts`.
+- Export `./channel/authorization` resolves through `./src/channel/authorization.ts`.
+- Export `./channel/base-types` resolves through `./src/channel/base-types.ts`.
 - Export `./channel/dispatcher` resolves through `./src/channel/dispatcher.ts`.
 - Export `./channel/github` resolves through `./src/channel/github.ts`.
 - Export `./channel/memory-store` resolves through `./src/channel/memory-store.ts`.
+- Export `./channel/plan-types` resolves through `./src/channel/plan-types.ts`.
+- Export `./channel/plan-utils` resolves through `./src/channel/plan-utils.ts`.
+- Export `./channel/planner` resolves through `./src/channel/planner.ts`.
+- Export `./channel/planner-types` resolves through `./src/channel/planner-types.ts`.
 - Export `./channel/policy` resolves through `./src/channel/policy.ts`.
 - Export `./channel/postgres-queries` resolves through `./src/channel/postgres-queries.ts`.
 - Export `./channel/postgres-schema` resolves through `./src/channel/postgres-schema.ts`.
 - Export `./channel/postgres-store` resolves through `./src/channel/postgres-store.ts`.
 - Export `./channel/replay-fixtures` resolves through `./src/channel/replay-fixtures.ts`.
-- The package publishes 28 total export subpaths; keep docs aligned with `package.json`.
+- Export `./channel/service` resolves through `./src/channel/service.ts`.
+- Export `./channel/slack` resolves through `./src/channel/slack.ts`.
+- Export `./channel/store` resolves through `./src/channel/store.ts`.
+- Export `./channel/telegram` resolves through `./src/channel/telegram.ts`.
+- Export `./channel/telemetry` resolves through `./src/channel/telemetry.ts`.
+- Export `./channel/trace` resolves through `./src/channel/trace.ts`.
+- Export `./channel/types` resolves through `./src/channel/types.ts`.
+- Export `./channel/whatsapp-meta` resolves through `./src/channel/whatsapp-meta.ts`.
+- Export `./channel/whatsapp-twilio` resolves through `./src/channel/whatsapp-twilio.ts`.
+- Export `./health` resolves through `./src/health.ts`.
+- Export `./runtime` resolves through `./src/runtime.ts`.
+- Export `./secrets` resolves through `./src/secrets/index.ts`.
+- Export `./secrets/env-secret-provider` resolves through `./src/secrets/env-secret-provider.ts`.
+- Export `./secrets/gcp-secret-manager` resolves through `./src/secrets/gcp-secret-manager.ts`.
+- Export `./secrets/manager` resolves through `./src/secrets/manager.ts`.
+- Export `./secrets/provider` resolves through `./src/secrets/provider.ts`.
+- Export `./transport` resolves through `./src/transport/index.ts`.
+- Export `./transport/auth-resolver` resolves through `./src/transport/auth-resolver.ts`.
+- Export `./transport/transport-factory` resolves through `./src/transport/transport-factory.ts`.
+- Export `./transport/version-negotiator` resolves through `./src/transport/version-negotiator.ts`.
+- The package publishes 41 total export subpaths; keep docs aligned with `package.json`.
 
 ## Local Commands
 

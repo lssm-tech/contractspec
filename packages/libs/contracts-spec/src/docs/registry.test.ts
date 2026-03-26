@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test';
-import { DocRegistry, docId, registerDocBlocks } from './registry';
+import { DocRegistry, docRef, registerDocBlocks } from './registry';
 import type { DocBlock } from './types';
 
 describe('DocRegistry', () => {
@@ -153,8 +153,8 @@ describe('registerDocBlocks', () => {
 	});
 });
 
-describe('docId', () => {
-	it('should throw for unregistered doc', () => {
-		expect(() => docId('nonexistent.doc')).toThrow(/not registered/);
+describe('docRef', () => {
+	it('should brand doc ids without registry lookups', () => {
+		expect(String(docRef('nonexistent.doc'))).toBe('nonexistent.doc');
 	});
 });

@@ -1,5 +1,139 @@
 # @contractspec/bundle.library
 
+## 3.8.8
+
+### Patch Changes
+
+- cce2b13: Add first-class Workflow DevKit support for `WorkflowSpec`, including new runtime metadata, stricter validation for Workflow-backed workflows, a dedicated Workflow DevKit integration package, CLI artifact generation, and Workflow-aware chat route helpers exposed from `@contractspec/module.ai-chat/core/workflow` so standard chat imports do not pull Workflow-only runtime assets into non-Workflow builds.
+
+  Also harden supporting runtime surfaces by reusing Playwright browser instances in the harness runtime, mapping design-system button `onPress` handlers correctly to DOM clicks, and switching the workspace git adapter to argument-safe subprocess calls while tightening slow test coverage around those flows.
+
+- Updated dependencies [cce2b13]
+  - @contractspec/lib.contracts-runtime-server-graphql@3.7.15
+  - @contractspec/lib.contracts-runtime-client-react@3.8.3
+  - @contractspec/lib.contracts-runtime-server-rest@3.7.15
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.15
+  - @contractspec/lib.contracts-integrations@3.8.7
+  - @contractspec/module.context-storage@0.7.14
+  - @contractspec/lib.contracts-library@3.7.15
+  - @contractspec/lib.example-shared-ui@6.0.15
+  - @contractspec/lib.provider-ranking@0.7.11
+  - @contractspec/lib.runtime-sandbox@2.7.12
+  - @contractspec/lib.surface-runtime@0.5.15
+  - @contractspec/lib.contracts-spec@5.0.3
+  - @contractspec/lib.design-system@3.8.8
+  - @contractspec/lib.ai-providers@3.7.11
+  - @contractspec/lib.content-gen@3.7.15
+  - @contractspec/module.examples@3.8.7
+  - @contractspec/lib.ui-kit-web@3.9.7
+  - @contractspec/lib.knowledge@3.7.15
+  - @contractspec/lib.ui-link@3.7.11
+  - @contractspec/lib.logger@3.7.11
+  - @contractspec/lib.schema@3.7.12
+
+## 3.8.7
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-runtime-server-graphql@3.7.14
+  - @contractspec/lib.contracts-runtime-client-react@3.8.2
+  - @contractspec/lib.contracts-runtime-server-rest@3.7.14
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.14
+  - @contractspec/lib.contracts-integrations@3.8.6
+  - @contractspec/module.context-storage@0.7.13
+  - @contractspec/lib.contracts-library@3.7.14
+  - @contractspec/lib.example-shared-ui@6.0.14
+  - @contractspec/lib.provider-ranking@0.7.10
+  - @contractspec/lib.runtime-sandbox@2.7.11
+  - @contractspec/lib.surface-runtime@0.5.14
+  - @contractspec/lib.contracts-spec@5.0.2
+  - @contractspec/lib.design-system@3.8.7
+  - @contractspec/lib.ai-providers@3.7.10
+  - @contractspec/lib.content-gen@3.7.14
+  - @contractspec/module.examples@3.8.6
+  - @contractspec/lib.ui-kit-web@3.9.6
+  - @contractspec/lib.knowledge@3.7.14
+  - @contractspec/lib.ui-link@3.7.10
+  - @contractspec/lib.logger@3.7.10
+  - @contractspec/lib.schema@3.7.11
+
+## 3.8.6
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/lib.content-gen@3.7.13
+  - @contractspec/lib.contracts-integrations@3.8.5
+  - @contractspec/lib.contracts-library@3.7.13
+  - @contractspec/lib.contracts-runtime-client-react@3.8.1
+  - @contractspec/lib.contracts-runtime-server-graphql@3.7.13
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.13
+  - @contractspec/lib.contracts-runtime-server-rest@3.7.13
+  - @contractspec/lib.design-system@3.8.6
+  - @contractspec/lib.example-shared-ui@6.0.13
+  - @contractspec/lib.knowledge@3.7.13
+  - @contractspec/lib.surface-runtime@0.5.13
+  - @contractspec/lib.ui-kit-web@3.9.5
+  - @contractspec/module.examples@3.8.5
+  - @contractspec/module.context-storage@0.7.13
+
+## 3.8.5
+
+### Patch Changes
+
+- 03724cf: Normalize MCP POST Accept headers for JSON-only clients so MCP prompt and tool calls do not fail with a 406 when the client omits `text/event-stream`.
+
+## 3.8.4
+
+### Patch Changes
+
+- 81256ea: Split agent definition contracts out of `@contractspec/lib.ai-agent` and make
+  `@contractspec/lib.contracts-spec` the source of truth for agent declaration APIs.
+
+  Major changes:
+
+  - Move `AgentSpec`, `AgentToolConfig`, `AgentPolicy`, `AgentRegistry`,
+    `createAgentRegistry`, `defineAgent`, and related definition-only types into
+    `@contractspec/lib.contracts-spec/agent`.
+  - Add `@contractspec/lib.contracts-spec/agent/spec` and
+    `@contractspec/lib.contracts-spec/agent/registry` export subpaths.
+  - Remove `@contractspec/lib.ai-agent/spec`,
+    `@contractspec/lib.ai-agent/spec/spec`, and
+    `@contractspec/lib.ai-agent/spec/registry`.
+  - Remove the spec layer from the `@contractspec/lib.ai-agent` root barrel so it
+    is runtime-focused.
+
+  Workspace consumers were migrated to import agent-definition contracts from
+  `@contractspec/lib.contracts-spec/agent`, and packages that only needed the
+  contract layer dropped their direct dependency on `@contractspec/lib.ai-agent`.
+
+- Updated dependencies [81256ea]
+- Updated dependencies [2619dd8]
+- Updated dependencies [6de2f1c]
+- Updated dependencies [81256ea]
+- Updated dependencies [a4489bb]
+- Updated dependencies [9cb304e]
+  - @contractspec/lib.contracts-spec@5.0.0
+  - @contractspec/lib.contracts-runtime-client-react@3.8.0
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.12
+  - @contractspec/lib.contracts-integrations@3.8.4
+  - @contractspec/lib.schema@3.7.10
+  - @contractspec/lib.content-gen@3.7.12
+  - @contractspec/lib.contracts-library@3.7.12
+  - @contractspec/lib.contracts-runtime-server-graphql@3.7.12
+  - @contractspec/lib.contracts-runtime-server-rest@3.7.12
+  - @contractspec/lib.design-system@3.8.5
+  - @contractspec/lib.example-shared-ui@6.0.12
+  - @contractspec/lib.knowledge@3.7.12
+  - @contractspec/lib.surface-runtime@0.5.12
+  - @contractspec/lib.ui-kit-web@3.9.4
+  - @contractspec/module.examples@3.8.4
+  - @contractspec/module.context-storage@0.7.12
+
 ## 3.8.3
 
 ### Patch Changes

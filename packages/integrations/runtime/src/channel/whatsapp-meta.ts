@@ -92,6 +92,7 @@ export function normalizeMetaWhatsappInboundEvents(input: {
 				const occurredAt = message.timestamp
 					? new Date(Number(message.timestamp) * 1000)
 					: new Date();
+				if (Number.isNaN(occurredAt.getTime())) continue;
 				events.push({
 					workspaceId: input.workspaceId,
 					providerKey: 'messaging.whatsapp.meta',

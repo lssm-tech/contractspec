@@ -1,6 +1,10 @@
 import { existsSync, readFileSync } from 'node:fs';
 import { dirname, resolve } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import {
+	type DocBlock,
+	registerDocBlocks,
+} from '@contractspec/lib.contracts-spec/docs';
 import chalk from 'chalk';
 import { Command, Help } from 'commander';
 import { actionDriftCommand } from './commands/action-drift/index';
@@ -13,6 +17,7 @@ import { chatCommand } from './commands/chat/index';
 import { ciCommand } from './commands/ci/index';
 import { cicdCommand } from './commands/cicd/index';
 import { cleanCommand } from './commands/clean/index';
+import { controlPlaneCommand } from './commands/control-plane/index';
 import { createCommand } from './commands/create/index';
 import { deleteCommand } from './commands/delete/index';
 import { depsCommand } from './commands/deps/index';
@@ -228,6 +233,7 @@ program.addCommand(withCategory(agentCommand, CATEGORY_AI));
 
 // Operations
 program.addCommand(withCategory(createImpactCommand(), CATEGORY_OPERATIONS));
+program.addCommand(withCategory(controlPlaneCommand, CATEGORY_OPERATIONS));
 program.addCommand(withCategory(cicdCommand, CATEGORY_OPERATIONS));
 program.addCommand(withCategory(createVersionCommand(), CATEGORY_OPERATIONS));
 program.addCommand(withCategory(createChangelogCommand(), CATEGORY_OPERATIONS));
@@ -511,3 +517,75 @@ program.addCommand(withCategory(vibeCommand, CATEGORY_ESSENTIALS));
 export function run() {
 	program.parse();
 }
+
+export const ContractSpecCliDocBlock = {
+	id: 'docs.tech.cli.contractspec',
+	title: 'ContractSpec CLI',
+	summary:
+		'The command-line interface for creating, building, and validating contract specifications.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/cli/contractspec',
+	tags: ['cli', 'tooling', 'reference'],
+	owners: ['@contractspec/app.cli-contractspec'],
+	body: `# ContractSpec CLI
+
+The \`@contractspec/app.cli-contractspec\` package provides the command-line interface for the ContractSpec ecosystem.
+
+## Installation
+
+\`\`\`bash
+bun add -D @contractspec/app.cli-contractspec
+\`\`\`
+
+## Quick Start
+
+\`\`\`bash
+contractspec create
+contractspec build src/contracts/mySpec.ts
+contractspec validate src/contracts/mySpec.ts
+\`\`\`
+
+## Operator Flows
+
+### \`control-plane\`
+
+Use the CLI to inspect approvals, traces, and deterministic replay state.
+
+\`\`\`bash
+contractspec control-plane approval list --workspace-id workspace-1
+contractspec control-plane approval approve <decisionId> --actor-id operator-1 --capability-grants control-plane.execution.approve
+contractspec control-plane trace list --workspace-id workspace-1 --provider-key messaging.slack
+contractspec control-plane trace replay <decisionId>
+\`\`\`
+
+Environment:
+
+- \`CHANNEL_RUNTIME_STORAGE\` defaults to \`postgres\`
+- Supported storage modes are \`memory\` and \`postgres\`; invalid values fail fast
+- \`CHANNEL_RUNTIME_DATABASE_URL\` or \`DATABASE_URL\` is required for postgres-backed flows
+
+## Core Commands
+
+- \`create\` — interactive contract authoring
+- \`build\` — implementation generation from specs
+- \`validate\` — contract and implementation validation
+- \`impact\` — breaking-change detection against a baseline
+- \`doctor\` and \`ci\` — repository health and CI-oriented checks
+
+## Configuration
+
+The CLI is configured via \`.contractsrc.json\` in your project root.
+
+\`\`\`json
+{
+  "aiProvider": "claude",
+  "aiModel": "claude-3-7-sonnet-20250219",
+  "agentMode": "claude-code",
+		"outputDir": "./src"
+}
+\`\`\`
+`,
+} satisfies DocBlock;
+
+registerDocBlocks([ContractSpecCliDocBlock]);

@@ -5,10 +5,10 @@
 	"compilerOptions": {
 		"outDir": "dist",
 		"paths": {
-			"@contractspec/lib.ai-agent": ["../../libs/ai-agent/src/index.ts"],
-			"@contractspec/lib.ai-agent/*": ["../../libs/ai-agent/src/*"],
-			"@contractspec/lib.contracts-spec": ["../../libs/contracts/src/index.ts"],
-			"@contractspec/lib.contracts-spec/*": ["../../libs/contracts/src/*"],
+			"@contractspec/lib.contracts-spec": [
+				"../../libs/contracts-spec/src/index.ts"
+			],
+			"@contractspec/lib.contracts-spec/*": ["../../libs/contracts-spec/src/*"],
 			"@contractspec/lib.schema": ["../../libs/schema/src/index.ts"],
 			"@contractspec/lib.schema/*": ["../../libs/schema/src/*"]
 		}

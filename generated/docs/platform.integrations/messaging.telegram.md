@@ -10,7 +10,7 @@ Telegram messaging integration for inbound webhook updates, threaded topic messa
 - **Version**: 1.0.0
 - **Owners**: platform.messaging
 - **Tags**: messaging, telegram
-- **File**: `packages/libs/contracts-spec/src/integrations/providers/messaging-telegram.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/messaging-telegram.ts`
 
 ## Source Definition
 
@@ -29,6 +29,17 @@ export const messagingTelegramIntegrationSpec = defineIntegration({
 		stability: StabilityEnum.Beta,
 	},
 	supportedModes: ['managed', 'byok'],
+	transports: [
+		{ type: 'rest', baseUrl: 'https://api.telegram.org' },
+		{
+			type: 'webhook',
+			inbound: {
+				signatureHeader: 'x-telegram-bot-api-secret-token',
+				signingAlgorithm: 'hmac-sha256',
+			},
+		},
+	],
+	preferredTransport: 'rest',
 	capabilities: {
 		provides: [
 			{ key: 'messaging.inbound', version: '1.0.0' },
@@ -91,7 +102,8 @@ export const messagingTelegramIntegrationSpec = defineIntegration({
 	byokSetup: {
 		setupInstructions:
 			'Create a Telegram bot with BotFather, set a webhook with a secret token, then provide the bot token and secret token.',
-		requiredScopes: ['messages:write', 'webhook:receive'],
+		keyRotationSupported: true,
+		quotaTrackingSupported: false,
 	},
 });
 ```

@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/bundle.library",
-	"version": "3.8.3",
+	"version": "3.8.8",
 	"type": "module",
 	"scripts": {
 		"clean": "rm -rf dist",
@@ -29,7 +29,14 @@
 		"./application/mcp/contractsMcpTools": "./src/application/mcp/contractsMcpTools.ts",
 		"./application/mcp/contractsMcpTypes": "./src/application/mcp/contractsMcpTypes.ts",
 		"./application/mcp/docsMcp": "./src/application/mcp/docsMcp.ts",
+		"./application/mcp/docsMcp.catalog": "./src/application/mcp/docsMcp.catalog.ts",
+		"./application/mcp/docsMcp.data": "./src/application/mcp/docsMcp.data.ts",
+		"./application/mcp/docsMcp.prompts": "./src/application/mcp/docsMcp.prompts.ts",
+		"./application/mcp/docsMcp.reference": "./src/application/mcp/docsMcp.reference.ts",
+		"./application/mcp/docsMcp.resources": "./src/application/mcp/docsMcp.resources.ts",
+		"./application/mcp/docsMcp.tools": "./src/application/mcp/docsMcp.tools.ts",
 		"./application/mcp/internalMcp": "./src/application/mcp/internalMcp.ts",
+		"./application/mcp/normalizeMcpRequest": "./src/application/mcp/normalizeMcpRequest.ts",
 		"./application/mcp/providerRankingMcp": "./src/application/mcp/providerRankingMcp.ts",
 		"./bundles": "./src/bundles/index.ts",
 		"./bundles/LibraryBundle": "./src/bundles/LibraryBundle.ts",
@@ -346,21 +353,22 @@
 		"@dnd-kit/core": "^6.1.0",
 		"@dnd-kit/sortable": "^10.0.0",
 		"@dnd-kit/utilities": "^3.2.2",
-		"@electric-sql/pglite": "^0.4.1",
+		"@electric-sql/pglite": "^0.4.2",
 		"@scaleway/sdk": "^3.4.1",
 		"@scaleway/sdk-client": "^2.2.1",
 		"drizzle-orm": "^0.45.1",
 		"elysia": "^1.4.28",
 		"framer-motion": "^12.38.0",
-		"lucide-react": "^0.577.0",
-		"posthog-js": "^1.362.0",
+		"lucide-react": "^1.6.0",
+		"posthog-js": "^1.363.5",
 		"posthog-node": "^5.28.4",
-		"posthog-react-native": "^4.37.4",
-		"react-hook-form": "^7.71.2",
+		"posthog-react-native": "^4.37.6",
+		"react-hook-form": "^7.72.0",
 		"zod": "catalog:",
 		"@contractspec/lib.contracts-integrations": "workspace:*",
 		"@contractspec/lib.contracts-runtime-server-rest": "workspace:*",
-		"@contractspec/lib.contracts-runtime-server-graphql": "workspace:*"
+		"@contractspec/lib.contracts-runtime-server-graphql": "workspace:*",
+		"@contractspec/lib.contracts-runtime-client-react": "workspace:*"
 	},
 	"devDependencies": {
 		"@types/react": "~19.2.14",
@@ -444,11 +452,53 @@
 				"node": "./dist/node/application/mcp/docsMcp.js",
 				"default": "./dist/application/mcp/docsMcp.js"
 			},
+			"./application/mcp/docsMcp.catalog": {
+				"types": "./dist/application/mcp/docsMcp.catalog.d.ts",
+				"bun": "./dist/application/mcp/docsMcp.catalog.js",
+				"node": "./dist/node/application/mcp/docsMcp.catalog.js",
+				"default": "./dist/application/mcp/docsMcp.catalog.js"
+			},
+			"./application/mcp/docsMcp.data": {
+				"types": "./dist/application/mcp/docsMcp.data.d.ts",
+				"bun": "./dist/application/mcp/docsMcp.data.js",
+				"node": "./dist/node/application/mcp/docsMcp.data.js",
+				"default": "./dist/application/mcp/docsMcp.data.js"
+			},
+			"./application/mcp/docsMcp.prompts": {
+				"types": "./dist/application/mcp/docsMcp.prompts.d.ts",
+				"bun": "./dist/application/mcp/docsMcp.prompts.js",
+				"node": "./dist/node/application/mcp/docsMcp.prompts.js",
+				"default": "./dist/application/mcp/docsMcp.prompts.js"
+			},
+			"./application/mcp/docsMcp.reference": {
+				"types": "./dist/application/mcp/docsMcp.reference.d.ts",
+				"bun": "./dist/application/mcp/docsMcp.reference.js",
+				"node": "./dist/node/application/mcp/docsMcp.reference.js",
+				"default": "./dist/application/mcp/docsMcp.reference.js"
+			},
+			"./application/mcp/docsMcp.resources": {
+				"types": "./dist/application/mcp/docsMcp.resources.d.ts",
+				"bun": "./dist/application/mcp/docsMcp.resources.js",
+				"node": "./dist/node/application/mcp/docsMcp.resources.js",
+				"default": "./dist/application/mcp/docsMcp.resources.js"
+			},
+			"./application/mcp/docsMcp.tools": {
+				"types": "./dist/application/mcp/docsMcp.tools.d.ts",
+				"bun": "./dist/application/mcp/docsMcp.tools.js",
+				"node": "./dist/node/application/mcp/docsMcp.tools.js",
+				"default": "./dist/application/mcp/docsMcp.tools.js"
+			},
 			"./application/mcp/internalMcp": {
 				"types": "./dist/application/mcp/internalMcp.d.ts",
 				"bun": "./dist/application/mcp/internalMcp.js",
 				"node": "./dist/node/application/mcp/internalMcp.js",
 				"default": "./dist/application/mcp/internalMcp.js"
+			},
+			"./application/mcp/normalizeMcpRequest": {
+				"types": "./dist/application/mcp/normalizeMcpRequest.d.ts",
+				"bun": "./dist/application/mcp/normalizeMcpRequest.js",
+				"node": "./dist/node/application/mcp/normalizeMcpRequest.js",
+				"default": "./dist/application/mcp/normalizeMcpRequest.js"
 			},
 			"./application/mcp/providerRankingMcp": {
 				"types": "./dist/application/mcp/providerRankingMcp.d.ts",

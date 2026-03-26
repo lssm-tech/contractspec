@@ -39,7 +39,6 @@ import type {
 } from './app-config/runtime';
 import type { EventRegistry } from './events';
 import type { SpecVariantResolver } from './experiments/spec-resolver';
-import type { SecretProvider } from './integrations/secrets/provider';
 import type {
 	ConsentDefinition,
 	PolicySpec,
@@ -47,6 +46,20 @@ import type {
 } from './policy/spec';
 import type { TelemetryTracker } from './telemetry';
 import type { Locale, MessageKey } from './translations/catalog';
+
+export interface SecretProviderPort {
+	readonly id: string;
+	canHandle(reference: string): boolean;
+	getSecret(
+		reference: string,
+		options?: { version?: string }
+	): Promise<{
+		data: Uint8Array;
+		version?: string;
+		metadata?: Record<string, string>;
+		retrievedAt: Date;
+	}>;
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Contract Spec Types
@@ -262,7 +275,7 @@ export interface HandlerCtx {
 	/** Event publisher for domain events (outbox/bus). */
 	eventPublisher?: EventPublisher;
 	/** Secret provider for secure credential access. */
-	secretProvider?: SecretProvider;
+	secretProvider?: SecretProviderPort;
 
 	/**
 	 * Internal emit guard for enforcing declared event emissions.

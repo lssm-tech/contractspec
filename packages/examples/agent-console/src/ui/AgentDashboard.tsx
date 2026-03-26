@@ -34,6 +34,7 @@ export function AgentDashboard() {
 	const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
 	const [selectedAgent, setSelectedAgent] = useState<Agent | null>(null);
 	const [isAgentActionsOpen, setIsAgentActionsOpen] = useState(false);
+	const [refreshVersion, setRefreshVersion] = useState(0);
 
 	const { data: runData, metrics, refetch: refetchRuns } = useRunList();
 	const { refetch: refetchAgents } = useAgentList();
@@ -42,6 +43,7 @@ export function AgentDashboard() {
 		onSuccess: () => {
 			refetchAgents();
 			refetchRuns();
+			setRefreshVersion((current) => current + 1);
 		},
 	});
 
@@ -141,9 +143,12 @@ export function AgentDashboard() {
 
 			{/* Tab Content */}
 			<div className="min-h-[400px]" role="tabpanel">
-				{activeTab === 'runs' && <RunListView />}
+				{activeTab === 'runs' && <RunListView key={refreshVersion} />}
 				{activeTab === 'agents' && (
-					<AgentListViewWithActions onAgentClick={handleAgentClick} />
+					<AgentListViewWithActions
+						key={refreshVersion}
+						onAgentClick={handleAgentClick}
+					/>
 				)}
 				{activeTab === 'tools' && <ToolRegistryView />}
 				{activeTab === 'metrics' && <MetricsView metrics={metrics} />}

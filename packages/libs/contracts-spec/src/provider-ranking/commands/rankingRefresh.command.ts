@@ -1,7 +1,7 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
-import { defineCommand } from '../../operations';
-import '../ensure-docblocks';
 import { docId } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { defineCommand } from '../../operations';
 import {
 	PROVIDER_RANKING_DOMAIN,
 	PROVIDER_RANKING_OWNERS,
@@ -31,6 +31,20 @@ const RankingRefreshOutput = new SchemaModel({
 		status: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
 	},
 });
+
+export const RankingRefreshDocBlock = {
+	id: 'docs.tech.provider-ranking.ranking.refresh',
+	title: 'Refresh rankings',
+	summary: 'Recompute composite rankings from latest benchmark data.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/provider-ranking/ranking/refresh',
+	tags: ['ai', 'ranking', 'refresh'],
+	body: `# provider-ranking.ranking.refresh
+
+Recomputes weighted composite scores across all dimensions and updates the leaderboard.
+`,
+} satisfies DocBlock;
 
 export const RankingRefreshCommand = defineCommand({
 	meta: {

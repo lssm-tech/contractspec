@@ -1,6 +1,6 @@
 import { defineDataView } from '../../data-views';
-import '../ensure-docblocks';
 import { docId } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
 import {
 	PROVIDER_RANKING_DOMAIN,
 	PROVIDER_RANKING_OWNERS,
@@ -8,6 +8,20 @@ import {
 	PROVIDER_RANKING_TAGS,
 } from '../constants';
 import { ProviderRankingGetQuery } from '../queries/providerRankingGet.query';
+
+export const ProviderRankingsDataViewDocBlock = {
+	id: 'docs.tech.provider-ranking.ranking.index',
+	title: 'Provider rankings view',
+	summary: 'Data view for the model leaderboard.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/provider-ranking/ranking/index',
+	tags: ['ai', 'ranking', 'data-view'],
+	body: `# provider-ranking.ranking.index
+
+List view over ranked models with composite and per-dimension scores.
+`,
+} satisfies DocBlock;
 
 export const ProviderRankingsDataView = defineDataView({
 	meta: {

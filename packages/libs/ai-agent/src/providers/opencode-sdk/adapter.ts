@@ -1,3 +1,7 @@
+import {
+	type AgentSpec,
+	agentKey,
+} from '@contractspec/lib.contracts-spec/agent';
 /**
  * OpenCode SDK Provider
  *
@@ -13,8 +17,6 @@
 
 import { createAgentI18n } from '../../i18n';
 import { injectStaticKnowledge } from '../../knowledge/injector';
-import type { AgentSpec } from '../../spec/spec';
-import { agentKey } from '../../spec/spec';
 import type {
 	ExternalAgentContext,
 	ExternalAgentProvider,

@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/example.saas-boilerplate",
-	"version": "3.8.3",
+	"version": "3.8.7",
 	"description": "SaaS Boilerplate - Users, Orgs, Projects, Billing, Settings",
 	"type": "module",
 	"types": "./dist/index.d.ts",
@@ -84,7 +84,8 @@
 		"@contractspec/lib.design-system": "workspace:*",
 		"@contractspec/lib.runtime-sandbox": "workspace:*",
 		"react": "catalog:",
-		"react-dom": "catalog:"
+		"react-dom": "catalog:",
+		"@contractspec/lib.presentation-runtime-core": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",

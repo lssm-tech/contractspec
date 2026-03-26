@@ -12,7 +12,7 @@ Invoke the `documenter` subagent to synchronize docs after implementation:
    - Otherwise focus on changed files and affected public behavior.
 
 2. **Documentation targets**:
-   - DocBlocks close to changed code.
+   - Same-file DocBlocks in the owner module of changed code.
    - Public API JSDoc where signatures/behavior changed.
    - Module/package README updates when usage changed.
 

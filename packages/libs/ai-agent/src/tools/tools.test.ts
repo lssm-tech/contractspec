@@ -1,6 +1,6 @@
 import { describe, expect, it, mock } from 'bun:test';
+import type { AgentKnowledgeRef } from '@contractspec/lib.contracts-spec/agent';
 import type { KnowledgeRetriever } from '@contractspec/lib.knowledge/retriever';
-import type { AgentKnowledgeRef } from '../spec/spec';
 import { createKnowledgeQueryTool } from './knowledge-tool';
 
 const mockRetriever: KnowledgeRetriever = {

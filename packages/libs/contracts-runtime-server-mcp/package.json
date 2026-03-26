@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.contracts-runtime-server-mcp",
-	"version": "3.7.11",
+	"version": "3.7.15",
 	"description": "MCP server runtime adapters for ContractSpec contracts",
 	"type": "module",
 	"types": "./dist/index.d.ts",
@@ -26,8 +26,9 @@
 	"dependencies": {
 		"@contractspec/lib.contracts-spec": "workspace:*",
 		"@contractspec/lib.logger": "workspace:*",
-		"@modelcontextprotocol/sdk": "^1.27.1",
-		"zod": "catalog:"
+		"@modelcontextprotocol/sdk": "^1.28.0",
+		"zod": "catalog:",
+		"@contractspec/lib.presentation-runtime-core": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",

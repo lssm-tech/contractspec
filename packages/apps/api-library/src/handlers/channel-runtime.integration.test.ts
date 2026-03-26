@@ -23,7 +23,13 @@ const app = new Elysia()
 const TEST_ENV_KEYS = [
 	'CHANNEL_RUNTIME_STORAGE',
 	'CHANNEL_RUNTIME_ASYNC_PROCESSING',
+	'CHANNEL_RUNTIME_DEFAULT_CAPABILITY_GRANTS',
 	'CHANNEL_DISPATCH_TOKEN',
+	'CONTROL_PLANE_API_TOKEN',
+	'CONTROL_PLANE_API_CAPABILITY_GRANTS',
+	'CONTROL_PLANE_SKILL_TRUST_POLICY_JSON',
+	'CONTROL_PLANE_SKILL_CONTRACTS_SPEC_VERSION',
+	'CONTROL_PLANE_SKILL_CONTROL_PLANE_VERSION',
 	'CHANNEL_ALLOW_UNMAPPED_WORKSPACE',
 	'CHANNEL_WORKSPACE_MAP_SLACK',
 	'CHANNEL_WORKSPACE_MAP_GITHUB',
@@ -57,6 +63,8 @@ beforeEach(() => {
 	}
 	process.env.CHANNEL_RUNTIME_STORAGE = 'memory';
 	process.env.CHANNEL_RUNTIME_ASYNC_PROCESSING = '0';
+	process.env.CHANNEL_RUNTIME_DEFAULT_CAPABILITY_GRANTS =
+		'control-plane.channel-runtime.reply.autonomous,control-plane.approval.request';
 	process.env.CHANNEL_DISPATCH_TOKEN = 'dispatch-token';
 	process.env.CHANNEL_ALLOW_UNMAPPED_WORKSPACE = '0';
 });
@@ -230,7 +238,7 @@ describe('channel runtime integration', () => {
 
 		const dispatchResponse = await app.handle(
 			new Request('http://localhost/internal/channel/dispatch', {
-				method: 'GET',
+				method: 'POST',
 				headers: {
 					authorization: 'Bearer dispatch-token',
 				},

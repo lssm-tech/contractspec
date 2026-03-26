@@ -34,6 +34,34 @@ export function defineResourceTemplate<I extends z.ZodType>(
 	return spec;
 }
 
+function escapeRegExp(literal: string): string {
+	return literal.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+}
+
+function compileUriTemplate(uriTemplate: string): {
+	regex: RegExp;
+	names: string[];
+} {
+	const names: string[] = [];
+	const pattern = uriTemplate
+		.split(/(\{[^}]+\})/g)
+		.filter(Boolean)
+		.map((segment) => {
+			const match = segment.match(/^\{([^}]+)\}$/);
+			if (!match) {
+				return escapeRegExp(segment);
+			}
+			const [name] = match.slice(1);
+			if (!name) {
+				return escapeRegExp(segment);
+			}
+			names.push(name);
+			return '([^/]+)';
+		})
+		.join('');
+	return { regex: new RegExp(`^${pattern}$`), names };
+}
+
 export class ResourceRegistry {
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	private templates: ResourceTemplateSpec<any>[] = [];
@@ -57,14 +85,9 @@ export class ResourceRegistry {
 		  }
 		| undefined {
 		for (const tmpl of this.templates) {
-			const re = new RegExp(
-				'^' + tmpl.meta.uriTemplate.replace(/\{[^}]+\}/g, '([^/]+)') + '$'
-			);
-			const m = uri.match(re);
+			const { regex, names } = compileUriTemplate(tmpl.meta.uriTemplate);
+			const m = uri.match(regex);
 			if (!m) continue;
-			const names = [...tmpl.meta.uriTemplate.matchAll(/\{([^}]+)\}/g)].map(
-				(x) => x[1]
-			);
 			const params: Record<string, string> = {};
 			names.forEach((n, i) => {
 				const val = m[i + 1];

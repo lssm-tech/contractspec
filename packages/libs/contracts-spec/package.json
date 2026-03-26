@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.contracts-spec",
-	"version": "4.1.3",
+	"version": "5.0.3",
 	"description": "Spec definitions and registries for ContractSpec",
 	"keywords": [
 		"contractspec",
@@ -22,10 +22,11 @@
 		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
 		"build:bundle": "contractspec-bun-build transpile",
 		"build:types": "contractspec-bun-build types",
-		"prebuild": "contractspec-bun-build prebuild",
+		"prebuild": "bun run docs:manifest && contractspec-bun-build prebuild",
 		"typecheck": "tsc --noEmit",
 		"test": "bun test",
 		"dev": "contractspec-bun-build dev",
+		"docs:manifest": "bun run scripts/build-docblocks-manifest.ts",
 		"registry:build": "bun run scripts/build-registry.ts",
 		"readme:inventory": "bun run scripts/update-readme-contract-inventory.ts"
 	},
@@ -35,23 +36,13 @@
 		"directory": "packages/libs/contracts-spec"
 	},
 	"dependencies": {
-		"@blocknote/core": "^0.47.1",
-		"@aws-sdk/client-secrets-manager": "^3.1013.0",
-		"@aws-sdk/client-sqs": "^3.1013.0",
 		"@contractspec/lib.schema": "workspace:*",
-		"@google-cloud/secret-manager": "^6.1.1",
 		"compare-versions": "^6.1.1",
-		"google-gax": "^5.0.6",
-		"turndown": "^7.2.2",
 		"zod": "catalog:"
-	},
-	"peerDependencies": {
-		"react": "^19.2.0"
 	},
 	"devDependencies": {
 		"@contractspec/tool.bun": "workspace:*",
 		"@contractspec/tool.typescript": "workspace:*",
-		"@types/turndown": "^5.0.6",
 		"typescript": "catalog:"
 	},
 	"files": [
@@ -74,7 +65,6 @@
 		"./acp/commands/acpToolCalls.command": "./src/acp/commands/acpToolCalls.command.ts",
 		"./acp/constants": "./src/acp/constants.ts",
 		"./acp/contracts": "./src/acp/contracts.ts",
-		"./acp/ensure-docblocks": "./src/acp/ensure-docblocks.ts",
 		"./agent": "./src/agent/index.ts",
 		"./agent/agent.feature": "./src/agent/agent.feature.ts",
 		"./agent/capabilities": "./src/agent/capabilities/index.ts",
@@ -85,7 +75,6 @@
 		"./agent/commands/agentRun.command": "./src/agent/commands/agentRun.command.ts",
 		"./agent/constants": "./src/agent/constants.ts",
 		"./agent/contracts": "./src/agent/contracts.ts",
-		"./agent/ensure-docblocks": "./src/agent/ensure-docblocks.ts",
 		"./agent/events": "./src/agent/events/index.ts",
 		"./agent/events/agentApprovalRequested.event": "./src/agent/events/agentApprovalRequested.event.ts",
 		"./agent/events/agentRunCompleted.event": "./src/agent/events/agentRunCompleted.event.ts",
@@ -98,6 +87,8 @@
 		"./agent/queries": "./src/agent/queries/index.ts",
 		"./agent/queries/agentArtifacts.query": "./src/agent/queries/agentArtifacts.query.ts",
 		"./agent/queries/agentStatus.query": "./src/agent/queries/agentStatus.query.ts",
+		"./agent/registry": "./src/agent/registry.ts",
+		"./agent/spec": "./src/agent/spec.ts",
 		"./agent/views": "./src/agent/views/index.ts",
 		"./agent/views/agentRuns.dataView": "./src/agent/views/agentRuns.dataView.ts",
 		"./app-config": "./src/app-config/index.ts",
@@ -105,8 +96,8 @@
 		"./app-config/app-config.contracts": "./src/app-config/app-config.contracts.ts",
 		"./app-config/app-config.feature": "./src/app-config/app-config.feature.ts",
 		"./app-config/branding": "./src/app-config/branding.ts",
-		"./app-config/docs/app-config.docblock": "./src/app-config/docs/app-config.docblock.ts",
 		"./app-config/events": "./src/app-config/events.ts",
+		"./app-config/integrations": "./src/app-config/integrations.ts",
 		"./app-config/lifecycle": "./src/app-config/lifecycle.ts",
 		"./app-config/lifecycle-contracts": "./src/app-config/lifecycle-contracts.ts",
 		"./app-config/runtime": "./src/app-config/runtime.ts",
@@ -115,7 +106,6 @@
 		"./capabilities": "./src/capabilities/index.ts",
 		"./capabilities/capabilities": "./src/capabilities/capabilities.ts",
 		"./capabilities/context": "./src/capabilities/context.ts",
-		"./capabilities/docs/capabilities.docblock": "./src/capabilities/docs/capabilities.docblock.ts",
 		"./capabilities/guards": "./src/capabilities/guards.ts",
 		"./capabilities/meeting-recorder": "./src/capabilities/meeting-recorder.ts",
 		"./capabilities/openbanking": "./src/capabilities/openbanking.ts",
@@ -128,7 +118,6 @@
 		"./context/constants": "./src/context/constants.ts",
 		"./context/context.feature": "./src/context/context.feature.ts",
 		"./context/contracts": "./src/context/contracts.ts",
-		"./context/ensure-docblocks": "./src/context/ensure-docblocks.ts",
 		"./context/events": "./src/context/events/index.ts",
 		"./context/events/contextSnapshotCreated.event": "./src/context/events/contextSnapshotCreated.event.ts",
 		"./context/forms": "./src/context/forms/index.ts",
@@ -174,6 +163,8 @@
 		"./control-plane/events/controlPlanePlanRejected.event": "./src/control-plane/events/controlPlanePlanRejected.event.ts",
 		"./control-plane/events/controlPlaneSkillInstalled.event": "./src/control-plane/events/controlPlaneSkillInstalled.event.ts",
 		"./control-plane/events/controlPlaneSkillRejected.event": "./src/control-plane/events/controlPlaneSkillRejected.event.ts",
+		"./control-plane/policies": "./src/control-plane/policies/index.ts",
+		"./control-plane/policies/controlPlaneMessaging.policy": "./src/control-plane/policies/controlPlaneMessaging.policy.ts",
 		"./control-plane/queries": "./src/control-plane/queries/index.ts",
 		"./control-plane/queries/controlPlaneExecutionGet.query": "./src/control-plane/queries/controlPlaneExecutionGet.query.ts",
 		"./control-plane/queries/controlPlaneExecutionList.query": "./src/control-plane/queries/controlPlaneExecutionList.query.ts",
@@ -181,9 +172,14 @@
 		"./control-plane/queries/controlPlaneSkillList.query": "./src/control-plane/queries/controlPlaneSkillList.query.ts",
 		"./control-plane/queries/controlPlaneSkillVerify.query": "./src/control-plane/queries/controlPlaneSkillVerify.query.ts",
 		"./control-plane/queries/controlPlaneTraceGet.query": "./src/control-plane/queries/controlPlaneTraceGet.query.ts",
+		"./control-plane/skills": "./src/control-plane/skills/index.ts",
+		"./control-plane/skills/schema": "./src/control-plane/skills/schema.ts",
+		"./control-plane/skills/signer": "./src/control-plane/skills/signer.ts",
+		"./control-plane/skills/types": "./src/control-plane/skills/types.ts",
+		"./control-plane/skills/validator": "./src/control-plane/skills/validator.ts",
+		"./control-plane/skills/verifier": "./src/control-plane/skills/verifier.ts",
 		"./data-views": "./src/data-views/index.ts",
 		"./data-views/data-views": "./src/data-views/data-views.ts",
-		"./data-views/docs/data-views.docblock": "./src/data-views/docs/data-views.docblock.ts",
 		"./data-views/query-generator": "./src/data-views/query-generator.ts",
 		"./data-views/registry": "./src/data-views/registry.ts",
 		"./data-views/report/contractVerificationTable": "./src/data-views/report/contractVerificationTable.ts",
@@ -196,7 +192,6 @@
 		"./database/constants": "./src/database/constants.ts",
 		"./database/contracts": "./src/database/contracts.ts",
 		"./database/database.feature": "./src/database/database.feature.ts",
-		"./database/ensure-docblocks": "./src/database/ensure-docblocks.ts",
 		"./database/queries": "./src/database/queries/index.ts",
 		"./database/queries/databaseDictionaryGet.query": "./src/database/queries/databaseDictionaryGet.query.ts",
 		"./database/queries/databaseMigrationsList.query": "./src/database/queries/databaseMigrationsList.query.ts",
@@ -205,7 +200,6 @@
 		"./database/views": "./src/database/views/index.ts",
 		"./database/views/databaseSchemas.dataView": "./src/database/views/databaseSchemas.dataView.ts",
 		"./docs": "./src/docs/index.ts",
-		"./docs/accessibility_wcag_compliance_specs.docblock": "./src/docs/accessibility_wcag_compliance_specs.docblock.ts",
 		"./docs/capabilities": "./src/docs/capabilities/index.ts",
 		"./docs/capabilities/documentationSystem.capability": "./src/docs/capabilities/documentationSystem.capability.ts",
 		"./docs/commands": "./src/docs/commands/index.ts",
@@ -213,14 +207,15 @@
 		"./docs/commands/docsPublish.command": "./src/docs/commands/docsPublish.command.ts",
 		"./docs/constants": "./src/docs/constants.ts",
 		"./docs/contracts": "./src/docs/contracts.ts",
+		"./docs/docblocks.manifest.generated": "./src/docs/docblocks.manifest.generated.ts",
 		"./docs/docs.feature": "./src/docs/docs.feature.ts",
-		"./docs/ensure-docblocks": "./src/docs/ensure-docblocks.ts",
 		"./docs/events": "./src/docs/events/index.ts",
 		"./docs/events/docsGenerated.event": "./src/docs/events/docsGenerated.event.ts",
 		"./docs/events/docsPublished.event": "./src/docs/events/docsPublished.event.ts",
 		"./docs/forms": "./src/docs/forms/index.ts",
 		"./docs/forms/docsSearch.form": "./src/docs/forms/docsSearch.form.ts",
-		"./docs/meta.docs": "./src/docs/meta.docs.ts",
+		"./docs/manifest": "./src/docs/manifest.ts",
+		"./docs/manifest-builder": "./src/docs/manifest-builder.ts",
 		"./docs/presentations": "./src/docs/presentations.ts",
 		"./docs/presentations/docsLayout.presentation": "./src/docs/presentations/docsLayout.presentation.ts",
 		"./docs/presentations/docsReferencePage.presentation": "./src/docs/presentations/docsReferencePage.presentation.ts",
@@ -228,41 +223,6 @@
 		"./docs/queries/contractReference.query": "./src/docs/queries/contractReference.query.ts",
 		"./docs/queries/docsIndex.query": "./src/docs/queries/docsIndex.query.ts",
 		"./docs/registry": "./src/docs/registry.ts",
-		"./docs/tech-contracts.docs": "./src/docs/tech-contracts.docs.ts",
-		"./docs/tech/acp/acp-transport.docblock": "./src/docs/tech/acp/acp-transport.docblock.ts",
-		"./docs/tech/agent/agent-execution.docblock": "./src/docs/tech/agent/agent-execution.docblock.ts",
-		"./docs/tech/auth/better-auth-nextjs.docblock": "./src/docs/tech/auth/better-auth-nextjs.docblock.ts",
-		"./docs/tech/cli.docblock": "./src/docs/tech/cli.docblock.ts",
-		"./docs/tech/context/context-system.docblock": "./src/docs/tech/context/context-system.docblock.ts",
-		"./docs/tech/contracts/migrations.docblock": "./src/docs/tech/contracts/migrations.docblock.ts",
-		"./docs/tech/contracts/openapi-export.docblock": "./src/docs/tech/contracts/openapi-export.docblock.ts",
-		"./docs/tech/contracts/openapi-import.docblock": "./src/docs/tech/contracts/openapi-import.docblock.ts",
-		"./docs/tech/contracts/ops-to-presentation-linking.docblock": "./src/docs/tech/contracts/ops-to-presentation-linking.docblock.ts",
-		"./docs/tech/contracts/overlays.docblock": "./src/docs/tech/contracts/overlays.docblock.ts",
-		"./docs/tech/contracts/README.docblock": "./src/docs/tech/contracts/README.docblock.ts",
-		"./docs/tech/contracts/tests.docblock": "./src/docs/tech/contracts/tests.docblock.ts",
-		"./docs/tech/contracts/themes.docblock": "./src/docs/tech/contracts/themes.docblock.ts",
-		"./docs/tech/contracts/vertical-pocket-family-office.docblock": "./src/docs/tech/contracts/vertical-pocket-family-office.docblock.ts",
-		"./docs/tech/database/database-context.docblock": "./src/docs/tech/database/database-context.docblock.ts",
-		"./docs/tech/docs-system.docblock": "./src/docs/tech/docs-system.docblock.ts",
-		"./docs/tech/lifecycle-stage-system.docblock": "./src/docs/tech/lifecycle-stage-system.docblock.ts",
-		"./docs/tech/llm/llm-integration.docblock": "./src/docs/tech/llm/llm-integration.docblock.ts",
-		"./docs/tech/mcp-endpoints.docblock": "./src/docs/tech/mcp-endpoints.docblock.ts",
-		"./docs/tech/presentation-runtime.docblock": "./src/docs/tech/presentation-runtime.docblock.ts",
-		"./docs/tech/provider-ranking/provider-ranking-system.docblock": "./src/docs/tech/provider-ranking/provider-ranking-system.docblock.ts",
-		"./docs/tech/report-verification-table.docblock": "./src/docs/tech/report-verification-table.docblock.ts",
-		"./docs/tech/schema/README.docblock": "./src/docs/tech/schema/README.docblock.ts",
-		"./docs/tech/studio/learning-events.docblock": "./src/docs/tech/studio/learning-events.docblock.ts",
-		"./docs/tech/studio/learning-journeys.docblock": "./src/docs/tech/studio/learning-journeys.docblock.ts",
-		"./docs/tech/studio/platform-admin-panel.docblock": "./src/docs/tech/studio/platform-admin-panel.docblock.ts",
-		"./docs/tech/studio/project-access-teams.docblock": "./src/docs/tech/studio/project-access-teams.docblock.ts",
-		"./docs/tech/studio/project-routing.docblock": "./src/docs/tech/studio/project-routing.docblock.ts",
-		"./docs/tech/studio/sandbox-unlogged.docblock": "./src/docs/tech/studio/sandbox-unlogged.docblock.ts",
-		"./docs/tech/studio/team-invitations.docblock": "./src/docs/tech/studio/team-invitations.docblock.ts",
-		"./docs/tech/studio/workspace-ops.docblock": "./src/docs/tech/studio/workspace-ops.docblock.ts",
-		"./docs/tech/studio/workspaces.docblock": "./src/docs/tech/studio/workspaces.docblock.ts",
-		"./docs/tech/telemetry-ingest.docblock": "./src/docs/tech/telemetry-ingest.docblock.ts",
-		"./docs/tech/vscode-extension.docblock": "./src/docs/tech/vscode-extension.docblock.ts",
 		"./docs/types": "./src/docs/types.ts",
 		"./docs/views": "./src/docs/views/index.ts",
 		"./docs/views/contractReference.dataView": "./src/docs/views/contractReference.dataView.ts",
@@ -271,12 +231,10 @@
 		"./events": "./src/events.ts",
 		"./examples": "./src/examples/index.ts",
 		"./examples/define": "./src/examples/define.ts",
-		"./examples/docs/examples.docblock": "./src/examples/docs/examples.docblock.ts",
 		"./examples/registry": "./src/examples/registry.ts",
 		"./examples/schema": "./src/examples/schema.ts",
 		"./examples/types": "./src/examples/types.ts",
 		"./examples/validation": "./src/examples/validation.ts",
-		"./experiments/docs/experiments.docblock": "./src/experiments/docs/experiments.docblock.ts",
 		"./experiments/evaluator": "./src/experiments/evaluator.ts",
 		"./experiments/spec": "./src/experiments/spec.ts",
 		"./experiments/spec-resolver": "./src/experiments/spec-resolver.ts",
@@ -287,7 +245,6 @@
 		"./features/validate-bundle-requires": "./src/features/validate-bundle-requires.ts",
 		"./features/validation": "./src/features/validation.ts",
 		"./forms": "./src/forms/index.ts",
-		"./forms/docs/forms.docblock": "./src/forms/docs/forms.docblock.ts",
 		"./forms/forms": "./src/forms/forms.ts",
 		"./harness": "./src/harness/index.ts",
 		"./harness/capabilities": "./src/harness/capabilities/index.ts",
@@ -326,148 +283,16 @@
 		"./harness/views/harnessEvidence.dataView": "./src/harness/views/harnessEvidence.dataView.ts",
 		"./harness/views/harnessRuns.dataView": "./src/harness/views/harnessRuns.dataView.ts",
 		"./install": "./src/install.ts",
-		"./integrations": "./src/integrations/index.ts",
-		"./integrations/binding": "./src/integrations/binding.ts",
-		"./integrations/connection": "./src/integrations/connection.ts",
-		"./integrations/docs/integrations.docblock": "./src/integrations/docs/integrations.docblock.ts",
-		"./integrations/health": "./src/integrations/health.ts",
-		"./integrations/health/contracts": "./src/integrations/health/contracts/index.ts",
-		"./integrations/health/contracts/activities": "./src/integrations/health/contracts/activities.ts",
-		"./integrations/health/contracts/biometrics": "./src/integrations/health/contracts/biometrics.ts",
-		"./integrations/health/contracts/nutrition": "./src/integrations/health/contracts/nutrition.ts",
-		"./integrations/health/contracts/sleep": "./src/integrations/health/contracts/sleep.ts",
-		"./integrations/health/contracts/webhooks": "./src/integrations/health/contracts/webhooks.ts",
-		"./integrations/health/contracts/workouts": "./src/integrations/health/contracts/workouts.ts",
-		"./integrations/health/guards": "./src/integrations/health/guards.ts",
-		"./integrations/health/health.capability": "./src/integrations/health/health.capability.ts",
-		"./integrations/health/health.feature": "./src/integrations/health/health.feature.ts",
-		"./integrations/health/models": "./src/integrations/health/models.ts",
-		"./integrations/health/telemetry": "./src/integrations/health/telemetry.ts",
-		"./integrations/integrations.capability": "./src/integrations/integrations.capability.ts",
-		"./integrations/integrations.feature": "./src/integrations/integrations.feature.ts",
-		"./integrations/meeting-recorder/contracts": "./src/integrations/meeting-recorder/contracts/index.ts",
-		"./integrations/meeting-recorder/contracts/meetings": "./src/integrations/meeting-recorder/contracts/meetings.ts",
-		"./integrations/meeting-recorder/contracts/transcripts": "./src/integrations/meeting-recorder/contracts/transcripts.ts",
-		"./integrations/meeting-recorder/contracts/webhooks": "./src/integrations/meeting-recorder/contracts/webhooks.ts",
-		"./integrations/meeting-recorder/meeting-recorder.capability": "./src/integrations/meeting-recorder/meeting-recorder.capability.ts",
-		"./integrations/meeting-recorder/meeting-recorder.feature": "./src/integrations/meeting-recorder/meeting-recorder.feature.ts",
-		"./integrations/meeting-recorder/models": "./src/integrations/meeting-recorder/models.ts",
-		"./integrations/meeting-recorder/telemetry": "./src/integrations/meeting-recorder/telemetry.ts",
-		"./integrations/openbanking/contracts": "./src/integrations/openbanking/contracts/index.ts",
-		"./integrations/openbanking/contracts/accounts": "./src/integrations/openbanking/contracts/accounts.ts",
-		"./integrations/openbanking/contracts/balances": "./src/integrations/openbanking/contracts/balances.ts",
-		"./integrations/openbanking/contracts/transactions": "./src/integrations/openbanking/contracts/transactions.ts",
-		"./integrations/openbanking/guards": "./src/integrations/openbanking/guards.ts",
-		"./integrations/openbanking/models": "./src/integrations/openbanking/models.ts",
-		"./integrations/openbanking/openbanking.capability": "./src/integrations/openbanking/openbanking.capability.ts",
-		"./integrations/openbanking/openbanking.feature": "./src/integrations/openbanking/openbanking.feature.ts",
-		"./integrations/openbanking/telemetry": "./src/integrations/openbanking/telemetry.ts",
-		"./integrations/operations": "./src/integrations/operations.ts",
-		"./integrations/providers": "./src/integrations/providers/index.ts",
-		"./integrations/providers/analytics": "./src/integrations/providers/analytics.ts",
-		"./integrations/providers/analytics-reader": "./src/integrations/providers/analytics-reader.ts",
-		"./integrations/providers/analytics-writer": "./src/integrations/providers/analytics-writer.ts",
-		"./integrations/providers/apple-health": "./src/integrations/providers/apple-health.ts",
-		"./integrations/providers/calendar": "./src/integrations/providers/calendar.ts",
-		"./integrations/providers/database": "./src/integrations/providers/database.ts",
-		"./integrations/providers/deepgram": "./src/integrations/providers/deepgram.ts",
-		"./integrations/providers/eightsleep": "./src/integrations/providers/eightsleep.ts",
-		"./integrations/providers/elevenlabs": "./src/integrations/providers/elevenlabs.ts",
-		"./integrations/providers/email": "./src/integrations/providers/email.ts",
-		"./integrations/providers/embedding": "./src/integrations/providers/embedding.ts",
-		"./integrations/providers/fal": "./src/integrations/providers/fal.ts",
-		"./integrations/providers/fal-image": "./src/integrations/providers/fal-image.ts",
-		"./integrations/providers/fathom": "./src/integrations/providers/fathom.ts",
-		"./integrations/providers/fireflies": "./src/integrations/providers/fireflies.ts",
-		"./integrations/providers/fitbit": "./src/integrations/providers/fitbit.ts",
-		"./integrations/providers/garmin": "./src/integrations/providers/garmin.ts",
-		"./integrations/providers/gcs-storage": "./src/integrations/providers/gcs-storage.ts",
-		"./integrations/providers/gmail": "./src/integrations/providers/gmail.ts",
-		"./integrations/providers/google-calendar": "./src/integrations/providers/google-calendar.ts",
-		"./integrations/providers/gradium": "./src/integrations/providers/gradium.ts",
-		"./integrations/providers/granola": "./src/integrations/providers/granola.ts",
-		"./integrations/providers/health": "./src/integrations/providers/health.ts",
-		"./integrations/providers/health-provider-shared": "./src/integrations/providers/health-provider-shared.ts",
-		"./integrations/providers/image": "./src/integrations/providers/image.ts",
-		"./integrations/providers/jira": "./src/integrations/providers/jira.ts",
-		"./integrations/providers/linear": "./src/integrations/providers/linear.ts",
-		"./integrations/providers/llm": "./src/integrations/providers/llm.ts",
-		"./integrations/providers/meeting-recorder": "./src/integrations/providers/meeting-recorder.ts",
-		"./integrations/providers/messaging": "./src/integrations/providers/messaging.ts",
-		"./integrations/providers/messaging-github": "./src/integrations/providers/messaging-github.ts",
-		"./integrations/providers/messaging-slack": "./src/integrations/providers/messaging-slack.ts",
-		"./integrations/providers/messaging-telegram": "./src/integrations/providers/messaging-telegram.ts",
-		"./integrations/providers/messaging-whatsapp-meta": "./src/integrations/providers/messaging-whatsapp-meta.ts",
-		"./integrations/providers/messaging-whatsapp-twilio": "./src/integrations/providers/messaging-whatsapp-twilio.ts",
-		"./integrations/providers/mistral": "./src/integrations/providers/mistral.ts",
-		"./integrations/providers/mistral-conversational": "./src/integrations/providers/mistral-conversational.ts",
-		"./integrations/providers/mistral-stt": "./src/integrations/providers/mistral-stt.ts",
-		"./integrations/providers/myfitnesspal": "./src/integrations/providers/myfitnesspal.ts",
-		"./integrations/providers/notion": "./src/integrations/providers/notion.ts",
-		"./integrations/providers/openai-image": "./src/integrations/providers/openai-image.ts",
-		"./integrations/providers/openai-realtime": "./src/integrations/providers/openai-realtime.ts",
-		"./integrations/providers/openbanking": "./src/integrations/providers/openbanking.ts",
-		"./integrations/providers/openwearables": "./src/integrations/providers/openwearables.ts",
-		"./integrations/providers/oura": "./src/integrations/providers/oura.ts",
-		"./integrations/providers/payments": "./src/integrations/providers/payments.ts",
-		"./integrations/providers/peloton": "./src/integrations/providers/peloton.ts",
-		"./integrations/providers/posthog": "./src/integrations/providers/posthog.ts",
-		"./integrations/providers/posthog-llm-telemetry": "./src/integrations/providers/posthog-llm-telemetry.ts",
-		"./integrations/providers/postmark": "./src/integrations/providers/postmark.ts",
-		"./integrations/providers/powens": "./src/integrations/providers/powens.ts",
-		"./integrations/providers/project-management": "./src/integrations/providers/project-management.ts",
-		"./integrations/providers/qdrant": "./src/integrations/providers/qdrant.ts",
-		"./integrations/providers/registry": "./src/integrations/providers/registry.ts",
-		"./integrations/providers/sms": "./src/integrations/providers/sms.ts",
-		"./integrations/providers/storage": "./src/integrations/providers/storage.ts",
-		"./integrations/providers/strava": "./src/integrations/providers/strava.ts",
-		"./integrations/providers/stripe": "./src/integrations/providers/stripe.ts",
-		"./integrations/providers/supabase-postgres": "./src/integrations/providers/supabase-postgres.ts",
-		"./integrations/providers/supabase-vector": "./src/integrations/providers/supabase-vector.ts",
-		"./integrations/providers/tldv": "./src/integrations/providers/tldv.ts",
-		"./integrations/providers/twilio-sms": "./src/integrations/providers/twilio-sms.ts",
-		"./integrations/providers/vector-store": "./src/integrations/providers/vector-store.ts",
-		"./integrations/providers/voice": "./src/integrations/providers/voice.ts",
-		"./integrations/providers/voice-video-sync": "./src/integrations/providers/voice-video-sync.ts",
-		"./integrations/providers/whoop": "./src/integrations/providers/whoop.ts",
-		"./integrations/runtime": "./src/integrations/runtime.ts",
-		"./integrations/secrets": "./src/integrations/secrets/index.ts",
-		"./integrations/secrets-types": "./src/integrations/secrets-types.ts",
-		"./integrations/secrets/aws-secret-manager": "./src/integrations/secrets/aws-secret-manager.ts",
-		"./integrations/secrets/env-secret-provider": "./src/integrations/secrets/env-secret-provider.ts",
-		"./integrations/secrets/gcp-secret-manager": "./src/integrations/secrets/gcp-secret-manager.ts",
-		"./integrations/secrets/manager": "./src/integrations/secrets/manager.ts",
-		"./integrations/secrets/provider": "./src/integrations/secrets/provider.ts",
-		"./integrations/secrets/scaleway-secret-manager": "./src/integrations/secrets/scaleway-secret-manager.ts",
-		"./integrations/spec": "./src/integrations/spec.ts",
 		"./jobs": "./src/jobs/index.ts",
 		"./jobs/define-job": "./src/jobs/define-job.ts",
-		"./jobs/gcp-cloud-tasks": "./src/jobs/gcp-cloud-tasks.ts",
-		"./jobs/gcp-pubsub": "./src/jobs/gcp-pubsub.ts",
-		"./jobs/handlers": "./src/jobs/handlers/index.ts",
-		"./jobs/handlers/gmail-sync-handler": "./src/jobs/handlers/gmail-sync-handler.ts",
-		"./jobs/handlers/ping-handler": "./src/jobs/handlers/ping-handler.ts",
-		"./jobs/handlers/storage-document-handler": "./src/jobs/handlers/storage-document-handler.ts",
-		"./jobs/memory-queue": "./src/jobs/memory-queue.ts",
 		"./jobs/queue": "./src/jobs/queue.ts",
-		"./jobs/scaleway-sqs-queue": "./src/jobs/scaleway-sqs-queue.ts",
 		"./jobs/spec": "./src/jobs/spec.ts",
 		"./jsonschema": "./src/jsonschema.ts",
 		"./knowledge": "./src/knowledge/index.ts",
 		"./knowledge/binding": "./src/knowledge/binding.ts",
-		"./knowledge/docs/knowledge.docblock": "./src/knowledge/docs/knowledge.docblock.ts",
-		"./knowledge/ingestion": "./src/knowledge/ingestion/index.ts",
-		"./knowledge/ingestion/document-processor": "./src/knowledge/ingestion/document-processor.ts",
-		"./knowledge/ingestion/embedding-service": "./src/knowledge/ingestion/embedding-service.ts",
-		"./knowledge/ingestion/gmail-adapter": "./src/knowledge/ingestion/gmail-adapter.ts",
-		"./knowledge/ingestion/storage-adapter": "./src/knowledge/ingestion/storage-adapter.ts",
-		"./knowledge/ingestion/vector-indexer": "./src/knowledge/ingestion/vector-indexer.ts",
 		"./knowledge/knowledge.capability": "./src/knowledge/knowledge.capability.ts",
 		"./knowledge/knowledge.feature": "./src/knowledge/knowledge.feature.ts",
 		"./knowledge/operations": "./src/knowledge/operations.ts",
-		"./knowledge/query": "./src/knowledge/query/index.ts",
-		"./knowledge/query/service": "./src/knowledge/query/service.ts",
-		"./knowledge/runtime": "./src/knowledge/runtime.ts",
 		"./knowledge/source": "./src/knowledge/source.ts",
 		"./knowledge/spaces": "./src/knowledge/spaces/index.ts",
 		"./knowledge/spaces/email-threads": "./src/knowledge/spaces/email-threads.ts",
@@ -494,7 +319,6 @@
 		"./ownership": "./src/ownership.ts",
 		"./policy": "./src/policy/index.ts",
 		"./policy/context": "./src/policy/context.ts",
-		"./policy/docs/policy.docblock": "./src/policy/docs/policy.docblock.ts",
 		"./policy/engine": "./src/policy/engine.ts",
 		"./policy/guards": "./src/policy/guards.ts",
 		"./policy/opa-adapter": "./src/policy/opa-adapter.ts",
@@ -502,10 +326,9 @@
 		"./policy/spec": "./src/policy/spec.ts",
 		"./policy/validation": "./src/policy/validation.ts",
 		"./presentations": "./src/presentations/index.ts",
-		"./presentations/docs/presentations-conventions.docblock": "./src/presentations/docs/presentations-conventions.docblock.ts",
 		"./presentations/presentations": "./src/presentations/presentations.ts",
 		"./presentations/registry": "./src/presentations/registry.ts",
-		"./presentations/transform-engine": "./src/presentations/transform-engine.ts",
+		"./presentations/shim-blocknotejs": "./src/presentations/shim-blocknotejs.ts",
 		"./product-intent": "./src/product-intent/index.ts",
 		"./product-intent/contract-patch-intent": "./src/product-intent/contract-patch-intent.ts",
 		"./product-intent/contract-spec-patch": "./src/product-intent/contract-spec-patch.ts",
@@ -533,7 +356,6 @@
 		"./provider-ranking/commands/rankingRefresh.command": "./src/provider-ranking/commands/rankingRefresh.command.ts",
 		"./provider-ranking/constants": "./src/provider-ranking/constants.ts",
 		"./provider-ranking/contracts": "./src/provider-ranking/contracts.ts",
-		"./provider-ranking/ensure-docblocks": "./src/provider-ranking/ensure-docblocks.ts",
 		"./provider-ranking/events": "./src/provider-ranking/events/index.ts",
 		"./provider-ranking/events/benchmarkCustomCompleted.event": "./src/provider-ranking/events/benchmarkCustomCompleted.event.ts",
 		"./provider-ranking/events/benchmarkIngested.event": "./src/provider-ranking/events/benchmarkIngested.event.ts",
@@ -553,7 +375,6 @@
 		"./provider-ranking/views/providerRankings.dataView": "./src/provider-ranking/views/providerRankings.dataView.ts",
 		"./regenerator": "./src/regenerator/index.ts",
 		"./regenerator/adapters": "./src/regenerator/adapters.ts",
-		"./regenerator/docs/regenerator.docblock": "./src/regenerator/docs/regenerator.docblock.ts",
 		"./regenerator/executor": "./src/regenerator/executor.ts",
 		"./regenerator/service": "./src/regenerator/service.ts",
 		"./regenerator/sinks": "./src/regenerator/sinks.ts",
@@ -568,7 +389,6 @@
 		"./serialization/types": "./src/serialization/types.ts",
 		"./telemetry": "./src/telemetry/index.ts",
 		"./telemetry/anomaly": "./src/telemetry/anomaly.ts",
-		"./telemetry/docs/telemetry.docblock": "./src/telemetry/docs/telemetry.docblock.ts",
 		"./telemetry/spec": "./src/telemetry/spec.ts",
 		"./telemetry/tracker": "./src/telemetry/tracker.ts",
 		"./tests": "./src/tests/index.ts",
@@ -599,16 +419,16 @@
 		"./workflow/adapters/memory-store": "./src/workflow/adapters/memory-store.ts",
 		"./workflow/context": "./src/workflow/context.ts",
 		"./workflow/expression": "./src/workflow/expression.ts",
-		"./workflow/overview.docblock": "./src/workflow/overview.docblock.ts",
 		"./workflow/runner": "./src/workflow/runner.ts",
 		"./workflow/sla-monitor": "./src/workflow/sla-monitor.ts",
 		"./workflow/spec": "./src/workflow/spec.ts",
 		"./workflow/state": "./src/workflow/state.ts",
 		"./workflow/validation": "./src/workflow/validation.ts",
+		"./workflow/validation-workflow-devkit": "./src/workflow/validation-workflow-devkit.ts",
+		"./workflow/workflow-devkit": "./src/workflow/workflow-devkit.ts",
 		"./workspace-config": "./src/workspace-config/index.ts",
 		"./workspace-config/contractsrc-schema": "./src/workspace-config/contractsrc-schema.ts",
-		"./workspace-config/contractsrc-types": "./src/workspace-config/contractsrc-types.ts",
-		"./workspace-config/workspace-config.docblock": "./src/workspace-config/workspace-config.docblock.ts"
+		"./workspace-config/contractsrc-types": "./src/workspace-config/contractsrc-types.ts"
 	},
 	"publishConfig": {
 		"access": "public",
@@ -704,12 +524,6 @@
 				"node": "./dist/node/acp/contracts.js",
 				"default": "./dist/acp/contracts.js"
 			},
-			"./acp/ensure-docblocks": {
-				"types": "./dist/acp/ensure-docblocks.d.ts",
-				"bun": "./dist/acp/ensure-docblocks.js",
-				"node": "./dist/node/acp/ensure-docblocks.js",
-				"default": "./dist/acp/ensure-docblocks.js"
-			},
 			"./agent": {
 				"types": "./dist/agent/index.d.ts",
 				"bun": "./dist/agent/index.js",
@@ -769,12 +583,6 @@
 				"bun": "./dist/agent/contracts.js",
 				"node": "./dist/node/agent/contracts.js",
 				"default": "./dist/agent/contracts.js"
-			},
-			"./agent/ensure-docblocks": {
-				"types": "./dist/agent/ensure-docblocks.d.ts",
-				"bun": "./dist/agent/ensure-docblocks.js",
-				"node": "./dist/node/agent/ensure-docblocks.js",
-				"default": "./dist/agent/ensure-docblocks.js"
 			},
 			"./agent/events": {
 				"types": "./dist/agent/events/index.d.ts",
@@ -848,6 +656,18 @@
 				"node": "./dist/node/agent/queries/agentStatus.query.js",
 				"default": "./dist/agent/queries/agentStatus.query.js"
 			},
+			"./agent/registry": {
+				"types": "./dist/agent/registry.d.ts",
+				"bun": "./dist/agent/registry.js",
+				"node": "./dist/node/agent/registry.js",
+				"default": "./dist/agent/registry.js"
+			},
+			"./agent/spec": {
+				"types": "./dist/agent/spec.d.ts",
+				"bun": "./dist/agent/spec.js",
+				"node": "./dist/node/agent/spec.js",
+				"default": "./dist/agent/spec.js"
+			},
 			"./agent/views": {
 				"types": "./dist/agent/views/index.d.ts",
 				"bun": "./dist/agent/views/index.js",
@@ -890,17 +710,17 @@
 				"node": "./dist/node/app-config/branding.js",
 				"default": "./dist/app-config/branding.js"
 			},
-			"./app-config/docs/app-config.docblock": {
-				"types": "./dist/app-config/docs/app-config.docblock.d.ts",
-				"bun": "./dist/app-config/docs/app-config.docblock.js",
-				"node": "./dist/node/app-config/docs/app-config.docblock.js",
-				"default": "./dist/app-config/docs/app-config.docblock.js"
-			},
 			"./app-config/events": {
 				"types": "./dist/app-config/events.d.ts",
 				"bun": "./dist/app-config/events.js",
 				"node": "./dist/node/app-config/events.js",
 				"default": "./dist/app-config/events.js"
+			},
+			"./app-config/integrations": {
+				"types": "./dist/app-config/integrations.d.ts",
+				"bun": "./dist/app-config/integrations.js",
+				"node": "./dist/node/app-config/integrations.js",
+				"default": "./dist/app-config/integrations.js"
 			},
 			"./app-config/lifecycle": {
 				"types": "./dist/app-config/lifecycle.d.ts",
@@ -949,12 +769,6 @@
 				"bun": "./dist/capabilities/context.js",
 				"node": "./dist/node/capabilities/context.js",
 				"default": "./dist/capabilities/context.js"
-			},
-			"./capabilities/docs/capabilities.docblock": {
-				"types": "./dist/capabilities/docs/capabilities.docblock.d.ts",
-				"bun": "./dist/capabilities/docs/capabilities.docblock.js",
-				"node": "./dist/node/capabilities/docs/capabilities.docblock.js",
-				"default": "./dist/capabilities/docs/capabilities.docblock.js"
 			},
 			"./capabilities/guards": {
 				"types": "./dist/capabilities/guards.d.ts",
@@ -1027,12 +841,6 @@
 				"bun": "./dist/context/contracts.js",
 				"node": "./dist/node/context/contracts.js",
 				"default": "./dist/context/contracts.js"
-			},
-			"./context/ensure-docblocks": {
-				"types": "./dist/context/ensure-docblocks.d.ts",
-				"bun": "./dist/context/ensure-docblocks.js",
-				"node": "./dist/node/context/ensure-docblocks.js",
-				"default": "./dist/context/ensure-docblocks.js"
 			},
 			"./context/events": {
 				"types": "./dist/context/events/index.d.ts",
@@ -1304,6 +1112,18 @@
 				"node": "./dist/node/control-plane/events/controlPlaneSkillRejected.event.js",
 				"default": "./dist/control-plane/events/controlPlaneSkillRejected.event.js"
 			},
+			"./control-plane/policies": {
+				"types": "./dist/control-plane/policies/index.d.ts",
+				"bun": "./dist/control-plane/policies/index.js",
+				"node": "./dist/node/control-plane/policies/index.js",
+				"default": "./dist/control-plane/policies/index.js"
+			},
+			"./control-plane/policies/controlPlaneMessaging.policy": {
+				"types": "./dist/control-plane/policies/controlPlaneMessaging.policy.d.ts",
+				"bun": "./dist/control-plane/policies/controlPlaneMessaging.policy.js",
+				"node": "./dist/node/control-plane/policies/controlPlaneMessaging.policy.js",
+				"default": "./dist/control-plane/policies/controlPlaneMessaging.policy.js"
+			},
 			"./control-plane/queries": {
 				"types": "./dist/control-plane/queries/index.d.ts",
 				"bun": "./dist/control-plane/queries/index.js",
@@ -1346,6 +1166,42 @@
 				"node": "./dist/node/control-plane/queries/controlPlaneTraceGet.query.js",
 				"default": "./dist/control-plane/queries/controlPlaneTraceGet.query.js"
 			},
+			"./control-plane/skills": {
+				"types": "./dist/control-plane/skills/index.d.ts",
+				"bun": "./dist/control-plane/skills/index.js",
+				"node": "./dist/node/control-plane/skills/index.js",
+				"default": "./dist/control-plane/skills/index.js"
+			},
+			"./control-plane/skills/schema": {
+				"types": "./dist/control-plane/skills/schema.d.ts",
+				"bun": "./dist/control-plane/skills/schema.js",
+				"node": "./dist/node/control-plane/skills/schema.js",
+				"default": "./dist/control-plane/skills/schema.js"
+			},
+			"./control-plane/skills/signer": {
+				"types": "./dist/control-plane/skills/signer.d.ts",
+				"bun": "./dist/control-plane/skills/signer.js",
+				"node": "./dist/node/control-plane/skills/signer.js",
+				"default": "./dist/control-plane/skills/signer.js"
+			},
+			"./control-plane/skills/types": {
+				"types": "./dist/control-plane/skills/types.d.ts",
+				"bun": "./dist/control-plane/skills/types.js",
+				"node": "./dist/node/control-plane/skills/types.js",
+				"default": "./dist/control-plane/skills/types.js"
+			},
+			"./control-plane/skills/validator": {
+				"types": "./dist/control-plane/skills/validator.d.ts",
+				"bun": "./dist/control-plane/skills/validator.js",
+				"node": "./dist/node/control-plane/skills/validator.js",
+				"default": "./dist/control-plane/skills/validator.js"
+			},
+			"./control-plane/skills/verifier": {
+				"types": "./dist/control-plane/skills/verifier.d.ts",
+				"bun": "./dist/control-plane/skills/verifier.js",
+				"node": "./dist/node/control-plane/skills/verifier.js",
+				"default": "./dist/control-plane/skills/verifier.js"
+			},
 			"./data-views": {
 				"types": "./dist/data-views/index.d.ts",
 				"bun": "./dist/data-views/index.js",
@@ -1357,12 +1213,6 @@
 				"bun": "./dist/data-views/data-views.js",
 				"node": "./dist/node/data-views/data-views.js",
 				"default": "./dist/data-views/data-views.js"
-			},
-			"./data-views/docs/data-views.docblock": {
-				"types": "./dist/data-views/docs/data-views.docblock.d.ts",
-				"bun": "./dist/data-views/docs/data-views.docblock.js",
-				"node": "./dist/node/data-views/docs/data-views.docblock.js",
-				"default": "./dist/data-views/docs/data-views.docblock.js"
 			},
 			"./data-views/query-generator": {
 				"types": "./dist/data-views/query-generator.d.ts",
@@ -1436,12 +1286,6 @@
 				"node": "./dist/node/database/database.feature.js",
 				"default": "./dist/database/database.feature.js"
 			},
-			"./database/ensure-docblocks": {
-				"types": "./dist/database/ensure-docblocks.d.ts",
-				"bun": "./dist/database/ensure-docblocks.js",
-				"node": "./dist/node/database/ensure-docblocks.js",
-				"default": "./dist/database/ensure-docblocks.js"
-			},
 			"./database/queries": {
 				"types": "./dist/database/queries/index.d.ts",
 				"bun": "./dist/database/queries/index.js",
@@ -1490,12 +1334,6 @@
 				"node": "./dist/node/docs/index.js",
 				"default": "./dist/docs/index.js"
 			},
-			"./docs/accessibility_wcag_compliance_specs.docblock": {
-				"types": "./dist/docs/accessibility_wcag_compliance_specs.docblock.d.ts",
-				"bun": "./dist/docs/accessibility_wcag_compliance_specs.docblock.js",
-				"node": "./dist/node/docs/accessibility_wcag_compliance_specs.docblock.js",
-				"default": "./dist/docs/accessibility_wcag_compliance_specs.docblock.js"
-			},
 			"./docs/capabilities": {
 				"types": "./dist/docs/capabilities/index.d.ts",
 				"bun": "./dist/docs/capabilities/index.js",
@@ -1538,17 +1376,17 @@
 				"node": "./dist/node/docs/contracts.js",
 				"default": "./dist/docs/contracts.js"
 			},
+			"./docs/docblocks.manifest.generated": {
+				"types": "./dist/docs/docblocks.manifest.generated.d.ts",
+				"bun": "./dist/docs/docblocks.manifest.generated.js",
+				"node": "./dist/node/docs/docblocks.manifest.generated.js",
+				"default": "./dist/docs/docblocks.manifest.generated.js"
+			},
 			"./docs/docs.feature": {
 				"types": "./dist/docs/docs.feature.d.ts",
 				"bun": "./dist/docs/docs.feature.js",
 				"node": "./dist/node/docs/docs.feature.js",
 				"default": "./dist/docs/docs.feature.js"
-			},
-			"./docs/ensure-docblocks": {
-				"types": "./dist/docs/ensure-docblocks.d.ts",
-				"bun": "./dist/docs/ensure-docblocks.js",
-				"node": "./dist/node/docs/ensure-docblocks.js",
-				"default": "./dist/docs/ensure-docblocks.js"
 			},
 			"./docs/events": {
 				"types": "./dist/docs/events/index.d.ts",
@@ -1580,11 +1418,17 @@
 				"node": "./dist/node/docs/forms/docsSearch.form.js",
 				"default": "./dist/docs/forms/docsSearch.form.js"
 			},
-			"./docs/meta.docs": {
-				"types": "./dist/docs/meta.docs.d.ts",
-				"bun": "./dist/docs/meta.docs.js",
-				"node": "./dist/node/docs/meta.docs.js",
-				"default": "./dist/docs/meta.docs.js"
+			"./docs/manifest": {
+				"types": "./dist/docs/manifest.d.ts",
+				"bun": "./dist/docs/manifest.js",
+				"node": "./dist/node/docs/manifest.js",
+				"default": "./dist/docs/manifest.js"
+			},
+			"./docs/manifest-builder": {
+				"types": "./dist/docs/manifest-builder.d.ts",
+				"bun": "./dist/docs/manifest-builder.js",
+				"node": "./dist/node/docs/manifest-builder.js",
+				"default": "./dist/docs/manifest-builder.js"
 			},
 			"./docs/presentations": {
 				"types": "./dist/docs/presentations.d.ts",
@@ -1627,216 +1471,6 @@
 				"bun": "./dist/docs/registry.js",
 				"node": "./dist/node/docs/registry.js",
 				"default": "./dist/docs/registry.js"
-			},
-			"./docs/tech-contracts.docs": {
-				"types": "./dist/docs/tech-contracts.docs.d.ts",
-				"bun": "./dist/docs/tech-contracts.docs.js",
-				"node": "./dist/node/docs/tech-contracts.docs.js",
-				"default": "./dist/docs/tech-contracts.docs.js"
-			},
-			"./docs/tech/acp/acp-transport.docblock": {
-				"types": "./dist/docs/tech/acp/acp-transport.docblock.d.ts",
-				"bun": "./dist/docs/tech/acp/acp-transport.docblock.js",
-				"node": "./dist/node/docs/tech/acp/acp-transport.docblock.js",
-				"default": "./dist/docs/tech/acp/acp-transport.docblock.js"
-			},
-			"./docs/tech/agent/agent-execution.docblock": {
-				"types": "./dist/docs/tech/agent/agent-execution.docblock.d.ts",
-				"bun": "./dist/docs/tech/agent/agent-execution.docblock.js",
-				"node": "./dist/node/docs/tech/agent/agent-execution.docblock.js",
-				"default": "./dist/docs/tech/agent/agent-execution.docblock.js"
-			},
-			"./docs/tech/auth/better-auth-nextjs.docblock": {
-				"types": "./dist/docs/tech/auth/better-auth-nextjs.docblock.d.ts",
-				"bun": "./dist/docs/tech/auth/better-auth-nextjs.docblock.js",
-				"node": "./dist/node/docs/tech/auth/better-auth-nextjs.docblock.js",
-				"default": "./dist/docs/tech/auth/better-auth-nextjs.docblock.js"
-			},
-			"./docs/tech/cli.docblock": {
-				"types": "./dist/docs/tech/cli.docblock.d.ts",
-				"bun": "./dist/docs/tech/cli.docblock.js",
-				"node": "./dist/node/docs/tech/cli.docblock.js",
-				"default": "./dist/docs/tech/cli.docblock.js"
-			},
-			"./docs/tech/context/context-system.docblock": {
-				"types": "./dist/docs/tech/context/context-system.docblock.d.ts",
-				"bun": "./dist/docs/tech/context/context-system.docblock.js",
-				"node": "./dist/node/docs/tech/context/context-system.docblock.js",
-				"default": "./dist/docs/tech/context/context-system.docblock.js"
-			},
-			"./docs/tech/contracts/migrations.docblock": {
-				"types": "./dist/docs/tech/contracts/migrations.docblock.d.ts",
-				"bun": "./dist/docs/tech/contracts/migrations.docblock.js",
-				"node": "./dist/node/docs/tech/contracts/migrations.docblock.js",
-				"default": "./dist/docs/tech/contracts/migrations.docblock.js"
-			},
-			"./docs/tech/contracts/openapi-export.docblock": {
-				"types": "./dist/docs/tech/contracts/openapi-export.docblock.d.ts",
-				"bun": "./dist/docs/tech/contracts/openapi-export.docblock.js",
-				"node": "./dist/node/docs/tech/contracts/openapi-export.docblock.js",
-				"default": "./dist/docs/tech/contracts/openapi-export.docblock.js"
-			},
-			"./docs/tech/contracts/openapi-import.docblock": {
-				"types": "./dist/docs/tech/contracts/openapi-import.docblock.d.ts",
-				"bun": "./dist/docs/tech/contracts/openapi-import.docblock.js",
-				"node": "./dist/node/docs/tech/contracts/openapi-import.docblock.js",
-				"default": "./dist/docs/tech/contracts/openapi-import.docblock.js"
-			},
-			"./docs/tech/contracts/ops-to-presentation-linking.docblock": {
-				"types": "./dist/docs/tech/contracts/ops-to-presentation-linking.docblock.d.ts",
-				"bun": "./dist/docs/tech/contracts/ops-to-presentation-linking.docblock.js",
-				"node": "./dist/node/docs/tech/contracts/ops-to-presentation-linking.docblock.js",
-				"default": "./dist/docs/tech/contracts/ops-to-presentation-linking.docblock.js"
-			},
-			"./docs/tech/contracts/overlays.docblock": {
-				"types": "./dist/docs/tech/contracts/overlays.docblock.d.ts",
-				"bun": "./dist/docs/tech/contracts/overlays.docblock.js",
-				"node": "./dist/node/docs/tech/contracts/overlays.docblock.js",
-				"default": "./dist/docs/tech/contracts/overlays.docblock.js"
-			},
-			"./docs/tech/contracts/README.docblock": {
-				"types": "./dist/docs/tech/contracts/README.docblock.d.ts",
-				"bun": "./dist/docs/tech/contracts/README.docblock.js",
-				"node": "./dist/node/docs/tech/contracts/README.docblock.js",
-				"default": "./dist/docs/tech/contracts/README.docblock.js"
-			},
-			"./docs/tech/contracts/tests.docblock": {
-				"types": "./dist/docs/tech/contracts/tests.docblock.d.ts",
-				"bun": "./dist/docs/tech/contracts/tests.docblock.js",
-				"node": "./dist/node/docs/tech/contracts/tests.docblock.js",
-				"default": "./dist/docs/tech/contracts/tests.docblock.js"
-			},
-			"./docs/tech/contracts/themes.docblock": {
-				"types": "./dist/docs/tech/contracts/themes.docblock.d.ts",
-				"bun": "./dist/docs/tech/contracts/themes.docblock.js",
-				"node": "./dist/node/docs/tech/contracts/themes.docblock.js",
-				"default": "./dist/docs/tech/contracts/themes.docblock.js"
-			},
-			"./docs/tech/contracts/vertical-pocket-family-office.docblock": {
-				"types": "./dist/docs/tech/contracts/vertical-pocket-family-office.docblock.d.ts",
-				"bun": "./dist/docs/tech/contracts/vertical-pocket-family-office.docblock.js",
-				"node": "./dist/node/docs/tech/contracts/vertical-pocket-family-office.docblock.js",
-				"default": "./dist/docs/tech/contracts/vertical-pocket-family-office.docblock.js"
-			},
-			"./docs/tech/database/database-context.docblock": {
-				"types": "./dist/docs/tech/database/database-context.docblock.d.ts",
-				"bun": "./dist/docs/tech/database/database-context.docblock.js",
-				"node": "./dist/node/docs/tech/database/database-context.docblock.js",
-				"default": "./dist/docs/tech/database/database-context.docblock.js"
-			},
-			"./docs/tech/docs-system.docblock": {
-				"types": "./dist/docs/tech/docs-system.docblock.d.ts",
-				"bun": "./dist/docs/tech/docs-system.docblock.js",
-				"node": "./dist/node/docs/tech/docs-system.docblock.js",
-				"default": "./dist/docs/tech/docs-system.docblock.js"
-			},
-			"./docs/tech/lifecycle-stage-system.docblock": {
-				"types": "./dist/docs/tech/lifecycle-stage-system.docblock.d.ts",
-				"bun": "./dist/docs/tech/lifecycle-stage-system.docblock.js",
-				"node": "./dist/node/docs/tech/lifecycle-stage-system.docblock.js",
-				"default": "./dist/docs/tech/lifecycle-stage-system.docblock.js"
-			},
-			"./docs/tech/llm/llm-integration.docblock": {
-				"types": "./dist/docs/tech/llm/llm-integration.docblock.d.ts",
-				"bun": "./dist/docs/tech/llm/llm-integration.docblock.js",
-				"node": "./dist/node/docs/tech/llm/llm-integration.docblock.js",
-				"default": "./dist/docs/tech/llm/llm-integration.docblock.js"
-			},
-			"./docs/tech/mcp-endpoints.docblock": {
-				"types": "./dist/docs/tech/mcp-endpoints.docblock.d.ts",
-				"bun": "./dist/docs/tech/mcp-endpoints.docblock.js",
-				"node": "./dist/node/docs/tech/mcp-endpoints.docblock.js",
-				"default": "./dist/docs/tech/mcp-endpoints.docblock.js"
-			},
-			"./docs/tech/presentation-runtime.docblock": {
-				"types": "./dist/docs/tech/presentation-runtime.docblock.d.ts",
-				"bun": "./dist/docs/tech/presentation-runtime.docblock.js",
-				"node": "./dist/node/docs/tech/presentation-runtime.docblock.js",
-				"default": "./dist/docs/tech/presentation-runtime.docblock.js"
-			},
-			"./docs/tech/provider-ranking/provider-ranking-system.docblock": {
-				"types": "./dist/docs/tech/provider-ranking/provider-ranking-system.docblock.d.ts",
-				"bun": "./dist/docs/tech/provider-ranking/provider-ranking-system.docblock.js",
-				"node": "./dist/node/docs/tech/provider-ranking/provider-ranking-system.docblock.js",
-				"default": "./dist/docs/tech/provider-ranking/provider-ranking-system.docblock.js"
-			},
-			"./docs/tech/report-verification-table.docblock": {
-				"types": "./dist/docs/tech/report-verification-table.docblock.d.ts",
-				"bun": "./dist/docs/tech/report-verification-table.docblock.js",
-				"node": "./dist/node/docs/tech/report-verification-table.docblock.js",
-				"default": "./dist/docs/tech/report-verification-table.docblock.js"
-			},
-			"./docs/tech/schema/README.docblock": {
-				"types": "./dist/docs/tech/schema/README.docblock.d.ts",
-				"bun": "./dist/docs/tech/schema/README.docblock.js",
-				"node": "./dist/node/docs/tech/schema/README.docblock.js",
-				"default": "./dist/docs/tech/schema/README.docblock.js"
-			},
-			"./docs/tech/studio/learning-events.docblock": {
-				"types": "./dist/docs/tech/studio/learning-events.docblock.d.ts",
-				"bun": "./dist/docs/tech/studio/learning-events.docblock.js",
-				"node": "./dist/node/docs/tech/studio/learning-events.docblock.js",
-				"default": "./dist/docs/tech/studio/learning-events.docblock.js"
-			},
-			"./docs/tech/studio/learning-journeys.docblock": {
-				"types": "./dist/docs/tech/studio/learning-journeys.docblock.d.ts",
-				"bun": "./dist/docs/tech/studio/learning-journeys.docblock.js",
-				"node": "./dist/node/docs/tech/studio/learning-journeys.docblock.js",
-				"default": "./dist/docs/tech/studio/learning-journeys.docblock.js"
-			},
-			"./docs/tech/studio/platform-admin-panel.docblock": {
-				"types": "./dist/docs/tech/studio/platform-admin-panel.docblock.d.ts",
-				"bun": "./dist/docs/tech/studio/platform-admin-panel.docblock.js",
-				"node": "./dist/node/docs/tech/studio/platform-admin-panel.docblock.js",
-				"default": "./dist/docs/tech/studio/platform-admin-panel.docblock.js"
-			},
-			"./docs/tech/studio/project-access-teams.docblock": {
-				"types": "./dist/docs/tech/studio/project-access-teams.docblock.d.ts",
-				"bun": "./dist/docs/tech/studio/project-access-teams.docblock.js",
-				"node": "./dist/node/docs/tech/studio/project-access-teams.docblock.js",
-				"default": "./dist/docs/tech/studio/project-access-teams.docblock.js"
-			},
-			"./docs/tech/studio/project-routing.docblock": {
-				"types": "./dist/docs/tech/studio/project-routing.docblock.d.ts",
-				"bun": "./dist/docs/tech/studio/project-routing.docblock.js",
-				"node": "./dist/node/docs/tech/studio/project-routing.docblock.js",
-				"default": "./dist/docs/tech/studio/project-routing.docblock.js"
-			},
-			"./docs/tech/studio/sandbox-unlogged.docblock": {
-				"types": "./dist/docs/tech/studio/sandbox-unlogged.docblock.d.ts",
-				"bun": "./dist/docs/tech/studio/sandbox-unlogged.docblock.js",
-				"node": "./dist/node/docs/tech/studio/sandbox-unlogged.docblock.js",
-				"default": "./dist/docs/tech/studio/sandbox-unlogged.docblock.js"
-			},
-			"./docs/tech/studio/team-invitations.docblock": {
-				"types": "./dist/docs/tech/studio/team-invitations.docblock.d.ts",
-				"bun": "./dist/docs/tech/studio/team-invitations.docblock.js",
-				"node": "./dist/node/docs/tech/studio/team-invitations.docblock.js",
-				"default": "./dist/docs/tech/studio/team-invitations.docblock.js"
-			},
-			"./docs/tech/studio/workspace-ops.docblock": {
-				"types": "./dist/docs/tech/studio/workspace-ops.docblock.d.ts",
-				"bun": "./dist/docs/tech/studio/workspace-ops.docblock.js",
-				"node": "./dist/node/docs/tech/studio/workspace-ops.docblock.js",
-				"default": "./dist/docs/tech/studio/workspace-ops.docblock.js"
-			},
-			"./docs/tech/studio/workspaces.docblock": {
-				"types": "./dist/docs/tech/studio/workspaces.docblock.d.ts",
-				"bun": "./dist/docs/tech/studio/workspaces.docblock.js",
-				"node": "./dist/node/docs/tech/studio/workspaces.docblock.js",
-				"default": "./dist/docs/tech/studio/workspaces.docblock.js"
-			},
-			"./docs/tech/telemetry-ingest.docblock": {
-				"types": "./dist/docs/tech/telemetry-ingest.docblock.d.ts",
-				"bun": "./dist/docs/tech/telemetry-ingest.docblock.js",
-				"node": "./dist/node/docs/tech/telemetry-ingest.docblock.js",
-				"default": "./dist/docs/tech/telemetry-ingest.docblock.js"
-			},
-			"./docs/tech/vscode-extension.docblock": {
-				"types": "./dist/docs/tech/vscode-extension.docblock.d.ts",
-				"bun": "./dist/docs/tech/vscode-extension.docblock.js",
-				"node": "./dist/node/docs/tech/vscode-extension.docblock.js",
-				"default": "./dist/docs/tech/vscode-extension.docblock.js"
 			},
 			"./docs/types": {
 				"types": "./dist/docs/types.d.ts",
@@ -1886,12 +1520,6 @@
 				"node": "./dist/node/examples/define.js",
 				"default": "./dist/examples/define.js"
 			},
-			"./examples/docs/examples.docblock": {
-				"types": "./dist/examples/docs/examples.docblock.d.ts",
-				"bun": "./dist/examples/docs/examples.docblock.js",
-				"node": "./dist/node/examples/docs/examples.docblock.js",
-				"default": "./dist/examples/docs/examples.docblock.js"
-			},
 			"./examples/registry": {
 				"types": "./dist/examples/registry.d.ts",
 				"bun": "./dist/examples/registry.js",
@@ -1915,12 +1543,6 @@
 				"bun": "./dist/examples/validation.js",
 				"node": "./dist/node/examples/validation.js",
 				"default": "./dist/examples/validation.js"
-			},
-			"./experiments/docs/experiments.docblock": {
-				"types": "./dist/experiments/docs/experiments.docblock.d.ts",
-				"bun": "./dist/experiments/docs/experiments.docblock.js",
-				"node": "./dist/node/experiments/docs/experiments.docblock.js",
-				"default": "./dist/experiments/docs/experiments.docblock.js"
 			},
 			"./experiments/evaluator": {
 				"types": "./dist/experiments/evaluator.d.ts",
@@ -1981,12 +1603,6 @@
 				"bun": "./dist/forms/index.js",
 				"node": "./dist/node/forms/index.js",
 				"default": "./dist/forms/index.js"
-			},
-			"./forms/docs/forms.docblock": {
-				"types": "./dist/forms/docs/forms.docblock.d.ts",
-				"bun": "./dist/forms/docs/forms.docblock.js",
-				"node": "./dist/node/forms/docs/forms.docblock.js",
-				"default": "./dist/forms/docs/forms.docblock.js"
 			},
 			"./forms/forms": {
 				"types": "./dist/forms/forms.d.ts",
@@ -2216,690 +1832,6 @@
 				"node": "./dist/node/install.js",
 				"default": "./dist/install.js"
 			},
-			"./integrations": {
-				"types": "./dist/integrations/index.d.ts",
-				"bun": "./dist/integrations/index.js",
-				"node": "./dist/node/integrations/index.js",
-				"default": "./dist/integrations/index.js"
-			},
-			"./integrations/binding": {
-				"types": "./dist/integrations/binding.d.ts",
-				"bun": "./dist/integrations/binding.js",
-				"node": "./dist/node/integrations/binding.js",
-				"default": "./dist/integrations/binding.js"
-			},
-			"./integrations/connection": {
-				"types": "./dist/integrations/connection.d.ts",
-				"bun": "./dist/integrations/connection.js",
-				"node": "./dist/node/integrations/connection.js",
-				"default": "./dist/integrations/connection.js"
-			},
-			"./integrations/docs/integrations.docblock": {
-				"types": "./dist/integrations/docs/integrations.docblock.d.ts",
-				"bun": "./dist/integrations/docs/integrations.docblock.js",
-				"node": "./dist/node/integrations/docs/integrations.docblock.js",
-				"default": "./dist/integrations/docs/integrations.docblock.js"
-			},
-			"./integrations/health": {
-				"types": "./dist/integrations/health.d.ts",
-				"bun": "./dist/integrations/health.js",
-				"node": "./dist/node/integrations/health.js",
-				"default": "./dist/integrations/health.js"
-			},
-			"./integrations/health/contracts": {
-				"types": "./dist/integrations/health/contracts/index.d.ts",
-				"bun": "./dist/integrations/health/contracts/index.js",
-				"node": "./dist/node/integrations/health/contracts/index.js",
-				"default": "./dist/integrations/health/contracts/index.js"
-			},
-			"./integrations/health/contracts/activities": {
-				"types": "./dist/integrations/health/contracts/activities.d.ts",
-				"bun": "./dist/integrations/health/contracts/activities.js",
-				"node": "./dist/node/integrations/health/contracts/activities.js",
-				"default": "./dist/integrations/health/contracts/activities.js"
-			},
-			"./integrations/health/contracts/biometrics": {
-				"types": "./dist/integrations/health/contracts/biometrics.d.ts",
-				"bun": "./dist/integrations/health/contracts/biometrics.js",
-				"node": "./dist/node/integrations/health/contracts/biometrics.js",
-				"default": "./dist/integrations/health/contracts/biometrics.js"
-			},
-			"./integrations/health/contracts/nutrition": {
-				"types": "./dist/integrations/health/contracts/nutrition.d.ts",
-				"bun": "./dist/integrations/health/contracts/nutrition.js",
-				"node": "./dist/node/integrations/health/contracts/nutrition.js",
-				"default": "./dist/integrations/health/contracts/nutrition.js"
-			},
-			"./integrations/health/contracts/sleep": {
-				"types": "./dist/integrations/health/contracts/sleep.d.ts",
-				"bun": "./dist/integrations/health/contracts/sleep.js",
-				"node": "./dist/node/integrations/health/contracts/sleep.js",
-				"default": "./dist/integrations/health/contracts/sleep.js"
-			},
-			"./integrations/health/contracts/webhooks": {
-				"types": "./dist/integrations/health/contracts/webhooks.d.ts",
-				"bun": "./dist/integrations/health/contracts/webhooks.js",
-				"node": "./dist/node/integrations/health/contracts/webhooks.js",
-				"default": "./dist/integrations/health/contracts/webhooks.js"
-			},
-			"./integrations/health/contracts/workouts": {
-				"types": "./dist/integrations/health/contracts/workouts.d.ts",
-				"bun": "./dist/integrations/health/contracts/workouts.js",
-				"node": "./dist/node/integrations/health/contracts/workouts.js",
-				"default": "./dist/integrations/health/contracts/workouts.js"
-			},
-			"./integrations/health/guards": {
-				"types": "./dist/integrations/health/guards.d.ts",
-				"bun": "./dist/integrations/health/guards.js",
-				"node": "./dist/node/integrations/health/guards.js",
-				"default": "./dist/integrations/health/guards.js"
-			},
-			"./integrations/health/health.capability": {
-				"types": "./dist/integrations/health/health.capability.d.ts",
-				"bun": "./dist/integrations/health/health.capability.js",
-				"node": "./dist/node/integrations/health/health.capability.js",
-				"default": "./dist/integrations/health/health.capability.js"
-			},
-			"./integrations/health/health.feature": {
-				"types": "./dist/integrations/health/health.feature.d.ts",
-				"bun": "./dist/integrations/health/health.feature.js",
-				"node": "./dist/node/integrations/health/health.feature.js",
-				"default": "./dist/integrations/health/health.feature.js"
-			},
-			"./integrations/health/models": {
-				"types": "./dist/integrations/health/models.d.ts",
-				"bun": "./dist/integrations/health/models.js",
-				"node": "./dist/node/integrations/health/models.js",
-				"default": "./dist/integrations/health/models.js"
-			},
-			"./integrations/health/telemetry": {
-				"types": "./dist/integrations/health/telemetry.d.ts",
-				"bun": "./dist/integrations/health/telemetry.js",
-				"node": "./dist/node/integrations/health/telemetry.js",
-				"default": "./dist/integrations/health/telemetry.js"
-			},
-			"./integrations/integrations.capability": {
-				"types": "./dist/integrations/integrations.capability.d.ts",
-				"bun": "./dist/integrations/integrations.capability.js",
-				"node": "./dist/node/integrations/integrations.capability.js",
-				"default": "./dist/integrations/integrations.capability.js"
-			},
-			"./integrations/integrations.feature": {
-				"types": "./dist/integrations/integrations.feature.d.ts",
-				"bun": "./dist/integrations/integrations.feature.js",
-				"node": "./dist/node/integrations/integrations.feature.js",
-				"default": "./dist/integrations/integrations.feature.js"
-			},
-			"./integrations/meeting-recorder/contracts": {
-				"types": "./dist/integrations/meeting-recorder/contracts/index.d.ts",
-				"bun": "./dist/integrations/meeting-recorder/contracts/index.js",
-				"node": "./dist/node/integrations/meeting-recorder/contracts/index.js",
-				"default": "./dist/integrations/meeting-recorder/contracts/index.js"
-			},
-			"./integrations/meeting-recorder/contracts/meetings": {
-				"types": "./dist/integrations/meeting-recorder/contracts/meetings.d.ts",
-				"bun": "./dist/integrations/meeting-recorder/contracts/meetings.js",
-				"node": "./dist/node/integrations/meeting-recorder/contracts/meetings.js",
-				"default": "./dist/integrations/meeting-recorder/contracts/meetings.js"
-			},
-			"./integrations/meeting-recorder/contracts/transcripts": {
-				"types": "./dist/integrations/meeting-recorder/contracts/transcripts.d.ts",
-				"bun": "./dist/integrations/meeting-recorder/contracts/transcripts.js",
-				"node": "./dist/node/integrations/meeting-recorder/contracts/transcripts.js",
-				"default": "./dist/integrations/meeting-recorder/contracts/transcripts.js"
-			},
-			"./integrations/meeting-recorder/contracts/webhooks": {
-				"types": "./dist/integrations/meeting-recorder/contracts/webhooks.d.ts",
-				"bun": "./dist/integrations/meeting-recorder/contracts/webhooks.js",
-				"node": "./dist/node/integrations/meeting-recorder/contracts/webhooks.js",
-				"default": "./dist/integrations/meeting-recorder/contracts/webhooks.js"
-			},
-			"./integrations/meeting-recorder/meeting-recorder.capability": {
-				"types": "./dist/integrations/meeting-recorder/meeting-recorder.capability.d.ts",
-				"bun": "./dist/integrations/meeting-recorder/meeting-recorder.capability.js",
-				"node": "./dist/node/integrations/meeting-recorder/meeting-recorder.capability.js",
-				"default": "./dist/integrations/meeting-recorder/meeting-recorder.capability.js"
-			},
-			"./integrations/meeting-recorder/meeting-recorder.feature": {
-				"types": "./dist/integrations/meeting-recorder/meeting-recorder.feature.d.ts",
-				"bun": "./dist/integrations/meeting-recorder/meeting-recorder.feature.js",
-				"node": "./dist/node/integrations/meeting-recorder/meeting-recorder.feature.js",
-				"default": "./dist/integrations/meeting-recorder/meeting-recorder.feature.js"
-			},
-			"./integrations/meeting-recorder/models": {
-				"types": "./dist/integrations/meeting-recorder/models.d.ts",
-				"bun": "./dist/integrations/meeting-recorder/models.js",
-				"node": "./dist/node/integrations/meeting-recorder/models.js",
-				"default": "./dist/integrations/meeting-recorder/models.js"
-			},
-			"./integrations/meeting-recorder/telemetry": {
-				"types": "./dist/integrations/meeting-recorder/telemetry.d.ts",
-				"bun": "./dist/integrations/meeting-recorder/telemetry.js",
-				"node": "./dist/node/integrations/meeting-recorder/telemetry.js",
-				"default": "./dist/integrations/meeting-recorder/telemetry.js"
-			},
-			"./integrations/openbanking/contracts": {
-				"types": "./dist/integrations/openbanking/contracts/index.d.ts",
-				"bun": "./dist/integrations/openbanking/contracts/index.js",
-				"node": "./dist/node/integrations/openbanking/contracts/index.js",
-				"default": "./dist/integrations/openbanking/contracts/index.js"
-			},
-			"./integrations/openbanking/contracts/accounts": {
-				"types": "./dist/integrations/openbanking/contracts/accounts.d.ts",
-				"bun": "./dist/integrations/openbanking/contracts/accounts.js",
-				"node": "./dist/node/integrations/openbanking/contracts/accounts.js",
-				"default": "./dist/integrations/openbanking/contracts/accounts.js"
-			},
-			"./integrations/openbanking/contracts/balances": {
-				"types": "./dist/integrations/openbanking/contracts/balances.d.ts",
-				"bun": "./dist/integrations/openbanking/contracts/balances.js",
-				"node": "./dist/node/integrations/openbanking/contracts/balances.js",
-				"default": "./dist/integrations/openbanking/contracts/balances.js"
-			},
-			"./integrations/openbanking/contracts/transactions": {
-				"types": "./dist/integrations/openbanking/contracts/transactions.d.ts",
-				"bun": "./dist/integrations/openbanking/contracts/transactions.js",
-				"node": "./dist/node/integrations/openbanking/contracts/transactions.js",
-				"default": "./dist/integrations/openbanking/contracts/transactions.js"
-			},
-			"./integrations/openbanking/guards": {
-				"types": "./dist/integrations/openbanking/guards.d.ts",
-				"bun": "./dist/integrations/openbanking/guards.js",
-				"node": "./dist/node/integrations/openbanking/guards.js",
-				"default": "./dist/integrations/openbanking/guards.js"
-			},
-			"./integrations/openbanking/models": {
-				"types": "./dist/integrations/openbanking/models.d.ts",
-				"bun": "./dist/integrations/openbanking/models.js",
-				"node": "./dist/node/integrations/openbanking/models.js",
-				"default": "./dist/integrations/openbanking/models.js"
-			},
-			"./integrations/openbanking/openbanking.capability": {
-				"types": "./dist/integrations/openbanking/openbanking.capability.d.ts",
-				"bun": "./dist/integrations/openbanking/openbanking.capability.js",
-				"node": "./dist/node/integrations/openbanking/openbanking.capability.js",
-				"default": "./dist/integrations/openbanking/openbanking.capability.js"
-			},
-			"./integrations/openbanking/openbanking.feature": {
-				"types": "./dist/integrations/openbanking/openbanking.feature.d.ts",
-				"bun": "./dist/integrations/openbanking/openbanking.feature.js",
-				"node": "./dist/node/integrations/openbanking/openbanking.feature.js",
-				"default": "./dist/integrations/openbanking/openbanking.feature.js"
-			},
-			"./integrations/openbanking/telemetry": {
-				"types": "./dist/integrations/openbanking/telemetry.d.ts",
-				"bun": "./dist/integrations/openbanking/telemetry.js",
-				"node": "./dist/node/integrations/openbanking/telemetry.js",
-				"default": "./dist/integrations/openbanking/telemetry.js"
-			},
-			"./integrations/operations": {
-				"types": "./dist/integrations/operations.d.ts",
-				"bun": "./dist/integrations/operations.js",
-				"node": "./dist/node/integrations/operations.js",
-				"default": "./dist/integrations/operations.js"
-			},
-			"./integrations/providers": {
-				"types": "./dist/integrations/providers/index.d.ts",
-				"bun": "./dist/integrations/providers/index.js",
-				"node": "./dist/node/integrations/providers/index.js",
-				"default": "./dist/integrations/providers/index.js"
-			},
-			"./integrations/providers/analytics": {
-				"types": "./dist/integrations/providers/analytics.d.ts",
-				"bun": "./dist/integrations/providers/analytics.js",
-				"node": "./dist/node/integrations/providers/analytics.js",
-				"default": "./dist/integrations/providers/analytics.js"
-			},
-			"./integrations/providers/analytics-reader": {
-				"types": "./dist/integrations/providers/analytics-reader.d.ts",
-				"bun": "./dist/integrations/providers/analytics-reader.js",
-				"node": "./dist/node/integrations/providers/analytics-reader.js",
-				"default": "./dist/integrations/providers/analytics-reader.js"
-			},
-			"./integrations/providers/analytics-writer": {
-				"types": "./dist/integrations/providers/analytics-writer.d.ts",
-				"bun": "./dist/integrations/providers/analytics-writer.js",
-				"node": "./dist/node/integrations/providers/analytics-writer.js",
-				"default": "./dist/integrations/providers/analytics-writer.js"
-			},
-			"./integrations/providers/apple-health": {
-				"types": "./dist/integrations/providers/apple-health.d.ts",
-				"bun": "./dist/integrations/providers/apple-health.js",
-				"node": "./dist/node/integrations/providers/apple-health.js",
-				"default": "./dist/integrations/providers/apple-health.js"
-			},
-			"./integrations/providers/calendar": {
-				"types": "./dist/integrations/providers/calendar.d.ts",
-				"bun": "./dist/integrations/providers/calendar.js",
-				"node": "./dist/node/integrations/providers/calendar.js",
-				"default": "./dist/integrations/providers/calendar.js"
-			},
-			"./integrations/providers/database": {
-				"types": "./dist/integrations/providers/database.d.ts",
-				"bun": "./dist/integrations/providers/database.js",
-				"node": "./dist/node/integrations/providers/database.js",
-				"default": "./dist/integrations/providers/database.js"
-			},
-			"./integrations/providers/deepgram": {
-				"types": "./dist/integrations/providers/deepgram.d.ts",
-				"bun": "./dist/integrations/providers/deepgram.js",
-				"node": "./dist/node/integrations/providers/deepgram.js",
-				"default": "./dist/integrations/providers/deepgram.js"
-			},
-			"./integrations/providers/eightsleep": {
-				"types": "./dist/integrations/providers/eightsleep.d.ts",
-				"bun": "./dist/integrations/providers/eightsleep.js",
-				"node": "./dist/node/integrations/providers/eightsleep.js",
-				"default": "./dist/integrations/providers/eightsleep.js"
-			},
-			"./integrations/providers/elevenlabs": {
-				"types": "./dist/integrations/providers/elevenlabs.d.ts",
-				"bun": "./dist/integrations/providers/elevenlabs.js",
-				"node": "./dist/node/integrations/providers/elevenlabs.js",
-				"default": "./dist/integrations/providers/elevenlabs.js"
-			},
-			"./integrations/providers/email": {
-				"types": "./dist/integrations/providers/email.d.ts",
-				"bun": "./dist/integrations/providers/email.js",
-				"node": "./dist/node/integrations/providers/email.js",
-				"default": "./dist/integrations/providers/email.js"
-			},
-			"./integrations/providers/embedding": {
-				"types": "./dist/integrations/providers/embedding.d.ts",
-				"bun": "./dist/integrations/providers/embedding.js",
-				"node": "./dist/node/integrations/providers/embedding.js",
-				"default": "./dist/integrations/providers/embedding.js"
-			},
-			"./integrations/providers/fal": {
-				"types": "./dist/integrations/providers/fal.d.ts",
-				"bun": "./dist/integrations/providers/fal.js",
-				"node": "./dist/node/integrations/providers/fal.js",
-				"default": "./dist/integrations/providers/fal.js"
-			},
-			"./integrations/providers/fal-image": {
-				"types": "./dist/integrations/providers/fal-image.d.ts",
-				"bun": "./dist/integrations/providers/fal-image.js",
-				"node": "./dist/node/integrations/providers/fal-image.js",
-				"default": "./dist/integrations/providers/fal-image.js"
-			},
-			"./integrations/providers/fathom": {
-				"types": "./dist/integrations/providers/fathom.d.ts",
-				"bun": "./dist/integrations/providers/fathom.js",
-				"node": "./dist/node/integrations/providers/fathom.js",
-				"default": "./dist/integrations/providers/fathom.js"
-			},
-			"./integrations/providers/fireflies": {
-				"types": "./dist/integrations/providers/fireflies.d.ts",
-				"bun": "./dist/integrations/providers/fireflies.js",
-				"node": "./dist/node/integrations/providers/fireflies.js",
-				"default": "./dist/integrations/providers/fireflies.js"
-			},
-			"./integrations/providers/fitbit": {
-				"types": "./dist/integrations/providers/fitbit.d.ts",
-				"bun": "./dist/integrations/providers/fitbit.js",
-				"node": "./dist/node/integrations/providers/fitbit.js",
-				"default": "./dist/integrations/providers/fitbit.js"
-			},
-			"./integrations/providers/garmin": {
-				"types": "./dist/integrations/providers/garmin.d.ts",
-				"bun": "./dist/integrations/providers/garmin.js",
-				"node": "./dist/node/integrations/providers/garmin.js",
-				"default": "./dist/integrations/providers/garmin.js"
-			},
-			"./integrations/providers/gcs-storage": {
-				"types": "./dist/integrations/providers/gcs-storage.d.ts",
-				"bun": "./dist/integrations/providers/gcs-storage.js",
-				"node": "./dist/node/integrations/providers/gcs-storage.js",
-				"default": "./dist/integrations/providers/gcs-storage.js"
-			},
-			"./integrations/providers/gmail": {
-				"types": "./dist/integrations/providers/gmail.d.ts",
-				"bun": "./dist/integrations/providers/gmail.js",
-				"node": "./dist/node/integrations/providers/gmail.js",
-				"default": "./dist/integrations/providers/gmail.js"
-			},
-			"./integrations/providers/google-calendar": {
-				"types": "./dist/integrations/providers/google-calendar.d.ts",
-				"bun": "./dist/integrations/providers/google-calendar.js",
-				"node": "./dist/node/integrations/providers/google-calendar.js",
-				"default": "./dist/integrations/providers/google-calendar.js"
-			},
-			"./integrations/providers/gradium": {
-				"types": "./dist/integrations/providers/gradium.d.ts",
-				"bun": "./dist/integrations/providers/gradium.js",
-				"node": "./dist/node/integrations/providers/gradium.js",
-				"default": "./dist/integrations/providers/gradium.js"
-			},
-			"./integrations/providers/granola": {
-				"types": "./dist/integrations/providers/granola.d.ts",
-				"bun": "./dist/integrations/providers/granola.js",
-				"node": "./dist/node/integrations/providers/granola.js",
-				"default": "./dist/integrations/providers/granola.js"
-			},
-			"./integrations/providers/health": {
-				"types": "./dist/integrations/providers/health.d.ts",
-				"bun": "./dist/integrations/providers/health.js",
-				"node": "./dist/node/integrations/providers/health.js",
-				"default": "./dist/integrations/providers/health.js"
-			},
-			"./integrations/providers/health-provider-shared": {
-				"types": "./dist/integrations/providers/health-provider-shared.d.ts",
-				"bun": "./dist/integrations/providers/health-provider-shared.js",
-				"node": "./dist/node/integrations/providers/health-provider-shared.js",
-				"default": "./dist/integrations/providers/health-provider-shared.js"
-			},
-			"./integrations/providers/image": {
-				"types": "./dist/integrations/providers/image.d.ts",
-				"bun": "./dist/integrations/providers/image.js",
-				"node": "./dist/node/integrations/providers/image.js",
-				"default": "./dist/integrations/providers/image.js"
-			},
-			"./integrations/providers/jira": {
-				"types": "./dist/integrations/providers/jira.d.ts",
-				"bun": "./dist/integrations/providers/jira.js",
-				"node": "./dist/node/integrations/providers/jira.js",
-				"default": "./dist/integrations/providers/jira.js"
-			},
-			"./integrations/providers/linear": {
-				"types": "./dist/integrations/providers/linear.d.ts",
-				"bun": "./dist/integrations/providers/linear.js",
-				"node": "./dist/node/integrations/providers/linear.js",
-				"default": "./dist/integrations/providers/linear.js"
-			},
-			"./integrations/providers/llm": {
-				"types": "./dist/integrations/providers/llm.d.ts",
-				"bun": "./dist/integrations/providers/llm.js",
-				"node": "./dist/node/integrations/providers/llm.js",
-				"default": "./dist/integrations/providers/llm.js"
-			},
-			"./integrations/providers/meeting-recorder": {
-				"types": "./dist/integrations/providers/meeting-recorder.d.ts",
-				"bun": "./dist/integrations/providers/meeting-recorder.js",
-				"node": "./dist/node/integrations/providers/meeting-recorder.js",
-				"default": "./dist/integrations/providers/meeting-recorder.js"
-			},
-			"./integrations/providers/messaging": {
-				"types": "./dist/integrations/providers/messaging.d.ts",
-				"bun": "./dist/integrations/providers/messaging.js",
-				"node": "./dist/node/integrations/providers/messaging.js",
-				"default": "./dist/integrations/providers/messaging.js"
-			},
-			"./integrations/providers/messaging-github": {
-				"types": "./dist/integrations/providers/messaging-github.d.ts",
-				"bun": "./dist/integrations/providers/messaging-github.js",
-				"node": "./dist/node/integrations/providers/messaging-github.js",
-				"default": "./dist/integrations/providers/messaging-github.js"
-			},
-			"./integrations/providers/messaging-slack": {
-				"types": "./dist/integrations/providers/messaging-slack.d.ts",
-				"bun": "./dist/integrations/providers/messaging-slack.js",
-				"node": "./dist/node/integrations/providers/messaging-slack.js",
-				"default": "./dist/integrations/providers/messaging-slack.js"
-			},
-			"./integrations/providers/messaging-telegram": {
-				"types": "./dist/integrations/providers/messaging-telegram.d.ts",
-				"bun": "./dist/integrations/providers/messaging-telegram.js",
-				"node": "./dist/node/integrations/providers/messaging-telegram.js",
-				"default": "./dist/integrations/providers/messaging-telegram.js"
-			},
-			"./integrations/providers/messaging-whatsapp-meta": {
-				"types": "./dist/integrations/providers/messaging-whatsapp-meta.d.ts",
-				"bun": "./dist/integrations/providers/messaging-whatsapp-meta.js",
-				"node": "./dist/node/integrations/providers/messaging-whatsapp-meta.js",
-				"default": "./dist/integrations/providers/messaging-whatsapp-meta.js"
-			},
-			"./integrations/providers/messaging-whatsapp-twilio": {
-				"types": "./dist/integrations/providers/messaging-whatsapp-twilio.d.ts",
-				"bun": "./dist/integrations/providers/messaging-whatsapp-twilio.js",
-				"node": "./dist/node/integrations/providers/messaging-whatsapp-twilio.js",
-				"default": "./dist/integrations/providers/messaging-whatsapp-twilio.js"
-			},
-			"./integrations/providers/mistral": {
-				"types": "./dist/integrations/providers/mistral.d.ts",
-				"bun": "./dist/integrations/providers/mistral.js",
-				"node": "./dist/node/integrations/providers/mistral.js",
-				"default": "./dist/integrations/providers/mistral.js"
-			},
-			"./integrations/providers/mistral-conversational": {
-				"types": "./dist/integrations/providers/mistral-conversational.d.ts",
-				"bun": "./dist/integrations/providers/mistral-conversational.js",
-				"node": "./dist/node/integrations/providers/mistral-conversational.js",
-				"default": "./dist/integrations/providers/mistral-conversational.js"
-			},
-			"./integrations/providers/mistral-stt": {
-				"types": "./dist/integrations/providers/mistral-stt.d.ts",
-				"bun": "./dist/integrations/providers/mistral-stt.js",
-				"node": "./dist/node/integrations/providers/mistral-stt.js",
-				"default": "./dist/integrations/providers/mistral-stt.js"
-			},
-			"./integrations/providers/myfitnesspal": {
-				"types": "./dist/integrations/providers/myfitnesspal.d.ts",
-				"bun": "./dist/integrations/providers/myfitnesspal.js",
-				"node": "./dist/node/integrations/providers/myfitnesspal.js",
-				"default": "./dist/integrations/providers/myfitnesspal.js"
-			},
-			"./integrations/providers/notion": {
-				"types": "./dist/integrations/providers/notion.d.ts",
-				"bun": "./dist/integrations/providers/notion.js",
-				"node": "./dist/node/integrations/providers/notion.js",
-				"default": "./dist/integrations/providers/notion.js"
-			},
-			"./integrations/providers/openai-image": {
-				"types": "./dist/integrations/providers/openai-image.d.ts",
-				"bun": "./dist/integrations/providers/openai-image.js",
-				"node": "./dist/node/integrations/providers/openai-image.js",
-				"default": "./dist/integrations/providers/openai-image.js"
-			},
-			"./integrations/providers/openai-realtime": {
-				"types": "./dist/integrations/providers/openai-realtime.d.ts",
-				"bun": "./dist/integrations/providers/openai-realtime.js",
-				"node": "./dist/node/integrations/providers/openai-realtime.js",
-				"default": "./dist/integrations/providers/openai-realtime.js"
-			},
-			"./integrations/providers/openbanking": {
-				"types": "./dist/integrations/providers/openbanking.d.ts",
-				"bun": "./dist/integrations/providers/openbanking.js",
-				"node": "./dist/node/integrations/providers/openbanking.js",
-				"default": "./dist/integrations/providers/openbanking.js"
-			},
-			"./integrations/providers/openwearables": {
-				"types": "./dist/integrations/providers/openwearables.d.ts",
-				"bun": "./dist/integrations/providers/openwearables.js",
-				"node": "./dist/node/integrations/providers/openwearables.js",
-				"default": "./dist/integrations/providers/openwearables.js"
-			},
-			"./integrations/providers/oura": {
-				"types": "./dist/integrations/providers/oura.d.ts",
-				"bun": "./dist/integrations/providers/oura.js",
-				"node": "./dist/node/integrations/providers/oura.js",
-				"default": "./dist/integrations/providers/oura.js"
-			},
-			"./integrations/providers/payments": {
-				"types": "./dist/integrations/providers/payments.d.ts",
-				"bun": "./dist/integrations/providers/payments.js",
-				"node": "./dist/node/integrations/providers/payments.js",
-				"default": "./dist/integrations/providers/payments.js"
-			},
-			"./integrations/providers/peloton": {
-				"types": "./dist/integrations/providers/peloton.d.ts",
-				"bun": "./dist/integrations/providers/peloton.js",
-				"node": "./dist/node/integrations/providers/peloton.js",
-				"default": "./dist/integrations/providers/peloton.js"
-			},
-			"./integrations/providers/posthog": {
-				"types": "./dist/integrations/providers/posthog.d.ts",
-				"bun": "./dist/integrations/providers/posthog.js",
-				"node": "./dist/node/integrations/providers/posthog.js",
-				"default": "./dist/integrations/providers/posthog.js"
-			},
-			"./integrations/providers/posthog-llm-telemetry": {
-				"types": "./dist/integrations/providers/posthog-llm-telemetry.d.ts",
-				"bun": "./dist/integrations/providers/posthog-llm-telemetry.js",
-				"node": "./dist/node/integrations/providers/posthog-llm-telemetry.js",
-				"default": "./dist/integrations/providers/posthog-llm-telemetry.js"
-			},
-			"./integrations/providers/postmark": {
-				"types": "./dist/integrations/providers/postmark.d.ts",
-				"bun": "./dist/integrations/providers/postmark.js",
-				"node": "./dist/node/integrations/providers/postmark.js",
-				"default": "./dist/integrations/providers/postmark.js"
-			},
-			"./integrations/providers/powens": {
-				"types": "./dist/integrations/providers/powens.d.ts",
-				"bun": "./dist/integrations/providers/powens.js",
-				"node": "./dist/node/integrations/providers/powens.js",
-				"default": "./dist/integrations/providers/powens.js"
-			},
-			"./integrations/providers/project-management": {
-				"types": "./dist/integrations/providers/project-management.d.ts",
-				"bun": "./dist/integrations/providers/project-management.js",
-				"node": "./dist/node/integrations/providers/project-management.js",
-				"default": "./dist/integrations/providers/project-management.js"
-			},
-			"./integrations/providers/qdrant": {
-				"types": "./dist/integrations/providers/qdrant.d.ts",
-				"bun": "./dist/integrations/providers/qdrant.js",
-				"node": "./dist/node/integrations/providers/qdrant.js",
-				"default": "./dist/integrations/providers/qdrant.js"
-			},
-			"./integrations/providers/registry": {
-				"types": "./dist/integrations/providers/registry.d.ts",
-				"bun": "./dist/integrations/providers/registry.js",
-				"node": "./dist/node/integrations/providers/registry.js",
-				"default": "./dist/integrations/providers/registry.js"
-			},
-			"./integrations/providers/sms": {
-				"types": "./dist/integrations/providers/sms.d.ts",
-				"bun": "./dist/integrations/providers/sms.js",
-				"node": "./dist/node/integrations/providers/sms.js",
-				"default": "./dist/integrations/providers/sms.js"
-			},
-			"./integrations/providers/storage": {
-				"types": "./dist/integrations/providers/storage.d.ts",
-				"bun": "./dist/integrations/providers/storage.js",
-				"node": "./dist/node/integrations/providers/storage.js",
-				"default": "./dist/integrations/providers/storage.js"
-			},
-			"./integrations/providers/strava": {
-				"types": "./dist/integrations/providers/strava.d.ts",
-				"bun": "./dist/integrations/providers/strava.js",
-				"node": "./dist/node/integrations/providers/strava.js",
-				"default": "./dist/integrations/providers/strava.js"
-			},
-			"./integrations/providers/stripe": {
-				"types": "./dist/integrations/providers/stripe.d.ts",
-				"bun": "./dist/integrations/providers/stripe.js",
-				"node": "./dist/node/integrations/providers/stripe.js",
-				"default": "./dist/integrations/providers/stripe.js"
-			},
-			"./integrations/providers/supabase-postgres": {
-				"types": "./dist/integrations/providers/supabase-postgres.d.ts",
-				"bun": "./dist/integrations/providers/supabase-postgres.js",
-				"node": "./dist/node/integrations/providers/supabase-postgres.js",
-				"default": "./dist/integrations/providers/supabase-postgres.js"
-			},
-			"./integrations/providers/supabase-vector": {
-				"types": "./dist/integrations/providers/supabase-vector.d.ts",
-				"bun": "./dist/integrations/providers/supabase-vector.js",
-				"node": "./dist/node/integrations/providers/supabase-vector.js",
-				"default": "./dist/integrations/providers/supabase-vector.js"
-			},
-			"./integrations/providers/tldv": {
-				"types": "./dist/integrations/providers/tldv.d.ts",
-				"bun": "./dist/integrations/providers/tldv.js",
-				"node": "./dist/node/integrations/providers/tldv.js",
-				"default": "./dist/integrations/providers/tldv.js"
-			},
-			"./integrations/providers/twilio-sms": {
-				"types": "./dist/integrations/providers/twilio-sms.d.ts",
-				"bun": "./dist/integrations/providers/twilio-sms.js",
-				"node": "./dist/node/integrations/providers/twilio-sms.js",
-				"default": "./dist/integrations/providers/twilio-sms.js"
-			},
-			"./integrations/providers/vector-store": {
-				"types": "./dist/integrations/providers/vector-store.d.ts",
-				"bun": "./dist/integrations/providers/vector-store.js",
-				"node": "./dist/node/integrations/providers/vector-store.js",
-				"default": "./dist/integrations/providers/vector-store.js"
-			},
-			"./integrations/providers/voice": {
-				"types": "./dist/integrations/providers/voice.d.ts",
-				"bun": "./dist/integrations/providers/voice.js",
-				"node": "./dist/node/integrations/providers/voice.js",
-				"default": "./dist/integrations/providers/voice.js"
-			},
-			"./integrations/providers/voice-video-sync": {
-				"types": "./dist/integrations/providers/voice-video-sync.d.ts",
-				"bun": "./dist/integrations/providers/voice-video-sync.js",
-				"node": "./dist/node/integrations/providers/voice-video-sync.js",
-				"default": "./dist/integrations/providers/voice-video-sync.js"
-			},
-			"./integrations/providers/whoop": {
-				"types": "./dist/integrations/providers/whoop.d.ts",
-				"bun": "./dist/integrations/providers/whoop.js",
-				"node": "./dist/node/integrations/providers/whoop.js",
-				"default": "./dist/integrations/providers/whoop.js"
-			},
-			"./integrations/runtime": {
-				"types": "./dist/integrations/runtime.d.ts",
-				"bun": "./dist/integrations/runtime.js",
-				"node": "./dist/node/integrations/runtime.js",
-				"default": "./dist/integrations/runtime.js"
-			},
-			"./integrations/secrets": {
-				"types": "./dist/integrations/secrets/index.d.ts",
-				"bun": "./dist/integrations/secrets/index.js",
-				"node": "./dist/node/integrations/secrets/index.js",
-				"default": "./dist/integrations/secrets/index.js"
-			},
-			"./integrations/secrets-types": {
-				"types": "./dist/integrations/secrets-types.d.ts",
-				"bun": "./dist/integrations/secrets-types.js",
-				"node": "./dist/node/integrations/secrets-types.js",
-				"default": "./dist/integrations/secrets-types.js"
-			},
-			"./integrations/secrets/aws-secret-manager": {
-				"types": "./dist/integrations/secrets/aws-secret-manager.d.ts",
-				"bun": "./dist/integrations/secrets/aws-secret-manager.js",
-				"node": "./dist/node/integrations/secrets/aws-secret-manager.js",
-				"default": "./dist/integrations/secrets/aws-secret-manager.js"
-			},
-			"./integrations/secrets/env-secret-provider": {
-				"types": "./dist/integrations/secrets/env-secret-provider.d.ts",
-				"bun": "./dist/integrations/secrets/env-secret-provider.js",
-				"node": "./dist/node/integrations/secrets/env-secret-provider.js",
-				"default": "./dist/integrations/secrets/env-secret-provider.js"
-			},
-			"./integrations/secrets/gcp-secret-manager": {
-				"types": "./dist/integrations/secrets/gcp-secret-manager.d.ts",
-				"bun": "./dist/integrations/secrets/gcp-secret-manager.js",
-				"node": "./dist/node/integrations/secrets/gcp-secret-manager.js",
-				"default": "./dist/integrations/secrets/gcp-secret-manager.js"
-			},
-			"./integrations/secrets/manager": {
-				"types": "./dist/integrations/secrets/manager.d.ts",
-				"bun": "./dist/integrations/secrets/manager.js",
-				"node": "./dist/node/integrations/secrets/manager.js",
-				"default": "./dist/integrations/secrets/manager.js"
-			},
-			"./integrations/secrets/provider": {
-				"types": "./dist/integrations/secrets/provider.d.ts",
-				"bun": "./dist/integrations/secrets/provider.js",
-				"node": "./dist/node/integrations/secrets/provider.js",
-				"default": "./dist/integrations/secrets/provider.js"
-			},
-			"./integrations/secrets/scaleway-secret-manager": {
-				"types": "./dist/integrations/secrets/scaleway-secret-manager.d.ts",
-				"bun": "./dist/integrations/secrets/scaleway-secret-manager.js",
-				"node": "./dist/node/integrations/secrets/scaleway-secret-manager.js",
-				"default": "./dist/integrations/secrets/scaleway-secret-manager.js"
-			},
-			"./integrations/spec": {
-				"types": "./dist/integrations/spec.d.ts",
-				"bun": "./dist/integrations/spec.js",
-				"node": "./dist/node/integrations/spec.js",
-				"default": "./dist/integrations/spec.js"
-			},
 			"./jobs": {
 				"types": "./dist/jobs/index.d.ts",
 				"bun": "./dist/jobs/index.js",
@@ -2912,59 +1844,11 @@
 				"node": "./dist/node/jobs/define-job.js",
 				"default": "./dist/jobs/define-job.js"
 			},
-			"./jobs/gcp-cloud-tasks": {
-				"types": "./dist/jobs/gcp-cloud-tasks.d.ts",
-				"bun": "./dist/jobs/gcp-cloud-tasks.js",
-				"node": "./dist/node/jobs/gcp-cloud-tasks.js",
-				"default": "./dist/jobs/gcp-cloud-tasks.js"
-			},
-			"./jobs/gcp-pubsub": {
-				"types": "./dist/jobs/gcp-pubsub.d.ts",
-				"bun": "./dist/jobs/gcp-pubsub.js",
-				"node": "./dist/node/jobs/gcp-pubsub.js",
-				"default": "./dist/jobs/gcp-pubsub.js"
-			},
-			"./jobs/handlers": {
-				"types": "./dist/jobs/handlers/index.d.ts",
-				"bun": "./dist/jobs/handlers/index.js",
-				"node": "./dist/node/jobs/handlers/index.js",
-				"default": "./dist/jobs/handlers/index.js"
-			},
-			"./jobs/handlers/gmail-sync-handler": {
-				"types": "./dist/jobs/handlers/gmail-sync-handler.d.ts",
-				"bun": "./dist/jobs/handlers/gmail-sync-handler.js",
-				"node": "./dist/node/jobs/handlers/gmail-sync-handler.js",
-				"default": "./dist/jobs/handlers/gmail-sync-handler.js"
-			},
-			"./jobs/handlers/ping-handler": {
-				"types": "./dist/jobs/handlers/ping-handler.d.ts",
-				"bun": "./dist/jobs/handlers/ping-handler.js",
-				"node": "./dist/node/jobs/handlers/ping-handler.js",
-				"default": "./dist/jobs/handlers/ping-handler.js"
-			},
-			"./jobs/handlers/storage-document-handler": {
-				"types": "./dist/jobs/handlers/storage-document-handler.d.ts",
-				"bun": "./dist/jobs/handlers/storage-document-handler.js",
-				"node": "./dist/node/jobs/handlers/storage-document-handler.js",
-				"default": "./dist/jobs/handlers/storage-document-handler.js"
-			},
-			"./jobs/memory-queue": {
-				"types": "./dist/jobs/memory-queue.d.ts",
-				"bun": "./dist/jobs/memory-queue.js",
-				"node": "./dist/node/jobs/memory-queue.js",
-				"default": "./dist/jobs/memory-queue.js"
-			},
 			"./jobs/queue": {
 				"types": "./dist/jobs/queue.d.ts",
 				"bun": "./dist/jobs/queue.js",
 				"node": "./dist/node/jobs/queue.js",
 				"default": "./dist/jobs/queue.js"
-			},
-			"./jobs/scaleway-sqs-queue": {
-				"types": "./dist/jobs/scaleway-sqs-queue.d.ts",
-				"bun": "./dist/jobs/scaleway-sqs-queue.js",
-				"node": "./dist/node/jobs/scaleway-sqs-queue.js",
-				"default": "./dist/jobs/scaleway-sqs-queue.js"
 			},
 			"./jobs/spec": {
 				"types": "./dist/jobs/spec.d.ts",
@@ -2990,48 +1874,6 @@
 				"node": "./dist/node/knowledge/binding.js",
 				"default": "./dist/knowledge/binding.js"
 			},
-			"./knowledge/docs/knowledge.docblock": {
-				"types": "./dist/knowledge/docs/knowledge.docblock.d.ts",
-				"bun": "./dist/knowledge/docs/knowledge.docblock.js",
-				"node": "./dist/node/knowledge/docs/knowledge.docblock.js",
-				"default": "./dist/knowledge/docs/knowledge.docblock.js"
-			},
-			"./knowledge/ingestion": {
-				"types": "./dist/knowledge/ingestion/index.d.ts",
-				"bun": "./dist/knowledge/ingestion/index.js",
-				"node": "./dist/node/knowledge/ingestion/index.js",
-				"default": "./dist/knowledge/ingestion/index.js"
-			},
-			"./knowledge/ingestion/document-processor": {
-				"types": "./dist/knowledge/ingestion/document-processor.d.ts",
-				"bun": "./dist/knowledge/ingestion/document-processor.js",
-				"node": "./dist/node/knowledge/ingestion/document-processor.js",
-				"default": "./dist/knowledge/ingestion/document-processor.js"
-			},
-			"./knowledge/ingestion/embedding-service": {
-				"types": "./dist/knowledge/ingestion/embedding-service.d.ts",
-				"bun": "./dist/knowledge/ingestion/embedding-service.js",
-				"node": "./dist/node/knowledge/ingestion/embedding-service.js",
-				"default": "./dist/knowledge/ingestion/embedding-service.js"
-			},
-			"./knowledge/ingestion/gmail-adapter": {
-				"types": "./dist/knowledge/ingestion/gmail-adapter.d.ts",
-				"bun": "./dist/knowledge/ingestion/gmail-adapter.js",
-				"node": "./dist/node/knowledge/ingestion/gmail-adapter.js",
-				"default": "./dist/knowledge/ingestion/gmail-adapter.js"
-			},
-			"./knowledge/ingestion/storage-adapter": {
-				"types": "./dist/knowledge/ingestion/storage-adapter.d.ts",
-				"bun": "./dist/knowledge/ingestion/storage-adapter.js",
-				"node": "./dist/node/knowledge/ingestion/storage-adapter.js",
-				"default": "./dist/knowledge/ingestion/storage-adapter.js"
-			},
-			"./knowledge/ingestion/vector-indexer": {
-				"types": "./dist/knowledge/ingestion/vector-indexer.d.ts",
-				"bun": "./dist/knowledge/ingestion/vector-indexer.js",
-				"node": "./dist/node/knowledge/ingestion/vector-indexer.js",
-				"default": "./dist/knowledge/ingestion/vector-indexer.js"
-			},
 			"./knowledge/knowledge.capability": {
 				"types": "./dist/knowledge/knowledge.capability.d.ts",
 				"bun": "./dist/knowledge/knowledge.capability.js",
@@ -3049,24 +1891,6 @@
 				"bun": "./dist/knowledge/operations.js",
 				"node": "./dist/node/knowledge/operations.js",
 				"default": "./dist/knowledge/operations.js"
-			},
-			"./knowledge/query": {
-				"types": "./dist/knowledge/query/index.d.ts",
-				"bun": "./dist/knowledge/query/index.js",
-				"node": "./dist/node/knowledge/query/index.js",
-				"default": "./dist/knowledge/query/index.js"
-			},
-			"./knowledge/query/service": {
-				"types": "./dist/knowledge/query/service.d.ts",
-				"bun": "./dist/knowledge/query/service.js",
-				"node": "./dist/node/knowledge/query/service.js",
-				"default": "./dist/knowledge/query/service.js"
-			},
-			"./knowledge/runtime": {
-				"types": "./dist/knowledge/runtime.d.ts",
-				"bun": "./dist/knowledge/runtime.js",
-				"node": "./dist/node/knowledge/runtime.js",
-				"default": "./dist/knowledge/runtime.js"
 			},
 			"./knowledge/source": {
 				"types": "./dist/knowledge/source.d.ts",
@@ -3224,12 +2048,6 @@
 				"node": "./dist/node/policy/context.js",
 				"default": "./dist/policy/context.js"
 			},
-			"./policy/docs/policy.docblock": {
-				"types": "./dist/policy/docs/policy.docblock.d.ts",
-				"bun": "./dist/policy/docs/policy.docblock.js",
-				"node": "./dist/node/policy/docs/policy.docblock.js",
-				"default": "./dist/policy/docs/policy.docblock.js"
-			},
 			"./policy/engine": {
 				"types": "./dist/policy/engine.d.ts",
 				"bun": "./dist/policy/engine.js",
@@ -3272,12 +2090,6 @@
 				"node": "./dist/node/presentations/index.js",
 				"default": "./dist/presentations/index.js"
 			},
-			"./presentations/docs/presentations-conventions.docblock": {
-				"types": "./dist/presentations/docs/presentations-conventions.docblock.d.ts",
-				"bun": "./dist/presentations/docs/presentations-conventions.docblock.js",
-				"node": "./dist/node/presentations/docs/presentations-conventions.docblock.js",
-				"default": "./dist/presentations/docs/presentations-conventions.docblock.js"
-			},
 			"./presentations/presentations": {
 				"types": "./dist/presentations/presentations.d.ts",
 				"bun": "./dist/presentations/presentations.js",
@@ -3290,11 +2102,11 @@
 				"node": "./dist/node/presentations/registry.js",
 				"default": "./dist/presentations/registry.js"
 			},
-			"./presentations/transform-engine": {
-				"types": "./dist/presentations/transform-engine.d.ts",
-				"bun": "./dist/presentations/transform-engine.js",
-				"node": "./dist/node/presentations/transform-engine.js",
-				"default": "./dist/presentations/transform-engine.js"
+			"./presentations/shim-blocknotejs": {
+				"types": "./dist/presentations/shim-blocknotejs.d.ts",
+				"bun": "./dist/presentations/shim-blocknotejs.js",
+				"node": "./dist/node/presentations/shim-blocknotejs.js",
+				"default": "./dist/presentations/shim-blocknotejs.js"
 			},
 			"./product-intent": {
 				"types": "./dist/product-intent/index.d.ts",
@@ -3458,12 +2270,6 @@
 				"node": "./dist/node/provider-ranking/contracts.js",
 				"default": "./dist/provider-ranking/contracts.js"
 			},
-			"./provider-ranking/ensure-docblocks": {
-				"types": "./dist/provider-ranking/ensure-docblocks.d.ts",
-				"bun": "./dist/provider-ranking/ensure-docblocks.js",
-				"node": "./dist/node/provider-ranking/ensure-docblocks.js",
-				"default": "./dist/provider-ranking/ensure-docblocks.js"
-			},
 			"./provider-ranking/events": {
 				"types": "./dist/provider-ranking/events/index.d.ts",
 				"bun": "./dist/provider-ranking/events/index.js",
@@ -3578,12 +2384,6 @@
 				"node": "./dist/node/regenerator/adapters.js",
 				"default": "./dist/regenerator/adapters.js"
 			},
-			"./regenerator/docs/regenerator.docblock": {
-				"types": "./dist/regenerator/docs/regenerator.docblock.d.ts",
-				"bun": "./dist/regenerator/docs/regenerator.docblock.js",
-				"node": "./dist/node/regenerator/docs/regenerator.docblock.js",
-				"default": "./dist/regenerator/docs/regenerator.docblock.js"
-			},
 			"./regenerator/executor": {
 				"types": "./dist/regenerator/executor.d.ts",
 				"bun": "./dist/regenerator/executor.js",
@@ -3667,12 +2467,6 @@
 				"bun": "./dist/telemetry/anomaly.js",
 				"node": "./dist/node/telemetry/anomaly.js",
 				"default": "./dist/telemetry/anomaly.js"
-			},
-			"./telemetry/docs/telemetry.docblock": {
-				"types": "./dist/telemetry/docs/telemetry.docblock.d.ts",
-				"bun": "./dist/telemetry/docs/telemetry.docblock.js",
-				"node": "./dist/node/telemetry/docs/telemetry.docblock.js",
-				"default": "./dist/telemetry/docs/telemetry.docblock.js"
 			},
 			"./telemetry/spec": {
 				"types": "./dist/telemetry/spec.d.ts",
@@ -3854,12 +2648,6 @@
 				"node": "./dist/node/workflow/expression.js",
 				"default": "./dist/workflow/expression.js"
 			},
-			"./workflow/overview.docblock": {
-				"types": "./dist/workflow/overview.docblock.d.ts",
-				"bun": "./dist/workflow/overview.docblock.js",
-				"node": "./dist/node/workflow/overview.docblock.js",
-				"default": "./dist/workflow/overview.docblock.js"
-			},
 			"./workflow/runner": {
 				"types": "./dist/workflow/runner.d.ts",
 				"bun": "./dist/workflow/runner.js",
@@ -3890,6 +2678,18 @@
 				"node": "./dist/node/workflow/validation.js",
 				"default": "./dist/workflow/validation.js"
 			},
+			"./workflow/validation-workflow-devkit": {
+				"types": "./dist/workflow/validation-workflow-devkit.d.ts",
+				"bun": "./dist/workflow/validation-workflow-devkit.js",
+				"node": "./dist/node/workflow/validation-workflow-devkit.js",
+				"default": "./dist/workflow/validation-workflow-devkit.js"
+			},
+			"./workflow/workflow-devkit": {
+				"types": "./dist/workflow/workflow-devkit.d.ts",
+				"bun": "./dist/workflow/workflow-devkit.js",
+				"node": "./dist/node/workflow/workflow-devkit.js",
+				"default": "./dist/workflow/workflow-devkit.js"
+			},
 			"./workspace-config": {
 				"types": "./dist/workspace-config/index.d.ts",
 				"bun": "./dist/workspace-config/index.js",
@@ -3907,12 +2707,6 @@
 				"bun": "./dist/workspace-config/contractsrc-types.js",
 				"node": "./dist/node/workspace-config/contractsrc-types.js",
 				"default": "./dist/workspace-config/contractsrc-types.js"
-			},
-			"./workspace-config/workspace-config.docblock": {
-				"types": "./dist/workspace-config/workspace-config.docblock.d.ts",
-				"bun": "./dist/workspace-config/workspace-config.docblock.js",
-				"node": "./dist/node/workspace-config/workspace-config.docblock.js",
-				"default": "./dist/workspace-config/workspace-config.docblock.js"
 			}
 		}
 	}

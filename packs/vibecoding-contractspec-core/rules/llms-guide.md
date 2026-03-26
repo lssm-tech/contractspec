@@ -53,7 +53,7 @@ Minimum content checklist (should)
 - Feature flags: naming convention and where defined
 - Data stores: types and high-level schemas (links over dumps)
 - Environment markers: dev/stage/prod domain patterns
-- Links to deeper docs under docs/tech and docs/ops
+- Links to deeper docs through stable doc routes or generated manifests, not `docs/tech`
 
 Change management (must)
 

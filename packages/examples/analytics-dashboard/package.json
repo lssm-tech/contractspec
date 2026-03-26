@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/example.analytics-dashboard",
-	"version": "3.9.3",
+	"version": "3.9.7",
 	"description": "Analytics Dashboard example with widgets and query engine for ContractSpec",
 	"types": "./dist/index.d.ts",
 	"type": "module",
@@ -27,7 +27,8 @@
 		"@contractspec/lib.design-system": "workspace:*",
 		"@contractspec/lib.runtime-sandbox": "workspace:*",
 		"react": "catalog:",
-		"react-dom": "catalog:"
+		"react-dom": "catalog:",
+		"@contractspec/lib.presentation-runtime-core": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",
@@ -35,7 +36,7 @@
 		"@types/react": "^19.2.14",
 		"@types/react-dom": "^19.2.2",
 		"@contractspec/tool.bun": "workspace:*",
-		"happy-dom": "^20.8.4"
+		"happy-dom": "^20.8.8"
 	},
 	"exports": {
 		".": "./src/index.ts",

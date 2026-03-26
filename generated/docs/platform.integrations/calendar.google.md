@@ -10,7 +10,7 @@ Google Calendar integration for event creation, updates, and scheduling automati
 - **Version**: 1.0.0
 - **Owners**: platform.messaging
 - **Tags**: calendar, google
-- **File**: `packages/libs/contracts-spec/src/integrations/providers/google-calendar.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/google-calendar.ts`
 
 ## Source Definition
 
@@ -29,6 +29,22 @@ export const googleCalendarIntegrationSpec = defineIntegration({
 		stability: StabilityEnum.Beta,
 	},
 	supportedModes: ['managed', 'byok'],
+	transports: [
+		{ type: 'rest', baseUrl: 'https://www.googleapis.com/calendar' },
+		{ type: 'sdk', packageName: 'googleapis' },
+	] satisfies IntegrationTransportConfig[],
+	preferredTransport: 'rest',
+	supportedAuthMethods: [
+		{
+			type: 'oauth2',
+			grantType: 'authorization_code',
+			authorizationUrl: 'https://accounts.google.com/o/oauth2/v2/auth',
+			tokenUrl: 'https://oauth2.googleapis.com/token',
+			scopes: ['https://www.googleapis.com/auth/calendar'],
+			pkce: true,
+		},
+		{ type: 'service-account', credentialFormat: 'json-key' },
+	] satisfies IntegrationAuthConfig[],
 	capabilities: {
 		provides: [{ key: 'calendar.events', version: '1.0.0' }],
 	},
@@ -80,6 +96,8 @@ export const googleCalendarIntegrationSpec = defineIntegration({
 	byokSetup: {
 		setupInstructions:
 			'Create a Google service account with Calendar access and share the target calendars with the service account email.',
+		keyRotationSupported: false,
+		quotaTrackingSupported: false,
 	},
 });
 ```

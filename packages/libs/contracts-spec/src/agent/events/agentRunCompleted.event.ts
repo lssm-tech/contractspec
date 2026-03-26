@@ -1,7 +1,7 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
-import { defineEvent } from '../../events';
-import '../ensure-docblocks';
 import { docId } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { defineEvent } from '../../events';
 import {
 	AGENT_DOMAIN,
 	AGENT_OWNERS,
@@ -19,6 +19,20 @@ export const AgentRunCompletedPayload = new SchemaModel({
 		contextSnapshotId: { type: ScalarTypeEnum.ID(), isOptional: true },
 	},
 });
+
+export const AgentRunCompletedDocBlock = {
+	id: 'docs.tech.agent.run.completed',
+	title: 'Agent run completed event',
+	summary: 'Emitted when an agent run completes.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/agent/run/completed',
+	tags: ['agent', 'event'],
+	body: `# agent.run.completed
+
+Emitted when a run completes successfully.
+`,
+} satisfies DocBlock;
 
 export const AgentRunCompletedEvent = defineEvent({
 	meta: {

@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.personalization",
-	"version": "6.0.11",
+	"version": "6.0.15",
 	"description": "Behavior tracking, analysis, and adaptation helpers for ContractSpec personalization.",
 	"keywords": [
 		"contractspec",
@@ -37,10 +37,10 @@
 		"@contractspec/lib.contracts-spec": "workspace:*",
 		"@contractspec/lib.knowledge": "workspace:*",
 		"@contractspec/lib.overlay-engine": "workspace:*",
-		"@opentelemetry/api": "^1.9.0"
+		"@opentelemetry/api": "^1.9.1"
 	},
 	"peerDependencies": {
-		"@opentelemetry/api": "^1.9.0",
+		"@opentelemetry/api": "^1.9.1",
 		"@contractspec/lib.surface-runtime": "workspace:*"
 	},
 	"peerDependenciesMeta": {

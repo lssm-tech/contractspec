@@ -233,4 +233,127 @@ describe('validateWorkflowSpec', () => {
 			)
 		).toBe(true);
 	});
+
+	it('requires idempotency keys for retrying workflow-devkit automation steps', () => {
+		const spec = sampleWorkflowSpec();
+		spec.runtime = {
+			capabilities: {
+				adapters: {
+					'workflow-devkit': true,
+				},
+			},
+			workflowDevkit: {},
+		};
+		spec.definition.steps[0] = {
+			...spec.definition.steps[0]!,
+			retry: {
+				maxAttempts: 3,
+				backoff: 'exponential',
+				delayMs: 1000,
+			},
+			runtime: {
+				workflowDevkit: {
+					behavior: 'sleep',
+					sleep: {
+						duration: '5m',
+					},
+				},
+			},
+		};
+
+		const issues = validateWorkflowSpec(spec);
+		expect(
+			errors(issues).some((issue) => /idempotencyKey/.test(issue.message))
+		).toBe(true);
+	});
+
+	it('requires resumeSource for workflow-devkit wait steps', () => {
+		const spec = sampleWorkflowSpec();
+		spec.runtime = {
+			capabilities: {
+				adapters: {
+					'workflow-devkit': true,
+				},
+			},
+			workflowDevkit: {},
+		};
+		spec.definition.steps[1] = {
+			...spec.definition.steps[1]!,
+			runtime: {
+				workflowDevkit: {
+					behavior: 'hookWait',
+					hookWait: {
+						// @ts-expect-error test invalid runtime config
+						resumeSource: 'webhook',
+					},
+				},
+			},
+		};
+
+		const issues = validateWorkflowSpec(spec);
+		expect(
+			errors(issues).some((issue) => /resumeSource "hook"/.test(issue.message))
+		).toBe(true);
+	});
+
+	it('requires strict JSON-serializable metadata when workflow-devkit is enabled', () => {
+		const spec = sampleWorkflowSpec() as WorkflowSpec & {
+			metadata: Record<string, unknown>;
+		};
+		spec.runtime = {
+			capabilities: {
+				adapters: {
+					'workflow-devkit': true,
+				},
+			},
+			workflowDevkit: {
+				serialization: {
+					mode: 'strict',
+				},
+			},
+		};
+		spec.metadata = {
+			createdAt: new Date(),
+		};
+
+		const issues = validateWorkflowSpec(spec);
+		expect(
+			errors(issues).some((issue) =>
+				/metadata must be JSON-serializable/.test(issue.message)
+			)
+		).toBe(true);
+	});
+
+	it('accepts workflow-devkit wait steps with explicit resume metadata', () => {
+		const spec = sampleWorkflowSpec();
+		spec.runtime = {
+			capabilities: {
+				adapters: {
+					'workflow-devkit': true,
+				},
+			},
+			workflowDevkit: {
+				hostTarget: 'next',
+				integrationMode: 'generated',
+			},
+		};
+		spec.definition.steps[1] = {
+			...spec.definition.steps[1]!,
+			runtime: {
+				workflowDevkit: {
+					behavior: 'approvalWait',
+					approvalWait: {
+						resumeSource: 'approval',
+						token: 'review:approval',
+						payloadExample: {
+							approved: true,
+						},
+					},
+				},
+			},
+		};
+
+		const issues = validateWorkflowSpec(spec);
+		expect(errors(issues)).toHaveLength(0);
+	});
 });

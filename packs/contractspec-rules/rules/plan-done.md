@@ -16,6 +16,7 @@ Trigger: Run after all planned implementation tasks are completed.
 Checks:
 
 - Re-assert every DocBlock touched in this plan has valid `kind` and `visibility` values.
+- Re-assert every authored DocBlock still lives in its owner module and that no `*.docblock.ts` or `src/docs/tech` sources were introduced.
 - Confirm plan deliverables are complete: code, tests, observability, and documentation updates.
 - Confirm quality gates are run (types, lint, tests, build) or explicitly documented as deferred.
 - Confirm unresolved risks or follow-ups are listed with clear ownership.

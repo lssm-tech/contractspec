@@ -12,11 +12,13 @@
  */
 
 import { randomUUID } from 'node:crypto';
+import {
+	type AgentSpec,
+	agentKey,
+} from '@contractspec/lib.contracts-spec/agent';
 import type { Tool } from 'ai';
 import { createAgentI18n } from '../../i18n';
 import { injectStaticKnowledge } from '../../knowledge/injector';
-import type { AgentSpec } from '../../spec/spec';
-import { agentKey } from '../../spec/spec';
 import { createMcpToolsets } from '../../tools/mcp-client';
 import type {
 	ClaudeAgentContextMetadata,

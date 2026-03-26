@@ -1,3 +1,4 @@
+import type { AgentToolConfig } from '@contractspec/lib.contracts-spec/agent';
 /**
  * Tool consumer for external agents.
  *
@@ -6,7 +7,6 @@
  * - Export tools for specific SDK formats
  * - Bridge tool execution
  */
-import type { AgentToolConfig } from '../spec/spec';
 import type { ToolExecutionContext, ToolHandler } from '../types';
 
 /** Resolve tool handler result (Promise, value, or AsyncGenerator) to string. */

@@ -10,7 +10,7 @@ Fal integration for voice synthesis using Chatterbox text-to-speech models.
 - **Version**: 1.0.0
 - **Owners**: platform.ai
 - **Tags**: voice, tts, chatterbox
-- **File**: `packages/libs/contracts-spec/src/integrations/providers/fal.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/fal.ts`
 
 ## Source Definition
 
@@ -29,6 +29,14 @@ export const falIntegrationSpec = defineIntegration({
 		stability: StabilityEnum.Experimental,
 	},
 	supportedModes: ['byok'],
+	transports: [
+		{ type: 'rest', baseUrl: 'https://fal.run' },
+		{ type: 'sdk', packageName: '@fal-ai/client' },
+	] satisfies IntegrationTransportConfig[],
+	preferredTransport: 'rest',
+	supportedAuthMethods: [
+		{ type: 'header', headerName: 'Authorization', valuePrefix: 'Key ' },
+	] satisfies IntegrationAuthConfig[],
 	capabilities: {
 		provides: [{ key: 'ai.voice.tts', version: '1.0.0' }],
 	},
@@ -103,6 +111,8 @@ export const falIntegrationSpec = defineIntegration({
 	byokSetup: {
 		setupInstructions:
 			'Create a Fal API key and configure the desired voice model endpoint before connecting tenants.',
+		keyRotationSupported: false,
+		quotaTrackingSupported: true,
 	},
 });
 ```

@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/bundle.marketing",
-	"version": "3.8.3",
+	"version": "3.8.8",
 	"type": "module",
 	"scripts": {
 		"clean": "rm -rf dist",
@@ -92,16 +92,16 @@
 		"@contractspec/lib.ui-kit-web": "workspace:*",
 		"@contractspec/lib.ui-link": "workspace:*",
 		"@contractspec/module.examples": "workspace:*",
-		"@electric-sql/pglite": "^0.4.1",
+		"@electric-sql/pglite": "^0.4.2",
 		"@hookform/resolvers": "^5.2.2",
 		"@scaleway/sdk": "^3.4.1",
 		"@scaleway/sdk-client": "^2.2.1",
 		"class-variance-authority": "^0.7.1",
 		"framer-motion": "^12.38.0",
-		"lucide-react": "^0.577.0",
+		"lucide-react": "^1.6.0",
 		"next": "catalog:",
 		"react": "catalog:",
-		"react-hook-form": "^7.71.2",
+		"react-hook-form": "^7.72.0",
 		"zod": "catalog:"
 	},
 	"devDependencies": {

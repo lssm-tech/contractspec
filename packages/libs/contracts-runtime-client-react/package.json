@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.contracts-runtime-client-react",
-	"version": "3.7.11",
+	"version": "3.8.3",
 	"description": "React runtime adapters for ContractSpec contracts",
 	"type": "module",
 	"types": "./dist/index.d.ts",
@@ -24,15 +24,15 @@
 		"directory": "packages/libs/contract-runtime-client-react"
 	},
 	"peerDependencies": {
-		"@blocknote/core": "^0.47.1",
 		"@hookform/resolvers": "^5.2.2",
-		"react": "^19.2.0",
-		"react-dom": "^19.2.0",
-		"react-hook-form": "^7.70.0"
+		"react": "^19.2.4",
+		"react-dom": "^19.2.4",
+		"react-hook-form": "^7.72.0"
 	},
 	"dependencies": {
 		"@contractspec/lib.contracts-spec": "workspace:*",
-		"@contractspec/lib.schema": "workspace:*"
+		"@contractspec/lib.schema": "workspace:*",
+		"@contractspec/lib.presentation-runtime-core": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",
@@ -49,7 +49,8 @@
 		"./drivers/shadcn": "./src/drivers/shadcn.ts",
 		"./feature-render": "./src/feature-render.ts",
 		"./form-render": "./src/form-render.ts",
-		"./form-render.impl": "./src/form-render.impl.tsx"
+		"./form-render.impl": "./src/form-render.impl.tsx",
+		"./transform-engine": "./src/transform-engine.ts"
 	},
 	"publishConfig": {
 		"access": "public",
@@ -96,6 +97,13 @@
 				"bun": "./dist/form-render.impl.js",
 				"node": "./dist/node/form-render.impl.js",
 				"default": "./dist/form-render.impl.js"
+			},
+			"./transform-engine": {
+				"types": "./dist/transform-engine.d.ts",
+				"browser": "./dist/browser/transform-engine.js",
+				"bun": "./dist/transform-engine.js",
+				"node": "./dist/node/transform-engine.js",
+				"default": "./dist/transform-engine.js"
 			}
 		}
 	}

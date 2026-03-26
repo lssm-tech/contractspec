@@ -4,10 +4,10 @@ import type {
 	ModelSelector,
 } from '@contractspec/lib.ai-providers/selector-types';
 import type { ProviderConfig } from '@contractspec/lib.ai-providers/types';
+import type { AgentSpec } from '@contractspec/lib.contracts-spec/agent';
 import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import type { LanguageModel } from 'ai';
 import { createAgentI18n } from '../i18n';
-import type { AgentSpec } from '../spec/spec';
 import type { ToolHandler } from '../types';
 import { ContractSpecAgent } from './contract-spec-agent';
 

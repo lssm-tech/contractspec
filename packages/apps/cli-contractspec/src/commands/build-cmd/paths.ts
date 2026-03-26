@@ -78,6 +78,36 @@ export function resolveWorkflowRunnerPath(
 	return join(targetDir, `${sanitizedName}.runner.ts`);
 }
 
+export function resolveWorkflowArtifactPaths(
+	specFile: string,
+	sanitizedName: string,
+	options: BuildOptions,
+	config: Config
+) {
+	const baseDir = resolveBaseOutputDir(options, config, 'workflows');
+	const targetDir = baseDir ?? dirname(specFile);
+
+	return {
+		followUpRoutePath: join(
+			targetDir,
+			`${sanitizedName}.workflow-devkit.follow-up.route.ts`
+		),
+		genericBootstrapPath: join(
+			targetDir,
+			`${sanitizedName}.workflow-devkit.generic.ts`
+		),
+		startRoutePath: join(
+			targetDir,
+			`${sanitizedName}.workflow-devkit.start.route.ts`
+		),
+		streamRoutePath: join(
+			targetDir,
+			`${sanitizedName}.workflow-devkit.stream.route.ts`
+		),
+		workflowModulePath: join(targetDir, `${sanitizedName}.workflow-devkit.ts`),
+	};
+}
+
 export function resolveBaseOutputDir(
 	options: BuildOptions,
 	config: Config,

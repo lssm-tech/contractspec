@@ -32,7 +32,7 @@ Foundational contract declarations, registries, capabilities, and shared executi
 - Export `./acp/commands/acpPromptTurn.command` resolves through `./src/acp/commands/acpPromptTurn.command.ts`.
 - Export `./acp/commands/acpSessionInit.command` resolves through `./src/acp/commands/acpSessionInit.command.ts`.
 - Export `./acp/commands/acpSessionResume.command` resolves through `./src/acp/commands/acpSessionResume.command.ts`.
-- The package publishes 549 total export subpaths; keep docs aligned with `package.json`.
+- The package publishes 375 total export subpaths; keep docs aligned with `package.json`.
 
 ## Guardrails
 

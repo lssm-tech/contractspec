@@ -10,7 +10,7 @@ Gmail integration supporting inbound thread ingestion and outbound transactional
 - **Version**: 1.0.0
 - **Owners**: platform.messaging
 - **Tags**: email, gmail
-- **File**: `packages/libs/contracts-spec/src/integrations/providers/gmail.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/gmail.ts`
 
 ## Source Definition
 
@@ -29,6 +29,22 @@ export const gmailIntegrationSpec = defineIntegration({
 		stability: StabilityEnum.Beta,
 	},
 	supportedModes: ['managed', 'byok'],
+	transports: [
+		{ type: 'rest', baseUrl: 'https://gmail.googleapis.com' },
+		{ type: 'sdk', packageName: 'googleapis', minVersion: '130.0.0' },
+	],
+	preferredTransport: 'rest',
+	supportedAuthMethods: [
+		{
+			type: 'oauth2',
+			grantType: 'authorization_code',
+			authorizationUrl: 'https://accounts.google.com/o/oauth2/v2/auth',
+			tokenUrl: 'https://oauth2.googleapis.com/token',
+			scopes: ['https://www.googleapis.com/auth/gmail.modify'],
+			pkce: true,
+		},
+		{ type: 'service-account', credentialFormat: 'json-key' },
+	],
 	capabilities: {
 		provides: [
 			{ key: 'email.inbound', version: '1.0.0' },
@@ -98,6 +114,8 @@ export const gmailIntegrationSpec = defineIntegration({
 	byokSetup: {
 		setupInstructions:
 			'Create an OAuth consent screen and credentials within Google Cloud Console, then authorize the Gmail scopes and store the resulting refresh token.',
+		keyRotationSupported: false,
+		quotaTrackingSupported: false,
 	},
 });
 ```

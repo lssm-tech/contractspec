@@ -4,6 +4,7 @@
 
 export { runCoverageChecks } from './coverage';
 export { runDepsChecks } from './deps';
+export { runDocsChecks } from './docs';
 export { runDoctorChecks } from './doctor';
 export { runDriftChecks } from './drift';
 export { runHandlerChecks } from './handlers';

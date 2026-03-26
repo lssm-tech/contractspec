@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.presentation-runtime-core",
-	"version": "3.8.4",
+	"version": "3.9.3",
 	"description": "Core presentation runtime for contract-driven UIs",
 	"keywords": [
 		"contractspec",
@@ -32,12 +32,14 @@
 	},
 	"dependencies": {
 		"@contractspec/lib.contracts-spec": "workspace:*",
-		"echarts": "^6.0.0"
+		"echarts": "^6.0.0",
+		"turndown": "^7.2.2"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",
 		"typescript": "catalog:",
-		"@contractspec/tool.bun": "workspace:*"
+		"@contractspec/tool.bun": "workspace:*",
+		"@types/turndown": "^5.0.6"
 	},
 	"files": [
 		"dist",
@@ -46,6 +48,8 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./table": "./src/table.ts",
+		"./transform-engine": "./src/transform-engine.ts",
+		"./transform-engine.markdown": "./src/transform-engine.markdown.ts",
 		"./visualization": "./src/visualization.ts",
 		"./visualization.echarts": "./src/visualization.echarts.ts",
 		"./visualization.model": "./src/visualization.model.ts",
@@ -70,6 +74,20 @@
 				"bun": "./dist/table.js",
 				"node": "./dist/node/table.js",
 				"default": "./dist/table.js"
+			},
+			"./transform-engine": {
+				"types": "./dist/transform-engine.d.ts",
+				"browser": "./dist/browser/transform-engine.js",
+				"bun": "./dist/transform-engine.js",
+				"node": "./dist/node/transform-engine.js",
+				"default": "./dist/transform-engine.js"
+			},
+			"./transform-engine.markdown": {
+				"types": "./dist/transform-engine.markdown.d.ts",
+				"browser": "./dist/browser/transform-engine.markdown.js",
+				"bun": "./dist/transform-engine.markdown.js",
+				"node": "./dist/node/transform-engine.markdown.js",
+				"default": "./dist/transform-engine.markdown.js"
 			},
 			"./visualization": {
 				"types": "./dist/visualization.d.ts",

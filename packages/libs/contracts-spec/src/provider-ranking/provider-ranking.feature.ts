@@ -1,3 +1,4 @@
+import type { DocBlock } from '../docs/types';
 import { defineFeature } from '../features';
 import {
 	PROVIDER_RANKING_DOMAIN,
@@ -5,6 +6,21 @@ import {
 	PROVIDER_RANKING_STABILITY,
 	PROVIDER_RANKING_TAGS,
 } from './constants';
+
+export const ProviderRankingSystemDocBlock = {
+	id: 'docs.tech.provider-ranking.system',
+	title: 'AI Provider Ranking',
+	summary:
+		'Benchmark ingestion, scoring, and ranking for AI providers and models.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/provider-ranking/system',
+	tags: ['ai', 'ranking', 'benchmark'],
+	body: `# AI Provider Ranking
+
+Defines the core operations, events, and UI surfaces for ingesting benchmark data, computing composite rankings, and comparing AI models across dimensions.
+`,
+} satisfies DocBlock;
 
 export const ProviderRankingFeature = defineFeature({
 	meta: {

@@ -10,7 +10,7 @@ PostHog integration for product analytics, feature flags, HogQL queries, and LLM
 - **Version**: 1.1.0
 - **Owners**: @platform.integrations
 - **Tags**: analytics, posthog, llm, ai
-- **File**: `packages/libs/contracts-spec/src/integrations/providers/posthog.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/posthog.ts`
 
 ## Source Definition
 
@@ -29,6 +29,13 @@ export const posthogIntegrationSpec = defineIntegration({
 		stability: StabilityEnum.Beta,
 	},
 	supportedModes: ['managed', 'byok'],
+	transports: [
+		{ type: 'rest' },
+		{ type: 'mcp', transport: 'http' },
+		{ type: 'sdk', packageName: 'posthog-node' },
+	] satisfies IntegrationTransportConfig[],
+	preferredTransport: 'rest',
+	supportedAuthMethods: [{ type: 'api-key' }] satisfies IntegrationAuthConfig[],
 	capabilities: {
 		provides: [
 			{ key: 'analytics.events', version: '1.0.0' },
@@ -97,6 +104,8 @@ export const posthogIntegrationSpec = defineIntegration({
 	byokSetup: {
 		setupInstructions:
 			'Generate a PostHog personal API key for read/write operations and a project API key for event capture.',
+		keyRotationSupported: true,
+		quotaTrackingSupported: false,
 	},
 });
 ```

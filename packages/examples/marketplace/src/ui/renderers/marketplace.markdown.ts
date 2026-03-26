@@ -1,7 +1,7 @@
 /**
  * Markdown renderers for Marketplace presentations
  */
-import type { PresentationRenderer } from '@contractspec/lib.contracts-spec/presentations/transform-engine';
+import type { PresentationRenderer } from '@contractspec/lib.presentation-runtime-core/transform-engine';
 import type { Order } from '../../handlers/marketplace.handlers';
 import { createMarketplaceVisualizationItems } from '../../visualizations';
 

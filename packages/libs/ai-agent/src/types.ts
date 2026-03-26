@@ -94,6 +94,9 @@ export interface AgentEventPayload {
 	sessionId: string;
 	agentId: string;
 	tenantId?: string;
+	workflowId?: string;
+	traceId?: string;
+	checkpointId?: string;
 	stepIndex?: number;
 	toolName?: string;
 	metadata?: Record<string, unknown>;
@@ -114,6 +117,10 @@ export interface AgentCallOptions {
 	actorId?: string;
 	/** Session to resume; new session created when omitted */
 	sessionId?: string;
+	/** Parent workflow execution id when the agent runs inside a workflow. */
+	workflowId?: string;
+	/** External thread id used by checkpoint-capable runtimes. */
+	threadId?: string;
 	/** Arbitrary metadata forwarded to events and tool handlers */
 	metadata?: Record<string, string>;
 	/** Locale override for this call */
@@ -137,11 +144,17 @@ export interface AgentSessionState {
 	agentId: string;
 	tenantId?: string;
 	actorId?: string;
+	workflowId?: string;
+	threadId?: string;
+	traceId?: string;
+	checkpointId?: string;
 	/** Active locale for this session */
 	locale?: string;
 	status: AgentStatus;
 	messages: ModelMessage[];
 	steps: StepResult<ToolSet>[];
+	pendingApprovalRequestId?: string;
+	lastError?: AgentExecutionError;
 	createdAt: Date;
 	updatedAt: Date;
 	metadata?: Record<string, string>;

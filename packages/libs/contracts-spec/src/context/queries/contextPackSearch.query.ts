@@ -1,7 +1,7 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { docRef } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
 import { defineQuery } from '../../operations';
-import '../ensure-docblocks';
-import { docId } from '../../docs/registry';
 import {
 	CONTEXT_DOMAIN,
 	CONTEXT_OWNERS,
@@ -53,6 +53,20 @@ const ContextPackSearchOutput = new SchemaModel({
 	},
 });
 
+export const ContextPackSearchDocBlock = {
+	id: 'docs.tech.context.pack.search',
+	title: 'Search context packs',
+	summary: 'Search and filter context packs and snapshots.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/context/pack/search',
+	tags: ['context', 'pack', 'search'],
+	body: `# context.pack.search
+
+Search context packs and surface their latest snapshot details for discovery and UI lists.
+`,
+} satisfies DocBlock;
+
 export const ContextPackSearchQuery = defineQuery({
 	meta: {
 		key: 'context.pack.search',
@@ -66,7 +80,7 @@ export const ContextPackSearchQuery = defineQuery({
 		owners: CONTEXT_OWNERS,
 		tags: [...CONTEXT_TAGS, 'pack', 'search'],
 		stability: CONTEXT_STABILITY,
-		docId: [docId('docs.tech.context.pack.search')],
+		docId: [docRef(ContextPackSearchDocBlock.id)],
 	},
 	capability: {
 		key: 'context.system',

@@ -1,7 +1,7 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
-import { defineFormSpec } from '../../forms/forms';
-import '../ensure-docblocks';
 import { docId } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { defineFormSpec } from '../../forms/forms';
 import {
 	AGENT_DOMAIN,
 	AGENT_OWNERS,
@@ -19,6 +19,20 @@ const AgentRunFormModel = new SchemaModel({
 		priority: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
 	},
 });
+
+export const AgentRunFormDocBlock = {
+	id: 'docs.tech.agent.run.form',
+	title: 'Agent run form',
+	summary: 'Form specification for launching an agent run.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/agent/run/form',
+	tags: ['agent', 'form'],
+	body: `# agent.run.form
+
+Form surface used by Studio to submit agent runs.
+`,
+} satisfies DocBlock;
 
 export const AgentRunForm = defineFormSpec({
 	meta: {

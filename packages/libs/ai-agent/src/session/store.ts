@@ -35,7 +35,19 @@ export interface AgentSessionStore {
 	 */
 	update(
 		sessionId: string,
-		updates: Partial<Pick<AgentSessionState, 'status' | 'metadata'>>
+		updates: Partial<
+			Pick<
+				AgentSessionState,
+				| 'status'
+				| 'metadata'
+				| 'workflowId'
+				| 'threadId'
+				| 'traceId'
+				| 'checkpointId'
+				| 'pendingApprovalRequestId'
+				| 'lastError'
+			>
+		>
 	): Promise<void>;
 
 	/**
@@ -117,7 +129,19 @@ export class InMemorySessionStore implements AgentSessionStore {
 
 	async update(
 		sessionId: string,
-		updates: Partial<Pick<AgentSessionState, 'status' | 'metadata'>>
+		updates: Partial<
+			Pick<
+				AgentSessionState,
+				| 'status'
+				| 'metadata'
+				| 'workflowId'
+				| 'threadId'
+				| 'traceId'
+				| 'checkpointId'
+				| 'pendingApprovalRequestId'
+				| 'lastError'
+			>
+		>
 	): Promise<void> {
 		const session = this.sessions.get(sessionId);
 		if (session) {

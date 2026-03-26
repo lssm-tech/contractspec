@@ -1,6 +1,6 @@
 import { defineDataView } from '../../data-views';
-import '../ensure-docblocks';
 import { docId } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
 import {
 	PROVIDER_RANKING_DOMAIN,
 	PROVIDER_RANKING_OWNERS,
@@ -8,6 +8,20 @@ import {
 	PROVIDER_RANKING_TAGS,
 } from '../constants';
 import { BenchmarkResultsListQuery } from '../queries/benchmarkResultsList.query';
+
+export const BenchmarkResultsDataViewDocBlock = {
+	id: 'docs.tech.provider-ranking.benchmark.results.index',
+	title: 'Benchmark results view',
+	summary: 'Data view for raw benchmark results.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/provider-ranking/benchmark/results/index',
+	tags: ['ai', 'ranking', 'data-view'],
+	body: `# provider-ranking.benchmark.results.index
+
+List view over individual benchmark data points from all sources.
+`,
+} satisfies DocBlock;
 
 export const BenchmarkResultsDataView = defineDataView({
 	meta: {

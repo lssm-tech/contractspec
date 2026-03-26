@@ -1,7 +1,7 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
-import { defineCommand } from '../../operations';
-import '../ensure-docblocks';
 import { docId } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { defineCommand } from '../../operations';
 import {
 	PROVIDER_RANKING_DOMAIN,
 	PROVIDER_RANKING_OWNERS,
@@ -32,6 +32,20 @@ const BenchmarkRunCustomOutput = new SchemaModel({
 		startedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
 	},
 });
+
+export const BenchmarkRunCustomDocBlock = {
+	id: 'docs.tech.provider-ranking.benchmark.run-custom',
+	title: 'Run custom benchmark',
+	summary: 'Launch a custom benchmark evaluation against a model.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/provider-ranking/benchmark/run-custom',
+	tags: ['ai', 'ranking', 'custom', 'eval'],
+	body: `# provider-ranking.benchmark.run-custom
+
+Evaluates model performance using internal eval suites with configurable parameters.
+`,
+} satisfies DocBlock;
 
 export const BenchmarkRunCustomCommand = defineCommand({
 	meta: {

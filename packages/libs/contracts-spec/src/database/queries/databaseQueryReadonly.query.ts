@@ -1,7 +1,7 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { docRef } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
 import { defineQuery } from '../../operations';
-import '../ensure-docblocks';
-import { docId } from '../../docs/registry';
 import {
 	DATABASE_DOMAIN,
 	DATABASE_OWNERS,
@@ -39,6 +39,20 @@ const DatabaseQueryReadonlyOutput = new SchemaModel({
 	},
 });
 
+export const DatabaseQueryReadonlyDocBlock = {
+	id: 'docs.tech.database.query.readonly',
+	title: 'Read-only data query',
+	summary: 'Perform a governed read-only query via data views.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/database/query/readonly',
+	tags: ['database', 'query', 'readonly'],
+	body: `# database.query.readonly
+
+Executes read-only data access using data views with policy and redaction.
+`,
+} satisfies DocBlock;
+
 export const DatabaseQueryReadonlyQuery = defineQuery({
 	meta: {
 		key: 'database.query.readonly',
@@ -51,7 +65,7 @@ export const DatabaseQueryReadonlyQuery = defineQuery({
 		owners: DATABASE_OWNERS,
 		tags: [...DATABASE_TAGS, 'query', 'readonly'],
 		stability: DATABASE_STABILITY,
-		docId: [docId('docs.tech.database.query.readonly')],
+		docId: [docRef(DatabaseQueryReadonlyDocBlock.id)],
 	},
 	capability: {
 		key: 'database.context',

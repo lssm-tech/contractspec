@@ -1,4 +1,6 @@
 import type { PresentationSpec } from '../presentations/presentations';
+import { contractsSpecDocManifest } from './docblocks.manifest.generated';
+import { packageDocBlocks } from './manifest';
 import {
 	type DocPresentationOptions,
 	type DocPresentationRoute,
@@ -52,7 +54,9 @@ const requiredFields: (keyof DocBlock)[] = [
 	'route',
 ];
 
-export const defaultDocRegistry = new DocRegistry();
+export const defaultDocRegistry = new DocRegistry(
+	packageDocBlocks(contractsSpecDocManifest)
+);
 
 export function registerDocBlocks(blocks: DocBlock[]): void {
 	for (const block of blocks) {
@@ -71,8 +75,8 @@ export function listRegisteredDocBlocks(): DocBlock[] {
 	return defaultDocRegistry.list().map((r) => r.block);
 }
 
-export function docId(id: string): DocId {
-	const found = defaultDocRegistry.get(id);
-	if (!found) throw new Error(`DocBlock not registered: ${id}`);
+export function docRef(id: string): DocId {
 	return id as DocId;
 }
+
+export const docId = docRef;

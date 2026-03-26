@@ -40,10 +40,9 @@ const draft = await responder.draft(ticket, resolution, classification);`}
 				<CodeBlock
 					language="typescript"
 					code={`import { createSupportTools } from '@contractspec/lib.support-bot/bot';
-import { ToolExecutor } from '@contractspec/lib.ai-agent';
 
 const tools = createSupportTools({ resolver, classifier, responder });
-const executor = new ToolExecutor({ tools });`}
+// Pass these tools into your host runtime or agent adapter.`}
 				/>
 			</div>
 

@@ -1,14 +1,24 @@
 import { randomUUID } from 'node:crypto';
 import type {
+	AppendTraceEventInput,
+	ApproveDecisionAndEnqueueOutboxInput,
 	ChannelRuntimeStore,
 	ClaimEventReceiptInput,
 	ClaimEventReceiptResult,
+	DisableSkillInstallationInput,
 	EnqueueOutboxActionInput,
 	EnqueueOutboxActionResult,
+	ListDecisionsInput,
+	ListPendingApprovalsInput,
+	ListSkillInstallationsInput,
+	ListSkillInstallationsResult,
+	ListTraceEventsInput,
 	MarkOutboxDeadLetterInput,
 	MarkOutboxRetryInput,
 	RecordDeliveryAttemptInput,
+	ResolveDecisionApprovalInput,
 	SaveDecisionInput,
+	SaveSkillInstallationInput,
 	UpsertThreadInput,
 } from './store';
 import type {
@@ -17,6 +27,8 @@ import type {
 	ChannelEventReceiptRecord,
 	ChannelOutboxActionRecord,
 	ChannelThreadRecord,
+	ChannelTraceEventRecord,
+	ControlPlaneSkillInstallationRecord,
 } from './types';
 
 export class InMemoryChannelRuntimeStore implements ChannelRuntimeStore {
@@ -24,6 +36,11 @@ export class InMemoryChannelRuntimeStore implements ChannelRuntimeStore {
 	public readonly threads = new Map<string, ChannelThreadRecord>();
 	public readonly decisions = new Map<string, ChannelDecisionRecord>();
 	public readonly outbox = new Map<string, ChannelOutboxActionRecord>();
+	public readonly traceEvents = new Map<string, ChannelTraceEventRecord>();
+	public readonly skillInstallations = new Map<
+		string,
+		ControlPlaneSkillInstallationRecord
+	>();
 	public readonly deliveryAttempts = new Map<
 		string,
 		ChannelDeliveryAttemptRecord
@@ -31,7 +48,9 @@ export class InMemoryChannelRuntimeStore implements ChannelRuntimeStore {
 	private readonly receiptKeyToId = new Map<string, string>();
 	private readonly threadKeyToId = new Map<string, string>();
 	private readonly outboxKeyToId = new Map<string, string>();
+	private readonly skillKeyToId = new Map<string, string>();
 	private deliveryAttemptSequence = 0;
+	private traceEventSequence = 0;
 
 	async claimEventReceipt(
 		input: ClaimEventReceiptInput
@@ -41,6 +60,27 @@ export class InMemoryChannelRuntimeStore implements ChannelRuntimeStore {
 		if (existingId) {
 			const existing = this.receipts.get(existingId);
 			if (existing) {
+				if (
+					(existing.status === 'failed' ||
+						(existing.status === 'rejected' &&
+							existing.signatureValid === false &&
+							input.signatureValid)) &&
+					input.signatureValid
+				) {
+					existing.status = 'accepted';
+					existing.signatureValid = input.signatureValid;
+					existing.payloadHash = input.payloadHash;
+					existing.traceId = input.traceId;
+					existing.errorCode = undefined;
+					existing.errorMessage = undefined;
+					existing.processedAt = undefined;
+					existing.lastSeenAt = new Date();
+					this.receipts.set(existing.id, existing);
+					return {
+						receiptId: existingId,
+						duplicate: false,
+					};
+				}
 				existing.lastSeenAt = new Date();
 				this.receipts.set(existing.id, existing);
 			}
@@ -146,10 +186,172 @@ export class InMemoryChannelRuntimeStore implements ChannelRuntimeStore {
 			toolTrace: input.toolTrace ?? [],
 			actionPlan: input.actionPlan,
 			requiresApproval: input.requiresApproval,
+			approvalStatus: input.approvalStatus,
 			createdAt: new Date(),
 		};
 		this.decisions.set(id, record);
 		return record;
+	}
+
+	async getReceipt(
+		receiptId: string
+	): Promise<ChannelEventReceiptRecord | null> {
+		return this.receipts.get(receiptId) ?? null;
+	}
+
+	async getThread(threadId: string): Promise<ChannelThreadRecord | null> {
+		return this.threads.get(threadId) ?? null;
+	}
+
+	async getDecision(decisionId: string): Promise<ChannelDecisionRecord | null> {
+		return this.decisions.get(decisionId) ?? null;
+	}
+
+	async listDecisions(
+		input: ListDecisionsInput = {}
+	): Promise<ChannelDecisionRecord[]> {
+		const decisions = Array.from(this.decisions.values())
+			.filter((decision) =>
+				input.workspaceId
+					? decision.actionPlan.workspaceId === input.workspaceId
+					: true
+			)
+			.filter((decision) =>
+				input.providerKey
+					? decision.actionPlan.providerKey === input.providerKey
+					: true
+			)
+			.filter((decision) =>
+				input.traceId ? decision.actionPlan.traceId === input.traceId : true
+			)
+			.filter((decision) =>
+				input.receiptId ? decision.receiptId === input.receiptId : true
+			)
+			.filter((decision) =>
+				input.externalEventId
+					? decision.actionPlan.intent.externalEventId === input.externalEventId
+					: true
+			)
+			.filter((decision) =>
+				input.approvalStatus
+					? decision.approvalStatus === input.approvalStatus
+					: true
+			)
+			.filter((decision) =>
+				input.actorId ? decision.actionPlan.actor.id === input.actorId : true
+			)
+			.filter((decision) =>
+				input.sessionId
+					? decision.actionPlan.audit.sessionId === input.sessionId
+					: true
+			)
+			.filter((decision) =>
+				input.workflowId
+					? decision.actionPlan.audit.workflowId === input.workflowId
+					: true
+			)
+			.filter((decision) =>
+				input.createdAfter
+					? decision.createdAt.getTime() >= input.createdAfter.getTime()
+					: true
+			)
+			.filter((decision) =>
+				input.createdBefore
+					? decision.createdAt.getTime() <= input.createdBefore.getTime()
+					: true
+			)
+			.sort((a, b) => b.createdAt.getTime() - a.createdAt.getTime());
+
+		const limit = Math.max(1, input.limit ?? (decisions.length || 1));
+		return decisions.slice(0, limit);
+	}
+
+	async listPendingApprovals(
+		input: ListPendingApprovalsInput = {}
+	): Promise<ChannelDecisionRecord[]> {
+		const decisions = Array.from(this.decisions.values())
+			.filter((decision) => decision.approvalStatus === 'pending')
+			.filter((decision) =>
+				input.workspaceId
+					? decision.actionPlan.workspaceId === input.workspaceId
+					: true
+			)
+			.filter((decision) =>
+				input.providerKey
+					? decision.actionPlan.providerKey === input.providerKey
+					: true
+			)
+			.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
+
+		const limit = Math.max(1, input.limit ?? (decisions.length || 1));
+		return decisions.slice(0, limit);
+	}
+
+	async resolveDecisionApproval(
+		input: ResolveDecisionApprovalInput
+	): Promise<ChannelDecisionRecord | null> {
+		const record = this.decisions.get(input.decisionId);
+		if (!record || record.approvalStatus !== 'pending') {
+			return null;
+		}
+
+		record.approvalStatus = input.approvalStatus;
+		record.approvalUpdatedAt = input.actedAt;
+		record.approvalContext = input.approvalContext;
+		record.actionPlan = input.actionPlan;
+		record.toolTrace = input.toolTrace;
+		if (input.approvalStatus === 'approved') {
+			record.approvedBy = input.actorId;
+			record.approvedAt = input.actedAt;
+			record.rejectedBy = undefined;
+			record.rejectedAt = undefined;
+			record.rejectionReason = undefined;
+		} else {
+			record.rejectedBy = input.actorId;
+			record.rejectedAt = input.actedAt;
+			record.rejectionReason = input.reason;
+		}
+
+		this.decisions.set(record.id, record);
+		return record;
+	}
+
+	async approveDecisionAndEnqueueOutbox(
+		input: ApproveDecisionAndEnqueueOutboxInput
+	): Promise<{
+		decision: ChannelDecisionRecord;
+		outboxAction: EnqueueOutboxActionResult;
+	} | null> {
+		const record = this.decisions.get(input.resolution.decisionId);
+		if (!record || record.approvalStatus !== 'pending') {
+			return null;
+		}
+		const existingOutboxId = this.outboxKeyToId.get(
+			input.outbox.idempotencyKey
+		);
+		const outboxAction: EnqueueOutboxActionResult = existingOutboxId
+			? {
+					actionId: existingOutboxId,
+					duplicate: true,
+				}
+			: this.createOutboxAction(input.outbox);
+
+		record.approvalStatus = input.resolution.approvalStatus;
+		record.approvalUpdatedAt = input.resolution.actedAt;
+		record.approvalContext = input.resolution.approvalContext;
+		record.actionPlan = input.resolution.actionPlan;
+		record.toolTrace = input.resolution.toolTrace;
+		record.approvedBy = input.resolution.actorId;
+		record.approvedAt = input.resolution.actedAt;
+		record.rejectedBy = undefined;
+		record.rejectedAt = undefined;
+		record.rejectionReason = undefined;
+
+		this.decisions.set(record.id, record);
+		return {
+			decision: record,
+			outboxAction,
+		};
 	}
 
 	async enqueueOutboxAction(
@@ -163,6 +365,12 @@ export class InMemoryChannelRuntimeStore implements ChannelRuntimeStore {
 			};
 		}
 
+		return this.createOutboxAction(input);
+	}
+
+	private createOutboxAction(
+		input: EnqueueOutboxActionInput
+	): EnqueueOutboxActionResult {
 		const id = randomUUID();
 		const now = new Date();
 		this.outbox.set(id, {
@@ -216,6 +424,14 @@ export class InMemoryChannelRuntimeStore implements ChannelRuntimeStore {
 		return claimed;
 	}
 
+	async listOutboxActionsForDecision(
+		decisionId: string
+	): Promise<ChannelOutboxActionRecord[]> {
+		return Array.from(this.outbox.values())
+			.filter((action) => action.decisionId === decisionId)
+			.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
+	}
+
 	async recordDeliveryAttempt(
 		input: RecordDeliveryAttemptInput
 	): Promise<ChannelDeliveryAttemptRecord> {
@@ -231,6 +447,14 @@ export class InMemoryChannelRuntimeStore implements ChannelRuntimeStore {
 		};
 		this.deliveryAttempts.set(`${input.actionId}:${input.attempt}`, record);
 		return record;
+	}
+
+	async listDeliveryAttemptsForAction(
+		actionId: string
+	): Promise<ChannelDeliveryAttemptRecord[]> {
+		return Array.from(this.deliveryAttempts.values())
+			.filter((attempt) => attempt.actionId === actionId)
+			.sort((a, b) => a.attempt - b.attempt);
 	}
 
 	async markOutboxSent(
@@ -267,6 +491,124 @@ export class InMemoryChannelRuntimeStore implements ChannelRuntimeStore {
 		item.lastErrorMessage = input.lastErrorMessage;
 		item.updatedAt = new Date();
 		this.outbox.set(input.actionId, item);
+	}
+
+	async appendTraceEvent(
+		input: AppendTraceEventInput
+	): Promise<ChannelTraceEventRecord> {
+		this.traceEventSequence += 1;
+		const record: ChannelTraceEventRecord = {
+			id: this.traceEventSequence,
+			stage: input.stage,
+			status: input.status,
+			workspaceId: input.workspaceId,
+			providerKey: input.providerKey,
+			receiptId: input.receiptId,
+			decisionId: input.decisionId,
+			actionId: input.actionId,
+			sessionId: input.sessionId,
+			workflowId: input.workflowId,
+			traceId: input.traceId,
+			latencyMs: input.latencyMs,
+			attempt: input.attempt,
+			metadata: input.metadata,
+			createdAt: new Date(),
+		};
+		this.traceEvents.set(String(record.id), record);
+		return record;
+	}
+
+	async listTraceEvents(
+		input: ListTraceEventsInput = {}
+	): Promise<ChannelTraceEventRecord[]> {
+		const items = Array.from(this.traceEvents.values())
+			.filter((event) =>
+				input.traceId ? event.traceId === input.traceId : true
+			)
+			.filter((event) =>
+				input.receiptId ? event.receiptId === input.receiptId : true
+			)
+			.filter((event) =>
+				input.decisionId ? event.decisionId === input.decisionId : true
+			)
+			.filter((event) =>
+				input.actionId ? event.actionId === input.actionId : true
+			)
+			.sort((a, b) => a.createdAt.getTime() - b.createdAt.getTime());
+
+		const limit = Math.max(1, input.limit ?? (items.length || 1));
+		return items.slice(0, limit);
+	}
+
+	async saveSkillInstallation(
+		input: SaveSkillInstallationInput
+	): Promise<ControlPlaneSkillInstallationRecord> {
+		const key = `${input.skillKey}@${input.version}`;
+		const existingId = this.skillKeyToId.get(key);
+		const id = existingId ?? randomUUID();
+		const record: ControlPlaneSkillInstallationRecord = {
+			id,
+			skillKey: input.skillKey,
+			version: input.version,
+			artifactDigest: input.artifactDigest,
+			manifest: input.manifest,
+			verificationReport: input.verificationReport,
+			status: input.status,
+			installedAt: input.installedAt,
+			installedBy: input.installedBy,
+			disabledAt: input.disabledAt,
+			disabledBy: input.disabledBy,
+		};
+		this.skillInstallations.set(id, record);
+		this.skillKeyToId.set(key, id);
+		return record;
+	}
+
+	async getSkillInstallation(
+		installationId: string
+	): Promise<ControlPlaneSkillInstallationRecord | null> {
+		return this.skillInstallations.get(installationId) ?? null;
+	}
+
+	async findSkillInstallation(
+		skillKey: string,
+		version: string
+	): Promise<ControlPlaneSkillInstallationRecord | null> {
+		const id = this.skillKeyToId.get(`${skillKey}@${version}`);
+		return id ? (this.skillInstallations.get(id) ?? null) : null;
+	}
+
+	async listSkillInstallations(
+		input: ListSkillInstallationsInput = {}
+	): Promise<ListSkillInstallationsResult> {
+		const filtered = Array.from(this.skillInstallations.values())
+			.filter((record) =>
+				input.includeDisabled ? true : record.status !== 'disabled'
+			)
+			.filter((record) =>
+				input.skillKey ? record.skillKey === input.skillKey : true
+			)
+			.sort((a, b) => b.installedAt.getTime() - a.installedAt.getTime());
+		const offset = Math.max(0, input.offset ?? 0);
+		const limit = Math.max(1, input.limit ?? (filtered.length || 1));
+		return {
+			items: filtered.slice(offset, offset + limit),
+			total: filtered.length,
+		};
+	}
+
+	async disableSkillInstallation(
+		input: DisableSkillInstallationInput
+	): Promise<ControlPlaneSkillInstallationRecord | null> {
+		const record = this.skillInstallations.get(input.installationId);
+		if (!record || record.status !== 'installed') {
+			return null;
+		}
+		record.status = 'disabled';
+		record.disabledAt = input.disabledAt;
+		record.disabledBy = input.disabledBy;
+		this.skillInstallations.set(record.id, record);
+		return record;
 	}
 
 	private receiptKey(input: ClaimEventReceiptInput): string {

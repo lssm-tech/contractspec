@@ -2,8 +2,7 @@ import { sanitizeMcpName } from '@contractspec/lib.contracts-spec/jsonschema';
 import {
 	createDefaultTransformEngine,
 	registerBasicValidation,
-	registerDefaultReactRenderer,
-} from '@contractspec/lib.contracts-spec/presentations/transform-engine';
+} from '@contractspec/lib.presentation-runtime-core/transform-engine';
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import type { McpCtxFactories } from './mcpTypes';
 
@@ -22,9 +21,7 @@ export function registerMcpPresentations(
 		return;
 	}
 
-	const engine = registerBasicValidation(
-		registerDefaultReactRenderer(createDefaultTransformEngine())
-	);
+	const engine = registerBasicValidation(createDefaultTransformEngine());
 
 	for (const presentationSpec of ctx.presentations.list()) {
 		const baseKey = sanitizeMcpName(

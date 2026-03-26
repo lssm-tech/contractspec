@@ -30,7 +30,11 @@ export class SLAMonitor {
 			const duration = now - state.createdAt.getTime();
 			if (duration > sla.totalDurationMs) {
 				// Only emit if not already completed/failed/cancelled
-				if (state.status === 'running' || state.status === 'paused') {
+				if (
+					state.status === 'running' ||
+					state.status === 'paused' ||
+					state.status === 'waiting'
+				) {
 					this.eventEmitter('workflow.sla_breach', {
 						workflowId: state.workflowId,
 						workflowName: state.workflowName,

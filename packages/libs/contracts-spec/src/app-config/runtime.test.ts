@@ -3,11 +3,6 @@ import { CapabilityRegistry, type CapabilitySpec } from '../capabilities';
 import { DataViewRegistry, type DataViewSpec } from '../data-views';
 import { ExperimentRegistry, type ExperimentSpec } from '../experiments/spec';
 import { type FeatureModuleSpec, FeatureRegistry } from '../features';
-import type { IntegrationConnection } from '../integrations/connection';
-import {
-	type IntegrationSpec,
-	IntegrationSpecRegistry,
-} from '../integrations/spec';
 import { type JobSpec, JobSpecRegistry } from '../jobs/spec';
 import type { KnowledgeSourceConfig } from '../knowledge/source';
 import {
@@ -20,6 +15,11 @@ import { type PolicySpec } from '../policy/spec';
 import { TelemetryRegistry, type TelemetrySpec } from '../telemetry/spec';
 import { ThemeRegistry, type ThemeSpec } from '../themes';
 import { WorkflowRegistry, type WorkflowSpec } from '../workflow/spec';
+import {
+	type AppConfigIntegrationConnection,
+	type AppConfigIntegrationRegistry,
+	type AppConfigIntegrationSpec,
+} from './integrations';
 import { composeAppConfig, resolveAppConfig } from './runtime';
 import { type AppBlueprintSpec, type TenantAppConfig } from './spec';
 
@@ -32,6 +32,23 @@ const ownership = {
 	tags: ['sample'] as Tag[],
 	stability: StabilityEnum.Experimental,
 } as const;
+
+class TestIntegrationRegistry implements AppConfigIntegrationRegistry {
+	private readonly items = new Map<string, AppConfigIntegrationSpec>();
+
+	register(spec: AppConfigIntegrationSpec): this {
+		this.items.set(`${spec.meta.key}.v${spec.meta.version}`, spec);
+		return this;
+	}
+
+	get(key: string, version?: string): AppConfigIntegrationSpec | undefined {
+		if (version) return this.items.get(`${key}.v${version}`);
+		for (const spec of this.items.values()) {
+			if (spec.meta.key === key) return spec;
+		}
+		return undefined;
+	}
+}
 
 function makeCapability(
 	key = 'core.sample',
@@ -185,7 +202,7 @@ function makeExperiment(key = 'core.experiment'): ExperimentSpec {
 function makeIntegrationSpec(
 	key = 'core.integration',
 	version = '1.0.0'
-): IntegrationSpec {
+): AppConfigIntegrationSpec {
 	return {
 		meta: {
 			...ownership,
@@ -225,7 +242,7 @@ function makeIntegrationConnection(
 	tenantId = 'tenant',
 	integrationKey = 'core.integration',
 	integrationVersion = '1.0.0'
-): IntegrationConnection {
+): AppConfigIntegrationConnection {
 	const timestamp = new Date().toISOString();
 	return {
 		meta: {
@@ -520,7 +537,7 @@ describe('resolveAppConfig', () => {
 	});
 
 	it('resolves integrations and knowledge when dependencies provided', () => {
-		const integrationSpecs = new IntegrationSpecRegistry().register(
+		const integrationSpecs = new TestIntegrationRegistry().register(
 			makeIntegrationSpec()
 		);
 		const knowledgeSpaces = new KnowledgeSpaceRegistry().register(
@@ -581,7 +598,7 @@ describe('composeAppConfig', () => {
 		const experiments = new ExperimentRegistry()
 			.register(makeExperiment())
 			.register(makeExperiment('core.experiment.alt'));
-		const integrationSpecs = new IntegrationSpecRegistry().register(
+		const integrationSpecs = new TestIntegrationRegistry().register(
 			makeIntegrationSpec()
 		);
 		const integrationConnections = [makeIntegrationConnection()];
@@ -669,7 +686,7 @@ describe('composeAppConfig', () => {
 	});
 
 	it('reports missing integration and knowledge dependencies when incomplete', () => {
-		const integrationSpecs = new IntegrationSpecRegistry().register(
+		const integrationSpecs = new TestIntegrationRegistry().register(
 			makeIntegrationSpec()
 		);
 		const integrationConnections = [
@@ -759,7 +776,7 @@ describe('composeAppConfig', () => {
 		const experiments = new ExperimentRegistry()
 			.register(makeExperiment())
 			.register(makeExperiment('core.experiment.alt'));
-		const integrationSpecs = new IntegrationSpecRegistry().register(
+		const integrationSpecs = new TestIntegrationRegistry().register(
 			makeIntegrationSpec()
 		);
 		const integrationConnections = [makeIntegrationConnection()];

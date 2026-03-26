@@ -1,4 +1,4 @@
-import type { AgentSpec } from '@contractspec/lib.ai-agent/spec';
+import type { AgentSpec } from '@contractspec/lib.contracts-spec/agent';
 
 export type TicketPriority = 'low' | 'medium' | 'high' | 'urgent';
 export type TicketCategory =

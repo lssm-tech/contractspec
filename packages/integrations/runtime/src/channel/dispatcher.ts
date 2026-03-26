@@ -1,5 +1,6 @@
 import type { ChannelRuntimeStore } from './store';
 import type { ChannelTelemetryEmitter } from './telemetry';
+import { recordChannelTelemetry } from './telemetry-recorder';
 import type { ChannelOutboxActionRecord } from './types';
 
 export interface DispatchSendResult {
@@ -68,6 +69,8 @@ export class ChannelOutboxDispatcher {
 
 		for (const action of actions) {
 			const startedAtMs = Date.now();
+			const traceId = (await this.store.getDecision(action.decisionId))
+				?.actionPlan.traceId;
 			try {
 				const sender = await resolveSender(action.providerKey);
 				if (!sender) {
@@ -90,15 +93,21 @@ export class ChannelOutboxDispatcher {
 					sendResult.providerMessageId
 				);
 				summary.sent += 1;
-				this.telemetry?.record({
-					stage: 'dispatch',
-					status: 'sent',
-					workspaceId: action.workspaceId,
-					providerKey: action.providerKey,
-					actionId: action.id,
-					attempt: action.attemptCount,
-					latencyMs,
-				});
+				await recordChannelTelemetry(
+					this.store,
+					this.telemetry,
+					{
+						stage: 'dispatch',
+						status: 'sent',
+						workspaceId: action.workspaceId,
+						providerKey: action.providerKey,
+						actionId: action.id,
+						traceId,
+						attempt: action.attemptCount,
+						latencyMs,
+					},
+					action.decisionId
+				);
 			} catch (error) {
 				const latencyMs = Date.now() - startedAtMs;
 				const errorCode = getErrorCode(error);
@@ -119,18 +128,24 @@ export class ChannelOutboxDispatcher {
 						lastErrorMessage: errorMessage,
 					});
 					summary.deadLettered += 1;
-					this.telemetry?.record({
-						stage: 'dispatch',
-						status: 'dead_letter',
-						workspaceId: action.workspaceId,
-						providerKey: action.providerKey,
-						actionId: action.id,
-						attempt: action.attemptCount,
-						latencyMs,
-						metadata: {
-							errorCode,
+					await recordChannelTelemetry(
+						this.store,
+						this.telemetry,
+						{
+							stage: 'dispatch',
+							status: 'dead_letter',
+							workspaceId: action.workspaceId,
+							providerKey: action.providerKey,
+							actionId: action.id,
+							traceId,
+							attempt: action.attemptCount,
+							latencyMs,
+							metadata: {
+								errorCode,
+							},
 						},
-					});
+						action.decisionId
+					);
 				} else {
 					const nextAttemptAt = new Date(
 						this.now().getTime() + this.calculateBackoffMs(action.attemptCount)
@@ -142,18 +157,24 @@ export class ChannelOutboxDispatcher {
 						lastErrorMessage: errorMessage,
 					});
 					summary.retried += 1;
-					this.telemetry?.record({
-						stage: 'dispatch',
-						status: 'retry',
-						workspaceId: action.workspaceId,
-						providerKey: action.providerKey,
-						actionId: action.id,
-						attempt: action.attemptCount,
-						latencyMs,
-						metadata: {
-							errorCode,
+					await recordChannelTelemetry(
+						this.store,
+						this.telemetry,
+						{
+							stage: 'dispatch',
+							status: 'retry',
+							workspaceId: action.workspaceId,
+							providerKey: action.providerKey,
+							actionId: action.id,
+							traceId,
+							attempt: action.attemptCount,
+							latencyMs,
+							metadata: {
+								errorCode,
+							},
 						},
-					});
+						action.decisionId
+					);
 				}
 			}
 		}

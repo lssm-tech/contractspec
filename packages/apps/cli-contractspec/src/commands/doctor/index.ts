@@ -45,7 +45,9 @@ function parseCategories(value: string): CheckCategory[] {
 }
 
 export const doctorCommand = new Command('doctor')
-	.description('Diagnose and fix ContractSpec installation issues')
+	.description(
+		'Diagnose and fix ContractSpec installation issues, including same-file DocBlock policy'
+	)
 	.option(
 		'-c, --checks <categories>',
 		`Categories to check: ${ALL_CHECK_CATEGORIES.join(', ')}`,

@@ -12,6 +12,7 @@ import { Logger } from '@contractspec/lib.logger';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js';
 import { Elysia } from 'elysia';
+import { normalizeMcpRequest } from './normalizeMcpRequest';
 
 export interface McpAuthValidationResult {
 	valid: boolean;
@@ -150,7 +151,7 @@ export function createMcpElysiaHandler({
 		});
 
 		try {
-			return await state.transport.handleRequest(request);
+			return await state.transport.handleRequest(normalizeMcpRequest(request));
 		} finally {
 			await closeSessionState(state);
 		}
@@ -189,7 +190,9 @@ export function createMcpElysiaHandler({
 		}
 
 		try {
-			const response = await state.transport.handleRequest(request);
+			const response = await state.transport.handleRequest(
+				normalizeMcpRequest(request)
+			);
 			const activeSessionId = state.transport.sessionId;
 
 			if (activeSessionId && !sessions.has(activeSessionId)) {

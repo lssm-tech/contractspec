@@ -17,6 +17,7 @@ export type CICheckCategory =
 	| 'integrity'
 	| 'deps'
 	| 'doctor'
+	| 'docs'
 	| 'policy'
 	| 'handlers'
 	| 'tests'
@@ -34,6 +35,7 @@ export const ALL_CI_CHECK_CATEGORIES: CICheckCategory[] = [
 	'integrity',
 	'deps',
 	'doctor',
+	'docs',
 	'policy',
 	'handlers',
 	'tests',
@@ -52,6 +54,7 @@ export const CI_CHECK_CATEGORY_LABELS: Record<CICheckCategory, string> = {
 	integrity: 'Contract Integrity Analysis',
 	deps: 'Dependency Analysis',
 	doctor: 'Installation Health',
+	docs: 'DocBlock Ownership',
 	policy: 'Contract Policy Enforcement',
 	handlers: 'Handler Implementation',
 	tests: 'Test Coverage',

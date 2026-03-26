@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/example.learning-journey-registry",
-	"version": "3.7.11",
+	"version": "3.7.15",
 	"description": "Registry that aggregates learning journey example tracks.",
 	"type": "module",
 	"types": "./dist/index.d.ts",
@@ -55,7 +55,7 @@
 		"@contractspec/tool.bun": "workspace:*"
 	},
 	"peerDependencies": {
-		"react": "^19.2.0"
+		"react": "^19.2.4"
 	},
 	"publishConfig": {
 		"exports": {

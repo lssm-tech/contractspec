@@ -26,6 +26,14 @@ export interface HarnessLabEvaluationToolsOptions {
 	replaySink?: HarnessReplaySink;
 }
 
+export interface HarnessLabEvaluationTools {
+	artifactStore: InMemoryHarnessArtifactStore;
+	evaluationRunner: HarnessEvaluationRunner;
+	getReplayBundle(): HarnessReplayBundle;
+	getReplayUri(): string | undefined;
+	dispose(): Promise<void>;
+}
+
 export function createHarnessLabNow() {
 	let tick = 0;
 	const base = Date.parse('2026-03-20T10:00:00.000Z');
@@ -82,10 +90,11 @@ function createReplayCapture(delegate?: HarnessReplaySink) {
 
 export function createHarnessLabEvaluationTools(
 	options: HarnessLabEvaluationToolsOptions = {}
-) {
+): HarnessLabEvaluationTools {
 	const now = createHarnessLabNow();
 	const replayCapture = createReplayCapture(options.replaySink);
 	const artifactStore = new InMemoryHarnessArtifactStore();
+	const browserAdapter = new PlaywrightBrowserHarnessAdapter();
 	const runner = new HarnessRunner({
 		targetResolver: new DefaultHarnessTargetResolver({
 			previewBaseUrl: options.previewBaseUrl,
@@ -96,7 +105,7 @@ export function createHarnessLabEvaluationTools(
 		artifactStore,
 		adapters: [
 			new SandboxedCodeExecutionAdapter({ timeoutMs: 1_000 }),
-			new PlaywrightBrowserHarnessAdapter(),
+			browserAdapter,
 		],
 		approvalGateway: {
 			async approve() {
@@ -125,5 +134,6 @@ export function createHarnessLabEvaluationTools(
 		evaluationRunner,
 		getReplayBundle: replayCapture.getBundle,
 		getReplayUri: replayCapture.getReplayUri,
+		dispose: () => browserAdapter.dispose(),
 	};
 }

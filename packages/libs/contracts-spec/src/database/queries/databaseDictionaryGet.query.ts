@@ -1,7 +1,7 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { docRef } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
 import { defineQuery } from '../../operations';
-import '../ensure-docblocks';
-import { docId } from '../../docs/registry';
 import {
 	DATABASE_DOMAIN,
 	DATABASE_OWNERS,
@@ -39,6 +39,20 @@ const DatabaseDictionaryGetOutput = new SchemaModel({
 	},
 });
 
+export const DatabaseDictionaryGetDocBlock = {
+	id: 'docs.tech.database.dictionary.get',
+	title: 'Get data dictionary entry',
+	summary: 'Retrieve a dictionary entry for a schema field.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/database/dictionary/get',
+	tags: ['database', 'dictionary'],
+	body: `# database.dictionary.get
+
+Returns semantic descriptions and PII tags for fields.
+`,
+} satisfies DocBlock;
+
 export const DatabaseDictionaryGetQuery = defineQuery({
 	meta: {
 		key: 'database.dictionary.get',
@@ -51,7 +65,7 @@ export const DatabaseDictionaryGetQuery = defineQuery({
 		owners: DATABASE_OWNERS,
 		tags: [...DATABASE_TAGS, 'dictionary'],
 		stability: DATABASE_STABILITY,
-		docId: [docId('docs.tech.database.dictionary.get')],
+		docId: [docRef(DatabaseDictionaryGetDocBlock.id)],
 	},
 	capability: {
 		key: 'database.context',

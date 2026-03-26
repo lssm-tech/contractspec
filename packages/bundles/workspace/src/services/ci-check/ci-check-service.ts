@@ -12,6 +12,7 @@ import { listSpecs } from '../list';
 import {
 	runCoverageChecks,
 	runDepsChecks,
+	runDocsChecks,
 	runDoctorChecks,
 	runDriftChecks,
 	runHandlerChecks,
@@ -100,6 +101,15 @@ export async function runCIChecks(
 		issues.push(...doctorIssues);
 		categorySummaries.push(
 			createCategorySummary('doctor', doctorIssues, Date.now() - categoryStart)
+		);
+	}
+
+	if (checksToRun.includes('docs')) {
+		const categoryStart = Date.now();
+		const docsIssues = await runDocsChecks(adapters, options);
+		issues.push(...docsIssues);
+		categorySummaries.push(
+			createCategorySummary('docs', docsIssues, Date.now() - categoryStart)
 		);
 	}
 

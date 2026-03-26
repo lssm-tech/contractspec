@@ -1,6 +1,5 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
 import { defineQuery } from '../../operations';
-import '../ensure-docblocks';
 import {
 	DOCS_DOMAIN,
 	DOCS_OWNERS,
@@ -8,6 +7,7 @@ import {
 	DOCS_TAGS,
 } from '../constants';
 import { docId } from '../registry';
+import type { DocBlock } from '../types';
 
 export const DocSummaryModel = new SchemaModel({
 	name: 'DocSummary',
@@ -52,6 +52,20 @@ export const DocsIndexOutput = new SchemaModel({
 		nextOffset: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
 	},
 });
+
+export const DocsIndexDocBlock = {
+	id: 'docs.tech.docs-search',
+	title: 'Docs index and search',
+	summary: 'Search DocBlocks by query, tag, kind, or visibility.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/docs/search',
+	tags: ['docs', 'search'],
+	body: `# Docs index and search
+
+The docs index is the canonical list of DocBlocks exposed to UI, CLI, and MCP surfaces for filtering and retrieval.
+`,
+} satisfies DocBlock;
 
 export const DocsIndexQuery = defineQuery({
 	meta: {

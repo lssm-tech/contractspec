@@ -11,7 +11,7 @@ Open banking account sync, balance refresh, and transaction synchronization
 - **Stability**: experimental
 - **Owners**: @platform.finance
 - **Tags**: open-banking, powens, finance, banking
-- **File**: `packages/libs/contracts-spec/src/integrations/openbanking/openbanking.feature.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/openbanking/openbanking.feature.ts`
 
 ## Operations (7)
 

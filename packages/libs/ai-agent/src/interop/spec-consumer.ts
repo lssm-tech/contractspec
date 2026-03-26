@@ -7,9 +7,11 @@
  * - Query spec metadata
  */
 
+import {
+	type AgentSpec,
+	agentKey,
+} from '@contractspec/lib.contracts-spec/agent';
 import { createAgentI18n } from '../i18n';
-import type { AgentSpec } from '../spec/spec';
-import { agentKey } from '../spec/spec';
 import type {
 	SpecConsumer,
 	SpecConsumerConfig,

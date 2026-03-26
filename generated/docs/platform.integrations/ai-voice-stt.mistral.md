@@ -10,7 +10,7 @@ Mistral audio transcription integration for batch and streaming speech-to-text u
 - **Version**: 1.0.0
 - **Owners**: platform.ai
 - **Tags**: voice, stt, transcription, mistral, voxtral
-- **File**: `packages/libs/contracts-spec/src/integrations/providers/mistral-stt.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/mistral-stt.ts`
 
 ## Source Definition
 
@@ -29,6 +29,13 @@ export const mistralSttIntegrationSpec = defineIntegration({
 		stability: StabilityEnum.Experimental,
 	},
 	supportedModes: ['managed', 'byok'],
+	transports: [
+		{ type: 'rest', baseUrl: 'https://api.mistral.ai' },
+	] satisfies IntegrationTransportConfig[],
+	preferredTransport: 'rest',
+	supportedAuthMethods: [
+		{ type: 'api-key', headerName: 'Authorization', prefix: 'Bearer ' },
+	] satisfies IntegrationAuthConfig[],
 	capabilities: {
 		provides: [{ key: 'ai.voice.stt', version: '1.0.0' }],
 	},
@@ -87,6 +94,8 @@ export const mistralSttIntegrationSpec = defineIntegration({
 	byokSetup: {
 		setupInstructions:
 			'Generate a Mistral API key and ensure the project has access to Voxtral or another transcription-capable model.',
+		keyRotationSupported: true,
+		quotaTrackingSupported: true,
 	},
 });
 ```

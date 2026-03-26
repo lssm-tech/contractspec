@@ -10,7 +10,7 @@ ElevenLabs integration for neural voice synthesis and voice catalog access.
 - **Version**: 1.0.0
 - **Owners**: platform.ai
 - **Tags**: voice, tts, stt
-- **File**: `packages/libs/contracts-spec/src/integrations/providers/elevenlabs.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/elevenlabs.ts`
 
 ## Source Definition
 
@@ -29,6 +29,14 @@ export const elevenLabsIntegrationSpec = defineIntegration({
 		stability: StabilityEnum.Beta,
 	},
 	supportedModes: ['managed', 'byok'],
+	transports: [
+		{ type: 'rest', baseUrl: 'https://api.elevenlabs.io' },
+		{ type: 'sdk', packageName: 'elevenlabs' },
+	] satisfies IntegrationTransportConfig[],
+	preferredTransport: 'rest',
+	supportedAuthMethods: [
+		{ type: 'header', headerName: 'xi-api-key' },
+	] satisfies IntegrationAuthConfig[],
 	capabilities: {
 		provides: [
 			{ key: 'ai.voice.tts', version: '1.0.0' },
@@ -78,6 +86,8 @@ export const elevenLabsIntegrationSpec = defineIntegration({
 	byokSetup: {
 		setupInstructions:
 			'Create an ElevenLabs API key and ensure the desired voices are accessible to the key scope.',
+		keyRotationSupported: false,
+		quotaTrackingSupported: true,
 	},
 });
 ```

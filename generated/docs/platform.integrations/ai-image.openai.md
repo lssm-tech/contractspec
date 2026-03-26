@@ -10,7 +10,7 @@ OpenAI integration for AI image generation using DALL-E and gpt-image models.
 - **Version**: 1.0.0
 - **Owners**: platform.ai
 - **Tags**: image, generation, dall-e, gpt-image
-- **File**: `packages/libs/contracts-spec/src/integrations/providers/openai-image.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/openai-image.ts`
 
 ## Source Definition
 
@@ -29,6 +29,14 @@ export const openaiImageIntegrationSpec = defineIntegration({
 		stability: StabilityEnum.Experimental,
 	},
 	supportedModes: ['managed', 'byok'],
+	transports: [
+		{ type: 'rest', baseUrl: 'https://api.openai.com' },
+		{ type: 'sdk', packageName: 'openai' },
+	] satisfies IntegrationTransportConfig[],
+	preferredTransport: 'rest',
+	supportedAuthMethods: [
+		{ type: 'api-key', headerName: 'Authorization', prefix: 'Bearer ' },
+	] satisfies IntegrationAuthConfig[],
 	capabilities: {
 		provides: [{ key: 'ai.image.generation', version: '1.0.0' }],
 	},
@@ -85,6 +93,8 @@ export const openaiImageIntegrationSpec = defineIntegration({
 	byokSetup: {
 		setupInstructions:
 			'Create an OpenAI API key with image generation access enabled.',
+		keyRotationSupported: true,
+		quotaTrackingSupported: true,
 	},
 });
 ```

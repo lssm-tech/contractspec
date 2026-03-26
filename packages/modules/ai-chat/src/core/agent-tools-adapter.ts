@@ -1,9 +1,9 @@
 /**
- * Converts AgentToolConfig from ai-agent to AI SDK ToolSet.
+ * Converts contract-defined AgentToolConfig values to AI SDK ToolSet.
  * Handlers are optional; when missing, execute returns unimplemented stub.
  */
 
-import type { AgentToolConfig } from '@contractspec/lib.ai-agent';
+import type { AgentToolConfig } from '@contractspec/lib.contracts-spec/agent';
 import { type ToolSet, tool } from 'ai';
 import { z } from 'zod';
 

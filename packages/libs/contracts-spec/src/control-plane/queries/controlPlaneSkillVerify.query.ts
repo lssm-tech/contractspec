@@ -6,6 +6,10 @@ import {
 	CONTROL_PLANE_STABILITY,
 	CONTROL_PLANE_TAGS,
 } from '../constants';
+import {
+	ControlPlaneSkillManifestModel,
+	ControlPlaneSkillVerificationIssueModel,
+} from '../skills/schema';
 
 const ControlPlaneSkillVerifyInput = new SchemaModel({
 	name: 'ControlPlaneSkillVerifyInput',
@@ -16,8 +20,7 @@ const ControlPlaneSkillVerifyInput = new SchemaModel({
 			type: ScalarTypeEnum.String_unsecure(),
 			isOptional: false,
 		},
-		signature: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-		keyId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+		manifest: { type: ControlPlaneSkillManifestModel, isOptional: false },
 	},
 });
 
@@ -25,6 +28,18 @@ const ControlPlaneSkillVerifyOutput = new SchemaModel({
 	name: 'ControlPlaneSkillVerifyOutput',
 	fields: {
 		verified: { type: ScalarTypeEnum.Boolean(), isOptional: false },
+		signatureVerified: { type: ScalarTypeEnum.Boolean(), isOptional: true },
+		publisherTrusted: { type: ScalarTypeEnum.Boolean(), isOptional: true },
+		compatibilityVerified: { type: ScalarTypeEnum.Boolean(), isOptional: true },
+		manifestDigest: {
+			type: ScalarTypeEnum.String_unsecure(),
+			isOptional: true,
+		},
+		issues: {
+			type: ControlPlaneSkillVerificationIssueModel,
+			isOptional: true,
+			isArray: true,
+		},
 		reason: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
 		verifiedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
 	},

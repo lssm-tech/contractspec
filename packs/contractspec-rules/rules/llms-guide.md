@@ -53,12 +53,12 @@ Minimum content checklist (should)
 - Feature flags: naming convention and where defined
 - Data stores: types and high-level schemas (links over dumps)
 - Environment markers: dev/stage/prod domain patterns
-- Links to deeper docs under docs/tech and docs/ops
+- Links to deeper docs through stable doc routes or generated manifests, not `docs/tech`
 
 Change management (must)
 
 - Keep the file in sync with significant product or API changes.
-- If the app introduces enums/flags/APIs used in ≥2 places, ensure docs/ contains the canonical definition and reference it from this file.
+- If the app introduces enums/flags/APIs used in ≥2 places, ensure the canonical same-file DocBlock exists and reference its stable route from this file.
 
 Quality heuristics
 

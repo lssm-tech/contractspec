@@ -10,7 +10,7 @@ Stripe integration for payment processing, charges, and payouts.
 - **Version**: 1.0.0
 - **Owners**: platform.payments
 - **Tags**: payments, psp
-- **File**: `packages/libs/contracts-spec/src/integrations/providers/stripe.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/stripe.ts`
 
 ## Source Definition
 
@@ -29,6 +29,42 @@ export const stripeIntegrationSpec = defineIntegration({
 		stability: StabilityEnum.Stable,
 	},
 	supportedModes: ['managed', 'byok'],
+	transports: [
+		{
+			type: 'rest',
+			baseUrl: 'https://api.stripe.com',
+			apiVersionHeader: 'Stripe-Version',
+		},
+		{
+			type: 'webhook',
+			inbound: {
+				signatureHeader: 'stripe-signature',
+				signingAlgorithm: 'hmac-sha256',
+			},
+		},
+		{ type: 'sdk', packageName: 'stripe', minVersion: '14.0.0' },
+	],
+	preferredTransport: 'rest',
+	supportedAuthMethods: [
+		{ type: 'api-key', headerName: 'Authorization', prefix: 'Bearer ' },
+		{
+			type: 'oauth2',
+			grantType: 'authorization_code',
+			authorizationUrl: 'https://connect.stripe.com/oauth/authorize',
+			tokenUrl: 'https://connect.stripe.com/oauth/token',
+			scopes: ['read_write'],
+		},
+		{
+			type: 'webhook-signing',
+			algorithm: 'hmac-sha256',
+			signatureHeader: 'stripe-signature',
+		},
+	],
+	versionPolicy: {
+		currentVersion: '2024-11-20.acacia',
+		supportedVersions: [{ version: '2024-11-20.acacia', status: 'stable' }],
+		versionHeader: 'Stripe-Version',
+	},
 	capabilities: {
 		provides: [{ key: 'payments.psp', version: '1.0.0' }],
 		requires: [
@@ -93,6 +129,8 @@ export const stripeIntegrationSpec = defineIntegration({
 		setupInstructions:
 			'Create a restricted Stripe API key with write access to Charges and provide a webhook signing secret.',
 		requiredScopes: ['charges:write', 'customers:read'],
+		keyRotationSupported: true,
+		quotaTrackingSupported: false,
 	},
 });
 ```

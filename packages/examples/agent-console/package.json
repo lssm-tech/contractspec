@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/example.agent-console",
-	"version": "3.8.3",
+	"version": "3.8.7",
 	"description": "Agent Console example - AI agent orchestration with tools, runs, and logs",
 	"type": "module",
 	"types": "./dist/index.d.ts",
@@ -103,7 +103,8 @@
 		"@contractspec/lib.design-system": "workspace:*",
 		"@contractspec/lib.runtime-sandbox": "workspace:*",
 		"react": "catalog:",
-		"react-dom": "catalog:"
+		"react-dom": "catalog:",
+		"@contractspec/lib.presentation-runtime-core": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/lib.harness": "workspace:*",
@@ -111,7 +112,7 @@
 		"@contractspec/tool.typescript": "workspace:*",
 		"@types/react": "^19.2.14",
 		"@types/react-dom": "^19.2.2",
-		"happy-dom": "^20.8.4",
+		"happy-dom": "^20.8.8",
 		"typescript": "catalog:"
 	},
 	"publishConfig": {

@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/example.visualization-showcase",
-	"version": "3.9.3",
+	"version": "3.9.7",
 	"description": "Focused visualization showcase for ContractSpec primitives and design-system wrappers",
 	"type": "module",
 	"types": "./dist/index.d.ts",
@@ -14,6 +14,7 @@
 		"./ui/renderers/visualization-showcase.markdown": "./src/ui/renderers/visualization-showcase.markdown.ts",
 		"./ui/VisualizationShowcase": "./src/ui/VisualizationShowcase.tsx",
 		"./visualization-showcase.feature": "./src/visualization-showcase.feature.ts",
+		"./visualization-showcase.presentation": "./src/visualization-showcase.presentation.ts",
 		"./visualizations": "./src/visualizations/index.ts",
 		"./visualizations/data": "./src/visualizations/data.ts",
 		"./visualizations/registry": "./src/visualizations/registry.ts",
@@ -41,7 +42,8 @@
 		"@contractspec/lib.contracts-spec": "workspace:*",
 		"@contractspec/lib.design-system": "workspace:*",
 		"react": "catalog:",
-		"react-dom": "catalog:"
+		"react-dom": "catalog:",
+		"@contractspec/lib.presentation-runtime-core": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",
@@ -119,6 +121,13 @@
 				"bun": "./dist/visualization-showcase.feature.js",
 				"node": "./dist/node/visualization-showcase.feature.js",
 				"default": "./dist/visualization-showcase.feature.js"
+			},
+			"./visualization-showcase.presentation": {
+				"types": "./dist/visualization-showcase.presentation.d.ts",
+				"browser": "./dist/browser/visualization-showcase.presentation.js",
+				"bun": "./dist/visualization-showcase.presentation.js",
+				"node": "./dist/node/visualization-showcase.presentation.js",
+				"default": "./dist/visualization-showcase.presentation.js"
 			},
 			"./visualizations": {
 				"types": "./dist/visualizations/index.d.ts",

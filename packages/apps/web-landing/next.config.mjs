@@ -83,6 +83,10 @@ const nextConfig = {
 				source: '/llms-full',
 				destination: '/llms-full.txt',
 			},
+			{
+				source: '/llms/:slug',
+				destination: '/llms-packages/:slug.txt',
+			},
 			// Docs subpath discovery (Agent-Friendly Documentation Spec)
 			{
 				source: '/docs/llms.txt',

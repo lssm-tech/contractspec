@@ -1,5 +1,4 @@
 import { definePresentation } from '../../presentations';
-import '../ensure-docblocks';
 import {
 	DOCS_DOMAIN,
 	DOCS_OWNERS,

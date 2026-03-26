@@ -28,7 +28,7 @@ Examples may depend on any lower layer to demonstrate the stack, and tools suppo
 ## First-Class Surfaces
 
 - **Contracts and generation**: `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`, and `@contractspec/app.cli-contractspec`.
-- **Runtime adapters**: REST, GraphQL, MCP, and React runtime packages under `packages/libs/contracts-runtime-*`.
+- **Runtime adapters**: REST, GraphQL, MCP, React runtime packages under `packages/libs/contracts-runtime-*`, and Workflow DevKit support via `@contractspec/integration.workflow-devkit`.
 - **Agent systems**: `@contractspec/lib.ai-agent` and `@contractspec/module.ai-chat`.
 - **Harness and evaluation**: `@contractspec/lib.harness` and `@contractspec/integration.harness-runtime`.
 - **Ranking and MCP workflows**: provider-ranking module and MCP server surfaces.
@@ -47,6 +47,7 @@ Examples may depend on any lower layer to demonstrate the stack, and tools suppo
 - `lib.harness` — harness orchestration, policy, replay, and evidence normalization
 - `integration.harness-runtime` — browser, sandbox, artifact, and MCP-backed harness runtime adapters
 - `module.ai-chat` — packaged AI chat feature surface with presentation and provider bindings
+- `integration.workflow-devkit` — Workflow DevKit compilation, runtime bridging, reconnectable chat routes, and Workflow-backed agent adapters
 - `module.provider-ranking` — ranking ingestion, storage, and orchestration layer
 - `bundle.workspace` — CLI/editor/repository workflow composition
 - `bundle.library` — docs, templates, integrations, shell, and MCP composition

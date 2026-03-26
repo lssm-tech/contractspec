@@ -1,6 +1,7 @@
 export type ChannelTelemetryStage =
 	| 'ingest'
 	| 'decision'
+	| 'approval'
 	| 'outbox'
 	| 'dispatch';
 
@@ -8,7 +9,10 @@ export type ChannelTelemetryStatus =
 	| 'accepted'
 	| 'duplicate'
 	| 'rejected'
+	| 'pending'
 	| 'processed'
+	| 'approved'
+	| 'expired'
 	| 'failed'
 	| 'sent'
 	| 'retry'
@@ -21,6 +25,8 @@ export interface ChannelTelemetryEvent {
 	providerKey?: string;
 	receiptId?: string;
 	actionId?: string;
+	sessionId?: string;
+	workflowId?: string;
 	traceId?: string;
 	latencyMs?: number;
 	attempt?: number;

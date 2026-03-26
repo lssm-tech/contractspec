@@ -1,178 +1,178 @@
 [
-  {
-    "id": "platform.harness/harness.evaluation",
-    "title": "harness.evaluation",
-    "summary": "Run scenario evaluations and inspect assertion outcomes.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: evaluation\n- **File**: `packages/libs/contracts-spec/src/harness/capabilities/harnessEvaluation.capability.ts`",
-    "route": "/docs/reference/platform.harness/harness.evaluation",
-    "source": "generated",
-    "contentPath": "platform.harness/harness.evaluation.md"
-  },
-  {
-    "id": "platform.harness/harness.evaluation.completed",
-    "title": "harness.evaluation.completed",
-    "summary": "Emitted when a harness evaluation completes.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: evaluation, completed\n- **File**: `packages/libs/contracts-spec/src/harness/events/harnessEvaluationCompleted.event.ts`",
-    "route": "/docs/reference/platform.harness/harness.evaluation.completed",
-    "source": "generated",
-    "contentPath": "platform.harness/harness.evaluation.completed.md"
-  },
-  {
-    "id": "platform.harness/harness.evaluation.get",
-    "title": "harness.evaluation.get",
-    "summary": "Fetch one evaluation and its assertion results.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: evaluation\n- **File**: `packages/libs/contracts-spec/src/harness/queries/harnessEvaluationGet.query.ts`",
-    "route": "/docs/reference/platform.harness/harness.evaluation.get",
-    "source": "generated",
-    "contentPath": "platform.harness/harness.evaluation.get.md"
-  },
-  {
-    "id": "platform.harness/harness.evaluation.run",
-    "title": "harness.evaluation.run",
-    "summary": "Run a harness scenario or suite as an evaluation.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: evaluation, run\n- **File**: `packages/libs/contracts-spec/src/harness/commands/harnessEvaluationRun.command.ts`",
-    "route": "/docs/reference/platform.harness/harness.evaluation.run",
-    "source": "generated",
-    "contentPath": "platform.harness/harness.evaluation.run.md"
-  },
-  {
-    "id": "platform.harness/harness.evidence",
-    "title": "harness.evidence",
-    "summary": "Capture and retrieve normalized evidence artifacts.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: evidence\n- **File**: `packages/libs/contracts-spec/src/harness/capabilities/harnessEvidence.capability.ts`",
-    "route": "/docs/reference/platform.harness/harness.evidence",
-    "source": "generated",
-    "contentPath": "platform.harness/harness.evidence.md"
-  },
-  {
-    "id": "platform.harness/harness.evidence.captured",
-    "title": "harness.evidence.captured",
-    "summary": "Emitted when a harness artifact is captured.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: evidence\n- **File**: `packages/libs/contracts-spec/src/harness/events/harnessEvidenceCaptured.event.ts`",
-    "route": "/docs/reference/platform.harness/harness.evidence.captured",
-    "source": "generated",
-    "contentPath": "platform.harness/harness.evidence.captured.md"
-  },
-  {
-    "id": "platform.harness/harness.evidence.get",
-    "title": "harness.evidence.get",
-    "summary": "Fetch one evidence artifact by id.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: evidence\n- **File**: `packages/libs/contracts-spec/src/harness/queries/harnessEvidenceGet.query.ts`\nSupport evidence drill-down and replay inputs.",
-    "route": "/docs/reference/platform.harness/harness.evidence.get",
-    "source": "generated",
-    "contentPath": "platform.harness/harness.evidence.get.md"
-  },
-  {
-    "id": "platform.harness/harness.evidence.list",
-    "title": "harness.evidence.list",
-    "summary": "List normalized evidence artifacts for one run.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: evidence, list\n- **File**: `packages/libs/contracts-spec/src/harness/queries/harnessEvidenceList.query.ts`",
-    "route": "/docs/reference/platform.harness/harness.evidence.list",
-    "source": "generated",
-    "contentPath": "platform.harness/harness.evidence.list.md"
-  },
-  {
-    "id": "platform.harness/harness.execution",
-    "title": "harness.execution",
-    "summary": "Run, inspect, and cancel harness sessions.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: execution\n- **File**: `packages/libs/contracts-spec/src/harness/capabilities/harnessExecution.capability.ts`",
-    "route": "/docs/reference/platform.harness/harness.execution",
-    "source": "generated",
-    "contentPath": "platform.harness/harness.execution.md"
-  },
-  {
-    "id": "platform.harness/harness.run.audit",
-    "title": "harness.run.audit",
-    "summary": "Audit view for harness runs, steps, evidence, and assertions.\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Tags**: audit\n- **File**: `packages/libs/contracts-spec/src/harness/presentations/harnessRunAudit.presentation.ts`",
-    "route": "/docs/reference/platform.harness/harness.run.audit",
-    "source": "generated",
-    "contentPath": "platform.harness/harness.run.audit.md"
-  },
-  {
-    "id": "platform.harness/harness.run.cancel",
-    "title": "harness.run.cancel",
-    "summary": "Cancel an in-flight harness run.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: run, cancel\n- **File**: `packages/libs/contracts-spec/src/harness/commands/harnessRunCancel.command.ts`\nStop execution while preserving evidence and audit state.",
-    "route": "/docs/reference/platform.harness/harness.run.cancel",
-    "source": "generated",
-    "contentPath": "platform.harness/harness.run.cancel.md"
-  },
-  {
-    "id": "platform.harness/harness.run.completed",
-    "title": "harness.run.completed",
-    "summary": "Emitted when a harness run completes.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: run, completed\n- **File**: `packages/libs/contracts-spec/src/harness/events/harnessRunCompleted.event.ts`\n```typescript",
-    "route": "/docs/reference/platform.harness/harness.run.completed",
-    "source": "generated",
-    "contentPath": "platform.harness/harness.run.completed.md"
-  },
-  {
-    "id": "platform.harness/harness.run.failed",
-    "title": "harness.run.failed",
-    "summary": "Emitted when a harness run fails.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: run, failed\n- **File**: `packages/libs/contracts-spec/src/harness/events/harnessRunFailed.event.ts`\n```typescript",
-    "route": "/docs/reference/platform.harness/harness.run.failed",
-    "source": "generated",
-    "contentPath": "platform.harness/harness.run.failed.md"
-  },
-  {
-    "id": "platform.harness/harness.run.get",
-    "title": "harness.run.get",
-    "summary": "Fetch one harness run with step metadata.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: run\n- **File**: `packages/libs/contracts-spec/src/harness/queries/harnessRunGet.query.ts`\nSupport audit, debugging, and run tracking.",
-    "route": "/docs/reference/platform.harness/harness.run.get",
-    "source": "generated",
-    "contentPath": "platform.harness/harness.run.get.md"
-  },
-  {
-    "id": "platform.harness/harness.run.start",
-    "title": "harness.run.start",
-    "summary": "Start a harness run for a scenario or suite.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: run, start\n- **File**: `packages/libs/contracts-spec/src/harness/commands/harnessRunStart.command.ts`",
-    "route": "/docs/reference/platform.harness/harness.run.start",
-    "source": "generated",
-    "contentPath": "platform.harness/harness.run.start.md"
-  },
-  {
-    "id": "platform.harness/harness.run.started",
-    "title": "harness.run.started",
-    "summary": "Emitted when a harness run starts.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: run, started\n- **File**: `packages/libs/contracts-spec/src/harness/events/harnessRunStarted.event.ts`\n```typescript",
-    "route": "/docs/reference/platform.harness/harness.run.started",
-    "source": "generated",
-    "contentPath": "platform.harness/harness.run.started.md"
-  },
-  {
-    "id": "platform.harness/harness.step.blocked",
-    "title": "harness.step.blocked",
-    "summary": "Emitted when a harness step is blocked by policy.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: step, blocked\n- **File**: `packages/libs/contracts-spec/src/harness/events/harnessStepBlocked.event.ts`",
-    "route": "/docs/reference/platform.harness/harness.step.blocked",
-    "source": "generated",
-    "contentPath": "platform.harness/harness.step.blocked.md"
-  },
-  {
-    "id": "platform.harness/harness.step.completed",
-    "title": "harness.step.completed",
-    "summary": "Emitted when a harness step completes.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: step, completed\n- **File**: `packages/libs/contracts-spec/src/harness/events/harnessStepCompleted.event.ts`",
-    "route": "/docs/reference/platform.harness/harness.step.completed",
-    "source": "generated",
-    "contentPath": "platform.harness/harness.step.completed.md"
-  },
-  {
-    "id": "platform.harness/harness.step.started",
-    "title": "harness.step.started",
-    "summary": "Emitted when a harness step starts.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: step, started\n- **File**: `packages/libs/contracts-spec/src/harness/events/harnessStepStarted.event.ts`\n```typescript",
-    "route": "/docs/reference/platform.harness/harness.step.started",
-    "source": "generated",
-    "contentPath": "platform.harness/harness.step.started.md"
-  },
-  {
-    "id": "platform.harness/harness.target.resolve",
-    "title": "harness.target.resolve",
-    "summary": "Resolve the isolated target used for a harness run.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: target\n- **File**: `packages/libs/contracts-spec/src/harness/queries/harnessTargetResolve.query.ts`",
-    "route": "/docs/reference/platform.harness/harness.target.resolve",
-    "source": "generated",
-    "contentPath": "platform.harness/harness.target.resolve.md"
-  },
-  {
-    "id": "platform.harness/harness.targeting",
-    "title": "harness.targeting",
-    "summary": "Resolve preview, task, shared, and sandbox harness targets.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: targeting\n- **File**: `packages/libs/contracts-spec/src/harness/capabilities/harnessTargeting.capability.ts`",
-    "route": "/docs/reference/platform.harness/harness.targeting",
-    "source": "generated",
-    "contentPath": "platform.harness/harness.targeting.md"
-  },
-  {
-    "id": "platform.harness/platform.harness",
-    "title": "platform.harness",
-    "summary": "Controlled application inspection, testing, validation, and proof generation.\n- **Type**: feature\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts-spec/src/harness/harness.feature.ts`\n- `harness.target.resolve` (v1.0.0)",
-    "route": "/docs/reference/platform.harness/platform.harness",
-    "source": "generated",
-    "contentPath": "platform.harness/platform.harness.md"
-  }
+	{
+		"id": "platform.harness/harness.evaluation",
+		"title": "harness.evaluation",
+		"summary": "Run scenario evaluations and inspect assertion outcomes.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: evaluation\n- **File**: `packages/libs/contracts-spec/src/harness/capabilities/harnessEvaluation.capability.ts`",
+		"route": "/docs/reference/platform.harness/harness.evaluation",
+		"source": "generated",
+		"contentPath": "platform.harness/harness.evaluation.md"
+	},
+	{
+		"id": "platform.harness/harness.evaluation.completed",
+		"title": "harness.evaluation.completed",
+		"summary": "Emitted when a harness evaluation completes.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: evaluation, completed\n- **File**: `packages/libs/contracts-spec/src/harness/events/harnessEvaluationCompleted.event.ts`",
+		"route": "/docs/reference/platform.harness/harness.evaluation.completed",
+		"source": "generated",
+		"contentPath": "platform.harness/harness.evaluation.completed.md"
+	},
+	{
+		"id": "platform.harness/harness.evaluation.get",
+		"title": "harness.evaluation.get",
+		"summary": "Fetch one evaluation and its assertion results.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: evaluation\n- **File**: `packages/libs/contracts-spec/src/harness/queries/harnessEvaluationGet.query.ts`",
+		"route": "/docs/reference/platform.harness/harness.evaluation.get",
+		"source": "generated",
+		"contentPath": "platform.harness/harness.evaluation.get.md"
+	},
+	{
+		"id": "platform.harness/harness.evaluation.run",
+		"title": "harness.evaluation.run",
+		"summary": "Run a harness scenario or suite as an evaluation.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: evaluation, run\n- **File**: `packages/libs/contracts-spec/src/harness/commands/harnessEvaluationRun.command.ts`",
+		"route": "/docs/reference/platform.harness/harness.evaluation.run",
+		"source": "generated",
+		"contentPath": "platform.harness/harness.evaluation.run.md"
+	},
+	{
+		"id": "platform.harness/harness.evidence",
+		"title": "harness.evidence",
+		"summary": "Capture and retrieve normalized evidence artifacts.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: evidence\n- **File**: `packages/libs/contracts-spec/src/harness/capabilities/harnessEvidence.capability.ts`",
+		"route": "/docs/reference/platform.harness/harness.evidence",
+		"source": "generated",
+		"contentPath": "platform.harness/harness.evidence.md"
+	},
+	{
+		"id": "platform.harness/harness.evidence.captured",
+		"title": "harness.evidence.captured",
+		"summary": "Emitted when a harness artifact is captured.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: evidence\n- **File**: `packages/libs/contracts-spec/src/harness/events/harnessEvidenceCaptured.event.ts`",
+		"route": "/docs/reference/platform.harness/harness.evidence.captured",
+		"source": "generated",
+		"contentPath": "platform.harness/harness.evidence.captured.md"
+	},
+	{
+		"id": "platform.harness/harness.evidence.get",
+		"title": "harness.evidence.get",
+		"summary": "Fetch one evidence artifact by id.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: evidence\n- **File**: `packages/libs/contracts-spec/src/harness/queries/harnessEvidenceGet.query.ts`\nSupport evidence drill-down and replay inputs.",
+		"route": "/docs/reference/platform.harness/harness.evidence.get",
+		"source": "generated",
+		"contentPath": "platform.harness/harness.evidence.get.md"
+	},
+	{
+		"id": "platform.harness/harness.evidence.list",
+		"title": "harness.evidence.list",
+		"summary": "List normalized evidence artifacts for one run.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: evidence, list\n- **File**: `packages/libs/contracts-spec/src/harness/queries/harnessEvidenceList.query.ts`",
+		"route": "/docs/reference/platform.harness/harness.evidence.list",
+		"source": "generated",
+		"contentPath": "platform.harness/harness.evidence.list.md"
+	},
+	{
+		"id": "platform.harness/harness.execution",
+		"title": "harness.execution",
+		"summary": "Run, inspect, and cancel harness sessions.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: execution\n- **File**: `packages/libs/contracts-spec/src/harness/capabilities/harnessExecution.capability.ts`",
+		"route": "/docs/reference/platform.harness/harness.execution",
+		"source": "generated",
+		"contentPath": "platform.harness/harness.execution.md"
+	},
+	{
+		"id": "platform.harness/harness.run.audit",
+		"title": "harness.run.audit",
+		"summary": "Audit view for harness runs, steps, evidence, and assertions.\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Tags**: audit\n- **File**: `packages/libs/contracts-spec/src/harness/presentations/harnessRunAudit.presentation.ts`",
+		"route": "/docs/reference/platform.harness/harness.run.audit",
+		"source": "generated",
+		"contentPath": "platform.harness/harness.run.audit.md"
+	},
+	{
+		"id": "platform.harness/harness.run.cancel",
+		"title": "harness.run.cancel",
+		"summary": "Cancel an in-flight harness run.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: run, cancel\n- **File**: `packages/libs/contracts-spec/src/harness/commands/harnessRunCancel.command.ts`\nStop execution while preserving evidence and audit state.",
+		"route": "/docs/reference/platform.harness/harness.run.cancel",
+		"source": "generated",
+		"contentPath": "platform.harness/harness.run.cancel.md"
+	},
+	{
+		"id": "platform.harness/harness.run.completed",
+		"title": "harness.run.completed",
+		"summary": "Emitted when a harness run completes.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: run, completed\n- **File**: `packages/libs/contracts-spec/src/harness/events/harnessRunCompleted.event.ts`\n```typescript",
+		"route": "/docs/reference/platform.harness/harness.run.completed",
+		"source": "generated",
+		"contentPath": "platform.harness/harness.run.completed.md"
+	},
+	{
+		"id": "platform.harness/harness.run.failed",
+		"title": "harness.run.failed",
+		"summary": "Emitted when a harness run fails.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: run, failed\n- **File**: `packages/libs/contracts-spec/src/harness/events/harnessRunFailed.event.ts`\n```typescript",
+		"route": "/docs/reference/platform.harness/harness.run.failed",
+		"source": "generated",
+		"contentPath": "platform.harness/harness.run.failed.md"
+	},
+	{
+		"id": "platform.harness/harness.run.get",
+		"title": "harness.run.get",
+		"summary": "Fetch one harness run with step metadata.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: run\n- **File**: `packages/libs/contracts-spec/src/harness/queries/harnessRunGet.query.ts`\nSupport audit, debugging, and run tracking.",
+		"route": "/docs/reference/platform.harness/harness.run.get",
+		"source": "generated",
+		"contentPath": "platform.harness/harness.run.get.md"
+	},
+	{
+		"id": "platform.harness/harness.run.start",
+		"title": "harness.run.start",
+		"summary": "Start a harness run for a scenario or suite.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: run, start\n- **File**: `packages/libs/contracts-spec/src/harness/commands/harnessRunStart.command.ts`",
+		"route": "/docs/reference/platform.harness/harness.run.start",
+		"source": "generated",
+		"contentPath": "platform.harness/harness.run.start.md"
+	},
+	{
+		"id": "platform.harness/harness.run.started",
+		"title": "harness.run.started",
+		"summary": "Emitted when a harness run starts.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: run, started\n- **File**: `packages/libs/contracts-spec/src/harness/events/harnessRunStarted.event.ts`\n```typescript",
+		"route": "/docs/reference/platform.harness/harness.run.started",
+		"source": "generated",
+		"contentPath": "platform.harness/harness.run.started.md"
+	},
+	{
+		"id": "platform.harness/harness.step.blocked",
+		"title": "harness.step.blocked",
+		"summary": "Emitted when a harness step is blocked by policy.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: step, blocked\n- **File**: `packages/libs/contracts-spec/src/harness/events/harnessStepBlocked.event.ts`",
+		"route": "/docs/reference/platform.harness/harness.step.blocked",
+		"source": "generated",
+		"contentPath": "platform.harness/harness.step.blocked.md"
+	},
+	{
+		"id": "platform.harness/harness.step.completed",
+		"title": "harness.step.completed",
+		"summary": "Emitted when a harness step completes.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: step, completed\n- **File**: `packages/libs/contracts-spec/src/harness/events/harnessStepCompleted.event.ts`",
+		"route": "/docs/reference/platform.harness/harness.step.completed",
+		"source": "generated",
+		"contentPath": "platform.harness/harness.step.completed.md"
+	},
+	{
+		"id": "platform.harness/harness.step.started",
+		"title": "harness.step.started",
+		"summary": "Emitted when a harness step starts.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: step, started\n- **File**: `packages/libs/contracts-spec/src/harness/events/harnessStepStarted.event.ts`\n```typescript",
+		"route": "/docs/reference/platform.harness/harness.step.started",
+		"source": "generated",
+		"contentPath": "platform.harness/harness.step.started.md"
+	},
+	{
+		"id": "platform.harness/harness.target.resolve",
+		"title": "harness.target.resolve",
+		"summary": "Resolve the isolated target used for a harness run.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: target\n- **File**: `packages/libs/contracts-spec/src/harness/queries/harnessTargetResolve.query.ts`",
+		"route": "/docs/reference/platform.harness/harness.target.resolve",
+		"source": "generated",
+		"contentPath": "platform.harness/harness.target.resolve.md"
+	},
+	{
+		"id": "platform.harness/harness.targeting",
+		"title": "harness.targeting",
+		"summary": "Resolve preview, task, shared, and sandbox harness targets.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: targeting\n- **File**: `packages/libs/contracts-spec/src/harness/capabilities/harnessTargeting.capability.ts`",
+		"route": "/docs/reference/platform.harness/harness.targeting",
+		"source": "generated",
+		"contentPath": "platform.harness/harness.targeting.md"
+	},
+	{
+		"id": "platform.harness/platform.harness",
+		"title": "platform.harness",
+		"summary": "Controlled application inspection, testing, validation, and proof generation.\n- **Type**: feature\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts-spec/src/harness/harness.feature.ts`\n- `harness.target.resolve` (v1.0.0)",
+		"route": "/docs/reference/platform.harness/platform.harness",
+		"source": "generated",
+		"contentPath": "platform.harness/platform.harness.md"
+	}
 ]

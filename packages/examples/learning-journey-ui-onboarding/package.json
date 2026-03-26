@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/example.learning-journey-ui-onboarding",
-	"version": "3.7.11",
+	"version": "3.7.15",
 	"description": "Developer onboarding UI with checklists and journey maps.",
 	"type": "module",
 	"types": "./dist/index.d.ts",
@@ -54,7 +54,7 @@
 		"@contractspec/tool.bun": "workspace:*"
 	},
 	"peerDependencies": {
-		"react": "^19.2.0"
+		"react": "^19.2.4"
 	},
 	"publishConfig": {
 		"exports": {

@@ -1,7 +1,7 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
-import { defineEvent } from '../../events';
-import '../ensure-docblocks';
 import { docId } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { defineEvent } from '../../events';
 import {
 	PROVIDER_RANKING_DOMAIN,
 	PROVIDER_RANKING_OWNERS,
@@ -21,6 +21,20 @@ export const BenchmarkCustomCompletedPayload = new SchemaModel({
 		completedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
 	},
 });
+
+export const BenchmarkCustomCompletedDocBlock = {
+	id: 'docs.tech.provider-ranking.benchmark.custom.completed',
+	title: 'Custom benchmark completed event',
+	summary: 'Emitted when a custom benchmark run finishes.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/provider-ranking/benchmark/custom/completed',
+	tags: ['ai', 'ranking', 'event', 'custom'],
+	body: `# provider-ranking.benchmark.custom.completed
+
+Emitted when a custom evaluation run completes execution.
+`,
+} satisfies DocBlock;
 
 export const BenchmarkCustomCompletedEvent = defineEvent({
 	meta: {

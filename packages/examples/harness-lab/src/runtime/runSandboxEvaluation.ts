@@ -3,19 +3,23 @@ import { createHarnessLabEvaluationTools } from './createHarnessLabEvaluationToo
 
 export async function runHarnessLabSandboxEvaluation() {
 	const tools = createHarnessLabEvaluationTools();
-	const evaluation = await tools.evaluationRunner.runScenarioEvaluation({
-		scenario: HarnessLabSandboxScenario,
-		mode: 'code-execution',
-		context: {
-			metadata: {
-				lane: 'sandbox-evaluation',
+	try {
+		const evaluation = await tools.evaluationRunner.runScenarioEvaluation({
+			scenario: HarnessLabSandboxScenario,
+			mode: 'code-execution',
+			context: {
+				metadata: {
+					lane: 'sandbox-evaluation',
+				},
 			},
-		},
-	});
+		});
 
-	return {
-		evaluation,
-		replayBundle: tools.getReplayBundle(),
-		replayUri: tools.getReplayUri(),
-	};
+		return {
+			evaluation,
+			replayBundle: tools.getReplayBundle(),
+			replayUri: tools.getReplayUri(),
+		};
+	} finally {
+		await tools.dispose();
+	}
 }

@@ -117,6 +117,26 @@ describe('generatePrismaSchema', () => {
 		expect(schema).toContain('@@index([name])');
 	});
 
+	it('should generate sorted compound indexes', () => {
+		const Entity = defineEntity({
+			name: 'SortedIndex',
+			fields: {
+				id: field.id(),
+				name: field.string(),
+				createdAt: field.dateTime(),
+			},
+			indexes: [
+				index.compound(['name', 'createdAt'], {
+					createdAt: 'Desc',
+				}),
+			],
+		});
+
+		const schema = generatePrismaSchema([Entity]);
+
+		expect(schema).toContain('@@index([name, createdAt(sort: Desc)])');
+	});
+
 	it('should generate enum fields and definitions', () => {
 		const StatusEnum = defineEntityEnum({
 			name: 'Status',

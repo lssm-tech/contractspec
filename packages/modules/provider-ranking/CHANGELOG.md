@@ -1,5 +1,37 @@
 # @contractspec/module.provider-ranking
 
+## 0.7.14
+
+### Patch Changes
+
+- cce2b13: Add first-class Workflow DevKit support for `WorkflowSpec`, including new runtime metadata, stricter validation for Workflow-backed workflows, a dedicated Workflow DevKit integration package, CLI artifact generation, and Workflow-aware chat route helpers exposed from `@contractspec/module.ai-chat/core/workflow` so standard chat imports do not pull Workflow-only runtime assets into non-Workflow builds.
+
+  Also harden supporting runtime surfaces by reusing Playwright browser instances in the harness runtime, mapping design-system button `onPress` handlers correctly to DOM clicks, and switching the workspace git adapter to argument-safe subprocess calls while tightening slow test coverage around those flows.
+
+- Updated dependencies [cce2b13]
+  - @contractspec/lib.contracts-integrations@3.8.7
+  - @contractspec/lib.provider-ranking@0.7.11
+  - @contractspec/lib.schema@3.7.12
+
+## 0.7.13
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+  - @contractspec/lib.contracts-integrations@3.8.6
+  - @contractspec/lib.provider-ranking@0.7.10
+  - @contractspec/lib.schema@3.7.11
+
+## 0.7.12
+
+### Patch Changes
+
+- Updated dependencies [2619dd8]
+- Updated dependencies [6de2f1c]
+  - @contractspec/lib.contracts-integrations@3.8.4
+  - @contractspec/lib.schema@3.7.10
+
 ## 0.7.11
 
 ### Patch Changes

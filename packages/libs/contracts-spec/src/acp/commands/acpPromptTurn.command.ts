@@ -1,7 +1,7 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { docRef } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
 import { defineCommand } from '../../operations';
-import '../ensure-docblocks';
-import { docId } from '../../docs/registry';
 import { ACP_DOMAIN, ACP_OWNERS, ACP_STABILITY, ACP_TAGS } from '../constants';
 
 const AcpPromptTurnInput = new SchemaModel({
@@ -26,6 +26,20 @@ const AcpPromptTurnOutput = new SchemaModel({
 	},
 });
 
+export const AcpPromptTurnDocBlock = {
+	id: 'docs.tech.acp.prompt.turn',
+	title: 'ACP prompt turn',
+	summary: 'Execute a prompt turn within a session.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/acp/prompt/turn',
+	tags: ['acp', 'prompt'],
+	body: `# acp.prompt.turn
+
+Runs a prompt turn and returns structured outputs and tool calls.
+`,
+} satisfies DocBlock;
+
 export const AcpPromptTurnCommand = defineCommand({
 	meta: {
 		key: 'acp.prompt.turn',
@@ -38,7 +52,7 @@ export const AcpPromptTurnCommand = defineCommand({
 		owners: ACP_OWNERS,
 		tags: [...ACP_TAGS, 'prompt'],
 		stability: ACP_STABILITY,
-		docId: [docId('docs.tech.acp.prompt.turn')],
+		docId: [docRef(AcpPromptTurnDocBlock.id)],
 	},
 	capability: {
 		key: 'acp.transport',

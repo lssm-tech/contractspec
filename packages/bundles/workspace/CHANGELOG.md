@@ -1,5 +1,105 @@
 # @contractspec/bundle.workspace
 
+## 4.1.3
+
+### Patch Changes
+
+- cce2b13: Add first-class Workflow DevKit support for `WorkflowSpec`, including new runtime metadata, stricter validation for Workflow-backed workflows, a dedicated Workflow DevKit integration package, CLI artifact generation, and Workflow-aware chat route helpers exposed from `@contractspec/module.ai-chat/core/workflow` so standard chat imports do not pull Workflow-only runtime assets into non-Workflow builds.
+
+  Also harden supporting runtime surfaces by reusing Playwright browser instances in the harness runtime, mapping design-system button `onPress` handlers correctly to DOM clicks, and switching the workspace git adapter to argument-safe subprocess calls while tightening slow test coverage around those flows.
+
+- Updated dependencies [cce2b13]
+  - @contractspec/lib.contracts-integrations@3.8.7
+  - @contractspec/lib.contracts-transformers@3.7.15
+  - @contractspec/lib.source-extractors@2.7.15
+  - @contractspec/lib.utils-typescript@3.7.11
+  - @contractspec/lib.contracts-spec@5.0.3
+  - @contractspec/biome-config@3.8.5
+  - @contractspec/lib.ai-providers@3.7.11
+  - @contractspec/module.workspace@4.1.2
+  - @contractspec/lib.ai-agent@8.0.3
+
+## 4.1.2
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-integrations@3.8.6
+  - @contractspec/lib.contracts-transformers@3.7.14
+  - @contractspec/lib.source-extractors@2.7.14
+  - @contractspec/lib.utils-typescript@3.7.10
+  - @contractspec/lib.contracts-spec@5.0.2
+  - @contractspec/biome-config@3.8.4
+  - @contractspec/lib.ai-providers@3.7.10
+  - @contractspec/module.workspace@4.1.1
+  - @contractspec/lib.ai-agent@8.0.2
+
+## 4.1.1
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/lib.ai-agent@8.0.1
+  - @contractspec/lib.contracts-integrations@3.8.5
+  - @contractspec/lib.contracts-transformers@3.7.13
+  - @contractspec/lib.source-extractors@2.7.13
+  - @contractspec/module.workspace@4.1.1
+
+## 4.1.0
+
+### Minor Changes
+
+- 85ddd6a: Align workspace tooling with strict same-file DocBlock authoring.
+
+  - Add shared static authored-DocBlock analysis APIs to
+    `@contractspec/module.workspace` for manifest building and validation without
+    executing source modules.
+  - Update `@contractspec/bundle.workspace` to consume authored DocBlocks through
+    static analysis, remove runtime DocBlock registration, and move impact docs
+    into their owner modules.
+  - Update `@contractspec/app.cli-contractspec` to validate example packages with
+    the shared authored-doc rules and reject standalone `*.docblock.ts` sources.
+  - Update `vscode-contractspec` to generate same-file DocBlocks in snippets and
+    align extension-owned docs with the new authoring model.
+
+### Patch Changes
+
+- 81256ea: Split agent definition contracts out of `@contractspec/lib.ai-agent` and make
+  `@contractspec/lib.contracts-spec` the source of truth for agent declaration APIs.
+
+  Major changes:
+
+  - Move `AgentSpec`, `AgentToolConfig`, `AgentPolicy`, `AgentRegistry`,
+    `createAgentRegistry`, `defineAgent`, and related definition-only types into
+    `@contractspec/lib.contracts-spec/agent`.
+  - Add `@contractspec/lib.contracts-spec/agent/spec` and
+    `@contractspec/lib.contracts-spec/agent/registry` export subpaths.
+  - Remove `@contractspec/lib.ai-agent/spec`,
+    `@contractspec/lib.ai-agent/spec/spec`, and
+    `@contractspec/lib.ai-agent/spec/registry`.
+  - Remove the spec layer from the `@contractspec/lib.ai-agent` root barrel so it
+    is runtime-focused.
+
+  Workspace consumers were migrated to import agent-definition contracts from
+  `@contractspec/lib.contracts-spec/agent`, and packages that only needed the
+  contract layer dropped their direct dependency on `@contractspec/lib.ai-agent`.
+
+- Updated dependencies [81256ea]
+- Updated dependencies [2619dd8]
+- Updated dependencies [81256ea]
+- Updated dependencies [85ddd6a]
+- Updated dependencies [a4489bb]
+- Updated dependencies [9cb304e]
+  - @contractspec/lib.contracts-spec@5.0.0
+  - @contractspec/lib.contracts-integrations@3.8.4
+  - @contractspec/lib.ai-agent@8.0.0
+  - @contractspec/module.workspace@4.1.0
+  - @contractspec/lib.contracts-transformers@3.7.12
+  - @contractspec/lib.source-extractors@2.7.12
+
 ## 4.0.4
 
 ### Patch Changes

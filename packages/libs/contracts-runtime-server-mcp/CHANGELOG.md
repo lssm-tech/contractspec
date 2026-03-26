@@ -1,5 +1,81 @@
 # @contractspec/lib.contracts-runtime-server-mcp
 
+## 3.7.15
+
+### Patch Changes
+
+- cce2b13: Add first-class Workflow DevKit support for `WorkflowSpec`, including new runtime metadata, stricter validation for Workflow-backed workflows, a dedicated Workflow DevKit integration package, CLI artifact generation, and Workflow-aware chat route helpers exposed from `@contractspec/module.ai-chat/core/workflow` so standard chat imports do not pull Workflow-only runtime assets into non-Workflow builds.
+
+  Also harden supporting runtime surfaces by reusing Playwright browser instances in the harness runtime, mapping design-system button `onPress` handlers correctly to DOM clicks, and switching the workspace git adapter to argument-safe subprocess calls while tightening slow test coverage around those flows.
+
+- Updated dependencies [cce2b13]
+  - @contractspec/lib.presentation-runtime-core@3.9.3
+  - @contractspec/lib.contracts-spec@5.0.3
+  - @contractspec/lib.logger@3.7.11
+
+## 3.7.14
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.presentation-runtime-core@3.9.2
+  - @contractspec/lib.contracts-spec@5.0.2
+  - @contractspec/lib.logger@3.7.10
+
+## 3.7.13
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/lib.presentation-runtime-core@3.9.1
+
+## 3.7.12
+
+### Patch Changes
+
+- 81256ea: Make `@contractspec/lib.contracts-spec` contract-model only and move concrete
+  runtime and integration code to dedicated packages.
+
+  Major changes:
+
+  - Remove `@contractspec/lib.contracts-spec/presentations/transform-engine`.
+  - Remove all `@contractspec/lib.contracts-spec/integrations*` export paths.
+  - Remove `@contractspec/lib.contracts-spec/jobs/scaleway-sqs-queue`.
+  - Remove provider-type re-exports for email, embedding, LLM, storage, and
+    vector-store surfaces from the `@contractspec/lib.contracts-spec` root
+    barrel.
+  - Keep `PresentationSpec` unchanged while moving transform-engine runtime logic
+    out of the contract package.
+
+  New runtime surfaces:
+
+  - Add `@contractspec/lib.presentation-runtime-core/transform-engine` for the
+    core transform engine, validators, and markdown/json/xml rendering support.
+  - Add `@contractspec/lib.contracts-runtime-client-react/transform-engine` for
+    React render descriptors and React-specific transform-engine helpers.
+  - Update `@contractspec/lib.contracts-runtime-server-mcp` to use the core
+    transform engine without React registration.
+
+  Migration notes:
+
+  - Import integration provider and secret types from
+    `@contractspec/lib.contracts-integrations`.
+  - Import transform-engine core APIs from
+    `@contractspec/lib.presentation-runtime-core/transform-engine`.
+  - Import React-specific transform-engine helpers from
+    `@contractspec/lib.contracts-runtime-client-react/transform-engine`.
+
+- Updated dependencies [81256ea]
+- Updated dependencies [2619dd8]
+- Updated dependencies [81256ea]
+- Updated dependencies [a4489bb]
+- Updated dependencies [9cb304e]
+  - @contractspec/lib.contracts-spec@5.0.0
+  - @contractspec/lib.presentation-runtime-core@3.9.0
+
 ## 3.7.11
 
 ### Patch Changes

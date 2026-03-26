@@ -2,7 +2,7 @@
 
 Last updated: 2026-02-27
 Owner: AI Runtime + Workflow Platform + Contract Governance
-Status: Planned (ready for implementation)
+Status: Implemented (completed 2026-03-22)
 
 ## Why this exists
 
@@ -76,32 +76,32 @@ It also ensures we can actively leverage:
 
 ### WS1 - Contract and Port Surfaces for External Runtime Leverage
 
-Status: Not started
+Status: Completed
 
-- [ ] Define runtime ports for checkpointing, suspend/resume, retry classification, and approval gateways.
-- [ ] Add explicit workflow/agent error taxonomy (`fatal`, `retryable`, `timeout`, `guard_rejected`, `policy_blocked`).
-- [ ] Add typed capability flags for adapter availability (langgraph, langchain, workflow-devkit).
-- [ ] Add comprehensive validation helpers for these new surfaces.
+- [x] Define runtime ports for checkpointing, suspend/resume, retry classification, and approval gateways.
+- [x] Add explicit workflow/agent error taxonomy (`fatal`, `retryable`, `timeout`, `guard_rejected`, `policy_blocked`).
+- [x] Add typed capability flags for adapter availability (langgraph, langchain, workflow-devkit).
+- [x] Add comprehensive validation helpers for these new surfaces.
 
 Primary paths:
 
 - `packages/libs/contracts-spec/src/workflow/spec.ts`
 - `packages/libs/contracts-spec/src/workflow/validation.ts`
-- `packages/libs/ai-agent/src/spec/spec.ts`
+- `packages/libs/contracts-spec/src/agent/spec.ts`
 - `packages/libs/ai-agent/src/types.ts`
 
 ### WS2 - workflow-composer Determinism and Safety
 
-Status: Not started
+Status: Completed
 
-- [ ] Add strict extension validation:
+- [x] Add strict extension validation:
   - duplicate injected step IDs
   - invalid `after`+`before` combinations
   - invalid transition endpoints (`transitionFrom`, `transitionTo`)
   - hidden step interactions that orphan graph paths
-- [ ] Implement deterministic extension normalization (stable ordering and conflict reporting).
-- [ ] Merge and surface extension `metadata`/`annotations` in composed outputs.
-- [ ] Add full test suite for composition behavior and failure cases.
+- [x] Implement deterministic extension normalization (stable ordering and conflict reporting).
+- [x] Merge and surface extension `metadata`/`annotations` in composed outputs.
+- [x] Add full test suite for composition behavior and failure cases.
 
 Primary paths:
 
@@ -113,14 +113,14 @@ Primary paths:
 
 ### WS3 - ai-agent Tool Loop Hardening (Core)
 
-Status: Not started
+Status: Completed
 
-- [ ] Enforce runtime `maxSteps` override from call params while preserving spec defaults.
-- [ ] Implement tool `timeoutMs` and `cooldownMs` wrappers in adapter execution.
-- [ ] Improve session lifecycle persistence:
+- [x] Enforce runtime `maxSteps` override from call params while preserving spec defaults.
+- [x] Implement tool `timeoutMs` and `cooldownMs` wrappers in adapter execution.
+- [x] Improve session lifecycle persistence:
   - append user/assistant/tool messages consistently
   - explicit status transitions (`running` -> `waiting` -> `completed`/`failed`/`escalated`)
-- [ ] Wire escalation policy execution (`onToolFailure`, `onTimeout`, confidence threshold) to runtime decisions.
+- [x] Wire escalation policy execution (`onToolFailure`, `onTimeout`, confidence threshold) to runtime decisions.
 
 Primary paths:
 
@@ -132,14 +132,14 @@ Primary paths:
 
 ### WS4 - ai-agent External Adapter Layer (LangGraph and LangChain)
 
-Status: Not started
+Status: Completed
 
-- [ ] Introduce optional adapter interfaces for:
+- [x] Introduce optional adapter interfaces for:
   - LangGraph checkpointer-backed thread/session state
   - LangChain middleware hooks (`beforeModel`/`afterModel`) for memory trim/summarize and response guards
-- [ ] Add integration wiring that can run with internal loop by default and external adapters when configured.
-- [ ] Keep adapter dependencies optional and isolated from core runtime types.
-- [ ] Add adapter-focused tests with graceful fallback behavior when deps are absent.
+- [x] Add integration wiring that can run with internal loop by default and external adapters when configured.
+- [x] Keep adapter dependencies optional and isolated from core runtime types.
+- [x] Add adapter-focused tests with graceful fallback behavior when deps are absent.
 
 Primary paths (new and existing):
 
@@ -150,13 +150,13 @@ Primary paths (new and existing):
 
 ### WS5 - contracts-spec Workflow Runner Durability and Timing
 
-Status: Not started
+Status: Completed
 
-- [ ] Enforce per-step timeout (`timeoutMs`) in `runStepAction`/step execution boundaries.
-- [ ] Persist running-step history entries before action execution so SLA checks are accurate.
-- [ ] Add pause/resume semantics and durable wait points for long-running human/approval steps.
-- [ ] Add deterministic retry behavior with clear fatal vs retryable handling.
-- [ ] Add replay-safe state updates and event emission consistency.
+- [x] Enforce per-step timeout (`timeoutMs`) in `runStepAction`/step execution boundaries.
+- [x] Persist running-step history entries before action execution so SLA checks are accurate.
+- [x] Add pause/resume semantics and durable wait points for long-running human/approval steps.
+- [x] Add deterministic retry behavior with clear fatal vs retryable handling.
+- [x] Add replay-safe state updates and event emission consistency.
 
 Primary paths:
 
@@ -168,12 +168,12 @@ Primary paths:
 
 ### WS6 - Channel Runtime Loop Policy and Safety Hardening
 
-Status: Not started
+Status: Completed
 
-- [ ] Reject signature-invalid events early with explicit `rejected` receipt status.
-- [ ] Add policy-contract integration points for deterministic rule evaluation.
-- [ ] Expand replay fixtures to cover blocked/high-risk/approval-required paths.
-- [ ] Keep outbox idempotency and retry invariants unchanged while tightening gating.
+- [x] Reject signature-invalid events early with explicit `rejected` receipt status.
+- [x] Add policy-contract integration points for deterministic rule evaluation.
+- [x] Expand replay fixtures to cover blocked/high-risk/approval-required paths.
+- [x] Keep outbox idempotency and retry invariants unchanged while tightening gating.
 
 Primary paths:
 
@@ -185,11 +185,11 @@ Primary paths:
 
 ### WS7 - Observability, Replay, and Audit Stitching
 
-Status: Not started
+Status: Completed
 
-- [ ] Standardize trace fields (`traceId`, `sessionId`, `workflowId`, step index, policy verdict) across workflow and agent loops.
-- [ ] Add replay harness tests for workflow runner + ai-agent + channel runtime decisions.
-- [ ] Define event contracts for timeout/retry/escalation/approval transitions.
+- [x] Standardize trace fields (`traceId`, `sessionId`, `workflowId`, step index, policy verdict) across workflow and agent loops.
+- [x] Add replay harness tests for workflow runner + ai-agent + channel runtime decisions.
+- [x] Define event contracts for timeout/retry/escalation/approval transitions.
 
 Primary paths:
 
@@ -199,15 +199,15 @@ Primary paths:
 
 ### WS8 - Docs and Rollout Readiness
 
-Status: Not started
+Status: Completed
 
-- [ ] Update relevant DocBlocks and READMEs after each behavior change.
-- [ ] Document adapter configuration examples for LangGraph/LangChain/useworkflow-style patterns.
-- [ ] Publish migration and fallback guidance for existing consumers.
+- [x] Update relevant DocBlocks and READMEs after each behavior change.
+- [x] Document adapter configuration examples for LangGraph/LangChain/useworkflow-style patterns.
+- [x] Publish migration and fallback guidance for existing consumers.
 
 Primary paths:
 
-- `packages/libs/contracts-spec/src/workflow/overview.docblock.ts`
+- `packages/libs/contracts-spec/src/workflow/spec.ts`
 - `packages/libs/personalization/src/docs/workflow-composition.docblock.ts`
 - `packages/libs/workflow-composer/README.md`
 - `packages/libs/ai-agent/README.md`
@@ -245,13 +245,13 @@ Primary paths:
 
 ## Validation checklist (for implementation)
 
-- [ ] `turbo run test --filter=@contractspec/lib.workflow-composer`
-- [ ] `turbo run test --filter=@contractspec/lib.ai-agent`
-- [ ] `turbo run test --filter=@contractspec/lib.contracts-spec`
-- [ ] `turbo run test --filter=@contractspec/integration.runtime`
-- [ ] `turbo run typecheck --filter=@contractspec/lib.workflow-composer --filter=@contractspec/lib.ai-agent --filter=@contractspec/lib.contracts-spec --filter=@contractspec/integration.runtime`
-- [ ] `turbo run lint:check --filter=@contractspec/lib.workflow-composer --filter=@contractspec/lib.ai-agent --filter=@contractspec/lib.contracts-spec --filter=@contractspec/integration.runtime`
-- [ ] Replay fixture and deterministic retry tests pass for agent + workflow + channel loops.
+- [x] `turbo run test --filter=@contractspec/lib.workflow-composer`
+- [x] `turbo run test --filter=@contractspec/lib.ai-agent`
+- [x] `turbo run test --filter=@contractspec/lib.contracts-spec`
+- [x] `turbo run test --filter=@contractspec/integration.runtime`
+- [x] `turbo run typecheck --filter=@contractspec/lib.workflow-composer --filter=@contractspec/lib.ai-agent --filter=@contractspec/lib.contracts-spec --filter=@contractspec/integration.runtime`
+- [x] `turbo run lint:check --filter=@contractspec/lib.workflow-composer --filter=@contractspec/lib.ai-agent --filter=@contractspec/lib.contracts-spec --filter=@contractspec/integration.runtime`
+- [x] Replay fixture and deterministic retry tests pass for agent + workflow + channel loops.
 
 ## Risks and mitigations
 
@@ -292,3 +292,7 @@ Conflict resolutions captured:
 - 2026-02-27: Ran `bunx contractspec ci` (pass with warnings) and `turbo run build` (pass).
 - 2026-02-27: Cleaned transient local test artifact `packages/apps/vscode-contractspec/.vscode-test/`.
 - 2026-02-27: Ran `/ai-audit`; outcome WARN with follow-up documentation actions reflected in this governance trace.
+- 2026-03-22: Completed WS1-WS7 across `@contractspec/lib.contracts-spec`, `@contractspec/lib.ai-agent`, `@contractspec/lib.workflow-composer`, and `@contractspec/integration.runtime` with adapter-aware ports, deterministic validation, durable wait states, policy integration hooks, and cross-loop trace metadata.
+- 2026-03-22: Completed WS8 documentation updates while keeping the workflow DocBlock colocated in `packages/libs/contracts-spec/src/workflow/spec.ts`.
+- 2026-03-22: Added adapter/fallback coverage, workflow retry-wait coverage, and channel policy integration tests plus a published-package changeset (`.changeset/short-snakes-notice.md`).
+- 2026-03-22: Re-ran filtered `turbo run typecheck`, filtered `turbo run test`, filtered `turbo run lint:check`, `bunx contractspec ci` (pass with existing warnings), and `bun run build` (pass).

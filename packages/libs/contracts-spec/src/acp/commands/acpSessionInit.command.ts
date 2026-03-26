@@ -1,7 +1,7 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { docRef } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
 import { defineCommand } from '../../operations';
-import '../ensure-docblocks';
-import { docId } from '../../docs/registry';
 import { ACP_DOMAIN, ACP_OWNERS, ACP_STABILITY, ACP_TAGS } from '../constants';
 
 const AcpSessionInitInput = new SchemaModel({
@@ -23,6 +23,20 @@ const AcpSessionInitOutput = new SchemaModel({
 	},
 });
 
+export const AcpSessionInitDocBlock = {
+	id: 'docs.tech.acp.session.init',
+	title: 'ACP session init',
+	summary: 'Initialize a new ACP session.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/acp/session/init',
+	tags: ['acp', 'session'],
+	body: `# acp.session.init
+
+Creates a new ACP session and returns session metadata.
+`,
+} satisfies DocBlock;
+
 export const AcpSessionInitCommand = defineCommand({
 	meta: {
 		key: 'acp.session.init',
@@ -36,7 +50,7 @@ export const AcpSessionInitCommand = defineCommand({
 		owners: ACP_OWNERS,
 		tags: [...ACP_TAGS, 'session'],
 		stability: ACP_STABILITY,
-		docId: [docId('docs.tech.acp.session.init')],
+		docId: [docRef(AcpSessionInitDocBlock.id)],
 	},
 	capability: {
 		key: 'acp.transport',

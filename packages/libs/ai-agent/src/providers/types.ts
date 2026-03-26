@@ -1,3 +1,4 @@
+import type { AgentSpec } from '@contractspec/lib.contracts-spec/agent';
 /**
  * External SDK provider types for ContractSpec agents.
  *
@@ -7,7 +8,6 @@
  */
 
 import { createAgentI18n } from '../i18n';
-import type { AgentSpec } from '../spec/spec';
 import type { McpClientConfig } from '../tools/mcp-client';
 import type {
 	AgentCallOptions,

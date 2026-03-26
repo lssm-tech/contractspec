@@ -2,7 +2,7 @@ import {
 	exportToClaudeAgent,
 	exportToOpenCode,
 } from '@contractspec/lib.ai-agent/exporters';
-import type { AgentSpec } from '@contractspec/lib.ai-agent/spec';
+import type { AgentSpec } from '@contractspec/lib.contracts-spec/agent';
 import chalk from 'chalk';
 import { Command } from 'commander';
 import fs from 'fs/promises';

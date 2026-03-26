@@ -10,7 +10,7 @@ Slack integration for inbound events, threaded responses, and interactive messag
 - **Version**: 1.0.0
 - **Owners**: platform.messaging
 - **Tags**: messaging, slack
-- **File**: `packages/libs/contracts-spec/src/integrations/providers/messaging-slack.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/messaging-slack.ts`
 
 ## Source Definition
 
@@ -29,6 +29,33 @@ export const messagingSlackIntegrationSpec = defineIntegration({
 		stability: StabilityEnum.Beta,
 	},
 	supportedModes: ['managed', 'byok'],
+	transports: [
+		{ type: 'rest', baseUrl: 'https://slack.com/api' },
+		{
+			type: 'webhook',
+			inbound: {
+				signatureHeader: 'x-slack-signature',
+				signingAlgorithm: 'hmac-sha256',
+			},
+		},
+		{ type: 'sdk', packageName: '@slack/web-api' },
+	],
+	preferredTransport: 'rest',
+	supportedAuthMethods: [
+		{
+			type: 'oauth2',
+			grantType: 'authorization_code',
+			authorizationUrl: 'https://slack.com/oauth/v2/authorize',
+			tokenUrl: 'https://slack.com/api/oauth.v2.access',
+			scopes: ['chat:write', 'channels:history', 'commands'],
+		},
+		{ type: 'bearer' },
+		{
+			type: 'webhook-signing',
+			algorithm: 'hmac-sha256',
+			signatureHeader: 'x-slack-signature',
+		},
+	],
 	capabilities: {
 		provides: [
 			{ key: 'messaging.inbound', version: '1.0.0' },
@@ -96,6 +123,8 @@ export const messagingSlackIntegrationSpec = defineIntegration({
 		setupInstructions:
 			'Create a Slack app, install it to your workspace, then provide bot token and signing secret.',
 		requiredScopes: ['chat:write', 'channels:history', 'commands'],
+		keyRotationSupported: true,
+		quotaTrackingSupported: false,
 	},
 });
 ```

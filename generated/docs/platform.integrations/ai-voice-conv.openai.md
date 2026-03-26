@@ -10,7 +10,7 @@ OpenAI Realtime API integration for bidirectional conversational voice with GPT 
 - **Version**: 1.0.0
 - **Owners**: platform.ai
 - **Tags**: voice, conversational, realtime, openai
-- **File**: `packages/libs/contracts-spec/src/integrations/providers/openai-realtime.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/openai-realtime.ts`
 
 ## Source Definition
 
@@ -29,6 +29,14 @@ export const openaiRealtimeIntegrationSpec = defineIntegration({
 		stability: StabilityEnum.Experimental,
 	},
 	supportedModes: ['byok'],
+	transports: [
+		{ type: 'rest', baseUrl: 'https://api.openai.com' },
+		{ type: 'sdk', packageName: 'openai' },
+	] satisfies IntegrationTransportConfig[],
+	preferredTransport: 'sdk',
+	supportedAuthMethods: [
+		{ type: 'api-key', headerName: 'Authorization', prefix: 'Bearer ' },
+	] satisfies IntegrationAuthConfig[],
 	capabilities: {
 		provides: [{ key: 'ai.voice.conversational', version: '1.0.0' }],
 	},
@@ -87,6 +95,8 @@ export const openaiRealtimeIntegrationSpec = defineIntegration({
 	byokSetup: {
 		setupInstructions:
 			'Create an OpenAI API key with Realtime API access enabled and store it in your secret provider.',
+		keyRotationSupported: true,
+		quotaTrackingSupported: true,
 	},
 });
 ```

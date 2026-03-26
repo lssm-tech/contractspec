@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/example.data-grid-showcase",
-	"version": "3.8.3",
+	"version": "3.8.7",
 	"description": "Focused data-grid example for ContractSpec table capabilities",
 	"type": "module",
 	"types": "./dist/index.d.ts",
@@ -9,6 +9,7 @@
 		"./contracts": "./src/contracts/index.ts",
 		"./contracts/data-grid-showcase.data-view": "./src/contracts/data-grid-showcase.data-view.ts",
 		"./contracts/data-grid-showcase.operation": "./src/contracts/data-grid-showcase.operation.ts",
+		"./data-grid-showcase.feature": "./src/data-grid-showcase.feature.ts",
 		"./docs": "./src/docs/index.ts",
 		"./docs/data-grid-showcase.docblock": "./src/docs/data-grid-showcase.docblock.ts",
 		"./example": "./src/example.ts",
@@ -49,7 +50,7 @@
 		"@types/react": "^19.2.14",
 		"@types/react-dom": "^19.2.2",
 		"@contractspec/tool.bun": "workspace:*",
-		"happy-dom": "^20.8.4",
+		"happy-dom": "^20.8.8",
 		"typescript": "catalog:"
 	},
 	"publishConfig": {
@@ -83,6 +84,13 @@
 				"bun": "./dist/contracts/data-grid-showcase.operation.js",
 				"node": "./dist/node/contracts/data-grid-showcase.operation.js",
 				"default": "./dist/contracts/data-grid-showcase.operation.js"
+			},
+			"./data-grid-showcase.feature": {
+				"types": "./dist/data-grid-showcase.feature.d.ts",
+				"browser": "./dist/browser/data-grid-showcase.feature.js",
+				"bun": "./dist/data-grid-showcase.feature.js",
+				"node": "./dist/node/data-grid-showcase.feature.js",
+				"default": "./dist/data-grid-showcase.feature.js"
 			},
 			"./docs": {
 				"types": "./dist/docs/index.d.ts",

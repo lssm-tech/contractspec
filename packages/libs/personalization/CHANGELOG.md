@@ -1,5 +1,63 @@
 # @contractspec/lib.personalization
 
+## 6.0.15
+
+### Patch Changes
+
+- cce2b13: Add first-class Workflow DevKit support for `WorkflowSpec`, including new runtime metadata, stricter validation for Workflow-backed workflows, a dedicated Workflow DevKit integration package, CLI artifact generation, and Workflow-aware chat route helpers exposed from `@contractspec/module.ai-chat/core/workflow` so standard chat imports do not pull Workflow-only runtime assets into non-Workflow builds.
+
+  Also harden supporting runtime surfaces by reusing Playwright browser instances in the harness runtime, mapping design-system button `onPress` handlers correctly to DOM clicks, and switching the workspace git adapter to argument-safe subprocess calls while tightening slow test coverage around those flows.
+
+- Updated dependencies [cce2b13]
+  - @contractspec/lib.surface-runtime@0.5.15
+  - @contractspec/lib.contracts-spec@5.0.3
+  - @contractspec/lib.overlay-engine@3.7.15
+  - @contractspec/lib.knowledge@3.7.15
+  - @contractspec/lib.schema@3.7.12
+  - @contractspec/lib.bus@3.7.15
+
+## 6.0.14
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.surface-runtime@0.5.14
+  - @contractspec/lib.contracts-spec@5.0.2
+  - @contractspec/lib.overlay-engine@3.7.14
+  - @contractspec/lib.knowledge@3.7.14
+  - @contractspec/lib.schema@3.7.11
+  - @contractspec/lib.bus@3.7.14
+
+## 6.0.13
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/lib.bus@3.7.13
+  - @contractspec/lib.knowledge@3.7.13
+  - @contractspec/lib.overlay-engine@3.7.13
+  - @contractspec/lib.surface-runtime@0.5.13
+
+## 6.0.12
+
+### Patch Changes
+
+- Updated dependencies [81256ea]
+- Updated dependencies [2619dd8]
+- Updated dependencies [6de2f1c]
+- Updated dependencies [81256ea]
+- Updated dependencies [a4489bb]
+- Updated dependencies [9cb304e]
+  - @contractspec/lib.contracts-spec@5.0.0
+  - @contractspec/lib.schema@3.7.10
+  - @contractspec/lib.bus@3.7.12
+  - @contractspec/lib.knowledge@3.7.12
+  - @contractspec/lib.overlay-engine@3.7.12
+  - @contractspec/lib.surface-runtime@0.5.12
+
 ## 6.0.11
 
 ### Patch Changes

@@ -3,16 +3,18 @@ import type {
 	ResolvedAppConfig,
 	ResolvedIntegration,
 } from '../app-config/runtime';
-import type { ConnectionStatus } from '../integrations/connection';
 import { OwnersEnum, StabilityEnum, TagsEnum } from '../ownership';
 import { InMemoryStateStore } from './adapters/memory-store';
 import {
+	WorkflowExecutionError,
 	WorkflowPreFlightError,
 	WorkflowRunner,
 	type WorkflowRunnerConfig,
 } from './runner';
 import { type Step, WorkflowRegistry, type WorkflowSpec } from './spec';
 import type { WorkflowState } from './state';
+
+type ConnectionStatus = 'connected' | 'disconnected' | 'error' | 'unknown';
 
 function workflowSpec(overrides?: {
 	steps?: Step[];
@@ -419,7 +421,12 @@ describe('WorkflowRunner', () => {
 
 		await runner.executeStep(workflowId); // no input, should pause
 		let state = await runner.getState(workflowId);
-		expect(state.status).toBe('paused');
+		expect(state.status).toBe('waiting');
+		expect(state.wait).toMatchObject({
+			reason: 'human_input',
+			stepId: 'review',
+		});
+		expect(events.some(({ event }) => event === 'workflow.waiting')).toBe(true);
 		expect(
 			events.some(({ event }) => event === 'workflow.waiting_for_input')
 		).toBe(true);
@@ -507,5 +514,42 @@ describe('WorkflowRunner', () => {
 		expect(state.status).toBe('failed');
 		expect(state.history.length).toBe(1);
 		expect(state.history[0]?.status).toBe('failed');
+	});
+
+	it('persists retry wait state before rerunning a retryable step', async () => {
+		const events: { event: string; payload: unknown }[] = [];
+		let attempt = 0;
+		const spec = workflowSpec({
+			steps: [
+				{
+					id: 'start',
+					type: 'automation',
+					label: 'Retry Start',
+					action: { operation: { key: 'sigil.start', version: '1.0.0' } },
+					retry: { maxAttempts: 2, delayMs: 1, backoff: 'linear' },
+				},
+			],
+			transitions: [],
+		});
+
+		const { runner } = createRunner(spec, events, {
+			opExecutor: vi.fn(async () => {
+				attempt += 1;
+				if (attempt === 1) {
+					throw new WorkflowExecutionError('retryable failure', 'retryable');
+				}
+				return { approved: true };
+			}),
+		});
+
+		const workflowId = await runner.start(spec.meta.key);
+		await runner.executeStep(workflowId);
+
+		expect(events.some(({ event }) => event === 'workflow.waiting')).toBe(true);
+		expect(events.some(({ event }) => event === 'workflow.step_retrying')).toBe(
+			true
+		);
+		const state = await runner.getState(workflowId);
+		expect(state.status).toBe('completed');
 	});
 });

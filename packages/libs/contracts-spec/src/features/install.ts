@@ -1,7 +1,6 @@
 import type { CapabilityRegistry } from '../capabilities';
 import type { DataViewRegistry } from '../data-views/registry';
 import type { FormRegistry } from '../forms/forms';
-import type { IntegrationSpecRegistry } from '../integrations/spec';
 import type { JobSpecRegistry } from '../jobs/spec';
 import type { KnowledgeSpaceRegistry } from '../knowledge/spec';
 import type { PolicyRegistry } from '../policy/registry';
@@ -12,6 +11,10 @@ import type { VisualizationRegistry } from '../visualizations/registry';
 import type { WorkflowRegistry } from '../workflow/spec';
 import type { FeatureRegistry } from './registry';
 import type { FeatureModuleSpec } from './types';
+
+export interface FeatureIntegrationLookup {
+	get(key: string, version?: string): unknown;
+}
 
 /** Dependencies for installing a feature. */
 export interface InstallFeatureDeps {
@@ -24,7 +27,7 @@ export interface InstallFeatureDeps {
 	knowledge?: KnowledgeSpaceRegistry;
 	telemetry?: TelemetryRegistry;
 	policies?: PolicyRegistry;
-	integrations?: IntegrationSpecRegistry;
+	integrations?: FeatureIntegrationLookup;
 	jobs?: JobSpecRegistry;
 	translations?: TranslationRegistry;
 	dataViews?: DataViewRegistry;

@@ -11,7 +11,7 @@ List normalized biometrics synced from connected health providers.
 - **Stability**: experimental
 - **Owners**: @platform.integrations
 - **Tags**: health, biometrics, wearables
-- **File**: `packages/libs/contracts-spec/src/integrations/health/contracts/biometrics.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/health/contracts/biometrics.ts`
 
 ## Goal
 

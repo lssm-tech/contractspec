@@ -14,6 +14,8 @@ const ControlPlaneSkillSummaryModel = new SchemaModel({
 		version: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
 		status: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
 		verified: { type: ScalarTypeEnum.Boolean(), isOptional: false },
+		publisher: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+		provenance: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
 		installedAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
 	},
 });

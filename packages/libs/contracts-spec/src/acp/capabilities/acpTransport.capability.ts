@@ -1,7 +1,21 @@
 import { defineCapability } from '../../capabilities';
-import '../ensure-docblocks';
-import { docId } from '../../docs/registry';
+import { docRef } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
 import { ACP_DOMAIN, ACP_OWNERS, ACP_STABILITY, ACP_TAGS } from '../constants';
+
+export const AcpTransportDocBlock = {
+	id: 'docs.tech.acp.transport',
+	title: 'ACP transport',
+	summary: 'Agent Client Protocol transport surfaces.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/acp/transport',
+	tags: ['acp', 'transport'],
+	body: `# ACP transport
+
+Defines the ContractSpec ACP server + client surfaces for HTTP streamable transport.
+`,
+} satisfies DocBlock;
 
 export const AcpTransportCapability = defineCapability({
 	meta: {
@@ -14,7 +28,7 @@ export const AcpTransportCapability = defineCapability({
 		owners: ACP_OWNERS,
 		tags: [...ACP_TAGS, 'transport'],
 		stability: ACP_STABILITY,
-		docId: [docId('docs.tech.acp.transport')],
+		docId: [docRef(AcpTransportDocBlock.id)],
 	},
 	provides: [
 		{

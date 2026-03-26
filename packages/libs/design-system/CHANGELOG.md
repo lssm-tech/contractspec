@@ -1,5 +1,63 @@
 # @contractspec/lib.design-system
 
+## 3.8.8
+
+### Patch Changes
+
+- cce2b13: Add first-class Workflow DevKit support for `WorkflowSpec`, including new runtime metadata, stricter validation for Workflow-backed workflows, a dedicated Workflow DevKit integration package, CLI artifact generation, and Workflow-aware chat route helpers exposed from `@contractspec/module.ai-chat/core/workflow` so standard chat imports do not pull Workflow-only runtime assets into non-Workflow builds.
+
+  Also harden supporting runtime surfaces by reusing Playwright browser instances in the harness runtime, mapping design-system button `onPress` handlers correctly to DOM clicks, and switching the workspace git adapter to argument-safe subprocess calls while tightening slow test coverage around those flows.
+
+- Updated dependencies [cce2b13]
+  - @contractspec/lib.contracts-runtime-client-react@3.8.3
+  - @contractspec/lib.presentation-runtime-react@36.0.3
+  - @contractspec/lib.contracts-spec@5.0.3
+  - @contractspec/lib.ui-kit-web@3.9.7
+  - @contractspec/lib.ai-agent@8.0.3
+  - @contractspec/lib.ui-kit@3.8.7
+
+## 3.8.7
+
+### Patch Changes
+
+- chore: stability & release
+- Updated dependencies
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-runtime-client-react@3.8.2
+  - @contractspec/lib.presentation-runtime-react@36.0.2
+  - @contractspec/lib.contracts-spec@5.0.2
+  - @contractspec/lib.ui-kit-web@3.9.6
+  - @contractspec/lib.ai-agent@8.0.2
+  - @contractspec/lib.ui-kit@3.8.6
+
+## 3.8.6
+
+### Patch Changes
+
+- Updated dependencies [dd6e074]
+  - @contractspec/lib.contracts-spec@5.0.1
+  - @contractspec/lib.ai-agent@8.0.1
+  - @contractspec/lib.contracts-runtime-client-react@3.8.1
+  - @contractspec/lib.presentation-runtime-react@36.0.1
+  - @contractspec/lib.ui-kit-web@3.9.5
+  - @contractspec/lib.ui-kit@3.8.6
+
+## 3.8.5
+
+### Patch Changes
+
+- Updated dependencies [81256ea]
+- Updated dependencies [2619dd8]
+- Updated dependencies [81256ea]
+- Updated dependencies [a4489bb]
+- Updated dependencies [9cb304e]
+  - @contractspec/lib.contracts-spec@5.0.0
+  - @contractspec/lib.contracts-runtime-client-react@3.8.0
+  - @contractspec/lib.ai-agent@8.0.0
+  - @contractspec/lib.presentation-runtime-react@36.0.0
+  - @contractspec/lib.ui-kit-web@3.9.4
+  - @contractspec/lib.ui-kit@3.8.5
+
 ## 3.8.4
 
 ### Patch Changes

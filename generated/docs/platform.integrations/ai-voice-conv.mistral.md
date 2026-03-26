@@ -10,7 +10,7 @@ Mistral conversational voice integration using conversation sessions and speech 
 - **Version**: 1.0.0
 - **Owners**: platform.ai
 - **Tags**: voice, conversational, mistral, agents, sessions
-- **File**: `packages/libs/contracts-spec/src/integrations/providers/mistral-conversational.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/mistral-conversational.ts`
 
 ## Source Definition
 
@@ -29,6 +29,13 @@ export const mistralConversationalIntegrationSpec = defineIntegration({
 		stability: StabilityEnum.Experimental,
 	},
 	supportedModes: ['managed', 'byok'],
+	transports: [
+		{ type: 'rest', baseUrl: 'https://api.mistral.ai' },
+	] satisfies IntegrationTransportConfig[],
+	preferredTransport: 'rest',
+	supportedAuthMethods: [
+		{ type: 'api-key', headerName: 'Authorization', prefix: 'Bearer ' },
+	] satisfies IntegrationAuthConfig[],
 	capabilities: {
 		provides: [{ key: 'ai.voice.conversational', version: '1.0.0' }],
 	},
@@ -88,6 +95,8 @@ export const mistralConversationalIntegrationSpec = defineIntegration({
 	byokSetup: {
 		setupInstructions:
 			'Create a Mistral API key, enable conversation-capable models for your account, and configure default turn detection settings.',
+		keyRotationSupported: true,
+		quotaTrackingSupported: true,
 	},
 });
 ```

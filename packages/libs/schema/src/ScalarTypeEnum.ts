@@ -13,6 +13,11 @@ const latMin = -90;
 const latMax = 90;
 const lonMin = -180;
 const lonMax = 180;
+const coercedDateSchema = z.coerce.date();
+
+function parseDateValue(value: unknown): Date {
+	return coercedDateSchema.parse(value);
+}
 
 /**
  * Factory functions for common scalar FieldTypes with zod/GraphQL/JSON Schema.
@@ -113,7 +118,7 @@ const scalarTypeFactories = {
 		new FieldType<Date, string>({
 			name: 'Date',
 			zod: z.date(),
-			parseValue: (v) => (v instanceof Date ? v : new Date(String(v))),
+			parseValue: (v) => parseDateValue(v),
 			serialize: (v) =>
 				// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 				v instanceof Date ? v.toISOString().split('T')[0]! : String(v),
@@ -123,7 +128,7 @@ const scalarTypeFactories = {
 		new FieldType<Date, string>({
 			name: 'DateTime',
 			zod: z.date(),
-			parseValue: (v) => (v instanceof Date ? v : new Date(String(v))),
+			parseValue: (v) => parseDateValue(v),
 			serialize: (v) => {
 				return v instanceof Date ? v.toISOString() : String(v);
 			},

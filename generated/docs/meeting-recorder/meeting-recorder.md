@@ -11,7 +11,7 @@ Meeting metadata, transcript retrieval, and webhook ingestion for meeting record
 - **Stability**: experimental
 - **Owners**: @platform.integrations
 - **Tags**: meeting-recorder, transcripts, integrations
-- **File**: `packages/libs/contracts-spec/src/integrations/meeting-recorder/meeting-recorder.feature.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/meeting-recorder/meeting-recorder.feature.ts`
 
 ## Operations (5)
 

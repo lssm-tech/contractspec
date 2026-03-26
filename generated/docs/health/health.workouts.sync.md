@@ -11,7 +11,7 @@ Synchronize workouts from configured health providers.
 - **Stability**: experimental
 - **Owners**: @platform.integrations
 - **Tags**: health, workouts, wearables
-- **File**: `packages/libs/contracts-spec/src/integrations/health/contracts/workouts.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/health/contracts/workouts.ts`
 
 ## Goal
 

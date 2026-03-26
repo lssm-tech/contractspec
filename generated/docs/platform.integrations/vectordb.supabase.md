@@ -10,7 +10,7 @@ Supabase integration for embedding storage and vector similarity search using pg
 - **Version**: 1.0.0
 - **Owners**: platform.ai
 - **Tags**: vector-db, supabase, pgvector
-- **File**: `packages/libs/contracts-spec/src/integrations/providers/supabase-vector.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/supabase-vector.ts`
 
 ## Source Definition
 
@@ -29,6 +29,12 @@ export const supabaseVectorIntegrationSpec = defineIntegration({
 		stability: StabilityEnum.Beta,
 	},
 	supportedModes: ['managed', 'byok'],
+	transports: [
+		{ type: 'rest' },
+		{ type: 'sdk', packageName: '@supabase/supabase-js' },
+	],
+	preferredTransport: 'rest',
+	supportedAuthMethods: [{ type: 'api-key' }, { type: 'bearer' }],
 	capabilities: {
 		provides: [
 			{ key: 'vector-db.search', version: '1.0.0' },
@@ -101,6 +107,8 @@ export const supabaseVectorIntegrationSpec = defineIntegration({
 	byokSetup: {
 		setupInstructions:
 			'Create or reuse a Supabase project, enable pgvector, and provide a Postgres connection string with read/write access to the target vector table.',
+		keyRotationSupported: true,
+		quotaTrackingSupported: false,
 	},
 });
 ```

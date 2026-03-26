@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/app.registry-packs",
-	"version": "1.7.9",
+	"version": "1.7.11",
 	"type": "module",
 	"module": "src/index.ts",
 	"scripts": {
@@ -22,7 +22,7 @@
 	"dependencies": {
 		"@elysiajs/cors": "^1.4.1",
 		"@elysiajs/server-timing": "^1.4.0",
-		"@modelcontextprotocol/sdk": "^1.27.1",
+		"@modelcontextprotocol/sdk": "^1.28.0",
 		"drizzle-orm": "^0.45.1",
 		"elysia": "^1.4.28",
 		"zod": "catalog:"
@@ -31,7 +31,7 @@
 		"pg": "^8.20.0"
 	},
 	"devDependencies": {
-		"@types/pg": "^8.18.0",
+		"@types/pg": "^8.20.0",
 		"drizzle-kit": "^0.31.10",
 		"typescript": "catalog:"
 	},

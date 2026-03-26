@@ -10,7 +10,7 @@ Supabase Postgres integration for SQL query execution and transactional workload
 - **Version**: 1.0.0
 - **Owners**: platform.infrastructure
 - **Tags**: database, postgres, supabase
-- **File**: `packages/libs/contracts-spec/src/integrations/providers/supabase-postgres.ts`
+- **File**: `packages/libs/contracts-integrations/src/integrations/providers/supabase-postgres.ts`
 
 ## Source Definition
 
@@ -29,6 +29,12 @@ export const supabasePostgresIntegrationSpec = defineIntegration({
 		stability: StabilityEnum.Beta,
 	},
 	supportedModes: ['managed', 'byok'],
+	transports: [
+		{ type: 'rest' },
+		{ type: 'sdk', packageName: '@supabase/supabase-js' },
+	],
+	preferredTransport: 'rest',
+	supportedAuthMethods: [{ type: 'api-key' }, { type: 'basic' }],
 	capabilities: {
 		provides: [{ key: 'database.sql', version: '1.0.0' }],
 	},
@@ -78,6 +84,8 @@ export const supabasePostgresIntegrationSpec = defineIntegration({
 	byokSetup: {
 		setupInstructions:
 			'Create or reuse a Supabase project and provide a Postgres connection string with permissions aligned to your workload.',
+		keyRotationSupported: true,
+		quotaTrackingSupported: false,
 	},
 });
 ```

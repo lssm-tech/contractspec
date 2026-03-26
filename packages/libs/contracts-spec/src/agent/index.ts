@@ -7,4 +7,6 @@ export * from './events';
 export * from './forms';
 export * from './presentations';
 export * from './queries';
+export * from './registry';
+export * from './spec';
 export * from './views';

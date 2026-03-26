@@ -1,7 +1,7 @@
 import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
-import { defineEvent } from '../../events';
-import '../ensure-docblocks';
 import { docId } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { defineEvent } from '../../events';
 import {
 	AGENT_DOMAIN,
 	AGENT_OWNERS,
@@ -18,6 +18,20 @@ export const AgentApprovalRequestedPayload = new SchemaModel({
 		requestedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
 	},
 });
+
+export const AgentApprovalRequestedDocBlock = {
+	id: 'docs.tech.agent.approval.requested',
+	title: 'Agent approval requested event',
+	summary: 'Emitted when approval is required.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/agent/approval/requested',
+	tags: ['agent', 'event', 'approval'],
+	body: `# agent.approval.requested
+
+Emitted when an approval gate is triggered.
+`,
+} satisfies DocBlock;
 
 export const AgentApprovalRequestedEvent = defineEvent({
 	meta: {

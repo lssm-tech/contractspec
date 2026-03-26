@@ -7,8 +7,8 @@ import {
 	UnifiedAgent,
 	type UnifiedAgentConfig,
 } from '@contractspec/lib.ai-agent/agent/unified-agent';
-import type { AgentSpec } from '@contractspec/lib.ai-agent/spec';
 import type { AgentMode } from '@contractspec/lib.contracts-spec';
+import type { AgentSpec } from '@contractspec/lib.contracts-spec/agent';
 import type { AgentProvider, AgentResult, AgentTask } from './types';
 
 export class UnifiedAgentAdapter implements AgentProvider {
