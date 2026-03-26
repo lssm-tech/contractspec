@@ -39,3 +39,4 @@ export * from './supabase-psql';
 export * from './supabase-vector';
 export * from './tldv-meeting-recorder';
 export * from './twilio-sms';
+export * from './x402-payments';

@@ -63,3 +63,4 @@ export * from './video';
 export * from './voice';
 export * from './voice-video-sync';
 export * from './whoop';
+export * from './x402';

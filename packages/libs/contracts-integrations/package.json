@@ -161,7 +161,8 @@
 		"./integrations/secrets/scaleway-secret-manager": "./src/integrations/secrets/scaleway-secret-manager.ts",
 		"./integrations/spec": "./src/integrations/spec.ts",
 		"./integrations/transport": "./src/integrations/transport.ts",
-		"./integrations/versioning": "./src/integrations/versioning.ts"
+		"./integrations/versioning": "./src/integrations/versioning.ts",
+		"./integrations/providers/x402": "./src/integrations/providers/x402.ts"
 	},
 	"publishConfig": {
 		"access": "public",
@@ -898,6 +899,12 @@
 				"bun": "./dist/integrations/versioning.js",
 				"node": "./dist/node/integrations/versioning.js",
 				"default": "./dist/integrations/versioning.js"
+			},
+			"./integrations/providers/x402": {
+				"types": "./dist/integrations/providers/x402.d.ts",
+				"bun": "./dist/integrations/providers/x402.js",
+				"node": "./dist/node/integrations/providers/x402.js",
+				"default": "./dist/integrations/providers/x402.js"
 			}
 		}
 	}

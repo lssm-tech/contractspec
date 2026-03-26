@@ -16,7 +16,7 @@ import type { LLMProvider } from '../llm';
 import type { MeetingRecorderProvider } from '../meeting-recorder';
 import type { MessagingProvider } from '../messaging';
 import type { OpenBankingProvider } from '../openbanking';
-import type { PaymentsProvider } from '../payments';
+import type { PaymentsProvider, X402HttpPaymentClient } from '../payments';
 import type { ProjectManagementProvider } from '../project-management';
 import type { SmsProvider } from '../sms';
 import type { ObjectStorageProvider } from '../storage';
@@ -57,6 +57,7 @@ import { SupabasePostgresProvider } from './supabase-psql';
 import { SupabaseVectorProvider } from './supabase-vector';
 import { TldvMeetingRecorderProvider } from './tldv-meeting-recorder';
 import { TwilioSmsProvider } from './twilio-sms';
+import { X402PaymentsClient } from './x402-payments';
 
 const SECRET_CACHE = new Map<string, Record<string, unknown>>();
 
@@ -130,6 +131,39 @@ export class IntegrationProviderFactory {
 					`Unsupported payments integration: ${context.spec.meta.key}`
 				);
 		}
+	}
+
+	async createX402PaymentsClient(
+		context: IntegrationContext,
+		settlementProvider?: PaymentsProvider
+	): Promise<X402HttpPaymentClient> {
+		if (context.spec.meta.key !== 'payments.x402') {
+			throw new Error(
+				`Unsupported x402 integration: ${context.spec.meta.key}`
+			);
+		}
+		const provider = settlementProvider;
+		if (!provider) {
+			throw new Error(
+				'x402 requires a settlement PaymentsProvider (for example Stripe) to create and capture payment intents'
+			);
+		}
+		const x402Config = context.config as {
+			maxPaymentRetries?: number;
+			payer?: string;
+			paymentHeaderName?: string;
+			challengeHeaderNames?: string[];
+			throwOnRetryExhausted?: boolean;
+		};
+
+		return new X402PaymentsClient({
+			paymentsProvider: provider,
+			maxPaymentRetries: x402Config.maxPaymentRetries,
+			payer: x402Config.payer,
+			paymentHeaderName: x402Config.paymentHeaderName,
+			challengeHeaderNames: x402Config.challengeHeaderNames,
+			throwOnRetryExhausted: x402Config.throwOnRetryExhausted,
+		});
 	}
 
 	async createEmailOutboundProvider(

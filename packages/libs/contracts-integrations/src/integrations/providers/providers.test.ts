@@ -56,8 +56,20 @@ import {
 	supabaseVectorIntegrationSpec,
 } from './supabase-vector';
 import { registerTldvIntegration, tldvIntegrationSpec } from './tldv';
+import { registerX402Integration, x402IntegrationSpec } from './x402';
 
 describe('integration provider specs', () => {
+
+	it('registers x402 integration', () => {
+		const registry = registerX402Integration(new IntegrationSpecRegistry());
+		const registered = registry.get('payments.x402', '1.0.0');
+		expect(registered).toBe(x402IntegrationSpec);
+		expect(registered?.capabilities.provides).toEqual([
+			{ key: 'payments.psp', version: '1.0.0' },
+			{ key: 'payments.http402', version: '1.0.0' },
+		]);
+		expect(registered?.supportedModes).toEqual(['managed', 'byok']);
+	});
 	it('registers Stripe integration', () => {
 		const registry = registerStripeIntegration(new IntegrationSpecRegistry());
 		const registered = registry.get('payments.stripe', '1.0.0');
