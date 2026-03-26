@@ -30,11 +30,11 @@
 		"@pothos/core": "^4.9.1",
 		"@pothos/plugin-federation": "^4.0.0",
 		"@pothos/plugin-directives": "^4.2.3",
-		"graphql": "^16.13.1",
+		"graphql": "^16.13.2",
 		"@apollo/subgraph": "^2.13.3"
 	},
 	"peerDependencies": {
-		"graphql": ">=16.13.1"
+		"graphql": ">=16.13.2"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",

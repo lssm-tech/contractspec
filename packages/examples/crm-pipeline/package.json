@@ -87,7 +87,7 @@
 		"@types/react": "^19.2.14",
 		"@types/react-dom": "^19.2.2",
 		"@contractspec/tool.bun": "workspace:*",
-		"happy-dom": "^20.8.4"
+		"happy-dom": "^20.8.8"
 	},
 	"publishConfig": {
 		"exports": {
