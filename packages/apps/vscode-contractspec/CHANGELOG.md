@@ -1,5 +1,20 @@
 # Changelog
 
+## 3.8.4
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/lib.contracts-transformers@3.7.16
+  - @contractspec/lib.contracts-spec@5.0.4
+  - @contractspec/bundle.workspace@4.1.4
+  - @contractspec/lib.ai-providers@3.7.12
+  - @contractspec/module.workspace@4.1.3
+  - @contractspec/module.examples@3.8.8
+  - @contractspec/module.ai-chat@4.3.16
+  - @contractspec/lib.ai-agent@8.0.4
+
 ## 3.8.3
 
 ### Patch Changes

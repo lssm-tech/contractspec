@@ -1,5 +1,22 @@
 # @contractspec/example.saas-boilerplate
 
+## 3.8.8
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/lib.presentation-runtime-core@3.9.4
+  - @contractspec/lib.example-shared-ui@6.0.16
+  - @contractspec/module.notifications@3.7.15
+  - @contractspec/lib.runtime-sandbox@2.7.13
+  - @contractspec/lib.contracts-spec@5.0.4
+  - @contractspec/module.audit-trail@3.7.16
+  - @contractspec/lib.design-system@3.8.9
+  - @contractspec/lib.identity-rbac@3.7.16
+  - @contractspec/lib.schema@3.7.13
+  - @contractspec/lib.jobs@3.7.16
+
 ## 3.8.7
 
 ### Patch Changes

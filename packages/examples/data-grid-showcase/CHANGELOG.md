@@ -1,5 +1,17 @@
 # @contractspec/example.data-grid-showcase
 
+## 3.8.8
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/lib.presentation-runtime-react@36.0.4
+  - @contractspec/lib.contracts-spec@5.0.4
+  - @contractspec/lib.design-system@3.8.9
+  - @contractspec/lib.ui-kit-web@3.9.8
+  - @contractspec/lib.schema@3.7.13
+
 ## 3.8.7
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @contractspec/example.learning-journey-crm-onboarding
 
+## 3.7.16
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/module.learning-journey@3.7.15
+  - @contractspec/example.crm-pipeline@3.7.16
+  - @contractspec/lib.contracts-spec@5.0.4
+  - @contractspec/lib.schema@3.7.13
+
 ## 3.7.15
 
 ### Patch Changes

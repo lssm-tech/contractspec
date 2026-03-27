@@ -1,5 +1,19 @@
 # @contractspec/example.learning-journey-ui-gamified
 
+## 3.7.16
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/example.learning-journey-quest-challenges@3.7.16
+  - @contractspec/example.learning-journey-duo-drills@3.7.16
+  - @contractspec/example.learning-journey-ui-shared@3.7.16
+  - @contractspec/module.learning-journey@3.7.15
+  - @contractspec/lib.contracts-spec@5.0.4
+  - @contractspec/lib.design-system@3.8.9
+  - @contractspec/lib.ui-kit-web@3.9.8
+
 ## 3.7.15
 
 ### Patch Changes

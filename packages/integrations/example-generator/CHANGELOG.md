@@ -1,5 +1,14 @@
 # @contractspec/integration.example-generator
 
+## 37.0.4
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/lib.contracts-spec@5.0.4
+  - @contractspec/lib.schema@3.7.13
+
 ## 37.0.3
 
 ### Patch Changes

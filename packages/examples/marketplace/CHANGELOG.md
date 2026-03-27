@@ -1,5 +1,18 @@
 # @contractspec/example.marketplace
 
+## 3.8.8
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/lib.presentation-runtime-core@3.9.4
+  - @contractspec/lib.example-shared-ui@6.0.16
+  - @contractspec/lib.runtime-sandbox@2.7.13
+  - @contractspec/lib.contracts-spec@5.0.4
+  - @contractspec/lib.design-system@3.8.9
+  - @contractspec/lib.schema@3.7.13
+
 ## 3.8.7
 
 ### Patch Changes

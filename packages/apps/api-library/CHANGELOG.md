@@ -1,5 +1,18 @@
 # @contractspec/app.api-library
 
+## 3.8.9
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/integration.providers-impls@3.8.8
+  - @contractspec/integration.runtime@3.8.8
+  - @contractspec/lib.contracts-spec@5.0.4
+  - @contractspec/bundle.marketing@3.8.9
+  - @contractspec/bundle.workspace@4.1.4
+  - @contractspec/bundle.library@3.8.9
+
 ## 3.8.8
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @contractspec/example.video-api-showcase
 
+## 3.7.16
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/lib.contracts-integrations@3.8.8
+  - @contractspec/lib.contracts-spec@5.0.4
+  - @contractspec/lib.video-gen@2.7.16
+
 ## 3.7.15
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.runtime-sandbox",
-	"version": "2.7.12",
+	"version": "2.7.13",
 	"type": "module",
 	"scripts": {
 		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",

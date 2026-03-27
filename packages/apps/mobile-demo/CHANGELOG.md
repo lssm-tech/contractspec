@@ -1,5 +1,18 @@
 # @contractspec/app.expo-demo
 
+## 1.1.16
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/lib.presentation-runtime-react-native@36.0.3
+  - @contractspec/lib.presentation-runtime-core@3.9.4
+  - @contractspec/lib.contracts-spec@5.0.4
+  - @contractspec/lib.ui-kit-core@3.7.12
+  - @contractspec/lib.schema@3.7.13
+  - @contractspec/lib.ui-kit@3.8.8
+
 ## 1.1.15
 
 ### Patch Changes

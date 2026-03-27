@@ -1,5 +1,22 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 3.7.16
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/example.locale-jurisdiction-gate@3.7.16
+  - @contractspec/example.versioned-knowledge-base@3.7.16
+  - @contractspec/example.kb-update-pipeline@3.7.16
+  - @contractspec/example.learning-patterns@3.7.16
+  - @contractspec/module.learning-journey@3.7.15
+  - @contractspec/lib.example-shared-ui@6.0.16
+  - @contractspec/lib.runtime-sandbox@2.7.13
+  - @contractspec/lib.contracts-spec@5.0.4
+  - @contractspec/lib.design-system@3.8.9
+  - @contractspec/lib.ui-kit-web@3.9.8
+
 ## 3.7.15
 
 ### Patch Changes

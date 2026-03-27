@@ -1,5 +1,13 @@
 # spec-driven-development
 
+## 3.7.15
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/app.cli-contractspec@4.2.4
+
 ## 3.7.14
 
 ### Patch Changes

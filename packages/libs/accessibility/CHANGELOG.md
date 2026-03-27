@@ -1,5 +1,15 @@
 # @contractspec/lib.accessibility
 
+## 3.7.15
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/lib.design-system@3.8.9
+  - @contractspec/lib.ui-kit-web@3.9.8
+  - @contractspec/lib.ui-kit@3.8.8
+
 ## 3.7.14
 
 ### Patch Changes

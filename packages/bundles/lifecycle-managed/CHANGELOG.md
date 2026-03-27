@@ -1,5 +1,18 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 3.7.16
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/module.lifecycle-advisor@3.7.15
+  - @contractspec/module.lifecycle-core@3.7.15
+  - @contractspec/lib.contracts-spec@5.0.4
+  - @contractspec/lib.observability@3.7.16
+  - @contractspec/lib.analytics@3.7.16
+  - @contractspec/lib.lifecycle@3.7.16
+
 ## 3.7.15
 
 ### Patch Changes

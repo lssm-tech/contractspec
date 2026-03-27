@@ -1,5 +1,15 @@
 # @contractspec/lib.presentation-runtime-react
 
+## 36.0.4
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/lib.presentation-runtime-core@3.9.4
+  - @contractspec/lib.contracts-spec@5.0.4
+  - @contractspec/lib.ui-kit-web@3.9.8
+
 ## 36.0.3
 
 ### Patch Changes

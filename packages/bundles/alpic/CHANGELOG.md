@@ -1,5 +1,13 @@
 # @contractspec/bundle.alpic
 
+## 3.7.15
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/module.alpic@3.7.16
+
 ## 3.7.14
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @contractspec/module.workspace
 
+## 4.1.3
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/lib.contracts-integrations@3.8.8
+  - @contractspec/lib.contracts-spec@5.0.4
+  - @contractspec/lib.schema@3.7.13
+
 ## 4.1.2
 
 ### Patch Changes

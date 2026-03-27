@@ -1,5 +1,15 @@
 # @contractspec/lib.contracts-runtime-server-mcp
 
+## 3.7.16
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/lib.presentation-runtime-core@3.9.4
+  - @contractspec/lib.contracts-spec@5.0.4
+  - @contractspec/lib.logger@3.7.12
+
 ## 3.7.15
 
 ### Patch Changes

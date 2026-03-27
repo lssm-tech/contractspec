@@ -1,5 +1,14 @@
 # @contractspec/integration.harness-runtime
 
+## 0.2.9
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/lib.contracts-spec@5.0.4
+  - @contractspec/lib.harness@0.2.9
+
 ## 0.2.8
 
 ### Patch Changes

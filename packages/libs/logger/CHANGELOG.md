@@ -1,5 +1,11 @@
 # @contractspec/lib.logger
 
+## 3.7.12
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+
 ## 3.7.11
 
 ### Patch Changes

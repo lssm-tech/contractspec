@@ -1,5 +1,15 @@
 # @contractspec/integration.runtime
 
+## 3.8.8
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/lib.contracts-integrations@3.8.8
+  - @contractspec/lib.contracts-spec@5.0.4
+  - @contractspec/lib.logger@3.7.12
+
 ## 3.8.7
 
 ### Patch Changes

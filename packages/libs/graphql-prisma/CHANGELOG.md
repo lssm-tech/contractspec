@@ -1,5 +1,13 @@
 # @contractspec/lib.graphql-prisma
 
+## 3.7.13
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/lib.schema@3.7.13
+
 ## 3.7.12
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/biome-config",
-	"version": "3.8.5",
+	"version": "3.8.6",
 	"type": "module",
 	"description": "Biome presets, Grit plugins, and policy manifest for ContractSpec repositories.",
 	"keywords": [

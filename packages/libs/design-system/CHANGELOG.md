@@ -1,5 +1,18 @@
 # @contractspec/lib.design-system
 
+## 3.8.9
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/lib.contracts-runtime-client-react@3.8.4
+  - @contractspec/lib.presentation-runtime-react@36.0.4
+  - @contractspec/lib.contracts-spec@5.0.4
+  - @contractspec/lib.ui-kit-web@3.9.8
+  - @contractspec/lib.ai-agent@8.0.4
+  - @contractspec/lib.ui-kit@3.8.8
+
 ## 3.8.8
 
 ### Patch Changes

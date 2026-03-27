@@ -1,5 +1,14 @@
 # @contractspec/bundle.product-intent
 
+## 3.7.16
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/module.product-intent-core@3.7.15
+  - @contractspec/lib.contracts-spec@5.0.4
+
 ## 3.7.15
 
 ### Patch Changes

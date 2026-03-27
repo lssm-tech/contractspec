@@ -1,5 +1,16 @@
 # @contractspec/lib.ai-agent
 
+## 8.0.4
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/lib.surface-runtime@0.5.16
+  - @contractspec/lib.contracts-spec@5.0.4
+  - @contractspec/lib.ai-providers@3.7.12
+  - @contractspec/lib.knowledge@3.7.16
+
 ## 8.0.3
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @contractspec/lib.ui-kit
 
+## 3.8.8
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/lib.presentation-runtime-core@3.9.4
+  - @contractspec/lib.ui-kit-core@3.7.12
+
 ## 3.8.7
 
 ### Patch Changes

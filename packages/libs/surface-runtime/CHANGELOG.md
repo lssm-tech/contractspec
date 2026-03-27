@@ -1,5 +1,15 @@
 # @contractspec/lib.surface-runtime
 
+## 0.5.16
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/lib.contracts-spec@5.0.4
+  - @contractspec/lib.overlay-engine@3.7.16
+  - @contractspec/lib.observability@3.7.16
+
 ## 0.5.15
 
 ### Patch Changes

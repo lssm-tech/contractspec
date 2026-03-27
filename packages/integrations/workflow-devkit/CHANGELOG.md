@@ -1,5 +1,14 @@
 # @contractspec/integration.workflow-devkit
 
+## 0.1.2
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/lib.contracts-spec@5.0.4
+  - @contractspec/lib.ai-agent@8.0.4
+
 ## 0.1.1
 
 ### Patch Changes

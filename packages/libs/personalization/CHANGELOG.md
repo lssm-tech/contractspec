@@ -1,5 +1,18 @@
 # @contractspec/lib.personalization
 
+## 6.0.16
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/lib.surface-runtime@0.5.16
+  - @contractspec/lib.contracts-spec@5.0.4
+  - @contractspec/lib.overlay-engine@3.7.16
+  - @contractspec/lib.knowledge@3.7.16
+  - @contractspec/lib.schema@3.7.13
+  - @contractspec/lib.bus@3.7.16
+
 ## 6.0.15
 
 ### Patch Changes

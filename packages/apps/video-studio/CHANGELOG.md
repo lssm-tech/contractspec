@@ -1,5 +1,16 @@
 # @contractspec/app.video-studio
 
+## 2.7.16
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/lib.contracts-spec@5.0.4
+  - @contractspec/lib.design-system@3.8.9
+  - @contractspec/lib.content-gen@3.7.16
+  - @contractspec/lib.video-gen@2.7.16
+
 ## 2.7.15
 
 ### Patch Changes

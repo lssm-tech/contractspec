@@ -1,5 +1,38 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 3.8.9
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.16
+  - @contractspec/example.visualization-showcase@3.9.8
+  - @contractspec/example.analytics-dashboard@3.9.8
+  - @contractspec/example.data-grid-showcase@3.8.8
+  - @contractspec/example.ai-chat-assistant@3.8.8
+  - @contractspec/example.saas-boilerplate@3.8.8
+  - @contractspec/lib.progressive-delivery@34.0.15
+  - @contractspec/example.integration-hub@3.8.8
+  - @contractspec/example.workflow-system@3.8.8
+  - @contractspec/example.agent-console@3.8.8
+  - @contractspec/lib.example-shared-ui@6.0.16
+  - @contractspec/example.crm-pipeline@3.7.16
+  - @contractspec/example.in-app-docs@3.7.16
+  - @contractspec/example.marketplace@3.8.8
+  - @contractspec/lib.surface-runtime@0.5.16
+  - @contractspec/lib.contracts-spec@5.0.4
+  - @contractspec/lib.design-system@3.8.9
+  - @contractspec/bundle.marketing@3.8.9
+  - @contractspec/lib.ai-providers@3.7.12
+  - @contractspec/lib.ui-kit-core@3.7.12
+  - @contractspec/module.examples@3.8.8
+  - @contractspec/bundle.library@3.8.9
+  - @contractspec/lib.ui-kit-web@3.9.8
+  - @contractspec/module.ai-chat@4.3.16
+  - @contractspec/lib.ui-link@3.7.12
+  - @contractspec/lib.ui-kit@3.8.8
+
 ## 3.8.8
 
 ### Patch Changes

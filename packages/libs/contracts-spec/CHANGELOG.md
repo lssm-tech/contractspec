@@ -1,5 +1,13 @@
 # @contractspec/lib.contracts-spec
 
+## 5.0.4
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/lib.schema@3.7.13
+
 ## 5.0.3
 
 ### Patch Changes
