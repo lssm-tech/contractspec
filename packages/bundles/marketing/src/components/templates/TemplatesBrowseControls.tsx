@@ -3,6 +3,7 @@
 import { cn } from '@contractspec/lib.ui-kit-core/utils';
 import { Search } from 'lucide-react';
 import type { TemplateSource } from './template-source';
+import type { TemplateTagFacet } from './template-tag-visibility';
 
 export interface TemplatesBrowseControlsProps {
 	registryConfigured: boolean;
@@ -13,7 +14,11 @@ export interface TemplatesBrowseControlsProps {
 	onSearchChange: (value: string) => void;
 	selectedTag: string | null;
 	onTagChange: (tag: string | null) => void;
-	availableTags: readonly string[];
+	showTagFilters: boolean;
+	visibleTagFacets: readonly TemplateTagFacet[];
+	hiddenTagFacets: readonly TemplateTagFacet[];
+	showAllTags: boolean;
+	onShowAllTagsChange: (expanded: boolean) => void;
 }
 
 export function TemplatesBrowseControls({
@@ -25,7 +30,11 @@ export function TemplatesBrowseControls({
 	onSearchChange,
 	selectedTag,
 	onTagChange,
-	availableTags,
+	showTagFilters,
+	visibleTagFacets,
+	hiddenTagFacets,
+	showAllTags,
+	onShowAllTagsChange,
 }: TemplatesBrowseControlsProps) {
 	return (
 		<section className="editorial-section">
@@ -80,39 +89,54 @@ export function TemplatesBrowseControls({
 							aria-label="Search templates"
 						/>
 					</div>
-					<div className="flex flex-wrap gap-2">
-						<button
-							onClick={() => onTagChange(null)}
-							className={cn(
-								'rounded-full px-4 py-2 font-medium text-sm transition-colors',
-								{
-									'bg-primary text-primary-foreground': selectedTag === null,
-									'border border-border bg-card hover:bg-card/80':
-										selectedTag !== null,
-								}
-							)}
-							aria-pressed={selectedTag === null}
-						>
-							All
-						</button>
-						{availableTags.map((tag) => (
-							<button
-								key={tag}
-								onClick={() => onTagChange(tag)}
-								className={cn(
-									'rounded-full px-4 py-2 font-medium text-sm transition-colors',
-									{
-										'bg-primary text-primary-foreground': selectedTag === tag,
-										'border border-border bg-card hover:bg-card/80':
-											selectedTag !== tag,
-									}
-								)}
-								aria-pressed={selectedTag === tag}
-							>
-								{tag}
-							</button>
-						))}
-					</div>
+					{showTagFilters ? (
+						<div className="space-y-3">
+							<div className="flex flex-wrap gap-2">
+								<button
+									onClick={() => onTagChange(null)}
+									className={cn(
+										'rounded-full px-4 py-2 font-medium text-sm transition-colors',
+										{
+											'bg-primary text-primary-foreground':
+												selectedTag === null,
+											'border border-border bg-card hover:bg-card/80':
+												selectedTag !== null,
+										}
+									)}
+									aria-pressed={selectedTag === null}
+								>
+									All
+								</button>
+								{visibleTagFacets.map((facet) => (
+									<button
+										key={facet.tag}
+										onClick={() => onTagChange(facet.tag)}
+										className={cn(
+											'rounded-full px-4 py-2 font-medium text-sm transition-colors',
+											{
+												'bg-primary text-primary-foreground':
+													selectedTag === facet.tag,
+												'border border-border bg-card hover:bg-card/80':
+													selectedTag !== facet.tag,
+											}
+										)}
+										aria-pressed={selectedTag === facet.tag}
+									>
+										{facet.tag}
+									</button>
+								))}
+							</div>
+							{hiddenTagFacets.length > 0 || showAllTags ? (
+								<button
+									type="button"
+									onClick={() => onShowAllTagsChange(!showAllTags)}
+									className="text-muted-foreground text-sm transition-colors hover:text-foreground"
+								>
+									{showAllTags ? 'Show fewer' : 'More tags'}
+								</button>
+							) : null}
+						</div>
+					) : null}
 				</div>
 			</div>
 		</section>

@@ -80,6 +80,16 @@ export function matchesTemplateFilters(
 	search: string,
 	selectedTag: string | null
 ): boolean {
+	return (
+		matchesTemplateSearch(template, search) &&
+		(selectedTag === null || template.tags.includes(selectedTag))
+	);
+}
+
+export function matchesTemplateSearch(
+	template: TemplateFilterCandidate,
+	search: string
+): boolean {
 	const haystack = [
 		template.title,
 		template.description,
@@ -88,13 +98,11 @@ export function matchesTemplateFilters(
 		.join(' ')
 		.toLowerCase();
 	const searchTokens = search.trim().toLowerCase().split(/\s+/).filter(Boolean);
-	const matchesSearch =
-		searchTokens.length === 0 ||
-		searchTokens.every((token) => haystack.includes(token));
-	const matchesTag =
-		selectedTag === null || template.tags.includes(selectedTag);
 
-	return matchesSearch && matchesTag;
+	return (
+		searchTokens.length === 0 ||
+		searchTokens.every((token) => haystack.includes(token))
+	);
 }
 
 export function formatExampleKindLabel(kind: ExampleKind): string {

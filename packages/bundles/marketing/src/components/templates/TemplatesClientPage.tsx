@@ -4,37 +4,15 @@ import {
 	analyticsEventNames,
 	captureAnalyticsEvent,
 } from '@contractspec/bundle.library/libs/posthog/client';
-import { useRegistryTemplates } from '@contractspec/lib.example-shared-ui';
-import {
-	Dialog,
-	DialogContent,
-	DialogDescription,
-	DialogHeader,
-	DialogTitle,
-} from '@contractspec/lib.ui-kit-web/ui/dialog';
-import { useMemo, useState } from 'react';
-import { StudioSignupSection } from '../marketing';
-import { TemplateCommandDialog } from './TemplateCommandDialog';
+import { useState } from 'react';
 import { TemplatesBrowseControls } from './TemplatesBrowseControls';
 import { TemplatesCatalogSection } from './TemplatesCatalogSection';
 import { TemplatesHeroSection } from './TemplatesHeroSection';
 import { TemplatesNextStepsSection } from './TemplatesNextStepsSection';
-import { TemplatePreviewModal } from './TemplatesPreviewModal';
-import {
-	buildLocalTemplateCatalog,
-	matchesTemplateFilters,
-} from './template-catalog';
-import {
-	getAvailableTemplateSources,
-	isRegistryConfigured,
-	type TemplateSource,
-} from './template-source';
-
-const REGISTRY_URL = process.env.NEXT_PUBLIC_CONTRACTSPEC_REGISTRY_URL;
+import { TemplatesOverlays } from './TemplatesOverlays';
+import { useTemplateBrowseState } from './useTemplateBrowseState';
 
 export const TemplatesPage = () => {
-	const [selectedTag, setSelectedTag] = useState<string | null>(null);
-	const [search, setSearch] = useState('');
 	const [previewTemplateId, setPreviewTemplateId] = useState<string | null>(
 		null
 	);
@@ -42,49 +20,27 @@ export const TemplatesPage = () => {
 	const [selectedTemplateId, setSelectedTemplateId] = useState<string | null>(
 		null
 	);
-	const [source, setSource] = useState<TemplateSource>('local');
-
-	const registryConfigured = isRegistryConfigured(REGISTRY_URL);
-	const availableSources = getAvailableTemplateSources(REGISTRY_URL);
-	const localTemplates = useMemo(() => buildLocalTemplateCatalog(), []);
-	const localTemplateById = useMemo(
-		() => new Map(localTemplates.map((template) => [template.id, template])),
-		[localTemplates]
-	);
-	const availableTags = useMemo(
-		() =>
-			Array.from(
-				new Set(localTemplates.flatMap((template) => template.tags))
-			).sort((left, right) => left.localeCompare(right)),
-		[localTemplates]
-	);
-
-	const { data: registryTemplates = [], isLoading: registryLoading } =
-		useRegistryTemplates();
-
-	const filteredLocalTemplates = useMemo(
-		() =>
-			localTemplates.filter((template) =>
-				matchesTemplateFilters(template, search, selectedTag)
-			),
-		[localTemplates, search, selectedTag]
-	);
-
-	const filteredRegistryTemplates = useMemo(
-		() =>
-			registryTemplates.filter((template) =>
-				matchesTemplateFilters(
-					{
-						title: template.name,
-						description: template.description,
-						tags: template.tags,
-					},
-					search,
-					selectedTag
-				)
-			),
-		[registryTemplates, search, selectedTag]
-	);
+	const {
+		selectedTag,
+		setSelectedTag,
+		search,
+		setSearch,
+		source,
+		setSource,
+		showAllTags,
+		setShowAllTags,
+		registryConfigured,
+		availableSources,
+		localTemplates,
+		localTemplateById,
+		registryTemplates,
+		registryLoading,
+		localFilterState,
+		registryFilterState,
+		visibleTagFacets,
+		hiddenTagFacets,
+		showTagFilters,
+	} = useTemplateBrowseState();
 
 	return (
 		<>
@@ -102,14 +58,19 @@ export const TemplatesPage = () => {
 					onSearchChange={setSearch}
 					selectedTag={selectedTag}
 					onTagChange={setSelectedTag}
-					availableTags={availableTags}
+					showTagFilters={showTagFilters}
+					visibleTagFacets={visibleTagFacets}
+					hiddenTagFacets={hiddenTagFacets}
+					showAllTags={showAllTags}
+					onShowAllTagsChange={setShowAllTags}
 				/>
 				<TemplatesCatalogSection
 					source={source}
 					registryConfigured={registryConfigured}
 					registryLoading={registryLoading}
-					localTemplates={filteredLocalTemplates}
-					registryTemplates={filteredRegistryTemplates}
+					registryHasTemplates={registryTemplates.length > 0}
+					localTemplates={localFilterState.finalTemplates}
+					registryTemplates={registryFilterState.finalTemplates}
 					localTemplateById={localTemplateById}
 					onPreview={setPreviewTemplateId}
 					onUseTemplate={(templateId, templateSource) => {
@@ -120,36 +81,19 @@ export const TemplatesPage = () => {
 						});
 						setSelectedTemplateId(templateId);
 					}}
+					hasSearch={search.trim().length > 0}
+					selectedTag={selectedTag}
 				/>
 				<TemplatesNextStepsSection />
 			</main>
 
-			{previewTemplateId ? (
-				<TemplatePreviewModal
-					templateId={previewTemplateId}
-					onClose={() => setPreviewTemplateId(null)}
-				/>
-			) : null}
-
-			<Dialog
-				open={studioSignupModalOpen}
-				onOpenChange={setStudioSignupModalOpen}
-			>
-				<DialogContent className="max-h-[90vh] max-w-2xl overflow-y-auto">
-					<DialogHeader>
-						<DialogTitle>Deploy in Studio</DialogTitle>
-						<DialogDescription>
-							Deploy templates in ContractSpec Studio and run the full
-							evidence-to-spec loop with your team.
-						</DialogDescription>
-					</DialogHeader>
-					<StudioSignupSection variant="compact" />
-				</DialogContent>
-			</Dialog>
-
-			<TemplateCommandDialog
-				templateId={selectedTemplateId}
-				onClose={() => setSelectedTemplateId(null)}
+			<TemplatesOverlays
+				previewTemplateId={previewTemplateId}
+				onPreviewClose={() => setPreviewTemplateId(null)}
+				studioSignupModalOpen={studioSignupModalOpen}
+				onStudioSignupModalOpenChange={setStudioSignupModalOpen}
+				selectedTemplateId={selectedTemplateId}
+				onTemplateCommandClose={() => setSelectedTemplateId(null)}
 				onDeployStudio={() => {
 					setSelectedTemplateId(null);
 					setStudioSignupModalOpen(true);

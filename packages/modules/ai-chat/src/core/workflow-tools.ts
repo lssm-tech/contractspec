@@ -229,7 +229,7 @@ export function createWorkflowTools(config: WorkflowToolsConfig): ToolSet {
 				6
 			);
 
-			const code = `import type { WorkflowSpec } from '@contractspec/lib.contracts-spec/workflow';
+			const code = `import type { WorkflowSpec } from '@contractspec/lib.contracts-spec/workflow/spec';
 
 /**
  * Workflow: ${base.meta.key}

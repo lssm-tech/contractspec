@@ -95,8 +95,16 @@ export function SpecsWorkflowsPage() {
 				<p className="text-muted-foreground">
 					Here's a simplified example of a payment workflow in TypeScript:
 				</p>
+				<p className="text-muted-foreground text-sm">
+					For Vercel Workflow and other VM-evaluated runtimes, author workflow
+					specs from{' '}
+					<code className="rounded bg-background/50 px-2 py-1">
+						@contractspec/lib.contracts-spec/workflow/spec
+					</code>{' '}
+					rather than the broad workflow barrel.
+				</p>
 				<div className="overflow-x-auto rounded-lg border border-border bg-background/50 p-4 font-mono text-muted-foreground text-sm">
-					<pre>{`import { defineWorkflow } from '@contractspec/lib.contracts-spec/workflow';
+					<pre>{`import { defineWorkflow } from '@contractspec/lib.contracts-spec/workflow/spec';
 import { ValidatePaymentMethod, ChargePayment, SendEmail } from './specs';
 
 export const PaymentFlow = defineWorkflow({

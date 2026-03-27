@@ -18,24 +18,31 @@ export interface TemplatesCatalogSectionProps {
 	source: TemplateSource;
 	registryConfigured: boolean;
 	registryLoading: boolean;
+	registryHasTemplates: boolean;
 	localTemplates: readonly LocalTemplateCatalogItem[];
 	registryTemplates: readonly RegistryTemplate[];
 	localTemplateById: ReadonlyMap<string, LocalTemplateCatalogItem>;
 	onPreview: (templateId: string) => void;
 	onUseTemplate: (templateId: string, source: TemplateSource) => void;
+	hasSearch: boolean;
+	selectedTag: string | null;
 }
 
 export function TemplatesCatalogSection({
 	source,
 	registryConfigured,
 	registryLoading,
+	registryHasTemplates,
 	localTemplates,
 	registryTemplates,
 	localTemplateById,
 	onPreview,
 	onUseTemplate,
+	hasSearch,
+	selectedTag,
 }: TemplatesCatalogSectionProps) {
 	const showRegistry = source === 'registry' && registryConfigured;
+	const emptyStateMessage = getEmptyStateMessage(hasSearch, selectedTag);
 
 	return (
 		<section className="section-padding">
@@ -47,11 +54,15 @@ export function TemplatesCatalogSection({
 								Loading community templates…
 							</p>
 						</div>
-					) : registryTemplates.length === 0 ? (
+					) : !registryHasTemplates ? (
 						<div className="py-12 text-center">
 							<p className="text-muted-foreground">
 								No community templates found.
 							</p>
+						</div>
+					) : registryTemplates.length === 0 ? (
+						<div className="py-12 text-center">
+							<p className="text-muted-foreground">{emptyStateMessage}</p>
 						</div>
 					) : (
 						<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -109,9 +120,7 @@ export function TemplatesCatalogSection({
 					)
 				) : localTemplates.length === 0 ? (
 					<div className="py-12 text-center">
-						<p className="text-muted-foreground">
-							No templates match your filters. Try a different search.
-						</p>
+						<p className="text-muted-foreground">{emptyStateMessage}</p>
 					</div>
 				) : (
 					<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -163,4 +172,20 @@ export function TemplatesCatalogSection({
 			</div>
 		</section>
 	);
+}
+
+function getEmptyStateMessage(
+	hasSearch: boolean,
+	selectedTag: string | null
+): string {
+	if (selectedTag !== null && hasSearch) {
+		return 'No templates match this tag for the current search.';
+	}
+	if (selectedTag !== null) {
+		return 'No templates match this tag. Try another tag or reset filters.';
+	}
+	if (hasSearch) {
+		return 'No templates match your search. Try a different keyword.';
+	}
+	return 'No templates match your filters. Try a different search.';
 }

@@ -7,10 +7,3 @@ export * from './spec';
 export * from './state';
 export * from './validation';
 export * from './workflow-devkit';
-
-import type { WorkflowSpec } from './spec';
-
-/**
- * Helper to define a Workflow.
- */
-export const defineWorkflow = (spec: WorkflowSpec): WorkflowSpec => spec;

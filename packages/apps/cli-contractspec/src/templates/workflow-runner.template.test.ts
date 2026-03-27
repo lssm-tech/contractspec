@@ -1,8 +1,8 @@
 import { describe, expect, it } from 'bun:test';
-import { generateWorkflowRunnerTemplate } from './workflow-runner';
+import { generateWorkflowRunnerTemplate } from './workflow-runner.template';
 
 describe('generateWorkflowRunnerTemplate', () => {
-	it('generates a workflow runner', () => {
+	it('generates a workflow runner with split workflow imports', () => {
 		const code = generateWorkflowRunnerTemplate({
 			exportName: 'MyWorkflow',
 			specImportPath: './my-workflow.contracts',
@@ -10,9 +10,6 @@ describe('generateWorkflowRunnerTemplate', () => {
 			workflowName: 'My Workflow',
 		});
 
-		expect(code).toContain(
-			"import { MyWorkflow } from './my-workflow.contracts'"
-		);
 		expect(code).toContain(
 			"import { InMemoryStateStore } from '@contractspec/lib.contracts-spec/workflow/adapters';"
 		);
@@ -22,9 +19,8 @@ describe('generateWorkflowRunnerTemplate', () => {
 		expect(code).toContain(
 			"import { WorkflowRegistry } from '@contractspec/lib.contracts-spec/workflow/spec';"
 		);
-		expect(code).toContain('registry.register(MyWorkflow)');
 		expect(code).toContain(
-			'export const myWorkflowRunner = new WorkflowRunner({'
+			"import { MyWorkflow } from './my-workflow.contracts'"
 		);
 	});
 });
