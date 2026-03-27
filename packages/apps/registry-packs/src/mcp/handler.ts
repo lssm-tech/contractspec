@@ -3,9 +3,10 @@
  *
  * Creates an Elysia plugin that mounts the MCP server at a given base path.
  */
-import { randomUUID } from 'node:crypto';
+
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js';
+import { randomUUID } from 'crypto';
 import { Elysia } from 'elysia';
 import { registerPrompts } from './prompts';
 import { registerResources } from './resources';

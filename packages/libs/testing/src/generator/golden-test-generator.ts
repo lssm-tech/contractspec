@@ -1,5 +1,5 @@
-import { randomUUID } from 'node:crypto';
 import { performance } from 'node:perf_hooks';
+import { randomUUID } from 'crypto';
 import { generateJestSuite } from '../adapters/jest-adapter';
 import { generateVitestSuite } from '../adapters/vitest-adapter';
 import type { GoldenTestCase, TrafficSnapshot } from '../types';

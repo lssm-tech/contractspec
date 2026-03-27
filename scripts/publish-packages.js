@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
 import { spawnSync } from 'node:child_process';
-import crypto from 'node:crypto';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
+import { createHash } from 'crypto';
 
 import {
 	CLI_SMOKE_PACKAGE_NAMES,
@@ -145,7 +145,7 @@ function readJson(filePath) {
 }
 
 function computeSha256(filePath) {
-	const hash = crypto.createHash('sha256');
+	const hash = createHash('sha256');
 	hash.update(fs.readFileSync(filePath));
 	return hash.digest('hex');
 }
@@ -517,7 +517,9 @@ export async function publishPackages(options = {}) {
 	const { packageNames: selectedPackageNames, packageNamesSpecified } =
 		getPackageNameSelection(options);
 	if (packageNamesSpecified && selectedPackageNames.length === 0) {
-		console.log('[publish] Skip npm publish: no package targets were resolved.');
+		console.log(
+			'[publish] Skip npm publish: no package targets were resolved.'
+		);
 		return [];
 	}
 	const packagesByName = new Map(
@@ -527,8 +529,9 @@ export async function publishPackages(options = {}) {
 		? selectedPackageNames
 		: Array.from(packagesByName.keys());
 	const requestedPackageSet = new Set(requestedPackageNames);
-	const preparationPackageNames =
-		getPreparationPackageNames(requestedPackageNames);
+	const preparationPackageNames = getPreparationPackageNames(
+		requestedPackageNames
+	);
 	const releaseRoot = path.resolve(
 		options.releaseDir ??
 			process.env.CONTRACTSPEC_RELEASE_DIR ??

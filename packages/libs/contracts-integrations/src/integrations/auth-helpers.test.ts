@@ -1,5 +1,5 @@
 import { describe, expect, it, vi } from 'bun:test';
-import { createHmac } from 'node:crypto';
+import { createHmac } from 'crypto';
 import type { IntegrationAuthConfig, OAuth2TokenState } from './auth';
 import {
 	buildAuthHeaders,

@@ -1,4 +1,3 @@
-import { randomUUID } from 'node:crypto';
 import {
 	DeleteMessageCommand,
 	ReceiveMessageCommand,
@@ -6,6 +5,7 @@ import {
 	SQSClient,
 } from '@aws-sdk/client-sqs';
 import type { Logger } from '@contractspec/lib.logger';
+import { randomUUID } from 'crypto';
 import type { EnqueueOptions, Job, JobHandler, JobQueue } from './types';
 import { DEFAULT_RETRY_POLICY } from './types';
 

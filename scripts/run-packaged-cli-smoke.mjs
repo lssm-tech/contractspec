@@ -1,11 +1,11 @@
 #!/usr/bin/env node
 
 import { spawnSync } from 'node:child_process';
-import crypto from 'node:crypto';
 import fs from 'node:fs';
 import os from 'node:os';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
+import crypto from 'crypto';
 import {
 	buildSmokeInstallManifest,
 	discoverPreparedTarballs,

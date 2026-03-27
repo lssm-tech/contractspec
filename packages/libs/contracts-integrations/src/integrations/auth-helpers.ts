@@ -5,7 +5,7 @@
  * - Webhook signature verification
  */
 
-import { createHmac, timingSafeEqual } from 'node:crypto';
+import { createHmac, timingSafeEqual } from 'crypto';
 import type {
 	ApiKeyAuthConfig,
 	BasicAuthConfig,

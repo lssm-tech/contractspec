@@ -1,6 +1,5 @@
-import { createHmac, randomUUID } from 'node:crypto';
-
 import type { ChannelInboundEvent } from '@contractspec/integration.runtime/channel';
+import { createHmac, randomUUID } from 'crypto';
 
 import { resolveInternalControlPlaneActor } from './channel-internal-auth';
 

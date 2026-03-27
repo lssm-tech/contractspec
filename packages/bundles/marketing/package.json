@@ -48,7 +48,18 @@
 		"./components/marketing/sections/StepsSection": "./src/components/marketing/sections/StepsSection.tsx",
 		"./components/marketing/studio-signup-section": "./src/components/marketing/studio-signup-section.tsx",
 		"./components/templates": "./src/components/templates/index.ts",
+		"./components/templates/template-catalog": "./src/components/templates/template-catalog.ts",
+		"./components/templates/template-new": "./src/components/templates/template-new.ts",
+		"./components/templates/template-preview": "./src/components/templates/template-preview.ts",
+		"./components/templates/template-source": "./src/components/templates/template-source.ts",
+		"./components/templates/TemplateCard": "./src/components/templates/TemplateCard.tsx",
+		"./components/templates/TemplateCommandDialog": "./src/components/templates/TemplateCommandDialog.tsx",
+		"./components/templates/TemplatePreviewContent": "./src/components/templates/TemplatePreviewContent.tsx",
+		"./components/templates/TemplatesBrowseControls": "./src/components/templates/TemplatesBrowseControls.tsx",
+		"./components/templates/TemplatesCatalogSection": "./src/components/templates/TemplatesCatalogSection.tsx",
 		"./components/templates/TemplatesClientPage": "./src/components/templates/TemplatesClientPage.tsx",
+		"./components/templates/TemplatesHeroSection": "./src/components/templates/TemplatesHeroSection.tsx",
+		"./components/templates/TemplatesNextStepsSection": "./src/components/templates/TemplatesNextStepsSection.tsx",
 		"./components/templates/TemplatesPage": "./src/components/templates/TemplatesPage.tsx",
 		"./components/templates/TemplatesPreviewModal": "./src/components/templates/TemplatesPreviewModal.tsx",
 		"./libs/email/client": "./src/libs/email/client.ts",
@@ -297,12 +308,89 @@
 				"node": "./dist/node/components/templates/index.js",
 				"default": "./dist/components/templates/index.js"
 			},
+			"./components/templates/template-catalog": {
+				"types": "./dist/components/templates/template-catalog.d.ts",
+				"browser": "./dist/browser/components/templates/template-catalog.js",
+				"bun": "./dist/components/templates/template-catalog.js",
+				"node": "./dist/node/components/templates/template-catalog.js",
+				"default": "./dist/components/templates/template-catalog.js"
+			},
+			"./components/templates/template-new": {
+				"types": "./dist/components/templates/template-new.d.ts",
+				"browser": "./dist/browser/components/templates/template-new.js",
+				"bun": "./dist/components/templates/template-new.js",
+				"node": "./dist/node/components/templates/template-new.js",
+				"default": "./dist/components/templates/template-new.js"
+			},
+			"./components/templates/template-preview": {
+				"types": "./dist/components/templates/template-preview.d.ts",
+				"browser": "./dist/browser/components/templates/template-preview.js",
+				"bun": "./dist/components/templates/template-preview.js",
+				"node": "./dist/node/components/templates/template-preview.js",
+				"default": "./dist/components/templates/template-preview.js"
+			},
+			"./components/templates/template-source": {
+				"types": "./dist/components/templates/template-source.d.ts",
+				"browser": "./dist/browser/components/templates/template-source.js",
+				"bun": "./dist/components/templates/template-source.js",
+				"node": "./dist/node/components/templates/template-source.js",
+				"default": "./dist/components/templates/template-source.js"
+			},
+			"./components/templates/TemplateCard": {
+				"types": "./dist/components/templates/TemplateCard.d.ts",
+				"browser": "./dist/browser/components/templates/TemplateCard.js",
+				"bun": "./dist/components/templates/TemplateCard.js",
+				"node": "./dist/node/components/templates/TemplateCard.js",
+				"default": "./dist/components/templates/TemplateCard.js"
+			},
+			"./components/templates/TemplateCommandDialog": {
+				"types": "./dist/components/templates/TemplateCommandDialog.d.ts",
+				"browser": "./dist/browser/components/templates/TemplateCommandDialog.js",
+				"bun": "./dist/components/templates/TemplateCommandDialog.js",
+				"node": "./dist/node/components/templates/TemplateCommandDialog.js",
+				"default": "./dist/components/templates/TemplateCommandDialog.js"
+			},
+			"./components/templates/TemplatePreviewContent": {
+				"types": "./dist/components/templates/TemplatePreviewContent.d.ts",
+				"browser": "./dist/browser/components/templates/TemplatePreviewContent.js",
+				"bun": "./dist/components/templates/TemplatePreviewContent.js",
+				"node": "./dist/node/components/templates/TemplatePreviewContent.js",
+				"default": "./dist/components/templates/TemplatePreviewContent.js"
+			},
+			"./components/templates/TemplatesBrowseControls": {
+				"types": "./dist/components/templates/TemplatesBrowseControls.d.ts",
+				"browser": "./dist/browser/components/templates/TemplatesBrowseControls.js",
+				"bun": "./dist/components/templates/TemplatesBrowseControls.js",
+				"node": "./dist/node/components/templates/TemplatesBrowseControls.js",
+				"default": "./dist/components/templates/TemplatesBrowseControls.js"
+			},
+			"./components/templates/TemplatesCatalogSection": {
+				"types": "./dist/components/templates/TemplatesCatalogSection.d.ts",
+				"browser": "./dist/browser/components/templates/TemplatesCatalogSection.js",
+				"bun": "./dist/components/templates/TemplatesCatalogSection.js",
+				"node": "./dist/node/components/templates/TemplatesCatalogSection.js",
+				"default": "./dist/components/templates/TemplatesCatalogSection.js"
+			},
 			"./components/templates/TemplatesClientPage": {
 				"types": "./dist/components/templates/TemplatesClientPage.d.ts",
 				"browser": "./dist/browser/components/templates/TemplatesClientPage.js",
 				"bun": "./dist/components/templates/TemplatesClientPage.js",
 				"node": "./dist/node/components/templates/TemplatesClientPage.js",
 				"default": "./dist/components/templates/TemplatesClientPage.js"
+			},
+			"./components/templates/TemplatesHeroSection": {
+				"types": "./dist/components/templates/TemplatesHeroSection.d.ts",
+				"browser": "./dist/browser/components/templates/TemplatesHeroSection.js",
+				"bun": "./dist/components/templates/TemplatesHeroSection.js",
+				"node": "./dist/node/components/templates/TemplatesHeroSection.js",
+				"default": "./dist/components/templates/TemplatesHeroSection.js"
+			},
+			"./components/templates/TemplatesNextStepsSection": {
+				"types": "./dist/components/templates/TemplatesNextStepsSection.d.ts",
+				"browser": "./dist/browser/components/templates/TemplatesNextStepsSection.js",
+				"bun": "./dist/components/templates/TemplatesNextStepsSection.js",
+				"node": "./dist/node/components/templates/TemplatesNextStepsSection.js",
+				"default": "./dist/components/templates/TemplatesNextStepsSection.js"
 			},
 			"./components/templates/TemplatesPage": {
 				"types": "./dist/components/templates/TemplatesPage.d.ts",

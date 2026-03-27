@@ -1,4 +1,4 @@
-import { createHash } from 'node:crypto';
+import { createHash } from 'crypto';
 import { applyResolvedApprovalStatus } from './approval-plan';
 import {
 	ChannelAuthorizationEngine,

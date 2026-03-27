@@ -132,9 +132,9 @@ export interface StorageAdapter {
 
 // ============ Local Storage Adapter ============
 
-import * as crypto from 'node:crypto';
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
+import { createHash } from 'crypto';
 
 export interface LocalStorageOptions {
 	/** Base directory for file storage */
@@ -173,7 +173,7 @@ export class LocalStorageAdapter implements StorageAdapter {
 		await fs.writeFile(fullPath, content);
 
 		// Calculate checksum
-		const checksum = crypto.createHash('sha256').update(content).digest('hex');
+		const checksum = createHash('sha256').update(content).digest('hex');
 
 		return {
 			path: options.path,
@@ -430,7 +430,7 @@ export class InMemoryStorageAdapter implements StorageAdapter {
 				? Buffer.from(options.content, 'base64')
 				: options.content;
 
-		const checksum = crypto.createHash('sha256').update(content).digest('hex');
+		const checksum = createHash('sha256').update(content).digest('hex');
 
 		const metadata: StorageFile = {
 			path: options.path,

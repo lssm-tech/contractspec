@@ -1,8 +1,8 @@
-import { randomUUID } from 'node:crypto';
 import {
 	createMcpToolsets,
 	type McpClientConfig,
 } from '@contractspec/lib.ai-agent/tools/mcp-client';
+import { randomUUID } from 'crypto';
 
 type IntegrationHubMcpMode = 'list' | 'call';
 

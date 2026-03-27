@@ -1,8 +1,8 @@
+import { evaluateExpression } from '@contractspec/lib.contracts-spec/workflow/expression';
 import type {
 	Step,
 	WorkflowSpec,
-} from '@contractspec/lib.contracts-spec/workflow';
-import { evaluateExpression } from '@contractspec/lib.contracts-spec/workflow';
+} from '@contractspec/lib.contracts-spec/workflow/spec';
 
 export function inferWorkflowDevkitBehavior(step: Step) {
 	return step.runtime?.workflowDevkit?.behavior ?? step.type;

@@ -1,4 +1,4 @@
-import { randomUUID } from 'node:crypto';
+import { randomUUID } from 'crypto';
 import type { TrafficSnapshot } from '../types';
 
 export interface TrafficStore {

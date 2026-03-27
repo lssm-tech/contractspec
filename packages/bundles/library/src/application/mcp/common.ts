@@ -1,4 +1,3 @@
-import { randomUUID } from 'node:crypto';
 import type { IntegrationAuthType } from '@contractspec/lib.contracts-integrations/integrations';
 import { createMcpServer } from '@contractspec/lib.contracts-runtime-server-mcp/provider-mcp';
 import type {
@@ -11,6 +10,7 @@ import { PresentationRegistry } from '@contractspec/lib.contracts-spec/presentat
 import { Logger } from '@contractspec/lib.logger';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js';
+import { randomUUID } from 'crypto';
 import { Elysia } from 'elysia';
 import { normalizeMcpRequest } from './normalizeMcpRequest';
 

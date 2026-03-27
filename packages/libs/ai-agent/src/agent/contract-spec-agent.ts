@@ -1,4 +1,3 @@
-import { randomUUID } from 'node:crypto';
 import type { ModelSelector } from '@contractspec/lib.ai-providers/selector-types';
 import {
 	type AgentSpec,
@@ -14,6 +13,7 @@ import {
 	Experimental_Agent as ToolLoopAgent,
 	type ToolSet,
 } from 'ai';
+import { randomUUID } from 'crypto';
 import * as z from 'zod';
 import {
 	type ApprovalRequest,
