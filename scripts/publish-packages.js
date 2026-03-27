@@ -7,17 +7,20 @@ import os from 'node:os';
 import path from 'node:path';
 import { pathToFileURL } from 'node:url';
 
+import {
+	CLI_SMOKE_PACKAGE_NAMES,
+	discoverPublishablePackages,
+	getPackageNameSelection,
+	getPreparationPackageNames,
+} from './release-package-utils.js';
+
 const repoRoot = process.cwd();
 const NPM_NOT_FOUND_ERROR_RE =
 	/E404|404 Not Found|npm ERR! code E404|No match found|is not in this registry/i;
 const RETRYABLE_NPM_ERROR_RE =
 	/ECONNRESET|ETIMEDOUT|EAI_AGAIN|ENOTFOUND|ECONNREFUSED|EHOSTUNREACH|EPIPE|socket hang up|fetch failed|network connectivity|502 Bad Gateway|503 Service Unavailable|504 Gateway Timeout|Invalid response body while trying to fetch/i;
-const DIST_TAG_RETRY_COUNT = 4;
-const DIST_TAG_RETRY_DELAY_MS = 3000;
-const CLI_SMOKE_PACKAGE_NAMES = [
-	'contractspec',
-	'@contractspec/app.cli-contractspec',
-];
+const DEFAULT_DIST_TAG_RETRY_COUNT = 3;
+const DEFAULT_DIST_TAG_RETRY_DELAY_MS = 5000;
 
 function parseBoolean(value) {
 	if (typeof value !== 'string') return false;
@@ -31,6 +34,7 @@ function parseArgs(argv) {
 		releaseDir: undefined,
 		manifestPath: undefined,
 		packageNames: [],
+		packageNamesSpecified: false,
 	};
 
 	for (let index = 0; index < argv.length; index += 1) {
@@ -55,6 +59,7 @@ function parseArgs(argv) {
 			continue;
 		}
 		if ((arg === '--package' || arg === '--packages') && argv[index + 1]) {
+			options.packageNamesSpecified = true;
 			options.packageNames.push(
 				...argv[index + 1]
 					.split(',')
@@ -85,6 +90,11 @@ function ensureDir(dirPath) {
 
 function sleepMs(delayMs) {
 	Atomics.wait(new Int32Array(new SharedArrayBuffer(4)), 0, 0, delayMs);
+}
+
+function parseInteger(value, fallback) {
+	const parsed = Number.parseInt(`${value ?? ''}`, 10);
+	return Number.isFinite(parsed) && parsed >= 0 ? parsed : fallback;
 }
 
 function isNpmNotFoundError(output) {
@@ -139,107 +149,6 @@ function computeSha256(filePath) {
 	hash.update(fs.readFileSync(filePath));
 	return hash.digest('hex');
 }
-
-/**
- * Recursively finds all package.json files in a directory.
- */
-function findPackageJsonFiles(dir, files = []) {
-	const entries = fs.readdirSync(dir, { withFileTypes: true });
-
-	for (const entry of entries) {
-		const fullPath = path.join(dir, entry.name);
-
-		if (
-			entry.name === 'node_modules' ||
-			entry.name === '.turbo' ||
-			entry.name === '.next'
-		) {
-			continue;
-		}
-
-		if (entry.isDirectory()) {
-			findPackageJsonFiles(fullPath, files);
-		} else if (entry.name === 'package.json') {
-			files.push(fullPath);
-		}
-	}
-
-	return files;
-}
-
-/**
- * Automatically discovers all publishable packages in the monorepo.
- */
-function discoverPublishablePackages() {
-	const packages = [];
-
-	const rootManifestPath = path.join(repoRoot, 'package.json');
-	try {
-		const rootManifest = readJson(rootManifestPath);
-		if (
-			rootManifest.name &&
-			rootManifest.version &&
-			rootManifest.private !== true &&
-			rootManifest.scripts?.['publish:pkg']
-		) {
-			packages.push({
-				name: rootManifest.name,
-				dir: '.',
-				version: rootManifest.version,
-			});
-			console.log(
-				`[discover] Including root package: ${rootManifest.name}@${rootManifest.version}`
-			);
-		}
-	} catch (error) {
-		console.warn(
-			`[discover] Error reading root package.json: ${error instanceof Error ? error.message : String(error)}`
-		);
-	}
-
-	const packagesRoot = path.join(repoRoot, 'packages');
-	const packageJsonFiles = findPackageJsonFiles(packagesRoot);
-
-	for (const fullPath of packageJsonFiles) {
-		const pkgDir = path.relative(repoRoot, path.dirname(fullPath));
-
-		try {
-			const manifest = readJson(fullPath);
-			if (manifest.private === true) {
-				console.log(
-					`[discover] Skipping private package: ${manifest.name || pkgDir}`
-				);
-				continue;
-			}
-			if (!manifest.name) {
-				console.log(`[discover] Skipping package without name: ${pkgDir}`);
-				continue;
-			}
-
-			packages.push({
-				name: manifest.name,
-				dir: pkgDir,
-				version: manifest.version,
-			});
-		} catch (error) {
-			console.warn(
-				`[discover] Error reading ${fullPath}: ${error instanceof Error ? error.message : String(error)}`
-			);
-		}
-	}
-
-	console.log(`\n[discover] Found ${packages.length} publishable packages:\n`);
-	packages.forEach((pkg) => {
-		console.log(`  - ${pkg.name}@${pkg.version} (${pkg.dir})`);
-	});
-	console.log('');
-
-	return packages;
-}
-
-const packagesByName = new Map(
-	discoverPublishablePackages().map((pkg) => [pkg.name, pkg])
-);
 
 function withPreparedManifest(descriptor, callback) {
 	const pkgDir = path.join(repoRoot, descriptor.dir);
@@ -343,14 +252,29 @@ function getDistTags(name, npmEnv, options = {}) {
 	return JSON.parse(stdout);
 }
 
+function getDistTagRetrySettings(options = {}) {
+	return {
+		retryCount: parseInteger(
+			options.retryCount ?? process.env.CONTRACTSPEC_RELEASE_VERIFY_RETRY_COUNT,
+			DEFAULT_DIST_TAG_RETRY_COUNT
+		),
+		retryDelayMs: parseInteger(
+			options.retryDelayMs ??
+				process.env.CONTRACTSPEC_RELEASE_VERIFY_RETRY_DELAY_MS,
+			DEFAULT_DIST_TAG_RETRY_DELAY_MS
+		),
+	};
+}
+
 function ensureDistTag(name, version, tag, npmEnv) {
+	const { retryCount, retryDelayMs } = getDistTagRetrySettings();
 	let lastErrorMessage = '';
 
-	for (let attempt = 0; attempt < DIST_TAG_RETRY_COUNT; attempt += 1) {
+	for (let attempt = 0; attempt < retryCount; attempt += 1) {
 		if (attempt > 0) {
-			const delayMs = DIST_TAG_RETRY_DELAY_MS * attempt;
+			const delayMs = retryDelayMs * attempt;
 			console.log(
-				`[publish] Waiting ${delayMs}ms before retrying dist-tag verification for ${name}@${version} (${attempt + 1}/${DIST_TAG_RETRY_COUNT})`
+				`[publish] Waiting ${delayMs}ms before retrying dist-tag verification for ${name}@${version} (${attempt + 1}/${retryCount})`
 			);
 			sleepMs(delayMs);
 		}
@@ -381,7 +305,45 @@ function ensureDistTag(name, version, tag, npmEnv) {
 		} catch (error) {
 			lastErrorMessage = error instanceof Error ? error.message : String(error);
 			if (
-				attempt === DIST_TAG_RETRY_COUNT - 1 ||
+				attempt === retryCount - 1 ||
+				!isRetryableNpmError(lastErrorMessage)
+			) {
+				throw error;
+			}
+		}
+	}
+
+	throw new Error(
+		lastErrorMessage ||
+			`[publish] Failed to verify dist-tag ${tag} for ${name}@${version}.`
+	);
+}
+
+function verifyDistTag(name, version, tag, npmEnv) {
+	const { retryCount, retryDelayMs } = getDistTagRetrySettings();
+	let lastErrorMessage = '';
+
+	for (let attempt = 0; attempt < retryCount; attempt += 1) {
+		if (attempt > 0) {
+			const delayMs = retryDelayMs * attempt;
+			console.log(
+				`[publish] Waiting ${delayMs}ms before retrying dist-tag verification for ${name}@${version} (${attempt + 1}/${retryCount})`
+			);
+			sleepMs(delayMs);
+		}
+
+		try {
+			const currentDistTags = getDistTags(name, npmEnv, {
+				allowMissing: true,
+			});
+			if (currentDistTags[tag] === version) {
+				return version;
+			}
+			lastErrorMessage = `[publish] Dist-tag ${tag} for ${name} is ${currentDistTags[tag] ?? 'unset'} after publish; expected ${version}.`;
+		} catch (error) {
+			lastErrorMessage = error instanceof Error ? error.message : String(error);
+			if (
+				attempt === retryCount - 1 ||
 				!isRetryableNpmError(lastErrorMessage)
 			) {
 				throw error;
@@ -505,7 +467,7 @@ function publishPreparedPackage(preparedPackage, context) {
 		npmEnv: context.npmEnv,
 	});
 
-	const verifiedTag = ensureDistTag(
+	const verifiedTag = verifyDistTag(
 		preparedPackage.name,
 		preparedPackage.version,
 		context.npmTag,
@@ -526,31 +488,6 @@ function shouldRunCliSmoke(preparedPackages) {
 		names.has(CLI_SMOKE_PACKAGE_NAMES[0]) ||
 		names.has(CLI_SMOKE_PACKAGE_NAMES[1])
 	);
-}
-
-function getPreparationPackageNames(requestedPackageNames) {
-	const requestedSet = new Set(requestedPackageNames);
-	const needsCliSmoke = CLI_SMOKE_PACKAGE_NAMES.some((name) =>
-		requestedSet.has(name)
-	);
-
-	if (!needsCliSmoke) {
-		return requestedPackageNames;
-	}
-
-	const preparationPackageNames = [...requestedPackageNames];
-	for (const packageName of CLI_SMOKE_PACKAGE_NAMES) {
-		if (requestedSet.has(packageName)) {
-			continue;
-		}
-
-		preparationPackageNames.push(packageName);
-		console.log(
-			`[publish] Including ${packageName} tarball for CLI smoke coverage; it will not be published unless explicitly requested.`
-		);
-	}
-
-	return preparationPackageNames;
 }
 
 function runCliSmoke(tarballDir, smokeSummaryPath) {
@@ -577,12 +514,21 @@ export async function publishPackages(options = {}) {
 		options.dryRun !== undefined
 			? options.dryRun
 			: parseBoolean(process.env.DRY_RUN);
-	const requestedPackageNames =
-		options.packageNames && options.packageNames.length > 0
-			? options.packageNames
-			: Array.from(packagesByName.keys());
+	const { packageNames: selectedPackageNames, packageNamesSpecified } =
+		getPackageNameSelection(options);
+	if (packageNamesSpecified && selectedPackageNames.length === 0) {
+		console.log('[publish] Skip npm publish: no package targets were resolved.');
+		return [];
+	}
+	const packagesByName = new Map(
+		discoverPublishablePackages(repoRoot).map((pkg) => [pkg.name, pkg])
+	);
+	const requestedPackageNames = packageNamesSpecified
+		? selectedPackageNames
+		: Array.from(packagesByName.keys());
 	const requestedPackageSet = new Set(requestedPackageNames);
-	const packageNames = getPreparationPackageNames(requestedPackageNames);
+	const preparationPackageNames =
+		getPreparationPackageNames(requestedPackageNames);
 	const releaseRoot = path.resolve(
 		options.releaseDir ??
 			process.env.CONTRACTSPEC_RELEASE_DIR ??
@@ -607,7 +553,7 @@ export async function publishPackages(options = {}) {
 	const results = [];
 	const preparedPackages = [];
 
-	for (const packageName of packageNames) {
+	for (const packageName of preparationPackageNames) {
 		const descriptor = packagesByName.get(packageName);
 
 		if (!descriptor) {

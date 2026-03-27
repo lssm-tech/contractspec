@@ -9,7 +9,7 @@
 		"lint": "bun run lint:fix",
 		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
 		"lint:check": "biome check .",
-		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
+		"build": "bun run build:bundle && bun run build:types",
 		"build:bundle": "contractspec-bun-build transpile",
 		"build:types": "contractspec-bun-build types",
 		"dev": "contractspec-bun-build dev",

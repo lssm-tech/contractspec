@@ -37,7 +37,7 @@
 		},
 		"build": {
 			"cache": true,
-			"dependsOn": ["prebuild", "^build"],
+			"dependsOn": ["^build"],
 			"outputLogs": "new-only",
 			"inputs": [
 				"$TURBO_DEFAULT$",

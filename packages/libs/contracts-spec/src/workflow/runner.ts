@@ -1,4 +1,4 @@
-import { randomUUID } from 'node:crypto';
+import { randomUUID } from 'crypto';
 import type { ResolvedBranding } from '../app-config/branding';
 import type {
 	ResolvedAppConfig,
