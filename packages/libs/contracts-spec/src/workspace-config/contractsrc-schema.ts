@@ -6,6 +6,10 @@
  */
 
 import * as z from 'zod';
+import {
+	AgentTargetSchema,
+	ReleaseEnforceOnSchema,
+} from '../versioning/schema';
 import type {
 	BumpStrategy,
 	ChangelogFormat,
@@ -30,6 +34,7 @@ import type {
 	OpenApiSourceConfig,
 	OpenCodeSDKConfig,
 	PrCommentConfig,
+	ReleaseConfig,
 	ResolvedContractsrcConfig,
 	RuleSeverity,
 	RuleSyncConfig,
@@ -40,6 +45,7 @@ import type {
 	TestingConfig,
 	TestLinkingConfig,
 	TestLinkingStrategy,
+	UpgradeConfig,
 	VersioningConfig,
 } from './contractsrc-types';
 
@@ -346,6 +352,32 @@ export const VersioningConfigSchema: z.ZodType<VersioningConfig> = z.object({
 	exclude: z.array(z.string()).optional(),
 });
 
+export const ReleaseConfigSchema: z.ZodType<ReleaseConfig> = z.object({
+	enforceOn: ReleaseEnforceOnSchema.default('release-branch').optional(),
+	requireChangesetForPublished: z.boolean().default(true).optional(),
+	requireReleaseCapsule: z.boolean().default(true).optional(),
+	publishArtifacts: z
+		.array(z.string())
+		.default([
+			'manifest.json',
+			'patch-notes.md',
+			'customer-guide.md',
+			'upgrade-manifest.json',
+		])
+		.optional(),
+	agentTargets: z.array(AgentTargetSchema).default(['codex']).optional(),
+});
+
+export const UpgradeConfigSchema: z.ZodType<UpgradeConfig> = z.object({
+	manifestPaths: z
+		.array(z.string())
+		.default(['generated/releases/upgrade-manifest.json'])
+		.optional(),
+	defaultAgentTarget: AgentTargetSchema.default('codex').optional(),
+	enableInteractiveGuidance: z.boolean().default(true).optional(),
+	applyCodemods: z.boolean().default(true).optional(),
+});
+
 // ============================================================================
 // RuleSync Configuration
 // ============================================================================
@@ -623,6 +655,10 @@ export const ContractsrcSchema: z.ZodType<ContractsrcFileConfig> = z.object({
 	formatter: FormatterConfigSchema.optional(),
 	// Versioning configuration
 	versioning: VersioningConfigSchema.optional(),
+	// Release communication policy
+	release: ReleaseConfigSchema.optional(),
+	// Guided upgrade policy
+	upgrade: UpgradeConfigSchema.optional(),
 	// Rule synchronization configuration
 	ruleSync: RuleSyncConfigSchema.optional(),
 	// External agent SDK configuration
@@ -647,4 +683,22 @@ export const DEFAULT_CONTRACTSRC: ResolvedContractsrcConfig = {
 	defaultOwners: [],
 	defaultTags: [],
 	schemaFormat: 'contractspec',
+	release: {
+		enforceOn: 'release-branch',
+		requireChangesetForPublished: true,
+		requireReleaseCapsule: true,
+		publishArtifacts: [
+			'manifest.json',
+			'patch-notes.md',
+			'customer-guide.md',
+			'upgrade-manifest.json',
+		],
+		agentTargets: ['codex'],
+	},
+	upgrade: {
+		manifestPaths: ['generated/releases/upgrade-manifest.json'],
+		defaultAgentTarget: 'codex',
+		enableInteractiveGuidance: true,
+		applyCodemods: true,
+	},
 };

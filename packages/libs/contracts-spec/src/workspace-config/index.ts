@@ -27,6 +27,8 @@ export {
 	OpenApiExportConfigSchema,
 	type OpenApiSourceConfig,
 	OpenApiSourceConfigSchema,
+	type ReleaseConfig,
+	ReleaseConfigSchema,
 	type ResolvedContractsrcConfig,
 	type RuleSyncConfig,
 	RuleSyncConfigSchema,
@@ -34,10 +36,20 @@ export {
 	RuleSyncTargetSchema,
 	type SchemaFormat,
 	SchemaFormatSchema,
+	type UpgradeConfig,
+	UpgradeConfigSchema,
 	type VersioningConfig,
 	VersioningConfigSchema,
 } from './contractsrc-schema';
-export type { AgentMode, AgentProvider } from './contractsrc-types';
+export type {
+	AgentMode,
+	AgentProvider,
+} from './contractsrc-types';
+export type { AgentTarget, ReleaseEnforceOn } from '../versioning/release-types';
+export {
+	AgentTargetSchema,
+	ReleaseEnforceOnSchema,
+} from '../versioning/schema';
 
 export const tech_workspace_config_DocBlocks: DocBlock[] = [
 	{

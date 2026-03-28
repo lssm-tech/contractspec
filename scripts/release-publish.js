@@ -113,6 +113,9 @@ function buildReleaseTargets(options = {}) {
 const cliOptions = parseArgs(process.argv.slice(2));
 
 export async function releasePublish(options = {}) {
+  runCommand("bun", ["run", "release:build"], {
+    env: process.env,
+  });
   buildReleaseTargets(options);
   return publishPackages(options);
 }

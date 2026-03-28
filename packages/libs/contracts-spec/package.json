@@ -348,6 +348,7 @@
 		"./prompt": "./src/prompt.ts",
 		"./promptRegistry": "./src/promptRegistry.ts",
 		"./provider-ranking": "./src/provider-ranking/index.ts",
+		"./release": "./src/release/index.ts",
 		"./provider-ranking/capabilities": "./src/provider-ranking/capabilities/index.ts",
 		"./provider-ranking/capabilities/providerRanking.capability": "./src/provider-ranking/capabilities/providerRanking.capability.ts",
 		"./provider-ranking/commands": "./src/provider-ranking/commands/index.ts",
@@ -2221,6 +2222,12 @@
 				"bun": "./dist/provider-ranking/index.js",
 				"node": "./dist/node/provider-ranking/index.js",
 				"default": "./dist/provider-ranking/index.js"
+			},
+			"./release": {
+				"types": "./dist/release/index.d.ts",
+				"bun": "./dist/release/index.js",
+				"node": "./dist/node/release/index.js",
+				"default": "./dist/release/index.js"
 			},
 			"./provider-ranking/capabilities": {
 				"types": "./dist/provider-ranking/capabilities/index.d.ts",

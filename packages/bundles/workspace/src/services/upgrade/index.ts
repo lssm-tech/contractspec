@@ -12,3 +12,7 @@ export {
 	getDefaultVersioningConfig,
 	getPackageUpgradeCommand,
 } from './upgrade-service';
+export {
+	analyzeGuidedUpgrade,
+	applyGuidedUpgrade,
+} from './guided-upgrade';

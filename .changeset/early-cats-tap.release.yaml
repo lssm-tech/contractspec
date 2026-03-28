@@ -1,0 +1,43 @@
+schemaVersion: "1"
+slug: early-cats-tap
+summary: Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+isBreaking: false
+affectedRuntimes:
+  - vercel-workflow
+  - node
+affectedFrameworks:
+  - nextjs
+  - useworkflow
+audiences:
+  - kind: maintainer
+    summary: Workflow templates, docs, and devkit code now avoid broad workflow barrel imports in sandboxed workflow entrypoints.
+  - kind: customer
+    summary: Vercel Workflow projects should keep Node-only code out of "use workflow" modules and use the safe workflow subpaths instead.
+deprecations:
+  - Importing the broad `@contractspec/lib.contracts-spec/workflow` barrel from sandboxed workflow entrypoints is discouraged.
+migrationInstructions:
+  - id: workflow-safe-imports
+    title: Rewrite workflow imports to safe subpaths
+    summary: Keep Node-only workflow runner code out of "use workflow" entrypoints.
+    required: false
+    when: When running ContractSpec workflow specs in Vercel Workflow or other sandboxed workflow runtimes.
+    steps:
+      - Import `defineWorkflow`, `WorkflowSpec`, and `WorkflowRegistry` from `@contractspec/lib.contracts-spec/workflow/spec`.
+      - Import `WorkflowRunner` from `@contractspec/lib.contracts-spec/workflow/runner` and `InMemoryStateStore` from `@contractspec/lib.contracts-spec/workflow/adapters`.
+      - Keep Node-only work inside "use step" functions, not the "use workflow" module graph.
+upgradeSteps:
+  - id: rewrite-workflow-imports
+    title: Rewrite workflow imports to safe subpaths
+    summary: Use narrow workflow entrypoints so sandboxed workflow runtimes do not pull Node-only runner code.
+    level: manual
+    instructions:
+      - Replace broad workflow barrel imports with the specific `workflow/spec`, `workflow/runner`, `workflow/adapters`, and `workflow/expression` subpaths you need.
+      - Keep `crypto` and other Node-only dependencies in step functions instead of workflow entrypoints.
+validation:
+  commands:
+    - cd packages/libs/contracts-spec && bun test src/workflow/spec.test.ts src/workflow/validation.test.ts src/workflow/expression.test.ts src/workflow/runner.test.ts
+    - cd packages/integrations/workflow-devkit && bun test && bun run build
+    - cd packages/apps/cli-contractspec && bun test src/templates/workflow.template.test.ts src/templates/workflow-runner.template.test.ts
+  evidence:
+    - Workflow authoring templates now use safe workflow subpaths instead of the broad workflow barrel.
+    - Workflow DevKit runtime imports stay on expression and spec subpaths, avoiding transitive workflow runner bundling in workflow entrypoints.

@@ -41,6 +41,7 @@ import { openapiCommand } from './commands/openapi/index';
 import { pluginsCommand } from './commands/plugins/index';
 import { quickstartCommand } from './commands/quickstart/index';
 import { regeneratorCommand } from './commands/regenerator/index';
+import { createReleaseCommand } from './commands/release/index';
 import { registryCommand } from './commands/registry/index';
 import { syncCommand } from './commands/sync/index';
 import { generateGoldenTestsCommand } from './commands/test/generate';
@@ -237,6 +238,7 @@ program.addCommand(withCategory(controlPlaneCommand, CATEGORY_OPERATIONS));
 program.addCommand(withCategory(cicdCommand, CATEGORY_OPERATIONS));
 program.addCommand(withCategory(createVersionCommand(), CATEGORY_OPERATIONS));
 program.addCommand(withCategory(createChangelogCommand(), CATEGORY_OPERATIONS));
+program.addCommand(withCategory(createReleaseCommand(), CATEGORY_OPERATIONS));
 program.addCommand(withCategory(actionPrCommand, CATEGORY_OPERATIONS));
 program.addCommand(withCategory(actionDriftCommand, CATEGORY_OPERATIONS));
 

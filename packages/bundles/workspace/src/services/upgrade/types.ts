@@ -4,6 +4,13 @@
  * Types for upgrading ContractSpec SDK and configuration.
  */
 
+import type {
+	AgentPromptBundle,
+	AgentTarget,
+	UpgradePlan,
+	UpgradePlanStep,
+} from '@contractspec/lib.contracts-spec';
+
 // ─────────────────────────────────────────────────────────────────────────────
 // Options & Results
 // ─────────────────────────────────────────────────────────────────────────────
@@ -22,6 +29,10 @@ export interface UpgradeOptions {
 	dryRun?: boolean;
 	/** Use @latest tag instead of caret range. */
 	useLatest?: boolean;
+	/** Generated upgrade manifest candidate paths. */
+	manifestPaths?: string[];
+	/** Preferred agent prompt target. */
+	agentTarget?: AgentTarget;
 }
 
 /**
@@ -80,4 +91,25 @@ export interface UpgradeApplyResult {
 	error?: string;
 	/** Summary message. */
 	summary: string;
+	/** Applied deterministic autofixes. */
+	appliedAutofixes?: string[];
+	/** Remaining non-automatic steps. */
+	remainingSteps?: UpgradePlanStep[];
+	/** Human-readable follow-up checklist. */
+	humanChecklist?: string[];
+	/** Generated agent prompt for unresolved work. */
+	promptBundle?: AgentPromptBundle;
+	/** Upgrade plan that drove the apply step. */
+	plan?: UpgradePlan;
+}
+
+export interface GuidedUpgradeAnalysisResult {
+	packageManager: string;
+	manifestPath?: string;
+	plan: UpgradePlan;
+	humanChecklist: string[];
+}
+
+export interface GuidedUpgradeApplyResult extends UpgradeApplyResult {
+	manifestPath?: string;
 }

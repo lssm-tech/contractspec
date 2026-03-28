@@ -62,6 +62,12 @@ jobs:
       - name: Install dependencies
         run: bun install
 
+      - name: Build release communication artifacts
+        run: bun run release:build
+
+      - name: Enforce release communication bundle
+        run: bun packages/apps/cli-contractspec/src/cli.ts release check --strict --baseline main
+
       - name: Determine stable npm publish targets
         id: npm-targets
         shell: bash
@@ -135,6 +141,7 @@ jobs:
             ${{ env.CONTRACTSPEC_RELEASE_MANIFEST_PATH }}
             ${{ env.CONTRACTSPEC_RELEASE_SMOKE_SUMMARY_PATH }}
             ${{ env.CONTRACTSPEC_RELEASE_DIR }}/tarballs/*.tgz
+            generated/releases/**/*
           retention-days: 90
 
       - name: Determine non-npm publish targets

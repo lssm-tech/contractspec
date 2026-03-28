@@ -9,6 +9,14 @@
 // Core Enums & Simple Types
 // ============================================================================
 
+import type {
+	AgentTarget as VersioningAgentTarget,
+	ReleaseEnforceOn as VersioningReleaseEnforceOn,
+} from '../versioning/release-types';
+
+export type AgentTarget = VersioningAgentTarget;
+export type ReleaseEnforceOn = VersioningReleaseEnforceOn;
+
 export type SchemaFormat =
 	| 'contractspec' // Default: SchemaModel + FieldType
 	| 'zod' // Raw Zod schemas
@@ -280,6 +288,30 @@ export interface VersioningConfig {
 	exclude?: string[];
 }
 
+export interface ReleaseConfig {
+	/** When to enforce release communication requirements */
+	enforceOn?: ReleaseEnforceOn;
+	/** Require a changeset when published packages change */
+	requireChangesetForPublished?: boolean;
+	/** Require a companion release capsule for published releases */
+	requireReleaseCapsule?: boolean;
+	/** Generated release artifacts to publish or upload */
+	publishArtifacts?: string[];
+	/** Agent prompt targets to emit during release build */
+	agentTargets?: AgentTarget[];
+}
+
+export interface UpgradeConfig {
+	/** Candidate upgrade manifest locations */
+	manifestPaths?: string[];
+	/** Default agent target for prompt export */
+	defaultAgentTarget?: AgentTarget;
+	/** Enable guided interactive upgrade flows */
+	enableInteractiveGuidance?: boolean;
+	/** Allow deterministic codemods during upgrade apply */
+	applyCodemods?: boolean;
+}
+
 export interface RuleSyncConfig {
 	/** Enable automated rule synchronization */
 	enabled?: boolean;
@@ -429,6 +461,10 @@ export interface ContractsrcFileConfig {
 	formatter?: FormatterConfig;
 	// Versioning configuration
 	versioning?: VersioningConfig;
+	// Release communication policy
+	release?: ReleaseConfig;
+	// Guided upgrade policy
+	upgrade?: UpgradeConfig;
 	// Rule synchronization configuration
 	ruleSync?: RuleSyncConfig;
 	// External agent SDK configuration

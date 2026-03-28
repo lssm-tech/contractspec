@@ -11,9 +11,13 @@ Run a strict release gate for the ContractSpec plugin workflow.
 2. Assess compatibility impact:
    - `contractspec impact --baseline main --format markdown`
    - `contractspec version analyze --baseline main`
-3. Validate plugin package:
+3. Build and validate release communication artifacts:
+   - `contractspec release build`
+   - `contractspec release check --strict --baseline main`
+   - `contractspec release brief`
+4. Validate plugin package:
    - `bun run plugin:contractspec:validate`
-4. Summarize blockers and required follow-up before publish.
+5. Summarize blockers and required follow-up before publish.
 
 Output format:
 
@@ -28,6 +32,9 @@ Checks:
 - ci-drift: pass|fail
 - impact: pass|fail
 - version-analysis: pass|fail
+- release-build: pass|fail
+- release-check: pass|fail
+- release-brief: pass|fail
 - plugin-validation: pass|fail
 
 Blockers:

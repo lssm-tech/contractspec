@@ -1,3 +1,5 @@
+import fs from 'fs';
+import { GeneratedReleaseManifestSchema } from '@contractspec/lib.contracts-spec';
 import {
 	changelogConfigToCacheKey,
 	resolveChangelogConfig,
@@ -161,6 +163,10 @@ function convertAccumulatorToDetail(
 function buildDataset(): ChangelogDataset {
 	const config = resolveChangelogConfig();
 	const key = changelogConfigToCacheKey(config);
+	const generated = buildGeneratedDataset(config, key);
+	if (generated) {
+		return generated;
+	}
 	const releases = parseChangelogReleases(config);
 	const map = new Map<string, ReleaseAccumulator>();
 	for (const release of releases) {
@@ -211,6 +217,123 @@ function buildDataset(): ChangelogDataset {
 		detailsByVersion: detailMap,
 		legacyEntries,
 	};
+}
+
+function buildGeneratedDataset(
+	config: ReturnType<typeof resolveChangelogConfig>,
+	key: string
+): ChangelogDataset | null {
+	if (!fs.existsSync(config.generatedManifestPath)) {
+		return null;
+	}
+
+	try {
+		const manifest = GeneratedReleaseManifestSchema.parse(
+			JSON.parse(fs.readFileSync(config.generatedManifestPath, 'utf-8'))
+		);
+		const details = manifest.releases.map((release) => {
+			const packages = release.packages.map((pkg) => ({
+				name: pkg.name,
+				packageSlug: pkg.name.split('/').pop()?.replace(/^app\.|^lib\.|^module\.|^bundle\.|^integration\./, '') ?? pkg.name,
+				layer: inferLayer(pkg.name),
+				changes: [
+					release.summary,
+					...release.upgradeSteps.map((step) => step.summary),
+					...release.migrationInstructions.map((instruction) => instruction.summary),
+					...release.deprecations,
+				].filter(Boolean),
+			}));
+			const changes = [
+				{
+					text: release.summary,
+					packages: release.packages.map((pkg) => pkg.name),
+					layers: Array.from(new Set(release.packages.map((pkg) => inferLayer(pkg.name)))),
+					occurrences: release.packages.length || 1,
+				},
+				...release.upgradeSteps.map((step) => ({
+					text: step.summary,
+					packages: step.packages ?? release.packages.map((pkg) => pkg.name),
+					layers: Array.from(
+						new Set((step.packages ?? release.packages.map((pkg) => pkg.name)).map(inferLayer))
+					),
+					occurrences: 1,
+				})),
+			];
+			const layers = Array.from(new Set(packages.map((pkg) => pkg.layer))).sort((a, b) =>
+				a.localeCompare(b)
+			);
+
+			return {
+				version: release.version,
+				date: release.date,
+				isBreaking: release.isBreaking,
+				packageCount: packages.length,
+				changeCount: changes.length,
+				layers,
+				highlights: [release.summary, ...release.deprecations].slice(0, 3),
+				changes,
+				packages,
+			};
+		});
+		const detailMap = new Map(details.map((entry) => [entry.version, entry]));
+		const summaries = details.map((entry) => ({
+			version: entry.version,
+			date: entry.date,
+			isBreaking: entry.isBreaking,
+			packageCount: entry.packageCount,
+			changeCount: entry.changeCount,
+			layers: entry.layers,
+			highlights: entry.highlights,
+		}));
+
+		return {
+			key,
+			manifest: {
+				generatedAt: manifest.generatedAt,
+				totalReleases: summaries.length,
+				availableLayers: Array.from(
+					new Set(summaries.flatMap((release) => release.layers))
+				).sort((a, b) => a.localeCompare(b)),
+				config: {
+					includeLayers: [...config.includeLayers],
+					excludeLayers: [...config.excludeLayers],
+					defaultPageSize: config.defaultPageSize,
+				},
+				releases: summaries,
+			},
+			detailsByVersion: detailMap,
+			legacyEntries: details.map((entry) => ({
+				version: entry.version,
+				date: entry.date,
+				isBreaking: entry.isBreaking,
+				packages: entry.packages.map((pkg) => ({
+					name: pkg.name,
+					changes: pkg.changes.map((change) => `- ${change}`),
+				})),
+			})),
+		};
+	} catch {
+		return null;
+	}
+}
+
+function inferLayer(packageName: string): string {
+	if (packageName.startsWith('@contractspec/app.')) {
+		return 'apps';
+	}
+	if (packageName.startsWith('@contractspec/bundle.')) {
+		return 'bundles';
+	}
+	if (packageName.startsWith('@contractspec/module.')) {
+		return 'modules';
+	}
+	if (packageName.startsWith('@contractspec/integration.')) {
+		return 'integrations';
+	}
+	if (packageName.startsWith('@contractspec/lib.')) {
+		return 'libs';
+	}
+	return 'other';
 }
 
 function getDataset(): ChangelogDataset {
