@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/bundle.product-intent",
-	"version": "3.7.16",
+	"version": "3.7.17",
 	"description": "Product intent bundle with AI runner and evidence retriever",
 	"keywords": [
 		"contractspec",

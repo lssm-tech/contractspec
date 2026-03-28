@@ -1,5 +1,22 @@
 # @contractspec/lib.contracts-spec
 
+## 5.1.0
+
+### Minor Changes
+
+- Add versioning-backed release capsules, generated patch notes, and guided upgrade flows.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/bundle.workspace (minor), @contractspec/app.cli-contractspec (minor), @contractspec/app.web-landing (patch)
+  - Migration: Published release changesets now require a structured release capsule.
+  - Deprecations: The standalone release domain under `@contractspec/lib.contracts-spec/release` is deprecated in favor of versioning-owned release metadata.
+
+### Patch Changes
+
+- Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+  - Migration: Keep Node-only workflow runner code out of "use workflow" entrypoints.
+  - Deprecations: Importing the broad `@contractspec/lib.contracts-spec/workflow` barrel from sandboxed workflow entrypoints is discouraged.
+- Updated dependencies because of Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+  - @contractspec/lib.schema@3.7.14
+
 ## 5.0.4
 
 ### Patch Changes

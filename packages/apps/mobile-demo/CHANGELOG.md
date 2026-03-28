@@ -1,5 +1,21 @@
 # @contractspec/app.expo-demo
 
+## 1.1.17
+
+### Patch Changes
+
+- Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+  - Migration: Keep Node-only workflow runner code out of "use workflow" entrypoints.
+  - Deprecations: Importing the broad `@contractspec/lib.contracts-spec/workflow` barrel from sandboxed workflow entrypoints is discouraged.
+- Updated dependencies because of Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+- Updated dependencies because of Add versioning-backed release capsules, generated patch notes, and guided upgrade flows.
+  - @contractspec/lib.presentation-runtime-react-native@36.0.4
+  - @contractspec/lib.presentation-runtime-core@3.9.5
+  - @contractspec/lib.contracts-spec@5.1.0
+  - @contractspec/lib.ui-kit-core@3.7.13
+  - @contractspec/lib.schema@3.7.14
+  - @contractspec/lib.ui-kit@3.8.9
+
 ## 1.1.16
 
 ### Patch Changes

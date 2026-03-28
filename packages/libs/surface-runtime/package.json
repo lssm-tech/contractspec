@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.surface-runtime",
-	"version": "0.5.16",
+	"version": "0.5.17",
 	"description": "AI-native surface specs and web runtime for adaptive ContractSpec surfaces",
 	"keywords": [
 		"contractspec",

@@ -1,5 +1,13 @@
 # @contractspec/lib.runtime-sandbox
 
+## 2.7.14
+
+### Patch Changes
+
+- Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+  - Migration: Keep Node-only workflow runner code out of "use workflow" entrypoints.
+  - Deprecations: Importing the broad `@contractspec/lib.contracts-spec/workflow` barrel from sandboxed workflow entrypoints is discouraged.
+
 ## 2.7.13
 
 ### Patch Changes

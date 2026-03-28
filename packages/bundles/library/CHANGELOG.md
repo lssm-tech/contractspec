@@ -1,5 +1,36 @@
 # @contractspec/bundle.library
 
+## 3.8.10
+
+### Patch Changes
+
+- Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+  - Migration: Keep Node-only workflow runner code out of "use workflow" entrypoints.
+  - Deprecations: Importing the broad `@contractspec/lib.contracts-spec/workflow` barrel from sandboxed workflow entrypoints is discouraged.
+- Updated dependencies because of Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+- Updated dependencies because of Add versioning-backed release capsules, generated patch notes, and guided upgrade flows.
+  - @contractspec/lib.contracts-runtime-server-graphql@3.7.17
+  - @contractspec/lib.contracts-runtime-client-react@3.8.5
+  - @contractspec/lib.contracts-runtime-server-rest@3.7.17
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.17
+  - @contractspec/lib.contracts-integrations@3.8.9
+  - @contractspec/module.context-storage@0.7.16
+  - @contractspec/lib.contracts-library@3.7.17
+  - @contractspec/lib.example-shared-ui@6.0.17
+  - @contractspec/lib.provider-ranking@0.7.13
+  - @contractspec/lib.runtime-sandbox@2.7.14
+  - @contractspec/lib.surface-runtime@0.5.17
+  - @contractspec/lib.contracts-spec@5.1.0
+  - @contractspec/lib.design-system@3.8.10
+  - @contractspec/lib.ai-providers@3.7.13
+  - @contractspec/lib.content-gen@3.7.17
+  - @contractspec/module.examples@3.8.9
+  - @contractspec/lib.ui-kit-web@3.9.9
+  - @contractspec/lib.knowledge@3.7.17
+  - @contractspec/lib.ui-link@3.7.13
+  - @contractspec/lib.logger@3.7.13
+  - @contractspec/lib.schema@3.7.14
+
 ## 3.8.9
 
 ### Patch Changes

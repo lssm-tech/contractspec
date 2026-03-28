@@ -1,5 +1,15 @@
 # @contractspec/lib.graphql-prisma
 
+## 3.7.14
+
+### Patch Changes
+
+- Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+  - Migration: Keep Node-only workflow runner code out of "use workflow" entrypoints.
+  - Deprecations: Importing the broad `@contractspec/lib.contracts-spec/workflow` barrel from sandboxed workflow entrypoints is discouraged.
+- Updated dependencies because of Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+  - @contractspec/lib.schema@3.7.14
+
 ## 3.7.13
 
 ### Patch Changes

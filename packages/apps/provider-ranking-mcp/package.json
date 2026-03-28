@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/app.provider-ranking-mcp",
-	"version": "1.6.16",
+	"version": "1.6.17",
 	"type": "module",
 	"scripts": {
 		"clean": "rm -rf dist",

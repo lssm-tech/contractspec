@@ -1,5 +1,21 @@
 # @contractspec/example.agent-console
 
+## 3.8.9
+
+### Patch Changes
+
+- Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+  - Migration: Keep Node-only workflow runner code out of "use workflow" entrypoints.
+  - Deprecations: Importing the broad `@contractspec/lib.contracts-spec/workflow` barrel from sandboxed workflow entrypoints is discouraged.
+- Updated dependencies because of Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+- Updated dependencies because of Add versioning-backed release capsules, generated patch notes, and guided upgrade flows.
+  - @contractspec/lib.presentation-runtime-core@3.9.5
+  - @contractspec/lib.example-shared-ui@6.0.17
+  - @contractspec/lib.runtime-sandbox@2.7.14
+  - @contractspec/lib.contracts-spec@5.1.0
+  - @contractspec/lib.design-system@3.8.10
+  - @contractspec/lib.schema@3.7.14
+
 ## 3.8.8
 
 ### Patch Changes

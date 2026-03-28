@@ -1,5 +1,27 @@
 # @contractspec/example.learning-journey-registry
 
+## 3.7.17
+
+### Patch Changes
+
+- Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+  - Migration: Keep Node-only workflow runner code out of "use workflow" entrypoints.
+  - Deprecations: Importing the broad `@contractspec/lib.contracts-spec/workflow` barrel from sandboxed workflow entrypoints is discouraged.
+- Updated dependencies because of Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+- Updated dependencies because of Add versioning-backed release capsules, generated patch notes, and guided upgrade flows.
+  - @contractspec/example.learning-journey-studio-onboarding@3.7.17
+  - @contractspec/example.learning-journey-quest-challenges@3.7.17
+  - @contractspec/example.learning-journey-crm-onboarding@3.7.17
+  - @contractspec/example.learning-journey-ambient-coach@3.7.17
+  - @contractspec/example.learning-journey-platform-tour@3.7.17
+  - @contractspec/example.learning-journey-ui-onboarding@3.7.17
+  - @contractspec/example.learning-journey-ui-coaching@3.7.17
+  - @contractspec/example.learning-journey-ui-gamified@3.7.17
+  - @contractspec/example.learning-journey-duo-drills@3.7.17
+  - @contractspec/example.learning-journey-ui-shared@3.7.17
+  - @contractspec/module.learning-journey@3.7.16
+  - @contractspec/lib.contracts-spec@5.1.0
+
 ## 3.7.16
 
 ### Patch Changes

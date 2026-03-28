@@ -1,6 +1,6 @@
 {
 	"$schema": "https://unpkg.com/@changesets/config@3.1.1/schema.json",
-	"changelog": "./scripts/changeset-changelog.cjs",
+	"changelog": "../scripts/changeset-changelog.cjs",
 	"commit": false,
 	"fixed": [],
 	"linked": [],
@@ -8,6 +8,6 @@
 	"baseBranch": "main",
 	"updateInternalDependencies": "patch",
 	"ignore": [],
-	"publish": "./scripts/changeset-publish.mjs",
+	"publish": "../scripts/changeset-publish.mjs",
 	"privatePackages": { "version": true, "tag": true }
 }

@@ -1,5 +1,26 @@
 # @contractspec/module.ai-chat
 
+## 4.3.17
+
+### Patch Changes
+
+- Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+  - Migration: Keep Node-only workflow runner code out of "use workflow" entrypoints.
+  - Deprecations: Importing the broad `@contractspec/lib.contracts-spec/workflow` barrel from sandboxed workflow entrypoints is discouraged.
+- Updated dependencies because of Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+- Updated dependencies because of Add versioning-backed release capsules, generated patch notes, and guided upgrade flows.
+  - @contractspec/integration.workflow-devkit@0.1.3
+  - @contractspec/lib.workflow-composer@3.7.17
+  - @contractspec/lib.surface-runtime@0.5.17
+  - @contractspec/lib.contracts-spec@5.1.0
+  - @contractspec/lib.cost-tracking@3.7.13
+  - @contractspec/lib.design-system@3.8.10
+  - @contractspec/lib.ai-providers@3.7.13
+  - @contractspec/lib.ui-kit-web@3.9.9
+  - @contractspec/lib.ai-agent@8.0.5
+  - @contractspec/lib.metering@3.7.17
+  - @contractspec/lib.schema@3.7.14
+
 ## 4.3.16
 
 ### Patch Changes

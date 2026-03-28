@@ -1,5 +1,45 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 3.8.10
+
+### Patch Changes
+
+- Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+  - Migration: Keep Node-only workflow runner code out of "use workflow" entrypoints.
+  - Deprecations: Importing the broad `@contractspec/lib.contracts-spec/workflow` barrel from sandboxed workflow entrypoints is discouraged.
+- Add versioning-backed release capsules, generated patch notes, and guided upgrade flows.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/bundle.workspace (minor), @contractspec/app.cli-contractspec (minor), @contractspec/app.web-landing (patch)
+  - Migration: Published release changesets now require a structured release capsule.
+  - Deprecations: The standalone release domain under `@contractspec/lib.contracts-spec/release` is deprecated in favor of versioning-owned release metadata.
+- Updated dependencies because of Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+- Updated dependencies because of Add versioning-backed release capsules, generated patch notes, and guided upgrade flows.
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.17
+  - @contractspec/example.visualization-showcase@3.9.9
+  - @contractspec/example.analytics-dashboard@3.9.9
+  - @contractspec/example.data-grid-showcase@3.8.9
+  - @contractspec/example.ai-chat-assistant@3.8.9
+  - @contractspec/example.saas-boilerplate@3.8.9
+  - @contractspec/lib.progressive-delivery@34.0.16
+  - @contractspec/example.integration-hub@3.8.9
+  - @contractspec/example.workflow-system@3.8.9
+  - @contractspec/example.agent-console@3.8.9
+  - @contractspec/lib.example-shared-ui@6.0.17
+  - @contractspec/example.crm-pipeline@3.7.17
+  - @contractspec/example.in-app-docs@3.7.17
+  - @contractspec/example.marketplace@3.8.9
+  - @contractspec/lib.surface-runtime@0.5.17
+  - @contractspec/lib.contracts-spec@5.1.0
+  - @contractspec/lib.design-system@3.8.10
+  - @contractspec/bundle.marketing@3.8.10
+  - @contractspec/lib.ai-providers@3.7.13
+  - @contractspec/lib.ui-kit-core@3.7.13
+  - @contractspec/module.examples@3.8.9
+  - @contractspec/bundle.library@3.8.10
+  - @contractspec/lib.ui-kit-web@3.9.9
+  - @contractspec/module.ai-chat@4.3.17
+  - @contractspec/lib.ui-link@3.7.13
+  - @contractspec/lib.ui-kit@3.8.9
+
 ## 3.8.9
 
 ### Patch Changes

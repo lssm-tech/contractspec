@@ -1,5 +1,38 @@
 # @contractspec/bundle.marketing
 
+## 3.8.10
+
+### Patch Changes
+
+- Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+  - Migration: Keep Node-only workflow runner code out of "use workflow" entrypoints.
+  - Deprecations: Importing the broad `@contractspec/lib.contracts-spec/workflow` barrel from sandboxed workflow entrypoints is discouraged.
+- Updated dependencies because of Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+- Updated dependencies because of Add versioning-backed release capsules, generated patch notes, and guided upgrade flows.
+  - @contractspec/lib.contracts-runtime-client-react@3.8.5
+  - @contractspec/example.visualization-showcase@3.9.9
+  - @contractspec/example.analytics-dashboard@3.9.9
+  - @contractspec/example.data-grid-showcase@3.8.9
+  - @contractspec/example.ai-chat-assistant@3.8.9
+  - @contractspec/example.saas-boilerplate@3.8.9
+  - @contractspec/example.integration-hub@3.8.9
+  - @contractspec/example.workflow-system@3.8.9
+  - @contractspec/example.agent-console@3.8.9
+  - @contractspec/lib.example-shared-ui@6.0.17
+  - @contractspec/example.crm-pipeline@3.7.17
+  - @contractspec/example.marketplace@3.8.9
+  - @contractspec/lib.runtime-sandbox@2.7.14
+  - @contractspec/lib.surface-runtime@0.5.17
+  - @contractspec/lib.contracts-spec@5.1.0
+  - @contractspec/lib.design-system@3.8.10
+  - @contractspec/lib.ui-kit-core@3.7.13
+  - @contractspec/module.examples@3.8.9
+  - @contractspec/bundle.library@3.8.10
+  - @contractspec/lib.ui-kit-web@3.9.9
+  - @contractspec/lib.ui-link@3.7.13
+  - @contractspec/lib.logger@3.7.13
+  - @contractspec/lib.email@3.7.13
+
 ## 3.8.9
 
 ### Patch Changes

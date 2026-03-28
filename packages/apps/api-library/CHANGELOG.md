@@ -1,5 +1,21 @@
 # @contractspec/app.api-library
 
+## 3.8.10
+
+### Patch Changes
+
+- Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+  - Migration: Keep Node-only workflow runner code out of "use workflow" entrypoints.
+  - Deprecations: Importing the broad `@contractspec/lib.contracts-spec/workflow` barrel from sandboxed workflow entrypoints is discouraged.
+- Updated dependencies because of Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+- Updated dependencies because of Add versioning-backed release capsules, generated patch notes, and guided upgrade flows.
+  - @contractspec/integration.providers-impls@3.8.9
+  - @contractspec/integration.runtime@3.8.9
+  - @contractspec/lib.contracts-spec@5.1.0
+  - @contractspec/bundle.marketing@3.8.10
+  - @contractspec/bundle.workspace@4.2.0
+  - @contractspec/bundle.library@3.8.10
+
 ## 3.8.9
 
 ### Patch Changes

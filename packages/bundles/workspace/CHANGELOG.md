@@ -1,5 +1,31 @@
 # @contractspec/bundle.workspace
 
+## 4.2.0
+
+### Minor Changes
+
+- Add versioning-backed release capsules, generated patch notes, and guided upgrade flows.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/bundle.workspace (minor), @contractspec/app.cli-contractspec (minor), @contractspec/app.web-landing (patch)
+  - Migration: Published release changesets now require a structured release capsule.
+  - Deprecations: The standalone release domain under `@contractspec/lib.contracts-spec/release` is deprecated in favor of versioning-owned release metadata.
+
+### Patch Changes
+
+- Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+  - Migration: Keep Node-only workflow runner code out of "use workflow" entrypoints.
+  - Deprecations: Importing the broad `@contractspec/lib.contracts-spec/workflow` barrel from sandboxed workflow entrypoints is discouraged.
+- Updated dependencies because of Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+- Updated dependencies because of Add versioning-backed release capsules, generated patch notes, and guided upgrade flows.
+  - @contractspec/lib.contracts-integrations@3.8.9
+  - @contractspec/lib.contracts-transformers@3.7.17
+  - @contractspec/lib.source-extractors@2.7.17
+  - @contractspec/lib.utils-typescript@3.7.13
+  - @contractspec/lib.contracts-spec@5.1.0
+  - @contractspec/biome-config@3.8.7
+  - @contractspec/lib.ai-providers@3.7.13
+  - @contractspec/module.workspace@4.1.4
+  - @contractspec/lib.ai-agent@8.0.5
+
 ## 4.1.4
 
 ### Patch Changes
