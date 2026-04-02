@@ -1,0 +1,55 @@
+{
+  "id": "plan_01HXYZEXAMPLE",
+  "repoId": "acme/payments-service",
+  "branch": "feat/agent-refactor",
+  "actor": {
+    "id": "claude-code",
+    "type": "agent"
+  },
+  "objective": "Refactor refund handling and update the MCP tool for refund preview",
+  "steps": [
+    {
+      "id": "step_1",
+      "summary": "Update refund domain logic",
+      "paths": [
+        "src/modules/payments/refund.ts"
+      ]
+    },
+    {
+      "id": "step_2",
+      "summary": "Adjust HTTP handler and schema",
+      "paths": [
+        "src/http/refunds.ts",
+        "contracts/refunds.contract.ts"
+      ]
+    },
+    {
+      "id": "step_3",
+      "summary": "Update MCP preview tool",
+      "paths": [
+        "src/mcp/refund-preview.ts"
+      ]
+    }
+  ],
+  "impactedContracts": [
+    "payments.refund",
+    "mcp.refund.preview"
+  ],
+  "affectedSurfaces": [
+    "rest",
+    "mcp",
+    "client"
+  ],
+  "requiredChecks": [
+    "contract-drift",
+    "breaking-diff",
+    "schema-compatibility",
+    "targeted-smoke-tests"
+  ],
+  "requiredApprovals": [
+    "api-owner",
+    "platform-review"
+  ],
+  "riskScore": 0.72,
+  "verificationStatus": "review"
+}

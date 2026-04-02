@@ -1,0 +1,44 @@
+{
+  "id": "review_01HXYZEXAMPLE",
+  "sourceDecisionId": "dec_01HXYZEXAMPLE",
+  "objective": "Refactor refund handling and update refund preview",
+  "reason": "Contract drift on a review-required surface",
+  "summary": {
+    "paths": [
+      "src/http/refunds.ts",
+      "src/mcp/refund-preview.ts"
+    ],
+    "impactedContracts": [
+      "payments.refund",
+      "mcp.refund.preview"
+    ],
+    "affectedSurfaces": [
+      "rest",
+      "mcp",
+      "client"
+    ]
+  },
+  "evidence": [
+    {
+      "type": "patch-verdict",
+      "ref": ".contractspec/connect/patch-verdict.json"
+    },
+    {
+      "type": "audit",
+      "ref": ".contractspec/connect/audit.ndjson#dec_01HXYZEXAMPLE"
+    }
+  ],
+  "requiredApprovals": [
+    "api-owner",
+    "platform-review"
+  ],
+  "suggestedRemediation": [
+    "Align refund contract with schema change",
+    "Regenerate derived surfaces",
+    "Re-run targeted checks"
+  ],
+  "studio": {
+    "queue": "engineering-review",
+    "mode": "manual-certification"
+  }
+}

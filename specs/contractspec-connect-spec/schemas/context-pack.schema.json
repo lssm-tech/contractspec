@@ -1,0 +1,88 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contractspec.dev/schemas/connect/context-pack.schema.json",
+  "title": "ContextPack",
+  "type": "object",
+  "required": [
+    "id",
+    "taskId",
+    "repoId",
+    "knowledge",
+    "impactedContracts",
+    "affectedSurfaces",
+    "policyBindings"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "taskId": {
+      "type": "string"
+    },
+    "repoId": {
+      "type": "string"
+    },
+    "knowledge": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "trust",
+          "source"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "trust": {
+            "enum": [
+              "canonical",
+              "operational",
+              "external",
+              "ephemeral"
+            ]
+          },
+          "source": {
+            "type": "string"
+          },
+          "digest": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "impactedContracts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "affectedSurfaces": {
+      "type": "array",
+      "items": {
+        "enum": [
+          "rest",
+          "graphql",
+          "db",
+          "ui",
+          "events",
+          "mcp",
+          "client"
+        ]
+      }
+    },
+    "policyBindings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "acceptanceChecks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

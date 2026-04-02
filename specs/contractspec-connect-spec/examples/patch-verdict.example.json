@@ -1,0 +1,62 @@
+{
+  "decisionId": "dec_01HXYZEXAMPLE",
+  "actionType": "edit_file",
+  "summary": "Modify refund API response schema and MCP preview logic",
+  "impacted": [
+    {
+      "file": "src/http/refunds.ts",
+      "contracts": [
+        "payments.refund"
+      ],
+      "surfaces": [
+        "rest",
+        "client"
+      ],
+      "policies": [
+        "api.compatibility.v1"
+      ]
+    },
+    {
+      "file": "src/mcp/refund-preview.ts",
+      "contracts": [
+        "mcp.refund.preview"
+      ],
+      "surfaces": [
+        "mcp"
+      ],
+      "policies": [
+        "tool.schema.sync"
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "id": "path-boundary",
+      "status": "pass",
+      "detail": "Paths are within allowed workspace"
+    },
+    {
+      "id": "contract-drift",
+      "status": "fail",
+      "detail": "HTTP response shape changed without contract update"
+    },
+    {
+      "id": "breaking-diff",
+      "status": "warn",
+      "detail": "Potential breaking response field removal detected"
+    },
+    {
+      "id": "smoke-tests",
+      "status": "pass",
+      "detail": "Targeted typecheck passed"
+    }
+  ],
+  "verdict": "require_review",
+  "remediation": [
+    "Update contracts/refunds.contract.ts or revert response shape change",
+    "Regenerate client surface manifest",
+    "Request API owner review"
+  ],
+  "reviewPacketRef": ".contractspec/connect/review-packets/review_01HXYZEXAMPLE.json",
+  "retryBudget": 1
+}

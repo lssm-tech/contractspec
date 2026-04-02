@@ -1,0 +1,120 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contractspec.dev/schemas/connect/plan-packet.schema.json",
+  "title": "PlanPacket",
+  "type": "object",
+  "required": [
+    "id",
+    "repoId",
+    "branch",
+    "actor",
+    "objective",
+    "steps",
+    "impactedContracts",
+    "affectedSurfaces",
+    "requiredChecks",
+    "requiredApprovals",
+    "riskScore",
+    "verificationStatus"
+  ],
+  "properties": {
+    "id": {
+      "type": "string"
+    },
+    "repoId": {
+      "type": "string"
+    },
+    "branch": {
+      "type": "string"
+    },
+    "actor": {
+      "type": "object",
+      "required": [
+        "id",
+        "type"
+      ],
+      "properties": {
+        "id": {
+          "type": "string"
+        },
+        "type": {
+          "enum": [
+            "human",
+            "agent",
+            "service"
+          ]
+        }
+      }
+    },
+    "objective": {
+      "type": "string"
+    },
+    "steps": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "summary"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "summary": {
+            "type": "string"
+          },
+          "paths": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "commands": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "impactedContracts": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "affectedSurfaces": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "requiredChecks": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "requiredApprovals": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "riskScore": {
+      "type": "number",
+      "minimum": 0,
+      "maximum": 1
+    },
+    "verificationStatus": {
+      "enum": [
+        "approved",
+        "revise",
+        "review",
+        "denied"
+      ]
+    }
+  }
+}

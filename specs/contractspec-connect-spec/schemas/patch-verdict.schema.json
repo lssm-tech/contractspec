@@ -1,0 +1,109 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contractspec.dev/schemas/connect/patch-verdict.schema.json",
+  "title": "PatchVerdict",
+  "type": "object",
+  "required": [
+    "decisionId",
+    "actionType",
+    "checks",
+    "verdict"
+  ],
+  "properties": {
+    "decisionId": {
+      "type": "string"
+    },
+    "actionType": {
+      "enum": [
+        "write_file",
+        "edit_file",
+        "run_command"
+      ]
+    },
+    "summary": {
+      "type": "string"
+    },
+    "impacted": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "file",
+          "contracts",
+          "surfaces",
+          "policies"
+        ],
+        "properties": {
+          "file": {
+            "type": "string"
+          },
+          "contracts": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "surfaces": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "policies": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    },
+    "checks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "status",
+          "detail"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "status": {
+            "enum": [
+              "pass",
+              "fail",
+              "warn"
+            ]
+          },
+          "detail": {
+            "type": "string"
+          }
+        }
+      }
+    },
+    "verdict": {
+      "enum": [
+        "permit",
+        "rewrite",
+        "require_review",
+        "deny"
+      ]
+    },
+    "remediation": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "reviewPacketRef": {
+      "type": "string"
+    },
+    "retryBudget": {
+      "type": "integer",
+      "minimum": 0
+    }
+  }
+}
