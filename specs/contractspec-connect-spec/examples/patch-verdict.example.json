@@ -1,112 +1,105 @@
 {
-  "decisionId": "connect.dec_01HXYZEXAMPLE",
-  "summary": "Edit Connect spec artifacts and the workspace-config connect namespace",
-  "action": {
-    "actionType": "edit_file",
-    "tool": "acp.fs.access",
-    "target": "specs/contractspec-connect-spec/MODELS.md"
-  },
-  "impacted": [
-    {
-      "file": "packages/libs/contracts-spec/src/workspace-config/contractsrc-schema.ts",
-      "contracts": [
-        {
-          "key": "controlPlane.plan.verify",
-          "version": "1.0.0",
-          "kind": "command"
-        }
-      ],
-      "surfaces": [
-        "runtime",
-        "cli",
-        "audit"
-      ],
-      "policies": [
-        {
-          "key": "channel.messaging-policy",
-          "version": "2.0.0",
-          "kind": "policy"
-        }
-      ]
-    },
-    {
-      "file": "specs/contractspec-connect-spec/schemas/patch-verdict.schema.json",
-      "contracts": [
-        {
-          "key": "controlPlane.policy.explain",
-          "version": "1.0.0",
-          "kind": "query"
-        }
-      ],
-      "surfaces": [
-        "cli",
-        "audit"
-      ],
-      "policies": [
-        {
-          "key": "channel.messaging-policy",
-          "version": "2.0.0",
-          "kind": "policy"
-        }
-      ]
-    }
-  ],
-  "checks": [
-    {
-      "id": "path-boundary",
-      "status": "warn",
-      "detail": "Protected workspace-config path requires review."
-    },
-    {
-      "id": "contract-drift",
-      "status": "pass",
-      "detail": "DTO rewrite is aligned to existing control-plane and ACP contract keys."
-    },
-    {
-      "id": "approval-routing",
-      "status": "pass",
-      "detail": "Review packet points to control-plane and agent approval operations."
-    },
-    {
-      "id": "targeted-tests",
-      "status": "pass",
-      "detail": "Config and example validation tests passed."
-    }
-  ],
-  "verdict": "require_review",
-  "controlPlane": {
-    "verdict": "assist",
-    "requiresApproval": true,
-    "policyRef": {
-      "key": "channel.messaging-policy",
-      "version": "2.0.0",
-      "kind": "policy"
-    },
-    "decisionId": "cp_decision_01HXYZEXAMPLE",
-    "approvalStatus": "pending",
-    "traceId": "trace_01HXYZEXAMPLE"
-  },
-  "approvalOperationRefs": [
-    "controlPlane.execution.approve",
-    "agent.approvals"
-  ],
-  "remediation": [
-    "Review protected workspace-config changes before merge.",
-    "Preserve mapping between Connect verdicts and control-plane runtime verdicts.",
-    "Keep `.contractsrc.json` as the default Connect config surface."
-  ],
-  "reviewPacketRef": ".contractspec/connect/review-packets/review_01HXYZEXAMPLE.json",
-  "retryBudget": 1,
-  "replay": {
-    "traceQuery": {
-      "key": "controlPlane.trace.get",
-      "version": "1.0.0",
-      "kind": "query"
-    },
-    "policyExplain": {
-      "key": "controlPlane.policy.explain",
-      "version": "1.0.0",
-      "kind": "query"
-    }
-  }
+	"decisionId": "connect.dec_01HXYZEXAMPLE",
+	"summary": "Edit Connect spec artifacts and the workspace-config connect namespace",
+	"action": {
+		"actionType": "edit_file",
+		"tool": "acp.fs.access",
+		"target": "specs/contractspec-connect-spec/MODELS.md"
+	},
+	"impacted": [
+		{
+			"file": "packages/libs/contracts-spec/src/workspace-config/contractsrc-schema.ts",
+			"contracts": [
+				{
+					"key": "controlPlane.plan.verify",
+					"version": "1.0.0",
+					"kind": "command"
+				}
+			],
+			"surfaces": ["runtime", "cli", "audit"],
+			"policies": [
+				{
+					"key": "channel.messaging-policy",
+					"version": "2.0.0",
+					"kind": "policy"
+				}
+			]
+		},
+		{
+			"file": "specs/contractspec-connect-spec/schemas/patch-verdict.schema.json",
+			"contracts": [
+				{
+					"key": "controlPlane.policy.explain",
+					"version": "1.0.0",
+					"kind": "query"
+				}
+			],
+			"surfaces": ["cli", "audit"],
+			"policies": [
+				{
+					"key": "channel.messaging-policy",
+					"version": "2.0.0",
+					"kind": "policy"
+				}
+			]
+		}
+	],
+	"checks": [
+		{
+			"id": "path-boundary",
+			"status": "warn",
+			"detail": "Protected workspace-config path requires review."
+		},
+		{
+			"id": "contract-drift",
+			"status": "pass",
+			"detail": "DTO rewrite is aligned to existing control-plane and ACP contract keys."
+		},
+		{
+			"id": "approval-routing",
+			"status": "pass",
+			"detail": "Review packet points to control-plane and agent approval operations."
+		},
+		{
+			"id": "targeted-tests",
+			"status": "pass",
+			"detail": "Config and example validation tests passed."
+		}
+	],
+	"verdict": "require_review",
+	"controlPlane": {
+		"verdict": "assist",
+		"requiresApproval": true,
+		"policyRef": {
+			"key": "channel.messaging-policy",
+			"version": "2.0.0",
+			"kind": "policy"
+		},
+		"decisionId": "cp_decision_01HXYZEXAMPLE",
+		"approvalStatus": "pending",
+		"traceId": "trace_01HXYZEXAMPLE"
+	},
+	"approvalOperationRefs": [
+		"controlPlane.execution.approve",
+		"agent.approvals"
+	],
+	"remediation": [
+		"Review protected workspace-config changes before merge.",
+		"Preserve mapping between Connect verdicts and control-plane runtime verdicts.",
+		"Keep `.contractsrc.json` as the default Connect config surface."
+	],
+	"reviewPacketRef": ".contractspec/connect/review-packets/review_01HXYZEXAMPLE.json",
+	"retryBudget": 1,
+	"replay": {
+		"traceQuery": {
+			"key": "controlPlane.trace.get",
+			"version": "1.0.0",
+			"kind": "query"
+		},
+		"policyExplain": {
+			"key": "controlPlane.policy.explain",
+			"version": "1.0.0",
+			"kind": "query"
+		}
+	}
 }

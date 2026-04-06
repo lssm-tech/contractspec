@@ -12,8 +12,8 @@
 		"build": "tsc --noEmit",
 		"dev": "tsc --noEmit --watch",
 		"lint": "bun run lint:check",
-		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-		"lint:check": "biome check .",
+		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
+		"lint:check": "node ../../../scripts/biome.cjs check .",
 		"test": "bun test"
 	},
 	"dependencies": {

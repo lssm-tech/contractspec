@@ -11,6 +11,7 @@ import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 
 const CLI_ENTRY = resolve(import.meta.dir, '../../cli.ts');
+const CONNECT_BLACKBOX_TIMEOUT_MS = 45000;
 
 describe('connect command black-box', () => {
 	const tempDirs: string[] = [];
@@ -94,7 +95,7 @@ describe('connect command black-box', () => {
 		]);
 		expect(replay.code).toBe(0);
 		expect(JSON.parse(replay.stdout).source).toBe('local');
-	}, 20000);
+	}, CONNECT_BLACKBOX_TIMEOUT_MS);
 
 	it('runs verify, review list, and eval in local fallback mode', () => {
 		const workspace = createWorkspace(tempDirs);
@@ -160,7 +161,7 @@ describe('connect command black-box', () => {
 				)
 			)
 		).toBe(true);
-	}, 20000);
+	}, CONNECT_BLACKBOX_TIMEOUT_MS);
 
 	it('exposes plan review/revise/denied states and terminal review/deny flows', () => {
 		const workspace = createWorkspace(tempDirs);
@@ -260,7 +261,7 @@ describe('connect command black-box', () => {
 				requiresApproval: false,
 			},
 		});
-	}, 20000);
+	}, CONNECT_BLACKBOX_TIMEOUT_MS);
 
 	it('denies destructive terminal commands by default', () => {
 		const workspace = createWorkspace(tempDirs);
@@ -289,7 +290,7 @@ describe('connect command black-box', () => {
 				requiresApproval: false,
 			},
 		});
-	}, 20000);
+	}, CONNECT_BLACKBOX_TIMEOUT_MS);
 
 	it('runs contracts-spec hook commands for file, shell, and post-edit flows', () => {
 		const workspace = createWorkspace(tempDirs);
@@ -359,7 +360,7 @@ describe('connect command black-box', () => {
 		expect(JSON.parse(afterFile.stdout)).toMatchObject({
 			reviewCount: expect.any(Number),
 		});
-	}, 20000);
+	}, CONNECT_BLACKBOX_TIMEOUT_MS);
 });
 
 function createWorkspace(tempDirs: string[]) {

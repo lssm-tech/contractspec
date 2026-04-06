@@ -1,4 +1,4 @@
-import { z } from "zod";
+import { z } from 'zod';
 import type {
 	AgentPromptBundle,
 	AgentTarget,
@@ -17,41 +17,42 @@ import type {
 	UpgradePlan,
 	UpgradePlanStep,
 	UpgradeStepLevel,
-} from "./release-types";
-import type { VersionBumpType } from "./types";
+} from './release-types';
+import type { VersionBumpType } from './types';
 
 export const VersionBumpTypeSchema: z.ZodType<VersionBumpType> = z.enum([
-	"patch",
-	"minor",
-	"major",
+	'patch',
+	'minor',
+	'major',
 ]);
 
 export const AgentTargetSchema: z.ZodType<AgentTarget> = z.enum([
-	"codex",
-	"opencode",
-	"claude-code",
+	'codex',
+	'opencode',
+	'claude-code',
 ]);
 
 export const ReleaseEnforceOnSchema: z.ZodType<ReleaseEnforceOn> = z.enum([
-	"release-branch",
-	"always",
-	"never",
+	'release-branch',
+	'always',
+	'never',
 ]);
 
-export const ReleaseAudienceKindSchema: z.ZodType<ReleaseAudienceKind> =
-	z.enum(["maintainer", "customer", "integrator", "agent"]);
+export const ReleaseAudienceKindSchema: z.ZodType<ReleaseAudienceKind> = z.enum(
+	['maintainer', 'customer', 'integrator', 'agent']
+);
 
 export const UpgradeStepLevelSchema: z.ZodType<UpgradeStepLevel> = z.enum([
-	"auto",
-	"assisted",
-	"manual",
+	'auto',
+	'assisted',
+	'manual',
 ]);
 
 export const UpgradeAutofixKindSchema: z.ZodType<UpgradeAutofixKind> = z.enum([
-	"package-json",
-	"contractsrc",
-	"import-rewrite",
-	"codemod",
+	'package-json',
+	'contractsrc',
+	'import-rewrite',
+	'codemod',
 ]);
 
 export const ReleaseImpactAudienceSchema: z.ZodType<ReleaseImpactAudience> =
@@ -89,7 +90,7 @@ export const UpgradeAutofixSchema: z.ZodType<UpgradeAutofix> = z.object({
 	path: z.string().optional(),
 	packageName: z.string().optional(),
 	dependencyType: z
-		.enum(["dependencies", "devDependencies", "peerDependencies"])
+		.enum(['dependencies', 'devDependencies', 'peerDependencies'])
 		.optional(),
 	from: z.string().optional(),
 	to: z.string().optional(),
@@ -121,7 +122,7 @@ export const ReleaseCapsuleValidationSchema: z.ZodType<ReleaseCapsuleValidation>
 	});
 
 export const ReleaseCapsuleSchema: z.ZodType<ReleaseCapsule> = z.object({
-	schemaVersion: z.literal("1").default("1"),
+	schemaVersion: z.literal('1').default('1'),
 	slug: z.string(),
 	summary: z.string(),
 	isBreaking: z.boolean().default(false),

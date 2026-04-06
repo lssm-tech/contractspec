@@ -1,9 +1,13 @@
 import { DEFAULT_CONTRACTSRC } from '@contractspec/lib.contracts-spec/workspace-config';
-import { deepMergePreserve, formatJson, safeParseJson } from '../setup/file-merger';
 import type { FsAdapter } from '../../ports/fs';
-import type { ConnectInitInput } from './types';
+import {
+	deepMergePreserve,
+	formatJson,
+	safeParseJson,
+} from '../setup/file-merger';
 import { resolveWorkspace } from './shared';
 import { ensureStorage, resolveStoragePaths } from './storage';
+import type { ConnectInitInput } from './types';
 
 export async function initConnectWorkspace(
 	fs: FsAdapter,
@@ -39,7 +43,13 @@ export async function initConnectWorkspace(
 		await fs.writeFile(configPath, formatJson(defaults));
 	}
 
-	const storage = resolveStoragePaths(resolveWorkspace({ ...input, workspaceRoot: targetRoot, packageRoot: targetRoot }));
+	const storage = resolveStoragePaths(
+		resolveWorkspace({
+			...input,
+			workspaceRoot: targetRoot,
+			packageRoot: targetRoot,
+		})
+	);
 	await ensureStorage(fs, storage);
 
 	return {

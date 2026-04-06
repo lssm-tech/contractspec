@@ -1,6 +1,11 @@
 import { relative, resolve } from 'node:path';
 import { connect } from '@contractspec/bundle.workspace';
-import { buildActor, exitCodeForVerdict, parseJsonOrText, readRequiredStdin } from './io';
+import {
+	buildActor,
+	exitCodeForVerdict,
+	parseJsonOrText,
+	readRequiredStdin,
+} from './io';
 import {
 	createConnectCommandContext,
 	tryCreateConnectControlPlaneRuntime,
@@ -125,7 +130,9 @@ async function runBeforeShellHook(
 	}
 
 	const taskId = `contracts-spec:shell:${slug(command)}`;
-	const relevantPaths = touchedPaths.filter((path) => isContractsSpecPath(path));
+	const relevantPaths = touchedPaths.filter((path) =>
+		isContractsSpecPath(path)
+	);
 	const contextPack = await connect.buildConnectContextPack(ctx.adapters, {
 		cwd: ctx.cwd,
 		config: ctx.config,
@@ -298,7 +305,13 @@ function extractPaths(payload: HookPayload, cwd: string) {
 		values.push(filePath);
 	}
 
-	return [...new Set(values.map((value) => normalizePath(value, cwd)).filter(Boolean) as string[])];
+	return [
+		...new Set(
+			values
+				.map((value) => normalizePath(value, cwd))
+				.filter(Boolean) as string[]
+		),
+	];
 }
 
 function commandTargetsContractsSpec(command: string) {
@@ -352,9 +365,16 @@ function firstString(...values: unknown[]) {
 }
 
 function slug(value: string) {
-	return value.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '');
+	return value
+		.toLowerCase()
+		.replace(/[^a-z0-9]+/g, '-')
+		.replace(/^-+|-+$/g, '');
 }
 
-function printHookResult(json: boolean | undefined, value: unknown, text: string) {
+function printHookResult(
+	json: boolean | undefined,
+	value: unknown,
+	text: string
+) {
 	console.log(json ? JSON.stringify(value, null, 2) : text);
 }

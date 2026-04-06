@@ -66,12 +66,16 @@ export function renderMigrationGuide(
 }
 
 export function renderPatchNotes(manifest: GeneratedReleaseManifest): string {
-	return ['# Patch Notes', '', ...manifest.releases.map(renderMaintainerSummary)].join(
-		'\n\n'
-	);
+	return [
+		'# Patch Notes',
+		'',
+		...manifest.releases.map(renderMaintainerSummary),
+	].join('\n\n');
 }
 
-export function renderCustomerGuide(manifest: GeneratedReleaseManifest): string {
+export function renderCustomerGuide(
+	manifest: GeneratedReleaseManifest
+): string {
 	return [
 		'# Customer Upgrade Guide',
 		'',
@@ -86,9 +90,10 @@ export function renderUpgradeChecklist(plan: UpgradePlan): string {
 
 	return plan.steps
 		.map((step) =>
-			[`- [${step.level}] ${step.title}: ${step.summary}`, ...formatSteps(step.instructions)].join(
-				'\n'
-			)
+			[
+				`- [${step.level}] ${step.title}: ${step.summary}`,
+				...formatSteps(step.instructions),
+			].join('\n')
 		)
 		.join('\n');
 }
@@ -98,7 +103,10 @@ export function renderUpgradePrompt(
 	plan: UpgradePlan
 ): string {
 	const targets = plan.targetPackages
-		.map((pkg) => `${pkg.name}: ${pkg.currentVersion ?? 'unknown'} -> ${pkg.targetVersion ?? 'latest'}`)
+		.map(
+			(pkg) =>
+				`${pkg.name}: ${pkg.currentVersion ?? 'unknown'} -> ${pkg.targetVersion ?? 'latest'}`
+		)
 		.join('\n');
 
 	return [

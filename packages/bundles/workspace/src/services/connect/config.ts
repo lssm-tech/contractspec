@@ -1,8 +1,10 @@
-import micromatch from 'micromatch';
 import type { ConnectVerdict } from '@contractspec/lib.contracts-spec/workspace-config';
+import micromatch from 'micromatch';
 import type { ConnectResolvedWorkspace } from './shared';
 
-export function assertConnectEnabled(workspace: ConnectResolvedWorkspace): void {
+export function assertConnectEnabled(
+	workspace: ConnectResolvedWorkspace
+): void {
 	if (!workspace.config.connect?.enabled) {
 		throw new Error(
 			'ContractSpec Connect is not enabled. Configure .contractsrc.json > connect.enabled = true.'
@@ -47,7 +49,10 @@ export function isReviewCommand(
 	workspace: ConnectResolvedWorkspace,
 	command: string
 ): boolean {
-	return matchesCommandRule(workspace.config.connect?.commands?.review, command);
+	return matchesCommandRule(
+		workspace.config.connect?.commands?.review,
+		command
+	);
 }
 
 export function isDeniedCommand(
@@ -57,10 +62,15 @@ export function isDeniedCommand(
 	return matchesCommandRule(workspace.config.connect?.commands?.deny, command);
 }
 
-function matchesCommandRule(rules: string[] | undefined, command: string): boolean {
+function matchesCommandRule(
+	rules: string[] | undefined,
+	command: string
+): boolean {
 	if (!rules || rules.length === 0) {
 		return false;
 	}
 
-	return rules.some((rule) => command === rule || command.startsWith(`${rule} `));
+	return rules.some(
+		(rule) => command === rule || command.startsWith(`${rule} `)
+	);
 }

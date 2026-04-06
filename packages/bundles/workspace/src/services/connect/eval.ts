@@ -1,4 +1,6 @@
+import type { WorkspaceAdapters } from '../../ports/logger';
 import { assertConnectEnabled } from './config';
+import type { ConnectDecisionEnvelope } from './runtime-types';
 import { resolveWorkspace } from './shared';
 import {
 	decisionArtifactRefs,
@@ -7,13 +9,11 @@ import {
 	resolveStoragePaths,
 	writeDecisionEnvelope,
 } from './storage';
-import type { WorkspaceAdapters } from '../../ports/logger';
 import type {
 	ConnectEvalInput,
 	ConnectEvaluationRuntime,
 	ConnectWorkspaceInput,
 } from './types';
-import type { ConnectDecisionEnvelope } from './runtime-types';
 
 export async function evaluateConnectDecision(
 	adapters: Pick<WorkspaceAdapters, 'fs'>,
@@ -27,12 +27,19 @@ export async function evaluateConnectDecision(
 	const workspace = resolveWorkspace(input);
 	assertConnectEnabled(workspace);
 
-	if ((!input.scenarioKey && !input.suiteKey) || (input.scenarioKey && input.suiteKey)) {
+	if (
+		(!input.scenarioKey && !input.suiteKey) ||
+		(input.scenarioKey && input.suiteKey)
+	) {
 		throw new Error('Provide exactly one of scenarioKey or suiteKey.');
 	}
 
 	const storage = resolveStoragePaths(workspace);
-	const stored = await loadStoredDecision(adapters.fs, storage, input.decisionId);
+	const stored = await loadStoredDecision(
+		adapters.fs,
+		storage,
+		input.decisionId
+	);
 	const evaluationContext = buildEvaluationContext(workspace, stored);
 	const evaluation = input.scenarioKey
 		? await runtime.runScenarioEvaluation({
@@ -58,14 +65,20 @@ export async function evaluateConnectDecision(
 		adapters.fs.join(historyDir, 'replay-bundle.json')
 	);
 	const envelope: ConnectDecisionEnvelope = {
-		artifacts: decisionArtifactRefs(adapters.fs, workspace, storage, input.decisionId, {
-			contextPack: true,
-			evaluationResult: true,
-			patchVerdict: true,
-			planPacket: true,
-			replayBundle: hasReplayBundle,
-			reviewPacket: Boolean(stored.reviewPacket),
-		}),
+		artifacts: decisionArtifactRefs(
+			adapters.fs,
+			workspace,
+			storage,
+			input.decisionId,
+			{
+				contextPack: true,
+				evaluationResult: true,
+				patchVerdict: true,
+				planPacket: true,
+				replayBundle: hasReplayBundle,
+				reviewPacket: Boolean(stored.reviewPacket),
+			}
+		),
 		connectDecisionId: input.decisionId,
 		createdAt: stored.envelope?.createdAt ?? new Date().toISOString(),
 		runtimeLink: stored.envelope?.runtimeLink,

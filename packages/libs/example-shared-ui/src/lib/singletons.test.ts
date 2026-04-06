@@ -27,28 +27,25 @@ describe('@contractspec/lib.example-shared-ui singletons', () => {
 		);
 	});
 
-	test(
-		'stores TemplateComponentRegistry on globalThis and reuses registrations',
-		async () => {
-			const registryStore = globalThis as Record<PropertyKey, unknown>;
-			const registryModule = await import('./component-registry');
-			const templateId = `singleton-test-${Date.now()}`;
-			const registration = {
-				list: DummyComponent,
-				detail: DummyComponent,
-			};
+	test('stores TemplateComponentRegistry on globalThis and reuses registrations', async () => {
+		const registryStore = globalThis as Record<PropertyKey, unknown>;
+		const registryModule = await import('./component-registry');
+		const templateId = `singleton-test-${Date.now()}`;
+		const registration = {
+			list: DummyComponent,
+			detail: DummyComponent,
+		};
 
-			registerTemplateComponents(templateId, registration);
+		registerTemplateComponents(templateId, registration);
 
-			expect(registryStore[TEMPLATE_COMPONENT_REGISTRY_KEY]).toBe(
-				templateComponentRegistry
-			);
-			expect(registryModule.templateComponentRegistry).toBe(
-				templateComponentRegistry
-			);
-			expect(registryModule.templateComponentRegistry.get(templateId)).toBe(
-				registration
-			);
-		}
-	);
+		expect(registryStore[TEMPLATE_COMPONENT_REGISTRY_KEY]).toBe(
+			templateComponentRegistry
+		);
+		expect(registryModule.templateComponentRegistry).toBe(
+			templateComponentRegistry
+		);
+		expect(registryModule.templateComponentRegistry.get(templateId)).toBe(
+			registration
+		);
+	});
 });

@@ -4,7 +4,10 @@ import {
 	createNodeGitAdapter,
 	versioning,
 } from '@contractspec/bundle.workspace';
-import type { AgentTarget, VersionBumpType } from '@contractspec/lib.contracts-spec';
+import type {
+	AgentTarget,
+	VersionBumpType,
+} from '@contractspec/lib.contracts-spec';
 import chalk from 'chalk';
 import { Command } from 'commander';
 
@@ -66,13 +69,19 @@ export function createReleaseCommand(): Command {
 		.command('check')
 		.description('Validate release communication completeness')
 		.option('-b, --baseline <ref>', 'Git ref to compare against', 'main')
-		.option('-o, --output <dir>', 'Artifact output directory', 'generated/releases')
+		.option(
+			'-o, --output <dir>',
+			'Artifact output directory',
+			'generated/releases'
+		)
 		.option('--strict', 'Fail on missing generated artifacts')
 		.action(runReleaseCheck);
 
 	command
 		.command('brief')
-		.description('Emit maintainer, customer, migration, and agent upgrade views')
+		.description(
+			'Emit maintainer, customer, migration, and agent upgrade views'
+		)
 		.option('-s, --slug <slug>', 'Specific release slug to render')
 		.option('--agent <target>', 'Agent target for the upgrade prompt', 'codex')
 		.action(runReleaseBrief);
@@ -103,12 +112,12 @@ async function runReleaseInit(options: ReleaseInitCliOptions): Promise<void> {
 	console.log(`  changeset: ${result.changesetPath}`);
 	console.log(`  capsule: ${result.capsulePath}`);
 	console.log(`  type: ${result.releaseType}`);
-	console.log(`  packages: ${result.packages.map((pkg) => pkg.name).join(', ') || 'none'}`);
+	console.log(
+		`  packages: ${result.packages.map((pkg) => pkg.name).join(', ') || 'none'}`
+	);
 }
 
-async function runReleaseBuild(
-	options: ReleaseBuildCliOptions
-): Promise<void> {
+async function runReleaseBuild(options: ReleaseBuildCliOptions): Promise<void> {
 	const result = await versioning.buildReleaseArtifacts(
 		{
 			fs: createNodeFsAdapter(),
@@ -129,9 +138,7 @@ async function runReleaseBuild(
 	console.log(`  customer guide: ${result.customerGuidePath}`);
 }
 
-async function runReleaseCheck(
-	options: ReleaseCheckCliOptions
-): Promise<void> {
+async function runReleaseCheck(options: ReleaseCheckCliOptions): Promise<void> {
 	const result = await versioning.checkReleaseArtifacts(
 		{
 			fs: createNodeFsAdapter(),
@@ -146,7 +153,9 @@ async function runReleaseCheck(
 	);
 
 	for (const check of result.checks) {
-		console.log(`- ${check.name}: ${check.ok ? 'pass' : 'fail'} (${check.message})`);
+		console.log(
+			`- ${check.name}: ${check.ok ? 'pass' : 'fail'} (${check.message})`
+		);
 	}
 
 	for (const warning of result.warnings) {
@@ -161,9 +170,7 @@ async function runReleaseCheck(
 	}
 }
 
-async function runReleaseBrief(
-	options: ReleaseBriefCliOptions
-): Promise<void> {
+async function runReleaseBrief(options: ReleaseBriefCliOptions): Promise<void> {
 	const result = await versioning.buildReleaseArtifacts(
 		{
 			fs: createNodeFsAdapter(),
@@ -172,10 +179,9 @@ async function runReleaseBrief(
 		},
 		{ dryRun: true }
 	);
-	const entry =
-		options.slug
-			? result.manifest.releases.find((release) => release.slug === options.slug)
-			: result.manifest.releases[0];
+	const entry = options.slug
+		? result.manifest.releases.find((release) => release.slug === options.slug)
+		: result.manifest.releases[0];
 
 	if (!entry) {
 		console.log(chalk.yellow('No release capsule was found to summarize.'));
@@ -183,9 +189,13 @@ async function runReleaseBrief(
 	}
 
 	const prompt =
-		result.upgradePlan.agentPrompts.find((bundle) => bundle.agent === options.agent)
-			?.prompt ??
-		versioning.renderUpgradePrompt(options.agent ?? 'codex', result.upgradePlan);
+		result.upgradePlan.agentPrompts.find(
+			(bundle) => bundle.agent === options.agent
+		)?.prompt ??
+		versioning.renderUpgradePrompt(
+			options.agent ?? 'codex',
+			result.upgradePlan
+		);
 
 	console.log('## Maintainer Summary');
 	console.log(versioning.renderMaintainerSummary(entry));

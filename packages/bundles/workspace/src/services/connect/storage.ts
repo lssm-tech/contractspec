@@ -1,5 +1,7 @@
-import type { FsAdapter } from '../../ports/fs';
 import { resolve } from 'node:path';
+import type { FsAdapter } from '../../ports/fs';
+import type { ConnectDecisionEnvelope } from './runtime-types';
+import type { ConnectResolvedWorkspace } from './shared';
 import type {
 	ConnectContextPack,
 	ConnectPatchVerdict,
@@ -7,8 +9,6 @@ import type {
 	ConnectReviewListItem,
 	ConnectReviewPacket,
 } from './types';
-import type { ConnectResolvedWorkspace } from './shared';
-import type { ConnectDecisionEnvelope } from './runtime-types';
 
 export interface ConnectStoragePaths {
 	root: string;
@@ -110,10 +110,18 @@ export async function persistDecisionArtifacts(
 	await fs.mkdir(historyDir);
 
 	if (artifacts.contextPack) {
-		await writeJson(fs, fs.join(historyDir, 'context-pack.json'), artifacts.contextPack);
+		await writeJson(
+			fs,
+			fs.join(historyDir, 'context-pack.json'),
+			artifacts.contextPack
+		);
 	}
 	if (artifacts.planPacket) {
-		await writeJson(fs, fs.join(historyDir, 'plan-packet.json'), artifacts.planPacket);
+		await writeJson(
+			fs,
+			fs.join(historyDir, 'plan-packet.json'),
+			artifacts.planPacket
+		);
 	}
 	if (artifacts.patchVerdict) {
 		await writeJson(
@@ -137,7 +145,11 @@ export async function persistDecisionArtifacts(
 		);
 	}
 	if (artifacts.replayBundle !== undefined) {
-		await writeJson(fs, fs.join(historyDir, 'replay-bundle.json'), artifacts.replayBundle);
+		await writeJson(
+			fs,
+			fs.join(historyDir, 'replay-bundle.json'),
+			artifacts.replayBundle
+		);
 	}
 
 	return historyDir;
@@ -149,7 +161,11 @@ export async function writeDecisionEnvelope(
 	decisionId: string,
 	envelope: ConnectDecisionEnvelope
 ): Promise<string> {
-	const filePath = fs.join(storage.decisionsDir, decisionId, 'decision-envelope.json');
+	const filePath = fs.join(
+		storage.decisionsDir,
+		decisionId,
+		'decision-envelope.json'
+	);
 	await writeJson(fs, filePath, envelope);
 	return filePath;
 }
@@ -254,14 +270,30 @@ export function decisionArtifactRefs(
 	const historyDir = fs.join(storage.decisionsDir, decisionId);
 
 	return {
-		contextPack: artifactRef(fs, workspace, fs.join(historyDir, 'context-pack.json')),
-		planPacket: artifactRef(fs, workspace, fs.join(historyDir, 'plan-packet.json')),
-		patchVerdict: artifactRef(fs, workspace, fs.join(historyDir, 'patch-verdict.json')),
+		contextPack: artifactRef(
+			fs,
+			workspace,
+			fs.join(historyDir, 'context-pack.json')
+		),
+		planPacket: artifactRef(
+			fs,
+			workspace,
+			fs.join(historyDir, 'plan-packet.json')
+		),
+		patchVerdict: artifactRef(
+			fs,
+			workspace,
+			fs.join(historyDir, 'patch-verdict.json')
+		),
 		reviewPacket: artifacts.reviewPacket
 			? artifactRef(fs, workspace, fs.join(historyDir, 'review-packet.json'))
 			: undefined,
 		evaluationResult: artifacts.evaluationResult
-			? artifactRef(fs, workspace, fs.join(historyDir, 'evaluation-result.json'))
+			? artifactRef(
+					fs,
+					workspace,
+					fs.join(historyDir, 'evaluation-result.json')
+				)
 			: undefined,
 		replayBundle: artifacts.replayBundle
 			? artifactRef(fs, workspace, fs.join(historyDir, 'replay-bundle.json'))
@@ -277,7 +309,10 @@ async function writeJson(
 	await fs.writeFile(path, `${JSON.stringify(value, null, 2)}\n`);
 }
 
-async function readJson<T>(fs: FsAdapter, path: string): Promise<T | undefined> {
+async function readJson<T>(
+	fs: FsAdapter,
+	path: string
+): Promise<T | undefined> {
 	const content = await tryRead(fs, path);
 	if (!content) {
 		return undefined;
@@ -290,7 +325,10 @@ async function readJson<T>(fs: FsAdapter, path: string): Promise<T | undefined> 
 	}
 }
 
-async function tryRead(fs: FsAdapter, path: string): Promise<string | undefined> {
+async function tryRead(
+	fs: FsAdapter,
+	path: string
+): Promise<string | undefined> {
 	if (!(await fs.exists(path))) {
 		return undefined;
 	}

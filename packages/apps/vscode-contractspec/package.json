@@ -868,8 +868,8 @@
 		"build:types": "tsc --noEmit",
 		"dev": "bun build src/extension.ts --outdir=dist --target=node --format=cjs --external=vscode --sourcemap=external --watch",
 		"lint": "bun run lint:fix",
-		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-		"lint:check": "biome check .",
+		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
+		"lint:check": "node ../../../scripts/biome.cjs check .",
 		"package": "vsce package --no-dependencies",
 		"publish:off": "vsce publish --no-dependencies",
 		"test": "vscode-test"

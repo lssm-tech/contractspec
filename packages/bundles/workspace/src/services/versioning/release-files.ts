@@ -186,9 +186,11 @@ function normalizeCapsule(
 	slug: string,
 	fallbackPackages: ReleaseCapsulePackage[]
 ): ReleaseCapsule {
-	const record = (typeof value === 'object' && value !== null
-		? (value as Record<string, unknown>)
-		: {}) as Record<string, unknown>;
+	const record = (
+		typeof value === 'object' && value !== null
+			? (value as Record<string, unknown>)
+			: {}
+	) as Record<string, unknown>;
 	const legacyPackageNames = Array.isArray(record['packageNames'])
 		? record['packageNames']
 				.filter((entry): entry is string => typeof entry === 'string')

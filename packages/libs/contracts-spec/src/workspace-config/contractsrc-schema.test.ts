@@ -140,7 +140,9 @@ describe('ContractsrcSchema with testing', () => {
 				'.contractspec/connect/plan-packet.json'
 			);
 			expect(result.data.connect?.commands?.review).toEqual(['git push']);
-			expect(result.data.connect?.canonPacks?.[0]?.ref).toBe('team/platform@1.2.0');
+			expect(result.data.connect?.canonPacks?.[0]?.ref).toBe(
+				'team/platform@1.2.0'
+			);
 			expect(
 				result.data.connect?.policy?.reviewThresholds?.destructiveCommand
 			).toBe('deny');

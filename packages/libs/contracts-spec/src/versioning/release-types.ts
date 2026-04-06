@@ -2,25 +2,25 @@
  * Release and upgrade metadata types built on top of the versioning module.
  */
 
-import type { VersionBumpType } from "./types";
+import type { VersionBumpType } from './types';
 
-export type AgentTarget = "codex" | "opencode" | "claude-code";
+export type AgentTarget = 'codex' | 'opencode' | 'claude-code';
 
-export type ReleaseEnforceOn = "release-branch" | "always" | "never";
+export type ReleaseEnforceOn = 'release-branch' | 'always' | 'never';
 
 export type ReleaseAudienceKind =
-	| "maintainer"
-	| "customer"
-	| "integrator"
-	| "agent";
+	| 'maintainer'
+	| 'customer'
+	| 'integrator'
+	| 'agent';
 
-export type UpgradeStepLevel = "auto" | "assisted" | "manual";
+export type UpgradeStepLevel = 'auto' | 'assisted' | 'manual';
 
 export type UpgradeAutofixKind =
-	| "package-json"
-	| "contractsrc"
-	| "import-rewrite"
-	| "codemod";
+	| 'package-json'
+	| 'contractsrc'
+	| 'import-rewrite'
+	| 'codemod';
 
 export interface ReleaseImpactAudience {
 	kind: ReleaseAudienceKind;
@@ -53,7 +53,7 @@ export interface UpgradeAutofix {
 	summary: string;
 	path?: string;
 	packageName?: string;
-	dependencyType?: "dependencies" | "devDependencies" | "peerDependencies";
+	dependencyType?: 'dependencies' | 'devDependencies' | 'peerDependencies';
 	from?: string;
 	to?: string;
 	configPath?: string;
@@ -83,7 +83,7 @@ export interface ReleaseCapsuleValidation {
 }
 
 export interface ReleaseCapsule {
-	schemaVersion: "1";
+	schemaVersion: '1';
 	slug: string;
 	summary: string;
 	isBreaking: boolean;

@@ -29,7 +29,8 @@ export async function generateArtifacts(
 
 	const searchPattern = options.scanAllSpecs
 		? options.specPattern
-		: options.specPattern ?? (contractsDirExists ? 'contracts/**/*.ts' : '**/*.ts');
+		: (options.specPattern ??
+			(contractsDirExists ? 'contracts/**/*.ts' : '**/*.ts'));
 
 	const specs = await listSpecs(adapters, {
 		cwd: options.specSearchRoot,

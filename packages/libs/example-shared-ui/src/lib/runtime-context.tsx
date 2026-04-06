@@ -2,7 +2,7 @@
 
 import type { ApolloClient } from '@apollo/client';
 import type { TransformEngine } from '@contractspec/lib.presentation-runtime-core/transform-engine';
-import { createContext, useContext, type Context } from 'react';
+import { type Context, createContext, useContext } from 'react';
 import type {
 	TemplateDefinition,
 	TemplateId,

@@ -1,20 +1,23 @@
 import { writeFile } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
 import {
-	HarnessScenarioRegistry,
-	HarnessSuiteRegistry,
-	type HarnessScenarioSpec,
-	type HarnessSuiteSpec,
-} from '@contractspec/lib.contracts-spec';
-import { HarnessEvaluationRunner, HarnessRunner } from '@contractspec/lib.harness';
-import {
 	DefaultHarnessTargetResolver,
 	FilesystemHarnessArtifactStore,
 	PlaywrightBrowserHarnessAdapter,
 	SandboxedCodeExecutionAdapter,
 } from '@contractspec/integration.harness-runtime';
-import { loadTypeScriptModule } from '../../utils/module-loader';
+import {
+	HarnessScenarioRegistry,
+	type HarnessScenarioSpec,
+	HarnessSuiteRegistry,
+	type HarnessSuiteSpec,
+} from '@contractspec/lib.contracts-spec';
+import {
+	HarnessEvaluationRunner,
+	HarnessRunner,
+} from '@contractspec/lib.harness';
 import type { Config } from '../../utils/config';
+import { loadTypeScriptModule } from '../../utils/module-loader';
 
 interface ConnectEvaluationRuntime {
 	runScenarioEvaluation(input: {
@@ -36,7 +39,11 @@ export async function createConnectEvaluationRuntime(input: {
 	decisionId: string;
 }): Promise<ConnectEvaluationRuntime> {
 	const registries = await loadHarnessRegistries(resolve(input.registryPath));
-	const historyDir = resolveDecisionHistoryDir(input.packageRoot, input.config, input.decisionId);
+	const historyDir = resolveDecisionHistoryDir(
+		input.packageRoot,
+		input.config,
+		input.decisionId
+	);
 	const browserAdapter = new PlaywrightBrowserHarnessAdapter();
 	const runner = new HarnessRunner({
 		targetResolver: new DefaultHarnessTargetResolver({
@@ -45,7 +52,9 @@ export async function createConnectEvaluationRuntime(input: {
 			sharedBaseUrl: process.env.HARNESS_SHARED_BASE_URL,
 			sandboxBaseUrl: process.env.HARNESS_SANDBOX_BASE_URL,
 		}),
-		artifactStore: new FilesystemHarnessArtifactStore(join(historyDir, 'artifacts')),
+		artifactStore: new FilesystemHarnessArtifactStore(
+			join(historyDir, 'artifacts')
+		),
 		adapters: [new SandboxedCodeExecutionAdapter(), browserAdapter],
 		defaultMode: 'code-execution',
 	});
@@ -56,7 +65,11 @@ export async function createConnectEvaluationRuntime(input: {
 		replaySink: {
 			save: async (bundle) => {
 				const bundlePath = join(historyDir, 'replay-bundle.json');
-				await writeFile(bundlePath, `${JSON.stringify(bundle, null, 2)}\n`, 'utf-8');
+				await writeFile(
+					bundlePath,
+					`${JSON.stringify(bundle, null, 2)}\n`,
+					'utf-8'
+				);
 				return bundlePath;
 			},
 		},
@@ -69,7 +82,10 @@ export async function createConnectEvaluationRuntime(input: {
 				if (!scenario) {
 					throw new Error(`Unknown harness scenario ${scenarioKey}`);
 				}
-				return await evaluationRunner.runScenarioEvaluation({ scenario, context });
+				return await evaluationRunner.runScenarioEvaluation({
+					scenario,
+					context,
+				});
 			} finally {
 				await browserAdapter.dispose();
 			}
@@ -113,25 +129,40 @@ async function loadHarnessRegistries(registryPath: string) {
 	}
 }
 
-function collectScenarios(exportsObject: Record<string, unknown>): HarnessScenarioSpec[] {
+function collectScenarios(
+	exportsObject: Record<string, unknown>
+): HarnessScenarioSpec[] {
 	const explicit = Array.isArray(exportsObject.scenarios)
 		? (exportsObject.scenarios as HarnessScenarioSpec[])
 		: [];
-	const inferred = Object.values(exportsObject).filter(isScenarioSpec) as HarnessScenarioSpec[];
+	const inferred = Object.values(exportsObject).filter(
+		isScenarioSpec
+	) as HarnessScenarioSpec[];
 	return dedupeByKey([...explicit, ...inferred].filter(Boolean));
 }
 
-function collectSuites(exportsObject: Record<string, unknown>): HarnessSuiteSpec[] {
+function collectSuites(
+	exportsObject: Record<string, unknown>
+): HarnessSuiteSpec[] {
 	const explicit = Array.isArray(exportsObject.suites)
 		? (exportsObject.suites as HarnessSuiteSpec[])
 		: [];
-	const inferred = Object.values(exportsObject).filter(isSuiteSpec) as HarnessSuiteSpec[];
+	const inferred = Object.values(exportsObject).filter(
+		isSuiteSpec
+	) as HarnessSuiteSpec[];
 	return dedupeByKey([...explicit, ...inferred].filter(Boolean));
 }
 
-function dedupeByKey<T extends { meta: { key: string; version?: string } }>(items: T[]): T[] {
+function dedupeByKey<T extends { meta: { key: string; version?: string } }>(
+	items: T[]
+): T[] {
 	return Array.from(
-		new Map(items.map((item) => [`${item.meta.key}@${item.meta.version ?? '1.0.0'}`, item])).values()
+		new Map(
+			items.map((item) => [
+				`${item.meta.key}@${item.meta.version ?? '1.0.0'}`,
+				item,
+			])
+		).values()
 	);
 }
 

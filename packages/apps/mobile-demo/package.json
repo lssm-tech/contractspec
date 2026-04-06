@@ -9,8 +9,8 @@
 		"android": "expo start --android",
 		"ios": "expo start --ios",
 		"lint": "bun run lint:fix",
-		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-		"lint:check": "biome check .",
+		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
+		"lint:check": "node ../../../scripts/biome.cjs check .",
 		"typecheck": "tsc --noEmit",
 		"test": "bun test"
 	},

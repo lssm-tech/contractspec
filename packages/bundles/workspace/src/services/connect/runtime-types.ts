@@ -3,8 +3,8 @@ import type {
 	ConnectPatchVerdict,
 	ConnectPlanPacket,
 	ConnectRuntimeLink,
-	ConnectVerifyInput,
 	ConnectVerdict,
+	ConnectVerifyInput,
 } from './types';
 
 export interface ConnectTraceLookup {

@@ -149,7 +149,11 @@ export interface ConnectPatchVerdict {
 		cwd?: string;
 	};
 	impacted: ConnectImpactedFile[];
-	checks: Array<{ id: string; status: 'pass' | 'fail' | 'warn'; detail: string }>;
+	checks: Array<{
+		id: string;
+		status: 'pass' | 'fail' | 'warn';
+		detail: string;
+	}>;
 	verdict: ConnectVerdict;
 	controlPlane: {
 		verdict: 'autonomous' | 'assist' | 'blocked';
@@ -181,7 +185,11 @@ export interface ConnectReviewPacket {
 		requiredChecks: string[];
 	};
 	evidence: Array<{
-		type: 'context-pack' | 'plan-packet' | 'patch-verdict' | 'control-plane-trace';
+		type:
+			| 'context-pack'
+			| 'plan-packet'
+			| 'patch-verdict'
+			| 'control-plane-trace';
 		ref: string;
 	}>;
 	requiredApprovals: Array<{ capability: string; reason: string }>;

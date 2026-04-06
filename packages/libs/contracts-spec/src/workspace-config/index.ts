@@ -4,6 +4,14 @@
 
 import type { DocBlock } from '../docs/types';
 
+export type {
+	AgentTarget,
+	ReleaseEnforceOn,
+} from '../versioning/release-types';
+export {
+	AgentTargetSchema,
+	ReleaseEnforceOnSchema,
+} from '../versioning/schema';
 export {
 	type BumpStrategy,
 	BumpStrategySchema,
@@ -65,11 +73,6 @@ export type {
 	AgentMode,
 	AgentProvider,
 } from './contractsrc-types';
-export type { AgentTarget, ReleaseEnforceOn } from '../versioning/release-types';
-export {
-	AgentTargetSchema,
-	ReleaseEnforceOnSchema,
-} from '../versioning/schema';
 
 export const tech_workspace_config_DocBlocks: DocBlock[] = [
 	{

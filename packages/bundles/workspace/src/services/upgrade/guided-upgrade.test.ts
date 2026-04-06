@@ -1,13 +1,10 @@
+import { describe, expect, it } from 'bun:test';
 import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { describe, expect, it } from 'bun:test';
 import { createNodeFsAdapter } from '../../adapters/fs.node';
 import { createNoopLoggerAdapter } from '../../adapters/logger';
-import {
-	analyzeGuidedUpgrade,
-	applyGuidedUpgrade,
-} from './guided-upgrade';
+import { analyzeGuidedUpgrade, applyGuidedUpgrade } from './guided-upgrade';
 
 function seedUpgradeWorkspace(): string {
 	const dir = mkdtempSync(join(tmpdir(), 'contractspec-guided-upgrade-'));
@@ -28,10 +25,7 @@ function seedUpgradeWorkspace(): string {
 			2
 		)
 	);
-	writeFileSync(
-		join(dir, '.contractsrc.json'),
-		JSON.stringify({}, null, 2)
-	);
+	writeFileSync(join(dir, '.contractsrc.json'), JSON.stringify({}, null, 2));
 	writeFileSync(
 		join(dir, 'src', 'workflow.ts'),
 		`import { defineWorkflow } from '@contractspec/lib.contracts-spec/workflow';\n`
@@ -128,7 +122,10 @@ function seedNestedMonorepoUpgradeWorkspace(): string {
 			2
 		)
 	);
-	writeFileSync(join(appRoot, '.contractsrc.json'), JSON.stringify({}, null, 2));
+	writeFileSync(
+		join(appRoot, '.contractsrc.json'),
+		JSON.stringify({}, null, 2)
+	);
 	writeFileSync(
 		join(appRoot, 'generated', 'releases', 'upgrade-manifest.json'),
 		JSON.stringify(
@@ -179,9 +176,11 @@ describe('analyzeGuidedUpgrade', () => {
 		);
 
 		expect(result.plan.targetPackages[0]?.targetVersion).toBe('5.0.5');
-		expect(result.humanChecklist.some((item) => item.includes('Rewrite workflow import'))).toBe(
-			true
-		);
+		expect(
+			result.humanChecklist.some((item) =>
+				item.includes('Rewrite workflow import')
+			)
+		).toBe(true);
 	});
 
 	it('should resolve manifests relative to the current package root inside a parent monorepo', async () => {
@@ -224,13 +223,17 @@ describe('applyGuidedUpgrade', () => {
 		const config = JSON.parse(
 			await fs.readFile(join(workspaceRoot, '.contractsrc.json'))
 		) as Record<string, unknown>;
-		const workflowSource = await fs.readFile(join(workspaceRoot, 'src', 'workflow.ts'));
+		const workflowSource = await fs.readFile(
+			join(workspaceRoot, 'src', 'workflow.ts')
+		);
 
 		expect(result.appliedAutofixes?.length).toBeGreaterThan(0);
-		expect(packageJson.dependencies['@contractspec/lib.contracts-spec']).toBe('5.0.5');
+		expect(packageJson.dependencies['@contractspec/lib.contracts-spec']).toBe(
+			'5.0.5'
+		);
 		expect(config['release']).toBeDefined();
 		expect(workflowSource).toContain(
-			"@contractspec/lib.contracts-spec/workflow/spec"
+			'@contractspec/lib.contracts-spec/workflow/spec'
 		);
 	});
 });

@@ -1,118 +1,129 @@
 {
-  "$schema": "https://json-schema.org/draft/2020-12/schema",
-  "$id": "https://contractspec.dev/schemas/connect/patch-verdict.schema.json",
-  "title": "PatchVerdict",
-  "type": "object",
-  "required": [
-    "decisionId",
-    "action",
-    "impacted",
-    "checks",
-    "verdict",
-    "controlPlane",
-    "replay"
-  ],
-  "properties": {
-    "decisionId": { "type": "string" },
-    "summary": { "type": "string" },
-    "action": {
-      "type": "object",
-      "required": ["actionType", "tool"],
-      "properties": {
-        "actionType": {
-          "enum": ["write_file", "edit_file", "run_command"]
-        },
-        "tool": {
-          "enum": ["acp.fs.access", "acp.terminal.exec", "acp.tool.calls"]
-        },
-        "target": { "type": "string" },
-        "cwd": { "type": "string" }
-      }
-    },
-    "impacted": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": ["file", "contracts", "surfaces", "policies"],
-        "properties": {
-          "file": { "type": "string" },
-          "contracts": {
-            "type": "array",
-            "items": { "$ref": "#/$defs/contractRef" }
-          },
-          "surfaces": {
-            "type": "array",
-            "items": {
-              "enum": ["agent", "audit", "cli", "contract", "harness", "knowledge", "mcp", "runtime"]
-            }
-          },
-          "policies": {
-            "type": "array",
-            "items": { "$ref": "#/$defs/contractRef" }
-          }
-        }
-      }
-    },
-    "checks": {
-      "type": "array",
-      "items": {
-        "type": "object",
-        "required": ["id", "status", "detail"],
-        "properties": {
-          "id": { "type": "string" },
-          "status": { "enum": ["pass", "fail", "warn"] },
-          "detail": { "type": "string" }
-        }
-      }
-    },
-    "verdict": {
-      "enum": ["permit", "rewrite", "require_review", "deny"]
-    },
-  "controlPlane": {
-    "type": "object",
-    "required": ["verdict", "requiresApproval"],
-    "properties": {
-      "verdict": { "enum": ["autonomous", "assist", "blocked"] },
-      "requiresApproval": { "type": "boolean" },
-      "policyRef": { "$ref": "#/$defs/contractRef" },
-      "decisionId": { "type": "string" },
-      "approvalStatus": {
-        "enum": ["not_required", "pending", "approved", "rejected", "expired"]
-      },
-      "traceId": { "type": "string" }
-    }
-  },
-    "approvalOperationRefs": {
-      "type": "array",
-      "items": { "type": "string" }
-    },
-    "remediation": {
-      "type": "array",
-      "items": { "type": "string" }
-    },
-    "reviewPacketRef": { "type": "string" },
-    "retryBudget": {
-      "type": "integer",
-      "minimum": 0
-    },
-    "replay": {
-      "type": "object",
-      "required": ["traceQuery"],
-      "properties": {
-        "traceQuery": { "$ref": "#/$defs/contractRef" },
-        "policyExplain": { "$ref": "#/$defs/contractRef" }
-      }
-    }
-  },
-  "$defs": {
-    "contractRef": {
-      "type": "object",
-      "required": ["key", "version"],
-      "properties": {
-        "key": { "type": "string" },
-        "version": { "type": "string" },
-        "kind": { "enum": ["command", "query", "event", "policy", "capability"] }
-      }
-    }
-  }
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://contractspec.dev/schemas/connect/patch-verdict.schema.json",
+	"title": "PatchVerdict",
+	"type": "object",
+	"required": [
+		"decisionId",
+		"action",
+		"impacted",
+		"checks",
+		"verdict",
+		"controlPlane",
+		"replay"
+	],
+	"properties": {
+		"decisionId": { "type": "string" },
+		"summary": { "type": "string" },
+		"action": {
+			"type": "object",
+			"required": ["actionType", "tool"],
+			"properties": {
+				"actionType": {
+					"enum": ["write_file", "edit_file", "run_command"]
+				},
+				"tool": {
+					"enum": ["acp.fs.access", "acp.terminal.exec", "acp.tool.calls"]
+				},
+				"target": { "type": "string" },
+				"cwd": { "type": "string" }
+			}
+		},
+		"impacted": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"required": ["file", "contracts", "surfaces", "policies"],
+				"properties": {
+					"file": { "type": "string" },
+					"contracts": {
+						"type": "array",
+						"items": { "$ref": "#/$defs/contractRef" }
+					},
+					"surfaces": {
+						"type": "array",
+						"items": {
+							"enum": [
+								"agent",
+								"audit",
+								"cli",
+								"contract",
+								"harness",
+								"knowledge",
+								"mcp",
+								"runtime"
+							]
+						}
+					},
+					"policies": {
+						"type": "array",
+						"items": { "$ref": "#/$defs/contractRef" }
+					}
+				}
+			}
+		},
+		"checks": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"required": ["id", "status", "detail"],
+				"properties": {
+					"id": { "type": "string" },
+					"status": { "enum": ["pass", "fail", "warn"] },
+					"detail": { "type": "string" }
+				}
+			}
+		},
+		"verdict": {
+			"enum": ["permit", "rewrite", "require_review", "deny"]
+		},
+		"controlPlane": {
+			"type": "object",
+			"required": ["verdict", "requiresApproval"],
+			"properties": {
+				"verdict": { "enum": ["autonomous", "assist", "blocked"] },
+				"requiresApproval": { "type": "boolean" },
+				"policyRef": { "$ref": "#/$defs/contractRef" },
+				"decisionId": { "type": "string" },
+				"approvalStatus": {
+					"enum": ["not_required", "pending", "approved", "rejected", "expired"]
+				},
+				"traceId": { "type": "string" }
+			}
+		},
+		"approvalOperationRefs": {
+			"type": "array",
+			"items": { "type": "string" }
+		},
+		"remediation": {
+			"type": "array",
+			"items": { "type": "string" }
+		},
+		"reviewPacketRef": { "type": "string" },
+		"retryBudget": {
+			"type": "integer",
+			"minimum": 0
+		},
+		"replay": {
+			"type": "object",
+			"required": ["traceQuery"],
+			"properties": {
+				"traceQuery": { "$ref": "#/$defs/contractRef" },
+				"policyExplain": { "$ref": "#/$defs/contractRef" }
+			}
+		}
+	},
+	"$defs": {
+		"contractRef": {
+			"type": "object",
+			"required": ["key", "version"],
+			"properties": {
+				"key": { "type": "string" },
+				"version": { "type": "string" },
+				"kind": {
+					"enum": ["command", "query", "event", "policy", "capability"]
+				}
+			}
+		}
+	}
 }

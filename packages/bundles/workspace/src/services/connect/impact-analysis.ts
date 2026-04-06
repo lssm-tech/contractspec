@@ -1,8 +1,8 @@
-import { detectImpact } from '../impact';
-import { detectDrift } from '../drift';
-import { listSpecs } from '../list';
-import { inferSurfaces, type ConnectResolvedWorkspace } from './shared';
 import type { WorkspaceAdapters } from '../../ports/logger';
+import { detectDrift } from '../drift';
+import { detectImpact } from '../impact';
+import { listSpecs } from '../list';
+import { type ConnectResolvedWorkspace, inferSurfaces } from './shared';
 import type { ConnectContractRef, ConnectSurface } from './types';
 
 export interface ConnectPathImpact {
@@ -32,7 +32,10 @@ export async function analyzeConnectImpact(
 		baseline?: string;
 	}
 ): Promise<ConnectImpactAnalysis> {
-	const specs = await listSpecs({ fs: adapters.fs }, { config: input.workspace.config });
+	const specs = await listSpecs(
+		{ fs: adapters.fs },
+		{ config: input.workspace.config }
+	);
 	const specByKey = new Map(
 		specs
 			.filter((spec) => typeof spec.key === 'string')
@@ -45,10 +48,17 @@ export async function analyzeConnectImpact(
 		input.baseline != null
 			? await detectImpact(
 					{ ...adapters, logger: adapters.logger ?? noopLogger },
-					{ baseline: input.baseline, workspaceRoot: input.workspace.workspaceRoot }
+					{
+						baseline: input.baseline,
+						workspaceRoot: input.workspace.workspaceRoot,
+					}
 				)
 			: undefined;
-	const driftFiles = await resolveDriftFiles(adapters, input.workspace, input.touchedPaths);
+	const driftFiles = await resolveDriftFiles(
+		adapters,
+		input.workspace,
+		input.touchedPaths
+	);
 	const impactedContracts = dedupeContracts([
 		...pathImpacts.flatMap((impact) => impact.contracts),
 		...(impactResult?.deltas ?? []).map((delta) => ({
@@ -83,7 +93,9 @@ function resolvePathImpact(
 	const pathTokens = tokenize(path);
 	const candidates = specs
 		.map((spec) => {
-			const relative = normalize(fs.relative(workspace.workspaceRoot, spec.filePath));
+			const relative = normalize(
+				fs.relative(workspace.workspaceRoot, spec.filePath)
+			);
 			const score = scoreMatch(path, pathTokens, relative, spec.key);
 			return { score, spec };
 		})
@@ -94,7 +106,13 @@ function resolvePathImpact(
 	const chosen = directMatch ? [{ score: 100, spec: directMatch }] : candidates;
 	const directContracts = chosen
 		.filter((candidate) => typeof candidate.spec.key === 'string')
-		.map((candidate) => toContractRef(candidate.spec.key as string, candidate.spec.version, candidate.spec.kind));
+		.map((candidate) =>
+			toContractRef(
+				candidate.spec.key as string,
+				candidate.spec.version,
+				candidate.spec.kind
+			)
+		);
 	const expandedRefs = chosen.flatMap((candidate) =>
 		[
 			...(candidate.spec.emittedEvents ?? []),
@@ -103,7 +121,9 @@ function resolvePathImpact(
 		]
 			.map((ref) => specByKey.get(ref.key))
 			.filter(Boolean)
-			.map((spec) => toContractRef(spec!.key as string, spec!.version, spec!.kind))
+			.map((spec) =>
+				toContractRef(spec!.key as string, spec!.version, spec!.kind)
+			)
 	);
 	const contracts = dedupeContracts([...directContracts, ...expandedRefs]);
 	const policies = dedupeContracts([
@@ -173,7 +193,9 @@ async function resolveDriftFiles(
 							normalize(file).startsWith(`${relativePrefix}/`)
 						: true
 				)
-				.map((file) => normalize(adapters.fs.join(target.comparisonRoot, file)));
+				.map((file) =>
+					normalize(adapters.fs.join(target.comparisonRoot, file))
+				);
 		})
 	);
 
@@ -192,7 +214,10 @@ function resolveGeneratedTargets(
 		workspace.config.outputDir && workspace.config.outputDir !== './src'
 			? normalize(workspace.config.outputDir)
 			: undefined;
-	const targets = new Map<string, { comparisonRoot: string; filterPrefix?: string }>();
+	const targets = new Map<
+		string,
+		{ comparisonRoot: string; filterPrefix?: string }
+	>();
 
 	for (const path of touchedPaths) {
 		const normalized = normalize(path);
@@ -238,7 +263,11 @@ function scoreMatch(
 	const keyTokens = tokenize(specKey ?? '');
 	const basenameBoost =
 		basenameWithoutExt(path) === basenameWithoutExt(specPath) ? 40 : 0;
-	const directoryOverlap = overlapScore(path.split('/'), specPath.split('/'), 5);
+	const directoryOverlap = overlapScore(
+		path.split('/'),
+		specPath.split('/'),
+		5
+	);
 	const tokenOverlap = overlapScore(pathTokens, specTokens, 5);
 	const keyOverlap = overlapScore(pathTokens, keyTokens, 4);
 
@@ -257,7 +286,12 @@ function tokenize(value: string) {
 }
 
 function basenameWithoutExt(path: string) {
-	return normalize(path).split('/').pop()?.replace(/\.[^.]+$/, '') ?? path;
+	return (
+		normalize(path)
+			.split('/')
+			.pop()
+			?.replace(/\.[^.]+$/, '') ?? path
+	);
 }
 
 function globRoot(pattern: string) {
@@ -277,14 +311,24 @@ function toContractRef(
 		key,
 		version: String(version ?? '1.0.0'),
 		kind:
-			kind === 'query' || kind === 'event' || kind === 'policy' || kind === 'capability'
+			kind === 'query' ||
+			kind === 'event' ||
+			kind === 'policy' ||
+			kind === 'capability'
 				? kind
 				: 'command',
 	};
 }
 
 function dedupeContracts(contracts: ConnectContractRef[]) {
-	return [...new Map(contracts.map((contract) => [`${contract.key}@${contract.version}`, contract])).values()];
+	return [
+		...new Map(
+			contracts.map((contract) => [
+				`${contract.key}@${contract.version}`,
+				contract,
+			])
+		).values(),
+	];
 }
 
 const noopLogger: WorkspaceAdapters['logger'] = {

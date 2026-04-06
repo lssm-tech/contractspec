@@ -1,15 +1,14 @@
 import { exec } from 'node:child_process';
 import { promisify } from 'node:util';
-import {
-	connect,
-	createNodeAdapters,
-} from '@contractspec/bundle.workspace';
-import { createControlPlaneRuntimeContext } from '../control-plane/runtime-context';
+import { connect, createNodeAdapters } from '@contractspec/bundle.workspace';
 import { loadConfigWithWorkspace } from '../../utils/config';
+import { createControlPlaneRuntimeContext } from '../control-plane/runtime-context';
 
 const execAsync = promisify(exec);
 
-export async function createConnectCommandContext(options: { json?: boolean } = {}) {
+export async function createConnectCommandContext(
+	options: { json?: boolean } = {}
+) {
 	const cwd = process.cwd();
 	const config = await loadConfigWithWorkspace(cwd);
 	const adapters = createNodeAdapters({

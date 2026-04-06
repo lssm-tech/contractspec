@@ -1,8 +1,5 @@
 import { describe, expect, it } from 'bun:test';
-import {
-	dedupeUpgradePlanSteps,
-	sortReleaseManifest,
-} from './release-utils';
+import { dedupeUpgradePlanSteps, sortReleaseManifest } from './release-utils';
 
 describe('sortReleaseManifest', () => {
 	it('should prefer newer release dates and versions first', () => {

@@ -1,9 +1,14 @@
 import { randomUUID } from 'crypto';
-import { assertConnectEnabled } from './config';
-import type { ConnectContextPack, ConnectTaskInput } from './types';
-import { analyzeConnectImpact } from './impact-analysis';
-import { inferSurfaces, resolveWorkspace, withBranch, defaultActor } from './shared';
 import type { WorkspaceAdapters } from '../../ports/logger';
+import { assertConnectEnabled } from './config';
+import { analyzeConnectImpact } from './impact-analysis';
+import {
+	defaultActor,
+	inferSurfaces,
+	resolveWorkspace,
+	withBranch,
+} from './shared';
+import type { ConnectContextPack, ConnectTaskInput } from './types';
 
 export async function buildConnectContextPack(
 	adapters: Pick<WorkspaceAdapters, 'fs' | 'git'>,
@@ -14,7 +19,11 @@ export async function buildConnectContextPack(
 	workspace = withBranch(workspace, await adapters.git.currentBranch());
 
 	const actor = defaultActor(input.taskId, input.actor);
-	const targetPaths = await resolveTargetPaths(adapters, workspace.workspaceRoot, input);
+	const targetPaths = await resolveTargetPaths(
+		adapters,
+		workspace.workspaceRoot,
+		input
+	);
 	const impact = await analyzeConnectImpact(adapters, {
 		baseline: input.baseline,
 		touchedPaths: targetPaths,
@@ -37,7 +46,9 @@ export async function buildConnectContextPack(
 		impactedContracts: impact.impactedContracts,
 		affectedSurfaces:
 			impact.pathImpacts.length > 0
-				? [...new Set(impact.pathImpacts.flatMap((entry) => entry.surfaces))].sort()
+				? [
+						...new Set(impact.pathImpacts.flatMap((entry) => entry.surfaces)),
+					].sort()
 				: inferSurfaces(targetPaths),
 		policyBindings: [
 			{
@@ -74,7 +85,9 @@ async function resolveTargetPaths(
 ): Promise<string[]> {
 	const explicitPaths = input.paths ?? [];
 	if (explicitPaths.length > 0) {
-		return explicitPaths.map((path) => normalizePath(adapters.fs, workspaceRoot, path));
+		return explicitPaths.map((path) =>
+			normalizePath(adapters.fs, workspaceRoot, path)
+		);
 	}
 
 	if (!input.baseline) {
@@ -82,7 +95,9 @@ async function resolveTargetPaths(
 	}
 
 	const changedFiles = await adapters.git.diffFiles(input.baseline);
-	return changedFiles.map((path) => normalizePath(adapters.fs, workspaceRoot, path));
+	return changedFiles.map((path) =>
+		normalizePath(adapters.fs, workspaceRoot, path)
+	);
 }
 
 function normalizePath(

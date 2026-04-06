@@ -43,7 +43,12 @@ interface RawHooksJson {
 }
 
 /** Known per-target override keys in hooks.json */
-const TARGET_OVERRIDE_KEYS = ['cursor', 'claudecode', 'codexcli', 'opencode'] as const;
+const TARGET_OVERRIDE_KEYS = [
+	'cursor',
+	'claudecode',
+	'codexcli',
+	'opencode',
+] as const;
 
 /**
  * Parse hooks from a pack's hooks/ directory.

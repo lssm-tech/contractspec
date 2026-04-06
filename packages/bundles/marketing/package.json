@@ -5,8 +5,8 @@
 	"scripts": {
 		"clean": "rm -rf dist",
 		"lint": "bun run lint:fix",
-		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-		"lint:check": "biome check .",
+		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
+		"lint:check": "node ../../../scripts/biome.cjs check .",
 		"build": "bun run build:bundle && bun run build:types",
 		"build:bundle": "contractspec-bun-build transpile",
 		"build:types": "contractspec-bun-build types",
@@ -49,9 +49,11 @@
 		"./components/marketing/studio-signup-section": "./src/components/marketing/studio-signup-section.tsx",
 		"./components/templates": "./src/components/templates/index.ts",
 		"./components/templates/template-catalog": "./src/components/templates/template-catalog.ts",
+		"./components/templates/template-filters": "./src/components/templates/template-filters.ts",
 		"./components/templates/template-new": "./src/components/templates/template-new.ts",
 		"./components/templates/template-preview": "./src/components/templates/template-preview.ts",
 		"./components/templates/template-source": "./src/components/templates/template-source.ts",
+		"./components/templates/template-tag-visibility": "./src/components/templates/template-tag-visibility.ts",
 		"./components/templates/TemplateCard": "./src/components/templates/TemplateCard.tsx",
 		"./components/templates/TemplateCommandDialog": "./src/components/templates/TemplateCommandDialog.tsx",
 		"./components/templates/TemplatePreviewContent": "./src/components/templates/TemplatePreviewContent.tsx",
@@ -60,8 +62,10 @@
 		"./components/templates/TemplatesClientPage": "./src/components/templates/TemplatesClientPage.tsx",
 		"./components/templates/TemplatesHeroSection": "./src/components/templates/TemplatesHeroSection.tsx",
 		"./components/templates/TemplatesNextStepsSection": "./src/components/templates/TemplatesNextStepsSection.tsx",
+		"./components/templates/TemplatesOverlays": "./src/components/templates/TemplatesOverlays.tsx",
 		"./components/templates/TemplatesPage": "./src/components/templates/TemplatesPage.tsx",
 		"./components/templates/TemplatesPreviewModal": "./src/components/templates/TemplatesPreviewModal.tsx",
+		"./components/templates/useTemplateBrowseState": "./src/components/templates/useTemplateBrowseState.ts",
 		"./libs/email/client": "./src/libs/email/client.ts",
 		"./libs/email/contact": "./src/libs/email/contact.ts",
 		"./libs/email/newsletter": "./src/libs/email/newsletter.ts",
@@ -315,6 +319,13 @@
 				"node": "./dist/node/components/templates/template-catalog.js",
 				"default": "./dist/components/templates/template-catalog.js"
 			},
+			"./components/templates/template-filters": {
+				"types": "./dist/components/templates/template-filters.d.ts",
+				"browser": "./dist/browser/components/templates/template-filters.js",
+				"bun": "./dist/components/templates/template-filters.js",
+				"node": "./dist/node/components/templates/template-filters.js",
+				"default": "./dist/components/templates/template-filters.js"
+			},
 			"./components/templates/template-new": {
 				"types": "./dist/components/templates/template-new.d.ts",
 				"browser": "./dist/browser/components/templates/template-new.js",
@@ -335,6 +346,13 @@
 				"bun": "./dist/components/templates/template-source.js",
 				"node": "./dist/node/components/templates/template-source.js",
 				"default": "./dist/components/templates/template-source.js"
+			},
+			"./components/templates/template-tag-visibility": {
+				"types": "./dist/components/templates/template-tag-visibility.d.ts",
+				"browser": "./dist/browser/components/templates/template-tag-visibility.js",
+				"bun": "./dist/components/templates/template-tag-visibility.js",
+				"node": "./dist/node/components/templates/template-tag-visibility.js",
+				"default": "./dist/components/templates/template-tag-visibility.js"
 			},
 			"./components/templates/TemplateCard": {
 				"types": "./dist/components/templates/TemplateCard.d.ts",
@@ -392,6 +410,13 @@
 				"node": "./dist/node/components/templates/TemplatesNextStepsSection.js",
 				"default": "./dist/components/templates/TemplatesNextStepsSection.js"
 			},
+			"./components/templates/TemplatesOverlays": {
+				"types": "./dist/components/templates/TemplatesOverlays.d.ts",
+				"browser": "./dist/browser/components/templates/TemplatesOverlays.js",
+				"bun": "./dist/components/templates/TemplatesOverlays.js",
+				"node": "./dist/node/components/templates/TemplatesOverlays.js",
+				"default": "./dist/components/templates/TemplatesOverlays.js"
+			},
 			"./components/templates/TemplatesPage": {
 				"types": "./dist/components/templates/TemplatesPage.d.ts",
 				"browser": "./dist/browser/components/templates/TemplatesPage.js",
@@ -405,6 +430,13 @@
 				"bun": "./dist/components/templates/TemplatesPreviewModal.js",
 				"node": "./dist/node/components/templates/TemplatesPreviewModal.js",
 				"default": "./dist/components/templates/TemplatesPreviewModal.js"
+			},
+			"./components/templates/useTemplateBrowseState": {
+				"types": "./dist/components/templates/useTemplateBrowseState.d.ts",
+				"browser": "./dist/browser/components/templates/useTemplateBrowseState.js",
+				"bun": "./dist/components/templates/useTemplateBrowseState.js",
+				"node": "./dist/node/components/templates/useTemplateBrowseState.js",
+				"default": "./dist/components/templates/useTemplateBrowseState.js"
 			},
 			"./libs/email/client": {
 				"types": "./dist/libs/email/client.d.ts",

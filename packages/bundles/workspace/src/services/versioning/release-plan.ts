@@ -1,13 +1,13 @@
 import {
+	type AgentPromptBundle,
+	type AgentTarget,
 	compareVersions,
 	countUpgradePlanStepLevels,
 	createAgentPromptBundles,
 	dedupeUpgradePlanSteps,
-	sortReleaseManifest,
-	type AgentPromptBundle,
-	type AgentTarget,
 	type GeneratedReleaseManifest,
 	type GeneratedReleaseManifestEntry,
+	sortReleaseManifest,
 	type UpgradePackageTarget,
 	type UpgradePlan,
 } from '@contractspec/lib.contracts-spec';

@@ -3,9 +3,6 @@ import { registerDocBlocks } from '@contractspec/lib.contracts-spec/docs';
 import chalk from 'chalk';
 import { Command } from 'commander';
 import {
-	runConnectContractsSpecHookCommand,
-} from './hook-actions';
-import {
 	runConnectContextCommand,
 	runConnectEvalCommand,
 	runConnectInitCommand,
@@ -14,6 +11,7 @@ import {
 	runConnectReviewListCommand,
 	runConnectVerifyCommand,
 } from './actions';
+import { runConnectContractsSpecHookCommand } from './hook-actions';
 import { connectErrorExitCode, exitCodeForVerdict } from './io';
 
 export const connectCommand = new Command('connect')
@@ -29,7 +27,9 @@ export const connectCommand = new Command('connect')
 
 function createInitCommand() {
 	return new Command('init')
-		.description('Enable Connect in .contractsrc.json and create local artifact directories')
+		.description(
+			'Enable Connect in .contractsrc.json and create local artifact directories'
+		)
 		.option('--scope <scope>', 'Configuration scope: workspace or package')
 		.option('--json', 'Output JSON')
 		.action((options) => runSafely(() => runConnectInitCommand(options)));
@@ -37,7 +37,9 @@ function createInitCommand() {
 
 function createContextCommand() {
 	return new Command('context')
-		.description('Project a task-scoped ContextPack from current workspace state')
+		.description(
+			'Project a task-scoped ContextPack from current workspace state'
+		)
 		.requiredOption('--task <taskId>', 'Task identifier')
 		.option('--baseline <ref>', 'Git baseline for changed-path resolution')
 		.option('--paths <paths...>', 'Explicit changed paths')
@@ -73,9 +75,15 @@ function createVerifyCommand() {
 	return new Command('verify')
 		.description('Verify one ACP-normalized file or command mutation candidate')
 		.requiredOption('--task <taskId>', 'Task identifier')
-		.requiredOption('--tool <tool>', 'ACP tool key: acp.fs.access or acp.terminal.exec')
+		.requiredOption(
+			'--tool <tool>',
+			'ACP tool key: acp.fs.access or acp.terminal.exec'
+		)
 		.option('--baseline <ref>', 'Git baseline for impact detection')
-		.option('--paths <paths...>', 'Explicit changed paths for command verification')
+		.option(
+			'--paths <paths...>',
+			'Explicit changed paths for command verification'
+		)
 		.option('--actor-id <actorId>', 'Actor id')
 		.option('--actor-type <actorType>', 'Actor type')
 		.option('--session-id <sessionId>', 'Session id')
@@ -98,7 +106,9 @@ function createHookCommand() {
 			new Command('contracts-spec')
 				.description('Runtime interception hooks for contracts-spec work')
 				.addCommand(createContractsSpecHookEventCommand('before-file-edit'))
-				.addCommand(createContractsSpecHookEventCommand('before-shell-execution'))
+				.addCommand(
+					createContractsSpecHookEventCommand('before-shell-execution')
+				)
 				.addCommand(createContractsSpecHookEventCommand('after-file-edit'))
 		);
 }
@@ -137,7 +147,9 @@ function createReviewCommand() {
 function createReplayCommand() {
 	return new Command('replay')
 		.argument('<decisionId>')
-		.description('Reconstruct a stored Connect decision and optional trace replay')
+		.description(
+			'Reconstruct a stored Connect decision and optional trace replay'
+		)
 		.option('--json', 'Output JSON')
 		.action((decisionId, options) =>
 			runSafely(() => runConnectReplayCommand(decisionId, options))

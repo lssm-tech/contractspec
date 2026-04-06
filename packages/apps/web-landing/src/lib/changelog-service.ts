@@ -1,5 +1,5 @@
-import fs from 'fs';
 import { GeneratedReleaseManifestSchema } from '@contractspec/lib.contracts-spec';
+import fs from 'fs';
 import {
 	changelogConfigToCacheKey,
 	resolveChangelogConfig,
@@ -234,12 +234,19 @@ function buildGeneratedDataset(
 		const details = manifest.releases.map((release) => {
 			const packages = release.packages.map((pkg) => ({
 				name: pkg.name,
-				packageSlug: pkg.name.split('/').pop()?.replace(/^app\.|^lib\.|^module\.|^bundle\.|^integration\./, '') ?? pkg.name,
+				packageSlug:
+					pkg.name
+						.split('/')
+						.pop()
+						?.replace(/^app\.|^lib\.|^module\.|^bundle\.|^integration\./, '') ??
+					pkg.name,
 				layer: inferLayer(pkg.name),
 				changes: [
 					release.summary,
 					...release.upgradeSteps.map((step) => step.summary),
-					...release.migrationInstructions.map((instruction) => instruction.summary),
+					...release.migrationInstructions.map(
+						(instruction) => instruction.summary
+					),
 					...release.deprecations,
 				].filter(Boolean),
 			}));
@@ -247,20 +254,26 @@ function buildGeneratedDataset(
 				{
 					text: release.summary,
 					packages: release.packages.map((pkg) => pkg.name),
-					layers: Array.from(new Set(release.packages.map((pkg) => inferLayer(pkg.name)))),
+					layers: Array.from(
+						new Set(release.packages.map((pkg) => inferLayer(pkg.name)))
+					),
 					occurrences: release.packages.length || 1,
 				},
 				...release.upgradeSteps.map((step) => ({
 					text: step.summary,
 					packages: step.packages ?? release.packages.map((pkg) => pkg.name),
 					layers: Array.from(
-						new Set((step.packages ?? release.packages.map((pkg) => pkg.name)).map(inferLayer))
+						new Set(
+							(step.packages ?? release.packages.map((pkg) => pkg.name)).map(
+								inferLayer
+							)
+						)
 					),
 					occurrences: 1,
 				})),
 			];
-			const layers = Array.from(new Set(packages.map((pkg) => pkg.layer))).sort((a, b) =>
-				a.localeCompare(b)
+			const layers = Array.from(new Set(packages.map((pkg) => pkg.layer))).sort(
+				(a, b) => a.localeCompare(b)
 			);
 
 			return {

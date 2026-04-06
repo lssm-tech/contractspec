@@ -1,10 +1,28 @@
+import { beforeEach, describe, expect, it, mock } from 'bun:test';
 import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import { describe, expect, it } from 'bun:test';
+import * as workspaceAdapter from '../../adapters/workspace';
 import { createNodeFsAdapter } from '../../adapters/fs.node';
 import { createNoopLoggerAdapter } from '../../adapters/logger';
-import { buildReleaseArtifacts, checkReleaseArtifacts } from './release-service';
+
+const mockFindWorkspaceRoot = mock((startDir?: string) => startDir ?? process.cwd());
+
+mock.module('../../adapters/workspace', () => ({
+		...workspaceAdapter,
+		findWorkspaceRoot: mockFindWorkspaceRoot,
+}));
+
+const {
+	buildReleaseArtifacts,
+	checkReleaseArtifacts,
+} = await import('./release-service');
+
+beforeEach(() => {
+	mockFindWorkspaceRoot.mockImplementation(
+		(startDir?: string) => startDir ?? process.cwd()
+	);
+});
 
 const gitAdapter = {
 	currentBranch: async () => 'main',
@@ -117,7 +135,11 @@ describe('checkReleaseArtifacts', () => {
 		mkdirSync(join(workspaceRoot, '.changeset'), { recursive: true });
 		writeFileSync(
 			join(workspaceRoot, 'package.json'),
-			JSON.stringify({ name: 'fixture', version: '1.0.0', private: true }, null, 2)
+			JSON.stringify(
+				{ name: 'fixture', version: '1.0.0', private: true },
+				null,
+				2
+			)
 		);
 		writeFileSync(
 			join(workspaceRoot, '.changeset', 'breaking-change.md'),
@@ -154,11 +176,11 @@ validation:
 		);
 
 		expect(result.success).toBe(false);
-		expect(result.errors.some((error) => error.includes('migration instructions'))).toBe(
-			true
-		);
-		expect(result.errors.some((error) => error.includes('validation evidence'))).toBe(
-			true
-		);
+		expect(
+			result.errors.some((error) => error.includes('migration instructions'))
+		).toBe(true);
+		expect(
+			result.errors.some((error) => error.includes('validation evidence'))
+		).toBe(true);
 	});
 });

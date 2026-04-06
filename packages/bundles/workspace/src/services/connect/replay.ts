@@ -1,9 +1,9 @@
+import type { WorkspaceAdapters } from '../../ports/logger';
 import { assertConnectEnabled } from './config';
+import type { ConnectControlPlaneRuntime } from './runtime-types';
 import { resolveWorkspace } from './shared';
 import { loadStoredDecision, resolveStoragePaths } from './storage';
-import type { WorkspaceAdapters } from '../../ports/logger';
 import type { ConnectReplayResult, ConnectWorkspaceInput } from './types';
-import type { ConnectControlPlaneRuntime } from './runtime-types';
 
 export async function replayConnectDecision(
 	adapters: Pick<WorkspaceAdapters, 'fs'>,
@@ -14,7 +14,11 @@ export async function replayConnectDecision(
 	assertConnectEnabled(workspace);
 
 	const storage = resolveStoragePaths(workspace);
-	const stored = await loadStoredDecision(adapters.fs, storage, input.decisionId);
+	const stored = await loadStoredDecision(
+		adapters.fs,
+		storage,
+		input.decisionId
+	);
 	const lookup = {
 		decisionId: stored.envelope?.runtimeLink?.decisionId,
 		traceId: stored.envelope?.runtimeLink?.traceId,
@@ -24,7 +28,9 @@ export async function replayConnectDecision(
 			? await controlPlane.getExecutionTrace(lookup)
 			: null;
 	const replay =
-		controlPlane && trace ? await controlPlane.replayExecutionTrace(lookup) : null;
+		controlPlane && trace
+			? await controlPlane.replayExecutionTrace(lookup)
+			: null;
 
 	return {
 		decisionId: input.decisionId,

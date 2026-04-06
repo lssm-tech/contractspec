@@ -1,8 +1,5 @@
 import { describe, expect, it } from 'bun:test';
-import {
-	GeneratedReleaseManifestSchema,
-	ReleaseCapsuleSchema,
-} from './schema';
+import { GeneratedReleaseManifestSchema, ReleaseCapsuleSchema } from './schema';
 
 describe('ReleaseCapsuleSchema', () => {
 	it('should default optional release metadata collections', () => {

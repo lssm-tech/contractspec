@@ -3,8 +3,8 @@ import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
 import { mkdir, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
-import type { SpecScanResult } from '@contractspec/module.workspace';
 import { DEFAULT_CONTRACTSRC } from '@contractspec/lib.contracts-spec/workspace-config';
+import type { SpecScanResult } from '@contractspec/module.workspace';
 import { createNodeFsAdapter } from '../../adapters/fs.node';
 
 const mockListSpecs = mock(async (): Promise<SpecScanResult[]> => []);
@@ -17,7 +17,11 @@ mock.module('../docs/index', () => ({
 	generateDocsFromSpecs: mock(
 		async (_specFiles: string[], input: { outputDir: string }) => {
 			await mkdir(input.outputDir, { recursive: true });
-			await writeFile(join(input.outputDir, 'connect.md'), 'generated\n', 'utf8');
+			await writeFile(
+				join(input.outputDir, 'connect.md'),
+				'generated\n',
+				'utf8'
+			);
 			return { blocks: [], count: 1 };
 		}
 	),
@@ -40,7 +44,9 @@ describe('connect drift roots', () => {
 
 	it('detects drift from outputDir-backed generated roots', async () => {
 		const { fs, root } = createWorkspace();
-		mockListSpecs.mockResolvedValue([createSpec(join(root, 'specs', 'connect.command.ts'))]);
+		mockListSpecs.mockResolvedValue([
+			createSpec(join(root, 'specs', 'connect.command.ts')),
+		]);
 
 		const result = await analyzeConnectImpact(
 			{ fs, git: createGitAdapter() },
@@ -63,7 +69,9 @@ describe('connect drift roots', () => {
 
 	it('detects drift for nested generated docs roots without placeholder sources', async () => {
 		const { fs, root } = createWorkspace();
-		mockListSpecs.mockResolvedValue([createSpec(join(root, 'specs', 'connect.command.ts'))]);
+		mockListSpecs.mockResolvedValue([
+			createSpec(join(root, 'specs', 'connect.command.ts')),
+		]);
 
 		const result = await analyzeConnectImpact(
 			{ fs, git: createGitAdapter() },
@@ -89,14 +97,26 @@ function createWorkspace() {
 	mkdirSync(join(tempDir, 'specs'), { recursive: true });
 	mkdirSync(join(tempDir, 'generated', 'docs'), { recursive: true });
 	mkdirSync(join(tempDir, 'artifacts', 'docs'), { recursive: true });
-	writeFileSync(join(tempDir, 'package.json'), '{"name":"@demo/connect-drift"}\n', 'utf8');
+	writeFileSync(
+		join(tempDir, 'package.json'),
+		'{"name":"@demo/connect-drift"}\n',
+		'utf8'
+	);
 	writeFileSync(
 		join(tempDir, 'specs', 'connect.command.ts'),
 		"export const op = defineCommand({ meta: { key: 'connect.command', version: '1.0.0' } });\n",
 		'utf8'
 	);
-	writeFileSync(join(tempDir, 'generated', 'docs', 'connect.md'), 'outdated\n', 'utf8');
-	writeFileSync(join(tempDir, 'artifacts', 'docs', 'connect.md'), 'outdated\n', 'utf8');
+	writeFileSync(
+		join(tempDir, 'generated', 'docs', 'connect.md'),
+		'outdated\n',
+		'utf8'
+	);
+	writeFileSync(
+		join(tempDir, 'artifacts', 'docs', 'connect.md'),
+		'outdated\n',
+		'utf8'
+	);
 
 	return {
 		fs: createNodeFsAdapter(tempDir),
@@ -104,10 +124,7 @@ function createWorkspace() {
 	};
 }
 
-function createConfig(input: {
-	outputDir?: string;
-	generatedPaths: string[];
-}) {
+function createConfig(input: { outputDir?: string; generatedPaths: string[] }) {
 	return {
 		...DEFAULT_CONTRACTSRC,
 		outputDir: input.outputDir ?? DEFAULT_CONTRACTSRC.outputDir,

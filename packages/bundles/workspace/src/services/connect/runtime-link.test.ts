@@ -1,23 +1,28 @@
-import { afterEach, beforeEach, describe, expect, it, mock } from "bun:test";
-import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from "node:fs";
-import { tmpdir } from "node:os";
-import { join } from "node:path";
+import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test';
+import { mkdirSync, mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import {
 	ChannelTraceService,
 	InMemoryChannelRuntimeStore,
-} from "@contractspec/integration.runtime/channel";
-import type { ImpactResult, SpecScanResult } from "@contractspec/module.workspace";
-import { DEFAULT_CONTRACTSRC } from "@contractspec/lib.contracts-spec/workspace-config";
-import { createNodeFsAdapter } from "../../adapters/fs.node";
+} from '@contractspec/integration.runtime/channel';
+import { DEFAULT_CONTRACTSRC } from '@contractspec/lib.contracts-spec/workspace-config';
+import type {
+	ImpactResult,
+	SpecScanResult,
+} from '@contractspec/module.workspace';
+import { createNodeFsAdapter } from '../../adapters/fs.node';
 
 const mockListSpecs = mock(async (): Promise<SpecScanResult[]> => []);
-const mockDetectImpact = mock(async (): Promise<ImpactResult> => createImpactResult());
+const mockDetectImpact = mock(
+	async (): Promise<ImpactResult> => createImpactResult()
+);
 
-mock.module("../list", () => ({
+mock.module('../list', () => ({
 	listSpecs: mockListSpecs,
 }));
 
-mock.module("../impact", () => ({
+mock.module('../impact', () => ({
 	detectImpact: mockDetectImpact,
 }));
 
@@ -28,11 +33,11 @@ const {
 	resolveStoragePaths,
 	resolveWorkspace,
 	verifyConnectMutation,
-} = await import("./index");
+} = await import('./index');
 
 let tempDir: string | null = null;
 
-describe("connect runtime link", () => {
+describe('connect runtime link', () => {
 	beforeEach(() => {
 		mockDetectImpact.mockReset();
 		mockListSpecs.mockReset();
@@ -46,16 +51,16 @@ describe("connect runtime link", () => {
 		}
 	});
 
-	it("persists a real control-plane decision and replays it", async () => {
+	it('persists a real control-plane decision and replays it', async () => {
 		const { fs, packageRoot } = createWorkspace();
 		mockListSpecs.mockResolvedValue([
-			createSpec(join(packageRoot, "src", "runtime", "foo.ts"), "runtime.foo"),
+			createSpec(join(packageRoot, 'src', 'runtime', 'foo.ts'), 'runtime.foo'),
 		]);
 		const store = new InMemoryChannelRuntimeStore();
 		const controlPlane = createConnectControlPlaneRuntime({
 			store,
 			traceService: new ChannelTraceService(store),
-			now: () => new Date("2026-04-05T10:00:00.000Z"),
+			now: () => new Date('2026-04-05T10:00:00.000Z'),
 		});
 
 		const verified = await verifyConnectMutation(
@@ -63,11 +68,11 @@ describe("connect runtime link", () => {
 			{
 				config: createConfig(),
 				cwd: packageRoot,
-				operation: "edit",
+				operation: 'edit',
 				packageRoot,
-				path: "src/runtime/foo.ts",
-				taskId: "task-runtime",
-				tool: "acp.fs.access",
+				path: 'src/runtime/foo.ts',
+				taskId: 'task-runtime',
+				tool: 'acp.fs.access',
 				workspaceRoot: packageRoot,
 			},
 			{ controlPlane }
@@ -81,7 +86,7 @@ describe("connect runtime link", () => {
 		const stored = await loadStoredDecision(
 			fs,
 			resolveStoragePaths(workspace),
-			verified.patchVerdict.decisionId,
+			verified.patchVerdict.decisionId
 		);
 		const replay = await replayConnectDecision(
 			{ fs },
@@ -96,24 +101,34 @@ describe("connect runtime link", () => {
 		);
 
 		expect(verified.patchVerdict.controlPlane.decisionId).toBeDefined();
-		expect(verified.patchVerdict.controlPlane.approvalStatus).toBe("not_required");
-		expect(stored.envelope?.runtimeLink?.decisionId).toBe(
-			verified.patchVerdict.controlPlane.decisionId,
+		expect(verified.patchVerdict.controlPlane.approvalStatus).toBe(
+			'not_required'
 		);
-		expect(replay.source).toBe("local+control-plane");
+		expect(stored.envelope?.runtimeLink?.decisionId).toBe(
+			verified.patchVerdict.controlPlane.decisionId
+		);
+		expect(replay.source).toBe('local+control-plane');
 		const runtimeDecisionId = verified.patchVerdict.controlPlane.decisionId;
 		expect(runtimeDecisionId).toBeDefined();
 		expect((replay.trace as { decision: { id: string } }).decision.id).toBe(
-			runtimeDecisionId!,
+			runtimeDecisionId!
 		);
 	});
 });
 
 function createWorkspace() {
-	tempDir = mkdtempSync(join(tmpdir(), "contractspec-connect-runtime-link-"));
-	mkdirSync(join(tempDir, "src", "runtime"), { recursive: true });
-	writeFileSync(join(tempDir, "package.json"), '{"name":"@demo/connect-app"}\n', "utf8");
-	writeFileSync(join(tempDir, "src", "runtime", "foo.ts"), "export {};\n", "utf8");
+	tempDir = mkdtempSync(join(tmpdir(), 'contractspec-connect-runtime-link-'));
+	mkdirSync(join(tempDir, 'src', 'runtime'), { recursive: true });
+	writeFileSync(
+		join(tempDir, 'package.json'),
+		'{"name":"@demo/connect-app"}\n',
+		'utf8'
+	);
+	writeFileSync(
+		join(tempDir, 'src', 'runtime', 'foo.ts'),
+		'export {};\n',
+		'utf8'
+	);
 	return {
 		fs: createNodeFsAdapter(tempDir),
 		packageRoot: tempDir,
@@ -125,11 +140,11 @@ function createAdapters(fs: ReturnType<typeof createNodeFsAdapter>) {
 		fs,
 		git: {
 			clean: async () => {},
-			currentBranch: async () => "main",
+			currentBranch: async () => 'main',
 			diffFiles: async () => [],
 			isGitRepo: async () => true,
 			log: async () => [],
-			showFile: async () => "",
+			showFile: async () => '',
 		},
 		logger: {
 			createProgress: () => ({
@@ -162,14 +177,16 @@ function createConfig() {
 	};
 }
 
-function createImpactResult(overrides: Partial<ImpactResult> = {}): ImpactResult {
+function createImpactResult(
+	overrides: Partial<ImpactResult> = {}
+): ImpactResult {
 	return {
 		addedSpecs: [],
 		deltas: [],
 		hasBreaking: false,
 		hasNonBreaking: false,
 		removedSpecs: [],
-		status: "no-impact",
+		status: 'no-impact',
 		summary: {
 			added: 0,
 			breaking: 0,
@@ -177,7 +194,7 @@ function createImpactResult(overrides: Partial<ImpactResult> = {}): ImpactResult
 			nonBreaking: 0,
 			removed: 0,
 		},
-		timestamp: "2026-04-05T00:00:00.000Z",
+		timestamp: '2026-04-05T00:00:00.000Z',
 		...overrides,
 	};
 }
@@ -192,8 +209,8 @@ function createSpec(filePath: string, key: string): SpecScanResult {
 		hasPayload: false,
 		hasPolicy: false,
 		key,
-		kind: "command",
-		specType: "operation",
-		version: "1.0.0",
+		kind: 'command',
+		specType: 'operation',
+		version: '1.0.0',
 	};
 }

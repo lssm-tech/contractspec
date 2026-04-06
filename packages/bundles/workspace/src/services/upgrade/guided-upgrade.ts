@@ -1,7 +1,7 @@
 import {
-	GeneratedReleaseManifestSchema,
 	type AgentTarget,
 	type GeneratedReleaseManifest,
+	GeneratedReleaseManifestSchema,
 	type UpgradeAutofix,
 	type UpgradePlanStep,
 } from '@contractspec/lib.contracts-spec';
@@ -9,20 +9,17 @@ import {
 	ContractsrcSchema,
 	DEFAULT_CONTRACTSRC,
 } from '@contractspec/lib.contracts-spec/workspace-config/contractsrc-schema';
-import { createUpgradePlan } from '../versioning/release-plan';
+import { findPackageRoot, findWorkspaceRoot } from '../../adapters/workspace';
+import type { FsAdapter } from '../../ports/fs';
+import type { LoggerAdapter } from '../../ports/logger';
 import { renderUpgradePrompt } from '../versioning/release-formatters';
-import { analyzeUpgrades } from './upgrade-service';
+import { createUpgradePlan } from '../versioning/release-plan';
 import type {
 	GuidedUpgradeAnalysisResult,
 	GuidedUpgradeApplyResult,
 	UpgradeOptions,
 } from './types';
-import {
-	findPackageRoot,
-	findWorkspaceRoot,
-} from '../../adapters/workspace';
-import type { FsAdapter } from '../../ports/fs';
-import type { LoggerAdapter } from '../../ports/logger';
+import { analyzeUpgrades } from './upgrade-service';
 
 interface ServiceAdapters {
 	fs: FsAdapter;
@@ -44,7 +41,11 @@ export async function analyzeGuidedUpgrade(
 	const { fs } = adapters;
 	const packageRoot = findPackageRoot(options.workspaceRoot);
 	const workspaceRoot = findWorkspaceRoot(options.workspaceRoot);
-	const config = await readWorkspaceUpgradeConfig(fs, packageRoot, workspaceRoot);
+	const config = await readWorkspaceUpgradeConfig(
+		fs,
+		packageRoot,
+		workspaceRoot
+	);
 	const manifestResolution = await resolveUpgradeManifest(
 		fs,
 		packageRoot,
@@ -67,7 +68,11 @@ export async function analyzeGuidedUpgrade(
 		agentTargets,
 		renderUpgradePrompt
 	);
-	const augmentedPlan = augmentUpgradePlan(plan, analysis.packages, analysis.configUpgrades);
+	const augmentedPlan = augmentUpgradePlan(
+		plan,
+		analysis.packages,
+		analysis.configUpgrades
+	);
 
 	return {
 		packageManager: analysis.packageManager,
@@ -104,12 +109,17 @@ export async function applyGuidedUpgrade(
 		});
 	}
 
-	const remainingSteps = analysis.plan.steps.filter((step) => step.level !== 'auto');
+	const remainingSteps = analysis.plan.steps.filter(
+		(step) => step.level !== 'auto'
+	);
 
 	return {
 		success: true,
-		packagesUpgraded: appliedAutofixes.filter((id) => id.startsWith('pkg:')).length,
-		configSectionsUpgraded: appliedAutofixes.filter((id) => id.startsWith('config:')).length,
+		packagesUpgraded: appliedAutofixes.filter((id) => id.startsWith('pkg:'))
+			.length,
+		configSectionsUpgraded: appliedAutofixes.filter((id) =>
+			id.startsWith('config:')
+		).length,
 		summary: options.dryRun
 			? `Would apply ${analysis.plan.autofixCount} deterministic upgrade step(s)`
 			: `Applied ${appliedAutofixes.length} deterministic upgrade autofix(es)`,
@@ -128,7 +138,9 @@ async function resolveUpgradeManifest(
 	workspaceRoot: string,
 	manifestPaths: string[] | undefined
 ): Promise<{ path?: string; manifest: GeneratedReleaseManifest }> {
-	const candidatePaths = manifestPaths ?? ['generated/releases/upgrade-manifest.json'];
+	const candidatePaths = manifestPaths ?? [
+		'generated/releases/upgrade-manifest.json',
+	];
 	const searchRoots = Array.from(new Set([packageRoot, workspaceRoot]));
 
 	for (const candidatePath of candidatePaths) {
@@ -190,7 +202,11 @@ async function readWorkspaceUpgradeConfig(
 
 function augmentUpgradePlan(
 	plan: GuidedUpgradeAnalysisResult['plan'],
-	packages: Array<{ name: string; currentVersion: string; isDevDependency: boolean }>,
+	packages: Array<{
+		name: string;
+		currentVersion: string;
+		isDevDependency: boolean;
+	}>,
 	configUpgrades: Array<{ key: string; suggestedValue: unknown }>
 ) {
 	const packageFixes: UpgradeAutofix[] = [];
@@ -229,7 +245,8 @@ function augmentUpgradePlan(
 			summary: 'Apply package version upgrades from the release manifest.',
 			level: 'auto',
 			instructions: packageFixes.map(
-				(fix) => `${fix.packageName}: ${fix.from ?? 'current'} -> ${fix.to ?? 'latest'}`
+				(fix) =>
+					`${fix.packageName}: ${fix.from ?? 'current'} -> ${fix.to ?? 'latest'}`
 			),
 			packages: packageFixes.map((fix) => fix.packageName ?? ''),
 			autofixes: packageFixes,
@@ -240,7 +257,8 @@ function augmentUpgradePlan(
 		implicitSteps.push({
 			id: 'upgrade-contractsrc-config',
 			title: 'Refresh .contractsrc.json defaults',
-			summary: 'Bring workspace release and upgrade config in line with current defaults.',
+			summary:
+				'Bring workspace release and upgrade config in line with current defaults.',
 			level: 'auto',
 			instructions: configFixes.map((fix) => `${fix.configPath} -> updated`),
 			autofixes: configFixes,
@@ -249,7 +267,9 @@ function augmentUpgradePlan(
 
 	const steps = [...implicitSteps, ...plan.steps];
 	const autoCount = steps.filter((step) => step.level === 'auto').length;
-	const assistedCount = steps.filter((step) => step.level === 'assisted').length;
+	const assistedCount = steps.filter(
+		(step) => step.level === 'assisted'
+	).length;
 	const manualCount = steps.filter((step) => step.level === 'manual').length;
 
 	return {
@@ -304,16 +324,25 @@ async function applyPackageJsonAutofix(
 		return false;
 	}
 
-	const packageJson = JSON.parse(await fs.readFile(packageJsonPath)) as Record<string, unknown>;
+	const packageJson = JSON.parse(await fs.readFile(packageJsonPath)) as Record<
+		string,
+		unknown
+	>;
 	const dependencyType = fix.dependencyType ?? 'dependencies';
-	const dependencies = (packageJson[dependencyType] ?? {}) as Record<string, string>;
+	const dependencies = (packageJson[dependencyType] ?? {}) as Record<
+		string,
+		string
+	>;
 	if (!fix.packageName || !fix.to || !dependencies[fix.packageName]) {
 		return false;
 	}
 
 	dependencies[fix.packageName] = fix.to;
 	packageJson[dependencyType] = dependencies;
-	await fs.writeFile(packageJsonPath, JSON.stringify(packageJson, null, 2) + '\n');
+	await fs.writeFile(
+		packageJsonPath,
+		JSON.stringify(packageJson, null, 2) + '\n'
+	);
 	return true;
 }
 

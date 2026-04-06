@@ -1,7 +1,6 @@
 import {
-	GeneratedReleaseManifestSchema,
-	type AgentTarget,
 	type GeneratedReleaseManifest,
+	GeneratedReleaseManifestSchema,
 	type ReleaseCapsule,
 	type ReleaseCapsulePackage,
 	type VersionBumpType,
@@ -15,7 +14,6 @@ import type { FsAdapter } from '../../ports/fs';
 import type { GitAdapter } from '../../ports/git';
 import type { LoggerAdapter } from '../../ports/logger';
 import { detectImpact } from '../impact';
-import { analyzeVersions, analyzeVersionsFromCommits } from './versioning-service';
 import {
 	discoverWorkspacePackages,
 	matchChangedFilesToPackages,
@@ -39,6 +37,10 @@ import type {
 	ReleaseInitOptions,
 	ReleaseInitResult,
 } from './release-service.types';
+import {
+	analyzeVersions,
+	analyzeVersionsFromCommits,
+} from './versioning-service';
 
 interface ServiceAdapters {
 	fs: FsAdapter;
@@ -85,7 +87,7 @@ export async function initReleaseArtifacts(
 	const inferredReleaseType =
 		(impact?.summary.breaking ?? 0) > 0
 			? 'major'
-			: commitAnalysis?.suggestedBumpType ?? inferReleaseType(packageNames);
+			: (commitAnalysis?.suggestedBumpType ?? inferReleaseType(packageNames));
 	const releaseType = options.releaseType ?? inferredReleaseType;
 	const summary =
 		options.summary ??
@@ -175,13 +177,18 @@ export async function buildReleaseArtifacts(
 
 	const releases = await Promise.all(
 		Array.from(capsules.entries()).map(async ([slug, capsule]) => {
-			const filePath = fs.join(workspaceRoot, '.changeset', `${slug}.release.yaml`);
+			const filePath = fs.join(
+				workspaceRoot,
+				'.changeset',
+				`${slug}.release.yaml`
+			);
 			const stats = await fs.stat(filePath);
 			return {
 				slug,
 				version: resolveReleaseVersion(capsule, workspacePackages),
 				summary: capsule.summary,
-				date: stats.mtime.toISOString().split('T')[0] ?? new Date().toISOString(),
+				date:
+					stats.mtime.toISOString().split('T')[0] ?? new Date().toISOString(),
 				isBreaking: capsule.isBreaking,
 				packages: capsule.packages.map((pkg) => ({
 					...pkg,
@@ -258,7 +265,10 @@ export async function checkReleaseArtifacts(
 	const { fs } = adapters;
 	const workspaceRoot = findWorkspaceRoot(options.workspaceRoot);
 	const config = await readWorkspaceReleaseConfig(fs, workspaceRoot);
-	const outputDir = fs.join(workspaceRoot, options.outputDir ?? DEFAULT_OUTPUT_DIR);
+	const outputDir = fs.join(
+		workspaceRoot,
+		options.outputDir ?? DEFAULT_OUTPUT_DIR
+	);
 	const checks: ReleaseCheckStatus[] = [];
 	const warnings: string[] = [];
 	const errors: string[] = [];
@@ -282,7 +292,9 @@ export async function checkReleaseArtifacts(
 
 	for (const [slug, capsule] of capsules) {
 		if (capsule.isBreaking && capsule.migrationInstructions.length === 0) {
-			errors.push(`Breaking release ${slug} is missing migration instructions.`);
+			errors.push(
+				`Breaking release ${slug} is missing migration instructions.`
+			);
 		}
 		if (capsule.validation.commands.length === 0) {
 			errors.push(`Release capsule ${slug} is missing validation commands.`);
@@ -299,8 +311,13 @@ export async function checkReleaseArtifacts(
 				workspaceRoot,
 			});
 			recordCheck(checks, true, 'impact', `Impact status: ${impact.status}`);
-			if (impact.summary.breaking > 0 && !Array.from(capsules.values()).some((capsule) => capsule.isBreaking)) {
-				errors.push('Breaking impact detected without a breaking release capsule.');
+			if (
+				impact.summary.breaking > 0 &&
+				!Array.from(capsules.values()).some((capsule) => capsule.isBreaking)
+			) {
+				errors.push(
+					'Breaking impact detected without a breaking release capsule.'
+				);
 			}
 		} catch (error) {
 			recordCheck(checks, false, 'impact', failureMessage(error));
@@ -337,7 +354,9 @@ export async function checkReleaseArtifacts(
 		checks,
 		errors.length === 0,
 		'capsules',
-		errors.length === 0 ? 'All release capsules are complete.' : errors[0] ?? ''
+		errors.length === 0
+			? 'All release capsules are complete.'
+			: (errors[0] ?? '')
 	);
 
 	if (changesets.length === 0) {
@@ -386,8 +405,8 @@ function resolveReleaseVersion(
 	const version = capsule.packages
 		.map(
 			(pkg) =>
-				workspacePackages.find((candidate) => candidate.name === pkg.name)?.version ??
-				pkg.version
+				workspacePackages.find((candidate) => candidate.name === pkg.name)
+					?.version ?? pkg.version
 		)
 		.find((value): value is string => typeof value === 'string');
 

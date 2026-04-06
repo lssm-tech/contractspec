@@ -1,12 +1,16 @@
+import { existsSync, readFileSync } from 'node:fs';
+import { basename, join, resolve } from 'node:path';
 import {
 	ContractsrcSchema,
 	DEFAULT_CONTRACTSRC,
 	type ResolvedContractsrcConfig,
 } from '@contractspec/lib.contracts-spec/workspace-config';
-import { existsSync, readFileSync } from 'node:fs';
-import { basename, join, resolve } from 'node:path';
 import { findPackageRoot, findWorkspaceRoot } from '../../adapters/workspace';
-import type { ConnectActorRef, ConnectSurface, ConnectWorkspaceInput } from './types';
+import type {
+	ConnectActorRef,
+	ConnectSurface,
+	ConnectWorkspaceInput,
+} from './types';
 
 export interface ConnectResolvedWorkspace {
 	cwd: string;
@@ -46,18 +50,24 @@ export function withBranch<T extends ConnectResolvedWorkspace>(
 	};
 }
 
-export function defaultActor(taskId: string, actor?: ConnectActorRef): ConnectActorRef {
-	return actor ?? {
-		id: `cli:${taskId}`,
-		type: 'human',
-	};
+export function defaultActor(
+	taskId: string,
+	actor?: ConnectActorRef
+): ConnectActorRef {
+	return (
+		actor ?? {
+			id: `cli:${taskId}`,
+			type: 'human',
+		}
+	);
 }
 
 export function inferSurfaces(paths: string[]): ConnectSurface[] {
 	const surfaces = new Set<ConnectSurface>();
 
 	for (const path of paths) {
-		if (path.includes('/cli-') || path.includes('/apps/cli-')) surfaces.add('cli');
+		if (path.includes('/cli-') || path.includes('/apps/cli-'))
+			surfaces.add('cli');
 		if (path.includes('/contracts-spec/') || path.includes('/specs/')) {
 			surfaces.add('contract');
 		}

@@ -1,5 +1,4 @@
 import { connect } from '@contractspec/bundle.workspace';
-import { createConnectEvaluationRuntime } from './registry';
 import {
 	buildActor,
 	parseJsonOrText,
@@ -7,6 +6,7 @@ import {
 	requireExactlyOne,
 	requireNonEmptyString,
 } from './io';
+import { createConnectEvaluationRuntime } from './registry';
 import {
 	createConnectCommandContext,
 	runShellCommand,
@@ -40,7 +40,9 @@ export async function runConnectInitCommand(options: {
 	return 0;
 }
 
-export async function runConnectContextCommand(options: SharedOptions & { task: string }) {
+export async function runConnectContextCommand(
+	options: SharedOptions & { task: string }
+) {
 	const ctx = await createConnectCommandContext(options);
 	const actor = buildActor(options.task, options);
 	const contextPack = await connect.buildConnectContextPack(ctx.adapters, {
@@ -58,13 +60,18 @@ export async function runConnectContextCommand(options: SharedOptions & { task: 
 	return 0;
 }
 
-export async function runConnectPlanCommand(options: SharedOptions & { task: string }) {
+export async function runConnectPlanCommand(
+	options: SharedOptions & { task: string }
+) {
 	const ctx = await createConnectCommandContext(options);
 	const actor = buildActor(options.task, options);
 	const parsed = parseJsonOrText(await readRequiredStdin());
 	const candidate =
 		typeof parsed === 'string'
-			? { objective: requireNonEmptyString(parsed, 'Plan objective'), touchedPaths: options.paths }
+			? {
+					objective: requireNonEmptyString(parsed, 'Plan objective'),
+					touchedPaths: options.paths,
+				}
 			: {
 					objective: requireNonEmptyString(
 						String(parsed['objective'] ?? ''),
@@ -79,10 +86,14 @@ export async function runConnectPlanCommand(options: SharedOptions & { task: str
 										commands?: string[];
 										contractRefs?: string[];
 								  }
-						  >)
+							>)
 						: undefined,
-					touchedPaths: Array.isArray(parsed['touchedPaths']) ? (parsed['touchedPaths'] as string[]) : options.paths,
-					commands: Array.isArray(parsed['commands']) ? (parsed['commands'] as string[]) : undefined,
+					touchedPaths: Array.isArray(parsed['touchedPaths'])
+						? (parsed['touchedPaths'] as string[])
+						: options.paths,
+					commands: Array.isArray(parsed['commands'])
+						? (parsed['commands'] as string[])
+						: undefined,
 				};
 	const result = await connect.compileConnectPlanPacket(ctx.adapters, {
 		cwd: ctx.cwd,
@@ -96,12 +107,19 @@ export async function runConnectPlanCommand(options: SharedOptions & { task: str
 		candidate,
 	});
 	await persistLatestArtifacts(ctx, result);
-	printResult(options.json, result.planPacket, `PlanPacket: ${result.planPacket.id}`);
+	printResult(
+		options.json,
+		result.planPacket,
+		`PlanPacket: ${result.planPacket.id}`
+	);
 	return 0;
 }
 
 export async function runConnectVerifyCommand(
-	options: SharedOptions & { task: string; tool: 'acp.fs.access' | 'acp.terminal.exec' }
+	options: SharedOptions & {
+		task: string;
+		tool: 'acp.fs.access' | 'acp.terminal.exec';
+	}
 ) {
 	const ctx = await createConnectCommandContext(options);
 	const actor = buildActor(options.task, options);
@@ -135,7 +153,15 @@ export async function runConnectReviewListCommand(options: { json?: boolean }) {
 		workspaceRoot: ctx.config.workspaceRoot,
 		packageRoot: ctx.config.packageRoot,
 	});
-	printResult(options.json, items, items.length === 0 ? 'No pending review packets.' : items.map((item) => `${item.packet.id}: ${item.packet.reason}`).join('\n'));
+	printResult(
+		options.json,
+		items,
+		items.length === 0
+			? 'No pending review packets.'
+			: items
+					.map((item) => `${item.packet.id}: ${item.packet.reason}`)
+					.join('\n')
+	);
 	return 0;
 }
 
@@ -169,7 +195,13 @@ export async function runConnectReplayCommand(
 
 export async function runConnectEvalCommand(
 	decisionId: string,
-	options: { json?: boolean; registry: string; scenario?: string; suite?: string; version?: string }
+	options: {
+		json?: boolean;
+		registry: string;
+		scenario?: string;
+		suite?: string;
+		version?: string;
+	}
 ) {
 	const ctx = await createConnectCommandContext(options);
 	requireExactlyOne(
@@ -196,13 +228,20 @@ export async function runConnectEvalCommand(
 		},
 		runtime
 	);
-	printResult(options.json, result.evaluation, `Evaluation stored in ${result.historyDir}`);
+	printResult(
+		options.json,
+		result.evaluation,
+		`Evaluation stored in ${result.historyDir}`
+	);
 	return 0;
 }
 
 function normalizeVerifyInput(
 	parsed: string | Record<string, unknown>,
-	options: SharedOptions & { task: string; tool: 'acp.fs.access' | 'acp.terminal.exec' },
+	options: SharedOptions & {
+		task: string;
+		tool: 'acp.fs.access' | 'acp.terminal.exec';
+	},
 	ctx: Awaited<ReturnType<typeof createConnectCommandContext>>,
 	actor: ReturnType<typeof buildActor>
 ) {
@@ -220,9 +259,16 @@ function normalizeVerifyInput(
 			baseline: options.baseline,
 			tool: options.tool,
 			operation: String(parsed['operation'] ?? 'edit'),
-			path: requireNonEmptyString(String(parsed['path'] ?? ''), 'acp.fs.access path'),
-			content: typeof parsed['content'] === 'string' ? parsed['content'] : undefined,
-			options: typeof parsed['options'] === 'object' ? (parsed['options'] as Record<string, unknown>) : undefined,
+			path: requireNonEmptyString(
+				String(parsed['path'] ?? ''),
+				'acp.fs.access path'
+			),
+			content:
+				typeof parsed['content'] === 'string' ? parsed['content'] : undefined,
+			options:
+				typeof parsed['options'] === 'object'
+					? (parsed['options'] as Record<string, unknown>)
+					: undefined,
 		};
 	}
 
@@ -251,7 +297,9 @@ function normalizeVerifyInput(
 		baseline: options.baseline,
 		tool: options.tool,
 		command: requireNonEmptyString(String(parsed['command'] ?? ''), 'Command'),
-		touchedPaths: Array.isArray(parsed['touchedPaths']) ? (parsed['touchedPaths'] as string[]) : options.paths,
+		touchedPaths: Array.isArray(parsed['touchedPaths'])
+			? (parsed['touchedPaths'] as string[])
+			: options.paths,
 	};
 }
 

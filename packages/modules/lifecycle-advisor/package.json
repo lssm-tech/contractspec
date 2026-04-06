@@ -26,8 +26,8 @@
 		"dev": "contractspec-bun-build dev",
 		"clean": "rimraf dist .turbo",
 		"lint": "bun lint:fix",
-		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-		"lint:check": "biome check .",
+		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
+		"lint:check": "node ../../../scripts/biome.cjs check .",
 		"test": "bun test",
 		"prebuild": "contractspec-bun-build prebuild",
 		"typecheck": "tsc --noEmit"

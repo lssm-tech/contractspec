@@ -1,76 +1,62 @@
 {
-  "connect": {
-    "enabled": true,
-    "adapters": {
-      "cursor": {
-        "enabled": true,
-        "mode": "plugin",
-        "packageRef": "@contractspec/app.cursor-marketplace#contractspec-ai-agent"
-      },
-      "codex": {
-        "enabled": true,
-        "mode": "wrapper"
-      },
-      "claude-code": {
-        "enabled": false,
-        "mode": "rule"
-      }
-    },
-    "storage": {
-      "root": ".contractspec/connect",
-      "contextPack": ".contractspec/connect/context-pack.json",
-      "planPacket": ".contractspec/connect/plan-packet.json",
-      "patchVerdict": ".contractspec/connect/patch-verdict.json",
-      "auditFile": ".contractspec/connect/audit.ndjson",
-      "reviewPacketsDir": ".contractspec/connect/review-packets"
-    },
-    "policy": {
-      "protectedPaths": [
-        "packages/libs/contracts-spec/**",
-        "packages/integrations/runtime/**"
-      ],
-      "immutablePaths": [
-        ".changeset/**"
-      ],
-      "generatedPaths": [
-        "generated/**",
-        "dist/**"
-      ],
-      "smokeChecks": [
-        "bun run typecheck",
-        "bun test packages/libs/contracts-spec/src/workspace-config/contractsrc-schema.test.ts"
-      ],
-      "reviewThresholds": {
-        "protectedPathWrite": "require_review",
-        "unknownImpact": "require_review",
-        "contractDrift": "require_review",
-        "breakingChange": "require_review",
-        "destructiveCommand": "deny"
-      }
-    },
-    "commands": {
-      "allow": [
-        "bun run typecheck",
-        "bun test"
-      ],
-      "review": [
-        "contractspec impact --baseline origin/main"
-      ],
-      "deny": [
-        "git reset --hard",
-        "git push --force",
-        "rm -rf"
-      ]
-    },
-    "canonPacks": [
-      {
-        "ref": "team/platform@1.2.0",
-        "readOnly": true
-      }
-    ],
-    "studio": {
-      "enabled": false,
-      "mode": "off"
-    }
-  }
+	"connect": {
+		"enabled": true,
+		"adapters": {
+			"cursor": {
+				"enabled": true,
+				"mode": "plugin",
+				"packageRef": "@contractspec/app.cursor-marketplace#contractspec-ai-agent"
+			},
+			"codex": {
+				"enabled": true,
+				"mode": "wrapper"
+			},
+			"claude-code": {
+				"enabled": false,
+				"mode": "rule"
+			}
+		},
+		"storage": {
+			"root": ".contractspec/connect",
+			"contextPack": ".contractspec/connect/context-pack.json",
+			"planPacket": ".contractspec/connect/plan-packet.json",
+			"patchVerdict": ".contractspec/connect/patch-verdict.json",
+			"auditFile": ".contractspec/connect/audit.ndjson",
+			"reviewPacketsDir": ".contractspec/connect/review-packets"
+		},
+		"policy": {
+			"protectedPaths": [
+				"packages/libs/contracts-spec/**",
+				"packages/integrations/runtime/**"
+			],
+			"immutablePaths": [".changeset/**"],
+			"generatedPaths": ["generated/**", "dist/**"],
+			"smokeChecks": [
+				"bun run typecheck",
+				"bun test packages/libs/contracts-spec/src/workspace-config/contractsrc-schema.test.ts"
+			],
+			"reviewThresholds": {
+				"protectedPathWrite": "require_review",
+				"unknownImpact": "require_review",
+				"contractDrift": "require_review",
+				"breakingChange": "require_review",
+				"destructiveCommand": "deny"
+			}
+		},
+		"commands": {
+			"allow": ["bun run typecheck", "bun test"],
+			"review": ["contractspec impact --baseline origin/main"],
+			"deny": ["git reset --hard", "git push --force", "rm -rf"]
+		},
+		"canonPacks": [
+			{
+				"ref": "team/platform@1.2.0",
+				"readOnly": true
+			}
+		],
+		"studio": {
+			"enabled": false,
+			"mode": "off"
+		}
+	}
 }

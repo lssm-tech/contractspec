@@ -50,7 +50,8 @@ function getTemplateComponentRegistrySingleton() {
 	return store[TEMPLATE_COMPONENT_REGISTRY_KEY];
 }
 
-export const templateComponentRegistry = getTemplateComponentRegistrySingleton();
+export const templateComponentRegistry =
+	getTemplateComponentRegistrySingleton();
 
 export function registerTemplateComponents(
 	templateId: TemplateId,

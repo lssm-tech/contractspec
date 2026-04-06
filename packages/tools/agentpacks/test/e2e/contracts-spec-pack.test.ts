@@ -10,7 +10,9 @@ import { CursorTarget } from '../../src/targets/cursor.js';
 
 const REPO_ROOT = resolve(import.meta.dir, '../../../../..');
 const PACK_PATH = resolve(REPO_ROOT, 'packs/contractspec-contracts-spec');
-const TEST_DIR = mkdtempSync(join(tmpdir(), 'contractspec-contracts-spec-pack-'));
+const TEST_DIR = mkdtempSync(
+	join(tmpdir(), 'contractspec-contracts-spec-pack-')
+);
 
 afterAll(() => {
 	rmSync(TEST_DIR, { recursive: true, force: true });
@@ -45,14 +47,25 @@ describe('contractspec-contracts-spec pack', () => {
 				ignorePatterns: [],
 				models: null,
 			},
-			enabledFeatures: ['rules', 'commands', 'agents', 'skills', 'hooks', 'mcp'],
+			enabledFeatures: [
+				'rules',
+				'commands',
+				'agents',
+				'skills',
+				'hooks',
+				'mcp',
+			],
 			deleteExisting: true,
 			global: false,
 			verbose: false,
 		});
 
-		expect(result.filesWritten.some((file) => file.endsWith('.cursor/hooks.json'))).toBe(true);
-		const hooks = JSON.parse(readFileSync(join(TEST_DIR, '.cursor', 'hooks.json'), 'utf-8'));
+		expect(
+			result.filesWritten.some((file) => file.endsWith('.cursor/hooks.json'))
+		).toBe(true);
+		const hooks = JSON.parse(
+			readFileSync(join(TEST_DIR, '.cursor', 'hooks.json'), 'utf-8')
+		);
 		expect(hooks.hooks.beforeFileEdit[0].command).toContain(
 			'contractspec connect hook contracts-spec before-file-edit --stdin'
 		);
@@ -81,7 +94,14 @@ describe('contractspec-contracts-spec pack', () => {
 				ignorePatterns: [],
 				models: null,
 			},
-			enabledFeatures: ['rules', 'commands', 'agents', 'skills', 'hooks', 'mcp'],
+			enabledFeatures: [
+				'rules',
+				'commands',
+				'agents',
+				'skills',
+				'hooks',
+				'mcp',
+			],
 			deleteExisting: true,
 			global: false,
 			verbose: false,
@@ -138,8 +158,12 @@ describe('contractspec-contracts-spec pack', () => {
 			verbose: false,
 		});
 
-		const hooks = JSON.parse(readFileSync(join(TEST_DIR, '.codex', 'hooks.json'), 'utf-8'));
-		const mcp = JSON.parse(readFileSync(join(TEST_DIR, '.codex', 'mcp.json'), 'utf-8'));
+		const hooks = JSON.parse(
+			readFileSync(join(TEST_DIR, '.codex', 'hooks.json'), 'utf-8')
+		);
+		const mcp = JSON.parse(
+			readFileSync(join(TEST_DIR, '.codex', 'mcp.json'), 'utf-8')
+		);
 		expect(hooks.hooks.beforeFileEdit[0].command).toContain(
 			'contractspec connect hook contracts-spec before-file-edit --stdin'
 		);

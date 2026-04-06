@@ -1,16 +1,19 @@
-import { createHash } from 'crypto';
 import {
 	buildChannelPlanTrace,
+	type ChannelPolicyDecision,
+	type ChannelRuntimeStore,
+	type ChannelTraceService,
 	compileChannelPlan,
 	finalizeChannelPlan,
 	replayExecutionTrace as replayStoredTrace,
 	resolveChannelExecutionActor,
-	type ChannelPolicyDecision,
-	type ChannelRuntimeStore,
-	type ChannelTraceService,
 } from '@contractspec/integration.runtime/channel';
+import { createHash } from 'crypto';
 import { connectVerdictToPolicy } from './assessment';
-import type { ConnectControlPlaneRuntime, ConnectTraceLookup } from './runtime-types';
+import type {
+	ConnectControlPlaneRuntime,
+	ConnectTraceLookup,
+} from './runtime-types';
 import type { ConnectRuntimeLink } from './types';
 
 const CONNECT_PROVIDER_KEY = 'connect.local';
@@ -23,8 +26,6 @@ export function createConnectControlPlaneRuntime(input: {
 	traceService: ChannelTraceService;
 	now?: () => Date;
 }): ConnectControlPlaneRuntime {
-	const now = input.now ?? (() => new Date());
-
 	return {
 		linkDecision: async ({
 			connectDecisionId,
@@ -78,7 +79,11 @@ export function createConnectControlPlaneRuntime(input: {
 				traceId: event.traceId,
 			});
 			if (claim.duplicate) {
-				return findExistingRuntimeLink(input.store, workspace.repoId, connectDecisionId);
+				return findExistingRuntimeLink(
+					input.store,
+					workspace.repoId,
+					connectDecisionId
+				);
 			}
 
 			const thread = await input.store.upsertThread({
@@ -120,7 +125,9 @@ export function createConnectControlPlaneRuntime(input: {
 				toolTrace: buildChannelPlanTrace(finalizedPlan),
 				actionPlan: finalizedPlan,
 				requiresApproval: finalizedPlan.approval.required,
-				approvalStatus: finalizedPlan.approval.required ? 'pending' : 'not_required',
+				approvalStatus: finalizedPlan.approval.required
+					? 'pending'
+					: 'not_required',
 			});
 			await input.store.appendTraceEvent({
 				stage: 'decision',
@@ -150,14 +157,15 @@ export function createConnectControlPlaneRuntime(input: {
 				workspaceId: workspace.repoId,
 			};
 		},
-		getExecutionTrace: (lookup) =>
-			resolveTrace(input.traceService, lookup),
+		getExecutionTrace: (lookup) => resolveTrace(input.traceService, lookup),
 		replayExecutionTrace: async (lookup) => {
 			if (lookup.decisionId) {
 				return input.traceService.replayExecutionTrace(lookup.decisionId);
 			}
 			const trace = await resolveTrace(input.traceService, lookup);
-			return trace ? replayStoredTrace(trace as Parameters<typeof replayStoredTrace>[0]) : null;
+			return trace
+				? replayStoredTrace(trace as Parameters<typeof replayStoredTrace>[0])
+				: null;
 		},
 	};
 }
@@ -214,7 +222,9 @@ function toPolicyDecision(patchVerdict: {
 	return {
 		confidence: patchVerdict.verdict === 'deny' ? 0.98 : 0.82,
 		policyRef: undefined,
-		reasons: patchVerdict.checks.map((check) => `${check.status}:${check.detail}`),
+		reasons: patchVerdict.checks.map(
+			(check) => `${check.status}:${check.detail}`
+		),
 		responseText: patchVerdict.summary ?? 'Connect decision recorded.',
 		requiresApproval: policy.requiresApproval,
 		riskTier:
@@ -223,13 +233,15 @@ function toPolicyDecision(patchVerdict: {
 				: patchVerdict.verdict === 'rewrite'
 					? 'medium'
 					: patchVerdict.verdict === 'require_review'
-					? 'high'
+						? 'high'
 						: 'blocked',
 		verdict: policy.controlPlaneVerdict,
 	};
 }
 
-function capabilityGrantsFor(verdict: 'permit' | 'rewrite' | 'require_review' | 'deny') {
+function capabilityGrantsFor(
+	verdict: 'permit' | 'rewrite' | 'require_review' | 'deny'
+) {
 	return verdict === 'require_review'
 		? ['control-plane.approval.request']
 		: ['control-plane.channel-runtime.reply.autonomous'];
@@ -247,6 +259,8 @@ function compactRecord(
 	record: Record<string, string | undefined>
 ): Record<string, string> {
 	return Object.fromEntries(
-		Object.entries(record).filter((entry): entry is [string, string] => Boolean(entry[1]))
+		Object.entries(record).filter((entry): entry is [string, string] =>
+			Boolean(entry[1])
+		)
 	);
 }

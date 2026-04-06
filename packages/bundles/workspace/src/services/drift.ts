@@ -8,7 +8,10 @@ import { mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'path';
 import type { WorkspaceAdapters } from '../ports/logger';
-import { generateArtifacts, type GenerateArtifactsOptions } from './generate-artifacts';
+import {
+	type GenerateArtifactsOptions,
+	generateArtifacts,
+} from './generate-artifacts';
 
 /**
  * Result of drift detection.

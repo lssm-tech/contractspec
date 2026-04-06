@@ -6,24 +6,26 @@ import type {
 	UpgradePlan,
 	UpgradePlanStep,
 	UpgradeStepLevel,
-} from "./release-types";
-import { compareVersions } from "./utils";
+} from './release-types';
+import { compareVersions } from './utils';
 
-function maxPackageVersion(entry: GeneratedReleaseManifestEntry): string | null {
+function maxPackageVersion(
+	entry: GeneratedReleaseManifestEntry
+): string | null {
 	if (entry.version) {
 		return entry.version;
 	}
 
 	const versions = entry.packages
 		.map((pkg) => pkg.version)
-		.filter((version): version is string => typeof version === "string");
+		.filter((version): version is string => typeof version === 'string');
 
 	if (versions.length === 0) {
 		return null;
 	}
 
 	return versions.reduce((max, current) =>
-		compareVersions(current, max) === 1 ? current : max,
+		compareVersions(current, max) === 1 ? current : max
 	);
 }
 
@@ -31,7 +33,8 @@ export function sortReleaseManifest(
 	manifest: GeneratedReleaseManifest
 ): GeneratedReleaseManifestEntry[] {
 	return [...manifest.releases].sort((left, right) => {
-		const dateOrder = new Date(right.date).getTime() - new Date(left.date).getTime();
+		const dateOrder =
+			new Date(right.date).getTime() - new Date(left.date).getTime();
 		if (dateOrder !== 0) {
 			return dateOrder;
 		}
@@ -51,10 +54,9 @@ export function sortReleaseManifest(
 	});
 }
 
-export function countUpgradePlanStepLevels(steps: UpgradePlanStep[]): Record<
-	UpgradeStepLevel,
-	number
-> {
+export function countUpgradePlanStepLevels(
+	steps: UpgradePlanStep[]
+): Record<UpgradeStepLevel, number> {
 	return steps.reduce(
 		(counts, step) => {
 			counts[step.level] += 1;
@@ -89,10 +91,9 @@ export function dedupeUpgradePlanSteps(
 		);
 		existing.autofixes = Array.from(
 			new Map(
-				[...(existing.autofixes ?? []), ...(step.autofixes ?? [])].map((fix) => [
-					fix.id,
-					fix,
-				])
+				[...(existing.autofixes ?? []), ...(step.autofixes ?? [])].map(
+					(fix) => [fix.id, fix]
+				)
 			).values()
 		);
 	}
