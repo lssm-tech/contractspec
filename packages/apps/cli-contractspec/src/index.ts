@@ -17,6 +17,7 @@ import { chatCommand } from './commands/chat/index';
 import { ciCommand } from './commands/ci/index';
 import { cicdCommand } from './commands/cicd/index';
 import { cleanCommand } from './commands/clean/index';
+import { connectCommand } from './commands/connect/index';
 import { controlPlaneCommand } from './commands/control-plane/index';
 import { createCommand } from './commands/create/index';
 import { deleteCommand } from './commands/delete/index';
@@ -234,6 +235,7 @@ program.addCommand(withCategory(agentCommand, CATEGORY_AI));
 
 // Operations
 program.addCommand(withCategory(createImpactCommand(), CATEGORY_OPERATIONS));
+program.addCommand(withCategory(connectCommand, CATEGORY_OPERATIONS));
 program.addCommand(withCategory(controlPlaneCommand, CATEGORY_OPERATIONS));
 program.addCommand(withCategory(cicdCommand, CATEGORY_OPERATIONS));
 program.addCommand(withCategory(createVersionCommand(), CATEGORY_OPERATIONS));

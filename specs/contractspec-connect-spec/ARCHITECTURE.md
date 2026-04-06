@@ -3,147 +3,150 @@
 ## Runtime component model
 
 ```txt
-┌─────────────────────────────────────────────────────────────────────┐
-│ Coding agent / IDE / CLI                                           │
-│  - Claude adapter                                                   │
-│  - Cursor adapter                                                   │
-│  - Codex adapter                                                    │
-└───────────────┬─────────────────────────────────────────────────────┘
-                │ normalized actions
-                ▼
-┌─────────────────────────────────────────────────────────────────────┐
-│ Connect Core                                                        │
-│  1. Adapter API                                                     │
-│  2. Impact Resolver                                                 │
-│  3. Context Builder                                                 │
-│  4. Plan Compiler + Verifier                                        │
-│  5. Patch / Command Verifier                                        │
-│  6. Verdict Synthesizer                                             │
-│  7. Audit Writer                                                    │
-│  8. Review Packet Emitter                                           │
-└───────┬─────────────────┬──────────────────┬────────────────────────┘
-        │                 │                  │
-        ▼                 ▼                  ▼
-┌───────────────┐  ┌───────────────┐  ┌──────────────────────────────┐
-│ ContractSpec  │  │ Local repo    │  │ Studio (optional)            │
-│ contracts     │  │ state + diff  │  │ review queues / packs /      │
-│ manifests     │  │ overlays      │  │ checks / lineage / handoff   │
-│ policies      │  │               │  │                              │
-└───────────────┘  └───────────────┘  └──────────────────────────────┘
+┌──────────────────────────────────────────────────────────────────────┐
+│ Coding agent host                                                   │
+│  - Cursor plugin / rules                                            │
+│  - Codex wrapper / rules                                             │
+│  - Claude Code wrapper / rules                                      │
+└──────────────────────┬───────────────────────────────────────────────┘
+                       │ normalized plan or mutation candidate
+                       ▼
+┌──────────────────────────────────────────────────────────────────────┐
+│ ContractSpec Connect                                                │
+│  1. Adapter normalizer                                              │
+│  2. Context / plan / verdict DTO projector                          │
+│  3. Local artifact writer                                           │
+│  4. Review packet emitter                                           │
+└───────┬────────────────┬──────────────────┬──────────────────────────┘
+        │                │                  │
+        ▼                ▼                  ▼
+┌───────────────┐ ┌───────────────┐ ┌──────────────────────────────────┐
+│ contracts-spec│ │ runtime + ACP │ │ workspace + harness             │
+│ controlPlane.*│ │ trace/approval│ │ impact / replay / evaluation    │
+│ agent / policy│ │ acp.* actions │ │ docblocks / knowledge           │
+└───────────────┘ └───────────────┘ └──────────────────────────────────┘
 ```
+
+## Existing package anchors
+
+| Connect responsibility | Existing package |
+| --- | --- |
+| Canonical contracts and policy refs | `packages/libs/contracts-spec` |
+| Plan, approval, trace, replay records | `packages/integrations/runtime` |
+| Workspace scan and impact analysis | `packages/modules/workspace`, `packages/bundles/workspace` |
+| Agent approval queue | `packages/libs/ai-agent` |
+| Knowledge spaces and canon | `packages/libs/knowledge`, `packages/examples/knowledge-canon` |
+| Replay and evaluation | `packages/libs/harness`, `packages/integrations/harness-runtime` |
+| Shared Connect runtime services | `packages/bundles/workspace/src/services/connect` |
+| CLI operator surface | `packages/apps/cli-contractspec` |
+| Thin Connect CLI wrappers | `packages/apps/cli-contractspec/src/commands/connect` |
 
 ## Decision flow
 
 ### A. Session start
 
-1. Adapter initializes
-2. Connect loads repository config
-3. Connect loads ContractSpec artifacts
-4. Connect refreshes impact index if needed
-5. Connect assembles a base context pack
-6. Audit event is written
+1. Adapter reads `.contractsrc.json`
+2. Adapter loads the `connect` namespace
+3. Connect resolves current repo and branch state
+4. Connect discovers authoritative refs:
+   - contracts and policy
+   - workspace analysis and impact
+   - knowledge and canon refs
+5. Connect prepares local artifact paths under `.contractspec/connect/`
 
-### B. `/plan` flow
+### B. Plan flow
 
-1. Agent proposes a plan
-2. Connect compiles a plan packet
-3. Plan verifier checks impact coverage, approvals, and risk
-4. Result is returned to the agent as:
+1. Adapter submits a plan candidate
+2. Connect projects impacted scope into a `ContextPack`
+3. Connect produces a `PlanPacket`
+4. `PlanPacket.controlPlane` points to:
+   - `controlPlane.intent.submit`
+   - `controlPlane.plan.compile`
+   - `controlPlane.plan.verify`
+5. Connect returns an adapter-facing plan result:
    - approved
-   - revise plan
-   - escalate review
-   - deny plan
+   - revise
+   - review
+   - denied
 
-### C. `write_file` or `edit_file` flow
+### C. File mutation flow
 
-1. Adapter captures proposed patch
-2. Impact resolver maps patch to contracts and surfaces
-3. Verifier pipeline runs deterministic checks
-4. Verdict is synthesized
-5. Audit event is written
-6. Review packet is emitted if needed
+1. Adapter captures a write or edit candidate
+2. Connect normalizes it as an ACP-aligned filesystem action
+3. Workspace impact and boundary checks resolve affected scope
+4. Connect synthesizes a `PatchVerdict`
+5. If needed, Connect emits a local `ReviewPacket`
 
-### D. `run_command` flow
+### D. Command flow
 
-1. Adapter captures command and cwd
-2. Command risk engine classifies the action
-3. Impact resolver infers scope
-4. Policy and review checks run
-5. Verdict is returned
-6. Audit event is written
+1. Adapter captures a command candidate
+2. Connect normalizes it as an ACP-aligned terminal action
+3. Connect classifies allow, review, or deny using:
+   - configured command policy
+   - affected scope
+   - review thresholds
+4. Connect emits a `PatchVerdict`
+
+### E. Replay flow
+
+1. Operator or adapter reads a Connect decision id
+2. Connect resolves the persisted local verdict from `.contractspec/connect/decisions/<decisionId>/`
+3. Connect points back to existing trace and replay primitives:
+   - `controlPlane.trace.get`
+   - runtime trace service
+   - harness replay and evaluation when configured
 
 ## Component responsibilities
 
-### Adapter API
+### Adapter normalizer
 
-- environment-specific installation
-- environment-specific hook registration
-- action normalization
-- response translation
+- translate host-native actions into Connect DTO inputs
+- preserve actor, session, and trace metadata
+- stay plugin-first for V1
 
-### Impact Resolver
+### Context / plan / verdict projector
 
-- maintain file → contract → surface index
-- answer impact queries fast
-- classify unknown-impact paths
+- build Connect DTOs from existing primitives
+- never mint canonical truth
+- always carry refs back to source contracts and runtime records
 
-### Context Builder
+### Local artifact writer
 
-- assemble trusted context
-- attach provenance and trust levels
-- strip irrelevant sources
-- produce minimal but sufficient agent context
+- write generated artifacts under `.contractspec/connect/*`
+- keep latest pointers and per-decision history in separate files
+- keep review packets separate from user-authored config
+- maintain append-only audit semantics
 
-### Plan Compiler + Verifier
+### Review packet emitter
 
-- convert natural-language plan into structured packet
-- infer touched scope
-- attach gates, checks, and approvals
-- compute risk level
+- create local packets first
+- optionally attach Studio transport metadata
+- preserve trace and policy explanation refs
 
-### Patch / Command Verifier
+## Package stance
 
-- enforce path boundaries
-- validate syntax/schema/contract rules
-- detect drift and breaking changes
-- apply command risk policy
+Connect should prefer **existing packages and current CLI surfaces**.
 
-### Verdict Synthesizer
-
-- choose permit / rewrite / require_review / deny
-- produce remediation guidance
-- prevent ambiguous outcomes
-
-### Audit Writer
-
-- append local evidence
-- preserve replay inputs
-- emit structured events
-
-### Review Packet Emitter
-
-- create local review artifact
-- optionally sync to Studio
-- preserve lineage between local verdict and external review
-
-## Package split
+The current implementation already uses:
 
 ```txt
-packages/apps/connect-cli
-packages/libs/connect-core
-packages/libs/connect-impact
-packages/libs/connect-context
-packages/libs/connect-policy
-packages/libs/connect-audit
-packages/integrations/connect-claude
-packages/integrations/connect-cursor
-packages/integrations/connect-codex
+packages/bundles/workspace/src/services/connect/*
+packages/apps/cli-contractspec/src/commands/connect/*
 ```
+
+This spec does not assume a new standalone package split such as:
+
+```txt
+packages/libs/connect-core
+packages/apps/connect-cli
+packages/integrations/connect-*
+```
+
+If implementation needs dedicated modules later, they should be introduced only after existing homes prove insufficient.
 
 ## Performance stance
 
-- impact resolution should be incremental
-- context packs should be minimal and task-scoped
-- verifier stages should be cached where safe
-- full repo regeneration must be optional, not a default precondition
-- Studio sync must never block local safety decisions
+- prefer incremental workspace analysis over full rescans
+- keep DTOs task-scoped and minimal
+- reuse existing trace and replay services instead of duplicating them
+- keep local safety decisions independent from Studio availability

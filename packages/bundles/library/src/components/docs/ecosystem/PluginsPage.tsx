@@ -39,52 +39,66 @@ export function EcosystemPluginsPage() {
 				<div className="space-y-3">
 					<h2 className="font-bold text-2xl">Where plugin sources live</h2>
 					<p className="text-muted-foreground text-sm">
-						Marketplace plugin sources are kept in a dedicated package so they
-						can evolve with the monorepo safely.
+						Marketplace plugin artifacts are kept in a dedicated package, while
+						the canonical reusable source lives in agentpacks under `packs/`.
 					</p>
 					<CodeBlock
 						language="text"
 						filename="catalog-layout"
 						code={`packages/apps-registry/cursor-marketplace/
+  .cursor-plugin/marketplace.json
   plugins/
     contractspec/
     contractspec-contracts-spec/
     contractspec-contracts-integrations/
-    contractspec-ai-agent/`}
+    contractspec-ai-agent/
+
+packs/
+  contractspec-contracts-spec/`}
 					/>
 				</div>
 
 				<div className="space-y-3">
 					<h2 className="font-bold text-2xl">Root marketplace manifest</h2>
 					<p className="text-muted-foreground text-sm">
-						Cursor submission reads <code>.cursor-plugin/marketplace.json</code>{' '}
-						at repository root and resolves each plugin source path.
+						Cursor submission reads the catalog manifest inside the marketplace
+						package and resolves plugin paths relative to that package.
 					</p>
 					<CodeBlock
 						language="json"
-						filename=".cursor-plugin/marketplace.json"
+						filename="packages/apps-registry/cursor-marketplace/.cursor-plugin/marketplace.json"
 						code={`{
   "name": "contractspec-marketplace",
+  "owner": { "name": "ContractSpec Team" },
   "plugins": [
     {
       "name": "contractspec",
-      "source": "packages/apps-registry/cursor-marketplace/plugins/contractspec"
+      "source": "plugins/contractspec"
     },
     {
       "name": "contractspec-contracts-spec",
-      "source": "packages/apps-registry/cursor-marketplace/plugins/contractspec-contracts-spec"
+      "source": "plugins/contractspec-contracts-spec"
     },
     {
       "name": "contractspec-contracts-integrations",
-      "source": "packages/apps-registry/cursor-marketplace/plugins/contractspec-contracts-integrations"
+      "source": "plugins/contractspec-contracts-integrations"
     },
     {
       "name": "contractspec-ai-agent",
-      "source": "packages/apps-registry/cursor-marketplace/plugins/contractspec-ai-agent"
+      "source": "plugins/contractspec-ai-agent"
     }
   ]
 }`}
 					/>
+				</div>
+
+				<div className="space-y-3">
+					<h2 className="font-bold text-2xl">Generated multi-host system</h2>
+					<p className="text-muted-foreground text-sm">
+						The Cursor plugin is publishable metadata only. Customer-facing
+						Cursor, Claude Code, and Codex outputs are generated from the same
+						pack source with hook and MCP delivery.
+					</p>
 				</div>
 
 				<div className="space-y-3">

@@ -86,6 +86,18 @@ describe('Git Adapter', () => {
 		expect(await adapter.isGitRepo()).toBe(true);
 	});
 
+	it(
+		'should return the current branch name',
+		async () => {
+			repoDir = createRepo();
+			commitFile(repoDir, 'file.ts', 'content', 'initial');
+			const adapter = createNodeGitAdapter(repoDir);
+
+			expect(await adapter.currentBranch()).toBeTruthy();
+		},
+		GIT_TEST_TIMEOUT_MS
+	);
+
 	it('should return false when .git is missing', async () => {
 		repoDir = mkdtempSync(join(tmpdir(), 'contractspec-git-adapter-plain-'));
 		const adapter = createNodeGitAdapter(repoDir);

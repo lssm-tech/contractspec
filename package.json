@@ -61,6 +61,7 @@
 		"agentpacks:validate": "bun packages/tools/agentpacks/src/index.ts pack validate",
 		"agentpacks:diff": "bun packages/tools/agentpacks/src/index.ts generate --diff",
 		"agentpacks:cursor-plugin": "bun packages/tools/agentpacks/src/index.ts export --format cursor-plugin --output dist/cursor-plugins",
+		"agentpacks:export:contractspec-contracts-spec": "bun packages/tools/agentpacks/src/index.ts export --format cursor-plugin --pack contractspec-contracts-spec --output packages/apps-registry/cursor-marketplace/plugins",
 		"plugin:contractspec:validate": "node scripts/validate-contractspec-plugin.mjs",
 		"examples:sync-registry": "bun scripts/generate-example-registry.ts --write",
 		"examples:validate": "bun packages/apps/cli-contractspec/src/cli.ts examples validate",

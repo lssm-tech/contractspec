@@ -7,6 +7,7 @@ import { createNoopLoggerAdapter } from '../../adapters/logger';
 import { buildReleaseArtifacts, checkReleaseArtifacts } from './release-service';
 
 const gitAdapter = {
+	currentBranch: async () => 'main',
 	showFile: async () => '',
 	clean: async () => {},
 	isGitRepo: async () => true,

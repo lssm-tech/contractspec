@@ -1,159 +1,117 @@
 # Phased Roadmap
 
-## Phase 0. Spec hardening
+## Phase 0. Spec alignment
 
 Deliverables:
 
-- finalize artifact model
-- finalize adapter API
-- finalize verifier stages
-- define success metrics and sample repos
+- remove the standalone `@contractspec/connect` framing
+- align terminology to `controlPlane.*`, ACP, workspace impact, agent approval, and harness replay
+- define `.contractsrc.json > connect`
 
 Exit criteria:
 
-- V1 scope is frozen
-- local artifact schemas are stable enough to implement
+- the spec does not invent a second control-plane vocabulary
+- config, DTOs, schemas, and diagrams all point at existing repo primitives
 
-## Phase 1. Bootstrap and install
+## Phase 1. Workspace config and DTOs
 
 Deliverables:
 
-- `npx @contractspec/connect init`
-- `contractspec connect install claude`
-- config and overlay scaffolding
-- local storage layout
+- `connect` namespace in `.contractsrc.json`
+- `ContextPack`, `PlanPacket`, `PatchVerdict`, and `ReviewPacket` schemas
+- local artifact path conventions under `.contractspec/connect/`
 
 Exit criteria:
 
-- developer can install Connect in one command
-- adapter hooks are placed correctly
-- repository can load config without Studio
+- adapters have a stable config and DTO contract
+- generated artifacts are clearly separated from user-authored config
 
-## Phase 2. Impact index
+## Phase 2. CLI integration
 
 Deliverables:
 
-- file → contract → surface mapping
-- incremental refresh
-- unknown-impact path detection
-- integration with imported and generated manifests
+- `contractspec connect ...` command family inside the current CLI
+- Bun-first examples
+- command semantics aligned to existing `impact` and `control-plane` surfaces
 
 Exit criteria:
 
-- Connect can answer impacted contracts and surfaces for a proposed edit
+- there is no standalone Connect CLI posture
+- Connect can emit and inspect local DTO artifacts through the main CLI
 
-## Phase 3. Typed context packs
+## Phase 3. Impact and context projection
 
 Deliverables:
 
-- context builder
-- provenance and trust levels
-- canon pack ingestion
-- task-scoped context filtering
+- reuse of workspace scan and impact services for Connect scope resolution
+- task-scoped context projection
+- policy and config ref attachment
 
 Exit criteria:
 
-- adapters can request minimal trusted context for a task or tool call
+- Connect can explain affected contracts and surfaces for a candidate action
+- context packs are grounded in authoritative refs
 
-## Phase 4. Plan packets and verification
+## Phase 4. Decision synthesis for ACP actions
 
 Deliverables:
 
-- `contractspec connect plan --stdin`
-- plan packet schema
-- plan risk scoring
-- approval and check attachment
+- ACP-aligned normalization for file and command actions
+- adapter-facing verdict synthesis
+- approval routing and remediation guidance
 
 Exit criteria:
 
-- risky or incomplete plans are caught before write actions
+- risky mutations produce `rewrite`, `require_review`, or `deny` with underlying runtime mapping
+- Connect does not fork ACP or control-plane semantics
 
-## Phase 5. Pre-write and pre-command gate
+## Phase 5. Local review packets and replay
 
 Deliverables:
 
-- normalized action model
-- verifier pipeline
-- path boundary checks
-- drift and breaking-change checks
-- command risk engine
-- verdict synthesis
+- local review packet emission
+- append-only audit evidence
+- replay hooks back to `controlPlane.trace.get` and harness-style evaluation
 
 Exit criteria:
 
-- Connect can block or rewrite unsafe file edits and shell commands
+- review-required or denied actions are reproducible locally
+- OSS mode is useful without Studio
 
-## Phase 6. Local audit and replay
+## Phase 6. Plugin-first adapters
 
 Deliverables:
 
-- `audit.ndjson`
-- decision ids
-- replay command
-- regression evaluation support
+- Cursor plugin and rule alignment
+- Codex-compatible wrappers or rule bundles
+- Claude Code-compatible wrappers or rule bundles
 
 Exit criteria:
 
-- blocked or permitted actions can be reproduced from evidence
+- Connect proves value through plugin-first integrations before deep native hooks
 
-## Phase 7. Studio review bridge
+## Phase 7. Optional Studio bridge
 
 Deliverables:
 
-- local review packet format
-- Studio sync integration
-- deep links to review queues
-- preserved lineage between local decision and Studio review
+- optional transport of review packets into Studio
+- Studio metadata on local packets
+- no change to local safety semantics
 
 Exit criteria:
 
-- `require_review` decisions become governed review items
-
-## Phase 8. Shared canon packs
-
-Deliverables:
-
-- signed pack format
-- local pack cache
-- sync command
-- policy precedence rules
-
-Exit criteria:
-
-- org-level engineering canon can be consumed read-only across repos
-
-## Phase 9. Handoff, remediation, and outcome loop
-
-Deliverables:
-
-- generation of handoff packs
-- remediation pack generation
-- outcome check references
-
-Exit criteria:
-
-- reviewed changes can move from local decision to managed follow-up artifacts
-
-## Phase 10. Managed lanes and schedules
-
-Deliverables:
-
-- Mission Control integration
-- scheduled review windows
-- caps and thresholds
-- multi-agent routing support
-
-Exit criteria:
-
-- Connect can feed managed agent lanes without weakening local safety
+- Studio adds collaboration and transport, not baseline safety
 
 ## Recommended V1 cut
 
-For an actual first release, stop at Phase 7.
+V1 should stop after **Phase 5** or, at most, a thin slice of **Phase 6**.
 
-Phases 1 through 7 provide the proof:
-- one-command installation
-- contract-aware planning
-- pre-write enforcement
-- local audit and replay
-- governed escalation into Studio
+That delivers the OSS proof:
+
+- repo-configured Connect behavior in `.contractsrc.json`
+- local DTO generation
+- contract-aware mutation decisions
+- local review packets
+- deterministic replay hooks
+
+Studio bridge and shared-canon transport are later unless they remain thin wrappers around existing artifacts.

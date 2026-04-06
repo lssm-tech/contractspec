@@ -1,0 +1,24 @@
+{
+	"name": "contractspec-marketplace",
+	"owner": {
+		"name": "ContractSpec Team"
+	},
+	"plugins": [
+		{
+			"name": "contractspec",
+			"source": "plugins/contractspec"
+		},
+		{
+			"name": "contractspec-contracts-spec",
+			"source": "plugins/contractspec-contracts-spec"
+		},
+		{
+			"name": "contractspec-contracts-integrations",
+			"source": "plugins/contractspec-contracts-integrations"
+		},
+		{
+			"name": "contractspec-ai-agent",
+			"source": "plugins/contractspec-ai-agent"
+		}
+	]
+}

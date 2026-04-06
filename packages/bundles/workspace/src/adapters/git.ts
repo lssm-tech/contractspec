@@ -14,6 +14,24 @@ export function createNodeGitAdapter(cwd?: string): GitAdapter {
 	const baseCwd = cwd ?? process.cwd();
 
 	return {
+		async currentBranch(): Promise<string | undefined> {
+			try {
+				const branch = execFileSync(
+					'git',
+					['rev-parse', '--abbrev-ref', 'HEAD'],
+					{
+						cwd: baseCwd,
+						encoding: 'utf-8',
+						stdio: ['ignore', 'pipe', 'pipe'],
+					}
+				).trim();
+
+				return branch.length > 0 ? branch : undefined;
+			} catch {
+				return undefined;
+			}
+		},
+
 		async showFile(ref: string, filePath: string): Promise<string> {
 			try {
 				return execFileSync('git', ['show', `${ref}:${filePath}`], {

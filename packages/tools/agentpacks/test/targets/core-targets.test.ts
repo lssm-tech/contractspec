@@ -230,6 +230,25 @@ describe('CodexCliTarget', () => {
 		expect(result.filesWritten.length).toBeGreaterThan(0);
 		expect(existsSync(join(TEST_DIR, '.codex', 'memories'))).toBe(true);
 	});
+
+	test('generates hooks and MCP in .codex/', () => {
+		const result = target.generate(makeOptions());
+		const hooksPath = join(TEST_DIR, '.codex', 'hooks.json');
+		const mcpPath = join(TEST_DIR, '.codex', 'mcp.json');
+		expect(result.filesWritten.some((f) => f.includes('hooks.json'))).toBe(
+			true
+		);
+		expect(result.filesWritten.some((f) => f.includes('mcp.json'))).toBe(true);
+		expect(existsSync(hooksPath)).toBe(true);
+		expect(existsSync(mcpPath)).toBe(true);
+
+		const hooks = JSON.parse(readFileSync(hooksPath, 'utf-8'));
+		expect(hooks.version).toBe(1);
+		expect(hooks.hooks.afterFileEdit).toHaveLength(1);
+
+		const mcp = JSON.parse(readFileSync(mcpPath, 'utf-8'));
+		expect(mcp.mcpServers.test).toBeDefined();
+	});
 });
 
 describe('GeminiCliTarget', () => {

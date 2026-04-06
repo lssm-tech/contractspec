@@ -1,28 +1,23 @@
 sequenceDiagram
-    participant U as User
-    participant A as Coding Agent
-    participant AD as Connect Adapter
-    participant C as Connect Core
-    participant CS as ContractSpec Artifacts
-    participant S as Studio (optional)
+    participant A as Agent host
+    participant AD as Connect adapter
+    participant C as Connect DTO layer
+    participant W as Workspace impact
+    participant R as Runtime control-plane
+    participant L as Local artifacts
 
-    U->>A: Request change
-    A->>AD: Proposed /plan
-    AD->>C: Normalize plan action
-    C->>CS: Resolve contracts, manifests, policy
-    C->>C: Build ContextPack
-    C->>C: Compile and verify PlanPacket
-    C-->>AD: plan verdict
-    AD-->>A: Approved / revise / review / deny
-
-    A->>AD: Proposed edit or command
-    AD->>C: Normalize mutating action
-    C->>CS: Resolve impacted contracts/surfaces
-    C->>C: Run verifier pipeline
-    C->>C: Write audit event
-    alt require_review
-        C->>S: Emit review packet
-        S-->>C: Review item ref
+    A->>AD: propose plan or mutation candidate
+    AD->>C: normalize action
+    C->>W: resolve impacted contracts and surfaces
+    C->>R: attach controlPlane / ACP refs
+    C->>L: write ContextPack / PlanPacket / PatchVerdict
+    alt review required
+        C->>L: emit ReviewPacket
+        C-->>AD: require_review
+    else deny
+        C-->>AD: deny
+    else rewrite
+        C-->>AD: rewrite with bounded remediation
+    else permit
+        C-->>AD: permit with runtime mapping
     end
-    C-->>AD: PatchVerdict
-    AD-->>A: permit / rewrite / require_review / deny

@@ -1,0 +1,72 @@
+{
+  "id": "connect.ctx_01HXYZEXAMPLE",
+  "taskId": "task_connect_spec_alignment",
+  "repoId": "lssm-tech/contractspec",
+  "branch": "feat/connect-spec-alignment",
+  "actor": {
+    "id": "codex.desktop",
+    "type": "agent",
+    "sessionId": "thread_01HXYZEXAMPLE",
+    "traceId": "trace_01HXYZEXAMPLE"
+  },
+  "knowledge": [
+    {
+      "spaceKey": "knowledge.product-canon",
+      "category": "canonical",
+      "trustLevel": "high",
+      "source": "packages/examples/knowledge-canon/src/product-canon.space.ts"
+    },
+    {
+      "spaceKey": "workspace.docblocks",
+      "category": "operational",
+      "trustLevel": "medium",
+      "source": "packages/libs/contracts-spec/src/workspace-config/index.ts"
+    }
+  ],
+  "impactedContracts": [
+    {
+      "key": "agent.approvals",
+      "version": "1.0.0",
+      "kind": "command"
+    },
+    {
+      "key": "controlPlane.policy.explain",
+      "version": "1.0.0",
+      "kind": "query"
+    },
+    {
+      "key": "controlPlane.trace.get",
+      "version": "1.0.0",
+      "kind": "query"
+    }
+  ],
+  "affectedSurfaces": [
+    "agent",
+    "runtime",
+    "cli",
+    "audit"
+  ],
+  "policyBindings": [
+    {
+      "key": "channel.messaging-policy",
+      "version": "2.0.0",
+      "source": "contract",
+      "authority": "canonical"
+    }
+  ],
+  "configRefs": [
+    {
+      "kind": "contractsrc",
+      "ref": ".contractsrc.json#connect"
+    },
+    {
+      "kind": "artifact",
+      "ref": ".contractspec/connect/impact-index.json"
+    }
+  ],
+  "acceptanceChecks": [
+    "impact-coverage",
+    "contract-drift",
+    "targeted-tests"
+  ]
+}

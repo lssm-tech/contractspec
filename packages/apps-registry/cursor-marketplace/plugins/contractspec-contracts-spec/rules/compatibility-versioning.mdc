@@ -1,10 +1,11 @@
 ---
-description: Enforce compatibility-aware contract versioning in @contractspec/lib.contracts-spec
+description: >-
+  Enforce compatibility-aware contract versioning in
+  @contractspec/lib.contracts-spec
 alwaysApply: true
 globs:
-  - "**/*"
+  - '**/*'
 ---
-
 Every contract change must carry compatibility intent.
 
 - Classify changes as additive, behavior-compatible, or breaking.

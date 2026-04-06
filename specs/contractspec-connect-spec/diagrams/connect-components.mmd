@@ -1,46 +1,11 @@
 flowchart TD
-    subgraph Agent Environment
-        IDE[Claude / Cursor / Codex]
-        Hook[Adapter Hooks]
-    end
-
-    subgraph Connect
-        Core[connect-core]
-        Impact[connect-impact]
-        Context[connect-context]
-        Policy[connect-policy]
-        Audit[connect-audit]
-    end
-
-    subgraph Local Inputs
-        Repo[Repository State]
-        Contracts[ContractSpec Contracts]
-        Manifests[Generated Manifests]
-        Overlay[connect.overlay.ts]
-        Packs[Read-only Canon Packs]
-    end
-
-    subgraph Optional Studio
-        Review[Review Queues]
-        Handoff[Handoff / Remediation / Checks]
-    end
-
-    IDE --> Hook --> Core
-    Core --> Impact
-    Core --> Context
-    Core --> Policy
-    Core --> Audit
-
-    Impact --> Repo
-    Impact --> Contracts
-    Impact --> Manifests
-
-    Context --> Contracts
-    Context --> Overlay
-    Context --> Packs
-
-    Policy --> Contracts
-    Policy --> Manifests
-
-    Core --> Review
-    Review --> Handoff
+    Agent["Coding agent host<br/>Cursor / Codex / Claude Code"] --> Adapter["Connect adapter normalizer"]
+    Adapter --> DTO["Context / Plan / Verdict projector"]
+    DTO --> Artifacts["Local artifact writer<br/>.contractspec/connect/*"]
+    DTO --> Contracts["contracts-spec<br/>controlPlane.* / acp.* / policy / agent"]
+    DTO --> Runtime["integration.runtime<br/>plan / approval / trace"]
+    DTO --> Workspace["workspace analysis<br/>impact / scan / docblocks"]
+    DTO --> Knowledge["knowledge + canon<br/>trusted context"]
+    DTO --> Harness["harness replay<br/>evaluation"]
+    Artifacts --> Review["Local review packets"]
+    Review --> Studio["Studio transport (optional)"]

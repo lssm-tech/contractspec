@@ -11,8 +11,8 @@
  *   .mcp.json — MCP server definitions (optional)
  */
 
-import { mkdirSync, writeFileSync } from 'fs';
-import { join, resolve } from 'path';
+import { copyFileSync, existsSync, mkdirSync, writeFileSync } from 'fs';
+import { dirname, join, resolve } from 'path';
 import type { LoadedPack } from '../core/pack-loader.js';
 import { resolveHooksForTarget } from '../features/hooks.js';
 import { buildSkillFrontmatter } from '../features/skills.js';
@@ -208,6 +208,9 @@ export function exportCursorPlugin(
 		filesWritten.push(filepath);
 	}
 
+	copyPackReadme(pack, pluginDir, filesWritten);
+	copyPackLogo(pack, pluginDir, filesWritten);
+
 	const manifestDir = join(pluginDir, '.cursor-plugin');
 	ensureDir(manifestDir);
 	const manifestPath = join(manifestDir, 'plugin.json');
@@ -243,4 +246,39 @@ function toCursorPluginAuthor(
 		name: author.name,
 		...(author.email ? { email: author.email } : {}),
 	};
+}
+
+function copyPackReadme(
+	pack: LoadedPack,
+	pluginDir: string,
+	filesWritten: string[]
+) {
+	const readmePath = join(pack.directory, 'README.md');
+	if (!existsSync(readmePath)) {
+		return;
+	}
+
+	const destination = join(pluginDir, 'README.md');
+	copyFileSync(readmePath, destination);
+	filesWritten.push(destination);
+}
+
+function copyPackLogo(
+	pack: LoadedPack,
+	pluginDir: string,
+	filesWritten: string[]
+) {
+	if (!pack.manifest.logo) {
+		return;
+	}
+
+	const source = join(pack.directory, pack.manifest.logo);
+	if (!existsSync(source)) {
+		return;
+	}
+
+	const destination = join(pluginDir, pack.manifest.logo);
+	ensureDir(dirname(destination));
+	copyFileSync(source, destination);
+	filesWritten.push(destination);
 }

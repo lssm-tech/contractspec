@@ -2,482 +2,316 @@
 
 ## 1. Summary
 
-**ContractSpec Connect** is a local-first agent authority adapter for coding agents. It installs into a repository, builds a typed context pack from ContractSpec artifacts, verifies structured plans, intercepts mutating tool calls, and decides whether an action should be permitted, rewritten, escalated for review, or denied.
+**ContractSpec Connect** is the local adapter layer that turns existing ContractSpec governance primitives into coding-agent enforcement.
 
-Connect is not a new source of truth. The source of truth remains ContractSpec's explicit contracts, policies, generated surface manifests, knowledge spaces, and runtime governance. Connect is the edge adapter that makes those primitives enforceable at the coding-agent control point.
+Connect does four things:
 
-## 2. Problem
+1. Normalize agent-native actions into a Connect action model
+2. Project trusted repo context into task-scoped DTOs
+3. Synthesize adapter-facing verdicts from existing control-plane, ACP, impact, approval, and replay primitives
+4. Persist local evidence for review and deterministic replay
 
-Coding agents are increasingly capable of making broad changes across code, tests, schemas, and infrastructure. Existing developer workflows rely on:
+Connect is intentionally narrow. It does not become a new source of truth.
 
-- advisory markdown instructions
-- prompt conventions
-- repository folklore
-- post-hoc CI failures
-- manual review after damage is already proposed
+## 2. Product framing
 
-This is too weak. Teams need a system that can assemble trusted context, understand contract impact, verify plans, and enforce pre-write decisions before changes land.
+The monorepo already contains the core primitives Connect needs:
 
-## 3. Product definition
+| Concern | Existing source of truth |
+| --- | --- |
+| Intent, plan, approval, trace | `controlPlane.*` contracts and `@contractspec/integration.runtime` |
+| Mutation candidates | `acp.fs.access`, `acp.tool.calls`, `acp.terminal.exec` |
+| Impact and diff analysis | `@contractspec/module.workspace`, `@contractspec/bundle.workspace` |
+| Agent approval queue | `@contractspec/lib.ai-agent/approval` |
+| Trusted context | knowledge spaces, canon packs, workspace config |
+| Replay and evaluation | `@contractspec/lib.harness`, `@contractspec/integration.harness-runtime` |
+| Operator CLI | `contractspec impact`, `contractspec control-plane ...` |
 
-Connect sits between the agent and any mutating action.
+Connect exists to compose those primitives at the coding-agent boundary.
 
-### Inputs
+## 3. Goals
 
-- explicit ContractSpec contracts and overlays
-- generated manifests for REST, GraphQL, DB, UI, client, events, and MCP surfaces
-- policy definitions and decision bindings
-- knowledge spaces and source provenance
-- local repository state and diff context
-- optional Studio review and handoff endpoints
+1. Make ContractSpec governance enforceable before mutating actions land
+2. Stay useful in OSS-only mode
+3. Default to local evidence and local replay
+4. Reuse current contract keys, runtime services, and CLI surfaces
+5. Keep adapter-specific verdicts and UX separate from canonical runtime contracts
 
-### Outputs
+## 4. Non-goals
 
-- typed context packs
-- structured plan packets
-- patch verdicts for file edits and commands
-- append-only local audit events
-- optional review packets for Studio or local queueing
+1. Shipping a parallel `@contractspec/connect` package family
+2. Introducing a second canonical approval or trace system
+3. Replacing `controlPlane.*`, ACP, or harness with Connect-specific contracts in V1
+4. Making Studio mandatory for local safety
+5. Promising deep native editor interception before plugin and wrapper paths are proven
 
-## 4. Goals
+## 5. Source-of-truth hierarchy
 
-1. Make ContractSpec enforceable inside coding-agent workflows
-2. Remain useful in OSS-only mode
-3. Default to local execution and local evidence
-4. Provide deterministic pre-write and pre-command checks
-5. Escalate risky changes into a governed review lane
-6. Reuse existing ContractSpec and Studio primitives instead of inventing parallel models
+The hierarchy must remain explicit:
 
-## 5. Non-goals
+1. **Canonical contracts and policies**
+   - `controlPlane.*`, `acp.*`, agent, knowledge, policy, and related contracts in `@contractspec/lib.contracts-spec`
+2. **Runtime records**
+   - compiled plans, approvals, traces, and replayable records produced by existing runtime services
+3. **Workspace config and read-only canon packs**
+   - `.contractsrc.json`, canon pack refs, and repository-approved guardrails
+4. **Workspace analysis outputs**
+   - impact detection, scanned contract metadata, docblock manifests, and related derived indexes
+5. **Task-scoped Connect artifacts**
+   - `ContextPack`, `PlanPacket`, `PatchVerdict`, `ReviewPacket`
+6. **Ephemeral task hints**
+   - session-local suggestions, scratchpads, and non-authoritative agent context
 
-1. Replacing ContractSpec contracts as system truth
-2. Acting as a generic memory graph for arbitrary agent chat
-3. Automatically promoting inferred repo conventions into canonical policy
-4. Performing direct deployment, production pushes, or unmanaged self-serve delivery
-5. Tying the design to one vendor or one agent IDE
+Connect artifacts are projections. They are never authoritative over canonical contracts or runtime records.
 
-## 6. Core decision model
+## 6. Execution model
 
-Every risky action must produce one of four verdicts:
+Connect sits between an adapter and risky actions:
 
-- **permit**: action is allowed as proposed
-- **rewrite**: action may proceed only if rewritten to satisfy checks
-- **require_review**: action must become a governed review artifact
-- **deny**: action is blocked
+1. An adapter captures a candidate action or plan
+2. Connect resolves impacted repo scope using existing workspace and impact services
+3. Connect projects trusted context into a task-scoped `ContextPack`
+4. Connect compiles a `PlanPacket` that points back to `controlPlane.intent.submit`, `controlPlane.plan.compile`, and `controlPlane.plan.verify`
+5. Connect evaluates a mutation candidate as an ACP-aligned action
+6. Connect returns one adapter-facing verdict:
+   - `permit`
+   - `rewrite`
+   - `require_review`
+   - `deny`
+7. Connect writes local artifacts and review packets under `.contractspec/connect/*`
+8. `verify` stores per-decision snapshots under `.contractspec/connect/decisions/<decisionId>/` for replay and evaluation
+9. Replay and evaluation use existing control-plane trace and harness-style evidence patterns
 
-### Expected decision fields
+## 7. Underlying primitive mapping
 
-- action type
-- actor and agent metadata
-- touched files and paths
-- impacted contracts and surfaces
-- triggered checks
-- severity and risk score
-- evidence references
-- final verdict
-- remediation hints
+| Connect concern | Existing primitive |
+| --- | --- |
+| Intent capture | `controlPlane.intent.submit` |
+| Deterministic plan compile | `controlPlane.plan.compile` |
+| Plan verification | `controlPlane.plan.verify` |
+| Policy explanation | `controlPlane.policy.explain` |
+| Trace and replay lookup | `controlPlane.trace.get`, runtime trace service |
+| Filesystem mutation candidate | `acp.fs.access` |
+| Tool batch candidate | `acp.tool.calls` |
+| Command candidate | `acp.terminal.exec` |
+| Human approval resolution | `controlPlane.execution.approve`, `controlPlane.execution.reject`, `agent.approvals` |
+| Impact classification | workspace snapshot, diff, and impact services |
+| Deterministic regression check | harness replay bundle and evaluation runner |
 
-## 7. Primary use cases
+## 8. Adapter-facing verdict model
 
-### 7.1 Brownfield codebase with partial ContractSpec adoption
+Connect returns adapter-facing outcomes, but each verdict must map back to an underlying runtime state.
 
-A team imports existing endpoints or scans a repo, accepts suggested overlays, and uses Connect to stop coding agents from creating drift between code and explicit contracts.
+| Connect verdict | Typical runtime interpretation |
+| --- | --- |
+| `permit` | underlying plan can proceed without review; usually maps to an `autonomous` or non-blocked control-plane path |
+| `rewrite` | underlying action is unsafe as proposed but may proceed after bounded remediation |
+| `require_review` | underlying runtime path requires assist-mode or approval-backed continuation |
+| `deny` | underlying runtime path is blocked or policy-denied |
 
-### 7.2 Greenfield product with full ContractSpec generation
+### Required mapping fields
 
-A team uses Connect to ensure agents respect contracts, policy, and generated manifests while allowing rapid code generation and safe regeneration.
+Every Connect verdict must carry:
 
-### 7.3 Platform team with shared canon
+- adapter-facing verdict
+- underlying control-plane verdict when applicable
+- runtime-linked control-plane decision id when available
+- approval requirement flag
+- trace or execution identifiers when available
+- impacted contract refs
+- required checks
+- replay references
 
-A platform group publishes signed read-only canon packs for shared engineering conventions. Product teams consume these in Connect without mutating central canon from local agent sessions.
+Connect must never return a free-floating verdict without a runtime mapping.
 
-### 7.4 Regulated or high-risk change path
+## 9. Configuration
 
-Connect routes risky changes into Studio review queues, audit packs, remediation packs, and outcome checks before handoff to downstream work systems.
+Connect configuration belongs in `.contractsrc.json` under `connect`.
 
-## 8. Architecture overview
+The `connect` namespace must cover:
 
-Connect is composed of six functional layers:
+- adapter enablement
+- local artifact paths
+- protected, immutable, and generated paths
+- review thresholds
+- Bun-first smoke checks
+- command allow/review/deny policy
+- canon pack refs
+- optional Studio bridge configuration
 
-1. **Adapter layer**  
-   Installs into Claude, Cursor, Codex, or compatible tool environments and intercepts tool calls.
-
-2. **Impact layer**  
-   Maintains a local impact index mapping files to contracts, surfaces, policies, and checks.
-
-3. **Context layer**  
-   Assembles typed context packs from ContractSpec knowledge spaces, overlays, manifests, and current task scope.
-
-4. **Plan layer**  
-   Compiles plan packets from proposed actions and verifies them against policy and impact.
-
-5. **Verifier layer**  
-   Runs deterministic checks against edits, commands, and diffs.
-
-6. **Audit and review layer**  
-   Persists local evidence and optionally emits review packets into Studio.
-
-## 9. Source-of-truth hierarchy
-
-The hierarchy must be explicit:
-
-1. **Canonical contracts and policy**  
-   Highest authority. Explicit, typed, versioned, reviewable.
-
-2. **Generated manifests and surface indexes**  
-   Derived from canonical contracts or validated imports.
-
-3. **Read-only canon packs**  
-   Versioned organizational engineering conventions.
-
-4. **Repository overlays**  
-   Local conventions accepted by the team for this repository.
-
-5. **Operational and external knowledge**  
-   Useful for reasoning, never equal to canonical truth.
-
-6. **Ephemeral task context**  
-   Temporary, expires, not trusted for policy decisions.
-
-This hierarchy is crucial. Connect must never treat inferred or remembered convention as equal to canonical contract truth.
+Generated artifacts remain in `.contractspec/connect/*`.
 
 ## 10. Local artifacts
 
-Connect uses a small local artifact set:
+Connect uses generated, reviewable artifacts only:
 
 ```txt
-connect.config.ts
-connect.overlay.ts
-.contractspec/connect/impact-index.json
+.contractsrc.json
 .contractspec/connect/context-pack.json
 .contractspec/connect/plan-packet.json
 .contractspec/connect/patch-verdict.json
 .contractspec/connect/audit.ndjson
 .contractspec/connect/review-packets/*.json
+.contractspec/connect/decisions/<decisionId>/*.json
 ```
 
-### Artifact intent
+### Artifact roles
 
-- `connect.config.ts` — installation and runtime configuration
-- `connect.overlay.ts` — local repository conventions only
-- `impact-index.json` — file, contract, surface, policy mapping
-- `context-pack.json` — typed context assembled for a task or tool call
-- `plan-packet.json` — structured plan and verification metadata
-- `patch-verdict.json` — final outcome for a proposed edit or command
-- `audit.ndjson` — append-only audit stream
-- `review-packets/` — local or Studio-bound escalation artifacts
+- `.contractsrc.json` — user-authored config and policy defaults
+- `context-pack.json` — task-scoped, trusted context projection
+- `plan-packet.json` — Connect projection over plan compile and verify inputs
+- `patch-verdict.json` — adapter-facing decision for one mutation candidate
+- `audit.ndjson` — append-only local evidence log
+- `review-packets/*.json` — local escalation payloads ready for human review or later Studio sync
+- `decisions/<decisionId>/*.json` — internal replay/evaluation snapshots for a single decision; generated and intentionally not treated as a compatibility surface
 
-## 11. Hook lifecycle
+## 11. DTO rules
 
-### Session start
+### ContextPack
 
-1. Load `connect.config.ts`
-2. Resolve local contracts, generated manifests, and overlays
-3. Load read-only canon packs
-4. Build or refresh the impact index if stale
-5. Assemble a base context pack
-6. Register adapter hooks for plan, write, edit, and command interception
+Must project:
 
-### Before a planning action
-
-1. Capture user intent and agent plan proposal
-2. Resolve touched areas and possible contract impact
-3. Build a `PlanPacket`
-4. Run plan verification
-5. Return plan feedback or approval state
-
-### Before a write or edit action
-
-1. Capture proposed patch or file write
-2. Resolve impacted files, contracts, and surfaces
-3. Run verifier pipeline
-4. Return a `PatchVerdict`
-5. Log evidence and continue, rewrite, escalate, or deny
-
-### Before a risky command
-
-1. Capture command string and working directory
-2. Match against allowlist, denylist, and policy rules
-3. Infer likely impact from path scope and command class
-4. Run command risk policy and optional dry-run checks
-5. Return a `PatchVerdict`
-
-## 12. Context packs
-
-A `ContextPack` is the trusted, typed context exposed to the agent.
-
-### Required contents
-
-- repository identity
-- task identity
-- impacted contracts
-- impacted generated surfaces
-- relevant policy bindings
-- read-only canon pack refs
-- local overlay refs
-- accepted risk thresholds
-- required acceptance checks
-- knowledge excerpts with provenance and trust level
-
-### Knowledge trust levels
-
-- `canonical`
-- `operational`
-- `external`
-- `ephemeral`
-
-Only canonical or explicitly policy-approved operational sources may drive hard allow or deny decisions. External and ephemeral sources may inform suggestions, but not override policy.
-
-## 13. Plan packets
-
-A `PlanPacket` translates natural language intent into structured work.
-
-### Required fields
-
-- plan id
-- repository and branch
-- actor metadata
-- requested objective
-- ordered steps
-- touched paths
-- impacted contracts
+- repo and branch identity
+- actor id, type, session, and trace ids when available
+- impacted contract refs
 - affected surfaces
+- knowledge entries with category and trust level
+- policy bindings
+- config refs back to `.contractsrc.json` and other authoritative inputs
+- acceptance checks that gate safe completion
+
+### PlanPacket
+
+Must project:
+
+- objective and ordered steps
+- touched paths and command candidates
+- impacted contract refs
 - required checks
 - required approvals
 - risk score
 - verification status
+- explicit references to `controlPlane.intent.submit`, `controlPlane.plan.compile`, and `controlPlane.plan.verify`
 
-### Verification rules
+### PatchVerdict
 
-- detect unsupported high-risk steps
-- verify all touched files map to known or inferable impact
-- require explicit acknowledgement for unknown-impact paths
-- ensure required approval thresholds are known
-- attach acceptance gates before a plan is considered approved
+Must project:
 
-## 14. Verifier pipeline
+- adapter action type plus underlying ACP tool key
+- impacted files, contracts, surfaces, and policies
+- check outcomes
+- Connect verdict
+- mapped control-plane verdict and approval requirement
+- remediation guidance
+- review packet ref when escalated
+- replay refs back to trace and policy explanation
 
-The verifier is the heart of Connect. It should execute in deterministic stages:
+### ReviewPacket
 
-1. **Path and boundary checks**
-   - block disallowed paths
-   - protect secrets, generated outputs, lockfiles, and policy-owned files as configured
+Must project:
 
-2. **Syntax and schema checks**
-   - validate file type syntax
-   - validate contract schemas and typed interfaces
+- source decision id
+- objective and review reason
+- summary of paths, impacted contracts, and checks
+- evidence refs to context, plan, verdict, and trace
+- required approvals
+- optional Studio transport metadata
 
-3. **Contract impact checks**
-   - map changes to contracts and affected capabilities
-   - detect missing spec updates where required
+## 12. Verifier pipeline
 
-4. **Generated surface drift checks**
-   - compare against manifests for REST, GraphQL, DB, UI, events, MCP, and client outputs
+The verifier pipeline is a composition of current repo capabilities, not a greenfield stack:
 
-5. **Breaking change checks**
-   - determine compatibility impact
-   - classify breaking vs non-breaking changes
+1. **Scope resolution**
+   - workspace scan, impact analysis, path classification
+2. **Boundary checks**
+   - protected paths, immutable paths, generated outputs, command class
+3. **Contract-aware checks**
+   - drift, compatibility, impacted surfaces, missing spec alignment
+4. **Approval routing**
+   - determine whether assist-mode or explicit approval is required
+5. **Replay hooks**
+   - preserve enough evidence to reuse `controlPlane.trace.get` and harness-style replay patterns
+6. **Verdict synthesis**
+   - project runtime state into `permit`, `rewrite`, `require_review`, or `deny`
 
-6. **Command risk checks**
-   - inspect shell actions for destructive or high-scope operations
-   - apply allowlist, denylist, and approval rules
+## 13. Adapter strategy
 
-7. **Harness and test checks**
-   - optionally run focused smoke or replay checks
+V1 is plugin-first:
 
-8. **Policy decision**
-   - apply PDP-style permit, deny, redact, or escalate logic
+- Cursor marketplace/plugin assets
+- Codex-compatible wrappers and rule bundles
+- Claude Code-compatible rule or wrapper integrations
+- existing `contractspec` CLI flows for operator inspection and replay
 
-9. **Verdict synthesis**
-   - return `permit`, `rewrite`, `require_review`, or `deny`
+V1 does **not** assume deep, editor-native interception everywhere.
 
-## 15. Rewrite flow
+## 14. CLI stance
 
-`rewrite` is not a vague suggestion. It is a structured remediation instruction.
+Connect lives inside the existing CLI surface:
 
-### Rewrite response should include
+- `contractspec connect init [--scope workspace|package]`
+- `contractspec connect context --task <taskId> [--baseline <ref>] [--paths <path...>]`
+- `contractspec connect plan --task <taskId> --stdin`
+- `contractspec connect verify --task <taskId> --tool <acp.fs.access|acp.terminal.exec> --stdin`
+- `contractspec connect review list`
+- `contractspec connect replay <decisionId>`
+- `contractspec connect eval <decisionId> --registry <path> (--scenario <key> | --suite <key>)`
+- `contractspec impact ...` for broader impact reporting
+- `contractspec control-plane ...` for approvals, traces, and replay inspection
 
-- violated checks
-- required contract updates or policy fixes
-- suggested scope reduction
-- files or sections needing regeneration
-- whether the agent may self-retry automatically
-- maximum retry budget
+There is no standalone `npx @contractspec/connect init` posture in this spec.
 
-Auto-rewrite should be allowed only within safe limits. Repeated failure must escalate to review rather than looping indefinitely.
+## 15. OSS and Studio boundary
 
-## 16. Review escalation
+OSS must include:
 
-When Connect returns `require_review`, it must emit a structured review artifact.
+- local config and artifact conventions
+- local context, plan, verdict, and review packet generation
+- local audit evidence
+- deterministic replay hooks
+- adapter integrations that work without Studio
 
-### Review packet contents
+Studio may add:
 
-- original intent
-- proposed plan
-- patch summary
-- impacted contracts and surfaces
-- evidence and failed checks
-- suggested remediations
-- approval requirements
-- optional Studio routing metadata
+- centralized review queues
+- multi-user policy UI
+- shared canon registry transport
+- lineage across review and handoff flows
+- managed lanes and scheduling
 
-### OSS mode
+Studio is additive. Local safety cannot depend on it.
 
-Packets are written locally under `.contractspec/connect/review-packets/`.
+## 16. Security and governance
 
-### Studio mode
+Connect must remain:
 
-Packets are posted to Studio review queues and inherit visible status, reviewers, lineage, rollback, and downstream handoff options.
+- local-first
+- least-privilege by default
+- explicit about protected and immutable paths
+- explicit about destructive command denial
+- explicit about when approval is required
+- explicit about which artifacts are authoritative versus derived
 
-## 17. Audit and replay
+Inferred repo convention must not silently outrank canonical contracts or policy.
 
-All important actions should land in append-only local audit.
+## 17. V1 cut
 
-### Audit event types
+The recommended V1 stops at OSS-core behavior:
 
-- session opened
-- context pack assembled
-- plan verified
-- file write checked
-- command checked
-- review packet emitted
-- Studio sync completed
-- replay run executed
+1. `.contractsrc.json > connect`
+2. context, plan, verdict, and review DTOs
+3. ACP-aligned action normalization
+4. local evidence and local replay references
+5. plugin-first adapters
 
-### Replay requirements
+Studio bridge, canon-pack transport, and managed lanes are post-V1 unless implemented as thin transports over existing artifacts.
 
-`contractspec connect replay <decision-id>` must reconstruct:
+## 18. Success criteria
 
-- input context pack
-- relevant contracts and overlays
-- proposed action
-- verifier checks
-- final verdict
+V1 is successful when:
 
-This is necessary for debugging agent behavior and for regression evaluation in CI.
-
-## 18. Shared canon packs
-
-Connect should support signed, versioned, read-only canon packs.
-
-### Pack characteristics
-
-- immutable version reference
-- provenance metadata
-- signature or digest
-- clearly scoped authority
-- usable in local mode without live network dependency
-
-### Examples
-
-- platform API naming rules
-- frontend accessibility requirements
-- migration safety policy
-- test strategy for critical services
-
-These packs may influence policy and verification but must never be mutated by local agent memory.
-
-## 19. Studio bridge
-
-Connect should integrate cleanly with Studio instead of inventing a second review system.
-
-### Studio responsibilities
-
-- shared canon registry
-- org-level policy management UI
-- review queues and approvals
-- manual certification
-- lineage and rollback views
-- handoff packs
-- remediation packs
-- outcome checks
-- schedules and caps for managed agent lanes
-
-### Connect responsibilities
-
-- local enforcement
-- local evidence
-- local replay
-- local review packet generation
-- optional sync to Studio
-
-## 20. Adapters
-
-Adapters should exist for multiple agent environments but share one core decision engine.
-
-### Initial adapters
-
-- Claude Code
-- Cursor-compatible shell/write adapters
-- Codex-style CLI adapter
-
-### Adapter responsibilities
-
-- intercept supported tool calls
-- normalize them into Connect action models
-- call core verifier
-- translate results back into environment-native responses
-
-## 21. OSS versus Studio boundary
-
-### OSS must include
-
-- bootstrap installer
-- adapter installation
-- impact indexing
-- context pack builder
-- plan packet generation
-- verifier pipeline
-- local audit and replay
-- local review packet format
-
-### Studio adds
-
-- shared canon registry
-- multi-user governance
-- org-level policy authoring
-- review queues and manual certification
-- lineage and rollback
-- handoff/remediation/outcome flows
-- scheduled and capped managed lanes
-
-## 22. Security and governance principles
-
-- local-first by default
-- least privilege on files and commands
-- read-only sync unless explicitly approved
-- no silent promotion of inferred convention to canonical policy
-- durable provenance on every authoritative input
-- clear retention and purge behavior for synced artifacts
-- human approval for high-risk or unknown-impact actions
-
-## 23. Success criteria
-
-A strong V1 should demonstrate:
-
-1. agent writes are blocked when they cause contract drift
-2. plan verification catches risky or unknown-impact changes before edits occur
-3. local audit and replay can reproduce decisions
-4. OSS mode is useful without Studio
-5. Studio mode cleanly handles review escalation and handoff
-6. shared canon packs reduce repeated convention drift across repos
-
-## 24. Out-of-scope for V1
-
-- autonomous deploy approval
-- direct production mutation
-- cross-repo multi-agent orchestration as a primary focus
-- universal support for all editors on day one
-- speculative memory graphs not grounded in explicit artifacts
-
-## 25. Recommended V1 delivery order
-
-1. bootstrap and adapter install
-2. impact index
-3. typed context packs
-4. plan packets and verification
-5. pre-write and pre-command gate
-6. local audit and replay
-7. Studio review bridge
-
-Everything beyond that is scaling and productization. These seven deliver the actual proof.
+1. Connect can explain risky actions using current contract and runtime keys
+2. review-required and denied actions produce replayable local evidence
+3. OSS mode remains useful without Studio
+4. the spec does not invent a second control-plane vocabulary
+5. adapter documentation matches existing package and CLI boundaries

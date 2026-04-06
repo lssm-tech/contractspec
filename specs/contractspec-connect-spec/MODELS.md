@@ -1,159 +1,220 @@
 # Models and Artifacts
 
-## 1. `connect.config.ts`
+## 1. `.contractsrc.json > connect`
 
-Core installation and runtime behavior.
+Connect configuration is part of workspace config.
 
-### Suggested shape
+### Required capabilities
 
-- adapters
-- repo id and branch rules
-- local storage paths
-- Studio endpoint config
-- allowed and protected paths
-- command policy
+- adapter enablement
+- local artifact storage paths
+- protected, immutable, and generated paths
 - review thresholds
+- command allow, review, and deny policy
+- Bun-first smoke checks
 - canon pack refs
+- optional Studio bridge config
 
-## 2. `connect.overlay.ts`
+### Not for this section
 
-Repo-local conventions that are below canonical policy but above ephemeral task hints.
+- canonical contract definitions
+- runtime trace records
+- ad hoc per-task overrides stored as source of truth
 
-### Suitable contents
+## 2. `context-pack.json`
 
-- code style preferences
-- allowed test shortcuts
-- repo-specific generated directories
-- path ownership hints
-- preferred smoke test commands
+Task-scoped projection of trusted context.
 
-### Unsuitable contents
+### Required fields
 
-- business invariants
-- API compatibility rules
-- customer policy
-- access control truth
-
-## 3. `impact-index.json`
-
-Fast lookup map for path and contract impact.
-
-### Fields
-
-- repository id
-- generation timestamp
-- files
-- contracts
-- surfaces
-- policy refs
-- unknown path buckets
-
-## 4. `context-pack.json`
-
-Typed context for the agent or verifier.
-
-### Fields
-
-- id
-- task id
-- actor
-- trust-scoped knowledge entries
-- impacted contracts
-- impacted surfaces
+- repo id and branch
+- actor id, type, session id, and trace id when available
+- knowledge entries with category and trust level
+- impacted contract refs
+- affected surfaces
 - policy bindings
-- canon packs
-- overlay refs
+- config refs back to authoritative sources
 - acceptance checks
 
-## 5. `plan-packet.json`
+## 3. `plan-packet.json`
 
-Plan proposal after compilation and verification.
+Structured plan projection.
 
-### Fields
+### Required fields
 
-- id
-- objective
-- steps
-- touched paths
-- impacted contracts
-- approvals
+- objective and steps
+- touched paths and command candidates
+- impacted contract refs
+- required checks
+- required approvals
 - risk score
-- checks
 - verification status
+- optional runtime-linked control-plane decision id and trace id when available
+- explicit refs to:
+  - `controlPlane.intent.submit`
+  - `controlPlane.plan.compile`
+  - `controlPlane.plan.verify`
 
-## 6. `patch-verdict.json`
+## 4. `patch-verdict.json`
 
-Final result of a write, edit, or command.
+Adapter-facing result for one mutation candidate.
 
-### Fields
+### Required fields
 
 - decision id
-- action type
-- summary
-- impacted scope
-- checks
-- evidence refs
-- verdict
-- remediation
-- retry budget
-- review packet ref if escalated
+- action type and underlying ACP tool ref
+- impacted files, contracts, surfaces, and policies
+- check results
+- Connect verdict
+- mapped control-plane verdict
+- approval requirement
+- optional runtime-linked decision id and approval status
+- replay refs
 
-## 7. `audit.ndjson`
+## 5. `review-packet.json`
 
-Append-only log. Each line is a structured event.
+Escalation artifact for local or later Studio review.
+
+### Required fields
+
+- source decision id
+- objective and review reason
+- summary of paths, impacted contracts, and checks
+- immutable evidence refs under `.contractspec/connect/decisions/<decisionId>/`
+- required approvals
+- trace and policy explanation refs plus optional runtime-linked decision id
+
+## 6. `audit.ndjson`
+
+Append-only local evidence stream.
 
 ### Required fields
 
 - timestamp
 - event type
-- decision id
+- decision id when applicable
 - actor
 - adapter
 - repo id
 - refs to related artifacts
+
+## Verdict mapping table
+
+| Connect verdict | Underlying runtime state |
+| --- | --- |
+| `permit` | non-blocked path, usually autonomous or already-approved |
+| `rewrite` | current proposal unsafe, but bounded remediation may still proceed |
+| `require_review` | assist-mode or explicit approval-backed continuation required |
+| `deny` | blocked or policy-denied path |
 
 ## Example TypeScript interfaces
 
 ```ts
 export type ConnectVerdict = 'permit' | 'rewrite' | 'require_review' | 'deny';
 
-export interface ContextPackRef {
+export interface ConnectActorRef {
   id: string;
-  trust: 'canonical' | 'operational' | 'external' | 'ephemeral';
-  source: string;
-  digest?: string;
+  type: 'human' | 'agent' | 'service' | 'tool';
+  sessionId?: string;
+  traceId?: string;
 }
 
-export interface ImpactRef {
-  file: string;
-  contracts: string[];
-  surfaces: Array<'rest' | 'graphql' | 'db' | 'ui' | 'events' | 'mcp' | 'client'>;
-  policies: string[];
+export interface ConnectContractRef {
+  key: string;
+  version: string;
+  kind?: 'command' | 'query' | 'event' | 'policy' | 'capability';
+}
+
+export interface ContextPack {
+  id: string;
+  taskId: string;
+  repoId: string;
+  branch: string;
+  actor: ConnectActorRef;
+  knowledge: Array<{
+    spaceKey: string;
+    category: 'canonical' | 'operational' | 'external' | 'ephemeral';
+    trustLevel: 'high' | 'medium' | 'low';
+    source: string;
+    digest?: string;
+  }>;
+  impactedContracts: ConnectContractRef[];
+  affectedSurfaces: Array<'agent' | 'audit' | 'cli' | 'contract' | 'harness' | 'knowledge' | 'mcp' | 'runtime'>;
+  policyBindings: Array<{
+    key: string;
+    version: string;
+    source: 'contract' | 'canon-pack' | 'workspace-config';
+    authority: 'canonical' | 'operational';
+  }>;
+  configRefs: Array<{
+    kind: 'contractsrc' | 'artifact' | 'canon-pack';
+    ref: string;
+  }>;
+  acceptanceChecks: string[];
 }
 
 export interface PlanPacket {
   id: string;
+  taskId: string;
   repoId: string;
   branch: string;
-  actor: { id: string; type: 'human' | 'agent' | 'service' };
+  actor: ConnectActorRef;
   objective: string;
-  steps: Array<{ id: string; summary: string; paths?: string[]; commands?: string[] }>;
-  impactedContracts: string[];
+  steps: Array<{
+    id: string;
+    summary: string;
+    paths?: string[];
+    commands?: string[];
+    contractRefs?: string[];
+  }>;
+  impactedContracts: ConnectContractRef[];
   affectedSurfaces: string[];
   requiredChecks: string[];
-  requiredApprovals: string[];
+  requiredApprovals: Array<{ capability: string; reason: string }>;
   riskScore: number;
   verificationStatus: 'approved' | 'revise' | 'review' | 'denied';
+  controlPlane: {
+    intentSubmit: ConnectContractRef;
+    planCompile: ConnectContractRef;
+    planVerify: ConnectContractRef;
+    decisionId?: string;
+    traceId?: string;
+  };
+  acpActions?: Array<'acp.fs.access' | 'acp.terminal.exec' | 'acp.tool.calls'>;
 }
 
 export interface PatchVerdict {
   decisionId: string;
-  actionType: 'write_file' | 'edit_file' | 'run_command';
-  impacted: ImpactRef[];
+  summary?: string;
+  action: {
+    actionType: 'write_file' | 'edit_file' | 'run_command';
+    tool: 'acp.fs.access' | 'acp.terminal.exec' | 'acp.tool.calls';
+    target?: string;
+    cwd?: string;
+  };
+  impacted: Array<{
+    file: string;
+    contracts: ConnectContractRef[];
+    surfaces: string[];
+    policies: ConnectContractRef[];
+  }>;
   checks: Array<{ id: string; status: 'pass' | 'fail' | 'warn'; detail: string }>;
   verdict: ConnectVerdict;
+  controlPlane: {
+    verdict: 'autonomous' | 'assist' | 'blocked';
+    requiresApproval: boolean;
+    policyRef?: ConnectContractRef;
+    decisionId?: string;
+    approvalStatus?: 'not_required' | 'pending' | 'approved' | 'rejected' | 'expired';
+    traceId?: string;
+  };
+  approvalOperationRefs?: string[];
   remediation?: string[];
   reviewPacketRef?: string;
   retryBudget?: number;
+  replay: {
+    traceQuery: ConnectContractRef;
+    policyExplain?: ConnectContractRef;
+  };
 }
 ```

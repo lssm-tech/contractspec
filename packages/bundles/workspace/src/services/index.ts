@@ -8,6 +8,7 @@ export * from './agent-guide/index';
 export * from './build';
 export * from './ci-check/index';
 export * from './clean';
+export * as connect from './connect/index';
 export * from './config';
 export * from './create/index';
 export * from './delete';

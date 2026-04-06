@@ -1,44 +1,77 @@
 {
   "id": "review_01HXYZEXAMPLE",
-  "sourceDecisionId": "dec_01HXYZEXAMPLE",
-  "objective": "Refactor refund handling and update refund preview",
-  "reason": "Contract drift on a review-required surface",
+  "sourceDecisionId": "connect.dec_01HXYZEXAMPLE",
+  "objective": "Align Connect adapter artifacts with existing runtime surfaces",
+  "reason": "Protected-path config changes plus review-required Connect threshold updates",
   "summary": {
     "paths": [
-      "src/http/refunds.ts",
-      "src/mcp/refund-preview.ts"
+      "packages/libs/contracts-spec/src/workspace-config/contractsrc-schema.ts",
+      "specs/contractspec-connect-spec/schemas/patch-verdict.schema.json"
     ],
     "impactedContracts": [
-      "payments.refund",
-      "mcp.refund.preview"
+      {
+        "key": "controlPlane.plan.verify",
+        "version": "1.0.0",
+        "kind": "command"
+      },
+      {
+        "key": "controlPlane.policy.explain",
+        "version": "1.0.0",
+        "kind": "query"
+      }
     ],
     "affectedSurfaces": [
-      "rest",
-      "mcp",
-      "client"
+      "runtime",
+      "cli",
+      "audit"
+    ],
+    "requiredChecks": [
+      "path-boundary",
+      "approval-routing",
+      "targeted-tests"
     ]
   },
   "evidence": [
     {
-      "type": "patch-verdict",
-      "ref": ".contractspec/connect/patch-verdict.json"
+      "type": "context-pack",
+      "ref": ".contractspec/connect/decisions/connect.dec_01HXYZEXAMPLE/context-pack.json"
     },
     {
-      "type": "audit",
-      "ref": ".contractspec/connect/audit.ndjson#dec_01HXYZEXAMPLE"
+      "type": "plan-packet",
+      "ref": ".contractspec/connect/decisions/connect.dec_01HXYZEXAMPLE/plan-packet.json"
+    },
+    {
+      "type": "patch-verdict",
+      "ref": ".contractspec/connect/decisions/connect.dec_01HXYZEXAMPLE/patch-verdict.json"
+    },
+    {
+      "type": "control-plane-trace",
+      "ref": "controlPlane.trace.get?decisionId=cp_decision_01HXYZEXAMPLE"
     }
   ],
   "requiredApprovals": [
-    "api-owner",
-    "platform-review"
+    {
+      "capability": "control-plane.execution.approve",
+      "reason": "allow replay-safe continuation after protected-path review"
+    }
   ],
-  "suggestedRemediation": [
-    "Align refund contract with schema change",
-    "Regenerate derived surfaces",
-    "Re-run targeted checks"
-  ],
+  "controlPlane": {
+    "traceQuery": {
+      "key": "controlPlane.trace.get",
+      "version": "1.0.0",
+      "kind": "query"
+    },
+    "policyExplain": {
+      "key": "controlPlane.policy.explain",
+      "version": "1.0.0",
+      "kind": "query"
+    },
+    "decisionId": "cp_decision_01HXYZEXAMPLE",
+    "approvalStatus": "pending",
+    "traceId": "trace_01HXYZEXAMPLE"
+  },
   "studio": {
-    "queue": "engineering-review",
-    "mode": "manual-certification"
+    "enabled": false,
+    "mode": "off"
   }
 }

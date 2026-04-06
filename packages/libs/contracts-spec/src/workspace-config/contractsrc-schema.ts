@@ -16,6 +16,16 @@ import type {
 	ChangelogTier,
 	CheckRunConfig,
 	CiConfig,
+	ConnectAdapterConfig,
+	ConnectAdapterMode,
+	ConnectCanonPackRef,
+	ConnectCommandPolicy,
+	ConnectConfig,
+	ConnectPolicyConfig,
+	ConnectReviewThresholds,
+	ConnectStorageConfig,
+	ConnectStudioConfig,
+	ConnectVerdict,
 	ClaudeAgentSDKConfig,
 	ContractsrcFileConfig,
 	ExternalAgentsConfig,
@@ -467,6 +477,105 @@ export const ExternalAgentsConfigSchema: z.ZodType<ExternalAgentsConfig> =
 		openCode: OpenCodeSDKConfigSchema.optional(),
 	});
 
+export const ConnectVerdictSchema: z.ZodType<ConnectVerdict> = z.enum([
+	'permit',
+	'rewrite',
+	'require_review',
+	'deny',
+]);
+
+export const ConnectAdapterModeSchema: z.ZodType<ConnectAdapterMode> = z.enum([
+	'plugin',
+	'rule',
+	'wrapper',
+]);
+
+export const ConnectAdapterConfigSchema: z.ZodType<ConnectAdapterConfig> =
+	z.object({
+		enabled: z.boolean().default(false).optional(),
+		mode: ConnectAdapterModeSchema.default('plugin').optional(),
+		packageRef: z.string().optional(),
+	});
+
+export const ConnectStorageConfigSchema: z.ZodType<ConnectStorageConfig> =
+	z.object({
+		root: z.string().default('.contractspec/connect').optional(),
+		contextPack: z
+			.string()
+			.default('.contractspec/connect/context-pack.json')
+			.optional(),
+		planPacket: z
+			.string()
+			.default('.contractspec/connect/plan-packet.json')
+			.optional(),
+		patchVerdict: z
+			.string()
+			.default('.contractspec/connect/patch-verdict.json')
+			.optional(),
+		auditFile: z
+			.string()
+			.default('.contractspec/connect/audit.ndjson')
+			.optional(),
+		reviewPacketsDir: z
+			.string()
+			.default('.contractspec/connect/review-packets')
+			.optional(),
+	});
+
+export const ConnectReviewThresholdsSchema: z.ZodType<ConnectReviewThresholds> =
+	z.object({
+		protectedPathWrite: ConnectVerdictSchema.optional(),
+		unknownImpact: ConnectVerdictSchema.optional(),
+		contractDrift: ConnectVerdictSchema.optional(),
+		breakingChange: ConnectVerdictSchema.optional(),
+		destructiveCommand: ConnectVerdictSchema.optional(),
+	});
+
+export const ConnectPolicyConfigSchema: z.ZodType<ConnectPolicyConfig> =
+	z.object({
+		protectedPaths: z.array(z.string()).optional(),
+		immutablePaths: z.array(z.string()).optional(),
+		generatedPaths: z.array(z.string()).optional(),
+		smokeChecks: z.array(z.string()).optional(),
+		reviewThresholds: ConnectReviewThresholdsSchema.optional(),
+	});
+
+export const ConnectCommandPolicySchema: z.ZodType<ConnectCommandPolicy> =
+	z.object({
+		allow: z.array(z.string()).optional(),
+		review: z.array(z.string()).optional(),
+		deny: z.array(z.string()).optional(),
+	});
+
+export const ConnectCanonPackRefSchema: z.ZodType<ConnectCanonPackRef> =
+	z.object({
+		ref: z.string(),
+		readOnly: z.boolean().default(true).optional(),
+	});
+
+export const ConnectStudioConfigSchema: z.ZodType<ConnectStudioConfig> =
+	z.object({
+		enabled: z.boolean().default(false).optional(),
+		mode: z.enum(['off', 'review-bridge']).default('off').optional(),
+		endpoint: z.string().url().optional(),
+	});
+
+export const ConnectConfigSchema: z.ZodType<ConnectConfig> = z.object({
+	enabled: z.boolean().default(false).optional(),
+	adapters: z
+		.object({
+			cursor: ConnectAdapterConfigSchema.optional(),
+			codex: ConnectAdapterConfigSchema.optional(),
+			'claude-code': ConnectAdapterConfigSchema.optional(),
+		})
+		.optional(),
+	storage: ConnectStorageConfigSchema.optional(),
+	policy: ConnectPolicyConfigSchema.optional(),
+	commands: ConnectCommandPolicySchema.optional(),
+	canonPacks: z.array(ConnectCanonPackRefSchema).optional(),
+	studio: ConnectStudioConfigSchema.optional(),
+});
+
 // ============================================================================
 // Lint Rules Configuration (ESLint-style)
 // ============================================================================
@@ -663,6 +772,8 @@ export const ContractsrcSchema: z.ZodType<ContractsrcFileConfig> = z.object({
 	ruleSync: RuleSyncConfigSchema.optional(),
 	// External agent SDK configuration
 	externalAgents: ExternalAgentsConfigSchema.optional(),
+	// ContractSpec Connect configuration
+	connect: ConnectConfigSchema.optional(),
 });
 
 /**
@@ -700,5 +811,43 @@ export const DEFAULT_CONTRACTSRC: ResolvedContractsrcConfig = {
 		defaultAgentTarget: 'codex',
 		enableInteractiveGuidance: true,
 		applyCodemods: true,
+	},
+	connect: {
+		enabled: false,
+		adapters: {
+			cursor: {
+				enabled: false,
+				mode: 'plugin',
+			},
+			codex: {
+				enabled: false,
+				mode: 'wrapper',
+			},
+			'claude-code': {
+				enabled: false,
+				mode: 'rule',
+			},
+		},
+		storage: {
+			root: '.contractspec/connect',
+			contextPack: '.contractspec/connect/context-pack.json',
+			planPacket: '.contractspec/connect/plan-packet.json',
+			patchVerdict: '.contractspec/connect/patch-verdict.json',
+			auditFile: '.contractspec/connect/audit.ndjson',
+			reviewPacketsDir: '.contractspec/connect/review-packets',
+		},
+		policy: {
+			reviewThresholds: {
+				protectedPathWrite: 'require_review',
+				unknownImpact: 'require_review',
+				contractDrift: 'require_review',
+				breakingChange: 'require_review',
+				destructiveCommand: 'deny',
+			},
+		},
+		studio: {
+			enabled: false,
+			mode: 'off',
+		},
 	},
 };

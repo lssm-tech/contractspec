@@ -1,55 +1,100 @@
 {
-  "id": "plan_01HXYZEXAMPLE",
-  "repoId": "acme/payments-service",
-  "branch": "feat/agent-refactor",
+  "id": "connect.plan_01HXYZEXAMPLE",
+  "taskId": "task_connect_spec_alignment",
+  "repoId": "lssm-tech/contractspec",
+  "branch": "feat/connect-spec-alignment",
   "actor": {
-    "id": "claude-code",
-    "type": "agent"
+    "id": "codex.desktop",
+    "type": "agent",
+    "sessionId": "thread_01HXYZEXAMPLE",
+    "traceId": "trace_01HXYZEXAMPLE"
   },
-  "objective": "Refactor refund handling and update the MCP tool for refund preview",
+  "objective": "Align Connect review artifacts with existing control-plane and ACP contracts",
   "steps": [
     {
       "id": "step_1",
-      "summary": "Update refund domain logic",
+      "summary": "Inspect impacted control-plane and workspace surfaces",
       "paths": [
-        "src/modules/payments/refund.ts"
+        "packages/integrations/runtime/src/channel/planner.ts",
+        "packages/modules/workspace/src/analysis/impact/classifier.ts"
+      ],
+      "contractRefs": [
+        "controlPlane.plan.verify",
+        "controlPlane.trace.get"
       ]
     },
     {
       "id": "step_2",
-      "summary": "Adjust HTTP handler and schema",
+      "summary": "Update Connect DTO schemas and examples",
       "paths": [
-        "src/http/refunds.ts",
-        "contracts/refunds.contract.ts"
+        "specs/contractspec-connect-spec/schemas/plan-packet.schema.json",
+        "specs/contractspec-connect-spec/examples/patch-verdict.example.json"
       ]
     },
     {
       "id": "step_3",
-      "summary": "Update MCP preview tool",
-      "paths": [
-        "src/mcp/refund-preview.ts"
+      "summary": "Validate config and examples with tests",
+      "commands": [
+        "bun test packages/libs/contracts-spec/src/workspace-config/contractsrc-schema.test.ts",
+        "bun test specs/contractspec-connect-spec/connect-spec.test.ts"
       ]
     }
   ],
   "impactedContracts": [
-    "payments.refund",
-    "mcp.refund.preview"
+    {
+      "key": "controlPlane.intent.submit",
+      "version": "1.0.0",
+      "kind": "command"
+    },
+    {
+      "key": "controlPlane.plan.compile",
+      "version": "1.0.0",
+      "kind": "command"
+    },
+    {
+      "key": "controlPlane.plan.verify",
+      "version": "1.0.0",
+      "kind": "command"
+    }
   ],
   "affectedSurfaces": [
-    "rest",
-    "mcp",
-    "client"
+    "runtime",
+    "cli",
+    "audit",
+    "agent"
   ],
   "requiredChecks": [
+    "impact-coverage",
     "contract-drift",
-    "breaking-diff",
-    "schema-compatibility",
-    "targeted-smoke-tests"
+    "approval-routing",
+    "targeted-tests"
   ],
   "requiredApprovals": [
-    "api-owner",
-    "platform-review"
+    {
+      "capability": "control-plane.execution.approve",
+      "reason": "review-required adapter changes"
+    }
   ],
-  "riskScore": 0.72,
-  "verificationStatus": "review"
+  "riskScore": 0.66,
+  "verificationStatus": "review",
+  "controlPlane": {
+    "intentSubmit": {
+      "key": "controlPlane.intent.submit",
+      "version": "1.0.0"
+    },
+    "planCompile": {
+      "key": "controlPlane.plan.compile",
+      "version": "1.0.0"
+    },
+    "planVerify": {
+      "key": "controlPlane.plan.verify",
+      "version": "1.0.0"
+    },
+    "decisionId": "cp_decision_01HXYZEXAMPLE",
+    "traceId": "trace_01HXYZEXAMPLE"
+  },
+  "acpActions": [
+    "acp.fs.access",
+    "acp.terminal.exec"
+  ]
 }

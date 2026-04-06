@@ -1,0 +1,51 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "incremental": false,
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "declarationMap": false,
+    "outDir": "dist",
+    "rootDir": "src",
+    "baseUrl": ".",
+    "paths": {
+      "@contractspec/lib.schema": [
+        "../schema/dist/index.d.ts"
+      ],
+      "@contractspec/lib.schema/*": [
+        "../schema/dist/*"
+      ],
+      "@contractspec/lib.contracts-spec": [
+        "../contracts-spec/dist/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/*": [
+        "../contracts-spec/dist/*"
+      ],
+      "@contractspec/lib.contracts-integrations": [
+        "../contracts-integrations/dist/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/*": [
+        "../contracts-integrations/dist/*"
+      ],
+      "@contractspec/lib.logger": [
+        "../logger/dist/index.d.ts"
+      ],
+      "@contractspec/lib.logger/*": [
+        "../logger/dist/*"
+      ],
+      "@contractspec/lib.knowledge": [
+        "../knowledge/dist/index.d.ts"
+      ],
+      "@contractspec/lib.knowledge/*": [
+        "../knowledge/dist/*"
+      ],
+      "@contractspec/tool.typescript/*": [
+        "../../tools/typescript/dist/*"
+      ],
+      "@contractspec/tool.bun/*": [
+        "../../tools/bun/dist/*"
+      ]
+    }
+  }
+}

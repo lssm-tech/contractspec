@@ -7,7 +7,7 @@
       "dependencies": {
         "react": "catalog:",
         "react-dom": "catalog:",
-        "turbo": "^2.8.20",
+        "turbo": "^2.8.21",
       },
       "devDependencies": {
         "@biomejs/biome": "^2.4.9",
@@ -15,14 +15,14 @@
         "@contractspec/biome-config": "workspace:*",
         "@types/bun": "^1.3.11",
         "cz-conventional-changelog": "^3.3.0",
-        "glob": "catalog:build",
+        "glob": "^13.0.6",
         "globals": "^17.4.0",
-        "knip": "^6.0.5",
+        "knip": "^6.1.0",
         "memoirist": "^0.4.0",
         "next": "catalog:",
         "patch-package": "^8.0.1",
         "postinstall-postinstall": "^2.1.0",
-        "turbo-ignore": "^2.8.20",
+        "turbo-ignore": "^2.8.21",
       },
     },
     "packages/apps-registry/contractspec": {
@@ -128,12 +128,14 @@
         "@ai-sdk/mistral": "catalog:ai",
         "@ai-sdk/openai": "catalog:ai",
         "@contractspec/bundle.workspace": "workspace:*",
+        "@contractspec/integration.harness-runtime": "workspace:*",
         "@contractspec/integration.runtime": "workspace:*",
         "@contractspec/lib.ai-agent": "workspace:*",
         "@contractspec/lib.ai-providers": "workspace:*",
         "@contractspec/lib.contracts-integrations": "workspace:*",
         "@contractspec/lib.contracts-spec": "workspace:*",
         "@contractspec/lib.contracts-transformers": "workspace:*",
+        "@contractspec/lib.harness": "workspace:*",
         "@contractspec/lib.plugins": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
         "@contractspec/lib.testing": "workspace:*",
@@ -3553,7 +3555,7 @@
 
     "@composio/client": ["@composio/client@0.1.0-alpha.62", "", {}, "sha512-MUBawDp6Uw85m3T0ZtPUSTe9v4SPa0K/Ey3ADZQ/k1NkWsin0oGWhrB/i9hMzndRobijHmBw6xgnFCwjU1B9MQ=="],
 
-    "@composio/core": ["@composio/core@0.6.7", "", { "dependencies": { "@composio/client": "0.1.0-alpha.62", "@composio/json-schema-to-zod": "0.1.20", "@types/json-schema": "^7.0.15", "chalk": "^4.1.2", "openai": "^6.16.0", "pusher-js": "^8.4.0", "semver": "^7.7.2", "zod-to-json-schema": "^3.25.1" }, "peerDependencies": { "zod": "^3.25 || ^4" } }, "sha512-nWveoUAoCSVTVwOEBaBiRAHu2fVy1nMH7kTICgSaFTaYJYYvpiD8tjCClYRBnp1W4QN3HoRDH4dBWCBdCe9D6A=="],
+    "@composio/core": ["@composio/core@0.6.8", "", { "dependencies": { "@composio/client": "0.1.0-alpha.62", "@composio/json-schema-to-zod": "0.1.20", "@types/json-schema": "^7.0.15", "chalk": "^4.1.2", "openai": "^6.16.0", "pusher-js": "^8.4.0", "semver": "^7.7.2", "zod-to-json-schema": "^3.25.1" }, "peerDependencies": { "zod": "^3.25 || ^4" } }, "sha512-kqRD/XxON4FJoerf5ccleNsiJgB/wxE21hz3b1w8v/fb1yIoSZ9edRoWjTJ+UihO7HtdL1bbsf6DuLUp6W+e4g=="],
 
     "@composio/json-schema-to-zod": ["@composio/json-schema-to-zod@0.1.20", "", { "peerDependencies": { "zod": ">=3.25.76 <5" } }, "sha512-d4V34itLrUWG/VBh7ciznKcxF/T22MBLHmuEzHoX0zsBOHsUmjYz5qtDh20S2p3FE+HHvLZxpXiv8yfdd4yI+Q=="],
 

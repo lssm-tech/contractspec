@@ -1,0 +1,39 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "incremental": false,
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "declarationMap": false,
+    "outDir": "dist",
+    "rootDir": "src",
+    "baseUrl": ".",
+    "paths": {
+      "@contractspec/lib.contracts-spec": [
+        "../../libs/contracts-spec/dist/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/*": [
+        "../../libs/contracts-spec/dist/*"
+      ],
+      "@contractspec/lib.contracts-integrations": [
+        "../../libs/contracts-integrations/dist/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/*": [
+        "../../libs/contracts-integrations/dist/*"
+      ],
+      "@contractspec/integration.runtime": [
+        "../runtime/dist/index.d.ts"
+      ],
+      "@contractspec/integration.runtime/*": [
+        "../runtime/dist/*"
+      ],
+      "@contractspec/tool.typescript/*": [
+        "../../tools/typescript/dist/*"
+      ],
+      "@contractspec/tool.bun/*": [
+        "../../tools/bun/dist/*"
+      ]
+    }
+  }
+}

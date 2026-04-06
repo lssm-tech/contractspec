@@ -348,7 +348,6 @@
 		"./prompt": "./src/prompt.ts",
 		"./promptRegistry": "./src/promptRegistry.ts",
 		"./provider-ranking": "./src/provider-ranking/index.ts",
-		"./release": "./src/release/index.ts",
 		"./provider-ranking/capabilities": "./src/provider-ranking/capabilities/index.ts",
 		"./provider-ranking/capabilities/providerRanking.capability": "./src/provider-ranking/capabilities/providerRanking.capability.ts",
 		"./provider-ranking/commands": "./src/provider-ranking/commands/index.ts",
@@ -383,6 +382,7 @@
 		"./regenerator/utils": "./src/regenerator/utils.ts",
 		"./registry": "./src/registry.ts",
 		"./registry-utils": "./src/registry-utils.ts",
+		"./release": "./src/release/index.ts",
 		"./resources": "./src/resources.ts",
 		"./schema-to-markdown": "./src/schema-to-markdown.ts",
 		"./serialization": "./src/serialization/index.ts",
@@ -407,6 +407,9 @@
 		"./utils/safe-json": "./src/utils/safe-json.ts",
 		"./versioning": "./src/versioning/index.ts",
 		"./versioning/refs": "./src/versioning/refs.ts",
+		"./versioning/release-types": "./src/versioning/release-types.ts",
+		"./versioning/release-utils": "./src/versioning/release-utils.ts",
+		"./versioning/schema": "./src/versioning/schema.ts",
 		"./versioning/types": "./src/versioning/types.ts",
 		"./versioning/utils": "./src/versioning/utils.ts",
 		"./visualizations": "./src/visualizations/index.ts",
@@ -2223,12 +2226,6 @@
 				"node": "./dist/node/provider-ranking/index.js",
 				"default": "./dist/provider-ranking/index.js"
 			},
-			"./release": {
-				"types": "./dist/release/index.d.ts",
-				"bun": "./dist/release/index.js",
-				"node": "./dist/node/release/index.js",
-				"default": "./dist/release/index.js"
-			},
 			"./provider-ranking/capabilities": {
 				"types": "./dist/provider-ranking/capabilities/index.d.ts",
 				"bun": "./dist/provider-ranking/capabilities/index.js",
@@ -2433,6 +2430,12 @@
 				"node": "./dist/node/registry-utils.js",
 				"default": "./dist/registry-utils.js"
 			},
+			"./release": {
+				"types": "./dist/release/index.d.ts",
+				"bun": "./dist/release/index.js",
+				"node": "./dist/node/release/index.js",
+				"default": "./dist/release/index.js"
+			},
 			"./resources": {
 				"types": "./dist/resources.d.ts",
 				"bun": "./dist/resources.js",
@@ -2576,6 +2579,24 @@
 				"bun": "./dist/versioning/refs.js",
 				"node": "./dist/node/versioning/refs.js",
 				"default": "./dist/versioning/refs.js"
+			},
+			"./versioning/release-types": {
+				"types": "./dist/versioning/release-types.d.ts",
+				"bun": "./dist/versioning/release-types.js",
+				"node": "./dist/node/versioning/release-types.js",
+				"default": "./dist/versioning/release-types.js"
+			},
+			"./versioning/release-utils": {
+				"types": "./dist/versioning/release-utils.d.ts",
+				"bun": "./dist/versioning/release-utils.js",
+				"node": "./dist/node/versioning/release-utils.js",
+				"default": "./dist/versioning/release-utils.js"
+			},
+			"./versioning/schema": {
+				"types": "./dist/versioning/schema.d.ts",
+				"bun": "./dist/versioning/schema.js",
+				"node": "./dist/node/versioning/schema.js",
+				"default": "./dist/versioning/schema.js"
 			},
 			"./versioning/types": {
 				"types": "./dist/versioning/types.d.ts",

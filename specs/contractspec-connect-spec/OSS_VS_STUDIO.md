@@ -2,58 +2,45 @@
 
 ## Why this split matters
 
-Connect only works strategically if it remains useful in OSS alone. ContractSpec's public posture is OSS-first with Studio as an additive operator layer. If Connect requires Studio from day one, the coding-agent wedge becomes weaker, adoption friction rises, and the architecture starts looking like a proprietary control plane looking for a justification.
+Connect only works if local safety is real in OSS mode.
+
+If Connect requires Studio for baseline enforcement, it stops being a practical coding-agent wedge and starts looking like a proprietary dependency searching for a problem.
 
 ## OSS responsibilities
 
-The OSS package should include everything required for local enforcement:
+OSS must cover everything required for local safety:
 
-- bootstrap wrapper
-- adapter installation
-- impact indexing
-- context pack building
-- plan packet generation and verification
-- pre-write and pre-command verifier pipeline
-- local audit trail
-- replay
-- local review packet format
+- `.contractsrc.json > connect`
+- local DTO generation
+- local audit and review packets
+- replay hooks
+- plugin-first adapter support
+- command and path policy defaults
 
 ### OSS promise
 
-A team with no Studio account should still be able to:
+A team without Studio should still be able to:
 
-- stop agent edits that create contract drift
-- inspect why a change was blocked
+- block or review risky agent mutations
+- inspect why a verdict was returned
 - reproduce decisions locally
-- share read-only canon packs if they have the files locally
-- export review packets for later handling
+- consume read-only canon refs they already have
 
 ## Studio responsibilities
 
-Studio should add collaboration, governance, and managed operations:
+Studio may add:
 
-- shared canon pack registry
-- organization-wide policy UI
-- review queues
-- explicit approvals and manual certification
-- lineage and rollback views
-- handoff packs
-- remediation packs
-- outcome checks
-- scheduled or capped managed lanes
+- shared review queues
+- organization-level policy UI
+- canon-pack registry transport
+- lineage across review and handoff flows
+- managed lanes and schedules
 
 ### Studio promise
 
-A team using Studio should gain:
-
-- multi-user governance
-- visible review workflows
-- durable audit lineage across queues and handoffs
-- downstream operational packaging
-- organization-level control over risky agent lanes
+A team using Studio gains collaboration and transport, not basic safety.
 
 ## Decision rule
 
-If a feature is required for local safety, it belongs in OSS.
-
-If a feature is primarily about collaboration, governance at org scope, or cross-team delivery coordination, it belongs in Studio.
+- If a feature is required for local safety, it belongs in OSS.
+- If a feature is primarily multi-user governance, coordination, or transport, it belongs in Studio.

@@ -121,3 +121,10 @@ build-*.apk
 !.rulesync/.aiignore
 
 local
+
+.omc/state/
+.omc/prompts/
+.omc/logs/
+.omc/research/
+.omc/
+.omx/

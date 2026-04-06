@@ -5,6 +5,7 @@
   "type": "object",
   "required": [
     "id",
+    "taskId",
     "repoId",
     "branch",
     "actor",
@@ -15,92 +16,62 @@
     "requiredChecks",
     "requiredApprovals",
     "riskScore",
-    "verificationStatus"
+    "verificationStatus",
+    "controlPlane"
   ],
   "properties": {
-    "id": {
-      "type": "string"
-    },
-    "repoId": {
-      "type": "string"
-    },
-    "branch": {
-      "type": "string"
-    },
-    "actor": {
-      "type": "object",
-      "required": [
-        "id",
-        "type"
-      ],
-      "properties": {
-        "id": {
-          "type": "string"
-        },
-        "type": {
-          "enum": [
-            "human",
-            "agent",
-            "service"
-          ]
-        }
-      }
-    },
-    "objective": {
-      "type": "string"
-    },
+    "id": { "type": "string" },
+    "taskId": { "type": "string" },
+    "repoId": { "type": "string" },
+    "branch": { "type": "string" },
+    "actor": { "$ref": "#/$defs/actor" },
+    "objective": { "type": "string" },
     "steps": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": [
-          "id",
-          "summary"
-        ],
+        "required": ["id", "summary"],
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "summary": {
-            "type": "string"
-          },
+          "id": { "type": "string" },
+          "summary": { "type": "string" },
           "paths": {
             "type": "array",
-            "items": {
-              "type": "string"
-            }
+            "items": { "type": "string" }
           },
           "commands": {
             "type": "array",
-            "items": {
-              "type": "string"
-            }
+            "items": { "type": "string" }
+          },
+          "contractRefs": {
+            "type": "array",
+            "items": { "type": "string" }
           }
         }
       }
     },
     "impactedContracts": {
       "type": "array",
-      "items": {
-        "type": "string"
-      }
+      "items": { "$ref": "#/$defs/contractRef" }
     },
     "affectedSurfaces": {
       "type": "array",
       "items": {
-        "type": "string"
+        "enum": ["agent", "audit", "cli", "contract", "harness", "knowledge", "mcp", "runtime"]
       }
     },
     "requiredChecks": {
       "type": "array",
-      "items": {
-        "type": "string"
-      }
+      "items": { "type": "string" }
     },
     "requiredApprovals": {
       "type": "array",
       "items": {
-        "type": "string"
+        "type": "object",
+        "required": ["capability", "reason"],
+        "properties": {
+          "capability": { "type": "string" },
+          "reason": { "type": "string" }
+        }
       }
     },
     "riskScore": {
@@ -109,12 +80,45 @@
       "maximum": 1
     },
     "verificationStatus": {
-      "enum": [
-        "approved",
-        "revise",
-        "review",
-        "denied"
-      ]
+      "enum": ["approved", "revise", "review", "denied"]
+    },
+  "controlPlane": {
+    "type": "object",
+    "required": ["intentSubmit", "planCompile", "planVerify"],
+    "properties": {
+      "intentSubmit": { "$ref": "#/$defs/contractRef" },
+      "planCompile": { "$ref": "#/$defs/contractRef" },
+      "planVerify": { "$ref": "#/$defs/contractRef" },
+      "decisionId": { "type": "string" },
+      "traceId": { "type": "string" }
+    }
+  },
+    "acpActions": {
+      "type": "array",
+      "items": {
+        "enum": ["acp.fs.access", "acp.terminal.exec", "acp.tool.calls"]
+      }
+    }
+  },
+  "$defs": {
+    "actor": {
+      "type": "object",
+      "required": ["id", "type"],
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "enum": ["human", "agent", "service", "tool"] },
+        "sessionId": { "type": "string" },
+        "traceId": { "type": "string" }
+      }
+    },
+    "contractRef": {
+      "type": "object",
+      "required": ["key", "version"],
+      "properties": {
+        "key": { "type": "string" },
+        "version": { "type": "string" },
+        "kind": { "enum": ["command", "query", "event", "policy", "capability"] }
+      }
     }
   }
 }

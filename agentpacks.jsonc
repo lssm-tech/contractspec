@@ -1,6 +1,7 @@
 {
 	"$schema": "https://unpkg.com/agentpacks/schema.json",
 	"packs": [
+		"./packs/contractspec-contracts-spec",
 		"./packs/workspace-specific",
 		"./packs/contractspec-rules",
 		"./packs/software-best-practices"

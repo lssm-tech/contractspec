@@ -1,10 +1,11 @@
 ---
-description: Enforce operation contract authoring standards in @contractspec/lib.contracts-spec
+description: >-
+  Enforce operation contract authoring standards in
+  @contractspec/lib.contracts-spec
 alwaysApply: true
 globs:
-  - "**/*"
+  - '**/*'
 ---
-
 Treat operation contracts as product APIs with strict metadata quality.
 
 - New operations use `defineCommand` or `defineQuery` before handlers.

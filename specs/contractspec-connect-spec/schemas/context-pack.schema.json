@@ -7,81 +7,91 @@
     "id",
     "taskId",
     "repoId",
+    "branch",
+    "actor",
     "knowledge",
     "impactedContracts",
     "affectedSurfaces",
-    "policyBindings"
+    "policyBindings",
+    "configRefs"
   ],
   "properties": {
-    "id": {
-      "type": "string"
-    },
-    "taskId": {
-      "type": "string"
-    },
-    "repoId": {
-      "type": "string"
-    },
+    "id": { "type": "string" },
+    "taskId": { "type": "string" },
+    "repoId": { "type": "string" },
+    "branch": { "type": "string" },
+    "actor": { "$ref": "#/$defs/actor" },
     "knowledge": {
       "type": "array",
       "items": {
         "type": "object",
-        "required": [
-          "id",
-          "trust",
-          "source"
-        ],
+        "required": ["spaceKey", "category", "trustLevel", "source"],
         "properties": {
-          "id": {
-            "type": "string"
-          },
-          "trust": {
-            "enum": [
-              "canonical",
-              "operational",
-              "external",
-              "ephemeral"
-            ]
-          },
-          "source": {
-            "type": "string"
-          },
-          "digest": {
-            "type": "string"
-          }
+          "spaceKey": { "type": "string" },
+          "category": { "enum": ["canonical", "operational", "external", "ephemeral"] },
+          "trustLevel": { "enum": ["high", "medium", "low"] },
+          "source": { "type": "string" },
+          "digest": { "type": "string" }
         }
       }
     },
     "impactedContracts": {
       "type": "array",
-      "items": {
-        "type": "string"
-      }
+      "items": { "$ref": "#/$defs/contractRef" }
     },
     "affectedSurfaces": {
       "type": "array",
       "items": {
-        "enum": [
-          "rest",
-          "graphql",
-          "db",
-          "ui",
-          "events",
-          "mcp",
-          "client"
-        ]
+        "enum": ["agent", "audit", "cli", "contract", "harness", "knowledge", "mcp", "runtime"]
       }
     },
     "policyBindings": {
       "type": "array",
       "items": {
-        "type": "string"
+        "type": "object",
+        "required": ["key", "version", "source", "authority"],
+        "properties": {
+          "key": { "type": "string" },
+          "version": { "type": "string" },
+          "source": { "enum": ["contract", "canon-pack", "workspace-config"] },
+          "authority": { "enum": ["canonical", "operational"] }
+        }
+      }
+    },
+    "configRefs": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["kind", "ref"],
+        "properties": {
+          "kind": { "enum": ["contractsrc", "artifact", "canon-pack"] },
+          "ref": { "type": "string" }
+        }
       }
     },
     "acceptanceChecks": {
       "type": "array",
-      "items": {
-        "type": "string"
+      "items": { "type": "string" }
+    }
+  },
+  "$defs": {
+    "actor": {
+      "type": "object",
+      "required": ["id", "type"],
+      "properties": {
+        "id": { "type": "string" },
+        "type": { "enum": ["human", "agent", "service", "tool"] },
+        "sessionId": { "type": "string" },
+        "traceId": { "type": "string" }
+      }
+    },
+    "contractRef": {
+      "type": "object",
+      "required": ["key", "version"],
+      "properties": {
+        "key": { "type": "string" },
+        "version": { "type": "string" },
+        "kind": { "enum": ["command", "query", "event", "policy", "capability"] }
       }
     }
   }
