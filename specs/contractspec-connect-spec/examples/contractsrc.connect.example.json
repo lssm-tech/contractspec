@@ -55,8 +55,10 @@
 			}
 		],
 		"studio": {
-			"enabled": false,
-			"mode": "off"
+			"enabled": true,
+			"mode": "review-bridge",
+			"endpoint": "http://127.0.0.1:8090",
+			"queue": "connect-review"
 		}
 	}
 }

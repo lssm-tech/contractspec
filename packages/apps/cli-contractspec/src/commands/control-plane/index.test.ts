@@ -28,6 +28,27 @@ describe('control-plane command', () => {
 		]);
 	});
 
+	it('exposes execution lane flows', () => {
+		const lane = controlPlaneCommand.commands.find(
+			(cmd) => cmd.name() === 'lane'
+		);
+		expect(lane).toBeDefined();
+		expect(lane?.commands.map((cmd) => cmd.name())).toEqual([
+			'list',
+			'get',
+			'pause',
+			'resume',
+			'retry',
+			'nudge',
+			'abort',
+			'shutdown',
+			'request-approval',
+			'escalate',
+			'evidence',
+			'replay',
+		]);
+	});
+
 	it('keeps help text for operator flows', () => {
 		const approval = controlPlaneCommand.commands.find(
 			(cmd) => cmd.name() === 'approval'

@@ -1,5 +1,6 @@
 /* global Bun */
 
+import { existsSync } from 'node:fs';
 import { readFile, rm, unlink, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { glob } from 'glob';
@@ -179,6 +180,80 @@ function extractTypesPath(exportValue) {
 	return null;
 }
 
+function resolveWorkspacePathCandidate(dependencyDir, candidatePaths) {
+	for (const candidatePath of candidatePaths) {
+		if (typeof candidatePath !== 'string' || candidatePath.length === 0) {
+			continue;
+		}
+
+		const absolutePath = path.join(dependencyDir, candidatePath);
+		if (existsSync(absolutePath)) {
+			return candidatePath;
+		}
+	}
+
+	return null;
+}
+
+function collectPublishedTypePaths(packageJson) {
+	const publishExports = packageJson.publishConfig?.exports;
+	const typePaths = new Set();
+	const rootTypesPath =
+		extractTypesPath(publishExports?.['.']) ?? packageJson.types;
+
+	if (typeof rootTypesPath === 'string') {
+		typePaths.add(rootTypesPath);
+	}
+
+	if (!publishExports || typeof publishExports !== 'object') {
+		return Array.from(typePaths);
+	}
+
+	for (const [subpath, exportValue] of Object.entries(publishExports)) {
+		if (!subpath.startsWith('./') || subpath === './*') {
+			continue;
+		}
+
+		const typesPath = extractTypesPath(exportValue);
+		if (typeof typesPath === 'string') {
+			typePaths.add(typesPath);
+		}
+	}
+
+	return Array.from(typePaths);
+}
+
+async function ensureWorkspaceDependencyTypes(
+	dependencyDir,
+	dependencyPackageJson
+) {
+	const publishedTypePaths = collectPublishedTypePaths(dependencyPackageJson);
+	if (
+		publishedTypePaths.length === 0 ||
+		publishedTypePaths.every((targetPath) =>
+			existsSync(path.join(dependencyDir, targetPath))
+		)
+	) {
+		return;
+	}
+
+	const buildTypesScript = dependencyPackageJson.scripts?.['build:types'];
+	if (typeof buildTypesScript !== 'string' || buildTypesScript.length === 0) {
+		return;
+	}
+
+	const subprocess = Bun.spawn([BUN_EXECUTABLE, 'run', 'build:types'], {
+		cwd: dependencyDir,
+		stdout: 'inherit',
+		stderr: 'inherit',
+		stdin: 'inherit',
+	});
+	const exitCode = await subprocess.exited;
+	if (exitCode !== 0) {
+		process.exit(exitCode);
+	}
+}
+
 function addPathMapping(pathsMap, key, values) {
 	if (!key || !Array.isArray(values) || values.length === 0) {
 		return;
@@ -253,13 +328,17 @@ async function resolveDependencyPathMappings(cwd) {
 		const dependencyPackageJson = await readJson(
 			path.join(dependencyDir, 'package.json')
 		);
+		await ensureWorkspaceDependencyTypes(dependencyDir, dependencyPackageJson);
 		const publishExports = dependencyPackageJson.publishConfig?.exports;
 		const rootTypesPath =
 			extractTypesPath(publishExports?.['.']) ?? dependencyPackageJson.types;
+		const resolvedRootPath = resolveWorkspacePathCandidate(dependencyDir, [
+			rootTypesPath,
+		]);
 
-		if (typeof rootTypesPath === 'string') {
+		if (resolvedRootPath) {
 			addPathMapping(pathsMap, dependencyName, [
-				toPosixRelativePath(cwd, path.join(dependencyDir, rootTypesPath)),
+				toPosixRelativePath(cwd, path.join(dependencyDir, resolvedRootPath)),
 			]);
 		}
 
@@ -278,21 +357,15 @@ async function resolveDependencyPathMappings(cwd) {
 
 			const subpathWithoutPrefix = subpath.slice(2);
 			const typesPath = extractTypesPath(exportValue);
-			if (!typesPath) {
-				continue;
-			}
-
-			const canonicalTypesPath = `./dist/${subpathWithoutPrefix}.d.ts`;
-			const canonicalIndexTypesPath = `./dist/${subpathWithoutPrefix}/index.d.ts`;
-			if (
-				typesPath === canonicalTypesPath ||
-				typesPath === canonicalIndexTypesPath
-			) {
+			const resolvedSubpath = resolveWorkspacePathCandidate(dependencyDir, [
+				typesPath,
+			]);
+			if (!resolvedSubpath) {
 				continue;
 			}
 
 			addPathMapping(pathsMap, `${dependencyName}/${subpathWithoutPrefix}`, [
-				toPosixRelativePath(cwd, path.join(dependencyDir, typesPath)),
+				toPosixRelativePath(cwd, path.join(dependencyDir, resolvedSubpath)),
 			]);
 		}
 	}

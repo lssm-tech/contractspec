@@ -9,9 +9,15 @@ import {
 	ControlPlaneSkillRegistryCapability,
 } from './capabilities';
 import {
+	ControlPlaneExecutionAbortCommand,
 	ControlPlaneExecutionApproveCommand,
 	ControlPlaneExecutionCancelCommand,
+	ControlPlaneExecutionEvidenceExportCommand,
+	ControlPlaneExecutionPauseCommand,
 	ControlPlaneExecutionRejectCommand,
+	ControlPlaneExecutionResumeCommand,
+	ControlPlaneExecutionRetryCommand,
+	ControlPlaneExecutionShutdownCommand,
 	ControlPlaneExecutionStartCommand,
 	ControlPlaneIntentSubmitCommand,
 	ControlPlanePlanCompileCommand,
@@ -33,6 +39,8 @@ import {
 } from './events';
 import {
 	ControlPlaneExecutionGetQuery,
+	ControlPlaneExecutionLaneGetQuery,
+	ControlPlaneExecutionLaneListQuery,
 	ControlPlaneExecutionListQuery,
 	ControlPlanePolicyExplainQuery,
 	ControlPlaneSkillListQuery,
@@ -45,12 +53,20 @@ export const controlPlaneOperationContracts = {
 	ControlPlanePlanCompileCommand,
 	ControlPlanePlanVerifyCommand,
 	ControlPlaneExecutionStartCommand,
+	ControlPlaneExecutionAbortCommand,
 	ControlPlaneExecutionApproveCommand,
 	ControlPlaneExecutionRejectCommand,
 	ControlPlaneExecutionCancelCommand,
+	ControlPlaneExecutionPauseCommand,
+	ControlPlaneExecutionResumeCommand,
+	ControlPlaneExecutionRetryCommand,
+	ControlPlaneExecutionShutdownCommand,
+	ControlPlaneExecutionEvidenceExportCommand,
 	ControlPlaneSkillInstallCommand,
 	ControlPlaneSkillDisableCommand,
 	ControlPlaneExecutionGetQuery,
+	ControlPlaneExecutionLaneGetQuery,
+	ControlPlaneExecutionLaneListQuery,
 	ControlPlaneExecutionListQuery,
 	ControlPlaneTraceGetQuery,
 	ControlPlanePolicyExplainQuery,
@@ -87,12 +103,20 @@ export function registerControlPlaneOperations(
 		.register(ControlPlanePlanCompileCommand)
 		.register(ControlPlanePlanVerifyCommand)
 		.register(ControlPlaneExecutionStartCommand)
+		.register(ControlPlaneExecutionAbortCommand)
 		.register(ControlPlaneExecutionApproveCommand)
 		.register(ControlPlaneExecutionRejectCommand)
 		.register(ControlPlaneExecutionCancelCommand)
+		.register(ControlPlaneExecutionPauseCommand)
+		.register(ControlPlaneExecutionResumeCommand)
+		.register(ControlPlaneExecutionRetryCommand)
+		.register(ControlPlaneExecutionShutdownCommand)
+		.register(ControlPlaneExecutionEvidenceExportCommand)
 		.register(ControlPlaneSkillInstallCommand)
 		.register(ControlPlaneSkillDisableCommand)
 		.register(ControlPlaneExecutionGetQuery)
+		.register(ControlPlaneExecutionLaneGetQuery)
+		.register(ControlPlaneExecutionLaneListQuery)
 		.register(ControlPlaneExecutionListQuery)
 		.register(ControlPlaneTraceGetQuery)
 		.register(ControlPlanePolicyExplainQuery)

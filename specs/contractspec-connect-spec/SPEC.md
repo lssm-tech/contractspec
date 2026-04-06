@@ -281,6 +281,13 @@ Studio may add:
 
 Studio is additive. Local safety cannot depend on it.
 
+When implemented as a thin post-V1 transport, Studio review-bridge must:
+
+- ingest review packets without changing the local Connect verdict
+- expose queue metadata such as queue name, linked execution-lane run id, linked runtime decision id, and trace id
+- derive queue state from existing approval and execution-lane records rather than creating a second approval system
+- preserve canon-pack refs, knowledge entries, and config refs as packet-scoped context
+
 ## 16. Security and governance
 
 Connect must remain:

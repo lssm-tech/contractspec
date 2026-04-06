@@ -558,6 +558,7 @@ export const ConnectStudioConfigSchema: z.ZodType<ConnectStudioConfig> =
 		enabled: z.boolean().default(false).optional(),
 		mode: z.enum(['off', 'review-bridge']).default('off').optional(),
 		endpoint: z.string().url().optional(),
+		queue: z.string().optional(),
 	});
 
 export const ConnectConfigSchema: z.ZodType<ConnectConfig> = z.object({

@@ -63,7 +63,8 @@
 		"traceId": "trace_01HXYZEXAMPLE"
 	},
 	"studio": {
-		"enabled": false,
-		"mode": "off"
+		"enabled": true,
+		"mode": "review-bridge",
+		"queue": "connect-review"
 	}
 }

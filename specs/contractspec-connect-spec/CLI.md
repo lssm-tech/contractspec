@@ -20,6 +20,7 @@ contractspec connect hook contracts-spec before-file-edit --stdin
 contractspec connect hook contracts-spec before-shell-execution --stdin
 contractspec connect hook contracts-spec after-file-edit --stdin
 contractspec connect review list
+contractspec connect review sync [--all|--decision <decision-id>] [--queue <queue>]
 contractspec connect replay <decision-id>
 contractspec connect eval <decision-id> --registry <path> (--scenario <key> | --suite <key>) [--version <version>]
 ```
@@ -99,7 +100,15 @@ contractspec control-plane trace replay <decision-id>
 ### `contractspec connect review list`
 
 - lists pending local review packets under `.contractspec/connect/review-packets/`
-- may later surface Studio transport metadata, but local packets come first
+- keeps local packet inspection authoritative even when Studio review transport is enabled
+
+### `contractspec connect review sync`
+
+- syncs one or more local review packets into the configured Studio review bridge
+- defaults to all pending local review packets when `--decision` is omitted
+- accepts `--queue` to override `.contractsrc.json > connect.studio.queue` for one sync attempt
+- updates local decision envelopes and `audit.ndjson` with sync status, queue, and returned lineage refs
+- remains best-effort for auto-sync after `verify`, but explicit `review sync` fails when bridge config or auth is missing
 
 ### `contractspec connect replay <decision-id>`
 
@@ -124,6 +133,19 @@ contractspec control-plane trace replay <decision-id>
 - `20` review required
 - `30` denied
 - `40` missing config or missing authoritative refs
+
+## Studio/operator HTTP surface
+
+When Studio review-bridge mode is enabled, the internal control-plane app exposes:
+
+```bash
+POST /internal/control-plane/connect/reviews
+GET  /internal/control-plane/connect/reviews
+GET  /internal/control-plane/connect/reviews/:id
+```
+
+- queue items remain projections over local Connect artifacts plus current control-plane and execution-lane state
+- dashboard responses include a `connectReviewQueue` section for pending review work
 
 ## Output behavior
 
@@ -168,7 +190,12 @@ contractspec control-plane trace replay <decision-id>
       "deny": ["git push --force", "git reset --hard", "rm -rf"]
     },
     "canonPacks": [{ "ref": "team/platform@1.2.0", "readOnly": true }],
-    "studio": { "enabled": false, "mode": "off" }
+    "studio": {
+      "enabled": true,
+      "mode": "review-bridge",
+      "endpoint": "http://127.0.0.1:8090",
+      "queue": "connect-review"
+    }
   }
 }
 ```

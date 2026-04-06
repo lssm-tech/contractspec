@@ -149,7 +149,7 @@ export interface ContractsrcConfig {
       deny?: string[];
     };
     canonPacks?: Array<{ ref: string; readOnly?: boolean }>;
-    studio?: { enabled?: boolean; mode?: 'off' | 'review-bridge'; endpoint?: string };
+    studio?: { enabled?: boolean; mode?: 'off' | 'review-bridge'; endpoint?: string; queue?: string };
   };
 }
 \`\`\`

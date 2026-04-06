@@ -3,6 +3,7 @@ import {
 	registerDocBlocks,
 } from '@contractspec/lib.contracts-spec/docs';
 import { Command } from 'commander';
+import { createExecutionLaneCommand } from './execution-lanes';
 import {
 	parseActorType,
 	parseApprovalStatus,
@@ -23,6 +24,7 @@ import { createControlPlaneRuntimeContext } from './runtime-context';
 export const controlPlaneCommand = new Command('control-plane')
 	.description('Inspect control-plane approvals, traces, and replay state')
 	.addCommand(createApprovalCommand())
+	.addCommand(createExecutionLaneCommand(withContext))
 	.addCommand(createTraceCommand());
 
 function createApprovalCommand(): Command {

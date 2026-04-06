@@ -122,6 +122,8 @@
 - create local packets first
 - optionally attach Studio transport metadata
 - preserve trace and policy explanation refs
+- sync into a queue-backed Studio review service only after local artifacts are written
+- keep queue state derived from control-plane approval status and execution-lane status
 
 ## Package stance
 

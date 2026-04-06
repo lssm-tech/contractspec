@@ -12,6 +12,21 @@ export interface ConnectTraceLookup {
 	traceId?: string;
 }
 
+export interface ConnectReviewBridgeState {
+	enabled: boolean;
+	mode?: 'off' | 'review-bridge';
+	endpoint?: string;
+	queue?: string;
+	status: 'disabled' | 'skipped' | 'synced' | 'failed';
+	lastAttemptAt?: string;
+	syncedAt?: string;
+	reviewId?: string;
+	laneRunId?: string;
+	runtimeDecisionId?: string;
+	traceId?: string;
+	error?: string;
+}
+
 export interface ConnectDecisionEnvelope {
 	connectDecisionId: string;
 	taskId: string;
@@ -26,6 +41,7 @@ export interface ConnectDecisionEnvelope {
 		replayBundle?: string;
 	};
 	runtimeLink?: ConnectRuntimeLink;
+	reviewBridge?: ConnectReviewBridgeState;
 }
 
 export interface ConnectControlPlaneRuntime {

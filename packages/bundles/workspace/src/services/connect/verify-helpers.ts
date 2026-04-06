@@ -133,12 +133,16 @@ export function buildReviewPacket(
 			approvalStatus: input.runtimeLink?.approvalStatus,
 			decisionId: input.runtimeLink?.decisionId,
 			traceId: input.runtimeLink?.traceId ?? contextPack.actor.traceId,
-		},
-		studio: workspace.config.connect?.studio?.enabled
-			? { enabled: true, mode: workspace.config.connect.studio.mode }
-			: { enabled: false, mode: 'off' },
-	};
-}
+			},
+			studio: workspace.config.connect?.studio?.enabled
+				? {
+						enabled: true,
+						mode: workspace.config.connect.studio.mode,
+						queue: workspace.config.connect.studio.queue,
+					}
+				: { enabled: false, mode: 'off' },
+		};
+	}
 
 export function buildPatchVerdict(
 	decisionId: string,

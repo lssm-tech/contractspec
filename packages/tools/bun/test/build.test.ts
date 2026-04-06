@@ -1,8 +1,15 @@
 import { afterEach, describe, expect, test } from 'bun:test';
-import { access, mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
+import {
+	access,
+	mkdir,
+	mkdtemp,
+	readFile,
+	rm,
+	writeFile,
+} from 'node:fs/promises';
 import os from 'node:os';
 import path from 'node:path';
-import { runTranspile } from '../lib/build.mjs';
+import { runTranspile, runTypes } from '../lib/build.mjs';
 import { selectEntriesForTarget } from '../lib/config.mjs';
 
 const tempDirs: string[] = [];
@@ -123,5 +130,155 @@ describe('runTranspile', () => {
 		expect(
 			await exists(path.join(cwd, 'dist', 'native', 'view.native.js'))
 		).toBe(true);
+	});
+});
+
+describe('runTypes', () => {
+	test('builds missing workspace dependency declarations before emitting consumer types', async () => {
+		const workspaceRoot = await createTempDir();
+		await writeFile(
+			path.join(workspaceRoot, 'package.json'),
+			JSON.stringify(
+				{
+					private: true,
+					workspaces: ['packages/*/*'],
+				},
+				null,
+				2
+			) + '\n'
+		);
+
+		const dependencyDir = path.join(
+			workspaceRoot,
+			'packages',
+			'libs',
+			'execution-lanes'
+		);
+		await mkdir(path.join(dependencyDir, 'src', 'interop'), {
+			recursive: true,
+		});
+		await mkdir(path.join(dependencyDir, 'dist', 'interop'), {
+			recursive: true,
+		});
+		await writeFile(
+			path.join(dependencyDir, 'package.json'),
+			JSON.stringify(
+				{
+					name: '@contractspec/lib.execution-lanes',
+					version: '0.0.0-test',
+					type: 'module',
+					types: './dist/index.d.ts',
+					scripts: {
+						'build:types':
+							"node -e \"const fs=require('node:fs'); fs.mkdirSync('dist/interop',{recursive:true}); fs.writeFileSync('dist/index.d.ts','export interface LaneSnapshot { id: string; }\\n'); fs.writeFileSync('dist/interop/index.d.ts','export declare const EXECUTION_LANE_COMMANDS: readonly [\\\"/plan\\\"];\\n');\"",
+					},
+					exports: {
+						'.': './src/index.ts',
+						'./interop': './src/interop/index.ts',
+					},
+					publishConfig: {
+						exports: {
+							'.': {
+								types: './dist/index.d.ts',
+								bun: './dist/index.js',
+								default: './dist/index.js',
+							},
+							'./interop': {
+								types: './dist/interop/index.d.ts',
+								bun: './dist/interop/index.js',
+								default: './dist/interop/index.js',
+							},
+						},
+					},
+				},
+				null,
+				2
+			) + '\n'
+		);
+		await writeFile(
+			path.join(dependencyDir, 'src', 'index.ts'),
+			'export interface LaneSnapshot { id: string; }\n'
+		);
+		await writeFile(
+			path.join(dependencyDir, 'src', 'interop', 'index.ts'),
+			'export const EXECUTION_LANE_COMMANDS = ["/plan"] as const;\n'
+		);
+		await writeFile(
+			path.join(dependencyDir, 'dist', 'index.js'),
+			'export {};\n'
+		);
+		await writeFile(
+			path.join(dependencyDir, 'dist', 'interop', 'index.js'),
+			'export {};\n'
+		);
+
+		const consumerDir = path.join(
+			workspaceRoot,
+			'packages',
+			'modules',
+			'execution-console'
+		);
+		await mkdir(path.join(consumerDir, 'src'), { recursive: true });
+		await writeFile(
+			path.join(consumerDir, 'package.json'),
+			JSON.stringify(
+				{
+					name: '@contractspec/module.execution-console',
+					version: '0.0.0-test',
+					type: 'module',
+					dependencies: {
+						'@contractspec/lib.execution-lanes': 'workspace:*',
+					},
+				},
+				null,
+				2
+			) + '\n'
+		);
+		await writeFile(
+			path.join(consumerDir, 'tsconfig.json'),
+			JSON.stringify(
+				{
+					compilerOptions: {
+						target: 'ES2022',
+						module: 'ESNext',
+						moduleResolution: 'Bundler',
+						strict: true,
+						rootDir: 'src',
+						outDir: 'dist',
+						declaration: true,
+					},
+					include: ['src'],
+				},
+				null,
+				2
+			) + '\n'
+		);
+		await writeFile(
+			path.join(consumerDir, 'src', 'index.ts'),
+			[
+				"import type { LaneSnapshot } from '@contractspec/lib.execution-lanes';",
+				"import { EXECUTION_LANE_COMMANDS } from '@contractspec/lib.execution-lanes/interop';",
+				'',
+				'export function summarizeLane(snapshot: LaneSnapshot) {',
+				'\treturn `${EXECUTION_LANE_COMMANDS[0]}:${snapshot.id}`;',
+				'}',
+				'',
+			].join('\n')
+		);
+
+		await runTypes({ cwd: consumerDir });
+
+		const generatedTypes = await readFile(
+			path.join(consumerDir, 'dist', 'index.d.ts'),
+			'utf8'
+		);
+		const generatedDependencyTypes = await readFile(
+			path.join(dependencyDir, 'dist', 'index.d.ts'),
+			'utf8'
+		);
+
+		expect(generatedTypes).toContain('LaneSnapshot');
+		expect(generatedTypes).toContain('summarizeLane');
+		expect(generatedDependencyTypes).toContain('LaneSnapshot');
 	});
 });

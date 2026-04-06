@@ -124,10 +124,10 @@ const VisualizationShowcase = dynamic(
 	{ ssr: false }
 );
 
-const AgentDashboard = dynamic(
+const AgentExecutionConsoleHost = dynamic(
 	() =>
 		import('@contractspec/example.agent-console/ui').then(
-			(m) => m.AgentDashboard
+			(m) => m.ExecutionConsoleHost
 		),
 	{ ssr: false }
 );
@@ -301,7 +301,7 @@ export default function SandboxExperienceClient() {
 			case 'visualization-showcase':
 				return <VisualizationShowcase />;
 			case 'agent-console':
-				return <AgentDashboard />;
+				return <AgentExecutionConsoleHost />;
 			case 'workflow-system':
 				return <WorkflowDashboard />;
 			case 'marketplace':

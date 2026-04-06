@@ -3,6 +3,7 @@ import { Elysia } from 'elysia';
 import { channelControlPlaneHandler } from './handlers/channel-control-plane-handler';
 import { channelDispatchHandler } from './handlers/channel-dispatch-handler';
 import { startChannelDispatchScheduler } from './handlers/channel-dispatch-scheduler';
+import { startConnectReviewSweepScheduler } from './handlers/connect-review-scheduler';
 import { githubWebhookHandler } from './handlers/github-webhook-handler';
 import { markdownHandler } from './handlers/markdown-handler';
 import { mcpHandler } from './handlers/mcp-handler';
@@ -43,6 +44,7 @@ const app = new Elysia()
 	.use(channelDispatchHandler);
 
 startChannelDispatchScheduler();
+startConnectReviewSweepScheduler();
 // .listen(PORT);
 
 appLogger.info(

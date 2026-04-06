@@ -437,6 +437,8 @@ export interface ConnectStudioConfig {
 	mode?: 'off' | 'review-bridge';
 	/** Optional Studio endpoint when sync is enabled. */
 	endpoint?: string;
+	/** Optional Studio queue name for synced review packets. */
+	queue?: string;
 }
 
 export interface ConnectConfig {

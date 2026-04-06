@@ -40,10 +40,10 @@ const VisualizationShowcase = dynamic(
 	{ ssr: false, loading: () => <LoadingSpinner /> }
 );
 
-const AgentDashboard = dynamic(
+const AgentExecutionConsoleHost = dynamic(
 	() =>
 		import('@contractspec/example.agent-console/ui').then(
-			(module) => module.AgentDashboard
+			(module) => module.ExecutionConsoleHost
 		),
 	{ ssr: false, loading: () => <LoadingSpinner /> }
 );
@@ -123,7 +123,7 @@ const PREVIEW_DEFINITIONS: Partial<Record<TemplateId, PreviewDefinition>> = {
 		title: 'AI Agent Console',
 		description:
 			'AI agent orchestration with tools, agents, runs, and execution logs.',
-		component: AgentDashboard,
+		component: AgentExecutionConsoleHost,
 	},
 	'ai-chat-assistant': {
 		title: 'AI Chat Assistant',

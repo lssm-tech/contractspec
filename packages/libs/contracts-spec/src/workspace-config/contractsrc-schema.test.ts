@@ -128,6 +128,7 @@ describe('ContractsrcSchema with testing', () => {
 				studio: {
 					enabled: false,
 					mode: 'off',
+					queue: 'connect-review',
 				},
 			},
 		});
@@ -146,6 +147,7 @@ describe('ContractsrcSchema with testing', () => {
 			expect(
 				result.data.connect?.policy?.reviewThresholds?.destructiveCommand
 			).toBe('deny');
+			expect(result.data.connect?.studio?.queue).toBe('connect-review');
 		}
 	});
 

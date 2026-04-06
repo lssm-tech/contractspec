@@ -1,11 +1,19 @@
 import { Logger, LogLevel } from '@contractspec/lib.logger';
 
+function resolveNodeEnvironment() {
+	return process.env.NODE_ENV === 'production' ||
+		process.env.NODE_ENV === 'test' ||
+		process.env.NODE_ENV === 'development'
+		? process.env.NODE_ENV
+		: 'development';
+}
+
 // Centralized logger configuration for the API
 export const createAppLogger = () =>
 	new Logger({
 		level:
 			process.env.NODE_ENV === 'production' ? LogLevel.INFO : LogLevel.DEBUG,
-		environment: process.env.NODE_ENV || 'development',
+		environment: resolveNodeEnvironment(),
 		enableTracing: true,
 		enableTiming: true,
 		enableContext: true,
@@ -18,7 +26,7 @@ export const appLogger = createAppLogger();
 // Logger specifically for database operations
 export const dbLogger = new Logger({
 	level: process.env.NODE_ENV === 'production' ? LogLevel.WARN : LogLevel.DEBUG,
-	environment: process.env.NODE_ENV || 'development',
+	environment: resolveNodeEnvironment(),
 	enableTracing: true,
 	enableTiming: true,
 	enableContext: true,
@@ -28,7 +36,7 @@ export const dbLogger = new Logger({
 // Logger for authentication operations
 export const authLogger = new Logger({
 	level: LogLevel.INFO, // Always log auth events
-	environment: process.env.NODE_ENV || 'development',
+	environment: resolveNodeEnvironment(),
 	enableTracing: true,
 	enableTiming: true,
 	enableContext: true,

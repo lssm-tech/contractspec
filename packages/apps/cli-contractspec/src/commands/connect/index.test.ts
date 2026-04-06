@@ -18,7 +18,7 @@ describe('connect command', () => {
 			connectCommand.commands
 				.find((command) => command.name() === 'review')
 				?.commands.map((command) => command.name())
-		).toEqual(['list']);
+		).toEqual(['list', 'sync']);
 	});
 
 	it('keeps operator-facing flags for context, verify, and eval flows', () => {
@@ -55,6 +55,18 @@ describe('connect command', () => {
 			'--scenario'
 		);
 		expect(evaluate?.options.map((option) => option.long)).toContain('--suite');
+		expect(
+			connectCommand.commands
+				.find((command) => command.name() === 'review')
+				?.commands.find((command) => command.name() === 'sync')
+				?.options.map((option) => option.long)
+		).toContain('--decision');
+		expect(
+			connectCommand.commands
+				.find((command) => command.name() === 'review')
+				?.commands.find((command) => command.name() === 'sync')
+				?.options.map((option) => option.long)
+		).toContain('--all');
 	});
 
 	it('maps verdicts and configuration/runtime errors to the documented exit codes', () => {

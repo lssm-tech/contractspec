@@ -91,10 +91,14 @@ async function main(): Promise<void> {
 	});
 
 	fs.writeFileSync(outFile, renderManifest(manifest), 'utf8');
-	const formatResult = spawnSync(process.execPath, [biomeLauncher, 'check', '--write', outFile], {
-		cwd: workspaceRoot,
-		stdio: 'inherit',
-	});
+	const formatResult = spawnSync(
+		process.execPath,
+		[biomeLauncher, 'check', '--write', outFile],
+		{
+			cwd: workspaceRoot,
+			stdio: 'inherit',
+		}
+	);
 	if (formatResult.status !== 0) {
 		throw new Error(`Failed to format ${outFile} with biome.`);
 	}

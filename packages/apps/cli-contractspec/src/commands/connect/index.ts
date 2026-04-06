@@ -4,15 +4,18 @@ import chalk from 'chalk';
 import { Command } from 'commander';
 import {
 	runConnectContextCommand,
-	runConnectEvalCommand,
 	runConnectInitCommand,
 	runConnectPlanCommand,
-	runConnectReplayCommand,
-	runConnectReviewListCommand,
 	runConnectVerifyCommand,
 } from './actions';
 import { runConnectContractsSpecHookCommand } from './hook-actions';
 import { connectErrorExitCode, exitCodeForVerdict } from './io';
+import {
+	runConnectEvalCommand,
+	runConnectReplayCommand,
+	runConnectReviewListCommand,
+	runConnectReviewSyncCommand,
+} from './review-actions';
 
 export const connectCommand = new Command('connect')
 	.description('Emit and inspect local Connect adapter artifacts')
@@ -141,6 +144,22 @@ function createReviewCommand() {
 				.action((options) =>
 					runSafely(() => runConnectReviewListCommand(options))
 				)
+		)
+		.addCommand(
+			new Command('sync')
+				.description(
+					'Sync local review packets to the configured Studio bridge'
+				)
+				.option('--all', 'Sync all local review packets')
+				.option(
+					'--decision <decisionId>',
+					'Sync one decision by Connect decision id'
+				)
+				.option('--queue <queue>', 'Override the Studio queue name')
+				.option('--json', 'Output JSON')
+				.action((options) =>
+					runSafely(() => runConnectReviewSyncCommand(options))
+				)
 		);
 }
 
@@ -198,7 +217,7 @@ export const connectCommandDocBlock = {
 	visibility: 'public',
 	route: '/docs/cli/connect',
 	tags: ['cli', 'connect', 'operators'],
-	body: '# contractspec connect\n\nEmit task context, plans, verdicts, review packets, replay/evaluation artifacts, and host hook flows through the main CLI.\n\n```bash\ncontractspec connect init --scope workspace\ncontractspec connect context --task task-1 --paths src/foo.ts --json\ncontractspec connect plan --task task-1 --stdin --json\ncontractspec connect verify --task task-1 --tool acp.fs.access --stdin --json\ncontractspec connect hook contracts-spec before-file-edit --stdin\ncontractspec connect review list --json\ncontractspec connect replay <decisionId> --json\ncontractspec connect eval <decisionId> --registry ./harness-registry.ts --scenario connect.safe-refactor --json\n```',
+	body: '# contractspec connect\n\nEmit task context, plans, verdicts, review packets, replay/evaluation artifacts, Studio review syncs, and host hook flows through the main CLI.\n\n```bash\ncontractspec connect init --scope workspace\ncontractspec connect context --task task-1 --paths src/foo.ts --json\ncontractspec connect plan --task task-1 --stdin --json\ncontractspec connect verify --task task-1 --tool acp.fs.access --stdin --json\ncontractspec connect hook contracts-spec before-file-edit --stdin\ncontractspec connect review list --json\ncontractspec connect review sync --all --json\ncontractspec connect replay <decisionId> --json\ncontractspec connect eval <decisionId> --registry ./harness-registry.ts --scenario connect.safe-refactor --json\n```',
 } satisfies DocBlock;
 
 registerDocBlocks([connectCommandDocBlock]);

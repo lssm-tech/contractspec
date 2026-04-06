@@ -140,9 +140,15 @@
 		"./control-plane/capabilities/controlPlaneCore.capability": "./src/control-plane/capabilities/controlPlaneCore.capability.ts",
 		"./control-plane/capabilities/controlPlaneSkillRegistry.capability": "./src/control-plane/capabilities/controlPlaneSkillRegistry.capability.ts",
 		"./control-plane/commands": "./src/control-plane/commands/index.ts",
+		"./control-plane/commands/controlPlaneExecutionAbort.command": "./src/control-plane/commands/controlPlaneExecutionAbort.command.ts",
 		"./control-plane/commands/controlPlaneExecutionApprove.command": "./src/control-plane/commands/controlPlaneExecutionApprove.command.ts",
 		"./control-plane/commands/controlPlaneExecutionCancel.command": "./src/control-plane/commands/controlPlaneExecutionCancel.command.ts",
+		"./control-plane/commands/controlPlaneExecutionEvidenceExport.command": "./src/control-plane/commands/controlPlaneExecutionEvidenceExport.command.ts",
+		"./control-plane/commands/controlPlaneExecutionPause.command": "./src/control-plane/commands/controlPlaneExecutionPause.command.ts",
 		"./control-plane/commands/controlPlaneExecutionReject.command": "./src/control-plane/commands/controlPlaneExecutionReject.command.ts",
+		"./control-plane/commands/controlPlaneExecutionResume.command": "./src/control-plane/commands/controlPlaneExecutionResume.command.ts",
+		"./control-plane/commands/controlPlaneExecutionRetry.command": "./src/control-plane/commands/controlPlaneExecutionRetry.command.ts",
+		"./control-plane/commands/controlPlaneExecutionShutdown.command": "./src/control-plane/commands/controlPlaneExecutionShutdown.command.ts",
 		"./control-plane/commands/controlPlaneExecutionStart.command": "./src/control-plane/commands/controlPlaneExecutionStart.command.ts",
 		"./control-plane/commands/controlPlaneIntentSubmit.command": "./src/control-plane/commands/controlPlaneIntentSubmit.command.ts",
 		"./control-plane/commands/controlPlanePlanCompile.command": "./src/control-plane/commands/controlPlanePlanCompile.command.ts",
@@ -167,6 +173,9 @@
 		"./control-plane/policies/controlPlaneMessaging.policy": "./src/control-plane/policies/controlPlaneMessaging.policy.ts",
 		"./control-plane/queries": "./src/control-plane/queries/index.ts",
 		"./control-plane/queries/controlPlaneExecutionGet.query": "./src/control-plane/queries/controlPlaneExecutionGet.query.ts",
+		"./control-plane/queries/controlPlaneExecutionLane.models": "./src/control-plane/queries/controlPlaneExecutionLane.models.ts",
+		"./control-plane/queries/controlPlaneExecutionLaneGet.query": "./src/control-plane/queries/controlPlaneExecutionLaneGet.query.ts",
+		"./control-plane/queries/controlPlaneExecutionLaneList.query": "./src/control-plane/queries/controlPlaneExecutionLaneList.query.ts",
 		"./control-plane/queries/controlPlaneExecutionList.query": "./src/control-plane/queries/controlPlaneExecutionList.query.ts",
 		"./control-plane/queries/controlPlanePolicyExplain.query": "./src/control-plane/queries/controlPlanePolicyExplain.query.ts",
 		"./control-plane/queries/controlPlaneSkillList.query": "./src/control-plane/queries/controlPlaneSkillList.query.ts",
@@ -978,6 +987,12 @@
 				"node": "./dist/node/control-plane/commands/index.js",
 				"default": "./dist/control-plane/commands/index.js"
 			},
+			"./control-plane/commands/controlPlaneExecutionAbort.command": {
+				"types": "./dist/control-plane/commands/controlPlaneExecutionAbort.command.d.ts",
+				"bun": "./dist/control-plane/commands/controlPlaneExecutionAbort.command.js",
+				"node": "./dist/node/control-plane/commands/controlPlaneExecutionAbort.command.js",
+				"default": "./dist/control-plane/commands/controlPlaneExecutionAbort.command.js"
+			},
 			"./control-plane/commands/controlPlaneExecutionApprove.command": {
 				"types": "./dist/control-plane/commands/controlPlaneExecutionApprove.command.d.ts",
 				"bun": "./dist/control-plane/commands/controlPlaneExecutionApprove.command.js",
@@ -990,11 +1005,41 @@
 				"node": "./dist/node/control-plane/commands/controlPlaneExecutionCancel.command.js",
 				"default": "./dist/control-plane/commands/controlPlaneExecutionCancel.command.js"
 			},
+			"./control-plane/commands/controlPlaneExecutionEvidenceExport.command": {
+				"types": "./dist/control-plane/commands/controlPlaneExecutionEvidenceExport.command.d.ts",
+				"bun": "./dist/control-plane/commands/controlPlaneExecutionEvidenceExport.command.js",
+				"node": "./dist/node/control-plane/commands/controlPlaneExecutionEvidenceExport.command.js",
+				"default": "./dist/control-plane/commands/controlPlaneExecutionEvidenceExport.command.js"
+			},
+			"./control-plane/commands/controlPlaneExecutionPause.command": {
+				"types": "./dist/control-plane/commands/controlPlaneExecutionPause.command.d.ts",
+				"bun": "./dist/control-plane/commands/controlPlaneExecutionPause.command.js",
+				"node": "./dist/node/control-plane/commands/controlPlaneExecutionPause.command.js",
+				"default": "./dist/control-plane/commands/controlPlaneExecutionPause.command.js"
+			},
 			"./control-plane/commands/controlPlaneExecutionReject.command": {
 				"types": "./dist/control-plane/commands/controlPlaneExecutionReject.command.d.ts",
 				"bun": "./dist/control-plane/commands/controlPlaneExecutionReject.command.js",
 				"node": "./dist/node/control-plane/commands/controlPlaneExecutionReject.command.js",
 				"default": "./dist/control-plane/commands/controlPlaneExecutionReject.command.js"
+			},
+			"./control-plane/commands/controlPlaneExecutionResume.command": {
+				"types": "./dist/control-plane/commands/controlPlaneExecutionResume.command.d.ts",
+				"bun": "./dist/control-plane/commands/controlPlaneExecutionResume.command.js",
+				"node": "./dist/node/control-plane/commands/controlPlaneExecutionResume.command.js",
+				"default": "./dist/control-plane/commands/controlPlaneExecutionResume.command.js"
+			},
+			"./control-plane/commands/controlPlaneExecutionRetry.command": {
+				"types": "./dist/control-plane/commands/controlPlaneExecutionRetry.command.d.ts",
+				"bun": "./dist/control-plane/commands/controlPlaneExecutionRetry.command.js",
+				"node": "./dist/node/control-plane/commands/controlPlaneExecutionRetry.command.js",
+				"default": "./dist/control-plane/commands/controlPlaneExecutionRetry.command.js"
+			},
+			"./control-plane/commands/controlPlaneExecutionShutdown.command": {
+				"types": "./dist/control-plane/commands/controlPlaneExecutionShutdown.command.d.ts",
+				"bun": "./dist/control-plane/commands/controlPlaneExecutionShutdown.command.js",
+				"node": "./dist/node/control-plane/commands/controlPlaneExecutionShutdown.command.js",
+				"default": "./dist/control-plane/commands/controlPlaneExecutionShutdown.command.js"
 			},
 			"./control-plane/commands/controlPlaneExecutionStart.command": {
 				"types": "./dist/control-plane/commands/controlPlaneExecutionStart.command.d.ts",
@@ -1139,6 +1184,24 @@
 				"bun": "./dist/control-plane/queries/controlPlaneExecutionGet.query.js",
 				"node": "./dist/node/control-plane/queries/controlPlaneExecutionGet.query.js",
 				"default": "./dist/control-plane/queries/controlPlaneExecutionGet.query.js"
+			},
+			"./control-plane/queries/controlPlaneExecutionLane.models": {
+				"types": "./dist/control-plane/queries/controlPlaneExecutionLane.models.d.ts",
+				"bun": "./dist/control-plane/queries/controlPlaneExecutionLane.models.js",
+				"node": "./dist/node/control-plane/queries/controlPlaneExecutionLane.models.js",
+				"default": "./dist/control-plane/queries/controlPlaneExecutionLane.models.js"
+			},
+			"./control-plane/queries/controlPlaneExecutionLaneGet.query": {
+				"types": "./dist/control-plane/queries/controlPlaneExecutionLaneGet.query.d.ts",
+				"bun": "./dist/control-plane/queries/controlPlaneExecutionLaneGet.query.js",
+				"node": "./dist/node/control-plane/queries/controlPlaneExecutionLaneGet.query.js",
+				"default": "./dist/control-plane/queries/controlPlaneExecutionLaneGet.query.js"
+			},
+			"./control-plane/queries/controlPlaneExecutionLaneList.query": {
+				"types": "./dist/control-plane/queries/controlPlaneExecutionLaneList.query.d.ts",
+				"bun": "./dist/control-plane/queries/controlPlaneExecutionLaneList.query.js",
+				"node": "./dist/node/control-plane/queries/controlPlaneExecutionLaneList.query.js",
+				"default": "./dist/control-plane/queries/controlPlaneExecutionLaneList.query.js"
 			},
 			"./control-plane/queries/controlPlaneExecutionList.query": {
 				"types": "./dist/control-plane/queries/controlPlaneExecutionList.query.d.ts",

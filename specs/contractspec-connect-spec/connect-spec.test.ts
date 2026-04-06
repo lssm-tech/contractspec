@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test';
-import { spawnSync } from 'node:child_process';
+import { spawn, spawnSync } from 'node:child_process';
 import {
 	mkdirSync,
 	mkdtempSync,
@@ -12,6 +12,9 @@ import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import Ajv2020 from 'ajv/dist/2020';
 import { ContractsrcSchema } from '../../packages/libs/contracts-spec/src/workspace-config/contractsrc-schema';
+import { Elysia } from 'elysia';
+import { channelControlPlaneHandler } from '../../packages/apps/api-library/src/handlers/channel-control-plane-handler';
+import { resetChannelRuntimeResourcesForTests } from '../../packages/apps/api-library/src/handlers/channel-runtime-resources';
 
 const SPEC_DIR = import.meta.dir;
 const CLI_ENTRY = resolve(
@@ -69,7 +72,7 @@ describe('contractspec-connect-spec examples', () => {
 		);
 	});
 
-	it('validates real CLI-generated artifacts and enriched audit records', () => {
+		it('validates real CLI-generated artifacts and enriched audit records', () => {
 		const workspace = createWorkspace();
 
 		try {
@@ -158,9 +161,96 @@ describe('contractspec-connect-spec examples', () => {
 			expect(auditRecord.refs.reviewPacket).toContain('/review-packet.json');
 		} finally {
 			rmSync(workspace, { recursive: true, force: true });
-		}
-	}, 20000);
-});
+			}
+		}, 20000);
+
+		it('syncs a real CLI review packet through the Studio review bridge', async () => {
+			const workspace = createWorkspace();
+			const server = startConnectReviewBridgeServer();
+
+			try {
+				writeFileSync(
+					join(workspace, '.contractsrc.json'),
+					JSON.stringify(
+						{
+							connect: {
+								enabled: true,
+								policy: {
+									protectedPaths: ['src/**'],
+								},
+								studio: {
+									enabled: true,
+									mode: 'review-bridge',
+									endpoint: server.baseUrl,
+									queue: 'connect-review',
+								},
+							},
+						},
+						null,
+						2
+					)
+				);
+
+				const verify = await runCliAsync(
+					workspace,
+					[
+						'connect',
+						'verify',
+						'--task',
+						'task-review-bridge',
+						'--tool',
+						'acp.fs.access',
+						'--stdin',
+						'--json',
+					],
+					JSON.stringify({
+						operation: 'edit',
+						path: 'src/runtime/foo.ts',
+					}),
+					{
+						CONTROL_PLANE_API_TOKEN: 'control-plane-token',
+					}
+				);
+				expect(verify.code).toBe(20);
+
+				const reviewVerdict = JSON.parse(verify.stdout) as { decisionId: string };
+				const envelope = JSON.parse(
+					readFileSync(
+						join(
+							workspace,
+							'.contractspec',
+							'connect',
+							'decisions',
+							reviewVerdict.decisionId,
+							'decision-envelope.json'
+						),
+						'utf8'
+					)
+				);
+				expect(envelope.reviewBridge.status).toBe('synced');
+				expect(envelope.reviewBridge.queue).toBe('connect-review');
+
+				const response = await fetch(
+					`${server.baseUrl}/internal/control-plane/connect/reviews`,
+					{
+						headers: {
+							authorization: 'Bearer control-plane-token',
+						},
+					}
+				);
+				expect(response.status).toBe(200);
+				const listJson = (await response.json()) as {
+					items: Array<{ sourceDecisionId: string }>;
+					ok: boolean;
+				};
+				expect(listJson.ok).toBe(true);
+				expect(listJson.items[0]?.sourceDecisionId).toBe(reviewVerdict.decisionId);
+			} finally {
+				server.stop();
+				rmSync(workspace, { recursive: true, force: true });
+			}
+		}, 20000);
+	});
 
 function validateJson(schemaPath: string, value: object) {
 	const ajv = new Ajv2020({ allErrors: true, strict: false });
@@ -198,10 +288,22 @@ function readAuditRecords(workspace: string): Array<Record<string, any>> {
 		.map((line) => JSON.parse(line) as Record<string, any>);
 }
 
-function runCli(workspace: string, args: string[], input?: string) {
+function runCli(
+	workspace: string,
+	args: string[],
+	input?: string,
+	extraEnv: Record<string, string> = {}
+) {
 	const result = spawnSync('bun', [CLI_ENTRY, ...args], {
 		cwd: workspace,
 		encoding: 'utf8',
+		env: {
+			...process.env,
+			CHANNEL_RUNTIME_DATABASE_URL: '',
+			CHANNEL_RUNTIME_STORAGE: 'postgres',
+			DATABASE_URL: '',
+			...extraEnv,
+		},
 		input,
 	});
 
@@ -209,5 +311,77 @@ function runCli(workspace: string, args: string[], input?: string) {
 		code: result.status,
 		stderr: result.stderr,
 		stdout: result.stdout,
+	};
+}
+
+async function runCliAsync(
+	workspace: string,
+	args: string[],
+	input?: string,
+	extraEnv: Record<string, string> = {}
+) {
+	return await new Promise<{ code: number; stderr: string; stdout: string }>(
+		(resolveResult, reject) => {
+			const child = spawn('bun', [CLI_ENTRY, ...args], {
+				cwd: workspace,
+				env: {
+					...process.env,
+					CHANNEL_RUNTIME_DATABASE_URL: '',
+					CHANNEL_RUNTIME_STORAGE: 'postgres',
+					DATABASE_URL: '',
+					...extraEnv,
+				},
+				stdio: 'pipe',
+			});
+			const stdout: Buffer[] = [];
+			const stderr: Buffer[] = [];
+			child.stdout.on('data', (chunk) => stdout.push(Buffer.from(chunk)));
+			child.stderr.on('data', (chunk) => stderr.push(Buffer.from(chunk)));
+			child.on('error', reject);
+			child.on('close', (code) =>
+				resolveResult({
+					code: code ?? -1,
+					stderr: Buffer.concat(stderr).toString('utf8'),
+					stdout: Buffer.concat(stdout).toString('utf8'),
+				})
+			);
+			if (input) {
+				child.stdin.write(input);
+			}
+			child.stdin.end();
+		}
+	);
+}
+
+function startConnectReviewBridgeServer() {
+	resetChannelRuntimeResourcesForTests();
+	process.env.CHANNEL_RUNTIME_STORAGE = 'memory';
+	process.env.CHANNEL_RUNTIME_ASYNC_PROCESSING = '0';
+	process.env.CHANNEL_RUNTIME_DEFAULT_CAPABILITY_GRANTS =
+		'control-plane.approval.request';
+	process.env.CONTROL_PLANE_API_TOKEN = 'control-plane-token';
+	process.env.CONTROL_PLANE_API_CAPABILITY_GRANTS = 'control-plane.audit';
+
+	const app = new Elysia().use(channelControlPlaneHandler);
+	const server = Bun.serve({
+		fetch: app.fetch,
+		hostname: '127.0.0.1',
+		port: 0,
+	});
+	return {
+		baseUrl: `http://127.0.0.1:${server.port}`,
+		stop() {
+			server.stop(true);
+			resetChannelRuntimeResourcesForTests();
+			for (const key of [
+				'CHANNEL_RUNTIME_STORAGE',
+				'CHANNEL_RUNTIME_ASYNC_PROCESSING',
+				'CHANNEL_RUNTIME_DEFAULT_CAPABILITY_GRANTS',
+				'CONTROL_PLANE_API_TOKEN',
+				'CONTROL_PLANE_API_CAPABILITY_GRANTS',
+			] as const) {
+				Reflect.deleteProperty(process.env, key);
+			}
+		},
 	};
 }

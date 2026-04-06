@@ -13,7 +13,7 @@ Connect configuration is part of workspace config.
 - command allow, review, and deny policy
 - Bun-first smoke checks
 - canon pack refs
-- optional Studio bridge config
+- optional Studio bridge config, including endpoint and queue selection
 
 ### Not for this section
 
@@ -83,6 +83,7 @@ Escalation artifact for local or later Studio review.
 - immutable evidence refs under `.contractspec/connect/decisions/<decisionId>/`
 - required approvals
 - trace and policy explanation refs plus optional runtime-linked decision id
+- optional Studio queue metadata when review-bridge transport is enabled
 
 ## 6. `audit.ndjson`
 

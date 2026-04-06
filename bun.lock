@@ -584,6 +584,8 @@
         "@contractspec/lib.presentation-runtime-core": "workspace:*",
         "@contractspec/lib.runtime-sandbox": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
+        "@contractspec/lib.ui-kit-web": "workspace:*",
+        "@contractspec/module.execution-console": "workspace:*",
         "react": "catalog:",
         "react-dom": "catalog:",
       },
@@ -1551,6 +1553,8 @@
       "dependencies": {
         "@contractspec/lib.contracts-integrations": "workspace:*",
         "@contractspec/lib.contracts-spec": "workspace:*",
+        "@contractspec/lib.execution-lanes": "workspace:*",
+        "@contractspec/lib.jobs": "workspace:*",
         "@contractspec/lib.logger": "workspace:*",
         "@google-cloud/secret-manager": "^6.1.1",
         "google-gax": "^5.0.0",
@@ -1982,6 +1986,19 @@
       "optionalPeers": [
         "@contractspec/lib.surface-runtime",
       ],
+    },
+    "packages/libs/execution-lanes": {
+      "name": "@contractspec/lib.execution-lanes",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/lib.contracts-spec": "workspace:*",
+        "@contractspec/lib.harness": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
+      },
     },
     "packages/libs/exporter": {
       "name": "@contractspec/lib.exporter",
@@ -2894,6 +2911,24 @@
         "typescript": "catalog:",
       },
     },
+    "packages/modules/execution-console": {
+      "name": "@contractspec/module.execution-console",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/lib.execution-lanes": "workspace:*",
+        "@contractspec/lib.ui-kit-web": "workspace:*",
+        "react": "catalog:",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "@types/react": "^19.2.14",
+        "typescript": "catalog:",
+      },
+      "peerDependencies": {
+        "react": ">=19.2.4",
+      },
+    },
     "packages/modules/learning-journey": {
       "name": "@contractspec/module.learning-journey",
       "version": "3.7.16",
@@ -3770,6 +3805,8 @@
 
     "@contractspec/lib.example-shared-ui": ["@contractspec/lib.example-shared-ui@workspace:packages/libs/example-shared-ui"],
 
+    "@contractspec/lib.execution-lanes": ["@contractspec/lib.execution-lanes@workspace:packages/libs/execution-lanes"],
+
     "@contractspec/lib.exporter": ["@contractspec/lib.exporter@workspace:packages/libs/exporter"],
 
     "@contractspec/lib.feature-flags": ["@contractspec/lib.feature-flags@workspace:packages/libs/feature-flags"],
@@ -3855,6 +3892,8 @@
     "@contractspec/module.context-storage": ["@contractspec/module.context-storage@workspace:packages/modules/context-storage"],
 
     "@contractspec/module.examples": ["@contractspec/module.examples@workspace:packages/modules/examples"],
+
+    "@contractspec/module.execution-console": ["@contractspec/module.execution-console@workspace:packages/modules/execution-console"],
 
     "@contractspec/module.learning-journey": ["@contractspec/module.learning-journey@workspace:packages/modules/learning-journey"],
 

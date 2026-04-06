@@ -7,6 +7,8 @@ type ConnectActorRef = {
 	traceId?: string;
 };
 
+export type { ConnectActorRef };
+
 export async function readRequiredStdin(): Promise<string> {
 	const chunks: Buffer[] = [];
 
@@ -87,10 +89,14 @@ export function connectErrorExitCode(error: unknown): number {
 		message.includes('Connect is not enabled') ||
 		message.includes('.contractsrc.json') ||
 		message.includes('Provide exactly one of') ||
+		message.includes('Provide either --all or --decision') ||
 		message.includes('is required') ||
 		message.includes('Expected JSON or text input') ||
 		message.includes('No stored Connect decision') ||
-		message.includes('Could not load registry module')
+		message.includes('Could not load registry module') ||
+		message.includes('connect.studio.endpoint is required') ||
+		message.includes('CONTROL_PLANE_API_TOKEN is required') ||
+		message.includes('No local review packet found')
 	) {
 		return 40;
 	}

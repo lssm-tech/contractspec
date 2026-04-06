@@ -1,4 +1,7 @@
 export * from './controlPlaneExecutionGet.query';
+export * from './controlPlaneExecutionLane.models';
+export * from './controlPlaneExecutionLaneGet.query';
+export * from './controlPlaneExecutionLaneList.query';
 export * from './controlPlaneExecutionList.query';
 export * from './controlPlanePolicyExplain.query';
 export * from './controlPlaneSkillList.query';

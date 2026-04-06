@@ -1,0 +1,85 @@
+{
+	"name": "@contractspec/lib.execution-lanes",
+	"version": "0.1.0",
+	"description": "Execution lanes orchestration contracts and runtime for ContractSpec.",
+	"keywords": [
+		"contractspec",
+		"execution",
+		"lanes",
+		"orchestration",
+		"typescript"
+	],
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"scripts": {
+		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+		"publish:pkg:canary": "bun publish:pkg --tag canary",
+		"build": "bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"dev": "contractspec-bun-build dev",
+		"clean": "rimraf dist .turbo",
+		"lint": "bun lint:fix",
+		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
+		"lint:check": "node ../../../scripts/biome.cjs check .",
+		"test": "bun test",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/lib.harness": "workspace:*"
+	},
+	"devDependencies": {
+		"@contractspec/tool.bun": "workspace:*",
+		"@contractspec/tool.typescript": "workspace:*",
+		"typescript": "catalog:"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./defaults": "./src/defaults/index.ts",
+		"./interop": "./src/interop/index.ts",
+		"./types": "./src/types/index.ts"
+	},
+	"publishConfig": {
+		"access": "public",
+		"registry": "https://registry.npmjs.org/",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./defaults": {
+				"types": "./dist/defaults/index.d.ts",
+				"bun": "./dist/defaults/index.js",
+				"node": "./dist/node/defaults/index.js",
+				"default": "./dist/defaults/index.js"
+			},
+			"./interop": {
+				"types": "./dist/interop/index.d.ts",
+				"bun": "./dist/interop/index.js",
+				"node": "./dist/node/interop/index.js",
+				"default": "./dist/interop/index.js"
+			},
+			"./types": {
+				"types": "./dist/types/index.d.ts",
+				"bun": "./dist/types/index.js",
+				"node": "./dist/node/types/index.js",
+				"default": "./dist/types/index.js"
+			}
+		}
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/libs/execution-lanes"
+	},
+	"homepage": "https://contractspec.io"
+}
