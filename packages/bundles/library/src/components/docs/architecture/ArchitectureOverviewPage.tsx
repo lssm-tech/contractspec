@@ -50,6 +50,40 @@ export function ArchitectureOverviewPage() {
 			<section className="editorial-panel space-y-5">
 				<div className="space-y-2">
 					<h2 className="font-serif text-3xl tracking-[-0.03em]">
+						UI composition belongs in the bundle runtime layer
+					</h2>
+					<p className="text-muted-foreground text-sm leading-7">
+						When the system needs adaptive layouts, entity workbenches,
+						assistant slots, and safe overlays, use module bundles as the layer
+						between the contract model and the rendered surface.
+					</p>
+				</div>
+				<div className="grid gap-4 md:grid-cols-2">
+					<Link href="/docs/specs/module-bundles" className="docs-footer-link">
+						<h3 className="font-semibold text-lg">Module bundles spec</h3>
+						<p className="text-muted-foreground text-sm leading-7">
+							See the typed bundle contract, resolved surface plan model, and
+							bounded AI/runtime behavior.
+						</p>
+					</Link>
+					<Link
+						href="/docs/guides/first-module-bundle"
+						className="docs-footer-link"
+					>
+						<h3 className="font-semibold text-lg">
+							Build a first module bundle
+						</h3>
+						<p className="text-muted-foreground text-sm leading-7">
+							Follow the route-to-plan-to-render path with one practical host
+							example.
+						</p>
+					</Link>
+				</div>
+			</section>
+
+			<section className="editorial-panel space-y-5">
+				<div className="space-y-2">
+					<h2 className="font-serif text-3xl tracking-[-0.03em]">
 						Follow the architecture by responsibility
 					</h2>
 					<p className="text-muted-foreground text-sm leading-7">

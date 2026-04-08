@@ -27,6 +27,27 @@ const proofPoints = [
 	},
 ];
 
+const implementedSpecPacks = [
+	{
+		title: 'ContractSpec Connect',
+		body: 'Guard coding-agent edits and commands with local-first context, plan packets, patch verdicts, and review packets.',
+		specHref: '/docs/specs/connect',
+		guideHref: '/docs/guides/connect-in-a-repo',
+	},
+	{
+		title: 'Module bundles',
+		body: 'Define AI-native surfaces as typed bundle specs that resolve into auditable runtime plans.',
+		specHref: '/docs/specs/module-bundles',
+		guideHref: '/docs/guides/first-module-bundle',
+	},
+	{
+		title: 'Builder control plane',
+		body: 'Coordinate multimodal authoring, provider routing, readiness, export, and mobile review through governed contracts.',
+		specHref: '/docs/specs/builder-control-plane',
+		guideHref: '/docs/guides/host-builder-workbench',
+	},
+];
+
 export function DocsIndexPage() {
 	const sections = getDocsHomeSections();
 	const secondary = getSecondaryDocsPages().slice(0, 6);
@@ -72,6 +93,40 @@ export function DocsIndexPage() {
 						</article>
 					);
 				})}
+			</section>
+
+			<section className="space-y-5">
+				<div className="space-y-2">
+					<p className="editorial-kicker">Implemented packs</p>
+					<h2 className="editorial-panel-title">
+						Use the three higher-order systems that are already wired
+					</h2>
+					<p className="editorial-copy text-sm">
+						These pages are the canonical landing points for agent enforcement,
+						AI-native surface composition, and Builder authoring. Each one now
+						has a matching practical guide.
+					</p>
+				</div>
+				<div className="grid gap-4 lg:grid-cols-3">
+					{implementedSpecPacks.map((item) => (
+						<article key={item.title} className="editorial-panel space-y-4">
+							<div>
+								<h3 className="font-semibold text-xl">{item.title}</h3>
+								<p className="mt-2 text-muted-foreground text-sm leading-7">
+									{item.body}
+								</p>
+							</div>
+							<div className="flex flex-wrap gap-3">
+								<Link href={item.specHref} className="btn-primary text-sm">
+									Open spec page <ArrowRight size={16} />
+								</Link>
+								<Link href={item.guideHref} className="btn-ghost text-sm">
+									Read practical guide
+								</Link>
+							</div>
+						</article>
+					))}
+				</div>
 			</section>
 
 			<section className="editorial-panel space-y-5">

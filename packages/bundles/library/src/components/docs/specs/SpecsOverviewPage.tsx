@@ -34,6 +34,24 @@ const specTypes = [
 	},
 ];
 
+const implementedPacks = [
+	{
+		title: 'Module bundles',
+		body: 'Define typed surface bundles that resolve into auditable runtime plans instead of hand-built page logic.',
+		href: '/docs/specs/module-bundles',
+	},
+	{
+		title: 'ContractSpec Connect',
+		body: 'Put coding-agent edits and commands behind local-first context, verification, replay, and review artifacts.',
+		href: '/docs/specs/connect',
+	},
+	{
+		title: 'Builder control plane',
+		body: 'Coordinate multimodal authoring, provider routing, readiness, export, and mobile review on top of OSS and Studio.',
+		href: '/docs/specs/builder-control-plane',
+	},
+];
+
 export function SpecsOverviewPage() {
 	return (
 		<div className="space-y-10">
@@ -117,6 +135,32 @@ export function SpecsOverviewPage() {
 							</p>
 							<div className="mt-4 flex items-center gap-2 text-[color:var(--rust)] text-sm">
 								Open section <ChevronRight size={14} />
+							</div>
+						</Link>
+					))}
+				</div>
+			</section>
+
+			<section className="space-y-5">
+				<div className="space-y-2">
+					<h2 className="font-serif text-3xl tracking-[-0.03em]">
+						Implemented spec packs
+					</h2>
+					<p className="text-muted-foreground text-sm leading-7">
+						These packs combine multiple contract surfaces into higher-order
+						systems you can use directly today: agent enforcement, AI-native
+						surface runtime, and governed Builder authoring.
+					</p>
+				</div>
+				<div className="grid gap-4 md:grid-cols-2 xl:grid-cols-3">
+					{implementedPacks.map((item) => (
+						<Link key={item.title} href={item.href} className="editorial-panel">
+							<h3 className="font-semibold text-xl">{item.title}</h3>
+							<p className="mt-2 text-muted-foreground text-sm leading-7">
+								{item.body}
+							</p>
+							<div className="mt-4 flex items-center gap-2 text-[color:var(--rust)] text-sm">
+								Open pack <ChevronRight size={14} />
 							</div>
 						</Link>
 					))}

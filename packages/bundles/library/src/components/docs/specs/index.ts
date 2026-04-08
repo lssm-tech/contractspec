@@ -1,5 +1,8 @@
+export { SpecsBuilderControlPlanePage } from './SpecsBuilderControlPlanePage';
 export { SpecsCapabilitiesPage } from './SpecsCapabilitiesPage';
+export { SpecsConnectPage } from './SpecsConnectPage';
 export { SpecsDataViewsPage } from './SpecsDataViewsPage';
+export { SpecsModuleBundlesPage } from './SpecsModuleBundlesPage';
 export { SpecsOverlaysPage } from './SpecsOverlaysPage';
 export { SpecsOverviewPage } from './SpecsOverviewPage';
 export { SpecsPolicyPage } from './SpecsPolicyPage';

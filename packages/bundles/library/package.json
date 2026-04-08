@@ -90,9 +90,12 @@
 		"./components/docs/getting-started/VSCodeExtensionPage": "./src/components/docs/getting-started/VSCodeExtensionPage.tsx",
 		"./components/docs/guides": "./src/components/docs/guides/index.ts",
 		"./components/docs/guides/GuideCIDiffGatingPage": "./src/components/docs/guides/GuideCIDiffGatingPage.tsx",
+		"./components/docs/guides/GuideConnectInRepoPage": "./src/components/docs/guides/GuideConnectInRepoPage.tsx",
 		"./components/docs/guides/GuideContractTypesPage": "./src/components/docs/guides/GuideContractTypesPage.tsx",
 		"./components/docs/guides/GuideDocsPipelinePage": "./src/components/docs/guides/GuideDocsPipelinePage.tsx",
+		"./components/docs/guides/GuideFirstModuleBundlePage": "./src/components/docs/guides/GuideFirstModuleBundlePage.tsx",
 		"./components/docs/guides/GuideGenerateDocsClientsSchemasPage": "./src/components/docs/guides/GuideGenerateDocsClientsSchemasPage.tsx",
+		"./components/docs/guides/GuideHostBuilderWorkbenchPage": "./src/components/docs/guides/GuideHostBuilderWorkbenchPage.tsx",
 		"./components/docs/guides/GuideImportExistingCodebasesPage": "./src/components/docs/guides/GuideImportExistingCodebasesPage.tsx",
 		"./components/docs/guides/GuideNextjsOneEndpointPage": "./src/components/docs/guides/GuideNextjsOneEndpointPage.tsx",
 		"./components/docs/guides/guides.docblocks": "./src/components/docs/guides/guides.docblocks.ts",
@@ -189,8 +192,11 @@
 		"./components/docs/safety/SafetyTenantIsolationPage": "./src/components/docs/safety/SafetyTenantIsolationPage.tsx",
 		"./components/docs/shared/StudioPrompt": "./src/components/docs/shared/StudioPrompt.tsx",
 		"./components/docs/specs": "./src/components/docs/specs/index.ts",
+		"./components/docs/specs/SpecsBuilderControlPlanePage": "./src/components/docs/specs/SpecsBuilderControlPlanePage.tsx",
 		"./components/docs/specs/SpecsCapabilitiesPage": "./src/components/docs/specs/SpecsCapabilitiesPage.tsx",
+		"./components/docs/specs/SpecsConnectPage": "./src/components/docs/specs/SpecsConnectPage.tsx",
 		"./components/docs/specs/SpecsDataViewsPage": "./src/components/docs/specs/SpecsDataViewsPage.tsx",
+		"./components/docs/specs/SpecsModuleBundlesPage": "./src/components/docs/specs/SpecsModuleBundlesPage.tsx",
 		"./components/docs/specs/SpecsOverlaysPage": "./src/components/docs/specs/SpecsOverlaysPage.tsx",
 		"./components/docs/specs/SpecsOverviewPage": "./src/components/docs/specs/SpecsOverviewPage.tsx",
 		"./components/docs/specs/SpecsPolicyPage": "./src/components/docs/specs/SpecsPolicyPage.tsx",
@@ -818,6 +824,12 @@
 				"node": "./dist/node/components/docs/guides/GuideCIDiffGatingPage.js",
 				"default": "./dist/components/docs/guides/GuideCIDiffGatingPage.js"
 			},
+			"./components/docs/guides/GuideConnectInRepoPage": {
+				"types": "./dist/components/docs/guides/GuideConnectInRepoPage.d.ts",
+				"bun": "./dist/components/docs/guides/GuideConnectInRepoPage.js",
+				"node": "./dist/node/components/docs/guides/GuideConnectInRepoPage.js",
+				"default": "./dist/components/docs/guides/GuideConnectInRepoPage.js"
+			},
 			"./components/docs/guides/GuideContractTypesPage": {
 				"types": "./dist/components/docs/guides/GuideContractTypesPage.d.ts",
 				"bun": "./dist/components/docs/guides/GuideContractTypesPage.js",
@@ -830,11 +842,23 @@
 				"node": "./dist/node/components/docs/guides/GuideDocsPipelinePage.js",
 				"default": "./dist/components/docs/guides/GuideDocsPipelinePage.js"
 			},
+			"./components/docs/guides/GuideFirstModuleBundlePage": {
+				"types": "./dist/components/docs/guides/GuideFirstModuleBundlePage.d.ts",
+				"bun": "./dist/components/docs/guides/GuideFirstModuleBundlePage.js",
+				"node": "./dist/node/components/docs/guides/GuideFirstModuleBundlePage.js",
+				"default": "./dist/components/docs/guides/GuideFirstModuleBundlePage.js"
+			},
 			"./components/docs/guides/GuideGenerateDocsClientsSchemasPage": {
 				"types": "./dist/components/docs/guides/GuideGenerateDocsClientsSchemasPage.d.ts",
 				"bun": "./dist/components/docs/guides/GuideGenerateDocsClientsSchemasPage.js",
 				"node": "./dist/node/components/docs/guides/GuideGenerateDocsClientsSchemasPage.js",
 				"default": "./dist/components/docs/guides/GuideGenerateDocsClientsSchemasPage.js"
+			},
+			"./components/docs/guides/GuideHostBuilderWorkbenchPage": {
+				"types": "./dist/components/docs/guides/GuideHostBuilderWorkbenchPage.d.ts",
+				"bun": "./dist/components/docs/guides/GuideHostBuilderWorkbenchPage.js",
+				"node": "./dist/node/components/docs/guides/GuideHostBuilderWorkbenchPage.js",
+				"default": "./dist/components/docs/guides/GuideHostBuilderWorkbenchPage.js"
 			},
 			"./components/docs/guides/GuideImportExistingCodebasesPage": {
 				"types": "./dist/components/docs/guides/GuideImportExistingCodebasesPage.d.ts",
@@ -1412,17 +1436,35 @@
 				"node": "./dist/node/components/docs/specs/index.js",
 				"default": "./dist/components/docs/specs/index.js"
 			},
+			"./components/docs/specs/SpecsBuilderControlPlanePage": {
+				"types": "./dist/components/docs/specs/SpecsBuilderControlPlanePage.d.ts",
+				"bun": "./dist/components/docs/specs/SpecsBuilderControlPlanePage.js",
+				"node": "./dist/node/components/docs/specs/SpecsBuilderControlPlanePage.js",
+				"default": "./dist/components/docs/specs/SpecsBuilderControlPlanePage.js"
+			},
 			"./components/docs/specs/SpecsCapabilitiesPage": {
 				"types": "./dist/components/docs/specs/SpecsCapabilitiesPage.d.ts",
 				"bun": "./dist/components/docs/specs/SpecsCapabilitiesPage.js",
 				"node": "./dist/node/components/docs/specs/SpecsCapabilitiesPage.js",
 				"default": "./dist/components/docs/specs/SpecsCapabilitiesPage.js"
 			},
+			"./components/docs/specs/SpecsConnectPage": {
+				"types": "./dist/components/docs/specs/SpecsConnectPage.d.ts",
+				"bun": "./dist/components/docs/specs/SpecsConnectPage.js",
+				"node": "./dist/node/components/docs/specs/SpecsConnectPage.js",
+				"default": "./dist/components/docs/specs/SpecsConnectPage.js"
+			},
 			"./components/docs/specs/SpecsDataViewsPage": {
 				"types": "./dist/components/docs/specs/SpecsDataViewsPage.d.ts",
 				"bun": "./dist/components/docs/specs/SpecsDataViewsPage.js",
 				"node": "./dist/node/components/docs/specs/SpecsDataViewsPage.js",
 				"default": "./dist/components/docs/specs/SpecsDataViewsPage.js"
+			},
+			"./components/docs/specs/SpecsModuleBundlesPage": {
+				"types": "./dist/components/docs/specs/SpecsModuleBundlesPage.d.ts",
+				"bun": "./dist/components/docs/specs/SpecsModuleBundlesPage.js",
+				"node": "./dist/node/components/docs/specs/SpecsModuleBundlesPage.js",
+				"default": "./dist/components/docs/specs/SpecsModuleBundlesPage.js"
 			},
 			"./components/docs/specs/SpecsOverlaysPage": {
 				"types": "./dist/components/docs/specs/SpecsOverlaysPage.d.ts",
