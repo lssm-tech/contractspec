@@ -1,9 +1,32 @@
 {
 	"extends": "@contractspec/tool.typescript/react-library.json",
 	"compilerOptions": {
+		"baseUrl": ".",
 		"noEmit": true,
 		"moduleResolution": "bundler",
-		"resolveJsonModule": true
+		"resolveJsonModule": true,
+		"paths": {
+			"@contractspec/lib.provider-spec": [
+				"../../libs/provider-spec/dist/index.d.ts"
+			],
+			"@contractspec/lib.provider-spec/*": ["../../libs/provider-spec/dist/*"],
+			"@contractspec/lib.mobile-control": [
+				"../../libs/mobile-control/src/index.ts"
+			],
+			"@contractspec/lib.mobile-control/*": ["../../libs/mobile-control/src/*"],
+			"@contractspec/lib.provider-runtime": [
+				"../../libs/provider-runtime/src/index.ts"
+			],
+			"@contractspec/lib.provider-runtime/*": [
+				"../../libs/provider-runtime/src/*"
+			],
+			"@contractspec/integration.provider.codex": [
+				"../../integrations/provider-codex/src/index.ts"
+			],
+			"@contractspec/integration.runtime.managed": [
+				"../../integrations/runtime-managed/src/index.ts"
+			]
+		}
 	},
 	"include": ["src/**/*.ts"],
 	"exclude": ["node_modules"]

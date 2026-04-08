@@ -31,11 +31,14 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
+		"@contractspec/lib.builder-spec": "workspace:*",
+		"@contractspec/lib.builder-runtime": "workspace:*",
 		"@contractspec/lib.contracts-spec": "workspace:*",
 		"@contractspec/lib.contracts-integrations": "workspace:*",
 		"@contractspec/lib.execution-lanes": "workspace:*",
 		"@contractspec/lib.jobs": "workspace:*",
 		"@contractspec/lib.logger": "workspace:*",
+		"@contractspec/lib.provider-spec": "workspace:*",
 		"@google-cloud/secret-manager": "^6.1.1",
 		"google-gax": "^5.0.0"
 	},
@@ -49,6 +52,9 @@
 	},
 	"exports": {
 		".": "./src/index.ts",
+		"./builder": "./src/builder/index.ts",
+		"./builder/postgres-schema": "./src/builder/postgres-schema.ts",
+		"./builder/postgres-store": "./src/builder/postgres-store.ts",
 		"./channel": "./src/channel/index.ts",
 		"./channel/approval": "./src/channel/approval.ts",
 		"./channel/approval-plan": "./src/channel/approval-plan.ts",
@@ -116,6 +122,24 @@
 				"bun": "./dist/index.js",
 				"node": "./dist/node/index.js",
 				"default": "./dist/index.js"
+			},
+			"./builder": {
+				"types": "./dist/builder/index.d.ts",
+				"bun": "./dist/builder/index.js",
+				"node": "./dist/node/builder/index.js",
+				"default": "./dist/builder/index.js"
+			},
+			"./builder/postgres-schema": {
+				"types": "./dist/builder/postgres-schema.d.ts",
+				"bun": "./dist/builder/postgres-schema.js",
+				"node": "./dist/node/builder/postgres-schema.js",
+				"default": "./dist/builder/postgres-schema.js"
+			},
+			"./builder/postgres-store": {
+				"types": "./dist/builder/postgres-store.d.ts",
+				"bun": "./dist/builder/postgres-store.js",
+				"node": "./dist/node/builder/postgres-store.js",
+				"default": "./dist/builder/postgres-store.js"
 			},
 			"./channel": {
 				"types": "./dist/channel/index.d.ts",

@@ -1,0 +1,39 @@
+{
+	"name": "contractspec-builder-layer-spec-pack-v3-control-plane",
+	"version": "2026-04-07",
+	"summary": "Builder as a governed app-authoring control plane over external execution providers, with mobile parity and local/managed runtime support.",
+	"docs": [
+		"00_topology_and_positioning.md",
+		"01_builder_product_strategy.md",
+		"02_input_sources_and_ingestion.md",
+		"03_source_fusion_and_decision_memory.md",
+		"04_core_contracts.md",
+		"05_authoring_lanes_and_specialized_agents.md",
+		"06_external_execution_and_provider_routing.md",
+		"07_mobile_parity_and_omnichannel_control.md",
+		"08_runtime_modes_local_vs_managed.md",
+		"09_generation_preview_export.md",
+		"10_security_and_governance.md",
+		"11_harness_and_readiness_gates.md",
+		"12_package_strategy.md",
+		"13_ui_surfaces_and_flows.md",
+		"14_rollout_plan.md",
+		"15_open_questions.md",
+		"16_implementation_traceability.md",
+		"README.md"
+	],
+	"examples": [
+		"builder-contracts.example.ts",
+		"builder-readiness-report.example.json",
+		"mobile-review-card.example.json",
+		"provider-routing-policy.example.json",
+		"runtime-targets.example.json"
+	],
+	"packageSkeleton": ["README.md"],
+	"designGoals": [
+		"Delegate implementation to external engines",
+		"Full functional parity on mobile",
+		"Support managed and local runtime",
+		"Keep harness and governance independent of provider"
+	]
+}

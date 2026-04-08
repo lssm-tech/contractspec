@@ -2,8 +2,8 @@
 
 > Aggregated content from all packages. For summary, see /llms
 
-Generated: 2026-04-06T12:12:59.825Z
-Packages: 165
+Generated: 2026-04-08T15:27:59.068Z
+Packages: 186
 
 ---
 
@@ -265,6 +265,39 @@ Import the root entrypoint from `@contractspec/lib.image-gen`, or choose a docum
 
 ---
 
+## @contractspec/lib.provider-spec
+
+Description: Provider routing and runtime-target contracts for ContractSpec Builder.
+Path: packages/libs/provider-spec
+URL: /llms/lib.provider-spec
+
+# @contractspec/lib.provider-spec
+
+Website: https://contractspec.io
+
+Typed provider-routing, runtime-target, execution-receipt, comparison, and patch-proposal contracts for the Builder control plane.
+
+## What It Provides
+
+- Runtime-mode, provider-kind, task-type, risk, and comparison enums.
+- Runtime target, handshake, trust-profile, and lease contracts.
+- External execution provider, routing policy, context bundle, receipt, and patch proposal types.
+- Validation helpers for routing policies, receipts, and runtime target records.
+
+## Public Entry Points
+
+- `.` resolves through `./src/index.ts`
+- `./types` resolves through `./src/types.ts`
+- `./validation` resolves through `./src/validation.ts`
+
+## Notes
+
+- This package is a compatibility surface. Prefer additive evolution.
+- Provider routing stays explicit policy, not hidden heuristics.
+
+
+---
+
 ## @contractspec/lib.ui-kit-core
 
 Description: Core UI primitives and utilities
@@ -394,6 +427,44 @@ Import the root entrypoint from `@contractspec/lib.ui-kit`, or use one of the do
 - Component API must stay cross-platform compatible (React Native + web)
 - Depends on ui-kit-core — changes there propagate here
 - Do not introduce web-only or native-only APIs without a platform check
+
+
+---
+
+## @contractspec/lib.builder-spec
+
+Description: Builder control-plane contracts, capabilities, and validation for ContractSpec.
+Path: packages/libs/builder-spec
+URL: /llms/lib.builder-spec
+
+# @contractspec/lib.builder-spec
+
+Website: https://contractspec.io
+
+Typed Builder control-plane contracts, capabilities, operations, events, and validation for governed omnichannel authoring.
+
+## What It Provides
+
+- Builder workspace, conversation, source, directive, blueprint, plan, preview, readiness, and export types.
+- Full Builder command/query/event surface aligned with the Builder layer spec pack.
+- Capability specs for chat, voice, ingestion, fusion, planning, preview, harness, and export workflows.
+- Validation helpers for runtime and host layers.
+
+## Public Entry Points
+
+- `.` resolves through `./src/index.ts`
+- `./capabilities` resolves through `./src/capabilities/index.ts`
+- `./commands` resolves through `./src/commands/index.ts`
+- `./events` resolves through `./src/events/index.ts`
+- `./queries` resolves through `./src/queries/index.ts`
+- `./types` resolves through `./src/types/index.ts`
+- `./validation` resolves through `./src/validation/index.ts`
+
+## Notes
+
+- This package is a compatibility surface. Additive evolution is preferred.
+- Builder orchestration reuses execution-lane identifiers and harness evidence references instead of introducing a second runtime taxonomy.
+- Generated-app runtime channels are out of scope here; this package models the Builder control plane only.
 
 
 ---
@@ -636,6 +707,43 @@ Import the root entrypoint from `@contractspec/lib.example-shared-ui`, or choose
 
 ---
 
+## @contractspec/lib.execution-lanes
+
+Description: Execution lanes orchestration contracts and runtime for ContractSpec.
+Path: packages/libs/execution-lanes
+URL: /llms/lib.execution-lanes
+
+# @contractspec/lib.execution-lanes
+
+Website: https://contractspec.io
+
+Typed execution-lane contracts, registries, runtimes, evidence gating, and backend adapter ports for ContractSpec.
+
+## What It Provides
+
+- Lane contracts for `clarify`, `plan.consensus`, `complete.persistent`, and `team.coordinated`.
+- Typed handoff artifacts including clarification artifacts, plan packs, completion records, team snapshots, and lane runtime state.
+- Runtime primitives for consensus planning, persistent completion loops, coordinated team runs, lane selection, evidence gating, and in-memory persistence.
+- Backend-neutral adapter ports for in-process, subagent, tmux, queue, and workflow-engine execution.
+
+## Public Entry Points
+
+- `.` resolves through `./src/index.ts`
+- `./types` resolves through `./src/types/index.ts`
+- `./defaults` resolves through `./src/defaults/index.ts`
+- `./interop` resolves through `./src/interop/index.ts`
+
+## Notes
+
+- The package stays runtime- and backend-neutral; storage-backed operator persistence belongs in integration and app layers.
+- Evidence normalization and replay references align with `@contractspec/lib.harness`; this package does not introduce a second proof model.
+- Role semantics live in typed role profiles, not prompt prose.
+- Canonical artifact and evidence identifiers use spec-style snake_case names; readers normalize older hyphenated aliases for persisted compatibility.
+- Command semantics for `/clarify`, `/plan`, `/plan --consensus`, `/complete`, and `/team` live in the typed `./interop` surface rather than in prompt prose alone.
+
+
+---
+
 ## @contractspec/lib.provider-ranking
 
 Description: AI provider ranking: benchmark ingestion, scoring, and model comparison
@@ -804,6 +912,36 @@ Import the root entrypoint from `@contractspec/lib.support-bot`, or choose a doc
 - Bot spec interface follows ai-agent patterns — keep aligned with contracts-spec.
 - Ticket schema is shared — changes affect consumers downstream.
 - RAG pipeline must stay compatible with the knowledge lib.
+
+
+---
+
+## @contractspec/lib.mobile-control
+
+Description: Builder mobile-control primitives for review cards, parity, and deep-link-safe actions.
+Path: packages/libs/mobile-control
+URL: /llms/lib.mobile-control
+
+# @contractspec/lib.mobile-control
+
+Website: https://contractspec.io
+
+Typed Builder mobile-control primitives for review cards, parity aggregation, and channel-safe deep-link actions.
+
+## What It Provides
+
+- Mobile parity aggregation for Builder blueprints and review workflows.
+- Mobile review card factories shared by Builder runtime and UI surfaces.
+- Default card actions that preserve a card/deep-link inspection path for critical review flows.
+
+## Public Entry Points
+
+- `.` resolves through `./src/index.ts`
+
+## Notes
+
+- This package is a compatibility surface. Prefer additive evolution.
+- It exists to keep mobile-specific control-plane behavior reusable without duplicating Builder runtime logic.
 
 
 ---
@@ -1898,6 +2036,37 @@ Import the root entrypoint from `@contractspec/lib.cost-tracking`, or choose a d
 - Cost calculation logic must stay deterministic — no side effects or external calls during computation.
 - Budget threshold types are shared across consumers; changes require coordination.
 - Do not introduce floating-point arithmetic where precision matters; use integer cents or a decimal library.
+
+
+---
+
+## @contractspec/lib.provider-runtime
+
+Description: Builder provider-runtime helpers for routing, context prep, runtime targets, and receipt normalization.
+Path: packages/libs/provider-runtime
+URL: /llms/lib.provider-runtime
+
+# @contractspec/lib.provider-runtime
+
+Website: https://contractspec.io
+
+Builder provider-runtime helpers for runtime-target normalization, provider registration, routing policy upserts, execution-context preparation, receipt normalization, and comparison records.
+
+## What It Provides
+
+- Runtime-target and external-provider record factories.
+- Routing-policy and execution-context normalization helpers.
+- Provider-output normalization into receipts, sources, patch proposals, activity records, and mobile review cards.
+- Comparison-run record factories shared by Builder runtime and compatibility integrations.
+
+## Public Entry Points
+
+- `.` resolves through `./src/index.ts`
+
+## Notes
+
+- This package is a compatibility surface. Prefer additive evolution.
+- It carries provider/runtime control-plane logic that should remain reusable outside the Builder runtime package.
 
 
 ---
@@ -3668,6 +3837,46 @@ Import the root entrypoint from `@contractspec/lib.evolution`, or choose a docum
 - Evolution strategies affect contract migration paths; changes can break existing migrations.
 - Depends on multiple core libs — verify compatibility when updating any dependency.
 - Strategy selection logic must remain deterministic and auditable.
+
+
+---
+
+## @contractspec/lib.builder-runtime
+
+Description: Backend-neutral Builder runtime, ingestion, fusion, readiness, and replay services.
+Path: packages/libs/builder-runtime
+URL: /llms/lib.builder-runtime
+
+# @contractspec/lib.builder-runtime
+
+Website: https://contractspec.io
+
+Backend-neutral Builder runtime primitives for source ingestion, omnichannel normalization, fusion, planning, previews, readiness, and replay.
+
+## What It Provides
+
+- In-memory and interface-based Builder stores.
+- Omnichannel ingestion pipeline for chat, voice, file, zip, Studio, Telegram, and WhatsApp inputs.
+- Deterministic precedence-based fusion and blueprint compilation.
+- Execution-lane plan compilation and lightweight execution lifecycle helpers.
+- Preview, readiness, and replay bundle helpers.
+
+## Public Entry Points
+
+- `.` resolves through `./src/index.ts`
+- `./stores` resolves through `./src/stores/index.ts`
+- `./ingestion` resolves through `./src/ingestion/index.ts`
+- `./fusion` resolves through `./src/fusion/index.ts`
+- `./planning` resolves through `./src/planning/index.ts`
+- `./preview` resolves through `./src/preview/index.ts`
+- `./readiness` resolves through `./src/readiness/index.ts`
+- `./replay` resolves through `./src/replay/index.ts`
+
+## Notes
+
+- This package stays backend-neutral. Durable database storage belongs in integration and app layers.
+- Channel dispatch is bridged through an injected outbox adapter so Builder can reuse host messaging infrastructure without depending on app shells.
+- PDF and OCR extraction are adapter-backed and can be swapped or disabled by hosts.
 
 
 ---
@@ -5581,6 +5790,36 @@ Import the root entrypoint from `@contractspec/module.learning-journey`, or choo
 
 ---
 
+## @contractspec/module.execution-console
+
+Description: Operator-facing execution lane console module.
+Path: packages/modules/execution-console
+URL: /llms/module.execution-console
+
+# @contractspec/module.execution-console
+
+Website: https://contractspec.io
+
+Operator-facing execution lane console components and helpers built on top of `@contractspec/lib.execution-lanes`.
+
+## What It Provides
+
+- Presentation components for lane status, timelines, team worker views, completion views, and evidence browsing.
+- A read-only command reference component that surfaces the typed `/clarify`, `/plan`, `/plan --consensus`, `/complete`, and `/team` semantics from `@contractspec/lib.execution-lanes/interop`.
+- Small core helpers that turn lane snapshots into UI-friendly timeline items.
+- A light presentation-state hook for tabs and evidence selection.
+
+## Public Entry Points
+
+- `.` resolves through `./src/index.ts`
+- `./core` resolves through `./src/core/index.ts`
+- `./presentation` resolves through `./src/presentation/index.ts`
+- `./presentation/components` resolves through `./src/presentation/components/index.ts`
+- `./presentation/hooks` resolves through `./src/presentation/hooks/index.ts`
+
+
+---
+
 ## @contractspec/module.workspace
 
 Description: Workspace discovery and management module
@@ -5654,6 +5893,19 @@ Import the root entrypoint from `@contractspec/module.workspace`, or choose a do
 - Uses `ts-morph` for AST analysis and `compare-versions` for semver checks -- version bumps may affect parsing behavior.
 - Workspace detection is file-system-dependent; always use the provided abstractions, never raw `fs` calls.
 - Changes here affect CLI, VSCode extension, and studio workspace initialization flows.
+
+
+---
+
+## @contractspec/module.builder-workbench
+
+Description: Reusable Builder workbench UI module.
+Path: packages/modules/builder-workbench
+URL: /llms/module.builder-workbench
+
+# @contractspec/module.builder-workbench
+
+Reusable React surfaces for the Builder control plane: workspace home, guided chat/voice, source inbox, omnichannel inbox, blueprint editing, and readiness review.
 
 
 ---
@@ -6044,6 +6296,19 @@ Import the root entrypoint from `@contractspec/module.audit-trail`, or choose a 
 - Depends on `lib.bus` for event dispatch -- never emit events outside the bus.
 - Audit records are append-only; mutations or deletions break compliance invariants.
 - Storage adapters must implement the store interface; do not bypass it.
+
+
+---
+
+## @contractspec/module.mobile-review
+
+Description: Reusable mobile-first Builder review surfaces.
+Path: packages/modules/mobile-review
+URL: /llms/module.mobile-review
+
+# @contractspec/module.mobile-review
+
+Reusable mobile-first Builder review surfaces that compose the existing Builder workbench components into a dedicated mobile review entrypoint.
 
 
 ---
@@ -13261,6 +13526,16 @@ Import the root entrypoint from `@contractspec/tool.tsdown`, or use one of the d
 
 ---
 
+## @contractspec/integration.provider.copilot
+
+Description: Copilot provider compatibility wrapper for Builder.
+Path: packages/integrations/provider-copilot
+URL: /llms/integration.provider.copilot
+
+(No README.md)
+
+---
+
 ## @contractspec/integration.workflow-devkit
 
 Description: Workflow DevKit compiler and runtime bridges for ContractSpec workflows
@@ -13347,6 +13622,36 @@ export async function runOnboarding(input: Record<string, unknown>, bridge: Work
 }
 ```
 
+
+---
+
+## @contractspec/integration.provider.local-model
+
+Description: Local model provider compatibility wrapper for Builder.
+Path: packages/integrations/provider-local-model
+URL: /llms/integration.provider.local-model
+
+(No README.md)
+
+---
+
+## @contractspec/integration.provider.codex
+
+Description: Codex provider compatibility wrapper for Builder.
+Path: packages/integrations/provider-codex
+URL: /llms/integration.provider.codex
+
+(No README.md)
+
+---
+
+## @contractspec/integration.provider.claude-code
+
+Description: Claude Code provider compatibility wrapper for Builder.
+Path: packages/integrations/provider-claude-code
+URL: /llms/integration.provider.claude-code
+
+(No README.md)
 
 ---
 
@@ -13645,6 +13950,52 @@ Import the root entrypoint from `@contractspec/integration.providers-impls`, or 
 
 ---
 
+## @contractspec/integration.runtime.local
+
+Description: Local runtime compatibility wrapper for Builder.
+Path: packages/integrations/runtime-local
+URL: /llms/integration.runtime.local
+
+(No README.md)
+
+---
+
+## @contractspec/integration.builder-telegram
+
+Description: Telegram Builder control-channel integration.
+Path: packages/integrations/builder-telegram
+URL: /llms/integration.builder-telegram
+
+# @contractspec/integration.builder-telegram
+
+Telegram webhook normalization and Builder control-channel envelope mapping.
+
+
+---
+
+## @contractspec/integration.builder-voice
+
+Description: Voice Builder input integration.
+Path: packages/integrations/builder-voice
+URL: /llms/integration.builder-voice
+
+# @contractspec/integration.builder-voice
+
+Browser and uploaded voice helpers for Builder transcription flows.
+
+
+---
+
+## @contractspec/integration.provider.gemini
+
+Description: Gemini provider compatibility wrapper for Builder.
+Path: packages/integrations/provider-gemini
+URL: /llms/integration.provider.gemini
+
+(No README.md)
+
+---
+
 ## @contractspec/integration.harness-runtime
 
 Description: Runtime adapters for the ContractSpec harness system.
@@ -13724,6 +14075,49 @@ Import the root entrypoint from `@contractspec/integration.harness-runtime`, or 
 
 - Works alongside `@contractspec/lib.contracts-spec`, `@contractspec/lib.harness`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
+
+---
+
+## @contractspec/integration.provider.stt
+
+Description: Speech-to-text provider compatibility wrapper for Builder.
+Path: packages/integrations/provider-stt
+URL: /llms/integration.provider.stt
+
+(No README.md)
+
+---
+
+## @contractspec/integration.builder-whatsapp
+
+Description: WhatsApp Builder control-channel integration.
+Path: packages/integrations/builder-whatsapp
+URL: /llms/integration.builder-whatsapp
+
+# @contractspec/integration.builder-whatsapp
+
+Meta and Twilio WhatsApp normalization for Builder control-channel workflows.
+
+
+---
+
+## @contractspec/integration.runtime.hybrid
+
+Description: Hybrid runtime compatibility wrapper for Builder.
+Path: packages/integrations/runtime-hybrid
+URL: /llms/integration.runtime.hybrid
+
+(No README.md)
+
+---
+
+## @contractspec/integration.runtime.managed
+
+Description: Managed runtime compatibility wrapper for Builder.
+Path: packages/integrations/runtime-managed
+URL: /llms/integration.runtime.managed
+
+(No README.md)
 
 ---
 

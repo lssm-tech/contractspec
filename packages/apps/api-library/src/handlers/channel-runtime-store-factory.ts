@@ -1,3 +1,4 @@
+import { PostgresBuilderStore } from '@contractspec/integration.runtime';
 import {
 	InMemoryConnectReviewQueueStore,
 	PostgresChannelRuntimeStore,
@@ -24,6 +25,16 @@ export function createPostgresExecutionLaneRuntimeStore(
 		max: 5,
 	});
 	return new PostgresExecutionLaneRuntimeStore(pool);
+}
+
+export function createPostgresBuilderStore(
+	databaseUrl: string
+): PostgresBuilderStore {
+	const pool = new Pool({
+		connectionString: databaseUrl,
+		max: 5,
+	});
+	return new PostgresBuilderStore(pool);
 }
 
 export function createConnectReviewQueueStore(databaseUrl?: string) {

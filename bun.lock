@@ -108,8 +108,12 @@
         "@contractspec/bundle.library": "workspace:*",
         "@contractspec/bundle.marketing": "workspace:*",
         "@contractspec/bundle.workspace": "workspace:*",
+        "@contractspec/integration.builder-telegram": "workspace:*",
+        "@contractspec/integration.builder-whatsapp": "workspace:*",
+        "@contractspec/integration.provider.codex": "workspace:*",
         "@contractspec/integration.providers-impls": "workspace:*",
         "@contractspec/integration.runtime": "workspace:*",
+        "@contractspec/integration.runtime.managed": "workspace:*",
         "@contractspec/lib.contracts-spec": "workspace:*",
         "elysia": "^1.4.28",
         "pg": "^8.20.0",
@@ -345,7 +349,17 @@
         "@contractspec/example.saas-boilerplate": "workspace:*",
         "@contractspec/example.visualization-showcase": "workspace:*",
         "@contractspec/example.workflow-system": "workspace:*",
+        "@contractspec/integration.provider.claude-code": "workspace:*",
+        "@contractspec/integration.provider.codex": "workspace:*",
+        "@contractspec/integration.provider.copilot": "workspace:*",
+        "@contractspec/integration.provider.gemini": "workspace:*",
+        "@contractspec/integration.provider.local-model": "workspace:*",
+        "@contractspec/integration.provider.stt": "workspace:*",
+        "@contractspec/integration.runtime.hybrid": "workspace:*",
+        "@contractspec/integration.runtime.local": "workspace:*",
+        "@contractspec/integration.runtime.managed": "workspace:*",
         "@contractspec/lib.ai-providers": "workspace:*",
+        "@contractspec/lib.builder-spec": "workspace:*",
         "@contractspec/lib.contracts-spec": "workspace:*",
         "@contractspec/lib.design-system": "workspace:*",
         "@contractspec/lib.example-shared-ui": "workspace:*",
@@ -356,6 +370,7 @@
         "@contractspec/lib.ui-kit-web": "workspace:*",
         "@contractspec/lib.ui-link": "workspace:*",
         "@contractspec/module.ai-chat": "workspace:*",
+        "@contractspec/module.builder-workbench": "workspace:*",
         "@contractspec/module.examples": "workspace:*",
         "@hookform/resolvers": "^5.2.2",
         "@posthog/react": "^1.8.2",
@@ -1475,6 +1490,51 @@
         "typescript": "catalog:",
       },
     },
+    "packages/integrations/builder-telegram": {
+      "name": "@contractspec/integration.builder-telegram",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/integration.runtime": "workspace:*",
+        "@contractspec/lib.builder-runtime": "workspace:*",
+        "@contractspec/lib.builder-spec": "workspace:*",
+        "@contractspec/lib.provider-spec": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/integrations/builder-voice": {
+      "name": "@contractspec/integration.builder-voice",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/lib.builder-runtime": "workspace:*",
+        "@contractspec/lib.builder-spec": "workspace:*",
+        "@contractspec/lib.provider-spec": "workspace:*",
+        "@contractspec/lib.voice": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/integrations/builder-whatsapp": {
+      "name": "@contractspec/integration.builder-whatsapp",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/integration.runtime": "workspace:*",
+        "@contractspec/lib.builder-runtime": "workspace:*",
+        "@contractspec/lib.builder-spec": "workspace:*",
+        "@contractspec/lib.provider-spec": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
+      },
+    },
     "packages/integrations/example-generator": {
       "name": "@contractspec/integration.example-generator",
       "version": "38.0.0",
@@ -1514,6 +1574,78 @@
         "playwright",
       ],
     },
+    "packages/integrations/provider-claude-code": {
+      "name": "@contractspec/integration.provider.claude-code",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/lib.provider-spec": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/integrations/provider-codex": {
+      "name": "@contractspec/integration.provider.codex",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/lib.provider-spec": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/integrations/provider-copilot": {
+      "name": "@contractspec/integration.provider.copilot",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/lib.provider-spec": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/integrations/provider-gemini": {
+      "name": "@contractspec/integration.provider.gemini",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/lib.provider-spec": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/integrations/provider-local-model": {
+      "name": "@contractspec/integration.provider.local-model",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/lib.provider-spec": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/integrations/provider-stt": {
+      "name": "@contractspec/integration.provider.stt",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/lib.provider-spec": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
+      },
+    },
     "packages/integrations/providers-impls": {
       "name": "@contractspec/integration.providers-impls",
       "version": "3.8.9",
@@ -1551,11 +1683,14 @@
       "name": "@contractspec/integration.runtime",
       "version": "3.8.9",
       "dependencies": {
+        "@contractspec/lib.builder-runtime": "workspace:*",
+        "@contractspec/lib.builder-spec": "workspace:*",
         "@contractspec/lib.contracts-integrations": "workspace:*",
         "@contractspec/lib.contracts-spec": "workspace:*",
         "@contractspec/lib.execution-lanes": "workspace:*",
         "@contractspec/lib.jobs": "workspace:*",
         "@contractspec/lib.logger": "workspace:*",
+        "@contractspec/lib.provider-spec": "workspace:*",
         "@google-cloud/secret-manager": "^6.1.1",
         "google-gax": "^5.0.0",
       },
@@ -1566,6 +1701,45 @@
       },
       "optionalDependencies": {
         "pg": "^8.20.0",
+      },
+    },
+    "packages/integrations/runtime-hybrid": {
+      "name": "@contractspec/integration.runtime.hybrid",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/integration.runtime": "workspace:*",
+        "@contractspec/lib.provider-spec": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/integrations/runtime-local": {
+      "name": "@contractspec/integration.runtime.local",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/integration.runtime": "workspace:*",
+        "@contractspec/lib.provider-spec": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/integrations/runtime-managed": {
+      "name": "@contractspec/integration.runtime.managed",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/integration.runtime": "workspace:*",
+        "@contractspec/lib.provider-spec": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
       },
     },
     "packages/integrations/workflow-devkit": {
@@ -1667,6 +1841,41 @@
         "@contractspec/lib.contracts-spec": "workspace:*",
         "@contractspec/lib.lifecycle": "workspace:*",
         "dayjs": "^1.11.13",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/libs/builder-runtime": {
+      "name": "@contractspec/lib.builder-runtime",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/lib.builder-spec": "workspace:*",
+        "@contractspec/lib.execution-lanes": "workspace:*",
+        "@contractspec/lib.files": "workspace:*",
+        "@contractspec/lib.harness": "workspace:*",
+        "@contractspec/lib.mobile-control": "workspace:*",
+        "@contractspec/lib.provider-runtime": "workspace:*",
+        "@contractspec/lib.provider-spec": "workspace:*",
+        "@contractspec/lib.voice": "workspace:*",
+        "fflate": "^0.8.2",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/libs/builder-spec": {
+      "name": "@contractspec/lib.builder-spec",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/lib.contracts-spec": "workspace:*",
+        "@contractspec/lib.execution-lanes": "workspace:*",
+        "@contractspec/lib.provider-spec": "workspace:*",
+        "@contractspec/lib.schema": "workspace:*",
       },
       "devDependencies": {
         "@contractspec/tool.bun": "workspace:*",
@@ -2217,6 +2426,19 @@
         "typescript": "catalog:",
       },
     },
+    "packages/libs/mobile-control": {
+      "name": "@contractspec/lib.mobile-control",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/lib.builder-spec": "workspace:*",
+        "@contractspec/lib.provider-spec": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
+      },
+    },
     "packages/libs/observability": {
       "name": "@contractspec/lib.observability",
       "version": "3.7.17",
@@ -2379,6 +2601,29 @@
     "packages/libs/provider-ranking": {
       "name": "@contractspec/lib.provider-ranking",
       "version": "0.7.13",
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/libs/provider-runtime": {
+      "name": "@contractspec/lib.provider-runtime",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/lib.builder-spec": "workspace:*",
+        "@contractspec/lib.mobile-control": "workspace:*",
+        "@contractspec/lib.provider-spec": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/libs/provider-spec": {
+      "name": "@contractspec/lib.provider-spec",
+      "version": "0.1.0",
       "devDependencies": {
         "@contractspec/tool.bun": "workspace:*",
         "@contractspec/tool.typescript": "workspace:*",
@@ -2825,6 +3070,27 @@
         "typescript": "catalog:",
       },
     },
+    "packages/modules/builder-workbench": {
+      "name": "@contractspec/module.builder-workbench",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/lib.builder-runtime": "workspace:*",
+        "@contractspec/lib.builder-spec": "workspace:*",
+        "@contractspec/lib.provider-spec": "workspace:*",
+        "@contractspec/lib.ui-kit-web": "workspace:*",
+        "@contractspec/module.ai-chat": "workspace:*",
+        "react": "catalog:",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "@types/react": "^19.2.14",
+        "typescript": "catalog:",
+      },
+      "peerDependencies": {
+        "react": ">=19.2.4",
+      },
+    },
     "packages/modules/context-storage": {
       "name": "@contractspec/module.context-storage",
       "version": "0.7.16",
@@ -2967,6 +3233,25 @@
         "@contractspec/tool.bun": "workspace:*",
         "@contractspec/tool.typescript": "workspace:*",
         "typescript": "catalog:",
+      },
+    },
+    "packages/modules/mobile-review": {
+      "name": "@contractspec/module.mobile-review",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/lib.builder-spec": "workspace:*",
+        "@contractspec/lib.ui-kit-web": "workspace:*",
+        "@contractspec/module.builder-workbench": "workspace:*",
+        "react": "catalog:",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "@types/react": "^19.2.14",
+        "typescript": "catalog:",
+      },
+      "peerDependencies": {
+        "react": ">=19.2.4",
       },
     },
     "packages/modules/notifications": {
@@ -3751,13 +4036,37 @@
 
     "@contractspec/example.workflow-system": ["@contractspec/example.workflow-system@workspace:packages/examples/workflow-system"],
 
+    "@contractspec/integration.builder-telegram": ["@contractspec/integration.builder-telegram@workspace:packages/integrations/builder-telegram"],
+
+    "@contractspec/integration.builder-voice": ["@contractspec/integration.builder-voice@workspace:packages/integrations/builder-voice"],
+
+    "@contractspec/integration.builder-whatsapp": ["@contractspec/integration.builder-whatsapp@workspace:packages/integrations/builder-whatsapp"],
+
     "@contractspec/integration.example-generator": ["@contractspec/integration.example-generator@workspace:packages/integrations/example-generator"],
 
     "@contractspec/integration.harness-runtime": ["@contractspec/integration.harness-runtime@workspace:packages/integrations/harness-runtime"],
 
+    "@contractspec/integration.provider.claude-code": ["@contractspec/integration.provider.claude-code@workspace:packages/integrations/provider-claude-code"],
+
+    "@contractspec/integration.provider.codex": ["@contractspec/integration.provider.codex@workspace:packages/integrations/provider-codex"],
+
+    "@contractspec/integration.provider.copilot": ["@contractspec/integration.provider.copilot@workspace:packages/integrations/provider-copilot"],
+
+    "@contractspec/integration.provider.gemini": ["@contractspec/integration.provider.gemini@workspace:packages/integrations/provider-gemini"],
+
+    "@contractspec/integration.provider.local-model": ["@contractspec/integration.provider.local-model@workspace:packages/integrations/provider-local-model"],
+
+    "@contractspec/integration.provider.stt": ["@contractspec/integration.provider.stt@workspace:packages/integrations/provider-stt"],
+
     "@contractspec/integration.providers-impls": ["@contractspec/integration.providers-impls@workspace:packages/integrations/providers-impls"],
 
     "@contractspec/integration.runtime": ["@contractspec/integration.runtime@workspace:packages/integrations/runtime"],
+
+    "@contractspec/integration.runtime.hybrid": ["@contractspec/integration.runtime.hybrid@workspace:packages/integrations/runtime-hybrid"],
+
+    "@contractspec/integration.runtime.local": ["@contractspec/integration.runtime.local@workspace:packages/integrations/runtime-local"],
+
+    "@contractspec/integration.runtime.managed": ["@contractspec/integration.runtime.managed@workspace:packages/integrations/runtime-managed"],
 
     "@contractspec/integration.workflow-devkit": ["@contractspec/integration.workflow-devkit@workspace:packages/integrations/workflow-devkit"],
 
@@ -3768,6 +4077,10 @@
     "@contractspec/lib.ai-providers": ["@contractspec/lib.ai-providers@workspace:packages/libs/ai-providers"],
 
     "@contractspec/lib.analytics": ["@contractspec/lib.analytics@workspace:packages/libs/analytics"],
+
+    "@contractspec/lib.builder-runtime": ["@contractspec/lib.builder-runtime@workspace:packages/libs/builder-runtime"],
+
+    "@contractspec/lib.builder-spec": ["@contractspec/lib.builder-spec@workspace:packages/libs/builder-spec"],
 
     "@contractspec/lib.bus": ["@contractspec/lib.bus@workspace:packages/libs/bus"],
 
@@ -3835,6 +4148,8 @@
 
     "@contractspec/lib.metering": ["@contractspec/lib.metering@workspace:packages/libs/metering"],
 
+    "@contractspec/lib.mobile-control": ["@contractspec/lib.mobile-control@workspace:packages/libs/mobile-control"],
+
     "@contractspec/lib.observability": ["@contractspec/lib.observability@workspace:packages/libs/observability"],
 
     "@contractspec/lib.overlay-engine": ["@contractspec/lib.overlay-engine@workspace:packages/libs/overlay-engine"],
@@ -3854,6 +4169,10 @@
     "@contractspec/lib.progressive-delivery": ["@contractspec/lib.progressive-delivery@workspace:packages/libs/progressive-delivery"],
 
     "@contractspec/lib.provider-ranking": ["@contractspec/lib.provider-ranking@workspace:packages/libs/provider-ranking"],
+
+    "@contractspec/lib.provider-runtime": ["@contractspec/lib.provider-runtime@workspace:packages/libs/provider-runtime"],
+
+    "@contractspec/lib.provider-spec": ["@contractspec/lib.provider-spec@workspace:packages/libs/provider-spec"],
 
     "@contractspec/lib.runtime-sandbox": ["@contractspec/lib.runtime-sandbox@workspace:packages/libs/runtime-sandbox"],
 
@@ -3889,6 +4208,8 @@
 
     "@contractspec/module.audit-trail": ["@contractspec/module.audit-trail@workspace:packages/modules/audit-trail"],
 
+    "@contractspec/module.builder-workbench": ["@contractspec/module.builder-workbench@workspace:packages/modules/builder-workbench"],
+
     "@contractspec/module.context-storage": ["@contractspec/module.context-storage@workspace:packages/modules/context-storage"],
 
     "@contractspec/module.examples": ["@contractspec/module.examples@workspace:packages/modules/examples"],
@@ -3900,6 +4221,8 @@
     "@contractspec/module.lifecycle-advisor": ["@contractspec/module.lifecycle-advisor@workspace:packages/modules/lifecycle-advisor"],
 
     "@contractspec/module.lifecycle-core": ["@contractspec/module.lifecycle-core@workspace:packages/modules/lifecycle-core"],
+
+    "@contractspec/module.mobile-review": ["@contractspec/module.mobile-review@workspace:packages/modules/mobile-review"],
 
     "@contractspec/module.notifications": ["@contractspec/module.notifications@workspace:packages/modules/notifications"],
 
@@ -6523,7 +6846,7 @@
 
     "fetch-nodeshim": ["fetch-nodeshim@0.4.9", "", {}, "sha512-XIQWlB2A4RZ7NebXWGxS0uDMdvRHkiUDTghBVJKFg9yEOd45w/PP8cZANuPf2H08W6Cor3+2n7Q6TTZgAS3Fkw=="],
 
-    "fflate": ["fflate@0.4.8", "", {}, "sha512-FJqqoDBR00Mdj9ppamLa/Y7vxm+PRmNWA67N846RvsoYVMKB4q3y/de5PA7gUmRMYK/8CMz2GDZQmCRN1wBcWA=="],
+    "fflate": ["fflate@0.8.2", "", {}, "sha512-cPJU47OaAoCbg0pBvzsgpTPhmhqI5eJjh/JIu8tPj5q+T7iLvW/JAYUqmE7KOB4R1ZyEhzBaIQpQpardBF5z8A=="],
 
     "figures": ["figures@6.1.0", "", { "dependencies": { "is-unicode-supported": "^2.0.0" } }, "sha512-d+l3qxjSesT4V7v2fh+QnmFnUWv9lSpjarhShNTgBOfA0ttejbQUAlHLitbjkoRiDulW0OPoQPYIGhIC8ohejg=="],
 
@@ -9287,6 +9610,8 @@
 
     "postgres-interval/xtend": ["xtend@4.0.2", "", {}, "sha512-LKYU1iAXJXUgAXn9URjiu+MWhyUXHsvfp7mcuYm9dSUKK0/CjtrUwFAxD82/mCWbtLsGjFIad0wIsod4zrTAEQ=="],
 
+    "posthog-js/fflate": ["fflate@0.4.8", "", {}, "sha512-FJqqoDBR00Mdj9ppamLa/Y7vxm+PRmNWA67N846RvsoYVMKB4q3y/de5PA7gUmRMYK/8CMz2GDZQmCRN1wBcWA=="],
+
     "pretty-format/ansi-styles": ["ansi-styles@5.2.0", "", {}, "sha512-Cxwpt2SfTzTtXcfOlzGEee8O+c+MmUgGrNiBcXnuWxuFJHe6a5Hz7qwhwe5OgaSYI0IJvkLqWX1ASG+cJOkEiA=="],
 
     "prisma/postgres": ["postgres@3.4.7", "", {}, "sha512-Jtc2612XINuBjIl/QTWsV5UvE8UHuNblcO3vVADSrKsrc6RqGX6lOW1cEo3CM2v0XG4Nat8nI+YM7/f26VxXLw=="],
@@ -10484,18 +10809,6 @@
     "@workflow/web/express/type-is/media-typer": ["media-typer@0.3.0", "", {}, "sha512-dq+qelQ9akHpcOl/gUVRTxVIOkAJ1wR3QAvb4RsVjS8oVoFjDGTc679wJYmUmknUF5HwMLOgb5O+a3KxfWapPQ=="],
 
     "@workflow/web/express/type-is/mime-types": ["mime-types@2.1.35", "", { "dependencies": { "mime-db": "1.52.0" } }, "sha512-ZDY+bPm5zTTF+YpCrAU9nK0UgICYPT0QtT1NZWFv4s++TNkcgVaT0g6+4R2uI4MjQjzysHB1zxuWL50hzaeXiw=="],
-
-    "@xhmikosr/archive-type/file-type/@tokenizer/inflate/fflate": ["fflate@0.8.2", "", {}, "sha512-cPJU47OaAoCbg0pBvzsgpTPhmhqI5eJjh/JIu8tPj5q+T7iLvW/JAYUqmE7KOB4R1ZyEhzBaIQpQpardBF5z8A=="],
-
-    "@xhmikosr/decompress-tar/file-type/@tokenizer/inflate/fflate": ["fflate@0.8.2", "", {}, "sha512-cPJU47OaAoCbg0pBvzsgpTPhmhqI5eJjh/JIu8tPj5q+T7iLvW/JAYUqmE7KOB4R1ZyEhzBaIQpQpardBF5z8A=="],
-
-    "@xhmikosr/decompress-tarbz2/file-type/@tokenizer/inflate/fflate": ["fflate@0.8.2", "", {}, "sha512-cPJU47OaAoCbg0pBvzsgpTPhmhqI5eJjh/JIu8tPj5q+T7iLvW/JAYUqmE7KOB4R1ZyEhzBaIQpQpardBF5z8A=="],
-
-    "@xhmikosr/decompress-targz/file-type/@tokenizer/inflate/fflate": ["fflate@0.8.2", "", {}, "sha512-cPJU47OaAoCbg0pBvzsgpTPhmhqI5eJjh/JIu8tPj5q+T7iLvW/JAYUqmE7KOB4R1ZyEhzBaIQpQpardBF5z8A=="],
-
-    "@xhmikosr/decompress-unzip/file-type/@tokenizer/inflate/fflate": ["fflate@0.8.2", "", {}, "sha512-cPJU47OaAoCbg0pBvzsgpTPhmhqI5eJjh/JIu8tPj5q+T7iLvW/JAYUqmE7KOB4R1ZyEhzBaIQpQpardBF5z8A=="],
-
-    "@xhmikosr/downloader/file-type/@tokenizer/inflate/fflate": ["fflate@0.8.2", "", {}, "sha512-cPJU47OaAoCbg0pBvzsgpTPhmhqI5eJjh/JIu8tPj5q+T7iLvW/JAYUqmE7KOB4R1ZyEhzBaIQpQpardBF5z8A=="],
 
     "ast-kit/@babel/parser/@babel/types/@babel/helper-string-parser": ["@babel/helper-string-parser@8.0.0-rc.3", "", {}, "sha512-AmwWFx1m8G/a5cXkxLxTiWl+YEoWuoFLUCwqMlNuWO1tqAYITQAbCRPUkyBHv1VOFgfjVOqEj6L3u15J5ZCzTA=="],
 

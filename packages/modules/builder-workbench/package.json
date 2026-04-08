@@ -1,0 +1,105 @@
+{
+	"name": "@contractspec/module.builder-workbench",
+	"version": "0.1.0",
+	"description": "Reusable Builder workbench UI module.",
+	"keywords": [
+		"contractspec",
+		"builder",
+		"workbench",
+		"ui",
+		"react"
+	],
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"scripts": {
+		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+		"publish:pkg:canary": "bun publish:pkg --tag canary",
+		"build": "bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"dev": "contractspec-bun-build dev",
+		"clean": "rimraf dist .turbo",
+		"lint": "bun lint:fix",
+		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
+		"lint:check": "node ../../../scripts/biome.cjs check .",
+		"test": "bun test",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@contractspec/lib.builder-spec": "workspace:*",
+		"@contractspec/lib.builder-runtime": "workspace:*",
+		"@contractspec/lib.provider-spec": "workspace:*",
+		"@contractspec/lib.ui-kit-web": "workspace:*",
+		"@contractspec/module.ai-chat": "workspace:*",
+		"react": "catalog:"
+	},
+	"devDependencies": {
+		"@contractspec/tool.bun": "workspace:*",
+		"@contractspec/tool.typescript": "workspace:*",
+		"@types/react": "^19.2.14",
+		"typescript": "catalog:"
+	},
+	"peerDependencies": {
+		"react": ">=19.2.4"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./core": "./src/core/index.ts",
+		"./presentation": "./src/presentation/index.ts",
+		"./presentation/components": "./src/presentation/components/index.ts",
+		"./presentation/hooks": "./src/presentation/hooks/index.ts"
+	},
+	"publishConfig": {
+		"access": "public",
+		"registry": "https://registry.npmjs.org/",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"browser": "./dist/browser/index.js",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./core": {
+				"types": "./dist/core/index.d.ts",
+				"browser": "./dist/browser/core/index.js",
+				"bun": "./dist/core/index.js",
+				"node": "./dist/node/core/index.js",
+				"default": "./dist/core/index.js"
+			},
+			"./presentation": {
+				"types": "./dist/presentation/index.d.ts",
+				"browser": "./dist/browser/presentation/index.js",
+				"bun": "./dist/presentation/index.js",
+				"node": "./dist/node/presentation/index.js",
+				"default": "./dist/presentation/index.js"
+			},
+			"./presentation/components": {
+				"types": "./dist/presentation/components/index.d.ts",
+				"browser": "./dist/browser/presentation/components/index.js",
+				"bun": "./dist/presentation/components/index.js",
+				"node": "./dist/node/presentation/components/index.js",
+				"default": "./dist/presentation/components/index.js"
+			},
+			"./presentation/hooks": {
+				"types": "./dist/presentation/hooks/index.d.ts",
+				"browser": "./dist/browser/presentation/hooks/index.js",
+				"bun": "./dist/presentation/hooks/index.js",
+				"node": "./dist/node/presentation/hooks/index.js",
+				"default": "./dist/presentation/hooks/index.js"
+			}
+		}
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/modules/builder-workbench"
+	},
+	"homepage": "https://contractspec.io"
+}

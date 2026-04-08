@@ -1,0 +1,44 @@
+{
+	"runtimeTargets": [
+		{
+			"id": "rt_managed_eu_01",
+			"runtimeMode": "managed",
+			"type": "managed_workspace",
+			"displayName": "Managed EU Workspace",
+			"dataLocality": "managed",
+			"capabilityProfile": {
+				"supportsPreview": true,
+				"supportsExport": true,
+				"availableProviders": [
+					"provider.codex",
+					"provider.claude.chat",
+					"provider.openai.stt"
+				]
+			}
+		},
+		{
+			"id": "rt_local_macmini_01",
+			"runtimeMode": "local",
+			"type": "local_daemon",
+			"displayName": "Office Mac mini",
+			"dataLocality": "local",
+			"capabilityProfile": {
+				"supportsPreview": true,
+				"supportsExport": true,
+				"availableProviders": ["provider.local.llm", "provider.local.whisper"]
+			}
+		},
+		{
+			"id": "rt_hybrid_bridge_01",
+			"runtimeMode": "hybrid",
+			"type": "hybrid_bridge",
+			"displayName": "Hybrid Bridge",
+			"dataLocality": "mixed",
+			"capabilityProfile": {
+				"supportsPreview": true,
+				"supportsExport": true,
+				"availableProviders": ["provider.codex", "provider.local.whisper"]
+			}
+		}
+	]
+}

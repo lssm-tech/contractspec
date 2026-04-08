@@ -1,4 +1,8 @@
 import { appLogger } from '@contractspec/bundle.library/infrastructure/elysia/logger';
+import {
+	normalizeBuilderMetaWhatsappEnvelopes,
+	normalizeBuilderTwilioWhatsappEnvelope,
+} from '@contractspec/integration.builder-whatsapp';
 
 import {
 	type MetaWhatsappWebhookPayload,
@@ -10,8 +14,12 @@ import {
 	verifyTwilioSignature,
 } from '@contractspec/integration.runtime/channel';
 import { Elysia } from 'elysia';
+import { resolveBuilderParticipantBindingId } from './builder-participant-binding-resolver';
+import { getBuilderRuntimeResources } from './builder-runtime-resources';
 import { getChannelRuntimeResources } from './channel-runtime-resources';
 import {
+	resolveBuilderMetaWhatsappWorkspaceId,
+	resolveBuilderTwilioWhatsappWorkspaceId,
 	resolveMetaWhatsappWorkspaceId,
 	resolveTwilioWhatsappWorkspaceId,
 } from './channel-workspace-resolver';
@@ -73,10 +81,14 @@ export const whatsappWebhookHandler = new Elysia()
 			};
 		}
 
-		const workspaceId = resolveMetaWhatsappWorkspaceId([
+		const candidates = [
 			payload.entry?.[0]?.id ?? '',
 			payload.entry?.[0]?.changes?.[0]?.value?.metadata?.phone_number_id ?? '',
-		]);
+		];
+		const builderWorkspaceId =
+			resolveBuilderMetaWhatsappWorkspaceId(candidates);
+		const workspaceId =
+			builderWorkspaceId ?? resolveMetaWhatsappWorkspaceId(candidates);
 		if (!workspaceId) {
 			set.status = 403;
 			return {
@@ -85,15 +97,27 @@ export const whatsappWebhookHandler = new Elysia()
 			};
 		}
 
-		const events = normalizeMetaWhatsappInboundEvents({
-			workspaceId,
-			payload,
-			signatureValid: true,
-			traceId: request.headers.get('x-request-id') ?? undefined,
-			rawBody,
-		});
+		const traceId = request.headers.get('x-request-id') ?? undefined;
+		const events = builderWorkspaceId
+			? []
+			: normalizeMetaWhatsappInboundEvents({
+					workspaceId,
+					payload,
+					signatureValid: true,
+					traceId,
+					rawBody,
+				});
+		const builderEnvelopes = builderWorkspaceId
+			? normalizeBuilderMetaWhatsappEnvelopes({
+					workspaceId: builderWorkspaceId,
+					conversationId: `builder_wa_${candidates[0] ?? 'thread'}`,
+					payload,
+					traceId,
+					rawBody,
+				})
+			: [];
 
-		if (events.length === 0) {
+		if (events.length === 0 && builderEnvelopes.length === 0) {
 			return {
 				ok: true,
 				ignored: true,
@@ -101,6 +125,39 @@ export const whatsappWebhookHandler = new Elysia()
 		}
 
 		try {
+			if (builderEnvelopes.length > 0) {
+				const runtime = await getBuilderRuntimeResources();
+				const resolvedBuilderWorkspaceId = builderWorkspaceId ?? workspaceId;
+				await Promise.all(
+					builderEnvelopes.map(async (envelope) => {
+						const participantBindingId =
+							envelope.participantBindingId ??
+							(await resolveBuilderParticipantBindingId({
+								store: runtime.store,
+								workspaceId: resolvedBuilderWorkspaceId,
+								channelType: 'whatsapp',
+								externalIdentityRef: envelope.externalIdentityRef,
+								externalUserId: envelope.externalUserId,
+							}));
+						return runtime.service.executeCommand(
+							'builder.channel.receiveInbound',
+							{
+								workspaceId: resolvedBuilderWorkspaceId,
+								conversationId: envelope.conversationId,
+								payload: {
+									...envelope,
+									participantBindingId,
+								} as unknown as Record<string, unknown>,
+							}
+						);
+					})
+				);
+				return {
+					ok: true,
+					accepted: builderEnvelopes.length,
+					duplicates: 0,
+				};
+			}
 			const runtime = await getChannelRuntimeResources();
 			const results = await Promise.all(
 				events.map((event) => runtime.service.ingest(event))
@@ -152,9 +209,12 @@ export const whatsappWebhookHandler = new Elysia()
 			};
 		}
 
-		const workspaceId = resolveTwilioWhatsappWorkspaceId(
+		const builderWorkspaceId = resolveBuilderTwilioWhatsappWorkspaceId(
 			formBody.get('AccountSid') ?? undefined
 		);
+		const workspaceId =
+			builderWorkspaceId ??
+			resolveTwilioWhatsappWorkspaceId(formBody.get('AccountSid') ?? undefined);
 		if (!workspaceId) {
 			set.status = 403;
 			return {
@@ -163,15 +223,27 @@ export const whatsappWebhookHandler = new Elysia()
 			};
 		}
 
-		const event = normalizeTwilioWhatsappInboundEvent({
-			workspaceId,
-			formBody,
-			signatureValid: true,
-			traceId: request.headers.get('x-request-id') ?? undefined,
-			rawBody,
-		});
+		const traceId = request.headers.get('x-request-id') ?? undefined;
+		const event = builderWorkspaceId
+			? null
+			: normalizeTwilioWhatsappInboundEvent({
+					workspaceId,
+					formBody,
+					signatureValid: true,
+					traceId,
+					rawBody,
+				});
+		const builderEnvelope = builderWorkspaceId
+			? normalizeBuilderTwilioWhatsappEnvelope({
+					workspaceId: builderWorkspaceId,
+					conversationId: `builder_wa_${formBody.get('From') ?? 'thread'}`,
+					formBody,
+					traceId,
+					rawBody,
+				})
+			: null;
 
-		if (!event) {
+		if (!event && !builderEnvelope) {
 			return {
 				ok: true,
 				ignored: true,
@@ -179,8 +251,39 @@ export const whatsappWebhookHandler = new Elysia()
 		}
 
 		try {
+			if (builderEnvelope) {
+				const runtime = await getBuilderRuntimeResources();
+				const resolvedBuilderWorkspaceId = builderWorkspaceId ?? workspaceId;
+				const participantBindingId =
+					builderEnvelope.participantBindingId ??
+					(await resolveBuilderParticipantBindingId({
+						store: runtime.store,
+						workspaceId: resolvedBuilderWorkspaceId,
+						channelType: 'whatsapp',
+						externalIdentityRef: builderEnvelope.externalIdentityRef,
+						externalUserId: builderEnvelope.externalUserId,
+					}));
+				const result = await runtime.service.executeCommand(
+					'builder.channel.receiveInbound',
+					{
+						workspaceId: resolvedBuilderWorkspaceId,
+						conversationId: builderEnvelope.conversationId,
+						payload: {
+							...builderEnvelope,
+							participantBindingId,
+						} as unknown as Record<string, unknown>,
+					}
+				);
+				return {
+					ok: true,
+					status: 'accepted',
+					result,
+				};
+			}
 			const runtime = await getChannelRuntimeResources();
-			const result = await runtime.service.ingest(event);
+			const result = await runtime.service.ingest(
+				event as NonNullable<typeof event>
+			);
 			return {
 				ok: true,
 				status: result.status,

@@ -1,4 +1,5 @@
 import { appLogger } from '@contractspec/bundle.library/infrastructure/elysia/logger';
+import { normalizeBuilderTelegramEnvelope } from '@contractspec/integration.builder-telegram';
 
 import {
 	normalizeTelegramInboundEvent,
@@ -7,8 +8,13 @@ import {
 	verifyTelegramWebhookSecret,
 } from '@contractspec/integration.runtime/channel';
 import { Elysia } from 'elysia';
+import { resolveBuilderParticipantBindingId } from './builder-participant-binding-resolver';
+import { getBuilderRuntimeResources } from './builder-runtime-resources';
 import { getChannelRuntimeResources } from './channel-runtime-resources';
-import { resolveTelegramWorkspaceId } from './channel-workspace-resolver';
+import {
+	resolveBuilderTelegramWorkspaceId,
+	resolveTelegramWorkspaceId,
+} from './channel-workspace-resolver';
 
 export const telegramWebhookHandler = new Elysia().post(
 	'/webhooks/telegram/events',
@@ -49,7 +55,7 @@ export const telegramWebhookHandler = new Elysia().post(
 			};
 		}
 
-		const workspaceId = resolveTelegramWorkspaceId([
+		const candidates = [
 			String(
 				payload.message?.chat?.id ??
 					payload.edited_message?.chat?.id ??
@@ -62,7 +68,10 @@ export const telegramWebhookHandler = new Elysia().post(
 				payload.channel_post?.chat?.username ??
 				payload.edited_channel_post?.chat?.username ??
 				'',
-		]);
+		];
+		const builderWorkspaceId = resolveBuilderTelegramWorkspaceId(candidates);
+		const workspaceId =
+			builderWorkspaceId ?? resolveTelegramWorkspaceId(candidates);
 		if (!workspaceId) {
 			set.status = 403;
 			return {
@@ -71,15 +80,27 @@ export const telegramWebhookHandler = new Elysia().post(
 			};
 		}
 
-		const event = normalizeTelegramInboundEvent({
-			workspaceId,
-			payload,
-			signatureValid: true,
-			traceId: request.headers.get('x-request-id') ?? undefined,
-			rawBody,
-		});
+		const traceId = request.headers.get('x-request-id') ?? undefined;
+		const event = builderWorkspaceId
+			? null
+			: normalizeTelegramInboundEvent({
+					workspaceId,
+					payload,
+					signatureValid: true,
+					traceId,
+					rawBody,
+				});
+		const builderEnvelope = builderWorkspaceId
+			? normalizeBuilderTelegramEnvelope({
+					workspaceId: builderWorkspaceId,
+					conversationId: `builder_tg_${candidates[0] ?? 'thread'}`,
+					payload,
+					traceId,
+					rawBody,
+				})
+			: null;
 
-		if (!event) {
+		if (!event && !builderEnvelope) {
 			return {
 				ok: true,
 				ignored: true,
@@ -87,8 +108,39 @@ export const telegramWebhookHandler = new Elysia().post(
 		}
 
 		try {
+			if (builderEnvelope) {
+				const runtime = await getBuilderRuntimeResources();
+				const resolvedBuilderWorkspaceId = builderWorkspaceId ?? workspaceId;
+				const participantBindingId =
+					builderEnvelope.participantBindingId ??
+					(await resolveBuilderParticipantBindingId({
+						store: runtime.store,
+						workspaceId: resolvedBuilderWorkspaceId,
+						channelType: 'telegram',
+						externalIdentityRef: builderEnvelope.externalIdentityRef,
+						externalUserId: builderEnvelope.externalUserId,
+					}));
+				const result = await runtime.service.executeCommand(
+					'builder.channel.receiveInbound',
+					{
+						workspaceId: resolvedBuilderWorkspaceId,
+						conversationId: builderEnvelope.conversationId,
+						payload: {
+							...builderEnvelope,
+							participantBindingId,
+						} as unknown as Record<string, unknown>,
+					}
+				);
+				return {
+					ok: true,
+					status: 'accepted',
+					result,
+				};
+			}
 			const runtime = await getChannelRuntimeResources();
-			const result = await runtime.service.ingest(event);
+			const result = await runtime.service.ingest(
+				event as NonNullable<typeof event>
+			);
 			return {
 				ok: true,
 				status: result.status,
@@ -97,7 +149,7 @@ export const telegramWebhookHandler = new Elysia().post(
 		} catch (error) {
 			appLogger.error('Telegram webhook processing failed', {
 				error: error instanceof Error ? error.message : String(error),
-				eventId: event.externalEventId,
+				eventId: event?.externalEventId ?? builderEnvelope?.externalMessageId,
 			});
 			set.status = 500;
 			return {

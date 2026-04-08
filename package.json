@@ -52,7 +52,7 @@
 	},
 	"license": "MIT",
 	"scripts": {
-		"agentpacks:all": "bun packages/tools/agentpacks/src/index.ts generate --targets \"*\" --features \"*\"",
+		"agentpacks:all": "bun packages/tools/agentpacks/src/index.ts generate --targets opencode,cursor,claudecode,codexcli --features \"*\"",
 		"agentpacks:cursor": "bun packages/tools/agentpacks/src/index.ts generate --targets cursor --features \"*\"",
 		"agentpacks:claude": "bun packages/tools/agentpacks/src/index.ts generate --targets claudecode --features \"*\"",
 		"agentpacks:opencode": "bun packages/tools/agentpacks/src/index.ts generate --targets opencode --features \"*\"",

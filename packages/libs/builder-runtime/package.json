@@ -1,0 +1,120 @@
+{
+	"name": "@contractspec/lib.builder-runtime",
+	"version": "0.1.0",
+	"description": "Backend-neutral Builder runtime, ingestion, fusion, readiness, and replay services.",
+	"keywords": [
+		"contractspec",
+		"builder",
+		"runtime",
+		"omnichannel",
+		"typescript"
+	],
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"scripts": {
+		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+		"publish:pkg:canary": "bun publish:pkg --tag canary",
+		"build": "bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"dev": "contractspec-bun-build dev",
+		"clean": "rimraf dist .turbo",
+		"lint": "bun lint:fix",
+		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
+		"lint:check": "node ../../../scripts/biome.cjs check .",
+		"test": "bun test",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@contractspec/lib.builder-spec": "workspace:*",
+		"@contractspec/lib.execution-lanes": "workspace:*",
+		"@contractspec/lib.files": "workspace:*",
+		"@contractspec/lib.harness": "workspace:*",
+		"@contractspec/lib.mobile-control": "workspace:*",
+		"@contractspec/lib.provider-spec": "workspace:*",
+		"@contractspec/lib.provider-runtime": "workspace:*",
+		"@contractspec/lib.voice": "workspace:*",
+		"fflate": "^0.8.2"
+	},
+	"devDependencies": {
+		"@contractspec/tool.bun": "workspace:*",
+		"@contractspec/tool.typescript": "workspace:*",
+		"typescript": "catalog:"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./fusion": "./src/fusion/index.ts",
+		"./ingestion": "./src/ingestion/index.ts",
+		"./planning": "./src/planning/index.ts",
+		"./preview": "./src/preview/index.ts",
+		"./readiness": "./src/readiness/index.ts",
+		"./replay": "./src/replay/index.ts",
+		"./stores": "./src/stores/index.ts"
+	},
+	"publishConfig": {
+		"access": "public",
+		"registry": "https://registry.npmjs.org/",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./fusion": {
+				"types": "./dist/fusion/index.d.ts",
+				"bun": "./dist/fusion/index.js",
+				"node": "./dist/node/fusion/index.js",
+				"default": "./dist/fusion/index.js"
+			},
+			"./ingestion": {
+				"types": "./dist/ingestion/index.d.ts",
+				"bun": "./dist/ingestion/index.js",
+				"node": "./dist/node/ingestion/index.js",
+				"default": "./dist/ingestion/index.js"
+			},
+			"./planning": {
+				"types": "./dist/planning/index.d.ts",
+				"bun": "./dist/planning/index.js",
+				"node": "./dist/node/planning/index.js",
+				"default": "./dist/planning/index.js"
+			},
+			"./preview": {
+				"types": "./dist/preview/index.d.ts",
+				"bun": "./dist/preview/index.js",
+				"node": "./dist/node/preview/index.js",
+				"default": "./dist/preview/index.js"
+			},
+			"./readiness": {
+				"types": "./dist/readiness/index.d.ts",
+				"bun": "./dist/readiness/index.js",
+				"node": "./dist/node/readiness/index.js",
+				"default": "./dist/readiness/index.js"
+			},
+			"./replay": {
+				"types": "./dist/replay/index.d.ts",
+				"bun": "./dist/replay/index.js",
+				"node": "./dist/node/replay/index.js",
+				"default": "./dist/replay/index.js"
+			},
+			"./stores": {
+				"types": "./dist/stores/index.d.ts",
+				"bun": "./dist/stores/index.js",
+				"node": "./dist/node/stores/index.js",
+				"default": "./dist/stores/index.js"
+			}
+		}
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/libs/builder-runtime"
+	},
+	"homepage": "https://contractspec.io"
+}
