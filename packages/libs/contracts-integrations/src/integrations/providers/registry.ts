@@ -45,6 +45,7 @@ import { registerSupabaseVectorIntegration } from './supabase-vector';
 import { registerTldvIntegration } from './tldv';
 import { registerTwilioSmsIntegration } from './twilio-sms';
 import { registerWhoopIntegration } from './whoop';
+import { registerX402Integration } from './x402';
 
 /**
  * Creates a registry containing all IntegrationSpec providers shipped by
@@ -95,6 +96,7 @@ export function createDefaultIntegrationSpecRegistry(): IntegrationSpecRegistry 
 	registerEightSleepIntegration(registry);
 	registerPelotonIntegration(registry);
 	registerComposioIntegration(registry);
+	registerX402Integration(registry);
 
 	return registry;
 }

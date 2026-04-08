@@ -137,7 +137,8 @@
 		"./sms": "./src/sms.ts",
 		"./storage": "./src/storage.ts",
 		"./vector-store": "./src/vector-store.ts",
-		"./voice": "./src/voice.ts"
+		"./voice": "./src/voice.ts",
+		"./impls/x402-payments": "./src/impls/x402-payments.ts"
 	},
 	"publishConfig": {
 		"access": "public",
@@ -603,6 +604,12 @@
 				"bun": "./dist/voice.js",
 				"node": "./dist/node/voice.js",
 				"default": "./dist/voice.js"
+			},
+			"./impls/x402-payments": {
+				"types": "./dist/impls/x402-payments.d.ts",
+				"bun": "./dist/impls/x402-payments.js",
+				"node": "./dist/node/impls/x402-payments.js",
+				"default": "./dist/impls/x402-payments.js"
 			}
 		},
 		"registry": "https://registry.npmjs.org/"

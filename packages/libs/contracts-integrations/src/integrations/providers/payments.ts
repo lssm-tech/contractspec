@@ -113,6 +113,38 @@ export interface ListTransactionsQuery {
 	startingAfter?: string;
 }
 
+export interface X402PaymentRequirement {
+	price: Money;
+	accepts: string[];
+	payTo?: string;
+	description?: string;
+	resource?: string;
+	nonce?: string;
+	ttlSeconds?: number;
+	metadata?: Record<string, string>;
+}
+
+export interface X402PaymentProof {
+	scheme: 'x402';
+	token: string;
+	paymentIntentId?: string;
+	createdAt: Date;
+	expiresAt?: Date;
+}
+
+export interface X402FetchRequest {
+	url: string;
+	method?: string;
+	headers?: Record<string, string>;
+	body?: BodyInit;
+}
+
+export interface X402HttpPaymentClient {
+	fetchWithPayment(request: X402FetchRequest): Promise<Response>;
+	parsePaymentRequirement(headerValue: string): X402PaymentRequirement;
+	createProof(requirement: X402PaymentRequirement): Promise<X402PaymentProof>;
+}
+
 export interface PaymentsProvider {
 	createCustomer(input: CreateCustomerInput): Promise<PaymentCustomer>;
 	getCustomer(customerId: string): Promise<PaymentCustomer | null>;
