@@ -1,3 +1,7 @@
+import {
+	createLocalDaemonRuntimeRegistrationPayload,
+	LOCAL_RUNTIME_INTEGRATION_PACKAGE,
+} from '@contractspec/integration.runtime.local';
 import type { BuilderMobileReviewCard } from '@contractspec/lib.builder-spec';
 import { createBuilderMobileReviewCard } from '@contractspec/lib.mobile-control';
 import {
@@ -19,6 +23,7 @@ import { isoNow } from '../utils/now';
 import {
 	createRuntimeIncidentReviewCard,
 	persistBuilderReviewCard,
+	resolveBuilderReviewCard,
 } from './review-card-operations';
 import { isRecord, readStringArray } from './shared';
 import type {
@@ -116,6 +121,42 @@ export async function updateRuntimeTarget(
 	commandKey: string,
 	input: BuilderOperationInput
 ) {
+	const payload =
+		commandKey === 'builder.runtimeTarget.registerLocalDaemon'
+			? {
+					...createLocalDaemonRuntimeRegistrationPayload({
+						grantedTo:
+							typeof input.payload?.grantedTo === 'string'
+								? input.payload.grantedTo
+								: undefined,
+						availableProviders: readStringArray(
+							input.payload?.availableProviders
+						),
+						storageProfile:
+							typeof input.payload?.storageProfile === 'string'
+								? input.payload.storageProfile
+								: undefined,
+						networkReachability:
+							input.payload?.networkReachability === 'online' ||
+							input.payload?.networkReachability === 'restricted' ||
+							input.payload?.networkReachability === 'offline'
+								? input.payload.networkReachability
+								: undefined,
+						evidenceEgressPolicy:
+							input.payload?.evidenceEgressPolicy === 'full' ||
+							input.payload?.evidenceEgressPolicy === 'summaries_only' ||
+							input.payload?.evidenceEgressPolicy === 'blocked'
+								? input.payload.evidenceEgressPolicy
+								: undefined,
+						artifactSizeLimitMb:
+							typeof input.payload?.artifactSizeLimitMb === 'number'
+								? input.payload.artifactSizeLimitMb
+								: undefined,
+					}),
+					integrationPackage: LOCAL_RUNTIME_INTEGRATION_PACKAGE,
+					...(input.payload ?? {}),
+				}
+			: input.payload;
 	const existing = input.entityId
 		? await deps.store.getRuntimeTarget(String(input.entityId))
 		: null;
@@ -127,7 +168,7 @@ export async function updateRuntimeTarget(
 		entityId: String(
 			input.entityId ?? existing?.id ?? createBuilderId('runtime_target')
 		),
-		payload: input.payload,
+		payload,
 		existing,
 		nowIso,
 	});
@@ -371,4 +412,24 @@ export async function createMobileReviewCardOperation(
 		createdAt: isoNow(deps.now),
 	});
 	return persistBuilderReviewCard(deps, card);
+}
+
+export async function resolveMobileReviewCardOperation(
+	deps: BuilderRuntimeDependencies,
+	input: BuilderOperationInput
+) {
+	if (!input.entityId) {
+		return null;
+	}
+	const status =
+		input.payload?.status === 'approved' ||
+		input.payload?.status === 'rejected' ||
+		input.payload?.status === 'acknowledged' ||
+		input.payload?.status === 'resolved'
+			? input.payload.status
+			: 'resolved';
+	return resolveBuilderReviewCard(deps, {
+		cardId: String(input.entityId),
+		status,
+	});
 }

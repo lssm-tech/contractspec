@@ -20,6 +20,24 @@ export function RuntimeTargetManagerPanel(props: {
 	isRegisteringTargets?: boolean;
 	busyTargetId?: string | null;
 }) {
+	const coverage = {
+		managed: props.runtimeTargets.some(
+			(target) =>
+				target.runtimeMode === 'managed' &&
+				target.registrationState === 'registered'
+		),
+		local: props.runtimeTargets.some(
+			(target) =>
+				target.runtimeMode === 'local' &&
+				target.registrationState === 'registered'
+		),
+		hybrid: props.runtimeTargets.some(
+			(target) =>
+				target.runtimeMode === 'hybrid' &&
+				target.registrationState === 'registered'
+		),
+	};
+
 	return (
 		<Card>
 			<CardHeader>
@@ -31,6 +49,13 @@ export function RuntimeTargetManagerPanel(props: {
 			</CardHeader>
 			<CardContent>
 				<VStack gap="md" align="stretch">
+					<HStack justify="between">
+						<Small>Coverage</Small>
+						<Muted>
+							managed {String(coverage.managed)} / local{' '}
+							{String(coverage.local)} / hybrid {String(coverage.hybrid)}
+						</Muted>
+					</HStack>
 					<HStack justify="end">
 						<Button
 							variant="outline"
@@ -77,6 +102,17 @@ export function RuntimeTargetManagerPanel(props: {
 								{target.trustProfile
 									? `${target.trustProfile.secretsLocation} · egress ${target.trustProfile.evidenceEgressPolicy}`
 									: 'pending'}
+							</Muted>
+							<Muted>
+								Channels:{' '}
+								{target.capabilityProfile.supportedChannels?.join(', ') ??
+									'not declared'}
+							</Muted>
+							<Muted>
+								Lease:{' '}
+								{target.lease
+									? `${target.lease.grantedTo} until ${target.lease.expiresAt}`
+									: 'none'}
 							</Muted>
 							<Muted>
 								Last export compatibility:{' '}

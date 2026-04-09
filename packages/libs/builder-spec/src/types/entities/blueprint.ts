@@ -18,6 +18,7 @@ import type {
 import type {
 	BuilderBlockingIssue,
 	BuilderFeatureParity,
+	BuilderMobileParitySummary,
 	BuilderMobileReviewCard,
 	BuilderProviderActivity,
 	BuilderProviderProposalRegisterEntry,
@@ -156,6 +157,7 @@ export interface BuilderReadinessReport {
 	localReady: boolean;
 	hybridReady: boolean;
 	mobileParityStatus: MobileSupportStatus;
+	mobileParitySummary?: BuilderMobileParitySummary;
 	blockingIssues: BuilderBlockingIssue[];
 	warnings: BuilderReadinessWarning[];
 	sourceCoverage: BuilderCoverageReport;

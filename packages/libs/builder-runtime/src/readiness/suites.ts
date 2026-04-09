@@ -1,4 +1,7 @@
-import { aggregateBuilderMobileParity } from '@contractspec/lib.mobile-control';
+import {
+	aggregateBuilderMobileParity,
+	buildBuilderMobileParitySummary,
+} from '@contractspec/lib.mobile-control';
 import { matchesBuilderExportArtifactRefs } from '../runtime/export-artifacts';
 import { createDeliverySuites } from './delivery-suites';
 import { createFoundationSuites } from './foundation-suites';
@@ -121,6 +124,10 @@ export function createBuilderReadinessSuites(
 	return {
 		suites,
 		mobileParityStatus,
+		mobileParitySummary: buildBuilderMobileParitySummary(
+			input.blueprint,
+			input.mobileReviewCards
+		),
 		hasManaged,
 		hasLocal,
 		hasHybrid,

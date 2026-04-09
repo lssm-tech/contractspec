@@ -1,5 +1,6 @@
 export * from './authoring-operations';
 export * from './binding-operations';
+export * from './bootstrap-operations';
 export * from './channel-operations';
 export * from './conversation-operations';
 export * from './plan-operations';

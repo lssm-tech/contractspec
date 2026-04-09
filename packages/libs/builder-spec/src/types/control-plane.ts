@@ -127,6 +127,18 @@ export interface BuilderProviderProposalRegisterEntry {
 	recordedAt: string;
 }
 
+export type BuilderMobileReviewActionDeliveryMode =
+	| 'channel_native'
+	| 'mobile_web';
+
+export interface BuilderMobileParitySummary {
+	channelNativeFeatures: string[];
+	deepLinkFeatures: string[];
+	blockedFeatures: string[];
+	channelNativeActionCount: number;
+	deepLinkActionCount: number;
+}
+
 export interface BuilderMobileReviewCard {
 	id: string;
 	workspaceId: string;
@@ -149,10 +161,15 @@ export interface BuilderMobileReviewCard {
 		receiptId?: string;
 		harnessSummary: string;
 	};
+	status?: 'open' | 'approved' | 'rejected' | 'acknowledged' | 'resolved';
 	actions: Array<{
 		id: string;
 		label: string;
 		deepLinkHref?: string;
+		deliveryMode?: BuilderMobileReviewActionDeliveryMode;
+		statusNote?: string;
+		commandKey?: string;
+		commandPayload?: Record<string, unknown>;
 	}>;
 	createdAt: string;
 	updatedAt: string;
@@ -170,4 +187,20 @@ export interface BuilderProviderActivity {
 	recommendedAction?: 'retry' | 'fallback_or_escalate' | 'escalate' | 'block';
 	fallbackProviderIds?: string[];
 	recordedAt: string;
+}
+
+export type BuilderWorkspaceBootstrapPreset =
+	| 'managed_mvp'
+	| 'local_daemon_mvp'
+	| 'hybrid_mvp';
+
+export interface BuilderWorkspaceBootstrapResult {
+	workspaceId: string;
+	preset: BuilderWorkspaceBootstrapPreset;
+	createdWorkspace: boolean;
+	runtimeTargetIds: string[];
+	providerIds: string[];
+	routingPolicyId?: string;
+	defaultProviderProfileId?: string;
+	defaultRuntimeMode?: import('@contractspec/lib.provider-spec').RuntimeMode;
 }

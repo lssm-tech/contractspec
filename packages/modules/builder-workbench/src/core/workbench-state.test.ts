@@ -122,5 +122,8 @@ describe('builder workbench summary', () => {
 		expect(summary.workspaceName).toBe('Ops Builder');
 		expect(summary.blockerCount).toBe(1);
 		expect(summary.warningCount).toBe(1);
+		expect(summary.managedBootstrapLabel).toContain(
+			'managed bootstrap missing'
+		);
 	});
 });

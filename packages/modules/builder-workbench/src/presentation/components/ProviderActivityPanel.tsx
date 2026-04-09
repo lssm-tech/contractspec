@@ -1,5 +1,4 @@
 'use client';
-
 import type {
 	BuilderProviderActivity,
 	BuilderProviderProposalRegisterEntry,
@@ -22,7 +21,8 @@ import {
 } from '@contractspec/lib.ui-kit-web/ui/card';
 import { HStack, VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import { Muted, Small } from '@contractspec/lib.ui-kit-web/ui/typography';
-
+import { ProviderOverviewSection } from './ProviderOverviewSection';
+import { ProviderPatchProposalsSection } from './ProviderPatchProposalsSection';
 export function ProviderActivityPanel(props: {
 	activity: BuilderProviderActivity[];
 	providers: ExternalExecutionProvider[];
@@ -41,7 +41,6 @@ export function ProviderActivityPanel(props: {
 	const receiptsById = new Map(
 		props.receipts.map((receipt) => [receipt.id, receipt] as const)
 	);
-
 	return (
 		<Card>
 			<CardHeader>
@@ -64,114 +63,21 @@ export function ProviderActivityPanel(props: {
 								: 'Register Recommended Providers'}
 						</Button>
 					</HStack>
-					<HStack justify="between">
-						<Small>Registered Providers</Small>
-						<Muted>{props.providers.length}</Muted>
-					</HStack>
-					<HStack justify="between">
-						<Small>Receipts</Small>
-						<Muted>{props.receipts.length}</Muted>
-					</HStack>
-					<HStack justify="between">
-						<Small>Patch Proposals</Small>
-						<Muted>{props.patchProposals.length}</Muted>
-					</HStack>
-					<HStack justify="between">
-						<Small>Comparison Runs</Small>
-						<Muted>{props.comparisonRuns.length}</Muted>
-					</HStack>
-					<HStack justify="between">
-						<Small>Routing Rules</Small>
-						<Muted>{props.routingPolicy?.taskRules.length ?? 0}</Muted>
-					</HStack>
-					<VStack gap="md" align="stretch">
-						<Small>Patch Proposals</Small>
-						{props.patchProposals.length === 0 ? (
-							<Muted>No patch proposals have been normalized yet.</Muted>
-						) : (
-							props.patchProposals.map((proposal) => {
-								const receipt = receiptsById.get(proposal.receiptId);
-								return (
-									<VStack
-										key={proposal.id}
-										gap="sm"
-										align="stretch"
-										className="rounded-md border p-3"
-									>
-										<HStack justify="between">
-											<VStack gap="sm" align="start">
-												<Small>{proposal.summary}</Small>
-												<Muted>
-													{proposal.changedAreas.join(', ') ||
-														'no changed areas'}
-												</Muted>
-												<Muted>
-													{proposal.allowedWriteScopes.join(', ') ||
-														'no write scope'}
-												</Muted>
-												<Muted>
-													Provider: {receipt?.providerId ?? 'pending'} ·{' '}
-													{receipt?.runtimeMode ?? 'runtime pending'}
-												</Muted>
-											</VStack>
-											<VStack gap="sm" align="end">
-												<Badge>{proposal.riskLevel}</Badge>
-												<Badge variant="secondary">{proposal.status}</Badge>
-											</VStack>
-										</HStack>
-										<HStack justify="between">
-											<Muted>Receipt {proposal.receiptId}</Muted>
-											<Muted>Run {proposal.runId}</Muted>
-										</HStack>
-										<HStack justify="end">
-											<Button
-												variant="outline"
-												onClick={() =>
-													void props.onOpenPatchProposalReview?.(proposal.id)
-												}
-											>
-												Open Review
-											</Button>
-											<Button
-												variant="outline"
-												onClick={() =>
-													void props.onRejectPatchProposal?.(proposal.id)
-												}
-												disabled={props.busyProposalId === proposal.id}
-											>
-												Reject
-											</Button>
-											<Button
-												onClick={() =>
-													void props.onAcceptPatchProposal?.(proposal.id)
-												}
-												disabled={props.busyProposalId === proposal.id}
-											>
-												Accept
-											</Button>
-										</HStack>
-									</VStack>
-								);
-							})
-						)}
-					</VStack>
-					<VStack gap="md" align="stretch">
-						<Small>Recent Receipts</Small>
-						{props.receipts.slice(0, 4).map((receipt) => (
-							<HStack key={receipt.id} justify="between">
-								<VStack gap="sm" align="start">
-									<Small>{receipt.providerId}</Small>
-									<Muted>
-										{receipt.taskType} · {receipt.runtimeMode}
-									</Muted>
-								</VStack>
-								<Badge variant="secondary">{receipt.status}</Badge>
-							</HStack>
-						))}
-						{props.receipts.length === 0 ? (
-							<Muted>No execution receipts recorded yet.</Muted>
-						) : null}
-					</VStack>
+					<ProviderOverviewSection
+						providers={props.providers}
+						receipts={props.receipts}
+						comparisonRuns={props.comparisonRuns}
+						routingPolicy={props.routingPolicy}
+						patchProposalCount={props.patchProposals.length}
+					/>
+					<ProviderPatchProposalsSection
+						patchProposals={props.patchProposals}
+						receiptsById={receiptsById}
+						onAcceptPatchProposal={props.onAcceptPatchProposal}
+						onRejectPatchProposal={props.onRejectPatchProposal}
+						onOpenPatchProposalReview={props.onOpenPatchProposalReview}
+						busyProposalId={props.busyProposalId}
+					/>
 					<VStack gap="md" align="stretch">
 						<Small>Comparison Runs</Small>
 						{props.comparisonRuns.slice(0, 4).map((comparison) => (

@@ -31,9 +31,22 @@ describe('mobile-review module', () => {
 							harnessSummary: 'Strong approval required.',
 						},
 						actions: [
-							{ id: 'approve', label: 'Approve' },
-							{ id: 'reject', label: 'Reject' },
-							{ id: 'open_details', label: 'Open details' },
+							{
+								id: 'approve',
+								label: 'Approve',
+								deliveryMode: 'channel_native',
+							},
+							{
+								id: 'reject',
+								label: 'Reject',
+								deliveryMode: 'channel_native',
+							},
+							{
+								id: 'open_details',
+								label: 'Open details',
+								deliveryMode: 'mobile_web',
+								statusNote: 'Use mobile web for the full diff.',
+							},
 						],
 						createdAt: '2026-04-08T09:00:00.000Z',
 						updatedAt: '2026-04-08T09:00:00.000Z',
@@ -49,6 +62,13 @@ describe('mobile-review module', () => {
 					localReady: false,
 					hybridReady: false,
 					mobileParityStatus: 'full',
+					mobileParitySummary: {
+						channelNativeFeatures: ['approval.review'],
+						deepLinkFeatures: [],
+						blockedFeatures: [],
+						channelNativeActionCount: 2,
+						deepLinkActionCount: 1,
+					},
 					blockingIssues: [],
 					warnings: [],
 					sourceCoverage: {
@@ -94,5 +114,6 @@ describe('mobile-review module', () => {
 		expect(html).toContain('Approval required before export.');
 		expect(html).toContain('Approve');
 		expect(html).toContain('Readiness / Export Review');
+		expect(html).toContain('channel_review_required');
 	});
 });

@@ -23,7 +23,39 @@ describe('builder workbench actionable panels', () => {
 						recordedAt: '2026-04-08T09:00:00.000Z',
 					},
 				]}
-				providers={[]}
+				providers={[
+					{
+						id: 'provider.gemini',
+						workspaceId: 'ws_1',
+						providerKind: 'conversational',
+						displayName: 'Gemini',
+						integrationPackage: '@contractspec/integration.provider.gemini',
+						authMode: 'managed',
+						capabilityProfile: {
+							providerId: 'provider.gemini',
+							supportsRepoScopedPatch: false,
+							supportsStructuredDiff: true,
+							supportsLongContext: true,
+							supportsFunctionCalling: true,
+							supportsSTT: false,
+							supportsVision: false,
+							supportsStreaming: true,
+							supportsLocalExecution: false,
+							supportedArtifactTypes: ['json'],
+							knownConstraints: [],
+						},
+						supportedRuntimeModes: ['managed', 'hybrid'],
+						supportedTaskTypes: ['clarify', 'draft_blueprint'],
+						defaultRiskPolicy: {
+							clarify: 'low',
+							draft_blueprint: 'medium',
+						},
+						status: 'active',
+						availability: 'available',
+						createdAt: '2026-04-08T09:00:00.000Z',
+						updatedAt: '2026-04-08T09:00:00.000Z',
+					},
+				]}
 				receipts={[
 					{
 						id: 'receipt_1',
@@ -86,8 +118,20 @@ describe('builder workbench actionable panels', () => {
 					taskRules: [],
 					riskRules: [],
 					runtimeModeRules: [],
-					comparisonRules: [],
-					fallbackRules: [],
+					comparisonRules: [
+						{
+							taskType: 'propose_patch',
+							riskLevelAtOrAbove: 'high',
+							comparisonMode: 'dual_provider',
+						},
+					],
+					fallbackRules: [
+						{
+							onFailure: 'provider_failed',
+							action: 'fallback_or_escalate',
+						},
+					],
+					defaultProviderProfileId: 'provider.gemini',
 					updatedAt: '2026-04-08T09:00:00.000Z',
 				}}
 				proposalRegister={[]}
@@ -95,12 +139,23 @@ describe('builder workbench actionable panels', () => {
 		);
 
 		expect(html).toContain('Patch the approval policy');
+		expect(html).toContain('Gemini');
+		expect(html).toContain('conversational · managed · available');
 		expect(html).toContain('Provider: provider.codex · managed');
+		expect(html).toContain('Default Provider Profile');
+		expect(html).toContain('provider.gemini');
+		expect(html).toContain('High-Risk Comparison');
+		expect(html).toContain(
+			'conversational true / coding false / stt false / local helper false'
+		);
 		expect(html).toContain('Accept');
 		expect(html).toContain('Reject');
 		expect(html).toContain('Codex produced the smaller verified diff.');
 		expect(html).toContain('Next: fallback_or_escalate');
 		expect(html).toContain('provider.claude.code');
+		expect(html).toContain('Context hash: hash_1');
+		expect(html).toContain('Artifact hashes: artifact_1');
+		expect(html).toContain('Verification refs: verify_1');
 	});
 
 	it('renders runtime trust, handshake, and quarantine controls', () => {
@@ -122,6 +177,7 @@ describe('builder workbench actionable panels', () => {
 							availableProviders: ['provider.codex'],
 							dataLocality: 'mixed',
 							networkReachability: 'restricted',
+							supportedChannels: ['telegram', 'whatsapp', 'mobile_web'],
 						},
 						networkPolicy: 'restricted-egress',
 						dataLocality: 'mixed',
@@ -145,6 +201,15 @@ describe('builder workbench actionable panels', () => {
 							managedRelayAllowed: false,
 							evidenceEgressPolicy: 'summaries_only',
 						},
+						lease: {
+							id: 'lease_1',
+							workspaceId: 'ws_1',
+							runtimeTargetId: 'rt_1',
+							grantedTo: 'operator_1',
+							allowedScopes: ['preview', 'export'],
+							expiresAt: '2026-04-09T09:00:00.000Z',
+							status: 'active',
+						},
 						lastSeenAt: '2026-04-08T09:00:00.000Z',
 						lastHealthSummary: 'Bridge healthy with restricted egress.',
 						blockedReasons: [],
@@ -156,7 +221,10 @@ describe('builder workbench actionable panels', () => {
 		);
 
 		expect(html).toContain('Handshake:');
+		expect(html).toContain('managed false / local false / hybrid true');
 		expect(html).toContain('restricted');
+		expect(html).toContain('telegram, whatsapp, mobile_web');
+		expect(html).toContain('operator_1 until 2026-04-09T09:00:00.000Z');
 		expect(html).toContain('Quarantine');
 		expect(html).toContain('export ready');
 	});
@@ -197,9 +265,22 @@ describe('builder workbench actionable panels', () => {
 							harnessSummary: 'Harness passed.',
 						},
 						actions: [
-							{ id: 'approve', label: 'Approve' },
-							{ id: 'reject', label: 'Reject' },
-							{ id: 'open_details', label: 'Open details' },
+							{
+								id: 'approve',
+								label: 'Approve',
+								deliveryMode: 'channel_native',
+							},
+							{
+								id: 'reject',
+								label: 'Reject',
+								deliveryMode: 'channel_native',
+							},
+							{
+								id: 'open_details',
+								label: 'Open details',
+								deliveryMode: 'mobile_web',
+								statusNote: 'Use secure mobile web for full evidence.',
+							},
 						],
 						createdAt: '2026-04-08T09:00:00.000Z',
 						updatedAt: '2026-04-08T09:00:00.000Z',
@@ -241,6 +322,8 @@ describe('builder workbench actionable panels', () => {
 		expect(mobileHtml).toContain('Approve');
 		expect(mobileHtml).toContain('Open details');
 		expect(mobileHtml).toContain('Harness passed.');
+		expect(mobileHtml).toContain('Approve:channel_native');
+		expect(mobileHtml).toContain('Use secure mobile web for full evidence.');
 		expect(mobileHtml).toContain('builder://mobile-review/patch');
 		expect(previewHtml).toContain('Approve Export');
 		expect(previewHtml).toContain('Execute Export');

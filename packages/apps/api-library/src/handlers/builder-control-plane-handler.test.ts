@@ -35,6 +35,118 @@ afterEach(() => {
 });
 
 describe('builder control-plane handler', () => {
+	it('bootstraps a managed Builder workspace through the generic Builder API', async () => {
+		const response = await app.handle(
+			new Request(
+				'http://localhost/internal/builder/commands/builder.workspace.bootstrap',
+				{
+					method: 'POST',
+					headers: {
+						authorization: 'Bearer builder-token',
+						'content-type': 'application/json',
+					},
+					body: JSON.stringify({
+						workspaceId: 'builder_ws_bootstrap',
+						payload: {
+							preset: 'managed_mvp',
+						},
+					}),
+				}
+			)
+		);
+
+		expect(response.status).toBe(200);
+		const json = (await response.json()) as {
+			ok: boolean;
+			result: {
+				workspaceId: string;
+				runtimeTargetIds: string[];
+				providerIds: string[];
+			};
+		};
+		expect(json.ok).toBe(true);
+		expect(json.result.workspaceId).toBe('builder_ws_bootstrap');
+		expect(json.result.runtimeTargetIds).toEqual(['rt_managed_default']);
+		expect(json.result.providerIds).toEqual(
+			expect.arrayContaining([
+				'provider.gemini',
+				'provider.codex',
+				'provider.stt.default',
+			])
+		);
+
+		const snapshotResponse = await app.handle(
+			new Request(
+				'http://localhost/internal/builder/queries/builder.workspace.snapshot?workspaceId=builder_ws_bootstrap',
+				{
+					headers: {
+						authorization: 'Bearer builder-token',
+					},
+				}
+			)
+		);
+		const snapshotJson = (await snapshotResponse.json()) as {
+			ok: boolean;
+			result: {
+				runtimeTargets: Array<{ runtimeMode: string }>;
+				externalProviders: Array<{ providerKind: string }>;
+				routingPolicy: { defaultProviderProfileId?: string } | null;
+			};
+		};
+		expect(snapshotJson.ok).toBe(true);
+		expect(snapshotJson.result.runtimeTargets[0]?.runtimeMode).toBe('managed');
+		expect(
+			snapshotJson.result.externalProviders.some(
+				(provider) => provider.providerKind === 'conversational'
+			)
+		).toBe(true);
+		expect(snapshotJson.result.routingPolicy?.defaultProviderProfileId).toBe(
+			'provider.gemini'
+		);
+	});
+
+	it('rejects builder bootstrap requests without auth or builder capability grants', async () => {
+		const unauthorized = await app.handle(
+			new Request(
+				'http://localhost/internal/builder/commands/builder.workspace.bootstrap',
+				{
+					method: 'POST',
+					headers: {
+						'content-type': 'application/json',
+					},
+					body: JSON.stringify({
+						workspaceId: 'builder_ws_bootstrap',
+						payload: {
+							preset: 'managed_mvp',
+						},
+					}),
+				}
+			)
+		);
+		expect(unauthorized.status).toBe(401);
+
+		process.env.CONTROL_PLANE_API_CAPABILITY_GRANTS = 'channel.dispatch';
+		const forbidden = await app.handle(
+			new Request(
+				'http://localhost/internal/builder/commands/builder.workspace.bootstrap',
+				{
+					method: 'POST',
+					headers: {
+						authorization: 'Bearer builder-token',
+						'content-type': 'application/json',
+					},
+					body: JSON.stringify({
+						workspaceId: 'builder_ws_bootstrap',
+						payload: {
+							preset: 'managed_mvp',
+						},
+					}),
+				}
+			)
+		);
+		expect(forbidden.status).toBe(403);
+	});
+
 	it('creates and fetches Builder workspaces through generic command/query routes', async () => {
 		const createResponse = await app.handle(
 			new Request(
@@ -181,5 +293,72 @@ describe('builder control-plane handler', () => {
 		expect(providerJson.result[0]?.integrationPackage).toBe(
 			'@contractspec/integration.provider.codex'
 		);
+	});
+
+	it('registers a local daemon runtime target through the generic Builder API', async () => {
+		await app.handle(
+			new Request(
+				'http://localhost/internal/builder/commands/builder.workspace.create',
+				{
+					method: 'POST',
+					headers: {
+						authorization: 'Bearer builder-token',
+						'content-type': 'application/json',
+					},
+					body: JSON.stringify({
+						workspaceId: 'builder_ws_local',
+						payload: {
+							tenantId: 'tenant_1',
+							name: 'Local Workspace',
+						},
+					}),
+				}
+			)
+		);
+
+		const response = await app.handle(
+			new Request(
+				'http://localhost/internal/builder/commands/builder.runtimeTarget.registerLocalDaemon',
+				{
+					method: 'POST',
+					headers: {
+						authorization: 'Bearer builder-token',
+						'content-type': 'application/json',
+					},
+					body: JSON.stringify({
+						workspaceId: 'builder_ws_local',
+						entityId: 'rt_local_daemon',
+						payload: {
+							grantedTo: 'operator_1',
+							availableProviders: ['provider.codex'],
+						},
+					}),
+				}
+			)
+		);
+		expect(response.status).toBe(200);
+
+		const runtimeListResponse = await app.handle(
+			new Request(
+				'http://localhost/internal/builder/queries/builder.runtimeTarget.list?workspaceId=builder_ws_local',
+				{
+					headers: {
+						authorization: 'Bearer builder-token',
+					},
+				}
+			)
+		);
+		const runtimeJson = (await runtimeListResponse.json()) as {
+			ok: boolean;
+			result: Array<{
+				runtimeMode: string;
+				type: string;
+				lease?: { grantedTo: string };
+			}>;
+		};
+		expect(runtimeJson.ok).toBe(true);
+		expect(runtimeJson.result[0]?.runtimeMode).toBe('local');
+		expect(runtimeJson.result[0]?.type).toBe('local_daemon');
+		expect(runtimeJson.result[0]?.lease?.grantedTo).toBe('operator_1');
 	});
 });

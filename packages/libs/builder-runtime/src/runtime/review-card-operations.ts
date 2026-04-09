@@ -202,6 +202,24 @@ export async function persistBuilderReviewCard(
 	return saved;
 }
 
+export async function resolveBuilderReviewCard(
+	deps: BuilderRuntimeDependencies,
+	input: {
+		cardId: string;
+		status: 'approved' | 'rejected' | 'acknowledged' | 'resolved';
+	}
+) {
+	const card = await deps.store.getMobileReviewCard(input.cardId);
+	if (!card) {
+		return null;
+	}
+	return deps.store.saveMobileReviewCard({
+		...card,
+		status: input.status,
+		updatedAt: isoNow(deps.now),
+	});
+}
+
 function requestedViaToChannelType(
 	requestedVia: BuilderApprovalTicket['requestedVia']
 ): BuilderChannelType {
@@ -296,6 +314,7 @@ export async function createRuntimeIncidentReviewCard(input: {
 				'Runtime target health changed.',
 			actions: createBuilderMobileReviewActions({
 				includeApproveReject: false,
+				includeAcknowledge: true,
 			}),
 			createdAt: nowIso,
 		})

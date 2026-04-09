@@ -9,7 +9,7 @@ import { VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import {
 	MobileReviewPanel,
 	ReadinessReviewPanel,
-} from '@contractspec/module.builder-workbench';
+} from '@contractspec/module.builder-workbench/presentation/components';
 
 export function BuilderMobileReviewSurface(props: {
 	featureParity: BuilderBlueprint['featureParity'];
@@ -17,6 +17,7 @@ export function BuilderMobileReviewSurface(props: {
 	report?: BuilderReadinessReport | null;
 	onApproveCard?: (cardId: string) => void | Promise<void>;
 	onRejectCard?: (cardId: string) => void | Promise<void>;
+	onAcknowledgeCard?: (cardId: string) => void | Promise<void>;
 	onOpenDetails?: (cardId: string, href?: string) => void | Promise<void>;
 	busyCardId?: string | null;
 }) {
@@ -27,6 +28,7 @@ export function BuilderMobileReviewSurface(props: {
 				cards={props.cards}
 				onApproveCard={props.onApproveCard}
 				onRejectCard={props.onRejectCard}
+				onAcknowledgeCard={props.onAcknowledgeCard}
 				onOpenDetails={props.onOpenDetails}
 				busyCardId={props.busyCardId}
 			/>
@@ -38,4 +40,4 @@ export function BuilderMobileReviewSurface(props: {
 export {
 	MobileReviewPanel,
 	ReadinessReviewPanel,
-} from '@contractspec/module.builder-workbench';
+} from '@contractspec/module.builder-workbench/presentation/components';

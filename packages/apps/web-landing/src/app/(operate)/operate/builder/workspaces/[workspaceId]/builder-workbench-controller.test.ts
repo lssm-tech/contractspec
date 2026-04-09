@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test';
 import {
+	bootstrapManagedBuilderWorkspace,
 	buildBuilderMobileReviewPath,
 	createPromptEnvelope,
 	executeBuilderCommand,
@@ -114,6 +115,35 @@ describe('builder workbench controller helpers', () => {
 		)?.[0];
 		expect(requestUrl).toBe(
 			'/api/operate/builder/commands/builder.export.execute'
+		);
+	});
+
+	it('bootstraps the managed Builder workspace through the proxy route', async () => {
+		const fetchMock = mock(async () => {
+			return new Response(JSON.stringify({ ok: true }), {
+				status: 200,
+				headers: { 'content-type': 'application/json' },
+			});
+		});
+		globalThis.fetch = fetchMock as unknown as typeof fetch;
+
+		await bootstrapManagedBuilderWorkspace('ws_test');
+
+		expect(fetchMock).toHaveBeenCalledTimes(1);
+		const firstCall = fetchMock.mock.calls.at(0) as
+			| [string, RequestInit]
+			| undefined;
+		expect(firstCall).toBeDefined();
+		if (!firstCall) {
+			return;
+		}
+		const [requestUrl, requestInit] = firstCall;
+		expect(requestUrl).toBe(
+			'/api/operate/builder/commands/builder.workspace.bootstrap'
+		);
+		expect(String(requestInit?.body)).toContain('"preset":"managed_mvp"');
+		expect(String(requestInit?.body)).toContain(
+			'"includeLocalHelperProvider":true'
 		);
 	});
 });

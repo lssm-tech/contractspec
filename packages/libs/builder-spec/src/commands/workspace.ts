@@ -18,9 +18,16 @@ export const BuilderWorkspaceArchiveCommand = createBuilderCommand(
 	'Archive a Builder workspace.',
 	{ key: 'builder.export.prepare', version: '1.0.0' }
 );
+export const BuilderWorkspaceBootstrapCommand = createBuilderCommand(
+	'builder.workspace.bootstrap',
+	'Bootstrap Builder Workspace',
+	'Apply the canonical managed Builder setup preset to a workspace.',
+	{ key: 'builder.provider.routing', version: '1.0.0' }
+);
 
 export const BUILDER_WORKSPACE_COMMANDS = [
 	BuilderWorkspaceCreateCommand,
 	BuilderWorkspaceRenameCommand,
 	BuilderWorkspaceArchiveCommand,
+	BuilderWorkspaceBootstrapCommand,
 ] as const;

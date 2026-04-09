@@ -146,7 +146,24 @@ export function createBuilderRuntimeTargetRecord(input: {
 					lastReviewedAt: input.nowIso,
 				}
 			: existing?.trustProfile,
-		lease: existing?.lease,
+		lease: isRecord(payload.lease)
+			? {
+					id: String(payload.lease.id ?? `lease_${input.entityId}`),
+					workspaceId: input.workspaceId,
+					runtimeTargetId: input.entityId,
+					grantedTo: String(payload.lease.grantedTo ?? 'operator'),
+					allowedScopes:
+						readStringArray(payload.lease.allowedScopes).length > 0
+							? readStringArray(payload.lease.allowedScopes)
+							: ['preview', 'export'],
+					expiresAt: String(payload.lease.expiresAt ?? input.nowIso),
+					status:
+						payload.lease.status === 'expired' ||
+						payload.lease.status === 'revoked'
+							? payload.lease.status
+							: 'active',
+				}
+			: existing?.lease,
 		lastSeenAt: input.nowIso,
 		lastHealthSummary:
 			typeof payload.lastHealthSummary === 'string'

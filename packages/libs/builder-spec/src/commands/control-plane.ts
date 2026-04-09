@@ -6,6 +6,13 @@ export const BuilderRuntimeTargetRegisterCommand = createBuilderCommand(
 	'Register or heartbeat a Builder runtime target.',
 	{ key: 'builder.runtime.targets', version: '1.0.0' }
 );
+export const BuilderRuntimeTargetRegisterLocalDaemonCommand =
+	createBuilderCommand(
+		'builder.runtimeTarget.registerLocalDaemon',
+		'Register Local Daemon Runtime Target',
+		'Register a local-daemon Builder runtime target with handshake, trust, and lease defaults.',
+		{ key: 'builder.runtime.targets', version: '1.0.0' }
+	);
 export const BuilderRuntimeTargetUpdateCommand = createBuilderCommand(
 	'builder.runtimeTarget.update',
 	'Update Runtime Target',
@@ -79,9 +86,16 @@ export const BuilderMobileReviewCardCreateCommand = createBuilderCommand(
 	'Create a mobile review artifact for Telegram, WhatsApp, or mobile web.',
 	{ key: 'builder.mobile.review', version: '1.0.0' }
 );
+export const BuilderMobileReviewCardResolveCommand = createBuilderCommand(
+	'builder.mobileReviewCard.resolve',
+	'Resolve Mobile Review Card',
+	'Resolve or acknowledge a Builder mobile review card after an operator action.',
+	{ key: 'builder.mobile.review', version: '1.0.0' }
+);
 
 export const BUILDER_CONTROL_PLANE_COMMANDS = [
 	BuilderRuntimeTargetRegisterCommand,
+	BuilderRuntimeTargetRegisterLocalDaemonCommand,
 	BuilderRuntimeTargetUpdateCommand,
 	BuilderRuntimeTargetQuarantineCommand,
 	BuilderProviderRegisterCommand,
@@ -94,4 +108,5 @@ export const BUILDER_CONTROL_PLANE_COMMANDS = [
 	BuilderPatchProposalSupersedeCommand,
 	BuilderComparisonRecordCommand,
 	BuilderMobileReviewCardCreateCommand,
+	BuilderMobileReviewCardResolveCommand,
 ] as const;

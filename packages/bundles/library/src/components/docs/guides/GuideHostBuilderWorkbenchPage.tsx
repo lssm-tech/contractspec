@@ -3,6 +3,7 @@ import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
 
 const builderCommands = [
+	'builder.workspace.bootstrap',
 	'builder.channel.receiveInbound',
 	'builder.blueprint.generate',
 	'builder.plan.compile',
@@ -12,7 +13,6 @@ const builderCommands = [
 	'builder.export.approve',
 	'builder.export.execute',
 ];
-
 export function GuideHostBuilderWorkbenchPage() {
 	return (
 		<div className="space-y-8">
@@ -35,7 +35,6 @@ export function GuideHostBuilderWorkbenchPage() {
 					</li>
 				</ul>
 			</div>
-
 			<div className="space-y-6">
 				<div className="space-y-3">
 					<h2 className="font-bold text-2xl">
@@ -73,7 +72,6 @@ export function GuideHostBuilderWorkbenchPage() {
 						mobile review state.
 					</p>
 				</div>
-
 				<div className="space-y-3">
 					<h2 className="font-bold text-2xl">
 						2) Host the workbench and refresh on action
@@ -124,7 +122,28 @@ async function runAction(commandKey: string, payload?: Record<string, unknown>) 
 						state.
 					</p>
 				</div>
-
+				<div className="space-y-3">
+					<h2 className="font-bold text-2xl">
+						3) Bootstrap providers and routing policy explicitly
+					</h2>
+					<p className="text-muted-foreground text-sm">
+						Builder v3 treats provider routing as policy, not heuristic. Use the
+						workspace bootstrap command as the single managed-first setup path
+						instead of orchestrating provider registration in the app shell.
+					</p>
+					<CodeBlock
+						language="typescript"
+						filename="builder-bootstrap.ts"
+						code={`await executeBuilderCommand({
+  commandKey: "builder.workspace.bootstrap",
+  workspaceId,
+  payload: {
+    preset: "managed_mvp",
+    includeLocalHelperProvider: true,
+  },
+});`}
+					/>
+				</div>
 				<div className="card-subtle space-y-3 p-6">
 					<h3 className="font-semibold text-lg">Common command keys</h3>
 					<ul className="space-y-2 text-muted-foreground text-sm">
@@ -135,9 +154,8 @@ async function runAction(commandKey: string, payload?: Record<string, unknown>) 
 						))}
 					</ul>
 				</div>
-
 				<div className="space-y-3">
-					<h2 className="font-bold text-2xl">3) Keep runtime mode explicit</h2>
+					<h2 className="font-bold text-2xl">4) Keep runtime mode explicit</h2>
 					<p className="text-muted-foreground text-sm">
 						Preview and export flows are runtime-mode aware. The host chooses
 						between `managed`, `local`, and `hybrid` and passes that choice into
@@ -156,12 +174,11 @@ await executeBuilderCommand({
   payload: {
     runtimeMode: selectedExportRuntimeMode,
   },
-});`}
+	});`}
 					/>
 				</div>
-
 				<div className="space-y-3">
-					<h2 className="font-bold text-2xl">4) Link mobile review flows</h2>
+					<h2 className="font-bold text-2xl">5) Link mobile review flows</h2>
 					<p className="text-muted-foreground text-sm">
 						When a patch proposal, approval ticket, or incident needs operator
 						follow-up away from the desktop workbench, deep-link into the mobile
@@ -182,8 +199,24 @@ await executeBuilderCommand({
 						desktop workbench and mobile review surfaces.
 					</p>
 				</div>
+				<div className="space-y-3">
+					<h2 className="font-bold text-2xl">
+						6) Keep Connect adjacent, not embedded
+					</h2>
+					<p className="text-muted-foreground text-sm">
+						Builder owns the authoring control plane. When Builder delegates
+						into coding repositories, enable Connect in those target workspaces
+						for context packs, mutation verification, replay, and review
+						packets, but do not replace Builder contracts with Connect
+						artifacts.
+					</p>
+					<CodeBlock
+						language="bash"
+						filename="connect-init.sh"
+						code={`contractspec connect init --scope workspace`}
+					/>
+				</div>
 			</div>
-
 			<div className="flex items-center gap-4 pt-4">
 				<Link href="/docs/specs/builder-control-plane" className="btn-primary">
 					Back to Builder control plane <ChevronRight size={16} />

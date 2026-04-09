@@ -1,11 +1,5 @@
 'use client';
 
-import { createClaudeCodeProviderPayload } from '@contractspec/integration.provider.claude-code';
-import { createCodexProviderPayload } from '@contractspec/integration.provider.codex';
-import { createCopilotProviderPayload } from '@contractspec/integration.provider.copilot';
-import { createGeminiProviderPayload } from '@contractspec/integration.provider.gemini';
-import { createLocalModelProviderPayload } from '@contractspec/integration.provider.local-model';
-import { createSttProviderPayload } from '@contractspec/integration.provider.stt';
 import { createHybridRuntimeTargetPayload } from '@contractspec/integration.runtime.hybrid';
 import { createLocalRuntimeTargetPayload } from '@contractspec/integration.runtime.local';
 import { createManagedRuntimeTargetPayload } from '@contractspec/integration.runtime.managed';
@@ -20,6 +14,7 @@ import {
 import { useRouter } from 'next/navigation';
 import * as React from 'react';
 import {
+	bootstrapManagedBuilderWorkspace,
 	buildBuilderMobileReviewPath,
 	createPromptEnvelope,
 	executeBuilderCommand,
@@ -191,24 +186,9 @@ export function BuilderWorkbenchClient(props: {
 
 	const onRegisterRecommendedProviders = React.useCallback(
 		async () =>
-			runAction('register_providers', async () => {
-				const providers = [
-					createCodexProviderPayload(),
-					createClaudeCodeProviderPayload(),
-					createGeminiProviderPayload(),
-					createCopilotProviderPayload(),
-					createSttProviderPayload(),
-					createLocalModelProviderPayload(),
-				];
-				for (const provider of providers) {
-					await executeBuilderCommand({
-						commandKey: 'builder.provider.register',
-						workspaceId,
-						entityId: provider.id,
-						payload: provider,
-					});
-				}
-			}),
+			runAction('register_providers', () =>
+				bootstrapManagedBuilderWorkspace(workspaceId)
+			),
 		[runAction, workspaceId]
 	);
 
@@ -339,21 +319,46 @@ export function BuilderWorkbenchClient(props: {
 				return;
 			}
 			if (isApprovalCard(card)) {
-				await runAction(`mobile_review:${cardId}`, () =>
-					executeBuilderCommand({
+				await runAction(`mobile_review:${cardId}`, async () => {
+					await executeBuilderCommand({
 						commandKey: 'builder.approval.capture',
 						workspaceId,
 						entityId: card.subjectId,
 						payload: {
 							status: 'approved',
 						},
-					})
-				);
+					});
+					await executeBuilderCommand({
+						commandKey: 'builder.mobileReviewCard.resolve',
+						workspaceId,
+						entityId: cardId,
+						payload: {
+							status: 'approved',
+						},
+					});
+				});
 				return;
 			}
-			await onAcceptPatchProposal(card.subjectId);
+			await runAction(`mobile_review:${cardId}`, async () => {
+				await executeBuilderCommand({
+					commandKey: 'builder.patchProposal.accept',
+					workspaceId,
+					entityId: card.subjectId,
+					payload: {
+						runtimeMode: selectedExportRuntimeMode,
+					},
+				});
+				await executeBuilderCommand({
+					commandKey: 'builder.mobileReviewCard.resolve',
+					workspaceId,
+					entityId: cardId,
+					payload: {
+						status: 'approved',
+					},
+				});
+			});
 		},
-		[onAcceptPatchProposal, runAction, snapshot, workspaceId]
+		[runAction, selectedExportRuntimeMode, snapshot, workspaceId]
 	);
 
 	const onRejectMobileReviewCard = React.useCallback(
@@ -364,21 +369,58 @@ export function BuilderWorkbenchClient(props: {
 				return;
 			}
 			if (isApprovalCard(card)) {
-				await runAction(`mobile_review:${cardId}`, () =>
-					executeBuilderCommand({
+				await runAction(`mobile_review:${cardId}`, async () => {
+					await executeBuilderCommand({
 						commandKey: 'builder.approval.capture',
 						workspaceId,
 						entityId: card.subjectId,
 						payload: {
 							status: 'rejected',
 						},
-					})
-				);
+					});
+					await executeBuilderCommand({
+						commandKey: 'builder.mobileReviewCard.resolve',
+						workspaceId,
+						entityId: cardId,
+						payload: {
+							status: 'rejected',
+						},
+					});
+				});
 				return;
 			}
-			await onRejectPatchProposal(card.subjectId);
+			await runAction(`mobile_review:${cardId}`, async () => {
+				await executeBuilderCommand({
+					commandKey: 'builder.patchProposal.reject',
+					workspaceId,
+					entityId: card.subjectId,
+				});
+				await executeBuilderCommand({
+					commandKey: 'builder.mobileReviewCard.resolve',
+					workspaceId,
+					entityId: cardId,
+					payload: {
+						status: 'rejected',
+					},
+				});
+			});
 		},
-		[onRejectPatchProposal, runAction, snapshot, workspaceId]
+		[runAction, snapshot, workspaceId]
+	);
+
+	const onAcknowledgeMobileReviewCard = React.useCallback(
+		async (cardId: string) =>
+			runAction(`mobile_review:${cardId}`, () =>
+				executeBuilderCommand({
+					commandKey: 'builder.mobileReviewCard.resolve',
+					workspaceId,
+					entityId: cardId,
+					payload: {
+						status: 'acknowledged',
+					},
+				})
+			),
+		[runAction, workspaceId]
 	);
 
 	const onOpenMobileReviewDetails = React.useCallback(
@@ -420,6 +462,7 @@ export function BuilderWorkbenchClient(props: {
 				onQuarantineRuntimeTarget={onQuarantineRuntimeTarget}
 				onApproveMobileReviewCard={onApproveMobileReviewCard}
 				onRejectMobileReviewCard={onRejectMobileReviewCard}
+				onAcknowledgeMobileReviewCard={onAcknowledgeMobileReviewCard}
 				onOpenMobileReviewDetails={onOpenMobileReviewDetails}
 				selectedExportRuntimeMode={selectedExportRuntimeMode}
 				onSelectExportRuntimeMode={setSelectedExportRuntimeMode}

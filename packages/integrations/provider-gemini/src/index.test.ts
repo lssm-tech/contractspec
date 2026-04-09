@@ -10,7 +10,7 @@ describe('provider-gemini integration', () => {
 
 		expect(payload).toMatchObject({
 			id: 'provider.gemini',
-			providerKind: 'coding',
+			providerKind: 'conversational',
 			displayName: 'Gemini',
 			integrationPackage: GEMINI_PROVIDER_INTEGRATION_PACKAGE,
 			authMode: 'managed',
@@ -21,9 +21,12 @@ describe('provider-gemini integration', () => {
 		expect(payload.supportedRuntimeModes).toEqual(['managed', 'hybrid']);
 		expect(payload.supportedTaskTypes).toEqual([
 			'clarify',
+			'summarize_sources',
 			'draft_blueprint',
+			'refine_blueprint',
 			'extract_structure',
 			'generate_ui_artifacts',
+			'explain_diff',
 		]);
 	});
 });

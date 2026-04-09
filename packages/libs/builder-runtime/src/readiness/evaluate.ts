@@ -18,6 +18,7 @@ export function evaluateBuilderReadiness(
 	const {
 		suites,
 		mobileParityStatus,
+		mobileParitySummary,
 		hasManaged,
 		hasLocal,
 		hasHybrid,
@@ -67,6 +68,7 @@ export function evaluateBuilderReadiness(
 			localReady: hasLocal,
 			hybridReady: hasHybrid,
 			mobileParityStatus,
+			mobileParitySummary,
 			blockingIssues,
 			warnings,
 			sourceCoverage: input.blueprint.coverageReport,

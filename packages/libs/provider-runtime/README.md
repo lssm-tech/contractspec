@@ -8,6 +8,7 @@ Builder provider-runtime helpers for runtime-target normalization, provider regi
 
 - Runtime-target and external-provider record factories.
 - Routing-policy and execution-context normalization helpers.
+- Managed-first Builder routing-policy bootstrap helpers.
 - Provider-output normalization into receipts, sources, patch proposals, activity records, and mobile review cards.
 - Comparison-run record factories shared by Builder runtime and compatibility integrations.
 

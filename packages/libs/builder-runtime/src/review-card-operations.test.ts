@@ -267,5 +267,8 @@ describe('builder review-card operations', () => {
 		expect(send).toHaveBeenCalledTimes(1);
 		expect(cards[0]?.subjectType).toBe('runtime_incident');
 		expect(cards[0]?.summary).toContain('quarantined');
+		expect(
+			cards[0]?.actions.some((action) => action.id === 'acknowledge')
+		).toBe(true);
 	});
 });

@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'bun:test';
 import {
+	createLocalDaemonRuntimeRegistrationPayload,
 	createLocalRuntimeTargetPayload,
 	LOCAL_RUNTIME_INTEGRATION_PACKAGE,
 } from './index';
@@ -23,5 +24,20 @@ describe('runtime-local integration', () => {
 		expect(LOCAL_RUNTIME_INTEGRATION_PACKAGE).toBe(
 			'@contractspec/integration.runtime.local'
 		);
+	});
+
+	it('creates a local daemon registration payload with handshake, trust, and lease defaults', () => {
+		const payload = createLocalDaemonRuntimeRegistrationPayload({
+			grantedTo: 'operator_1',
+		});
+
+		expect(payload.capabilityHandshake?.supportedModes).toEqual(['local']);
+		expect(payload.trustProfile?.controller).toBe('tenant_local');
+		expect(payload.lease?.grantedTo).toBe('operator_1');
+		expect(payload.supportedChannels).toEqual([
+			'telegram',
+			'whatsapp',
+			'mobile_web',
+		]);
 	});
 });

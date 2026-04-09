@@ -11,9 +11,11 @@ import {
 } from '@contractspec/lib.ui-kit-web/ui/card';
 import { HStack, VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import { Muted, Small } from '@contractspec/lib.ui-kit-web/ui/typography';
+import { ReadinessMobileParitySection } from './ReadinessMobileParitySection';
 
 export function ReadinessReviewPanel(props: {
 	report?: BuilderReadinessReport | null;
+	managedBootstrapLabel?: string;
 }) {
 	if (!props.report) {
 		return (
@@ -24,6 +26,11 @@ export function ReadinessReviewPanel(props: {
 						No readiness report has been generated yet.
 					</CardDescription>
 				</CardHeader>
+				<CardContent>
+					<Muted>
+						{props.managedBootstrapLabel ?? 'managed bootstrap pending'}
+					</Muted>
+				</CardContent>
 			</Card>
 		);
 	}
@@ -67,9 +74,12 @@ export function ReadinessReviewPanel(props: {
 						</Muted>
 					</HStack>
 					<HStack justify="between">
-						<Small>Mobile Parity</Small>
-						<Muted>{props.report.mobileParityStatus}</Muted>
+						<Small>Managed Bootstrap</Small>
+						<Muted>
+							{props.managedBootstrapLabel ?? 'managed bootstrap pending'}
+						</Muted>
 					</HStack>
+					<ReadinessMobileParitySection report={props.report} />
 					<HStack justify="between">
 						<Small>Policy Summary</Small>
 						<Muted>{props.report.policySummary.join(', ') || 'none'}</Muted>

@@ -66,8 +66,8 @@ export function BuilderMobileReviewClient(props: {
 				setError('Builder mobile review card not found.');
 				return;
 			}
-			await runAction(() =>
-				executeBuilderCommand({
+			await runAction(async () => {
+				await executeBuilderCommand({
 					commandKey: isApprovalCard(nextCard)
 						? 'builder.approval.capture'
 						: 'builder.patchProposal.accept',
@@ -76,8 +76,16 @@ export function BuilderMobileReviewClient(props: {
 					payload: isApprovalCard(nextCard)
 						? { status: 'approved' }
 						: undefined,
-				})
-			);
+				});
+				await executeBuilderCommand({
+					commandKey: 'builder.mobileReviewCard.resolve',
+					workspaceId,
+					entityId: cardId,
+					payload: {
+						status: 'approved',
+					},
+				});
+			});
 		},
 		[runAction, snapshot, workspaceId]
 	);
@@ -89,8 +97,8 @@ export function BuilderMobileReviewClient(props: {
 				setError('Builder mobile review card not found.');
 				return;
 			}
-			await runAction(() =>
-				executeBuilderCommand({
+			await runAction(async () => {
+				await executeBuilderCommand({
 					commandKey: isApprovalCard(nextCard)
 						? 'builder.approval.capture'
 						: 'builder.patchProposal.reject',
@@ -99,10 +107,34 @@ export function BuilderMobileReviewClient(props: {
 					payload: isApprovalCard(nextCard)
 						? { status: 'rejected' }
 						: undefined,
+				});
+				await executeBuilderCommand({
+					commandKey: 'builder.mobileReviewCard.resolve',
+					workspaceId,
+					entityId: cardId,
+					payload: {
+						status: 'rejected',
+					},
+				});
+			});
+		},
+		[runAction, snapshot, workspaceId]
+	);
+
+	const onAcknowledgeCard = React.useCallback(
+		async (cardId: string) => {
+			await runAction(() =>
+				executeBuilderCommand({
+					commandKey: 'builder.mobileReviewCard.resolve',
+					workspaceId,
+					entityId: cardId,
+					payload: {
+						status: 'acknowledged',
+					},
 				})
 			);
 		},
-		[runAction, snapshot, workspaceId]
+		[runAction, workspaceId]
 	);
 
 	const onOpenDetails = React.useCallback(
@@ -140,6 +172,7 @@ export function BuilderMobileReviewClient(props: {
 					report={snapshot.readinessReport}
 					onApproveCard={onApproveCard}
 					onRejectCard={onRejectCard}
+					onAcknowledgeCard={onAcknowledgeCard}
 					onOpenDetails={onOpenDetails}
 					busyCardId={busyCardId}
 				/>

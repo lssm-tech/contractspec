@@ -3,6 +3,7 @@ import {
 	BuilderIngestionService,
 } from './ingestion';
 import {
+	bootstrapWorkspace,
 	compilePlanOperation,
 	createWorkspace,
 	generateBlueprint,
@@ -31,6 +32,7 @@ import {
 	ingestProviderExecutionOutput,
 	prepareExecutionContext,
 	recordComparisonRun,
+	resolveMobileReviewCardOperation,
 	updateExternalProvider,
 	updatePatchProposal,
 	updateRuntimeTarget,
@@ -79,6 +81,8 @@ export class BuilderRuntimeService {
 		switch (commandKey) {
 			case 'builder.workspace.create':
 				return createWorkspace(this.deps, input);
+			case 'builder.workspace.bootstrap':
+				return bootstrapWorkspace(this.deps, input);
 			case 'builder.workspace.rename':
 			case 'builder.workspace.archive':
 				return updateWorkspace(this.deps, commandKey, input);
@@ -154,6 +158,7 @@ export class BuilderRuntimeService {
 			case 'builder.preview.runHarness':
 				return runReadiness(this.deps, input);
 			case 'builder.runtimeTarget.register':
+			case 'builder.runtimeTarget.registerLocalDaemon':
 			case 'builder.runtimeTarget.update':
 			case 'builder.runtimeTarget.quarantine':
 				return updateRuntimeTarget(this.deps, commandKey, input);
@@ -176,6 +181,8 @@ export class BuilderRuntimeService {
 				return recordComparisonRun(this.deps, input);
 			case 'builder.mobileReviewCard.create':
 				return createMobileReviewCardOperation(this.deps, input);
+			case 'builder.mobileReviewCard.resolve':
+				return resolveMobileReviewCardOperation(this.deps, input);
 			case 'builder.export.prepare':
 			case 'builder.export.approve':
 			case 'builder.export.execute':

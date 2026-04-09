@@ -2,6 +2,7 @@ import type {
 	BuilderWorkspace,
 	BuilderWorkspaceSnapshot,
 } from '@contractspec/lib.builder-spec';
+import { summarizeManagedBootstrap } from './bootstrap-status';
 
 export type BuilderWorkbenchSnapshot = BuilderWorkspaceSnapshot;
 
@@ -9,6 +10,7 @@ export interface BuilderWorkbenchSummary {
 	workspaceName: string;
 	status: BuilderWorkspace['status'];
 	defaultRuntimeMode: BuilderWorkspace['defaultRuntimeMode'];
+	managedBootstrapLabel: string;
 	sourceCount: number;
 	messageCount: number;
 	blockerCount: number;
@@ -30,6 +32,7 @@ export function summarizeBuilderWorkbench(
 		workspaceName: snapshot.workspace.name,
 		status: snapshot.workspace.status,
 		defaultRuntimeMode: snapshot.workspace.defaultRuntimeMode,
+		managedBootstrapLabel: summarizeManagedBootstrap(snapshot).label,
 		sourceCount: snapshot.sources.length,
 		messageCount: snapshot.messages.length,
 		blockerCount: snapshot.readinessReport?.blockingIssues.length ?? 0,

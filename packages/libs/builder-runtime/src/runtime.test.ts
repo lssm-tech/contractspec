@@ -169,6 +169,126 @@ function createExecutionReceipt(workspaceId: string): ExternalExecutionReceipt {
 }
 
 describe('builder runtime service', () => {
+	it('bootstraps a managed Builder workspace through the canonical workspace command', async () => {
+		const store = new InMemoryBuilderStore();
+		const service = new BuilderRuntimeService(store);
+
+		const result = (await service.executeCommand(
+			'builder.workspace.bootstrap',
+			{
+				workspaceId: 'ws_bootstrap',
+				payload: {
+					preset: 'managed_mvp',
+				},
+			}
+		)) as {
+			workspaceId: string;
+			createdWorkspace: boolean;
+			runtimeTargetIds: string[];
+			providerIds: string[];
+			defaultProviderProfileId?: string;
+		} | null;
+
+		expect(result?.workspaceId).toBe('ws_bootstrap');
+		expect(result?.createdWorkspace).toBe(true);
+		expect(result?.runtimeTargetIds).toEqual(['rt_managed_default']);
+		expect(result?.providerIds).toEqual(
+			expect.arrayContaining([
+				'provider.gemini',
+				'provider.codex',
+				'provider.stt.default',
+			])
+		);
+		expect(result?.defaultProviderProfileId).toBe('provider.gemini');
+
+		const snapshot = (await service.executeQuery('builder.workspace.snapshot', {
+			workspaceId: 'ws_bootstrap',
+		})) as BuilderWorkspaceSnapshot | null;
+
+		expect(snapshot?.workspace.preferredProviderProfileId).toBe(
+			'provider.gemini'
+		);
+		expect(
+			snapshot?.runtimeTargets.some(
+				(target) =>
+					target.runtimeMode === 'managed' &&
+					target.registrationState === 'registered'
+			)
+		).toBe(true);
+		expect(
+			snapshot?.externalProviders.some(
+				(provider) =>
+					provider.providerKind === 'conversational' &&
+					provider.id === 'provider.gemini'
+			)
+		).toBe(true);
+		expect(snapshot?.routingPolicy?.defaultProviderProfileId).toBe(
+			'provider.gemini'
+		);
+	});
+
+	it('supports local-daemon and hybrid bootstrap presets with explicit default runtime modes', async () => {
+		const store = new InMemoryBuilderStore();
+		const service = new BuilderRuntimeService(store);
+
+		const localResult = (await service.executeCommand(
+			'builder.workspace.bootstrap',
+			{
+				workspaceId: 'ws_local_bootstrap',
+				payload: {
+					preset: 'local_daemon_mvp',
+				},
+			}
+		)) as { defaultRuntimeMode?: string } | null;
+		const hybridResult = (await service.executeCommand(
+			'builder.workspace.bootstrap',
+			{
+				workspaceId: 'ws_hybrid_bootstrap',
+				payload: {
+					preset: 'hybrid_mvp',
+				},
+			}
+		)) as { defaultRuntimeMode?: string } | null;
+
+		expect(localResult?.defaultRuntimeMode).toBe('local');
+		expect(hybridResult?.defaultRuntimeMode).toBe('hybrid');
+		const localWorkspace = (await service.executeQuery(
+			'builder.workspace.get',
+			{
+				workspaceId: 'ws_local_bootstrap',
+			}
+		)) as { defaultRuntimeMode?: string } | null;
+		expect(localWorkspace?.defaultRuntimeMode).toBe('local');
+	});
+
+	it('registers a local daemon runtime target with handshake, trust, and lease defaults', async () => {
+		const store = new InMemoryBuilderStore();
+		const service = new BuilderRuntimeService(store);
+		const workspaceId = await createWorkspace(service, 'ws_local_runtime');
+
+		const target = (await service.executeCommand(
+			'builder.runtimeTarget.registerLocalDaemon',
+			{
+				workspaceId,
+				entityId: 'rt_local_daemon',
+				payload: {
+					grantedTo: 'operator_1',
+					availableProviders: ['provider.codex'],
+				},
+			}
+		)) as {
+			runtimeMode: string;
+			capabilityHandshake?: { networkReachability: string };
+			trustProfile?: { controller: string };
+			lease?: { grantedTo: string };
+		} | null;
+
+		expect(target?.runtimeMode).toBe('local');
+		expect(target?.capabilityHandshake?.networkReachability).toBe('restricted');
+		expect(target?.trustProfile?.controller).toBe('tenant_local');
+		expect(target?.lease?.grantedTo).toBe('operator_1');
+	});
+
 	it('ingests zip bundles into child sources', async () => {
 		const store = new InMemoryBuilderStore();
 		const service = new BuilderRuntimeService(store);

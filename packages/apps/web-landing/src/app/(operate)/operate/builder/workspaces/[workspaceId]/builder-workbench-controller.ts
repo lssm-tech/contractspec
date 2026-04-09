@@ -70,6 +70,17 @@ export async function patchBuilderBrief(workspaceId: string, value: string) {
 	});
 }
 
+export async function bootstrapManagedBuilderWorkspace(workspaceId: string) {
+	await executeBuilderCommand({
+		commandKey: 'builder.workspace.bootstrap',
+		workspaceId,
+		payload: {
+			preset: 'managed_mvp',
+			includeLocalHelperProvider: true,
+		},
+	});
+}
+
 export function createPromptEnvelope(workspaceId: string, promptDraft: string) {
 	const id = `builder_web_${Date.now().toString(36)}_${Math.random()
 		.toString(36)

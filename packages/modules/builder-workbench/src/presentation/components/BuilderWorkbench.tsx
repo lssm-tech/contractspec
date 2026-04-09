@@ -43,6 +43,7 @@ export function BuilderWorkbench(props: {
 	onQuarantineRuntimeTarget?: (targetId: string) => void | Promise<void>;
 	onApproveMobileReviewCard?: (cardId: string) => void | Promise<void>;
 	onRejectMobileReviewCard?: (cardId: string) => void | Promise<void>;
+	onAcknowledgeMobileReviewCard?: (cardId: string) => void | Promise<void>;
 	onOpenMobileReviewDetails?: (
 		cardId: string,
 		href?: string
@@ -168,6 +169,7 @@ export function BuilderWorkbench(props: {
 					cards={props.snapshot.mobileReviewCards}
 					onApproveCard={props.onApproveMobileReviewCard}
 					onRejectCard={props.onRejectMobileReviewCard}
+					onAcknowledgeCard={props.onAcknowledgeMobileReviewCard}
 					onOpenDetails={props.onOpenMobileReviewDetails}
 					busyCardId={
 						props.busyAction?.startsWith('mobile_review:')
@@ -195,7 +197,10 @@ export function BuilderWorkbench(props: {
 				/>
 			</TabsContent>
 			<TabsContent value="readiness">
-				<ReadinessReviewPanel report={props.snapshot.readinessReport} />
+				<ReadinessReviewPanel
+					report={props.snapshot.readinessReport}
+					managedBootstrapLabel={summary.managedBootstrapLabel}
+				/>
 			</TabsContent>
 		</Tabs>
 	);

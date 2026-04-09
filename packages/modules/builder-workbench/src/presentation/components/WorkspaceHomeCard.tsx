@@ -34,6 +34,10 @@ export function WorkspaceHomeCard(props: { summary: BuilderWorkbenchSummary }) {
 						<Muted>{props.summary.defaultRuntimeMode}</Muted>
 					</HStack>
 					<HStack justify="between">
+						<Small>Managed Bootstrap</Small>
+						<Muted>{props.summary.managedBootstrapLabel}</Muted>
+					</HStack>
+					<HStack justify="between">
 						<Small>Messages</Small>
 						<Muted>{props.summary.messageCount}</Muted>
 					</HStack>
