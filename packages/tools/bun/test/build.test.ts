@@ -266,7 +266,7 @@ describe('runTypes', () => {
 			].join('\n')
 		);
 
-		await runTypes({ cwd: consumerDir });
+		await runTypes({ cwd: consumerDir, typesRoot: 'src' });
 
 		const generatedTypes = await readFile(
 			path.join(consumerDir, 'dist', 'index.d.ts'),
@@ -280,5 +280,311 @@ describe('runTypes', () => {
 		expect(generatedTypes).toContain('LaneSnapshot');
 		expect(generatedTypes).toContain('summarizeLane');
 		expect(generatedDependencyTypes).toContain('LaneSnapshot');
+	});
+
+	test('falls back to workspace source exports when published declarations cannot be refreshed', async () => {
+		const workspaceRoot = await createTempDir();
+		await writeFile(
+			path.join(workspaceRoot, 'package.json'),
+			JSON.stringify(
+				{
+					private: true,
+					workspaces: ['packages/*/*'],
+				},
+				null,
+				2
+			) + '\n'
+		);
+
+		const dependencyDir = path.join(
+			workspaceRoot,
+			'packages',
+			'libs',
+			'contracts-spec'
+		);
+		await mkdir(path.join(dependencyDir, 'src', 'docs'), {
+			recursive: true,
+		});
+		await mkdir(path.join(dependencyDir, 'dist', 'docs'), {
+			recursive: true,
+		});
+		await writeFile(
+			path.join(dependencyDir, 'package.json'),
+			JSON.stringify(
+				{
+					name: '@contractspec/lib.contracts-spec',
+					version: '0.0.0-test',
+					type: 'module',
+					types: './dist/index.d.ts',
+					exports: {
+						'.': './src/index.ts',
+						'./docs': './src/docs/index.ts',
+					},
+					publishConfig: {
+						exports: {
+							'.': {
+								types: './dist/index.d.ts',
+								bun: './dist/index.js',
+								default: './dist/index.js',
+							},
+							'./docs': {
+								types: './dist/docs/index.d.ts',
+								bun: './dist/docs/index.js',
+								default: './dist/docs/index.js',
+							},
+						},
+					},
+				},
+				null,
+				2
+			) + '\n'
+		);
+		await writeFile(
+			path.join(dependencyDir, 'src', 'index.ts'),
+			'export const defineFeature = <T>(spec: T) => spec;\n'
+		);
+		await writeFile(
+			path.join(dependencyDir, 'src', 'docs', 'index.ts'),
+			'export const registerDocBlocks = <T>(blocks: T) => blocks;\n'
+		);
+		await writeFile(
+			path.join(dependencyDir, 'dist', 'index.d.ts'),
+			'export declare const staleOnly: true;\n'
+		);
+		await writeFile(
+			path.join(dependencyDir, 'dist', 'docs', 'index.d.ts'),
+			'export declare const staleOnly: true;\n'
+		);
+		await writeFile(
+			path.join(dependencyDir, 'dist', 'index.js'),
+			'export {};\n'
+		);
+		await writeFile(
+			path.join(dependencyDir, 'dist', 'docs', 'index.js'),
+			'export {};\n'
+		);
+
+		const consumerDir = path.join(
+			workspaceRoot,
+			'packages',
+			'examples',
+			'quest-example'
+		);
+		await mkdir(path.join(consumerDir, 'src'), { recursive: true });
+		await writeFile(
+			path.join(consumerDir, 'package.json'),
+			JSON.stringify(
+				{
+					name: '@contractspec/example.quest',
+					version: '0.0.0-test',
+					type: 'module',
+					dependencies: {
+						'@contractspec/lib.contracts-spec': 'workspace:*',
+					},
+				},
+				null,
+				2
+			) + '\n'
+		);
+		await writeFile(
+			path.join(consumerDir, 'tsconfig.json'),
+			JSON.stringify(
+				{
+					compilerOptions: {
+						target: 'ES2022',
+						module: 'ESNext',
+						moduleResolution: 'Bundler',
+						strict: true,
+						outDir: 'dist',
+						declaration: true,
+					},
+					include: ['src'],
+				},
+				null,
+				2
+			) + '\n'
+		);
+		await writeFile(
+			path.join(consumerDir, 'src', 'index.ts'),
+			[
+				"import { defineFeature } from '@contractspec/lib.contracts-spec';",
+				"import { registerDocBlocks } from '@contractspec/lib.contracts-spec/docs';",
+				'',
+				'export const feature = defineFeature({ key: "demo" });',
+				'export const docs = registerDocBlocks([{ id: "demo" }]);',
+				'',
+			].join('\n')
+		);
+
+		await runTypes({ cwd: consumerDir });
+
+		const generatedTypes = await readFile(
+			path.join(
+				consumerDir,
+				'dist',
+				'examples',
+				'quest-example',
+				'src',
+				'index.d.ts'
+			),
+			'utf8'
+		);
+		expect(generatedTypes).toContain('feature');
+		expect(generatedTypes).toContain('docs');
+	});
+
+	test('refreshes stale published declarations before resolving workspace dependency types', async () => {
+		const workspaceRoot = await createTempDir();
+		await writeFile(
+			path.join(workspaceRoot, 'package.json'),
+			JSON.stringify(
+				{
+					private: true,
+					workspaces: ['packages/*/*'],
+				},
+				null,
+				2
+			) + '\n'
+		);
+
+		const dependencyDir = path.join(
+			workspaceRoot,
+			'packages',
+			'libs',
+			'provider-ranking'
+		);
+		await mkdir(path.join(dependencyDir, 'src', 'nested'), {
+			recursive: true,
+		});
+		await mkdir(path.join(dependencyDir, 'dist', 'nested'), {
+			recursive: true,
+		});
+		await writeFile(
+			path.join(dependencyDir, 'package.json'),
+			JSON.stringify(
+				{
+					name: '@contractspec/lib.provider-ranking',
+					version: '0.0.0-test',
+					type: 'module',
+					types: './dist/index.d.ts',
+					scripts: {
+						'build:types':
+							"node -e \"const fs=require('node:fs'); fs.mkdirSync('dist/nested',{recursive:true}); fs.writeFileSync('dist/index.d.ts','export type { ProviderRankingStore } from \\\"./nested/store\\\";\\n'); fs.writeFileSync('dist/nested/store.d.ts','export interface ProviderRankingStore { list(): Promise<string[]>; }\\n');\"",
+					},
+					exports: {
+						'.': './src/index.ts',
+						'./nested/store': './src/nested/store.ts',
+					},
+					publishConfig: {
+						exports: {
+							'.': {
+								types: './dist/index.d.ts',
+								bun: './dist/index.js',
+								default: './dist/index.js',
+							},
+							'./nested/store': {
+								types: './dist/nested/store.d.ts',
+								bun: './dist/nested/store.js',
+								default: './dist/nested/store.js',
+							},
+						},
+					},
+				},
+				null,
+				2
+			) + '\n'
+		);
+		await writeFile(
+			path.join(dependencyDir, 'dist', 'index.d.ts'),
+			'export declare const staleOnly: true;\n'
+		);
+		await writeFile(
+			path.join(dependencyDir, 'dist', 'nested', 'store.d.ts'),
+			'export declare const staleOnly: true;\n'
+		);
+		await writeFile(
+			path.join(dependencyDir, 'dist', 'index.js'),
+			'export {};\n'
+		);
+		await writeFile(
+			path.join(dependencyDir, 'dist', 'nested', 'store.js'),
+			'export {};\n'
+		);
+		await writeFile(
+			path.join(dependencyDir, 'src', 'nested', 'store.ts'),
+			'export interface ProviderRankingStore { list(): Promise<string[]>; }\n'
+		);
+		await writeFile(
+			path.join(dependencyDir, 'src', 'index.ts'),
+			"export type { ProviderRankingStore } from './nested/store';\n"
+		);
+
+		const consumerDir = path.join(
+			workspaceRoot,
+			'packages',
+			'libs',
+			'ai-providers'
+		);
+		await mkdir(path.join(consumerDir, 'src'), { recursive: true });
+		await writeFile(
+			path.join(consumerDir, 'package.json'),
+			JSON.stringify(
+				{
+					name: '@contractspec/lib.ai-providers',
+					version: '0.0.0-test',
+					type: 'module',
+					dependencies: {
+						'@contractspec/lib.provider-ranking': 'workspace:*',
+					},
+				},
+				null,
+				2
+			) + '\n'
+		);
+		await writeFile(
+			path.join(consumerDir, 'tsconfig.json'),
+			JSON.stringify(
+				{
+					compilerOptions: {
+						target: 'ES2022',
+						module: 'ESNext',
+						moduleResolution: 'Bundler',
+						strict: true,
+						rootDir: 'src',
+						outDir: 'dist',
+						declaration: true,
+					},
+					include: ['src'],
+				},
+				null,
+				2
+			) + '\n'
+		);
+		await writeFile(
+			path.join(consumerDir, 'src', 'index.ts'),
+			[
+				"import type { ProviderRankingStore } from '@contractspec/lib.provider-ranking';",
+				'',
+				'export interface SelectorOptions {',
+				'\tstore: ProviderRankingStore;',
+				'}',
+				'',
+			].join('\n')
+		);
+
+		await runTypes({ cwd: consumerDir, typesRoot: 'src' });
+
+		const generatedTypes = await readFile(
+			path.join(consumerDir, 'dist', 'index.d.ts'),
+			'utf8'
+		);
+		const refreshedDependencyTypes = await readFile(
+			path.join(dependencyDir, 'dist', 'index.d.ts'),
+			'utf8'
+		);
+
+		expect(generatedTypes).toContain('SelectorOptions');
+		expect(refreshedDependencyTypes).toContain('ProviderRankingStore');
+		expect(refreshedDependencyTypes).not.toContain('staleOnly');
 	});
 });

@@ -1,7 +1,3 @@
 # Contract reference
 
-Contract reference pages are generated from spec metadata plus schema details.
-
-## Query
-
-- Operation: `docs.contract.reference`
+Contract reference pages are generated from spec metadata plus schema details and exposed as a docs-ready payload.

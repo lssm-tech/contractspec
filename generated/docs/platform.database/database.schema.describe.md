@@ -35,7 +35,7 @@ export const DatabaseSchemaDescribeQuery = defineQuery({
 		owners: DATABASE_OWNERS,
 		tags: [...DATABASE_TAGS, 'describe'],
 		stability: DATABASE_STABILITY,
-		docId: [docId('docs.tech.database.schema.describe')],
+		docId: [docRef(DatabaseSchemaDescribeDocBlock.id)],
 	},
 	capability: {
 		key: 'database.context',

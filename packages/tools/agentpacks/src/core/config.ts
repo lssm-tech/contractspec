@@ -14,7 +14,6 @@ export const TARGET_IDS = [
 	'mistralvibe',
 	'geminicli',
 	'copilot',
-	'agentsmd',
 	'cline',
 	'kilo',
 	'roo',

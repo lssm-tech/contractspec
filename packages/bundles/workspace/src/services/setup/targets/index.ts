@@ -2,7 +2,6 @@
  * Setup target handlers.
  */
 
-export { setupAgentsMd } from './agents-md';
 export { setupBiomeConfig } from './biome-config';
 export { setupCliConfig } from './cli-config';
 export { setupCursorRules } from './cursor-rules';

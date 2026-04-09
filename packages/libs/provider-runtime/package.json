@@ -45,7 +45,11 @@
 		"./comparison-run": "./src/comparison-run.ts",
 		"./execution-context": "./src/execution-context.ts",
 		"./execution-output": "./src/execution-output.ts",
+		"./managed-builder-bootstrap": "./src/managed-builder-bootstrap.ts",
+		"./managed-builder-bootstrap.resources": "./src/managed-builder-bootstrap.resources.ts",
+		"./managed-builder-runtime-targets": "./src/managed-builder-runtime-targets.ts",
 		"./providers": "./src/providers.ts",
+		"./recommended-builder-setup": "./src/recommended-builder-setup.ts",
 		"./routing-policy": "./src/routing-policy.ts",
 		"./runtime-targets": "./src/runtime-targets.ts",
 		"./shared": "./src/shared.ts"
@@ -78,11 +82,35 @@
 				"node": "./dist/node/execution-output.js",
 				"default": "./dist/execution-output.js"
 			},
+			"./managed-builder-bootstrap": {
+				"types": "./dist/managed-builder-bootstrap.d.ts",
+				"bun": "./dist/managed-builder-bootstrap.js",
+				"node": "./dist/node/managed-builder-bootstrap.js",
+				"default": "./dist/managed-builder-bootstrap.js"
+			},
+			"./managed-builder-bootstrap.resources": {
+				"types": "./dist/managed-builder-bootstrap.resources.d.ts",
+				"bun": "./dist/managed-builder-bootstrap.resources.js",
+				"node": "./dist/node/managed-builder-bootstrap.resources.js",
+				"default": "./dist/managed-builder-bootstrap.resources.js"
+			},
+			"./managed-builder-runtime-targets": {
+				"types": "./dist/managed-builder-runtime-targets.d.ts",
+				"bun": "./dist/managed-builder-runtime-targets.js",
+				"node": "./dist/node/managed-builder-runtime-targets.js",
+				"default": "./dist/managed-builder-runtime-targets.js"
+			},
 			"./providers": {
 				"types": "./dist/providers.d.ts",
 				"bun": "./dist/providers.js",
 				"node": "./dist/node/providers.js",
 				"default": "./dist/providers.js"
+			},
+			"./recommended-builder-setup": {
+				"types": "./dist/recommended-builder-setup.d.ts",
+				"bun": "./dist/recommended-builder-setup.js",
+				"node": "./dist/node/recommended-builder-setup.js",
+				"default": "./dist/recommended-builder-setup.js"
 			},
 			"./routing-policy": {
 				"types": "./dist/routing-policy.d.ts",

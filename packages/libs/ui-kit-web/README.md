@@ -1,54 +1,148 @@
 # @contractspec/lib.ui-kit-web
 
+`@contractspec/lib.ui-kit-web` provides web UI components for React and Next surfaces, with accessible building blocks, Radix-based primitives, layout helpers, and web-specific UX utilities exposed through `./ui/*` subpaths.
+
 Website: https://contractspec.io
-
-**Web UI components built on Radix primitives with design-system token integration.**
-
-## What It Provides
-
-- **Layer**: lib
-- **Consumers**: design-system, example-shared-ui, presentation-runtime-react, bundles
 
 ## Installation
 
-`npm install @contractspec/lib.ui-kit-web`
+`bun add @contractspec/lib.ui-kit-web`
 
 or
 
-`bun add @contractspec/lib.ui-kit-web`
+`npm install @contractspec/lib.ui-kit-web`
 
-## Usage
+## What belongs here
 
-Import the root entrypoint from `@contractspec/lib.ui-kit-web`, or use one of the documented subpaths when you want a narrower surface area.
+This package owns the web-first component layer:
 
-## Public Entry Points
+- Radix-backed web UI components.
+- Web-only accessibility helpers and route-announcement primitives.
+- Map, marketing, list-page, and visualization building blocks.
+- Web form, navigation, and layout primitives.
 
-- `.` — main entry
-- `./ui/*` — individual component exports (many components)
+Use this package for browser and Next.js surfaces. Do not use it for native or Expo UI work.
 
-## Local Commands
+## Core workflows
 
-- `bun run dev` — contractspec-bun-build dev
-- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
-- `bun run test` — jest --passWithNoTests
-- `bun run lint` — bun run lint:fix
-- `bun run lint:check` — biome check .
-- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
-- `bun run typecheck` — tsc --noEmit
-- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
-- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
-- `bun run clean` — rm -rf dist
-- `bun run build:bundle` — contractspec-bun-build transpile
-- `bun run build:types` — contractspec-bun-build types
+### Import a web component by subpath
 
-## Recent Updates
+```ts
+import { Button } from "@contractspec/lib.ui-kit-web/ui/button";
+import { Form } from "@contractspec/lib.ui-kit-web/ui/form";
+```
 
-- Missing dependencies (thanks to knip)
-- Replace eslint+prettier by biomejs to optimize speed
-- Add data visualization capabilities
+### Wire accessibility helpers at the app root
 
-## Notes
+```tsx
+import {
+  SRLiveRegionProvider,
+  useSRLiveRegion,
+} from "@contractspec/lib.ui-kit-web/ui/live-region";
+import { SkipLink } from "@contractspec/lib.ui-kit-web/ui/skip-link";
+import { RouteAnnouncer } from "@contractspec/lib.ui-kit-web/ui/route-announcer";
+import { FocusOnRouteChange } from "@contractspec/lib.ui-kit-web/ui/focus-on-route-change";
 
-- Radix primitive wrappers must stay accessible (ARIA, keyboard nav)
-- Component API must align with design-system tokens
-- Do not bypass Radix for custom implementations without justification
+function AppShell({ title, children }: { title: string; children: React.ReactNode }) {
+  return (
+    <SRLiveRegionProvider>
+      <SkipLink targetId="main" />
+      <RouteAnnouncer title={title} />
+      <main id="main">
+        <FocusOnRouteChange />
+        {children}
+      </main>
+    </SRLiveRegionProvider>
+  );
+}
+```
+
+## API map
+
+### Controls and forms
+
+- `./ui/button`
+- `./ui/input`
+- `./ui/textarea`
+- `./ui/select`
+- `./ui/form`
+- `./ui/input-group`
+- `./ui/input-otp`
+
+### Overlays, menus, and navigation
+
+- `./ui/dialog`
+- `./ui/drawer`
+- `./ui/dropdown-menu`
+- `./ui/popover`
+- `./ui/navigation-menu`
+- `./ui/nav-layout`
+- `./ui/link`
+
+### Data display and layout
+
+- `./ui/table`
+- `./ui/data-table`
+- `./ui/page-header`
+- `./ui/section`
+- `./ui/sidebar`
+
+### Accessibility helpers
+
+- `./ui/skip-link`
+- `./ui/live-region`
+- `./ui/route-announcer`
+- `./ui/focus-on-route-change`
+- `./ui/visually-hidden`
+
+### Hooks and grouped surfaces
+
+- `./ui/use-media-query`
+- `./ui/use-mobile`
+- `./ui/use-reduced-motion`
+- `./ui/use-toast`
+- `./ui/utils`
+- grouped subpaths under `./ui/map`, `./ui/marketing`, `./ui/usecases`, `./ui/organisms/ListPage`, and `./ui/visualization`
+
+## Public surface
+
+The package publishes a root entry, but the meaningful consumer surface is `./ui/*`.
+
+Consumers should import grouped subpaths directly. The public surface is best understood by category:
+
+- controls and forms
+- overlays and menus
+- layout and navigation
+- accessibility helpers
+- data display
+- grouped map, marketing, organisms, use-case, and visualization surfaces
+- hooks and utilities
+
+Use `package.json` as the exhaustive export map.
+
+## Operational semantics and gotchas
+
+- Components rely on Radix and browser or Next assumptions.
+- `./ui/link` is based on `next/link`.
+- `./ui/skip-link`, live-region helpers, and route announcers are first-class web-only APIs in this package.
+- Storybook scripts exist here, unlike the other UI packages in this rewrite set.
+- The package has optional map-related peer dependencies; map features should stay opt-in and not become implicit hard requirements.
+- The root entry is not the meaningful consumer surface today.
+
+## When not to use this package
+
+- Do not use it for native or Expo surfaces.
+- Do not use it for token orchestration or platform abstraction.
+- Do not use it for framework-agnostic linking.
+
+## Related packages
+
+- `@contractspec/lib.ui-kit-core`: shared low-level utilities used across UI packages.
+- `@contractspec/lib.ui-kit`: native-first component package for Expo and React Native surfaces.
+- `@contractspec/lib.design-system`: higher-level design-system and composition layer built on top of the UI packages.
+
+## Local commands
+
+- `bun run lint:check`
+- `bun run typecheck`
+- `bun run test`

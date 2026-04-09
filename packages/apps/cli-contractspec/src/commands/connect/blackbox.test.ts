@@ -12,7 +12,10 @@ import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import { Elysia } from 'elysia';
 import { channelControlPlaneHandler } from '../../../../api-library/src/handlers/channel-control-plane-handler';
-import { resetChannelRuntimeResourcesForTests } from '../../../../api-library/src/handlers/channel-runtime-resources';
+import {
+	getChannelRuntimeResources,
+	resetChannelRuntimeResourcesForTests,
+} from '../../../../api-library/src/handlers/channel-runtime-resources';
 
 const CLI_ENTRY = resolve(import.meta.dir, '../../cli.ts');
 const CONNECT_BLACKBOX_TIMEOUT_MS = 45000;
@@ -404,20 +407,12 @@ describe('connect command black-box', () => {
 					},
 				]);
 
-				const listResponse = await fetch(
-					`${server.baseUrl}/internal/control-plane/connect/reviews`,
-					{
-						headers: {
-							authorization: 'Bearer control-plane-token',
-						},
-					}
-				);
-				expect(listResponse.status).toBe(200);
-				const listJson = (await listResponse.json()) as {
-					items: Array<{ sourceDecisionId: string }>;
-				};
-				expect(listJson.items).toHaveLength(1);
-				expect(listJson.items[0]?.sourceDecisionId).toBe(
+				const runtime = await getChannelRuntimeResources();
+				const syncedReviews = await runtime.connectReviewService.list({
+					queue: 'connect-review',
+				});
+				expect(syncedReviews).toHaveLength(1);
+				expect(syncedReviews[0]?.sourceDecisionId).toBe(
 					reviewVerdict.decisionId
 				);
 			} finally {
@@ -673,8 +668,9 @@ function startConnectReviewBridgeServer() {
 		hostname: '127.0.0.1',
 		port: 0,
 	});
+	const baseUrl = `http://127.0.0.1:${server.port}`;
 	return {
-		baseUrl: `http://127.0.0.1:${server.port}`,
+		baseUrl,
 		stop() {
 			server.stop(true);
 			resetChannelRuntimeResourcesForTests();

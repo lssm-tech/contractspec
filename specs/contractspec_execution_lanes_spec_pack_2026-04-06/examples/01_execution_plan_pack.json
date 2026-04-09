@@ -1,128 +1,121 @@
 {
-  "meta": {
-    "id": "planpack_auth_migration_001",
-    "createdAt": "2026-04-06T12:00:00Z",
-    "sourceRequest": "Add organization-scoped OAuth with audit-safe rollback",
-    "scopeClass": "high-risk"
-  },
-  "objective": "Add organization-scoped OAuth without breaking existing user login flows.",
-  "constraints": [
-    "Must preserve current public API behavior for existing clients",
-    "Must keep rollback path explicit",
-    "Must satisfy auth and audit policies"
-  ],
-  "assumptions": [
-    "Existing auth service can host provider configuration",
-    "Audit logging surface already exists"
-  ],
-  "nonGoals": [
-    "No UI redesign",
-    "No SSO vendor marketplace in v1"
-  ],
-  "tradeoffs": [
-    {
-      "topic": "OAuth rollout strategy",
-      "tension": "faster integrated rollout vs lower-risk shadow deployment",
-      "chosenDirection": "shadow deployment followed by gated cutover",
-      "rejectedAlternatives": [
-        "immediate full replacement",
-        "parallel public API fork"
-      ]
-    }
-  ],
-  "staffing": {
-    "availableRoleProfiles": [
-      "planner",
-      "architect",
-      "critic",
-      "executor",
-      "verifier",
-      "security-reviewer",
-      "test-engineer"
-    ],
-    "recommendedLanes": [
-      {
-        "lane": "plan.consensus",
-        "why": "auth and rollback risk justify tradeoff review"
-      },
-      {
-        "lane": "team.coordinated",
-        "why": "implementation, tests, docs, and security review can run concurrently"
-      }
-    ],
-    "handoffRecommendation": {
-      "nextLane": "team.coordinated",
-      "launchHints": [
-        "allocate one verification lane",
-        "reserve security-reviewer for auth surface review",
-        "handoff to completion loop only if cutover evidence is incomplete"
-      ]
-    }
-  },
-  "planSteps": [
-    {
-      "id": "step_1",
-      "title": "Map current auth boundaries and rollback constraints",
-      "description": "Inspect auth service, session issuance, and audit logging touchpoints.",
-      "acceptanceCriteria": [
-        "current auth boundaries documented",
-        "rollback touchpoints listed",
-        "policy refs attached"
-      ]
-    },
-    {
-      "id": "step_2",
-      "title": "Implement provider integration behind feature flag",
-      "description": "Add org-scoped provider config and disabled-by-default auth path.",
-      "acceptanceCriteria": [
-        "flagged path exists",
-        "legacy login remains default",
-        "unit coverage added"
-      ],
-      "dependencies": [
-        "step_1"
-      ]
-    },
-    {
-      "id": "step_3",
-      "title": "Add integration and regression coverage",
-      "description": "Verify happy path, denial path, rollback, and audit trail emission.",
-      "acceptanceCriteria": [
-        "integration tests pass",
-        "rollback test passes",
-        "audit evidence recorded"
-      ],
-      "dependencies": [
-        "step_2"
-      ]
-    }
-  ],
-  "verification": {
-    "requiredEvidence": [
-      "unit-tests",
-      "integration-tests",
-      "security-review",
-      "rollback-proof",
-      "audit-log-proof"
-    ],
-    "requiredApprovals": [
-      "verifier.approve",
-      "architect.approve",
-      "human.approve"
-    ],
-    "blockingRisks": [
-      "silent session incompatibility",
-      "missing rollback evidence"
-    ]
-  },
-  "authorityContext": {
-    "policyRefs": [
-      "policy.auth.oauth-migration.v1",
-      "policy.audit.required.v2"
-    ],
-    "ruleContextRefs": [
-      "ctx.rules.auth-team.shared",
-      "ctx.rules.api.backward-compatibility"
-    ]
-  }
+	"meta": {
+		"id": "planpack_auth_migration_001",
+		"createdAt": "2026-04-06T12:00:00Z",
+		"sourceRequest": "Add organization-scoped OAuth with audit-safe rollback",
+		"scopeClass": "high-risk"
+	},
+	"objective": "Add organization-scoped OAuth without breaking existing user login flows.",
+	"constraints": [
+		"Must preserve current public API behavior for existing clients",
+		"Must keep rollback path explicit",
+		"Must satisfy auth and audit policies"
+	],
+	"assumptions": [
+		"Existing auth service can host provider configuration",
+		"Audit logging surface already exists"
+	],
+	"nonGoals": ["No UI redesign", "No SSO vendor marketplace in v1"],
+	"tradeoffs": [
+		{
+			"topic": "OAuth rollout strategy",
+			"tension": "faster integrated rollout vs lower-risk shadow deployment",
+			"chosenDirection": "shadow deployment followed by gated cutover",
+			"rejectedAlternatives": [
+				"immediate full replacement",
+				"parallel public API fork"
+			]
+		}
+	],
+	"staffing": {
+		"availableRoleProfiles": [
+			"planner",
+			"architect",
+			"critic",
+			"executor",
+			"verifier",
+			"security-reviewer",
+			"test-engineer"
+		],
+		"recommendedLanes": [
+			{
+				"lane": "plan.consensus",
+				"why": "auth and rollback risk justify tradeoff review"
+			},
+			{
+				"lane": "team.coordinated",
+				"why": "implementation, tests, docs, and security review can run concurrently"
+			}
+		],
+		"handoffRecommendation": {
+			"nextLane": "team.coordinated",
+			"launchHints": [
+				"allocate one verification lane",
+				"reserve security-reviewer for auth surface review",
+				"handoff to completion loop only if cutover evidence is incomplete"
+			]
+		}
+	},
+	"planSteps": [
+		{
+			"id": "step_1",
+			"title": "Map current auth boundaries and rollback constraints",
+			"description": "Inspect auth service, session issuance, and audit logging touchpoints.",
+			"acceptanceCriteria": [
+				"current auth boundaries documented",
+				"rollback touchpoints listed",
+				"policy refs attached"
+			]
+		},
+		{
+			"id": "step_2",
+			"title": "Implement provider integration behind feature flag",
+			"description": "Add org-scoped provider config and disabled-by-default auth path.",
+			"acceptanceCriteria": [
+				"flagged path exists",
+				"legacy login remains default",
+				"unit coverage added"
+			],
+			"dependencies": ["step_1"]
+		},
+		{
+			"id": "step_3",
+			"title": "Add integration and regression coverage",
+			"description": "Verify happy path, denial path, rollback, and audit trail emission.",
+			"acceptanceCriteria": [
+				"integration tests pass",
+				"rollback test passes",
+				"audit evidence recorded"
+			],
+			"dependencies": ["step_2"]
+		}
+	],
+	"verification": {
+		"requiredEvidence": [
+			"unit-tests",
+			"integration-tests",
+			"security-review",
+			"rollback-proof",
+			"audit-log-proof"
+		],
+		"requiredApprovals": [
+			"verifier.approve",
+			"architect.approve",
+			"human.approve"
+		],
+		"blockingRisks": [
+			"silent session incompatibility",
+			"missing rollback evidence"
+		]
+	},
+	"authorityContext": {
+		"policyRefs": [
+			"policy.auth.oauth-migration.v1",
+			"policy.audit.required.v2"
+		],
+		"ruleContextRefs": [
+			"ctx.rules.auth-team.shared",
+			"ctx.rules.api.backward-compatibility"
+		]
+	}
 }

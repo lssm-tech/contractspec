@@ -235,9 +235,6 @@ export class OpenCodeTarget extends BaseTarget {
 			);
 			const detailRules = getDetailRules(rules);
 
-			// AGENTS.md generation is handled by the agents-md target
-			// OpenCode reads AGENTS.md natively
-
 			// Detail rules go to .opencode/memories/ (if supported)
 			if (detailRules.length > 0) {
 				const memoriesDir = resolve(opencodeDir, 'memories');

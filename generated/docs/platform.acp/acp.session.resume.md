@@ -34,7 +34,7 @@ export const AcpSessionResumeCommand = defineCommand({
 		owners: ACP_OWNERS,
 		tags: [...ACP_TAGS, 'session'],
 		stability: ACP_STABILITY,
-		docId: [docId('docs.tech.acp.session.resume')],
+		docId: [docRef(AcpSessionResumeDocBlock.id)],
 	},
 	capability: {
 		key: 'acp.transport',

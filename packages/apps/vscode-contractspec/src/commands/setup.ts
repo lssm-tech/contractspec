@@ -27,6 +27,8 @@ function getTargetIcon(target: SetupTarget): string {
 	switch (target) {
 		case 'cli-config':
 			return '$(terminal)';
+		case 'biome-config':
+			return '$(json)';
 		case 'vscode-settings':
 			return '$(settings-gear)';
 		case 'mcp-cursor':
@@ -35,8 +37,6 @@ function getTargetIcon(target: SetupTarget): string {
 			return '$(comment-discussion)';
 		case 'cursor-rules':
 			return '$(law)';
-		case 'agents-md':
-			return '$(robot)';
 		default:
 			return '$(file)';
 	}

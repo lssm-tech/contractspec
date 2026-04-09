@@ -1,7 +1,7 @@
 /* global Bun */
 
 import { existsSync } from 'node:fs';
-import { readFile, rm, unlink, writeFile } from 'node:fs/promises';
+import { readFile, rm, stat, unlink, writeFile } from 'node:fs/promises';
 import path from 'node:path';
 import { glob } from 'glob';
 import { selectEntriesForTarget } from './config.mjs';
@@ -47,6 +47,39 @@ function entryToOutputPath(entry, root) {
  * Workaround for Bun bug: --no-bundle --outdir causes ENOENT (bun#5206).
  * Using --outfile per entry avoids the bug.
  */
+export function buildTranspileNoBundleArgs({
+	entry,
+	root,
+	target,
+	outfile,
+	external,
+	production = true,
+}) {
+	const args = [
+		'build',
+		entry,
+		'--root',
+		root,
+		'--target',
+		getBuildTarget(target),
+		'--format',
+		'esm',
+		'--packages',
+		'external',
+		'--no-bundle',
+		'--outfile',
+		outfile,
+	];
+	if (production) {
+		args.push('--production');
+	}
+	for (const item of external) {
+		args.push('--external', item);
+	}
+
+	return args;
+}
+
 async function runTranspileNoBundle({
 	cwd,
 	selectedEntries,
@@ -58,24 +91,13 @@ async function runTranspileNoBundle({
 	for (const entry of selectedEntries) {
 		const outPath = entryToOutputPath(entry, root);
 		const outfile = path.join(outdir, outPath);
-		const args = [
-			'build',
+		const args = buildTranspileNoBundleArgs({
 			entry,
-			'--root',
 			root,
-			'--target',
-			getBuildTarget(target),
-			'--format',
-			'esm',
-			'--packages',
-			'external',
-			'--no-bundle',
-			'--outfile',
+			target,
 			outfile,
-		];
-		for (const item of external) {
-			args.push('--external', item);
-		}
+			external,
+		});
 
 		const subprocess = Bun.spawn([BUN_EXECUTABLE, ...args], {
 			cwd,
@@ -91,13 +113,14 @@ async function runTranspileNoBundle({
 	}
 }
 
-function buildTranspileArgs({
+export function buildTranspileArgs({
 	selectedEntries,
 	root,
 	target,
 	outdir,
 	external,
 	noBundle,
+	production = true,
 }) {
 	const args = [
 		'build',
@@ -115,6 +138,9 @@ function buildTranspileArgs({
 		'--entry-naming',
 		'[dir]/[name].[ext]',
 	];
+	if (production) {
+		args.push('--production');
+	}
 
 	if (noBundle === true) {
 		args.push('--no-bundle');
@@ -180,6 +206,25 @@ function extractTypesPath(exportValue) {
 	return null;
 }
 
+function extractWorkspaceExportPath(exportValue) {
+	if (typeof exportValue === 'string') {
+		return exportValue;
+	}
+
+	if (!exportValue || typeof exportValue !== 'object') {
+		return null;
+	}
+
+	for (const key of ['source', 'types', 'import', 'default', 'bun', 'node']) {
+		const value = exportValue[key];
+		if (typeof value === 'string' && value.startsWith('./src/')) {
+			return value;
+		}
+	}
+
+	return null;
+}
+
 function resolveWorkspacePathCandidate(dependencyDir, candidatePaths) {
 	for (const candidatePath of candidatePaths) {
 		if (typeof candidatePath !== 'string' || candidatePath.length === 0) {
@@ -223,22 +268,78 @@ function collectPublishedTypePaths(packageJson) {
 	return Array.from(typePaths);
 }
 
+function hasBuildTypesScript(packageJson) {
+	const buildTypesScript = packageJson.scripts?.['build:types'];
+	return typeof buildTypesScript === 'string' && buildTypesScript.length > 0;
+}
+
+async function getLatestSourceMtimeMs(dependencyDir) {
+	const sourceFiles = await glob('src/**/*.{ts,tsx,js,jsx,mts,cts,mjs,cjs}', {
+		cwd: dependencyDir,
+		nodir: true,
+		windowsPathsNoEscape: true,
+	});
+
+	let latestSourceMtimeMs = 0;
+	for (const sourceFile of sourceFiles) {
+		const sourceStats = await stat(path.join(dependencyDir, sourceFile));
+		latestSourceMtimeMs = Math.max(latestSourceMtimeMs, sourceStats.mtimeMs);
+	}
+
+	return latestSourceMtimeMs;
+}
+
+async function getOldestPublishedTypeMtimeMs(dependencyDir, publishedTypePaths) {
+	let oldestPublishedTypeMtimeMs = Number.POSITIVE_INFINITY;
+	for (const publishedTypePath of publishedTypePaths) {
+		const typeStats = await stat(path.join(dependencyDir, publishedTypePath));
+		oldestPublishedTypeMtimeMs = Math.min(
+			oldestPublishedTypeMtimeMs,
+			typeStats.mtimeMs
+		);
+	}
+
+	return oldestPublishedTypeMtimeMs;
+}
+
+async function dependencyTypesNeedBuild(dependencyDir, dependencyPackageJson) {
+	const publishedTypePaths = collectPublishedTypePaths(dependencyPackageJson);
+	if (publishedTypePaths.length === 0) {
+		return false;
+	}
+
+	if (
+		publishedTypePaths.some(
+			(targetPath) => !existsSync(path.join(dependencyDir, targetPath))
+		)
+	) {
+		return true;
+	}
+
+	const latestSourceMtimeMs = await getLatestSourceMtimeMs(dependencyDir);
+	if (latestSourceMtimeMs === 0) {
+		return false;
+	}
+
+	const oldestPublishedTypeMtimeMs = await getOldestPublishedTypeMtimeMs(
+		dependencyDir,
+		publishedTypePaths
+	);
+
+	return latestSourceMtimeMs > oldestPublishedTypeMtimeMs;
+}
+
 async function ensureWorkspaceDependencyTypes(
 	dependencyDir,
 	dependencyPackageJson
 ) {
-	const publishedTypePaths = collectPublishedTypePaths(dependencyPackageJson);
-	if (
-		publishedTypePaths.length === 0 ||
-		publishedTypePaths.every((targetPath) =>
-			existsSync(path.join(dependencyDir, targetPath))
-		)
-	) {
+	if (!hasBuildTypesScript(dependencyPackageJson)) {
 		return;
 	}
 
-	const buildTypesScript = dependencyPackageJson.scripts?.['build:types'];
-	if (typeof buildTypesScript !== 'string' || buildTypesScript.length === 0) {
+	if (
+		!(await dependencyTypesNeedBuild(dependencyDir, dependencyPackageJson))
+	) {
 		return;
 	}
 
@@ -329,12 +430,19 @@ async function resolveDependencyPathMappings(cwd) {
 			path.join(dependencyDir, 'package.json')
 		);
 		await ensureWorkspaceDependencyTypes(dependencyDir, dependencyPackageJson);
+		const preferPublishedTypes = hasBuildTypesScript(dependencyPackageJson);
+		const workspaceExports = dependencyPackageJson.exports;
+		const rootWorkspacePath = extractWorkspaceExportPath(workspaceExports?.['.']);
 		const publishExports = dependencyPackageJson.publishConfig?.exports;
 		const rootTypesPath =
 			extractTypesPath(publishExports?.['.']) ?? dependencyPackageJson.types;
-		const resolvedRootPath = resolveWorkspacePathCandidate(dependencyDir, [
-			rootTypesPath,
-		]);
+		const rootPathCandidates = preferPublishedTypes
+			? [rootTypesPath, rootWorkspacePath]
+			: [rootWorkspacePath, rootTypesPath];
+		const resolvedRootPath = resolveWorkspacePathCandidate(
+			dependencyDir,
+			rootPathCandidates
+		);
 
 		if (resolvedRootPath) {
 			addPathMapping(pathsMap, dependencyName, [
@@ -356,10 +464,18 @@ async function resolveDependencyPathMappings(cwd) {
 			}
 
 			const subpathWithoutPrefix = subpath.slice(2);
+			const workspaceSubpath =
+				workspaceExports && typeof workspaceExports === 'object'
+					? extractWorkspaceExportPath(workspaceExports[subpath])
+					: null;
 			const typesPath = extractTypesPath(exportValue);
-			const resolvedSubpath = resolveWorkspacePathCandidate(dependencyDir, [
-				typesPath,
-			]);
+			const subpathCandidates = preferPublishedTypes
+				? [typesPath, workspaceSubpath]
+				: [workspaceSubpath, typesPath];
+			const resolvedSubpath = resolveWorkspacePathCandidate(
+				dependencyDir,
+				subpathCandidates
+			);
 			if (!resolvedSubpath) {
 				continue;
 			}
@@ -476,6 +592,7 @@ export async function runDev({
 			outdir,
 			external,
 			noBundle,
+			production: false,
 		});
 		args.push('--watch');
 

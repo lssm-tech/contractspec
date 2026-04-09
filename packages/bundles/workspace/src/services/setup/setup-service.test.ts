@@ -21,9 +21,6 @@ const mockSetupMcpClaude = mock(() =>
 const mockSetupCursorRules = mock(() =>
 	Promise.resolve({ action: 'created' } as SetupFileResult)
 );
-const mockSetupAgentsMd = mock(() =>
-	Promise.resolve({ action: 'created' } as SetupFileResult)
-);
 
 const mockFindWorkspaceRoot = mock(() => '/root');
 const mockFindPackageRoot = mock(() => '/root/pkg');
@@ -37,7 +34,6 @@ mock.module('./targets/index', () => ({
 	setupMcpCursor: mockSetupMcpCursor,
 	setupMcpClaude: mockSetupMcpClaude,
 	setupCursorRules: mockSetupCursorRules,
-	setupAgentsMd: mockSetupAgentsMd,
 }));
 
 mock.module('../../adapters/workspace', () => ({

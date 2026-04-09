@@ -2,6 +2,12 @@ import { describe, expect, it, mock } from 'bun:test';
 import * as React from 'react';
 import { renderToStaticMarkup } from 'react-dom/server';
 
+mock.module('next/navigation', () => ({
+	notFound: () => {
+		throw new Error('NEXT_NOT_FOUND');
+	},
+}));
+
 mock.module('../../builder-workspace-data', () => ({
 	fetchInitialBuilderSnapshot: mock(async (workspaceId: string) => ({
 		workspace: {

@@ -34,7 +34,7 @@ export const AcpFsAccessCommand = defineCommand({
 		owners: ACP_OWNERS,
 		tags: [...ACP_TAGS, 'filesystem'],
 		stability: ACP_STABILITY,
-		docId: [docId('docs.tech.acp.fs.access')],
+		docId: [docRef(AcpFsAccessDocBlock.id)],
 	},
 	capability: {
 		key: 'acp.transport',

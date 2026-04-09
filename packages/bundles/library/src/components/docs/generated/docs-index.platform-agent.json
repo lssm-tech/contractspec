@@ -88,9 +88,97 @@
 		"contentPath": "platform.agent/agent.status.md"
 	},
 	{
+		"id": "platform.agent/docs.tech.agent.approval.requested",
+		"title": "agent.approval.requested",
+		"summary": "Emitted when an approval gate is triggered.",
+		"route": "/docs/reference/platform.agent/docs.tech.agent.approval.requested",
+		"source": "generated",
+		"contentPath": "platform.agent/docs.tech.agent.approval.requested.md"
+	},
+	{
+		"id": "platform.agent/docs.tech.agent.approvals",
+		"title": "agent.approvals",
+		"summary": "Approve or reject a pending agent action.",
+		"route": "/docs/reference/platform.agent/docs.tech.agent.approvals",
+		"source": "generated",
+		"contentPath": "platform.agent/docs.tech.agent.approvals.md"
+	},
+	{
+		"id": "platform.agent/docs.tech.agent.artifacts",
+		"title": "agent.artifacts",
+		"summary": "Lists files, diffs, and outputs produced during agent execution.",
+		"route": "/docs/reference/platform.agent/docs.tech.agent.artifacts",
+		"source": "generated",
+		"contentPath": "platform.agent/docs.tech.agent.artifacts.md"
+	},
+	{
+		"id": "platform.agent/docs.tech.agent.cancel",
+		"title": "agent.cancel",
+		"summary": "Stops an active agent run and records cancellation metadata.",
+		"route": "/docs/reference/platform.agent/docs.tech.agent.cancel",
+		"source": "generated",
+		"contentPath": "platform.agent/docs.tech.agent.cancel.md"
+	},
+	{
+		"id": "platform.agent/docs.tech.agent.execution",
+		"title": "Agent execution",
+		"summary": "Defines the core operations, events, and UI surfaces for background agent runs with auditability and approvals.",
+		"route": "/docs/reference/platform.agent/docs.tech.agent.execution",
+		"source": "generated",
+		"contentPath": "platform.agent/docs.tech.agent.execution.md"
+	},
+	{
+		"id": "platform.agent/docs.tech.agent.run",
+		"title": "agent.run",
+		"summary": "Creates a new agent run with a context snapshot and execution metadata.",
+		"route": "/docs/reference/platform.agent/docs.tech.agent.run",
+		"source": "generated",
+		"contentPath": "platform.agent/docs.tech.agent.run.md"
+	},
+	{
+		"id": "platform.agent/docs.tech.agent.run.audit",
+		"title": "agent.run.audit",
+		"summary": "Presentation surface used to inspect run provenance, tools, approvals, and outputs.",
+		"route": "/docs/reference/platform.agent/docs.tech.agent.run.audit",
+		"source": "generated",
+		"contentPath": "platform.agent/docs.tech.agent.run.audit.md"
+	},
+	{
+		"id": "platform.agent/docs.tech.agent.run.completed",
+		"title": "agent.run.completed",
+		"summary": "Emitted when a run completes successfully.",
+		"route": "/docs/reference/platform.agent/docs.tech.agent.run.completed",
+		"source": "generated",
+		"contentPath": "platform.agent/docs.tech.agent.run.completed.md"
+	},
+	{
+		"id": "platform.agent/docs.tech.agent.run.failed",
+		"title": "agent.run.failed",
+		"summary": "Emitted when a run terminates with failure.",
+		"route": "/docs/reference/platform.agent/docs.tech.agent.run.failed",
+		"source": "generated",
+		"contentPath": "platform.agent/docs.tech.agent.run.failed.md"
+	},
+	{
+		"id": "platform.agent/docs.tech.agent.run.started",
+		"title": "agent.run.started",
+		"summary": "Emitted when an agent run begins execution.",
+		"route": "/docs/reference/platform.agent/docs.tech.agent.run.started",
+		"source": "generated",
+		"contentPath": "platform.agent/docs.tech.agent.run.started.md"
+	},
+	{
+		"id": "platform.agent/docs.tech.agent.status",
+		"title": "agent.status",
+		"summary": "Returns status summaries for one or many agent runs.",
+		"route": "/docs/reference/platform.agent/docs.tech.agent.status",
+		"source": "generated",
+		"contentPath": "platform.agent/docs.tech.agent.status.md"
+	},
+	{
 		"id": "platform.agent/platform.agent",
 		"title": "platform.agent",
-		"summary": "Run, cancel, and approve AI agent executions with full audit trail\n- **Type**: feature\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts-spec/src/agent/agent.feature.ts`\n- `agent.run` (v1.0.0)\n- `agent.cancel` (v1.0.0)",
+		"summary": "Run, cancel, and approve AI agent executions with full audit trail\n- **Type**: feature\n- **Version**: 1.0.0\n- **Tags**: agent, execution\n- **File**: `packages/libs/contracts-spec/src/agent/agent.feature.ts`",
 		"route": "/docs/reference/platform.agent/platform.agent",
 		"source": "generated",
 		"contentPath": "platform.agent/platform.agent.md"

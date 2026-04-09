@@ -35,7 +35,7 @@ export const ContextPackSnapshotCommand = defineCommand({
 		owners: CONTEXT_OWNERS,
 		tags: [...CONTEXT_TAGS, 'snapshot', 'create'],
 		stability: CONTEXT_STABILITY,
-		docId: [docId('docs.tech.context.pack.snapshot')],
+		docId: [docRef(ContextPackSnapshotDocBlock.id)],
 	},
 	capability: {
 		key: 'context.system',

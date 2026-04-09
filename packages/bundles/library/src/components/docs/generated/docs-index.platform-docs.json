@@ -1,11 +1,27 @@
 [
 	{
+		"id": "platform.docs/AddNumbersSpec",
+		"title": "AddNumbersSpec",
+		"summary": "- **Type**: operation (command)\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts-spec/src/docs/docblocks.manifest.generated.ts`\n```typescript\nexport const AddNumbersSpec = defineCommand({\\n  meta: { name: 'math.add', version: '1.0.0', /* … */ },\\n  io: {\\n    input: AddNumbersInput,\\n    output: AddNumbersOutput,\\n  },\\n  policy: { auth: 'user' },\\n});",
+		"route": "/docs/reference/platform.docs/AddNumbersSpec",
+		"source": "generated",
+		"contentPath": "platform.docs/AddNumbersSpec.md"
+	},
+	{
 		"id": "platform.docs/docs_search",
 		"title": "docs_search",
 		"summary": "Search and filter DocBlocks by query, tag, or visibility.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: search, index\n- **File**: `packages/libs/contracts-spec/src/docs/queries/docsIndex.query.ts`",
 		"route": "/docs/reference/platform.docs/docs_search",
 		"source": "generated",
 		"contentPath": "platform.docs/docs_search.md"
+	},
+	{
+		"id": "platform.docs/docs.accessibility_wcag_compliance_specs",
+		"title": "Accessibility & WCAG Compliance — **specs.md**",
+		"summary": "> **Goal:** Ship interfaces that are usable by everyone, by default. This spec sets non‑negotiable rules, checklists, and CI gates to meet **WCAG 2.2 AA** (aim for AAA where low‑cost), align with **EN 301 549** (EU), and keep parity on **web (Next.js)** and **mobile (Expo/React Native)**.",
+		"route": "/docs/reference/platform.docs/docs.accessibility_wcag_compliance_specs",
+		"source": "generated",
+		"contentPath": "platform.docs/docs.accessibility_wcag_compliance_specs.md"
 	},
 	{
 		"id": "platform.docs/docs.contract.reference",
@@ -38,6 +54,14 @@
 		"route": "/docs/reference/platform.docs/docs.layout",
 		"source": "generated",
 		"contentPath": "platform.docs/docs.layout.md"
+	},
+	{
+		"id": "platform.docs/docs.meta.docblocks-process",
+		"title": "platform.docs/docs.meta.docblocks-process",
+		"summary": "- Colocate docs beside implementation; avoid barrel /docs folders.\n- Split intent:\n- **goal**: why this exists (before implementation).\n- **how**: operational/runbook steps.\n- **usage**: quick checklist for consumers.",
+		"route": "/docs/reference/platform.docs/docs.meta.docblocks-process",
+		"source": "generated",
+		"contentPath": "platform.docs/docs.meta.docblocks-process.md"
 	},
 	{
 		"id": "platform.docs/docs.publish",
@@ -78,6 +102,46 @@
 		"route": "/docs/reference/platform.docs/docs.system",
 		"source": "generated",
 		"contentPath": "platform.docs/docs.system.md"
+	},
+	{
+		"id": "platform.docs/docs.tech.docs-generator",
+		"title": "Docs generator",
+		"summary": "The generator produces documentation artifacts, search metadata, and reference pages from ContractSpecs and DocBlocks.",
+		"route": "/docs/reference/platform.docs/docs.tech.docs-generator",
+		"source": "generated",
+		"contentPath": "platform.docs/docs.tech.docs-generator.md"
+	},
+	{
+		"id": "platform.docs/docs.tech.docs-publish",
+		"title": "Docs publish",
+		"summary": "Publishing moves generated artifacts to a hosting target with versioning and release metadata.",
+		"route": "/docs/reference/platform.docs/docs.tech.docs-publish",
+		"source": "generated",
+		"contentPath": "platform.docs/docs.tech.docs-publish.md"
+	},
+	{
+		"id": "platform.docs/docs.tech.docs-reference",
+		"title": "Contract reference",
+		"summary": "Contract reference pages are generated from spec metadata plus schema details and exposed as a docs-ready payload.",
+		"route": "/docs/reference/platform.docs/docs.tech.docs-reference",
+		"source": "generated",
+		"contentPath": "platform.docs/docs.tech.docs-reference.md"
+	},
+	{
+		"id": "platform.docs/docs.tech.docs-search",
+		"title": "Docs index and search",
+		"summary": "The docs index is the canonical list of DocBlocks exposed to UI, CLI, and MCP surfaces for filtering and retrieval.",
+		"route": "/docs/reference/platform.docs/docs.tech.docs-search",
+		"source": "generated",
+		"contentPath": "platform.docs/docs.tech.docs-search.md"
+	},
+	{
+		"id": "platform.docs/docs.tech.docs-system",
+		"title": "Docs system overview",
+		"summary": "ContractSpec treats documentation as a first-class output of your specs. The docs system combines contracts, DocBlocks, manifests, and presentations into a consistent docs surface.",
+		"route": "/docs/reference/platform.docs/docs.tech.docs-system",
+		"source": "generated",
+		"contentPath": "platform.docs/docs.tech.docs-system.md"
 	},
 	{
 		"id": "platform.docs/platform.docs",

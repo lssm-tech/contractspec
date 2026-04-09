@@ -25,7 +25,7 @@ export const DatabaseContextCapability = defineCapability({
 		owners: DATABASE_OWNERS,
 		tags: [...DATABASE_TAGS, 'context'],
 		stability: DATABASE_STABILITY,
-		docId: [docId('docs.tech.database.context')],
+		docId: [docRef(DatabaseContextDocBlock.id)],
 	},
 	provides: [
 		{

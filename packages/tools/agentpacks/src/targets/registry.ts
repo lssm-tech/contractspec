@@ -13,7 +13,6 @@ import {
 	WindsurfTarget,
 	ZedTarget,
 } from './additional-targets.js';
-import { AgentsMdTarget } from './agents-md.js';
 import type { BaseTarget } from './base-target.js';
 import { ClaudeCodeTarget } from './claude-code.js';
 import { CodexCliTarget } from './codex-cli.js';
@@ -35,7 +34,6 @@ const TARGETS: BaseTarget[] = [
 	new MistralVibeTarget(),
 	new GeminiCliTarget(),
 	new CopilotTarget(),
-	new AgentsMdTarget(),
 	// Additional targets (Phase 3)
 	ClineTarget,
 	KiloTarget,

@@ -87,7 +87,6 @@
 		"./sources/registry-ref": "./src/sources/registry-ref.ts",
 		"./targets": "./src/targets/index.ts",
 		"./targets/additional-targets": "./src/targets/additional-targets.ts",
-		"./targets/agents-md": "./src/targets/agents-md.ts",
 		"./targets/base-target": "./src/targets/base-target.ts",
 		"./targets/claude-code": "./src/targets/claude-code.ts",
 		"./targets/codex-cli": "./src/targets/codex-cli.ts",
@@ -431,12 +430,6 @@
 				"bun": "./dist/targets/additional-targets.js",
 				"node": "./dist/node/targets/additional-targets.js",
 				"default": "./dist/targets/additional-targets.js"
-			},
-			"./targets/agents-md": {
-				"types": "./dist/targets/agents-md.d.ts",
-				"bun": "./dist/targets/agents-md.js",
-				"node": "./dist/node/targets/agents-md.js",
-				"default": "./dist/targets/agents-md.js"
 			},
 			"./targets/base-target": {
 				"types": "./dist/targets/base-target.d.ts",

@@ -25,7 +25,7 @@ export const ContextSystemCapability = defineCapability({
 		owners: CONTEXT_OWNERS,
 		tags: [...CONTEXT_TAGS, 'system'],
 		stability: CONTEXT_STABILITY,
-		docId: [docId('docs.tech.context.system')],
+		docId: [docRef(ContextSystemDocBlock.id)],
 	},
 	provides: [
 		{

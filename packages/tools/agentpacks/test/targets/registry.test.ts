@@ -42,7 +42,6 @@ describe('Target Registry', () => {
 		expect(ids).toContain('codexcli');
 		expect(ids).toContain('geminicli');
 		expect(ids).toContain('copilot');
-		expect(ids).toContain('agentsmd');
 	});
 
 	test('each target has supported features', () => {

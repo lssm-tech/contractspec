@@ -1,13 +1,13 @@
 {
-	"generatedAt": "2026-03-21T22:41:08.515Z",
-	"total": 1068,
+	"generatedAt": "2026-04-09T02:40:04.488Z",
+	"total": 1127,
 	"version": null,
 	"contentRoot": "../../../../../../../generated/docs",
 	"chunks": [
 		{
 			"key": "_common",
 			"file": "docs-index._common.json",
-			"total": 184
+			"total": 180
 		},
 		{
 			"key": "agent-console",
@@ -65,6 +65,11 @@
 			"total": 1
 		},
 		{
+			"key": "control-plane",
+			"file": "docs-index.control-plane.json",
+			"total": 2
+		},
+		{
 			"key": "crm-pipeline",
 			"file": "docs-index.crm-pipeline.json",
 			"total": 20
@@ -73,6 +78,11 @@
 			"key": "data-grid-showcase",
 			"file": "docs-index.data-grid-showcase.json",
 			"total": 2
+		},
+		{
+			"key": "defineExample",
+			"file": "docs-index.defineExample.json",
+			"total": 1
 		},
 		{
 			"key": "email-gmail",
@@ -287,32 +297,32 @@
 		{
 			"key": "platform.acp",
 			"file": "docs-index.platform-acp.json",
-			"total": 9
+			"total": 17
 		},
 		{
 			"key": "platform.agent",
 			"file": "docs-index.platform-agent.json",
-			"total": 12
+			"total": 23
 		},
 		{
 			"key": "platform.context",
 			"file": "docs-index.platform-context.json",
-			"total": 7
+			"total": 13
 		},
 		{
 			"key": "platform.control-plane",
 			"file": "docs-index.platform-control-plane.json",
-			"total": 31
+			"total": 40
 		},
 		{
 			"key": "platform.database",
 			"file": "docs-index.platform-database.json",
-			"total": 6
+			"total": 11
 		},
 		{
 			"key": "platform.docs",
 			"file": "docs-index.platform-docs.json",
-			"total": 11
+			"total": 19
 		},
 		{
 			"key": "platform.harness",
@@ -332,12 +342,12 @@
 		{
 			"key": "platform.provider-ranking",
 			"file": "docs-index.platform-provider-ranking.json",
-			"total": 12
+			"total": 23
 		},
 		{
 			"key": "pocket-family-office",
 			"file": "docs-index.pocket-family-office.json",
-			"total": 15
+			"total": 16
 		},
 		{
 			"key": "policy-safe-knowledge-assistant",
@@ -372,7 +382,7 @@
 		{
 			"key": "unknown",
 			"file": "docs-index.unknown.json",
-			"total": 64
+			"total": 65
 		},
 		{
 			"key": "versioned-knowledge-base",

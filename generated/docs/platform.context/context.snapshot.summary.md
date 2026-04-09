@@ -34,7 +34,7 @@ export const ContextSnapshotSummaryPresentation = definePresentation({
 		owners: CONTEXT_OWNERS,
 		tags: [...CONTEXT_TAGS, 'snapshot', 'summary'],
 		stability: CONTEXT_STABILITY,
-		docId: [docId('docs.tech.context.snapshot.presentation')],
+		docId: [docRef(ContextSnapshotSummaryDocBlock.id)],
 	},
 	capability: {
 		key: 'context.system',

@@ -34,7 +34,7 @@ export const AcpTerminalExecCommand = defineCommand({
 		owners: ACP_OWNERS,
 		tags: [...ACP_TAGS, 'terminal'],
 		stability: ACP_STABILITY,
-		docId: [docId('docs.tech.acp.terminal.exec')],
+		docId: [docRef(AcpTerminalExecDocBlock.id)],
 	},
 	capability: {
 		key: 'acp.transport',

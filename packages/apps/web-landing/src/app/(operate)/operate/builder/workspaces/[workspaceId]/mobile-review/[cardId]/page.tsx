@@ -1,4 +1,3 @@
-import { notFound } from 'next/navigation';
 import { fetchInitialBuilderSnapshot } from '../../builder-workspace-data';
 import { BuilderMobileReviewClient } from './BuilderMobileReviewClient';
 
@@ -19,7 +18,7 @@ export default async function BuilderMobileReviewPage({
 }: MobileReviewPageProps) {
 	const { workspaceId, cardId } = await params;
 	if (!workspaceId || !cardId) {
-		notFound();
+		await abortNotFound();
 	}
 	const initialSnapshot = await fetchInitialBuilderSnapshot(workspaceId);
 	return (
@@ -28,4 +27,9 @@ export default async function BuilderMobileReviewPage({
 			cardId={cardId}
 		/>
 	);
+}
+
+async function abortNotFound(): Promise<never> {
+	const { notFound } = await import('next/navigation');
+	return notFound();
 }

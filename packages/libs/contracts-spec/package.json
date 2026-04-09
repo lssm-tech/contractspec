@@ -27,8 +27,7 @@
 		"test": "bun test",
 		"dev": "contractspec-bun-build dev",
 		"docs:manifest": "bun run scripts/build-docblocks-manifest.ts",
-		"registry:build": "bun run scripts/build-registry.ts",
-		"readme:inventory": "bun run scripts/update-readme-contract-inventory.ts"
+		"registry:build": "bun run scripts/build-registry.ts"
 	},
 	"repository": {
 		"type": "git",

@@ -64,6 +64,14 @@
 		"contentPath": "_common/acp.transport.md"
 	},
 	{
+		"id": "_common/AddNumbersSpec",
+		"title": "AddNumbersSpec",
+		"summary": "- **Type**: operation (command)\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts-spec/src/tests/spec.ts`\n```typescript\nexport const AddNumbersSpec = defineCommand({\\n  meta: { name: 'math.add', version: '1.0.0', /* \\u2026 */ },\\n  io: {\\n    input: AddNumbersInput,\\n    output: AddNumbersOutput,\\n  },\\n  policy: { auth: 'user' },\\n});",
+		"route": "/docs/reference/_common/AddNumbersSpec",
+		"source": "generated",
+		"contentPath": "_common/AddNumbersSpec.md"
+	},
+	{
 		"id": "_common/agent.approval.requested",
 		"title": "agent.approval.requested",
 		"summary": "Emitted when an approval is required for an agent action.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: approval\n- **File**: `packages/libs/contracts-spec/src/agent/events/agentApprovalRequested.event.ts`",
@@ -464,6 +472,14 @@
 		"contentPath": "_common/controlPlane.trace.get.md"
 	},
 	{
+		"id": "_common/createUser",
+		"title": "createUser",
+		"summary": "- **Type**: operation (command)\n- **Version**: 1.0.0\n- **File**: `packages/libs/video-gen/src/docs/rendering.docblock.ts`\n```typescript\nexport const createUser = defineCommand({...})\n```",
+		"route": "/docs/reference/_common/createUser",
+		"source": "generated",
+		"contentPath": "_common/createUser.md"
+	},
+	{
 		"id": "_common/database.context",
 		"title": "database.context",
 		"summary": "Schema, migration, dictionary, and read-only query surfaces.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: context\n- **File**: `packages/libs/contracts-spec/src/database/capabilities/databaseContext.capability.ts`",
@@ -574,6 +590,30 @@
 		"route": "/docs/reference/_common/docs.system",
 		"source": "generated",
 		"contentPath": "_common/docs.system.md"
+	},
+	{
+		"id": "_common/docs.tech.contracts.capabilities",
+		"title": "CapabilitySpec Overview",
+		"summary": "Capabilities are **module interfaces** that define:\n1. What operations, events, and presentations a module exposes (`provides`)\n2. What other capabilities it depends on (`requires`)\n3. Inheritance hierarchies via `extends`",
+		"route": "/docs/reference/_common/docs.tech.contracts.capabilities",
+		"source": "generated",
+		"contentPath": "_common/docs.tech.contracts.capabilities.md"
+	},
+	{
+		"id": "_common/docs.tech.contracts.tests",
+		"title": "_common/docs.tech.contracts.tests",
+		"summary": "Use `TestSpec` to describe end-to-end scenarios for contracts and workflows. Specs live alongside your contracts and exercise the same OperationSpecRegistry handlers the app uses.\n- Types & registry: `packages/libs/contracts/src/tests/spec.ts`",
+		"route": "/docs/reference/_common/docs.tech.contracts.tests",
+		"source": "generated",
+		"contentPath": "_common/docs.tech.contracts.tests.md"
+	},
+	{
+		"id": "_common/docs.tech.workflows.overview",
+		"title": "WorkflowSpec Overview",
+		"summary": "WorkflowSpec provides a declarative, versioned format for long-running flows that mix automation and human review. Specs stay inside `@contractspec/lib.contracts-spec` (`src/workflow/spec.ts`) so the same definition powers runtime execution, documentation, and future generation.",
+		"route": "/docs/reference/_common/docs.tech.workflows.overview",
+		"source": "generated",
+		"contentPath": "_common/docs.tech.workflows.overview.md"
 	},
 	{
 		"id": "_common/init",
@@ -903,7 +943,7 @@
 	{
 		"id": "docs.tech.agent.memory-tools",
 		"title": "Memory tools",
-		"summary": "Model-accessible CRUD for agent memory (Anthropic, custom).",
+		"summary": "Model-accessible CRUD for agent memory and ephemeral knowledge.",
 		"route": "/docs/tech/agent/memory-tools",
 		"source": "docblock",
 		"contentPath": "docblocks/docs/tech/agent/memory-tools.md",
@@ -914,7 +954,7 @@
 	{
 		"id": "docs.tech.agent.operations-as-tools",
 		"title": "Operations as tools",
-		"summary": "Reference ContractSpec operations as agent tools. One contract → REST, GraphQL, MCP, agent.",
+		"summary": "Reference ContractSpec operations as agent tools. One contract to many surfaces.",
 		"route": "/docs/tech/agent/operations-as-tools",
 		"source": "docblock",
 		"contentPath": "docblocks/docs/tech/agent/operations-as-tools.md",
@@ -1013,7 +1053,7 @@
 	{
 		"id": "docs.tech.agent.subagents",
 		"title": "Subagents",
-		"summary": "Delegate tasks to subagents with streaming and toModelOutput.",
+		"summary": "Delegate tasks to subagents with streaming and isolated context.",
 		"route": "/docs/tech/agent/subagents",
 		"source": "docblock",
 		"contentPath": "docblocks/docs/tech/agent/subagents.md",
@@ -1024,36 +1064,13 @@
 	{
 		"id": "docs.tech.agent.workflow-integration",
 		"title": "Workflow-agent integration",
-		"summary": "Orchestrator-worker, workflow steps as agent ops, evaluator pattern.",
+		"summary": "Patterns for orchestrator-worker, workflow steps, and evaluator loops.",
 		"route": "/docs/tech/agent/workflow-integration",
 		"source": "docblock",
 		"contentPath": "docblocks/docs/tech/agent/workflow-integration.md",
 		"tags": ["agent", "workflow", "orchestrator"],
 		"kind": "reference",
 		"visibility": "public"
-	},
-	{
-		"id": "docs.tech.auth.better-auth-nextjs",
-		"title": "Better Auth + Next.js integration (ContractSpec)",
-		"summary": "How ContractSpec wires Better Auth into Next.js (server config, client singleton, and proxy cookie-only redirects).",
-		"route": "/docs/tech/auth/better-auth-nextjs",
-		"source": "docblock",
-		"contentPath": "docblocks/docs/tech/auth/better-auth-nextjs.md",
-		"tags": ["auth", "better-auth", "nextjs", "cookies", "proxy", "hmr"],
-		"kind": "reference",
-		"visibility": "public"
-	},
-	{
-		"id": "docs.tech.cli.contractspec",
-		"title": "ContractSpec CLI",
-		"summary": "The command-line interface for creating, building, and validating contract specifications.",
-		"route": "/docs/tech/cli/contractspec",
-		"source": "docblock",
-		"contentPath": "docblocks/docs/tech/cli/contractspec.md",
-		"tags": ["cli", "tooling", "reference"],
-		"kind": "reference",
-		"visibility": "public",
-		"owners": ["@contractspec/app.cli-contractspec"]
 	},
 	{
 		"id": "docs.tech.context.pack.describe",
@@ -1144,6 +1161,94 @@
 		"visibility": "public"
 	},
 	{
+		"id": "docs.tech.contracts.app-config",
+		"title": "App Configuration Layers",
+		"summary": "App orchestration is split into three explicit layers:",
+		"route": "/docs/tech/contracts/app-config",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/contracts/app-config.md",
+		"tags": ["tech", "contracts", "app-config"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.contracts.capabilities",
+		"title": "CapabilitySpec Overview",
+		"summary": "Capability specs define what a module provides (operations, events, presentations) and requires (dependencies). They enable bidirectional linking, inheritance, runtime enforcement, and automated validation.",
+		"route": "/docs/tech/contracts/capabilities",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/contracts/capabilities.md",
+		"tags": ["tech", "contracts", "capabilities"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.contracts.data-views",
+		"title": "DataViewSpec Overview",
+		"summary": "`DataViewSpec` is the declarative contract for projecting entities into list/detail/table/grid experiences. Each spec ties to contract operations (`source.primary`, `source.item`) and describes how the UI should present, sort, filter, paginate, and pin records. Host applications use the spec to render UI with shared components (`DataViewRenderer`, `DataViewList`, `DataViewTable`, `DataViewDetail`) while keeping presentation logic in a single source of truth.",
+		"route": "/docs/tech/contracts/data-views",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/contracts/data-views.md",
+		"tags": ["tech", "contracts", "data-views"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.contracts.examples",
+		"title": "Example Specifications",
+		"summary": "ExampleSpec defines complete, demonstrable ContractSpec applications.",
+		"route": "/docs/tech/contracts/examples",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/contracts/examples.md",
+		"tags": ["tech", "contracts", "examples", "templates"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.contracts.experiments",
+		"title": "ExperimentSpec & ExperimentEvaluator",
+		"summary": "Use experiments to test alternative workflows, data views, or themes with controlled allocations and measurable outcomes.",
+		"route": "/docs/tech/contracts/experiments",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/contracts/experiments.md",
+		"tags": ["tech", "contracts", "experiments"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.contracts.forms",
+		"title": "Contracts: FormSpec",
+		"summary": "This document defines the canonical contracts for declarative forms.",
+		"route": "/docs/tech/contracts/forms",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/contracts/forms.md",
+		"tags": ["tech", "contracts", "forms"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.contracts.knowledge",
+		"title": "Knowledge Layer",
+		"summary": "The knowledge layer turns unstructured inputs (uploads, email threads,",
+		"route": "/docs/tech/contracts/knowledge",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/contracts/knowledge.md",
+		"tags": ["tech", "contracts", "knowledge"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.contracts.migrations",
+		"title": "MigrationSpec Overview",
+		"summary": "`MigrationSpec` provides a declarative plan for schema/data/validation steps so migrations can be generated, reviewed, and executed safely by tooling. Each spec captures ownership metadata, ordered up/down steps, and optional dependency information. Runtime tooling can consume the spec to run SQL/data scripts with pre/post checks and produce audit logs.",
+		"route": "/docs/tech/contracts/migrations",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/contracts/migrations.md",
+		"tags": ["tech", "contracts", "migrations"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
 		"id": "docs.tech.contracts.openapi-export",
 		"title": "OpenAPI export (OpenAPI 3.1) from OperationSpecRegistry",
 		"summary": "Generate a deterministic OpenAPI document from a OperationSpecRegistry using jsonSchemaForSpec + REST transport metadata.",
@@ -1155,13 +1260,24 @@
 		"visibility": "public"
 	},
 	{
-		"id": "docs.tech.contracts.openapi-import",
-		"title": "OpenAPI Import (OpenAPI 3.1) to ContractSpec",
-		"summary": "Import OpenAPI specifications into ContractSpec models, or generate pure Zod/JSON-Schema/GraphQL representations.",
-		"route": "/docs/tech/contracts/openapi-import",
+		"id": "docs.tech.contracts.ops-to-presentation-linking",
+		"title": "Ops ↔ Presentation linking (V2)",
+		"summary": "This document explains how operations (OperationSpec) are linked to Presentations (PresentationSpec) via Feature modules.",
+		"route": "/docs/tech/contracts/ops-to-presentation-linking",
 		"source": "docblock",
-		"contentPath": "docblocks/docs/tech/contracts/openapi-import.md",
-		"tags": ["contracts", "openapi", "import", "codegen"],
+		"contentPath": "docblocks/docs/tech/contracts/ops-to-presentation-linking.md",
+		"tags": ["tech", "contracts", "ops-to-presentation-linking"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.contracts.policy",
+		"title": "PolicySpec & PolicyEngine",
+		"summary": "`PolicySpec` gives a declarative, typed home for access-control logic covering:",
+		"route": "/docs/tech/contracts/policy",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/contracts/policy.md",
+		"tags": ["tech", "contracts", "policy"],
 		"kind": "reference",
 		"visibility": "public"
 	},
@@ -1177,6 +1293,17 @@
 		"visibility": "public"
 	},
 	{
+		"id": "docs.tech.contracts.presentations-conventions",
+		"title": "Presentations Conventions (A11y & i18n)",
+		"summary": "- Always provide `meta.description` (≥ 3 chars) — used by a11y/docs/agents.",
+		"route": "/docs/tech/contracts/presentations-conventions",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/contracts/presentations-conventions.md",
+		"tags": ["tech", "contracts", "presentations-conventions"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
 		"id": "docs.tech.contracts.README",
 		"title": "Contracts: Specs, Registry, Handlers, Adapters",
 		"summary": "- `packages/lssm/libs/contracts` defines the contracts core (OperationSpecRegistry, OperationSpec, PresentationSpec, install helpers, REST/MCP adapters, ...).",
@@ -1184,6 +1311,50 @@
 		"source": "docblock",
 		"contentPath": "docblocks/docs/tech/contracts/README.md",
 		"tags": ["tech", "contracts", "README"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.contracts.regenerator",
+		"title": "Regenerator Service",
+		"summary": "The Regenerator daemon observes telemetry, error, and behavior streams, then suggests spec-level changes (not code patches) that can be reviewed and applied through the App Studio.",
+		"route": "/docs/tech/contracts/regenerator",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/contracts/regenerator.md",
+		"tags": ["tech", "contracts", "regenerator"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.contracts.telemetry",
+		"title": "TelemetrySpec",
+		"summary": "Telemetry specs describe product analytics in a durable, type-safe way. They reference existing `EventSpec`s (same name/version) but layer on privacy classification, retention, sampling, and anomaly detection so instrumentation stays compliant and observable.",
+		"route": "/docs/tech/contracts/telemetry",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/contracts/telemetry.md",
+		"tags": ["tech", "contracts", "telemetry"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.contracts.tests",
+		"title": "TestSpec & TestRunner",
+		"summary": "Use `TestSpec` to describe end-to-end scenarios for contracts and workflows. Specs live alongside your contracts and exercise the same OperationSpecRegistry handlers the app uses.",
+		"route": "/docs/tech/contracts/tests",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/contracts/tests.md",
+		"tags": ["tech", "contracts", "tests"],
+		"kind": "reference",
+		"visibility": "public"
+	},
+	{
+		"id": "docs.tech.contracts.themes",
+		"title": "ThemeSpec Overview",
+		"summary": "`ThemeSpec` defines a structured, versioned source of truth for design tokens, component variants, and scoped overrides. Use it to describe how tenants or individual users should experience the design system without hand-maintaining ad-hoc theme files. Specs live in `@contractspec/lib.contracts-spec`, making them accessible to generators, docs, and runtime tooling.",
+		"route": "/docs/tech/contracts/themes",
+		"source": "docblock",
+		"contentPath": "docblocks/docs/tech/contracts/themes.md",
+		"tags": ["tech", "contracts", "themes"],
 		"kind": "reference",
 		"visibility": "public"
 	},
@@ -1331,83 +1502,6 @@
 		"visibility": "public"
 	},
 	{
-		"id": "docs.tech.lifecycle-stage-system",
-		"title": "ContractSpec Lifecycle Stage System – Technical Design",
-		"summary": "This document describes how ContractSpec implements lifecycle detection and guidance. It covers architecture, module boundaries, scoring heuristics, and integration points so libraries, modules, bundles, and Studio surfaces stay synchronized.",
-		"route": "/docs/tech/lifecycle-stage-system",
-		"source": "docblock",
-		"contentPath": "docblocks/docs/tech/lifecycle-stage-system.md",
-		"tags": ["tech", "lifecycle-stage-system"],
-		"kind": "reference",
-		"visibility": "public"
-	},
-	{
-		"id": "docs.tech.llm.agent-adapters",
-		"title": "Agent Adapters",
-		"summary": "Adapters for different AI coding agents (Claude, Cursor, MCP).",
-		"route": "/docs/tech/llm/agent-adapters",
-		"source": "docblock",
-		"contentPath": "docblocks/docs/tech/llm/agent-adapters.md",
-		"tags": ["llm", "agents", "claude", "cursor", "mcp"],
-		"kind": "reference",
-		"visibility": "public"
-	},
-	{
-		"id": "docs.tech.llm.export-formats",
-		"title": "LLM Export Formats",
-		"summary": "Detailed explanation of the three export formats for LLM consumption.",
-		"route": "/docs/tech/llm/export-formats",
-		"source": "docblock",
-		"contentPath": "docblocks/docs/tech/llm/export-formats.md",
-		"tags": ["llm", "export", "markdown"],
-		"kind": "reference",
-		"visibility": "public"
-	},
-	{
-		"id": "docs.tech.llm.overview",
-		"title": "LLM Integration Overview",
-		"summary": "Export specs to LLM-friendly formats, generate implementation guides, and verify implementations.",
-		"route": "/docs/tech/llm/overview",
-		"source": "docblock",
-		"contentPath": "docblocks/docs/tech/llm/overview.md",
-		"tags": ["llm", "ai", "export", "guide", "verify"],
-		"kind": "reference",
-		"visibility": "public"
-	},
-	{
-		"id": "docs.tech.llm.verification",
-		"title": "Implementation Verification",
-		"summary": "Tiered verification of implementations against specifications.",
-		"route": "/docs/tech/llm/verification",
-		"source": "docblock",
-		"contentPath": "docblocks/docs/tech/llm/verification.md",
-		"tags": ["llm", "verify", "validation", "testing"],
-		"kind": "reference",
-		"visibility": "public"
-	},
-	{
-		"id": "docs.tech.mcp.endpoints",
-		"title": "ContractSpec MCP endpoints",
-		"summary": "Dedicated MCP servers for docs, CLI usage, and internal development.",
-		"route": "/docs/tech/mcp/endpoints",
-		"source": "docblock",
-		"contentPath": "docblocks/docs/tech/mcp/endpoints.md",
-		"tags": ["mcp", "docs", "cli", "internal"],
-		"kind": "reference",
-		"visibility": "mixed"
-	},
-	{
-		"id": "docs.tech.presentation-runtime",
-		"title": "Presentation Runtime",
-		"summary": "Cross-platform runtime for list pages, presentation flows, and headless ContractSpec tables.",
-		"route": "/docs/tech/presentation-runtime",
-		"source": "docblock",
-		"contentPath": "docblocks/docs/tech/presentation-runtime.md",
-		"tags": ["tech", "presentation-runtime"],
-		"kind": "reference",
-		"visibility": "public"
-	},
-	{
 		"id": "docs.tech.provider-ranking.benchmark.custom.completed",
 		"title": "Custom benchmark completed event",
 		"summary": "Emitted when a custom benchmark run finishes.",
@@ -1520,7 +1614,7 @@
 	{
 		"id": "docs.tech.provider-ranking.ranking.get",
 		"title": "Get provider rankings",
-		"summary": "Get ranked list of providers/models.",
+		"summary": "Get ranked list of providers and models.",
 		"route": "/docs/tech/provider-ranking/ranking/get",
 		"source": "docblock",
 		"contentPath": "docblocks/docs/tech/provider-ranking/ranking/get.md",
@@ -1585,170 +1679,9 @@
 		"owners": ["platform.core"]
 	},
 	{
-		"id": "docs.tech.schema.README",
-		"title": "Multi‑File Prisma Schema Conventions (per database)",
-		"summary": "We adopt Prisma multi‑file schema (GA ≥ v6.7) to organize each database’s models by domain and to import core LSSM module schemas locally.",
-		"route": "/docs/tech/schema/README",
-		"source": "docblock",
-		"contentPath": "docblocks/docs/tech/schema/README.md",
-		"tags": ["tech", "schema", "README"],
-		"kind": "reference",
-		"visibility": "public"
-	},
-	{
-		"id": "docs.tech.studio.learning-events",
-		"title": "Studio Learning Events",
-		"summary": "Studio persists learning/activity events to the database; Sandbox keeps learning local-first and unlogged.",
-		"route": "/docs/tech/studio/learning-events",
-		"source": "docblock",
-		"contentPath": "docblocks/docs/tech/studio/learning-events.md",
-		"tags": ["studio", "learning", "events", "analytics", "sandbox"],
-		"kind": "reference",
-		"visibility": "public"
-	},
-	{
-		"id": "docs.tech.studio.learning-journeys",
-		"title": "Studio learning journeys (onboarding + coach)",
-		"summary": "DB-backed learning journeys tracked per organization: seeded tracks/steps, event-driven progress, XP/streaks, and a Studio coach surface.",
-		"route": "/docs/tech/studio/learning-journeys",
-		"source": "docblock",
-		"contentPath": "docblocks/docs/tech/studio/learning-journeys.md",
-		"tags": [
-			"studio",
-			"learning",
-			"onboarding",
-			"journey",
-			"graphql",
-			"database"
-		],
-		"kind": "reference",
-		"visibility": "public"
-	},
-	{
-		"id": "docs.tech.studio.platform-admin-panel",
-		"title": "Studio Platform Admin Panel",
-		"summary": "How PLATFORM_ADMIN organizations manage tenant orgs and integration connections without session switching.",
-		"route": "/docs/tech/studio/platform-admin-panel",
-		"source": "docblock",
-		"contentPath": "docblocks/docs/tech/studio/platform-admin-panel.md",
-		"tags": ["studio", "admin", "multi-tenancy", "integrations", "better-auth"],
-		"kind": "reference",
-		"visibility": "public"
-	},
-	{
-		"id": "docs.tech.studio.project-access-teams",
-		"title": "Studio Project Access via Teams",
-		"summary": "Projects live under organizations; team sharing refines access with an admin/owner override.",
-		"route": "/docs/tech/studio/project-access-teams",
-		"source": "docblock",
-		"contentPath": "docblocks/docs/tech/studio/project-access-teams.md",
-		"tags": ["studio", "projects", "teams", "rbac", "access-control"],
-		"kind": "reference",
-		"visibility": "public"
-	},
-	{
-		"id": "docs.tech.studio.project-routing",
-		"title": "Studio Project Routing",
-		"summary": "Studio uses slugged, project-first routes: /studio/{projectSlug}/* with canonical slug redirects and soft-deleted projects hidden.",
-		"route": "/docs/tech/studio/project-routing",
-		"source": "docblock",
-		"contentPath": "docblocks/docs/tech/studio/project-routing.md",
-		"tags": ["studio", "routing", "projects", "slug", "redirects"],
-		"kind": "reference",
-		"visibility": "public"
-	},
-	{
-		"id": "docs.tech.studio.sandbox.unlogged",
-		"title": "Sandbox (unlogged) vs Studio (authenticated)",
-		"summary": "The sandbox is a lightweight, unlogged surface that mirrors Studio navigation without auth or analytics.",
-		"route": "/docs/tech/studio/sandbox-unlogged",
-		"source": "docblock",
-		"contentPath": "docblocks/docs/tech/studio/sandbox/unlogged.md",
-		"tags": ["studio", "sandbox", "privacy", "analytics"],
-		"kind": "reference",
-		"visibility": "public"
-	},
-	{
-		"id": "docs.tech.studio.team-invitations",
-		"title": "Studio Teams & Invitations",
-		"summary": "Admin-only team management and email invitation flow to join an organization and optionally a team.",
-		"route": "/docs/tech/studio/team-invitations",
-		"source": "docblock",
-		"contentPath": "docblocks/docs/tech/studio/team-invitations.md",
-		"tags": ["studio", "teams", "invitations", "access-control", "onboarding"],
-		"kind": "reference",
-		"visibility": "public"
-	},
-	{
-		"id": "docs.tech.studio.workspace_ops",
-		"title": "Workspace ops (repo-linked): list / validate / deps / diff",
-		"summary": "Read-only repo operations used by Studio to inspect and validate a linked ContractSpec workspace.",
-		"route": "/docs/tech/studio/workspace-ops",
-		"source": "docblock",
-		"contentPath": "docblocks/docs/tech/studio/workspace_ops.md",
-		"tags": ["studio", "repo", "workspace", "validate", "diff"],
-		"kind": "reference",
-		"visibility": "mixed"
-	},
-	{
-		"id": "docs.tech.studio.workspaces",
-		"title": "Studio projects, teams, environments",
-		"summary": "Organization-first Studio: projects live under an organization; teams refine access; projects deploy to multiple environments.",
-		"route": "/docs/tech/studio/workspaces",
-		"source": "docblock",
-		"contentPath": "docblocks/docs/tech/studio/workspaces.md",
-		"tags": ["studio", "projects", "teams", "rbac", "environments"],
-		"kind": "reference",
-		"visibility": "mixed"
-	},
-	{
-		"id": "docs.tech.telemetry.hybrid",
-		"title": "Hybrid Telemetry Model",
-		"summary": "How ContractSpec clients choose between direct PostHog and API-routed telemetry.",
-		"route": "/docs/tech/telemetry/hybrid",
-		"source": "docblock",
-		"contentPath": "docblocks/docs/tech/telemetry/hybrid.md",
-		"tags": ["telemetry", "architecture", "posthog"],
-		"kind": "usage",
-		"visibility": "internal"
-	},
-	{
-		"id": "docs.tech.telemetry.ingest",
-		"title": "Telemetry Ingest Endpoint",
-		"summary": "Server-side telemetry ingestion for ContractSpec clients (VS Code extension, CLI, etc.).",
-		"route": "/docs/tech/telemetry/ingest",
-		"source": "docblock",
-		"contentPath": "docblocks/docs/tech/telemetry/ingest.md",
-		"tags": ["telemetry", "api", "posthog", "analytics"],
-		"kind": "reference",
-		"visibility": "internal"
-	},
-	{
-		"id": "docs.tech.vscode.extension",
-		"title": "ContractSpec VS Code Extension",
-		"summary": "VS Code extension for spec-first development with validation, scaffolding, and MCP integration.",
-		"route": "/docs/tech/vscode/extension",
-		"source": "docblock",
-		"contentPath": "docblocks/docs/tech/vscode/extension.md",
-		"tags": ["vscode", "extension", "tooling", "dx"],
-		"kind": "reference",
-		"visibility": "public"
-	},
-	{
-		"id": "docs.tech.vscode.snippets",
-		"title": "ContractSpec Snippets",
-		"summary": "Code snippets for common ContractSpec patterns in VS Code.",
-		"route": "/docs/tech/vscode/snippets",
-		"source": "docblock",
-		"contentPath": "docblocks/docs/tech/vscode/snippets.md",
-		"tags": ["vscode", "snippets", "dx"],
-		"kind": "reference",
-		"visibility": "public"
-	},
-	{
 		"id": "docs.tech.workflows.overview",
 		"title": "WorkflowSpec Overview",
-		"summary": "WorkflowSpec provides a declarative, versioned format for long-running flows that mix automation and human review, including runtime adapter capabilities/ports for checkpointing and suspend-resume orchestration. Specs stay inside `@contractspec/lib.contracts-spec` (`src/workflow/spec.ts`) so the same definition powers runtime execution, documentation, and future generation.",
+		"summary": "WorkflowSpec provides a declarative, versioned format for long-running flows that mix automation and human review, including runtime adapter capabilities/ports for checkpointing, suspend-resume orchestration, and explicit waiting/retry states. Specs stay inside `@contractspec/lib.contracts-spec` (`src/workflow/spec.ts`) so the same definition powers runtime execution, documentation, and future generation.",
 		"route": "/docs/tech/workflows/overview",
 		"source": "docblock",
 		"contentPath": "docblocks/docs/tech/workflows/overview.md",

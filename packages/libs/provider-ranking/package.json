@@ -42,6 +42,8 @@
 		"./eval/runner": "./src/eval/runner.ts",
 		"./eval/types": "./src/eval/types.ts",
 		"./in-memory-store": "./src/in-memory-store.ts",
+		"./in-memory-store.d": "./src/in-memory-store.d.ts",
+		"./index.d": "./src/index.d.ts",
 		"./ingesters": "./src/ingesters/index.ts",
 		"./ingesters/artificial-analysis": "./src/ingesters/artificial-analysis.ts",
 		"./ingesters/chatbot-arena": "./src/ingesters/chatbot-arena.ts",
@@ -55,7 +57,9 @@
 		"./scoring/dimension-weights": "./src/scoring/dimension-weights.ts",
 		"./scoring/normalizer": "./src/scoring/normalizer.ts",
 		"./store": "./src/store.ts",
-		"./types": "./src/types.ts"
+		"./store.d": "./src/store.d.ts",
+		"./types": "./src/types.ts",
+		"./types.d": "./src/types.d.ts"
 	},
 	"publishConfig": {
 		"access": "public",
@@ -94,6 +98,20 @@
 				"bun": "./dist/in-memory-store.js",
 				"node": "./dist/node/in-memory-store.js",
 				"default": "./dist/in-memory-store.js"
+			},
+			"./in-memory-store.d": {
+				"types": "./dist/in-memory-store.d.d.ts",
+				"browser": "./dist/browser/in-memory-store.d.js",
+				"bun": "./dist/in-memory-store.d.js",
+				"node": "./dist/node/in-memory-store.d.js",
+				"default": "./dist/in-memory-store.d.js"
+			},
+			"./index.d": {
+				"types": "./dist/index.d.d.ts",
+				"browser": "./dist/browser/index.d.js",
+				"bun": "./dist/index.d.js",
+				"node": "./dist/node/index.d.js",
+				"default": "./dist/index.d.js"
 			},
 			"./ingesters": {
 				"types": "./dist/ingesters/index.d.ts",
@@ -186,12 +204,26 @@
 				"node": "./dist/node/store.js",
 				"default": "./dist/store.js"
 			},
+			"./store.d": {
+				"types": "./dist/store.d.d.ts",
+				"browser": "./dist/browser/store.d.js",
+				"bun": "./dist/store.d.js",
+				"node": "./dist/node/store.d.js",
+				"default": "./dist/store.d.js"
+			},
 			"./types": {
 				"types": "./dist/types.d.ts",
 				"browser": "./dist/browser/types.js",
 				"bun": "./dist/types.js",
 				"node": "./dist/node/types.js",
 				"default": "./dist/types.js"
+			},
+			"./types.d": {
+				"types": "./dist/types.d.d.ts",
+				"browser": "./dist/browser/types.d.js",
+				"bun": "./dist/types.d.js",
+				"node": "./dist/node/types.d.js",
+				"default": "./dist/types.d.js"
 			}
 		},
 		"registry": "https://registry.npmjs.org/"

@@ -160,6 +160,14 @@
 		"contentPath": "unknown/docs.system.md"
 	},
 	{
+		"id": "unknown/docs.tech.contracts.ops-to-presentation-linking",
+		"title": "unknown/docs.tech.contracts.ops-to-presentation-linking",
+		"summary": "This document explains how operations (OperationSpec) are linked to Presentations (PresentationSpec) via Feature modules.\n- Location: `@contractspec/lib.contracts-spec/src/features.ts`\n- Field: `FeatureModuleSpec.opToPresentation?: { op: { name; version }; pres: { name; version } }[]`",
+		"route": "/docs/reference/unknown/docs.tech.contracts.ops-to-presentation-linking",
+		"source": "generated",
+		"contentPath": "unknown/docs.tech.contracts.ops-to-presentation-linking.md"
+	},
+	{
 		"id": "unknown/email.gmail",
 		"title": "email.gmail",
 		"summary": "Gmail integration supporting inbound thread ingestion and outbound transactional email.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.messaging\n- **Tags**: email, gmail\n- **File**: `packages/libs/contracts-spec/src/integrations/providers/gmail.ts`",

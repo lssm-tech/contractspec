@@ -13,7 +13,6 @@ import {
 } from '../../adapters/workspace';
 import type { FsAdapter } from '../../ports/fs';
 import {
-	setupAgentsMd,
 	setupBiomeConfig,
 	setupCliConfig,
 	setupCursorRules,
@@ -157,8 +156,6 @@ async function setupTarget(
 			return setupMcpClaude(fs, options, prompts);
 		case 'cursor-rules':
 			return setupCursorRules(fs, options, prompts);
-		case 'agents-md':
-			return setupAgentsMd(fs, options, prompts);
 		default:
 			return {
 				target,

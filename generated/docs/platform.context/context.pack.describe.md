@@ -35,7 +35,7 @@ export const ContextPackDescribeQuery = defineQuery({
 		owners: CONTEXT_OWNERS,
 		tags: [...CONTEXT_TAGS, 'pack', 'describe'],
 		stability: CONTEXT_STABILITY,
-		docId: [docId('docs.tech.context.pack.describe')],
+		docId: [docRef(ContextPackDescribeDocBlock.id)],
 	},
 	capability: {
 		key: 'context.system',

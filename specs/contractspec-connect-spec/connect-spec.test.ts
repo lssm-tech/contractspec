@@ -11,10 +11,10 @@ import {
 import { tmpdir } from 'node:os';
 import { join, resolve } from 'node:path';
 import Ajv2020 from 'ajv/dist/2020';
-import { ContractsrcSchema } from '../../packages/libs/contracts-spec/src/workspace-config/contractsrc-schema';
 import { Elysia } from 'elysia';
 import { channelControlPlaneHandler } from '../../packages/apps/api-library/src/handlers/channel-control-plane-handler';
 import { resetChannelRuntimeResourcesForTests } from '../../packages/apps/api-library/src/handlers/channel-runtime-resources';
+import { ContractsrcSchema } from '../../packages/libs/contracts-spec/src/workspace-config/contractsrc-schema';
 
 const SPEC_DIR = import.meta.dir;
 const CLI_ENTRY = resolve(
@@ -72,7 +72,7 @@ describe('contractspec-connect-spec examples', () => {
 		);
 	});
 
-		it('validates real CLI-generated artifacts and enriched audit records', () => {
+	it('validates real CLI-generated artifacts and enriched audit records', () => {
 		const workspace = createWorkspace();
 
 		try {
@@ -161,96 +161,98 @@ describe('contractspec-connect-spec examples', () => {
 			expect(auditRecord.refs.reviewPacket).toContain('/review-packet.json');
 		} finally {
 			rmSync(workspace, { recursive: true, force: true });
-			}
-		}, 20000);
+		}
+	}, 20000);
 
-		it('syncs a real CLI review packet through the Studio review bridge', async () => {
-			const workspace = createWorkspace();
-			const server = startConnectReviewBridgeServer();
+	it('syncs a real CLI review packet through the Studio review bridge', async () => {
+		const workspace = createWorkspace();
+		const server = startConnectReviewBridgeServer();
 
-			try {
-				writeFileSync(
-					join(workspace, '.contractsrc.json'),
-					JSON.stringify(
-						{
-							connect: {
+		try {
+			writeFileSync(
+				join(workspace, '.contractsrc.json'),
+				JSON.stringify(
+					{
+						connect: {
+							enabled: true,
+							policy: {
+								protectedPaths: ['src/**'],
+							},
+							studio: {
 								enabled: true,
-								policy: {
-									protectedPaths: ['src/**'],
-								},
-								studio: {
-									enabled: true,
-									mode: 'review-bridge',
-									endpoint: server.baseUrl,
-									queue: 'connect-review',
-								},
+								mode: 'review-bridge',
+								endpoint: server.baseUrl,
+								queue: 'connect-review',
 							},
 						},
-						null,
-						2
-					)
-				);
+					},
+					null,
+					2
+				)
+			);
 
-				const verify = await runCliAsync(
-					workspace,
-					[
+			const verify = await runCliAsync(
+				workspace,
+				[
+					'connect',
+					'verify',
+					'--task',
+					'task-review-bridge',
+					'--tool',
+					'acp.fs.access',
+					'--stdin',
+					'--json',
+				],
+				JSON.stringify({
+					operation: 'edit',
+					path: 'src/runtime/foo.ts',
+				}),
+				{
+					CONTROL_PLANE_API_TOKEN: 'control-plane-token',
+				}
+			);
+			expect(verify.code).toBe(20);
+
+			const reviewVerdict = JSON.parse(verify.stdout) as { decisionId: string };
+			const envelope = JSON.parse(
+				readFileSync(
+					join(
+						workspace,
+						'.contractspec',
 						'connect',
-						'verify',
-						'--task',
-						'task-review-bridge',
-						'--tool',
-						'acp.fs.access',
-						'--stdin',
-						'--json',
-					],
-					JSON.stringify({
-						operation: 'edit',
-						path: 'src/runtime/foo.ts',
-					}),
-					{
-						CONTROL_PLANE_API_TOKEN: 'control-plane-token',
-					}
-				);
-				expect(verify.code).toBe(20);
+						'decisions',
+						reviewVerdict.decisionId,
+						'decision-envelope.json'
+					),
+					'utf8'
+				)
+			);
+			expect(envelope.reviewBridge.status).toBe('synced');
+			expect(envelope.reviewBridge.queue).toBe('connect-review');
 
-				const reviewVerdict = JSON.parse(verify.stdout) as { decisionId: string };
-				const envelope = JSON.parse(
-					readFileSync(
-						join(
-							workspace,
-							'.contractspec',
-							'connect',
-							'decisions',
-							reviewVerdict.decisionId,
-							'decision-envelope.json'
-						),
-						'utf8'
-					)
-				);
-				expect(envelope.reviewBridge.status).toBe('synced');
-				expect(envelope.reviewBridge.queue).toBe('connect-review');
-
-				const response = await fetch(
-					`${server.baseUrl}/internal/control-plane/connect/reviews`,
-					{
-						headers: {
-							authorization: 'Bearer control-plane-token',
-						},
-					}
-				);
-				expect(response.status).toBe(200);
-				const listJson = (await response.json()) as {
-					items: Array<{ sourceDecisionId: string }>;
-					ok: boolean;
-				};
-				expect(listJson.ok).toBe(true);
-				expect(listJson.items[0]?.sourceDecisionId).toBe(reviewVerdict.decisionId);
-			} finally {
-				server.stop();
-				rmSync(workspace, { recursive: true, force: true });
-			}
-		}, 20000);
-	});
+			const response = await fetch(
+				`${server.baseUrl}/internal/control-plane/connect/reviews`,
+				{
+					headers: {
+						authorization: 'Bearer control-plane-token',
+					},
+				}
+			);
+			expect(response.status).toBe(200);
+			const listJson = (await response.json()) as {
+				items: Array<{ sourceDecisionId: string }>;
+				ok: boolean;
+			};
+			expect(listJson.ok).toBe(true);
+			expect(listJson.items[0]?.sourceDecisionId).toBe(
+				reviewVerdict.decisionId
+			);
+		} finally {
+			server.stop();
+			rmSync(workspace, { recursive: true, force: true });
+		}
+	}, 20000);
+});
 
 function validateJson(schemaPath: string, value: object) {
 	const ajv = new Ajv2020({ allErrors: true, strict: false });

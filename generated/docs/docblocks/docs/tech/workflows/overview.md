@@ -23,6 +23,7 @@ WorkflowSpec provides a declarative, versioned format for long-running flows tha
 
 ## Registry & Validation
 
+- `defineWorkflow()` is available from `@contractspec/lib.contracts-spec/workflow/spec` for safe workflow authoring in VM-evaluated runtimes.
 - `WorkflowRegistry` (`src/workflow/spec.ts`) stores specs by key `<name>.v<version>` and exposes `register`, `list`, and `get`.
 - `validateWorkflowSpec()` (`src/workflow/validation.ts`) checks:
   - Duplicate step IDs.
@@ -59,6 +60,7 @@ WorkflowSpec provides a declarative, versioned format for long-running flows tha
 3. Give automation steps an `operation` and human steps a `form` (warnings surface otherwise).
 4. Use short, meaningful step IDs (`submit`, `review`, `finalize`) to simplify analytics.
 5. Keep guard expressions deterministic; complex policy logic should move to PolicySpec (Phase 2).
+6. For Vercel Workflow or other VM-evaluated runtimes, import `defineWorkflow` and `WorkflowSpec` from `@contractspec/lib.contracts-spec/workflow/spec`.
 
 ## Testing
 

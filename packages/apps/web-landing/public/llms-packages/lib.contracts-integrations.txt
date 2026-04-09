@@ -1,71 +1,195 @@
 # @contractspec/lib.contracts-integrations
 
-**Integration contract definitions for external services.**
+`@contractspec/lib.contracts-integrations` defines provider-agnostic contracts for integration specs, connection/runtime handling, secret resolution, health and telemetry, and capability-level provider interfaces such as LLM, embeddings, vector stores, email, and storage.
 
-## What It Provides
-
-- **Layer**: lib.
-- **Consumers**: content-gen, image-gen, voice, jobs, metering, analytics, observability, support-bot.
-- Related ContractSpec packages include `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
-- Related ContractSpec packages include `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+Website: https://contractspec.io
 
 ## Installation
 
-`npm install @contractspec/lib.contracts-integrations`
+`bun add @contractspec/lib.contracts-integrations`
 
 or
 
-`bun add @contractspec/lib.contracts-integrations`
+`npm install @contractspec/lib.contracts-integrations`
 
-## Usage
+## What belongs here
 
-Import the root entrypoint from `@contractspec/lib.contracts-integrations`, or choose a documented subpath when you only need one part of the package surface.
+This package owns the contract layer for external integrations:
 
-## Architecture
+- Integration spec model and registries.
+- Connection, auth, transport, versioning, and BYOK contracts.
+- Runtime guards and health/telemetry helpers.
+- Secret provider abstraction and secret-provider manager.
+- Capability-level provider interfaces such as `LLMProvider` and `VectorStoreProvider`.
+- Shipped provider/domain spec registrations.
+- Integration connection operations contracts.
 
-- `src/index.ts` is the root public barrel and package entrypoint.
-- `src/integrations` is part of the package's public or composition surface.
+Use this package when you need shared integration contracts. Do not use it as the SDK-backed implementation layer or as the integration persistence runtime.
 
-## Public Entry Points
+## Core workflows
 
-- Export `.` resolves through `./src/index.ts`.
-- Export `./integrations` resolves through `./src/integrations/index.ts`.
-- Export `./integrations/auth` resolves through `./src/integrations/auth.ts`.
-- Export `./integrations/auth-helpers` resolves through `./src/integrations/auth-helpers.ts`.
-- Export `./integrations/binding` resolves through `./src/integrations/binding.ts`.
-- Export `./integrations/byok` resolves through `./src/integrations/byok.ts`.
-- Export `./integrations/connection` resolves through `./src/integrations/connection.ts`.
-- Export `./integrations/docs/integrations.docblock` resolves through `./src/integrations/docs/integrations.docblock.ts`.
-- Export `./integrations/health` resolves through `./src/integrations/health.ts`.
-- Export `./integrations/health/contracts` resolves through `./src/integrations/health/contracts/index.ts`.
-- The package publishes 121 total export subpaths; keep docs aligned with `package.json`.
+### Define and register an integration spec
 
-## Local Commands
+```ts
+import {
+  defineIntegration,
+  IntegrationSpecRegistry,
+} from "@contractspec/lib.contracts-integrations";
 
-- `bun run dev` — contractspec-bun-build dev
-- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
-- `bun run lint` — bun run lint:fix
-- `bun run lint:check` — biome check .
-- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
-- `bun run typecheck` — tsc --noEmit
-- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
-- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
-- `bun run clean` — rm -rf dist
-- `bun run build:bundle` — contractspec-bun-build transpile
-- `bun run build:types` — contractspec-bun-build types
-- `bun run prebuild` — contractspec-bun-build prebuild
+const registry = new IntegrationSpecRegistry();
 
-## Recent Updates
+const spec = defineIntegration({
+  meta: {
+    key: "payments.example",
+    version: 1,
+    title: "Example Payments",
+    owners: ["@platform.integrations"],
+    tags: ["payments"],
+    category: "payments",
+  },
+  supportedModes: ["managed", "byok"],
+  capabilities: {
+    provides: [{ key: "payments.process" }],
+  },
+  configSchema: {
+    schema: { type: "object" },
+  },
+  secretSchema: {
+    schema: { type: "object" },
+  },
+});
 
-- Replace eslint+prettier by biomejs to optimize speed.
-- Resolve lint and build errors in workspace bundle and integrations lib.
-- Missing contract layers.
-- Resolve lint, build, and type errors across nine packages.
-- Normalize formatting across contracts-integrations, composio, and observability.
-- Add Composio universal fallback, fix provider-ranking types, and expand package exports.
+registry.register(spec);
+```
 
-## Notes
+### Consume runtime contracts with secrets and guards
 
-- High blast radius — integration contracts are consumed by many libs.
-- Provider and secret catalog schemas must stay backward-compatible.
-- Adding a new integration must not break existing subpath imports.
+```ts
+import {
+  IntegrationCallGuard,
+} from "@contractspec/lib.contracts-integrations/integrations/runtime";
+import {
+  EnvSecretProvider,
+  SecretProviderManager,
+} from "@contractspec/lib.contracts-integrations/integrations/secrets";
+
+const secretProvider = new SecretProviderManager({
+  providers: [
+    { provider: new EnvSecretProvider(), priority: 100 },
+  ],
+});
+
+const guard = new IntegrationCallGuard(secretProvider);
+
+const result = await guard.executeWithGuards(
+  "primary-llm",
+  "chat",
+  {},
+  resolvedAppConfig,
+  async (connection, secrets) => {
+    return llmAdapter.chat(connection, secrets, input);
+  }
+);
+```
+
+Typical flow:
+
+1. Declare an `IntegrationSpec` that describes config, secrets, auth, transport, and version policy.
+2. Register specs in an `IntegrationSpecRegistry` or use `createDefaultIntegrationSpecRegistry()`.
+3. Bind tenant connections and secret references outside this package.
+4. Resolve secrets and execute guarded runtime calls through `IntegrationCallGuard`.
+
+## API map
+
+### Spec model and registries
+
+- `IntegrationSpec`: provider-agnostic contract for a shipped or custom integration.
+- `IntegrationSpecRegistry`: registry for integration specs with category-based lookup.
+- `defineIntegration`: helper for authoring specs.
+- `makeIntegrationSpecKey`: canonical key formatter for spec identity.
+- `createDefaultIntegrationSpecRegistry`: registry builder for shipped provider specs.
+- `filterByTransport`, `filterByAuthMethod`, `filterVersioned`, `filterByokRotatable`: spec filtering helpers.
+
+### Connections, auth, transport, versioning, and BYOK
+
+- `IntegrationConnection` and `ConnectionStatus`: tenant-bound connection shape and readiness state.
+- `IntegrationAuthConfig`, `findAuthConfig`, `supportsAuthMethod`: auth contract and helpers.
+- `IntegrationTransportConfig`, `findTransportConfig`, `supportsTransport`: transport contract and helpers.
+- `IntegrationVersionPolicy`, `resolveApiVersion`, `getVersionInfo`, `isVersionDeprecated`, `getActiveVersions`: API-version policy helpers.
+- `ByokKeyLifecycle` and BYOK metadata/result types: key validation and rotation contracts.
+
+### Runtime, health, and telemetry
+
+- `IntegrationCallGuard`: guarded execution with secret resolution, retries, and telemetry. Exported from `./integrations/runtime`.
+- `IntegrationCallResult`, `IntegrationCallError`, `IntegrationTelemetryEvent`: runtime result/telemetry contracts.
+- `IntegrationHealthService`: structured health checks and telemetry emission.
+- `resolveIntegrationRequestContext`, `resolveAuthMethod`, `DefaultTransportResolver`, and related helpers: runtime resolution utilities.
+
+### Secrets
+
+- `SecretProvider`: provider-agnostic secret backend interface. Exported from `./integrations/secrets/provider`.
+- `SecretProviderManager`: priority-ordered composite secret provider. Exported from `./integrations/secrets` or `./integrations/secrets/manager`.
+- `SecretProviderError`: structured secret-provider error.
+- `parseSecretUri`: parse `provider://path?...` references.
+- `normalizeSecretPayload`: normalize text/binary/base64 payloads before writes.
+
+### Operations and provider interfaces
+
+- Integration connection operations: `CreateIntegrationConnection`, `UpdateIntegrationConnection`, `DeleteIntegrationConnection`, `ListIntegrationConnections`, `TestIntegrationConnection`.
+- Frequently consumed provider contracts:
+  - `LLMProvider`
+  - `EmbeddingProvider`
+  - `VectorStoreProvider`
+  - `EmailInboundProvider`
+  - `EmailOutboundProvider`
+  - `ObjectStorageProvider`
+
+## Public surface
+
+The root barrel re-exports common integration contracts from:
+
+- spec and registry helpers
+- auth, binding, BYOK, connection, transport, and versioning
+- health helpers
+- operations contracts
+- provider interfaces
+- selected domain contracts such as `health`, `meeting-recorder`, and `openbanking`
+
+Runtime and secret-management helpers live under `./integrations/runtime` and `./integrations/secrets*`.
+
+The exhaustive public surface lives under `./integrations/*` in `package.json`.
+
+Use the README as a guide to the main clusters. Use `package.json` as the authoritative export map for all subpaths, including the many provider and domain-specific entrypoints.
+
+## Operational semantics and gotchas
+
+- `IntegrationCallGuard` fails fast when a slot is missing or a connection is not ready.
+- `IntegrationCallGuard` defaults to `3` attempts with `250 ms` backoff.
+- Retry only happens when `shouldRetry()` returns true; the default implementation looks for a truthy `retryable` field on the error.
+- `IntegrationSpec` carries config and secret schemas, but raw secrets live behind `secretRef` and `SecretProvider`.
+- `SecretProviderManager` delegates in descending priority order and preserves registration order for ties.
+- `resolveApiVersion()` uses connection override first, then policy default.
+- `IntegrationHealthService.check()` returns structured results instead of throwing health failures upward.
+- Registry filters only match specs that explicitly declare auth methods, transports, version policies, or BYOK support.
+- This package defines contracts and shipped spec registrations. SDK-backed implementations live elsewhere.
+
+## When not to use this package
+
+- Do not use it as a provider SDK implementation layer.
+- Do not use it as the secret storage backend itself.
+- Do not use it as the integration persistence database layer.
+- Do not use it as the app-config slot/binding resolver.
+
+## Related packages
+
+- `@contractspec/lib.contracts-spec`: upstream spec system consumed by integration contracts and operations.
+- `@contractspec/lib.schema`: schema types used by operation and config shapes.
+- `@contractspec/integration.runtime`: runtime composition layer built on top of these contracts.
+- `@contractspec/integration.providers-impls`: SDK-backed provider implementations for many of these interfaces.
+- `@contractspec/lib.knowledge`: major consumer of embedding, vector-store, email, storage, and LLM provider interfaces.
+
+## Local commands
+
+- `bun run lint:check`
+- `bun run typecheck`
+- `bun test`

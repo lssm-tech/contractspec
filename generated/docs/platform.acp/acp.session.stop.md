@@ -34,7 +34,7 @@ export const AcpSessionStopCommand = defineCommand({
 		owners: ACP_OWNERS,
 		tags: [...ACP_TAGS, 'session'],
 		stability: ACP_STABILITY,
-		docId: [docId('docs.tech.acp.session.stop')],
+		docId: [docRef(AcpSessionStopDocBlock.id)],
 	},
 	capability: {
 		key: 'acp.transport',

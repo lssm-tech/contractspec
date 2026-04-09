@@ -2,25 +2,36 @@
 
 Scope: `packages/libs/ui-link/*`
 
-Deep linking utilities for cross-platform navigation.
+Mission: keep `@contractspec/lib.ui-link` tiny and router-agnostic. This package should stay a small shared-link surface, not grow into a navigation framework abstraction.
 
-## Quick Context
+## Public surface
 
-- **Layer**: lib
-- **Consumers**: bundles, apps
+Treat these as the compatibility surface:
 
-## Public Exports
+- root default export
+- `./ui/link`
+- the `Link` component prop shape
 
-- `.` — main entry
-- `./ui/link` — Link component
+## Change boundaries
 
-## Guardrails
+- Root export shape and anchor props are compatibility surface.
+- Do not add router-specific coupling.
+- Keep `exports` and `publishConfig.exports` aligned.
 
-- Link component must stay framework-agnostic (no router-specific coupling)
-- Depends on ui-kit-core — coordinate changes with that package
+## Package invariants
 
-## Local Commands
+- Plain-anchor semantics remain the default.
+- `@contractspec/lib.ui-kit-core` remains the low-level dependency.
+- This package stays intentionally smaller and more generic than `ui-kit` and `ui-kit-web`.
 
-- Build: `bun run build`
-- Lint: `bun run lint`
-- Dev: `bun run dev`
+## Editing guidance
+
+- Avoid growing this into a routing abstraction.
+- Keep behavior simple, explicit, and framework-agnostic.
+- If you need Expo-router or Next.js behavior, that likely belongs in the other UI packages instead.
+
+## Verification checklist
+
+- `bun run lint:check`
+- `bun run typecheck`
+- Confirm docs still describe a tiny router-agnostic surface.

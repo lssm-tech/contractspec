@@ -34,7 +34,7 @@ export const AcpPromptTurnCommand = defineCommand({
 		owners: ACP_OWNERS,
 		tags: [...ACP_TAGS, 'prompt'],
 		stability: ACP_STABILITY,
-		docId: [docId('docs.tech.acp.prompt.turn')],
+		docId: [docRef(AcpPromptTurnDocBlock.id)],
 	},
 	capability: {
 		key: 'acp.transport',
