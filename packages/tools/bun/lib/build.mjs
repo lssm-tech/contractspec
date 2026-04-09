@@ -289,7 +289,10 @@ async function getLatestSourceMtimeMs(dependencyDir) {
 	return latestSourceMtimeMs;
 }
 
-async function getOldestPublishedTypeMtimeMs(dependencyDir, publishedTypePaths) {
+async function getOldestPublishedTypeMtimeMs(
+	dependencyDir,
+	publishedTypePaths
+) {
 	let oldestPublishedTypeMtimeMs = Number.POSITIVE_INFINITY;
 	for (const publishedTypePath of publishedTypePaths) {
 		const typeStats = await stat(path.join(dependencyDir, publishedTypePath));
@@ -337,9 +340,7 @@ async function ensureWorkspaceDependencyTypes(
 		return;
 	}
 
-	if (
-		!(await dependencyTypesNeedBuild(dependencyDir, dependencyPackageJson))
-	) {
+	if (!(await dependencyTypesNeedBuild(dependencyDir, dependencyPackageJson))) {
 		return;
 	}
 
@@ -432,7 +433,9 @@ async function resolveDependencyPathMappings(cwd) {
 		await ensureWorkspaceDependencyTypes(dependencyDir, dependencyPackageJson);
 		const preferPublishedTypes = hasBuildTypesScript(dependencyPackageJson);
 		const workspaceExports = dependencyPackageJson.exports;
-		const rootWorkspacePath = extractWorkspaceExportPath(workspaceExports?.['.']);
+		const rootWorkspacePath = extractWorkspaceExportPath(
+			workspaceExports?.['.']
+		);
 		const publishExports = dependencyPackageJson.publishConfig?.exports;
 		const rootTypesPath =
 			extractTypesPath(publishExports?.['.']) ?? dependencyPackageJson.types;
