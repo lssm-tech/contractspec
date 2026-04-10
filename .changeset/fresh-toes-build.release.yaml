@@ -97,7 +97,6 @@ validation:
     - cd packages/tools/bun && bun test
     - rg -uuu -l -g '*.js' -e 'from "react/jsx-dev-runtime"' -e "from 'react/jsx-dev-runtime'" -e 'require\("react/jsx-dev-runtime"\)' -e 'jsxDEV\(' packages/libs/**/dist packages/modules/**/dist packages/bundles/**/dist packages/apps/**/dist
   evidence:
-    - `@contractspec/tool.bun` now adds `--production` to both no-bundle and bundled non-watch transpile commands, while watch/dev paths remain unchanged.
+    - Package `@contractspec/tool.bun` now adds `--production` to both no-bundle and bundled non-watch transpile commands, while watch/dev paths remain unchanged.
     - The scoped release packages rebuild cleanly against the stricter runtime-relevant scan, with no `react/jsx-dev-runtime` imports or `jsxDEV(` call sites remaining in their built artifacts.
-    - `@contractspec/app.cli-contractspec` was excluded from this release because its bundle only contained the literal string `jsxDEV` from embedded TypeScript source text, not a React dev-runtime import path.
-    - `cd packages/tools/bun && bun test` still reports the pre-existing `runTypes` timeout and was not expanded into scope for this JSX-runtime fix.
+    - Package `@contractspec/app.cli-contractspec` was excluded from this release because its bundle only contained the literal string `jsxDEV` from embedded TypeScript source text, not a React dev-runtime import path.
