@@ -274,14 +274,18 @@ export async function checkReleaseArtifacts(
 	const errors: string[] = [];
 	const changesets = await readChangesets(fs, workspaceRoot);
 	const capsules = await readReleaseCapsules(fs, workspaceRoot, changesets);
+	const hasPendingChangesets = changesets.length > 0;
+	const hasPostVersionCapsules = !hasPendingChangesets && capsules.size > 0;
 
 	recordCheck(
 		checks,
-		changesets.length > 0,
+		hasPendingChangesets || hasPostVersionCapsules,
 		'changesets',
-		changesets.length > 0
+		hasPendingChangesets
 			? `Found ${changesets.length} release changeset(s).`
-			: 'No release changesets found.'
+			: hasPostVersionCapsules
+				? 'No pending release changesets found; release capsules are present.'
+				: 'No release changesets found.'
 	);
 
 	for (const changeset of changesets) {
@@ -359,7 +363,7 @@ export async function checkReleaseArtifacts(
 			: (errors[0] ?? '')
 	);
 
-	if (changesets.length === 0) {
+	if (!hasPendingChangesets && !hasPostVersionCapsules) {
 		warnings.push('No pending release changesets were found.');
 	}
 

@@ -4,12 +4,14 @@ import os from 'node:os';
 import path from 'node:path';
 import {
 	discoverPublishablePackages,
+	getPackageNameSelection,
 	getPreparationPackageNames,
 } from './release-package-utils.js';
 
 const tempDirs = [];
 
 afterEach(() => {
+	delete process.env.CONTRACTSPEC_RELEASE_PACKAGE_NAMES;
 	while (tempDirs.length > 0) {
 		fs.rmSync(tempDirs.pop(), { force: true, recursive: true });
 	}
@@ -174,5 +176,49 @@ describe('getPreparationPackageNames', () => {
 			'@contractspec/lib.missing',
 			'@contractspec/lib.beta',
 		]);
+	});
+});
+
+describe('getPackageNameSelection', () => {
+	it('treats an empty env override as unspecified', () => {
+		process.env.CONTRACTSPEC_RELEASE_PACKAGE_NAMES = '';
+
+		expect(getPackageNameSelection()).toEqual({
+			packageNames: [],
+			packageNamesSpecified: false,
+		});
+	});
+
+	it('treats a whitespace-only env override as unspecified', () => {
+		process.env.CONTRACTSPEC_RELEASE_PACKAGE_NAMES = '   ';
+
+		expect(getPackageNameSelection()).toEqual({
+			packageNames: [],
+			packageNamesSpecified: false,
+		});
+	});
+
+	it('keeps a non-empty env override as an explicit selection', () => {
+		process.env.CONTRACTSPEC_RELEASE_PACKAGE_NAMES =
+			'contractspec,@contractspec/app.cli-contractspec';
+
+		expect(getPackageNameSelection()).toEqual({
+			packageNames: ['contractspec', '@contractspec/app.cli-contractspec'],
+			packageNamesSpecified: true,
+		});
+	});
+
+	it('keeps an explicit empty options override as a no-op selection', () => {
+		process.env.CONTRACTSPEC_RELEASE_PACKAGE_NAMES = 'contractspec';
+
+		expect(
+			getPackageNameSelection({
+				packageNamesSpecified: true,
+				packageNames: [],
+			})
+		).toEqual({
+			packageNames: [],
+			packageNamesSpecified: true,
+		});
 	});
 });

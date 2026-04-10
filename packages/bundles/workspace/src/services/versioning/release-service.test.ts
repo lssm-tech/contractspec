@@ -34,6 +34,24 @@ const gitAdapter = {
 	diffFiles: async () => [],
 };
 
+function getCheck(result: Awaited<ReturnType<typeof checkReleaseArtifacts>>, name: string) {
+	return result.checks.find((check) => check.name === name);
+}
+
+function seedWorkspaceRoot(prefix: string): string {
+	const workspaceRoot = mkdtempSync(join(tmpdir(), prefix));
+	mkdirSync(join(workspaceRoot, '.changeset'), { recursive: true });
+	writeFileSync(
+		join(workspaceRoot, 'package.json'),
+		JSON.stringify(
+			{ name: 'fixture', version: '1.0.0', private: true },
+			null,
+			2
+		)
+	);
+	return workspaceRoot;
+}
+
 function seedReleaseWorkspace(): string {
 	const dir = mkdtempSync(join(tmpdir(), 'contractspec-release-service-'));
 	mkdirSync(join(dir, '.changeset'), { recursive: true });
@@ -129,19 +147,91 @@ describe('buildReleaseArtifacts', () => {
 });
 
 describe('checkReleaseArtifacts', () => {
-	it('should report missing migration notes and evidence for incomplete capsules', async () => {
-		const workspaceRoot = mkdtempSync(
-			join(tmpdir(), 'contractspec-release-check-')
+	it('keeps the changesets check passing when paired markdown changesets exist', async () => {
+		const workspaceRoot = seedReleaseWorkspace();
+		const fs = createNodeFsAdapter(workspaceRoot);
+
+		const result = await checkReleaseArtifacts(
+			{
+				fs,
+				git: gitAdapter,
+				logger: createNoopLoggerAdapter(),
+			},
+			{ workspaceRoot, strict: false }
 		);
-		mkdirSync(join(workspaceRoot, '.changeset'), { recursive: true });
+
+		expect(result.success).toBe(true);
+		expect(getCheck(result, 'changesets')).toEqual({
+			name: 'changesets',
+			ok: true,
+			message: 'Found 1 release changeset(s).',
+		});
+	});
+
+	it('treats a capsules-only post-version state as valid', async () => {
+		const workspaceRoot = seedWorkspaceRoot('contractspec-release-post-version-');
 		writeFileSync(
-			join(workspaceRoot, 'package.json'),
-			JSON.stringify(
-				{ name: 'fixture', version: '1.0.0', private: true },
-				null,
-				2
-			)
+			join(workspaceRoot, '.changeset', 'post-version.release.yaml'),
+			`schemaVersion: "1"
+slug: post-version
+summary: Post-version release capsule
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.contracts-spec"
+    releaseType: patch
+validation:
+  commands:
+    - contractspec release check --strict
+  evidence:
+    - local fixture
+`
 		);
+		const fs = createNodeFsAdapter(workspaceRoot);
+
+		const result = await checkReleaseArtifacts(
+			{
+				fs,
+				git: gitAdapter,
+				logger: createNoopLoggerAdapter(),
+			},
+			{ workspaceRoot, strict: false }
+		);
+
+		expect(result.success).toBe(true);
+		expect(getCheck(result, 'changesets')).toEqual({
+			name: 'changesets',
+			ok: true,
+			message: 'No pending release changesets found; release capsules are present.',
+		});
+		expect(
+			result.warnings.includes('No pending release changesets were found.')
+		).toBe(false);
+	});
+
+	it('still reports a missing changeset state when neither markdown nor capsules exist', async () => {
+		const workspaceRoot = seedWorkspaceRoot('contractspec-release-empty-');
+		const fs = createNodeFsAdapter(workspaceRoot);
+
+		const result = await checkReleaseArtifacts(
+			{
+				fs,
+				git: gitAdapter,
+				logger: createNoopLoggerAdapter(),
+			},
+			{ workspaceRoot, strict: false }
+		);
+
+		expect(result.success).toBe(true);
+		expect(getCheck(result, 'changesets')).toEqual({
+			name: 'changesets',
+			ok: false,
+			message: 'No release changesets found.',
+		});
+		expect(result.warnings).toContain('No pending release changesets were found.');
+	});
+
+	it('should report missing migration notes and evidence for incomplete capsules', async () => {
+		const workspaceRoot = seedWorkspaceRoot('contractspec-release-check-');
 		writeFileSync(
 			join(workspaceRoot, '.changeset', 'breaking-change.md'),
 			`---
@@ -177,6 +267,49 @@ validation:
 		);
 
 		expect(result.success).toBe(false);
+		expect(
+			result.errors.some((error) => error.includes('migration instructions'))
+		).toBe(true);
+		expect(
+			result.errors.some((error) => error.includes('validation evidence'))
+		).toBe(true);
+	});
+
+	it('still fails incomplete capsules in a capsules-only post-version state', async () => {
+		const workspaceRoot = seedWorkspaceRoot(
+			'contractspec-release-incomplete-capsule-'
+		);
+		writeFileSync(
+			join(workspaceRoot, '.changeset', 'capsule-only.release.yaml'),
+			`schemaVersion: "1"
+slug: capsule-only
+summary: Capsule-only release
+isBreaking: true
+packages:
+  - name: "@contractspec/lib.contracts-spec"
+    releaseType: major
+validation:
+  commands: []
+  evidence: []
+`
+		);
+		const fs = createNodeFsAdapter(workspaceRoot);
+
+		const result = await checkReleaseArtifacts(
+			{
+				fs,
+				git: gitAdapter,
+				logger: createNoopLoggerAdapter(),
+			},
+			{ workspaceRoot, strict: false }
+		);
+
+		expect(result.success).toBe(false);
+		expect(getCheck(result, 'changesets')).toEqual({
+			name: 'changesets',
+			ok: true,
+			message: 'No pending release changesets found; release capsules are present.',
+		});
 		expect(
 			result.errors.some((error) => error.includes('migration instructions'))
 		).toBe(true);

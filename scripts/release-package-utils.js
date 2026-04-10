@@ -75,11 +75,12 @@ export function getPackageNameSelection(options = {}) {
 			'CONTRACTSPEC_RELEASE_PACKAGE_NAMES'
 		)
 	) {
+		const packageNames = parsePackageNames(
+			process.env.CONTRACTSPEC_RELEASE_PACKAGE_NAMES
+		);
 		return {
-			packageNames: parsePackageNames(
-				process.env.CONTRACTSPEC_RELEASE_PACKAGE_NAMES
-			),
-			packageNamesSpecified: true,
+			packageNames,
+			packageNamesSpecified: packageNames.length > 0,
 		};
 	}
 
