@@ -1,5 +1,14 @@
 # spec-driven-development
 
+## 3.7.17
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Harden the Builder rollout with canonical bootstrap presets, channel-heavy mobile review flows, local-daemon runtime registration, and richer operator status surfaces.
+- Updated dependencies because of Implement ContractSpec Connect as a first-class spec, runtime, and CLI workflow.
+  - @contractspec/app.cli-contractspec@4.4.0
+
 ## 3.7.16
 
 ### Patch Changes

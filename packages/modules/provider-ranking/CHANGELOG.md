@@ -1,5 +1,15 @@
 # @contractspec/module.provider-ranking
 
+## 0.7.17
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/lib.contracts-integrations@3.8.10
+  - @contractspec/lib.provider-ranking@0.7.13
+  - @contractspec/lib.schema@3.7.14
+
 ## 0.7.16
 
 ### Patch Changes

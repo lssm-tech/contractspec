@@ -1,5 +1,13 @@
 # agentpacks
 
+## 1.8.0
+
+### Minor Changes
+
+- Implement ContractSpec Connect as a first-class spec, runtime, and CLI workflow.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/bundle.workspace (minor), @contractspec/app.cli-contractspec (minor), @contractspec/bundle.library (patch), agentpacks (minor)
+  - Migration: Turn on the Connect adapter flow before relying on task-scoped context, review, replay, or evaluation artifacts.
+
 ## 1.7.13
 
 ### Patch Changes

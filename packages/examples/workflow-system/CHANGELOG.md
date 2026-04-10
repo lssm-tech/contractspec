@@ -1,5 +1,21 @@
 # @contractspec/example.workflow-system
 
+## 3.8.10
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Introduce the Builder v3 control plane as a governed authoring layer over external execution providers.
+- Updated dependencies because of Implement ContractSpec Connect as a first-class spec, runtime, and CLI workflow.
+- Updated dependencies because of Pass Bun transpile paths through production JSX mode so published browser bundles stop emitting the dev runtime.
+  - @contractspec/lib.presentation-runtime-core@3.9.6
+  - @contractspec/lib.contracts-spec@5.2.0
+  - @contractspec/lib.design-system@3.8.11
+  - @contractspec/lib.example-shared-ui@6.0.18
+  - @contractspec/lib.runtime-sandbox@2.7.14
+  - @contractspec/lib.schema@3.7.14
+
 ## 3.8.9
 
 ### Patch Changes

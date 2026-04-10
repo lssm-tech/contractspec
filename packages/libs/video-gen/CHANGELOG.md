@@ -1,5 +1,24 @@
 # @contractspec/lib.video-gen
 
+## 2.7.18
+
+### Patch Changes
+
+- Pass Bun transpile paths through production JSX mode so published browser bundles stop emitting the dev runtime.
+  - Packages: @contractspec/tool.bun (patch), @contractspec/bundle.marketing (patch), @contractspec/lib.accessibility (patch), @contractspec/lib.contracts-runtime-client-react (patch), @contractspec/lib.design-system (patch), @contractspec/lib.example-shared-ui (patch), @contractspec/lib.presentation-runtime-react (patch), @contractspec/lib.surface-runtime (patch), @contractspec/lib.ui-kit (patch), @contractspec/lib.ui-kit-web (patch), @contractspec/lib.ui-link (patch), @contractspec/lib.video-gen (patch), @contractspec/module.builder-workbench (patch), @contractspec/module.examples (patch), @contractspec/module.execution-console (patch), @contractspec/module.mobile-review (patch)
+  - Migration: Pull the patch releases for the affected Contractspec React/browser packages.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Introduce the Builder v3 control plane as a governed authoring layer over external execution providers.
+- Updated dependencies because of Implement ContractSpec Connect as a first-class spec, runtime, and CLI workflow.
+- Updated dependencies because of Pass Bun transpile paths through production JSX mode so published browser bundles stop emitting the dev runtime.
+  - @contractspec/lib.content-gen@3.7.18
+  - @contractspec/lib.contracts-integrations@3.8.10
+  - @contractspec/lib.image-gen@1.7.18
+  - @contractspec/lib.voice@1.7.18
+  - @contractspec/lib.contracts-spec@5.2.0
+  - @contractspec/lib.design-system@3.8.11
+  - @contractspec/lib.ai-providers@3.7.13
+
 ## 2.7.17
 
 ### Patch Changes

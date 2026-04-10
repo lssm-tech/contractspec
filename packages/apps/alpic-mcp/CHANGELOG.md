@@ -1,5 +1,14 @@
 # @contractspec/app.alpic-mcp
 
+## 3.7.17
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/bundle.alpic@3.7.17
+  - @contractspec/lib.logger@3.7.13
+
 ## 3.7.16
 
 ### Patch Changes

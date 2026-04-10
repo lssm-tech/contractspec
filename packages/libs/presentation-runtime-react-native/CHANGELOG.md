@@ -1,5 +1,16 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 36.0.5
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Pass Bun transpile paths through production JSX mode so published browser bundles stop emitting the dev runtime.
+  - @contractspec/lib.presentation-runtime-core@3.9.6
+  - @contractspec/lib.presentation-runtime-react@36.0.6
+  - @contractspec/lib.ui-kit@3.8.10
+
 ## 36.0.4
 
 ### Patch Changes

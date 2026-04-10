@@ -1,5 +1,26 @@
 # @contractspec/module.ai-chat
 
+## 4.3.18
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Introduce the Builder v3 control plane as a governed authoring layer over external execution providers.
+- Updated dependencies because of Implement ContractSpec Connect as a first-class spec, runtime, and CLI workflow.
+- Updated dependencies because of Pass Bun transpile paths through production JSX mode so published browser bundles stop emitting the dev runtime.
+  - @contractspec/integration.workflow-devkit@0.1.4
+  - @contractspec/lib.ai-agent@8.0.6
+  - @contractspec/lib.metering@3.7.18
+  - @contractspec/lib.workflow-composer@3.7.18
+  - @contractspec/lib.contracts-spec@5.2.0
+  - @contractspec/lib.design-system@3.8.11
+  - @contractspec/lib.surface-runtime@0.5.18
+  - @contractspec/lib.ui-kit-web@3.9.10
+  - @contractspec/lib.ai-providers@3.7.13
+  - @contractspec/lib.cost-tracking@3.7.13
+  - @contractspec/lib.schema@3.7.14
+
 ## 4.3.17
 
 ### Patch Changes

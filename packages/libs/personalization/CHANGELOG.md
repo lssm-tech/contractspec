@@ -1,5 +1,21 @@
 # @contractspec/lib.personalization
 
+## 6.0.18
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Introduce the Builder v3 control plane as a governed authoring layer over external execution providers.
+- Updated dependencies because of Implement ContractSpec Connect as a first-class spec, runtime, and CLI workflow.
+- Updated dependencies because of Pass Bun transpile paths through production JSX mode so published browser bundles stop emitting the dev runtime.
+  - @contractspec/lib.bus@3.7.18
+  - @contractspec/lib.knowledge@3.7.18
+  - @contractspec/lib.overlay-engine@3.7.18
+  - @contractspec/lib.contracts-spec@5.2.0
+  - @contractspec/lib.surface-runtime@0.5.18
+  - @contractspec/lib.schema@3.7.14
+
 ## 6.0.17
 
 ### Patch Changes
