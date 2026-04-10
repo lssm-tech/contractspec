@@ -13,6 +13,7 @@ Run contract impact analysis and convert results into release decisions.
    - Breaking vs non-breaking deltas
    - Affected contract keys
    - Required migration/version notes
+   - Required release communication outputs (`contractspec release brief`)
 
 Output format:
 
@@ -31,4 +32,5 @@ Non-breaking changes: <count>
 
 1. <versioning recommendation>
 2. <migration note>
+3. <maintainer summary / customer patch note / agent prompt requirement>
 ```

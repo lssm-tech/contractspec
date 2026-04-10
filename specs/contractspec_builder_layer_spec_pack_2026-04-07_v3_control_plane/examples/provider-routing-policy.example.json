@@ -1,0 +1,48 @@
+{
+	"id": "route-default-v1",
+	"workspaceId": "ws_acme_ops_001",
+	"taskRules": [
+		{
+			"taskType": "clarify",
+			"preferredProviders": ["provider.claude.chat", "provider.gpt.chat"],
+			"fallbackProviders": ["provider.local.small"]
+		},
+		{
+			"taskType": "propose_patch",
+			"preferredProviders": ["provider.codex", "provider.claude.code"],
+			"fallbackProviders": ["provider.copilot"]
+		},
+		{
+			"taskType": "transcribe_audio",
+			"preferredProviders": ["provider.openai.stt"],
+			"fallbackProviders": ["provider.local.whisper"]
+		}
+	],
+	"riskRules": [
+		{
+			"riskLevelAtOrAbove": "high",
+			"preferredProviders": ["provider.codex", "provider.claude.code"],
+			"requireComparison": true
+		}
+	],
+	"runtimeModeRules": [
+		{
+			"runtimeMode": "local",
+			"disallowManagedProvidersForSensitiveData": true
+		}
+	],
+	"comparisonRules": [
+		{
+			"taskType": "propose_patch",
+			"riskLevelAtOrAbove": "high",
+			"comparisonMode": "dual_provider"
+		}
+	],
+	"fallbackRules": [
+		{
+			"onFailure": "provider_unavailable",
+			"action": "fallback_or_escalate"
+		}
+	],
+	"defaultProviderProfileId": "profile.default.v1"
+}

@@ -1,6 +1,6 @@
-import { randomUUID } from 'node:crypto';
 import { LifecycleStage } from '@contractspec/lib.lifecycle';
 import { Logger } from '@contractspec/lib.observability';
+import { randomUUID } from 'crypto';
 import {
 	type IntentPattern,
 	type OperationCoordinate,

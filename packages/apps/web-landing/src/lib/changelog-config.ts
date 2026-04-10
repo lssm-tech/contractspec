@@ -14,6 +14,7 @@ const DEFAULT_PAGE_SIZE = 20;
 export interface ChangelogConfig {
 	monorepoRoot: string;
 	changelogGlob: string;
+	generatedManifestPath: string;
 	includeLayers: string[];
 	excludeLayers: string[];
 	defaultPageSize: number;
@@ -61,6 +62,12 @@ export function resolveChangelogConfig(): ChangelogConfig {
 			'*',
 			'CHANGELOG.md'
 		),
+		generatedManifestPath: path.join(
+			monorepoRoot,
+			'generated',
+			'releases',
+			'manifest.json'
+		),
 		includeLayers:
 			includeLayers.length > 0 ? includeLayers : [...DEFAULT_INCLUDE_LAYERS],
 		excludeLayers:
@@ -90,6 +97,7 @@ export function changelogConfigToCacheKey(config: ChangelogConfig): string {
 	return JSON.stringify({
 		monorepoRoot: config.monorepoRoot,
 		changelogGlob: config.changelogGlob,
+		generatedManifestPath: config.generatedManifestPath,
 		includeLayers: config.includeLayers,
 		excludeLayers: config.excludeLayers,
 		defaultPageSize: config.defaultPageSize,

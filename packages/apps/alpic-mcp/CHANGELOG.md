@@ -1,5 +1,34 @@
 # @contractspec/app.alpic-mcp
 
+## 3.7.17
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/bundle.alpic@3.7.17
+  - @contractspec/lib.logger@3.7.13
+
+## 3.7.16
+
+### Patch Changes
+
+- Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+  - Migration: Keep Node-only workflow runner code out of "use workflow" entrypoints.
+  - Deprecations: Importing the broad `@contractspec/lib.contracts-spec/workflow` barrel from sandboxed workflow entrypoints is discouraged.
+- Updated dependencies because of Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+  - @contractspec/bundle.alpic@3.7.16
+  - @contractspec/lib.logger@3.7.13
+
+## 3.7.15
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/bundle.alpic@3.7.15
+  - @contractspec/lib.logger@3.7.12
+
 ## 3.7.14
 
 ### Patch Changes

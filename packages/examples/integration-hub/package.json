@@ -1,21 +1,21 @@
 {
 	"name": "@contractspec/example.integration-hub",
-	"version": "3.8.7",
+	"version": "3.8.10",
 	"description": "Integration Hub example with sync engine and field mappings for ContractSpec",
 	"types": "./dist/index.d.ts",
 	"type": "module",
 	"scripts": {
 		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
 		"publish:pkg:canary": "bun publish:pkg --tag canary",
-		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
+		"build": "bun run build:bundle && bun run build:types",
 		"build:bundle": "contractspec-bun-build transpile",
 		"build:types": "contractspec-bun-build types",
 		"dev": "contractspec-bun-build dev",
 		"run:mcp": "bun tsx src/run-mcp.ts",
 		"clean": "rimraf dist .turbo",
 		"lint": "bun lint:fix",
-		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-		"lint:check": "biome check .",
+		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
+		"lint:check": "node ../../../scripts/biome.cjs check .",
 		"test": "bun test",
 		"validate": "contractspec validate \"src/**/*\"",
 		"prebuild": "contractspec-bun-build prebuild",
@@ -39,7 +39,7 @@
 		"@types/react": "^19.2.14",
 		"@types/react-dom": "^19.2.2",
 		"@contractspec/tool.bun": "workspace:*",
-		"happy-dom": "^20.8.8"
+		"happy-dom": "^20.8.9"
 	},
 	"exports": {
 		".": "./src/index.ts",

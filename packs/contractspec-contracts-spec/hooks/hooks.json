@@ -1,0 +1,71 @@
+{
+	"version": 1,
+	"hooks": {},
+	"cursor": {
+		"hooks": {
+			"beforeFileEdit": [
+				{
+					"type": "command",
+					"command": "contractspec connect hook contracts-spec before-file-edit --stdin"
+				}
+			],
+			"beforeShellExecution": [
+				{
+					"type": "command",
+					"command": "contractspec connect hook contracts-spec before-shell-execution --stdin"
+				}
+			],
+			"afterFileEdit": [
+				{
+					"type": "command",
+					"command": "contractspec connect hook contracts-spec after-file-edit --stdin"
+				}
+			]
+		}
+	},
+	"claudecode": {
+		"hooks": {
+			"preToolUse": [
+				{
+					"type": "command",
+					"matcher": "Write|Edit|MultiEdit",
+					"command": "contractspec connect hook contracts-spec before-file-edit --stdin"
+				},
+				{
+					"type": "command",
+					"matcher": "Bash",
+					"command": "contractspec connect hook contracts-spec before-shell-execution --stdin"
+				}
+			],
+			"postToolUse": [
+				{
+					"type": "command",
+					"matcher": "Write|Edit|MultiEdit",
+					"command": "contractspec connect hook contracts-spec after-file-edit --stdin"
+				}
+			]
+		}
+	},
+	"codexcli": {
+		"hooks": {
+			"beforeFileEdit": [
+				{
+					"type": "command",
+					"command": "contractspec connect hook contracts-spec before-file-edit --stdin"
+				}
+			],
+			"beforeShellExecution": [
+				{
+					"type": "command",
+					"command": "contractspec connect hook contracts-spec before-shell-execution --stdin"
+				}
+			],
+			"afterFileEdit": [
+				{
+					"type": "command",
+					"command": "contractspec connect hook contracts-spec after-file-edit --stdin"
+				}
+			]
+		}
+	}
+}

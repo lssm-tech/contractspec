@@ -1,0 +1,23 @@
+sequenceDiagram
+    participant A as Agent host
+    participant AD as Connect adapter
+    participant C as Connect DTO layer
+    participant W as Workspace impact
+    participant R as Runtime control-plane
+    participant L as Local artifacts
+
+    A->>AD: propose plan or mutation candidate
+    AD->>C: normalize action
+    C->>W: resolve impacted contracts and surfaces
+    C->>R: attach controlPlane / ACP refs
+    C->>L: write ContextPack / PlanPacket / PatchVerdict
+    alt review required
+        C->>L: emit ReviewPacket
+        C-->>AD: require_review
+    else deny
+        C-->>AD: deny
+    else rewrite
+        C-->>AD: rewrite with bounded remediation
+    else permit
+        C-->>AD: permit with runtime mapping
+    end

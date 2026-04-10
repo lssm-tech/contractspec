@@ -8,6 +8,7 @@ Run, cancel, and approve AI agent executions with full audit trail
 
 - **Type**: feature
 - **Version**: 1.0.0
+- **Tags**: agent, execution
 - **File**: `packages/libs/contracts-spec/src/agent/agent.feature.ts`
 
 ## Operations (5)
@@ -32,6 +33,7 @@ Run, cancel, and approve AI agent executions with full audit trail
 ## Source Definition
 
 ```typescript
+import type { DocBlock } from '../docs/types';
 import { defineFeature } from '../features';
 import {
 	AGENT_DOMAIN,
@@ -39,6 +41,20 @@ import {
 	AGENT_STABILITY,
 	AGENT_TAGS,
 } from './constants';
+
+export const AgentExecutionDocBlock = {
+	id: 'docs.tech.agent.execution',
+	title: 'Agent execution',
+	summary: 'Background agent execution, approvals, and artifacts.',
+	kind: 'reference',
+	visibility: 'public',
+	route: '/docs/tech/agent/execution',
+	tags: ['agent', 'execution'],
+	body: `# Agent execution
+
+Defines the core operations, events, and UI surfaces for background agent runs with auditability and approvals.
+`,
+} satisfies DocBlock;
 
 export const AgentFeature = defineFeature({
 	meta: {

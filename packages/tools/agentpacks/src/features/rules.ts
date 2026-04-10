@@ -17,7 +17,6 @@ export interface RuleFrontmatter {
 	claudecode?: Record<string, unknown>;
 	opencode?: Record<string, unknown>;
 	copilot?: Record<string, unknown>;
-	agentsmd?: Record<string, unknown>;
 	antigravity?: Record<string, unknown>;
 	[key: string]: unknown;
 }

@@ -1,68 +1,127 @@
 # @contractspec/lib.design-system
 
+`@contractspec/lib.design-system` provides higher-level design-system components, tokens, platform adapters, renderers, and composed layouts used across web, native, marketing, legal, agent, and application surfaces.
+
 Website: https://contractspec.io
-
-**Design tokens and theming primitives.**
-
-## What It Provides
-
-- **Layer**: lib.
-- **Consumers**: accessibility, presentation-runtime-react, video-gen, bundles, apps.
-- Related ContractSpec packages include `@contractspec/lib.ai-agent`, `@contractspec/lib.contracts-runtime-client-react`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.example-shared-ui`, `@contractspec/lib.presentation-runtime-react`, `@contractspec/lib.ui-kit`, ...
 
 ## Installation
 
-`npm install @contractspec/lib.design-system`
+`bun add @contractspec/lib.design-system`
 
 or
 
-`bun add @contractspec/lib.design-system`
+`npm install @contractspec/lib.design-system`
 
-## Usage
+## What belongs here
 
-Import the root entrypoint from `@contractspec/lib.design-system`, or choose a documented subpath when you only need one part of the package surface.
+This package owns the higher-level design-system layer:
 
-## Architecture
+- Theme tokens and token bridging.
+- Platform helpers and responsive hooks.
+- Renderers and form-contract integration.
+- Higher-level atoms, molecules, organisms, templates, and visualization components.
+- Registry metadata and shadcn-style component registry support.
 
-- `src/components/` contains reusable UI components and view composition.
-- `src/hooks/` contains custom hooks for host applications.
-- `src/index.ts` is the root public barrel and package entrypoint.
-- `src/lib/` contains package-local helper utilities and adapters.
-- `src/platform` is part of the package's public or composition surface.
-- `src/renderers` is part of the package's public or composition surface.
-- `src/theme` is part of the package's public or composition surface.
+Use this package when you want the composed design-system layer. Do not use it when a lower-level primitive from `ui-kit` or `ui-kit-web` is enough.
 
-## Public Entry Points
+## Core workflows
 
-- Export `.` resolves through `./src/index.ts`.
+### Import a higher-level design-system component
 
-## Local Commands
+```ts
+import { AppLayout, Button, HeroSection } from "@contractspec/lib.design-system";
+```
 
-- `bun run dev` — contractspec-bun-build dev
-- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
-- `bun run test` — bun test --pass-with-no-tests
-- `bun run lint` — bun run lint:fix
-- `bun run lint:check` — biome check .
-- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
-- `bun run typecheck` — tsc --noEmit -p tsconfig.build.json
-- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
-- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
-- `bun run build:bundle` — contractspec-bun-build transpile
-- `bun run build:types` — contractspec-bun-build types
-- `bun run registry:build` — bun run scripts/build-registry.ts
-- `bun run prebuild` — contractspec-bun-build prebuild
+### Work with tokens and platform helpers
 
-## Recent Updates
+```ts
+import {
+  defaultTokens,
+  mapTokensForPlatform,
+  withPlatformUI,
+} from "@contractspec/lib.design-system";
 
-- Replace eslint+prettier by biomejs to optimize speed.
-- Add data visualization capabilities.
-- Add table capabilities.
-- Resolve lint, build, and type errors across nine packages.
-- Add AI provider ranking system with ranking-driven model selection.
-- Stabilize marketing header interactions.
+const nativeTokens = mapTokensForPlatform("native");
+const ui = withPlatformUI({
+  tokens: defaultTokens,
+  platform: "web",
+});
+```
 
-## Notes
+## API map
 
-- **High blast radius** — all UI surfaces depend on design tokens; treat token names and values as public API.
-- Component hierarchy must be preserved; do not flatten or restructure without coordinating downstream consumers.
-- Token removals or renames are breaking changes.
+### Theme and platform
+
+- `defaultTokens` and token interfaces from `./theme/tokens`
+- `mapTokensForPlatform` from `./theme/tokenBridge`
+- theme variants
+- `withPlatformUI`
+- `useColorScheme`
+- `useReducedMotion`
+- `useResponsive`
+
+### Renderers and hooks
+
+- renderer exports from `./renderers`
+- form-contract renderer support
+- hooks such as `useListUrlState`
+- navigation-related shared types
+
+### Component composition layers
+
+- atoms
+- forms
+- legal
+- marketing
+- molecules
+- organisms
+- templates
+- visualization
+- agent and approval components
+
+The root barrel is the primary API and already groups these exports in one place.
+
+## Public surface
+
+The root barrel at `src/index.ts` is the main public API for this package.
+
+The export map is broad, but it is centralized:
+
+- theme and platform helpers
+- renderer exports
+- high-level components grouped by composition layer
+- hooks and shared types
+
+The package also ships registry metadata and build support:
+
+- `components.json`
+- `registry/registry.json`
+- `bun run registry:build`
+
+## Operational semantics and gotchas
+
+- Token names and token shapes are compatibility surface.
+- `mapTokensForPlatform()` deliberately returns different token shapes for web and native.
+- `withPlatformUI()` is a lightweight adapter, not a full runtime framework.
+- The root barrel is broad and therefore high-blast-radius.
+- This package depends on both `ui-kit` and `ui-kit-web`.
+- The package includes legal, marketing, agent, app-shell, and visualization compositions, not just low-level primitives.
+
+## When not to use this package
+
+- Do not use it for tiny low-level utilities.
+- Do not use it for router-agnostic links.
+- Do not use it when a single lower-level primitive from `ui-kit` or `ui-kit-web` is enough.
+
+## Related packages
+
+- `@contractspec/lib.ui-kit`
+- `@contractspec/lib.ui-kit-web`
+- `@contractspec/lib.ui-kit-core`
+- `@contractspec/lib.ui-link`
+
+## Local commands
+
+- `bun run lint:check`
+- `bun run typecheck`
+- `bun run test`

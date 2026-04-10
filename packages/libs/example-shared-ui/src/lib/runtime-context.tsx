@@ -2,7 +2,7 @@
 
 import type { ApolloClient } from '@apollo/client';
 import type { TransformEngine } from '@contractspec/lib.presentation-runtime-core/transform-engine';
-import { createContext, useContext } from 'react';
+import { type Context, createContext, useContext } from 'react';
 import type {
 	TemplateDefinition,
 	TemplateId,
@@ -32,8 +32,22 @@ export interface TemplateRuntimeContextValue<
 	resolvePresentation?: (presentationName: string) => unknown;
 }
 
-export const TemplateRuntimeContext =
-	createContext<TemplateRuntimeContextValue | null>(null);
+const TEMPLATE_RUNTIME_CONTEXT_KEY = Symbol.for(
+	'@contractspec/lib.example-shared-ui/template-runtime-context'
+);
+
+type TemplateRuntimeContextStore = typeof globalThis & {
+	[TEMPLATE_RUNTIME_CONTEXT_KEY]?: Context<TemplateRuntimeContextValue | null>;
+};
+
+function getTemplateRuntimeContextSingleton() {
+	const store = globalThis as TemplateRuntimeContextStore;
+	store[TEMPLATE_RUNTIME_CONTEXT_KEY] ??=
+		createContext<TemplateRuntimeContextValue | null>(null);
+	return store[TEMPLATE_RUNTIME_CONTEXT_KEY];
+}
+
+export const TemplateRuntimeContext = getTemplateRuntimeContextSingleton();
 
 export function useTemplateRuntime<
 	THandlers = GenericTemplateHandlers,

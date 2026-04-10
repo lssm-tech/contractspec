@@ -1,75 +1,177 @@
 # @contractspec/lib.knowledge
 
+`@contractspec/lib.knowledge` provides the retrieval, ingestion, query, and access-control primitives used to turn documents and external content into searchable knowledge for agents and workflows.
+
 Website: https://contractspec.io
-
-**RAG and knowledge base primitives.**
-
-## What It Provides
-
-- **Layer**: lib.
-- **Consumers**: ai-agent, personalization, support-bot, jobs, bundles.
-- Related ContractSpec packages include `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
-- Related ContractSpec packages include `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
 ## Installation
 
-`npm install @contractspec/lib.knowledge`
+`bun add @contractspec/lib.knowledge`
 
 or
 
-`bun add @contractspec/lib.knowledge`
+`npm install @contractspec/lib.knowledge`
 
-## Usage
+## What belongs here
 
-Import the root entrypoint from `@contractspec/lib.knowledge`, or choose a documented subpath when you only need one part of the package surface.
+This package currently owns four related concerns:
 
-## Architecture
+- Retrieval contracts and implementations: `KnowledgeRetriever`, `StaticRetriever`, and `VectorRetriever`.
+- Ingestion and indexing pipeline pieces: `DocumentProcessor`, `EmbeddingService`, `VectorIndexer`, and ingestion adapters.
+- Retrieval-augmented query flow: `KnowledgeQueryService`.
+- Access guardrails and localization: `KnowledgeAccessGuard` and the `i18n` surface.
 
-- `src/access` is part of the package's public or composition surface.
-- `src/i18n` is part of the package's public or composition surface.
-- `src/index.ts` is the root public barrel and package entrypoint.
-- `src/ingestion` is part of the package's public or composition surface.
-- `src/query` is part of the package's public or composition surface.
-- `src/retriever` is part of the package's public or composition surface.
-- `src/types.ts` is shared public type definitions.
+Use this package when you need the knowledge-layer primitives inside ContractSpec. It is not the source of truth for knowledge-space specs, tenant bindings, provider SDKs, or background job orchestration.
 
-## Public Entry Points
+## Core workflows
 
-- Export `.` resolves through `./src/index.ts`.
-- Export `./access` resolves through `./src/access/index.ts`.
-- Export `./access/guard` resolves through `./src/access/guard.ts`.
-- Export `./i18n` resolves through `./src/i18n/index.ts`.
-- Export `./i18n/catalogs` resolves through `./src/i18n/catalogs/index.ts`.
-- Export `./i18n/catalogs/en` resolves through `./src/i18n/catalogs/en.ts`.
-- Export `./i18n/catalogs/es` resolves through `./src/i18n/catalogs/es.ts`.
-- Export `./i18n/catalogs/fr` resolves through `./src/i18n/catalogs/fr.ts`.
-- Export `./i18n/keys` resolves through `./src/i18n/keys.ts`.
-- Export `./i18n/locale` resolves through `./src/i18n/locale.ts`.
-- The package publishes 24 total export subpaths; keep docs aligned with `package.json`.
+### Ingest documents into a vector index
 
-## Local Commands
+```ts
+import {
+  DocumentProcessor,
+  EmbeddingService,
+  StorageIngestionAdapter,
+  VectorIndexer,
+} from "@contractspec/lib.knowledge";
 
-- `bun run dev` — contractspec-bun-build dev
-- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
-- `bun run test` — bun test --pass-with-no-tests
-- `bun run lint` — bun lint:fix
-- `bun run lint:check` — biome check .
-- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
-- `bun run typecheck` — tsc --noEmit
-- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
-- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
-- `bun run clean` — rimraf dist .turbo
-- `bun run build:bundle` — contractspec-bun-build transpile
-- `bun run build:types` — contractspec-bun-build types
-- `bun run prebuild` — contractspec-bun-build prebuild
+const processor = new DocumentProcessor();
+const embeddings = new EmbeddingService(embeddingProvider);
+const indexer = new VectorIndexer(vectorStoreProvider, {
+  collection: "knowledge-docs",
+  namespace: "tenant-acme",
+});
 
-## Recent Updates
+const adapter = new StorageIngestionAdapter(processor, embeddings, indexer);
+await adapter.ingestObject(objectFromStorageProvider);
+```
 
-- Replace eslint+prettier by biomejs to optimize speed.
-- Add full i18n support across all 10 packages (en/fr/es, 460 keys).
+### Run retrieval or RAG queries
 
-## Notes
+```ts
+import {
+  KnowledgeQueryService,
+  createVectorRetriever,
+} from "@contractspec/lib.knowledge";
 
-- High blast radius — retriever interface is consumed by multiple AI libs.
-- Ingestion pipeline must stay idempotent; re-ingesting the same document must not create duplicates.
-- Type changes ripple into ai-agent, personalization, and support-bot.
+const retriever = createVectorRetriever({
+  embeddings: embeddingProvider,
+  vectorStore: vectorStoreProvider,
+  spaceCollections: {
+    "support-faq": "knowledge-support-faq",
+  },
+});
+
+const snippets = await retriever.retrieve("How do I rotate a key?", {
+  spaceKey: "support-faq",
+  topK: 3,
+});
+
+const queryService = new KnowledgeQueryService(
+  embeddingProvider,
+  vectorStoreProvider,
+  llmProvider,
+  {
+    collection: "knowledge-support-faq",
+    namespace: "tenant-acme",
+    topK: 5,
+  }
+);
+
+const answer = await queryService.query("How do I rotate a key?");
+```
+
+Typical flow:
+
+1. Extract fragments from raw content.
+2. Embed fragments and upsert them into a vector collection.
+3. Retrieve snippets through a retriever or generate an answer through `KnowledgeQueryService`.
+4. Gate reads and writes with `KnowledgeAccessGuard` when operating against resolved knowledge bindings.
+
+## API map
+
+### Retrieval
+
+- `KnowledgeRetriever`: shared retrieval interface for semantic and static retrieval.
+- `RetrieverConfig`: shared defaults for retriever implementations.
+- `StaticRetriever` and `createStaticRetriever`: in-memory, line-oriented retrieval for simple spaces and tests.
+- `VectorRetriever` and `createVectorRetriever`: embedding + vector-store backed retrieval.
+- `RetrievalOptions`: query filters such as `spaceKey`, `topK`, `minScore`, `tenantId`, and `locale`.
+- `RetrievalResult`: returned content, source, score, and optional metadata.
+
+### Query
+
+- `KnowledgeQueryService`: embed -> search -> prompt -> LLM chat flow for knowledge-backed answers.
+- `KnowledgeQueryConfig`: collection, namespace, prompt, `topK`, and locale settings.
+- `KnowledgeAnswer`: answer text, references, and optional token usage.
+
+### Ingestion
+
+- `RawDocument`, `DocumentFragment`, and `DocumentProcessor`: extract raw document content into indexable fragments.
+- `EmbeddingService`: batch fragment embeddings through an `EmbeddingProvider`.
+- `VectorIndexer` and `VectorIndexConfig`: map embeddings to `VectorStoreProvider.upsert()` requests.
+- `GmailIngestionAdapter`: convert email threads into plaintext documents and index them.
+- `StorageIngestionAdapter`: fetch object content and run the same process/index pipeline.
+
+### Guardrails and i18n
+
+- `KnowledgeAccessGuard` and `KnowledgeAccessGuardOptions`: policy-aware checks for read/write/search operations.
+- `KnowledgeAccessContext` and `KnowledgeAccessResult`: runtime input/output contracts for access checks.
+- `createKnowledgeI18n` and `getDefaultI18n`: localization entrypoints for prompts, guard messages, and ingestion formatting.
+- `./i18n`, `./i18n/catalogs/*`, `./i18n/keys`, `./i18n/locale`, and `./i18n/messages`: public i18n subpaths.
+
+## Public entrypoints
+
+The root barrel at `src/index.ts` re-exports public symbols from:
+
+- `./access`
+- `./ingestion`
+- `./query`
+- `./retriever`
+- `./types`
+
+Published subpaths from `package.json` are grouped around:
+
+- access: `./access`, `./access/guard`
+- retrieval: `./retriever`, `./retriever/interface`, `./retriever/static-retriever`, `./retriever/vector-retriever`
+- query: `./query`, `./query/service`
+- ingestion: `./ingestion`, `./ingestion/document-processor`, `./ingestion/embedding-service`, `./ingestion/gmail-adapter`, `./ingestion/storage-adapter`, `./ingestion/vector-indexer`
+- i18n: `./i18n`, `./i18n/catalogs`, `./i18n/catalogs/en`, `./i18n/catalogs/es`, `./i18n/catalogs/fr`, `./i18n/keys`, `./i18n/locale`, `./i18n/messages`
+- shared types: `./types`
+
+Use `package.json` as the exhaustive source of truth for subpaths; the README calls out the clusters that matter most to consumers.
+
+## Operational semantics and gotchas
+
+- `DocumentProcessor` only ships built-in extractors for `text/plain` and `application/json`.
+- If no extractor matches, `DocumentProcessor.process()` throws unless you registered a fallback such as `*/*`.
+- If an extractor returns no fragments, `DocumentProcessor.process()` returns one empty fragment for the document.
+- `EmbeddingService` batches fragments; the default batch size is `16`.
+- `StaticRetriever.retrieve()` does simple line-level substring matching. It is not semantic retrieval.
+- `VectorRetriever.retrieve()` returns `[]` when the requested `spaceKey` is not mapped to a collection.
+- `VectorRetriever` uses `tenantId` as the vector-store namespace when provided.
+- `KnowledgeQueryService` always runs embed -> vector search -> prompt build -> `LLMProvider.chat()`.
+- `KnowledgeAccessGuard` defaults to blocking writes to `external` and `ephemeral` knowledge categories.
+- `KnowledgeAccessGuard` defaults to requiring workflow binding and not requiring agent binding.
+- `GmailIngestionAdapter` converts threads into plaintext and strips HTML when text bodies are missing.
+- This package localizes access messages, query prompts, and Gmail formatting through the `i18n` surface.
+
+## When not to use this package
+
+- Do not use it as a vector store implementation.
+- Do not use it as an embedding-model implementation.
+- Do not use it as a full sync scheduler or background job system.
+- Do not use it as the source of truth for `KnowledgeSpaceSpec`, knowledge sources, or tenant bindings.
+
+## Related packages
+
+- `@contractspec/lib.contracts-integrations`: provider interfaces used by vector, embedding, LLM, email, and storage integrations.
+- `@contractspec/lib.contracts-spec`: source of knowledge-space specs, resolved bindings, and shared translation helpers.
+- `@contractspec/lib.ai-agent`: major consumer of retrieval and query contracts.
+- Context-storage modules and bundles in the repo reuse the ingestion pipeline primitives for document indexing flows.
+
+## Local commands
+
+- `bun run lint:check`
+- `bun run typecheck`
+- `bun run test`

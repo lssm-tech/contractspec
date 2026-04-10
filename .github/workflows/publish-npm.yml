@@ -62,13 +62,51 @@ jobs:
       - name: Install dependencies
         run: bun install
 
-      - name: Build libraries
-        env:
-          TURBO_TOKEN: ${{ secrets.TURBO_TOKEN }}
-          TURBO_TEAM: ${{ vars.TURBO_TEAM }}
+      - name: Build release communication artifacts
+        run: bun run release:build
+
+      - name: Enforce release communication bundle
+        run: bun packages/apps/cli-contractspec/src/cli.ts release check --strict --baseline main
+
+      - name: Determine stable npm publish targets
+        id: npm-targets
+        shell: bash
         run: |
-          bun run build:not-apps
-          bun turbo run build --filter="@contractspec/app.cli-contractspec"
+          BASE_SHA="${{ github.event.before }}"
+          if [ -z "$BASE_SHA" ] || [ "$BASE_SHA" = "0000000000000000000000000000000000000000" ] || ! git cat-file -e "${BASE_SHA}^{commit}" 2>/dev/null; then
+            if git rev-parse HEAD^ >/dev/null 2>&1; then
+              BASE_SHA=$(git rev-parse HEAD^)
+            else
+              BASE_SHA=$(git rev-parse HEAD)
+            fi
+          fi
+
+          mapfile -t PACKAGE_JSONS < <(git diff --name-only "$BASE_SHA" HEAD | grep -E '(^package.json$|^packages/[^/]+/[^/]+/package.json$)' || true)
+
+          if [ ${#PACKAGE_JSONS[@]} -eq 0 ]; then
+            echo "count=0" >> "$GITHUB_OUTPUT"
+            echo "packages=" >> "$GITHUB_OUTPUT"
+            echo "[publish] Skip stable npm publish: no package version bumps detected."
+            exit 0
+          fi
+
+          PACKAGE_NAMES=$(
+            for file in "${PACKAGE_JSONS[@]}"; do
+              jq -r 'if .private == true or (.name // "") == "" then empty else .name end' "$file"
+            done | sort -u | paste -sd, -
+          )
+
+          if [ -z "$PACKAGE_NAMES" ]; then
+            echo "count=0" >> "$GITHUB_OUTPUT"
+            echo "packages=" >> "$GITHUB_OUTPUT"
+            echo "[publish] Skip stable npm publish: only private package versions changed."
+            exit 0
+          fi
+
+          PACKAGE_COUNT=$(printf '%s' "$PACKAGE_NAMES" | awk -F',' '{print NF}')
+          echo "count=$PACKAGE_COUNT" >> "$GITHUB_OUTPUT"
+          echo "packages=$PACKAGE_NAMES" >> "$GITHUB_OUTPUT"
+          echo "[publish] Stable npm targets ($PACKAGE_COUNT): $PACKAGE_NAMES"
 
       - name: Create Release Pull Request or Publish to npm
         id: changesets
@@ -87,14 +125,15 @@ jobs:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
+          CONTRACTSPEC_RELEASE_PACKAGE_NAMES: ${{ steps.npm-targets.outputs.packages }}
           CONTRACTSPEC_USE_PUBLISH_EXPORTS: 'true'
 
       - name: Verify npm release manifest
-        if: steps.changesets.outputs.hasChangesets == 'false'
+        if: steps.changesets.outputs.hasChangesets == 'false' && steps.npm-targets.outputs.count != '0'
         run: node scripts/verify-release-manifest.js --manifest "${{ env.CONTRACTSPEC_RELEASE_MANIFEST_PATH }}"
 
       - name: Upload npm release manifest
-        if: always() && steps.changesets.outputs.hasChangesets == 'false'
+        if: always() && steps.changesets.outputs.hasChangesets == 'false' && steps.npm-targets.outputs.count != '0'
         uses: actions/upload-artifact@v4
         with:
           name: npm-release-manifest-stable
@@ -102,6 +141,7 @@ jobs:
             ${{ env.CONTRACTSPEC_RELEASE_MANIFEST_PATH }}
             ${{ env.CONTRACTSPEC_RELEASE_SMOKE_SUMMARY_PATH }}
             ${{ env.CONTRACTSPEC_RELEASE_DIR }}/tarballs/*.tgz
+            generated/releases/**/*
           retention-days: 90
 
       - name: Determine non-npm publish targets

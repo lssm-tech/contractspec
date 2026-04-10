@@ -6,6 +6,9 @@ import type { SetupFileResult, SetupPromptCallbacks } from './types';
 const mockSetupCliConfig = mock(() =>
 	Promise.resolve({ action: 'created' } as SetupFileResult)
 );
+const mockSetupAgentsMd = mock(() =>
+	Promise.resolve({ action: 'created' } as SetupFileResult)
+);
 const mockSetupBiomeConfig = mock(() =>
 	Promise.resolve({ action: 'created' } as SetupFileResult)
 );
@@ -21,9 +24,6 @@ const mockSetupMcpClaude = mock(() =>
 const mockSetupCursorRules = mock(() =>
 	Promise.resolve({ action: 'created' } as SetupFileResult)
 );
-const mockSetupAgentsMd = mock(() =>
-	Promise.resolve({ action: 'created' } as SetupFileResult)
-);
 
 const mockFindWorkspaceRoot = mock(() => '/root');
 const mockFindPackageRoot = mock(() => '/root/pkg');
@@ -31,13 +31,13 @@ const mockIsMonorepo = mock(() => false);
 const mockGetPackageName = mock(() => 'pkg');
 
 mock.module('./targets/index', () => ({
+	setupAgentsMd: mockSetupAgentsMd,
 	setupCliConfig: mockSetupCliConfig,
 	setupBiomeConfig: mockSetupBiomeConfig,
 	setupVscodeSettings: mockSetupVscodeSettings,
 	setupMcpCursor: mockSetupMcpCursor,
 	setupMcpClaude: mockSetupMcpClaude,
 	setupCursorRules: mockSetupCursorRules,
-	setupAgentsMd: mockSetupAgentsMd,
 }));
 
 mock.module('../../adapters/workspace', () => ({
@@ -53,6 +53,7 @@ describe('Setup Service', () => {
 	let mockFs: FsAdapter;
 
 	beforeEach(() => {
+		mockSetupAgentsMd.mockClear();
 		mockSetupCliConfig.mockClear();
 		mockSetupBiomeConfig.mockClear();
 		mockSetupVscodeSettings.mockClear();
@@ -77,6 +78,7 @@ describe('Setup Service', () => {
 
 		expect(result.success).toBe(true);
 		// Should call all setup functions
+		expect(mockSetupAgentsMd).toHaveBeenCalled();
 		expect(mockSetupCliConfig).toHaveBeenCalled();
 		expect(mockSetupBiomeConfig).toHaveBeenCalled();
 		expect(mockSetupVscodeSettings).toHaveBeenCalled();
@@ -85,11 +87,12 @@ describe('Setup Service', () => {
 	it('should run setup for specific targets', async () => {
 		await runSetup(mockFs, {
 			workspaceRoot: '/root',
-			targets: ['cli-config'],
+			targets: ['agents-md'],
 			interactive: false,
 		});
 
-		expect(mockSetupCliConfig).toHaveBeenCalled();
+		expect(mockSetupAgentsMd).toHaveBeenCalled();
+		expect(mockSetupCliConfig).not.toHaveBeenCalled();
 		expect(mockSetupBiomeConfig).not.toHaveBeenCalled();
 		expect(mockSetupVscodeSettings).not.toHaveBeenCalled();
 	});

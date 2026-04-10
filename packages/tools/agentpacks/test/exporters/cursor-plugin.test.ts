@@ -19,6 +19,7 @@ beforeAll(() => {
 	mkdirSync(join(packDir, 'rules'), { recursive: true });
 	mkdirSync(join(packDir, 'commands'), { recursive: true });
 	mkdirSync(join(packDir, 'agents'), { recursive: true });
+	mkdirSync(join(packDir, 'assets'), { recursive: true });
 	mkdirSync(join(packDir, 'skills', 'release'), { recursive: true });
 	mkdirSync(join(packDir, 'hooks'), { recursive: true });
 
@@ -35,6 +36,14 @@ beforeAll(() => {
 			logo: 'assets/logo.svg',
 			tags: ['cursor', 'plugin'],
 		})
+	);
+	writeFileSync(
+		join(packDir, 'README.md'),
+		'# export-pack\n\nExported pack README.\n'
+	);
+	writeFileSync(
+		join(packDir, 'assets', 'logo.svg'),
+		'<svg xmlns="http://www.w3.org/2000/svg"></svg>\n'
 	);
 	writeFileSync(
 		join(packDir, 'rules', 'code-quality.md'),
@@ -201,5 +210,15 @@ describe('exportCursorPlugin', () => {
 		const skillContent = readFileSync(skillFile, 'utf-8');
 		expect(skillContent).toContain('allowed-tools');
 		expect(skillContent).toContain('compatibility');
+	});
+
+	test('exports README and logo assets', () => {
+		const result = exportPack();
+
+		const readmeFile = join(result.outputDir, 'README.md');
+		const logoFile = join(result.outputDir, 'assets', 'logo.svg');
+		expect(existsSync(readmeFile)).toBe(true);
+		expect(existsSync(logoFile)).toBe(true);
+		expect(readFileSync(readmeFile, 'utf-8')).toContain('export-pack');
 	});
 });

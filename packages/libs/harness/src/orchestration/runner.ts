@@ -1,5 +1,5 @@
-import { randomUUID } from 'node:crypto';
 import type { HarnessRunRecord } from '@contractspec/lib.contracts-spec';
+import { randomUUID } from 'crypto';
 import { normalizeArtifacts } from '../evidence/normalizer';
 import { canFallbackToVisual, classifyHarnessStep } from '../policy/classifier';
 import type {

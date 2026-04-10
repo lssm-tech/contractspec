@@ -12,7 +12,6 @@ import {
 	type MergedFeatures,
 } from '../../src/core/feature-merger.js';
 import { PackLoader } from '../../src/core/pack-loader.js';
-import { AgentsMdTarget } from '../../src/targets/agents-md.js';
 import type { GenerateOptions } from '../../src/targets/base-target.js';
 import { ClaudeCodeTarget } from '../../src/targets/claude-code.js';
 import { CodexCliTarget } from '../../src/targets/codex-cli.js';
@@ -230,6 +229,25 @@ describe('CodexCliTarget', () => {
 		expect(result.filesWritten.length).toBeGreaterThan(0);
 		expect(existsSync(join(TEST_DIR, '.codex', 'memories'))).toBe(true);
 	});
+
+	test('generates hooks and MCP in .codex/', () => {
+		const result = target.generate(makeOptions());
+		const hooksPath = join(TEST_DIR, '.codex', 'hooks.json');
+		const mcpPath = join(TEST_DIR, '.codex', 'mcp.json');
+		expect(result.filesWritten.some((f) => f.includes('hooks.json'))).toBe(
+			true
+		);
+		expect(result.filesWritten.some((f) => f.includes('mcp.json'))).toBe(true);
+		expect(existsSync(hooksPath)).toBe(true);
+		expect(existsSync(mcpPath)).toBe(true);
+
+		const hooks = JSON.parse(readFileSync(hooksPath, 'utf-8'));
+		expect(hooks.version).toBe(1);
+		expect(hooks.hooks.afterFileEdit).toHaveLength(1);
+
+		const mcp = JSON.parse(readFileSync(mcpPath, 'utf-8'));
+		expect(mcp.mcpServers.test).toBeDefined();
+	});
 });
 
 describe('GeminiCliTarget', () => {
@@ -249,21 +267,5 @@ describe('CopilotTarget', () => {
 		expect(
 			result.filesWritten.some((f) => f.includes('copilot-instructions'))
 		).toBe(true);
-	});
-});
-
-describe('AgentsMdTarget', () => {
-	const target = new AgentsMdTarget();
-
-	test('generates AGENTS.md at project root', () => {
-		const result = target.generate(makeOptions());
-		expect(result.filesWritten.some((f) => f.endsWith('AGENTS.md'))).toBe(true);
-		expect(existsSync(join(TEST_DIR, 'AGENTS.md'))).toBe(true);
-	});
-
-	test('contains rule content in AGENTS.md', () => {
-		target.generate(makeOptions());
-		const content = readFileSync(join(TEST_DIR, 'AGENTS.md'), 'utf-8');
-		expect(content).toContain('overview');
 	});
 });

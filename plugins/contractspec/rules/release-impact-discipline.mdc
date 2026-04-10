@@ -11,7 +11,8 @@ Core rules:
 
 - Any contract change must be categorized as additive, compatible behavior change, or breaking change.
 - Breaking changes require explicit migration notes and version bump rationale.
-- Release reports must include impact output, validation results, and unresolved risk items.
+- Release reports must include impact output, validation results, unresolved risk items, and the generated communication bundle.
+- The communication bundle must include: maintainer summary, customer patch note, migration guide, and agent upgrade prompt.
 - MCP integrations must be health-checked with successful endpoint initialization.
 
 Required release checks:
@@ -19,3 +20,5 @@ Required release checks:
 1. `contractspec impact --baseline main --format markdown`
 2. `contractspec ci --check-drift`
 3. `contractspec version analyze --baseline main`
+4. `contractspec release build`
+5. `contractspec release brief`

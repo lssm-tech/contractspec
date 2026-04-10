@@ -22,6 +22,13 @@ beforeAll(() => {
 					sessionStart: [{ type: 'command', command: 'echo cursor-start' }],
 				},
 			},
+			codexcli: {
+				hooks: {
+					beforeShellExecution: [
+						{ type: 'command', command: 'echo codex-before-shell' },
+					],
+				},
+			},
 			opencode: {
 				hooks: {
 					preToolUse: [{ type: 'command', command: 'echo pre-tool' }],
@@ -51,6 +58,7 @@ describe('parseHooks', () => {
 	test('parses target overrides', () => {
 		const hooks = parseHooks(TEST_DIR, 'test-pack')!;
 		expect(hooks.targetOverrides.cursor).toBeDefined();
+		expect(hooks.targetOverrides.codexcli).toBeDefined();
 		expect(hooks.targetOverrides.opencode).toBeDefined();
 	});
 
@@ -81,5 +89,12 @@ describe('resolveHooksForTarget', () => {
 		const ocHooks = resolveHooksForTarget(hooks, 'opencode');
 		expect(ocHooks.preToolUse).toBeDefined();
 		expect(ocHooks.preToolUse).toHaveLength(1);
+	});
+
+	test('includes codex target-specific overrides', () => {
+		const hooks = parseHooks(TEST_DIR, 'test-pack')!;
+		const codexHooks = resolveHooksForTarget(hooks, 'codexcli');
+		expect(codexHooks.beforeShellExecution).toBeDefined();
+		expect(codexHooks.beforeShellExecution).toHaveLength(1);
 	});
 });

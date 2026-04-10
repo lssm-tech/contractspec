@@ -85,11 +85,6 @@ export function runGenerate(
 	// Step 3: Resolve targets
 	const targetIds = resolveTargets(config);
 
-	// Always include agentsmd for auto AGENTS.md generation
-	if (!targetIds.includes('agentsmd')) {
-		targetIds.push('agentsmd');
-	}
-
 	const targets = getTargets(targetIds);
 
 	if (targets.length === 0) {
@@ -108,7 +103,7 @@ export function runGenerate(
 				target.supportsFeature(f as FeatureId)
 			);
 
-			if (effectiveFeatures.length === 0 && target.id !== 'agentsmd') {
+			if (effectiveFeatures.length === 0) {
 				if (verbose) {
 					console.log(
 						chalk.dim(`  Skipping ${target.name} (no enabled features)`)

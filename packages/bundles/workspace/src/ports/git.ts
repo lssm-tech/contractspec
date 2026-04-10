@@ -7,6 +7,11 @@
  */
 export interface GitAdapter {
 	/**
+	 * Get the current branch name when available.
+	 */
+	currentBranch(): Promise<string | undefined>;
+
+	/**
 	 * Get file contents at a specific git ref (branch, tag, commit).
 	 */
 	showFile(ref: string, filePath: string): Promise<string>;

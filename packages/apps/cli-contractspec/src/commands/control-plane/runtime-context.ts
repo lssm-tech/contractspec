@@ -2,14 +2,19 @@ import {
 	ChannelApprovalService,
 	type ChannelRuntimeStore,
 	ChannelTraceService,
+	createExecutionLaneOperatorRuntime,
+	ExecutionLaneOperatorService,
 	InMemoryChannelRuntimeStore,
+	type LaneRuntimeStore,
 	PostgresChannelRuntimeStore,
 } from '@contractspec/integration.runtime/channel';
 
 export interface ControlPlaneRuntimeContext {
 	store: ChannelRuntimeStore;
+	executionLaneStore: LaneRuntimeStore;
 	approvalService: ChannelApprovalService;
 	traceService: ChannelTraceService;
+	executionLaneService: ExecutionLaneOperatorService;
 	dispose: () => Promise<void>;
 }
 
@@ -22,11 +27,16 @@ export async function createControlPlaneRuntimeContext(): Promise<ControlPlaneRu
 	}
 	if (storageMode === 'memory') {
 		const store = new InMemoryChannelRuntimeStore();
+		const executionLaneRuntime = await createExecutionLaneOperatorRuntime({
+			storageMode: 'memory',
+		});
 		return {
 			store,
+			executionLaneStore: executionLaneRuntime.store,
 			approvalService: new ChannelApprovalService(store),
 			traceService: new ChannelTraceService(store),
-			dispose: async () => {},
+			executionLaneService: executionLaneRuntime.service,
+			dispose: executionLaneRuntime.dispose,
 		};
 	}
 
@@ -41,14 +51,24 @@ export async function createControlPlaneRuntimeContext(): Promise<ControlPlaneRu
 	const { Pool } = await import('pg');
 	const pool = new Pool({ connectionString: databaseUrl });
 	const store = new PostgresChannelRuntimeStore(pool);
+	const executionLaneRuntime = await createExecutionLaneOperatorRuntime({
+		storageMode: 'postgres',
+		databaseUrl,
+		createPool(connectionString) {
+			return new Pool({ connectionString });
+		},
+	});
 	await store.initializeSchema();
+	await executionLaneRuntime.initialize();
 
 	return {
 		store,
+		executionLaneStore: executionLaneRuntime.store,
 		approvalService: new ChannelApprovalService(store),
 		traceService: new ChannelTraceService(store),
+		executionLaneService: executionLaneRuntime.service,
 		dispose: async () => {
-			await pool.end();
+			await Promise.all([pool.end(), executionLaneRuntime.dispose()]);
 		},
 	};
 }

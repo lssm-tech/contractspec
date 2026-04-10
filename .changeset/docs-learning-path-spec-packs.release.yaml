@@ -1,0 +1,42 @@
+schemaVersion: "1"
+slug: docs-learning-path-spec-packs
+summary: Expand the spec-pack docs into a fuller learning path across the public docs site.
+isBreaking: false
+packages:
+  - name: "@contractspec/bundle.library"
+    releaseType: patch
+  - name: "@contractspec/app.web-landing"
+    releaseType: patch
+affectedRuntimes:
+  - browser
+  - node
+affectedFrameworks:
+  - react
+  - nextjs
+audiences:
+  - kind: maintainer
+    summary: The docs bundle and web app now expose Connect, module-bundle, and Builder workbench guides as one linked learning path instead of isolated pages.
+    affectedPackages:
+      - "@contractspec/bundle.library"
+      - "@contractspec/app.web-landing"
+  - kind: customer
+    summary: Public docs readers can follow a clearer spec-pack learning path from overview pages into Connect, module bundles, and Builder workbench hosting guides.
+    affectedPackages:
+      - "@contractspec/app.web-landing"
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: review-docs-learning-path-navigation
+    title: Review the updated spec-pack learning path
+    summary: Confirm the new guide pages and cross-links appear in the expected docs navigation flow.
+    level: manual
+    instructions:
+      - Open the public docs overview and verify the new learning-path entries for Connect, module bundles, and hosting the Builder workbench.
+      - Follow the related-page links between the spec overview, architecture references, and Studio/Builder guides to confirm the intended navigation loop.
+validation:
+  commands:
+    - cd packages/bundles/library && bun test && bun run typecheck
+    - cd packages/apps/web-landing && bun run build:types && bun test
+  evidence:
+    - The docs bundle now includes the practical spec-pack pages and related-page metadata needed for a coherent learning-path flow.
+    - The public docs site surfaces those pages on the homepage and route wiring, so readers can traverse the new Connect and Builder-oriented learning path without dead ends.

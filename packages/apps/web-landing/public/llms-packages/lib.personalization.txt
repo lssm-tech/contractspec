@@ -1,79 +1,177 @@
 # @contractspec/lib.personalization
 
+`@contractspec/lib.personalization` tracks behavior events, summarizes them into actionable insights, and converts those insights into personalization outputs such as overlay suggestions. It also defines the shared preference-dimensions model consumed by runtime layers.
+
 Website: https://contractspec.io
-
-**Behavior tracking, analysis, and adaptation helpers for ContractSpec personalization.**
-
-## What It Provides
-
-- **Layer**: lib.
-- **Consumers**: bundles, example apps.
-- `src/docs/` contains docblocks and documentation-facing exports.
-- Related ContractSpec packages include `@contractspec/lib.bus`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.knowledge`, `@contractspec/lib.overlay-engine`, `@contractspec/lib.schema`, `@contractspec/lib.surface-runtime`, ...
-- `src/docs/` contains docblocks and documentation-facing exports.
 
 ## Installation
 
-`npm install @contractspec/lib.personalization`
+`bun add @contractspec/lib.personalization`
 
 or
 
-`bun add @contractspec/lib.personalization`
+`npm install @contractspec/lib.personalization`
 
-## Usage
+## What belongs here
 
-Import the root entrypoint from `@contractspec/lib.personalization`, or choose a documented subpath when you only need one part of the package surface.
+This package currently has two jobs:
 
-## Architecture
+- Behavior telemetry and analysis: `tracker`, `store`, `analyzer`, `adapter`, and `types` handle event capture, storage, summarization, and conversion into adaptation hints.
+- Shared preference contracts: `preference-dimensions` defines the 7-dimension personalization model and the adapter types used by runtime consumers.
 
-- `src/adapter.ts` is part of the package's public or composition surface.
-- `src/analyzer.ts` is part of the package's public or composition surface.
-- `src/docs/` contains docblocks and documentation-facing exports.
-- `src/index.ts` is the root public barrel and package entrypoint.
-- `src/preference-dimensions.ts` is part of the package's public or composition surface.
-- `src/store.ts` is part of the package's public or composition surface.
-- `src/tracker.ts` is part of the package's public or composition surface.
-- `src/types.ts` is shared public type definitions.
+Use this package when you need a thin personalization layer inside ContractSpec. Do not use it as a general analytics platform or as the full overlay runtime.
 
-## Public Entry Points
+## Core workflow
 
-- Export `.` resolves through `./src/index.ts`.
-- Export `./adapter` resolves through `./src/adapter.ts`.
-- Export `./analyzer` resolves through `./src/analyzer.ts`.
-- Export `./docs` resolves through `./src/docs/index.ts`.
-- Export `./docs/behavior-tracking.docblock` resolves through `./src/docs/behavior-tracking.docblock.ts`.
-- Export `./docs/overlay-engine.docblock` resolves through `./src/docs/overlay-engine.docblock.ts`.
-- Export `./docs/workflow-composition.docblock` resolves through `./src/docs/workflow-composition.docblock.ts`.
-- Export `./preference-dimensions` resolves through `./src/preference-dimensions.ts`.
-- Export `./store` resolves through `./src/store.ts`.
-- Export `./tracker` resolves through `./src/tracker.ts`.
-- The package publishes 11 total export subpaths; keep docs aligned with `package.json`.
+```ts
+import {
+  BehaviorAnalyzer,
+  createBehaviorTracker,
+  insightsToOverlaySuggestion,
+  InMemoryBehaviorStore,
+} from "@contractspec/lib.personalization";
 
-## Local Commands
+const store = new InMemoryBehaviorStore();
 
-- `bun run dev` — contractspec-bun-build dev
-- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
-- `bun run test` — bun test --pass-with-no-tests
-- `bun run lint` — bun lint:fix
-- `bun run lint:check` — biome check .
-- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
-- `bun run typecheck` — tsc --noEmit
-- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
-- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
-- `bun run clean` — rimraf dist .turbo
-- `bun run build:bundle` — contractspec-bun-build transpile
-- `bun run build:types` — contractspec-bun-build types
-- `bun run prebuild` — contractspec-bun-build prebuild
+const tracker = createBehaviorTracker({
+  store,
+  context: {
+    tenantId: "acme",
+    userId: "user-123",
+    role: "manager",
+  },
+  autoFlushIntervalMs: 5000,
+});
 
-## Recent Updates
+tracker.trackFieldAccess({
+  operation: "billing.createOrder",
+  field: "internalNotes",
+});
+tracker.trackFieldAccess({
+  operation: "billing.createOrder",
+  field: "customerReference",
+});
+tracker.trackFeatureUsage({
+  feature: "workflow-editor",
+  action: "opened",
+});
+tracker.trackWorkflowStep({
+  workflow: "invoice-approval",
+  step: "review",
+  status: "entered",
+});
 
-- Replace eslint+prettier by biomejs to optimize speed.
-- Vercel AI SDK parity + surface-runtime i18n and bundle alignment.
-- Bundle spec alignment, i18n support, PM workbench pilot.
-- Upgrade dependencies.
+await tracker.flush();
+await tracker.dispose();
 
-## Notes
+const analyzer = new BehaviorAnalyzer(store, {
+  fieldInactivityThreshold: 2,
+});
 
-- Tracker interface is the adapter boundary — implementation details must not leak.
-- Behavior data schema must stay backward-compatible; older events must remain parseable.
-- Depends on bus, overlay-engine, and knowledge — coordinate cross-lib changes.
+const insights = await analyzer.analyze({
+  tenantId: "acme",
+  userId: "user-123",
+  windowMs: 7 * 24 * 60 * 60 * 1000,
+});
+
+const overlay = insightsToOverlaySuggestion(insights, {
+  overlayId: "acme-order-form",
+  tenantId: "acme",
+  capability: "billing.createOrder",
+});
+```
+
+Typical flow:
+
+1. Record behavior events through `BehaviorTracker`.
+2. Persist and summarize those events through a `BehaviorStore`.
+3. Analyze the summary with `BehaviorAnalyzer`.
+4. Convert insights into an `OverlaySpec` suggestion or workflow adaptation hints.
+
+## API map
+
+### Main runtime APIs
+
+- `BehaviorStore`: persistence boundary for recording, querying, and summarizing `BehaviorEvent` data.
+- `InMemoryBehaviorStore`: simple in-memory implementation for tests, demos, and local composition.
+- `BehaviorTracker` and `createBehaviorTracker`: buffered event capture with tenant/user context and OpenTelemetry instrumentation.
+- `BehaviorAnalyzer`: converts `BehaviorSummary` data into `BehaviorInsights`.
+- `insightsToOverlaySuggestion`: turns analysis output into an overlay-engine `OverlaySpec`.
+- `insightsToWorkflowAdaptations`: turns workflow bottlenecks into lightweight adaptation notes.
+
+### Core data contracts
+
+- `BehaviorEvent`: discriminated union with three event kinds: `field_access`, `feature_usage`, and `workflow_step`.
+- `BehaviorQuery`: filter shape used by `BehaviorStore.query()` and `BehaviorStore.summarize()`.
+- `BehaviorSummary`: aggregated counts returned by store summarization.
+- `BehaviorInsights`: analyzer output including hidden-field candidates, bottlenecks, and layout preference hints.
+- `BehaviorAnalyzerOptions`: tuning knobs for inactivity threshold and minimum workflow sample size.
+- `OverlaySuggestionOptions`: metadata required to build an overlay suggestion.
+- `WorkflowAdaptation`: workflow, step, and note triple derived from bottlenecks.
+
+### Preference model contracts
+
+- `PreferenceDimensions`: the shared 7-dimension personalization model.
+- `PreferenceScope`: source scope used when a preference value is resolved.
+- `ResolvedPreferenceProfile`: canonical resolved preferences plus source attribution and constraint notes.
+- `PreferenceResolutionContext`: minimal runtime context required to resolve a preference profile.
+- `BundlePreferenceAdapter`: contract for resolving and persisting preference patches in runtime consumers.
+
+## Public entrypoints
+
+The root barrel at `src/index.ts` re-exports public symbols from:
+
+- `adapter`
+- `analyzer`
+- `preference-dimensions`
+- `store`
+- `tracker`
+- `types`
+
+Published subpaths from `package.json`:
+
+- `.`
+- `./adapter`
+- `./analyzer`
+- `./docs`
+- `./docs/behavior-tracking.docblock`
+- `./docs/overlay-engine.docblock`
+- `./docs/workflow-composition.docblock`
+- `./preference-dimensions`
+- `./store`
+- `./tracker`
+- `./types`
+
+For application code, prefer `.` or the focused subpaths above. The `./docs*` subpaths exist for docblock registration and documentation surfaces.
+
+## Operational semantics and gotchas
+
+- `BehaviorTracker` buffers events in memory and flushes when the buffer reaches the configured size or when `autoFlushIntervalMs` is enabled.
+- `flush()` persists the current buffer with `BehaviorStore.bulkRecord()`.
+- `dispose()` clears the interval timer, then flushes any remaining buffered events.
+- Each enqueue also emits OpenTelemetry metrics and tracing through `@opentelemetry/api`.
+- `BehaviorAnalyzer` uses deterministic threshold heuristics. It does not do ranking, learning, or probabilistic inference.
+- `insightsToOverlaySuggestion()` currently emits only `hideField` and `reorderFields` modifications.
+- `layoutPreference` is inferred from field-count thresholds, not from UI render telemetry.
+- `PreferenceDimensions` and related types are contracts. Durable persistence and runtime resolution live elsewhere.
+
+## When not to use this package
+
+- Do not use it as a full analytics warehouse or reporting system.
+- Do not use it as the durable preference persistence layer.
+- Do not use it as the overlay runtime or overlay registry implementation.
+- Do not use it when you need workflow composition itself; this package only emits adaptation hints.
+
+## Related packages
+
+- `@contractspec/lib.overlay-engine`: runtime for registering, validating, and applying overlays.
+- `@contractspec/lib.surface-runtime`: runtime consumer of preference resolution and adaptive surface behavior.
+- `@contractspec/lib.workflow-composer`: workflow extension and composition runtime.
+- `@contractspec/lib.contracts-spec`: shared spec and docblock contracts used across ContractSpec.
+
+## Local commands
+
+- `bun run lint:check`
+- `bun run typecheck`
+- `bun run test`
+- `bun run build`

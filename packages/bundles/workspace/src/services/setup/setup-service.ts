@@ -145,6 +145,8 @@ async function setupTarget(
 	prompts: SetupPromptCallbacks
 ): Promise<SetupFileResult> {
 	switch (target) {
+		case 'agents-md':
+			return setupAgentsMd(fs, options, prompts);
 		case 'cli-config':
 			return setupCliConfig(fs, options, prompts);
 		case 'biome-config':
@@ -157,8 +159,6 @@ async function setupTarget(
 			return setupMcpClaude(fs, options, prompts);
 		case 'cursor-rules':
 			return setupCursorRules(fs, options, prompts);
-		case 'agents-md':
-			return setupAgentsMd(fs, options, prompts);
 		default:
 			return {
 				target,

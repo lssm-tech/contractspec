@@ -1,5 +1,53 @@
 # @contractspec/example.learning-journey-ui-coaching
 
+## 3.7.18
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Introduce the Builder v3 control plane as a governed authoring layer over external execution providers.
+- Updated dependencies because of Implement ContractSpec Connect as a first-class spec, runtime, and CLI workflow.
+- Updated dependencies because of Pass Bun transpile paths through production JSX mode so published browser bundles stop emitting the dev runtime.
+  - @contractspec/example.learning-journey-ambient-coach@3.7.18
+  - @contractspec/example.learning-journey-crm-onboarding@3.7.18
+  - @contractspec/example.learning-journey-ui-shared@3.7.18
+  - @contractspec/module.learning-journey@3.7.17
+  - @contractspec/lib.contracts-spec@5.2.0
+  - @contractspec/lib.design-system@3.8.11
+  - @contractspec/lib.ui-kit-web@3.9.10
+
+## 3.7.17
+
+### Patch Changes
+
+- Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+  - Migration: Keep Node-only workflow runner code out of "use workflow" entrypoints.
+  - Deprecations: Importing the broad `@contractspec/lib.contracts-spec/workflow` barrel from sandboxed workflow entrypoints is discouraged.
+- Updated dependencies because of Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+- Updated dependencies because of Add versioning-backed release capsules, generated patch notes, and guided upgrade flows.
+  - @contractspec/example.learning-journey-crm-onboarding@3.7.17
+  - @contractspec/example.learning-journey-ambient-coach@3.7.17
+  - @contractspec/example.learning-journey-ui-shared@3.7.17
+  - @contractspec/module.learning-journey@3.7.16
+  - @contractspec/lib.contracts-spec@5.1.0
+  - @contractspec/lib.design-system@3.8.10
+  - @contractspec/lib.ui-kit-web@3.9.9
+
+## 3.7.16
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/example.learning-journey-crm-onboarding@3.7.16
+  - @contractspec/example.learning-journey-ambient-coach@3.7.16
+  - @contractspec/example.learning-journey-ui-shared@3.7.16
+  - @contractspec/module.learning-journey@3.7.15
+  - @contractspec/lib.contracts-spec@5.0.4
+  - @contractspec/lib.design-system@3.8.9
+  - @contractspec/lib.ui-kit-web@3.9.8
+
 ## 3.7.15
 
 ### Patch Changes

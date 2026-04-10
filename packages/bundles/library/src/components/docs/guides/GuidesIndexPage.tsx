@@ -39,6 +39,27 @@ const guides = [
 		time: '20 min',
 	},
 	{
+		title: 'Build a first module bundle',
+		description:
+			'Define one bundle spec, resolve a surface plan, and render it through the React host layer.',
+		href: '/docs/guides/first-module-bundle',
+		time: '20 min',
+	},
+	{
+		title: 'Host the Builder workbench',
+		description:
+			'Wire a Builder workspace snapshot, common commands, runtime modes, and mobile review links into the reusable host.',
+		href: '/docs/guides/host-builder-workbench',
+		time: '20 min',
+	},
+	{
+		title: 'Use Connect in a repo',
+		description:
+			'Enable Connect, verify agent actions locally, and inspect the resulting review and replay artifacts.',
+		href: '/docs/guides/connect-in-a-repo',
+		time: '15 min',
+	},
+	{
 		title: 'CI diff gating',
 		description:
 			'Use deterministic checks to catch drift and risky changes before they ship.',

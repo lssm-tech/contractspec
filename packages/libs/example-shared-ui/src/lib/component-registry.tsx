@@ -36,7 +36,22 @@ export class TemplateComponentRegistry {
 	}
 }
 
-export const templateComponentRegistry = new TemplateComponentRegistry();
+const TEMPLATE_COMPONENT_REGISTRY_KEY = Symbol.for(
+	'@contractspec/lib.example-shared-ui/template-component-registry'
+);
+
+type TemplateComponentRegistryStore = typeof globalThis & {
+	[TEMPLATE_COMPONENT_REGISTRY_KEY]?: TemplateComponentRegistry;
+};
+
+function getTemplateComponentRegistrySingleton() {
+	const store = globalThis as TemplateComponentRegistryStore;
+	store[TEMPLATE_COMPONENT_REGISTRY_KEY] ??= new TemplateComponentRegistry();
+	return store[TEMPLATE_COMPONENT_REGISTRY_KEY];
+}
+
+export const templateComponentRegistry =
+	getTemplateComponentRegistrySingleton();
 
 export function registerTemplateComponents(
 	templateId: TemplateId,

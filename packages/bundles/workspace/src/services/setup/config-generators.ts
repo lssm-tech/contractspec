@@ -202,111 +202,60 @@ defineCommand({
 
 /**
  * Generate AGENTS.md content.
- *
- * Adapts paths and instructions based on monorepo scope.
  */
-export function generateAgentsMd(options: SetupOptions): string {
-	const projectName = options.projectName ?? 'This Project';
+export function generateAgentsGuide(options: SetupOptions): string {
+	const projectName = options.projectName ?? 'this project';
 	const isPackageLevel = options.isMonorepo && options.scope === 'package';
-
-	// Contract path depends on scope
-	const contractPath = 'src/contracts/';
-
-	const monorepoSection = options.isMonorepo
-		? `
-## Monorepo Structure
-
-This is a monorepo. Contracts can exist at multiple levels:
-
-| Level | Location | Use Case |
-|-------|----------|----------|
-| Package | \`packages/*/src/contracts/\` | Package-specific contracts |
-| Workspace | \`src/contracts/\` | Shared cross-package contracts |
-
-When adding a contract, consider:
-- Is this specific to one package? → Add at package level
-- Is this shared across packages? → Add at workspace level
-
-### Current Scope
-
-${isPackageLevel ? `You are working at the **package level**: \`${options.packageName ?? options.packageRoot}\`` : 'You are working at the **workspace level**.'}
-`
+	const targetLabel =
+		isPackageLevel && options.packageName
+			? `${options.packageName} package`
+			: projectName;
+	const basePath = 'src/contracts';
+	const monorepoNote = options.isMonorepo
+		? isPackageLevel
+			? `\n## Monorepo Scope\n\nThis guide is scoped to the current package.\n- Prefer package-local contracts under \`${basePath}/\`\n- Check workspace-level rules only when a change crosses package boundaries.\n`
+			: `\n## Monorepo Scope\n\nThis guide is scoped to the workspace root.\n- Shared contracts may live in multiple packages under \`packages/*/src/contracts/\`\n- Prefer the nearest package guide when working inside a specific package.\n`
 		: '';
 
-	return `# AI Agent Guide
+	return `# ContractSpec AI Guide
 
-This repository uses **ContractSpec** for spec-first development. AI agents should follow these guidelines.
+Scope: \`${targetLabel}\`
 
-## Project: ${projectName}
+This project uses ContractSpec for spec-first development. Treat contracts as the source of truth for implementation changes.
 
-## ContractSpec Overview
+## Core Rules
 
-ContractSpec is a deterministic, spec-first compiler that keeps AI-written software coherent, safe, and regenerable.
+- Update contracts before implementation code.
+- Validate contracts after changes with \`contractspec validate\`.
+- Regenerate derived artifacts before considering the work complete.
+- Prefer existing package-local guides and READMEs when working in a nested package.
+${monorepoNote}
+## Contract Locations
 
-### Key Principles
+- \`${basePath}/operations/\` - command and query specs
+- \`${basePath}/events/\` - domain and integration events
+- \`${basePath}/presentations/\` - UI presentation contracts
+- \`${basePath}/features/\` - feature module contracts
 
-1. **Contracts are the source of truth** - Always check/update contracts before modifying implementation.
-2. **Safe regeneration** - Code can be regenerated from specs without breaking invariants.
-3. **Multi-surface consistency** - API, events, and UI stay in sync via shared contracts.
-${monorepoSection}
-## Working in This Repository
+## Recommended Workflow
 
-### Before Making Changes
+1. Check whether a contract already exists for the change.
+2. Update or create the contract first.
+3. Run validation and generation commands.
+4. Review downstream code and tests affected by the contract update.
 
-1. Check for existing contracts in \`${contractPath}\`
-2. If a contract exists, update it first
-3. Regenerate implementation with \`contractspec build\`
-4. Validate with \`contractspec validate\`
+## Key Commands
 
-### Creating New Features
+- \`contractspec create\` - scaffold a new contract
+- \`contractspec validate\` - validate contract integrity
+- \`contractspec build\` - generate implementation artifacts
+- \`contractspec doctor\` - verify workspace configuration
 
-1. Create a feature spec: \`contractspec create --type=feature\`
-2. Add operations: \`contractspec create --type=operation\`
-3. Add events if needed: \`contractspec create --type=event\`
-4. Build implementation: \`contractspec build\`
+## Working Agreement
 
-### Contract Locations
-
-| Type | Location |
-|------|----------|
-| Operations | \`${contractPath}operations/\` |
-| Events | \`${contractPath}events/\` |
-| Presentations | \`${contractPath}presentations/\` |
-| Features | \`${contractPath}features/\` |
-
-## MCP Tools Available
-
-The ContractSpec MCP server provides these tools:
-
-- \`integrity.analyze\` - Check contract health
-- \`specs.list\` - List all specs
-- \`specs.validate\` - Validate a spec file
-- \`specs.create\` - Create new specs
-- \`deps.analyze\` - Analyze dependencies
-
-## Common Tasks
-
-### Add a new API endpoint
-
-\`\`\`bash
-contractspec create --type=operation --name=myService.newAction
-\`\`\`
-
-### Add a new event
-
-\`\`\`bash
-contractspec create --type=event --name=entity.changed
-\`\`\`
-
-### Check contract integrity
-
-\`\`\`bash
-contractspec integrity
-\`\`\`
-
-## Nested AGENTS.md
-
-More specific instructions may exist in subdirectories. Check for \`AGENTS.md\` files in the relevant package or module.
+- Keep changes spec-first, deterministic, and reviewable.
+- Do not change generated outputs without updating their source contract.
+- When touching nested packages, prefer the nearest \`AGENTS.md\` and \`README.md\` as the local source of truth.
 `;
 }
 

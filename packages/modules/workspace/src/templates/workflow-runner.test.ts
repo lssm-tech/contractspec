@@ -13,12 +13,14 @@ describe('generateWorkflowRunnerTemplate', () => {
 		expect(code).toContain(
 			"import { MyWorkflow } from './my-workflow.contracts'"
 		);
-		expect(code).toContain('import {');
-		expect(code).toContain('InMemoryStateStore,');
-		expect(code).toContain('WorkflowRegistry,');
-		expect(code).toContain('WorkflowRunner,');
 		expect(code).toContain(
-			"} from '@contractspec/lib.contracts-spec/workflow'"
+			"import { InMemoryStateStore } from '@contractspec/lib.contracts-spec/workflow/adapters';"
+		);
+		expect(code).toContain(
+			"import { WorkflowRunner } from '@contractspec/lib.contracts-spec/workflow/runner';"
+		);
+		expect(code).toContain(
+			"import { WorkflowRegistry } from '@contractspec/lib.contracts-spec/workflow/spec';"
 		);
 		expect(code).toContain('registry.register(MyWorkflow)');
 		expect(code).toContain(

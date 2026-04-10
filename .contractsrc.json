@@ -28,5 +28,73 @@
 	},
 	"formatter": {
 		"type": "biome"
+	},
+	"versioning": {
+		"autoBump": false,
+		"bumpStrategy": "impact",
+		"changelogTiers": ["spec", "library", "monorepo"],
+		"format": "keep-a-changelog",
+		"commitChanges": false,
+		"createTags": false,
+		"integrateWithChangesets": true
+	},
+	"hooks": {
+		"pre-commit": ["contractspec validate", "contractspec integrity check"]
+	},
+	"release": {
+		"enforceOn": "release-branch",
+		"requireChangesetForPublished": true,
+		"requireReleaseCapsule": true,
+		"publishArtifacts": [
+			"manifest.json",
+			"patch-notes.md",
+			"customer-guide.md",
+			"upgrade-manifest.json"
+		],
+		"agentTargets": ["codex"]
+	},
+	"upgrade": {
+		"manifestPaths": ["generated/releases/upgrade-manifest.json"],
+		"defaultAgentTarget": "codex",
+		"enableInteractiveGuidance": true,
+		"applyCodemods": true
+	},
+	"connect": {
+		"enabled": true,
+		"adapters": {
+			"cursor": {
+				"enabled": false,
+				"mode": "plugin"
+			},
+			"codex": {
+				"enabled": false,
+				"mode": "wrapper"
+			},
+			"claude-code": {
+				"enabled": false,
+				"mode": "rule"
+			}
+		},
+		"storage": {
+			"root": ".contractspec/connect",
+			"contextPack": ".contractspec/connect/context-pack.json",
+			"planPacket": ".contractspec/connect/plan-packet.json",
+			"patchVerdict": ".contractspec/connect/patch-verdict.json",
+			"auditFile": ".contractspec/connect/audit.ndjson",
+			"reviewPacketsDir": ".contractspec/connect/review-packets"
+		},
+		"policy": {
+			"reviewThresholds": {
+				"protectedPathWrite": "require_review",
+				"unknownImpact": "require_review",
+				"contractDrift": "require_review",
+				"breakingChange": "require_review",
+				"destructiveCommand": "deny"
+			}
+		},
+		"studio": {
+			"enabled": false,
+			"mode": "off"
+		}
 	}
 }

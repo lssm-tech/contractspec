@@ -1,5 +1,71 @@
 # @contractspec/bundle.workspace
 
+## 4.3.0
+
+### Minor Changes
+
+- Implement ContractSpec Connect as a first-class spec, runtime, and CLI workflow.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/bundle.workspace (minor), @contractspec/app.cli-contractspec (minor), @contractspec/bundle.library (patch), agentpacks (minor)
+  - Migration: Turn on the Connect adapter flow before relying on task-scoped context, review, replay, or evaluation artifacts.
+
+### Patch Changes
+
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Introduce the Builder v3 control plane as a governed authoring layer over external execution providers.
+- Updated dependencies because of Implement ContractSpec Connect as a first-class spec, runtime, and CLI workflow.
+  - @contractspec/lib.ai-agent@8.0.6
+  - @contractspec/lib.contracts-integrations@3.8.10
+  - @contractspec/lib.contracts-transformers@3.7.18
+  - @contractspec/lib.source-extractors@2.7.18
+  - @contractspec/module.workspace@4.1.5
+  - @contractspec/lib.contracts-spec@5.2.0
+  - @contractspec/integration.runtime@3.9.0
+  - @contractspec/lib.ai-providers@3.7.13
+  - @contractspec/lib.utils-typescript@3.7.13
+  - @contractspec/biome-config@3.8.7
+
+## 4.2.0
+
+### Minor Changes
+
+- Add versioning-backed release capsules, generated patch notes, and guided upgrade flows.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/bundle.workspace (minor), @contractspec/app.cli-contractspec (minor), @contractspec/app.web-landing (patch)
+  - Migration: Published release changesets now require a structured release capsule.
+  - Deprecations: The standalone release domain under `@contractspec/lib.contracts-spec/release` is deprecated in favor of versioning-owned release metadata.
+
+### Patch Changes
+
+- Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+  - Migration: Keep Node-only workflow runner code out of "use workflow" entrypoints.
+  - Deprecations: Importing the broad `@contractspec/lib.contracts-spec/workflow` barrel from sandboxed workflow entrypoints is discouraged.
+- Updated dependencies because of Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+- Updated dependencies because of Add versioning-backed release capsules, generated patch notes, and guided upgrade flows.
+  - @contractspec/lib.contracts-integrations@3.8.9
+  - @contractspec/lib.contracts-transformers@3.7.17
+  - @contractspec/lib.source-extractors@2.7.17
+  - @contractspec/lib.utils-typescript@3.7.13
+  - @contractspec/lib.contracts-spec@5.1.0
+  - @contractspec/biome-config@3.8.7
+  - @contractspec/lib.ai-providers@3.7.13
+  - @contractspec/module.workspace@4.1.4
+  - @contractspec/lib.ai-agent@8.0.5
+
+## 4.1.4
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/lib.contracts-integrations@3.8.8
+  - @contractspec/lib.contracts-transformers@3.7.16
+  - @contractspec/lib.source-extractors@2.7.16
+  - @contractspec/lib.utils-typescript@3.7.12
+  - @contractspec/lib.contracts-spec@5.0.4
+  - @contractspec/biome-config@3.8.6
+  - @contractspec/lib.ai-providers@3.7.12
+  - @contractspec/module.workspace@4.1.3
+  - @contractspec/lib.ai-agent@8.0.4
+
 ## 4.1.3
 
 ### Patch Changes

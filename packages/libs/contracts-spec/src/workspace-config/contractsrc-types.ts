@@ -9,6 +9,14 @@
 // Core Enums & Simple Types
 // ============================================================================
 
+import type {
+	AgentTarget as VersioningAgentTarget,
+	ReleaseEnforceOn as VersioningReleaseEnforceOn,
+} from '../versioning/release-types';
+
+export type AgentTarget = VersioningAgentTarget;
+export type ReleaseEnforceOn = VersioningReleaseEnforceOn;
+
 export type SchemaFormat =
 	| 'contractspec' // Default: SchemaModel + FieldType
 	| 'zod' // Raw Zod schemas
@@ -280,6 +288,30 @@ export interface VersioningConfig {
 	exclude?: string[];
 }
 
+export interface ReleaseConfig {
+	/** When to enforce release communication requirements */
+	enforceOn?: ReleaseEnforceOn;
+	/** Require a changeset when published packages change */
+	requireChangesetForPublished?: boolean;
+	/** Require a companion release capsule for published releases */
+	requireReleaseCapsule?: boolean;
+	/** Generated release artifacts to publish or upload */
+	publishArtifacts?: string[];
+	/** Agent prompt targets to emit during release build */
+	agentTargets?: AgentTarget[];
+}
+
+export interface UpgradeConfig {
+	/** Candidate upgrade manifest locations */
+	manifestPaths?: string[];
+	/** Default agent target for prompt export */
+	defaultAgentTarget?: AgentTarget;
+	/** Enable guided interactive upgrade flows */
+	enableInteractiveGuidance?: boolean;
+	/** Allow deterministic codemods during upgrade apply */
+	applyCodemods?: boolean;
+}
+
 export interface RuleSyncConfig {
 	/** Enable automated rule synchronization */
 	enabled?: boolean;
@@ -326,6 +358,108 @@ export interface ExternalAgentsConfig {
 	claudeAgent?: ClaudeAgentSDKConfig;
 	/** OpenCode SDK configuration */
 	openCode?: OpenCodeSDKConfig;
+}
+
+export type ConnectVerdict = 'permit' | 'rewrite' | 'require_review' | 'deny';
+
+export type ConnectAdapterMode = 'plugin' | 'rule' | 'wrapper';
+
+export interface ConnectAdapterConfig {
+	/** Enable this adapter integration. */
+	enabled?: boolean;
+	/** Preferred delivery strategy for this adapter. */
+	mode?: ConnectAdapterMode;
+	/** Optional plugin, package, or registry reference. */
+	packageRef?: string;
+}
+
+export interface ConnectStorageConfig {
+	/** Root directory for generated Connect artifacts. */
+	root?: string;
+	/** Path for the current context pack artifact. */
+	contextPack?: string;
+	/** Path for the current plan packet artifact. */
+	planPacket?: string;
+	/** Path for the current patch verdict artifact. */
+	patchVerdict?: string;
+	/** Append-only local audit file. */
+	auditFile?: string;
+	/** Directory for local review packets. */
+	reviewPacketsDir?: string;
+}
+
+export interface ConnectReviewThresholds {
+	/** Verdict to apply when a protected path is mutated. */
+	protectedPathWrite?: ConnectVerdict;
+	/** Verdict to apply when impact cannot be resolved. */
+	unknownImpact?: ConnectVerdict;
+	/** Verdict to apply when contract drift is detected. */
+	contractDrift?: ConnectVerdict;
+	/** Verdict to apply when a breaking change is detected. */
+	breakingChange?: ConnectVerdict;
+	/** Verdict to apply for destructive commands. */
+	destructiveCommand?: ConnectVerdict;
+}
+
+export interface ConnectPolicyConfig {
+	/** Files or directories that require stronger review or denial. */
+	protectedPaths?: string[];
+	/** Paths that should be treated as immutable. */
+	immutablePaths?: string[];
+	/** Generated paths treated as derived outputs. */
+	generatedPaths?: string[];
+	/** Bun-first smoke checks adapters may suggest or run. */
+	smokeChecks?: string[];
+	/** Threshold model for Connect adapter verdicts. */
+	reviewThresholds?: ConnectReviewThresholds;
+}
+
+export interface ConnectCommandPolicy {
+	/** Commands that are considered safe defaults. */
+	allow?: string[];
+	/** Commands that require review before execution. */
+	review?: string[];
+	/** Commands that must be denied. */
+	deny?: string[];
+}
+
+export interface ConnectCanonPackRef {
+	/** Immutable reference to a canon pack. */
+	ref: string;
+	/** Whether the pack is enforced as read-only locally. */
+	readOnly?: boolean;
+}
+
+export interface ConnectStudioConfig {
+	/** Enable Studio transport for review packets. */
+	enabled?: boolean;
+	/** Integration mode for Studio handoff. */
+	mode?: 'off' | 'review-bridge';
+	/** Optional Studio endpoint when sync is enabled. */
+	endpoint?: string;
+	/** Optional Studio queue name for synced review packets. */
+	queue?: string;
+}
+
+export interface ConnectConfig {
+	/** Enable ContractSpec Connect for this workspace. */
+	enabled?: boolean;
+	/** Adapter integrations keyed by host environment. */
+	adapters?: {
+		cursor?: ConnectAdapterConfig;
+		codex?: ConnectAdapterConfig;
+		'claude-code'?: ConnectAdapterConfig;
+	};
+	/** Local artifact storage configuration. */
+	storage?: ConnectStorageConfig;
+	/** Policy and threshold configuration. */
+	policy?: ConnectPolicyConfig;
+	/** Command allow/review/deny policy. */
+	commands?: ConnectCommandPolicy;
+	/** Shared canon packs consumed read-only by adapters. */
+	canonPacks?: ConnectCanonPackRef[];
+	/** Optional Studio bridge configuration. */
+	studio?: ConnectStudioConfig;
 }
 
 export interface LintRules {
@@ -429,10 +563,16 @@ export interface ContractsrcFileConfig {
 	formatter?: FormatterConfig;
 	// Versioning configuration
 	versioning?: VersioningConfig;
+	// Release communication policy
+	release?: ReleaseConfig;
+	// Guided upgrade policy
+	upgrade?: UpgradeConfig;
 	// Rule synchronization configuration
 	ruleSync?: RuleSyncConfig;
 	// External agent SDK configuration
 	externalAgents?: ExternalAgentsConfig;
+	// ContractSpec Connect configuration
+	connect?: ConnectConfig;
 }
 
 /**

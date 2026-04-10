@@ -1,0 +1,28 @@
+{
+	"id": "connect.ctx_a6e56412-3b75-4d81-8f00-3c6d04c3166a",
+	"taskId": "release-check-restoration",
+	"repoId": "contractspec",
+	"branch": "release",
+	"actor": {
+		"id": "cli:release-check-restoration",
+		"type": "human"
+	},
+	"knowledge": [],
+	"impactedContracts": [],
+	"affectedSurfaces": ["audit", "runtime"],
+	"policyBindings": [
+		{
+			"key": "connect.policy",
+			"version": "1.0.0",
+			"source": "workspace-config",
+			"authority": "operational"
+		}
+	],
+	"configRefs": [
+		{
+			"kind": "contractsrc",
+			"ref": ".contractsrc.json#connect"
+		}
+	],
+	"acceptanceChecks": []
+}

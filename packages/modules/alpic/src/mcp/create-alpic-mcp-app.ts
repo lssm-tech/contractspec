@@ -1,7 +1,7 @@
-import { randomUUID } from 'node:crypto';
 import { Logger, LogLevel } from '@contractspec/lib.logger';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { WebStandardStreamableHTTPServerTransport } from '@modelcontextprotocol/sdk/server/webStandardStreamableHttp.js';
+import { randomUUID } from 'crypto';
 import { Elysia } from 'elysia';
 import { type AlpicMcpUiConfig, registerAlpicResources } from './resources';
 import { type AlpicMcpToolConfig, registerAlpicTools } from './tools';

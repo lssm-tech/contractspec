@@ -13,7 +13,9 @@ This plugin is intentionally narrow. It targets:
 ## What is included
 
 - **Rules** for contract-first implementation, orchestration safety, and release impact.
+- **Connect rule** for plan-before-mutate and verify-before-exec gating through `contractspec connect ...`.
 - **Commands** for contract impact analysis, orchestration audits, MCP health checks, and release readiness.
+- **Connect operator command** for local review/replay loops with `.contractspec/connect/*` artifacts.
 - **Agents** specialized for contract governance and orchestration guardrail review.
 - **Skills** for authoring robust contracts and hardening agent workflows.
 - **MCP servers** for ContractSpec docs, CLI guidance, and internal endpoint discovery.

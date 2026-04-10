@@ -1,4 +1,4 @@
-import type { WorkflowSpec } from '@contractspec/lib.contracts-spec/workflow';
+import type { WorkflowSpec } from '@contractspec/lib.contracts-spec/workflow/spec';
 import {
 	inferWorkflowDevkitBehavior,
 	resolveWorkflowDevkitEntryStepId,
@@ -136,6 +136,9 @@ import { ${exportName} } from "${specImportPath}";
 export async function ${workflowFunctionName}(input = {}, bridge = {}) {
   "use workflow";
 
+  // Keep the workflow function deterministic.
+  // Any Node.js or side-effectful logic should live in "use step" helpers that
+  // your bridge calls, not in this orchestrator itself.
   return runWorkflowSpecWithWorkflowDevkit({
     spec: ${exportName},
     initialData: input,

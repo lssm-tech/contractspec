@@ -1,8 +1,8 @@
-import { randomUUID } from 'node:crypto';
 import type {
 	HarnessScenarioRegistry,
 	HarnessSuiteRegistry,
 } from '@contractspec/lib.contracts-spec';
+import { randomUUID } from 'crypto';
 import { evaluateHarnessAssertions } from '../assertions/engine';
 import {
 	createHarnessReplayBundle,

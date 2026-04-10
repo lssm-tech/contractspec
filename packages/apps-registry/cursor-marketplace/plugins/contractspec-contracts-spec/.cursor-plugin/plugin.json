@@ -1,7 +1,7 @@
 {
 	"name": "contractspec-contracts-spec",
 	"version": "1.0.0",
-	"description": "Contract authoring and compatibility guardrails for @contractspec/lib.contracts-spec.",
+	"description": "Contract authoring, compatibility, and Connect-based interception for @contractspec/lib.contracts-spec.",
 	"author": {
 		"name": "ContractSpec Team",
 		"email": "tboutron@lssm.co"
@@ -9,18 +9,20 @@
 	"homepage": "https://contractspec.io",
 	"repository": "https://github.com/lssm-tech/contractspec",
 	"license": "MIT",
+	"logo": "assets/logo.svg",
 	"keywords": [
 		"contractspec",
 		"contracts-spec",
 		"spec-first",
 		"compatibility",
-		"zod",
-		"cursor"
+		"cursor",
+		"claude",
+		"codex"
 	],
-	"logo": "assets/logo.svg",
 	"rules": "rules",
-	"commands": "commands",
 	"agents": "agents",
 	"skills": "skills",
+	"commands": "commands",
+	"hooks": "hooks/hooks.json",
 	"mcpServers": ".mcp.json"
 }

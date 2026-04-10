@@ -10,6 +10,13 @@ export {
 	formatKeepAChangelog,
 } from './changelog-formatter';
 export * from './conventional-commits';
+export * from './release-formatters';
+export {
+	buildReleaseArtifacts,
+	checkReleaseArtifacts,
+	initReleaseArtifacts,
+} from './release-service';
+export * from './release-service.types';
 export * from './types';
 export {
 	analyzeVersions,

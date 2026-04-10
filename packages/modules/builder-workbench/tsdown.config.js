@@ -1,0 +1,12 @@
+import { defineConfig, moduleLibrary } from '@contractspec/tool.bun';
+
+export default defineConfig(() => ({
+	...moduleLibrary,
+	entry: [
+		'src/index.ts',
+		'src/core/index.ts',
+		'src/presentation/index.ts',
+		'src/presentation/components/index.ts',
+		'src/presentation/hooks/index.ts',
+	],
+}));

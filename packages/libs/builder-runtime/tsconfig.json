@@ -1,0 +1,19 @@
+{
+	"extends": "@contractspec/tool.typescript/react-library.json",
+	"include": ["src"],
+	"exclude": ["node_modules", "dist"],
+	"compilerOptions": {
+		"baseUrl": ".",
+		"outDir": "dist",
+		"paths": {
+			"@contractspec/lib.provider-spec": ["../provider-spec/dist/index.d.ts"],
+			"@contractspec/lib.provider-spec/*": ["../provider-spec/dist/*"],
+			"@contractspec/lib.mobile-control": ["../mobile-control/src/index.ts"],
+			"@contractspec/lib.mobile-control/*": ["../mobile-control/src/*"],
+			"@contractspec/lib.provider-runtime": [
+				"../provider-runtime/src/index.ts"
+			],
+			"@contractspec/lib.provider-runtime/*": ["../provider-runtime/src/*"]
+		}
+	}
+}

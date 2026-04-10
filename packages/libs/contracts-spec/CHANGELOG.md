@@ -1,5 +1,44 @@
 # @contractspec/lib.contracts-spec
 
+## 5.2.0
+
+### Minor Changes
+
+- Implement ContractSpec Connect as a first-class spec, runtime, and CLI workflow.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/bundle.workspace (minor), @contractspec/app.cli-contractspec (minor), @contractspec/bundle.library (patch), agentpacks (minor)
+  - Migration: Turn on the Connect adapter flow before relying on task-scoped context, review, replay, or evaluation artifacts.
+
+### Patch Changes
+
+- Introduce the Builder v3 control plane as a governed authoring layer over external execution providers.
+  - Packages: @contractspec/lib.contracts-spec (patch), @contractspec/lib.builder-spec (minor), @contractspec/lib.provider-spec (minor), @contractspec/lib.builder-runtime (minor), @contractspec/lib.mobile-control (minor), @contractspec/lib.provider-runtime (minor), @contractspec/module.builder-workbench (minor), @contractspec/module.mobile-review (minor), @contractspec/integration.runtime (minor), @contractspec/integration.runtime.managed (minor), @contractspec/integration.runtime.local (minor), @contractspec/integration.runtime.hybrid (minor), @contractspec/integration.builder-telegram (minor), @contractspec/integration.builder-voice (minor), @contractspec/integration.builder-whatsapp (minor), @contractspec/integration.provider.codex (minor), @contractspec/integration.provider.claude-code (minor), @contractspec/integration.provider.gemini (minor), @contractspec/integration.provider.copilot (minor), @contractspec/integration.provider.stt (minor), @contractspec/integration.provider.local-model (minor)
+  - @contractspec/lib.schema@3.7.14
+
+## 5.1.0
+
+### Minor Changes
+
+- Add versioning-backed release capsules, generated patch notes, and guided upgrade flows.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/bundle.workspace (minor), @contractspec/app.cli-contractspec (minor), @contractspec/app.web-landing (patch)
+  - Migration: Published release changesets now require a structured release capsule.
+  - Deprecations: The standalone release domain under `@contractspec/lib.contracts-spec/release` is deprecated in favor of versioning-owned release metadata.
+
+### Patch Changes
+
+- Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+  - Migration: Keep Node-only workflow runner code out of "use workflow" entrypoints.
+  - Deprecations: Importing the broad `@contractspec/lib.contracts-spec/workflow` barrel from sandboxed workflow entrypoints is discouraged.
+- Updated dependencies because of Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+  - @contractspec/lib.schema@3.7.14
+
+## 5.0.4
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/lib.schema@3.7.13
+
 ## 5.0.3
 
 ### Patch Changes

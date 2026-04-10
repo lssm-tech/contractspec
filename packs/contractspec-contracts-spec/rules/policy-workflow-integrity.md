@@ -1,0 +1,17 @@
+---
+targets:
+  - "*"
+description: Preserve policy and workflow integrity for contract-driven execution
+cursor:
+  description: Preserve policy and workflow integrity for contract-driven execution
+  alwaysApply: true
+  globs:
+    - "**/*"
+---
+
+Keep policy and workflow declarations executable, explainable, and testable.
+
+- Policy decisions must be explicit and explainable by runtime context.
+- Workflow contracts must declare transitions, side effects, and validation boundaries.
+- Do not bypass policy/workflow layers in implementation code.
+- Update related tests when policy or workflow contracts change.

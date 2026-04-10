@@ -1,0 +1,27 @@
+---
+description: Require ContractSpec Connect plan and verify gating before risky mutations
+alwaysApply: true
+globs:
+  - "**/*"
+---
+
+Before making risky code or command mutations, use ContractSpec Connect through the main `contractspec` CLI.
+
+Required flow:
+
+1. Build task context:
+   - `contractspec connect context --task <task-id> --paths <path...> --json`
+2. Classify the proposed plan before mutating:
+   - `contractspec connect plan --task <task-id> --stdin --json`
+3. Verify the concrete mutation candidate before applying it:
+   - file edits: `contractspec connect verify --task <task-id> --tool acp.fs.access --stdin --json`
+   - terminal commands: `contractspec connect verify --task <task-id> --tool acp.terminal.exec --stdin --json`
+
+Interpretation:
+
+- `approved` / exit `0`: continue
+- `revise` / exit `10`: rewrite the candidate first
+- `review` / exit `20`: stop and use `.contractspec/connect/review-packets/*.json`
+- `denied` / exit `30`: do not continue with the proposed mutation
+
+The generated evidence under `.contractspec/connect/*` is the local source of truth for replay and review. Do not bypass it with host-specific mutation logic.

@@ -1,5 +1,13 @@
 [
 	{
+		"id": "pocket-family-office/docs.tech.contracts.vertical-pocket-family-office",
+		"title": "Pocket Family Office Vertical",
+		"summary": "Pocket Family Office is a ContractSpec reference vertical that\ndemonstrates finance automation atop the integration and knowledge\nlayers. It is optimised for the hackathon stack (Google Cloud, Mistral,\nQdrant, ElevenLabs) while remaining provider-agnostic.",
+		"route": "/docs/reference/pocket-family-office/docs.tech.contracts.vertical-pocket-family-office",
+		"source": "generated",
+		"contentPath": "pocket-family-office/docs.tech.contracts.vertical-pocket-family-office.md"
+	},
+	{
 		"id": "pocket-family-office/pfo.documents.upload",
 		"title": "pfo.documents.upload",
 		"summary": "Stores an object in tenant storage and schedules ingestion into the knowledge base.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: documents, ingestion\n- **File**: `packages/examples/pocket-family-office/src/operations/index.ts`",

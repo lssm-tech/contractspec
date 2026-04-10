@@ -1,5 +1,52 @@
 # @contractspec/lib.design-system
 
+## 3.8.11
+
+### Patch Changes
+
+- Pass Bun transpile paths through production JSX mode so published browser bundles stop emitting the dev runtime.
+  - Packages: @contractspec/tool.bun (patch), @contractspec/bundle.marketing (patch), @contractspec/lib.accessibility (patch), @contractspec/lib.contracts-runtime-client-react (patch), @contractspec/lib.design-system (patch), @contractspec/lib.example-shared-ui (patch), @contractspec/lib.presentation-runtime-react (patch), @contractspec/lib.surface-runtime (patch), @contractspec/lib.ui-kit (patch), @contractspec/lib.ui-kit-web (patch), @contractspec/lib.ui-link (patch), @contractspec/lib.video-gen (patch), @contractspec/module.builder-workbench (patch), @contractspec/module.examples (patch), @contractspec/module.execution-console (patch), @contractspec/module.mobile-review (patch)
+  - Migration: Pull the patch releases for the affected Contractspec React/browser packages.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Introduce the Builder v3 control plane as a governed authoring layer over external execution providers.
+- Updated dependencies because of Implement ContractSpec Connect as a first-class spec, runtime, and CLI workflow.
+- Updated dependencies because of Pass Bun transpile paths through production JSX mode so published browser bundles stop emitting the dev runtime.
+  - @contractspec/lib.ai-agent@8.0.6
+  - @contractspec/lib.contracts-spec@5.2.0
+  - @contractspec/lib.contracts-runtime-client-react@3.8.6
+  - @contractspec/lib.presentation-runtime-react@36.0.6
+  - @contractspec/lib.ui-kit@3.8.10
+  - @contractspec/lib.ui-kit-web@3.9.10
+
+## 3.8.10
+
+### Patch Changes
+
+- Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+  - Migration: Keep Node-only workflow runner code out of "use workflow" entrypoints.
+  - Deprecations: Importing the broad `@contractspec/lib.contracts-spec/workflow` barrel from sandboxed workflow entrypoints is discouraged.
+- Updated dependencies because of Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+- Updated dependencies because of Add versioning-backed release capsules, generated patch notes, and guided upgrade flows.
+  - @contractspec/lib.contracts-runtime-client-react@3.8.5
+  - @contractspec/lib.presentation-runtime-react@36.0.5
+  - @contractspec/lib.contracts-spec@5.1.0
+  - @contractspec/lib.ui-kit-web@3.9.9
+  - @contractspec/lib.ai-agent@8.0.5
+  - @contractspec/lib.ui-kit@3.8.9
+
+## 3.8.9
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/lib.contracts-runtime-client-react@3.8.4
+  - @contractspec/lib.presentation-runtime-react@36.0.4
+  - @contractspec/lib.contracts-spec@5.0.4
+  - @contractspec/lib.ui-kit-web@3.9.8
+  - @contractspec/lib.ai-agent@8.0.4
+  - @contractspec/lib.ui-kit@3.8.8
+
 ## 3.8.8
 
 ### Patch Changes

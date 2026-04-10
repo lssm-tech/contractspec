@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/module.ai-chat",
-	"version": "4.3.15",
+	"version": "4.3.18",
 	"description": "AI chat interface module",
 	"keywords": [
 		"contractspec",
@@ -18,14 +18,14 @@
 	"scripts": {
 		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
 		"publish:pkg:canary": "bun publish:pkg --tag canary",
-		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
+		"build": "bun run build:bundle && bun run build:types",
 		"build:bundle": "contractspec-bun-build transpile",
 		"build:types": "contractspec-bun-build types",
 		"dev": "contractspec-bun-build dev",
 		"clean": "rimraf dist .turbo",
 		"lint": "bun lint:fix",
-		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-		"lint:check": "biome check .",
+		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
+		"lint:check": "node ../../../scripts/biome.cjs check .",
 		"test": "bun test",
 		"prebuild": "contractspec-bun-build prebuild",
 		"typecheck": "tsc --noEmit"
@@ -44,7 +44,7 @@
 		"@contractspec/lib.ui-kit-web": "workspace:*",
 		"@ai-sdk/react": "catalog:ai",
 		"ai": "catalog:ai",
-		"lucide-react": "^1.6.0",
+		"lucide-react": "^1.8.0",
 		"react": "catalog:",
 		"zod": "catalog:"
 	},

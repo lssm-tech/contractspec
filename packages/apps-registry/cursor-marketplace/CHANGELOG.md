@@ -1,5 +1,19 @@
 # @contractspec/app.cursor-marketplace
 
+## 1.7.13
+
+### Patch Changes
+
+- Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+  - Migration: Keep Node-only workflow runner code out of "use workflow" entrypoints.
+  - Deprecations: Importing the broad `@contractspec/lib.contracts-spec/workflow` barrel from sandboxed workflow entrypoints is discouraged.
+
+## 1.7.12
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+
 ## 1.7.11
 
 ### Patch Changes

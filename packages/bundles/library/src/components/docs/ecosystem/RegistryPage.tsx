@@ -16,22 +16,26 @@ export function EcosystemRegistryPage() {
 			<div className="card-subtle space-y-4 p-6">
 				<h2 className="font-bold text-2xl">Root manifest shape</h2>
 				<p className="text-muted-foreground text-sm">
-					Cursor reads <code>.cursor-plugin/marketplace.json</code> at
-					repository root and resolves each plugin source path.
+					Cursor reads{' '}
+					<code>
+						packages/apps-registry/cursor-marketplace/.cursor-plugin/marketplace.json
+					</code>{' '}
+					for the catalog and resolves each plugin source path from there.
 				</p>
 				<CodeBlock
 					language="json"
-					filename=".cursor-plugin/marketplace.json"
+					filename="packages/apps-registry/cursor-marketplace/.cursor-plugin/marketplace.json"
 					code={`{
   "name": "contractspec-marketplace",
+  "owner": { "name": "ContractSpec Team" },
   "plugins": [
     {
       "name": "contractspec",
-      "source": "packages/apps-registry/cursor-marketplace/plugins/contractspec"
+      "source": "plugins/contractspec"
     },
     {
       "name": "contractspec-contracts-spec",
-      "source": "packages/apps-registry/cursor-marketplace/plugins/contractspec-contracts-spec"
+      "source": "plugins/contractspec-contracts-spec"
     }
   ]
 }`}
@@ -42,7 +46,8 @@ export function EcosystemRegistryPage() {
 				<h2 className="font-bold text-2xl">Per-plugin contract</h2>
 				<p className="text-muted-foreground text-sm">
 					Each plugin source must include a Cursor plugin manifest and
-					composable assets.
+					composable assets. The publishable plugin is derived from a reusable
+					pack and then validated here.
 				</p>
 				<CodeBlock
 					language="text"

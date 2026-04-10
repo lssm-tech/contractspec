@@ -1,53 +1,52 @@
 # @contractspec/lib.ui-link
 
+`@contractspec/lib.ui-link` provides a tiny link component for shared UI surfaces that should not be coupled to framework-specific routers.
+
 Website: https://contractspec.io
-
-**Deep linking utilities for cross-platform navigation.**
-
-## What It Provides
-
-- **Layer**: lib
-- **Consumers**: bundles, apps
 
 ## Installation
 
-`npm install @contractspec/lib.ui-link`
+`bun add @contractspec/lib.ui-link`
 
 or
 
-`bun add @contractspec/lib.ui-link`
+`npm install @contractspec/lib.ui-link`
 
-## Usage
+## What belongs here
 
-Import the root entrypoint from `@contractspec/lib.ui-link`, or use one of the documented subpaths when you want a narrower surface area.
+This package is intentionally narrow:
 
-## Public Entry Points
+- Generic anchor-style link behavior.
+- Minimal styling composition via `@contractspec/lib.ui-kit-core`.
 
-- `.` — `./index.ts`
-- `./ui/link` — `./ui/link.tsx`
+Use this package when you want shared link behavior without Expo-router or Next-specific coupling.
 
-## Local Commands
+## API map
 
-- `bun run dev` — contractspec-bun-build dev
-- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
-- `bun run lint` — bun run lint:fix
-- `bun run lint:check` — biome check .
-- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
-- `bun run typecheck` — tsc --noEmit
-- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
-- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
-- `bun run clean` — rm -rf dist
-- `bun run build:bundle` — contractspec-bun-build transpile
-- `bun run build:types` — contractspec-bun-build types
-- `bun run prebuild` — contractspec-bun-build prebuild
+- root default export
+- `./ui/link`
+- `Link` component with anchor-style props and required `href`
 
-## Recent Updates
+## Operational semantics and gotchas
 
-- Replace eslint+prettier by biomejs to optimize speed
-- Package exports
-- PublishConfig not supported by bun
+- The component renders a plain anchor.
+- It depends on `@contractspec/lib.ui-kit-core` for `cn()`.
+- Unlike `ui-kit` and `ui-kit-web`, this package should stay router-agnostic.
+- The root export is just the default export from `./ui/link`.
 
-## Notes
+## When not to use this package
 
-- Link component must stay framework-agnostic (no router-specific coupling)
-- Depends on ui-kit-core — coordinate changes with that package
+- Do not use it for Expo-router navigation.
+- Do not use it for Next.js `Link` behavior.
+- Do not use it for complex navigation abstractions.
+
+## Related packages
+
+- `@contractspec/lib.ui-kit-core`
+- `@contractspec/lib.ui-kit`
+- `@contractspec/lib.ui-kit-web`
+
+## Local commands
+
+- `bun run lint:check`
+- `bun run typecheck`

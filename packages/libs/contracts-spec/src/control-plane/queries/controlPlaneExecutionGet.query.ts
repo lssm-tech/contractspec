@@ -6,6 +6,7 @@ import {
 	CONTROL_PLANE_STABILITY,
 	CONTROL_PLANE_TAGS,
 } from '../constants';
+import { ControlPlaneExecutionLaneStateModel } from './controlPlaneExecutionLane.models';
 
 const ControlPlaneExecutionRecordModel = new SchemaModel({
 	name: 'ControlPlaneExecutionRecord',
@@ -17,6 +18,7 @@ const ControlPlaneExecutionRecordModel = new SchemaModel({
 		status: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
 		riskTier: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
 		requiresApproval: { type: ScalarTypeEnum.Boolean(), isOptional: true },
+		lane: { type: ControlPlaneExecutionLaneStateModel, isOptional: true },
 		createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
 		updatedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
 	},

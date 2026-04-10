@@ -3,7 +3,7 @@ import {
 	StabilityEnum,
 	TagsEnum,
 } from '@contractspec/lib.contracts-spec';
-import { defineWorkflow } from '@contractspec/lib.contracts-spec/workflow';
+import { defineWorkflow } from '@contractspec/lib.contracts-spec/workflow/spec';
 
 const OPEN_BANKING_CAPABILITIES = [
 	{ key: 'openbanking.accounts.read', version: '1.0.0' },

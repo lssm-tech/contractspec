@@ -1,0 +1,123 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"$id": "https://contractspec.dev/schemas/connect/review-packet.schema.json",
+	"title": "ReviewPacket",
+	"type": "object",
+	"required": [
+		"id",
+		"sourceDecisionId",
+		"objective",
+		"reason",
+		"summary",
+		"evidence",
+		"requiredApprovals",
+		"controlPlane"
+	],
+	"properties": {
+		"id": { "type": "string" },
+		"sourceDecisionId": { "type": "string" },
+		"objective": { "type": "string" },
+		"reason": { "type": "string" },
+		"summary": {
+			"type": "object",
+			"required": [
+				"paths",
+				"impactedContracts",
+				"affectedSurfaces",
+				"requiredChecks"
+			],
+			"properties": {
+				"paths": {
+					"type": "array",
+					"items": { "type": "string" }
+				},
+				"impactedContracts": {
+					"type": "array",
+					"items": { "$ref": "#/$defs/contractRef" }
+				},
+				"affectedSurfaces": {
+					"type": "array",
+					"items": {
+						"enum": [
+							"agent",
+							"audit",
+							"cli",
+							"contract",
+							"harness",
+							"knowledge",
+							"mcp",
+							"runtime"
+						]
+					}
+				},
+				"requiredChecks": {
+					"type": "array",
+					"items": { "type": "string" }
+				}
+			}
+		},
+		"evidence": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"required": ["type", "ref"],
+				"properties": {
+					"type": {
+						"enum": [
+							"context-pack",
+							"plan-packet",
+							"patch-verdict",
+							"control-plane-trace"
+						]
+					},
+					"ref": { "type": "string" }
+				}
+			}
+		},
+		"requiredApprovals": {
+			"type": "array",
+			"items": {
+				"type": "object",
+				"required": ["capability", "reason"],
+				"properties": {
+					"capability": { "type": "string" },
+					"reason": { "type": "string" }
+				}
+			}
+		},
+		"controlPlane": {
+			"type": "object",
+			"required": ["traceQuery", "policyExplain"],
+			"properties": {
+				"traceQuery": { "$ref": "#/$defs/contractRef" },
+				"policyExplain": { "$ref": "#/$defs/contractRef" },
+				"decisionId": { "type": "string" },
+				"approvalStatus": {
+					"enum": ["not_required", "pending", "approved", "rejected", "expired"]
+				},
+				"traceId": { "type": "string" }
+			}
+		},
+		"studio": {
+			"type": "object",
+			"properties": {
+				"enabled": { "type": "boolean" },
+				"mode": { "enum": ["off", "review-bridge"] },
+				"queue": { "type": "string" }
+			}
+		}
+	},
+	"$defs": {
+		"contractRef": {
+			"type": "object",
+			"required": ["key", "version"],
+			"properties": {
+				"key": { "type": "string" },
+				"version": { "type": "string" },
+				"kind": {
+					"enum": ["command", "query", "event", "policy", "capability"]
+				}
+			}
+		}
+	}
+}

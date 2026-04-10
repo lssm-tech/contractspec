@@ -1,59 +1,50 @@
 # @contractspec/lib.ui-kit-core
 
+`@contractspec/lib.ui-kit-core` is the small shared foundation for the UI packages, currently centered on class-name merging and related low-level utilities.
+
 Website: https://contractspec.io
-
-**Core UI primitives and utilities.**
-
-## What It Provides
-
-- **Layer**: lib.
-- **Consumers**: ui-kit, ui-kit-web, ui-link.
-- Related ContractSpec packages include `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
-- Related ContractSpec packages include `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
 ## Installation
 
-`npm install @contractspec/lib.ui-kit-core`
+`bun add @contractspec/lib.ui-kit-core`
 
 or
 
-`bun add @contractspec/lib.ui-kit-core`
+`npm install @contractspec/lib.ui-kit-core`
 
-## Usage
+## What belongs here
 
-Import the root entrypoint from `@contractspec/lib.ui-kit-core`, or choose a documented subpath when you only need one part of the package surface.
+This package is intentionally small:
 
-## Architecture
+- Very low-level, zero-surprise UI helpers shared across `ui-kit`, `ui-kit-web`, and `ui-link`.
+- Small shared utilities that are useful across multiple UI packages and do not belong in a component package.
 
-- `src/index.ts` is the root public barrel and package entrypoint.
-- `src/utils.ts` is part of the package's public or composition surface.
+## API map
 
-## Public Entry Points
+- root export: `.`  
+- utility subpath: `./utils`
+- core function: `cn(...inputs)`
 
-- Export `.` resolves through `./src/index.ts`.
-- Export `./utils` resolves through `./src/utils.ts`.
+## Operational semantics and gotchas
 
-## Local Commands
+- This package is intentionally tiny.
+- `cn()` composes `clsx` with `tailwind-merge`.
+- Changes here ripple into all UI packages even though the file count is small.
+- This package should stay boring and predictable.
 
-- `bun run dev` — contractspec-bun-build dev
-- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
-- `bun run lint` — bun run lint:fix
-- `bun run lint:check` — biome check .
-- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
-- `bun run typecheck` — tsc --noEmit
-- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
-- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
-- `bun run clean` — rm -rf dist
-- `bun run build:bundle` — contractspec-bun-build transpile
-- `bun run build:types` — contractspec-bun-build types
-- `bun run prebuild` — contractspec-bun-build prebuild
+## When not to use this package
 
-## Recent Updates
+- Do not use it for components.
+- Do not use it for design tokens.
+- Do not use it for router or link abstractions.
 
-- Replace eslint+prettier by biomejs to optimize speed.
+## Related packages
 
-## Notes
+- `@contractspec/lib.ui-kit`
+- `@contractspec/lib.ui-kit-web`
+- `@contractspec/lib.ui-link`
 
-- `cn()` utility is used by every UI package — changes here affect all UI components.
-- This is a foundational package — keep it minimal and zero-surprise.
-- Test thoroughly before changing any export signature.
+## Local commands
+
+- `bun run lint:check`
+- `bun run typecheck`

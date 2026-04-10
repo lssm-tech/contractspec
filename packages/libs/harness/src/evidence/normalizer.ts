@@ -1,5 +1,5 @@
-import { createHash, randomUUID } from 'node:crypto';
 import type { EvidenceArtifact } from '@contractspec/lib.contracts-spec';
+import { createHash, randomUUID } from 'crypto';
 import type { HarnessCapturedArtifact, HarnessStoredArtifact } from '../types';
 
 function hashArtifact(input: HarnessCapturedArtifact) {

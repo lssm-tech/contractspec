@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test';
-import type { WorkflowSpec } from '@contractspec/lib.contracts-spec/workflow';
+import type { WorkflowSpec } from '@contractspec/lib.contracts-spec/workflow/spec';
 import { runWorkflowSpecWithWorkflowDevkit } from './runtime';
 import type { WorkflowDevkitHookLike } from './types';
 

@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test';
-import type { WorkflowSpec } from '@contractspec/lib.contracts-spec/workflow';
+import type { WorkflowSpec } from '@contractspec/lib.contracts-spec/workflow/spec';
 import { compileWorkflowSpecToWorkflowDevkit } from './compiler';
 
 const sampleSpec = {

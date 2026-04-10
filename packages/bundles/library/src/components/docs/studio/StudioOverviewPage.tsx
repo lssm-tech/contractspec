@@ -79,6 +79,32 @@ export function StudioOverviewPage() {
 
 			<section className="editorial-panel space-y-4">
 				<h2 className="font-serif text-3xl tracking-[-0.03em]">
+					Builder is the governed authoring layer
+				</h2>
+				<p className="text-muted-foreground text-sm leading-7">
+					If your team wants a concrete authoring control plane on top of the
+					OSS foundation, start with the Builder control-plane docs and the
+					workbench host guide before you dive into the larger Studio product
+					surface.
+				</p>
+				<div className="flex flex-wrap gap-3">
+					<Link
+						href="/docs/specs/builder-control-plane"
+						className="btn-primary"
+					>
+						Builder control plane
+					</Link>
+					<Link
+						href="/docs/guides/host-builder-workbench"
+						className="btn-ghost"
+					>
+						Host the Builder workbench
+					</Link>
+				</div>
+			</section>
+
+			<section className="editorial-panel space-y-4">
+				<h2 className="font-serif text-3xl tracking-[-0.03em]">
 					Go to the Studio product docs for the full product surface
 				</h2>
 				<p className="text-muted-foreground text-sm leading-7">

@@ -34,7 +34,7 @@ export const DatabaseMigrationsListQuery = defineQuery({
 		owners: DATABASE_OWNERS,
 		tags: [...DATABASE_TAGS, 'migrations'],
 		stability: DATABASE_STABILITY,
-		docId: [docId('docs.tech.database.migrations.list')],
+		docId: [docRef(DatabaseMigrationsListDocBlock.id)],
 	},
 	capability: {
 		key: 'database.context',

@@ -11,12 +11,12 @@
  * for ContractSpec agents.
  */
 
-import { randomUUID } from 'node:crypto';
 import {
 	type AgentSpec,
 	agentKey,
 } from '@contractspec/lib.contracts-spec/agent';
 import type { Tool } from 'ai';
+import { randomUUID } from 'crypto';
 import { createAgentI18n } from '../../i18n';
 import { injectStaticKnowledge } from '../../knowledge/injector';
 import { createMcpToolsets } from '../../tools/mcp-client';

@@ -19,6 +19,17 @@ Workflow DevKit compiler and runtime bridges for ContractSpec `WorkflowSpec`.
 - `@contractspec/integration.workflow-devkit/agent-adapter`
 - `@contractspec/integration.workflow-devkit/next`
 
+## Workflow vs step boundary
+
+Workflow DevKit code runs across two different execution contexts:
+
+- Workflow functions (`"use workflow"`) orchestrate control flow and must stay deterministic.
+- Step functions (`"use step"`) perform the actual Node.js work.
+
+This matches the Workflow docs: workflow functions do not have full Node.js access, while step functions do. Keep Node.js core modules, SDK clients, database access, and other side effects inside `use step` helpers. The workflow function itself should only compose Workflow primitives and call step helpers.
+
+For `WorkflowSpec` authoring in Workflow-hosted apps, import the safe authoring API from `@contractspec/lib.contracts-spec/workflow/spec`, not the broad `@contractspec/lib.contracts-spec/workflow` barrel.
+
 ## Next.js example
 
 ```ts
@@ -52,6 +63,8 @@ import { onboardingWorkflow } from "./onboarding.workflow";
 export async function runOnboarding(input: Record<string, unknown>, bridge: WorkflowDevkitRuntimeBridge) {
   "use workflow";
 
+  // Keep this function deterministic. Node.js work belongs in `use step`
+  // helpers that your bridge dispatches to.
   return runWorkflowSpecWithWorkflowDevkit({
     spec: onboardingWorkflow,
     initialData: input,

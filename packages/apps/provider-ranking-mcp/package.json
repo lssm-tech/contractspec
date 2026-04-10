@@ -1,14 +1,14 @@
 {
 	"name": "@contractspec/app.provider-ranking-mcp",
-	"version": "1.6.15",
+	"version": "1.6.18",
 	"type": "module",
 	"scripts": {
 		"clean": "rm -rf dist",
 		"lint": "bun run lint:fix",
-		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-		"lint:check": "biome check .",
-		"build": "tsdown",
-		"dev": "tsdown --watch",
+		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
+		"lint:check": "node ../../../scripts/biome.cjs check .",
+		"build": "bun ../../../scripts/tsdown.mjs",
+		"dev": "bun ../../../scripts/tsdown.mjs --watch",
 		"start": "node dist/server.js"
 	},
 	"dependencies": {
@@ -24,7 +24,7 @@
 	"devDependencies": {
 		"@contractspec/tool.tsdown": "workspace:*",
 		"@contractspec/tool.typescript": "workspace:*",
-		"@types/node": "^25.3.5",
+		"@types/node": "^25.6.0",
 		"tsdown": "catalog:build",
 		"typescript": "catalog:"
 	},

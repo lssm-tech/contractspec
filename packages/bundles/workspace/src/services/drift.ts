@@ -8,7 +8,10 @@ import { mkdtemp, rm } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import path from 'path';
 import type { WorkspaceAdapters } from '../ports/logger';
-import { generateArtifacts } from './generate-artifacts';
+import {
+	type GenerateArtifactsOptions,
+	generateArtifacts,
+} from './generate-artifacts';
 
 /**
  * Result of drift detection.
@@ -34,7 +37,11 @@ export interface DriftResult {
 export async function detectDrift(
 	adapters: WorkspaceAdapters,
 	contractsDir: string,
-	generatedDir: string
+	generatedDir: string,
+	options: {
+		generation?: GenerateArtifactsOptions;
+		rootPath?: string;
+	} = {}
 ): Promise<DriftResult> {
 	// 1. Create temp directory
 	const tempDir = await mkdtemp(path.join(tmpdir(), 'contractspec-drift-'));
@@ -46,7 +53,13 @@ export async function detectDrift(
 		// const docsDir = path.join(generatedDir, 'docs');
 		// It uses generatedDir as root.
 
-		await generateArtifacts(adapters, contractsDir, tempDir);
+		await generateArtifacts(
+			adapters,
+			contractsDir,
+			tempDir,
+			options.rootPath,
+			options.generation
+		);
 
 		// 3. Compare tempDir with generatedDir
 		// We only care about files that exist in tempDir (should match generatedDir)

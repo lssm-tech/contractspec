@@ -1,0 +1,16 @@
+{
+	"extends": "@contractspec/tool.typescript/react-library.json",
+	"include": ["src"],
+	"exclude": ["node_modules", "dist"],
+	"compilerOptions": {
+		"baseUrl": ".",
+		"rootDir": "src",
+		"outDir": "dist",
+		"paths": {
+			"@contractspec/lib.provider-spec": [
+				"../../libs/provider-spec/dist/index.d.ts"
+			],
+			"@contractspec/lib.provider-spec/*": ["../../libs/provider-spec/dist/*"]
+		}
+	}
+}

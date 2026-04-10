@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.video-gen",
-	"version": "2.7.15",
+	"version": "2.7.18",
 	"type": "module",
 	"main": "./dist/index.js",
 	"module": "./dist/index.js",
@@ -12,14 +12,14 @@
 	"scripts": {
 		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
 		"publish:pkg:canary": "bun publish:pkg --tag canary",
-		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
+		"build": "bun run build:bundle && bun run build:types",
 		"build:bundle": "contractspec-bun-build transpile",
 		"build:types": "contractspec-bun-build types",
 		"dev": "contractspec-bun-build dev",
 		"clean": "rimraf dist .turbo",
 		"lint": "bun lint:fix",
-		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-		"lint:check": "biome check .",
+		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
+		"lint:check": "node ../../../scripts/biome.cjs check .",
 		"test": "bun test --pass-with-no-tests",
 		"prebuild": "contractspec-bun-build prebuild",
 		"typecheck": "tsc --noEmit"
@@ -32,20 +32,20 @@
 		"@contractspec/lib.content-gen": "workspace:*",
 		"@contractspec/lib.design-system": "workspace:*",
 		"@contractspec/lib.image-gen": "workspace:*",
-		"remotion": "^4.0.440"
+		"remotion": "^4.0.447"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",
 		"@contractspec/tool.bun": "workspace:*",
 		"typescript": "catalog:",
-		"@remotion/bundler": "^4.0.440",
-		"@remotion/cli": "^4.0.440",
-		"@remotion/player": "^4.0.440",
-		"@remotion/renderer": "^4.0.440",
+		"@remotion/bundler": "^4.0.447",
+		"@remotion/cli": "^4.0.447",
+		"@remotion/player": "^4.0.447",
+		"@remotion/renderer": "^4.0.447",
 		"@types/react": "^19.0.0",
 		"react": "^19.2.4",
 		"react-dom": "^19.2.4",
-		"tsdown": "^0.21.5"
+		"tsdown": "^0.21.7"
 	},
 	"peerDependencies": {
 		"react": "^19.2.4",

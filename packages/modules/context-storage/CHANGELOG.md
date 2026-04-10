@@ -1,5 +1,40 @@
 # @contractspec/module.context-storage
 
+## 0.7.17
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/lib.contracts-integrations@3.8.10
+  - @contractspec/lib.knowledge@3.7.18
+  - @contractspec/lib.context-storage@0.7.13
+  - @contractspec/lib.schema@3.7.14
+
+## 0.7.16
+
+### Patch Changes
+
+- Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+  - Migration: Keep Node-only workflow runner code out of "use workflow" entrypoints.
+  - Deprecations: Importing the broad `@contractspec/lib.contracts-spec/workflow` barrel from sandboxed workflow entrypoints is discouraged.
+- Updated dependencies because of Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+  - @contractspec/lib.contracts-integrations@3.8.9
+  - @contractspec/lib.context-storage@0.7.13
+  - @contractspec/lib.knowledge@3.7.17
+  - @contractspec/lib.schema@3.7.14
+
+## 0.7.15
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/lib.contracts-integrations@3.8.8
+  - @contractspec/lib.context-storage@0.7.12
+  - @contractspec/lib.knowledge@3.7.16
+  - @contractspec/lib.schema@3.7.13
+
 ## 0.7.14
 
 ### Patch Changes

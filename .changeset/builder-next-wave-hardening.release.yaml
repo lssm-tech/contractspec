@@ -1,0 +1,78 @@
+schemaVersion: "1"
+slug: builder-next-wave-hardening
+summary: Harden the Builder rollout with canonical bootstrap presets, channel-heavy mobile review flows, local-daemon runtime registration, and richer operator status surfaces.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.builder-spec"
+    releaseType: minor
+  - name: "@contractspec/lib.builder-runtime"
+    releaseType: minor
+  - name: "@contractspec/lib.mobile-control"
+    releaseType: minor
+  - name: "@contractspec/lib.provider-runtime"
+    releaseType: minor
+  - name: "@contractspec/module.builder-workbench"
+    releaseType: minor
+  - name: "@contractspec/module.mobile-review"
+    releaseType: minor
+  - name: "@contractspec/integration.runtime.local"
+    releaseType: minor
+  - name: "@contractspec/integration.provider.gemini"
+    releaseType: minor
+  - name: "@contractspec/app.cli-contractspec"
+    releaseType: minor
+  - name: "@contractspec/bundle.library"
+    releaseType: patch
+affectedRuntimes:
+  - node
+  - browser
+  - local-daemon
+  - mobile
+affectedFrameworks:
+  - react
+  - gemini
+  - operator-console
+audiences:
+  - kind: maintainer
+    summary: Builder bootstrap presets, local-daemon registration, and mobile/operator status views now move together as one governed rollout surface.
+    affectedPackages:
+      - "@contractspec/lib.builder-spec"
+      - "@contractspec/lib.builder-runtime"
+      - "@contractspec/lib.mobile-control"
+      - "@contractspec/lib.provider-runtime"
+      - "@contractspec/app.cli-contractspec"
+  - kind: integrator
+    summary: Integrators can adopt canonical bootstrap presets, register trusted local daemons, and consume richer snapshot-backed mobile review and operator posture data.
+    affectedPackages:
+      - "@contractspec/module.builder-workbench"
+      - "@contractspec/module.mobile-review"
+      - "@contractspec/integration.runtime.local"
+      - "@contractspec/integration.provider.gemini"
+      - "@contractspec/bundle.library"
+  - kind: customer
+    summary: Builder operators get clearer local runtime trust, lease, and channel-action status when reviewing rollouts away from the desktop workbench.
+    affectedPackages:
+      - "@contractspec/module.builder-workbench"
+      - "@contractspec/module.mobile-review"
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: verify-builder-hardening-rollout
+    title: Verify hardened Builder bootstrap and local-daemon flows
+    summary: Confirm the new preset, mobile-review, and local runtime registration surfaces are wired through the workbench snapshot.
+    level: manual
+    instructions:
+      - Update any bootstrap orchestration to use the managed, local-daemon, or hybrid preset values exposed by the Builder contracts.
+      - Register a local daemon through the runtime integration and confirm the resulting trust and lease details appear in the Builder snapshot surfaces.
+      - Review the mobile-review and operator status cards to verify channel-native actions and comparison posture are rendered from the shared snapshot model.
+validation:
+  commands:
+    - cd packages/libs/builder-spec && bun test && bun run typecheck
+    - cd packages/libs/builder-runtime && bun test && bun run typecheck
+    - cd packages/modules/builder-workbench && bun test && bun run typecheck
+    - cd packages/modules/mobile-review && bun test && bun run typecheck
+    - cd packages/apps/cli-contractspec && bun test && bun run typecheck
+  evidence:
+    - Builder bootstrap contracts now expose canonical managed, local-daemon, and hybrid presets instead of leaving rollout posture to ad hoc caller logic.
+    - Runtime-local registration and mobile review card resolution both feed the shared Builder snapshot so desktop and mobile/operator surfaces describe the same rollout state.
+    - CLI and library-facing operator guidance now surface the richer local trust, lease, channel action, and comparison posture details introduced by the hardened rollout.

@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.contracts-spec",
-	"version": "5.0.3",
+	"version": "5.2.0",
 	"description": "Spec definitions and registries for ContractSpec",
 	"keywords": [
 		"contractspec",
@@ -17,9 +17,9 @@
 		"publish:pkg:canary": "bun publish:pkg --tag canary",
 		"clean": "rm -rf dist",
 		"lint": "bun run lint:fix",
-		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-		"lint:check": "biome check .",
-		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
+		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
+		"lint:check": "node ../../../scripts/biome.cjs check .",
+		"build": "bun run build:bundle && bun run build:types",
 		"build:bundle": "contractspec-bun-build transpile",
 		"build:types": "contractspec-bun-build types",
 		"prebuild": "bun run docs:manifest && contractspec-bun-build prebuild",
@@ -27,8 +27,7 @@
 		"test": "bun test",
 		"dev": "contractspec-bun-build dev",
 		"docs:manifest": "bun run scripts/build-docblocks-manifest.ts",
-		"registry:build": "bun run scripts/build-registry.ts",
-		"readme:inventory": "bun run scripts/update-readme-contract-inventory.ts"
+		"registry:build": "bun run scripts/build-registry.ts"
 	},
 	"repository": {
 		"type": "git",
@@ -140,9 +139,15 @@
 		"./control-plane/capabilities/controlPlaneCore.capability": "./src/control-plane/capabilities/controlPlaneCore.capability.ts",
 		"./control-plane/capabilities/controlPlaneSkillRegistry.capability": "./src/control-plane/capabilities/controlPlaneSkillRegistry.capability.ts",
 		"./control-plane/commands": "./src/control-plane/commands/index.ts",
+		"./control-plane/commands/controlPlaneExecutionAbort.command": "./src/control-plane/commands/controlPlaneExecutionAbort.command.ts",
 		"./control-plane/commands/controlPlaneExecutionApprove.command": "./src/control-plane/commands/controlPlaneExecutionApprove.command.ts",
 		"./control-plane/commands/controlPlaneExecutionCancel.command": "./src/control-plane/commands/controlPlaneExecutionCancel.command.ts",
+		"./control-plane/commands/controlPlaneExecutionEvidenceExport.command": "./src/control-plane/commands/controlPlaneExecutionEvidenceExport.command.ts",
+		"./control-plane/commands/controlPlaneExecutionPause.command": "./src/control-plane/commands/controlPlaneExecutionPause.command.ts",
 		"./control-plane/commands/controlPlaneExecutionReject.command": "./src/control-plane/commands/controlPlaneExecutionReject.command.ts",
+		"./control-plane/commands/controlPlaneExecutionResume.command": "./src/control-plane/commands/controlPlaneExecutionResume.command.ts",
+		"./control-plane/commands/controlPlaneExecutionRetry.command": "./src/control-plane/commands/controlPlaneExecutionRetry.command.ts",
+		"./control-plane/commands/controlPlaneExecutionShutdown.command": "./src/control-plane/commands/controlPlaneExecutionShutdown.command.ts",
 		"./control-plane/commands/controlPlaneExecutionStart.command": "./src/control-plane/commands/controlPlaneExecutionStart.command.ts",
 		"./control-plane/commands/controlPlaneIntentSubmit.command": "./src/control-plane/commands/controlPlaneIntentSubmit.command.ts",
 		"./control-plane/commands/controlPlanePlanCompile.command": "./src/control-plane/commands/controlPlanePlanCompile.command.ts",
@@ -167,6 +172,9 @@
 		"./control-plane/policies/controlPlaneMessaging.policy": "./src/control-plane/policies/controlPlaneMessaging.policy.ts",
 		"./control-plane/queries": "./src/control-plane/queries/index.ts",
 		"./control-plane/queries/controlPlaneExecutionGet.query": "./src/control-plane/queries/controlPlaneExecutionGet.query.ts",
+		"./control-plane/queries/controlPlaneExecutionLane.models": "./src/control-plane/queries/controlPlaneExecutionLane.models.ts",
+		"./control-plane/queries/controlPlaneExecutionLaneGet.query": "./src/control-plane/queries/controlPlaneExecutionLaneGet.query.ts",
+		"./control-plane/queries/controlPlaneExecutionLaneList.query": "./src/control-plane/queries/controlPlaneExecutionLaneList.query.ts",
 		"./control-plane/queries/controlPlaneExecutionList.query": "./src/control-plane/queries/controlPlaneExecutionList.query.ts",
 		"./control-plane/queries/controlPlanePolicyExplain.query": "./src/control-plane/queries/controlPlanePolicyExplain.query.ts",
 		"./control-plane/queries/controlPlaneSkillList.query": "./src/control-plane/queries/controlPlaneSkillList.query.ts",
@@ -382,6 +390,7 @@
 		"./regenerator/utils": "./src/regenerator/utils.ts",
 		"./registry": "./src/registry.ts",
 		"./registry-utils": "./src/registry-utils.ts",
+		"./release": "./src/release/index.ts",
 		"./resources": "./src/resources.ts",
 		"./schema-to-markdown": "./src/schema-to-markdown.ts",
 		"./serialization": "./src/serialization/index.ts",
@@ -406,6 +415,9 @@
 		"./utils/safe-json": "./src/utils/safe-json.ts",
 		"./versioning": "./src/versioning/index.ts",
 		"./versioning/refs": "./src/versioning/refs.ts",
+		"./versioning/release-types": "./src/versioning/release-types.ts",
+		"./versioning/release-utils": "./src/versioning/release-utils.ts",
+		"./versioning/schema": "./src/versioning/schema.ts",
 		"./versioning/types": "./src/versioning/types.ts",
 		"./versioning/utils": "./src/versioning/utils.ts",
 		"./visualizations": "./src/visualizations/index.ts",
@@ -974,6 +986,12 @@
 				"node": "./dist/node/control-plane/commands/index.js",
 				"default": "./dist/control-plane/commands/index.js"
 			},
+			"./control-plane/commands/controlPlaneExecutionAbort.command": {
+				"types": "./dist/control-plane/commands/controlPlaneExecutionAbort.command.d.ts",
+				"bun": "./dist/control-plane/commands/controlPlaneExecutionAbort.command.js",
+				"node": "./dist/node/control-plane/commands/controlPlaneExecutionAbort.command.js",
+				"default": "./dist/control-plane/commands/controlPlaneExecutionAbort.command.js"
+			},
 			"./control-plane/commands/controlPlaneExecutionApprove.command": {
 				"types": "./dist/control-plane/commands/controlPlaneExecutionApprove.command.d.ts",
 				"bun": "./dist/control-plane/commands/controlPlaneExecutionApprove.command.js",
@@ -986,11 +1004,41 @@
 				"node": "./dist/node/control-plane/commands/controlPlaneExecutionCancel.command.js",
 				"default": "./dist/control-plane/commands/controlPlaneExecutionCancel.command.js"
 			},
+			"./control-plane/commands/controlPlaneExecutionEvidenceExport.command": {
+				"types": "./dist/control-plane/commands/controlPlaneExecutionEvidenceExport.command.d.ts",
+				"bun": "./dist/control-plane/commands/controlPlaneExecutionEvidenceExport.command.js",
+				"node": "./dist/node/control-plane/commands/controlPlaneExecutionEvidenceExport.command.js",
+				"default": "./dist/control-plane/commands/controlPlaneExecutionEvidenceExport.command.js"
+			},
+			"./control-plane/commands/controlPlaneExecutionPause.command": {
+				"types": "./dist/control-plane/commands/controlPlaneExecutionPause.command.d.ts",
+				"bun": "./dist/control-plane/commands/controlPlaneExecutionPause.command.js",
+				"node": "./dist/node/control-plane/commands/controlPlaneExecutionPause.command.js",
+				"default": "./dist/control-plane/commands/controlPlaneExecutionPause.command.js"
+			},
 			"./control-plane/commands/controlPlaneExecutionReject.command": {
 				"types": "./dist/control-plane/commands/controlPlaneExecutionReject.command.d.ts",
 				"bun": "./dist/control-plane/commands/controlPlaneExecutionReject.command.js",
 				"node": "./dist/node/control-plane/commands/controlPlaneExecutionReject.command.js",
 				"default": "./dist/control-plane/commands/controlPlaneExecutionReject.command.js"
+			},
+			"./control-plane/commands/controlPlaneExecutionResume.command": {
+				"types": "./dist/control-plane/commands/controlPlaneExecutionResume.command.d.ts",
+				"bun": "./dist/control-plane/commands/controlPlaneExecutionResume.command.js",
+				"node": "./dist/node/control-plane/commands/controlPlaneExecutionResume.command.js",
+				"default": "./dist/control-plane/commands/controlPlaneExecutionResume.command.js"
+			},
+			"./control-plane/commands/controlPlaneExecutionRetry.command": {
+				"types": "./dist/control-plane/commands/controlPlaneExecutionRetry.command.d.ts",
+				"bun": "./dist/control-plane/commands/controlPlaneExecutionRetry.command.js",
+				"node": "./dist/node/control-plane/commands/controlPlaneExecutionRetry.command.js",
+				"default": "./dist/control-plane/commands/controlPlaneExecutionRetry.command.js"
+			},
+			"./control-plane/commands/controlPlaneExecutionShutdown.command": {
+				"types": "./dist/control-plane/commands/controlPlaneExecutionShutdown.command.d.ts",
+				"bun": "./dist/control-plane/commands/controlPlaneExecutionShutdown.command.js",
+				"node": "./dist/node/control-plane/commands/controlPlaneExecutionShutdown.command.js",
+				"default": "./dist/control-plane/commands/controlPlaneExecutionShutdown.command.js"
 			},
 			"./control-plane/commands/controlPlaneExecutionStart.command": {
 				"types": "./dist/control-plane/commands/controlPlaneExecutionStart.command.d.ts",
@@ -1135,6 +1183,24 @@
 				"bun": "./dist/control-plane/queries/controlPlaneExecutionGet.query.js",
 				"node": "./dist/node/control-plane/queries/controlPlaneExecutionGet.query.js",
 				"default": "./dist/control-plane/queries/controlPlaneExecutionGet.query.js"
+			},
+			"./control-plane/queries/controlPlaneExecutionLane.models": {
+				"types": "./dist/control-plane/queries/controlPlaneExecutionLane.models.d.ts",
+				"bun": "./dist/control-plane/queries/controlPlaneExecutionLane.models.js",
+				"node": "./dist/node/control-plane/queries/controlPlaneExecutionLane.models.js",
+				"default": "./dist/control-plane/queries/controlPlaneExecutionLane.models.js"
+			},
+			"./control-plane/queries/controlPlaneExecutionLaneGet.query": {
+				"types": "./dist/control-plane/queries/controlPlaneExecutionLaneGet.query.d.ts",
+				"bun": "./dist/control-plane/queries/controlPlaneExecutionLaneGet.query.js",
+				"node": "./dist/node/control-plane/queries/controlPlaneExecutionLaneGet.query.js",
+				"default": "./dist/control-plane/queries/controlPlaneExecutionLaneGet.query.js"
+			},
+			"./control-plane/queries/controlPlaneExecutionLaneList.query": {
+				"types": "./dist/control-plane/queries/controlPlaneExecutionLaneList.query.d.ts",
+				"bun": "./dist/control-plane/queries/controlPlaneExecutionLaneList.query.js",
+				"node": "./dist/node/control-plane/queries/controlPlaneExecutionLaneList.query.js",
+				"default": "./dist/control-plane/queries/controlPlaneExecutionLaneList.query.js"
 			},
 			"./control-plane/queries/controlPlaneExecutionList.query": {
 				"types": "./dist/control-plane/queries/controlPlaneExecutionList.query.d.ts",
@@ -2426,6 +2492,12 @@
 				"node": "./dist/node/registry-utils.js",
 				"default": "./dist/registry-utils.js"
 			},
+			"./release": {
+				"types": "./dist/release/index.d.ts",
+				"bun": "./dist/release/index.js",
+				"node": "./dist/node/release/index.js",
+				"default": "./dist/release/index.js"
+			},
 			"./resources": {
 				"types": "./dist/resources.d.ts",
 				"bun": "./dist/resources.js",
@@ -2569,6 +2641,24 @@
 				"bun": "./dist/versioning/refs.js",
 				"node": "./dist/node/versioning/refs.js",
 				"default": "./dist/versioning/refs.js"
+			},
+			"./versioning/release-types": {
+				"types": "./dist/versioning/release-types.d.ts",
+				"bun": "./dist/versioning/release-types.js",
+				"node": "./dist/node/versioning/release-types.js",
+				"default": "./dist/versioning/release-types.js"
+			},
+			"./versioning/release-utils": {
+				"types": "./dist/versioning/release-utils.d.ts",
+				"bun": "./dist/versioning/release-utils.js",
+				"node": "./dist/node/versioning/release-utils.js",
+				"default": "./dist/versioning/release-utils.js"
+			},
+			"./versioning/schema": {
+				"types": "./dist/versioning/schema.d.ts",
+				"bun": "./dist/versioning/schema.js",
+				"node": "./dist/node/versioning/schema.js",
+				"default": "./dist/versioning/schema.js"
 			},
 			"./versioning/types": {
 				"types": "./dist/versioning/types.d.ts",

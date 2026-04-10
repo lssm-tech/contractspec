@@ -1,11 +1,13 @@
 import type {
 	Step,
+	WorkflowSpec,
+} from '@contractspec/lib.contracts-spec/workflow/spec';
+import type {
 	WorkflowDevkitHostTarget,
 	WorkflowDevkitIntegrationMode,
 	WorkflowDevkitStepBehavior,
 	WorkflowDevkitStepRuntimeConfig,
-	WorkflowSpec,
-} from '@contractspec/lib.contracts-spec/workflow';
+} from '@contractspec/lib.contracts-spec/workflow/workflow-devkit';
 import type { UIMessageChunk } from 'ai';
 
 export interface WorkflowDevkitCompiledTransition {

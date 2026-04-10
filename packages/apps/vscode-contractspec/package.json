@@ -2,7 +2,7 @@
 	"name": "vscode-contractspec",
 	"displayName": "ContractSpec",
 	"description": "ContractSpec: spec-first development for AI-written software. Validate, scaffold, and explore your contract specifications.",
-	"version": "3.8.3",
+	"version": "3.8.6",
 	"publisher": "lssm",
 	"license": "MIT",
 	"icon": "assets/icon.png",
@@ -868,8 +868,8 @@
 		"build:types": "tsc --noEmit",
 		"dev": "bun build src/extension.ts --outdir=dist --target=node --format=cjs --external=vscode --sourcemap=external --watch",
 		"lint": "bun run lint:fix",
-		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-		"lint:check": "biome check .",
+		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
+		"lint:check": "node ../../../scripts/biome.cjs check .",
 		"package": "vsce package --no-dependencies",
 		"publish:off": "vsce publish --no-dependencies",
 		"test": "vscode-test"
@@ -886,14 +886,14 @@
 		"ai": "catalog:ai"
 	},
 	"optionalDependencies": {
-		"@swc/wasm": "1.15.21"
+		"@swc/wasm": "1.15.24"
 	},
 	"devDependencies": {
-		"@types/vscode": "^1.104.0",
+		"@types/vscode": "^1.115.0",
 		"@vscode/test-cli": "^0.0.12",
 		"@vscode/test-electron": "^2.5.2",
 		"@vscode/vsce": "^3.2.2",
-		"esbuild": "^0.27.4",
+		"esbuild": "^0.27.7",
 		"typescript": "catalog:"
 	},
 	"publishConfig": {

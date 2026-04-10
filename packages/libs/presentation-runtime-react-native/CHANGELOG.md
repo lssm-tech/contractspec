@@ -1,5 +1,38 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 36.0.5
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Pass Bun transpile paths through production JSX mode so published browser bundles stop emitting the dev runtime.
+  - @contractspec/lib.presentation-runtime-core@3.9.6
+  - @contractspec/lib.presentation-runtime-react@36.0.6
+  - @contractspec/lib.ui-kit@3.8.10
+
+## 36.0.4
+
+### Patch Changes
+
+- Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+  - Migration: Keep Node-only workflow runner code out of "use workflow" entrypoints.
+  - Deprecations: Importing the broad `@contractspec/lib.contracts-spec/workflow` barrel from sandboxed workflow entrypoints is discouraged.
+- Updated dependencies because of Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+  - @contractspec/lib.presentation-runtime-react@36.0.5
+  - @contractspec/lib.presentation-runtime-core@3.9.5
+  - @contractspec/lib.ui-kit@3.8.9
+
+## 36.0.3
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/lib.presentation-runtime-react@36.0.4
+  - @contractspec/lib.presentation-runtime-core@3.9.4
+  - @contractspec/lib.ui-kit@3.8.8
+
 ## 36.0.2
 
 ### Patch Changes

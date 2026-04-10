@@ -48,6 +48,54 @@
 		"contentPath": "platform.context/context.system.md"
 	},
 	{
+		"id": "platform.context/docs.tech.context.pack.describe",
+		"title": "context.pack.describe",
+		"summary": "Returns a canonical view of a context pack, including sources and ownership metadata.",
+		"route": "/docs/reference/platform.context/docs.tech.context.pack.describe",
+		"source": "generated",
+		"contentPath": "platform.context/docs.tech.context.pack.describe.md"
+	},
+	{
+		"id": "platform.context/docs.tech.context.pack.search",
+		"title": "context.pack.search",
+		"summary": "Search context packs and surface their latest snapshot details for discovery and UI lists.",
+		"route": "/docs/reference/platform.context/docs.tech.context.pack.search",
+		"source": "generated",
+		"contentPath": "platform.context/docs.tech.context.pack.search.md"
+	},
+	{
+		"id": "platform.context/docs.tech.context.pack.snapshot",
+		"title": "context.pack.snapshot",
+		"summary": "Creates a versioned snapshot that is used as the immutable context for agent execution.",
+		"route": "/docs/reference/platform.context/docs.tech.context.pack.snapshot",
+		"source": "generated",
+		"contentPath": "platform.context/docs.tech.context.pack.snapshot.md"
+	},
+	{
+		"id": "platform.context/docs.tech.context.snapshot.created",
+		"title": "context.snapshot.created",
+		"summary": "Emitted when a new snapshot has been persisted and is ready for use.",
+		"route": "/docs/reference/platform.context/docs.tech.context.snapshot.created",
+		"source": "generated",
+		"contentPath": "platform.context/docs.tech.context.snapshot.created.md"
+	},
+	{
+		"id": "platform.context/docs.tech.context.snapshot.presentation",
+		"title": "context.snapshot.summary",
+		"summary": "Defines the presentation surface for snapshot summaries across UI channels.",
+		"route": "/docs/reference/platform.context/docs.tech.context.snapshot.presentation",
+		"source": "generated",
+		"contentPath": "platform.context/docs.tech.context.snapshot.presentation.md"
+	},
+	{
+		"id": "platform.context/docs.tech.context.system",
+		"title": "Context system",
+		"summary": "The context system defines how ContractSpec bundles DocBlocks, contracts, knowledge spaces, and data views into deterministic snapshots.",
+		"route": "/docs/reference/platform.context/docs.tech.context.system",
+		"source": "generated",
+		"contentPath": "platform.context/docs.tech.context.system.md"
+	},
+	{
 		"id": "platform.context/platform.context",
 		"title": "platform.context",
 		"summary": "Snapshot, search, and describe context packs for AI-driven workflows\n- **Type**: feature\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts-spec/src/context/context.feature.ts`\n- `context.pack.snapshot` (v1.0.0)",

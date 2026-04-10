@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test';
-import { createHmac } from 'node:crypto';
+import { createHmac } from 'crypto';
 
 import {
 	isSlackUrlVerificationPayload,

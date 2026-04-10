@@ -1,0 +1,115 @@
+{
+	"name": "@contractspec/lib.builder-spec",
+	"version": "0.2.0",
+	"description": "Builder control-plane contracts, capabilities, and validation for ContractSpec.",
+	"keywords": [
+		"contractspec",
+		"builder",
+		"omnichannel",
+		"contracts",
+		"typescript"
+	],
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"scripts": {
+		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+		"publish:pkg:canary": "bun publish:pkg --tag canary",
+		"build": "bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"dev": "contractspec-bun-build dev",
+		"clean": "rimraf dist .turbo",
+		"lint": "bun lint:fix",
+		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
+		"lint:check": "node ../../../scripts/biome.cjs check .",
+		"test": "bun test",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/lib.execution-lanes": "workspace:*",
+		"@contractspec/lib.provider-spec": "workspace:*",
+		"@contractspec/lib.schema": "workspace:*"
+	},
+	"devDependencies": {
+		"@contractspec/tool.bun": "workspace:*",
+		"@contractspec/tool.typescript": "workspace:*",
+		"typescript": "catalog:"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./capabilities": "./src/capabilities/index.ts",
+		"./commands": "./src/commands/index.ts",
+		"./events": "./src/events/index.ts",
+		"./queries": "./src/queries/index.ts",
+		"./types": "./src/types/index.ts",
+		"./validation": "./src/validation/index.ts"
+	},
+	"publishConfig": {
+		"access": "public",
+		"registry": "https://registry.npmjs.org/",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"browser": "./dist/browser/index.js",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./capabilities": {
+				"types": "./dist/capabilities/index.d.ts",
+				"browser": "./dist/browser/capabilities/index.js",
+				"bun": "./dist/capabilities/index.js",
+				"node": "./dist/node/capabilities/index.js",
+				"default": "./dist/capabilities/index.js"
+			},
+			"./commands": {
+				"types": "./dist/commands/index.d.ts",
+				"browser": "./dist/browser/commands/index.js",
+				"bun": "./dist/commands/index.js",
+				"node": "./dist/node/commands/index.js",
+				"default": "./dist/commands/index.js"
+			},
+			"./events": {
+				"types": "./dist/events/index.d.ts",
+				"browser": "./dist/browser/events/index.js",
+				"bun": "./dist/events/index.js",
+				"node": "./dist/node/events/index.js",
+				"default": "./dist/events/index.js"
+			},
+			"./queries": {
+				"types": "./dist/queries/index.d.ts",
+				"browser": "./dist/browser/queries/index.js",
+				"bun": "./dist/queries/index.js",
+				"node": "./dist/node/queries/index.js",
+				"default": "./dist/queries/index.js"
+			},
+			"./types": {
+				"types": "./dist/types/index.d.ts",
+				"browser": "./dist/browser/types/index.js",
+				"bun": "./dist/types/index.js",
+				"node": "./dist/node/types/index.js",
+				"default": "./dist/types/index.js"
+			},
+			"./validation": {
+				"types": "./dist/validation/index.d.ts",
+				"browser": "./dist/browser/validation/index.js",
+				"bun": "./dist/validation/index.js",
+				"node": "./dist/node/validation/index.js",
+				"default": "./dist/validation/index.js"
+			}
+		}
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/libs/builder-spec"
+	},
+	"homepage": "https://contractspec.io"
+}

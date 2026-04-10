@@ -1,4 +1,4 @@
-import type { WorkflowSpec } from '@contractspec/lib.contracts-spec/workflow';
+import type { WorkflowSpec } from '@contractspec/lib.contracts-spec/workflow/spec';
 import {
 	inferWorkflowDevkitBehavior,
 	mergeWorkflowDevkitData,

@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/integration.runtime",
-	"version": "3.8.7",
+	"version": "3.9.0",
 	"description": "Runtime integration with secret management",
 	"keywords": [
 		"contractspec",
@@ -18,22 +18,27 @@
 	"scripts": {
 		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
 		"publish:pkg:canary": "bun publish:pkg --tag canary",
-		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
+		"build": "bun run build:bundle && bun run build:types",
 		"build:bundle": "contractspec-bun-build transpile",
 		"build:types": "contractspec-bun-build types",
 		"dev": "contractspec-bun-build dev",
 		"clean": "rimraf dist .turbo",
 		"lint": "bun lint:fix",
-		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-		"lint:check": "biome check .",
+		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
+		"lint:check": "node ../../../scripts/biome.cjs check .",
 		"test": "bun test --pass-with-no-tests",
 		"prebuild": "contractspec-bun-build prebuild",
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
+		"@contractspec/lib.builder-spec": "workspace:*",
+		"@contractspec/lib.builder-runtime": "workspace:*",
 		"@contractspec/lib.contracts-spec": "workspace:*",
 		"@contractspec/lib.contracts-integrations": "workspace:*",
+		"@contractspec/lib.execution-lanes": "workspace:*",
+		"@contractspec/lib.jobs": "workspace:*",
 		"@contractspec/lib.logger": "workspace:*",
+		"@contractspec/lib.provider-spec": "workspace:*",
 		"@google-cloud/secret-manager": "^6.1.1",
 		"google-gax": "^5.0.0"
 	},
@@ -47,13 +52,33 @@
 	},
 	"exports": {
 		".": "./src/index.ts",
+		"./builder": "./src/builder/index.ts",
+		"./builder/postgres-schema": "./src/builder/postgres-schema.ts",
+		"./builder/postgres-store": "./src/builder/postgres-store.ts",
 		"./channel": "./src/channel/index.ts",
 		"./channel/approval": "./src/channel/approval.ts",
 		"./channel/approval-plan": "./src/channel/approval-plan.ts",
 		"./channel/authorization": "./src/channel/authorization.ts",
 		"./channel/base-types": "./src/channel/base-types.ts",
+		"./channel/connect-review-memory-store": "./src/channel/connect-review-memory-store.ts",
+		"./channel/connect-review-postgres-schema": "./src/channel/connect-review-postgres-schema.ts",
+		"./channel/connect-review-postgres-store": "./src/channel/connect-review-postgres-store.ts",
+		"./channel/connect-review-service": "./src/channel/connect-review-service.ts",
+		"./channel/connect-review-store": "./src/channel/connect-review-store.ts",
+		"./channel/connect-review-types": "./src/channel/connect-review-types.ts",
 		"./channel/control-plane-types": "./src/channel/control-plane-types.ts",
 		"./channel/dispatcher": "./src/channel/dispatcher.ts",
+		"./channel/execution-lanes-memory-store": "./src/channel/execution-lanes-memory-store.ts",
+		"./channel/execution-lanes-postgres-schema": "./src/channel/execution-lanes-postgres-schema.ts",
+		"./channel/execution-lanes-postgres-store": "./src/channel/execution-lanes-postgres-store.ts",
+		"./channel/execution-lanes-runtime": "./src/channel/execution-lanes-runtime.ts",
+		"./channel/execution-lanes-service": "./src/channel/execution-lanes-service.ts",
+		"./channel/execution-lanes-service-approval": "./src/channel/execution-lanes-service-approval.ts",
+		"./channel/execution-lanes-service-mutations": "./src/channel/execution-lanes-service-mutations.ts",
+		"./channel/execution-lanes-service-queries": "./src/channel/execution-lanes-service-queries.ts",
+		"./channel/execution-lanes-service-shared": "./src/channel/execution-lanes-service-shared.ts",
+		"./channel/execution-lanes-store": "./src/channel/execution-lanes-store.ts",
+		"./channel/execution-lanes-team-backends": "./src/channel/execution-lanes-team-backends.ts",
 		"./channel/github": "./src/channel/github.ts",
 		"./channel/memory-store": "./src/channel/memory-store.ts",
 		"./channel/plan-types": "./src/channel/plan-types.ts",
@@ -98,6 +123,24 @@
 				"node": "./dist/node/index.js",
 				"default": "./dist/index.js"
 			},
+			"./builder": {
+				"types": "./dist/builder/index.d.ts",
+				"bun": "./dist/builder/index.js",
+				"node": "./dist/node/builder/index.js",
+				"default": "./dist/builder/index.js"
+			},
+			"./builder/postgres-schema": {
+				"types": "./dist/builder/postgres-schema.d.ts",
+				"bun": "./dist/builder/postgres-schema.js",
+				"node": "./dist/node/builder/postgres-schema.js",
+				"default": "./dist/builder/postgres-schema.js"
+			},
+			"./builder/postgres-store": {
+				"types": "./dist/builder/postgres-store.d.ts",
+				"bun": "./dist/builder/postgres-store.js",
+				"node": "./dist/node/builder/postgres-store.js",
+				"default": "./dist/builder/postgres-store.js"
+			},
 			"./channel": {
 				"types": "./dist/channel/index.d.ts",
 				"bun": "./dist/channel/index.js",
@@ -128,6 +171,42 @@
 				"node": "./dist/node/channel/base-types.js",
 				"default": "./dist/channel/base-types.js"
 			},
+			"./channel/connect-review-memory-store": {
+				"types": "./dist/channel/connect-review-memory-store.d.ts",
+				"bun": "./dist/channel/connect-review-memory-store.js",
+				"node": "./dist/node/channel/connect-review-memory-store.js",
+				"default": "./dist/channel/connect-review-memory-store.js"
+			},
+			"./channel/connect-review-postgres-schema": {
+				"types": "./dist/channel/connect-review-postgres-schema.d.ts",
+				"bun": "./dist/channel/connect-review-postgres-schema.js",
+				"node": "./dist/node/channel/connect-review-postgres-schema.js",
+				"default": "./dist/channel/connect-review-postgres-schema.js"
+			},
+			"./channel/connect-review-postgres-store": {
+				"types": "./dist/channel/connect-review-postgres-store.d.ts",
+				"bun": "./dist/channel/connect-review-postgres-store.js",
+				"node": "./dist/node/channel/connect-review-postgres-store.js",
+				"default": "./dist/channel/connect-review-postgres-store.js"
+			},
+			"./channel/connect-review-service": {
+				"types": "./dist/channel/connect-review-service.d.ts",
+				"bun": "./dist/channel/connect-review-service.js",
+				"node": "./dist/node/channel/connect-review-service.js",
+				"default": "./dist/channel/connect-review-service.js"
+			},
+			"./channel/connect-review-store": {
+				"types": "./dist/channel/connect-review-store.d.ts",
+				"bun": "./dist/channel/connect-review-store.js",
+				"node": "./dist/node/channel/connect-review-store.js",
+				"default": "./dist/channel/connect-review-store.js"
+			},
+			"./channel/connect-review-types": {
+				"types": "./dist/channel/connect-review-types.d.ts",
+				"bun": "./dist/channel/connect-review-types.js",
+				"node": "./dist/node/channel/connect-review-types.js",
+				"default": "./dist/channel/connect-review-types.js"
+			},
 			"./channel/control-plane-types": {
 				"types": "./dist/channel/control-plane-types.d.ts",
 				"bun": "./dist/channel/control-plane-types.js",
@@ -139,6 +218,72 @@
 				"bun": "./dist/channel/dispatcher.js",
 				"node": "./dist/node/channel/dispatcher.js",
 				"default": "./dist/channel/dispatcher.js"
+			},
+			"./channel/execution-lanes-memory-store": {
+				"types": "./dist/channel/execution-lanes-memory-store.d.ts",
+				"bun": "./dist/channel/execution-lanes-memory-store.js",
+				"node": "./dist/node/channel/execution-lanes-memory-store.js",
+				"default": "./dist/channel/execution-lanes-memory-store.js"
+			},
+			"./channel/execution-lanes-postgres-schema": {
+				"types": "./dist/channel/execution-lanes-postgres-schema.d.ts",
+				"bun": "./dist/channel/execution-lanes-postgres-schema.js",
+				"node": "./dist/node/channel/execution-lanes-postgres-schema.js",
+				"default": "./dist/channel/execution-lanes-postgres-schema.js"
+			},
+			"./channel/execution-lanes-postgres-store": {
+				"types": "./dist/channel/execution-lanes-postgres-store.d.ts",
+				"bun": "./dist/channel/execution-lanes-postgres-store.js",
+				"node": "./dist/node/channel/execution-lanes-postgres-store.js",
+				"default": "./dist/channel/execution-lanes-postgres-store.js"
+			},
+			"./channel/execution-lanes-runtime": {
+				"types": "./dist/channel/execution-lanes-runtime.d.ts",
+				"bun": "./dist/channel/execution-lanes-runtime.js",
+				"node": "./dist/node/channel/execution-lanes-runtime.js",
+				"default": "./dist/channel/execution-lanes-runtime.js"
+			},
+			"./channel/execution-lanes-service": {
+				"types": "./dist/channel/execution-lanes-service.d.ts",
+				"bun": "./dist/channel/execution-lanes-service.js",
+				"node": "./dist/node/channel/execution-lanes-service.js",
+				"default": "./dist/channel/execution-lanes-service.js"
+			},
+			"./channel/execution-lanes-service-approval": {
+				"types": "./dist/channel/execution-lanes-service-approval.d.ts",
+				"bun": "./dist/channel/execution-lanes-service-approval.js",
+				"node": "./dist/node/channel/execution-lanes-service-approval.js",
+				"default": "./dist/channel/execution-lanes-service-approval.js"
+			},
+			"./channel/execution-lanes-service-mutations": {
+				"types": "./dist/channel/execution-lanes-service-mutations.d.ts",
+				"bun": "./dist/channel/execution-lanes-service-mutations.js",
+				"node": "./dist/node/channel/execution-lanes-service-mutations.js",
+				"default": "./dist/channel/execution-lanes-service-mutations.js"
+			},
+			"./channel/execution-lanes-service-queries": {
+				"types": "./dist/channel/execution-lanes-service-queries.d.ts",
+				"bun": "./dist/channel/execution-lanes-service-queries.js",
+				"node": "./dist/node/channel/execution-lanes-service-queries.js",
+				"default": "./dist/channel/execution-lanes-service-queries.js"
+			},
+			"./channel/execution-lanes-service-shared": {
+				"types": "./dist/channel/execution-lanes-service-shared.d.ts",
+				"bun": "./dist/channel/execution-lanes-service-shared.js",
+				"node": "./dist/node/channel/execution-lanes-service-shared.js",
+				"default": "./dist/channel/execution-lanes-service-shared.js"
+			},
+			"./channel/execution-lanes-store": {
+				"types": "./dist/channel/execution-lanes-store.d.ts",
+				"bun": "./dist/channel/execution-lanes-store.js",
+				"node": "./dist/node/channel/execution-lanes-store.js",
+				"default": "./dist/channel/execution-lanes-store.js"
+			},
+			"./channel/execution-lanes-team-backends": {
+				"types": "./dist/channel/execution-lanes-team-backends.d.ts",
+				"bun": "./dist/channel/execution-lanes-team-backends.js",
+				"node": "./dist/node/channel/execution-lanes-team-backends.js",
+				"default": "./dist/channel/execution-lanes-team-backends.js"
 			},
 			"./channel/github": {
 				"types": "./dist/channel/github.d.ts",

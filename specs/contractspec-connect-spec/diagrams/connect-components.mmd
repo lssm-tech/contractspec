@@ -1,0 +1,11 @@
+flowchart TD
+    Agent["Coding agent host<br/>Cursor / Codex / Claude Code"] --> Adapter["Connect adapter normalizer"]
+    Adapter --> DTO["Context / Plan / Verdict projector"]
+    DTO --> Artifacts["Local artifact writer<br/>.contractspec/connect/*"]
+    DTO --> Contracts["contracts-spec<br/>controlPlane.* / acp.* / policy / agent"]
+    DTO --> Runtime["integration.runtime<br/>plan / approval / trace"]
+    DTO --> Workspace["workspace analysis<br/>impact / scan / docblocks"]
+    DTO --> Knowledge["knowledge + canon<br/>trusted context"]
+    DTO --> Harness["harness replay<br/>evaluation"]
+    Artifacts --> Review["Local review packets"]
+    Review --> Studio["Studio transport (optional)"]

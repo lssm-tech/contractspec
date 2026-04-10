@@ -1,54 +1,105 @@
 # @contractspec/lib.ui-kit
 
+`@contractspec/lib.ui-kit` provides cross-platform UI components for native-first and Expo-based surfaces, with most real usage happening through `./ui/*` subpaths rather than the root barrel.
+
 Website: https://contractspec.io
-
-**Cross-platform UI components for React Native and web surfaces.**
-
-## What It Provides
-
-- **Layer**: lib
-- **Consumers**: accessibility, design-system, presentation-runtime-react-native, bundles
 
 ## Installation
 
-`npm install @contractspec/lib.ui-kit`
+`bun add @contractspec/lib.ui-kit`
 
 or
 
-`bun add @contractspec/lib.ui-kit`
+`npm install @contractspec/lib.ui-kit`
 
-## Usage
+## What belongs here
 
-Import the root entrypoint from `@contractspec/lib.ui-kit`, or use one of the documented subpaths when you want a narrower surface area.
+This package owns the native-first component layer for ContractSpec UI work:
 
-## Public Entry Points
+- React Native and Expo component wrappers.
+- Shared UI building blocks such as forms, tables, overlays, navigation, loading states, marketing blocks, and visualization surfaces.
+- Platform-aware helpers such as `useColorScheme` and list state helpers.
 
-- `.` — main entry
-- `./ui/*` — individual component exports (many components)
+Use this package for Expo and React Native surfaces. Do not use it as the design-token layer or as the framework-agnostic link package.
 
-## Local Commands
+## API map
 
-- `bun run dev` — contractspec-bun-build dev
-- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
-- `bun run lint` — bun run lint:fix
-- `bun run lint:check` — biome check .
-- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
-- `bun run typecheck` — tsc --noEmit
-- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
-- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
-- `bun run clean` — rm -rf dist
-- `bun run build:bundle` — contractspec-bun-build transpile
-- `bun run build:types` — contractspec-bun-build types
-- `bun run prebuild` — contractspec-bun-build prebuild
+### Forms and inputs
 
-## Recent Updates
+- `./ui/input`
+- `./ui/textarea`
+- `./ui/select`
+- `./ui/form`
+- `./ui/field`
 
-- Replace eslint+prettier by biomejs to optimize speed
-- Add data visualization capabilities
-- Add table capabilities
+### Overlays and menus
 
-## Notes
+- `./ui/dialog`
+- `./ui/alert-dialog`
+- `./ui/popover`
+- `./ui/sheet`
+- `./ui/dropdown-menu`
+- `./ui/context-menu`
 
-- Component API must stay cross-platform compatible (React Native + web)
-- Depends on ui-kit-core — changes there propagate here
-- Do not introduce web-only or native-only APIs without a platform check
+### Navigation and display
+
+- `./ui/link`
+- `./ui/sidebar`
+- `./ui/navigation-menu`
+- `./ui/page-header`
+- `./ui/table`
+- `./ui/data-table`
+- `./ui/card`
+- `./ui/empty-state`
+
+### Hooks, utilities, and grouped surfaces
+
+- `./ui/useColorScheme`
+- `./ui/useListState`
+- `./ui/utils`
+- grouped subpaths under `./ui/marketing`, `./ui/usecases`, and `./ui/visualization`
+- icons under `./ui/icons/*`
+
+## Public surface
+
+The current root entry exists, but it is not the meaningful consumer surface for this package.
+
+Consumers should import `./ui/*` subpaths directly. The public surface is best understood in groups:
+
+- atoms and controls
+- forms
+- overlays and menus
+- navigation and layout
+- data display
+- loading and empty states
+- marketing and use-case blocks
+- organisms and visualization
+- hooks, utilities, and icons
+
+Use `package.json` as the exhaustive source of truth for all exported subpaths.
+
+## Operational semantics and gotchas
+
+- Consumers should import subpaths directly; the root package is not the useful primary API today.
+- Many components wrap Expo, React Native, or RN-oriented primitives and dependencies.
+- `./ui/link` is router-coupled through `expo-router`.
+- `./ui/useColorScheme` is built on `nativewind`.
+- `./ui/utils` exposes a local `cn()` helper, but the deeper compatibility dependency is `@contractspec/lib.ui-kit-core`.
+- This package is native-first even when some components can render cross-platform through React Native Web.
+
+## When not to use this package
+
+- Do not use it for pure web-first Radix or Next.js surfaces.
+- Do not use it for token or theming orchestration.
+- Do not use it for framework-agnostic link behavior.
+
+## Related packages
+
+- `@contractspec/lib.ui-kit-core`: tiny shared utility layer used by the UI packages.
+- `@contractspec/lib.ui-kit-web`: web-first component package for React and Next surfaces.
+- `@contractspec/lib.design-system`: higher-level design-system and composition layer built on top of the UI packages.
+
+## Local commands
+
+- `bun run lint:check`
+- `bun run typecheck`

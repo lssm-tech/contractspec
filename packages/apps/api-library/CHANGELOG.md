@@ -1,5 +1,56 @@
 # @contractspec/app.api-library
 
+## 3.8.11
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Harden the Builder rollout with canonical bootstrap presets, channel-heavy mobile review flows, local-daemon runtime registration, and richer operator status surfaces.
+- Updated dependencies because of Introduce the Builder v3 control plane as a governed authoring layer over external execution providers.
+- Updated dependencies because of Implement ContractSpec Connect as a first-class spec, runtime, and CLI workflow.
+- Updated dependencies because of Expand the spec-pack docs into a fuller learning path across the public docs site.
+- Updated dependencies because of Pass Bun transpile paths through production JSX mode so published browser bundles stop emitting the dev runtime.
+  - @contractspec/integration.providers-impls@3.8.10
+  - @contractspec/bundle.library@3.8.11
+  - @contractspec/lib.contracts-spec@5.2.0
+  - @contractspec/integration.runtime@3.9.0
+  - @contractspec/integration.runtime.managed@0.2.0
+  - @contractspec/integration.builder-telegram@0.2.0
+  - @contractspec/integration.builder-whatsapp@0.2.0
+  - @contractspec/integration.provider.codex@0.2.0
+  - @contractspec/bundle.workspace@4.3.0
+  - @contractspec/bundle.marketing@3.8.11
+
+## 3.8.10
+
+### Patch Changes
+
+- Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+  - Migration: Keep Node-only workflow runner code out of "use workflow" entrypoints.
+  - Deprecations: Importing the broad `@contractspec/lib.contracts-spec/workflow` barrel from sandboxed workflow entrypoints is discouraged.
+- Updated dependencies because of Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+- Updated dependencies because of Add versioning-backed release capsules, generated patch notes, and guided upgrade flows.
+  - @contractspec/integration.providers-impls@3.8.9
+  - @contractspec/integration.runtime@3.8.9
+  - @contractspec/lib.contracts-spec@5.1.0
+  - @contractspec/bundle.marketing@3.8.10
+  - @contractspec/bundle.workspace@4.2.0
+  - @contractspec/bundle.library@3.8.10
+
+## 3.8.9
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/integration.providers-impls@3.8.8
+  - @contractspec/integration.runtime@3.8.8
+  - @contractspec/lib.contracts-spec@5.0.4
+  - @contractspec/bundle.marketing@3.8.9
+  - @contractspec/bundle.workspace@4.1.4
+  - @contractspec/bundle.library@3.8.9
+
 ## 3.8.8
 
 ### Patch Changes

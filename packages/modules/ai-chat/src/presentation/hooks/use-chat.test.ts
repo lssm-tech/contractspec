@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, mock } from 'bun:test';
+import * as React from 'react';
 
 // 1. Mock React Hooks foundation
 const mockSetMessages = mock();
@@ -28,18 +29,18 @@ const mockUseCallback = mock(
 	(fn: (...args: unknown[]) => unknown, _deps: unknown[]) => fn
 );
 
-// Mock React module
-mock.module('react', () => ({
+const mockedReactModule = {
+	...React,
 	useState: mockUseState,
 	useEffect: mockUseEffect,
 	useRef: mockUseRef,
 	useCallback: mockUseCallback,
-	default: {
-		useState: mockUseState,
-		useEffect: mockUseEffect,
-		useRef: mockUseRef,
-		useCallback: mockUseCallback,
-	},
+};
+
+// Mock React module
+mock.module('react', () => ({
+	...mockedReactModule,
+	default: mockedReactModule,
 }));
 
 // 2. Mock ChatService

@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.logger",
-	"version": "3.7.11",
+	"version": "3.7.13",
 	"description": "Comprehensive logging library optimized for Bun with ElysiaJS integration",
 	"keywords": [
 		"contractspec",
@@ -14,11 +14,11 @@
 	"scripts": {
 		"clean": "rm -rf dist",
 		"lint": "bun run lint:fix",
-		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-		"lint:check": "biome check .",
+		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
+		"lint:check": "node ../../../scripts/biome.cjs check .",
 		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
 		"publish:pkg:canary": "bun publish:pkg --tag canary",
-		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
+		"build": "bun run build:bundle && bun run build:types",
 		"build:bundle": "contractspec-bun-build transpile",
 		"build:types": "contractspec-bun-build types",
 		"dev": "contractspec-bun-build dev",

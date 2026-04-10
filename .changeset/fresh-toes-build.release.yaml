@@ -1,0 +1,102 @@
+schemaVersion: "1"
+slug: fresh-toes-build
+summary: Pass Bun transpile paths through production JSX mode so published browser bundles stop emitting the dev runtime.
+isBreaking: false
+packages:
+  - name: "@contractspec/tool.bun"
+    releaseType: patch
+  - name: "@contractspec/bundle.marketing"
+    releaseType: patch
+  - name: "@contractspec/lib.accessibility"
+    releaseType: patch
+  - name: "@contractspec/lib.contracts-runtime-client-react"
+    releaseType: patch
+  - name: "@contractspec/lib.design-system"
+    releaseType: patch
+  - name: "@contractspec/lib.example-shared-ui"
+    releaseType: patch
+  - name: "@contractspec/lib.presentation-runtime-react"
+    releaseType: patch
+  - name: "@contractspec/lib.surface-runtime"
+    releaseType: patch
+  - name: "@contractspec/lib.ui-kit"
+    releaseType: patch
+  - name: "@contractspec/lib.ui-kit-web"
+    releaseType: patch
+  - name: "@contractspec/lib.ui-link"
+    releaseType: patch
+  - name: "@contractspec/lib.video-gen"
+    releaseType: patch
+  - name: "@contractspec/module.builder-workbench"
+    releaseType: patch
+  - name: "@contractspec/module.examples"
+    releaseType: patch
+  - name: "@contractspec/module.execution-console"
+    releaseType: patch
+  - name: "@contractspec/module.mobile-review"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - node
+  - browser
+affectedFrameworks:
+  - react
+  - nextjs
+audiences:
+  - kind: maintainer
+    summary: Shared Bun transpile paths now force production JSX mode, and the affected published browser bundles were rebuilt against that fix.
+    affectedPackages:
+      - "@contractspec/tool.bun"
+      - "@contractspec/lib.presentation-runtime-react"
+      - "@contractspec/lib.ui-kit-web"
+      - "@contractspec/lib.design-system"
+      - "@contractspec/lib.ui-link"
+  - kind: integrator
+    summary: Browser-facing Contractspec packages no longer publish `react/jsx-dev-runtime` imports in their production JS artifacts.
+    affectedPackages:
+      - "@contractspec/bundle.marketing"
+      - "@contractspec/lib.accessibility"
+      - "@contractspec/lib.contracts-runtime-client-react"
+      - "@contractspec/lib.example-shared-ui"
+      - "@contractspec/lib.presentation-runtime-react"
+      - "@contractspec/lib.surface-runtime"
+      - "@contractspec/lib.ui-kit"
+      - "@contractspec/lib.ui-kit-web"
+      - "@contractspec/lib.ui-link"
+      - "@contractspec/lib.video-gen"
+      - "@contractspec/module.builder-workbench"
+      - "@contractspec/module.examples"
+      - "@contractspec/module.execution-console"
+      - "@contractspec/module.mobile-review"
+  - kind: customer
+    summary: Production React bundles built from the affected Contractspec packages stop depending on the development JSX runtime.
+    affectedPackages:
+      - "@contractspec/lib.presentation-runtime-react"
+      - "@contractspec/lib.ui-kit-web"
+deprecations: []
+migrationInstructions:
+  - id: refresh-react-bundle-consumers
+    title: Upgrade to the rebuilt package versions
+    summary: Pull the patch releases for the affected Contractspec React/browser packages.
+    required: false
+    when: When a downstream Next or React production bundle was failing on `jsxDEV` paths from published Contractspec packages.
+    steps:
+      - Upgrade the affected Contractspec package versions after this release is published.
+      - Rebuild the downstream production bundle so it picks up the republished artifacts.
+upgradeSteps:
+  - id: verify-production-jsx-runtime
+    title: Verify production bundles no longer import the dev JSX runtime
+    summary: Check released JS artifacts for `react/jsx-dev-runtime` imports or `jsxDEV(` call sites.
+    level: manual
+    instructions:
+      - Rebuild the affected package set with the updated `@contractspec/tool.bun`.
+      - Scan `dist/` output for `react/jsx-dev-runtime` imports and `jsxDEV(` call sites before publishing.
+validation:
+  commands:
+    - cd packages/tools/bun && bun test test/transpile-production.test.ts
+    - cd packages/tools/bun && bun test
+    - rg -uuu -l -g '*.js' -e 'from "react/jsx-dev-runtime"' -e "from 'react/jsx-dev-runtime'" -e 'require\("react/jsx-dev-runtime"\)' -e 'jsxDEV\(' packages/libs/**/dist packages/modules/**/dist packages/bundles/**/dist packages/apps/**/dist
+  evidence:
+    - Package `@contractspec/tool.bun` now adds `--production` to both no-bundle and bundled non-watch transpile commands, while watch/dev paths remain unchanged.
+    - The scoped release packages rebuild cleanly against the stricter runtime-relevant scan, with no `react/jsx-dev-runtime` imports or `jsxDEV(` call sites remaining in their built artifacts.
+    - Package `@contractspec/app.cli-contractspec` was excluded from this release because its bundle only contained the literal string `jsxDEV` from embedded TypeScript source text, not a React dev-runtime import path.

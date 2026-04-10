@@ -1,5 +1,27 @@
 # agentpacks
 
+## 1.8.0
+
+### Minor Changes
+
+- Implement ContractSpec Connect as a first-class spec, runtime, and CLI workflow.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/bundle.workspace (minor), @contractspec/app.cli-contractspec (minor), @contractspec/bundle.library (patch), agentpacks (minor)
+  - Migration: Turn on the Connect adapter flow before relying on task-scoped context, review, replay, or evaluation artifacts.
+
+## 1.7.13
+
+### Patch Changes
+
+- Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+  - Migration: Keep Node-only workflow runner code out of "use workflow" entrypoints.
+  - Deprecations: Importing the broad `@contractspec/lib.contracts-spec/workflow` barrel from sandboxed workflow entrypoints is discouraged.
+
+## 1.7.12
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+
 ## 1.7.11
 
 ### Patch Changes

@@ -1,10 +1,10 @@
-import crypto from 'node:crypto';
-import fs from 'node:fs';
-import path from 'node:path';
+import { createHash } from 'crypto';
+import fs from 'fs';
+import path from 'path';
 import { type ImportLock } from '../lib/types.js';
 
 function sha256(content: string) {
-	return crypto.createHash('sha256').update(content).digest('hex');
+	return createHash('sha256').update(content).digest('hex');
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any

@@ -1,5 +1,101 @@
 # @contractspec/bundle.library
 
+## 3.8.11
+
+### Patch Changes
+
+- Harden the Builder rollout with canonical bootstrap presets, channel-heavy mobile review flows, local-daemon runtime registration, and richer operator status surfaces.
+  - Packages: @contractspec/lib.builder-spec (minor), @contractspec/lib.builder-runtime (minor), @contractspec/lib.mobile-control (minor), @contractspec/lib.provider-runtime (minor), @contractspec/module.builder-workbench (minor), @contractspec/module.mobile-review (minor), @contractspec/integration.runtime.local (minor), @contractspec/integration.provider.gemini (minor), @contractspec/app.cli-contractspec (minor), @contractspec/bundle.library (patch)
+- Implement ContractSpec Connect as a first-class spec, runtime, and CLI workflow.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/bundle.workspace (minor), @contractspec/app.cli-contractspec (minor), @contractspec/bundle.library (patch), agentpacks (minor)
+  - Migration: Turn on the Connect adapter flow before relying on task-scoped context, review, replay, or evaluation artifacts.
+- Expand the spec-pack docs into a fuller learning path across the public docs site.
+  - Packages: @contractspec/bundle.library (patch), @contractspec/app.web-landing (patch)
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Introduce the Builder v3 control plane as a governed authoring layer over external execution providers.
+- Updated dependencies because of Implement ContractSpec Connect as a first-class spec, runtime, and CLI workflow.
+- Updated dependencies because of Pass Bun transpile paths through production JSX mode so published browser bundles stop emitting the dev runtime.
+  - @contractspec/lib.content-gen@3.7.18
+  - @contractspec/lib.contracts-integrations@3.8.10
+  - @contractspec/lib.contracts-library@3.7.18
+  - @contractspec/lib.contracts-runtime-server-graphql@3.7.18
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.18
+  - @contractspec/lib.contracts-runtime-server-rest@3.7.18
+  - @contractspec/lib.knowledge@3.7.18
+  - @contractspec/module.context-storage@0.7.17
+  - @contractspec/lib.contracts-spec@5.2.0
+  - @contractspec/lib.contracts-runtime-client-react@3.8.6
+  - @contractspec/lib.design-system@3.8.11
+  - @contractspec/lib.example-shared-ui@6.0.18
+  - @contractspec/lib.surface-runtime@0.5.18
+  - @contractspec/lib.ui-kit-web@3.9.10
+  - @contractspec/lib.ui-link@3.7.14
+  - @contractspec/module.examples@3.8.10
+  - @contractspec/lib.ai-providers@3.7.13
+  - @contractspec/lib.logger@3.7.13
+  - @contractspec/lib.provider-ranking@0.7.13
+  - @contractspec/lib.runtime-sandbox@2.7.14
+  - @contractspec/lib.schema@3.7.14
+
+## 3.8.10
+
+### Patch Changes
+
+- Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+  - Migration: Keep Node-only workflow runner code out of "use workflow" entrypoints.
+  - Deprecations: Importing the broad `@contractspec/lib.contracts-spec/workflow` barrel from sandboxed workflow entrypoints is discouraged.
+- Updated dependencies because of Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+- Updated dependencies because of Add versioning-backed release capsules, generated patch notes, and guided upgrade flows.
+  - @contractspec/lib.contracts-runtime-server-graphql@3.7.17
+  - @contractspec/lib.contracts-runtime-client-react@3.8.5
+  - @contractspec/lib.contracts-runtime-server-rest@3.7.17
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.17
+  - @contractspec/lib.contracts-integrations@3.8.9
+  - @contractspec/module.context-storage@0.7.16
+  - @contractspec/lib.contracts-library@3.7.17
+  - @contractspec/lib.example-shared-ui@6.0.17
+  - @contractspec/lib.provider-ranking@0.7.13
+  - @contractspec/lib.runtime-sandbox@2.7.14
+  - @contractspec/lib.surface-runtime@0.5.17
+  - @contractspec/lib.contracts-spec@5.1.0
+  - @contractspec/lib.design-system@3.8.10
+  - @contractspec/lib.ai-providers@3.7.13
+  - @contractspec/lib.content-gen@3.7.17
+  - @contractspec/module.examples@3.8.9
+  - @contractspec/lib.ui-kit-web@3.9.9
+  - @contractspec/lib.knowledge@3.7.17
+  - @contractspec/lib.ui-link@3.7.13
+  - @contractspec/lib.logger@3.7.13
+  - @contractspec/lib.schema@3.7.14
+
+## 3.8.9
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/lib.contracts-runtime-server-graphql@3.7.16
+  - @contractspec/lib.contracts-runtime-client-react@3.8.4
+  - @contractspec/lib.contracts-runtime-server-rest@3.7.16
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.16
+  - @contractspec/lib.contracts-integrations@3.8.8
+  - @contractspec/module.context-storage@0.7.15
+  - @contractspec/lib.contracts-library@3.7.16
+  - @contractspec/lib.example-shared-ui@6.0.16
+  - @contractspec/lib.provider-ranking@0.7.12
+  - @contractspec/lib.runtime-sandbox@2.7.13
+  - @contractspec/lib.surface-runtime@0.5.16
+  - @contractspec/lib.contracts-spec@5.0.4
+  - @contractspec/lib.design-system@3.8.9
+  - @contractspec/lib.ai-providers@3.7.12
+  - @contractspec/lib.content-gen@3.7.16
+  - @contractspec/module.examples@3.8.8
+  - @contractspec/lib.ui-kit-web@3.9.8
+  - @contractspec/lib.knowledge@3.7.16
+  - @contractspec/lib.ui-link@3.7.12
+  - @contractspec/lib.logger@3.7.12
+  - @contractspec/lib.schema@3.7.13
+
 ## 3.8.8
 
 ### Patch Changes

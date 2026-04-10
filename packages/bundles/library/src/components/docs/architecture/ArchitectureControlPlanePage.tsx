@@ -94,6 +94,25 @@ Capabilities
 				</ul>
 			</div>
 
+			<section className="editorial-panel space-y-4">
+				<h2 className="font-serif text-3xl tracking-[-0.03em]">
+					Apply the runtime locally with Connect
+				</h2>
+				<p className="text-muted-foreground text-sm leading-7">
+					The control plane defines the governance contracts. Connect is the
+					local adapter that turns those contracts into task-scoped context,
+					plan, verification, review, and replay flows for coding agents.
+				</p>
+				<div className="flex flex-wrap gap-3">
+					<Link href="/docs/specs/connect" className="btn-primary">
+						Connect spec
+					</Link>
+					<Link href="/docs/guides/connect-in-a-repo" className="btn-ghost">
+						Use Connect in a repo
+					</Link>
+				</div>
+			</section>
+
 			<div className="space-y-4">
 				<h2 className="font-bold text-2xl">Implementation map</h2>
 				<CodeBlock

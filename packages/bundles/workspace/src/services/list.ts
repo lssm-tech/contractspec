@@ -22,6 +22,11 @@ export interface ListSpecsOptions {
 	pattern?: string;
 
 	/**
+	 * Working directory for glob discovery.
+	 */
+	cwd?: string;
+
+	/**
 	 * Filter by spec type.
 	 */
 	type?: MaybeArray<string>;
@@ -44,7 +49,7 @@ export async function listSpecs(
 	// Use pattern if provided, otherwise let fs.glob use its defaults (DEFAULT_SPEC_PATTERNS)
 	// This aligns listSpecs behavior with the CI command behavior
 	const pattern = options.pattern;
-	const files = await fs.glob({ pattern });
+	const files = await fs.glob({ cwd: options.cwd, pattern });
 	const results: SpecScanResult[] = [];
 	const specTypesToSearch = Array.isArray(options.type)
 		? options.type

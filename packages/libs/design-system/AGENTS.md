@@ -2,48 +2,71 @@
 
 Scope: `packages/libs/design-system/*`
 
-Design tokens and theming primitives.
+Mission: keep `@contractspec/lib.design-system` a stable, high-level design-system and composition layer. This package has high blast radius because its root barrel, token shapes, and composed components are reused across many surfaces.
 
-## Quick Context
+## Public surface
 
-- Layer: `lib`.
-- Package visibility: published package.
-- Primary consumers are other libs, modules, bundles, and apps in the monorepo.
-- Related packages: `@contractspec/lib.ai-agent`, `@contractspec/lib.contracts-runtime-client-react`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.example-shared-ui`, `@contractspec/lib.presentation-runtime-react`, `@contractspec/lib.ui-kit`, ...
+Treat these grouped areas as the compatibility surface:
 
-## Architecture
+- theme
+- platform
+- renderers
+- component composition layers
+- registry metadata and build support
 
-- `src/components/` contains reusable UI components and view composition.
-- `src/hooks/` contains custom hooks for host applications.
-- `src/index.ts` is the root public barrel and package entrypoint.
-- `src/lib/` contains package-local helper utilities and adapters.
-- `src/platform` is part of the package's public or composition surface.
-- `src/renderers` is part of the package's public or composition surface.
-- `src/theme` is part of the package's public or composition surface.
+The root barrel is the primary API.
 
-## Public Surface
+## Change boundaries
 
-- Export `.` resolves through `./src/index.ts`.
+- Root exports, token shapes, and component names are compatibility surface.
+- Registry metadata and build support matter when changing shadcn-style registry contents.
+- Do not flatten grouped docs into file inventories.
+- Keep `exports` and `publishConfig.exports` aligned.
 
-## Guardrails
+## Package invariants
 
-- **High blast radius** — all UI surfaces depend on design tokens; treat token names and values as public API.
-- Component hierarchy must be preserved; do not flatten or restructure without coordinating downstream consumers.
-- Token removals or renames are breaking changes.
-- Changes here can affect downstream packages such as `@contractspec/lib.ai-agent`, `@contractspec/lib.contracts-runtime-client-react`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.example-shared-ui`, `@contractspec/lib.presentation-runtime-react`, `@contractspec/lib.ui-kit`, ....
+- Token names and token shapes are public API.
+- Platform bridge semantics stay deliberate.
+- Root-barrel breadth means small changes can have wide downstream impact.
+- Component hierarchy and composition layers should not be casually collapsed.
+- This package is broader than "tokens"; it also owns renderers and high-level composed UI.
 
-## Local Commands
+## Editing guidance by area
 
-- `bun run dev` — contractspec-bun-build dev
-- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
-- `bun run test` — bun test --pass-with-no-tests
-- `bun run lint` — bun run lint:fix
-- `bun run lint:check` — biome check .
-- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
-- `bun run typecheck` — tsc --noEmit -p tsconfig.build.json
-- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
-- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
-- `bun run build:bundle` — contractspec-bun-build transpile
-- `bun run build:types` — contractspec-bun-build types
-- `bun run registry:build` — bun run scripts/build-registry.ts
-- `bun run prebuild` — contractspec-bun-build prebuild
+### Theme tokens and token bridge
+
+- Treat token interfaces and token names as breaking-change territory.
+- Preserve the deliberate web-vs-native shape differences in `mapTokensForPlatform()`.
+
+### Platform hooks and adapters
+
+- Keep responsive, color-scheme, and reduced-motion helpers predictable.
+- Preserve the lightweight role of `withPlatformUI()`.
+
+### Renderers
+
+- Keep renderer exports aligned with their higher-level integration role.
+- Be careful when changing form-contract related behavior, because downstream runtime code depends on it.
+
+### Components and composition layers
+
+- Preserve grouped layers such as atoms, molecules, organisms, templates, visualization, legal, marketing, and agent/admin surfaces.
+- Avoid flattening or casually merging composition layers.
+
+### Registry metadata and build
+
+- If registry-facing behavior changes, keep `components.json`, `registry/registry.json`, and the build script in sync.
+- Treat registry metadata as part of the package's external tooling surface.
+
+## Docs maintenance rules
+
+- README should explain the package as a higher-level composition layer, not just as a token package.
+- AGENTS should emphasize blast radius and compatibility hotspots.
+- If new public groups are added, document them explicitly.
+
+## Verification checklist
+
+- `bun run lint:check`
+- `bun run typecheck`
+- `bun run test`
+- If registry-facing behavior changes, also run `bun run registry:build`

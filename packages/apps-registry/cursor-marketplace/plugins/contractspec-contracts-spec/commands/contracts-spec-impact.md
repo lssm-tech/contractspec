@@ -2,7 +2,6 @@
 name: contracts-spec-impact
 description: Analyze compatibility impact for @contractspec/lib.contracts-spec changes
 ---
-
 Run contract-level impact before merge:
 
 1. `contractspec impact --baseline main --format markdown`

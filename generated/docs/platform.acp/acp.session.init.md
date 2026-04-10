@@ -35,7 +35,7 @@ export const AcpSessionInitCommand = defineCommand({
 		owners: ACP_OWNERS,
 		tags: [...ACP_TAGS, 'session'],
 		stability: ACP_STABILITY,
-		docId: [docId('docs.tech.acp.session.init')],
+		docId: [docRef(AcpSessionInitDocBlock.id)],
 	},
 	capability: {
 		key: 'acp.transport',

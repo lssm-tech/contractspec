@@ -1,0 +1,38 @@
+{
+	"id": "readiness_001",
+	"workspaceId": "ws_acme_ops_001",
+	"overallStatus": "needs_review",
+	"managedReady": true,
+	"localReady": true,
+	"hybridReady": false,
+	"mobileParityStatus": "full",
+	"blockingIssues": [
+		{
+			"code": "HYBRID_SYNC_POLICY_MISSING",
+			"message": "Hybrid export blocked until sync policy is approved."
+		}
+	],
+	"warnings": [
+		{
+			"code": "VOICE_DIRECTIVE_CONFIRMED",
+			"message": "One payment workflow constraint originated from STT and was later confirmed."
+		}
+	],
+	"providerSummary": {
+		"runs": 4,
+		"verifiedRuns": 4,
+		"comparisonRuns": 1
+	},
+	"runtimeSummary": {
+		"selectedDefault": "managed",
+		"registeredTargets": ["rt_managed_eu_01", "rt_local_macmini_01"]
+	},
+	"requiredApprovals": [
+		{
+			"ticketId": "appr_2001",
+			"reason": "Approve payout export workflow change",
+			"requiredStrength": "studio_signed"
+		}
+	],
+	"recommendedNextAction": "Review hybrid sync policy or proceed with managed export."
+}

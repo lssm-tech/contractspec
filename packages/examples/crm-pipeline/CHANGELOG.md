@@ -1,5 +1,62 @@
 # @contractspec/example.crm-pipeline
 
+## 3.7.18
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Introduce the Builder v3 control plane as a governed authoring layer over external execution providers.
+- Updated dependencies because of Implement ContractSpec Connect as a first-class spec, runtime, and CLI workflow.
+- Updated dependencies because of Pass Bun transpile paths through production JSX mode so published browser bundles stop emitting the dev runtime.
+  - @contractspec/lib.identity-rbac@3.7.18
+  - @contractspec/lib.presentation-runtime-core@3.9.6
+  - @contractspec/module.audit-trail@3.7.18
+  - @contractspec/module.notifications@3.7.17
+  - @contractspec/lib.contracts-spec@5.2.0
+  - @contractspec/lib.design-system@3.8.11
+  - @contractspec/lib.example-shared-ui@6.0.18
+  - @contractspec/lib.ui-kit-web@3.9.10
+  - @contractspec/lib.runtime-sandbox@2.7.14
+  - @contractspec/lib.schema@3.7.14
+
+## 3.7.17
+
+### Patch Changes
+
+- Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+  - Migration: Keep Node-only workflow runner code out of "use workflow" entrypoints.
+  - Deprecations: Importing the broad `@contractspec/lib.contracts-spec/workflow` barrel from sandboxed workflow entrypoints is discouraged.
+- Updated dependencies because of Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.
+- Updated dependencies because of Add versioning-backed release capsules, generated patch notes, and guided upgrade flows.
+  - @contractspec/lib.presentation-runtime-core@3.9.5
+  - @contractspec/lib.example-shared-ui@6.0.17
+  - @contractspec/module.notifications@3.7.16
+  - @contractspec/lib.runtime-sandbox@2.7.14
+  - @contractspec/lib.contracts-spec@5.1.0
+  - @contractspec/module.audit-trail@3.7.17
+  - @contractspec/lib.design-system@3.8.10
+  - @contractspec/lib.identity-rbac@3.7.17
+  - @contractspec/lib.ui-kit-web@3.9.9
+  - @contractspec/lib.schema@3.7.14
+
+## 3.7.16
+
+### Patch Changes
+
+- 2b59171: fix: crypto package issue due to nodejs only runtime
+- Updated dependencies [2b59171]
+  - @contractspec/lib.presentation-runtime-core@3.9.4
+  - @contractspec/lib.example-shared-ui@6.0.16
+  - @contractspec/module.notifications@3.7.15
+  - @contractspec/lib.runtime-sandbox@2.7.13
+  - @contractspec/lib.contracts-spec@5.0.4
+  - @contractspec/module.audit-trail@3.7.16
+  - @contractspec/lib.design-system@3.8.9
+  - @contractspec/lib.identity-rbac@3.7.16
+  - @contractspec/lib.ui-kit-web@3.9.8
+  - @contractspec/lib.schema@3.7.13
+
 ## 3.7.15
 
 ### Patch Changes

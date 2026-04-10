@@ -53,6 +53,7 @@ import { getTemplateEngine } from './engine';
 import { TemplateInstaller } from './installer';
 import { resolveTemplatePresentation } from './presentations';
 import { getTemplate } from './registry';
+import { getTemplateApolloClient } from './runtime-client';
 
 function logBootstrapFailure(error: unknown) {
 	console.error(
@@ -120,9 +121,8 @@ export function TemplateRuntimeProvider({
 				const installer = new TemplateInstaller({ runtime });
 				await installer.install(templateId, { projectId });
 
-				// Create Apollo Client linked to local schema
-				// eslint-disable-next-line @typescript-eslint/no-explicit-any
-				const client = (web as any).createLocalGraphqlClient(runtime);
+				// Reuse the initialized Apollo client from the local runtime.
+				const client = getTemplateApolloClient(runtime);
 
 				// Get or create transform engine
 				const engine = await getTemplateEngine();

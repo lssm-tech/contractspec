@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.example-shared-ui",
-	"version": "6.0.15",
+	"version": "6.0.18",
 	"type": "module",
 	"exports": {
 		".": "./src/index.ts",
@@ -35,14 +35,14 @@
 	"scripts": {
 		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
 		"publish:pkg:canary": "bun publish:pkg --tag canary",
-		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
+		"build": "bun run build:bundle && bun run build:types",
 		"build:bundle": "contractspec-bun-build transpile",
 		"build:types": "contractspec-bun-build types",
 		"dev": "contractspec-bun-build dev",
 		"clean": "rimraf dist .turbo",
 		"lint": "bun lint:fix",
-		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-		"lint:check": "biome check .",
+		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
+		"lint:check": "node ../../../scripts/biome.cjs check .",
 		"test": "bun test --pass-with-no-tests",
 		"prebuild": "contractspec-bun-build prebuild",
 		"typecheck": "tsc --noEmit"
@@ -263,13 +263,13 @@
 		}
 	},
 	"dependencies": {
-		"@apollo/client": "^4.1.6",
+		"@apollo/client": "^4.1.7",
 		"@contractspec/lib.contracts-spec": "workspace:*",
 		"@contractspec/lib.design-system": "workspace:*",
 		"@contractspec/lib.ui-kit-web": "workspace:*",
-		"@tanstack/react-query": "^5.95.2",
+		"@tanstack/react-query": "^5.97.0",
 		"framer-motion": "^12.38.0",
-		"lucide-react": "^1.6.0",
+		"lucide-react": "^1.8.0",
 		"react": "catalog:",
 		"react-dom": "catalog:",
 		"@contractspec/lib.presentation-runtime-core": "workspace:*"

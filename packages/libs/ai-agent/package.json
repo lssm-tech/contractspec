@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.ai-agent",
-	"version": "8.0.3",
+	"version": "8.0.6",
 	"description": "AI agent orchestration with MCP and tool support",
 	"keywords": [
 		"contractspec",
@@ -20,14 +20,14 @@
 	"scripts": {
 		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
 		"publish:pkg:canary": "bun publish:pkg --tag canary",
-		"build": "bun run prebuild && bun run build:bundle && bun run build:types",
+		"build": "bun run build:bundle && bun run build:types",
 		"build:bundle": "contractspec-bun-build transpile",
 		"build:types": "contractspec-bun-build types",
 		"dev": "contractspec-bun-build dev",
 		"clean": "rimraf dist .turbo",
 		"lint": "bun lint:fix",
-		"lint:fix": "biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .",
-		"lint:check": "biome check .",
+		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
+		"lint:check": "node ../../../scripts/biome.cjs check .",
 		"test": "bun test",
 		"prebuild": "contractspec-bun-build prebuild",
 		"typecheck": "tsc --noEmit"
@@ -39,9 +39,9 @@
 		"@ai-sdk/google": "catalog:ai",
 		"@ai-sdk/mistral": "catalog:ai",
 		"@ai-sdk/openai": "catalog:ai",
-		"@modelcontextprotocol/sdk": "^1.28.0",
-		"@posthog/react": "^1.8.2",
-		"@posthog/ai": "7.12.2",
+		"@modelcontextprotocol/sdk": "^1.29.0",
+		"@posthog/react": "^1.9.0",
+		"@posthog/ai": "7.13.2",
 		"@contractspec/lib.contracts-spec": "workspace:*",
 		"@contractspec/lib.ai-providers": "workspace:*",
 		"@contractspec/lib.knowledge": "workspace:*",

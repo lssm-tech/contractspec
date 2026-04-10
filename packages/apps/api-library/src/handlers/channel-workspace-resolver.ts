@@ -21,6 +21,15 @@ export function resolveTelegramWorkspaceId(
 	);
 }
 
+export function resolveBuilderTelegramWorkspaceId(
+	candidates: string[]
+): string | null {
+	return resolveWorkspaceIdFromCandidates(
+		'BUILDER_WORKSPACE_MAP_TELEGRAM',
+		candidates
+	);
+}
+
 export function resolveMetaWhatsappWorkspaceId(
 	candidates: string[]
 ): string | null {
@@ -30,11 +39,29 @@ export function resolveMetaWhatsappWorkspaceId(
 	);
 }
 
+export function resolveBuilderMetaWhatsappWorkspaceId(
+	candidates: string[]
+): string | null {
+	return resolveWorkspaceIdFromCandidates(
+		'BUILDER_WORKSPACE_MAP_WHATSAPP_META',
+		candidates
+	);
+}
+
 export function resolveTwilioWhatsappWorkspaceId(
 	accountSid?: string
 ): string | null {
 	return resolveWorkspaceId(
 		'CHANNEL_WORKSPACE_MAP_WHATSAPP_TWILIO',
+		accountSid
+	);
+}
+
+export function resolveBuilderTwilioWhatsappWorkspaceId(
+	accountSid?: string
+): string | null {
+	return resolveWorkspaceId(
+		'BUILDER_WORKSPACE_MAP_WHATSAPP_TWILIO',
 		accountSid
 	);
 }

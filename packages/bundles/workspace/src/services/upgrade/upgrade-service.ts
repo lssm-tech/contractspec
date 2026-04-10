@@ -9,6 +9,7 @@
 
 import {
 	detectPackageManager,
+	findPackageRoot,
 	findWorkspaceRoot,
 } from '../../adapters/workspace';
 import type { FsAdapter } from '../../ports/fs';
@@ -50,16 +51,18 @@ export async function analyzeUpgrades(
 	options: UpgradeOptions
 ): Promise<UpgradeAnalysisResult> {
 	const { fs, logger } = adapters;
+	const packageRoot = findPackageRoot(options.workspaceRoot);
 	const workspaceRoot = findWorkspaceRoot(options.workspaceRoot);
 	const packageManager = detectPackageManager(workspaceRoot);
 
 	logger.info('Analyzing available upgrades...', {
 		workspaceRoot,
+		packageRoot,
 		packageManager,
 	});
 
-	const packages = await analyzePackages(fs, workspaceRoot);
-	const configUpgrades = await analyzeConfig(fs, workspaceRoot);
+	const packages = await analyzePackages(fs, packageRoot);
+	const configUpgrades = await analyzeConfig(fs, packageRoot);
 
 	const hasUpgrades = packages.length > 0 || configUpgrades.length > 0;
 
@@ -180,6 +183,24 @@ async function analyzeConfig(
 			});
 		}
 
+		if (!config['release']) {
+			upgrades.push({
+				key: 'release',
+				currentValue: undefined,
+				suggestedValue: getDefaultReleaseConfig(),
+				isNew: true,
+			});
+		}
+
+		if (!config['upgrade']) {
+			upgrades.push({
+				key: 'upgrade',
+				currentValue: undefined,
+				suggestedValue: getDefaultUpgradeConfig(),
+				isNew: true,
+			});
+		}
+
 		return upgrades;
 	} catch {
 		return [];
@@ -201,13 +222,13 @@ export async function applyConfigUpgrades(
 	options: UpgradeOptions
 ): Promise<UpgradeApplyResult> {
 	const { fs, logger } = adapters;
-	const workspaceRoot = findWorkspaceRoot(options.workspaceRoot);
+	const packageRoot = findPackageRoot(options.workspaceRoot);
 
 	if (options.dryRun) {
 		logger.info('Dry run - no changes will be made');
 	}
 
-	const configPath = fs.join(workspaceRoot, '.contractsrc.json');
+	const configPath = fs.join(packageRoot, '.contractsrc.json');
 
 	if (!(await fs.exists(configPath))) {
 		return {
@@ -247,6 +268,16 @@ export async function applyConfigUpgrades(
 		// Add hooks if missing
 		if (!config['hooks']) {
 			config['hooks'] = getDefaultHooksConfig();
+			sectionsUpgraded++;
+		}
+
+		if (!config['release']) {
+			config['release'] = getDefaultReleaseConfig();
+			sectionsUpgraded++;
+		}
+
+		if (!config['upgrade']) {
+			config['upgrade'] = getDefaultUpgradeConfig();
 			sectionsUpgraded++;
 		}
 
@@ -335,5 +366,29 @@ export function getDefaultVersioningConfig(): Record<string, unknown> {
 export function getDefaultHooksConfig(): Record<string, string[]> {
 	return {
 		'pre-commit': ['contractspec validate', 'contractspec integrity check'],
+	};
+}
+
+export function getDefaultReleaseConfig(): Record<string, unknown> {
+	return {
+		enforceOn: 'release-branch',
+		requireChangesetForPublished: true,
+		requireReleaseCapsule: true,
+		publishArtifacts: [
+			'manifest.json',
+			'patch-notes.md',
+			'customer-guide.md',
+			'upgrade-manifest.json',
+		],
+		agentTargets: ['codex'],
+	};
+}
+
+export function getDefaultUpgradeConfig(): Record<string, unknown> {
+	return {
+		manifestPaths: ['generated/releases/upgrade-manifest.json'],
+		defaultAgentTarget: 'codex',
+		enableInteractiveGuidance: true,
+		applyCodemods: true,
 	};
 }

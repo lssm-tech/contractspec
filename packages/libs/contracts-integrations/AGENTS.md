@@ -2,52 +2,103 @@
 
 Scope: `packages/libs/contracts-integrations/*`
 
-Integration contract definitions for external services.
+Mission: keep `@contractspec/lib.contracts-integrations` a stable contract layer for external integrations. This package owns provider-agnostic spec types, runtime-facing connection and secret contracts, health/telemetry helpers, provider interfaces, and shipped integration spec registrations.
 
-## Quick Context
+## Public surface
 
-- Layer: `lib`.
-- Package visibility: published package.
-- Primary consumers are other libs, modules, bundles, and apps in the monorepo.
-- Related packages: `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+Treat these clusters as compatibility surface:
 
-## Architecture
+- spec model and registries
+- auth, transport, versioning, and BYOK
+- runtime and health
+- secrets
+- provider interfaces
+- shipped provider and domain subpaths
+- integration connection operations
 
-- `src/index.ts` is the root public barrel and package entrypoint.
-- `src/integrations` is part of the package's public or composition surface.
+Stable APIs readers are likely to depend on:
 
-## Public Surface
+- `IntegrationSpec`, `IntegrationSpecRegistry`, `defineIntegration`, `makeIntegrationSpecKey`
+- `IntegrationConnection`, `ConnectionStatus`, runtime result and telemetry types
+- `IntegrationAuthConfig`, `supportsAuthMethod`
+- `IntegrationTransportConfig`, `supportsTransport`
+- `IntegrationVersionPolicy`, `resolveApiVersion`
+- `ByokKeyLifecycle`
+- `IntegrationCallGuard`, `IntegrationHealthService`
+- `SecretProvider`, `SecretProviderManager`, `SecretProviderError`
+- `parseSecretUri`, `normalizeSecretPayload`
+- `createDefaultIntegrationSpecRegistry` and registry filter helpers
+- `CreateIntegrationConnection`, `UpdateIntegrationConnection`, `DeleteIntegrationConnection`, `ListIntegrationConnections`, `TestIntegrationConnection`
+- key provider interfaces such as `LLMProvider`, `EmbeddingProvider`, `VectorStoreProvider`, `EmailInboundProvider`, `EmailOutboundProvider`, and `ObjectStorageProvider`
 
-- Export `.` resolves through `./src/index.ts`.
-- Export `./integrations` resolves through `./src/integrations/index.ts`.
-- Export `./integrations/auth` resolves through `./src/integrations/auth.ts`.
-- Export `./integrations/auth-helpers` resolves through `./src/integrations/auth-helpers.ts`.
-- Export `./integrations/binding` resolves through `./src/integrations/binding.ts`.
-- Export `./integrations/byok` resolves through `./src/integrations/byok.ts`.
-- Export `./integrations/connection` resolves through `./src/integrations/connection.ts`.
-- Export `./integrations/docs/integrations.docblock` resolves through `./src/integrations/docs/integrations.docblock.ts`.
-- Export `./integrations/health` resolves through `./src/integrations/health.ts`.
-- Export `./integrations/health/contracts` resolves through `./src/integrations/health/contracts/index.ts`.
-- The package publishes 121 total export subpaths; keep docs aligned with `package.json`.
+## Change boundaries
 
-## Guardrails
+- Exported interfaces, helper functions, operations, and subpaths are compatibility surface.
+- Keep `exports` and `publishConfig.exports` aligned.
+- Prefer grouped documentation and grouped reasoning over exhaustive file inventories.
+- Do not document behaviors that are not implemented in `src/`.
+- Adding new subpaths must not break existing imports or silently change root-barrel expectations.
 
-- High blast radius — integration contracts are consumed by many libs.
-- Provider and secret catalog schemas must stay backward-compatible.
-- Adding a new integration must not break existing subpath imports.
-- Changes here can affect downstream packages such as `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+## Package invariants
 
-## Local Commands
+- `IntegrationSpec` shape is a long-lived compatibility surface.
+- Auth and transport discriminated unions must stay backward-compatible.
+- `IntegrationConnection`, runtime context, and runtime result types are consumed by downstream runtime packages.
+- `SecretProvider` contract and URI parsing behavior must stay stable.
+- `IntegrationCallGuard` retry, telemetry, and connection-readiness semantics must remain predictable.
+- Version negotiation semantics stay `connection override -> policy default`.
+- Shipped provider registration helpers must not silently drop or rename existing providers.
+- This package defines contracts and shipped spec registrations, not SDK-backed implementations.
 
-- `bun run dev` — contractspec-bun-build dev
-- `bun run build` — bun run prebuild && bun run build:bundle && bun run build:types
-- `bun run lint` — bun run lint:fix
-- `bun run lint:check` — biome check .
-- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
-- `bun run typecheck` — tsc --noEmit
-- `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
-- `bun run publish:pkg:canary` — bun publish:pkg --tag canary
-- `bun run clean` — rm -rf dist
-- `bun run build:bundle` — contractspec-bun-build transpile
-- `bun run build:types` — contractspec-bun-build types
-- `bun run prebuild` — contractspec-bun-build prebuild
+## Editing guidance by area
+
+### Spec model and registries
+
+- Preserve registry behavior and helper ergonomics around `defineIntegration()` and `IntegrationSpecRegistry`.
+- Treat changes to spec fields as high-blast-radius work.
+- If default shipped registrations change, update docs and call out downstream impact.
+
+### Auth, transport, versioning, and BYOK
+
+- Maintain discriminated-union ergonomics and helper semantics.
+- Keep defaults and resolution order explicit.
+- Do not narrow allowed values without checking existing provider specs and consumers.
+
+### Runtime and health
+
+- Protect secret fetch, retry, telemetry, and status checks with regression tests when behavior changes.
+- Keep failure modes structured and explainable.
+- Preserve the distinction between runtime contract helpers here and runtime implementations in `@contractspec/integration.runtime`.
+
+### Secrets
+
+- Preserve provider priority ordering and error composition semantics in `SecretProviderManager`.
+- Keep `SecretProvider` backend-agnostic.
+- Be careful with URI parsing, content encoding, and provider-selection behavior.
+
+### Provider interfaces
+
+- Treat provider interface changes as contract work with broad downstream impact.
+- Keep capability-level interfaces provider-agnostic.
+- Avoid leaking implementation-specific SDK details into shared interfaces.
+
+### Domain contracts and operations
+
+- For domain contracts such as `health`, `openbanking`, and `meeting-recorder`, keep models, capability surfaces, and telemetry consistent.
+- Keep operation keys and IO contracts deliberate and stable.
+- If contract keys or schema shapes change, update docs and downstream consumers together.
+
+## Docs maintenance rules
+
+- Keep `README.md` grouped, practical, and focused on key entry contracts.
+- Keep `AGENTS.md` focused on compatibility hotspots and package-specific risks.
+- If a new public cluster is added, document it explicitly.
+- Do not turn README guidance into an exhaustive 121-subpath listing.
+
+## Verification checklist
+
+- `bun run lint:check`
+- `bun run typecheck`
+- `bun test`
+- Confirm `README.md` examples still match exported imports and current semantics.
+- Confirm `package.json` exports still match the documented public surface.

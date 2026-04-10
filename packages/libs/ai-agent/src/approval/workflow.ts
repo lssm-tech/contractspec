@@ -1,4 +1,4 @@
-import { randomUUID } from 'node:crypto';
+import { randomUUID } from 'crypto';
 import { createAgentI18n } from '../i18n';
 import type { ToolCallInfo } from '../types';
 

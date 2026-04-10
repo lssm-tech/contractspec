@@ -1,0 +1,72 @@
+schemaVersion: "1"
+slug: connect-spec-alignment-april-2026
+summary: Implement ContractSpec Connect as a first-class spec, runtime, and CLI workflow.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.contracts-spec"
+    releaseType: minor
+  - name: "@contractspec/bundle.workspace"
+    releaseType: minor
+  - name: "@contractspec/app.cli-contractspec"
+    releaseType: minor
+  - name: "@contractspec/bundle.library"
+    releaseType: patch
+  - name: "agentpacks"
+    releaseType: minor
+affectedRuntimes:
+  - bun
+  - node
+  - github-actions
+affectedFrameworks:
+  - codex
+  - claude-code
+  - cursor-plugin
+audiences:
+  - kind: maintainer
+    summary: Connect is now a governed repo surface with CLI commands, workspace services, and versioned docs that keep risky edits, review packets, and replay artifacts aligned.
+    affectedPackages:
+      - "@contractspec/lib.contracts-spec"
+      - "@contractspec/bundle.workspace"
+      - "@contractspec/app.cli-contractspec"
+  - kind: integrator
+    summary: Integrators can enable `.contractsrc.json > connect`, emit local context/plan/verdict artifacts, and route adapter-facing review or replay flows through the shared workspace services.
+    affectedPackages:
+      - "@contractspec/bundle.workspace"
+      - "@contractspec/app.cli-contractspec"
+      - "agentpacks"
+  - kind: agent
+    summary: Coding-agent surfaces now have a first-class Connect workflow for context packs, plan packets, mutation verdicts, review packets, and replay/eval evidence instead of relying on ad hoc governance prose.
+    affectedPackages:
+      - "@contractspec/lib.contracts-spec"
+      - "@contractspec/app.cli-contractspec"
+      - "agentpacks"
+deprecations: []
+migrationInstructions:
+  - id: enable-connect-workspace
+    title: Enable ContractSpec Connect in the workspace config
+    summary: Turn on the Connect adapter flow before relying on task-scoped context, review, replay, or evaluation artifacts.
+    required: false
+    when: When a workspace wants coding-agent gating, local review packets, or replay/eval evidence tied to file and command mutations.
+    steps:
+      - "Add or merge a `connect` section in `.contractsrc.json` with `enabled: true` and the storage paths that should hold Connect artifacts."
+      - Route risky edits or shell execution through `contractspec connect plan` and `contractspec connect verify` so decisions, review packets, and replay bundles are captured.
+      - Use the generated docs and exported agentpacks metadata so downstream agent tooling sees the same Connect contract surface as the CLI.
+upgradeSteps:
+  - id: adopt-connect-cli-workflow
+    title: Adopt the Connect CLI workflow
+    summary: Use the built-in Connect commands instead of custom local wrappers for risky file or command mutations.
+    level: manual
+    instructions:
+      - Initialize the workspace with `contractspec connect init --scope workspace`.
+      - Use `contractspec connect context`, `plan`, and `verify` to capture task context and mutation verdicts before edits or shell execution.
+      - Keep replay and evaluation artifacts under `.contractspec/connect/` so review and audit flows can consume the same evidence bundle.
+validation:
+  commands:
+    - cd packages/libs/contracts-spec && bun test src/workspace-config/contractsrc-schema.test.ts src/versioning/schema.test.ts && bun run typecheck
+    - cd packages/bundles/workspace && bun test src/services/connect/plan-policy.test.ts src/services/upgrade/guided-upgrade.test.ts src/services/versioning/release-service.test.ts && bun run typecheck
+    - cd packages/apps/cli-contractspec && bun test src/commands/connect/blackbox.test.ts src/commands/connect/index.test.ts && bun run typecheck
+    - cd packages/tools/agentpacks && bun test && bun run typecheck
+  evidence:
+    - ContractSpec Connect now ships as a first-class spec, workspace service, and CLI workflow instead of being split across unversioned helper paths.
+    - Local context, plan, verdict, review, replay, and evaluation artifacts all resolve through the same `.contractsrc.json > connect` configuration and workspace storage layout.
+    - Agent-facing docs and exported metadata now describe the same Connect workflow that the CLI and workspace services enforce.

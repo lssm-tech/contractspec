@@ -9,6 +9,7 @@ export * from './build';
 export * from './ci-check/index';
 export * from './clean';
 export * from './config';
+export * as connect from './connect/index';
 export * from './create/index';
 export * from './delete';
 export * from './deps';

@@ -3,6 +3,8 @@ import Link from 'next/link';
 import { FaGithub, FaLinkedinIn } from 'react-icons/fa6';
 import NewsletterSignup from './newsletter-signup';
 
+const FOOTER_COPYRIGHT = 'Built with ContractSpec';
+
 function FooterColumn({
 	title,
 	links,
@@ -124,7 +126,7 @@ export default function Footer() {
 				</div>
 
 				<div className="mt-10 flex flex-col gap-3 border-border/80 border-t pt-6 text-muted-foreground text-sm md:flex-row md:items-center md:justify-between">
-					<p>Built with ContractSpec © {new Date().getFullYear()}</p>
+					<p>{FOOTER_COPYRIGHT}</p>
 					<div className="flex gap-5">
 						<Link href="/llms.txt" className="hover:text-foreground">
 							LLM guide

@@ -1,4 +1,3 @@
-import { randomUUID } from 'node:crypto';
 import type {
 	AnyOperationSpec,
 	OperationSpec,
@@ -6,6 +5,7 @@ import type {
 } from '@contractspec/lib.contracts-spec';
 import { Logger } from '@contractspec/lib.observability';
 import type { AnySchemaModel } from '@contractspec/lib.schema';
+import { randomUUID } from 'crypto';
 import {
 	type EvolutionConfig,
 	type IntentPattern,

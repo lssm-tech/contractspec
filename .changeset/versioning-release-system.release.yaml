@@ -1,0 +1,73 @@
+schemaVersion: "1"
+slug: versioning-release-system
+summary: Add versioning-backed release capsules, generated patch notes, and guided upgrade flows.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.contracts-spec"
+    releaseType: minor
+  - name: "@contractspec/bundle.workspace"
+    releaseType: minor
+  - name: "@contractspec/app.cli-contractspec"
+    releaseType: minor
+  - name: "@contractspec/app.web-landing"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - node
+  - github-actions
+affectedFrameworks:
+  - changesets
+  - nextjs
+audiences:
+  - kind: maintainer
+    summary: Release communication is now generated from versioning-backed release capsules and enforced on release branches.
+    affectedPackages:
+      - "@contractspec/lib.contracts-spec"
+      - "@contractspec/bundle.workspace"
+      - "@contractspec/app.cli-contractspec"
+  - kind: integrator
+    summary: Guided upgrade plans and agent prompts now come from generated upgrade manifests instead of ad hoc prose.
+    affectedPackages:
+      - "@contractspec/bundle.workspace"
+      - "@contractspec/app.cli-contractspec"
+  - kind: customer
+    summary: Web changelog consumers can prefer generated release manifests while older package changelogs remain supported as fallback.
+    affectedPackages:
+      - "@contractspec/app.web-landing"
+deprecations:
+  - The standalone release domain under `@contractspec/lib.contracts-spec/release` is deprecated in favor of versioning-owned release metadata.
+migrationInstructions:
+  - id: add-release-capsule
+    title: Add .release.yaml companions for changesets
+    summary: Published release changesets now require a structured release capsule.
+    required: false
+    when: When preparing release branches, publish workflows, or release communication bundles.
+    steps:
+      - Create `.changeset/<slug>.release.yaml` next to each published changeset.
+      - Record customer impact, migration notes, validation commands, and evidence in the release capsule.
+      - Run `contractspec release build` before `contractspec release check --strict`.
+upgradeSteps:
+  - id: scaffold-release-capsule
+    title: Scaffold release capsule companions
+    summary: Add release capsules for changesets and include validation evidence.
+    level: manual
+    instructions:
+      - Run `contractspec release init` for new release work.
+      - Keep `.changeset/*.md` and `.changeset/*.release.yaml` together in the same PR.
+      - Use `contractspec release brief` or `contractspec upgrade prompt` to generate maintainer, customer, and agent guidance.
+  - id: consume-generated-release-manifest
+    title: Use generated release manifests in tooling
+    summary: Prefer generated release artifacts for changelog and upgrade flows.
+    level: assisted
+    instructions:
+      - Run `contractspec release build` to populate `generated/releases/`.
+      - Point changelog or upgrade tooling at `generated/releases/manifest.json` and `generated/releases/upgrade-manifest.json`.
+validation:
+  commands:
+    - cd packages/libs/contracts-spec && bun test src/versioning/schema.test.ts src/versioning/release-utils.test.ts src/versioning/utils.test.ts src/versioning/refs.test.ts && bun run typecheck && bun run build:bundle && bun run build:types
+    - cd packages/bundles/workspace && bun test src/services/versioning/release-service.test.ts src/services/upgrade/guided-upgrade.test.ts && bun run typecheck && bun run build
+    - cd packages/apps/cli-contractspec && bun run typecheck && bun run build
+    - cd packages/apps/web-landing && bun run build:types
+  evidence:
+    - Release artifacts and upgrade prompts are generated from versioning-backed schemas and bundle.workspace services.
+    - Guided upgrade manifest resolution now honors the current package root inside parent monorepos.

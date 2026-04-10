@@ -1,5 +1,5 @@
-import { randomUUID } from 'node:crypto';
 import type { ModelMessage } from 'ai';
+import { randomUUID } from 'crypto';
 import type { AgentMessage, AgentSessionState } from '../types';
 
 export interface AgentMemoryEntry {

@@ -6,5 +6,8 @@
  */
 
 export * from './refs';
+export * from './release-types';
+export * from './release-utils';
+export * from './schema';
 export * from './types';
 export * from './utils';

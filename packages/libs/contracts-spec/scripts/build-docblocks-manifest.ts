@@ -4,9 +4,11 @@ import path from 'node:path';
 import { buildPackageDocManifest } from '../src/docs/manifest-builder';
 
 const pkgRoot = path.resolve(import.meta.dir, '..');
+const workspaceRoot = path.resolve(pkgRoot, '..', '..', '..');
 const srcRoot = path.join(pkgRoot, 'src');
 const outFile = path.join(srcRoot, 'docs', 'docblocks.manifest.generated.ts');
 const packageName = '@contractspec/lib.contracts-spec';
+const biomeLauncher = path.join(workspaceRoot, 'scripts', 'biome.cjs');
 
 function quote(value: string): string {
 	return `'${JSON.stringify(value).slice(1, -1).replaceAll("'", "\\'")}'`;
@@ -89,10 +91,14 @@ async function main(): Promise<void> {
 	});
 
 	fs.writeFileSync(outFile, renderManifest(manifest), 'utf8');
-	const formatResult = spawnSync('biome', ['check', '--write', outFile], {
-		cwd: pkgRoot,
-		stdio: 'inherit',
-	});
+	const formatResult = spawnSync(
+		process.execPath,
+		[biomeLauncher, 'check', '--write', outFile],
+		{
+			cwd: workspaceRoot,
+			stdio: 'inherit',
+		}
+	);
 	if (formatResult.status !== 0) {
 		throw new Error(`Failed to format ${outFile} with biome.`);
 	}

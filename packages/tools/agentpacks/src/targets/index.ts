@@ -1,4 +1,3 @@
-export { AgentsMdTarget } from './agents-md.js';
 export {
 	BaseTarget,
 	type GenerateOptions,

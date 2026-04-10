@@ -4,6 +4,14 @@
 
 import type { DocBlock } from '../docs/types';
 
+export type {
+	AgentTarget,
+	ReleaseEnforceOn,
+} from '../versioning/release-types';
+export {
+	AgentTargetSchema,
+	ReleaseEnforceOnSchema,
+} from '../versioning/schema';
 export {
 	type BumpStrategy,
 	BumpStrategySchema,
@@ -11,6 +19,26 @@ export {
 	ChangelogFormatSchema,
 	type ChangelogTier,
 	ChangelogTierSchema,
+	type ConnectAdapterConfig,
+	ConnectAdapterConfigSchema,
+	type ConnectAdapterMode,
+	ConnectAdapterModeSchema,
+	type ConnectCanonPackRef,
+	ConnectCanonPackRefSchema,
+	type ConnectCommandPolicy,
+	ConnectCommandPolicySchema,
+	type ConnectConfig,
+	ConnectConfigSchema,
+	type ConnectPolicyConfig,
+	ConnectPolicyConfigSchema,
+	type ConnectReviewThresholds,
+	ConnectReviewThresholdsSchema,
+	type ConnectStorageConfig,
+	ConnectStorageConfigSchema,
+	type ConnectStudioConfig,
+	ConnectStudioConfigSchema,
+	type ConnectVerdict,
+	ConnectVerdictSchema,
 	type ContractsrcConfig,
 	type ContractsrcFileConfig,
 	ContractsrcSchema,
@@ -27,6 +55,8 @@ export {
 	OpenApiExportConfigSchema,
 	type OpenApiSourceConfig,
 	OpenApiSourceConfigSchema,
+	type ReleaseConfig,
+	ReleaseConfigSchema,
 	type ResolvedContractsrcConfig,
 	type RuleSyncConfig,
 	RuleSyncConfigSchema,
@@ -34,10 +64,15 @@ export {
 	RuleSyncTargetSchema,
 	type SchemaFormat,
 	SchemaFormatSchema,
+	type UpgradeConfig,
+	UpgradeConfigSchema,
 	type VersioningConfig,
 	VersioningConfigSchema,
 } from './contractsrc-schema';
-export type { AgentMode, AgentProvider } from './contractsrc-types';
+export type {
+	AgentMode,
+	AgentProvider,
+} from './contractsrc-types';
 
 export const tech_workspace_config_DocBlocks: DocBlock[] = [
 	{
@@ -73,6 +108,51 @@ export interface ContractsrcConfig {
 \`\`\`
 
 Defined in \`@contractspec/lib.contracts-spec/workspace-config\`.
+
+### Connect
+
+The \`connect\` section configures ContractSpec Connect as a codebase-aligned adapter layer inside the existing CLI and runtime stack.
+
+\`\`\`ts
+export interface ContractsrcConfig {
+  connect?: {
+    enabled?: boolean;
+    adapters?: {
+      cursor?: { enabled?: boolean; mode?: 'plugin' | 'rule' | 'wrapper' };
+      codex?: { enabled?: boolean; mode?: 'plugin' | 'rule' | 'wrapper' };
+      'claude-code'?: { enabled?: boolean; mode?: 'plugin' | 'rule' | 'wrapper' };
+    };
+    storage?: {
+      root?: string;
+      contextPack?: string;
+      planPacket?: string;
+      patchVerdict?: string;
+      auditFile?: string;
+      reviewPacketsDir?: string;
+    };
+    policy?: {
+      protectedPaths?: string[];
+      immutablePaths?: string[];
+      generatedPaths?: string[];
+      smokeChecks?: string[];
+      reviewThresholds?: {
+        protectedPathWrite?: 'permit' | 'rewrite' | 'require_review' | 'deny';
+        unknownImpact?: 'permit' | 'rewrite' | 'require_review' | 'deny';
+        contractDrift?: 'permit' | 'rewrite' | 'require_review' | 'deny';
+        breakingChange?: 'permit' | 'rewrite' | 'require_review' | 'deny';
+        destructiveCommand?: 'permit' | 'rewrite' | 'require_review' | 'deny';
+      };
+    };
+    commands?: {
+      allow?: string[];
+      review?: string[];
+      deny?: string[];
+    };
+    canonPacks?: Array<{ ref: string; readOnly?: boolean }>;
+    studio?: { enabled?: boolean; mode?: 'off' | 'review-bridge'; endpoint?: string; queue?: string };
+  };
+}
+\`\`\`
 `,
 	},
 ];

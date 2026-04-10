@@ -1,10 +1,10 @@
-import { randomUUID } from 'node:crypto';
 import type {
 	ModelSelectionContext,
 	ModelSelector,
 } from '@contractspec/lib.ai-providers/selector-types';
 import type { LanguageModel } from 'ai';
 import { generateText, Output } from 'ai';
+import { randomUUID } from 'crypto';
 import * as z from 'zod';
 import type {
 	EvolutionConfig,

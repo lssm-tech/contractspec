@@ -8,22 +8,34 @@ export interface GenerateArtifactsResult {
 	docsCount: number;
 }
 
+export interface GenerateArtifactsOptions {
+	scanAllSpecs?: boolean;
+	specPattern?: string;
+	specSearchRoot?: string;
+}
+
 export async function generateArtifacts(
 	adapters: WorkspaceAdapters,
 	contractsDir: string,
 	generatedDir: string,
-	rootPath?: string
+	rootPath?: string,
+	options: GenerateArtifactsOptions = {}
 ): Promise<GenerateArtifactsResult> {
 	// Check if contracts directory exists
-	if (!(await adapters.fs.exists(contractsDir))) {
+	const contractsDirExists = await adapters.fs.exists(contractsDir);
+	if (!contractsDirExists) {
 		// Fallback logic
 	}
 
-	const searchPattern = (await adapters.fs.exists(contractsDir))
-		? 'contracts/**/*.ts'
-		: '**/*.ts';
+	const searchPattern = options.scanAllSpecs
+		? options.specPattern
+		: (options.specPattern ??
+			(contractsDirExists ? 'contracts/**/*.ts' : '**/*.ts'));
 
-	const specs = await listSpecs(adapters, { pattern: searchPattern });
+	const specs = await listSpecs(adapters, {
+		cwd: options.specSearchRoot,
+		pattern: searchPattern,
+	});
 
 	if (specs.length === 0) {
 		return { specsCount: 0, docsCount: 0 };

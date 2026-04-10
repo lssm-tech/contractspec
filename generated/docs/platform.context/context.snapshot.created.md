@@ -23,7 +23,7 @@ export const ContextSnapshotCreatedEvent = defineEvent({
 		owners: CONTEXT_OWNERS,
 		tags: [...CONTEXT_TAGS, 'snapshot'],
 		stability: CONTEXT_STABILITY,
-		docId: [docId('docs.tech.context.snapshot.created')],
+		docId: [docRef(ContextSnapshotCreatedDocBlock.id)],
 	},
 	capability: {
 		key: 'context.system',

@@ -35,7 +35,7 @@ export const ContextPackSearchQuery = defineQuery({
 		owners: CONTEXT_OWNERS,
 		tags: [...CONTEXT_TAGS, 'pack', 'search'],
 		stability: CONTEXT_STABILITY,
-		docId: [docId('docs.tech.context.pack.search')],
+		docId: [docRef(ContextPackSearchDocBlock.id)],
 	},
 	capability: {
 		key: 'context.system',

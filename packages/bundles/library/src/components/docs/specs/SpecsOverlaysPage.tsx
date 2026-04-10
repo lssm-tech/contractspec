@@ -245,6 +245,26 @@ signature:
 				</ul>
 			</div>
 
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">
+					Where overlays fit in the runtime
+				</h2>
+				<p className="text-muted-foreground">
+					Overlays are safest when they sit on top of a declared bundle surface
+					instead of ad hoc page code. Use the module-bundles docs first, then
+					apply overlays as auditable customization on top of the resolved
+					surface plan.
+				</p>
+				<div className="flex flex-wrap gap-3">
+					<Link href="/docs/specs/module-bundles" className="btn-primary">
+						Module bundles
+					</Link>
+					<Link href="/docs/guides/first-module-bundle" className="btn-ghost">
+						Build a first module bundle
+					</Link>
+				</div>
+			</div>
+
 			<div className="flex items-center gap-4 pt-4">
 				<Link href="/docs/specs/policy" className="btn-ghost">
 					Previous: Policy

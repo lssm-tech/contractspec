@@ -34,7 +34,7 @@ export const DatabaseQueryReadonlyQuery = defineQuery({
 		owners: DATABASE_OWNERS,
 		tags: [...DATABASE_TAGS, 'query', 'readonly'],
 		stability: DATABASE_STABILITY,
-		docId: [docId('docs.tech.database.query.readonly')],
+		docId: [docRef(DatabaseQueryReadonlyDocBlock.id)],
 	},
 	capability: {
 		key: 'database.context',

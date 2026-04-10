@@ -1,0 +1,55 @@
+{
+	"id": "connect.plan_e1eb1f67-88dc-4cfa-b3a1-7dab27d0908b",
+	"taskId": "release-check-restoration",
+	"repoId": "contractspec",
+	"branch": "release",
+	"actor": {
+		"id": "cli:release-check-restoration",
+		"type": "human"
+	},
+	"objective": "Run bun run release:build",
+	"steps": [
+		{
+			"id": "step_136992fe-8d83-4b2b-9c6b-834afc6126da",
+			"summary": "Run bun run release:build",
+			"paths": [
+				".changeset/builder-next-wave-hardening.release.yaml",
+				".changeset/builder-v3-control-plane-rollout.release.yaml",
+				".changeset/connect-spec-alignment-april-2026.release.yaml",
+				".changeset/docs-learning-path-spec-packs.release.yaml",
+				".github/workflows/dev-ci.yml",
+				"CONTRIBUTING.md"
+			],
+			"commands": ["bun run release:build"]
+		}
+	],
+	"impactedContracts": [],
+	"affectedSurfaces": ["audit", "runtime"],
+	"requiredChecks": [],
+	"requiredApprovals": [
+		{
+			"capability": "controlPlane.execution.approve",
+			"reason": "Impact could not be resolved for .changeset/builder-next-wave-hardening.release.yaml."
+		}
+	],
+	"riskScore": 0.8500000000000001,
+	"verificationStatus": "review",
+	"controlPlane": {
+		"intentSubmit": {
+			"key": "controlPlane.intent.submit",
+			"version": "1.0.0",
+			"kind": "command"
+		},
+		"planCompile": {
+			"key": "controlPlane.plan.compile",
+			"version": "1.0.0",
+			"kind": "command"
+		},
+		"planVerify": {
+			"key": "controlPlane.plan.verify",
+			"version": "1.0.0",
+			"kind": "command"
+		}
+	},
+	"acpActions": ["acp.fs.access", "acp.terminal.exec"]
+}

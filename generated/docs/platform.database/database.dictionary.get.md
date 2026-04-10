@@ -34,7 +34,7 @@ export const DatabaseDictionaryGetQuery = defineQuery({
 		owners: DATABASE_OWNERS,
 		tags: [...DATABASE_TAGS, 'dictionary'],
 		stability: DATABASE_STABILITY,
-		docId: [docId('docs.tech.database.dictionary.get')],
+		docId: [docRef(DatabaseDictionaryGetDocBlock.id)],
 	},
 	capability: {
 		key: 'database.context',

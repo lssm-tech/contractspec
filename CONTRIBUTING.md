@@ -8,10 +8,10 @@ We embrace AI agents (like Cursor, Claude, Windsurf) as first-class contributors
 
 - **Context is King**: We maintain `AGENTS.md` - **READ THIS FILE FIRST**. It contains the definitive map of the repository, architecture rules, and dependency flows.
 - **Agent Configuration Sync**: We use [`agentpacks`](packages/tools/agentpacks/README.md) to generate agent configurations.
-  - **Do not edit generated tool files directly** (`AGENTS.md`, `.claude/`, `.github/copilot/`, `.gemini/`, etc.).
+  - **Do not edit generated tool files directly** (`.claude/`, `.github/copilot/`, `.gemini/`, etc.).
   - Edit canonical pack sources in `packs/workspace-specific`, `packs/software-best-practices`, and `packs/contractspec-rules`.
   - Treat `packs/vibecoding-*` as imported reference material unless explicitly enabled.
-  - Run `bun run agentpacks:all` to regenerate all targets.
+  - Run the relevant `agentpacks:*` script to regenerate tool targets when needed.
 - **Validation**: We rely on `contractspec ci` to enforce rules, rather than human nitpicking.
 
 ### 🧠 AI Tools & Resources
@@ -56,6 +56,7 @@ Reusable utilities, contracts, and the design system. (e.g., `contracts`, `desig
 - Run `bunx contractspec ci` for contract validation and rules.
 - Run `bun run lint` for linting.
 - Run `bun run test` for unit tests (when touching modules with tests).
+- When a change affects published packages, add both `.changeset/<slug>.md` and `.changeset/<slug>.release.yaml`, then run `bun run release:build` and `bun run release:check:strict`.
 
 ## 🤝 Contribution Workflow
 
@@ -71,11 +72,13 @@ Reusable utilities, contracts, and the design system. (e.g., `contracts`, `desig
 
 3.  **Validate**:
     - Run `bunx contractspec ci` to run validation checks locally.
+    - If published packages changed, create the matching changeset and release capsule pair and confirm `bun run release:build` plus `bun run release:check:strict` both pass.
 
 4.  **Pull Request**:
     - Open a PR.
     - Our `action-validation` will check your code.
     - Our `action-version` will analyze versioning impact.
+    - Pull requests that touch published-package release work must keep each `.changeset/*.md` file paired with a sibling `.release.yaml` file.
     - Wait for the bots to report status.
 
 ## 📏 Standards & Conventions

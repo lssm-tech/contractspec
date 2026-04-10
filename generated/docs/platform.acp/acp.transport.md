@@ -25,7 +25,7 @@ export const AcpTransportCapability = defineCapability({
 		owners: ACP_OWNERS,
 		tags: [...ACP_TAGS, 'transport'],
 		stability: ACP_STABILITY,
-		docId: [docId('docs.tech.acp.transport')],
+		docId: [docRef(AcpTransportDocBlock.id)],
 	},
 	provides: [
 		{

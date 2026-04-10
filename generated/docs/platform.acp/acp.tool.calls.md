@@ -34,7 +34,7 @@ export const AcpToolCallsCommand = defineCommand({
 		owners: ACP_OWNERS,
 		tags: [...ACP_TAGS, 'tools'],
 		stability: ACP_STABILITY,
-		docId: [docId('docs.tech.acp.tool.calls')],
+		docId: [docRef(AcpToolCallsDocBlock.id)],
 	},
 	capability: {
 		key: 'acp.transport',

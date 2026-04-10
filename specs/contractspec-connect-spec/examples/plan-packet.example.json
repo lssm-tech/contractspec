@@ -1,0 +1,89 @@
+{
+	"id": "connect.plan_01HXYZEXAMPLE",
+	"taskId": "task_connect_spec_alignment",
+	"repoId": "lssm-tech/contractspec",
+	"branch": "feat/connect-spec-alignment",
+	"actor": {
+		"id": "codex.desktop",
+		"type": "agent",
+		"sessionId": "thread_01HXYZEXAMPLE",
+		"traceId": "trace_01HXYZEXAMPLE"
+	},
+	"objective": "Align Connect review artifacts with existing control-plane and ACP contracts",
+	"steps": [
+		{
+			"id": "step_1",
+			"summary": "Inspect impacted control-plane and workspace surfaces",
+			"paths": [
+				"packages/integrations/runtime/src/channel/planner.ts",
+				"packages/modules/workspace/src/analysis/impact/classifier.ts"
+			],
+			"contractRefs": ["controlPlane.plan.verify", "controlPlane.trace.get"]
+		},
+		{
+			"id": "step_2",
+			"summary": "Update Connect DTO schemas and examples",
+			"paths": [
+				"specs/contractspec-connect-spec/schemas/plan-packet.schema.json",
+				"specs/contractspec-connect-spec/examples/patch-verdict.example.json"
+			]
+		},
+		{
+			"id": "step_3",
+			"summary": "Validate config and examples with tests",
+			"commands": [
+				"bun test packages/libs/contracts-spec/src/workspace-config/contractsrc-schema.test.ts",
+				"bun test specs/contractspec-connect-spec/connect-spec.test.ts"
+			]
+		}
+	],
+	"impactedContracts": [
+		{
+			"key": "controlPlane.intent.submit",
+			"version": "1.0.0",
+			"kind": "command"
+		},
+		{
+			"key": "controlPlane.plan.compile",
+			"version": "1.0.0",
+			"kind": "command"
+		},
+		{
+			"key": "controlPlane.plan.verify",
+			"version": "1.0.0",
+			"kind": "command"
+		}
+	],
+	"affectedSurfaces": ["runtime", "cli", "audit", "agent"],
+	"requiredChecks": [
+		"impact-coverage",
+		"contract-drift",
+		"approval-routing",
+		"targeted-tests"
+	],
+	"requiredApprovals": [
+		{
+			"capability": "control-plane.execution.approve",
+			"reason": "review-required adapter changes"
+		}
+	],
+	"riskScore": 0.66,
+	"verificationStatus": "review",
+	"controlPlane": {
+		"intentSubmit": {
+			"key": "controlPlane.intent.submit",
+			"version": "1.0.0"
+		},
+		"planCompile": {
+			"key": "controlPlane.plan.compile",
+			"version": "1.0.0"
+		},
+		"planVerify": {
+			"key": "controlPlane.plan.verify",
+			"version": "1.0.0"
+		},
+		"decisionId": "cp_decision_01HXYZEXAMPLE",
+		"traceId": "trace_01HXYZEXAMPLE"
+	},
+	"acpActions": ["acp.fs.access", "acp.terminal.exec"]
+}

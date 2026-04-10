@@ -1,5 +1,13 @@
 [
 	{
+		"id": "platform.control-plane/channel.messaging-policy",
+		"title": "channel.messaging-policy",
+		"summary": "Applies contract-backed blocked, assist, and autonomous routing for inbound messaging events.\n- **Type**: policy (policy)\n- **Version**: 2.0.0\n- **Tags**: policy, messaging\n- **File**: `packages/libs/contracts-spec/src/control-plane/policies/controlPlaneMessaging.policy.ts`",
+		"route": "/docs/reference/platform.control-plane/channel.messaging-policy",
+		"source": "generated",
+		"contentPath": "platform.control-plane/channel.messaging-policy.md"
+	},
+	{
 		"id": "platform.control-plane/control-plane.approval",
 		"title": "control-plane.approval",
 		"summary": "Human approval and rejection gates for execution steps.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: approval\n- **File**: `packages/libs/contracts-spec/src/control-plane/capabilities/controlPlaneApproval.capability.ts`",
@@ -40,6 +48,14 @@
 		"contentPath": "platform.control-plane/control-plane.skill-registry.md"
 	},
 	{
+		"id": "platform.control-plane/controlPlane.execution.abort",
+		"title": "controlPlane.execution.abort",
+		"summary": "Abort an execution-lane run immediately.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: execution, lane\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlaneExecutionAbort.command.ts`",
+		"route": "/docs/reference/platform.control-plane/controlPlane.execution.abort",
+		"source": "generated",
+		"contentPath": "platform.control-plane/controlPlane.execution.abort.md"
+	},
+	{
 		"id": "platform.control-plane/controlPlane.execution.approve",
 		"title": "controlPlane.execution.approve",
 		"summary": "Approve a pending execution step for continuation.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: approval\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlaneExecutionApprove.command.ts`",
@@ -64,6 +80,14 @@
 		"contentPath": "platform.control-plane/controlPlane.execution.completed.md"
 	},
 	{
+		"id": "platform.control-plane/controlPlane.execution.evidence.export",
+		"title": "controlPlane.execution.evidence.export",
+		"summary": "Export the evidence set attached to an execution-lane run.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: execution, evidence\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlaneExecutionEvidenceExport.command.ts`",
+		"route": "/docs/reference/platform.control-plane/controlPlane.execution.evidence.export",
+		"source": "generated",
+		"contentPath": "platform.control-plane/controlPlane.execution.evidence.export.md"
+	},
+	{
 		"id": "platform.control-plane/controlPlane.execution.failed",
 		"title": "controlPlane.execution.failed",
 		"summary": "Emitted when an execution run fails.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: execution, failure\n- **File**: `packages/libs/contracts-spec/src/control-plane/events/controlPlaneExecutionFailed.event.ts`",
@@ -80,6 +104,22 @@
 		"contentPath": "platform.control-plane/controlPlane.execution.get.md"
 	},
 	{
+		"id": "platform.control-plane/controlPlane.execution.lane.get",
+		"title": "controlPlane.execution.lane.get",
+		"summary": "Fetch the current state of one execution-lane run.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: execution, lane\n- **File**: `packages/libs/contracts-spec/src/control-plane/queries/controlPlaneExecutionLaneGet.query.ts`",
+		"route": "/docs/reference/platform.control-plane/controlPlane.execution.lane.get",
+		"source": "generated",
+		"contentPath": "platform.control-plane/controlPlane.execution.lane.get.md"
+	},
+	{
+		"id": "platform.control-plane/controlPlane.execution.lane.list",
+		"title": "controlPlane.execution.lane.list",
+		"summary": "List execution-lane runs with lane-focused filters.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: execution, lane\n- **File**: `packages/libs/contracts-spec/src/control-plane/queries/controlPlaneExecutionLaneList.query.ts`",
+		"route": "/docs/reference/platform.control-plane/controlPlane.execution.lane.list",
+		"source": "generated",
+		"contentPath": "platform.control-plane/controlPlane.execution.lane.list.md"
+	},
+	{
 		"id": "platform.control-plane/controlPlane.execution.list",
 		"title": "controlPlane.execution.list",
 		"summary": "List execution runs with filtering and pagination.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: execution\n- **File**: `packages/libs/contracts-spec/src/control-plane/queries/controlPlaneExecutionList.query.ts`",
@@ -88,12 +128,44 @@
 		"contentPath": "platform.control-plane/controlPlane.execution.list.md"
 	},
 	{
+		"id": "platform.control-plane/controlPlane.execution.pause",
+		"title": "controlPlane.execution.pause",
+		"summary": "Pause an active execution-lane run.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: execution, lane\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlaneExecutionPause.command.ts`",
+		"route": "/docs/reference/platform.control-plane/controlPlane.execution.pause",
+		"source": "generated",
+		"contentPath": "platform.control-plane/controlPlane.execution.pause.md"
+	},
+	{
 		"id": "platform.control-plane/controlPlane.execution.reject",
 		"title": "controlPlane.execution.reject",
 		"summary": "Reject a pending execution step.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: approval\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlaneExecutionReject.command.ts`",
 		"route": "/docs/reference/platform.control-plane/controlPlane.execution.reject",
 		"source": "generated",
 		"contentPath": "platform.control-plane/controlPlane.execution.reject.md"
+	},
+	{
+		"id": "platform.control-plane/controlPlane.execution.resume",
+		"title": "controlPlane.execution.resume",
+		"summary": "Resume a paused execution-lane run.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: execution, lane\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlaneExecutionResume.command.ts`",
+		"route": "/docs/reference/platform.control-plane/controlPlane.execution.resume",
+		"source": "generated",
+		"contentPath": "platform.control-plane/controlPlane.execution.resume.md"
+	},
+	{
+		"id": "platform.control-plane/controlPlane.execution.retry",
+		"title": "controlPlane.execution.retry",
+		"summary": "Retry the current lane execution phase.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: execution, lane\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlaneExecutionRetry.command.ts`",
+		"route": "/docs/reference/platform.control-plane/controlPlane.execution.retry",
+		"source": "generated",
+		"contentPath": "platform.control-plane/controlPlane.execution.retry.md"
+	},
+	{
+		"id": "platform.control-plane/controlPlane.execution.shutdown",
+		"title": "controlPlane.execution.shutdown",
+		"summary": "Shutdown an execution-lane run and move it to a terminal state.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: execution, lane\n- **File**: `packages/libs/contracts-spec/src/control-plane/commands/controlPlaneExecutionShutdown.command.ts`",
+		"route": "/docs/reference/platform.control-plane/controlPlane.execution.shutdown",
+		"source": "generated",
+		"contentPath": "platform.control-plane/controlPlane.execution.shutdown.md"
 	},
 	{
 		"id": "platform.control-plane/controlPlane.execution.start",

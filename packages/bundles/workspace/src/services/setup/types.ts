@@ -37,7 +37,7 @@ export const SETUP_TARGET_LABELS: Record<SetupTarget, string> = {
 	'mcp-cursor': 'MCP for Cursor (.cursor/mcp.json)',
 	'mcp-claude': 'MCP for Claude Desktop',
 	'cursor-rules': 'Cursor AI Rules (.cursor/rules/)',
-	'agents-md': 'Project AI Guide (AGENTS.md)',
+	'agents-md': 'AI Agent Guide (AGENTS.md)',
 };
 
 /**
