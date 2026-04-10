@@ -1,5 +1,16 @@
 # @contractspec/example.learning-journey-ambient-coach
 
+## 3.7.18
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Introduce the Builder v3 control plane as a governed authoring layer over external execution providers.
+- Updated dependencies because of Implement ContractSpec Connect as a first-class spec, runtime, and CLI workflow.
+  - @contractspec/module.learning-journey@3.7.17
+  - @contractspec/lib.contracts-spec@5.2.0
+
 ## 3.7.17
 
 ### Patch Changes

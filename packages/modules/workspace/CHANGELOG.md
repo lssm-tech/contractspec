@@ -1,5 +1,17 @@
 # @contractspec/module.workspace
 
+## 4.1.5
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Introduce the Builder v3 control plane as a governed authoring layer over external execution providers.
+- Updated dependencies because of Implement ContractSpec Connect as a first-class spec, runtime, and CLI workflow.
+  - @contractspec/lib.contracts-integrations@3.8.10
+  - @contractspec/lib.contracts-spec@5.2.0
+  - @contractspec/lib.schema@3.7.14
+
 ## 4.1.4
 
 ### Patch Changes

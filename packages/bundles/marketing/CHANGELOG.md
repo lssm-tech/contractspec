@@ -1,5 +1,42 @@
 # @contractspec/bundle.marketing
 
+## 3.8.11
+
+### Patch Changes
+
+- Pass Bun transpile paths through production JSX mode so published browser bundles stop emitting the dev runtime.
+  - Packages: @contractspec/tool.bun (patch), @contractspec/bundle.marketing (patch), @contractspec/lib.accessibility (patch), @contractspec/lib.contracts-runtime-client-react (patch), @contractspec/lib.design-system (patch), @contractspec/lib.example-shared-ui (patch), @contractspec/lib.presentation-runtime-react (patch), @contractspec/lib.surface-runtime (patch), @contractspec/lib.ui-kit (patch), @contractspec/lib.ui-kit-web (patch), @contractspec/lib.ui-link (patch), @contractspec/lib.video-gen (patch), @contractspec/module.builder-workbench (patch), @contractspec/module.examples (patch), @contractspec/module.execution-console (patch), @contractspec/module.mobile-review (patch)
+  - Migration: Pull the patch releases for the affected Contractspec React/browser packages.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Harden the Builder rollout with canonical bootstrap presets, channel-heavy mobile review flows, local-daemon runtime registration, and richer operator status surfaces.
+- Updated dependencies because of Introduce the Builder v3 control plane as a governed authoring layer over external execution providers.
+- Updated dependencies because of Implement ContractSpec Connect as a first-class spec, runtime, and CLI workflow.
+- Updated dependencies because of Expand the spec-pack docs into a fuller learning path across the public docs site.
+- Updated dependencies because of Pass Bun transpile paths through production JSX mode so published browser bundles stop emitting the dev runtime.
+  - @contractspec/example.agent-console@3.8.10
+  - @contractspec/example.ai-chat-assistant@3.8.10
+  - @contractspec/example.analytics-dashboard@3.9.10
+  - @contractspec/example.crm-pipeline@3.7.18
+  - @contractspec/example.data-grid-showcase@3.8.10
+  - @contractspec/example.integration-hub@3.8.10
+  - @contractspec/example.marketplace@3.8.10
+  - @contractspec/example.saas-boilerplate@3.8.10
+  - @contractspec/example.visualization-showcase@3.9.10
+  - @contractspec/example.workflow-system@3.8.10
+  - @contractspec/bundle.library@3.8.11
+  - @contractspec/lib.contracts-spec@5.2.0
+  - @contractspec/lib.contracts-runtime-client-react@3.8.6
+  - @contractspec/lib.design-system@3.8.11
+  - @contractspec/lib.example-shared-ui@6.0.18
+  - @contractspec/lib.surface-runtime@0.5.18
+  - @contractspec/lib.ui-kit-web@3.9.10
+  - @contractspec/lib.ui-link@3.7.14
+  - @contractspec/module.examples@3.8.10
+  - @contractspec/lib.email@3.7.13
+  - @contractspec/lib.logger@3.7.13
+  - @contractspec/lib.runtime-sandbox@2.7.14
+  - @contractspec/lib.ui-kit-core@3.7.13
+
 ## 3.8.10
 
 ### Patch Changes

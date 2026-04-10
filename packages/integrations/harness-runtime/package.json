@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/integration.harness-runtime",
-	"version": "0.2.10",
+	"version": "0.2.11",
 	"description": "Runtime adapters for the ContractSpec harness system.",
 	"type": "module",
 	"types": "./dist/index.d.ts",

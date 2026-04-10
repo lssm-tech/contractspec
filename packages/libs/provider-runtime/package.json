@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.provider-runtime",
-	"version": "0.1.0",
+	"version": "0.2.0",
 	"description": "Builder provider-runtime helpers for routing, context prep, runtime targets, and receipt normalization.",
 	"keywords": [
 		"contractspec",

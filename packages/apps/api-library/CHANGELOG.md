@@ -1,5 +1,27 @@
 # @contractspec/app.api-library
 
+## 3.8.11
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Harden the Builder rollout with canonical bootstrap presets, channel-heavy mobile review flows, local-daemon runtime registration, and richer operator status surfaces.
+- Updated dependencies because of Introduce the Builder v3 control plane as a governed authoring layer over external execution providers.
+- Updated dependencies because of Implement ContractSpec Connect as a first-class spec, runtime, and CLI workflow.
+- Updated dependencies because of Expand the spec-pack docs into a fuller learning path across the public docs site.
+- Updated dependencies because of Pass Bun transpile paths through production JSX mode so published browser bundles stop emitting the dev runtime.
+  - @contractspec/integration.providers-impls@3.8.10
+  - @contractspec/bundle.library@3.8.11
+  - @contractspec/lib.contracts-spec@5.2.0
+  - @contractspec/integration.runtime@3.9.0
+  - @contractspec/integration.runtime.managed@0.2.0
+  - @contractspec/integration.builder-telegram@0.2.0
+  - @contractspec/integration.builder-whatsapp@0.2.0
+  - @contractspec/integration.provider.codex@0.2.0
+  - @contractspec/bundle.workspace@4.3.0
+  - @contractspec/bundle.marketing@3.8.11
+
 ## 3.8.10
 
 ### Patch Changes

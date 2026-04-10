@@ -1,5 +1,16 @@
 # @contractspec/example.in-app-docs
 
+## 3.7.18
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Introduce the Builder v3 control plane as a governed authoring layer over external execution providers.
+- Updated dependencies because of Implement ContractSpec Connect as a first-class spec, runtime, and CLI workflow.
+- Updated dependencies because of Pass Bun transpile paths through production JSX mode so published browser bundles stop emitting the dev runtime.
+  - @contractspec/lib.contracts-spec@5.2.0
+  - @contractspec/lib.example-shared-ui@6.0.18
+
 ## 3.7.17
 
 ### Patch Changes
