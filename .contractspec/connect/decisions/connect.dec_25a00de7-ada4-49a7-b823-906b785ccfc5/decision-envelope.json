@@ -1,0 +1,19 @@
+{
+  "connectDecisionId": "connect.dec_25a00de7-ada4-49a7-b823-906b785ccfc5",
+  "taskId": "release-check-restoration",
+  "verdict": "require_review",
+  "createdAt": "2026-04-10T09:50:44.830Z",
+  "artifacts": {
+    "contextPack": ".contractspec/connect/decisions/connect.dec_25a00de7-ada4-49a7-b823-906b785ccfc5/context-pack.json",
+    "planPacket": ".contractspec/connect/decisions/connect.dec_25a00de7-ada4-49a7-b823-906b785ccfc5/plan-packet.json",
+    "patchVerdict": ".contractspec/connect/decisions/connect.dec_25a00de7-ada4-49a7-b823-906b785ccfc5/patch-verdict.json",
+    "reviewPacket": ".contractspec/connect/decisions/connect.dec_25a00de7-ada4-49a7-b823-906b785ccfc5/review-packet.json"
+  },
+  "reviewBridge": {
+    "enabled": false,
+    "lastAttemptAt": "2026-04-10T09:50:45.794Z",
+    "mode": "off",
+    "queue": "connect-default",
+    "status": "disabled"
+  }
+}

@@ -1,0 +1,57 @@
+{
+  "id": "review_2d1921e0-76c5-4c09-b3aa-96e5d5553745",
+  "sourceDecisionId": "connect.dec_a26cbdca-80ac-4327-a206-68485fcc5a41",
+  "objective": "edit .changeset/builder-next-wave-hardening.release.yaml",
+  "reason": "Impact could not be resolved for .changeset/builder-next-wave-hardening.release.yaml.",
+  "summary": {
+    "paths": [
+      ".changeset/builder-next-wave-hardening.release.yaml"
+    ],
+    "impactedContracts": [],
+    "affectedSurfaces": [
+      "audit",
+      "runtime"
+    ],
+    "requiredChecks": []
+  },
+  "evidence": [
+    {
+      "type": "context-pack",
+      "ref": ".contractspec/connect/decisions/connect.dec_a26cbdca-80ac-4327-a206-68485fcc5a41/context-pack.json"
+    },
+    {
+      "type": "plan-packet",
+      "ref": ".contractspec/connect/decisions/connect.dec_a26cbdca-80ac-4327-a206-68485fcc5a41/plan-packet.json"
+    },
+    {
+      "type": "patch-verdict",
+      "ref": ".contractspec/connect/decisions/connect.dec_a26cbdca-80ac-4327-a206-68485fcc5a41/patch-verdict.json"
+    },
+    {
+      "type": "control-plane-trace",
+      "ref": "controlPlane.trace.get?connectDecisionId=connect.dec_a26cbdca-80ac-4327-a206-68485fcc5a41"
+    }
+  ],
+  "requiredApprovals": [
+    {
+      "capability": "controlPlane.execution.approve",
+      "reason": "Impact could not be resolved for .changeset/builder-next-wave-hardening.release.yaml."
+    }
+  ],
+  "controlPlane": {
+    "traceQuery": {
+      "key": "controlPlane.trace.get",
+      "version": "1.0.0",
+      "kind": "query"
+    },
+    "policyExplain": {
+      "key": "controlPlane.policy.explain",
+      "version": "1.0.0",
+      "kind": "query"
+    }
+  },
+  "studio": {
+    "enabled": false,
+    "mode": "off"
+  }
+}

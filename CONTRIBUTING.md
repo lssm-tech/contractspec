@@ -56,6 +56,7 @@ Reusable utilities, contracts, and the design system. (e.g., `contracts`, `desig
 - Run `bunx contractspec ci` for contract validation and rules.
 - Run `bun run lint` for linting.
 - Run `bun run test` for unit tests (when touching modules with tests).
+- When a change affects published packages, add both `.changeset/<slug>.md` and `.changeset/<slug>.release.yaml`, then run `bun run release:build` and `bun run release:check:strict`.
 
 ## 🤝 Contribution Workflow
 
@@ -71,11 +72,13 @@ Reusable utilities, contracts, and the design system. (e.g., `contracts`, `desig
 
 3.  **Validate**:
     - Run `bunx contractspec ci` to run validation checks locally.
+    - If published packages changed, create the matching changeset and release capsule pair and confirm `bun run release:build` plus `bun run release:check:strict` both pass.
 
 4.  **Pull Request**:
     - Open a PR.
     - Our `action-validation` will check your code.
     - Our `action-version` will analyze versioning impact.
+    - Pull requests that touch published-package release work must keep each `.changeset/*.md` file paired with a sibling `.release.yaml` file.
     - Wait for the bots to report status.
 
 ## 📏 Standards & Conventions

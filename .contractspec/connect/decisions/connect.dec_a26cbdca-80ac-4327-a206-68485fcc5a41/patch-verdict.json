@@ -1,0 +1,68 @@
+{
+  "decisionId": "connect.dec_a26cbdca-80ac-4327-a206-68485fcc5a41",
+  "summary": "edit .changeset/builder-next-wave-hardening.release.yaml",
+  "action": {
+    "actionType": "edit_file",
+    "tool": "acp.fs.access",
+    "target": ".changeset/builder-next-wave-hardening.release.yaml"
+  },
+  "impacted": [
+    {
+      "file": ".changeset/builder-next-wave-hardening.release.yaml",
+      "contracts": [],
+      "policies": [
+        {
+          "key": "connect.policy",
+          "version": "1.0.0",
+          "kind": "policy"
+        }
+      ],
+      "surfaces": [
+        "audit",
+        "runtime"
+      ]
+    }
+  ],
+  "checks": [
+    {
+      "id": "path-boundary",
+      "status": "pass",
+      "detail": "No protected path boundaries triggered."
+    },
+    {
+      "id": "command-policy",
+      "status": "pass",
+      "detail": "Command policy: none"
+    },
+    {
+      "id": "impact-analysis",
+      "status": "warn",
+      "detail": "Impact could not be resolved."
+    }
+  ],
+  "verdict": "require_review",
+  "controlPlane": {
+    "verdict": "assist",
+    "requiresApproval": true
+  },
+  "approvalOperationRefs": [
+    "controlPlane.execution.approve@1.0.0",
+    "agent.approvals@1.0.0"
+  ],
+  "remediation": [
+    "Request human review for the flagged change set."
+  ],
+  "reviewPacketRef": ".contractspec/connect/review-packets/review_2d1921e0-76c5-4c09-b3aa-96e5d5553745.json",
+  "replay": {
+    "traceQuery": {
+      "key": "controlPlane.trace.get",
+      "version": "1.0.0",
+      "kind": "query"
+    },
+    "policyExplain": {
+      "key": "controlPlane.policy.explain",
+      "version": "1.0.0",
+      "kind": "query"
+    }
+  }
+}

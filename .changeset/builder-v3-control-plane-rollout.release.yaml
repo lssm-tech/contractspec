@@ -1,0 +1,112 @@
+schemaVersion: "1"
+slug: builder-v3-control-plane-rollout
+summary: Introduce the Builder v3 control plane as a governed authoring layer over external execution providers.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.contracts-spec"
+    releaseType: patch
+  - name: "@contractspec/lib.builder-spec"
+    releaseType: minor
+  - name: "@contractspec/lib.provider-spec"
+    releaseType: minor
+  - name: "@contractspec/lib.builder-runtime"
+    releaseType: minor
+  - name: "@contractspec/lib.mobile-control"
+    releaseType: minor
+  - name: "@contractspec/lib.provider-runtime"
+    releaseType: minor
+  - name: "@contractspec/module.builder-workbench"
+    releaseType: minor
+  - name: "@contractspec/module.mobile-review"
+    releaseType: minor
+  - name: "@contractspec/integration.runtime"
+    releaseType: minor
+  - name: "@contractspec/integration.runtime.managed"
+    releaseType: minor
+  - name: "@contractspec/integration.runtime.local"
+    releaseType: minor
+  - name: "@contractspec/integration.runtime.hybrid"
+    releaseType: minor
+  - name: "@contractspec/integration.builder-telegram"
+    releaseType: minor
+  - name: "@contractspec/integration.builder-voice"
+    releaseType: minor
+  - name: "@contractspec/integration.builder-whatsapp"
+    releaseType: minor
+  - name: "@contractspec/integration.provider.codex"
+    releaseType: minor
+  - name: "@contractspec/integration.provider.claude-code"
+    releaseType: minor
+  - name: "@contractspec/integration.provider.gemini"
+    releaseType: minor
+  - name: "@contractspec/integration.provider.copilot"
+    releaseType: minor
+  - name: "@contractspec/integration.provider.stt"
+    releaseType: minor
+  - name: "@contractspec/integration.provider.local-model"
+    releaseType: minor
+affectedRuntimes:
+  - node
+  - browser
+  - managed-runtime
+  - local-daemon
+  - mobile
+affectedFrameworks:
+  - react
+  - nextjs
+  - telegram
+  - whatsapp
+audiences:
+  - kind: maintainer
+    summary: Builder v3 now has a governed contract, runtime, and provider surface that keeps authoring, readiness, and export orchestration aligned across the package stack.
+    affectedPackages:
+      - "@contractspec/lib.contracts-spec"
+      - "@contractspec/lib.builder-spec"
+      - "@contractspec/lib.builder-runtime"
+      - "@contractspec/lib.provider-spec"
+      - "@contractspec/lib.provider-runtime"
+  - kind: integrator
+    summary: Integrators can compose managed, local, and hybrid runtime modes with Builder workbench/mobile-review modules and provider adapters for Codex, Claude Code, Gemini, Copilot, STT, and local models.
+    affectedPackages:
+      - "@contractspec/module.builder-workbench"
+      - "@contractspec/module.mobile-review"
+      - "@contractspec/integration.runtime"
+      - "@contractspec/integration.runtime.managed"
+      - "@contractspec/integration.runtime.local"
+      - "@contractspec/integration.runtime.hybrid"
+      - "@contractspec/integration.provider.codex"
+      - "@contractspec/integration.provider.claude-code"
+      - "@contractspec/integration.provider.gemini"
+      - "@contractspec/integration.provider.copilot"
+      - "@contractspec/integration.provider.stt"
+      - "@contractspec/integration.provider.local-model"
+  - kind: customer
+    summary: Builder operators now get a unified workbench and mobile-review experience across provider routing, readiness, export approval, and omnichannel control flows.
+    affectedPackages:
+      - "@contractspec/integration.builder-telegram"
+      - "@contractspec/integration.builder-voice"
+      - "@contractspec/integration.builder-whatsapp"
+      - "@contractspec/module.builder-workbench"
+      - "@contractspec/module.mobile-review"
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: adopt-builder-v3-control-plane
+    title: Adopt the Builder v3 control-plane packages
+    summary: Wire provider/runtime integrations through the governed Builder v3 workbench and mobile-review surfaces.
+    level: assisted
+    instructions:
+      - Install the Builder v3 contracts and runtime packages alongside the provider integrations you intend to expose in the authoring surface.
+      - Use the Builder workbench and mobile-review modules as the host UI surfaces instead of building separate readiness or export orchestration shells.
+      - Validate managed, local, and hybrid runtime mode selection plus provider routing before promoting the control-plane workflow to operators.
+validation:
+  commands:
+    - cd packages/libs/builder-spec && bun test && bun run typecheck
+    - cd packages/libs/builder-runtime && bun test && bun run typecheck
+    - cd packages/modules/builder-workbench && bun test && bun run typecheck
+    - cd packages/modules/mobile-review && bun test && bun run typecheck
+    - cd packages/apps/web-landing && bun run build:types && bun test
+  evidence:
+    - Builder v3 contracts, runtime mode wrappers, and provider compatibility surfaces are now published together as one governed authoring layer.
+    - The reusable workbench and mobile-review modules consume the same readiness, export, and provider-routing state that the runtime integrations expose across managed, local, and hybrid modes.
+    - Omnichannel control integrations for Telegram, voice, and WhatsApp are aligned with the same control-plane package set instead of shipping as disconnected operator workflows.

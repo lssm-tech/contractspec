@@ -1,0 +1,54 @@
+{
+  "id": "connect.plan_19eb02df-4f19-49a3-b3ab-f46bc4728c2b",
+  "taskId": "release-check-restoration",
+  "repoId": "contractspec",
+  "branch": "release",
+  "actor": {
+    "id": "cli:release-check-restoration",
+    "type": "human"
+  },
+  "objective": "edit .changeset/builder-next-wave-hardening.release.yaml",
+  "steps": [
+    {
+      "id": "step_cf4ed21c-6bca-4ced-8b5e-b84b1b0917f4",
+      "summary": "edit .changeset/builder-next-wave-hardening.release.yaml",
+      "paths": [
+        ".changeset/builder-next-wave-hardening.release.yaml"
+      ]
+    }
+  ],
+  "impactedContracts": [],
+  "affectedSurfaces": [
+    "audit",
+    "runtime"
+  ],
+  "requiredChecks": [],
+  "requiredApprovals": [
+    {
+      "capability": "controlPlane.execution.approve",
+      "reason": "Impact could not be resolved for .changeset/builder-next-wave-hardening.release.yaml."
+    }
+  ],
+  "riskScore": 0.2,
+  "verificationStatus": "review",
+  "controlPlane": {
+    "intentSubmit": {
+      "key": "controlPlane.intent.submit",
+      "version": "1.0.0",
+      "kind": "command"
+    },
+    "planCompile": {
+      "key": "controlPlane.plan.compile",
+      "version": "1.0.0",
+      "kind": "command"
+    },
+    "planVerify": {
+      "key": "controlPlane.plan.verify",
+      "version": "1.0.0",
+      "kind": "command"
+    }
+  },
+  "acpActions": [
+    "acp.fs.access"
+  ]
+}

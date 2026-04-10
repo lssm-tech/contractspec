@@ -1,0 +1,873 @@
+{
+  "generatedAt": "2026-04-10T09:54:03.568Z",
+  "releases": [
+    {
+      "slug": "builder-next-wave-hardening",
+      "version": "0.1.0",
+      "summary": "Harden the Builder rollout with canonical bootstrap presets, channel-heavy mobile review flows, local-daemon runtime registration, and richer operator status surfaces.",
+      "date": "2026-04-10",
+      "isBreaking": false,
+      "packages": [
+        {
+          "name": "@contractspec/lib.builder-spec",
+          "releaseType": "minor",
+          "version": "0.1.0"
+        },
+        {
+          "name": "@contractspec/lib.builder-runtime",
+          "releaseType": "minor",
+          "version": "0.1.0"
+        },
+        {
+          "name": "@contractspec/lib.mobile-control",
+          "releaseType": "minor",
+          "version": "0.1.0"
+        },
+        {
+          "name": "@contractspec/lib.provider-runtime",
+          "releaseType": "minor",
+          "version": "0.1.0"
+        },
+        {
+          "name": "@contractspec/module.builder-workbench",
+          "releaseType": "minor",
+          "version": "0.1.0"
+        },
+        {
+          "name": "@contractspec/module.mobile-review",
+          "releaseType": "minor",
+          "version": "0.1.0"
+        },
+        {
+          "name": "@contractspec/integration.runtime.local",
+          "releaseType": "minor",
+          "version": "0.1.0"
+        },
+        {
+          "name": "@contractspec/integration.provider.gemini",
+          "releaseType": "minor",
+          "version": "0.1.0"
+        },
+        {
+          "name": "@contractspec/app.cli-contractspec",
+          "releaseType": "minor",
+          "version": "4.3.0"
+        },
+        {
+          "name": "@contractspec/bundle.library",
+          "releaseType": "patch",
+          "version": "3.8.10"
+        }
+      ],
+      "affectedRuntimes": [
+        "node",
+        "browser",
+        "local-daemon",
+        "mobile"
+      ],
+      "affectedFrameworks": [
+        "react",
+        "gemini",
+        "operator-console"
+      ],
+      "audiences": [
+        {
+          "kind": "maintainer",
+          "summary": "Builder bootstrap presets, local-daemon registration, and mobile/operator status views now move together as one governed rollout surface.",
+          "affectedPackages": [
+            "@contractspec/lib.builder-spec",
+            "@contractspec/lib.builder-runtime",
+            "@contractspec/lib.mobile-control",
+            "@contractspec/lib.provider-runtime",
+            "@contractspec/app.cli-contractspec"
+          ]
+        },
+        {
+          "kind": "integrator",
+          "summary": "Integrators can adopt canonical bootstrap presets, register trusted local daemons, and consume richer snapshot-backed mobile review and operator posture data.",
+          "affectedPackages": [
+            "@contractspec/module.builder-workbench",
+            "@contractspec/module.mobile-review",
+            "@contractspec/integration.runtime.local",
+            "@contractspec/integration.provider.gemini",
+            "@contractspec/bundle.library"
+          ]
+        },
+        {
+          "kind": "customer",
+          "summary": "Builder operators get clearer local runtime trust, lease, and channel-action status when reviewing rollouts away from the desktop workbench.",
+          "affectedPackages": [
+            "@contractspec/module.builder-workbench",
+            "@contractspec/module.mobile-review"
+          ]
+        }
+      ],
+      "deprecations": [],
+      "migrationInstructions": [],
+      "upgradeSteps": [
+        {
+          "id": "verify-builder-hardening-rollout",
+          "title": "Verify hardened Builder bootstrap and local-daemon flows",
+          "summary": "Confirm the new preset, mobile-review, and local runtime registration surfaces are wired through the workbench snapshot.",
+          "level": "manual",
+          "instructions": [
+            "Update any bootstrap orchestration to use the managed, local-daemon, or hybrid preset values exposed by the Builder contracts.",
+            "Register a local daemon through the runtime integration and confirm the resulting trust and lease details appear in the Builder snapshot surfaces.",
+            "Review the mobile-review and operator status cards to verify channel-native actions and comparison posture are rendered from the shared snapshot model."
+          ]
+        }
+      ],
+      "validation": {
+        "commands": [
+          "cd packages/libs/builder-spec && bun test && bun run typecheck",
+          "cd packages/libs/builder-runtime && bun test && bun run typecheck",
+          "cd packages/modules/builder-workbench && bun test && bun run typecheck",
+          "cd packages/modules/mobile-review && bun test && bun run typecheck",
+          "cd packages/apps/cli-contractspec && bun test && bun run typecheck"
+        ],
+        "evidence": [
+          "Builder bootstrap contracts now expose canonical managed, local-daemon, and hybrid presets instead of leaving rollout posture to ad hoc caller logic.",
+          "Runtime-local registration and mobile review card resolution both feed the shared Builder snapshot so desktop and mobile/operator surfaces describe the same rollout state.",
+          "CLI and library-facing operator guidance now surface the richer local trust, lease, channel action, and comparison posture details introduced by the hardened rollout."
+        ]
+      }
+    },
+    {
+      "slug": "builder-v3-control-plane-rollout",
+      "version": "5.1.0",
+      "summary": "Introduce the Builder v3 control plane as a governed authoring layer over external execution providers.",
+      "date": "2026-04-10",
+      "isBreaking": false,
+      "packages": [
+        {
+          "name": "@contractspec/lib.contracts-spec",
+          "releaseType": "patch",
+          "version": "5.1.0"
+        },
+        {
+          "name": "@contractspec/lib.builder-spec",
+          "releaseType": "minor",
+          "version": "0.1.0"
+        },
+        {
+          "name": "@contractspec/lib.provider-spec",
+          "releaseType": "minor",
+          "version": "0.1.0"
+        },
+        {
+          "name": "@contractspec/lib.builder-runtime",
+          "releaseType": "minor",
+          "version": "0.1.0"
+        },
+        {
+          "name": "@contractspec/lib.mobile-control",
+          "releaseType": "minor",
+          "version": "0.1.0"
+        },
+        {
+          "name": "@contractspec/lib.provider-runtime",
+          "releaseType": "minor",
+          "version": "0.1.0"
+        },
+        {
+          "name": "@contractspec/module.builder-workbench",
+          "releaseType": "minor",
+          "version": "0.1.0"
+        },
+        {
+          "name": "@contractspec/module.mobile-review",
+          "releaseType": "minor",
+          "version": "0.1.0"
+        },
+        {
+          "name": "@contractspec/integration.runtime",
+          "releaseType": "minor",
+          "version": "3.8.9"
+        },
+        {
+          "name": "@contractspec/integration.runtime.managed",
+          "releaseType": "minor",
+          "version": "0.1.0"
+        },
+        {
+          "name": "@contractspec/integration.runtime.local",
+          "releaseType": "minor",
+          "version": "0.1.0"
+        },
+        {
+          "name": "@contractspec/integration.runtime.hybrid",
+          "releaseType": "minor",
+          "version": "0.1.0"
+        },
+        {
+          "name": "@contractspec/integration.builder-telegram",
+          "releaseType": "minor",
+          "version": "0.1.0"
+        },
+        {
+          "name": "@contractspec/integration.builder-voice",
+          "releaseType": "minor",
+          "version": "0.1.0"
+        },
+        {
+          "name": "@contractspec/integration.builder-whatsapp",
+          "releaseType": "minor",
+          "version": "0.1.0"
+        },
+        {
+          "name": "@contractspec/integration.provider.codex",
+          "releaseType": "minor",
+          "version": "0.1.0"
+        },
+        {
+          "name": "@contractspec/integration.provider.claude-code",
+          "releaseType": "minor",
+          "version": "0.1.0"
+        },
+        {
+          "name": "@contractspec/integration.provider.gemini",
+          "releaseType": "minor",
+          "version": "0.1.0"
+        },
+        {
+          "name": "@contractspec/integration.provider.copilot",
+          "releaseType": "minor",
+          "version": "0.1.0"
+        },
+        {
+          "name": "@contractspec/integration.provider.stt",
+          "releaseType": "minor",
+          "version": "0.1.0"
+        },
+        {
+          "name": "@contractspec/integration.provider.local-model",
+          "releaseType": "minor",
+          "version": "0.1.0"
+        }
+      ],
+      "affectedRuntimes": [
+        "node",
+        "browser",
+        "managed-runtime",
+        "local-daemon",
+        "mobile"
+      ],
+      "affectedFrameworks": [
+        "react",
+        "nextjs",
+        "telegram",
+        "whatsapp"
+      ],
+      "audiences": [
+        {
+          "kind": "maintainer",
+          "summary": "Builder v3 now has a governed contract, runtime, and provider surface that keeps authoring, readiness, and export orchestration aligned across the package stack.",
+          "affectedPackages": [
+            "@contractspec/lib.contracts-spec",
+            "@contractspec/lib.builder-spec",
+            "@contractspec/lib.builder-runtime",
+            "@contractspec/lib.provider-spec",
+            "@contractspec/lib.provider-runtime"
+          ]
+        },
+        {
+          "kind": "integrator",
+          "summary": "Integrators can compose managed, local, and hybrid runtime modes with Builder workbench/mobile-review modules and provider adapters for Codex, Claude Code, Gemini, Copilot, STT, and local models.",
+          "affectedPackages": [
+            "@contractspec/module.builder-workbench",
+            "@contractspec/module.mobile-review",
+            "@contractspec/integration.runtime",
+            "@contractspec/integration.runtime.managed",
+            "@contractspec/integration.runtime.local",
+            "@contractspec/integration.runtime.hybrid",
+            "@contractspec/integration.provider.codex",
+            "@contractspec/integration.provider.claude-code",
+            "@contractspec/integration.provider.gemini",
+            "@contractspec/integration.provider.copilot",
+            "@contractspec/integration.provider.stt",
+            "@contractspec/integration.provider.local-model"
+          ]
+        },
+        {
+          "kind": "customer",
+          "summary": "Builder operators now get a unified workbench and mobile-review experience across provider routing, readiness, export approval, and omnichannel control flows.",
+          "affectedPackages": [
+            "@contractspec/integration.builder-telegram",
+            "@contractspec/integration.builder-voice",
+            "@contractspec/integration.builder-whatsapp",
+            "@contractspec/module.builder-workbench",
+            "@contractspec/module.mobile-review"
+          ]
+        }
+      ],
+      "deprecations": [],
+      "migrationInstructions": [],
+      "upgradeSteps": [
+        {
+          "id": "adopt-builder-v3-control-plane",
+          "title": "Adopt the Builder v3 control-plane packages",
+          "summary": "Wire provider/runtime integrations through the governed Builder v3 workbench and mobile-review surfaces.",
+          "level": "assisted",
+          "instructions": [
+            "Install the Builder v3 contracts and runtime packages alongside the provider integrations you intend to expose in the authoring surface.",
+            "Use the Builder workbench and mobile-review modules as the host UI surfaces instead of building separate readiness or export orchestration shells.",
+            "Validate managed, local, and hybrid runtime mode selection plus provider routing before promoting the control-plane workflow to operators."
+          ]
+        }
+      ],
+      "validation": {
+        "commands": [
+          "cd packages/libs/builder-spec && bun test && bun run typecheck",
+          "cd packages/libs/builder-runtime && bun test && bun run typecheck",
+          "cd packages/modules/builder-workbench && bun test && bun run typecheck",
+          "cd packages/modules/mobile-review && bun test && bun run typecheck",
+          "cd packages/apps/web-landing && bun run build:types && bun test"
+        ],
+        "evidence": [
+          "Builder v3 contracts, runtime mode wrappers, and provider compatibility surfaces are now published together as one governed authoring layer.",
+          "The reusable workbench and mobile-review modules consume the same readiness, export, and provider-routing state that the runtime integrations expose across managed, local, and hybrid modes.",
+          "Omnichannel control integrations for Telegram, voice, and WhatsApp are aligned with the same control-plane package set instead of shipping as disconnected operator workflows."
+        ]
+      }
+    },
+    {
+      "slug": "connect-spec-alignment-april-2026",
+      "version": "5.1.0",
+      "summary": "Implement ContractSpec Connect as a first-class spec, runtime, and CLI workflow.",
+      "date": "2026-04-10",
+      "isBreaking": false,
+      "packages": [
+        {
+          "name": "@contractspec/lib.contracts-spec",
+          "releaseType": "minor",
+          "version": "5.1.0"
+        },
+        {
+          "name": "@contractspec/bundle.workspace",
+          "releaseType": "minor",
+          "version": "4.2.0"
+        },
+        {
+          "name": "@contractspec/app.cli-contractspec",
+          "releaseType": "minor",
+          "version": "4.3.0"
+        },
+        {
+          "name": "@contractspec/bundle.library",
+          "releaseType": "patch",
+          "version": "3.8.10"
+        },
+        {
+          "name": "agentpacks",
+          "releaseType": "minor",
+          "version": "1.7.13"
+        }
+      ],
+      "affectedRuntimes": [
+        "bun",
+        "node",
+        "github-actions"
+      ],
+      "affectedFrameworks": [
+        "codex",
+        "claude-code",
+        "cursor-plugin"
+      ],
+      "audiences": [
+        {
+          "kind": "maintainer",
+          "summary": "Connect is now a governed repo surface with CLI commands, workspace services, and versioned docs that keep risky edits, review packets, and replay artifacts aligned.",
+          "affectedPackages": [
+            "@contractspec/lib.contracts-spec",
+            "@contractspec/bundle.workspace",
+            "@contractspec/app.cli-contractspec"
+          ]
+        },
+        {
+          "kind": "integrator",
+          "summary": "Integrators can enable `.contractsrc.json > connect`, emit local context/plan/verdict artifacts, and route adapter-facing review or replay flows through the shared workspace services.",
+          "affectedPackages": [
+            "@contractspec/bundle.workspace",
+            "@contractspec/app.cli-contractspec",
+            "agentpacks"
+          ]
+        },
+        {
+          "kind": "agent",
+          "summary": "Coding-agent surfaces now have a first-class Connect workflow for context packs, plan packets, mutation verdicts, review packets, and replay/eval evidence instead of relying on ad hoc governance prose.",
+          "affectedPackages": [
+            "@contractspec/lib.contracts-spec",
+            "@contractspec/app.cli-contractspec",
+            "agentpacks"
+          ]
+        }
+      ],
+      "deprecations": [],
+      "migrationInstructions": [
+        {
+          "id": "enable-connect-workspace",
+          "title": "Enable ContractSpec Connect in the workspace config",
+          "summary": "Turn on the Connect adapter flow before relying on task-scoped context, review, replay, or evaluation artifacts.",
+          "required": false,
+          "when": "When a workspace wants coding-agent gating, local review packets, or replay/eval evidence tied to file and command mutations.",
+          "steps": [
+            "Add or merge a `connect` section in `.contractsrc.json` with `enabled: true` and the storage paths that should hold Connect artifacts.",
+            "Route risky edits or shell execution through `contractspec connect plan` and `contractspec connect verify` so decisions, review packets, and replay bundles are captured.",
+            "Use the generated docs and exported agentpacks metadata so downstream agent tooling sees the same Connect contract surface as the CLI."
+          ]
+        }
+      ],
+      "upgradeSteps": [
+        {
+          "id": "adopt-connect-cli-workflow",
+          "title": "Adopt the Connect CLI workflow",
+          "summary": "Use the built-in Connect commands instead of custom local wrappers for risky file or command mutations.",
+          "level": "manual",
+          "instructions": [
+            "Initialize the workspace with `contractspec connect init --scope workspace`.",
+            "Use `contractspec connect context`, `plan`, and `verify` to capture task context and mutation verdicts before edits or shell execution.",
+            "Keep replay and evaluation artifacts under `.contractspec/connect/` so review and audit flows can consume the same evidence bundle."
+          ]
+        }
+      ],
+      "validation": {
+        "commands": [
+          "cd packages/libs/contracts-spec && bun test src/workspace-config/contractsrc-schema.test.ts src/versioning/schema.test.ts && bun run typecheck",
+          "cd packages/bundles/workspace && bun test src/services/connect/plan-policy.test.ts src/services/upgrade/guided-upgrade.test.ts src/services/versioning/release-service.test.ts && bun run typecheck",
+          "cd packages/apps/cli-contractspec && bun test src/commands/connect/blackbox.test.ts src/commands/connect/index.test.ts && bun run typecheck",
+          "cd packages/tools/agentpacks && bun test && bun run typecheck"
+        ],
+        "evidence": [
+          "ContractSpec Connect now ships as a first-class spec, workspace service, and CLI workflow instead of being split across unversioned helper paths.",
+          "Local context, plan, verdict, review, replay, and evaluation artifacts all resolve through the same `.contractsrc.json > connect` configuration and workspace storage layout.",
+          "Agent-facing docs and exported metadata now describe the same Connect workflow that the CLI and workspace services enforce."
+        ]
+      }
+    },
+    {
+      "slug": "docs-learning-path-spec-packs",
+      "version": "3.8.10",
+      "summary": "Expand the spec-pack docs into a fuller learning path across the public docs site.",
+      "date": "2026-04-10",
+      "isBreaking": false,
+      "packages": [
+        {
+          "name": "@contractspec/bundle.library",
+          "releaseType": "patch",
+          "version": "3.8.10"
+        },
+        {
+          "name": "@contractspec/app.web-landing",
+          "releaseType": "patch"
+        }
+      ],
+      "affectedRuntimes": [
+        "browser",
+        "node"
+      ],
+      "affectedFrameworks": [
+        "react",
+        "nextjs"
+      ],
+      "audiences": [
+        {
+          "kind": "maintainer",
+          "summary": "The docs bundle and web app now expose Connect, module-bundle, and Builder workbench guides as one linked learning path instead of isolated pages.",
+          "affectedPackages": [
+            "@contractspec/bundle.library",
+            "@contractspec/app.web-landing"
+          ]
+        },
+        {
+          "kind": "customer",
+          "summary": "Public docs readers can follow a clearer spec-pack learning path from overview pages into Connect, module bundles, and Builder workbench hosting guides.",
+          "affectedPackages": [
+            "@contractspec/app.web-landing"
+          ]
+        }
+      ],
+      "deprecations": [],
+      "migrationInstructions": [],
+      "upgradeSteps": [
+        {
+          "id": "review-docs-learning-path-navigation",
+          "title": "Review the updated spec-pack learning path",
+          "summary": "Confirm the new guide pages and cross-links appear in the expected docs navigation flow.",
+          "level": "manual",
+          "instructions": [
+            "Open the public docs overview and verify the new learning-path entries for Connect, module bundles, and hosting the Builder workbench.",
+            "Follow the related-page links between the spec overview, architecture references, and Studio/Builder guides to confirm the intended navigation loop."
+          ]
+        }
+      ],
+      "validation": {
+        "commands": [
+          "cd packages/bundles/library && bun test && bun run typecheck",
+          "cd packages/apps/web-landing && bun run build:types && bun test"
+        ],
+        "evidence": [
+          "The docs bundle now includes the practical spec-pack pages and related-page metadata needed for a coherent learning-path flow.",
+          "The public docs site surfaces those pages on the homepage and route wiring, so readers can traverse the new Connect and Builder-oriented learning path without dead ends."
+        ]
+      }
+    },
+    {
+      "slug": "early-cats-tap",
+      "version": "0.0.0",
+      "summary": "Fix workflow runtime imports for sandboxed workflow execution and keep workflow authoring on safe subpaths.",
+      "date": "2026-03-27",
+      "isBreaking": false,
+      "packages": [],
+      "affectedRuntimes": [
+        "vercel-workflow",
+        "node"
+      ],
+      "affectedFrameworks": [
+        "nextjs",
+        "useworkflow"
+      ],
+      "audiences": [
+        {
+          "kind": "maintainer",
+          "summary": "Workflow templates, docs, and devkit code now avoid broad workflow barrel imports in sandboxed workflow entrypoints."
+        },
+        {
+          "kind": "customer",
+          "summary": "Vercel Workflow projects should keep Node-only code out of \"use workflow\" modules and use the safe workflow subpaths instead."
+        }
+      ],
+      "deprecations": [
+        "Importing the broad `@contractspec/lib.contracts-spec/workflow` barrel from sandboxed workflow entrypoints is discouraged."
+      ],
+      "migrationInstructions": [
+        {
+          "id": "workflow-safe-imports",
+          "title": "Rewrite workflow imports to safe subpaths",
+          "summary": "Keep Node-only workflow runner code out of \"use workflow\" entrypoints.",
+          "required": false,
+          "when": "When running ContractSpec workflow specs in Vercel Workflow or other sandboxed workflow runtimes.",
+          "steps": [
+            "Import `defineWorkflow`, `WorkflowSpec`, and `WorkflowRegistry` from `@contractspec/lib.contracts-spec/workflow/spec`.",
+            "Import `WorkflowRunner` from `@contractspec/lib.contracts-spec/workflow/runner` and `InMemoryStateStore` from `@contractspec/lib.contracts-spec/workflow/adapters`.",
+            "Keep Node-only work inside \"use step\" functions, not the \"use workflow\" module graph."
+          ]
+        }
+      ],
+      "upgradeSteps": [
+        {
+          "id": "rewrite-workflow-imports",
+          "title": "Rewrite workflow imports to safe subpaths",
+          "summary": "Use narrow workflow entrypoints so sandboxed workflow runtimes do not pull Node-only runner code.",
+          "level": "manual",
+          "instructions": [
+            "Replace broad workflow barrel imports with the specific `workflow/spec`, `workflow/runner`, `workflow/adapters`, and `workflow/expression` subpaths you need.",
+            "Keep `crypto` and other Node-only dependencies in step functions instead of workflow entrypoints."
+          ]
+        }
+      ],
+      "validation": {
+        "commands": [
+          "cd packages/libs/contracts-spec && bun test src/workflow/spec.test.ts src/workflow/validation.test.ts src/workflow/expression.test.ts src/workflow/runner.test.ts",
+          "cd packages/integrations/workflow-devkit && bun test && bun run build",
+          "cd packages/apps/cli-contractspec && bun test src/templates/workflow.template.test.ts src/templates/workflow-runner.template.test.ts"
+        ],
+        "evidence": [
+          "Workflow authoring templates now use safe workflow subpaths instead of the broad workflow barrel.",
+          "Workflow DevKit runtime imports stay on expression and spec subpaths, avoiding transitive workflow runner bundling in workflow entrypoints."
+        ]
+      }
+    },
+    {
+      "slug": "fresh-toes-build",
+      "version": "3.7.13",
+      "summary": "Pass Bun transpile paths through production JSX mode so published browser bundles stop emitting the dev runtime.",
+      "date": "2026-04-10",
+      "isBreaking": false,
+      "packages": [
+        {
+          "name": "@contractspec/tool.bun",
+          "releaseType": "patch",
+          "version": "3.7.13"
+        },
+        {
+          "name": "@contractspec/bundle.marketing",
+          "releaseType": "patch",
+          "version": "3.8.10"
+        },
+        {
+          "name": "@contractspec/lib.accessibility",
+          "releaseType": "patch",
+          "version": "3.7.16"
+        },
+        {
+          "name": "@contractspec/lib.contracts-runtime-client-react",
+          "releaseType": "patch",
+          "version": "3.8.5"
+        },
+        {
+          "name": "@contractspec/lib.design-system",
+          "releaseType": "patch",
+          "version": "3.8.10"
+        },
+        {
+          "name": "@contractspec/lib.example-shared-ui",
+          "releaseType": "patch",
+          "version": "6.0.17"
+        },
+        {
+          "name": "@contractspec/lib.presentation-runtime-react",
+          "releaseType": "patch",
+          "version": "36.0.5"
+        },
+        {
+          "name": "@contractspec/lib.surface-runtime",
+          "releaseType": "patch",
+          "version": "0.5.17"
+        },
+        {
+          "name": "@contractspec/lib.ui-kit",
+          "releaseType": "patch",
+          "version": "3.8.9"
+        },
+        {
+          "name": "@contractspec/lib.ui-kit-web",
+          "releaseType": "patch",
+          "version": "3.9.9"
+        },
+        {
+          "name": "@contractspec/lib.ui-link",
+          "releaseType": "patch",
+          "version": "3.7.13"
+        },
+        {
+          "name": "@contractspec/lib.video-gen",
+          "releaseType": "patch",
+          "version": "2.7.17"
+        },
+        {
+          "name": "@contractspec/module.builder-workbench",
+          "releaseType": "patch",
+          "version": "0.1.0"
+        },
+        {
+          "name": "@contractspec/module.examples",
+          "releaseType": "patch",
+          "version": "3.8.9"
+        },
+        {
+          "name": "@contractspec/module.execution-console",
+          "releaseType": "patch",
+          "version": "0.1.0"
+        },
+        {
+          "name": "@contractspec/module.mobile-review",
+          "releaseType": "patch",
+          "version": "0.1.0"
+        }
+      ],
+      "affectedRuntimes": [
+        "bun",
+        "node",
+        "browser"
+      ],
+      "affectedFrameworks": [
+        "react",
+        "nextjs"
+      ],
+      "audiences": [
+        {
+          "kind": "maintainer",
+          "summary": "Shared Bun transpile paths now force production JSX mode, and the affected published browser bundles were rebuilt against that fix.",
+          "affectedPackages": [
+            "@contractspec/tool.bun",
+            "@contractspec/lib.presentation-runtime-react",
+            "@contractspec/lib.ui-kit-web",
+            "@contractspec/lib.design-system",
+            "@contractspec/lib.ui-link"
+          ]
+        },
+        {
+          "kind": "integrator",
+          "summary": "Browser-facing Contractspec packages no longer publish `react/jsx-dev-runtime` imports in their production JS artifacts.",
+          "affectedPackages": [
+            "@contractspec/bundle.marketing",
+            "@contractspec/lib.accessibility",
+            "@contractspec/lib.contracts-runtime-client-react",
+            "@contractspec/lib.example-shared-ui",
+            "@contractspec/lib.presentation-runtime-react",
+            "@contractspec/lib.surface-runtime",
+            "@contractspec/lib.ui-kit",
+            "@contractspec/lib.ui-kit-web",
+            "@contractspec/lib.ui-link",
+            "@contractspec/lib.video-gen",
+            "@contractspec/module.builder-workbench",
+            "@contractspec/module.examples",
+            "@contractspec/module.execution-console",
+            "@contractspec/module.mobile-review"
+          ]
+        },
+        {
+          "kind": "customer",
+          "summary": "Production React bundles built from the affected Contractspec packages stop depending on the development JSX runtime.",
+          "affectedPackages": [
+            "@contractspec/lib.presentation-runtime-react",
+            "@contractspec/lib.ui-kit-web"
+          ]
+        }
+      ],
+      "deprecations": [],
+      "migrationInstructions": [
+        {
+          "id": "refresh-react-bundle-consumers",
+          "title": "Upgrade to the rebuilt package versions",
+          "summary": "Pull the patch releases for the affected Contractspec React/browser packages.",
+          "required": false,
+          "when": "When a downstream Next or React production bundle was failing on `jsxDEV` paths from published Contractspec packages.",
+          "steps": [
+            "Upgrade the affected Contractspec package versions after this release is published.",
+            "Rebuild the downstream production bundle so it picks up the republished artifacts."
+          ]
+        }
+      ],
+      "upgradeSteps": [
+        {
+          "id": "verify-production-jsx-runtime",
+          "title": "Verify production bundles no longer import the dev JSX runtime",
+          "summary": "Check released JS artifacts for `react/jsx-dev-runtime` imports or `jsxDEV(` call sites.",
+          "level": "manual",
+          "instructions": [
+            "Rebuild the affected package set with the updated `@contractspec/tool.bun`.",
+            "Scan `dist/` output for `react/jsx-dev-runtime` imports and `jsxDEV(` call sites before publishing."
+          ]
+        }
+      ],
+      "validation": {
+        "commands": [
+          "cd packages/tools/bun && bun test test/transpile-production.test.ts",
+          "cd packages/tools/bun && bun test",
+          "rg -uuu -l -g '*.js' -e 'from \"react/jsx-dev-runtime\"' -e \"from 'react/jsx-dev-runtime'\" -e 'require\\(\"react/jsx-dev-runtime\"\\)' -e 'jsxDEV\\(' packages/libs/**/dist packages/modules/**/dist packages/bundles/**/dist packages/apps/**/dist"
+        ],
+        "evidence": [
+          "Package `@contractspec/tool.bun` now adds `--production` to both no-bundle and bundled non-watch transpile commands, while watch/dev paths remain unchanged.",
+          "The scoped release packages rebuild cleanly against the stricter runtime-relevant scan, with no `react/jsx-dev-runtime` imports or `jsxDEV(` call sites remaining in their built artifacts.",
+          "Package `@contractspec/app.cli-contractspec` was excluded from this release because its bundle only contained the literal string `jsxDEV` from embedded TypeScript source text, not a React dev-runtime import path."
+        ]
+      }
+    },
+    {
+      "slug": "versioning-release-system",
+      "version": "5.1.0",
+      "summary": "Add versioning-backed release capsules, generated patch notes, and guided upgrade flows.",
+      "date": "2026-03-27",
+      "isBreaking": false,
+      "packages": [
+        {
+          "name": "@contractspec/lib.contracts-spec",
+          "releaseType": "minor",
+          "version": "5.1.0"
+        },
+        {
+          "name": "@contractspec/bundle.workspace",
+          "releaseType": "minor",
+          "version": "4.2.0"
+        },
+        {
+          "name": "@contractspec/app.cli-contractspec",
+          "releaseType": "minor",
+          "version": "4.3.0"
+        },
+        {
+          "name": "@contractspec/app.web-landing",
+          "releaseType": "patch"
+        }
+      ],
+      "affectedRuntimes": [
+        "bun",
+        "node",
+        "github-actions"
+      ],
+      "affectedFrameworks": [
+        "changesets",
+        "nextjs"
+      ],
+      "audiences": [
+        {
+          "kind": "maintainer",
+          "summary": "Release communication is now generated from versioning-backed release capsules and enforced on release branches.",
+          "affectedPackages": [
+            "@contractspec/lib.contracts-spec",
+            "@contractspec/bundle.workspace",
+            "@contractspec/app.cli-contractspec"
+          ]
+        },
+        {
+          "kind": "integrator",
+          "summary": "Guided upgrade plans and agent prompts now come from generated upgrade manifests instead of ad hoc prose.",
+          "affectedPackages": [
+            "@contractspec/bundle.workspace",
+            "@contractspec/app.cli-contractspec"
+          ]
+        },
+        {
+          "kind": "customer",
+          "summary": "Web changelog consumers can prefer generated release manifests while older package changelogs remain supported as fallback.",
+          "affectedPackages": [
+            "@contractspec/app.web-landing"
+          ]
+        }
+      ],
+      "deprecations": [
+        "The standalone release domain under `@contractspec/lib.contracts-spec/release` is deprecated in favor of versioning-owned release metadata."
+      ],
+      "migrationInstructions": [
+        {
+          "id": "add-release-capsule",
+          "title": "Add .release.yaml companions for changesets",
+          "summary": "Published release changesets now require a structured release capsule.",
+          "required": false,
+          "when": "When preparing release branches, publish workflows, or release communication bundles.",
+          "steps": [
+            "Create `.changeset/<slug>.release.yaml` next to each published changeset.",
+            "Record customer impact, migration notes, validation commands, and evidence in the release capsule.",
+            "Run `contractspec release build` before `contractspec release check --strict`."
+          ]
+        }
+      ],
+      "upgradeSteps": [
+        {
+          "id": "scaffold-release-capsule",
+          "title": "Scaffold release capsule companions",
+          "summary": "Add release capsules for changesets and include validation evidence.",
+          "level": "manual",
+          "instructions": [
+            "Run `contractspec release init` for new release work.",
+            "Keep `.changeset/*.md` and `.changeset/*.release.yaml` together in the same PR.",
+            "Use `contractspec release brief` or `contractspec upgrade prompt` to generate maintainer, customer, and agent guidance."
+          ]
+        },
+        {
+          "id": "consume-generated-release-manifest",
+          "title": "Use generated release manifests in tooling",
+          "summary": "Prefer generated release artifacts for changelog and upgrade flows.",
+          "level": "assisted",
+          "instructions": [
+            "Run `contractspec release build` to populate `generated/releases/`.",
+            "Point changelog or upgrade tooling at `generated/releases/manifest.json` and `generated/releases/upgrade-manifest.json`."
+          ]
+        }
+      ],
+      "validation": {
+        "commands": [
+          "cd packages/libs/contracts-spec && bun test src/versioning/schema.test.ts src/versioning/release-utils.test.ts src/versioning/utils.test.ts src/versioning/refs.test.ts && bun run typecheck && bun run build:bundle && bun run build:types",
+          "cd packages/bundles/workspace && bun test src/services/versioning/release-service.test.ts src/services/upgrade/guided-upgrade.test.ts && bun run typecheck && bun run build",
+          "cd packages/apps/cli-contractspec && bun run typecheck && bun run build",
+          "cd packages/apps/web-landing && bun run build:types"
+        ],
+        "evidence": [
+          "Release artifacts and upgrade prompts are generated from versioning-backed schemas and bundle.workspace services.",
+          "Guided upgrade manifest resolution now honors the current package root inside parent monorepos."
+        ]
+      }
+    }
+  ]
+}

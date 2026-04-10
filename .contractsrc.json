@@ -58,5 +58,43 @@
 		"defaultAgentTarget": "codex",
 		"enableInteractiveGuidance": true,
 		"applyCodemods": true
+	},
+	"connect": {
+		"enabled": true,
+		"adapters": {
+			"cursor": {
+				"enabled": false,
+				"mode": "plugin"
+			},
+			"codex": {
+				"enabled": false,
+				"mode": "wrapper"
+			},
+			"claude-code": {
+				"enabled": false,
+				"mode": "rule"
+			}
+		},
+		"storage": {
+			"root": ".contractspec/connect",
+			"contextPack": ".contractspec/connect/context-pack.json",
+			"planPacket": ".contractspec/connect/plan-packet.json",
+			"patchVerdict": ".contractspec/connect/patch-verdict.json",
+			"auditFile": ".contractspec/connect/audit.ndjson",
+			"reviewPacketsDir": ".contractspec/connect/review-packets"
+		},
+		"policy": {
+			"reviewThresholds": {
+				"protectedPathWrite": "require_review",
+				"unknownImpact": "require_review",
+				"contractDrift": "require_review",
+				"breakingChange": "require_review",
+				"destructiveCommand": "deny"
+			}
+		},
+		"studio": {
+			"enabled": false,
+			"mode": "off"
+		}
 	}
 }
