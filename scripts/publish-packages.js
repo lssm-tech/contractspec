@@ -530,7 +530,8 @@ export async function publishPackages(options = {}) {
 		: Array.from(packagesByName.keys());
 	const requestedPackageSet = new Set(requestedPackageNames);
 	const preparationPackageNames = getPreparationPackageNames(
-		requestedPackageNames
+		requestedPackageNames,
+		packagesByName
 	);
 	const releaseRoot = path.resolve(
 		options.releaseDir ??

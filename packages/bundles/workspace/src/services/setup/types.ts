@@ -11,7 +11,8 @@ export type SetupTarget =
 	| 'vscode-settings'
 	| 'mcp-cursor'
 	| 'mcp-claude'
-	| 'cursor-rules';
+	| 'cursor-rules'
+	| 'agents-md';
 
 /**
  * All available setup targets.
@@ -23,6 +24,7 @@ export const ALL_SETUP_TARGETS: SetupTarget[] = [
 	'mcp-cursor',
 	'mcp-claude',
 	'cursor-rules',
+	'agents-md',
 ];
 
 /**
@@ -35,6 +37,7 @@ export const SETUP_TARGET_LABELS: Record<SetupTarget, string> = {
 	'mcp-cursor': 'MCP for Cursor (.cursor/mcp.json)',
 	'mcp-claude': 'MCP for Claude Desktop',
 	'cursor-rules': 'Cursor AI Rules (.cursor/rules/)',
+	'agents-md': 'AI Agent Guide (AGENTS.md)',
 };
 
 /**

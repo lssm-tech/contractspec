@@ -13,6 +13,7 @@ import {
 } from '../../adapters/workspace';
 import type { FsAdapter } from '../../ports/fs';
 import {
+	setupAgentsMd,
 	setupBiomeConfig,
 	setupCliConfig,
 	setupCursorRules,
@@ -144,6 +145,8 @@ async function setupTarget(
 	prompts: SetupPromptCallbacks
 ): Promise<SetupFileResult> {
 	switch (target) {
+		case 'agents-md':
+			return setupAgentsMd(fs, options, prompts);
 		case 'cli-config':
 			return setupCliConfig(fs, options, prompts);
 		case 'biome-config':

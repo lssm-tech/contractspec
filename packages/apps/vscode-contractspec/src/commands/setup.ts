@@ -37,6 +37,8 @@ function getTargetIcon(target: SetupTarget): string {
 			return '$(comment-discussion)';
 		case 'cursor-rules':
 			return '$(law)';
+		case 'agents-md':
+			return '$(file)';
 		default:
 			return '$(file)';
 	}

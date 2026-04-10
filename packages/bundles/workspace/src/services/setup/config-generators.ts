@@ -201,6 +201,65 @@ defineCommand({
 }
 
 /**
+ * Generate AGENTS.md content.
+ */
+export function generateAgentsGuide(options: SetupOptions): string {
+	const projectName = options.projectName ?? 'this project';
+	const isPackageLevel = options.isMonorepo && options.scope === 'package';
+	const targetLabel =
+		isPackageLevel && options.packageName
+			? `${options.packageName} package`
+			: projectName;
+	const basePath = 'src/contracts';
+	const monorepoNote = options.isMonorepo
+		? isPackageLevel
+			? `\n## Monorepo Scope\n\nThis guide is scoped to the current package.\n- Prefer package-local contracts under \`${basePath}/\`\n- Check workspace-level rules only when a change crosses package boundaries.\n`
+			: `\n## Monorepo Scope\n\nThis guide is scoped to the workspace root.\n- Shared contracts may live in multiple packages under \`packages/*/src/contracts/\`\n- Prefer the nearest package guide when working inside a specific package.\n`
+		: '';
+
+	return `# ContractSpec AI Guide
+
+Scope: \`${targetLabel}\`
+
+This project uses ContractSpec for spec-first development. Treat contracts as the source of truth for implementation changes.
+
+## Core Rules
+
+- Update contracts before implementation code.
+- Validate contracts after changes with \`contractspec validate\`.
+- Regenerate derived artifacts before considering the work complete.
+- Prefer existing package-local guides and READMEs when working in a nested package.
+${monorepoNote}
+## Contract Locations
+
+- \`${basePath}/operations/\` - command and query specs
+- \`${basePath}/events/\` - domain and integration events
+- \`${basePath}/presentations/\` - UI presentation contracts
+- \`${basePath}/features/\` - feature module contracts
+
+## Recommended Workflow
+
+1. Check whether a contract already exists for the change.
+2. Update or create the contract first.
+3. Run validation and generation commands.
+4. Review downstream code and tests affected by the contract update.
+
+## Key Commands
+
+- \`contractspec create\` - scaffold a new contract
+- \`contractspec validate\` - validate contract integrity
+- \`contractspec build\` - generate implementation artifacts
+- \`contractspec doctor\` - verify workspace configuration
+
+## Working Agreement
+
+- Keep changes spec-first, deterministic, and reviewable.
+- Do not change generated outputs without updating their source contract.
+- When touching nested packages, prefer the nearest \`AGENTS.md\` and \`README.md\` as the local source of truth.
+`;
+}
+
+/**
  * Get the file path for Claude Desktop config based on platform.
  */
 export function getClaudeDesktopConfigPath(): string {

@@ -87,9 +87,10 @@ function buildReleaseTargets(options = {}) {
 	const requestedPackageNames = packageNamesSpecified
 		? packageNames
 		: Array.from(packagesByName.keys());
-	const buildTargets = getPreparationPackageNames(requestedPackageNames).filter(
-		(packageName) => packagesByName.get(packageName)?.hasBuildScript
-	);
+	const buildTargets = getPreparationPackageNames(
+		requestedPackageNames,
+		packagesByName
+	).filter((packageName) => packagesByName.get(packageName)?.hasBuildScript);
 
 	if (buildTargets.length === 0) {
 		console.log('[release] Skip build: targets do not define a build script.');
