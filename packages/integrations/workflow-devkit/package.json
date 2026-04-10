@@ -44,9 +44,9 @@
 	"dependencies": {
 		"@contractspec/lib.ai-agent": "workspace:*",
 		"@contractspec/lib.contracts-spec": "workspace:*",
-		"@workflow/ai": "^4.1.0-beta.58",
+		"@workflow/ai": "^4.1.0",
 		"ai": "catalog:ai",
-		"workflow": "^4.2.0-beta.72"
+		"workflow": "^4.2.0"
 	},
 	"devDependencies": {
 		"@contractspec/tool.bun": "workspace:*",

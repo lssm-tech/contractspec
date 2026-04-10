@@ -198,7 +198,7 @@ export class MistralLLMProvider implements LLMProvider {
 		response: components.ChatCompletionResponse
 	): LLMResponse {
 		const firstChoice = response.choices[0];
-		if (!firstChoice) {
+		if (!firstChoice?.message) {
 			return {
 				message: {
 					role: 'assistant',

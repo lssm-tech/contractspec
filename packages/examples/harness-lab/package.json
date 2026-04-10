@@ -52,7 +52,7 @@
 	"devDependencies": {
 		"@contractspec/tool.bun": "workspace:*",
 		"@contractspec/tool.typescript": "workspace:*",
-		"playwright": "^1.54.0",
+		"playwright": "^1.59.1",
 		"typescript": "catalog:"
 	},
 	"publishConfig": {

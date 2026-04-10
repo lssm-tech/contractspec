@@ -32,7 +32,7 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@apollo/client": "^4.1.6",
+		"@apollo/client": "^4.1.7",
 		"@contractspec/example.agent-console": "workspace:*",
 		"@contractspec/example.ai-chat-assistant": "workspace:*",
 		"@contractspec/example.ai-support-bot": "workspace:*",

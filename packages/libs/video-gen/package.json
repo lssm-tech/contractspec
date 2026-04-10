@@ -32,20 +32,20 @@
 		"@contractspec/lib.content-gen": "workspace:*",
 		"@contractspec/lib.design-system": "workspace:*",
 		"@contractspec/lib.image-gen": "workspace:*",
-		"remotion": "^4.0.440"
+		"remotion": "^4.0.447"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",
 		"@contractspec/tool.bun": "workspace:*",
 		"typescript": "catalog:",
-		"@remotion/bundler": "^4.0.440",
-		"@remotion/cli": "^4.0.440",
-		"@remotion/player": "^4.0.440",
-		"@remotion/renderer": "^4.0.440",
+		"@remotion/bundler": "^4.0.447",
+		"@remotion/cli": "^4.0.447",
+		"@remotion/player": "^4.0.447",
+		"@remotion/renderer": "^4.0.447",
 		"@types/react": "^19.0.0",
 		"react": "^19.2.4",
 		"react-dom": "^19.2.4",
-		"tsdown": "^0.21.5"
+		"tsdown": "^0.21.7"
 	},
 	"peerDependencies": {
 		"react": "^19.2.4",

@@ -24,7 +24,7 @@
 		"directory": "packages/libs/contract-integrations"
 	},
 	"dependencies": {
-		"@aws-sdk/client-secrets-manager": "^3.1016.0",
+		"@aws-sdk/client-secrets-manager": "^3.1028.0",
 		"@contractspec/lib.contracts-spec": "workspace:*",
 		"@contractspec/lib.schema": "workspace:*",
 		"@google-cloud/secret-manager": "^6.1.1",
