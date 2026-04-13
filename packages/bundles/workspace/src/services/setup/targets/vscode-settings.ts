@@ -40,7 +40,7 @@ export async function setupVscodeSettings(
 		}
 
 		const exists = await fs.exists(filePath);
-		const defaults = generateVscodeSettings();
+		const defaults = generateVscodeSettings(options);
 
 		if (exists) {
 			const content = await fs.readFile(filePath);
@@ -73,6 +73,15 @@ export async function setupVscodeSettings(
 				existing,
 				defaults as Record<string, unknown>
 			);
+			if (
+				(options.preset === 'builder-managed' ||
+					options.preset === 'builder-hybrid') &&
+				'contractspec.api.baseUrl' in (defaults as Record<string, unknown>)
+			) {
+				merged['contractspec.api.baseUrl'] = (
+					defaults as Record<string, unknown>
+				)['contractspec.api.baseUrl'];
+			}
 			await fs.writeFile(filePath, formatJson(merged));
 
 			return {

@@ -1,4 +1,5 @@
 import { connect } from '@contractspec/bundle.workspace';
+import { confirm } from '@inquirer/prompts';
 import { persistLatestArtifacts, printConnectResult } from './artifacts';
 import {
 	buildActor,
@@ -26,21 +27,47 @@ interface SharedOptions {
 }
 
 export async function runConnectInitCommand(options: {
+	gitignore?: boolean;
 	json?: boolean;
 	scope?: 'workspace' | 'package';
 }) {
 	const { adapters, cwd, config } = await createConnectCommandContext(options);
+	const interactive = Boolean(
+		!options.json && process.stdin.isTTY && process.stdout.isTTY
+	);
 	const result = await connect.initConnectWorkspace(adapters.fs, {
 		cwd,
 		config,
+		gitignoreBehavior: parseGitignoreBehavior(options.gitignore),
+		interactive,
+		prompts: interactive
+			? {
+					confirm: (message, defaultValue) =>
+						confirm({ default: defaultValue, message }),
+				}
+			: undefined,
 		scope: options.scope,
 	});
-	printConnectResult(
-		options.json,
-		result,
-		`${result.action}: ${result.configPath}`
-	);
+	printConnectResult(options.json, result, formatConnectInitSummary(result));
 	return 0;
+}
+
+function parseGitignoreBehavior(gitignore: boolean | undefined) {
+	if (gitignore === true) {
+		return 'force';
+	}
+	if (gitignore === false) {
+		return 'skip';
+	}
+	return undefined;
+}
+
+function formatConnectInitSummary(result: connect.ConnectInitResult): string {
+	if (result.gitignore.action === 'skipped') {
+		return `${result.action}: ${result.configPath}`;
+	}
+
+	return `${result.action}: ${result.configPath}\n${result.gitignore.action}: ${result.gitignore.filePath}`;
 }
 
 export async function runConnectContextCommand(

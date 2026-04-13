@@ -368,20 +368,27 @@ export async function createFeatureFromOrphansCommand(
 				o.type === 'operation' || o.type === 'command' || o.type === 'query'
 		);
 		const events = orphans.filter((o) => o.type === 'event');
-		const presentations = orphans.filter((o) => o.type === 'presentation');
-		const experiments = orphans.filter((o) => o.type === 'experiment');
+			const presentations = orphans.filter((o) => o.type === 'presentation');
+			const experiments = orphans.filter((o) => o.type === 'experiment');
+			const toRef = (items: typeof orphans) =>
+				items.map((item) => ({
+					key: item.name,
+					version: item.version,
+				}));
 
-		// Generate feature file content
-		const featureContent = templates.generateFeatureSpec({
-			key: featureKey,
-			title: featureTitle,
-			owners: [],
-			tags: [],
-			operations,
-			events,
-			presentations,
-			experiments,
-		});
+			// Generate feature file content
+			const featureContent = templates.generateFeatureSpec({
+				key: featureKey,
+				title: featureTitle,
+				version: '1.0.0',
+				domain: 'workspace',
+				owners: [],
+				tags: [],
+				operations: toRef(operations),
+				events: toRef(events),
+				presentations: toRef(presentations),
+				experiments: toRef(experiments),
+			});
 
 		// Ask where to save the file
 		const workspaceFolders = vscode.workspace.workspaceFolders;

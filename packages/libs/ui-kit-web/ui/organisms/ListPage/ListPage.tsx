@@ -117,8 +117,8 @@ export function ListPage<T>({
 		label: filter.label,
 		value: filterValues[filter.key] || '',
 		options: filter.options,
-		onChange: (value: string) => {
-			setFilter(filter.key, value === 'all' ? '' : value);
+		onChange: (value: string | undefined) => {
+			setFilter(filter.key, value === 'all' ? '' : value || '');
 		},
 		showCounts: filter.showCounts,
 	}));

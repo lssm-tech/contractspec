@@ -7,6 +7,7 @@ export const CLI_SMOKE_PACKAGE_NAMES = [
 	'contractspec',
 	'@contractspec/app.cli-contractspec',
 ];
+const EXPLICIT_RELEASE_SELECTION_VALUES = new Set(['1', 'true']);
 const RELEASE_PREPARATION_DEPENDENCY_SECTIONS = [
 	'dependencies',
 	'optionalDependencies',
@@ -52,6 +53,14 @@ export function parsePackageNames(value) {
 		.filter(Boolean);
 }
 
+function hasExplicitPackageSelectionFlag(value) {
+	if (typeof value !== 'string') {
+		return false;
+	}
+
+	return EXPLICIT_RELEASE_SELECTION_VALUES.has(value.trim().toLowerCase());
+}
+
 export function getPackageNameSelection(options = {}) {
 	if (Array.isArray(options.packageNames) && options.packageNames.length > 0) {
 		return {
@@ -78,9 +87,23 @@ export function getPackageNameSelection(options = {}) {
 		const packageNames = parsePackageNames(
 			process.env.CONTRACTSPEC_RELEASE_PACKAGE_NAMES
 		);
+		const packageNamesSpecified = hasExplicitPackageSelectionFlag(
+			process.env.CONTRACTSPEC_RELEASE_PACKAGE_NAMES_SPECIFIED
+		);
 		return {
 			packageNames,
-			packageNamesSpecified: packageNames.length > 0,
+			packageNamesSpecified: packageNamesSpecified || packageNames.length > 0,
+		};
+	}
+
+	if (
+		hasExplicitPackageSelectionFlag(
+			process.env.CONTRACTSPEC_RELEASE_PACKAGE_NAMES_SPECIFIED
+		)
+	) {
+		return {
+			packageNames: [],
+			packageNamesSpecified: true,
 		};
 	}
 

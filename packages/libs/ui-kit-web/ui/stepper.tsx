@@ -1,3 +1,4 @@
+import type { SharedStepperProps } from '@contractspec/lib.ui-kit-core/interfaces';
 import { cn } from '@contractspec/lib.ui-kit-core/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import { HStack } from './stack';
@@ -19,11 +20,9 @@ const dotVariants = cva('h-2 w-2 rounded-full', {
 	},
 });
 
-export interface StepperProps extends VariantProps<typeof dotVariants> {
-	current: number;
-	total: number;
-	className?: string;
-}
+export interface StepperProps
+	extends SharedStepperProps,
+		VariantProps<typeof dotVariants> {}
 
 export function Stepper({ current, total, size, className }: StepperProps) {
 	const items = Array.from({ length: Math.max(0, total) });

@@ -169,6 +169,13 @@ The extension uses:
 - \`@contractspec/module.workspace\` for pure analysis + templates
 - \`@contractspec/bundle.workspace\` for workspace services + adapters
 
+Setup is preset-driven through the shared workspace setup layer:
+- \`core\`
+- \`connect\`
+- \`builder-managed\`
+- \`builder-local\`
+- \`builder-hybrid\`
+
 This allows the extension to work without requiring the CLI to be installed.
 
 ## Telemetry

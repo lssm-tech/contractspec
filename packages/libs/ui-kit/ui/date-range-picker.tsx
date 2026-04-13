@@ -1,3 +1,7 @@
+import type {
+	SharedDateRange,
+	SharedDateRangePickerProps,
+} from '@contractspec/lib.ui-kit-core/interfaces';
 import { cn } from '@contractspec/lib.ui-kit-core/utils';
 import DateTimePicker from '@react-native-community/datetimepicker';
 import { useMemo, useState } from 'react';
@@ -5,20 +9,9 @@ import { Platform, Pressable } from 'react-native';
 import { HStack, VStack } from './stack';
 import { Text } from './text';
 
-export interface DateRange {
-	start: Date | null;
-	end: Date | null;
-}
+export interface DateRange extends SharedDateRange {}
 
-export interface DateRangePickerProps {
-	value: DateRange;
-	onChange: (range: DateRange) => void;
-	disabled?: boolean;
-	minDate?: Date;
-	maxDate?: Date;
-	placeholders?: { start?: string; end?: string };
-	className?: string;
-}
+export interface DateRangePickerProps extends SharedDateRangePickerProps {}
 
 function fmt(d: Date | null) {
 	if (!d) return '';

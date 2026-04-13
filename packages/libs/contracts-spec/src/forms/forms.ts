@@ -1,5 +1,7 @@
 /* eslint-disable */
+
 import type { AnySchemaModel, ZodSchemaModel } from '@contractspec/lib.schema';
+import { compareVersions } from 'compare-versions';
 import type { DocBlock } from '../docs/types';
 import type { OwnerShipMeta } from '../ownership';
 // ---- Core types
@@ -42,6 +44,14 @@ export interface FormOption {
 	disabled?: boolean;
 }
 
+export interface AutocompleteOption {
+	labelI18n: string;
+	value: string | number | boolean;
+	descriptionI18n?: string;
+	disabled?: boolean;
+	data?: Record<string, unknown>;
+}
+
 export type OptionsSource =
 	| { kind: 'static'; options: readonly FormOption[] }
 	| {
@@ -52,6 +62,48 @@ export type OptionsSource =
 			args?: Record<string, unknown>;
 	  };
 
+export interface AddressFormValue {
+	line1: string;
+	line2?: string;
+	city?: string;
+	region?: string;
+	postalCode?: string;
+	countryCode?: string;
+}
+
+export interface PhoneFormValue {
+	countryCode: string;
+	nationalNumber: string;
+	extension?: string;
+	e164?: string;
+}
+
+export type AutocompleteValueMapping =
+	| { mode: 'scalar'; valueKey?: string }
+	| { mode: 'object' }
+	| { mode: 'pick'; pickKeys: string[] };
+
+export type AutocompleteSource =
+	| {
+			kind: 'local';
+			options: readonly AutocompleteOption[];
+			searchKeys: string[];
+	  }
+	| {
+			kind: 'resolver';
+			resolverKey: string;
+			deps?: string[];
+			args?: Record<string, unknown>;
+			searchKeys?: string[];
+			minQueryLength?: number;
+			debounceMs?: number;
+	  };
+
+export interface CompositePartConfig<TKeys extends string> {
+	labelsI18n?: Partial<Record<TKeys, string>>;
+	placeholdersI18n?: Partial<Record<TKeys, string>>;
+}
+
 export interface BaseFieldSpec {
 	/** Field kind discriminator. */
 	kind:
@@ -61,6 +113,12 @@ export interface BaseFieldSpec {
 		| 'checkbox'
 		| 'radio'
 		| 'switch'
+		| 'autocomplete'
+		| 'address'
+		| 'phone'
+		| 'date'
+		| 'time'
+		| 'datetime'
 		| 'group'
 		| 'array';
 	/** Field name (dot path relative to the form root or parent context). */
@@ -77,6 +135,7 @@ export interface BaseFieldSpec {
 	uiKey?: string;
 	uiProps?: Record<string, unknown>;
 	wrapper?: { orientation?: 'horizontal' | 'vertical' };
+	readOnly?: boolean;
 	/** HTML/Native autofill token (supports custom tokens) */
 	autoComplete?: string;
 	/** Keyboard/adaptation hints (web/native). Shape mirrors design-system KeyboardOptions but stays decoupled. */
@@ -142,6 +201,49 @@ export interface SwitchFieldSpec extends BaseFieldSpec {
 	name: string;
 }
 
+export interface AutocompleteFieldSpec extends BaseFieldSpec {
+	kind: 'autocomplete';
+	name: string;
+	multiple?: boolean;
+	source: AutocompleteSource;
+	valueMapping: AutocompleteValueMapping;
+}
+
+export interface AddressFieldSpec extends BaseFieldSpec {
+	kind: 'address';
+	name: string;
+	parts?: CompositePartConfig<keyof AddressFormValue>;
+	countryOptions?: OptionsSource | readonly FormOption[];
+}
+
+export interface PhoneFieldSpec extends BaseFieldSpec {
+	kind: 'phone';
+	name: string;
+	parts?: CompositePartConfig<keyof PhoneFormValue>;
+	countryOptions?: OptionsSource | readonly FormOption[];
+}
+
+export interface DateFieldSpec extends BaseFieldSpec {
+	kind: 'date';
+	name: string;
+	minDate?: Date;
+	maxDate?: Date;
+}
+
+export interface TimeFieldSpec extends BaseFieldSpec {
+	kind: 'time';
+	name: string;
+	is24Hour?: boolean;
+}
+
+export interface DateTimeFieldSpec extends BaseFieldSpec {
+	kind: 'datetime';
+	name: string;
+	minDate?: Date;
+	maxDate?: Date;
+	is24Hour?: boolean;
+}
+
 export interface GroupFieldSpec extends BaseFieldSpec {
 	kind: 'group';
 	/** Optional legend/label at group level */
@@ -154,7 +256,7 @@ export interface ArrayFieldSpec extends BaseFieldSpec {
 	/** Root-level field that is an array in the model (e.g., "emails") */
 	name: string;
 	/** Child field spec for each item (e.g., address inside emails[i].address). */
-	of: Exclude<FieldSpec, ArrayFieldSpec | GroupFieldSpec>;
+	of: Exclude<FieldSpec, ArrayFieldSpec>;
 	min?: number;
 	max?: number;
 }
@@ -166,6 +268,12 @@ export type FieldSpec =
 	| CheckboxFieldSpec
 	| RadioFieldSpec
 	| SwitchFieldSpec
+	| AutocompleteFieldSpec
+	| AddressFieldSpec
+	| PhoneFieldSpec
+	| DateFieldSpec
+	| TimeFieldSpec
+	| DateTimeFieldSpec
 	| GroupFieldSpec
 	| ArrayFieldSpec;
 
@@ -197,9 +305,45 @@ export interface FormSpec<M extends AnySchemaModel = AnySchemaModel> {
 	constraints?: ConstraintDecl[];
 }
 
-// ---- Registry
+export function isFieldReadOnly(
+	field: Pick<BaseFieldSpec, 'readOnly' | 'computeFrom'>
+) {
+	return field.readOnly ?? field.computeFrom?.readOnly ?? false;
+}
 
-import { compareVersions } from 'compare-versions';
+export function normalizeFieldSpec<T extends FieldSpec>(field: T): T {
+	const normalizedBase =
+		field.readOnly == null && field.computeFrom?.readOnly != null
+			? ({
+					...field,
+					readOnly: field.computeFrom.readOnly,
+				} as T)
+			: field;
+	if (normalizedBase.kind === 'group') {
+		return {
+			...normalizedBase,
+			fields: normalizedBase.fields.map((child) => normalizeFieldSpec(child)),
+		} as T;
+	}
+	if (normalizedBase.kind === 'array') {
+		return {
+			...normalizedBase,
+			of: normalizeFieldSpec(normalizedBase.of),
+		} as T;
+	}
+	return normalizedBase;
+}
+
+export function normalizeFormSpec<M extends AnySchemaModel>(
+	spec: FormSpec<M>
+): FormSpec<M> {
+	return {
+		...spec,
+		fields: spec.fields.map((field) => normalizeFieldSpec(field)),
+	};
+}
+
+// ---- Registry
 
 function formKey(meta: FormSpec['meta']) {
 	return `${meta.key}.v${meta.version}`;
@@ -389,7 +533,8 @@ export function buildZodWithRelations(
 	spec: FormSpec,
 	handlers?: Record<string, ConstraintHandler>
 ) {
-	const base = spec.model.getZod();
+	const normalizedSpec = normalizeFormSpec(spec);
+	const base = normalizedSpec.model.getZod();
 
 	return (base as any).superRefine(
 		(values: Record<string, unknown>, ctx: any) => {
@@ -458,11 +603,11 @@ export function buildZodWithRelations(
 				}
 			};
 
-			for (const f of spec.fields) visit(f);
+			for (const f of normalizedSpec.fields) visit(f);
 
 			// custom constraints
-			if (spec.constraints && handlers) {
-				for (const c of spec.constraints) {
+			if (normalizedSpec.constraints && handlers) {
+				for (const c of normalizedSpec.constraints) {
 					const fn = handlers[c.key];
 					if (!fn) continue;
 					const res = fn(values, c.paths, c.args);
@@ -488,41 +633,63 @@ interface AnyFieldLike {
 	of?: AnyFieldLike;
 }
 
-type TopLevelNames<F extends readonly AnyFieldLike[]> = F[number] extends {
-	name: infer N extends string;
-}
-	? N
-	: never;
+type JoinPath<Prefix extends string, Name extends string> = Prefix extends ''
+	? Name
+	: `${Prefix}.${Name}`;
 
-type ArrayChildren<F extends readonly AnyFieldLike[]> = F[number] extends {
-	kind: 'array';
-	name: infer N extends string;
-	of: infer C;
-}
-	? C extends { name: infer CN extends string }
-		? `${N}.$index.${CN}`
-		: never
-	: never;
-
-type GroupTopLevelNames<F extends readonly AnyFieldLike[]> = F[number] extends {
+type PathOfArrayItem<
+	Field extends AnyFieldLike,
+	Prefix extends string,
+> = Field extends {
 	kind: 'group';
 	fields: infer G extends readonly AnyFieldLike[];
 }
-	? TopLevelNames<G>
-	: never;
+	? PathOfFields<G, Prefix>
+	: Field extends {
+				name: infer N extends string;
+				fields: infer G extends readonly AnyFieldLike[];
+			}
+		? JoinPath<Prefix, N> | PathOfFields<G, JoinPath<Prefix, N>>
+		: Field extends {
+					name: infer N extends string;
+				}
+			? JoinPath<Prefix, N>
+			: never;
 
-type GroupArrayChildren<F extends readonly AnyFieldLike[]> = F[number] extends {
+type PathOfField<
+	Field extends AnyFieldLike,
+	Prefix extends string = '',
+> = Field extends {
 	kind: 'group';
+	name: infer N extends string;
 	fields: infer G extends readonly AnyFieldLike[];
 }
-	? ArrayChildren<G>
-	: never;
+	? JoinPath<Prefix, N> | PathOfFields<G, JoinPath<Prefix, N>>
+	: Field extends {
+				kind: 'group';
+				fields: infer G extends readonly AnyFieldLike[];
+			}
+		? PathOfFields<G, Prefix>
+		: Field extends {
+					kind: 'array';
+					name: infer N extends string;
+					of: infer O extends AnyFieldLike;
+				}
+			?
+					| JoinPath<Prefix, N>
+					| PathOfArrayItem<O, JoinPath<Prefix, `${N}.$index`>>
+			: Field extends {
+						name: infer N extends string;
+					}
+				? JoinPath<Prefix, N>
+				: never;
 
-type PathOfFields<F extends readonly AnyFieldLike[]> =
-	| TopLevelNames<F>
-	| ArrayChildren<F>
-	| GroupTopLevelNames<F>
-	| GroupArrayChildren<F>;
+type PathOfFields<
+	Fields extends readonly AnyFieldLike[],
+	Prefix extends string = '',
+> = Fields[number] extends infer Field extends AnyFieldLike
+	? PathOfField<Field, Prefix>
+	: never;
 
 export interface TypedWhenClause<P extends string> {
 	path: P;
@@ -544,28 +711,57 @@ export type TypedOptionsSource<P extends string> =
 			args?: Record<string, unknown>;
 	  };
 
+export type TypedAutocompleteSource<P extends string> =
+	| {
+			kind: 'local';
+			options: readonly AutocompleteOption[];
+			searchKeys: string[];
+	  }
+	| {
+			kind: 'resolver';
+			resolverKey: string;
+			deps?: P[];
+			args?: Record<string, unknown>;
+			searchKeys?: string[];
+			minQueryLength?: number;
+			debounceMs?: number;
+	  };
+
+type EnhanceField<Field extends AnyFieldLike, P extends string> = Field & {
+	visibleWhen?: TypedPredicate<P>;
+	enabledWhen?: TypedPredicate<P>;
+	requiredWhen?: TypedPredicate<P>;
+	readOnly?: boolean;
+} & (Field extends { kind: 'select' }
+		? { options: TypedOptionsSource<P> | readonly FormOption[] }
+		: unknown) &
+	(Field extends { kind: 'radio' }
+		? { options: TypedOptionsSource<P> | readonly FormOption[] }
+		: unknown) &
+	(Field extends { kind: 'autocomplete' }
+		? { source: TypedAutocompleteSource<P> }
+		: unknown) &
+	(Field extends {
+		kind: 'group';
+		fields: infer G extends readonly AnyFieldLike[];
+	}
+		? { fields: EnhanceFields<G, P> }
+		: unknown) &
+	(Field extends { kind: 'array'; of: infer O extends AnyFieldLike }
+		? { of: EnhanceField<O, P> }
+		: unknown) & {
+		computeFrom?: {
+			computeKey: string;
+			deps: P[];
+			mode?: 'change' | 'blur-xs' | 'submit';
+			readOnly?: boolean;
+		};
+	};
+
 export type EnhanceFields<
 	F extends readonly AnyFieldLike[],
 	P extends string,
-> = {
-	[K in keyof F]: F[K] & {
-		visibleWhen?: TypedPredicate<P>;
-		enabledWhen?: TypedPredicate<P>;
-		requiredWhen?: TypedPredicate<P>;
-	} & (F[K] extends { kind: 'select' }
-			? { options: TypedOptionsSource<P> | readonly FormOption[] }
-			: unknown) &
-		(F[K] extends { kind: 'radio' }
-			? { options: TypedOptionsSource<P> | readonly FormOption[] }
-			: unknown) & {
-			computeFrom?: {
-				computeKey: string;
-				deps: P[];
-				mode?: 'change' | 'blur-xs' | 'submit';
-				readOnly?: boolean;
-			};
-		};
-};
+> = { [K in keyof F]: EnhanceField<F[K], P> };
 
 export function defineFormSpec<
 	M extends AnySchemaModel,
@@ -597,6 +793,6 @@ export const tech_contracts_forms_DocBlocks: DocBlock[] = [
 		visibility: 'public',
 		route: '/docs/tech/contracts/forms',
 		tags: ['tech', 'contracts', 'forms'],
-		body: '# Contracts: FormSpec\n\nThis document defines the canonical contracts for declarative forms.\n\n## Overview\n\n- `FormSpec` (in `@contractspec/lib.contracts-spec/forms`) declares:\n  - `meta` (extends `OwnerShipMeta`) + `key`/`version` for stability.\n  - `model` (`@contractspec/lib.schema` `SchemaModel`) as the single source of truth.\n  - `fields` built from `FieldSpec` kinds: `text`, `textarea`, `select`, `checkbox`, `radio`, `switch`, `group`, `array`.\n  - Optional `actions`, `policy.flags`, `constraints` and `renderHints`.\n- Relations DSL provides `visibleWhen`, `enabledWhen`, `requiredWhen` based on predicates.\n- `buildZodWithRelations(spec)` augments the base zod with conditional rules and constraints.\n- React adapter renders with React Hook Form + driver API for UI components (shadcn driver provided).\n\n## Driver API (UI-agnostic)\n\nHost apps supply a driver mapping slots \u2192 components:\n\n- Required: `Field`, `FieldLabel`, `FieldDescription`, `FieldError`, `Input`, `Textarea`, `Select`, `Checkbox`, `RadioGroup`, `Switch`, `Button`.\n- Optional: `FieldGroup`, `FieldSet`, `FieldLegend` and input group helpers.\n\nUse `createFormRenderer({ driver })` to obtain a `render(spec)` function.\n\n## Arrays and Groups\n\n- `array` items are rendered with `useFieldArray`, honoring `min`/`max` and add/remove controls.\n- `group` composes nested fields and provides optional legend/description.\n\n## Feature Flags\n\n- Declare `policy.flags` on forms to signal gating. Gate usage at host boundary; avoid scattering flags across individual fields.\n\n## Example\n\nSee `packages/hcircle/apps/web-coliving/src/forms/bug-report.spec.ts` for a concrete form spec and `components/forms/BugReportFormDemo.tsx` for rendering with a minimal shadcn driver mapping.\n',
+		body: '# Contracts: FormSpec\n\nThis document defines the canonical contracts for declarative forms.\n\n## Overview\n\n- `FormSpec` (in `@contractspec/lib.contracts-spec/forms`) declares:\n  - `meta` (extends `OwnerShipMeta`) + `key`/`version` for stability.\n  - `model` (`@contractspec/lib.schema` `SchemaModel`) as the single source of truth.\n  - `fields` built from `FieldSpec` kinds: `text`, `textarea`, `select`, `checkbox`, `radio`, `switch`, `autocomplete`, `address`, `phone`, `date`, `time`, `datetime`, `group`, `array`.\n  - field-level `readOnly` support that preserves submitted values.\n  - Optional `actions`, `policy.flags`, `constraints` and `renderHints`.\n- Relations DSL provides `visibleWhen`, `enabledWhen`, `requiredWhen` based on predicates.\n- `buildZodWithRelations(spec)` augments the base zod with conditional rules and constraints.\n- React adapter renders with React Hook Form + driver API for UI components (shadcn driver provided).\n\n## Rich field contracts\n\n- `autocomplete` supports local or resolver-backed search and configurable submit-value mapping.\n- `address` uses the canonical `AddressFormValue` object shape.\n- `phone` uses the canonical `PhoneFormValue` object shape.\n- `date`, `time`, and `datetime` map directly to the corresponding schema scalar intent.\n- `array` remains the canonical dynamic-field primitive and can now repeat grouped item layouts.\n\n## Driver API (UI-agnostic)\n\nHost apps supply a driver mapping slots \u2192 components:\n\n- Required: `Field`, `FieldLabel`, `FieldDescription`, `FieldError`, `Input`, `Textarea`, `Select`, `Checkbox`, `RadioGroup`, `Switch`, `Autocomplete`, `AddressField`, `PhoneField`, `DateField`, `TimeField`, `DateTimeField`, `Button`.\n- Optional: `FieldGroup`, `FieldSet`, `FieldLegend` and input group helpers.\n\nUse `createFormRenderer({ driver })` to obtain a `render(spec)` function.\n\n## Arrays and Groups\n\n- `array` items are rendered with `useFieldArray`, honoring `min`/`max` and add/remove controls.\n- `array.of` can repeat grouped multi-field rows.\n- `group` composes nested fields and provides optional legend/description.\n\n## Feature Flags\n\n- Declare `policy.flags` on forms to signal gating. Gate usage at host boundary; avoid scattering flags across individual fields.\n\n## Example\n\nUse the exported `RichFieldsShowcaseForm` as the canonical reference for readonly, autocomplete, address, phone, and temporal field authoring.\n',
 	},
 ];

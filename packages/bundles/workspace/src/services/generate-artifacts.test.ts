@@ -1,77 +1,117 @@
-import { afterAll, beforeEach, describe, expect, it, mock } from 'bun:test';
-import type { WorkspaceAdapters } from '../ports/logger';
+import { afterEach, describe, expect, it } from 'bun:test';
+import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+import {
+	DEFAULT_CONTRACTSRC,
+	type ResolvedContractsrcConfig,
+} from '@contractspec/lib.contracts-spec/workspace-config';
+import { createNodeAdapters } from '../adapters';
 import { generateArtifacts } from './generate-artifacts';
 
-// Mock the docs generation because it uses loadSpecFromSource which uses real FS
-mock.module('./docs/index', () => ({
-	generateDocsFromSpecs: mock(() => Promise.resolve({ blocks: [], count: 1 })),
-}));
+const tempDirs: string[] = [];
 
 describe('Generate Artifacts Service', () => {
-	const mockFs = {
-		exists: mock(() => Promise.resolve(true)),
-		glob: mock(() => Promise.resolve(['spec1.ts'])),
-		readFile: mock(() => Promise.resolve('')),
-		join: mock((...args: string[]) => args.join('/')),
-		writeFile: mock(() => Promise.resolve()),
-		mkdir: mock(() => Promise.resolve()),
-		resolve: mock((...args: string[]) => args.join('/')),
-		dirname: mock((p: string) => p),
-	};
+	it('generates docs plus registry-backed materializations', async () => {
+		const root = await seedWorkspace();
+		const adapters = createNodeAdapters({ cwd: root, silent: true });
 
-	const mockScan = mock(() => ({
-		specType: 'operation',
-		key: 'spec1',
-		filePath: 'spec1.ts',
-	}));
+		const result = await generateArtifacts(adapters, root, 'generated', root, {
+			config: DEFAULT_CONTRACTSRC,
+			specPattern: '**/*.ts',
+			includeRuntimeTests: true,
+		});
 
-	const mockLogger = {
-		info: mock(),
-		warn: mock(),
-		error: mock(),
-		debug: mock(),
-		createProgress: mock(),
-	};
-
-	beforeEach(() => {
-		mockFs.exists.mockClear();
-		mockFs.glob.mockClear();
-		mockFs.writeFile.mockClear();
-		mockLogger.info.mockClear();
+		expect(result.specsCount).toBeGreaterThanOrEqual(2);
+		expect(result.docsCount).toBeGreaterThanOrEqual(2);
+		expect(result.materializedCount).toBeGreaterThanOrEqual(2);
 	});
 
-	it('should generate artifacts', async () => {
-		const result = await generateArtifacts(
-			{
-				fs: mockFs,
-				scan: mockScan,
-				logger: mockLogger,
-			} as unknown as WorkspaceAdapters,
-			'/cwd/contracts',
-			'/cwd/generated'
+	it('respects connect-aware generated roots', async () => {
+		const root = await seedWorkspace();
+		const adapters = createNodeAdapters({ cwd: root, silent: true });
+		const config: ResolvedContractsrcConfig = {
+			...DEFAULT_CONTRACTSRC,
+			connect: {
+				...DEFAULT_CONTRACTSRC.connect,
+				enabled: true,
+				policy: {
+					...DEFAULT_CONTRACTSRC.connect?.policy,
+					generatedPaths: ['artifacts/docs/**'],
+				},
+			},
+		};
+
+		await generateArtifacts(adapters, root, 'generated', root, {
+			config,
+			specPattern: '**/*.ts',
+		});
+
+		expect(await adapters.fs.exists(join(root, 'artifacts', 'docs'))).toBe(
+			true
 		);
-
-		expect(result.specsCount).toBe(1);
-		expect(result.docsCount).toBe(1);
-	});
-
-	it('should handle no specs', async () => {
-		mockFs.glob.mockResolvedValue([]);
-		const result = await generateArtifacts(
-			{
-				fs: mockFs,
-				scan: mockScan,
-				logger: mockLogger,
-			} as unknown as WorkspaceAdapters,
-			'/cwd/contracts',
-			'/cwd/generated'
-		);
-
-		expect(result.specsCount).toBe(0);
-		expect(result.docsCount).toBe(0);
 	});
 });
 
-afterAll(() => {
-	mock.restore();
+afterEach(async () => {
+	while (tempDirs.length > 0) {
+		const dir = tempDirs.pop();
+		if (dir) {
+			await rm(dir, { recursive: true, force: true });
+		}
+	}
 });
+
+async function seedWorkspace() {
+	const root = await mkdtemp(join(tmpdir(), 'contractspec-generate-'));
+	tempDirs.push(root);
+
+	await writeFile(join(root, 'package.json'), '{"name":"@demo/generate"}\n');
+	await mkdir(join(root, 'contracts'), { recursive: true });
+	await mkdir(
+		join(root, 'packages', 'bundles', 'workspace', 'src', 'bundles'),
+		{ recursive: true }
+	);
+	await writeFile(
+		join(root, 'contracts', 'users.create.contracts.ts'),
+		`export const createUser = defineCommand({
+  meta: { key: "users.create", version: "1.0.0" },
+});
+`
+	);
+	await writeFile(
+		join(
+			root,
+			'packages',
+			'bundles',
+			'workspace',
+			'src',
+			'bundles',
+			'WorkspaceBundle.ts'
+		),
+		`import { defineModuleBundle } from "@contractspec/lib.surface-runtime/spec";
+
+export const WorkspaceBundle = defineModuleBundle({
+  meta: {
+    key: "workspace.bundle",
+    version: "1.0.0",
+    title: "Workspace",
+  },
+  routes: [{ routeId: "home", path: "/", defaultSurface: "main" }],
+  surfaces: {
+    main: {
+      surfaceId: "main",
+      kind: "workbench",
+      title: "Workspace",
+      slots: [],
+      layouts: [],
+      data: [],
+      verification: { level: "basic" },
+    },
+  },
+});
+`
+	);
+
+	return root;
+}

@@ -128,6 +128,7 @@ jobs:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
           NPM_CONFIG_TOKEN: ${{ secrets.NPM_TOKEN }}
           CONTRACTSPEC_RELEASE_PACKAGE_NAMES: ${{ steps.npm-targets.outputs.packages }}
+          CONTRACTSPEC_RELEASE_PACKAGE_NAMES_SPECIFIED: '1'
           CONTRACTSPEC_USE_PUBLISH_EXPORTS: 'true'
 
       - name: Verify npm release manifest

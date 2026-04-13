@@ -5,7 +5,7 @@ import type { WorkspaceAdapters } from '../../ports/logger';
 import { listTests, runTests } from './test-service';
 
 // Mock dependencies
-const mockLoadModule = mock(async (path: string) => {
+const mockLoadAuthoredModuleExports = mock(async (path: string) => {
 	if (path.includes('valid-spec')) {
 		return {
 			default: {
@@ -18,8 +18,13 @@ const mockLoadModule = mock(async (path: string) => {
 	return {};
 });
 
-mock.module('../../utils/module-loader', () => ({
-	loadTypeScriptModule: mockLoadModule,
+const mockLoadAuthoredModuleValue = mock(
+	async () => new OperationSpecRegistry()
+);
+
+mock.module('../module-loader', () => ({
+	loadAuthoredModuleExports: mockLoadAuthoredModuleExports,
+	loadAuthoredModuleValue: mockLoadAuthoredModuleValue,
 }));
 
 describe('TestService', () => {
@@ -45,7 +50,9 @@ describe('TestService', () => {
 		});
 
 		it('should log warning on load error', async () => {
-			mockLoadModule.mockRejectedValueOnce(new Error('Load failed'));
+			mockLoadAuthoredModuleExports.mockRejectedValueOnce(
+				new Error('Load failed')
+			);
 			const tests = await listTests(['error.ts'], adapters);
 			expect(tests).toHaveLength(0);
 			expect(logger.warn).toHaveBeenCalled();

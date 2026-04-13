@@ -62,12 +62,17 @@ function AppShell({ title, children }: { title: string; children: React.ReactNod
 ### Controls and forms
 
 - `./ui/button`
+- `./ui/button-group`
 - `./ui/input`
 - `./ui/textarea`
 - `./ui/select`
+- `./ui/native-select`
 - `./ui/form`
+- `./ui/combobox`
 - `./ui/input-group`
 - `./ui/input-otp`
+- `./ui/spinner`
+- `./ui/kbd`
 
 ### Overlays, menus, and navigation
 
@@ -86,6 +91,9 @@ function AppShell({ title, children }: { title: string; children: React.ReactNod
 - `./ui/page-header`
 - `./ui/section`
 - `./ui/sidebar`
+- `./ui/item`
+- `./ui/chart`
+- `./ui/direction`
 
 ### Accessibility helpers
 
@@ -103,6 +111,7 @@ function AppShell({ title, children }: { title: string; children: React.ReactNod
 - `./ui/use-toast`
 - `./ui/utils`
 - grouped subpaths under `./ui/map`, `./ui/marketing`, `./ui/usecases`, `./ui/organisms/ListPage`, and `./ui/visualization`
+- shared semantic contracts are defined in `@contractspec/lib.ui-kit-core/interfaces`
 
 ## Public surface
 

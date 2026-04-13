@@ -1,27 +1,5 @@
+import type { SharedSearchAndFilterProps } from '@contractspec/lib.ui-kit-core/interfaces';
 import type { FilterOption } from '../../atoms/FilterSelect';
 
-export interface SearchAndFilterProps {
-	// Search
-	searchValue: string;
-	onSearchChange: (value: string) => void;
-	searchPlaceholder?: string;
-
-	// Filters
-	filters?: {
-		key: string;
-		label: string;
-		value: string;
-		options: FilterOption[];
-		onChange: (value: FilterOption | undefined) => void;
-		showCounts?: boolean;
-	}[];
-
-	// State
-	isLoading?: boolean;
-	disabled?: boolean;
-	className?: string;
-
-	// Mobile-first responsive
-	collapsible?: boolean;
-	defaultCollapsed?: boolean;
-}
+export interface SearchAndFilterProps
+	extends SharedSearchAndFilterProps<FilterOption> {}

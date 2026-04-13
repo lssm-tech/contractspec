@@ -6,7 +6,10 @@ import {
 } from '@contractspec/lib.contracts-spec/tests';
 import { resolve } from 'path';
 import type { WorkspaceAdapters } from '../../ports/logger';
-import { loadTypeScriptModule } from '../../utils/module-loader';
+import {
+	loadAuthoredModuleExports,
+	loadAuthoredModuleValue,
+} from '../module-loader';
 
 export interface TestServiceOptions {
 	registry?: string;
@@ -44,12 +47,6 @@ export async function runTests(
 	return { results, passed, failed };
 }
 
-interface LoadedRegistryModule {
-	default?: unknown;
-	createRegistry?: () => Promise<OperationSpecRegistry> | OperationSpecRegistry;
-	registry?: OperationSpecRegistry;
-}
-
 export async function runTestSpecs(
 	specFiles: string[],
 	options: TestServiceOptions,
@@ -75,7 +72,7 @@ export async function runTestSpecs(
 	for (const specFile of specFiles) {
 		try {
 			const resolvedPath = resolve(specFile);
-			const exports = await loadTypeScriptModule(resolvedPath);
+			const exports = await loadAuthoredModuleExports(resolvedPath);
 			const specs = extractTestSpecs(exports);
 
 			if (specs.length === 0) {
@@ -122,7 +119,7 @@ export async function listTests(
 	for (const specFile of specFiles) {
 		try {
 			const resolvedPath = resolve(specFile);
-			const exports = await loadTypeScriptModule(resolvedPath);
+			const exports = await loadAuthoredModuleExports(resolvedPath);
 			const fileSpecs = extractTestSpecs(exports);
 			specs.push(...fileSpecs);
 		} catch (error) {
@@ -157,34 +154,11 @@ function isTestSpec(value: unknown): value is TestSpec {
 async function loadRegistry(
 	modulePath: string
 ): Promise<OperationSpecRegistry> {
-	const exports = (await loadTypeScriptModule(
-		modulePath
-	)) as LoadedRegistryModule;
-
-	if (exports instanceof OperationSpecRegistry) {
-		return exports;
-	}
-	if (exports.registry instanceof OperationSpecRegistry) {
-		return exports.registry;
-	}
-
-	const factory =
-		typeof exports.createRegistry === 'function'
-			? exports.createRegistry
-			: typeof exports.default === 'function'
-				? (exports.default as () =>
-						| Promise<OperationSpecRegistry>
-						| OperationSpecRegistry)
-				: undefined;
-
-	if (factory) {
-		const result = await factory();
-		if (result instanceof OperationSpecRegistry) {
-			return result;
-		}
-	}
-
-	throw new Error(
-		`Registry module ${modulePath} must export a OperationSpecRegistry instance or a factory function returning one.`
-	);
+	return loadAuthoredModuleValue(modulePath, {
+		description: 'OperationSpecRegistry',
+		isValue: (value): value is OperationSpecRegistry =>
+			value instanceof OperationSpecRegistry,
+		instanceKeys: ['registry'],
+		factoryKeys: ['createRegistry', 'default'],
+	});
 }

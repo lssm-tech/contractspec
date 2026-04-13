@@ -10,8 +10,8 @@ import { validateConfig as validateTenantConfigSpecs } from '@contractspec/lib.c
 import type { BlueprintTranslationCatalog } from '@contractspec/lib.contracts-spec/translations/catalog';
 import { readFile } from 'fs/promises';
 import { resolve } from 'path';
-import { pathToFileURL } from 'url';
 import type { FsAdapter } from '../../ports/fs';
+import { loadAuthoredModule } from '../module-loader';
 
 export interface TenantValidationResult {
 	config?: TenantAppConfig;
@@ -100,8 +100,8 @@ async function loadTenantConfig(tenantPath: string): Promise<TenantAppConfig> {
 		return json;
 	}
 
-	const mod = await loadModule(tenantPath);
-	const candidates = Object.values(mod).filter(isTenantConfig);
+	const mod = await loadAuthoredModule(tenantPath);
+	const candidates = Object.values(mod.exports).filter(isTenantConfig);
 	if (candidates.length === 0) {
 		throw new Error('Tenant config module does not export a TenantAppConfig.');
 	}
@@ -115,19 +115,6 @@ function isTenantConfig(value: unknown): value is TenantAppConfig {
 		'meta' in value &&
 		typeof (value as TenantAppConfig).meta?.tenantId === 'string'
 	);
-}
-
-// Basic module loader
-async function loadModule(
-	modulePath: string
-): Promise<Record<string, unknown>> {
-	try {
-		const url = pathToFileURL(modulePath).href;
-		const mod = await import(url);
-		return mod;
-	} catch (error) {
-		throw new Error(`Failed to load module at ${modulePath}: ${error}`);
-	}
 }
 
 // --- Connection Loaders ---
@@ -160,8 +147,8 @@ async function loadIntegrationConnections(
 			continue;
 		}
 
-		const mod = await loadModule(resolved);
-		results.push(...collectConnections(mod));
+		const mod = await loadAuthoredModule(resolved);
+		results.push(...collectConnections(mod.exports));
 	}
 	return results;
 }
@@ -213,8 +200,10 @@ async function loadTranslationCatalog(
 		return undefined;
 	}
 
-	const mod = await loadModule(resolved);
-	const catalogs = Object.values(mod).filter(isBlueprintTranslationCatalog);
+	const mod = await loadAuthoredModule(resolved);
+	const catalogs = Object.values(mod.exports).filter(
+		isBlueprintTranslationCatalog
+	);
 	if (catalogs.length === 0) return undefined;
 	return normaliseTranslationCatalog(
 		catalogs[0] as BlueprintTranslationCatalog
@@ -271,8 +260,8 @@ async function loadIntegrationRegistrars(
 		const resolved = resolve(process.cwd(), modulePath);
 		// Logic simplified for brevity, assume module exists or handled by catch in loadModule
 		try {
-			const mod = await loadModule(resolved);
-			const registrar = pickRegistrar(mod, exportName);
+			const mod = await loadAuthoredModule(resolved);
+			const registrar = pickRegistrar(mod.exports, exportName);
 			if (registrar) {
 				await registrar(registry);
 			}

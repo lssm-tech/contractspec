@@ -11,6 +11,7 @@ interface BaseFieldProps {
 	onBlur?: () => void;
 	placeholder?: string;
 	disabled?: boolean;
+	readOnly?: boolean;
 	maxLength?: number;
 	className?: string;
 	keyboard?: KeyboardOptions;
@@ -32,6 +33,7 @@ export function Input({
 	onBlur,
 	placeholder,
 	disabled,
+	readOnly,
 	maxLength,
 	className,
 	keyboard,
@@ -58,7 +60,7 @@ export function Input({
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			onBlur={onBlur as any}
 			placeholder={placeholder}
-			editable={!disabled}
+			editable={!disabled && !readOnly}
 			maxLength={maxLength}
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			{...(nativeKeyboard as any)}

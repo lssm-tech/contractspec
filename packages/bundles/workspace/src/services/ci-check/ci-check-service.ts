@@ -7,7 +7,8 @@
 
 import type { FsAdapter } from '../../ports/fs';
 import type { LoggerAdapter } from '../../ports/logger';
-import { listSpecs } from '../list';
+import { loadWorkspaceConfig } from '../config';
+import { discoverSpecs } from '../discover';
 
 import {
 	runCoverageChecks,
@@ -50,10 +51,10 @@ export async function runCIChecks(
 
 	logger.info('Starting CI checks...', { checks: checksToRun });
 
-	// Discover spec files
-	const specFiles = await listSpecs(adapters, {
+	const config = await loadWorkspaceConfig(fs);
+	const specFiles = await discoverSpecs(adapters, {
+		config,
 		pattern: options.pattern as string | undefined,
-		type: ['feature', 'test-spec'],
 	});
 
 	// Run spec structure validation

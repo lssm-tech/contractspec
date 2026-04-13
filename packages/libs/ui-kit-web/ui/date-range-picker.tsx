@@ -1,24 +1,18 @@
 'use client';
 
+import type {
+	SharedDateRange,
+	SharedDateRangePickerProps,
+} from '@contractspec/lib.ui-kit-core/interfaces';
 import { cn } from '@contractspec/lib.ui-kit-core/utils';
 import * as React from 'react';
 import { Button } from './button';
 import { Calendar } from './calendar';
 import { Popover, PopoverContent, PopoverTrigger } from './popover';
 
-export interface DateRange {
-	start: Date | null;
-	end: Date | null;
-}
+export interface DateRange extends SharedDateRange {}
 
-export interface DateRangePickerProps {
-	value: DateRange;
-	onChange: (range: DateRange) => void;
-	disabled?: boolean;
-	minDate?: Date;
-	maxDate?: Date;
-	className?: string;
-}
+export interface DateRangePickerProps extends SharedDateRangePickerProps {}
 
 export function DateRangePicker({
 	value,

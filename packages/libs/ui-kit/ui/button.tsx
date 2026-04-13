@@ -1,3 +1,4 @@
+import type { SharedButtonProps } from '@contractspec/lib.ui-kit-core/interfaces';
 import { cn } from '@contractspec/lib.ui-kit-core/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
@@ -59,7 +60,8 @@ const buttonTextVariants = cva(
 	}
 );
 
-type ButtonProps = React.ComponentProps<typeof Pressable> &
+type ButtonProps = SharedButtonProps &
+	React.ComponentProps<typeof Pressable> &
 	VariantProps<typeof buttonVariants>;
 
 function Button({ ref, className, variant, size, ...props }: ButtonProps) {

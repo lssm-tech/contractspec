@@ -1,3 +1,4 @@
+import type { SharedListPageProps } from '@contractspec/lib.ui-kit-core/interfaces';
 import type { ReactNode } from 'react';
 import type { FilterOption } from '../../atoms/FilterSelect';
 import type { UseListStateReturn } from '../../useListState';
@@ -15,7 +16,7 @@ export interface ListPageFilter {
 	showCounts?: boolean;
 }
 
-export interface ListPageProps<T = unknown> {
+export interface ListPageProps<T = unknown> extends SharedListPageProps<T> {
 	// Page info
 	title: string;
 	description?: string;

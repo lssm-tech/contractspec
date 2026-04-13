@@ -1,24 +1,31 @@
-import { createNodeAdapters, listSpecs } from '@contractspec/bundle.workspace';
+import {
+	createNodeAdapters,
+	discoverSpecs,
+} from '@contractspec/bundle.workspace';
 import chalk from 'chalk';
 import { Command } from 'commander';
+import { loadConfig } from '../../utils/config';
 import { getErrorMessage } from '../../utils/errors';
-import { loadSpecModule, pickSpecExport } from '../../utils/spec-load';
+import { collectSpecExports, loadSpecModule } from '../../utils/spec-load';
 import { layersCommand } from './layers';
 
 interface ListJsonRow {
 	file: string;
 	type: string;
 	key?: string;
+	exportName?: string;
+	declarationLine?: number;
+	discoveryId?: string;
 	description?: string;
 	stability?: string;
 	owners?: string[];
 	tags?: string[];
-	version?: number;
+	version?: string;
 	kind?: string;
 }
 
 export const listCommand = new Command('list')
-	.description('List all contract specs in the project')
+	.description('List authored specs and package targets in the project')
 	.addCommand(layersCommand)
 	.option('--pattern <pattern>', 'File pattern to search (glob)')
 	.option(
@@ -27,7 +34,7 @@ export const listCommand = new Command('list')
 	)
 	.option(
 		'--type <type>',
-		'Filter by spec type (operation, event, presentation, etc.)'
+		'Filter by authoring target (operation, module-bundle, builder-spec, provider-spec, etc.)'
 	)
 	.option('--owner <owner>', 'Filter by owner')
 	.option('--tag <tag>', 'Filter by tag')
@@ -43,7 +50,9 @@ export const listCommand = new Command('list')
 	.action(async (options) => {
 		try {
 			const adapters = createNodeAdapters({ silent: true });
-			const specs = await listSpecs(adapters, {
+			const config = await loadConfig();
+			const specs = await discoverSpecs(adapters, {
+				config,
 				pattern: options.pattern as string | undefined,
 				type: options.type as string | undefined,
 			});
@@ -55,18 +64,26 @@ export const listCommand = new Command('list')
 					file: scan.filePath,
 					type: scan.specType,
 					key: scan.key,
+					exportName: scan.exportName,
+					declarationLine: scan.declarationLine,
+					discoveryId: scan.discoveryId,
 					description: scan.description,
 					stability: scan.stability,
 					owners: scan.owners,
 					tags: scan.tags,
-					version: scan.version as number | undefined,
+					version: scan.version,
 					kind: scan.kind,
 				};
 
 				if (options.deep) {
 					try {
 						const mod = await loadSpecModule(scan.filePath);
-						const exported = pickSpecExport(mod);
+						const exported =
+							collectSpecExports(mod).find(
+								(entry) =>
+									entry.exportName === scan.exportName ||
+									getSpecKey(entry.value) === scan.key
+							)?.value ?? null;
 						const record = exported as Record<string, unknown> | null;
 						const meta =
 							record && typeof record === 'object'
@@ -205,6 +222,24 @@ function isString(value: unknown): value is string {
 	return typeof value === 'string';
 }
 
+function getSpecKey(value: unknown): string | undefined {
+	if (!value || typeof value !== 'object') {
+		return undefined;
+	}
+
+	const record = value as Record<string, unknown>;
+	const meta =
+		record.meta && typeof record.meta === 'object'
+			? (record.meta as Record<string, unknown>)
+			: undefined;
+
+	if (typeof meta?.key === 'string') {
+		return meta.key;
+	}
+
+	return typeof record.key === 'string' ? record.key : undefined;
+}
+
 function groupSpecsForOutput(
 	specs: ListJsonRow[],
 	groupBy: string
@@ -267,7 +302,14 @@ function printSpecRow(spec: ListJsonRow): void {
 		)} ${chalk.bold(spec.key ?? '(no key)')}`
 	);
 
-	console.log(`  📁 ${chalk.gray(spec.file)}`);
+	const location = spec.declarationLine
+		? `${spec.file}:${spec.declarationLine}`
+		: spec.file;
+	console.log(`  📁 ${chalk.gray(location)}`);
+
+	if (spec.exportName) {
+		console.log(`  🔖 ${chalk.gray(spec.exportName)}`);
+	}
 
 	if (spec.description) {
 		console.log(`  📝 ${chalk.gray(spec.description)}`);

@@ -3,6 +3,10 @@
 import { VStack } from '@contractspec/lib.ui-kit/ui/stack';
 import { Text } from '@contractspec/lib.ui-kit/ui/text';
 import * as React from 'react';
+import {
+	resolveTranslationNode,
+	useDesignSystemTranslation,
+} from '../../i18n/translation';
 import type { VisualizationSurfaceItem } from './types';
 import { VisualizationCard } from './VisualizationCard.mobile';
 
@@ -19,12 +23,17 @@ export function TimelineView({
 	description,
 	className,
 }: TimelineViewProps) {
+	const translate = useDesignSystemTranslation();
 	return (
 		<VStack gap="md" className={className}>
 			<VStack gap="xs">
-				<Text className="font-semibold text-xl">{title}</Text>
+				<Text className="font-semibold text-xl">
+					{resolveTranslationNode(title, translate)}
+				</Text>
 				{description ? (
-					<Text className="text-muted-foreground text-sm">{description}</Text>
+					<Text className="text-muted-foreground text-sm">
+						{resolveTranslationNode(description, translate)}
+					</Text>
 				) : null}
 			</VStack>
 			{items.map((item) => (

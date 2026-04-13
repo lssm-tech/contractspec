@@ -6,6 +6,10 @@ import type {
 	DataViewSpec,
 } from '@contractspec/lib.contracts-spec/data-views';
 import * as React from 'react';
+import {
+	resolveTranslationString,
+	useDesignSystemTranslation,
+} from '../../i18n/translation';
 import { cn } from '../../lib/utils';
 import { MarkdownRenderer } from '../molecules/MarkdownRenderer';
 import { DataViewFormattedValue, getAtPath } from './utils';
@@ -25,6 +29,7 @@ export function DataViewDetail({
 	emptyState,
 	headerActions,
 }: DataViewDetailProps) {
+	const translate = useDesignSystemTranslation();
 	if (spec.view.kind !== 'detail') {
 		throw new Error(
 			`DataViewDetail received view kind "${spec.view.kind}", expected "detail".`
@@ -39,7 +44,7 @@ export function DataViewDetail({
 			<div className={cn('flex w-full flex-col gap-4', className)}>
 				<div className="flex items-center justify-between">
 					<h3 className="font-semibold text-base text-foreground">
-						{spec.meta.title}
+						{resolveTranslationString(spec.meta.title, translate)}
 					</h3>
 					{headerActions}
 				</div>
@@ -62,10 +67,17 @@ export function DataViewDetail({
 			<div className="flex items-center justify-between">
 				<div>
 					<h3 className="font-semibold text-foreground text-xl">
-						{spec.meta.title}
+						{resolveTranslationString(spec.meta.title, translate)}
 					</h3>
 					<div className="text-muted-foreground text-sm">
-						<MarkdownRenderer content={spec.meta.description ?? ''} />
+						<MarkdownRenderer
+							content={
+								resolveTranslationString(
+									spec.meta.description ?? '',
+									translate
+								) ?? ''
+							}
+						/>
 					</div>
 				</div>
 				{headerActions}
@@ -78,12 +90,17 @@ export function DataViewDetail({
 					>
 						{section.title ? (
 							<h4 className="mb-2 font-semibold text-muted-foreground text-sm uppercase tracking-wide">
-								{section.title}
+								{resolveTranslationString(section.title, translate)}
 							</h4>
 						) : null}
 						{section.description ? (
 							<div className="mb-4 text-muted-foreground text-sm">
-								<MarkdownRenderer content={section.description} />
+								<MarkdownRenderer
+									content={
+										resolveTranslationString(section.description, translate) ??
+										''
+									}
+								/>
 							</div>
 						) : null}
 						<dl className="grid gap-4 md:grid-cols-2">
@@ -94,7 +111,7 @@ export function DataViewDetail({
 								return (
 									<div key={field.key} className="flex flex-col gap-1">
 										<dt className="font-semibold text-muted-foreground/80 text-xs uppercase">
-											{field.label}
+											{resolveTranslationString(field.label, translate)}
 										</dt>
 										<dd className="text-foreground text-sm">
 											<DataViewFormattedValue

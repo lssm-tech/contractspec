@@ -8,7 +8,7 @@ import path from 'path';
 
 export const extractCommand = new Command('extract')
 	.description('Extract draft contracts from existing sources (OpenAPI, etc.)')
-	.option(
+	.requiredOption(
 		'-s, --source <path>',
 		'Source file (OpenAPI JSON/YAML) to extract from'
 	)

@@ -60,13 +60,23 @@ class ValidateAction : AnAction() {
         bridgeService.validateSpec(filePath).thenAccept { response ->
             ApplicationManager.getApplication().invokeLater {
                 if (response.success && response.data != null) {
-                    val valid = response.data.get("valid")?.asBoolean ?: false
-                    val errors = response.data.get("errors")?.asJsonArray?.map { it.asString } ?: emptyList()
-                    val warnings = response.data.get("warnings")?.asJsonArray?.map { it.asString } ?: emptyList()
+                    val results = response.data.get("results")?.asJsonArray
+                    if (results == null) {
+                        Messages.showErrorDialog(
+                            project,
+                            "Validation failed: No results received",
+                            "Validation Error"
+                        )
+                        return@invokeLater
+                    }
+                    val failed = results.filter { !it.asJsonObject.get("valid").asBoolean }
+                    val warnings = results.flatMap {
+                        it.asJsonObject.get("warnings")?.asJsonArray?.map { warning -> warning.asString } ?: emptyList()
+                    }
 
-                    if (valid) {
+                    if (failed.isEmpty()) {
                         val message = buildString {
-                            append("✅ Spec validation passed: $fileName")
+                            append("✅ Spec validation passed: $fileName (${results.size()} spec(s))")
                             if (warnings.isNotEmpty()) {
                                 append("\n\nWarnings (${warnings.size}):")
                                 warnings.forEach { append("\n  ⚠️  $it") }
@@ -75,12 +85,25 @@ class ValidateAction : AnAction() {
                         Messages.showInfoMessage(project, message, "Validation Passed")
                     } else {
                         val message = buildString {
-                            append("❌ Spec validation failed: ${errors.size} error(s)")
+                            append("❌ Spec validation failed: ${failed.size} spec(s) with errors")
                             append("\n\nErrors:")
-                            errors.forEach { append("\n  ❌ $it") }
-                            if (warnings.isNotEmpty()) {
-                                append("\n\nWarnings:")
-                                warnings.forEach { append("\n  ⚠️  $it") }
+                            failed.forEach { item ->
+                                val result = item.asJsonObject
+                                val spec = result.get("spec").asJsonObject
+                                val exportName = spec.get("exportName")?.asString
+                                val declarationLine = spec.get("declarationLine")?.asInt
+                                append("\n")
+                                append("\n  ")
+                                append(exportName ?: fileName)
+                                if (declarationLine != null) {
+                                    append(":$declarationLine")
+                                }
+                                result.get("errors")?.asJsonArray?.forEach { error ->
+                                    append("\n    ❌ ${error.asString}")
+                                }
+                                result.get("warnings")?.asJsonArray?.forEach { warning ->
+                                    append("\n    ⚠️  ${warning.asString}")
+                                }
                             }
                         }
                         Messages.showErrorDialog(project, message, "Validation Failed")
@@ -110,5 +133,4 @@ class ValidateAction : AnAction() {
         e.presentation.isEnabled = virtualFile != null && SpecFileUtil.isSpecFile(virtualFile)
     }
 }
-
 

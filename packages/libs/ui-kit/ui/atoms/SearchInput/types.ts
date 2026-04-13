@@ -1,9 +1,3 @@
-export interface SearchInputProps {
-	value: string;
-	onChange: (value: string) => void;
-	placeholder?: string;
-	onClear?: () => void;
-	disabled?: boolean;
-	className?: string;
-	autoFocus?: boolean;
-}
+import type { SharedSearchInputProps } from '@contractspec/lib.ui-kit-core/interfaces';
+
+export interface SearchInputProps extends SharedSearchInputProps {}

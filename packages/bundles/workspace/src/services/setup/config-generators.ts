@@ -4,6 +4,13 @@
  * Each generator returns the default configuration for a target.
  */
 
+import { DEFAULT_CONTRACTSRC } from '@contractspec/lib.contracts-spec/workspace-config';
+import { getBundledContractsrcSchemaRef } from '../contractsrc-schema-ref';
+import {
+	getBuilderBootstrapPresetForSetupPreset,
+	getBuilderRuntimeModeForPreset,
+	resolveSetupPreset,
+} from './presets';
 import type { SetupOptions } from './types';
 
 /**
@@ -14,9 +21,18 @@ import type { SetupOptions } from './types';
 export function generateContractsrcConfig(options: SetupOptions): object {
 	// For package-level config in monorepo, use simpler relative paths
 	const isPackageLevel = options.isMonorepo && options.scope === 'package';
+	const configRoot =
+		isPackageLevel && options.packageRoot
+			? options.packageRoot
+			: options.workspaceRoot;
+	const connectConfig = createPresetConnectConfig(options);
+	const builderConfig = createPresetBuilderConfig(options);
 
 	return {
-		$schema: 'https://api.contractspec.io/schemas/contractsrc.json',
+		$schema: getBundledContractsrcSchemaRef({
+			configRoot,
+			workspaceRoot: options.workspaceRoot,
+		}),
 		aiProvider: 'claude',
 		aiModel: 'claude-sonnet-4-6',
 		agentMode: 'claude-code',
@@ -27,7 +43,6 @@ export function generateContractsrcConfig(options: SetupOptions): object {
 			events: 'contracts/events',
 			presentations: 'contracts/presentations',
 			forms: 'contracts/forms',
-			features: 'contracts/features',
 		},
 		defaultOwners: options.defaultOwners ?? ['@team'],
 		defaultTags: [],
@@ -56,6 +71,8 @@ export function generateContractsrcConfig(options: SetupOptions): object {
 				'contractspec integrity check',
 			],
 		},
+		...(connectConfig ? { connect: connectConfig } : {}),
+		...(builderConfig ? { builder: builderConfig } : {}),
 		// Add monorepo hint if at package level
 		...(isPackageLevel && options.packageName
 			? { package: options.packageName }
@@ -66,8 +83,9 @@ export function generateContractsrcConfig(options: SetupOptions): object {
 /**
  * Generate .vscode/settings.json ContractSpec settings.
  */
-export function generateVscodeSettings(): object {
-	return {
+export function generateVscodeSettings(options: SetupOptions): object {
+	const preset = resolveSetupPreset(options);
+	const settings: Record<string, unknown> = {
 		'editor.formatOnSave': true,
 		'editor.defaultFormatter': 'biomejs.biome',
 		'editor.codeActionsOnSave': {
@@ -88,15 +106,18 @@ export function generateVscodeSettings(): object {
 		'[json]': {
 			'editor.defaultFormatter': 'biomejs.biome',
 		},
-		'contractspec.validation.enabled': true,
-		'contractspec.validation.validateOnSave': true,
-		'contractspec.validation.validateOnOpen': true,
-		'contractspec.codeLens.enabled': true,
-		'contractspec.diagnostics.showWarnings': true,
-		'contractspec.diagnostics.showHints': true,
-		'contractspec.integrity.enabled': true,
-		'contractspec.integrity.checkOnSave': true,
+		'contractspec.validation.onSave': true,
+		'contractspec.validation.onOpen': true,
+		'contractspec.registry.baseUrl': 'https://registry.contractspec.io',
+		'contractspec.specsExplorer.groupBy': 'type',
 	};
+
+	if (preset === 'builder-managed' || preset === 'builder-hybrid') {
+		settings['contractspec.api.baseUrl'] =
+			options.builderApiBaseUrl ?? 'https://api.contractspec.io';
+	}
+
+	return settings;
 }
 
 /**
@@ -206,6 +227,7 @@ defineCommand({
 export function generateAgentsGuide(options: SetupOptions): string {
 	const projectName = options.projectName ?? 'this project';
 	const isPackageLevel = options.isMonorepo && options.scope === 'package';
+	const preset = resolveSetupPreset(options);
 	const targetLabel =
 		isPackageLevel && options.packageName
 			? `${options.packageName} package`
@@ -256,7 +278,74 @@ ${monorepoNote}
 - Keep changes spec-first, deterministic, and reviewable.
 - Do not change generated outputs without updating their source contract.
 - When touching nested packages, prefer the nearest \`AGENTS.md\` and \`README.md\` as the local source of truth.
+
+## Initialization Preset
+
+- This workspace was initialized with the \`${preset}\` setup preset.
 `;
+}
+
+function createPresetConnectConfig(options: SetupOptions) {
+	if (resolveSetupPreset(options) !== 'connect') {
+		return undefined;
+	}
+
+	return {
+		...DEFAULT_CONTRACTSRC.connect,
+		enabled: true,
+		adapters: {
+			cursor: { enabled: true, mode: 'plugin' as const },
+			codex: { enabled: true, mode: 'wrapper' as const },
+			'claude-code': { enabled: true, mode: 'rule' as const },
+		},
+		studio: options.connectStudioEndpoint
+			? {
+					enabled: true,
+					mode: 'review-bridge' as const,
+					endpoint: options.connectStudioEndpoint,
+					queue: options.connectStudioQueue ?? 'connect-default',
+				}
+			: DEFAULT_CONTRACTSRC.connect?.studio,
+	};
+}
+
+function createPresetBuilderConfig(options: SetupOptions) {
+	const runtimeMode = getBuilderRuntimeModeForPreset(
+		resolveSetupPreset(options)
+	);
+	const bootstrapPreset = getBuilderBootstrapPresetForSetupPreset(
+		resolveSetupPreset(options)
+	);
+	if (!runtimeMode || !bootstrapPreset) {
+		return undefined;
+	}
+
+	const includeApi = runtimeMode === 'managed' || runtimeMode === 'hybrid';
+	const includeLocal = runtimeMode === 'local' || runtimeMode === 'hybrid';
+
+	return {
+		...DEFAULT_CONTRACTSRC.builder,
+		enabled: true,
+		runtimeMode,
+		bootstrapPreset,
+		api: includeApi
+			? {
+					baseUrl: options.builderApiBaseUrl ?? 'https://api.contractspec.io',
+					controlPlaneTokenEnvVar:
+						options.builderControlPlaneTokenEnvVar ?? 'CONTROL_PLANE_API_TOKEN',
+				}
+			: undefined,
+		localRuntime: includeLocal
+			? {
+					runtimeId: options.builderLocalRuntimeId ?? 'rt_local_daemon',
+					grantedTo: options.builderLocalGrantedTo ?? 'local:operator',
+					providerIds: options.builderLocalProviderIds ?? [
+						'provider.codex',
+						'provider.local.model',
+					],
+				}
+			: undefined,
+	};
 }
 
 /**

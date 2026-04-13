@@ -25,6 +25,22 @@ From `packages/apps/vscode-contractspec`:
 bun run dev
 ```
 
+## Initialization Presets
+
+The extension setup flow is preset-driven and backed by the shared workspace setup service.
+
+- `ContractSpec: Setup ContractSpec` lets you choose between `core`, `connect`, `builder-managed`, `builder-local`, and `builder-hybrid`.
+- `ContractSpec: Quick Setup (Defaults)` applies the `core` preset with no prompts.
+- Builder managed and hybrid presets mirror the configured Builder API base URL into `contractspec.api.baseUrl` in `.vscode/settings.json`.
+
+Representative follow-up commands after setup:
+
+```bash
+contractspec builder init --workspace-id ws-demo --preset managed-mvp
+contractspec builder init --workspace-id ws-demo --preset local-daemon-mvp
+contractspec builder local register --workspace-id ws-demo --runtime-id rt_local_daemon --granted-to local:operator
+```
+
 ## Architecture
 
 - `@contractspec/module.workspace` for pure analysis + templates.

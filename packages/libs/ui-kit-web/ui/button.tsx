@@ -1,3 +1,4 @@
+import type { SharedButtonProps } from '@contractspec/lib.ui-kit-core/interfaces';
 import { cn } from '@contractspec/lib.ui-kit-core/utils';
 import { Slot } from '@radix-ui/react-slot';
 import { cva, type VariantProps } from 'class-variance-authority';
@@ -33,7 +34,8 @@ const buttonVariants = cva(
 	}
 );
 
-export type ButtonProps = React.ComponentPropsWithoutRef<'button'> &
+export type ButtonProps = SharedButtonProps &
+	React.ComponentPropsWithoutRef<'button'> &
 	VariantProps<typeof buttonVariants> & {
 		asChild?: boolean;
 		ref?: React.Ref<HTMLButtonElement>;

@@ -50,12 +50,12 @@ class ValidateWorkspaceAction : AnAction() {
                     val specs = listResult.data?.get("specs")?.asJsonArray
                     if (specs == null || specs.size() == 0) {
                         ApplicationManager.getApplication().invokeLater {
-                            Messages.showInfoMessage(project, "No spec files found in workspace", "No Specs Found")
+                            Messages.showInfoMessage(project, "No specs found in workspace", "No Specs Found")
                         }
                         return
                     }
 
-                    indicator.text = "Validating ${specs.size()} spec file(s)..."
+                    indicator.text = "Validating ${specs.size()} spec(s)..."
                     indicator.isIndeterminate = false
                     indicator.fraction = 0.0
 
@@ -68,7 +68,7 @@ class ValidateWorkspaceAction : AnAction() {
                         throw RuntimeException("Validation failed: ${validateResult.error}")
                     }
 
-                    val results = validateResult.data?.get("results")?.asJsonObject
+                    val results = validateResult.data?.get("results")?.asJsonArray
                     if (results == null) {
                         throw RuntimeException("No validation results received")
                     }
@@ -79,14 +79,26 @@ class ValidateWorkspaceAction : AnAction() {
                     var totalWarnings = 0
                     val messages = mutableListOf<String>()
 
-                    for ((filePath, resultJson) in results.entrySet()) {
+                    for (resultJson in results) {
                         val result = resultJson.asJsonObject
+                        val spec = result.get("spec").asJsonObject
                         val valid = result.get("valid").asBoolean
                         val warnings = result.get("warnings")?.asJsonArray?.map { it.asString } ?: emptyList()
                         val errors = result.get("errors")?.asJsonArray?.map { it.asString } ?: emptyList()
+                        val filePath = spec.get("filePath").asString
+                        val exportName = spec.get("exportName")?.asString
+                        val declarationLine = spec.get("declarationLine")?.asInt
 
                         val fileName = filePath.substringAfterLast("/").substringAfterLast("\\")
-                        messages.add("$fileName: ${if (valid) "✅" else "❌"}")
+                        val label = buildString {
+                            append(exportName ?: fileName)
+                            append(" (${if (exportName != null) fileName else filePath.substringAfterLast("/").substringAfterLast("\\")}")
+                            if (declarationLine != null) {
+                                append(":$declarationLine")
+                            }
+                            append(")")
+                        }
+                        messages.add("$label: ${if (valid) "✅" else "❌"}")
 
                         if (valid) {
                             passedCount++
@@ -103,7 +115,7 @@ class ValidateWorkspaceAction : AnAction() {
                             }
                         }
 
-                        indicator.fraction = (passedCount + failedCount).toDouble() / filePaths.size
+                        indicator.fraction = (passedCount + failedCount).toDouble() / results.size()
                     }
 
                     // Show results
@@ -149,5 +161,4 @@ class ValidateWorkspaceAction : AnAction() {
         e.presentation.isEnabled = e.project != null
     }
 }
-
 

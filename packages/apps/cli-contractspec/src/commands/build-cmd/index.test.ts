@@ -17,6 +17,15 @@ describe('build command internals', () => {
 			).toBe('presentation');
 		});
 
+		it('detects newer package-oriented targets', () => {
+			expect(
+				detectSpecType(
+					'packages/bundles/workspace/src/demo.bundle.ts',
+					"import { defineModuleBundle } from '@contractspec/lib.surface-runtime/spec';"
+				)
+			).toBe('module-bundle');
+		});
+
 		it('falls back to unknown for unrecognized specs', () => {
 			expect(detectSpecType('random.ts', 'const x = 1;')).toBe('unknown');
 		});

@@ -1,6 +1,6 @@
+import type { SharedPageHeaderProps } from '@contractspec/lib.ui-kit-core/interfaces';
 import { cn } from '@contractspec/lib.ui-kit-core/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
-import * as React from 'react';
 import { HStack, VStack } from './stack';
 import { H1, P } from './typography';
 
@@ -17,13 +17,9 @@ const headerVariants = cva('', {
 	},
 });
 
-export interface PageHeaderProps extends VariantProps<typeof headerVariants> {
-	breadcrumb?: React.ReactNode;
-	title: React.ReactNode;
-	subtitle?: React.ReactNode;
-	actions?: React.ReactNode;
-	className?: string;
-}
+export interface PageHeaderProps
+	extends SharedPageHeaderProps,
+		VariantProps<typeof headerVariants> {}
 
 export function PageHeader({
 	breadcrumb,

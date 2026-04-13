@@ -29,8 +29,6 @@ export const SearchAndFilter: React.FC<SearchAndFilterProps> = ({
 	// On mobile, show collapsible by default; on desktop, always show filters
 	const shouldUseCollapsible = collapsible && hasFilters;
 
-	console.log('SearchAndFilter', { filters });
-
 	const FilterComponents = () => (
 		<div className="grid grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
 			{filters.map((filter) => (

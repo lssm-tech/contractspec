@@ -1,22 +1,13 @@
+import type {
+	SharedPricingTableProps,
+	SharedPricingTier,
+} from '@contractspec/lib.ui-kit-core/interfaces';
 import { Button } from '../button';
 import { cn } from '../utils';
 
-export interface PricingTier {
-	name: string;
-	price: string;
-	tagline?: string;
-	features: string[];
-	cta?: { label: string; href?: string; onClick?: () => void };
-	highlighted?: boolean;
-}
+export interface PricingTier extends SharedPricingTier {}
 
-export function PricingTable({
-	tiers,
-	className,
-}: {
-	tiers: PricingTier[];
-	className?: string;
-}) {
+export function PricingTable({ tiers, className }: SharedPricingTableProps) {
 	return (
 		<section className={cn('mx-auto max-w-6xl py-12', className)}>
 			<div className="grid grid-cols-1 gap-6 md:grid-cols-3">

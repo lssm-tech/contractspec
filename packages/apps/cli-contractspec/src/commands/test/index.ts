@@ -1,6 +1,7 @@
 import {
 	createNodeAdapters,
 	listTests,
+	loadAuthoredModuleExports,
 	runTestSpecs,
 	TestGeneratorService,
 } from '@contractspec/bundle.workspace';
@@ -8,8 +9,8 @@ import type { OperationSpec } from '@contractspec/lib.contracts-spec';
 import chalk from 'chalk';
 import { glob } from 'glob';
 import { resolve } from 'path';
+import { getAIProvider, validateProvider } from '../../ai/providers';
 import type { Config } from '../../utils/config';
-import { loadTypeScriptModule } from '../../utils/module-loader';
 
 const GLOB_CHARS = /[*?{]/;
 const DEFAULT_IGNORES = ['**/node_modules/**', '**/dist/**', '**/.turbo/**'];
@@ -24,7 +25,7 @@ interface TestCommandOptions {
 export async function testCommand(
 	specFile: string,
 	options: TestCommandOptions,
-	_config: Config
+	config: Config
 ) {
 	const adapters = createNodeAdapters({
 		cwd: process.cwd(),
@@ -55,7 +56,7 @@ export async function testCommand(
 		// This is basic implementation: specific file -> generate test for it
 		try {
 			const resolvedPath = resolve(specFile);
-			const exports = await loadTypeScriptModule(resolvedPath);
+			const exports = await loadAuthoredModuleExports(resolvedPath);
 
 			// Find OperationSpecs
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -73,21 +74,14 @@ export async function testCommand(
 				return;
 			}
 
-			// 2. Initialize Generator
-			// For AI provider, we reuse config or default to OpenAI/Anthropic env vars
-			// In real app, we'd load provider from config
-			// Here we pass a dummy model for now or ensure one is configured in workspace services
-			// BUT TestGeneratorService needs a model.
-			// We'll throw if no model configured?
-			// Let's assume user HAS configured it.
-			// We need to construct LanguageModel.
-			// For this iteration, I'll log a todo/warning if model creation isn't fully wired,
-			// or instantiate a default one if key is present.
+			const providerStatus = await validateProvider(config);
+			if (!providerStatus.success) {
+				throw new Error(
+					`AI provider unavailable: ${providerStatus.error ?? 'unknown error'}`
+				);
+			}
 
-			// Temporary: rely on environment or throw
-			const { createOpenAI } = await import('@ai-sdk/openai');
-			const openai = createOpenAI({ apiKey: process.env.OPENAI_API_KEY });
-			const model = openai('gpt-4-turbo');
+			const model = getAIProvider(config);
 
 			const generator = new TestGeneratorService(adapters.logger, model);
 

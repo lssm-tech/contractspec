@@ -3,13 +3,17 @@
  */
 
 import type { ContractSpecType } from '@contractspec/lib.contracts-spec';
+import type { PackageAuthoringTargetId } from './authoring-targets';
 import type { Stability } from './spec-types';
 
 /**
  * Spec type detected from file analysis.
  * Covers all contract types from @contractspec/lib.contracts-spec.
  */
-export type AnalyzedSpecType = ContractSpecType | 'unknown';
+export type AnalyzedSpecType =
+	| ContractSpecType
+	| PackageAuthoringTargetId
+	| 'unknown';
 
 /**
  * Types that can be referenced by features.
@@ -32,6 +36,7 @@ export type AnalyzedOperationKind =
 	| 'query'
 	| 'event'
 	| 'presentation'
+	| 'form'
 	| 'capability'
 	| 'policy'
 	| 'type'
@@ -40,6 +45,14 @@ export type AnalyzedOperationKind =
 	| 'integration'
 	| 'workflow'
 	| 'feature'
+	| 'data-view'
+	| 'migration'
+	| 'telemetry'
+	| 'experiment'
+	| 'knowledge-space'
+	| 'module-bundle'
+	| 'builder-spec'
+	| 'provider-spec'
 	| 'test-spec'
 	| 'unknown';
 
@@ -81,6 +94,9 @@ export interface SpecScanResult {
 	key?: string;
 	version?: string;
 	kind?: AnalyzedOperationKind;
+	exportName?: string;
+	declarationLine?: number;
+	discoveryId?: string;
 	stability?: Stability;
 	description?: string;
 	goal?: string;

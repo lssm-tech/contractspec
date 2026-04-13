@@ -1,4 +1,5 @@
 import { beforeEach, describe, expect, it, mock } from 'bun:test';
+import { join } from 'node:path';
 import type { FsAdapter } from '../../ports/fs';
 import type { SetupFileResult, SetupPromptCallbacks } from './types';
 
@@ -67,6 +68,13 @@ describe('Setup Service', () => {
 		mockFindWorkspaceRoot.mockReturnValue('/root');
 		mockFindPackageRoot.mockReturnValue('/root');
 		mockIsMonorepo.mockReturnValue(false);
+
+		mockFs = {
+			join: (...parts: string[]) => join(...parts),
+			exists: async () => false,
+			readFile: async () => '',
+			writeFile: async () => {},
+		} as unknown as FsAdapter;
 	});
 
 	it('should run setup for all targets when none specified', async () => {
@@ -77,6 +85,14 @@ describe('Setup Service', () => {
 		});
 
 		expect(result.success).toBe(true);
+		expect(result.preset).toBe('core');
+		expect(result.nextSteps).toEqual([
+			'contractspec validate',
+			'contractspec doctor',
+		]);
+		expect(
+			result.files.find((file) => file.target === 'gitignore')?.action
+		).toBe('created');
 		// Should call all setup functions
 		expect(mockSetupAgentsMd).toHaveBeenCalled();
 		expect(mockSetupCliConfig).toHaveBeenCalled();
@@ -85,7 +101,7 @@ describe('Setup Service', () => {
 	});
 
 	it('should run setup for specific targets', async () => {
-		await runSetup(mockFs, {
+		const result = await runSetup(mockFs, {
 			workspaceRoot: '/root',
 			targets: ['agents-md'],
 			interactive: false,
@@ -95,18 +111,23 @@ describe('Setup Service', () => {
 		expect(mockSetupCliConfig).not.toHaveBeenCalled();
 		expect(mockSetupBiomeConfig).not.toHaveBeenCalled();
 		expect(mockSetupVscodeSettings).not.toHaveBeenCalled();
+		expect(
+			result.files.find((file) => file.target === 'gitignore')?.action
+		).toBe('created');
 	});
 
 	it('should prompt for targets in interactive mode', async () => {
 		const mockMultiSelect = mock(() => Promise.resolve(['cli-config']));
+		const mockSelect = mock(async <T extends string>() => 'core' as T);
 		const prompts: SetupPromptCallbacks = {
 			confirm: mock(() => Promise.resolve(true)),
+			select: mockSelect as SetupPromptCallbacks['select'],
 			multiSelect:
 				mockMultiSelect as unknown as SetupPromptCallbacks['multiSelect'],
 			input: mock(() => Promise.resolve('project')),
 		};
 
-		await runSetup(
+		const result = await runSetup(
 			mockFs,
 			{
 				workspaceRoot: '/root',
@@ -119,19 +140,27 @@ describe('Setup Service', () => {
 		expect(mockMultiSelect).toHaveBeenCalled();
 		expect(mockSetupCliConfig).toHaveBeenCalled();
 		expect(mockSetupVscodeSettings).not.toHaveBeenCalled();
+		expect(
+			result.files.find((file) => file.target === 'gitignore')?.action
+		).toBe('created');
 	});
 
 	it('should handle monorepo scope selection in interactive mode', async () => {
 		mockIsMonorepo.mockReturnValue(true);
 		mockFindPackageRoot.mockReturnValue('/root/pkg');
 
-		const mockMultiSelect = mock((msg) => {
-			if (msg.includes('Monorepo')) return Promise.resolve(['package']); // Select package scope
-			return Promise.resolve(['cli-config']); // Select targets
+		const mockSelect = mock((msg) => {
+			if (msg.includes('Select initialization preset')) {
+				return Promise.resolve('core');
+			}
+			if (msg.includes('Monorepo')) return Promise.resolve('package');
+			return Promise.resolve('core');
 		});
+		const mockMultiSelect = mock(() => Promise.resolve(['cli-config']));
 
 		const prompts: SetupPromptCallbacks = {
 			confirm: mock(),
+			select: mockSelect as unknown as SetupPromptCallbacks['select'],
 			multiSelect:
 				mockMultiSelect as unknown as SetupPromptCallbacks['multiSelect'],
 			input: mock(() => Promise.resolve('pkg-name')),
@@ -149,9 +178,38 @@ describe('Setup Service', () => {
 
 		// Verify scope selection prompt was shown
 		expect(
-			mockMultiSelect.mock.calls.some(
+			mockSelect.mock.calls.some(
 				(call) => typeof call[0] === 'string' && call[0].includes('Monorepo')
 			)
 		).toBe(true);
+	});
+
+	it('should derive builder-local next steps from preset defaults', async () => {
+		const result = await runSetup(mockFs, {
+			workspaceRoot: '/root',
+			targets: [],
+			interactive: false,
+			preset: 'builder-local',
+			projectName: 'Demo App',
+		});
+
+		expect(result.preset).toBe('builder-local');
+		expect(result.nextSteps).toEqual([
+			'contractspec builder init --workspace-id ws-demo-app --preset local-daemon-mvp',
+			'contractspec builder local register --workspace-id ws-demo-app --runtime-id rt_local_daemon --granted-to local:operator',
+		]);
+	});
+
+	it('should skip gitignore updates when explicitly disabled', async () => {
+		const result = await runSetup(mockFs, {
+			workspaceRoot: '/root',
+			targets: [],
+			interactive: false,
+			gitignoreBehavior: 'skip',
+		});
+
+		expect(result.files.some((file) => file.target === 'gitignore')).toBe(
+			false
+		);
 	});
 });

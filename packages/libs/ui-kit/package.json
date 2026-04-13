@@ -53,12 +53,15 @@
 		"@rn-primitives/radio-group": "^1.4.0",
 		"@rn-primitives/select": "^1.4.0",
 		"@rn-primitives/separator": "^1.4.0",
+		"@rn-primitives/slider": "^1.4.0",
 		"@rn-primitives/slot": "~1.4.0",
 		"@rn-primitives/switch": "^1.4.0",
 		"@rn-primitives/table": "^1.4.0",
 		"@rn-primitives/tabs": "^1.4.0",
+		"@rn-primitives/toast": "^1.4.0",
 		"@rn-primitives/toggle": "^1.4.0",
 		"@rn-primitives/toggle-group": "^1.4.0",
+		"@rn-primitives/toolbar": "^1.4.0",
 		"@rn-primitives/tooltip": "~1.4.0",
 		"burnt": "^0.13.0",
 		"class-variance-authority": "^0.7.0",
@@ -138,6 +141,7 @@
 		"./ui/collapsible": "./ui/collapsible.tsx",
 		"./ui/command": "./ui/command.tsx",
 		"./ui/context-menu": "./ui/context-menu.tsx",
+		"./ui/contracts.typecheck": "./ui/contracts.typecheck.ts",
 		"./ui/data-table": "./ui/data-table.tsx",
 		"./ui/date-picker": "./ui/date-picker.tsx",
 		"./ui/date-range-picker": "./ui/date-range-picker.tsx",
@@ -187,6 +191,7 @@
 		"./ui/page-header": "./ui/page-header.tsx",
 		"./ui/password-strength": "./ui/password-strength.tsx",
 		"./ui/popover": "./ui/popover.tsx",
+		"./ui/portal": "./ui/portal.tsx",
 		"./ui/progress": "./ui/progress.tsx",
 		"./ui/radio-group": "./ui/radio-group.tsx",
 		"./ui/select": "./ui/select.tsx",
@@ -194,6 +199,7 @@
 		"./ui/sheet": "./ui/sheet.tsx",
 		"./ui/sidebar": "./ui/sidebar.tsx",
 		"./ui/skeleton": "./ui/skeleton.tsx",
+		"./ui/slider": "./ui/slider.tsx",
 		"./ui/stack": "./ui/stack.tsx",
 		"./ui/stepper": "./ui/stepper.tsx",
 		"./ui/switch": "./ui/switch.tsx",
@@ -202,8 +208,10 @@
 		"./ui/text": "./ui/text.tsx",
 		"./ui/textarea": "./ui/textarea.tsx",
 		"./ui/time-picker": "./ui/time-picker.tsx",
+		"./ui/toast": "./ui/toast.tsx",
 		"./ui/toggle": "./ui/toggle.tsx",
 		"./ui/toggle-group": "./ui/toggle-group.tsx",
+		"./ui/toolbar": "./ui/toolbar.tsx",
 		"./ui/tooltip": "./ui/tooltip.tsx",
 		"./ui/typography": "./ui/typography.tsx",
 		"./ui/usecases": "./ui/usecases/index.ts",
@@ -377,6 +385,12 @@
 				"browser": "./dist/browser/ui/context-menu.js",
 				"bun": "./dist/ui/context-menu.js",
 				"default": "./dist/ui/context-menu.js"
+			},
+			"./ui/contracts.typecheck": {
+				"types": "./dist/ui/contracts.typecheck.d.ts",
+				"browser": "./dist/browser/ui/contracts.typecheck.js",
+				"bun": "./dist/ui/contracts.typecheck.js",
+				"default": "./dist/ui/contracts.typecheck.js"
 			},
 			"./ui/data-table": {
 				"types": "./dist/ui/data-table.d.ts",
@@ -672,6 +686,12 @@
 				"bun": "./dist/ui/popover.js",
 				"default": "./dist/ui/popover.js"
 			},
+			"./ui/portal": {
+				"types": "./dist/ui/portal.d.ts",
+				"browser": "./dist/browser/ui/portal.js",
+				"bun": "./dist/ui/portal.js",
+				"default": "./dist/ui/portal.js"
+			},
 			"./ui/progress": {
 				"types": "./dist/ui/progress.d.ts",
 				"browser": "./dist/browser/ui/progress.js",
@@ -713,6 +733,12 @@
 				"browser": "./dist/browser/ui/skeleton.js",
 				"bun": "./dist/ui/skeleton.js",
 				"default": "./dist/ui/skeleton.js"
+			},
+			"./ui/slider": {
+				"types": "./dist/ui/slider.d.ts",
+				"browser": "./dist/browser/ui/slider.js",
+				"bun": "./dist/ui/slider.js",
+				"default": "./dist/ui/slider.js"
 			},
 			"./ui/stack": {
 				"types": "./dist/ui/stack.d.ts",
@@ -762,6 +788,12 @@
 				"bun": "./dist/ui/time-picker.js",
 				"default": "./dist/ui/time-picker.js"
 			},
+			"./ui/toast": {
+				"types": "./dist/ui/toast.d.ts",
+				"browser": "./dist/browser/ui/toast.js",
+				"bun": "./dist/ui/toast.js",
+				"default": "./dist/ui/toast.js"
+			},
 			"./ui/toggle": {
 				"types": "./dist/ui/toggle.d.ts",
 				"browser": "./dist/browser/ui/toggle.js",
@@ -773,6 +805,12 @@
 				"browser": "./dist/browser/ui/toggle-group.js",
 				"bun": "./dist/ui/toggle-group.js",
 				"default": "./dist/ui/toggle-group.js"
+			},
+			"./ui/toolbar": {
+				"types": "./dist/ui/toolbar.d.ts",
+				"browser": "./dist/browser/ui/toolbar.js",
+				"bun": "./dist/ui/toolbar.js",
+				"default": "./dist/ui/toolbar.js"
 			},
 			"./ui/tooltip": {
 				"types": "./dist/ui/tooltip.d.ts",

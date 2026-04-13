@@ -2,6 +2,11 @@ import type {
 	ConnectVerdict,
 	ResolvedContractsrcConfig,
 } from '@contractspec/lib.contracts-spec/workspace-config';
+import type {
+	SetupFileResult,
+	SetupGitignoreBehavior,
+	SetupPromptCallbacks,
+} from '../setup/types';
 
 export type { ConnectVerdict };
 
@@ -63,6 +68,16 @@ export interface ConnectWorkspaceInput {
 
 export interface ConnectInitInput extends ConnectWorkspaceInput {
 	scope?: 'workspace' | 'package';
+	interactive?: boolean;
+	gitignoreBehavior?: SetupGitignoreBehavior;
+	prompts?: Pick<SetupPromptCallbacks, 'confirm'>;
+}
+
+export interface ConnectInitResult {
+	configPath: string;
+	targetRoot: string;
+	action: 'created' | 'merged';
+	gitignore: SetupFileResult;
 }
 
 export interface ConnectTaskInput extends ConnectWorkspaceInput {

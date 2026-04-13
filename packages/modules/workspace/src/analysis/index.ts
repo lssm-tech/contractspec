@@ -2,6 +2,7 @@
  * Static analysis utilities for ContractSpec.
  */
 
+export * from './authoring-targets';
 export * from './deps/index';
 export * from './diff/index';
 export * from './docblocks';

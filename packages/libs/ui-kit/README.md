@@ -40,6 +40,9 @@ Use this package for Expo and React Native surfaces. Do not use it as the design
 - `./ui/sheet`
 - `./ui/dropdown-menu`
 - `./ui/context-menu`
+- `./ui/portal`
+- `./ui/toast`
+- `./ui/toolbar`
 
 ### Navigation and display
 
@@ -51,6 +54,7 @@ Use this package for Expo and React Native surfaces. Do not use it as the design
 - `./ui/data-table`
 - `./ui/card`
 - `./ui/empty-state`
+- `./ui/slider`
 
 ### Hooks, utilities, and grouped surfaces
 
@@ -59,6 +63,7 @@ Use this package for Expo and React Native surfaces. Do not use it as the design
 - `./ui/utils`
 - grouped subpaths under `./ui/marketing`, `./ui/usecases`, and `./ui/visualization`
 - icons under `./ui/icons/*`
+- shared semantic contracts are defined in `@contractspec/lib.ui-kit-core/interfaces`
 
 ## Public surface
 

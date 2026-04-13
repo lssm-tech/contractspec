@@ -10,6 +10,12 @@ import type {
 	SetupPromptCallbacks,
 } from '../types';
 
+const CONTRACTSPEC_AGENTS_BLOCK_START =
+	'<!-- contractspec:init:agents:start -->';
+const CONTRACTSPEC_AGENTS_BLOCK_END = '<!-- contractspec:init:agents:end -->';
+const CONTRACTSPEC_AGENTS_BLOCK_NOTE =
+	'<!-- This section is managed by `contractspec init`. Content outside these markers is user-owned and preserved. -->';
+
 /**
  * Setup AGENTS.md
  */
@@ -26,37 +32,43 @@ export async function setupAgentsMd(
 
 	try {
 		const exists = await fs.exists(filePath);
-		const content = generateAgentsGuide(options);
+		const guideContent = generateAgentsGuide(options);
 
 		if (exists) {
+			const existingContent = await fs.readFile(filePath);
+
 			if (options.interactive) {
 				const proceed = await prompts.confirm(
-					`${filePath} exists. Overwrite with the latest ContractSpec guide?`
+					`${filePath} exists. Add or update the ContractSpec-managed section while preserving existing content?`
 				);
 				if (!proceed) {
 					return {
 						target: 'agents-md',
 						filePath,
 						action: 'skipped',
-						message: 'User kept existing AGENTS guide',
+						message: 'User skipped AGENTS guide merge',
 					};
 				}
-			} else {
-				return {
-					target: 'agents-md',
-					filePath,
-					action: 'skipped',
-					message: 'File already exists',
-				};
 			}
+
+			await fs.writeFile(
+				filePath,
+				mergeAgentsGuide(existingContent, guideContent)
+			);
+			return {
+				target: 'agents-md',
+				filePath,
+				action: 'merged',
+				message: 'Added or updated the ContractSpec-managed AGENTS.md section',
+			};
 		}
 
-		await fs.writeFile(filePath, content);
+		await fs.writeFile(filePath, renderManagedAgentsBlock(guideContent));
 		return {
 			target: 'agents-md',
 			filePath,
-			action: exists ? 'merged' : 'created',
-			message: exists ? 'Updated AI agent guide' : 'Created AI agent guide',
+			action: 'created',
+			message: 'Created AI agent guide',
 		};
 	} catch (error) {
 		return {
@@ -66,4 +78,48 @@ export async function setupAgentsMd(
 			message: error instanceof Error ? error.message : 'Unknown error',
 		};
 	}
+}
+
+function mergeAgentsGuide(
+	existingContent: string,
+	guideContent: string
+): string {
+	const managedBlock = renderManagedAgentsBlock(guideContent);
+	const managedBlockPattern = createManagedAgentsBlockPattern();
+
+	if (managedBlockPattern.test(existingContent)) {
+		return existingContent.replace(managedBlockPattern, managedBlock);
+	}
+
+	if (
+		normalizeAgentsContent(existingContent) ===
+		normalizeAgentsContent(guideContent)
+	) {
+		return managedBlock;
+	}
+
+	return `${managedBlock}${existingContent}`;
+}
+
+function renderManagedAgentsBlock(guideContent: string): string {
+	const normalizedGuide = guideContent.replace(/\r\n/g, '\n').trimEnd();
+	return `${CONTRACTSPEC_AGENTS_BLOCK_START}
+${CONTRACTSPEC_AGENTS_BLOCK_NOTE}
+${normalizedGuide}
+${CONTRACTSPEC_AGENTS_BLOCK_END}
+`;
+}
+
+function normalizeAgentsContent(content: string): string {
+	return content.replace(/\r\n/g, '\n').trimEnd();
+}
+
+function createManagedAgentsBlockPattern(): RegExp {
+	return new RegExp(
+		`${escapeRegex(CONTRACTSPEC_AGENTS_BLOCK_START)}[\\s\\S]*?${escapeRegex(CONTRACTSPEC_AGENTS_BLOCK_END)}(?:\\r?\\n)?`
+	);
+}
+
+function escapeRegex(value: string): string {
+	return value.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
 }

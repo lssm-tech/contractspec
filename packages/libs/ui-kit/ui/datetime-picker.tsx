@@ -1,17 +1,11 @@
+import type { SharedDateTimePickerProps } from '@contractspec/lib.ui-kit-core/interfaces';
 import { DatePicker } from './date-picker';
 import { HStack } from './stack';
 import { TimePicker } from './time-picker';
 
-export interface DateTimePickerProps {
-	value: Date | null;
-	onChange: (date: Date | null) => void;
-	disabled?: boolean;
-	minDate?: Date;
-	maxDate?: Date;
+export interface DateTimePickerProps extends SharedDateTimePickerProps {
 	datePlaceholder?: string;
 	timePlaceholder?: string;
-	is24Hour?: boolean;
-	className?: string;
 }
 
 export function DateTimePicker({

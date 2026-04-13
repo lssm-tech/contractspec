@@ -38,7 +38,7 @@ CLI tool for creating, building, and validating contract specifications.
 ## Local Commands
 
 - `bun run dev` — bun build ./src/cli.ts --outfile ./dist/cli.js --target node --watch
-- `bun run build` — bun run build:types && bun run build:all
+- `bun run build` — bun run prebuild && bun run build:types && bun run build:all
 - `bun run test` — bun test
 - `bun run lint` — bun run lint:fix
 - `bun run lint:check` — biome check .
@@ -47,8 +47,8 @@ CLI tool for creating, building, and validating contract specifications.
 - `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
 - `bun run publish:pkg:canary` — bun publish:pkg --tag canary
 - `bun run clean` — rimraf dist
-- `bun run build:bun` — bun build --outdir ./dist/bun/ --target bun --minify --sourcemap ./src/cli.ts
-- `bun run build:node` — bun build --outdir ./dist/node/ --target node --minify --sourcemap ./src/cli.ts
+- `bun run build:bun` — bun build --outdir ./dist/bun/ --target bun --minify --external playwright --external playwright-core --external electron --external chromium-bidi --external 'chromium-bidi/*' ./src/cli.ts
+- `bun run build:node` — bun build --outdir ./dist/node/ --target node --minify --external playwright --external playwright-core --external electron --external chromium-bidi --external 'chromium-bidi/*' ./src/cli.ts
 - `bun run build:all` — bun run build:bun && bun run build:node
 - `bun run build:types` — tsc --noEmit
 - `bun run dev:bun` — bun build ./src/cli.ts --outfile ./dist/cli.bun.js --target bun --watch

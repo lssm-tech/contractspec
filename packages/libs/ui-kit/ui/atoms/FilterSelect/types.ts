@@ -1,16 +1,9 @@
-export interface FilterOption {
-	value: string;
-	label: string;
-	count?: number;
-}
+import type {
+	SharedFilterSelectProps,
+	SharedOption,
+} from '@contractspec/lib.ui-kit-core/interfaces';
 
-export interface FilterSelectProps {
-	value: FilterOption;
-	options: FilterOption[];
-	onChange: (value: FilterOption | undefined) => void;
-	placeholder?: string;
-	label?: string;
-	disabled?: boolean;
-	className?: string;
-	showCounts?: boolean;
-}
+export interface FilterOption extends SharedOption {}
+
+export interface FilterSelectProps
+	extends SharedFilterSelectProps<FilterOption> {}

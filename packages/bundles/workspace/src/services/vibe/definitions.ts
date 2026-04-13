@@ -10,7 +10,8 @@ export const builtinWorkflows: Workflow[] = [
 	{
 		id: 'brownfield.openapi-import',
 		name: 'Brownfield: OpenAPI Import',
-		description: 'Import OpenAPI into draft contracts, review, and apply.',
+		description:
+			'Import OpenAPI into draft contracts, review, and generate artifacts.',
 		steps: [
 			{
 				id: 'extract',
@@ -31,9 +32,9 @@ export const builtinWorkflows: Workflow[] = [
 				command: 'contractspec gap',
 			},
 			{
-				id: 'apply',
-				label: 'Apply Changes (Generate)',
-				command: 'contractspec apply',
+				id: 'generate',
+				label: 'Generate Artifacts',
+				command: 'contractspec generate',
 			},
 			{
 				id: 'impact',
@@ -63,9 +64,9 @@ export const builtinWorkflows: Workflow[] = [
 				command: 'contractspec impact',
 			},
 			{
-				id: 'apply',
-				label: 'Apply Changes',
-				command: 'contractspec apply',
+				id: 'generate',
+				label: 'Generate Artifacts',
+				command: 'contractspec generate',
 			},
 			{
 				id: 'ci',
@@ -120,9 +121,9 @@ export const builtinWorkflows: Workflow[] = [
 				command: 'contractspec upgrade',
 			},
 			{
-				id: 'regenerate',
+				id: 'generate',
 				label: 'Regenerate Artifacts',
-				command: 'contractspec apply',
+				command: 'contractspec generate',
 			},
 			{
 				id: 'verify',

@@ -1,5 +1,6 @@
 import { writeFile } from 'node:fs/promises';
 import { join, resolve } from 'node:path';
+import { loadAuthoredModuleExports } from '@contractspec/bundle.workspace';
 import {
 	DefaultHarnessTargetResolver,
 	FilesystemHarnessArtifactStore,
@@ -17,7 +18,6 @@ import {
 	HarnessRunner,
 } from '@contractspec/lib.harness';
 import type { Config } from '../../utils/config';
-import { loadTypeScriptModule } from '../../utils/module-loader';
 
 interface ConnectEvaluationRuntime {
 	runScenarioEvaluation(input: {
@@ -106,7 +106,7 @@ export async function createConnectEvaluationRuntime(input: {
 
 async function loadHarnessRegistries(registryPath: string) {
 	try {
-		const loaded = await loadTypeScriptModule(registryPath);
+		const loaded = await loadAuthoredModuleExports(registryPath);
 		const scenarios = collectScenarios(loaded);
 		const suites = collectSuites(loaded);
 

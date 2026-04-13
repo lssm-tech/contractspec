@@ -15,8 +15,10 @@ import {
 	scanAllSpecsFromSource,
 	scanFeatureSource,
 } from '@contractspec/module.workspace';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts-spec';
 import type { FsAdapter } from '../ports/fs';
 import type { LoggerAdapter } from '../ports/logger';
+import { discoverSpecFiles } from './discover';
 import {
 	buildTestIndex,
 	type ExtractedTestTarget,
@@ -50,6 +52,7 @@ export interface IntegrityAnalysisOptions {
 	 * Filter by spec type.
 	 */
 	specType?: AnalyzedSpecType;
+	config?: ResolvedContractsrcConfig;
 
 	/**
 	 * Require tests for specific spec types.
@@ -234,7 +237,11 @@ export async function analyzeIntegrity(
 	logger.info('Starting integrity analysis...', { options });
 
 	// Discover all spec and feature files
-	const files = await fs.glob({ pattern: options.pattern, cwd: options.cwd });
+	const files = await discoverSpecFiles(fs, {
+		config: options.config,
+		cwd: options.cwd,
+		pattern: options.pattern,
+	});
 
 	const inventory = createEmptyInventory();
 	const features: FeatureScanResult[] = [];

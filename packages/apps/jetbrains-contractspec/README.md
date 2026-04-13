@@ -42,6 +42,7 @@ ContractSpec is the deterministic, spec-first compiler that keeps AI-written sof
 ### Onboarding & Help
 
 - **Interactive Setup**: Guided setup wizard for new projects
+- **Preset-Driven Initialization**: Choose `core`, `connect`, `builder-managed`, `builder-local`, or `builder-hybrid`
 - **Context Menus**: Right-click actions in project view and editor
 - **MCP Integration**: Search ContractSpec documentation
 - **Status Bar**: Real-time watch mode and validation indicators
@@ -99,7 +100,7 @@ ContractSpec is the deterministic, spec-first compiler that keeps AI-written sof
 | Command                                        | Description                     | Shortcut |
 | ---------------------------------------------- | ------------------------------- | ------- |
 | `ContractSpec: Setup ContractSpec`             | Run setup wizard                |         |
-| `ContractSpec: Quick Setup`                    | Quick setup with defaults       |         |
+| `ContractSpec: Quick Setup`                    | Quick setup with core defaults  |         |
 | `ContractSpec: Run Health Check (Doctor)`      | Run diagnostics and checks      |         |
 | `ContractSpec: Show Workspace Info`            | Display workspace information   |         |
 
@@ -185,6 +186,16 @@ Access settings via `Settings → Tools → ContractSpec`:
 3. **Run setup**: Tools → ContractSpec → Setup ContractSpec
 4. **Create your first spec**: ContractSpec Tool Window → Specs Explorer → + button
 5. **Build from it**: Right-click spec file → ContractSpec → Build/Scaffold
+
+Setup is config-first. It writes workspace config and editor wiring, then gives you the next Builder/Connect command to run if you selected a non-core preset.
+
+Representative Builder follow-up commands:
+
+```bash
+contractspec builder init --workspace-id ws-demo --preset managed-mvp
+contractspec builder init --workspace-id ws-demo --preset local-daemon-mvp
+contractspec builder local register --workspace-id ws-demo --runtime-id rt_local_daemon --granted-to local:operator
+```
 
 ## Context Menu Actions
 

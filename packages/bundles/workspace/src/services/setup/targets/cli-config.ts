@@ -4,7 +4,12 @@
 
 import type { FsAdapter } from '../../../ports/fs';
 import { generateContractsrcConfig } from '../config-generators';
-import { deepMergePreserve, formatJson, safeParseJson } from '../file-merger';
+import {
+	deepMergeOverwrite,
+	deepMergePreserve,
+	formatJson,
+	safeParseJson,
+} from '../file-merger';
 import type {
 	SetupFileResult,
 	SetupOptions,
@@ -64,7 +69,30 @@ export async function setupCliConfig(
 				existing,
 				defaults as Record<string, unknown>
 			);
-			await fs.writeFile(filePath, formatJson(merged));
+			if (
+				(options.preset === 'connect' ||
+					options.preset?.startsWith('builder-')) &&
+				typeof defaults === 'object' &&
+				defaults !== null
+			) {
+				const presetUpdates: Record<string, unknown> = {};
+				if ('connect' in defaults) {
+					presetUpdates['connect'] = (defaults as Record<string, unknown>)[
+						'connect'
+					];
+				}
+				if ('builder' in defaults) {
+					presetUpdates['builder'] = (defaults as Record<string, unknown>)[
+						'builder'
+					];
+				}
+				await fs.writeFile(
+					filePath,
+					formatJson(deepMergeOverwrite(merged, presetUpdates))
+				);
+			} else {
+				await fs.writeFile(filePath, formatJson(merged));
+			}
 
 			return {
 				target: 'cli-config',

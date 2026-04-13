@@ -9,6 +9,10 @@ import { useDataViewTable } from '@contractspec/lib.presentation-runtime-react';
 import { HStack, VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import { Text } from '@contractspec/lib.ui-kit-web/ui/text';
 import * as React from 'react';
+import {
+	resolveTranslationString,
+	useDesignSystemTranslation,
+} from '../../i18n/translation';
 import { DataTable as ContractDataTable } from '../data-table/DataTable';
 import { DataViewFormattedValue, getAtPath } from './utils';
 
@@ -31,6 +35,7 @@ export function DataViewTable({
 	headerActions,
 	footer,
 }: DataViewTableProps) {
+	const translate = useDesignSystemTranslation();
 	if (spec.view.kind !== 'table') {
 		throw new Error(
 			`DataViewTable received view kind "${spec.view.kind}", expected "table".`
@@ -61,7 +66,7 @@ export function DataViewTable({
 							{fields.map((field) => (
 								<HStack key={field.key} justify="between" align="start">
 									<Text className="font-medium text-muted-foreground text-sm">
-										{field.label}
+										{resolveTranslationString(field.label, translate)}
 									</Text>
 									<Text className="text-right text-sm">
 										<DisplayValue
@@ -81,8 +86,8 @@ export function DataViewTable({
 		<ContractDataTable
 			controller={controller}
 			className={className}
-			title={spec.meta.title}
-			description={spec.meta.description}
+			title={resolveTranslationString(spec.meta.title, translate)}
+			description={resolveTranslationString(spec.meta.description, translate)}
 			headerActions={headerActions}
 			emptyState={emptyState}
 			footer={footer}

@@ -13,6 +13,16 @@ export {
 	ReleaseEnforceOnSchema,
 } from '../versioning/schema';
 export {
+	type BuilderApiConfig,
+	BuilderApiConfigSchema,
+	type BuilderBootstrapPreset,
+	BuilderBootstrapPresetSchema,
+	type BuilderConfig,
+	BuilderConfigSchema,
+	type BuilderLocalRuntimeConfig,
+	BuilderLocalRuntimeConfigSchema,
+	type BuilderRuntimeMode,
+	BuilderRuntimeModeSchema,
 	type BumpStrategy,
 	BumpStrategySchema,
 	type ChangelogFormat,
@@ -150,6 +160,29 @@ export interface ContractsrcConfig {
     };
     canonPacks?: Array<{ ref: string; readOnly?: boolean }>;
     studio?: { enabled?: boolean; mode?: 'off' | 'review-bridge'; endpoint?: string; queue?: string };
+  };
+}
+\`\`\`
+
+### Builder
+
+The \`builder\` section configures preset-driven Builder onboarding without requiring live bootstrap during setup.
+
+\`\`\`ts
+export interface ContractsrcConfig {
+  builder?: {
+    enabled?: boolean;
+    runtimeMode?: 'managed' | 'local' | 'hybrid';
+    bootstrapPreset?: 'managed_mvp' | 'local_daemon_mvp' | 'hybrid_mvp';
+    api?: {
+      baseUrl?: string;
+      controlPlaneTokenEnvVar?: string;
+    };
+    localRuntime?: {
+      runtimeId?: string;
+      grantedTo?: string;
+      providerIds?: string[];
+    };
   };
 }
 \`\`\`

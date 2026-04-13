@@ -13,7 +13,9 @@ import {
 	parseImportedSpecNames,
 	toDot,
 } from '@contractspec/module.workspace';
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts-spec';
 import type { FsAdapter } from '../ports/fs';
+import { discoverSpecFiles } from './discover';
 
 /**
  * Options for dependency analysis.
@@ -23,6 +25,7 @@ export interface AnalyzeDepsOptions {
 	 * File pattern to search.
 	 */
 	pattern?: string;
+	config?: ResolvedContractsrcConfig;
 }
 
 /**
@@ -44,7 +47,10 @@ export async function analyzeDeps(
 ): Promise<AnalyzeDepsResult> {
 	const { fs } = adapters;
 
-	const files = await fs.glob({ pattern: options.pattern });
+	const files = await discoverSpecFiles(fs, {
+		config: options.config,
+		pattern: options.pattern,
+	});
 	const graph = createContractGraph();
 
 	for (const file of files) {

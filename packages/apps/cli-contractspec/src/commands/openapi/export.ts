@@ -1,5 +1,6 @@
 import { writeFile } from 'node:fs/promises';
 import { resolve } from 'node:path';
+import { loadAuthoredModuleValue } from '@contractspec/bundle.workspace';
 import {
 	type OpenApiServer,
 	openApiForRegistry,
@@ -9,7 +10,6 @@ import chalk from 'chalk';
 import { Command } from 'commander';
 import { loadConfig } from '../../utils/config';
 import { getErrorMessage } from '../../utils/errors';
-import { loadTypeScriptModule } from '../../utils/module-loader';
 
 interface ExportOptions {
 	registry?: string;
@@ -22,45 +22,16 @@ interface ExportOptions {
 	json?: boolean;
 }
 
-interface LoadedRegistryModule {
-	default?: unknown;
-	createRegistry?: () => Promise<OperationSpecRegistry> | OperationSpecRegistry;
-	registry?: OperationSpecRegistry;
-}
-
 async function loadRegistry(
 	modulePath: string
 ): Promise<OperationSpecRegistry> {
-	const exports = (await loadTypeScriptModule(
-		modulePath
-	)) as LoadedRegistryModule;
-
-	if (exports instanceof OperationSpecRegistry) {
-		return exports;
-	}
-	if (exports.registry instanceof OperationSpecRegistry) {
-		return exports.registry;
-	}
-
-	const factory =
-		typeof exports.createRegistry === 'function'
-			? exports.createRegistry
-			: typeof exports.default === 'function'
-				? (exports.default as () =>
-						| Promise<OperationSpecRegistry>
-						| OperationSpecRegistry)
-				: undefined;
-
-	if (factory) {
-		const result = await factory();
-		if (result instanceof OperationSpecRegistry) {
-			return result;
-		}
-	}
-
-	throw new Error(
-		`Registry module ${modulePath} must export a OperationSpecRegistry instance or a factory function returning one.`
-	);
+	return loadAuthoredModuleValue(modulePath, {
+		description: 'OperationSpecRegistry',
+		isValue: (value): value is OperationSpecRegistry =>
+			value instanceof OperationSpecRegistry,
+		instanceKeys: ['registry'],
+		factoryKeys: ['createRegistry', 'default'],
+	});
 }
 
 /**

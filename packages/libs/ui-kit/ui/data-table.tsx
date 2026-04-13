@@ -3,6 +3,7 @@ import type {
 	ContractTableController,
 	ContractTableRowRenderModel,
 } from '@contractspec/lib.presentation-runtime-core';
+import type { SharedDataTableProps } from '@contractspec/lib.ui-kit-core/interfaces';
 import { ChevronDown, ChevronRight, Columns3 } from 'lucide-react-native';
 import * as React from 'react';
 import { ScrollView, View } from 'react-native';
@@ -30,13 +31,9 @@ import {
 } from './table';
 import { Text } from './text';
 
-export interface DataTableProps<TItem = unknown> {
+export interface DataTableProps<TItem = unknown>
+	extends SharedDataTableProps<TItem> {
 	controller: ContractTableController<TItem, React.ReactNode>;
-	className?: string;
-	toolbar?: React.ReactNode;
-	footer?: React.ReactNode;
-	emptyState?: React.ReactNode;
-	loading?: boolean;
 	onRowPress?: (
 		row: ContractTableRowRenderModel<TItem, React.ReactNode>
 	) => void;

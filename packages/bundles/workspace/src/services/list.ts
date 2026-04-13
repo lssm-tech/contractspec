@@ -8,8 +8,8 @@ import {
 	type SpecScanResult,
 	scanSpecSource,
 } from '@contractspec/module.workspace';
-import micromatch from 'micromatch';
 import type { FsAdapter } from '../ports/fs';
+import { discoverSpecFiles } from './discover';
 import { isLibraryDefinitionFile, isTestFile } from '../utils';
 
 /**
@@ -46,32 +46,13 @@ export async function listSpecs(
 ): Promise<SpecScanResult[]> {
 	const { fs, scan = scanSpecSource } = adapters;
 
-	// Use pattern if provided, otherwise let fs.glob use its defaults (DEFAULT_SPEC_PATTERNS)
-	// This aligns listSpecs behavior with the CI command behavior
-	const pattern = options.pattern;
-	const files = await fs.glob({ cwd: options.cwd, pattern });
+	const files = await discoverSpecFiles(fs, options);
 	const results: SpecScanResult[] = [];
 	const specTypesToSearch = Array.isArray(options.type)
 		? options.type
 		: [options.type];
 
 	for (const file of files) {
-		// Skip node_modules and dist
-		if (file.includes('node_modules') || file.includes('/dist/')) {
-			continue;
-		}
-
-		// If excluding packages via config
-		if (
-			options.config?.excludePackages &&
-			micromatch.isMatch(file, options.config.excludePackages, {
-				contains: true,
-			})
-		) {
-			continue;
-		}
-
-		// Exclude test files
 		if (isTestFile(file, options.config)) {
 			continue;
 		}

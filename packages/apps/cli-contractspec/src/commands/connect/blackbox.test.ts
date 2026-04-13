@@ -52,7 +52,10 @@ describe('connect command black-box', () => {
 				'--json',
 			]);
 			expect(init.code).toBe(0);
-			expect(JSON.parse(init.stdout).configPath).toContain('.contractsrc.json');
+			const initResult = JSON.parse(init.stdout);
+			expect(initResult.configPath).toContain('.contractsrc.json');
+			expect(initResult.gitignore.filePath).toContain('.gitignore');
+			expect(initResult.gitignore.action).toBe('created');
 
 			const context = runCli(workspace, [
 				'connect',

@@ -10,6 +10,10 @@ import type {
 	SpecScanResult,
 } from '../types/analysis-types';
 import {
+	detectAuthoringTarget,
+	inferAuthoringTargetFromFilePath,
+} from './authoring-targets';
+import {
 	extractRefList,
 	extractTestCoverage,
 	extractTestRefs,
@@ -31,6 +35,38 @@ import {
 
 export { extractTestCoverage, extractTestTarget } from './spec-parsing-utils';
 
+interface SpecDiscoveryMetadata {
+	exportName?: string;
+	declarationLine?: number;
+}
+
+function getDeclarationLine(code: string, index: number): number {
+	let line = 1;
+	for (let cursor = 0; cursor < index; cursor++) {
+		if (code[cursor] === '\n') {
+			line += 1;
+		}
+	}
+	return line;
+}
+
+function buildDiscoveryId(
+	filePath: string,
+	metadata: SpecDiscoveryMetadata,
+	key: string
+): string {
+	const identity =
+		metadata.exportName ??
+		(metadata.declarationLine ? `line-${metadata.declarationLine}` : key);
+	return `${filePath}#${identity}`;
+}
+
+function extractImportStatements(code: string): string[] {
+	return Array.from(code.matchAll(/^\s*import[\s\S]*?;/gm)).map((match) =>
+		match[0].trim()
+	);
+}
+
 /**
  * Scan all specs from a single source file.
  */
@@ -42,13 +78,15 @@ export function scanAllSpecsFromSource(
 
 	// Pre-scan for variables available in file scope
 	const variables = extractArrayConstants(code);
+	const imports = extractImportStatements(code);
 
 	// Match export definitions: export const X = defineXXX calls
 	const definitionRegex =
-		/export\s+const\s+(\w+)\s*=\s*define(Command|Query|Event|Presentation|Capability|Policy|Type|Example|AppConfig|Integration|Workflow|TestSpec|Feature)\s*\(/g;
+		/export\s+const\s+(\w+)\s*=\s*define(Command|Query|Event|Presentation|Capability|Policy|Type|Example|AppConfig|Integration|Workflow|TestSpec|Feature|Form|DataView|Migration|Telemetry|Experiment|KnowledgeSpace|ModuleBundle)\s*\(/g;
 	let match;
 
 	while ((match = definitionRegex.exec(code)) !== null) {
+		const exportName = match[1];
 		const start = match.index;
 		const openParenIndex = start + match[0].length - 1;
 		const end = findMatchingDelimiter(code, openParenIndex, '(', ')');
@@ -64,12 +102,19 @@ export function scanAllSpecsFromSource(
 
 		// Resolve variables in the block
 		const resolvedBlock = resolveVariablesInBlock(block, variables);
+		const metadata = {
+			exportName,
+			declarationLine: getDeclarationLine(code, start),
+		};
 
-		const result = scanSpecSource(resolvedBlock, filePath);
+		const result = scanSpecSource(resolvedBlock, filePath, metadata);
 		if (result) {
 			results.push({
 				...result,
-				sourceBlock: resolvedBlock, // Ensure the result has the resolved block
+				sourceBlock:
+					imports.length > 0
+						? `${imports.join('\n')}\n\n${resolvedBlock}`
+						: resolvedBlock,
 			});
 		}
 	}
@@ -92,6 +137,25 @@ export function inferSpecTypeFromCodeBlock(fileSourceCode: string): {
 	specType: AnalyzedSpecType;
 	kind: AnalyzedOperationKind;
 } {
+	const authoringTarget = detectAuthoringTarget(fileSourceCode, '');
+	if (authoringTarget === 'module-bundle') {
+		return {
+			specType: 'module-bundle',
+			kind: 'module-bundle',
+		};
+	}
+	if (authoringTarget === 'builder-spec') {
+		return {
+			specType: 'builder-spec',
+			kind: 'builder-spec',
+		};
+	}
+	if (authoringTarget === 'provider-spec') {
+		return {
+			specType: 'provider-spec',
+			kind: 'provider-spec',
+		};
+	}
 	if (fileSourceCode.includes('defineCommand')) {
 		return {
 			specType: 'operation',
@@ -114,6 +178,12 @@ export function inferSpecTypeFromCodeBlock(fileSourceCode: string): {
 		return {
 			specType: 'presentation',
 			kind: 'presentation',
+		};
+	}
+	if (fileSourceCode.includes('defineForm')) {
+		return {
+			specType: 'form',
+			kind: 'form',
 		};
 	}
 	if (fileSourceCode.includes('definePolicy')) {
@@ -155,6 +225,36 @@ export function inferSpecTypeFromCodeBlock(fileSourceCode: string): {
 			kind: 'workflow',
 		};
 	}
+	if (fileSourceCode.includes('defineDataView')) {
+		return {
+			specType: 'data-view',
+			kind: 'data-view',
+		};
+	}
+	if (fileSourceCode.includes('defineMigration')) {
+		return {
+			specType: 'migration',
+			kind: 'migration',
+		};
+	}
+	if (fileSourceCode.includes('defineTelemetry')) {
+		return {
+			specType: 'telemetry',
+			kind: 'telemetry',
+		};
+	}
+	if (fileSourceCode.includes('defineExperiment')) {
+		return {
+			specType: 'experiment',
+			kind: 'experiment',
+		};
+	}
+	if (fileSourceCode.includes('defineKnowledgeSpace')) {
+		return {
+			specType: 'knowledge',
+			kind: 'knowledge-space',
+		};
+	}
 	if (fileSourceCode.includes('defineTestSpec')) {
 		return {
 			specType: 'test-spec',
@@ -178,9 +278,20 @@ export function inferSpecTypeFromCodeBlock(fileSourceCode: string): {
 /**
  * Scan a single spec source string.
  */
-export function scanSpecSource(code: string, filePath: string): SpecScanResult {
+export function scanSpecSource(code: string, filePath: string): SpecScanResult;
+export function scanSpecSource(
+	code: string,
+	filePath: string,
+	metadata: SpecDiscoveryMetadata
+): SpecScanResult;
+export function scanSpecSource(
+	code: string,
+	filePath: string,
+	metadata: SpecDiscoveryMetadata = {}
+): SpecScanResult {
 	const keyMatch =
 		code.match(/key\s*:\s*['"]([^'"]+)['"]/) ??
+		(metadata.exportName ? [undefined, metadata.exportName] : undefined) ??
 		code.match(/export\s+const\s+(\w+)\s*=/);
 	const key = keyMatch?.[1] ?? 'unknown';
 
@@ -215,6 +326,9 @@ export function scanSpecSource(code: string, filePath: string): SpecScanResult {
 		filePath,
 		key,
 		version,
+		exportName: metadata.exportName,
+		declarationLine: metadata.declarationLine,
+		discoveryId: buildDiscoveryId(filePath, metadata, key),
 		specType: inferredSpecType.specType,
 		kind: inferredSpecType.kind,
 		description,
@@ -244,41 +358,18 @@ export function scanSpecSource(code: string, filePath: string): SpecScanResult {
 export function inferSpecTypeFromFilePath(
 	filePath: string
 ): SpecScanResult['specType'] | 'feature' | 'unknown' {
-	if (filePath.includes('.contracts.') || /\/operations?\//.test(filePath)) {
-		return 'operation';
-	}
-	if (filePath.includes('.event.') || /\/events?\//.test(filePath)) {
-		return 'event';
-	}
-	if (
-		filePath.includes('.presentation.') ||
-		/\/presentations?\//.test(filePath)
-	) {
-		return 'presentation';
+	const authoringTarget = inferAuthoringTargetFromFilePath(filePath);
+	if (authoringTarget !== 'unknown') {
+		return authoringTarget;
 	}
 	if (filePath.includes('.policy.') || /\/policies?\//.test(filePath)) {
 		return 'policy';
-	}
-	if (filePath.includes('.feature.') || /\/features?\//.test(filePath)) {
-		return 'feature';
 	}
 	if (filePath.includes('.type.') || /\/types?\//.test(filePath)) {
 		return 'type';
 	}
 	if (filePath.includes('.example.') || /\/examples?\//.test(filePath)) {
 		return 'example';
-	}
-	if (filePath.includes('.app-config.')) {
-		return 'app-config';
-	}
-	if (filePath.includes('.workflow.') || /\/workflows?\//.test(filePath)) {
-		return 'workflow';
-	}
-	if (
-		filePath.includes('.integration.') ||
-		/\/integrations?\//.test(filePath)
-	) {
-		return 'integration';
 	}
 	return 'unknown';
 }

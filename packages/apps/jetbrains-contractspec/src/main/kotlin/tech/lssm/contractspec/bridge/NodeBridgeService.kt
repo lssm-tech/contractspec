@@ -78,9 +78,9 @@ interface NodeBridgeService {
     fun initExample(exampleId: String, outputPath: String): CompletableFuture<BridgeResponse>
 
     // Setup methods
-    fun runSetupWizard(): CompletableFuture<BridgeResponse>
+    fun runSetupWizard(options: SetupWizardParams? = null): CompletableFuture<BridgeResponse>
 
-    fun runQuickSetup(): CompletableFuture<BridgeResponse>
+    fun runQuickSetup(options: QuickSetupParams? = null): CompletableFuture<BridgeResponse>
 
     fun runDoctorCheck(): CompletableFuture<BridgeResponse>
 
@@ -95,6 +95,18 @@ interface NodeBridgeService {
     fun verifyImplementation(specPath: String, implementationPaths: List<String>): CompletableFuture<BridgeResponse>
 }
 
+data class SetupWizardParams(
+    val preset: String? = null,
+    val projectName: String? = null,
+    val builderApiBaseUrl: String? = null,
+    val builderLocalRuntimeId: String? = null,
+    val builderLocalGrantedTo: String? = null
+)
+
+data class QuickSetupParams(
+    val preset: String? = null
+)
+
 /**
  * Response from bridge operations.
  */
@@ -103,5 +115,4 @@ data class BridgeResponse(
     val data: JsonObject? = null,
     val error: String? = null
 )
-
 

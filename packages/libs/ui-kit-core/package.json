@@ -43,6 +43,15 @@
 	},
 	"exports": {
 		".": "./src/index.ts",
+		"./interfaces": "./src/interfaces/index.ts",
+		"./interfaces/collections": "./src/interfaces/collections.ts",
+		"./interfaces/common": "./src/interfaces/common.ts",
+		"./interfaces/feedback": "./src/interfaces/feedback.ts",
+		"./interfaces/forms": "./src/interfaces/forms.ts",
+		"./interfaces/layout": "./src/interfaces/layout.ts",
+		"./interfaces/marketing": "./src/interfaces/marketing.ts",
+		"./interfaces/registry": "./src/interfaces/registry.ts",
+		"./interfaces/visualization": "./src/interfaces/visualization.ts",
 		"./utils": "./src/utils.ts"
 	},
 	"files": [
@@ -57,6 +66,60 @@
 				"browser": "./dist/browser/index.js",
 				"bun": "./dist/index.js",
 				"default": "./dist/index.js"
+			},
+			"./interfaces": {
+				"types": "./dist/interfaces/index.d.ts",
+				"browser": "./dist/browser/interfaces/index.js",
+				"bun": "./dist/interfaces/index.js",
+				"default": "./dist/interfaces/index.js"
+			},
+			"./interfaces/collections": {
+				"types": "./dist/interfaces/collections.d.ts",
+				"browser": "./dist/browser/interfaces/collections.js",
+				"bun": "./dist/interfaces/collections.js",
+				"default": "./dist/interfaces/collections.js"
+			},
+			"./interfaces/common": {
+				"types": "./dist/interfaces/common.d.ts",
+				"browser": "./dist/browser/interfaces/common.js",
+				"bun": "./dist/interfaces/common.js",
+				"default": "./dist/interfaces/common.js"
+			},
+			"./interfaces/feedback": {
+				"types": "./dist/interfaces/feedback.d.ts",
+				"browser": "./dist/browser/interfaces/feedback.js",
+				"bun": "./dist/interfaces/feedback.js",
+				"default": "./dist/interfaces/feedback.js"
+			},
+			"./interfaces/forms": {
+				"types": "./dist/interfaces/forms.d.ts",
+				"browser": "./dist/browser/interfaces/forms.js",
+				"bun": "./dist/interfaces/forms.js",
+				"default": "./dist/interfaces/forms.js"
+			},
+			"./interfaces/layout": {
+				"types": "./dist/interfaces/layout.d.ts",
+				"browser": "./dist/browser/interfaces/layout.js",
+				"bun": "./dist/interfaces/layout.js",
+				"default": "./dist/interfaces/layout.js"
+			},
+			"./interfaces/marketing": {
+				"types": "./dist/interfaces/marketing.d.ts",
+				"browser": "./dist/browser/interfaces/marketing.js",
+				"bun": "./dist/interfaces/marketing.js",
+				"default": "./dist/interfaces/marketing.js"
+			},
+			"./interfaces/registry": {
+				"types": "./dist/interfaces/registry.d.ts",
+				"browser": "./dist/browser/interfaces/registry.js",
+				"bun": "./dist/interfaces/registry.js",
+				"default": "./dist/interfaces/registry.js"
+			},
+			"./interfaces/visualization": {
+				"types": "./dist/interfaces/visualization.d.ts",
+				"browser": "./dist/browser/interfaces/visualization.js",
+				"bun": "./dist/interfaces/visualization.js",
+				"default": "./dist/interfaces/visualization.js"
 			},
 			"./utils": {
 				"types": "./dist/utils.d.ts",

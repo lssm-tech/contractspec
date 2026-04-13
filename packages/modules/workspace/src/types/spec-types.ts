@@ -5,7 +5,7 @@
 
 import type { OpKind } from '@contractspec/lib.contracts-spec';
 
-export type SpecType =
+export type LegacySpecType =
 	| 'operation'
 	| 'event'
 	| 'presentation'
@@ -19,6 +19,8 @@ export type SpecType =
 	| 'app-config'
 	| 'integration'
 	| 'knowledge';
+
+export type SpecType = LegacySpecType;
 
 export type PresentationKind = 'web_component' | 'markdown' | 'data';
 

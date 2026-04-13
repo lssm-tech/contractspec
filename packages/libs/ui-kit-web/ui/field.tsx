@@ -1,5 +1,10 @@
 'use client';
 
+import type {
+	SharedFieldErrorProps,
+	SharedFieldLegendProps,
+	SharedFieldProps,
+} from '@contractspec/lib.ui-kit-core/interfaces';
 import { cn } from '@contractspec/lib.ui-kit-core/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
 import * as React from 'react';
@@ -27,9 +32,7 @@ function FieldLegend({
 	className,
 	variant = 'legend',
 	...props
-}: React.ComponentPropsWithoutRef<'legend'> & {
-	variant?: 'legend' | 'label';
-}) {
+}: React.ComponentPropsWithoutRef<'legend'> & SharedFieldLegendProps) {
 	return (
 		<legend
 			data-slot="field-legend"
@@ -89,7 +92,9 @@ function Field({
 	className,
 	orientation = 'vertical',
 	...props
-}: React.ComponentPropsWithoutRef<'div'> & VariantProps<typeof fieldVariants>) {
+}: React.ComponentPropsWithoutRef<'div'> &
+	SharedFieldProps &
+	VariantProps<typeof fieldVariants>) {
 	return (
 		<div
 			role="group"
@@ -204,9 +209,7 @@ function FieldError({
 	children,
 	errors,
 	...props
-}: React.ComponentPropsWithoutRef<'div'> & {
-	errors?: ({ message?: string } | undefined)[];
-}) {
+}: React.ComponentPropsWithoutRef<'div'> & SharedFieldErrorProps) {
 	const content = React.useMemo(() => {
 		if (children) {
 			return children;

@@ -1,5 +1,6 @@
 'use client';
 
+import type { SharedDatePickerProps } from '@contractspec/lib.ui-kit-core/interfaces';
 import { cn } from '@contractspec/lib.ui-kit-core/utils';
 import { CalendarIcon } from 'lucide-react';
 import * as React from 'react';
@@ -8,14 +9,7 @@ import { Calendar } from './calendar';
 import { Input } from './input';
 import { Popover, PopoverContent, PopoverTrigger } from './popover';
 
-export interface DatePickerProps {
-	value: Date | null;
-	onChange: (date: Date | null) => void;
-	disabled?: boolean;
-	minDate?: Date;
-	maxDate?: Date;
-	placeholder?: string;
-	className?: string;
+export interface DatePickerProps extends SharedDatePickerProps {
 	language?: string;
 }
 

@@ -11,6 +11,7 @@ import { existsSync } from 'node:fs';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, resolve } from 'node:path';
 import {
+	ALL_SETUP_PRESETS,
 	ALL_SETUP_TARGETS,
 	createNodeFsAdapter,
 	findPackageRoot,
@@ -18,7 +19,11 @@ import {
 	getPackageName,
 	isMonorepo,
 	runSetup,
+	SETUP_PRESET_DESCRIPTIONS,
+	SETUP_PRESET_LABELS,
 	SETUP_TARGET_LABELS,
+	type SetupGitignoreBehavior,
+	type SetupPreset,
 	type SetupPromptCallbacks,
 	type SetupScope,
 	type SetupTarget,
@@ -44,26 +49,31 @@ import {
  */
 function createCliPrompts(): SetupPromptCallbacks {
 	return {
-		confirm: async (message: string) => {
-			return confirm({ message });
+		confirm: async (message: string, defaultValue?: boolean) => {
+			return confirm({ default: defaultValue, message });
+		},
+		select: async <T extends string>(
+			message: string,
+			options: {
+				value: T;
+				label: string;
+				description?: string;
+				selected?: boolean;
+			}[]
+		): Promise<T> => {
+			return select({
+				message,
+				choices: options.map((o) => ({
+					value: o.value,
+					name: o.description ? `${o.label} — ${o.description}` : o.label,
+				})),
+				default: options.find((o) => o.selected)?.value,
+			});
 		},
 		multiSelect: async <T extends string>(
 			message: string,
 			options: { value: T; label: string; selected?: boolean }[]
 		): Promise<T[]> => {
-			// Special handling for scope selection (single choice)
-			if (message.includes('Configure at which level')) {
-				const result = await select({
-					message,
-					choices: options.map((o) => ({
-						value: o.value,
-						name: o.label,
-					})),
-					default: options.find((o) => o.selected)?.value,
-				});
-				return [result];
-			}
-
 			return checkbox({
 				message,
 				choices: options.map((o) => ({
@@ -100,6 +110,33 @@ function parseTargets(value: string): SetupTarget[] {
 	return targets;
 }
 
+function parsePreset(value: string): SetupPreset | undefined {
+	if (!value) {
+		return undefined;
+	}
+
+	if (ALL_SETUP_PRESETS.includes(value as SetupPreset)) {
+		return value as SetupPreset;
+	}
+
+	console.warn(
+		chalk.yellow(`Warning: Unknown preset '${value}', using defaults.`)
+	);
+	return undefined;
+}
+
+function parseGitignoreBehavior(
+	value: boolean | undefined
+): SetupGitignoreBehavior | undefined {
+	if (value === true) {
+		return 'force';
+	}
+	if (value === false) {
+		return 'skip';
+	}
+	return undefined;
+}
+
 export const initCommand = new Command('init')
 	.description('Set up ContractSpec in your project')
 	.option('-y, --yes', 'Skip prompts, use defaults', false)
@@ -108,6 +145,13 @@ export const initCommand = new Command('init')
 		`Comma-separated list of targets: ${ALL_SETUP_TARGETS.join(', ')}`,
 		''
 	)
+	.option(
+		'--preset <preset>',
+		`Initialization preset: ${ALL_SETUP_PRESETS.join(', ')}`,
+		''
+	)
+	.option('--gitignore', 'Apply recommended ContractSpec .gitignore rules')
+	.option('--no-gitignore', 'Skip ContractSpec .gitignore updates')
 	.option('--project-name <name>', 'Project name for generated files')
 	.option('--owners <owners>', 'Default code owners (comma-separated)')
 	.option('--scope <scope>', 'Configuration scope: workspace or package', '')
@@ -145,6 +189,7 @@ export const initCommand = new Command('init')
 		if (options.targets) {
 			targets = parseTargets(options.targets);
 		}
+		const preset = parsePreset(options.preset);
 
 		// Parse owners
 		let defaultOwners: string[] | undefined;
@@ -157,8 +202,21 @@ export const initCommand = new Command('init')
 		if (options.scope === 'workspace' || options.scope === 'package') {
 			scope = options.scope;
 		}
+		const gitignoreBehavior = parseGitignoreBehavior(options.gitignore);
 
-		// Show available targets
+		// Show available presets and targets
+		if (interactive) {
+			console.log(chalk.gray('Available initialization presets:\n'));
+			for (const value of ALL_SETUP_PRESETS) {
+				console.log(
+					`  ${chalk.cyan('•')} ${SETUP_PRESET_LABELS[value]}${chalk.gray(
+						` — ${SETUP_PRESET_DESCRIPTIONS[value]}`
+					)}`
+				);
+			}
+			console.log();
+		}
+
 		if (interactive && targets.length === 0) {
 			console.log(chalk.gray('Available configuration targets:\n'));
 			for (const target of ALL_SETUP_TARGETS) {
@@ -187,9 +245,11 @@ export const initCommand = new Command('init')
 					scope,
 					packageName,
 					interactive,
+					preset,
 					targets,
 					projectName: options.projectName,
 					defaultOwners,
+					gitignoreBehavior,
 				},
 				interactive ? prompts : undefined
 			);
@@ -231,6 +291,9 @@ export const initCommand = new Command('init')
 			const errors = result.files.filter((f) => f.action === 'error').length;
 
 			console.log(chalk.bold('\n📊 Summary:\n'));
+			console.log(
+				`  ${chalk.cyan('preset')}: ${SETUP_PRESET_LABELS[result.preset]}`
+			);
 			if (created > 0) console.log(`  ${chalk.green(`${created} created`)}`);
 			if (merged > 0) console.log(`  ${chalk.blue(`${merged} merged`)}`);
 			if (skipped > 0) console.log(`  ${chalk.yellow(`${skipped} skipped`)}`);
@@ -238,13 +301,9 @@ export const initCommand = new Command('init')
 
 			// Next steps
 			console.log(chalk.bold('\n🚀 Next steps:\n'));
-			console.log(`  1. Review generated files`);
-			console.log(
-				`  2. Run ${chalk.cyan('contractspec create')} to create your first spec`
-			);
-			console.log(
-				`  3. Run ${chalk.cyan('contractspec validate')} to check specs`
-			);
+			for (const [index, step] of result.nextSteps.entries()) {
+				console.log(`  ${index + 1}. ${chalk.cyan(step)}`);
+			}
 			console.log();
 
 			// Offer OpenAPI import if interactive

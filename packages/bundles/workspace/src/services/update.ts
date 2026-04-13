@@ -9,6 +9,13 @@ import {
 	type SpecScanResult,
 	scanSpecSource,
 } from '@contractspec/module.workspace';
+import {
+	IndentationText,
+	Node,
+	Project,
+	QuoteKind,
+	SyntaxKind,
+} from 'ts-morph';
 import type { FsAdapter } from '../ports/fs';
 import type { LoggerAdapter } from '../ports/logger';
 import { validateSpec } from './validate/spec-validator';
@@ -151,26 +158,113 @@ export async function updateSpec(
  * Handles common patterns like `stability: "beta"` or `key: "foo.bar"`.
  */
 function applyFieldPatches(code: string, fields: SpecFieldPatch[]): string {
-	let result = code;
-
-	for (const { key, value } of fields) {
-		const fieldName = key.includes('.') ? key.split('.').pop() : key;
-		if (!fieldName) continue;
-
-		const pattern = new RegExp(
-			`(${escapeRegex(fieldName)}\\s*:\\s*)(['"\`])([^'"\`]*?)\\2`,
-			'g'
-		);
-
-		const needsQuotes = !/^(true|false|\d+(\.\d+)?)$/.test(value);
-		const replacement = needsQuotes ? `$1"${value}"` : `$1${value}`;
-
-		result = result.replace(pattern, replacement);
+	const project = new Project({
+		useInMemoryFileSystem: true,
+		manipulationSettings: {
+			indentationText: IndentationText.TwoSpaces,
+			quoteKind: QuoteKind.Double,
+		},
+	});
+	const sourceFile = project.createSourceFile('spec.ts', code, {
+		overwrite: true,
+	});
+	const rootObject = findEditableRootObject(sourceFile);
+	if (!rootObject) {
+		return code;
 	}
 
-	return result;
+	for (const field of fields) {
+		applyStructuredPatch(rootObject, field);
+	}
+
+	return sourceFile.getFullText();
 }
 
-function escapeRegex(str: string): string {
-	return str.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
+function applyStructuredPatch(
+	rootObject: import('ts-morph').ObjectLiteralExpression,
+	field: SpecFieldPatch
+) {
+	const path = field.key
+		.split('.')
+		.map((segment) => segment.trim())
+		.filter(Boolean);
+	if (path.length === 0) {
+		return;
+	}
+
+	let current = rootObject;
+	for (const segment of path.slice(0, -1)) {
+		const next = current.getProperty(segment);
+		if (!next) {
+			current.addPropertyAssignment({
+				name: segment,
+				initializer: '{}',
+			});
+		}
+		const property = current.getPropertyOrThrow(segment);
+		if (!Node.isPropertyAssignment(property)) {
+			return;
+		}
+		const initializer = property.getInitializer();
+		if (!initializer || !Node.isObjectLiteralExpression(initializer)) {
+			property.setInitializer('{}');
+		}
+		const objectLiteral = property.getInitializerIfKind(
+			SyntaxKind.ObjectLiteralExpression
+		);
+		if (!objectLiteral) {
+			return;
+		}
+		current = objectLiteral;
+	}
+
+	const leafKey = path[path.length - 1];
+	if (!leafKey) {
+		return;
+	}
+
+	const initializer = toInitializer(field.value);
+	const existing = current.getProperty(leafKey);
+	if (existing && Node.isPropertyAssignment(existing)) {
+		existing.setInitializer(initializer);
+		return;
+	}
+
+	current.addPropertyAssignment({
+		name: leafKey,
+		initializer,
+	});
+}
+
+function findEditableRootObject(sourceFile: import('ts-morph').SourceFile) {
+	for (const declaration of sourceFile.getVariableDeclarations()) {
+		const initializer = declaration.getInitializer();
+		if (!initializer) {
+			continue;
+		}
+
+		if (Node.isObjectLiteralExpression(initializer)) {
+			return initializer;
+		}
+
+		if (Node.isCallExpression(initializer)) {
+			const firstArgument = initializer.getArguments()[0];
+			if (firstArgument && Node.isObjectLiteralExpression(firstArgument)) {
+				return firstArgument;
+			}
+		}
+	}
+
+	return undefined;
+}
+
+function toInitializer(value: string) {
+	try {
+		return JSON.stringify(JSON.parse(value), null, 2);
+	} catch {
+		if (/^(true|false|null|-?\d+(\.\d+)?)$/.test(value)) {
+			return value;
+		}
+		return JSON.stringify(value);
+	}
 }

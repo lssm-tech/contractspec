@@ -11,6 +11,11 @@ import {
 	ReleaseEnforceOnSchema,
 } from '../versioning/schema';
 import type {
+	BuilderApiConfig,
+	BuilderBootstrapPreset,
+	BuilderConfig,
+	BuilderLocalRuntimeConfig,
+	BuilderRuntimeMode,
 	BumpStrategy,
 	ChangelogFormat,
 	ChangelogTier,
@@ -139,6 +144,42 @@ export const OpenApiConfigSchema: z.ZodType<OpenApiConfig> = z.object({
 	sources: z.array(OpenApiSourceConfigSchema).optional(),
 	/** Export configuration */
 	export: OpenApiExportConfigSchema.optional(),
+});
+
+export const BuilderRuntimeModeSchema: z.ZodType<BuilderRuntimeMode> = z.enum([
+	'managed',
+	'local',
+	'hybrid',
+]);
+
+export const BuilderBootstrapPresetSchema: z.ZodType<BuilderBootstrapPreset> =
+	z.enum(['managed_mvp', 'local_daemon_mvp', 'hybrid_mvp']);
+
+export const BuilderApiConfigSchema: z.ZodType<BuilderApiConfig> = z.object({
+	baseUrl: z.string().url().optional(),
+	controlPlaneTokenEnvVar: z
+		.string()
+		.default('CONTROL_PLANE_API_TOKEN')
+		.optional(),
+});
+
+export const BuilderLocalRuntimeConfigSchema: z.ZodType<BuilderLocalRuntimeConfig> =
+	z.object({
+		runtimeId: z.string().default('rt_local_daemon').optional(),
+		grantedTo: z.string().default('local:operator').optional(),
+		providerIds: z
+			.array(z.string())
+			.default(['provider.codex', 'provider.local.model'])
+			.optional(),
+	});
+
+export const BuilderConfigSchema: z.ZodType<BuilderConfig> = z.object({
+	enabled: z.boolean().default(false).optional(),
+	runtimeMode: BuilderRuntimeModeSchema.default('managed').optional(),
+	bootstrapPreset:
+		BuilderBootstrapPresetSchema.default('managed_mvp').optional(),
+	api: BuilderApiConfigSchema.optional(),
+	localRuntime: BuilderLocalRuntimeConfigSchema.optional(),
 });
 
 /**
@@ -720,6 +761,7 @@ export const HooksConfigSchema: z.ZodType<HooksConfig> = z.record(
  * Full ContractSpec configuration schema (.contractsrc.json).
  */
 export const ContractsrcSchema: z.ZodType<ContractsrcFileConfig> = z.object({
+	$schema: z.string().optional(),
 	aiProvider: z
 		.enum(['claude', 'openai', 'ollama', 'mistral', 'custom'])
 		.default('claude')
@@ -773,6 +815,8 @@ export const ContractsrcSchema: z.ZodType<ContractsrcFileConfig> = z.object({
 	ruleSync: RuleSyncConfigSchema.optional(),
 	// External agent SDK configuration
 	externalAgents: ExternalAgentsConfigSchema.optional(),
+	// Builder initialization/runtime configuration
+	builder: BuilderConfigSchema.optional(),
 	// ContractSpec Connect configuration
 	connect: ConnectConfigSchema.optional(),
 });
@@ -812,6 +856,19 @@ export const DEFAULT_CONTRACTSRC: ResolvedContractsrcConfig = {
 		defaultAgentTarget: 'codex',
 		enableInteractiveGuidance: true,
 		applyCodemods: true,
+	},
+	builder: {
+		enabled: false,
+		runtimeMode: 'managed',
+		bootstrapPreset: 'managed_mvp',
+		api: {
+			controlPlaneTokenEnvVar: 'CONTROL_PLANE_API_TOKEN',
+		},
+		localRuntime: {
+			runtimeId: 'rt_local_daemon',
+			grantedTo: 'local:operator',
+			providerIds: ['provider.codex', 'provider.local.model'],
+		},
 	},
 	connect: {
 		enabled: false,

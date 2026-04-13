@@ -44,6 +44,19 @@ describe('TestingConfigSchema', () => {
 });
 
 describe('ContractsrcSchema with testing', () => {
+	it('should allow a local or remote $schema reference', () => {
+		const result = ContractsrcSchema.safeParse({
+			$schema: './node_modules/contractspec/contractsrc.schema.json',
+		});
+
+		expect(result.success).toBe(true);
+		if (result.success) {
+			expect(result.data.$schema).toBe(
+				'./node_modules/contractspec/contractsrc.schema.json'
+			);
+		}
+	});
+
 	it('should allow testing section in full config', () => {
 		const config = {
 			testing: {
@@ -159,6 +172,48 @@ describe('ContractsrcSchema with testing', () => {
 						mode: 'native-hook',
 					},
 				},
+			},
+		});
+
+		expect(result.success).toBe(false);
+	});
+
+	it('should allow a builder section in full config', () => {
+		const result = ContractsrcSchema.safeParse({
+			builder: {
+				enabled: true,
+				runtimeMode: 'hybrid',
+				bootstrapPreset: 'hybrid_mvp',
+				api: {
+					baseUrl: 'https://api.contractspec.io',
+					controlPlaneTokenEnvVar: 'CONTROL_PLANE_API_TOKEN',
+				},
+				localRuntime: {
+					runtimeId: 'rt_local_demo',
+					grantedTo: 'operator:demo',
+					providerIds: ['provider.codex', 'provider.local.model'],
+				},
+			},
+		});
+
+		expect(result.success).toBe(true);
+		if (result.success) {
+			expect(result.data.builder?.enabled).toBe(true);
+			expect(result.data.builder?.runtimeMode).toBe('hybrid');
+			expect(result.data.builder?.bootstrapPreset).toBe('hybrid_mvp');
+			expect(result.data.builder?.api?.baseUrl).toBe(
+				'https://api.contractspec.io'
+			);
+			expect(result.data.builder?.localRuntime?.runtimeId).toBe(
+				'rt_local_demo'
+			);
+		}
+	});
+
+	it('should reject invalid builder runtime modes', () => {
+		const result = ContractsrcSchema.safeParse({
+			builder: {
+				runtimeMode: 'self-hosted',
 			},
 		});
 

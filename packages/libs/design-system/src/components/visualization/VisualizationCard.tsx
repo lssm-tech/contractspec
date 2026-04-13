@@ -11,6 +11,11 @@ import {
 } from '@contractspec/lib.ui-kit-web/ui/card';
 import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 import * as React from 'react';
+import {
+	resolveTranslationNode,
+	resolveTranslationString,
+	useDesignSystemTranslation,
+} from '../../i18n/translation';
 import { VisualizationRenderer } from './VisualizationRenderer';
 
 export interface VisualizationCardProps {
@@ -34,18 +39,27 @@ export function VisualizationCard({
 	contentClassName,
 	height,
 }: VisualizationCardProps) {
+	const translate = useDesignSystemTranslation();
+	const resolvedTitle =
+		title ?? resolveTranslationNode(spec.meta.title, translate);
+	const resolvedDescription =
+		description ?? resolveTranslationString(spec.meta.description, translate);
+
 	return (
 		<Card className={className}>
-			{title || description ? (
+			{resolvedTitle || resolvedDescription ? (
 				<CardHeader className="gap-2">
-					{title ? <CardTitle>{title}</CardTitle> : null}
-					{description ? (
-						<CardDescription>{description}</CardDescription>
+					{resolvedTitle ? <CardTitle>{resolvedTitle}</CardTitle> : null}
+					{resolvedDescription ? (
+						<CardDescription>{resolvedDescription}</CardDescription>
 					) : null}
 				</CardHeader>
 			) : null}
 			<CardContent
-				className={cn(title || description ? 'pt-0' : '', contentClassName)}
+				className={cn(
+					resolvedTitle || resolvedDescription ? 'pt-0' : '',
+					contentClassName
+				)}
 			>
 				<VisualizationRenderer data={data} height={height} spec={spec} />
 			</CardContent>

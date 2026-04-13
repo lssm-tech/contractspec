@@ -254,6 +254,7 @@
 		"./features/validation": "./src/features/validation.ts",
 		"./forms": "./src/forms/index.ts",
 		"./forms/forms": "./src/forms/forms.ts",
+		"./forms/richFieldsShowcase.form": "./src/forms/richFieldsShowcase.form.ts",
 		"./harness": "./src/harness/index.ts",
 		"./harness/capabilities": "./src/harness/capabilities/index.ts",
 		"./harness/capabilities/harnessEvaluation.capability": "./src/harness/capabilities/harnessEvaluation.capability.ts",
@@ -1675,6 +1676,12 @@
 				"bun": "./dist/forms/forms.js",
 				"node": "./dist/node/forms/forms.js",
 				"default": "./dist/forms/forms.js"
+			},
+			"./forms/richFieldsShowcase.form": {
+				"types": "./dist/forms/richFieldsShowcase.form.d.ts",
+				"bun": "./dist/forms/richFieldsShowcase.form.js",
+				"node": "./dist/node/forms/richFieldsShowcase.form.js",
+				"default": "./dist/forms/richFieldsShowcase.form.js"
 			},
 			"./harness": {
 				"types": "./dist/harness/index.d.ts",

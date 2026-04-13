@@ -1,39 +1,12 @@
+import type {
+	SharedUseListStateOptions,
+	SharedUseListStateReturn,
+} from '@contractspec/lib.ui-kit-core/interfaces';
 import { useCallback, useMemo, useState } from 'react';
 
-export interface UseListStateOptions {
-	initialSearch?: string;
-	initialFilters?: Record<string, string>;
-	initialPage?: number;
-	initialItemsPerPage?: number;
-	debounceMs?: number;
-}
+export interface UseListStateOptions extends SharedUseListStateOptions {}
 
-export interface UseListStateReturn {
-	// Search
-	searchQuery: string;
-	setSearchQuery: (query: string) => void;
-
-	// Filters
-	filters: Record<string, string>;
-	setFilter: (key: string, value: string) => void;
-	clearFilters: () => void;
-
-	// Pagination
-	currentPage: number;
-	itemsPerPage: number;
-	setCurrentPage: (page: number) => void;
-	setItemsPerPage: (itemsPerPage: number) => void;
-
-	// Combined state for API calls
-	queryParams: {
-		search: string;
-		page: number;
-		limit: number;
-	} & Record<string, string | number>;
-
-	// Reset all
-	resetAll: () => void;
-}
+export interface UseListStateReturn extends SharedUseListStateReturn {}
 
 export const useListState = ({
 	initialSearch = '',

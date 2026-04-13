@@ -9,6 +9,10 @@ import { Pagination as TablePagination } from '@contractspec/lib.ui-kit/ui/atoms
 import { VStack } from '@contractspec/lib.ui-kit/ui/stack';
 import { Text } from '@contractspec/lib.ui-kit/ui/text';
 import * as React from 'react';
+import {
+	resolveTranslationString,
+	useDesignSystemTranslation,
+} from '../../i18n/translation';
 import { FiltersToolbar } from '../molecules/FiltersToolbar';
 import { DataViewDetail } from './DataViewDetail';
 import { DataViewList } from './DataViewList';
@@ -55,6 +59,7 @@ export function DataViewRenderer({
 	pagination,
 	onPageChange,
 }: DataViewRendererProps) {
+	const translate = useDesignSystemTranslation();
 	const viewContent = React.useMemo(() => {
 		switch (spec.view.kind) {
 			case 'list':
@@ -117,7 +122,11 @@ export function DataViewRenderer({
 				);
 			}
 			default:
-				return <Text className={className}>Unsupported data view kind</Text>;
+				return (
+					<Text className={className}>
+						{resolveTranslationString('Unsupported data view kind', translate)}
+					</Text>
+				);
 		}
 	}, [
 		spec,
@@ -130,6 +139,7 @@ export function DataViewRenderer({
 		headerActions,
 		emptyState,
 		footer,
+		translate,
 	]);
 
 	const isCollection =
@@ -147,7 +157,9 @@ export function DataViewRenderer({
 				<FiltersToolbar
 					searchValue={search}
 					onSearchChange={onSearchChange}
-					searchPlaceholder="Search..."
+					searchPlaceholder={
+						resolveTranslationString('Search...', translate) ?? 'Search...'
+					}
 					activeChips={
 						filters
 							? Object.entries(filters).map(([key, value]) => ({

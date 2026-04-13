@@ -3,6 +3,7 @@
  */
 
 import {
+	type SpecScanResult,
 	type ValidationResult,
 	validateSpecStructure,
 } from '@contractspec/module.workspace';
@@ -31,6 +32,43 @@ export interface ValidateSpecResult {
 	code?: string;
 }
 
+export interface DiscoveredSpecValidationResult extends ValidateSpecResult {
+	spec: SpecScanResult;
+}
+
+export function validateScannedSpec(
+	spec: SpecScanResult,
+	options: ValidateSpecOptions = {}
+): ValidateSpecResult {
+	const allErrors: string[] = [];
+	const allWarnings: string[] = [];
+	let structureResult: ValidationResult | undefined;
+
+	if (!options.skipStructure) {
+		structureResult = validateSpecStructure(spec);
+		allErrors.push(...structureResult.errors);
+		allWarnings.push(...structureResult.warnings);
+	}
+
+	return {
+		valid: allErrors.length === 0,
+		structureResult,
+		errors: allErrors,
+		warnings: allWarnings,
+		code: spec.sourceBlock,
+	};
+}
+
+export async function validateDiscoveredSpecs(
+	specs: SpecScanResult[],
+	options: ValidateSpecOptions = {}
+): Promise<DiscoveredSpecValidationResult[]> {
+	return specs.map((spec) => ({
+		spec,
+		...validateScannedSpec(spec, options),
+	}));
+}
+
 /**
  * Validate a spec file.
  */
@@ -55,16 +93,15 @@ export async function validateSpec(
 
 	const allErrors: string[] = [];
 	const allWarnings: string[] = [];
-	let structureResult: ValidationResult | undefined;
+	let structureResult: ValidationResult | undefined = undefined;
 
 	if (!options.skipStructure) {
-		const specFiles = await listSpecs(adapters, {
-			pattern: specFilePath,
-		});
+		const specFiles = await listSpecs(adapters, { pattern: specFilePath });
 		for (const specFile of specFiles) {
-			structureResult = validateSpecStructure(specFile);
-			allErrors.push(...structureResult.errors);
-			allWarnings.push(...structureResult.warnings);
+			const result = validateScannedSpec(specFile, options);
+			structureResult = result.structureResult;
+			allErrors.push(...result.errors);
+			allWarnings.push(...result.warnings);
 		}
 	}
 

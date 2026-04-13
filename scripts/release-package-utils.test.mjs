@@ -12,6 +12,7 @@ const tempDirs = [];
 
 afterEach(() => {
 	delete process.env.CONTRACTSPEC_RELEASE_PACKAGE_NAMES;
+	delete process.env.CONTRACTSPEC_RELEASE_PACKAGE_NAMES_SPECIFIED;
 	while (tempDirs.length > 0) {
 		fs.rmSync(tempDirs.pop(), { force: true, recursive: true });
 	}
@@ -217,6 +218,25 @@ describe('getPackageNameSelection', () => {
 				packageNames: [],
 			})
 		).toEqual({
+			packageNames: [],
+			packageNamesSpecified: true,
+		});
+	});
+
+	it('treats an explicit empty env override as a no-op selection', () => {
+		process.env.CONTRACTSPEC_RELEASE_PACKAGE_NAMES = '';
+		process.env.CONTRACTSPEC_RELEASE_PACKAGE_NAMES_SPECIFIED = '1';
+
+		expect(getPackageNameSelection()).toEqual({
+			packageNames: [],
+			packageNamesSpecified: true,
+		});
+	});
+
+	it('treats an explicit selection flag without names as a no-op selection', () => {
+		process.env.CONTRACTSPEC_RELEASE_PACKAGE_NAMES_SPECIFIED = 'true';
+
+		expect(getPackageNameSelection()).toEqual({
 			packageNames: [],
 			packageNamesSpecified: true,
 		});

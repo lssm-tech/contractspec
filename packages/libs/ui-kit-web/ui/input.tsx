@@ -1,7 +1,9 @@
+import type { SharedInputProps } from '@contractspec/lib.ui-kit-core/interfaces';
 import { cn } from '@contractspec/lib.ui-kit-core/utils';
 import * as React from 'react';
 
-export type InputProps = React.ComponentPropsWithoutRef<'input'>;
+export type InputProps = SharedInputProps &
+	React.ComponentPropsWithoutRef<'input'>;
 
 function Input({ className, type, ...props }: InputProps) {
 	return (

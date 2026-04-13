@@ -5,8 +5,8 @@
  */
 
 import {
+	discoverSpecs,
 	groupSpecsByType,
-	listSpecs,
 	loadWorkspaceConfig,
 	resolveImplementations,
 	type SpecImplementationResult,
@@ -186,7 +186,7 @@ export class SpecsTreeDataProvider
 	async refresh(): Promise<void> {
 		try {
 			const adapters = getWorkspaceAdapters();
-			const rawSpecs = await listSpecs(adapters);
+			const rawSpecs = await discoverSpecs(adapters);
 
 			// Enrich specs with package info and namespace
 			const workspaceInfo = isMonorepoWorkspace()
@@ -365,6 +365,10 @@ export class SpecsTreeDataProvider
 		const name = spec.key || path.basename(spec.filePath);
 		const version = spec.version ? ` v${spec.version}` : '';
 		const stability = spec.stability ? ` [${spec.stability}]` : '';
+		const exportName =
+			spec.exportName && spec.exportName !== spec.key
+				? ` · ${spec.exportName}`
+				: '';
 
 		// Add implementation status indicator
 		let implIndicator = '';
@@ -383,7 +387,7 @@ export class SpecsTreeDataProvider
 		}
 
 		return new SpecTreeItem(
-			`${name}${version}${stability}${implIndicator}`,
+			`${name}${version}${exportName}${stability}${implIndicator}`,
 			vscode.TreeItemCollapsibleState.None,
 			'spec',
 			spec
@@ -650,12 +654,16 @@ export class SpecTreeItem extends vscode.TreeItem {
 			}
 
 			this.tooltip = tooltipLines.join('\n');
-			this.description = path.basename(data.filePath);
+			this.description = data.declarationLine
+				? `${path.basename(data.filePath)}:${data.declarationLine}`
+				: path.basename(data.filePath);
 			this.resourceUri = vscode.Uri.file(data.filePath);
+			const line = Math.max((data.declarationLine ?? 1) - 1, 0);
+			const selection = new vscode.Range(line, 0, line, 0);
 			this.command = {
 				command: 'vscode.open',
 				title: 'Open Spec',
-				arguments: [this.resourceUri],
+				arguments: [this.resourceUri, { selection }],
 			};
 
 			// Set icon based on spec type and implementation status

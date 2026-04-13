@@ -1,3 +1,4 @@
+import type { SharedDatePickerProps } from '@contractspec/lib.ui-kit-core/interfaces';
 import { cn } from '@contractspec/lib.ui-kit-core/utils';
 import type {
 	AndroidNativeProps,
@@ -8,15 +9,7 @@ import { useMemo, useState } from 'react';
 import { Platform, Pressable, View } from 'react-native';
 import { Text } from './text';
 
-export interface DatePickerProps {
-	value: Date | null;
-	onChange: (date: Date | null) => void;
-	disabled?: boolean;
-	minDate?: Date;
-	maxDate?: Date;
-	placeholder?: string;
-	className?: string;
-}
+export interface DatePickerProps extends SharedDatePickerProps {}
 
 function formatDateDisplay(date: Date | null) {
 	if (!date) return '';

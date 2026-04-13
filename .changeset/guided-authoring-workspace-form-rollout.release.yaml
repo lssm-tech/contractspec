@@ -1,0 +1,134 @@
+schemaVersion: "1"
+slug: guided-authoring-workspace-form-rollout
+summary: Expand ContractSpec authoring with preset-driven workspace setup, shell completion, packaged workspace schema artifacts, and richer form and UI surfaces across the CLI, editors, and shared runtimes.
+isBreaking: true
+packages:
+  - name: "contractspec"
+    releaseType: major
+  - name: "@contractspec/app.cli-contractspec"
+    releaseType: major
+  - name: "@contractspec/bundle.workspace"
+    releaseType: minor
+  - name: "@contractspec/module.workspace"
+    releaseType: minor
+  - name: "@contractspec/lib.contracts-spec"
+    releaseType: minor
+  - name: "@contractspec/lib.contracts-runtime-client-react"
+    releaseType: minor
+  - name: "@contractspec/lib.design-system"
+    releaseType: minor
+  - name: "@contractspec/lib.ui-kit-core"
+    releaseType: minor
+  - name: "@contractspec/lib.ui-kit-web"
+    releaseType: minor
+  - name: "@contractspec/lib.ui-kit"
+    releaseType: minor
+  - name: "vscode-contractspec"
+    releaseType: minor
+affectedRuntimes:
+  - bun
+  - node
+  - browser
+  - react-native
+  - vscode
+affectedFrameworks:
+  - react
+  - react-native
+  - commander
+  - vscode
+audiences:
+  - kind: maintainer
+    summary: Maintainers can ship the CLI and workspace packages with preset-driven setup, generated contractsrc schema assets, authoring-target discovery, and unified package-scaffold validation from the same release.
+    affectedPackages:
+      - "contractspec"
+      - "@contractspec/app.cli-contractspec"
+      - "@contractspec/bundle.workspace"
+      - "@contractspec/module.workspace"
+      - "@contractspec/lib.contracts-spec"
+  - kind: integrator
+    summary: Integrators can scaffold feature, form, and package targets, consume the published schema and rich form exports, and reuse the new UI kit primitives across web and React Native surfaces.
+    affectedPackages:
+      - "@contractspec/bundle.workspace"
+      - "@contractspec/module.workspace"
+      - "@contractspec/lib.contracts-spec"
+      - "@contractspec/lib.contracts-runtime-client-react"
+      - "@contractspec/lib.design-system"
+      - "@contractspec/lib.ui-kit-core"
+      - "@contractspec/lib.ui-kit-web"
+      - "@contractspec/lib.ui-kit"
+  - kind: customer
+    summary: CLI and VS Code users get shell completion, guided setup presets, stronger spec discovery, and richer generated form and data-view rendering.
+    affectedPackages:
+      - "contractspec"
+      - "@contractspec/app.cli-contractspec"
+      - "vscode-contractspec"
+      - "@contractspec/lib.design-system"
+      - "@contractspec/lib.contracts-runtime-client-react"
+  - kind: agent
+    summary: Agent and automation workflows need to swap retired contractspec apply invocations for contractspec generate while taking advantage of the new completion and preset-driven init surfaces.
+    affectedPackages:
+      - "contractspec"
+      - "@contractspec/app.cli-contractspec"
+deprecations:
+  - The standalone contractspec apply command has been removed; use contractspec generate for write-generation flows.
+migrationInstructions:
+  - id: replace-cli-apply-command
+    title: Replace retired contractspec apply invocations
+    summary: Update automation, docs, and local shell habits to use the new generate-first CLI flow.
+    required: true
+    when: When scripts, CI jobs, or developer docs still reference contractspec apply.
+    steps:
+      - Replace contractspec apply invocations with the matching contractspec generate command for write-generation workflows.
+      - Reinstall or regenerate shell completion so the updated command tree is available in developer shells.
+      - If you redistribute the contractspec package, ensure the packaged contractsrc.schema.json asset ships with the CLI wrapper.
+upgradeSteps:
+  - id: adopt-guided-authoring-setup
+    title: Adopt preset-driven setup and schema packaging
+    summary: Use the new init presets and packaged schema assets when bootstrapping workspaces or editor integrations.
+    level: assisted
+    instructions:
+      - Run contractspec init --preset core, connect, builder-managed, builder-local, or builder-hybrid instead of hand-authoring the initial workspace config.
+      - Wire editor or automation experiences to the published contractsrc.schema.json artifact rather than copying ad hoc schema snapshots.
+      - Use the new workspace discovery and package-scaffold validation surfaces before materializing authored package targets.
+  - id: adopt-rich-form-surfaces
+    title: Adopt the richer form contract and UI surfaces
+    summary: Switch form-oriented consumers to the new contract exports and UI primitives where you want richer rendering coverage.
+    level: manual
+    packages:
+      - "@contractspec/lib.contracts-spec"
+      - "@contractspec/lib.contracts-runtime-client-react"
+      - "@contractspec/lib.design-system"
+      - "@contractspec/lib.ui-kit-core"
+      - "@contractspec/lib.ui-kit-web"
+      - "@contractspec/lib.ui-kit"
+    instructions:
+      - Import the new form showcase and workspace-schema exports from @contractspec/lib.contracts-spec when validating or demonstrating rich field coverage.
+      - Update React and design-system form renderers to use the new contract-aware field, theme, and translation surfaces.
+      - Adopt the new ui-kit-web and React Native primitives only where the added controls are needed; existing imports continue to work.
+  - id: validate-editor-setup-flow
+    title: Validate the updated editor setup flow
+    summary: Confirm VS Code setup and spec discovery use the new shared workspace flow.
+    level: manual
+    packages:
+      - "vscode-contractspec"
+      - "@contractspec/bundle.workspace"
+      - "@contractspec/module.workspace"
+    instructions:
+      - Open the VS Code extension and run the setup flow to confirm presets, next steps, and spec discovery match CLI behavior.
+      - Verify the refreshed workspace views discover feature, form, and authored package targets through the shared workspace services.
+validation:
+  commands:
+    - cd packages/apps/cli-contractspec && bun test && bun run typecheck
+    - cd packages/bundles/workspace && bun test && bun run typecheck
+    - cd packages/modules/workspace && bun test && bun run typecheck
+    - cd packages/libs/contracts-spec && bun test && bun run typecheck
+    - cd packages/libs/contracts-runtime-client-react && bun test && bun run typecheck
+    - cd packages/libs/design-system && bun test && bun run typecheck
+    - cd packages/libs/ui-kit-core && bun run typecheck
+    - cd packages/libs/ui-kit-web && bun test && bun run typecheck
+    - cd packages/libs/ui-kit && bun run typecheck
+    - cd packages/apps/vscode-contractspec && bun run build:types
+  evidence:
+    - The CLI now ships shell completion, preset-driven setup, and generated workspace schema assets while retiring contractspec apply in favor of contractspec generate.
+    - Workspace services and editor integrations now share authored-target discovery, package scaffold validation, and next-step-oriented setup flows instead of duplicating setup logic per surface.
+    - Form contracts, React runtime renderers, design-system components, and web and native UI kits now expose richer form and data-view primitives plus typed interfaces for downstream consumers.

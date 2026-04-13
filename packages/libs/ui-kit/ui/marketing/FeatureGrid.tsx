@@ -1,24 +1,19 @@
-import * as React from 'react';
+import type {
+	SharedFeatureGridProps,
+	SharedFeatureItem,
+} from '@contractspec/lib.ui-kit-core/interfaces';
 import { View } from 'react-native';
 import { Text } from '../text';
 import { P } from '../typography';
 import { cn } from '../utils';
 
-export interface FeatureItem {
-	title: React.ReactNode;
-	description?: React.ReactNode;
-	icon?: React.ReactNode;
-}
+export interface FeatureItem extends SharedFeatureItem {}
 
 export function FeatureGrid({
 	items,
 	columns = 3,
 	className,
-}: {
-	items: FeatureItem[];
-	columns?: 2 | 3 | 4;
-	className?: string;
-}) {
+}: SharedFeatureGridProps) {
 	const gridCols =
 		columns === 4
 			? 'md:grid-cols-4'

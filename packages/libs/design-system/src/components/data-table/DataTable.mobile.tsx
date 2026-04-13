@@ -14,6 +14,10 @@ import {
 import { DataTable as KitDataTable } from '@contractspec/lib.ui-kit/ui/data-table';
 import { HStack, VStack } from '@contractspec/lib.ui-kit/ui/stack';
 import * as React from 'react';
+import {
+	resolveTranslationNode,
+	useDesignSystemTranslation,
+} from '../../i18n/translation';
 
 export interface DataTableProps<TItem = unknown> {
 	controller: ContractTableController<TItem, React.ReactNode>;
@@ -42,6 +46,7 @@ export function DataTable<TItem>({
 	loading,
 	onRowPress,
 }: DataTableProps<TItem>) {
+	const translate = useDesignSystemTranslation();
 	const showHeader = title || description || headerActions;
 
 	return (
@@ -50,9 +55,15 @@ export function DataTable<TItem>({
 				<CardHeader>
 					<HStack justify="between" align="start">
 						<VStack gap="xs">
-							{title ? <CardTitle>{title}</CardTitle> : null}
+							{title ? (
+								<CardTitle>
+									{resolveTranslationNode(title, translate)}
+								</CardTitle>
+							) : null}
 							{description ? (
-								<CardDescription>{description}</CardDescription>
+								<CardDescription>
+									{resolveTranslationNode(description, translate)}
+								</CardDescription>
 							) : null}
 						</VStack>
 						{headerActions}

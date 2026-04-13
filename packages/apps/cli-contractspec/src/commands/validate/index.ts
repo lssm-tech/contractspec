@@ -1,16 +1,18 @@
 import type { FsAdapter, LoggerAdapter } from '@contractspec/bundle.workspace';
 import {
 	createNodeAdapters,
-	listSpecs,
+	discoverSpecs,
 	validateBlueprint,
+	validateDiscoveredSpecs,
 	validateImplementationFiles,
 	validateImplementationWithAgent,
-	validateSpec,
+	validatePackageScaffold,
 	validateTenantConfig,
 } from '@contractspec/bundle.workspace';
 import type { AppBlueprintSpec } from '@contractspec/lib.contracts-spec/app-config';
 import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts-spec/workspace-config/contractsrc-types';
 import type { SpecScanResult } from '@contractspec/module.workspace';
+import { findAuthoringTargetDefinition } from '@contractspec/module.workspace';
 import { select } from '@inquirer/prompts';
 import chalk from 'chalk';
 import { resolve } from 'path';
@@ -28,6 +30,25 @@ interface ValidateOptions {
 	implementationPath?: string;
 	agentMode?: string;
 	interactive?: boolean;
+}
+
+export function resolveValidateImplementationMode(
+	options: Pick<ValidateOptions, 'checkImplementation' | 'interactive'>,
+	streams: { stdinTty: boolean; stdoutTty: boolean } = {
+		stdinTty: Boolean(process.stdin.isTTY),
+		stdoutTty: Boolean(process.stdout.isTTY),
+	}
+) {
+	if (options.interactive && (!streams.stdinTty || !streams.stdoutTty)) {
+		throw new Error('--interactive requires an interactive TTY.');
+	}
+
+	return {
+		shouldPrompt:
+			options.interactive === true &&
+			typeof options.checkImplementation !== 'boolean',
+		validateImplementation: Boolean(options.checkImplementation),
+	};
 }
 
 /**
@@ -91,7 +112,7 @@ export async function validateCommand(
 	}
 
 	console.log(chalk.cyan('Scanning workspace for contracts...'));
-	const scannedSpecs = await listSpecs(adapters, {
+	const scannedSpecs = await discoverSpecs(adapters, {
 		config,
 		pattern: specFilePath,
 	});
@@ -101,15 +122,13 @@ export async function validateCommand(
 		return;
 	}
 
-	console.log(
-		chalk.gray(`Found ${scannedSpecs.length} contracts files to validate.`)
-	);
+	console.log(chalk.gray(`Found ${scannedSpecs.length} specs to validate.`));
 
 	// Interactive Prompt for Implementation check
-	const shouldPrompt = typeof options.checkImplementation !== 'boolean';
-	let validateImplementation = Boolean(options.checkImplementation);
+	const mode = resolveValidateImplementationMode(options);
+	let validateImplementation = mode.validateImplementation;
 
-	if (shouldPrompt && process.stdout.isTTY) {
+	if (mode.shouldPrompt) {
 		const choice = await select({
 			message: 'Validate only the spec(s) or also the implementation?',
 			default: 'spec',
@@ -119,8 +138,6 @@ export async function validateCommand(
 			],
 		});
 		validateImplementation = choice === 'both';
-	} else if (shouldPrompt) {
-		validateImplementation = false;
 	}
 
 	let hasErrors = !blueprintValid || !tenantValid;
@@ -155,10 +172,11 @@ async function validateSingleSpec(
 	adapters: { fs: FsAdapter; logger: LoggerAdapter },
 	isBatch: boolean
 ): Promise<boolean> {
+	const label = formatDiscoveredSpecLabel(specFile);
 	if (isBatch) {
-		console.log(chalk.bold(`\n📄 ${specFile.filePath}`));
+		console.log(chalk.bold(`\n📄 ${label}`));
 	} else {
-		console.log(chalk.gray(`Validating: ${specFile.filePath}\n`));
+		console.log(chalk.gray(`Validating: ${label}\n`));
 	}
 
 	let isValid = true;
@@ -171,9 +189,13 @@ async function validateSingleSpec(
 		resolve(process.cwd(), options.blueprint) ===
 			resolve(process.cwd(), specFile.filePath);
 
-	const specResult = await validateSpec(specFile.filePath, adapters, {
+	const [specResult] = await validateDiscoveredSpecs([specFile], {
 		skipStructure: !!skipSpecStructure,
 	});
+	if (!specResult) {
+		console.log(chalk.red('  ❌ Spec structure could not be evaluated.'));
+		return false;
+	}
 
 	if (!specResult.valid) {
 		console.log(chalk.red('  ❌ Spec structure has errors:'));
@@ -196,8 +218,35 @@ async function validateSingleSpec(
 		);
 	}
 
+	const targetDefinition =
+		specResult.spec.specType !== 'unknown'
+			? findAuthoringTargetDefinition(specResult.spec.specType)
+			: undefined;
+	if (targetDefinition?.validation === 'package-scaffold') {
+		console.log(chalk.cyan('\n📦 Validating package scaffold...'));
+		const packageResult = await validatePackageScaffold(
+			specResult.spec,
+			adapters.fs
+		);
+		if (!packageResult.valid) {
+			isValid = false;
+			packageResult.errors.forEach((error) =>
+				console.log(chalk.red(`  ❌ ${error}`))
+			);
+		} else {
+			console.log(chalk.green('  ✅ Package scaffold validation passed'));
+		}
+		packageResult.warnings.forEach((warning) =>
+			console.log(chalk.yellow(`  ⚠️  ${warning}`))
+		);
+	}
+
 	// 2. Implementation validation (if requested)
-	if (validateImplementation && specResult.code) {
+	if (
+		validateImplementation &&
+		specResult.code &&
+		targetDefinition?.validation !== 'package-scaffold'
+	) {
 		console.log(chalk.cyan('\n🤖 Validating implementation with AI...'));
 
 		const implResult = await validateImplementationWithAgent(
@@ -244,7 +293,10 @@ async function validateSingleSpec(
 	}
 
 	// 3. Handler validation (if requested)
-	if (options.checkHandlers) {
+	if (
+		options.checkHandlers &&
+		targetDefinition?.validation !== 'package-scaffold'
+	) {
 		console.log(chalk.cyan('\n🔧 Checking handler implementation...'));
 		const result = await validateImplementationFiles(
 			specFile,
@@ -263,7 +315,10 @@ async function validateSingleSpec(
 	}
 
 	// 4. Test validation (if requested)
-	if (options.checkTests) {
+	if (
+		options.checkTests &&
+		targetDefinition?.validation !== 'package-scaffold'
+	) {
 		console.log(chalk.cyan('\n🧪 Checking test coverage...'));
 		const result = await validateImplementationFiles(
 			specFile,
@@ -282,6 +337,13 @@ async function validateSingleSpec(
 	}
 
 	return isValid;
+}
+
+function formatDiscoveredSpecLabel(spec: SpecScanResult): string {
+	const location = spec.declarationLine
+		? `${spec.filePath}:${spec.declarationLine}`
+		: spec.filePath;
+	return spec.exportName ? `${location} (${spec.exportName})` : location;
 }
 
 export { type ValidateOptions };

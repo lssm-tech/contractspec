@@ -56,128 +56,20 @@
             language="TypeScript"
             implementationClass="tech.lssm.contractspec.completion.ContractSpecCompletionContributor" />
 
-        <!-- File Type Associations -->
-        <fileType
-            name="ContractSpec Command"
-            implementationClass="com.intellij.javascript.JavaScriptFileType"
-            fieldName="INSTANCE"
-            language="TypeScript"
-            extensions="contracts.ts" />
-
-        <fileType
-            name="ContractSpec Query"
-            implementationClass="com.intellij.javascript.JavaScriptFileType"
-            fieldName="INSTANCE"
-            language="TypeScript"
-            extensions="contracts.ts" />
-
-        <fileType
-            name="ContractSpec Event"
-            implementationClass="com.intellij.javascript.JavaScriptFileType"
-            fieldName="INSTANCE"
-            language="TypeScript"
-            extensions="event.ts" />
-
-        <fileType
-            name="ContractSpec Presentation"
-            implementationClass="com.intellij.javascript.JavaScriptFileType"
-            fieldName="INSTANCE"
-            language="TypeScript"
-            extensions="presentation.ts" />
-
-        <fileType
-            name="ContractSpec Feature"
-            implementationClass="com.intellij.javascript.JavaScriptFileType"
-            fieldName="INSTANCE"
-            language="TypeScript"
-            extensions="feature.ts" />
-
-        <fileType
-            name="ContractSpec Workflow"
-            implementationClass="com.intellij.javascript.JavaScriptFileType"
-            fieldName="INSTANCE"
-            language="TypeScript"
-            extensions="workflow.ts" />
-
-        <fileType
-            name="ContractSpec Data View"
-            implementationClass="com.intellij.javascript.JavaScriptFileType"
-            fieldName="INSTANCE"
-            language="TypeScript"
-            extensions="data-view.ts" />
-
-        <fileType
-            name="ContractSpec Form"
-            implementationClass="com.intellij.javascript.JavaScriptFileType"
-            fieldName="INSTANCE"
-            language="TypeScript"
-            extensions="form.ts" />
-
-        <fileType
-            name="ContractSpec Migration"
-            implementationClass="com.intellij.javascript.JavaScriptFileType"
-            fieldName="INSTANCE"
-            language="TypeScript"
-            extensions="migration.ts" />
-
-        <fileType
-            name="ContractSpec Telemetry"
-            implementationClass="com.intellij.javascript.JavaScriptFileType"
-            fieldName="INSTANCE"
-            language="TypeScript"
-            extensions="telemetry.ts" />
-
-        <fileType
-            name="ContractSpec Experiment"
-            implementationClass="com.intellij.javascript.JavaScriptFileType"
-            fieldName="INSTANCE"
-            language="TypeScript"
-            extensions="experiment.ts" />
-
-        <fileType
-            name="ContractSpec App Config"
-            implementationClass="com.intellij.javascript.JavaScriptFileType"
-            fieldName="INSTANCE"
-            language="TypeScript"
-            extensions="app-config.ts" />
-
-        <fileType
-            name="ContractSpec Integration"
-            implementationClass="com.intellij.javascript.JavaScriptFileType"
-            fieldName="INSTANCE"
-            language="TypeScript"
-            extensions="integration.ts" />
-
-        <fileType
-            name="ContractSpec Knowledge"
-            implementationClass="com.intellij.javascript.JavaScriptFileType"
-            fieldName="INSTANCE"
-            language="TypeScript"
-            extensions="knowledge.ts" />
-
-        <fileType
-            name="ContractSpec Policy"
-            implementationClass="com.intellij.javascript.JavaScriptFileType"
-            fieldName="INSTANCE"
-            language="TypeScript"
-            extensions="policy.ts" />
-
-        <fileType
-            name="ContractSpec Test Spec"
-            implementationClass="com.intellij.javascript.JavaScriptFileType"
-            fieldName="INSTANCE"
-            language="TypeScript"
-            extensions="test-spec.ts" />
-
         <!-- Application Service -->
         <applicationService
             serviceInterface="tech.lssm.contractspec.bridge.NodeBridgeService"
             serviceImplementation="tech.lssm.contractspec.bridge.NodeBridgeServiceImpl" />
 
-        <!-- Project Service -->
-        <projectService
-            serviceInterface="tech.lssm.contractspec.settings.ContractSpecSettings"
-            serviceImplementation="tech.lssm.contractspec.settings.ContractSpecSettingsImpl" />
+        <!-- Startup -->
+        <postStartupActivity implementation="tech.lssm.contractspec.ContractSpecPlugin" />
+
+        <!-- Settings -->
+        <applicationConfigurable
+            id="contractspec.settings"
+            displayName="ContractSpec"
+            parentId="tools"
+            instance="tech.lssm.contractspec.settings.ContractSpecConfigurable" />
 
         <!-- Status Bar Widget -->
         <statusBarWidgetProvider
@@ -236,6 +128,10 @@
             <action id="contractspec.diffGit" class="tech.lssm.contractspec.actions.CompareWithGitAction"
                     text="Compare with Git Version" description="Compare spec with git baseline"
                     icon="/icons/git.svg" />
+
+            <action id="contractspec.analyzeIntegrity" class="tech.lssm.contractspec.actions.AnalyzeIntegrityAction"
+                    text="Analyze Integrity" description="Run integrity analysis for the current workspace"
+                    icon="/icons/validate.svg" />
 
             <action id="contractspec.openapi" class="tech.lssm.contractspec.actions.ExportToOpenApiAction"
                     text="Export to OpenAPI" description="Generate OpenAPI specification"
@@ -362,44 +258,30 @@
             <reference ref="contractspec.diff" />
             <reference ref="contractspec.analyzeIntegrity" />
         </group>
-    </actions>
 
-    <!-- Main menu integration -->
-    <actions>
-        <group id="ToolsMenu" />
-        <add-to-group group-id="ToolsMenu" anchor="last">
-            <group id="ContractSpec.MainMenu" text="ContractSpec" description="ContractSpec operations">
-                <reference ref="ContractSpec.SpecManagement" />
-                <reference ref="ContractSpec.BuildSync" />
-                <reference ref="ContractSpec.Analysis" />
-                <reference ref="ContractSpec.Registry" />
-                <reference ref="ContractSpec.LLM" />
-                <reference ref="ContractSpec.Project" />
-                <separator />
-                <reference ref="ContractSpec.ToolWindow" />
-            </group>
-        </add-to-group>
-    </actions>
+        <!-- Main menu integration -->
+        <group id="ContractSpec.MainMenu" text="ContractSpec" description="ContractSpec operations">
+            <add-to-group group-id="ToolsMenu" anchor="last" />
+            <reference ref="ContractSpec.SpecManagement" />
+            <reference ref="ContractSpec.BuildSync" />
+            <reference ref="ContractSpec.Analysis" />
+            <reference ref="ContractSpec.Registry" />
+            <reference ref="ContractSpec.LLM" />
+            <reference ref="ContractSpec.Project" />
+            <separator />
+            <reference ref="ContractSpec.ToolWindow" />
+        </group>
 
-    <!-- Editor popup menu -->
-    <actions>
-        <group id="EditorPopupMenu" />
-        <add-to-group group-id="EditorPopupMenu" anchor="last">
-            <group id="ContractSpec.EditorMenu" text="ContractSpec" description="ContractSpec editor operations">
-                <reference ref="ContractSpec.EditorPopup" />
-            </group>
-        </add-to-group>
-    </actions>
+        <!-- Editor popup menu -->
+        <group id="ContractSpec.EditorMenu" text="ContractSpec" description="ContractSpec editor operations" popup="true">
+            <add-to-group group-id="EditorPopupMenu" anchor="last" />
+            <reference ref="ContractSpec.EditorPopup" />
+        </group>
 
-    <!-- Project view popup menu -->
-    <actions>
-        <group id="ProjectViewPopupMenu" />
-        <add-to-group group-id="ProjectViewPopupMenu" anchor="last">
-            <group id="ContractSpec.ProjectMenu" text="ContractSpec" description="ContractSpec project operations">
-                <reference ref="ContractSpec.ProjectViewPopup" />
-            </group>
-        </add-to-group>
+        <!-- Project view popup menu -->
+        <group id="ContractSpec.ProjectMenu" text="ContractSpec" description="ContractSpec project operations" popup="true">
+            <add-to-group group-id="ProjectViewPopupMenu" anchor="last" />
+            <reference ref="ContractSpec.ProjectViewPopup" />
+        </group>
     </actions>
 </idea-plugin>
-
-

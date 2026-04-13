@@ -1,8 +1,8 @@
 import type { FormatterType } from '@contractspec/lib.contracts-spec';
-import type { SpecType } from '../../types';
+import type { AuthoringTargetId } from '@contractspec/module.workspace';
 
 export interface CreateOptions {
-	type?: SpecType;
+	type?: AuthoringTargetId;
 	ai?: boolean;
 	provider?: string;
 	model?: string;

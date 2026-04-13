@@ -1,16 +1,23 @@
+import { getAuthoringTargetDefinitions } from '@contractspec/module.workspace';
 import { select } from '@inquirer/prompts';
 import chalk from 'chalk';
 import { validateProvider } from '../../ai/providers';
-import type { SpecType } from '../../types';
 import type { Config } from '../../utils/config';
 import { createAppConfigSpec } from './create-app-config';
 import { createDataViewSpec } from './create-data-view';
 import { createEventSpec } from './create-event';
 import { createExperimentSpec } from './create-experiment';
+import { createFeatureSpec } from './create-feature';
+import { createFormSpec } from './create-form';
 import { createIntegrationSpec } from './create-integration';
 import { createKnowledgeSpec } from './create-knowledge';
 import { createMigrationSpec } from './create-migration';
 import { createOperationSpec } from './create-operation';
+import {
+	createBuilderSpecPackage,
+	createModuleBundleSpec,
+	createProviderSpecPackage,
+} from './create-package-target';
 import { createPresentationSpec } from './create-presentation';
 import { createTelemetrySpec } from './create-telemetry';
 import { createWorkflowSpec } from './create-workflow';
@@ -19,27 +26,16 @@ import type { CreateOptions } from './types';
 export async function createCommand(options: CreateOptions, config: Config) {
 	console.log(chalk.bold.blue('\n📝 Contract Spec Creator\n'));
 
-	let specType: SpecType | undefined = options.type;
+	let specType = options.type;
 
 	if (!specType) {
 		specType = (await select({
 			message: 'What type of spec would you like to create?',
-			choices: [
-				{ name: 'Operation (Command/Query)', value: 'operation' },
-				{ name: 'Event', value: 'event' },
-				{ name: 'Presentation', value: 'presentation' },
-				{ name: 'Data view', value: 'data-view' },
-				{ name: 'Workflow', value: 'workflow' },
-				{ name: 'Migration', value: 'migration' },
-				{ name: 'Telemetry', value: 'telemetry' },
-				{ name: 'Experiment', value: 'experiment' },
-				{ name: 'App Blueprint', value: 'app-config' },
-				{ name: 'Integration', value: 'integration' },
-				{ name: 'Knowledge Space', value: 'knowledge' },
-				{ name: 'Form', value: 'form' },
-				{ name: 'Feature', value: 'feature' },
-			],
-		})) as SpecType;
+			choices: getAuthoringTargetDefinitions().map((definition) => ({
+				name: definition.title,
+				value: definition.id,
+			})),
+		})) as CreateOptions['type'];
 	}
 
 	if (options.ai) {
@@ -52,48 +48,30 @@ export async function createCommand(options: CreateOptions, config: Config) {
 		}
 	}
 
-	switch (specType) {
-		case 'operation':
-			await createOperationSpec(options, config);
-			break;
-		case 'event':
-			await createEventSpec(options, config);
-			break;
-		case 'presentation':
-			await createPresentationSpec(options, config);
-			break;
-		case 'workflow':
-			await createWorkflowSpec(options, config);
-			break;
-		case 'migration':
-			await createMigrationSpec(options, config);
-			break;
-		case 'telemetry':
-			await createTelemetrySpec(options, config);
-			break;
-		case 'experiment':
-			await createExperimentSpec(options, config);
-			break;
-		case 'app-config':
-			await createAppConfigSpec(options, config);
-			break;
-		case 'data-view':
-			await createDataViewSpec(options, config);
-			break;
-		case 'integration':
-			await createIntegrationSpec(options, config);
-			break;
-		case 'knowledge':
-			await createKnowledgeSpec(options, config);
-			break;
-		case 'form':
-			console.log(chalk.yellow('Form spec creation coming soon!'));
-			break;
-		case 'feature':
-			console.log(chalk.yellow('Feature spec creation coming soon!'));
-			break;
-		default:
-			console.error(chalk.red(`Unknown spec type: ${specType}`));
-			process.exit(1);
+	const handlers = {
+		operation: createOperationSpec,
+		event: createEventSpec,
+		presentation: createPresentationSpec,
+		workflow: createWorkflowSpec,
+		migration: createMigrationSpec,
+		telemetry: createTelemetrySpec,
+		experiment: createExperimentSpec,
+		'app-config': createAppConfigSpec,
+		'data-view': createDataViewSpec,
+		integration: createIntegrationSpec,
+		knowledge: createKnowledgeSpec,
+		form: createFormSpec,
+		feature: createFeatureSpec,
+		'module-bundle': createModuleBundleSpec,
+		'builder-spec': createBuilderSpecPackage,
+		'provider-spec': createProviderSpecPackage,
+	} as const;
+
+	const handler = specType ? handlers[specType] : undefined;
+	if (!handler) {
+		console.error(chalk.red(`Unknown spec type: ${specType}`));
+		process.exit(1);
 	}
+
+	await handler(options, config);
 }

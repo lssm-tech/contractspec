@@ -3,9 +3,8 @@
  */
 
 import {
-	listSpecs,
-	validateSpec,
-	validateSpecs,
+	discoverSpecs,
+	validateDiscoveredSpecs,
 } from '@contractspec/bundle.workspace';
 import { inferSpecTypeFromFilePath } from '@contractspec/module.workspace';
 import * as vscode from 'vscode';
@@ -38,32 +37,36 @@ export async function validateCurrentSpec(
 
 	try {
 		const adapters = getWorkspaceAdapters();
-		const result = await validateSpec(filePath, adapters);
+		const specs = await discoverSpecs(adapters, { pattern: filePath });
+		const results = await validateDiscoveredSpecs(specs);
+		const failed = results.filter((result) => !result.valid);
+		const warnings = results.flatMap((result) => result.warnings);
 
-		if (result.valid) {
+		if (failed.length === 0) {
 			vscode.window.showInformationMessage(
-				`✅ Spec validation passed: ${getFileName(filePath)}`
+				`✅ Spec validation passed: ${getFileName(filePath)} (${results.length} spec(s))`
 			);
 			outputChannel.appendLine('✅ Validation passed');
 
-			if (result.warnings.length > 0) {
-				outputChannel.appendLine(`\nWarnings (${result.warnings.length}):`);
-				for (const warning of result.warnings) {
+			if (warnings.length > 0) {
+				outputChannel.appendLine(`\nWarnings (${warnings.length}):`);
+				for (const warning of warnings) {
 					outputChannel.appendLine(`  ⚠️  ${warning}`);
 				}
 			}
 		} else {
 			vscode.window.showErrorMessage(
-				`❌ Spec validation failed: ${result.errors.length} error(s)`
+				`❌ Spec validation failed: ${failed.length} spec(s) with errors`
 			);
 			outputChannel.appendLine(`\n❌ Validation failed`);
-			outputChannel.appendLine(`\nErrors (${result.errors.length}):`);
-			for (const error of result.errors) {
-				outputChannel.appendLine(`  ❌ ${error}`);
-			}
-
-			if (result.warnings.length > 0) {
-				outputChannel.appendLine(`\nWarnings (${result.warnings.length}):`);
+			for (const result of failed) {
+				const target = result.spec.exportName
+					? `${result.spec.exportName} (${result.spec.filePath}:${result.spec.declarationLine ?? 1})`
+					: result.spec.filePath;
+				outputChannel.appendLine(`\n${target}`);
+				for (const error of result.errors) {
+					outputChannel.appendLine(`  ❌ ${error}`);
+				}
 				for (const warning of result.warnings) {
 					outputChannel.appendLine(`  ⚠️  ${warning}`);
 				}
@@ -95,26 +98,27 @@ export async function validateWorkspace(
 		const adapters = getWorkspaceAdapters();
 
 		// Find all spec files
-		const specs = await listSpecs(adapters);
+		const specs = await discoverSpecs(adapters);
 
 		if (specs.length === 0) {
-			vscode.window.showInformationMessage('No spec files found in workspace');
-			outputChannel.appendLine('No spec files found');
+			vscode.window.showInformationMessage('No specs found in workspace');
+			outputChannel.appendLine('No specs found');
 			return;
 		}
 
-		outputChannel.appendLine(`Found ${specs.length} spec file(s)\n`);
+		outputChannel.appendLine(`Found ${specs.length} spec(s)\n`);
 
 		// Validate all specs
-		const specPaths = specs.map((s) => s.filePath);
-		const results = await validateSpecs(specPaths, adapters);
+		const results = await validateDiscoveredSpecs(specs);
 
 		let passedCount = 0;
 		let failedCount = 0;
 		let totalWarnings = 0;
 
-		for (const [filePath, result] of results) {
-			const fileName = getFileName(filePath);
+		for (const result of results) {
+			const fileName = result.spec.exportName
+				? `${result.spec.exportName} (${getFileName(result.spec.filePath)})`
+				: getFileName(result.spec.filePath);
 
 			if (result.valid) {
 				passedCount++;
@@ -151,7 +155,7 @@ export async function validateWorkspace(
 			);
 		} else {
 			vscode.window.showErrorMessage(
-				`❌ ${failedCount} of ${results.size} spec(s) failed validation`
+				`❌ ${failedCount} of ${results.length} spec(s) failed validation`
 			);
 		}
 	} catch (error) {

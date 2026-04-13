@@ -1,6 +1,6 @@
+import type { SharedEmptyStateProps } from '@contractspec/lib.ui-kit-core/interfaces';
 import { cn } from '@contractspec/lib.ui-kit-core/utils';
 import { cva, type VariantProps } from 'class-variance-authority';
-import * as React from 'react';
 import { VStack } from './stack';
 
 const containerVariants = cva('items-center text-center', {
@@ -16,14 +16,8 @@ const containerVariants = cva('items-center text-center', {
 });
 
 export interface EmptyStateProps
-	extends VariantProps<typeof containerVariants> {
-	icon?: React.ReactNode;
-	title: React.ReactNode;
-	description?: React.ReactNode;
-	primaryAction?: React.ReactNode;
-	secondaryAction?: React.ReactNode;
-	className?: string;
-}
+	extends SharedEmptyStateProps,
+		VariantProps<typeof containerVariants> {}
 
 export function EmptyState({
 	icon,

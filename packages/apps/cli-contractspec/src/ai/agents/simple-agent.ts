@@ -127,6 +127,9 @@ Provide a detailed validation report:
 					'handler'
 				);
 
+			case 'refactor':
+				return `Refactor this code while preserving behavior.\n\nRequested change:\n${task.specCode}\n\nExisting code:\n${task.existingCode || ''}\n\nReturn the full updated TypeScript source only.`;
+
 			case 'validate':
 				return `Validate this implementation:\n${task.existingCode}`;
 

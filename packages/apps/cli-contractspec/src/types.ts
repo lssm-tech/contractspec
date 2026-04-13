@@ -1,17 +1,7 @@
-export type SpecType =
-	| 'operation'
-	| 'event'
-	| 'presentation'
-	| 'form'
-	| 'feature'
-	| 'workflow'
-	| 'data-view'
-	| 'migration'
-	| 'telemetry'
-	| 'experiment'
-	| 'app-config'
-	| 'integration'
-	| 'knowledge';
+export type {
+	AuthoringTargetId,
+	SpecType,
+} from '@contractspec/module.workspace';
 
 export type OpKind = 'command' | 'query';
 
@@ -50,15 +40,35 @@ export interface PresentationSpecData extends BaseSpecData {
 }
 
 // eslint-disable-next-line @typescript-eslint/no-empty-object-type
-export interface FormSpecData extends BaseSpecData {
-	// Form-specific data
+export interface FormSpecData {
+	key: string;
+	version: string;
+	title: string;
+	description: string;
+	domain: string;
+	owners: string[];
+	tags: string[];
+	stability: Stability;
+	primaryFieldKey: string;
+	primaryFieldLabel: string;
+	primaryFieldPlaceholder: string;
+	actionKey: string;
+	actionLabel: string;
 }
 
-export interface FeatureSpecData extends BaseSpecData {
+export interface FeatureSpecData {
 	key: string;
-	operations: { name: string; version: number }[];
-	events: { name: string; version: number }[];
-	presentations: { name: string; version: number }[];
+	version: string;
+	title: string;
+	description: string;
+	domain: string;
+	owners: string[];
+	tags: string[];
+	stability: Stability;
+	operations: { key: string; version: string }[];
+	events: { key: string; version: string }[];
+	presentations: { key: string; version: string }[];
+	experiments: { key: string; version: string }[];
 }
 
 export interface WorkflowStepData {

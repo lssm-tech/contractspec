@@ -4,6 +4,10 @@ import {
 	buildVisualizationEChartsOption,
 	type ContractVisualizationRenderModel,
 } from '@contractspec/lib.presentation-runtime-core';
+import type {
+	SharedVisualizationInteractionHandler,
+	SharedVisualizationProps,
+} from '@contractspec/lib.ui-kit-core/interfaces';
 import { cn } from '@contractspec/lib.ui-kit-core/utils';
 import {
 	BarChart,
@@ -56,13 +60,12 @@ echarts.use([
 	MapChart,
 ]);
 
-export type VisualizationInteractionHandler = (params: unknown) => void;
+export type VisualizationInteractionHandler =
+	SharedVisualizationInteractionHandler;
 
-export interface VisualizationProps {
+export interface VisualizationProps
+	extends Omit<SharedVisualizationProps, 'model'> {
 	model: ContractVisualizationRenderModel;
-	className?: string;
-	height?: number;
-	onDataPointPress?: VisualizationInteractionHandler;
 }
 
 function canRenderCanvasCharts(): boolean {

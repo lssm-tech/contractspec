@@ -1,3 +1,7 @@
+import type {
+	SharedPricingTableProps,
+	SharedPricingTier,
+} from '@contractspec/lib.ui-kit-core/interfaces';
 import { Link } from 'expo-router';
 import { View } from 'react-native';
 import { Button } from '../button';
@@ -5,22 +9,9 @@ import { Text } from '../text';
 import { P } from '../typography';
 import { cn } from '../utils';
 
-export interface PricingTier {
-	name: string;
-	price: string;
-	tagline?: string;
-	features: string[];
-	cta?: { label: string; href?: string; onClick?: () => void };
-	highlighted?: boolean;
-}
+export interface PricingTier extends SharedPricingTier {}
 
-export function PricingTable({
-	tiers,
-	className,
-}: {
-	tiers: PricingTier[];
-	className?: string;
-}) {
+export function PricingTable({ tiers, className }: SharedPricingTableProps) {
 	return (
 		<View className={cn('mx-auto max-w-6xl py-12', className)}>
 			<View className="flex flex-col gap-6 md:flex-row md:flex-wrap">

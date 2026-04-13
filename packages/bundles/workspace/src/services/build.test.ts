@@ -32,6 +32,8 @@ describe('Build Service', () => {
 		resolve: mock((...args: string[]) => args.join('/')),
 		dirname: mock((p: string) => p.split('/').slice(0, -1).join('/')),
 		join: mock((...args: string[]) => args.join('/')),
+		relative: mock((from: string, to: string) => to.replace(`${from}/`, '')),
+		basename: mock((p: string) => p.split('/').pop() ?? p),
 	};
 
 	const mockLogger = {
@@ -52,6 +54,7 @@ describe('Build Service', () => {
 	beforeEach(() => {
 		mockFs.readFile.mockClear();
 		mockFs.writeFile.mockClear();
+		mockFs.writeFile.mockImplementation(() => Promise.resolve());
 		mockFs.exists.mockClear();
 		mockFs.exists.mockImplementation(() => Promise.resolve(false));
 		mockLogger.info.mockClear();
@@ -230,7 +233,7 @@ describe('Build Service', () => {
 				workspace: mockWorkspace as unknown as any,
 			},
 			config,
-			{ dryRun: true }
+			{ dryRun: true, overwrite: true, targets: ['handler'] }
 		);
 
 		expect(result.results[0]?.success).toBe(true);
@@ -264,6 +267,7 @@ describe('Build Service', () => {
 			kind: 'command',
 			key: 'my.cmd',
 		} as SpecScanResult);
+		mockFs.exists.mockResolvedValue(false);
 		mockFs.writeFile.mockRejectedValue(new Error('Write failed'));
 
 		const result = await buildSpec(
@@ -275,10 +279,142 @@ describe('Build Service', () => {
 				workspace: mockWorkspace as unknown as any,
 			},
 			config,
-			{ targets: ['handler'] }
+			{ targets: ['handler'], overwrite: true }
 		);
 
 		expect(result.results[0]?.success).toBe(false);
 		expect(result.results[0]?.error).toBe('Write failed');
+	});
+
+	it('should build a data-view renderer for data-view specs', async () => {
+		mockInferSpecType.mockReturnValue('data-view');
+		mockScanSpecSource.mockReturnValue({
+			specType: 'data-view',
+			key: 'users.list',
+		} as SpecScanResult);
+
+		const result = await buildSpec(
+			'specs/users.data-view.ts',
+			{
+				fs: mockFs as unknown as FsAdapter,
+				logger: mockLogger as unknown as LoggerAdapter,
+				workspace: mockWorkspace as never,
+			},
+			config,
+			{ targets: ['data-view-renderer'], overwrite: true }
+		);
+
+		expect(result.results[0]?.success).toBe(true);
+		expect(result.results[0]?.target).toBe('data-view-renderer');
+		expect(mockFs.writeFile).toHaveBeenCalled();
+	});
+
+	it('should scaffold package targets for module bundles', async () => {
+		mockInferSpecType.mockReturnValue('module-bundle');
+		mockScanSpecSource.mockReturnValue({
+			specType: 'module-bundle',
+			key: 'workspace.bundle',
+			description: 'Workspace bundle scaffold',
+		} as SpecScanResult);
+
+		const result = await buildSpec(
+			'packages/bundles/workspace/src/bundles/WorkspaceBundle.ts',
+			{
+				fs: mockFs as unknown as FsAdapter,
+				logger: mockLogger as unknown as LoggerAdapter,
+				workspace: mockWorkspace as never,
+			},
+			config,
+			{ targets: ['package-scaffold'], overwrite: true }
+		);
+
+		expect(result.results[0]?.success).toBe(true);
+		expect(result.results[0]?.target).toBe('package-scaffold');
+		expect(mockFs.writeFile).toHaveBeenCalled();
+	});
+
+	it('uses the runtime generation strategy when provided', async () => {
+		mockInferSpecType.mockReturnValue('operation');
+		mockScanSpecSource.mockReturnValue({
+			kind: 'command',
+			key: 'my.cmd',
+		} as SpecScanResult);
+
+		const result = await buildSpec(
+			'specs/my.cmd.ts',
+			{
+				fs: mockFs as unknown as FsAdapter,
+				logger: mockLogger as unknown as LoggerAdapter,
+				workspace: mockWorkspace as never,
+			},
+			config,
+			{
+				targets: ['handler', 'test'],
+				runtimeGeneration: {
+					generateArtifact: async () => 'agent handler',
+					generateTest: async () => 'agent test',
+				},
+			}
+		);
+
+		expect(result.results.map((entry) => entry.success)).toEqual([true, true]);
+		expect(mockFs.writeFile).toHaveBeenCalledWith(
+			expect.stringContaining('.handler.ts'),
+			expect.stringContaining('agent handler')
+		);
+		expect(mockFs.writeFile).toHaveBeenCalledWith(
+			expect.stringContaining('.test.ts'),
+			expect.stringContaining('agent test')
+		);
+	});
+
+	it('builds form and workflow runtime targets through the shared service', async () => {
+		mockInferSpecType.mockReturnValue('form');
+		mockScanSpecSource.mockReturnValue({
+			specType: 'form',
+			key: 'profile.edit',
+		} as SpecScanResult);
+
+		const formResult = await buildSpec(
+			'specs/profile.form.ts',
+			{
+				fs: mockFs as unknown as FsAdapter,
+				logger: mockLogger as unknown as LoggerAdapter,
+				workspace: mockWorkspace as never,
+			},
+			config,
+			{ targets: ['form'] }
+		);
+
+		mockInferSpecType.mockReturnValue('workflow');
+		mockScanSpecSource.mockReturnValue({
+			specType: 'workflow',
+			key: 'approval.flow',
+		} as SpecScanResult);
+		mockFs.readFile.mockResolvedValueOnce(
+			'export const ApprovalFlow: WorkflowSpec = { workflowDevkit: true };'
+		);
+
+		const workflowResult = await buildSpec(
+			'specs/approval.workflow.ts',
+			{
+				fs: mockFs as unknown as FsAdapter,
+				logger: mockLogger as unknown as LoggerAdapter,
+				workspace: mockWorkspace as never,
+			},
+			config,
+			{ targets: ['workflow-runner'], overwrite: true }
+		);
+
+		expect(formResult.results[0]?.success).toBe(true);
+		expect(workflowResult.results[0]?.success).toBe(true);
+		expect(mockFs.writeFile).toHaveBeenCalledWith(
+			expect.stringContaining('.runner.ts'),
+			expect.any(String)
+		);
+		expect(mockFs.writeFile).toHaveBeenCalledWith(
+			expect.stringContaining('.workflow-devkit.ts'),
+			expect.any(String)
+		);
 	});
 });

@@ -67,6 +67,16 @@ describe('connect command', () => {
 				?.commands.find((command) => command.name() === 'sync')
 				?.options.map((option) => option.long)
 		).toContain('--all');
+		expect(
+			connectCommand.commands
+				.find((command) => command.name() === 'init')
+				?.options.map((option) => option.long)
+		).toContain('--gitignore');
+		expect(
+			connectCommand.commands
+				.find((command) => command.name() === 'init')
+				?.options.map((option) => option.long)
+		).toContain('--no-gitignore');
 	});
 
 	it('maps verdicts and configuration/runtime errors to the documented exit codes', () => {

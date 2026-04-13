@@ -231,6 +231,9 @@ describe('applyGuidedUpgrade', () => {
 		expect(packageJson.dependencies['@contractspec/lib.contracts-spec']).toBe(
 			'5.0.5'
 		);
+		expect(config['$schema']).toBe(
+			'./node_modules/contractspec/contractsrc.schema.json'
+		);
 		expect(config['release']).toBeDefined();
 		expect(workflowSource).toContain(
 			'@contractspec/lib.contracts-spec/workflow/spec'

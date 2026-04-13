@@ -5,18 +5,16 @@ import {
 	formatJson,
 	safeParseJson,
 } from '../setup/file-merger';
+import { setupGitignore } from '../setup/gitignore';
+import { SETUP_GITIGNORE_PATTERNS } from '../setup/presets';
 import { resolveWorkspace } from './shared';
 import { ensureStorage, resolveStoragePaths } from './storage';
-import type { ConnectInitInput } from './types';
+import type { ConnectInitInput, ConnectInitResult } from './types';
 
 export async function initConnectWorkspace(
 	fs: FsAdapter,
 	input: ConnectInitInput = {}
-): Promise<{
-	configPath: string;
-	targetRoot: string;
-	action: 'created' | 'merged';
-}> {
+): Promise<ConnectInitResult> {
 	const workspace = resolveWorkspace(input);
 	const targetRoot =
 		input.scope === 'package' ? workspace.packageRoot : workspace.workspaceRoot;
@@ -52,9 +50,21 @@ export async function initConnectWorkspace(
 	);
 	await ensureStorage(fs, storage);
 
+	const gitignore = await setupGitignore(fs, {
+		behavior: input.gitignoreBehavior,
+		interactive: input.interactive ?? false,
+		patterns: [
+			SETUP_GITIGNORE_PATTERNS.connect,
+			SETUP_GITIGNORE_PATTERNS.verificationCache,
+		],
+		prompts: input.prompts,
+		root: workspace.workspaceRoot,
+	});
+
 	return {
 		configPath,
 		targetRoot,
 		action,
+		gitignore,
 	};
 }

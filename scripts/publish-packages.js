@@ -319,44 +319,6 @@ function ensureDistTag(name, version, tag, npmEnv) {
 	);
 }
 
-function verifyDistTag(name, version, tag, npmEnv) {
-	const { retryCount, retryDelayMs } = getDistTagRetrySettings();
-	let lastErrorMessage = '';
-
-	for (let attempt = 0; attempt < retryCount; attempt += 1) {
-		if (attempt > 0) {
-			const delayMs = retryDelayMs * attempt;
-			console.log(
-				`[publish] Waiting ${delayMs}ms before retrying dist-tag verification for ${name}@${version} (${attempt + 1}/${retryCount})`
-			);
-			sleepMs(delayMs);
-		}
-
-		try {
-			const currentDistTags = getDistTags(name, npmEnv, {
-				allowMissing: true,
-			});
-			if (currentDistTags[tag] === version) {
-				return version;
-			}
-			lastErrorMessage = `[publish] Dist-tag ${tag} for ${name} is ${currentDistTags[tag] ?? 'unset'} after publish; expected ${version}.`;
-		} catch (error) {
-			lastErrorMessage = error instanceof Error ? error.message : String(error);
-			if (
-				attempt === retryCount - 1 ||
-				!isRetryableNpmError(lastErrorMessage)
-			) {
-				throw error;
-			}
-		}
-	}
-
-	throw new Error(
-		lastErrorMessage ||
-			`[publish] Failed to verify dist-tag ${tag} for ${name}@${version}.`
-	);
-}
-
 function publishTarball({ tarballPath, tag, dryRun, npmEnv }) {
 	const args = ['publish', tarballPath, '--access', 'public', '--tag', tag];
 	if (dryRun) {
@@ -412,11 +374,16 @@ function preparePackageTarball(descriptor, context) {
 }
 
 function publishPreparedPackage(preparedPackage, context) {
+	const checkVersionExists =
+		context.npmViewVersionExists ?? npmViewVersionExists;
+	const finalizeDistTag = context.ensureDistTag ?? ensureDistTag;
+	const publish = context.publishTarball ?? publishTarball;
+
 	console.log(
 		`\n[publish] ${preparedPackage.name}@${preparedPackage.version} (tag: ${context.npmTag})`
 	);
 
-	const alreadyPublished = npmViewVersionExists(
+	const alreadyPublished = checkVersionExists(
 		preparedPackage.name,
 		preparedPackage.version,
 		context.npmEnv
@@ -445,7 +412,7 @@ function publishPreparedPackage(preparedPackage, context) {
 	}
 
 	if (alreadyPublished) {
-		const verifiedTag = ensureDistTag(
+		const verifiedTag = finalizeDistTag(
 			preparedPackage.name,
 			preparedPackage.version,
 			context.npmTag,
@@ -460,14 +427,14 @@ function publishPreparedPackage(preparedPackage, context) {
 		};
 	}
 
-	publishTarball({
+	publish({
 		tarballPath: preparedPackage.tarballPath,
 		tag: context.npmTag,
 		dryRun: false,
 		npmEnv: context.npmEnv,
 	});
 
-	const verifiedTag = verifyDistTag(
+	const verifiedTag = finalizeDistTag(
 		preparedPackage.name,
 		preparedPackage.version,
 		context.npmTag,
@@ -481,6 +448,8 @@ function publishPreparedPackage(preparedPackage, context) {
 		status: 'published',
 	};
 }
+
+export { publishPreparedPackage };
 
 function shouldRunCliSmoke(preparedPackages) {
 	const names = new Set(preparedPackages.map((pkg) => pkg.name));

@@ -6,6 +6,10 @@ import type {
 	DataViewSpec,
 } from '@contractspec/lib.contracts-spec/data-views';
 import * as React from 'react';
+import {
+	resolveTranslationString,
+	useDesignSystemTranslation,
+} from '../../i18n/translation';
 import { cn } from '../../lib/utils';
 import { DisplayValue } from './DataViewTable';
 
@@ -26,6 +30,7 @@ export function DataViewList<TItem = Record<string, unknown>>({
 	onSelect,
 	emptyState,
 }: DataViewListProps<TItem>) {
+	const translate = useDesignSystemTranslation();
 	if (spec.view.kind !== 'list') {
 		throw new Error(
 			`DataViewList received view kind "${spec.view.kind}", expected "list".`
@@ -79,7 +84,7 @@ export function DataViewList<TItem = Record<string, unknown>>({
 								{secondaryFieldKeys(view, primaryField).map((fieldKey) => (
 									<span key={fieldKey} className="flex items-center gap-1.5">
 										<span className="font-medium text-foreground/80">
-											{fieldLabel(fields, fieldKey)}
+											{fieldLabel(fields, fieldKey, translate)}
 										</span>
 										<span>
 											<DisplayValue
@@ -111,8 +116,15 @@ function toRecord(value: unknown): Record<string, unknown> {
 	return {};
 }
 
-function fieldLabel(fields: DataViewField[], key: string) {
-	return fields.find((field) => field.key === key)?.label ?? key;
+function fieldLabel(
+	fields: DataViewField[],
+	key: string,
+	translate?: (value: string) => string | undefined
+) {
+	return resolveTranslationString(
+		fields.find((field) => field.key === key)?.label ?? key,
+		translate
+	);
 }
 
 function secondaryFieldKeys(view: DataViewListConfig, primaryField?: string) {

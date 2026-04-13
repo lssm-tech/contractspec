@@ -36,16 +36,54 @@ import { AppLayout, Button, HeroSection } from "@contractspec/lib.design-system"
 
 ```ts
 import {
+  createTranslationResolver,
   defaultTokens,
   mapTokensForPlatform,
+  resolvePlatformTheme,
+  resolveThemeRefTokens,
   withPlatformUI,
 } from "@contractspec/lib.design-system";
 
-const nativeTokens = mapTokensForPlatform("native");
+const nativeTokens = mapTokensForPlatform("native", defaultTokens);
 const ui = withPlatformUI({
   tokens: defaultTokens,
   platform: "web",
 });
+```
+
+### Resolve contract-backed themes
+
+```ts
+import { ThemeRegistry } from "@contractspec/lib.contracts-spec/themes";
+import { resolvePlatformTheme } from "@contractspec/lib.design-system";
+
+const registry = new ThemeRegistry([themeSpec]);
+
+const webTokens = resolvePlatformTheme(
+  registry,
+  { key: "design.brand", version: "1.0.0" },
+  "web",
+  { targets: ["tenant:acme"] }
+);
+```
+
+### Provide translations to contract-driven renderers
+
+```tsx
+import {
+  createTranslationResolver,
+  DesignSystemTranslationProvider,
+} from "@contractspec/lib.design-system";
+
+const resolver = createTranslationResolver({
+  registry: translationRegistry,
+  locale: "fr",
+  specKeys: ["design-system.form", "design-system.data-view"],
+});
+
+<DesignSystemTranslationProvider resolver={resolver}>
+  {children}
+</DesignSystemTranslationProvider>;
 ```
 
 ## API map
@@ -54,6 +92,7 @@ const ui = withPlatformUI({
 
 - `defaultTokens` and token interfaces from `./theme/tokens`
 - `mapTokensForPlatform` from `./theme/tokenBridge`
+- `resolveThemeSpecTokens`, `resolveThemeRefTokens`, and `resolvePlatformTheme` from `./theme/contracts`
 - theme variants
 - `withPlatformUI`
 - `useColorScheme`
@@ -63,7 +102,8 @@ const ui = withPlatformUI({
 ### Renderers and hooks
 
 - renderer exports from `./renderers`
-- form-contract renderer support
+- form-contract renderer support, including readonly, autocomplete, address, phone, date, time, and datetime FormSpec fields
+- translation-aware rendering through `DesignSystemTranslationProvider` and `createTranslationResolver`
 - hooks such as `useListUrlState`
 - navigation-related shared types
 
@@ -101,8 +141,9 @@ The package also ships registry metadata and build support:
 ## Operational semantics and gotchas
 
 - Token names and token shapes are compatibility surface.
-- `mapTokensForPlatform()` deliberately returns different token shapes for web and native.
+- `mapTokensForPlatform()` deliberately returns different token shapes for web and native, and can now map resolved contract-backed tokens.
 - `withPlatformUI()` is a lightweight adapter, not a full runtime framework.
+- Theme integration is utility-first in this tranche: resolve tokens from `ThemeSpec` / `ThemeRef`, then map them per platform. There is no runtime theme provider yet.
 - The root barrel is broad and therefore high-blast-radius.
 - This package depends on both `ui-kit` and `ui-kit-web`.
 - The package includes legal, marketing, agent, app-shell, and visualization compositions, not just low-level primitives.

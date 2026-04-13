@@ -1,8 +1,8 @@
 import type { AppBlueprintSpec } from '@contractspec/lib.contracts-spec/app-config/spec';
 import { validateBlueprint as validateBlueprintSpec } from '@contractspec/lib.contracts-spec/app-config/validation';
 import { resolve } from 'path';
-import { pathToFileURL } from 'url';
 import type { FsAdapter } from '../../ports/fs';
+import { loadAuthoredModule } from '../module-loader';
 
 /**
  * Result of blueprint validation.
@@ -32,8 +32,8 @@ export async function validateBlueprint(
 	}
 
 	try {
-		const mod = await loadModule(resolvedPath);
-		const spec = extractBlueprintSpec(mod);
+		const mod = await loadAuthoredModule(resolvedPath);
+		const spec = extractBlueprintSpec(mod.exports);
 		const report = validateBlueprintSpec(spec);
 
 		return {
@@ -47,19 +47,6 @@ export async function validateBlueprint(
 			valid: false,
 			errors: [error instanceof Error ? error.message : String(error)],
 		};
-	}
-}
-
-async function loadModule(
-	modulePath: string
-): Promise<Record<string, unknown>> {
-	try {
-		const url = pathToFileURL(modulePath).href;
-		// Using native import which works with Bun and Node (if configured)
-		const mod = await import(url);
-		return mod;
-	} catch (error) {
-		throw new Error(`Failed to load module at ${modulePath}: ${error}`);
 	}
 }
 

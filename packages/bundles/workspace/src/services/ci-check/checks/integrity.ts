@@ -5,6 +5,7 @@
 import type { FsAdapter } from '../../../ports/fs';
 import type { LoggerAdapter } from '../../../ports/logger';
 import { analyzeIntegrity } from '../../integrity';
+import { loadWorkspaceConfig } from '../../config';
 import type { CICheckOptions, CIIssue } from '../types';
 
 /**
@@ -15,8 +16,10 @@ export async function runIntegrityChecks(
 	options: CICheckOptions
 ): Promise<CIIssue[]> {
 	const issues: CIIssue[] = [];
+	const config = await loadWorkspaceConfig(adapters.fs);
 
 	const result = await analyzeIntegrity(adapters, {
+		config,
 		pattern: options.pattern,
 		all: true,
 	});

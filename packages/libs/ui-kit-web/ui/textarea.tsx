@@ -1,7 +1,9 @@
+import type { SharedTextareaProps } from '@contractspec/lib.ui-kit-core/interfaces';
 import { cn } from '@contractspec/lib.ui-kit-core/utils';
 import * as React from 'react';
 
-export type TextareaProps = React.ComponentPropsWithoutRef<'textarea'>;
+export type TextareaProps = SharedTextareaProps &
+	React.ComponentPropsWithoutRef<'textarea'>;
 
 function Textarea({ className, ...props }: TextareaProps) {
 	return (

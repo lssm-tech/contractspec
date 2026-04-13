@@ -2,7 +2,7 @@
 
 > Aggregated content from all packages. For summary, see /llms
 
-Generated: 2026-04-10T10:35:33.475Z
+Generated: 2026-04-13T22:01:05.734Z
 Packages: 186
 
 ---
@@ -404,7 +404,7 @@ URL: /llms/lib.ui-kit-core
 
 # @contractspec/lib.ui-kit-core
 
-`@contractspec/lib.ui-kit-core` is the small shared foundation for the UI packages, currently centered on class-name merging and related low-level utilities.
+`@contractspec/lib.ui-kit-core` is the shared foundation for the UI packages. It provides the low-level `cn()` utility plus the canonical shared interface layer used by `ui-kit` and `ui-kit-web`.
 
 Website: https://contractspec.io
 
@@ -422,16 +422,19 @@ This package is intentionally small:
 
 - Very low-level, zero-surprise UI helpers shared across `ui-kit`, `ui-kit-web`, and `ui-link`.
 - Small shared utilities that are useful across multiple UI packages and do not belong in a component package.
+- Platform-neutral shared UI contracts under `./interfaces`.
 
 ## API map
 
 - root export: `.`  
+- shared interfaces subpath: `./interfaces`
 - utility subpath: `./utils`
 - core function: `cn(...inputs)`
 
 ## Operational semantics and gotchas
 
 - This package is intentionally tiny.
+- `./interfaces` is the shared compatibility layer for semantically matching `ui-kit` and `ui-kit-web` exports.
 - `cn()` composes `clsx` with `tailwind-merge`.
 - Changes here ripple into all UI packages even though the file count is small.
 - This package should stay boring and predictable.
@@ -504,6 +507,9 @@ Use this package for Expo and React Native surfaces. Do not use it as the design
 - `./ui/sheet`
 - `./ui/dropdown-menu`
 - `./ui/context-menu`
+- `./ui/portal`
+- `./ui/toast`
+- `./ui/toolbar`
 
 ### Navigation and display
 
@@ -515,6 +521,7 @@ Use this package for Expo and React Native surfaces. Do not use it as the design
 - `./ui/data-table`
 - `./ui/card`
 - `./ui/empty-state`
+- `./ui/slider`
 
 ### Hooks, utilities, and grouped surfaces
 
@@ -523,6 +530,7 @@ Use this package for Expo and React Native surfaces. Do not use it as the design
 - `./ui/utils`
 - grouped subpaths under `./ui/marketing`, `./ui/usecases`, and `./ui/visualization`
 - icons under `./ui/icons/*`
+- shared semantic contracts are defined in `@contractspec/lib.ui-kit-core/interfaces`
 
 ## Public surface
 
@@ -1818,6 +1826,8 @@ or
 
 Import the root entrypoint from `@contractspec/lib.contracts-runtime-client-react`, or choose a documented subpath when you only need one part of the package surface.
 
+The form renderer supports the expanded FormSpec field set: readonly inputs, autocomplete, address, phone, date, time, datetime, groups, and repeated grouped arrays. Drivers are expected to provide dedicated slots for those rich widgets in addition to the base text/select/boolean controls.
+
 ## Architecture
 
 - `src/drivers` is part of the package's public or composition surface.
@@ -2393,7 +2403,7 @@ bun add @contractspec/lib.contracts-spec @contractspec/lib.schema
 - `OperationSpecRegistry`: registers specs, binds handlers, and executes with validation/policy/event guards.
 - `defineEvent` + `EventRegistry`: typed event contracts and lookup.
 - `defineResourceTemplate` + `ResourceRegistry`: URI-template-based resource contracts.
-- `FormRegistry`: contract-first form declarations consumed by UI runtimes.
+- `FormRegistry`: contract-first form declarations consumed by UI runtimes, including readonly, autocomplete, address, phone, date, time, datetime, and grouped array authoring through `@contractspec/lib.contracts-spec/forms`.
 - `installOp`: one-call helper to register + bind operation handlers.
 - `makeEmit`: typed helper for declared event emission in handlers.
 
@@ -2422,6 +2432,19 @@ const registry = new AgentRegistry().register(SupportBot);
 
 Runtime execution, exporters, MCP bridges, and provider adapters stay in
 `@contractspec/lib.ai-agent`.
+
+## Workspace Config Notes
+
+`@contractspec/lib.contracts-spec/workspace-config` now includes first-class setup support for:
+
+- `connect` configuration
+- `builder` configuration with `runtimeMode: "managed" | "local" | "hybrid"`
+- canonical Builder bootstrap presets:
+  - `managed_mvp`
+  - `local_daemon_mvp`
+  - `hybrid_mvp`
+
+Those settings are consumed by the shared setup layer used by the CLI, VS Code extension, and JetBrains plugin.
 
 ## Migration Note
 
@@ -5446,16 +5469,54 @@ import { AppLayout, Button, HeroSection } from "@contractspec/lib.design-system"
 
 ```ts
 import {
+  createTranslationResolver,
   defaultTokens,
   mapTokensForPlatform,
+  resolvePlatformTheme,
+  resolveThemeRefTokens,
   withPlatformUI,
 } from "@contractspec/lib.design-system";
 
-const nativeTokens = mapTokensForPlatform("native");
+const nativeTokens = mapTokensForPlatform("native", defaultTokens);
 const ui = withPlatformUI({
   tokens: defaultTokens,
   platform: "web",
 });
+```
+
+### Resolve contract-backed themes
+
+```ts
+import { ThemeRegistry } from "@contractspec/lib.contracts-spec/themes";
+import { resolvePlatformTheme } from "@contractspec/lib.design-system";
+
+const registry = new ThemeRegistry([themeSpec]);
+
+const webTokens = resolvePlatformTheme(
+  registry,
+  { key: "design.brand", version: "1.0.0" },
+  "web",
+  { targets: ["tenant:acme"] }
+);
+```
+
+### Provide translations to contract-driven renderers
+
+```tsx
+import {
+  createTranslationResolver,
+  DesignSystemTranslationProvider,
+} from "@contractspec/lib.design-system";
+
+const resolver = createTranslationResolver({
+  registry: translationRegistry,
+  locale: "fr",
+  specKeys: ["design-system.form", "design-system.data-view"],
+});
+
+<DesignSystemTranslationProvider resolver={resolver}>
+  {children}
+</DesignSystemTranslationProvider>;
 ```
 
 ## API map
@@ -5464,6 +5525,7 @@ const ui = withPlatformUI({
 
 - `defaultTokens` and token interfaces from `./theme/tokens`
 - `mapTokensForPlatform` from `./theme/tokenBridge`
+- `resolveThemeSpecTokens`, `resolveThemeRefTokens`, and `resolvePlatformTheme` from `./theme/contracts`
 - theme variants
 - `withPlatformUI`
 - `useColorScheme`
@@ -5473,7 +5535,8 @@ const ui = withPlatformUI({
 ### Renderers and hooks
 
 - renderer exports from `./renderers`
-- form-contract renderer support
+- form-contract renderer support, including readonly, autocomplete, address, phone, date, time, and datetime FormSpec fields
+- translation-aware rendering through `DesignSystemTranslationProvider` and `createTranslationResolver`
 - hooks such as `useListUrlState`
 - navigation-related shared types
 
@@ -5511,8 +5574,9 @@ The package also ships registry metadata and build support:
 ## Operational semantics and gotchas
 
 - Token names and token shapes are compatibility surface.
-- `mapTokensForPlatform()` deliberately returns different token shapes for web and native.
+- `mapTokensForPlatform()` deliberately returns different token shapes for web and native, and can now map resolved contract-backed tokens.
 - `withPlatformUI()` is a lightweight adapter, not a full runtime framework.
+- Theme integration is utility-first in this tranche: resolve tokens from `ThemeSpec` / `ThemeRef`, then map them per platform. There is no runtime theme provider yet.
 - The root barrel is broad and therefore high-blast-radius.
 - This package depends on both `ui-kit` and `ui-kit-web`.
 - The package includes legal, marketing, agent, app-shell, and visualization compositions, not just low-level primitives.
@@ -5609,12 +5673,17 @@ function AppShell({ title, children }: { title: string; children: React.ReactNod
 ### Controls and forms
 
 - `./ui/button`
+- `./ui/button-group`
 - `./ui/input`
 - `./ui/textarea`
 - `./ui/select`
+- `./ui/native-select`
 - `./ui/form`
+- `./ui/combobox`
 - `./ui/input-group`
 - `./ui/input-otp`
+- `./ui/spinner`
+- `./ui/kbd`
 
 ### Overlays, menus, and navigation
 
@@ -5633,6 +5702,9 @@ function AppShell({ title, children }: { title: string; children: React.ReactNod
 - `./ui/page-header`
 - `./ui/section`
 - `./ui/sidebar`
+- `./ui/item`
+- `./ui/chart`
+- `./ui/direction`
 
 ### Accessibility helpers
 
@@ -5650,6 +5722,7 @@ function AppShell({ title, children }: { title: string; children: React.ReactNod
 - `./ui/use-toast`
 - `./ui/utils`
 - grouped subpaths under `./ui/map`, `./ui/marketing`, `./ui/usecases`, `./ui/organisms/ListPage`, and `./ui/visualization`
+- shared semantic contracts are defined in `@contractspec/lib.ui-kit-core/interfaces`
 
 ## Public surface
 
@@ -7726,7 +7799,7 @@ URL: /llms/app.cli-contractspec
 
 Website: https://contractspec.io
 
-**CLI tool for creating, building, and validating contract specifications.**
+**CLI tool for authoring, materializing, and validating ContractSpec targets.**
 
 ## What It Does
 
@@ -7735,8 +7808,8 @@ Website: https://contractspec.io
 - **CLI setup** (`src/index.ts`, `src/cli.ts`) - Commander.js configuration.
 - **Types** (`src/types.ts`) - CLI-specific types.
 - **Services** (`@contractspec/bundle.workspace/services/`) - Core use-cases.
-- `create.ts` - Spec creation logic.
-- `build.ts` - Code generation from specs.
+- `create.ts` - Authored target creation logic.
+- `build.ts` - Runtime/package materialization from authored targets.
 - `openapi.ts` - OpenAPI export.
 
 ## Running Locally
@@ -7753,6 +7826,56 @@ From `packages/apps/cli-contractspec`:
 bun run dev
 ```
 
+## Core Authoring/Build Model
+
+- `create` authors both runtime specs and package-oriented targets such as `module-bundle`, `builder-spec`, and `provider-spec`.
+- `build` materializes one authored target into runtime artifacts or package scaffolds.
+- `generate` runs workspace-wide generation for docs and derived artifacts.
+- `validate` checks authored targets, package scaffolds, and optional runtime implementations.
+
+## Shell Completion
+
+Install the package so the `contractspec` executable is available on your `PATH`, then choose one of the supported shells:
+
+```bash
+contractspec completion script bash
+contractspec completion script zsh
+contractspec completion script fish
+```
+
+For managed installation, write the completion file and optionally patch the shell profile:
+
+```bash
+contractspec completion install bash
+contractspec completion install zsh --write-profile
+contractspec completion install fish
+```
+
+`completion install` always writes the generated completion script to a managed user config path. By default it does not edit startup files in non-interactive sessions. Use `--write-profile` to append an idempotent `source` block automatically.
+
+## Initialization Presets
+
+`contractspec init` is now preset-driven. The shared setup layer owns the flow, and the CLI just forwards the preset and renders the resulting next steps.
+
+```bash
+# Generic ContractSpec workspace setup
+contractspec init --preset core
+
+# Enable ContractSpec Connect defaults and local artifacts
+contractspec init --preset connect
+
+# Prepare Builder for a managed runtime
+contractspec init --preset builder-managed
+
+# Prepare Builder for a local runtime
+contractspec init --preset builder-local
+
+# Prepare Builder for a hybrid runtime
+contractspec init --preset builder-hybrid
+```
+
+In non-interactive mode, setup remains config-first: it writes `.contractsrc.json`, editor wiring, and tailored follow-up commands, but it does not call live Builder bootstrap APIs for you.
+
 ## Architecture
 
 - **Commands** (`src/commands/`) - Thin wrappers that call bundle services.
@@ -7760,8 +7883,8 @@ bun run dev
 - **CLI setup** (`src/index.ts`, `src/cli.ts`) - Commander.js configuration.
 - **Types** (`src/types.ts`) - CLI-specific types.
 - **Services** (`@contractspec/bundle.workspace/services/`) - Core use-cases.
-- `create.ts` - Spec creation logic.
-- `build.ts` - Code generation from specs.
+- `create.ts` - Authored target creation logic.
+- `build.ts` - Runtime/package materialization from authored targets.
 - `openapi.ts` - OpenAPI export.
 - `registry.ts` - Registry client.
 - `examples.ts` - Examples management.
@@ -7773,7 +7896,7 @@ bun run dev
 ## Local Commands
 
 - `bun run dev` — bun build ./src/cli.ts --outfile ./dist/cli.js --target node --watch
-- `bun run build` — bun run build:types && bun run build:all
+- `bun run build` — bun run prebuild && bun run build:types && bun run build:all
 - `bun run test` — bun test
 - `bun run lint` — bun run lint:fix
 - `bun run lint:check` — biome check .
@@ -7782,8 +7905,8 @@ bun run dev
 - `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
 - `bun run publish:pkg:canary` — bun publish:pkg --tag canary
 - `bun run clean` — rimraf dist
-- `bun run build:bun` — bun build --outdir ./dist/bun/ --target bun --minify --sourcemap ./src/cli.ts
-- `bun run build:node` — bun build --outdir ./dist/node/ --target node --minify --sourcemap ./src/cli.ts
+- `bun run build:bun` — bun build --outdir ./dist/bun/ --target bun --minify --external playwright --external playwright-core --external electron --external chromium-bidi --external 'chromium-bidi/*' ./src/cli.ts
+- `bun run build:node` — bun build --outdir ./dist/node/ --target node --minify --external playwright --external playwright-core --external electron --external chromium-bidi --external 'chromium-bidi/*' ./src/cli.ts
 - `bun run build:all` — bun run build:bun && bun run build:node
 - `bun run build:types` — tsc --noEmit
 - `bun run dev:bun` — bun build ./src/cli.ts --outfile ./dist/cli.bun.js --target bun --watch
@@ -7801,6 +7924,7 @@ bun run dev
 ## Notes
 
 - Works alongside `@contractspec/bundle.workspace`, `@contractspec/lib.ai-agent`, `@contractspec/lib.ai-providers`, `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, ...
+- `contractspec apply` has been retired; use `contractspec generate` for write-generation flows.
 
 
 ---
@@ -8033,6 +8157,22 @@ From `packages/apps/vscode-contractspec`:
 
 ```bash
 bun run dev
+```
+
+## Initialization Presets
+
+The extension setup flow is preset-driven and backed by the shared workspace setup service.
+
+- `ContractSpec: Setup ContractSpec` lets you choose between `core`, `connect`, `builder-managed`, `builder-local`, and `builder-hybrid`.
+- `ContractSpec: Quick Setup (Defaults)` applies the `core` preset with no prompts.
+- Builder managed and hybrid presets mirror the configured Builder API base URL into `contractspec.api.baseUrl` in `.vscode/settings.json`.
+
+Representative follow-up commands after setup:
+
+```bash
+contractspec builder init --workspace-id ws-demo --preset managed-mvp
+contractspec builder init --workspace-id ws-demo --preset local-daemon-mvp
+contractspec builder local register --workspace-id ws-demo --runtime-id rt_local_daemon --granted-to local:operator
 ```
 
 ## Architecture

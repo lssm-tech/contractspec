@@ -9,7 +9,9 @@ import fs from 'fs/promises';
 import path from 'path';
 import { loadSpecFromFile } from '../../utils/spec-load';
 
-export const agentCommand = new Command('agent');
+export const agentCommand = new Command('agent').description(
+	'Export agent specs to external agent runtimes'
+);
 
 agentCommand
 	.command('export')

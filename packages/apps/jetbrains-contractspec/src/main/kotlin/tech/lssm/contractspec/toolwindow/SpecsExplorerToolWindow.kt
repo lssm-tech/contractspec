@@ -2,6 +2,7 @@ package tech.lssm.contractspec.toolwindow
 
 import com.intellij.openapi.application.ApplicationManager
 import com.intellij.openapi.fileEditor.FileEditorManager
+import com.intellij.openapi.fileEditor.OpenFileDescriptor
 import com.intellij.openapi.project.Project
 import com.intellij.openapi.ui.Messages
 import com.intellij.openapi.ui.SimpleToolWindowPanel
@@ -103,14 +104,16 @@ class SpecsExplorerToolWindow(private val project: Project) {
                 val groupedSpecs = groupSpecs(specs.map { specJson ->
                     val spec = specJson.asJsonObject
                     SpecInfo(
-                        name = spec.get("name").asString,
-                        version = spec.get("version").asInt,
+                        name = spec.get("key")?.asString ?: spec.get("name")?.asString ?: "(unknown)",
+                        version = spec.get("version")?.asString ?: "1.0.0",
                         filePath = spec.get("filePath").asString,
                         specType = spec.get("specType").asString,
                         stability = spec.get("stability")?.asString ?: "unknown",
                         description = spec.get("description")?.asString,
                         tags = spec.get("tags")?.asJsonArray?.map { it.asString } ?: emptyList(),
-                        owners = spec.get("owners")?.asJsonArray?.map { it.asString } ?: emptyList()
+                        owners = spec.get("owners")?.asJsonArray?.map { it.asString } ?: emptyList(),
+                        exportName = spec.get("exportName")?.asString,
+                        declarationLine = spec.get("declarationLine")?.asInt
                     )
                 })
 
@@ -206,26 +209,37 @@ class SpecsExplorerToolWindow(private val project: Project) {
 
     data class SpecInfo(
         val name: String,
-        val version: Int,
+        val version: String,
         val filePath: String,
         val specType: String,
         val stability: String,
         val description: String? = null,
         val tags: List<String> = emptyList(),
-        val owners: List<String> = emptyList()
+        val owners: List<String> = emptyList(),
+        val exportName: String? = null,
+        val declarationLine: Int? = null
     )
 
     inner class SpecTreeNode(private val spec: SpecInfo) : DefaultMutableTreeNode() {
 
         init {
-            userObject = "${spec.specType}: ${spec.name}.v${spec.version} (${spec.stability})"
+            userObject = buildString {
+                append("${spec.specType}: ${spec.name}.v${spec.version}")
+                if (!spec.exportName.isNullOrBlank() && spec.exportName != spec.name) {
+                    append(" [${spec.exportName}]")
+                }
+                append(" (${spec.stability})")
+            }
         }
 
         fun openFile() {
             val virtualFile = LocalFileSystem.getInstance().findFileByPath(spec.filePath) ?: return
+            if (spec.declarationLine != null) {
+                OpenFileDescriptor(project, virtualFile, spec.declarationLine - 1, 0).navigate(true)
+                return
+            }
             FileEditorManager.getInstance(project).openFile(virtualFile, true)
         }
     }
 }
-
 

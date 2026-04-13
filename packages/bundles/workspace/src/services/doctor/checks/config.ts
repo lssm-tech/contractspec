@@ -3,8 +3,13 @@
  */
 
 import type { FsAdapter } from '../../../ports/fs';
-import { generateContractsrcConfig } from '../../setup/config-generators';
-import { formatJson } from '../../setup/file-merger';
+import { loadWorkspaceConfig } from '../../config';
+import {
+	generateContractsrcConfig,
+	generateVscodeSettings,
+} from '../../setup/config-generators';
+import { formatJson, safeParseJson } from '../../setup/file-merger';
+import { inferSetupPresetFromConfig } from '../../setup/presets';
 import type { CheckContext, CheckResult, FixResult } from '../types';
 
 /**
@@ -30,8 +35,25 @@ export async function runConfigChecks(
 
 	// Check hooks configuration
 	results.push(await checkHooksConfig(fs, ctx));
+	results.push(await checkPresetConfiguration(fs, ctx));
+	results.push(await checkBuilderVscodeMirror(fs, ctx));
 
 	return results;
+}
+
+async function resolveConfigRoot(
+	fs: FsAdapter,
+	ctx: CheckContext
+): Promise<string> {
+	if (
+		ctx.packageRoot &&
+		ctx.packageRoot !== ctx.workspaceRoot &&
+		(await fs.exists(fs.join(ctx.packageRoot, '.contractsrc.json')))
+	) {
+		return ctx.packageRoot;
+	}
+
+	return ctx.workspaceRoot;
 }
 
 /**
@@ -41,7 +63,10 @@ async function checkContractsrcExists(
 	fs: FsAdapter,
 	ctx: CheckContext
 ): Promise<CheckResult> {
-	const configPath = fs.join(ctx.workspaceRoot, '.contractsrc.json');
+	const configPath = fs.join(
+		await resolveConfigRoot(fs, ctx),
+		'.contractsrc.json'
+	);
 
 	const exists = await fs.exists(configPath);
 	if (exists) {
@@ -85,7 +110,10 @@ async function checkContractsrcValid(
 	fs: FsAdapter,
 	ctx: CheckContext
 ): Promise<CheckResult> {
-	const configPath = fs.join(ctx.workspaceRoot, '.contractsrc.json');
+	const configPath = fs.join(
+		await resolveConfigRoot(fs, ctx),
+		'.contractsrc.json'
+	);
 
 	const exists = await fs.exists(configPath);
 	if (!exists) {
@@ -144,7 +172,10 @@ async function checkContractsrcFields(
 	fs: FsAdapter,
 	ctx: CheckContext
 ): Promise<CheckResult> {
-	const configPath = fs.join(ctx.workspaceRoot, '.contractsrc.json');
+	const configPath = fs.join(
+		await resolveConfigRoot(fs, ctx),
+		'.contractsrc.json'
+	);
 
 	const exists = await fs.exists(configPath);
 	if (!exists) {
@@ -227,7 +258,10 @@ async function checkVersioningConfig(
 	fs: FsAdapter,
 	ctx: CheckContext
 ): Promise<CheckResult> {
-	const configPath = fs.join(ctx.workspaceRoot, '.contractsrc.json');
+	const configPath = fs.join(
+		await resolveConfigRoot(fs, ctx),
+		'.contractsrc.json'
+	);
 
 	const exists = await fs.exists(configPath);
 	if (!exists) {
@@ -303,7 +337,10 @@ async function checkHooksConfig(
 	fs: FsAdapter,
 	ctx: CheckContext
 ): Promise<CheckResult> {
-	const configPath = fs.join(ctx.workspaceRoot, '.contractsrc.json');
+	const configPath = fs.join(
+		await resolveConfigRoot(fs, ctx),
+		'.contractsrc.json'
+	);
 
 	const exists = await fs.exists(configPath);
 	if (!exists) {
@@ -377,4 +414,182 @@ async function checkHooksConfig(
 			message: 'Could not parse config',
 		};
 	}
+}
+
+async function checkPresetConfiguration(
+	fs: FsAdapter,
+	ctx: CheckContext
+): Promise<CheckResult> {
+	const configRoot = await resolveConfigRoot(fs, ctx);
+	const config = await loadWorkspaceConfig(fs, configRoot);
+	const preset = inferSetupPresetFromConfig(config);
+
+	if (preset === 'core') {
+		return {
+			category: 'config',
+			name: 'Setup Preset',
+			status: 'pass',
+			message: 'Core setup inferred from workspace config',
+		};
+	}
+
+	if (preset === 'connect') {
+		const missingStorage = [
+			config.connect?.storage?.root ? null : 'storage.root',
+			config.connect?.storage?.contextPack ? null : 'storage.contextPack',
+			config.connect?.storage?.planPacket ? null : 'storage.planPacket',
+			config.connect?.storage?.patchVerdict ? null : 'storage.patchVerdict',
+		].filter((value): value is string => value !== null);
+		const needsStudioEndpoint =
+			config.connect?.studio?.enabled &&
+			config.connect?.studio?.mode === 'review-bridge' &&
+			!config.connect?.studio?.endpoint;
+
+		if (missingStorage.length === 0 && !needsStudioEndpoint) {
+			return {
+				category: 'config',
+				name: 'Setup Preset',
+				status: 'pass',
+				message: 'Connect setup inferred and artifact storage is configured',
+			};
+		}
+
+		const issues = [
+			...missingStorage,
+			...(needsStudioEndpoint ? ['connect.studio.endpoint'] : []),
+		];
+		return {
+			category: 'config',
+			name: 'Setup Preset',
+			status: 'fail',
+			message: `Connect preset is incomplete: ${issues.join(', ')}`,
+		};
+	}
+
+	const missing: string[] = [];
+	const tokenEnvVar = config.builder?.api?.controlPlaneTokenEnvVar;
+
+	if (
+		(preset === 'builder-managed' || preset === 'builder-hybrid') &&
+		!config.builder?.api?.baseUrl
+	) {
+		missing.push('builder.api.baseUrl');
+	}
+	if (
+		(preset === 'builder-managed' || preset === 'builder-hybrid') &&
+		!tokenEnvVar
+	) {
+		missing.push('builder.api.controlPlaneTokenEnvVar');
+	}
+	if (
+		(preset === 'builder-managed' || preset === 'builder-hybrid') &&
+		tokenEnvVar &&
+		!process.env[tokenEnvVar]
+	) {
+		missing.push(`env:${tokenEnvVar}`);
+	}
+	if (
+		(preset === 'builder-local' || preset === 'builder-hybrid') &&
+		!config.builder?.localRuntime?.runtimeId
+	) {
+		missing.push('builder.localRuntime.runtimeId');
+	}
+	if (
+		(preset === 'builder-local' || preset === 'builder-hybrid') &&
+		!config.builder?.localRuntime?.grantedTo
+	) {
+		missing.push('builder.localRuntime.grantedTo');
+	}
+
+	return {
+		category: 'config',
+		name: 'Setup Preset',
+		status: missing.length === 0 ? 'pass' : 'warn',
+		message:
+			missing.length === 0
+				? `Builder preset inferred (${preset}) and required config is present`
+				: `Builder preset inferred (${preset}) but setup is missing ${missing.join(', ')}`,
+	};
+}
+
+async function checkBuilderVscodeMirror(
+	fs: FsAdapter,
+	ctx: CheckContext
+): Promise<CheckResult> {
+	const configRoot = await resolveConfigRoot(fs, ctx);
+	const config = await loadWorkspaceConfig(fs, configRoot);
+	const preset = inferSetupPresetFromConfig(config);
+
+	if (preset !== 'builder-managed' && preset !== 'builder-hybrid') {
+		return {
+			category: 'config',
+			name: 'VS Code API Mirror',
+			status: 'skip',
+			message: 'Builder managed/hybrid preset is not enabled',
+		};
+	}
+
+	const settingsPath = fs.join(configRoot, '.vscode', 'settings.json');
+	const expectedBaseUrl = config.builder?.api?.baseUrl;
+	if (!expectedBaseUrl) {
+		return {
+			category: 'config',
+			name: 'VS Code API Mirror',
+			status: 'skip',
+			message: 'Builder API base URL is not configured',
+		};
+	}
+
+	const content = await fs.readFile(settingsPath).catch(() => '');
+	const settings = content
+		? safeParseJson<Record<string, unknown>>(content)
+		: undefined;
+	const mirroredBaseUrl = settings?.['contractspec.api.baseUrl'];
+	if (mirroredBaseUrl === expectedBaseUrl) {
+		return {
+			category: 'config',
+			name: 'VS Code API Mirror',
+			status: 'pass',
+			message: 'VS Code API base URL matches Builder configuration',
+		};
+	}
+
+	return {
+		category: 'config',
+		name: 'VS Code API Mirror',
+		status: 'warn',
+		message: 'VS Code settings do not mirror builder.api.baseUrl',
+		fix: {
+			description:
+				'Write the expected ContractSpec API base URL into .vscode/settings.json',
+			apply: async (): Promise<FixResult> => {
+				try {
+					const dirPath = fs.join(configRoot, '.vscode');
+					if (!(await fs.exists(dirPath))) {
+						await fs.mkdir(dirPath);
+					}
+
+					const nextSettings = {
+						...(settings ?? {}),
+						...generateVscodeSettings({
+							workspaceRoot: ctx.workspaceRoot,
+							packageRoot: ctx.packageRoot,
+							isMonorepo: ctx.isMonorepo,
+							packageName: ctx.packageName,
+							interactive: false,
+							preset,
+							targets: [],
+							builderApiBaseUrl: expectedBaseUrl,
+						}),
+					};
+					await fs.writeFile(settingsPath, formatJson(nextSettings));
+					return { success: true, message: 'Updated VS Code settings mirror' };
+				} catch (error) {
+					const message =
+						error instanceof Error ? error.message : String(error);
+					return { success: false, message };
+				}
+			},
+		},
+	};
 }

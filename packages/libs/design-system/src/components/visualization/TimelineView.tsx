@@ -2,6 +2,10 @@
 
 import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 import * as React from 'react';
+import {
+	resolveTranslationNode,
+	useDesignSystemTranslation,
+} from '../../i18n/translation';
 import type { VisualizationSurfaceItem } from './types';
 import { VisualizationCard } from './VisualizationCard';
 
@@ -18,12 +22,17 @@ export function TimelineView({
 	description,
 	className,
 }: TimelineViewProps) {
+	const translate = useDesignSystemTranslation();
 	return (
 		<section className={cn('space-y-4', className)}>
 			<div className="space-y-1">
-				<h3 className="font-semibold text-lg">{title}</h3>
+				<h3 className="font-semibold text-lg">
+					{resolveTranslationNode(title, translate)}
+				</h3>
 				{description ? (
-					<p className="text-muted-foreground text-sm">{description}</p>
+					<p className="text-muted-foreground text-sm">
+						{resolveTranslationNode(description, translate)}
+					</p>
 				) : null}
 			</div>
 			<div className="space-y-4">

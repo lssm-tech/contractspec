@@ -4,36 +4,24 @@ import {
 } from '@contractspec/bundle.workspace';
 import chalk from 'chalk';
 import { Command } from 'commander';
-import path from 'path';
+import { loadConfig } from '../../utils/config';
 
 export const generateCommand = new Command('generate')
-	.description('Rebuild derived artifacts from canonical contracts')
+	.description('Generate docs and derived artifacts from authored targets')
 	.action(async () => {
 		try {
-			const adapters = createNodeAdapters({ silent: true });
+			const config = await loadConfig();
+			const adapters = createNodeAdapters({ config, silent: true });
 			const cwd = process.cwd();
-			const contractsDir = path.join(cwd, 'contracts');
-			const generatedDir = path.join(cwd, 'generated');
 
 			console.log(chalk.bold.blue('\n🏭 ContractSpec Generator\n'));
 
-			// Check if contracts directory exists (Phase 0 check)
-			if (!(await adapters.fs.exists(contractsDir))) {
-				console.warn(
-					chalk.yellow(
-						`⚠️  'contracts' directory not found at ${contractsDir}.\n   Using current directory for search, but conventionally contracts should be in 'contracts/'.`
-					)
-				);
-			}
-
 			console.log(chalk.cyan(`🔍 Scaning for specs...`));
 
-			const result = await generateArtifacts(
-				adapters,
-				contractsDir,
-				generatedDir,
-				cwd
-			);
+			const result = await generateArtifacts(adapters, cwd, 'generated', cwd, {
+				config,
+				includeRuntimeTests: true,
+			});
 
 			if (result.specsCount === 0) {
 				console.log(chalk.yellow('⚠️  No specs found to generate from.'));
@@ -41,15 +29,13 @@ export const generateCommand = new Command('generate')
 			}
 
 			console.log(chalk.gray(`   Found ${result.specsCount} specs.`));
-			console.log(chalk.cyan(`\n📝 Generating documentation...`));
+			console.log(chalk.cyan(`\n📝 Generating materialized artifacts...`));
 
 			console.log(
 				chalk.green(
-					`   Generate ${result.docsCount} doc files in ${path.join(generatedDir, 'docs')}`
+					`   Generated ${result.docsCount} docs and ${result.materializedCount} additional artifacts`
 				)
 			);
-
-			// Future: OpenAPI, SDKs, etc.
 
 			console.log(chalk.green('\n✅ Generation complete!'));
 		} catch (error) {

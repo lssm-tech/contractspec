@@ -128,3 +128,9 @@ local
 .omc/research/
 .omc/
 .omx/
+
+# contractspec:init:gitignore:start
+# Managed by `contractspec init` and `contractspec connect init`.
+**/.contractspec/connect/
+**/.contractspec/verification-cache.json
+# contractspec:init:gitignore:end

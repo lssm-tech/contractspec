@@ -40,6 +40,43 @@ export const SETUP_TARGET_LABELS: Record<SetupTarget, string> = {
 	'agents-md': 'AI Agent Guide (AGENTS.md)',
 };
 
+export type SetupPreset =
+	| 'core'
+	| 'connect'
+	| 'builder-managed'
+	| 'builder-local'
+	| 'builder-hybrid';
+
+export const ALL_SETUP_PRESETS: SetupPreset[] = [
+	'core',
+	'connect',
+	'builder-managed',
+	'builder-local',
+	'builder-hybrid',
+];
+
+export const SETUP_PRESET_LABELS: Record<SetupPreset, string> = {
+	core: 'Core workspace setup',
+	connect: 'Connect-enabled setup',
+	'builder-managed': 'Builder setup (managed runtime)',
+	'builder-local': 'Builder setup (local runtime)',
+	'builder-hybrid': 'Builder setup (hybrid runtime)',
+};
+
+export const SETUP_PRESET_DESCRIPTIONS: Record<SetupPreset, string> = {
+	core: 'Generic ContractSpec workspace files and editor wiring.',
+	connect:
+		'Core workspace setup plus Connect config, artifact storage, and adapter defaults.',
+	'builder-managed':
+		'Core workspace setup plus Builder config for managed runtime and API-based next steps.',
+	'builder-local':
+		'Core workspace setup plus Builder config for local runtime registration.',
+	'builder-hybrid':
+		'Core workspace setup plus Builder config for hybrid runtime with API and local defaults.',
+};
+
+export type SetupGitignoreBehavior = 'auto' | 'force' | 'skip';
+
 /**
  * Scope of configuration in a monorepo.
  */
@@ -61,12 +98,30 @@ export interface SetupOptions {
 	packageName?: string;
 	/** If true, skip prompts and use defaults. */
 	interactive: boolean;
+	/** High-level onboarding preset. */
+	preset?: SetupPreset;
 	/** Specific targets to configure (defaults to all). */
 	targets: SetupTarget[];
 	/** Project name (defaults to directory name). */
 	projectName?: string;
 	/** Default code owners. */
 	defaultOwners?: string[];
+	/** Builder API base URL for managed or hybrid presets. */
+	builderApiBaseUrl?: string;
+	/** Builder control-plane token environment variable name. */
+	builderControlPlaneTokenEnvVar?: string;
+	/** Builder local runtime target id for local or hybrid presets. */
+	builderLocalRuntimeId?: string;
+	/** Builder local runtime lease/grant target for local or hybrid presets. */
+	builderLocalGrantedTo?: string;
+	/** Builder local-capable providers for local or hybrid presets. */
+	builderLocalProviderIds?: string[];
+	/** Optional Connect Studio bridge endpoint. */
+	connectStudioEndpoint?: string;
+	/** Optional Connect Studio bridge queue. */
+	connectStudioQueue?: string;
+	/** How init should handle recommended ContractSpec .gitignore entries. */
+	gitignoreBehavior?: SetupGitignoreBehavior;
 }
 
 /**
@@ -74,7 +129,7 @@ export interface SetupOptions {
  */
 export interface SetupFileResult {
 	/** Target that was configured. */
-	target: SetupTarget;
+	target: SetupTarget | 'gitignore';
 	/** File path that was created or modified. */
 	filePath: string;
 	/** Action taken. */
@@ -89,10 +144,14 @@ export interface SetupFileResult {
 export interface SetupResult {
 	/** Whether all operations succeeded. */
 	success: boolean;
+	/** Final resolved setup preset. */
+	preset: SetupPreset;
 	/** Results for each file. */
 	files: SetupFileResult[];
 	/** Summary message. */
 	summary: string;
+	/** Tailored follow-up commands for the selected preset. */
+	nextSteps: string[];
 }
 
 /**
@@ -100,7 +159,17 @@ export interface SetupResult {
  */
 export interface SetupPromptCallbacks {
 	/** Confirm an action. */
-	confirm: (message: string) => Promise<boolean>;
+	confirm: (message: string, defaultValue?: boolean) => Promise<boolean>;
+	/** Select a single option. */
+	select: <T extends string>(
+		message: string,
+		options: {
+			value: T;
+			label: string;
+			description?: string;
+			selected?: boolean;
+		}[]
+	) => Promise<T>;
 	/** Select multiple options. */
 	multiSelect: <T extends string>(
 		message: string,

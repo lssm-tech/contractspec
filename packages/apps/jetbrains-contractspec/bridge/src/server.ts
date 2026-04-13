@@ -15,6 +15,7 @@ import {
 import {
 	InitializeParams,
 	InitializeResult,
+	TextDocumentChangeEvent,
 } from 'vscode-languageserver-protocol';
 
 import { BridgeServer } from './handlers/BridgeServer';
@@ -37,15 +38,15 @@ connection.onInitialized(() => {
 });
 
 // Handle text document events
-documents.onDidOpen((event) => {
+documents.onDidOpen((event: TextDocumentChangeEvent) => {
 	bridgeServer.onDidOpenTextDocument(event);
 });
 
-documents.onDidChangeContent((event) => {
+documents.onDidChangeContent((event: TextDocumentChangeEvent) => {
 	bridgeServer.onDidChangeTextDocument(event);
 });
 
-documents.onDidClose((event) => {
+documents.onDidClose((event: TextDocumentChangeEvent) => {
 	bridgeServer.onDidCloseTextDocument(event);
 });
 

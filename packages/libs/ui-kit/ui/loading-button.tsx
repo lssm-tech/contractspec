@@ -1,3 +1,4 @@
+import type { SharedLoadingButtonProps } from '@contractspec/lib.ui-kit-core/interfaces';
 import React from 'react';
 import { ActivityIndicator } from 'react-native';
 import type { ButtonProps } from './button';
@@ -5,7 +6,9 @@ import { Button } from './button';
 import { HStack } from './stack';
 import { Text } from './text';
 
-interface LoadingButtonProps extends ButtonProps {
+export interface LoadingButtonProps
+	extends SharedLoadingButtonProps,
+		ButtonProps {
 	isLoading?: boolean;
 	loadingText?: string;
 	children: React.ReactNode;

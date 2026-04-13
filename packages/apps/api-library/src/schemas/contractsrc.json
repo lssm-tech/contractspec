@@ -1,404 +1,1206 @@
 {
-	"$schema": "http://json-schema.org/draft-07/schema#",
-	"title": "ContractSpec CLI Configuration",
-	"description": "Configuration file for ContractSpec CLI and tooling. Supports single projects, monorepos, and meta-repos.",
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
 	"type": "object",
 	"properties": {
-		"aiProvider": {
+		"$schema": {
 			"type": "string",
-			"enum": ["claude", "openai", "ollama", "custom"],
+			"format": "uri-reference",
+			"description": "JSON Schema location for editor validation and completions."
+		},
+		"aiProvider": {
 			"default": "claude",
-			"description": "AI provider for spec generation and code assistance"
+			"type": "string",
+			"enum": ["claude", "openai", "ollama", "mistral", "custom"]
 		},
 		"aiModel": {
-			"type": "string",
-			"description": "Model name to use with the AI provider"
+			"type": "string"
 		},
 		"agentMode": {
-			"type": "string",
-			"enum": ["simple", "cursor", "claude-code", "openai-codex"],
 			"default": "simple",
-			"description": "Agent mode for AI-assisted operations"
+			"type": "string",
+			"enum": [
+				"simple",
+				"cursor",
+				"claude-code",
+				"openai-codex",
+				"claude-agent-sdk",
+				"opencode",
+				"opencode-sdk"
+			]
 		},
 		"customEndpoint": {
-			"type": ["string", "null"],
-			"format": "uri",
-			"description": "Custom endpoint URL for AI provider (OpenAI-compatible)"
+			"anyOf": [
+				{
+					"type": "string",
+					"format": "uri"
+				},
+				{
+					"type": "null"
+				}
+			]
 		},
 		"customApiKey": {
-			"type": ["string", "null"],
-			"description": "API key for custom endpoint"
+			"anyOf": [
+				{
+					"type": "string"
+				},
+				{
+					"type": "null"
+				}
+			]
 		},
 		"outputDir": {
-			"type": "string",
 			"default": "./src",
-			"description": "Default output directory for generated files"
+			"type": "string"
 		},
 		"conventions": {
 			"type": "object",
-			"description": "Directory conventions for organizing specs",
 			"properties": {
 				"models": {
-					"type": "string",
 					"default": "models",
-					"description": "Directory for model specs"
+					"type": "string"
 				},
 				"operations": {
-					"type": "string",
-					"default": "interactions/commands|queries",
-					"description": "Directory pattern for operation specs"
+					"default": "operations/commands|queries",
+					"type": "string"
 				},
 				"events": {
-					"type": "string",
 					"default": "events",
-					"description": "Directory for event specs"
+					"type": "string"
 				},
 				"presentations": {
-					"type": "string",
 					"default": "presentations",
-					"description": "Directory for presentation specs"
+					"type": "string"
 				},
 				"forms": {
-					"type": "string",
 					"default": "forms",
-					"description": "Directory for form specs"
+					"type": "string"
 				},
 				"groupByFeature": {
-					"type": "boolean",
 					"default": true,
-					"description": "Enable feature/module folder grouping"
+					"type": "boolean"
 				},
 				"operationsGrouping": {
-					"$ref": "#/definitions/GroupingRule"
+					"type": "object",
+					"properties": {
+						"strategy": {
+							"type": "string",
+							"enum": [
+								"by-tag",
+								"by-owner",
+								"by-domain",
+								"by-url-path-single",
+								"by-url-path-multi",
+								"by-feature",
+								"none"
+							]
+						},
+						"urlPathLevel": {
+							"type": "number"
+						},
+						"pattern": {
+							"type": "string"
+						}
+					},
+					"required": ["strategy"],
+					"additionalProperties": false
 				},
 				"modelsGrouping": {
-					"$ref": "#/definitions/GroupingRule"
+					"type": "object",
+					"properties": {
+						"strategy": {
+							"type": "string",
+							"enum": [
+								"by-tag",
+								"by-owner",
+								"by-domain",
+								"by-url-path-single",
+								"by-url-path-multi",
+								"by-feature",
+								"none"
+							]
+						},
+						"urlPathLevel": {
+							"type": "number"
+						},
+						"pattern": {
+							"type": "string"
+						}
+					},
+					"required": ["strategy"],
+					"additionalProperties": false
 				},
 				"eventsGrouping": {
-					"$ref": "#/definitions/GroupingRule"
+					"type": "object",
+					"properties": {
+						"strategy": {
+							"type": "string",
+							"enum": [
+								"by-tag",
+								"by-owner",
+								"by-domain",
+								"by-url-path-single",
+								"by-url-path-multi",
+								"by-feature",
+								"none"
+							]
+						},
+						"urlPathLevel": {
+							"type": "number"
+						},
+						"pattern": {
+							"type": "string"
+						}
+					},
+					"required": ["strategy"],
+					"additionalProperties": false
 				}
-			}
+			},
+			"additionalProperties": false
 		},
 		"defaultOwners": {
-			"type": "array",
-			"items": {
-				"type": "string",
-				"pattern": "^@"
-			},
 			"default": [],
-			"description": "Default owners for new specs"
-		},
-		"defaultTags": {
 			"type": "array",
 			"items": {
 				"type": "string"
-			},
+			}
+		},
+		"defaultTags": {
 			"default": [],
-			"description": "Default tags for new specs"
+			"type": "array",
+			"items": {
+				"type": "string"
+			}
 		},
 		"packages": {
 			"type": "array",
 			"items": {
 				"type": "string"
-			},
-			"description": "Package paths to include when running in monorepo mode. Supports glob patterns."
+			}
 		},
 		"excludePackages": {
 			"type": "array",
 			"items": {
 				"type": "string"
-			},
-			"description": "Package paths to exclude when running in monorepo mode. Supports glob patterns."
+			}
 		},
 		"recursive": {
-			"type": "boolean",
-			"default": true,
-			"description": "Whether to search recursively in all packages for specs"
+			"type": "boolean"
 		},
 		"openapi": {
 			"type": "object",
-			"description": "OpenAPI import/export configuration",
 			"properties": {
 				"sources": {
 					"type": "array",
-					"description": "External OpenAPI sources to import/sync from",
 					"items": {
 						"type": "object",
-						"required": ["name"],
 						"properties": {
 							"name": {
-								"type": "string",
-								"description": "Friendly name for the source"
+								"type": "string"
 							},
 							"url": {
 								"type": "string",
-								"format": "uri",
-								"description": "Remote URL to fetch OpenAPI spec from"
+								"format": "uri"
 							},
 							"file": {
-								"type": "string",
-								"description": "Local file path to OpenAPI spec"
+								"type": "string"
 							},
 							"syncMode": {
-								"type": "string",
-								"enum": ["import", "sync", "validate"],
 								"default": "validate",
-								"description": "Sync mode: import (one-time), sync (update), validate (check only)"
+								"type": "string",
+								"enum": ["import", "sync", "validate"]
 							},
 							"tags": {
 								"type": "array",
-								"items": { "type": "string" },
-								"description": "Only import operations with these tags"
+								"items": {
+									"type": "string"
+								}
 							},
 							"exclude": {
 								"type": "array",
-								"items": { "type": "string" },
-								"description": "Exclude operations with these operationIds"
+								"items": {
+									"type": "string"
+								}
 							},
 							"include": {
 								"type": "array",
-								"items": { "type": "string" },
-								"description": "Include operations with these operationIds (overrides exclude)"
+								"items": {
+									"type": "string"
+								}
 							},
 							"prefix": {
-								"type": "string",
-								"description": "Prefix for generated spec names"
+								"type": "string"
 							},
 							"defaultStability": {
 								"type": "string",
-								"enum": ["experimental", "beta", "stable", "deprecated"],
-								"description": "Default stability for imported specs"
+								"enum": ["experimental", "beta", "stable", "deprecated"]
 							},
 							"defaultAuth": {
 								"type": "string",
-								"enum": ["anonymous", "user", "admin"],
-								"description": "Default auth level for imported specs"
+								"enum": ["anonymous", "user", "admin"]
 							},
 							"defaultOwners": {
 								"type": "array",
-								"items": { "type": "string" },
-								"description": "Default owners for imported specs"
+								"items": {
+									"type": "string"
+								}
+							},
+							"schemaFormat": {
+								"default": "contractspec",
+								"type": "string",
+								"enum": ["contractspec", "zod", "json-schema", "graphql"]
 							}
-						}
+						},
+						"required": ["name"],
+						"additionalProperties": false
 					}
 				},
 				"export": {
 					"type": "object",
-					"description": "Export configuration for generating OpenAPI document",
 					"properties": {
 						"outputPath": {
-							"type": "string",
 							"default": "./openapi.json",
-							"description": "Output path for exported OpenAPI document"
+							"type": "string"
 						},
 						"format": {
-							"type": "string",
-							"enum": ["json", "yaml"],
 							"default": "json",
-							"description": "Output format"
+							"type": "string",
+							"enum": ["json", "yaml"]
 						},
 						"title": {
-							"type": "string",
-							"description": "API title for export"
+							"type": "string"
 						},
 						"version": {
-							"type": "string",
-							"description": "API version for export"
+							"type": "string"
 						},
 						"description": {
-							"type": "string",
-							"description": "API description for export"
+							"type": "string"
 						},
 						"servers": {
 							"type": "array",
-							"description": "Server URLs to include in export",
 							"items": {
 								"type": "object",
-								"required": ["url"],
 								"properties": {
 									"url": {
-										"type": "string",
-										"description": "Server URL"
+										"type": "string"
 									},
 									"description": {
-										"type": "string",
-										"description": "Server description"
+										"type": "string"
 									}
-								}
+								},
+								"required": ["url"],
+								"additionalProperties": false
 							}
 						}
-					}
+					},
+					"additionalProperties": false
 				}
-			}
+			},
+			"additionalProperties": false
 		},
 		"ci": {
 			"type": "object",
-			"description": "CI/CD configuration",
 			"properties": {
 				"checks": {
-					"type": "array",
-					"items": { "type": "string" },
 					"default": ["structure", "integrity", "deps"],
-					"description": "Default checks to run"
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
 				},
 				"skipChecks": {
 					"type": "array",
-					"items": { "type": "string" },
-					"description": "Checks to skip"
+					"items": {
+						"type": "string"
+					}
 				},
 				"failOnWarnings": {
-					"type": "boolean",
 					"default": false,
-					"description": "Fail CI on warnings"
+					"type": "boolean"
 				},
 				"uploadSarif": {
-					"type": "boolean",
 					"default": true,
-					"description": "Upload SARIF to GitHub Code Scanning"
+					"type": "boolean"
 				},
 				"prComment": {
 					"type": "object",
-					"description": "PR comment configuration",
 					"properties": {
 						"enabled": {
-							"type": "boolean",
 							"default": true,
-							"description": "Enable PR comments"
+							"type": "boolean"
 						},
 						"template": {
-							"type": "string",
-							"enum": ["minimal", "detailed"],
 							"default": "detailed",
-							"description": "Comment template style"
+							"type": "string",
+							"enum": ["minimal", "detailed"]
 						},
 						"updateExisting": {
-							"type": "boolean",
 							"default": true,
-							"description": "Update existing comment instead of creating new"
+							"type": "boolean"
 						}
-					}
+					},
+					"additionalProperties": false
 				},
 				"checkRun": {
 					"type": "object",
-					"description": "GitHub check run configuration",
 					"properties": {
 						"enabled": {
-							"type": "boolean",
 							"default": true,
-							"description": "Enable GitHub check run creation"
+							"type": "boolean"
 						},
 						"name": {
-							"type": "string",
 							"default": "ContractSpec Impact",
-							"description": "Check run name"
+							"type": "string"
 						},
 						"failOnBreaking": {
-							"type": "boolean",
 							"default": true,
-							"description": "Fail check on breaking changes"
+							"type": "boolean"
 						},
 						"failOnChanges": {
-							"type": "boolean",
 							"default": false,
-							"description": "Fail check on any contract changes"
+							"type": "boolean"
 						}
-					}
+					},
+					"additionalProperties": false
 				},
 				"impact": {
 					"type": "object",
-					"description": "Impact detection configuration",
 					"properties": {
 						"baseline": {
-							"type": "string",
 							"default": "default-branch",
-							"description": "Baseline for comparison: 'default-branch' | 'base-ref' | 'tag:v*'"
+							"type": "string"
 						},
 						"include": {
 							"type": "array",
-							"items": { "type": "string" },
-							"description": "Paths to include in impact detection (glob patterns)"
+							"items": {
+								"type": "string"
+							}
 						},
 						"exclude": {
 							"type": "array",
-							"items": { "type": "string" },
-							"description": "Paths to exclude from impact detection (glob patterns)"
+							"items": {
+								"type": "string"
+							}
 						}
-					}
+					},
+					"additionalProperties": false
 				}
-			}
+			},
+			"additionalProperties": false
 		},
 		"metaRepo": {
 			"type": "object",
-			"description": "Meta-repo configuration for multi-workspace setups",
 			"properties": {
 				"activeScope": {
-					"type": "string",
-					"description": "Active submodule scope (defaults to auto-detected)"
+					"type": "string"
 				},
 				"externalWorkspaces": {
 					"type": "array",
-					"description": "External workspace references for cross-workspace dependencies",
 					"items": {
 						"type": "object",
-						"required": ["alias", "submodule"],
 						"properties": {
 							"alias": {
-								"type": "string",
-								"description": "Alias for referencing this workspace (e.g., 'core', 'internal')"
+								"type": "string"
 							},
 							"submodule": {
-								"type": "string",
-								"description": "Submodule name or relative path from meta-repo root"
+								"type": "string"
 							},
 							"packages": {
 								"type": "array",
-								"items": { "type": "string" },
-								"description": "Package patterns to include from this workspace"
+								"items": {
+									"type": "string"
+								}
 							},
 							"autoResolve": {
-								"type": "boolean",
 								"default": true,
-								"description": "Whether to auto-resolve internal dependencies"
+								"type": "boolean"
 							}
-						}
+						},
+						"required": ["alias", "submodule"],
+						"additionalProperties": false
 					}
 				},
 				"crossWorkspaceSearch": {
-					"type": "boolean",
 					"default": false,
-					"description": "Whether to search for specs across all submodules"
+					"type": "boolean"
 				}
-			}
-		}
-	},
-	"definitions": {
-		"GroupingRule": {
+			},
+			"additionalProperties": false
+		},
+		"rules": {
 			"type": "object",
-			"description": "Grouping rule configuration",
 			"properties": {
-				"strategy": {
-					"type": "string",
-					"enum": [
-						"by-tag",
-						"by-owner",
-						"by-domain",
-						"by-url-path-single",
-						"by-url-path-multi",
-						"by-feature",
-						"none"
-					],
-					"description": "Grouping strategy to apply"
+				"defaults": {
+					"type": "object",
+					"properties": {
+						"require-acceptance": {
+							"type": "string",
+							"enum": ["off", "warn", "error"]
+						},
+						"require-examples": {
+							"type": "string",
+							"enum": ["off", "warn", "error"]
+						},
+						"require-stability": {
+							"type": "string",
+							"enum": ["off", "warn", "error"]
+						},
+						"require-owners-format": {
+							"type": "string",
+							"enum": ["off", "warn", "error"]
+						},
+						"event-past-tense": {
+							"type": "string",
+							"enum": ["off", "warn", "error"]
+						},
+						"no-todo": {
+							"type": "string",
+							"enum": ["off", "warn", "error"]
+						},
+						"workflow-transitions": {
+							"type": "string",
+							"enum": ["off", "warn", "error"]
+						},
+						"telemetry-privacy": {
+							"type": "string",
+							"enum": ["off", "warn", "error"]
+						},
+						"experiment-allocation": {
+							"type": "string",
+							"enum": ["off", "warn", "error"]
+						},
+						"app-config-appid": {
+							"type": "string",
+							"enum": ["off", "warn", "error"]
+						},
+						"app-config-capabilities": {
+							"type": "string",
+							"enum": ["off", "warn", "error"]
+						},
+						"data-view-fields": {
+							"type": "string",
+							"enum": ["off", "warn", "error"]
+						}
+					},
+					"additionalProperties": false
 				},
-				"urlPathLevel": {
-					"type": "number",
-					"description": "For url-path strategies, the level depth (default: 1)"
-				},
-				"pattern": {
+				"overrides": {
+					"type": "object",
+					"propertyNames": {
+						"type": "string",
+						"enum": [
+							"operation",
+							"event",
+							"presentation",
+							"feature",
+							"workflow",
+							"data-view",
+							"migration",
+							"telemetry",
+							"experiment",
+							"app-config",
+							"integration",
+							"knowledge",
+							"policy",
+							"form",
+							"capability",
+							"job",
+							"translation"
+						]
+					},
+					"additionalProperties": {
+						"type": "object",
+						"properties": {
+							"require-acceptance": {
+								"type": "string",
+								"enum": ["off", "warn", "error"]
+							},
+							"require-examples": {
+								"type": "string",
+								"enum": ["off", "warn", "error"]
+							},
+							"require-stability": {
+								"type": "string",
+								"enum": ["off", "warn", "error"]
+							},
+							"require-owners-format": {
+								"type": "string",
+								"enum": ["off", "warn", "error"]
+							},
+							"event-past-tense": {
+								"type": "string",
+								"enum": ["off", "warn", "error"]
+							},
+							"no-todo": {
+								"type": "string",
+								"enum": ["off", "warn", "error"]
+							},
+							"workflow-transitions": {
+								"type": "string",
+								"enum": ["off", "warn", "error"]
+							},
+							"telemetry-privacy": {
+								"type": "string",
+								"enum": ["off", "warn", "error"]
+							},
+							"experiment-allocation": {
+								"type": "string",
+								"enum": ["off", "warn", "error"]
+							},
+							"app-config-appid": {
+								"type": "string",
+								"enum": ["off", "warn", "error"]
+							},
+							"app-config-capabilities": {
+								"type": "string",
+								"enum": ["off", "warn", "error"]
+							},
+							"data-view-fields": {
+								"type": "string",
+								"enum": ["off", "warn", "error"]
+							}
+						},
+						"additionalProperties": false
+					},
+					"required": [
+						"operation",
+						"event",
+						"presentation",
+						"feature",
+						"workflow",
+						"data-view",
+						"migration",
+						"telemetry",
+						"experiment",
+						"app-config",
+						"integration",
+						"knowledge",
+						"policy",
+						"form",
+						"capability",
+						"job",
+						"translation"
+					]
+				}
+			},
+			"additionalProperties": false
+		},
+		"testing": {
+			"type": "object",
+			"properties": {
+				"runner": {
+					"default": "internal",
 					"type": "string",
-					"description": "Custom key extraction pattern (regex or glob)"
+					"enum": ["internal", "jest", "vitest", "bun"]
+				},
+				"testMatch": {
+					"default": ["**/*.{test,spec}.{ts,js}"],
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"autoGenerate": {
+					"default": false,
+					"type": "boolean"
+				},
+				"integrity": {
+					"type": "object",
+					"properties": {
+						"requireTestsFor": {
+							"type": "array",
+							"items": {
+								"type": "string",
+								"enum": [
+									"operation",
+									"event",
+									"presentation",
+									"feature",
+									"workflow",
+									"data-view",
+									"migration",
+									"telemetry",
+									"experiment",
+									"app-config",
+									"integration",
+									"knowledge",
+									"policy",
+									"form",
+									"capability",
+									"job",
+									"translation"
+								]
+							}
+						},
+						"minCoverage": {
+							"type": "number"
+						}
+					},
+					"additionalProperties": false
+				},
+				"testLinking": {
+					"type": "object",
+					"properties": {
+						"strategy": {
+							"default": "both",
+							"type": "string",
+							"enum": ["target-first", "convention-only", "both"]
+						},
+						"warnOnConvention": {
+							"default": false,
+							"type": "boolean"
+						}
+					},
+					"additionalProperties": false
+				}
+			},
+			"additionalProperties": false
+		},
+		"hooks": {
+			"type": "object",
+			"propertyNames": {
+				"type": "string"
+			},
+			"additionalProperties": {
+				"type": "array",
+				"items": {
+					"type": "string"
 				}
 			}
+		},
+		"schemaFormat": {
+			"default": "contractspec",
+			"type": "string",
+			"enum": ["contractspec", "zod", "json-schema", "graphql"]
+		},
+		"formatter": {
+			"type": "object",
+			"properties": {
+				"enabled": {
+					"default": true,
+					"type": "boolean"
+				},
+				"type": {
+					"type": "string",
+					"enum": ["biome", "dprint", "custom"]
+				},
+				"command": {
+					"type": "string"
+				},
+				"args": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"timeout": {
+					"default": 30000,
+					"type": "number"
+				}
+			},
+			"additionalProperties": false
+		},
+		"versioning": {
+			"type": "object",
+			"properties": {
+				"autoBump": {
+					"default": false,
+					"type": "boolean"
+				},
+				"bumpStrategy": {
+					"default": "impact",
+					"type": "string",
+					"enum": ["impact", "conventional"]
+				},
+				"integrateWithChangesets": {
+					"default": false,
+					"type": "boolean"
+				},
+				"changelogTiers": {
+					"default": ["spec", "library", "monorepo"],
+					"type": "array",
+					"items": {
+						"type": "string",
+						"enum": ["spec", "library", "monorepo"]
+					}
+				},
+				"format": {
+					"default": "keep-a-changelog",
+					"type": "string",
+					"enum": ["keep-a-changelog", "conventional", "custom"]
+				},
+				"commitChanges": {
+					"default": false,
+					"type": "boolean"
+				},
+				"commitMessage": {
+					"default": "chore: bump spec versions",
+					"type": "string"
+				},
+				"createTags": {
+					"default": false,
+					"type": "boolean"
+				},
+				"tagPrefix": {
+					"default": "v",
+					"type": "string"
+				},
+				"include": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"exclude": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				}
+			},
+			"additionalProperties": false
+		},
+		"release": {
+			"type": "object",
+			"properties": {
+				"enforceOn": {
+					"default": "release-branch",
+					"type": "string",
+					"enum": ["release-branch", "always", "never"]
+				},
+				"requireChangesetForPublished": {
+					"default": true,
+					"type": "boolean"
+				},
+				"requireReleaseCapsule": {
+					"default": true,
+					"type": "boolean"
+				},
+				"publishArtifacts": {
+					"default": [
+						"manifest.json",
+						"patch-notes.md",
+						"customer-guide.md",
+						"upgrade-manifest.json"
+					],
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"agentTargets": {
+					"default": ["codex"],
+					"type": "array",
+					"items": {
+						"type": "string",
+						"enum": ["codex", "opencode", "claude-code"]
+					}
+				}
+			},
+			"additionalProperties": false
+		},
+		"upgrade": {
+			"type": "object",
+			"properties": {
+				"manifestPaths": {
+					"default": ["generated/releases/upgrade-manifest.json"],
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"defaultAgentTarget": {
+					"default": "codex",
+					"type": "string",
+					"enum": ["codex", "opencode", "claude-code"]
+				},
+				"enableInteractiveGuidance": {
+					"default": true,
+					"type": "boolean"
+				},
+				"applyCodemods": {
+					"default": true,
+					"type": "boolean"
+				}
+			},
+			"additionalProperties": false
+		},
+		"ruleSync": {
+			"type": "object",
+			"properties": {
+				"enabled": {
+					"default": false,
+					"type": "boolean"
+				},
+				"rulesDir": {
+					"default": "./.rules",
+					"type": "string"
+				},
+				"rules": {
+					"default": ["**/*.rule.md"],
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"targets": {
+					"default": ["cursor", "windsurf"],
+					"type": "array",
+					"items": {
+						"type": "string",
+						"enum": [
+							"cursor",
+							"windsurf",
+							"cline",
+							"claude-code",
+							"copilot",
+							"subagent",
+							"skill"
+						]
+					}
+				},
+				"autoSync": {
+					"default": true,
+					"type": "boolean"
+				},
+				"ejectMode": {
+					"default": false,
+					"type": "boolean"
+				}
+			},
+			"additionalProperties": false
+		},
+		"externalAgents": {
+			"type": "object",
+			"properties": {
+				"claudeAgent": {
+					"type": "object",
+					"properties": {
+						"enabled": {
+							"default": false,
+							"type": "boolean"
+						},
+						"apiKey": {
+							"type": "string"
+						},
+						"model": {
+							"default": "claude-sonnet-4-6",
+							"type": "string"
+						},
+						"computerUse": {
+							"default": false,
+							"type": "boolean"
+						},
+						"extendedThinking": {
+							"default": false,
+							"type": "boolean"
+						}
+					},
+					"additionalProperties": false
+				},
+				"openCode": {
+					"type": "object",
+					"properties": {
+						"enabled": {
+							"default": false,
+							"type": "boolean"
+						},
+						"serverUrl": {
+							"type": "string"
+						},
+						"port": {
+							"type": "number"
+						},
+						"agentType": {
+							"default": "general",
+							"type": "string",
+							"enum": ["build", "plan", "general", "explore"]
+						},
+						"model": {
+							"type": "string"
+						}
+					},
+					"additionalProperties": false
+				}
+			},
+			"additionalProperties": false
+		},
+		"builder": {
+			"type": "object",
+			"properties": {
+				"enabled": {
+					"default": false,
+					"type": "boolean"
+				},
+				"runtimeMode": {
+					"default": "managed",
+					"type": "string",
+					"enum": ["managed", "local", "hybrid"]
+				},
+				"bootstrapPreset": {
+					"default": "managed_mvp",
+					"type": "string",
+					"enum": ["managed_mvp", "local_daemon_mvp", "hybrid_mvp"]
+				},
+				"api": {
+					"type": "object",
+					"properties": {
+						"baseUrl": {
+							"type": "string",
+							"format": "uri"
+						},
+						"controlPlaneTokenEnvVar": {
+							"default": "CONTROL_PLANE_API_TOKEN",
+							"type": "string"
+						}
+					},
+					"additionalProperties": false
+				},
+				"localRuntime": {
+					"type": "object",
+					"properties": {
+						"runtimeId": {
+							"default": "rt_local_daemon",
+							"type": "string"
+						},
+						"grantedTo": {
+							"default": "local:operator",
+							"type": "string"
+						},
+						"providerIds": {
+							"default": ["provider.codex", "provider.local.model"],
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					"additionalProperties": false
+				}
+			},
+			"additionalProperties": false
+		},
+		"connect": {
+			"type": "object",
+			"properties": {
+				"enabled": {
+					"default": false,
+					"type": "boolean"
+				},
+				"adapters": {
+					"type": "object",
+					"properties": {
+						"cursor": {
+							"type": "object",
+							"properties": {
+								"enabled": {
+									"default": false,
+									"type": "boolean"
+								},
+								"mode": {
+									"default": "plugin",
+									"type": "string",
+									"enum": ["plugin", "rule", "wrapper"]
+								},
+								"packageRef": {
+									"type": "string"
+								}
+							},
+							"additionalProperties": false
+						},
+						"codex": {
+							"type": "object",
+							"properties": {
+								"enabled": {
+									"default": false,
+									"type": "boolean"
+								},
+								"mode": {
+									"default": "plugin",
+									"type": "string",
+									"enum": ["plugin", "rule", "wrapper"]
+								},
+								"packageRef": {
+									"type": "string"
+								}
+							},
+							"additionalProperties": false
+						},
+						"claude-code": {
+							"type": "object",
+							"properties": {
+								"enabled": {
+									"default": false,
+									"type": "boolean"
+								},
+								"mode": {
+									"default": "plugin",
+									"type": "string",
+									"enum": ["plugin", "rule", "wrapper"]
+								},
+								"packageRef": {
+									"type": "string"
+								}
+							},
+							"additionalProperties": false
+						}
+					},
+					"additionalProperties": false
+				},
+				"storage": {
+					"type": "object",
+					"properties": {
+						"root": {
+							"default": ".contractspec/connect",
+							"type": "string"
+						},
+						"contextPack": {
+							"default": ".contractspec/connect/context-pack.json",
+							"type": "string"
+						},
+						"planPacket": {
+							"default": ".contractspec/connect/plan-packet.json",
+							"type": "string"
+						},
+						"patchVerdict": {
+							"default": ".contractspec/connect/patch-verdict.json",
+							"type": "string"
+						},
+						"auditFile": {
+							"default": ".contractspec/connect/audit.ndjson",
+							"type": "string"
+						},
+						"reviewPacketsDir": {
+							"default": ".contractspec/connect/review-packets",
+							"type": "string"
+						}
+					},
+					"additionalProperties": false
+				},
+				"policy": {
+					"type": "object",
+					"properties": {
+						"protectedPaths": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						},
+						"immutablePaths": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						},
+						"generatedPaths": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						},
+						"smokeChecks": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						},
+						"reviewThresholds": {
+							"type": "object",
+							"properties": {
+								"protectedPathWrite": {
+									"type": "string",
+									"enum": ["permit", "rewrite", "require_review", "deny"]
+								},
+								"unknownImpact": {
+									"type": "string",
+									"enum": ["permit", "rewrite", "require_review", "deny"]
+								},
+								"contractDrift": {
+									"type": "string",
+									"enum": ["permit", "rewrite", "require_review", "deny"]
+								},
+								"breakingChange": {
+									"type": "string",
+									"enum": ["permit", "rewrite", "require_review", "deny"]
+								},
+								"destructiveCommand": {
+									"type": "string",
+									"enum": ["permit", "rewrite", "require_review", "deny"]
+								}
+							},
+							"additionalProperties": false
+						}
+					},
+					"additionalProperties": false
+				},
+				"commands": {
+					"type": "object",
+					"properties": {
+						"allow": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						},
+						"review": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						},
+						"deny": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					"additionalProperties": false
+				},
+				"canonPacks": {
+					"type": "array",
+					"items": {
+						"type": "object",
+						"properties": {
+							"ref": {
+								"type": "string"
+							},
+							"readOnly": {
+								"default": true,
+								"type": "boolean"
+							}
+						},
+						"required": ["ref"],
+						"additionalProperties": false
+					}
+				},
+				"studio": {
+					"type": "object",
+					"properties": {
+						"enabled": {
+							"default": false,
+							"type": "boolean"
+						},
+						"mode": {
+							"default": "off",
+							"type": "string",
+							"enum": ["off", "review-bridge"]
+						},
+						"endpoint": {
+							"type": "string",
+							"format": "uri"
+						},
+						"queue": {
+							"type": "string"
+						}
+					},
+					"additionalProperties": false
+				}
+			},
+			"additionalProperties": false
 		}
 	},
-	"additionalProperties": false
+	"additionalProperties": false,
+	"title": "ContractSpec CLI Configuration",
+	"description": "Configuration file for ContractSpec CLI and tooling. Supports single projects, monorepos, and meta-repos."
 }

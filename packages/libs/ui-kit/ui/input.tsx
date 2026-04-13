@@ -1,14 +1,14 @@
+import type { SharedInputProps } from '@contractspec/lib.ui-kit-core/interfaces';
 import { cn } from '@contractspec/lib.ui-kit-core/utils';
 import * as React from 'react';
 import { TextInput, type TextInputProps } from 'react-native';
 
-function Input({
-	className,
-	placeholderClassName,
-	...props
-}: TextInputProps & {
-	ref?: React.RefObject<TextInput>;
-}) {
+export type InputProps = SharedInputProps &
+	TextInputProps & {
+		ref?: React.RefObject<TextInput>;
+	};
+
+function Input({ className, placeholderClassName, ...props }: InputProps) {
 	return (
 		<TextInput
 			className={cn(

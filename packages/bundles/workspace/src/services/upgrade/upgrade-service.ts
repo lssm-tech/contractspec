@@ -14,6 +14,7 @@ import {
 } from '../../adapters/workspace';
 import type { FsAdapter } from '../../ports/fs';
 import type { LoggerAdapter } from '../../ports/logger';
+import { getBundledContractsrcSchemaRef } from '../contractsrc-schema-ref';
 import type {
 	ConfigUpgradeInfo,
 	PackageUpgradeInfo,
@@ -25,10 +26,6 @@ import type {
 // ─────────────────────────────────────────────────────────────────────────────
 // Constants
 // ─────────────────────────────────────────────────────────────────────────────
-
-/** Latest schema URL. */
-const API_HOST = process.env['CONTRACTSPEC_API_HOST'] ?? 'api.contractspec.io';
-const LATEST_SCHEMA_URL = `https://${API_HOST}/schemas/contractsrc.json`;
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Adapters Type
@@ -62,7 +59,7 @@ export async function analyzeUpgrades(
 	});
 
 	const packages = await analyzePackages(fs, packageRoot);
-	const configUpgrades = await analyzeConfig(fs, packageRoot);
+	const configUpgrades = await analyzeConfig(fs, packageRoot, workspaceRoot);
 
 	const hasUpgrades = packages.length > 0 || configUpgrades.length > 0;
 
@@ -128,9 +125,14 @@ async function analyzePackages(
  */
 async function analyzeConfig(
 	fs: FsAdapter,
+	packageRoot: string,
 	workspaceRoot: string
 ): Promise<ConfigUpgradeInfo[]> {
-	const configPath = fs.join(workspaceRoot, '.contractsrc.json');
+	const configPath = fs.join(packageRoot, '.contractsrc.json');
+	const latestSchemaRef = getBundledContractsrcSchemaRef({
+		configRoot: packageRoot,
+		workspaceRoot,
+	});
 
 	if (!(await fs.exists(configPath))) {
 		return [];
@@ -144,11 +146,11 @@ async function analyzeConfig(
 
 		// Check $schema
 		const currentSchema = config['$schema'] as string | undefined;
-		if (!currentSchema || currentSchema !== LATEST_SCHEMA_URL) {
+		if (!currentSchema || currentSchema !== latestSchemaRef) {
 			upgrades.push({
 				key: '$schema',
 				currentValue: currentSchema,
-				suggestedValue: LATEST_SCHEMA_URL,
+				suggestedValue: latestSchemaRef,
 				isNew: !currentSchema,
 			});
 		}
@@ -223,6 +225,11 @@ export async function applyConfigUpgrades(
 ): Promise<UpgradeApplyResult> {
 	const { fs, logger } = adapters;
 	const packageRoot = findPackageRoot(options.workspaceRoot);
+	const workspaceRoot = findWorkspaceRoot(options.workspaceRoot);
+	const latestSchemaRef = getBundledContractsrcSchemaRef({
+		configRoot: packageRoot,
+		workspaceRoot,
+	});
 
 	if (options.dryRun) {
 		logger.info('Dry run - no changes will be made');
@@ -248,8 +255,8 @@ export async function applyConfigUpgrades(
 
 		// Update $schema
 		const currentSchema = config['$schema'] as string | undefined;
-		if (!currentSchema || currentSchema !== LATEST_SCHEMA_URL) {
-			config['$schema'] = LATEST_SCHEMA_URL;
+		if (!currentSchema || currentSchema !== latestSchemaRef) {
+			config['$schema'] = latestSchemaRef;
 			sectionsUpgraded++;
 		}
 

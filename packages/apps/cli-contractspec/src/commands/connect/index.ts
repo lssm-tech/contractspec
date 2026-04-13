@@ -33,6 +33,8 @@ function createInitCommand() {
 		.description(
 			'Enable Connect in .contractsrc.json and create local artifact directories'
 		)
+		.option('--gitignore', 'Apply recommended ContractSpec .gitignore rules')
+		.option('--no-gitignore', 'Skip ContractSpec .gitignore updates')
 		.option('--scope <scope>', 'Configuration scope: workspace or package')
 		.option('--json', 'Output JSON')
 		.action((options) => runSafely(() => runConnectInitCommand(options)));

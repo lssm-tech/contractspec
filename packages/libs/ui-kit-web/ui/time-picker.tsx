@@ -1,18 +1,12 @@
 'use client';
 
+import type { SharedTimePickerProps } from '@contractspec/lib.ui-kit-core/interfaces';
 import { cn } from '@contractspec/lib.ui-kit-core/utils';
 import * as React from 'react';
 import { Button } from './button';
 import { Popover, PopoverContent, PopoverTrigger } from './popover';
 
-export interface TimePickerProps {
-	value: Date | null;
-	onChange: (date: Date | null) => void;
-	disabled?: boolean;
-	placeholder?: string;
-	is24Hour?: boolean;
-	className?: string;
-}
+export interface TimePickerProps extends SharedTimePickerProps {}
 
 function formatTime(d: Date | null, is24Hour?: boolean) {
 	if (!d) return '';

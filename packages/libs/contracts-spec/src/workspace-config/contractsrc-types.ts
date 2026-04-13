@@ -360,6 +360,42 @@ export interface ExternalAgentsConfig {
 	openCode?: OpenCodeSDKConfig;
 }
 
+export type BuilderRuntimeMode = 'managed' | 'local' | 'hybrid';
+
+export type BuilderBootstrapPreset =
+	| 'managed_mvp'
+	| 'local_daemon_mvp'
+	| 'hybrid_mvp';
+
+export interface BuilderApiConfig {
+	/** Base URL for the Builder/control-plane API. */
+	baseUrl?: string;
+	/** Environment variable that carries the control-plane token. */
+	controlPlaneTokenEnvVar?: string;
+}
+
+export interface BuilderLocalRuntimeConfig {
+	/** Default local runtime target identifier. */
+	runtimeId?: string;
+	/** Default actor or lease target for local runtime registration. */
+	grantedTo?: string;
+	/** Default local-capable provider identifiers. */
+	providerIds?: string[];
+}
+
+export interface BuilderConfig {
+	/** Enable Builder initialization for this workspace. */
+	enabled?: boolean;
+	/** Default runtime mode for Builder flows. */
+	runtimeMode?: BuilderRuntimeMode;
+	/** Canonical Builder bootstrap preset to use after setup. */
+	bootstrapPreset?: BuilderBootstrapPreset;
+	/** Remote API/control-plane settings for managed or hybrid modes. */
+	api?: BuilderApiConfig;
+	/** Local runtime registration defaults for local or hybrid modes. */
+	localRuntime?: BuilderLocalRuntimeConfig;
+}
+
 export type ConnectVerdict = 'permit' | 'rewrite' | 'require_review' | 'deny';
 
 export type ConnectAdapterMode = 'plugin' | 'rule' | 'wrapper';
@@ -532,6 +568,7 @@ export type HooksConfig = Record<string, string[]>;
  * All fields are optional as they come from user configuration.
  */
 export interface ContractsrcFileConfig {
+	$schema?: string;
 	aiProvider?: AgentProvider;
 	aiModel?: string;
 	agentMode?: AgentMode;
@@ -571,6 +608,8 @@ export interface ContractsrcFileConfig {
 	ruleSync?: RuleSyncConfig;
 	// External agent SDK configuration
 	externalAgents?: ExternalAgentsConfig;
+	// Builder initialization/runtime configuration
+	builder?: BuilderConfig;
 	// ContractSpec Connect configuration
 	connect?: ConnectConfig;
 }

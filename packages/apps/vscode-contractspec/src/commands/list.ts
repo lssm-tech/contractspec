@@ -2,12 +2,12 @@
  * List specs command for ContractSpec extension.
  */
 
-import { groupSpecsByType, listSpecs } from '@contractspec/bundle.workspace';
+import { discoverSpecs, groupSpecsByType } from '@contractspec/bundle.workspace';
 import * as vscode from 'vscode';
 import { getWorkspaceAdapters } from '../workspace/adapters';
 
 /**
- * List all spec files in the workspace.
+ * List all discovered specs in the workspace.
  */
 export async function listAllSpecs(
 	outputChannel: vscode.OutputChannel
@@ -18,23 +18,23 @@ export async function listAllSpecs(
 		return;
 	}
 
-	outputChannel.appendLine('\n=== ContractSpec Files ===');
+	outputChannel.appendLine('\n=== ContractSpec Specs ===');
 	outputChannel.show(true);
 
 	try {
 		const adapters = getWorkspaceAdapters();
-		const specs = await listSpecs(adapters);
+		const specs = await discoverSpecs(adapters);
 
 		if (specs.length === 0) {
-			vscode.window.showInformationMessage('No spec files found in workspace');
-			outputChannel.appendLine('No spec files found');
+			vscode.window.showInformationMessage('No specs found in workspace');
+			outputChannel.appendLine('No specs found');
 			return;
 		}
 
 		// Group by type
 		const grouped = groupSpecsByType(specs);
 
-		outputChannel.appendLine(`Found ${specs.length} spec file(s)\n`);
+		outputChannel.appendLine(`Found ${specs.length} spec(s)\n`);
 
 		for (const [specType, typeSpecs] of grouped) {
 			outputChannel.appendLine(`\n📁 ${specType} (${typeSpecs.length})`);
@@ -43,9 +43,12 @@ export async function listAllSpecs(
 				const name = spec.key ?? getFileName(spec.filePath);
 				const stability = spec.stability ? ` [${spec.stability}]` : '';
 				const version = spec.version ? ` v${spec.version}` : '';
+				const declaration = spec.declarationLine
+					? `:${spec.declarationLine}`
+					: '';
 
 				outputChannel.appendLine(`   • ${name}${version}${stability}`);
-				outputChannel.appendLine(`     ${spec.filePath}`);
+				outputChannel.appendLine(`     ${spec.filePath}${declaration}`);
 
 				if (spec.description) {
 					outputChannel.appendLine(`     ${spec.description}`);
@@ -57,7 +60,9 @@ export async function listAllSpecs(
 		const items = specs.map((spec) => ({
 			label: spec.key ?? getFileName(spec.filePath),
 			description: spec.specType,
-			detail: spec.filePath,
+			detail: spec.declarationLine
+				? `${spec.filePath}:${spec.declarationLine}`
+				: spec.filePath,
 			spec,
 		}));
 
@@ -71,7 +76,13 @@ export async function listAllSpecs(
 			const document = await vscode.workspace.openTextDocument(
 				selected.spec.filePath
 			);
-			await vscode.window.showTextDocument(document);
+			const editor = await vscode.window.showTextDocument(document);
+			if (selected.spec.declarationLine) {
+				const line = Math.max(selected.spec.declarationLine - 1, 0);
+				const range = new vscode.Range(line, 0, line, 0);
+				editor.selection = new vscode.Selection(range.start, range.end);
+				editor.revealRange(range, vscode.TextEditorRevealType.InCenter);
+			}
 		}
 	} catch (error) {
 		const message = error instanceof Error ? error.message : String(error);

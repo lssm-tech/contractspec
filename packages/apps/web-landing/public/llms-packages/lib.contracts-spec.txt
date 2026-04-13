@@ -49,7 +49,7 @@ bun add @contractspec/lib.contracts-spec @contractspec/lib.schema
 - `OperationSpecRegistry`: registers specs, binds handlers, and executes with validation/policy/event guards.
 - `defineEvent` + `EventRegistry`: typed event contracts and lookup.
 - `defineResourceTemplate` + `ResourceRegistry`: URI-template-based resource contracts.
-- `FormRegistry`: contract-first form declarations consumed by UI runtimes.
+- `FormRegistry`: contract-first form declarations consumed by UI runtimes, including readonly, autocomplete, address, phone, date, time, datetime, and grouped array authoring through `@contractspec/lib.contracts-spec/forms`.
 - `installOp`: one-call helper to register + bind operation handlers.
 - `makeEmit`: typed helper for declared event emission in handlers.
 
@@ -78,6 +78,19 @@ const registry = new AgentRegistry().register(SupportBot);
 
 Runtime execution, exporters, MCP bridges, and provider adapters stay in
 `@contractspec/lib.ai-agent`.
+
+## Workspace Config Notes
+
+`@contractspec/lib.contracts-spec/workspace-config` now includes first-class setup support for:
+
+- `connect` configuration
+- `builder` configuration with `runtimeMode: "managed" | "local" | "hybrid"`
+- canonical Builder bootstrap presets:
+  - `managed_mvp`
+  - `local_daemon_mvp`
+  - `hybrid_mvp`
+
+Those settings are consumed by the shared setup layer used by the CLI, VS Code extension, and JetBrains plugin.
 
 ## Migration Note
 

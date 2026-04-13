@@ -60,12 +60,40 @@ describe('connect init', () => {
 
 		expect(result.action).toBe('merged');
 		expect(result.configPath).toBe(configPath);
+		expect(result.gitignore.action).toBe('created');
 		expect(written.outputDir).toBe('generated');
 		expect(written.connect?.enabled).toBe(true);
+		expect(readFileSync(join(workspaceRoot, '.gitignore'), 'utf8')).toContain(
+			'**/.contractspec/connect/'
+		);
+		expect(readFileSync(join(workspaceRoot, '.gitignore'), 'utf8')).toContain(
+			'**/.contractspec/verification-cache.json'
+		);
 		expect(
 			await fs.exists(
 				join(packageRoot, '.contractspec', 'connect', 'review-packets')
 			)
 		).toBe(true);
+	});
+
+	it('skips gitignore updates when disabled', async () => {
+		tempDir = mkdtempSync(join(tmpdir(), 'contractspec-connect-init-'));
+		const workspaceRoot = tempDir;
+		writeFileSync(
+			join(workspaceRoot, 'package.json'),
+			'{"name":"workspace-root"}\n',
+			'utf8'
+		);
+		const fs = createNodeFsAdapter(tempDir);
+
+		const result = await initConnectWorkspace(fs, {
+			config: DEFAULT_CONTRACTSRC,
+			cwd: workspaceRoot,
+			gitignoreBehavior: 'skip',
+			workspaceRoot,
+		});
+
+		expect(result.gitignore.action).toBe('skipped');
+		expect(await fs.exists(join(workspaceRoot, '.gitignore'))).toBe(false);
 	});
 });

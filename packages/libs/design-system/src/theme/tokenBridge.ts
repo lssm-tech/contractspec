@@ -4,12 +4,13 @@ import {
 	type ColorTokens,
 	type RadiusTokens,
 	type SpaceTokens,
+	type ThemeTokens,
 	defaultTokens as themeTokens,
 } from './tokens';
 
 export type PlatformKind = 'web' | 'native';
 
-type WebTokens = typeof themeTokens;
+type WebTokens = ThemeTokens;
 
 interface NativeTokens {
 	// colors: Record<string, string>;
@@ -25,20 +26,23 @@ interface NativeTokens {
 
 export type BridgedTokens = WebTokens | NativeTokens;
 
-export function mapTokensForPlatform(platform: PlatformKind): BridgedTokens {
-	if (platform === 'web') return themeTokens;
+export function mapTokensForPlatform(
+	platform: PlatformKind,
+	tokens: ThemeTokens = themeTokens
+): BridgedTokens {
+	if (platform === 'web') return tokens;
 
 	// Native: use numeric tokens from DS defaults
-	const spacing = themeTokens.space;
-	const radii = themeTokens.radii;
-	const icons = themeTokens.icons;
+	const spacing = tokens.space;
+	const radii = tokens.radii;
+	const icons = tokens.icons;
 
 	return {
-		colors: themeTokens.colors,
+		colors: tokens.colors,
 		spacing,
 		typography: {
-			h1: themeTokens.typography.h1,
-			body: themeTokens.typography.body,
+			h1: tokens.typography.h1,
+			body: tokens.typography.body,
 		},
 		radii,
 		icons,
