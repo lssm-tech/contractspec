@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.ui-link",
-	"version": "3.7.14",
+	"version": "3.7.15",
 	"description": "Deep linking utilities for navigation",
 	"keywords": [
 		"contractspec",

@@ -1,5 +1,12 @@
 # spec-driven-development
 
+## 3.7.18
+
+### Patch Changes
+
+- Updated dependencies because of Expand ContractSpec authoring with preset-driven workspace setup, shell completion, packaged workspace schema artifacts, and richer form and UI surfaces across the CLI, editors, and shared runtimes.
+  - @contractspec/app.cli-contractspec@5.0.0
+
 ## 3.7.17
 
 ### Patch Changes

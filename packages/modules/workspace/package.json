@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/module.workspace",
-	"version": "4.1.5",
+	"version": "4.2.0",
 	"description": "Workspace discovery and management module",
 	"keywords": [
 		"contractspec",

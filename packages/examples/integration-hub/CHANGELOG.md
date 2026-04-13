@@ -1,5 +1,17 @@
 # @contractspec/example.integration-hub
 
+## 3.8.11
+
+### Patch Changes
+
+- Updated dependencies because of Expand ContractSpec authoring with preset-driven workspace setup, shell completion, packaged workspace schema artifacts, and richer form and UI surfaces across the CLI, editors, and shared runtimes.
+  - @contractspec/lib.contracts-spec@5.3.0
+  - @contractspec/lib.design-system@3.9.0
+  - @contractspec/lib.ai-agent@8.0.7
+  - @contractspec/lib.example-shared-ui@6.0.19
+  - @contractspec/lib.presentation-runtime-core@3.9.7
+  - @contractspec/module.ai-chat@4.3.19
+
 ## 3.8.10
 
 ### Patch Changes

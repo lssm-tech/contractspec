@@ -1,5 +1,11 @@
 # @contractspec/lib.mobile-control
 
+## 0.2.1
+
+### Patch Changes
+
+- @contractspec/lib.builder-spec@0.2.1
+
 ## 0.2.0
 
 ### Minor Changes

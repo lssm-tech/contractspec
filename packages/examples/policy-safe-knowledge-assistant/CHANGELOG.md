@@ -1,5 +1,20 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 3.7.19
+
+### Patch Changes
+
+- Updated dependencies because of Expand ContractSpec authoring with preset-driven workspace setup, shell completion, packaged workspace schema artifacts, and richer form and UI surfaces across the CLI, editors, and shared runtimes.
+  - @contractspec/lib.contracts-spec@5.3.0
+  - @contractspec/lib.design-system@3.9.0
+  - @contractspec/lib.ui-kit-web@3.10.0
+  - @contractspec/example.kb-update-pipeline@3.7.19
+  - @contractspec/example.learning-patterns@3.7.19
+  - @contractspec/example.locale-jurisdiction-gate@3.7.19
+  - @contractspec/example.versioned-knowledge-base@3.7.19
+  - @contractspec/lib.example-shared-ui@6.0.19
+  - @contractspec/module.learning-journey@3.7.18
+
 ## 3.7.18
 
 ### Patch Changes

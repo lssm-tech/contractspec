@@ -1,5 +1,16 @@
 # @contractspec/lib.personalization
 
+## 6.0.19
+
+### Patch Changes
+
+- Updated dependencies because of Expand ContractSpec authoring with preset-driven workspace setup, shell completion, packaged workspace schema artifacts, and richer form and UI surfaces across the CLI, editors, and shared runtimes.
+  - @contractspec/lib.contracts-spec@5.3.0
+  - @contractspec/lib.bus@3.7.19
+  - @contractspec/lib.knowledge@3.7.19
+  - @contractspec/lib.overlay-engine@3.7.19
+  - @contractspec/lib.surface-runtime@0.5.19
+
 ## 6.0.18
 
 ### Patch Changes

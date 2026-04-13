@@ -1,5 +1,15 @@
 # @contractspec/example.wealth-snapshot
 
+## 3.7.19
+
+### Patch Changes
+
+- Updated dependencies because of Expand ContractSpec authoring with preset-driven workspace setup, shell completion, packaged workspace schema artifacts, and richer form and UI surfaces across the CLI, editors, and shared runtimes.
+  - @contractspec/lib.contracts-spec@5.3.0
+  - @contractspec/lib.identity-rbac@3.7.19
+  - @contractspec/module.audit-trail@3.7.19
+  - @contractspec/module.notifications@3.7.18
+
 ## 3.7.18
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @contractspec/module.mobile-review
 
+## 0.2.1
+
+### Patch Changes
+
+- Updated dependencies because of Expand ContractSpec authoring with preset-driven workspace setup, shell completion, packaged workspace schema artifacts, and richer form and UI surfaces across the CLI, editors, and shared runtimes.
+  - @contractspec/lib.ui-kit-web@3.10.0
+  - @contractspec/lib.builder-spec@0.2.1
+  - @contractspec/module.builder-workbench@0.2.1
+
 ## 0.2.0
 
 ### Minor Changes

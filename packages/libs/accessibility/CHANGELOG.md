@@ -1,5 +1,14 @@
 # @contractspec/lib.accessibility
 
+## 3.7.18
+
+### Patch Changes
+
+- Updated dependencies because of Expand ContractSpec authoring with preset-driven workspace setup, shell completion, packaged workspace schema artifacts, and richer form and UI surfaces across the CLI, editors, and shared runtimes.
+  - @contractspec/lib.design-system@3.9.0
+  - @contractspec/lib.ui-kit-web@3.10.0
+  - @contractspec/lib.ui-kit@3.9.0
+
 ## 3.7.17
 
 ### Patch Changes

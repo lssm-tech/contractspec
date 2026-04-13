@@ -1,6 +1,6 @@
 {
 	"name": "spec-driven-development",
-	"version": "3.7.17",
+	"version": "3.7.18",
 	"description": "CLI tool for creating, building, and validating contract specifications",
 	"bin": {
 		"sdd": "./bin/contractspec.mjs",

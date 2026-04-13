@@ -1,5 +1,20 @@
 # @contractspec/app.api-library
 
+## 3.8.12
+
+### Patch Changes
+
+- Updated dependencies because of Expand ContractSpec authoring with preset-driven workspace setup, shell completion, packaged workspace schema artifacts, and richer form and UI surfaces across the CLI, editors, and shared runtimes.
+  - @contractspec/bundle.workspace@4.4.0
+  - @contractspec/lib.contracts-spec@5.3.0
+  - @contractspec/bundle.library@3.8.12
+  - @contractspec/bundle.marketing@3.8.12
+  - @contractspec/integration.providers-impls@3.8.11
+  - @contractspec/integration.runtime@3.9.1
+  - @contractspec/integration.builder-telegram@0.2.1
+  - @contractspec/integration.builder-whatsapp@0.2.1
+  - @contractspec/integration.runtime.managed@0.2.1
+
 ## 3.8.11
 
 ### Patch Changes

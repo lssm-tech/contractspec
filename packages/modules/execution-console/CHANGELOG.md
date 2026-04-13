@@ -1,5 +1,13 @@
 # @contractspec/module.execution-console
 
+## 0.1.2
+
+### Patch Changes
+
+- Updated dependencies because of Expand ContractSpec authoring with preset-driven workspace setup, shell completion, packaged workspace schema artifacts, and richer form and UI surfaces across the CLI, editors, and shared runtimes.
+  - @contractspec/lib.ui-kit-web@3.10.0
+  - @contractspec/lib.execution-lanes@0.1.2
+
 ## 0.1.1
 
 ### Patch Changes

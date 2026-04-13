@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/example.messaging-agent-actions",
-	"version": "3.8.10",
+	"version": "3.8.11",
 	"description": "Safe messaging agent actions example with fixed intents, allowlisted actions, workflow dispatch, and deterministic replies.",
 	"type": "module",
 	"types": "./dist/index.d.ts",

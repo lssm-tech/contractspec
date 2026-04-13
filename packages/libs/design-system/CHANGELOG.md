@@ -1,5 +1,24 @@
 # @contractspec/lib.design-system
 
+## 3.9.0
+
+### Minor Changes
+
+- Expand ContractSpec authoring with preset-driven workspace setup, shell completion, packaged workspace schema artifacts, and richer form and UI surfaces across the CLI, editors, and shared runtimes.
+  - Packages: contractspec (major), @contractspec/app.cli-contractspec (major), @contractspec/bundle.workspace (minor), @contractspec/module.workspace (minor), @contractspec/lib.contracts-spec (minor), @contractspec/lib.contracts-runtime-client-react (minor), @contractspec/lib.design-system (minor), @contractspec/lib.ui-kit-core (minor), @contractspec/lib.ui-kit-web (minor), @contractspec/lib.ui-kit (minor), vscode-contractspec (minor)
+  - Migration: Update automation, docs, and local shell habits to use the new generate-first CLI flow.
+  - Deprecations: The standalone contractspec apply command has been removed; use contractspec generate for write-generation flows.
+
+### Patch Changes
+
+- Updated dependencies because of Expand ContractSpec authoring with preset-driven workspace setup, shell completion, packaged workspace schema artifacts, and richer form and UI surfaces across the CLI, editors, and shared runtimes.
+  - @contractspec/lib.contracts-spec@5.3.0
+  - @contractspec/lib.contracts-runtime-client-react@3.9.0
+  - @contractspec/lib.ui-kit-web@3.10.0
+  - @contractspec/lib.ui-kit@3.9.0
+  - @contractspec/lib.ai-agent@8.0.7
+  - @contractspec/lib.presentation-runtime-react@36.0.7
+
 ## 3.8.11
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @contractspec/integration.builder-voice
 
+## 0.2.1
+
+### Patch Changes
+
+- @contractspec/lib.builder-spec@0.2.1
+- @contractspec/lib.voice@1.7.19
+- @contractspec/lib.builder-runtime@0.2.1
+
 ## 0.2.0
 
 ### Minor Changes

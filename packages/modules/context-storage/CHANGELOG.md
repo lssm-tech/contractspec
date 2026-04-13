@@ -1,5 +1,12 @@
 # @contractspec/module.context-storage
 
+## 0.7.18
+
+### Patch Changes
+
+- @contractspec/lib.contracts-integrations@3.8.11
+- @contractspec/lib.knowledge@3.7.19
+
 ## 0.7.17
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @contractspec/example.data-grid-showcase
 
+## 3.8.11
+
+### Patch Changes
+
+- Updated dependencies because of Expand ContractSpec authoring with preset-driven workspace setup, shell completion, packaged workspace schema artifacts, and richer form and UI surfaces across the CLI, editors, and shared runtimes.
+  - @contractspec/lib.contracts-spec@5.3.0
+  - @contractspec/lib.design-system@3.9.0
+  - @contractspec/lib.ui-kit-web@3.10.0
+  - @contractspec/lib.presentation-runtime-react@36.0.7
+
 ## 3.8.10
 
 ### Patch Changes

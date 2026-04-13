@@ -1,5 +1,23 @@
 # @contractspec/example.learning-journey-registry
 
+## 3.7.19
+
+### Patch Changes
+
+- Updated dependencies because of Expand ContractSpec authoring with preset-driven workspace setup, shell completion, packaged workspace schema artifacts, and richer form and UI surfaces across the CLI, editors, and shared runtimes.
+  - @contractspec/lib.contracts-spec@5.3.0
+  - @contractspec/example.learning-journey-ambient-coach@3.7.19
+  - @contractspec/example.learning-journey-crm-onboarding@3.7.19
+  - @contractspec/example.learning-journey-duo-drills@3.7.19
+  - @contractspec/example.learning-journey-platform-tour@3.7.19
+  - @contractspec/example.learning-journey-quest-challenges@3.7.19
+  - @contractspec/example.learning-journey-studio-onboarding@3.7.19
+  - @contractspec/example.learning-journey-ui-coaching@3.7.19
+  - @contractspec/example.learning-journey-ui-gamified@3.7.19
+  - @contractspec/example.learning-journey-ui-onboarding@3.7.19
+  - @contractspec/example.learning-journey-ui-shared@3.7.19
+  - @contractspec/module.learning-journey@3.7.18
+
 ## 3.7.18
 
 ### Patch Changes

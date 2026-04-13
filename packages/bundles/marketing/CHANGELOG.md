@@ -1,5 +1,31 @@
 # @contractspec/bundle.marketing
 
+## 3.8.12
+
+### Patch Changes
+
+- Updated dependencies because of Expand ContractSpec authoring with preset-driven workspace setup, shell completion, packaged workspace schema artifacts, and richer form and UI surfaces across the CLI, editors, and shared runtimes.
+  - @contractspec/lib.contracts-spec@5.3.0
+  - @contractspec/lib.contracts-runtime-client-react@3.9.0
+  - @contractspec/lib.design-system@3.9.0
+  - @contractspec/lib.ui-kit-core@3.8.0
+  - @contractspec/lib.ui-kit-web@3.10.0
+  - @contractspec/bundle.library@3.8.12
+  - @contractspec/example.agent-console@3.8.11
+  - @contractspec/example.ai-chat-assistant@3.8.11
+  - @contractspec/example.analytics-dashboard@3.9.11
+  - @contractspec/example.crm-pipeline@3.7.19
+  - @contractspec/example.data-grid-showcase@3.8.11
+  - @contractspec/example.integration-hub@3.8.11
+  - @contractspec/example.marketplace@3.8.11
+  - @contractspec/example.saas-boilerplate@3.8.11
+  - @contractspec/example.visualization-showcase@3.9.11
+  - @contractspec/example.workflow-system@3.8.11
+  - @contractspec/lib.example-shared-ui@6.0.19
+  - @contractspec/lib.surface-runtime@0.5.19
+  - @contractspec/module.examples@3.8.11
+  - @contractspec/lib.ui-link@3.7.15
+
 ## 3.8.11
 
 ### Patch Changes

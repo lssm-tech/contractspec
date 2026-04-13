@@ -1,5 +1,16 @@
 # @contractspec/app.expo-demo
 
+## 1.1.19
+
+### Patch Changes
+
+- Updated dependencies because of Expand ContractSpec authoring with preset-driven workspace setup, shell completion, packaged workspace schema artifacts, and richer form and UI surfaces across the CLI, editors, and shared runtimes.
+  - @contractspec/lib.contracts-spec@5.3.0
+  - @contractspec/lib.ui-kit-core@3.8.0
+  - @contractspec/lib.ui-kit@3.9.0
+  - @contractspec/lib.presentation-runtime-core@3.9.7
+  - @contractspec/lib.presentation-runtime-react-native@36.0.6
+
 ## 1.1.18
 
 ### Patch Changes

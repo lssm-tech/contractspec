@@ -1,5 +1,11 @@
 # @contractspec/app.alpic-mcp
 
+## 3.7.18
+
+### Patch Changes
+
+- @contractspec/bundle.alpic@3.7.18
+
 ## 3.7.17
 
 ### Patch Changes

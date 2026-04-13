@@ -1,5 +1,17 @@
 # @contractspec/example.agent-console
 
+## 3.8.11
+
+### Patch Changes
+
+- Updated dependencies because of Expand ContractSpec authoring with preset-driven workspace setup, shell completion, packaged workspace schema artifacts, and richer form and UI surfaces across the CLI, editors, and shared runtimes.
+  - @contractspec/lib.contracts-spec@5.3.0
+  - @contractspec/lib.design-system@3.9.0
+  - @contractspec/lib.ui-kit-web@3.10.0
+  - @contractspec/lib.example-shared-ui@6.0.19
+  - @contractspec/lib.presentation-runtime-core@3.9.7
+  - @contractspec/module.execution-console@0.1.2
+
 ## 3.8.10
 
 ### Patch Changes

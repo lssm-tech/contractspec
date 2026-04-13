@@ -1,5 +1,11 @@
 # @contractspec/bundle.alpic
 
+## 3.7.18
+
+### Patch Changes
+
+- @contractspec/module.alpic@3.7.19
+
 ## 3.7.17
 
 ### Patch Changes

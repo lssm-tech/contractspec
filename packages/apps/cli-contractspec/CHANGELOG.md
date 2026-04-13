@@ -1,5 +1,31 @@
 # Changelog
 
+## 5.0.0
+
+### Major Changes
+
+- Expand ContractSpec authoring with preset-driven workspace setup, shell completion, packaged workspace schema artifacts, and richer form and UI surfaces across the CLI, editors, and shared runtimes.
+  - Packages: contractspec (major), @contractspec/app.cli-contractspec (major), @contractspec/bundle.workspace (minor), @contractspec/module.workspace (minor), @contractspec/lib.contracts-spec (minor), @contractspec/lib.contracts-runtime-client-react (minor), @contractspec/lib.design-system (minor), @contractspec/lib.ui-kit-core (minor), @contractspec/lib.ui-kit-web (minor), @contractspec/lib.ui-kit (minor), vscode-contractspec (minor)
+  - Migration: Update automation, docs, and local shell habits to use the new generate-first CLI flow.
+  - Deprecations: The standalone contractspec apply command has been removed; use contractspec generate for write-generation flows.
+
+### Patch Changes
+
+- Updated dependencies because of Expand ContractSpec authoring with preset-driven workspace setup, shell completion, packaged workspace schema artifacts, and richer form and UI surfaces across the CLI, editors, and shared runtimes.
+  - @contractspec/bundle.workspace@4.4.0
+  - @contractspec/module.workspace@4.2.0
+  - @contractspec/lib.contracts-spec@5.3.0
+  - @contractspec/integration.harness-runtime@0.2.12
+  - @contractspec/integration.runtime@3.9.1
+  - @contractspec/lib.ai-agent@8.0.7
+  - @contractspec/lib.contracts-integrations@3.8.11
+  - @contractspec/lib.contracts-transformers@3.7.19
+  - @contractspec/lib.harness@0.2.12
+  - @contractspec/lib.plugins@3.7.19
+  - @contractspec/lib.testing@3.7.19
+  - @contractspec/module.ai-chat@4.3.19
+  - @contractspec/module.examples@3.8.11
+
 ## 4.4.0
 
 ### Minor Changes

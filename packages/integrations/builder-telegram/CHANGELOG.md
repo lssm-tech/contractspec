@@ -1,5 +1,13 @@
 # @contractspec/integration.builder-telegram
 
+## 0.2.1
+
+### Patch Changes
+
+- @contractspec/integration.runtime@3.9.1
+- @contractspec/lib.builder-spec@0.2.1
+- @contractspec/lib.builder-runtime@0.2.1
+
 ## 0.2.0
 
 ### Minor Changes

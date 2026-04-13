@@ -1,5 +1,27 @@
 # @contractspec/bundle.library
 
+## 3.8.12
+
+### Patch Changes
+
+- Updated dependencies because of Expand ContractSpec authoring with preset-driven workspace setup, shell completion, packaged workspace schema artifacts, and richer form and UI surfaces across the CLI, editors, and shared runtimes.
+  - @contractspec/lib.contracts-spec@5.3.0
+  - @contractspec/lib.contracts-runtime-client-react@3.9.0
+  - @contractspec/lib.design-system@3.9.0
+  - @contractspec/lib.ui-kit-web@3.10.0
+  - @contractspec/lib.content-gen@3.7.19
+  - @contractspec/lib.contracts-integrations@3.8.11
+  - @contractspec/lib.contracts-library@3.7.19
+  - @contractspec/lib.contracts-runtime-server-graphql@3.7.19
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.19
+  - @contractspec/lib.contracts-runtime-server-rest@3.7.19
+  - @contractspec/lib.example-shared-ui@6.0.19
+  - @contractspec/lib.knowledge@3.7.19
+  - @contractspec/lib.surface-runtime@0.5.19
+  - @contractspec/module.examples@3.8.11
+  - @contractspec/lib.ui-link@3.7.15
+  - @contractspec/module.context-storage@0.7.18
+
 ## 3.8.11
 
 ### Patch Changes

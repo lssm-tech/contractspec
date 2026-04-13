@@ -1,5 +1,12 @@
 # @contractspec/example.versioned-knowledge-base
 
+## 3.7.19
+
+### Patch Changes
+
+- Updated dependencies because of Expand ContractSpec authoring with preset-driven workspace setup, shell completion, packaged workspace schema artifacts, and richer form and UI surfaces across the CLI, editors, and shared runtimes.
+  - @contractspec/lib.contracts-spec@5.3.0
+
 ## 3.7.18
 
 ### Patch Changes

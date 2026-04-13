@@ -1,5 +1,17 @@
 # @contractspec/lib.builder-runtime
 
+## 0.2.1
+
+### Patch Changes
+
+- @contractspec/lib.builder-spec@0.2.1
+- @contractspec/lib.execution-lanes@0.1.2
+- @contractspec/lib.files@3.7.19
+- @contractspec/lib.harness@0.2.12
+- @contractspec/lib.voice@1.7.19
+- @contractspec/lib.mobile-control@0.2.1
+- @contractspec/lib.provider-runtime@0.2.1
+
 ## 0.2.0
 
 ### Minor Changes
