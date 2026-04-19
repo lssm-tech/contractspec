@@ -35,6 +35,10 @@ const logger = {
 function installImpactMocks() {
 	mock.module('@contractspec/bundle.workspace', () => ({
 		...actualBundleWorkspace,
+		createConsoleLoggerAdapter: () => logger,
+		createNoopLoggerAdapter: () => logger,
+		createNodeFsAdapter: () => ({}),
+		createNodeGitAdapter: () => ({}),
 		impact: {
 			...actualBundleWorkspace.impact,
 			detectImpact: detectImpactMock,
@@ -74,7 +78,7 @@ describe('impact command', () => {
 	it('keeps the operator-facing flags on the command surface', async () => {
 		const { createImpactCommand } = await loadImpactModule();
 		const command = createImpactCommand();
-		expect(command.options.map((option) => option.long)).toEqual([
+		expect(command.options.map((option: { long?: string }) => option.long)).toEqual([
 			'--baseline',
 			'--format',
 			'--fail-on-breaking',
@@ -113,6 +117,7 @@ describe('impact command', () => {
 		await expect(runImpactCommand({ failOnBreaking: true })).rejects.toThrow(
 			'exit:1'
 		);
+		expect(logger.error).not.toHaveBeenCalled();
 	});
 });
 

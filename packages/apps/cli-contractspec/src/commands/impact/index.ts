@@ -138,9 +138,10 @@ export async function runImpactCommand(
 	const logger = isTextOutput
 		? createConsoleLoggerAdapter()
 		: createNoopLoggerAdapter();
+	let result: Awaited<ReturnType<typeof impact.detectImpact>>;
 
 	try {
-		const result = await impact.detectImpact(
+		result = await impact.detectImpact(
 			{ fs, git, logger },
 			{
 				baseline: options.baseline,
@@ -175,13 +176,16 @@ export async function runImpactCommand(
 		}
 
 		console.log(output);
-
-		// Exit with error if breaking changes and flag is set
-		if (options.failOnBreaking && result.hasBreaking) {
-			process.exit(1);
-		}
 	} catch (error) {
 		logger.error('Impact detection failed', { error });
+		process.exit(1);
+		return;
+	}
+
+	// Exit with error if breaking changes and flag is set.
+	// Keep this outside the try/catch so test stubs that throw from
+	// process.exit() don't get re-labeled as impact-detection failures.
+	if (options.failOnBreaking && result.hasBreaking) {
 		process.exit(1);
 	}
 }
