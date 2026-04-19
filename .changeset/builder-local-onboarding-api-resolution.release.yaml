@@ -1,0 +1,44 @@
+schemaVersion: "1"
+slug: builder-local-onboarding-api-resolution
+summary: Fix Builder local onboarding so setup writes usable control-plane defaults and the CLI resolves Builder API settings from workspace config.
+isBreaking: false
+packages:
+  - name: "@contractspec/bundle.workspace"
+    releaseType: patch
+  - name: "@contractspec/app.cli-contractspec"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - node
+affectedFrameworks:
+  - vscode
+audiences:
+  - kind: maintainer
+    summary: Builder-local setup now writes control-plane API defaults, doctor checks all Builder presets for missing auth, and the Builder CLI reads `.contractsrc.json` before falling back to the default hosted API.
+    affectedPackages:
+      - "@contractspec/bundle.workspace"
+      - "@contractspec/app.cli-contractspec"
+  - kind: integrator
+    summary: Fresh `contractspec init --preset builder-local` workspaces now include the Builder API base URL in both `.contractsrc.json` and VS Code settings, while older local-only configs still work through the hosted API fallback.
+    affectedPackages:
+      - "@contractspec/bundle.workspace"
+      - "@contractspec/app.cli-contractspec"
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: refresh-builder-local-workspace-config
+    title: Refresh existing builder-local workspace config when convenient
+    summary: Existing local-only configs keep working through the hosted API fallback, but rerunning init will persist the new API defaults into workspace config.
+    level: manual
+    instructions:
+      - Re-run `contractspec init --preset builder-local` if you want the generated `builder.api.baseUrl` and `builder.api.controlPlaneTokenEnvVar` fields written into `.contractsrc.json`.
+      - Set the configured control-plane token environment variable before running `contractspec builder` commands.
+validation:
+  commands:
+    - "bun test packages/bundles/workspace/src/services/setup/setup-service.test.ts packages/bundles/workspace/src/services/doctor/checks/config.test.ts packages/apps/cli-contractspec/src/commands/builder/client.test.ts packages/apps/cli-contractspec/src/commands/builder/index.test.ts"
+    - "cd packages/bundles/workspace && bun run typecheck"
+    - "cd packages/apps/cli-contractspec && bun run typecheck"
+  evidence:
+    - "`builder-local` setup now writes `builder.api.baseUrl` and `builder.api.controlPlaneTokenEnvVar`, mirrors `contractspec.api.baseUrl` into `.vscode/settings.json`, and prepends `contractspec doctor` to Builder next steps."
+    - "Builder CLI commands now resolve the API base URL from `CONTRACTSPEC_API_BASE_URL`, then `.contractsrc.json`, then `https://api.contractspec.io`, and emit concise auth errors instead of raw bundled stack traces."
+    - "Manual smoke verified both a fresh builder-local init output and an older local-only `.contractsrc.json` using only `CONTROL_PLANE_API_TOKEN` with the hosted API fallback."
