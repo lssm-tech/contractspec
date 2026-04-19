@@ -22,6 +22,16 @@ Used before execution to attach to the correct app instance.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { defineQuery } from '../../operations';
+import {
+	HARNESS_DOMAIN,
+	HARNESS_OWNERS,
+	HARNESS_STABILITY,
+	HARNESS_TAGS,
+} from '../constants';
+import { HarnessTargetModel } from '../models';
+
 export const HarnessTargetResolveQuery = defineQuery({
 	meta: {
 		key: 'harness.target.resolve',

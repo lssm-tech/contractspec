@@ -16,6 +16,9 @@ A task was created.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const TaskCreatedEvent = defineEvent({
 	meta: {
 		key: 'team.task.created',

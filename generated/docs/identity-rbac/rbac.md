@@ -15,6 +15,11 @@ Role-based access control
 ## Source Definition
 
 ```typescript
+import {
+	defineCapability,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const RbacCapability = defineCapability({
 	meta: {
 		key: 'rbac',

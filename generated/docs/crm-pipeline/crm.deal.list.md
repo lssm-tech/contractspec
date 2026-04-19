@@ -24,6 +24,23 @@ Pipeline view, deal list.
 ## Source Definition
 
 ```typescript
+import {
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import {
+	CreateDealInputModel,
+	DealLostPayloadModel,
+	DealModel,
+	DealMovedPayloadModel,
+	DealWonPayloadModel,
+	ListDealsInputModel,
+	ListDealsOutputModel,
+	LoseDealInputModel,
+	MoveDealInputModel,
+	WinDealInputModel,
+} from './deal.schema';
+
 export const ListDealsContract = defineQuery({
 	meta: {
 		key: 'crm.deal.list',

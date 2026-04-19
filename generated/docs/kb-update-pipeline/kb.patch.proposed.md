@@ -13,6 +13,9 @@ KB rule patch proposed (draft versions created).
 ## Source Definition
 
 ```typescript
+import { defineEvent, StabilityEnum } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const KbPatchProposedEvent = defineEvent({
 	meta: {
 		key: 'kb.patch.proposed',

@@ -16,6 +16,8 @@ Test for listing sync runs
 ## Source Definition
 
 ```typescript
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
+
 export const SyncRunListTest = defineTestSpec({
 	meta: {
 		key: 'integration.syncRun.list.test',

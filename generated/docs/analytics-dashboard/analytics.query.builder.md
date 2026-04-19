@@ -23,6 +23,12 @@ Developer tool for data analysis.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { QueryModel } from './query.schema';
+
 export const QueryBuilderPresentation = definePresentation({
 	meta: {
 		key: 'analytics.query.builder',

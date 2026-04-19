@@ -16,6 +16,9 @@ A step has been added to a workflow definition.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const StepAddedEvent = defineEvent({
 	meta: {
 		key: 'workflow.step.added',

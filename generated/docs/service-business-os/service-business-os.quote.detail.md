@@ -23,6 +23,11 @@ Quote inspection
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const QuoteDetailPresentation = definePresentation({
 	meta: {
 		key: 'service-business-os.quote.detail',

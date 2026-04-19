@@ -13,6 +13,13 @@ CRM first win track detail
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	type PresentationSpecMeta,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { CrmJourneyTrackModel } from '../operations';
+
 export const CrmOnboardingTrackPresentation = definePresentation({
 	meta: {
 		key: 'learning.journey.crm.track',
@@ -24,7 +31,7 @@ export const CrmOnboardingTrackPresentation = definePresentation({
 		type: 'component',
 		framework: 'react',
 		componentKey: 'LearningTrackDetail',
-		props: CrmOnboardingTrackModel,
+		props: CrmJourneyTrackModel,
 	},
 	targets: ['react', 'markdown', 'application/json'],
 });

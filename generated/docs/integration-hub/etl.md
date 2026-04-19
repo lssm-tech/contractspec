@@ -15,6 +15,11 @@ Extract, transform, load data pipelines
 ## Source Definition
 
 ```typescript
+import {
+	defineCapability,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const EtlCapability = defineCapability({
 	meta: {
 		key: 'etl',

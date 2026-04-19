@@ -23,6 +23,11 @@ The landing page for CRM users.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const CrmDashboardPresentation = definePresentation({
 	meta: {
 		key: 'crm.dashboard',

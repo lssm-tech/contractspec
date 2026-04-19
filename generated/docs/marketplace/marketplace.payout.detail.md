@@ -23,6 +23,12 @@ Accessed from the payout list.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { PayoutModel } from './payout.schema';
+
 export const PayoutDetailPresentation = definePresentation({
 	meta: {
 		key: 'marketplace.payout.detail',

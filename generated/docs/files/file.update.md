@@ -24,6 +24,9 @@ Called when renaming or updating file metadata.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const UpdateFileContract = defineCommand({
 	meta: {
 		key: 'file.update',

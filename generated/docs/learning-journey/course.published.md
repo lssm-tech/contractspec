@@ -15,6 +15,10 @@ A course has been published.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import { LEARNING_JOURNEY_OWNERS } from './contracts/shared';
+
 export const CoursePublishedEvent = defineEvent({
 	meta: {
 		key: 'course.published',

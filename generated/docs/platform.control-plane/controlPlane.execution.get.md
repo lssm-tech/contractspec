@@ -22,6 +22,16 @@ Used by dashboards, CLI, and channel adapters to inspect one execution.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { defineQuery } from '../../operations';
+import {
+	CONTROL_PLANE_DOMAIN,
+	CONTROL_PLANE_OWNERS,
+	CONTROL_PLANE_STABILITY,
+	CONTROL_PLANE_TAGS,
+} from '../constants';
+import { ControlPlaneExecutionLaneStateModel } from './controlPlaneExecutionLane.models';
+
 export const ControlPlaneExecutionGetQuery = defineQuery({
 	meta: {
 		key: 'controlPlane.execution.get',

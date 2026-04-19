@@ -16,6 +16,9 @@ A new workflow instance has been started.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const InstanceStartedEvent = defineEvent({
 	meta: {
 		key: 'workflow.instance.started',

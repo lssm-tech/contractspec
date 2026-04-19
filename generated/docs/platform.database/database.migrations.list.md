@@ -22,6 +22,17 @@ Used by Studio, ops, and agents before data migrations.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { docRef } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { defineQuery } from '../../operations';
+import {
+	DATABASE_DOMAIN,
+	DATABASE_OWNERS,
+	DATABASE_STABILITY,
+	DATABASE_TAGS,
+} from '../constants';
+
 export const DatabaseMigrationsListQuery = defineQuery({
 	meta: {
 		key: 'database.migrations.list',

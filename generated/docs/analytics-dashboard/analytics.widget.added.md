@@ -16,6 +16,9 @@ A widget was added to a dashboard.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const WidgetAddedEvent = defineEvent({
 	meta: {
 		key: 'analytics.widget.added',

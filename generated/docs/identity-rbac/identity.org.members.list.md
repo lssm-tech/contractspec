@@ -24,6 +24,10 @@ Team management page.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { SuccessResultModel } from './user';
+
 export const ListMembersContract = defineQuery({
 	meta: {
 		key: 'identity.org.members.list',

@@ -24,6 +24,11 @@ Called by Studio/Playground to render journey steps.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import { JourneyTrackModel } from '@contractspec/module.learning-journey/contracts/journey';
+import { platformPrimitivesTourTrack } from '../track';
+
 export const GetPlatformTourTrack = defineQuery({
 	meta: {
 		key: 'learningJourney.platformTour.getTrack',

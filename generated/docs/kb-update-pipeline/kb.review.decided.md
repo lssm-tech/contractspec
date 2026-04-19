@@ -13,6 +13,9 @@ KB review decided.
 ## Source Definition
 
 ```typescript
+import { defineEvent, StabilityEnum } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const KbReviewDecidedEvent = defineEvent({
 	meta: {
 		key: 'kb.review.decided',

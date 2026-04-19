@@ -24,6 +24,14 @@ Used by Ops and App Studio to configure knowledge ingestion per tenant and space
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import {
+	type AnyOperationSpec,
+	defineCommand,
+	defineQuery,
+} from '../operations/';
+import type { OperationSpecRegistry } from '../operations/registry';
+
 export const CreateKnowledgeSource = defineCommand({
 	meta: {
 		key: 'knowledge.source.create',

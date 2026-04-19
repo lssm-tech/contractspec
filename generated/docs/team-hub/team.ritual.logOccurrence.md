@@ -24,6 +24,13 @@ Ritual management.
 ## Source Definition
 
 ```typescript
+import { defineCommand } from '@contractspec/lib.contracts-spec';
+import {
+	LogRitualOccurrenceInputModel,
+	RitualModel,
+	ScheduleRitualInputModel,
+} from './ritual.schema';
+
 export const LogRitualOccurrenceContract = defineCommand({
 	meta: {
 		key: 'team.ritual.logOccurrence',

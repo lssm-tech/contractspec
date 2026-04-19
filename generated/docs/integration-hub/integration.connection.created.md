@@ -16,6 +16,9 @@ Fired when a new connection is established
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const ConnectionCreatedEvent = defineEvent({
 	meta: {
 		key: 'integration.connection.created',

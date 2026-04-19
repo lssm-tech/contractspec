@@ -15,6 +15,9 @@ A job is being scheduled for retry.
 ## Source Definition
 
 ```typescript
+import { defineEvent, StabilityEnum } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const JobRetryingEvent = defineEvent({
 	meta: {
 		key: 'job.retrying',

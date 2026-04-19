@@ -23,6 +23,16 @@ Audit and troubleshooting view for sync jobs.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import {
+	FieldMappingModel,
+	SyncConfigModel,
+	SyncRunModel,
+} from './sync.schema';
+
 export const SyncRunListPresentation = definePresentation({
 	meta: {
 		key: 'integration.syncRun.viewList',

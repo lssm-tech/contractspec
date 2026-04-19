@@ -24,6 +24,13 @@ Quote acceptance.
 ## Source Definition
 
 ```typescript
+import { defineCommand } from '@contractspec/lib.contracts-spec';
+import {
+	AcceptQuoteInputModel,
+	CreateQuoteInputModel,
+	QuoteModel,
+} from './quote.schema';
+
 export const AcceptQuoteContract = defineCommand({
 	meta: {
 		key: 'service.quote.accept',

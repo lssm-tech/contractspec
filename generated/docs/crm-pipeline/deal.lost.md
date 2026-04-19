@@ -16,6 +16,9 @@ A deal has been lost.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const DealLostEvent = defineEvent({
 	meta: {
 		key: 'deal.lost',

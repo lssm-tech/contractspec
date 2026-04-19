@@ -22,6 +22,19 @@ Used by install pipelines and operators before enabling skill artifacts.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { defineQuery } from '../../operations';
+import {
+	CONTROL_PLANE_DOMAIN,
+	CONTROL_PLANE_OWNERS,
+	CONTROL_PLANE_STABILITY,
+	CONTROL_PLANE_TAGS,
+} from '../constants';
+import {
+	ControlPlaneSkillManifestModel,
+	ControlPlaneSkillVerificationIssueModel,
+} from '../skills/schema';
+
 export const ControlPlaneSkillVerifyQuery = defineQuery({
 	meta: {
 		key: 'controlPlane.skill.verify',

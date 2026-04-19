@@ -28,6 +28,9 @@ Used during signup flows. May trigger email verification.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+
 export const CreateUserContract = defineCommand({
 	meta: {
 		key: 'identity.user.create',

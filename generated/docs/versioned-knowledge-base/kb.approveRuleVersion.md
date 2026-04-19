@@ -24,6 +24,15 @@ Curators/experts approve proposed KB changes.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import {
+	KBSnapshotModel,
+	RuleVersionModel,
+	SourceDocumentModel,
+	SourceRefModel,
+} from '../entities/models';
+
 export const KbApproveRuleVersionContract = defineCommand({
 	meta: {
 		key: 'kb.approveRuleVersion',

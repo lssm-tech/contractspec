@@ -14,6 +14,16 @@ Emitted when documentation is published.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { defineEvent } from '../../events';
+import {
+	DOCS_DOMAIN,
+	DOCS_OWNERS,
+	DOCS_STABILITY,
+	DOCS_TAGS,
+} from '../constants';
+import { docId } from '../registry';
+
 export const DocsPublishedEvent = defineEvent({
 	meta: {
 		key: 'docs.published',

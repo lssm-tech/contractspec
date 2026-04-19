@@ -16,6 +16,8 @@ Test for moving deal
 ## Source Definition
 
 ```typescript
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
+
 export const dealMoveTest = defineTestSpec({
 	meta: {
 		key: 'test.crm.deal.move',

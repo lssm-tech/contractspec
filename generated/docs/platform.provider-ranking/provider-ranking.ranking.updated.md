@@ -14,6 +14,17 @@ Emitted when composite rankings are recomputed.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { docId } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { defineEvent } from '../../events';
+import {
+	PROVIDER_RANKING_DOMAIN,
+	PROVIDER_RANKING_OWNERS,
+	PROVIDER_RANKING_STABILITY,
+	PROVIDER_RANKING_TAGS,
+} from '../constants';
+
 export const RankingUpdatedEvent = defineEvent({
 	meta: {
 		key: 'provider-ranking.ranking.updated',

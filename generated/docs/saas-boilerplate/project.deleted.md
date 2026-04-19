@@ -16,6 +16,9 @@ A project has been deleted.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const ProjectDeletedEvent = defineEvent({
 	meta: {
 		key: 'project.deleted',

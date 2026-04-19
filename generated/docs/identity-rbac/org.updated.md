@@ -16,6 +16,9 @@ An organization has been updated.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+
 export const OrgUpdatedEvent = defineEvent({
 	meta: {
 		key: 'org.updated',

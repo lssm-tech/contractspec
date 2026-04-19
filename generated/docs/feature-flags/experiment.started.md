@@ -16,6 +16,9 @@ An experiment has started.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const ExperimentStartedEvent = defineEvent({
 	meta: {
 		key: 'experiment.started',

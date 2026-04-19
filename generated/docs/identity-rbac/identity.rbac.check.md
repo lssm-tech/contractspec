@@ -24,6 +24,10 @@ Called by other services to verify permissions.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { SuccessResultModel } from './user';
+
 export const CheckPermissionContract = defineQuery({
 	meta: {
 		key: 'identity.rbac.check',

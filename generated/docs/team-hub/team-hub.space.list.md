@@ -23,6 +23,11 @@ Sidebar or spaces hub.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const SpaceListPresentation = definePresentation({
 	meta: {
 		key: 'team-hub.space.list',

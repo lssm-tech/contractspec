@@ -24,6 +24,14 @@ Used by the App Studio and Ops flows to show bindings and health.
 ## Source Definition
 
 ```typescript
+import {
+	type AnyOperationSpec,
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import type { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations/registry';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+
 export const ListIntegrationConnections = defineQuery({
 	meta: {
 		key: 'integrations.connection.list',

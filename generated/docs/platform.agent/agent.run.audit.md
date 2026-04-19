@@ -22,6 +22,16 @@ Used by Studio to inspect agent run audit trails.
 ## Source Definition
 
 ```typescript
+import { docId } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { definePresentation } from '../../presentations';
+import {
+	AGENT_DOMAIN,
+	AGENT_OWNERS,
+	AGENT_STABILITY,
+	AGENT_TAGS,
+} from '../constants';
+
 export const AgentRunAuditPresentation = definePresentation({
 	meta: {
 		key: 'agent.run.audit',

@@ -22,6 +22,24 @@ Part of the finance domain. Documents are uploaded to object storage and then pr
 ## Source Definition
 
 ```typescript
+import { OPENBANKING_TELEMETRY_EVENTS } from '@contractspec/lib.contracts-integrations';
+import {
+	defineCommand,
+	defineQuery,
+	type OperationSpec,
+} from '@contractspec/lib.contracts-spec';
+import {
+	OwnersEnum,
+	StabilityEnum,
+	TagsEnum,
+} from '@contractspec/lib.contracts-spec/ownership';
+import {
+	defineEnum,
+	defineSchemaModel,
+	ScalarTypeEnum,
+	type ZodSchemaModel,
+} from '@contractspec/lib.schema';
+
 export const uploadDocumentContract = defineCommand({
 	meta: {
 		key: 'pfo.documents.upload',

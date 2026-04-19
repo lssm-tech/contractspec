@@ -16,6 +16,9 @@ A workflow definition has been published and is now active.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const WorkflowPublishedEvent = defineEvent({
 	meta: {
 		key: 'workflow.definition.published',

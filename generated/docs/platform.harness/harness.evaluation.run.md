@@ -22,6 +22,17 @@ Used by evaluation pipelines and benchmark suites.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { defineCommand } from '../../operations';
+import {
+	HARNESS_DOMAIN,
+	HARNESS_OWNERS,
+	HARNESS_STABILITY,
+	HARNESS_TAGS,
+} from '../constants';
+import { HarnessEvaluationCompletedEvent } from '../events/harnessEvaluationCompleted.event';
+import { HarnessEvaluationModel } from '../models';
+
 export const HarnessEvaluationRunCommand = defineCommand({
 	meta: {
 		key: 'harness.evaluation.run',

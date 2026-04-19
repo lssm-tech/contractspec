@@ -14,6 +14,15 @@ Emitted when an execution step starts.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { defineEvent } from '../../events';
+import {
+	CONTROL_PLANE_DOMAIN,
+	CONTROL_PLANE_OWNERS,
+	CONTROL_PLANE_STABILITY,
+	CONTROL_PLANE_TAGS,
+} from '../constants';
+
 export const ControlPlaneExecutionStepStartedEvent = defineEvent({
 	meta: {
 		key: 'controlPlane.execution.step.started',

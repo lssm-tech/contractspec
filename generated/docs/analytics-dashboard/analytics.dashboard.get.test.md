@@ -16,6 +16,8 @@ Verifies dashboard retrieval
 ## Source Definition
 
 ```typescript
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
+
 export const GetDashboardTest = defineTestSpec({
 	meta: {
 		key: 'analytics.dashboard.get.test',

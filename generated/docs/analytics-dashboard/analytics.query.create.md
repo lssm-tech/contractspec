@@ -24,6 +24,17 @@ Query builder.
 ## Source Definition
 
 ```typescript
+import {
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import {
+	CreateQueryInputModel,
+	ExecuteQueryInputModel,
+	QueryModel,
+	QueryResultModel,
+} from './query.schema';
+
 export const CreateQueryContract = defineCommand({
 	meta: {
 		key: 'analytics.query.create',

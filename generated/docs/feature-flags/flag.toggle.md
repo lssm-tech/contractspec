@@ -24,6 +24,9 @@ Called when turning a feature on or off.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const ToggleFlagContract = defineCommand({
 	meta: {
 		key: 'flag.toggle',

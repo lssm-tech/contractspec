@@ -16,6 +16,8 @@ Test for getting usage summary
 ## Source Definition
 
 ```typescript
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
+
 export const BillingUsageSummaryTest = defineTestSpec({
 	meta: {
 		key: 'saas.billing.usage.summary.test',

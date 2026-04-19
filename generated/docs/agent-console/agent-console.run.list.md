@@ -23,6 +23,12 @@ Run history dashboard.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { RunSummaryModel } from './run.schema';
+
 export const RunListPresentation = definePresentation({
 	meta: {
 		key: 'agent-console.run.list',

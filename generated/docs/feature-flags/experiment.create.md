@@ -24,6 +24,9 @@ Called when setting up A/B testing.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const CreateExperimentContract = defineCommand({
 	meta: {
 		key: 'experiment.create',

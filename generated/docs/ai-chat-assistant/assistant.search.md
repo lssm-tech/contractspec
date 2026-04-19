@@ -24,6 +24,9 @@ Used by chat flows when the user asks for information lookup.
 ## Source Definition
 
 ```typescript
+import { defineQuery } from '@contractspec/lib.contracts-spec/operations';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const AssistantSearchContract = defineQuery({
 	meta: {
 		key: 'assistant.search',

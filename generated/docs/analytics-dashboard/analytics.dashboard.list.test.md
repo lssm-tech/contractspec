@@ -16,6 +16,8 @@ Verifies dashboard listing
 ## Source Definition
 
 ```typescript
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
+
 export const ListDashboardsTest = defineTestSpec({
 	meta: {
 		key: 'analytics.dashboard.list.test',

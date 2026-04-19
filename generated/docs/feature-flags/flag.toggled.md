@@ -16,6 +16,9 @@ A feature flag status has been toggled.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const FlagToggledEvent = defineEvent({
 	meta: {
 		key: 'flag.toggled',

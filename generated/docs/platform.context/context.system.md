@@ -14,6 +14,16 @@ Context packs, snapshots, and discovery surfaces.
 ## Source Definition
 
 ```typescript
+import { defineCapability } from '../../capabilities';
+import { docRef } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import {
+	CONTEXT_DOMAIN,
+	CONTEXT_OWNERS,
+	CONTEXT_STABILITY,
+	CONTEXT_TAGS,
+} from '../constants';
+
 export const ContextSystemCapability = defineCapability({
 	meta: {
 		key: 'context.system',

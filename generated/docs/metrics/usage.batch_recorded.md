@@ -16,6 +16,9 @@ A batch of usage has been recorded.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const UsageBatchRecordedEvent = defineEvent({
 	meta: {
 		key: 'usage.batch_recorded',

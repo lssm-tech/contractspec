@@ -16,6 +16,8 @@ Test for creating review
 ## Source Definition
 
 ```typescript
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
+
 export const ReviewCreateTest = defineTestSpec({
 	meta: {
 		key: 'marketplace.review.create.test',

@@ -23,6 +23,11 @@ Settings section
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const SettingsPanelPresentation = definePresentation({
 	meta: {
 		key: 'saas.settings',

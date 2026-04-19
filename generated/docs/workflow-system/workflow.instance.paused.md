@@ -16,6 +16,9 @@ A workflow instance has been paused.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const InstancePausedEvent = defineEvent({
 	meta: {
 		key: 'workflow.instance.paused',

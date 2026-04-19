@@ -24,6 +24,14 @@ Called after change detection or manual selection.
 ## Source Definition
 
 ```typescript
+import { defineCommand } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import {
+	ChangeCandidateModel,
+	ReviewDecisionEnum,
+	ReviewTaskModel,
+} from '../entities/models';
+
 export const KbPipelineCreateReviewTaskContract = defineCommand({
 	meta: {
 		key: 'kbPipeline.createReviewTask',

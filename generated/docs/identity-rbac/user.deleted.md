@@ -16,6 +16,9 @@ A user account has been deleted.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+
 export const UserDeletedEvent = defineEvent({
 	meta: {
 		key: 'user.deleted',

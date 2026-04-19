@@ -28,6 +28,20 @@ Workflow designer, deployment.
 ## Source Definition
 
 ```typescript
+import {
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import { WorkflowStatusEnum } from './workflow.enum';
+import {
+	AddStepInputModel,
+	CreateWorkflowInputModel,
+	UpdateWorkflowInputModel,
+	WorkflowDefinitionModel,
+	WorkflowStepModel,
+} from './workflow.schema';
+
 export const PublishWorkflowContract = defineCommand({
 	meta: {
 		key: 'workflow.definition.publish',

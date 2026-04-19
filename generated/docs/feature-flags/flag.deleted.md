@@ -16,6 +16,9 @@ A feature flag has been deleted.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const FlagDeletedEvent = defineEvent({
 	meta: {
 		key: 'flag.deleted',

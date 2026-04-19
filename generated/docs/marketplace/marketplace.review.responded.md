@@ -16,6 +16,9 @@ A seller has responded to a review.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const ReviewRespondedEvent = defineEvent({
 	meta: {
 		key: 'marketplace.review.responded',

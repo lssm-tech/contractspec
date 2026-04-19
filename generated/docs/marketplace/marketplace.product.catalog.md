@@ -23,6 +23,12 @@ The primary shopping interface.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { ProductModel } from './product.schema';
+
 export const ProductCatalogPresentation = definePresentation({
 	meta: {
 		key: 'marketplace.product.catalog',

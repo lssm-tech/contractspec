@@ -24,6 +24,9 @@ Called to poll job status or retrieve results.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const GetJobContract = defineQuery({
 	meta: {
 		key: 'jobs.get',

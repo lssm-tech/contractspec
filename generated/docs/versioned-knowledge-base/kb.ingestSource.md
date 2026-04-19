@@ -24,6 +24,15 @@ Called when an admin uploads/records authoritative sources.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import {
+	KBSnapshotModel,
+	RuleVersionModel,
+	SourceDocumentModel,
+	SourceRefModel,
+} from '../entities/models';
+
 export const KbIngestSourceContract = defineCommand({
 	meta: {
 		key: 'kb.ingestSource',

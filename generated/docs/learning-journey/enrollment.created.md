@@ -15,6 +15,10 @@ A learner has enrolled in a course.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import { LEARNING_JOURNEY_OWNERS } from './contracts/shared';
+
 export const EnrollmentCreatedEvent = defineEvent({
 	meta: {
 		key: 'enrollment.created',

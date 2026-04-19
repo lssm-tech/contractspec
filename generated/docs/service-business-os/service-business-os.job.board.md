@@ -23,6 +23,11 @@ Field service scheduling
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const JobBoardPresentation = definePresentation({
 	meta: {
 		key: 'service-business-os.job.board',

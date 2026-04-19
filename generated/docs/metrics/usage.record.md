@@ -24,6 +24,9 @@ Called when usage occurs.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const RecordUsageContract = defineCommand({
 	meta: {
 		key: 'usage.record',

@@ -24,6 +24,21 @@ Called from chat interface or API.
 ## Source Definition
 
 ```typescript
+import {
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import { GranularityEnum, LogLevelEnum, RunStatusEnum } from './run.enum';
+import {
+	RunInputModel,
+	RunLogModel,
+	RunModel,
+	RunStepModel,
+	RunSummaryModel,
+	TimelineDataPointModel,
+} from './run.schema';
+
 export const ExecuteAgentCommand = defineCommand({
 	meta: {
 		key: 'agent.run.execute',

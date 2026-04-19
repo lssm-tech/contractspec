@@ -22,6 +22,17 @@ Used by Studio and operators to monitor agent execution.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { docId } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { defineQuery } from '../../operations';
+import {
+	AGENT_DOMAIN,
+	AGENT_OWNERS,
+	AGENT_STABILITY,
+	AGENT_TAGS,
+} from '../constants';
+
 export const AgentStatusQuery = defineQuery({
 	meta: {
 		key: 'agent.status',

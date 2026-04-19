@@ -24,6 +24,16 @@ Triggered by scheduled jobs or manual refresh actions to maintain incremental sy
 ## Source Definition
 
 ```typescript
+import {
+	type AnyOperationSpec,
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import type { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations/registry';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { HealthActivityRecord } from '../models';
+import { HEALTH_TELEMETRY_EVENTS } from '../telemetry';
+
 export const HealthSyncActivities = defineCommand({
 	meta: {
 		key: 'health.activities.sync',

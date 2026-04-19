@@ -1,90 +1,90 @@
 [
-	{
-		"id": "platform.database/database.context",
-		"title": "database.context",
-		"summary": "Schema, migration, dictionary, and read-only query surfaces.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: context\n- **File**: `packages/libs/contracts-spec/src/database/capabilities/databaseContext.capability.ts`",
-		"route": "/docs/reference/platform.database/database.context",
-		"source": "generated",
-		"contentPath": "platform.database/database.context.md"
-	},
-	{
-		"id": "platform.database/database.dictionary.get",
-		"title": "database.dictionary.get",
-		"summary": "Retrieve a data dictionary entry for a schema field.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: dictionary\n- **File**: `packages/libs/contracts-spec/src/database/queries/databaseDictionaryGet.query.ts`",
-		"route": "/docs/reference/platform.database/database.dictionary.get",
-		"source": "generated",
-		"contentPath": "platform.database/database.dictionary.get.md"
-	},
-	{
-		"id": "platform.database/database.migrations.list",
-		"title": "database.migrations.list",
-		"summary": "List registered database migrations and statuses.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: migrations\n- **File**: `packages/libs/contracts-spec/src/database/queries/databaseMigrationsList.query.ts`",
-		"route": "/docs/reference/platform.database/database.migrations.list",
-		"source": "generated",
-		"contentPath": "platform.database/database.migrations.list.md"
-	},
-	{
-		"id": "platform.database/database.query.readonly",
-		"title": "database.query.readonly",
-		"summary": "Execute a governed read-only query via a data view.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: query, readonly\n- **File**: `packages/libs/contracts-spec/src/database/queries/databaseQueryReadonly.query.ts`",
-		"route": "/docs/reference/platform.database/database.query.readonly",
-		"source": "generated",
-		"contentPath": "platform.database/database.query.readonly.md"
-	},
-	{
-		"id": "platform.database/database.schema.describe",
-		"title": "database.schema.describe",
-		"summary": "Describe database schemas and models with PII indicators.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: describe\n- **File**: `packages/libs/contracts-spec/src/database/queries/databaseSchemaDescribe.query.ts`",
-		"route": "/docs/reference/platform.database/database.schema.describe",
-		"source": "generated",
-		"contentPath": "platform.database/database.schema.describe.md"
-	},
-	{
-		"id": "platform.database/docs.tech.database.context",
-		"title": "Database context",
-		"summary": "Database context covers schema descriptions, migrations, data dictionary entries, and governed read-only access.",
-		"route": "/docs/reference/platform.database/docs.tech.database.context",
-		"source": "generated",
-		"contentPath": "platform.database/docs.tech.database.context.md"
-	},
-	{
-		"id": "platform.database/docs.tech.database.dictionary.get",
-		"title": "database.dictionary.get",
-		"summary": "Returns semantic descriptions and PII tags for fields.",
-		"route": "/docs/reference/platform.database/docs.tech.database.dictionary.get",
-		"source": "generated",
-		"contentPath": "platform.database/docs.tech.database.dictionary.get.md"
-	},
-	{
-		"id": "platform.database/docs.tech.database.migrations.list",
-		"title": "database.migrations.list",
-		"summary": "Returns migration registry entries and statuses for auditability.",
-		"route": "/docs/reference/platform.database/docs.tech.database.migrations.list",
-		"source": "generated",
-		"contentPath": "platform.database/docs.tech.database.migrations.list.md"
-	},
-	{
-		"id": "platform.database/docs.tech.database.query.readonly",
-		"title": "database.query.readonly",
-		"summary": "Executes read-only data access using data views with policy and redaction.",
-		"route": "/docs/reference/platform.database/docs.tech.database.query.readonly",
-		"source": "generated",
-		"contentPath": "platform.database/docs.tech.database.query.readonly.md"
-	},
-	{
-		"id": "platform.database/docs.tech.database.schema.describe",
-		"title": "database.schema.describe",
-		"summary": "Returns deterministic schema summaries for agents and operators.",
-		"route": "/docs/reference/platform.database/docs.tech.database.schema.describe",
-		"source": "generated",
-		"contentPath": "platform.database/docs.tech.database.schema.describe.md"
-	},
-	{
-		"id": "platform.database/platform.database",
-		"title": "platform.database",
-		"summary": "Describe schemas, list migrations, query data dictionaries, and execute read-only queries\n- **Type**: feature\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts-spec/src/database/database.feature.ts`",
-		"route": "/docs/reference/platform.database/platform.database",
-		"source": "generated",
-		"contentPath": "platform.database/platform.database.md"
-	}
+  {
+    "id": "platform.database/database.context",
+    "title": "database.context",
+    "summary": "Schema, migration, dictionary, and read-only query surfaces.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: context\n- **File**: `packages/libs/contracts-spec/src/database/capabilities/databaseContext.capability.ts`",
+    "route": "/docs/reference/platform.database/database.context",
+    "source": "generated",
+    "contentPath": "platform.database/database.context.md"
+  },
+  {
+    "id": "platform.database/database.dictionary.get",
+    "title": "database.dictionary.get",
+    "summary": "Retrieve a data dictionary entry for a schema field.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: dictionary\n- **File**: `packages/libs/contracts-spec/src/database/queries/databaseDictionaryGet.query.ts`",
+    "route": "/docs/reference/platform.database/database.dictionary.get",
+    "source": "generated",
+    "contentPath": "platform.database/database.dictionary.get.md"
+  },
+  {
+    "id": "platform.database/database.migrations.list",
+    "title": "database.migrations.list",
+    "summary": "List registered database migrations and statuses.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: migrations\n- **File**: `packages/libs/contracts-spec/src/database/queries/databaseMigrationsList.query.ts`",
+    "route": "/docs/reference/platform.database/database.migrations.list",
+    "source": "generated",
+    "contentPath": "platform.database/database.migrations.list.md"
+  },
+  {
+    "id": "platform.database/database.query.readonly",
+    "title": "database.query.readonly",
+    "summary": "Execute a governed read-only query via a data view.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: query, readonly\n- **File**: `packages/libs/contracts-spec/src/database/queries/databaseQueryReadonly.query.ts`",
+    "route": "/docs/reference/platform.database/database.query.readonly",
+    "source": "generated",
+    "contentPath": "platform.database/database.query.readonly.md"
+  },
+  {
+    "id": "platform.database/database.schema.describe",
+    "title": "database.schema.describe",
+    "summary": "Describe database schemas and models with PII indicators.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: describe\n- **File**: `packages/libs/contracts-spec/src/database/queries/databaseSchemaDescribe.query.ts`",
+    "route": "/docs/reference/platform.database/database.schema.describe",
+    "source": "generated",
+    "contentPath": "platform.database/database.schema.describe.md"
+  },
+  {
+    "id": "platform.database/docs.tech.database.context",
+    "title": "Database context",
+    "summary": "Database context covers schema descriptions, migrations, data dictionary entries, and governed read-only access.",
+    "route": "/docs/reference/platform.database/docs.tech.database.context",
+    "source": "generated",
+    "contentPath": "platform.database/docs.tech.database.context.md"
+  },
+  {
+    "id": "platform.database/docs.tech.database.dictionary.get",
+    "title": "database.dictionary.get",
+    "summary": "Returns semantic descriptions and PII tags for fields.",
+    "route": "/docs/reference/platform.database/docs.tech.database.dictionary.get",
+    "source": "generated",
+    "contentPath": "platform.database/docs.tech.database.dictionary.get.md"
+  },
+  {
+    "id": "platform.database/docs.tech.database.migrations.list",
+    "title": "database.migrations.list",
+    "summary": "Returns migration registry entries and statuses for auditability.",
+    "route": "/docs/reference/platform.database/docs.tech.database.migrations.list",
+    "source": "generated",
+    "contentPath": "platform.database/docs.tech.database.migrations.list.md"
+  },
+  {
+    "id": "platform.database/docs.tech.database.query.readonly",
+    "title": "database.query.readonly",
+    "summary": "Executes read-only data access using data views with policy and redaction.",
+    "route": "/docs/reference/platform.database/docs.tech.database.query.readonly",
+    "source": "generated",
+    "contentPath": "platform.database/docs.tech.database.query.readonly.md"
+  },
+  {
+    "id": "platform.database/docs.tech.database.schema.describe",
+    "title": "database.schema.describe",
+    "summary": "Returns deterministic schema summaries for agents and operators.",
+    "route": "/docs/reference/platform.database/docs.tech.database.schema.describe",
+    "source": "generated",
+    "contentPath": "platform.database/docs.tech.database.schema.describe.md"
+  },
+  {
+    "id": "platform.database/platform.database",
+    "title": "platform.database",
+    "summary": "Describe schemas, list migrations, query data dictionaries, and execute read-only queries\n- **Type**: feature\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts-spec/src/database/database.feature.ts`",
+    "route": "/docs/reference/platform.database/platform.database",
+    "source": "generated",
+    "contentPath": "platform.database/platform.database.md"
+  }
 ]

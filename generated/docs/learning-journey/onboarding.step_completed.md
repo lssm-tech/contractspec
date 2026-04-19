@@ -15,6 +15,10 @@ An onboarding step has been completed.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import { LEARNING_JOURNEY_OWNERS } from './contracts/shared';
+
 export const OnboardingStepCompletedEvent = defineEvent({
 	meta: {
 		key: 'onboarding.step_completed',

@@ -22,6 +22,24 @@ Finance automation. Reminders are sent via configured channels (email, SMS).
 ## Source Definition
 
 ```typescript
+import { OPENBANKING_TELEMETRY_EVENTS } from '@contractspec/lib.contracts-integrations';
+import {
+	defineCommand,
+	defineQuery,
+	type OperationSpec,
+} from '@contractspec/lib.contracts-spec';
+import {
+	OwnersEnum,
+	StabilityEnum,
+	TagsEnum,
+} from '@contractspec/lib.contracts-spec/ownership';
+import {
+	defineEnum,
+	defineSchemaModel,
+	ScalarTypeEnum,
+	type ZodSchemaModel,
+} from '@contractspec/lib.schema';
+
 export const schedulePaymentReminderContract = defineCommand({
 	meta: {
 		key: 'pfo.reminders.schedule-payment',

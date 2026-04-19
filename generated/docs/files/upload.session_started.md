@@ -16,6 +16,9 @@ An upload session has started.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const UploadSessionStartedEvent = defineEvent({
 	meta: {
 		key: 'upload.session_started',

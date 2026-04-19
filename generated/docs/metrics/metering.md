@@ -15,6 +15,11 @@ Usage metering and tracking
 ## Source Definition
 
 ```typescript
+import {
+	defineCapability,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const MeteringCapability = defineCapability({
 	meta: {
 		key: 'metering',

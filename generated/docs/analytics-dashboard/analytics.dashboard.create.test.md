@@ -16,6 +16,8 @@ Verifies dashboard creation flow
 ## Source Definition
 
 ```typescript
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
+
 export const CreateDashboardTest = defineTestSpec({
 	meta: {
 		key: 'analytics.dashboard.create.test',

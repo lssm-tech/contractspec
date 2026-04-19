@@ -16,6 +16,8 @@ Test for listing workflow definitions
 ## Source Definition
 
 ```typescript
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
+
 export const DefinitionListTest = defineTestSpec({
 	meta: {
 		key: 'workflow.definition.list.test',

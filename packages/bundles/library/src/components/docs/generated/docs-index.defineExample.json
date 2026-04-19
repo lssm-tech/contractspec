@@ -1,10 +1,10 @@
 [
-	{
-		"id": "defineExample/docs.tech.contracts.examples",
-		"title": "defineExample/docs.tech.contracts.examples",
-		"summary": "ExampleSpec is a contract for defining complete, demonstrable ContractSpec applications. Examples integrate with AppBlueprintSpec and FeatureModuleSpec to provide a full application specification.\nAn `ExampleSpec` captures:",
-		"route": "/docs/reference/defineExample/docs.tech.contracts.examples",
-		"source": "generated",
-		"contentPath": "defineExample/docs.tech.contracts.examples.md"
-	}
+  {
+    "id": "defineExample/docs.tech.contracts.examples",
+    "title": "defineExample/docs.tech.contracts.examples",
+    "summary": "ExampleSpec is a contract for defining complete, demonstrable ContractSpec applications. Examples integrate with AppBlueprintSpec and FeatureModuleSpec to provide a full application specification.\nAn `ExampleSpec` captures:",
+    "route": "/docs/reference/defineExample/docs.tech.contracts.examples",
+    "source": "generated",
+    "contentPath": "defineExample/docs.tech.contracts.examples.md"
+  }
 ]

@@ -23,6 +23,12 @@ Main landing page for agent management.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { AgentSummaryModel } from './agent.schema';
+
 export const AgentListPresentation = definePresentation({
 	meta: {
 		key: 'agent-console.agent.viewList',

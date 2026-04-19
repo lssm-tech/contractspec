@@ -23,6 +23,12 @@ The primary management view for integration hubs.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { ConnectionModel } from './connection.schema';
+
 export const ConnectionListPresentation = definePresentation({
 	meta: {
 		key: 'integration.connection.list',

@@ -28,6 +28,12 @@ Connection setup.
 ## Source Definition
 
 ```typescript
+import { defineCommand } from '@contractspec/lib.contracts-spec/operations';
+import {
+	ConnectionModel,
+	CreateConnectionInputModel,
+} from './connection.schema';
+
 export const CreateConnectionContract = defineCommand({
 	meta: {
 		key: 'integration.connection.create',

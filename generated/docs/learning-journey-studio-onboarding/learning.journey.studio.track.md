@@ -21,6 +21,13 @@ Displayed in the Studio dashboard.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	type PresentationSpecMeta,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { StudioJourneyTrackModel } from '../operations';
+
 export const StudioOnboardingTrackPresentation = definePresentation({
 	meta: {
 		key: 'learning.journey.studio.track',
@@ -34,7 +41,7 @@ export const StudioOnboardingTrackPresentation = definePresentation({
 		type: 'component',
 		framework: 'react',
 		componentKey: 'LearningTrackDetail',
-		props: StudioOnboardingTrackModel,
+		props: StudioJourneyTrackModel,
 	},
 	targets: ['react', 'markdown', 'application/json'],
 });

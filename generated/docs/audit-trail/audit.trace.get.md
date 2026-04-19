@@ -24,6 +24,13 @@ Request tracing, debugging.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import {
+	defineEnum,
+	defineSchemaModel,
+	ScalarTypeEnum,
+} from '@contractspec/lib.schema';
+
 export const GetAuditTraceContract = defineQuery({
 	meta: {
 		key: 'audit.trace.get',

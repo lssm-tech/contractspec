@@ -16,6 +16,10 @@ Chat error occurred
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import { ChatConversationModel, ChatMessageModel } from './schema';
+
 export const ChatErrorEvent = defineEvent({
 	meta: {
 		key: 'ai-chat.error',

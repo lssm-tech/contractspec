@@ -14,6 +14,14 @@ Trace, policy explanation, and replay-grade observability.
 ## Source Definition
 
 ```typescript
+import { defineCapability } from '../../capabilities';
+import {
+	CONTROL_PLANE_DOMAIN,
+	CONTROL_PLANE_OWNERS,
+	CONTROL_PLANE_STABILITY,
+	CONTROL_PLANE_TAGS,
+} from '../constants';
+
 export const ControlPlaneAuditCapability = defineCapability({
 	meta: {
 		key: 'control-plane.audit',

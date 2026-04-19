@@ -23,6 +23,12 @@ Condensed representation used within the Pipeline Kanban board.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { DealModel } from '../deal/deal.schema';
+
 export const DealCardPresentation = definePresentation({
 	meta: {
 		key: 'crm.deal.card',

@@ -22,6 +22,15 @@ Used for operator intervention when a lane should stop in-place.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { defineCommand } from '../../operations';
+import {
+	CONTROL_PLANE_DOMAIN,
+	CONTROL_PLANE_OWNERS,
+	CONTROL_PLANE_STABILITY,
+	CONTROL_PLANE_TAGS,
+} from '../constants';
+
 export const ControlPlaneExecutionPauseCommand = defineCommand({
 	meta: {
 		key: 'controlPlane.execution.pause',

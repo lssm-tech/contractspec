@@ -16,6 +16,9 @@ A new user has been created.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+
 export const UserCreatedEvent = defineEvent({
 	meta: {
 		key: 'user.created',

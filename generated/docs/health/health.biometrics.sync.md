@@ -24,6 +24,16 @@ Triggered by incremental sync jobs and manual refresh actions.
 ## Source Definition
 
 ```typescript
+import {
+	type AnyOperationSpec,
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import type { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations/registry';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { HealthBiometricRecord } from '../models';
+import { HEALTH_TELEMETRY_EVENTS } from '../telemetry';
+
 export const HealthSyncBiometrics = defineCommand({
 	meta: {
 		key: 'health.biometrics.sync',

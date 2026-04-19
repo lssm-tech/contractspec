@@ -24,6 +24,9 @@ Admin control over scheduled tasks.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const ToggleScheduledJobContract = defineCommand({
 	meta: {
 		key: 'jobs.schedule.toggle',

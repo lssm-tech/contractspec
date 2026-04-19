@@ -15,6 +15,9 @@ Core integrations capability for third-party connections
 ## Source Definition
 
 ```typescript
+import { defineCapability } from '@contractspec/lib.contracts-spec/capabilities';
+import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
+
 export const IntegrationsCapability = defineCapability({
 	meta: {
 		key: 'integrations',

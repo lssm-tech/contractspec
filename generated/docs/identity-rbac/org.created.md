@@ -16,6 +16,9 @@ A new organization has been created.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+
 export const OrgCreatedEvent = defineEvent({
 	meta: {
 		key: 'org.created',

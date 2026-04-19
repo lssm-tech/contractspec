@@ -28,6 +28,13 @@ Order management.
 ## Source Definition
 
 ```typescript
+import { defineCommand } from '@contractspec/lib.contracts-spec/operations';
+import {
+	CreateOrderInputModel,
+	OrderModel,
+	UpdateOrderStatusInputModel,
+} from './order.schema';
+
 export const UpdateOrderStatusContract = defineCommand({
 	meta: {
 		key: 'marketplace.order.updateStatus',

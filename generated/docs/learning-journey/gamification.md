@@ -15,6 +15,11 @@ Gamification elements like badges, points, and achievements
 ## Source Definition
 
 ```typescript
+import {
+	defineCapability,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const GamificationCapability = defineCapability({
 	meta: {
 		key: 'gamification',

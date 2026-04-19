@@ -16,6 +16,8 @@ Test for listing payouts
 ## Source Definition
 
 ```typescript
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
+
 export const PayoutListTest = defineTestSpec({
 	meta: {
 		key: 'marketplace.payout.list.test',

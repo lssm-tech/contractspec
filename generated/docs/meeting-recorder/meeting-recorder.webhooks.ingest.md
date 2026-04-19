@@ -24,6 +24,14 @@ Used by webhook handlers to validate and normalize provider webhook events.
 ## Source Definition
 
 ```typescript
+import {
+	type AnyOperationSpec,
+	defineCommand,
+} from '@contractspec/lib.contracts-spec/operations';
+import type { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations/registry';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { MeetingRecorderWebhookEventRecord } from '../models';
+
 export const MeetingRecorderWebhookIngest = defineCommand({
 	meta: {
 		key: 'meeting-recorder.webhooks.ingest',

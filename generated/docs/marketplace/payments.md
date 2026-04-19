@@ -15,6 +15,11 @@ Payment processing and payouts
 ## Source Definition
 
 ```typescript
+import {
+	defineCapability,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const PaymentsCapability = defineCapability({
 	meta: {
 		key: 'payments',

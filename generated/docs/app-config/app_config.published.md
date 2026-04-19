@@ -13,6 +13,10 @@ A tenant config version was published to production.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { defineEvent } from '../events';
+import { OwnersEnum, StabilityEnum, TagsEnum } from '../ownership';
+
 export const ConfigPublishedEvent = defineEvent({
 	meta: {
 		...lifecycleOwnership,

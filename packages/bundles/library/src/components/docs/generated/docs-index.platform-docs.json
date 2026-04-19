@@ -1,154 +1,162 @@
 [
-	{
-		"id": "platform.docs/AddNumbersSpec",
-		"title": "AddNumbersSpec",
-		"summary": "- **Type**: operation (command)\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts-spec/src/docs/docblocks.manifest.generated.ts`\n```typescript\nexport const AddNumbersSpec = defineCommand({\\n  meta: { name: 'math.add', version: '1.0.0', /* … */ },\\n  io: {\\n    input: AddNumbersInput,\\n    output: AddNumbersOutput,\\n  },\\n  policy: { auth: 'user' },\\n});",
-		"route": "/docs/reference/platform.docs/AddNumbersSpec",
-		"source": "generated",
-		"contentPath": "platform.docs/AddNumbersSpec.md"
-	},
-	{
-		"id": "platform.docs/docs_search",
-		"title": "docs_search",
-		"summary": "Search and filter DocBlocks by query, tag, or visibility.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: search, index\n- **File**: `packages/libs/contracts-spec/src/docs/queries/docsIndex.query.ts`",
-		"route": "/docs/reference/platform.docs/docs_search",
-		"source": "generated",
-		"contentPath": "platform.docs/docs_search.md"
-	},
-	{
-		"id": "platform.docs/docs.accessibility_wcag_compliance_specs",
-		"title": "Accessibility & WCAG Compliance — **specs.md**",
-		"summary": "> **Goal:** Ship interfaces that are usable by everyone, by default. This spec sets non‑negotiable rules, checklists, and CI gates to meet **WCAG 2.2 AA** (aim for AAA where low‑cost), align with **EN 301 549** (EU), and keep parity on **web (Next.js)** and **mobile (Expo/React Native)**.",
-		"route": "/docs/reference/platform.docs/docs.accessibility_wcag_compliance_specs",
-		"source": "generated",
-		"contentPath": "platform.docs/docs.accessibility_wcag_compliance_specs.md"
-	},
-	{
-		"id": "platform.docs/docs.contract.reference",
-		"title": "docs.contract.reference",
-		"summary": "Resolve a contract into a documentation-ready reference.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: reference\n- **File**: `packages/libs/contracts-spec/src/docs/queries/contractReference.query.ts`",
-		"route": "/docs/reference/platform.docs/docs.contract.reference",
-		"source": "generated",
-		"contentPath": "platform.docs/docs.contract.reference.md"
-	},
-	{
-		"id": "platform.docs/docs.generate",
-		"title": "docs.generate",
-		"summary": "Generate documentation artifacts from ContractSpecs.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: generation\n- **File**: `packages/libs/contracts-spec/src/docs/commands/docsGenerate.command.ts`",
-		"route": "/docs/reference/platform.docs/docs.generate",
-		"source": "generated",
-		"contentPath": "platform.docs/docs.generate.md"
-	},
-	{
-		"id": "platform.docs/docs.generated",
-		"title": "docs.generated",
-		"summary": "Emitted when documentation artifacts are generated.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: generation\n- **File**: `packages/libs/contracts-spec/src/docs/events/docsGenerated.event.ts`\n```typescript",
-		"route": "/docs/reference/platform.docs/docs.generated",
-		"source": "generated",
-		"contentPath": "platform.docs/docs.generated.md"
-	},
-	{
-		"id": "platform.docs/docs.layout",
-		"title": "docs.layout",
-		"summary": "Shared layout shell for documentation pages.\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Tags**: layout\n- **File**: `packages/libs/contracts-spec/src/docs/presentations/docsLayout.presentation.ts`",
-		"route": "/docs/reference/platform.docs/docs.layout",
-		"source": "generated",
-		"contentPath": "platform.docs/docs.layout.md"
-	},
-	{
-		"id": "platform.docs/docs.meta.docblocks-process",
-		"title": "platform.docs/docs.meta.docblocks-process",
-		"summary": "- Colocate docs beside implementation; avoid barrel /docs folders.\n- Split intent:\n- **goal**: why this exists (before implementation).\n- **how**: operational/runbook steps.\n- **usage**: quick checklist for consumers.",
-		"route": "/docs/reference/platform.docs/docs.meta.docblocks-process",
-		"source": "generated",
-		"contentPath": "platform.docs/docs.meta.docblocks-process.md"
-	},
-	{
-		"id": "platform.docs/docs.publish",
-		"title": "docs.publish",
-		"summary": "Publish generated documentation artifacts.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: publish\n- **File**: `packages/libs/contracts-spec/src/docs/commands/docsPublish.command.ts`\nDeploy docs to the public docs surface with consistent versioning.",
-		"route": "/docs/reference/platform.docs/docs.publish",
-		"source": "generated",
-		"contentPath": "platform.docs/docs.publish.md"
-	},
-	{
-		"id": "platform.docs/docs.published",
-		"title": "docs.published",
-		"summary": "Emitted when documentation is published.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: publish\n- **File**: `packages/libs/contracts-spec/src/docs/events/docsPublished.event.ts`\n```typescript\nexport const DocsPublishedEvent = defineEvent({",
-		"route": "/docs/reference/platform.docs/docs.published",
-		"source": "generated",
-		"contentPath": "platform.docs/docs.published.md"
-	},
-	{
-		"id": "platform.docs/docs.reference.page",
-		"title": "docs.reference.page",
-		"summary": "Reference page layout for contract documentation.\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Tags**: reference\n- **File**: `packages/libs/contracts-spec/src/docs/presentations/docsReferencePage.presentation.ts`",
-		"route": "/docs/reference/platform.docs/docs.reference.page",
-		"source": "generated",
-		"contentPath": "platform.docs/docs.reference.page.md"
-	},
-	{
-		"id": "platform.docs/docs.search",
-		"title": "docs_search",
-		"summary": "Search and filter DocBlocks by query, tag, or visibility.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: search, index\n- **File**: `packages/libs/contracts-spec/src/docs/queries/docsIndex.query.ts`",
-		"route": "/docs/reference/platform.docs/docs.search",
-		"source": "generated",
-		"contentPath": "platform.docs/docs.search.md"
-	},
-	{
-		"id": "platform.docs/docs.system",
-		"title": "docs.system",
-		"summary": "End-to-end docs generation, indexing, and presentation.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: system\n- **File**: `packages/libs/contracts-spec/src/docs/capabilities/documentationSystem.capability.ts`",
-		"route": "/docs/reference/platform.docs/docs.system",
-		"source": "generated",
-		"contentPath": "platform.docs/docs.system.md"
-	},
-	{
-		"id": "platform.docs/docs.tech.docs-generator",
-		"title": "Docs generator",
-		"summary": "The generator produces documentation artifacts, search metadata, and reference pages from ContractSpecs and DocBlocks.",
-		"route": "/docs/reference/platform.docs/docs.tech.docs-generator",
-		"source": "generated",
-		"contentPath": "platform.docs/docs.tech.docs-generator.md"
-	},
-	{
-		"id": "platform.docs/docs.tech.docs-publish",
-		"title": "Docs publish",
-		"summary": "Publishing moves generated artifacts to a hosting target with versioning and release metadata.",
-		"route": "/docs/reference/platform.docs/docs.tech.docs-publish",
-		"source": "generated",
-		"contentPath": "platform.docs/docs.tech.docs-publish.md"
-	},
-	{
-		"id": "platform.docs/docs.tech.docs-reference",
-		"title": "Contract reference",
-		"summary": "Contract reference pages are generated from spec metadata plus schema details and exposed as a docs-ready payload.",
-		"route": "/docs/reference/platform.docs/docs.tech.docs-reference",
-		"source": "generated",
-		"contentPath": "platform.docs/docs.tech.docs-reference.md"
-	},
-	{
-		"id": "platform.docs/docs.tech.docs-search",
-		"title": "Docs index and search",
-		"summary": "The docs index is the canonical list of DocBlocks exposed to UI, CLI, and MCP surfaces for filtering and retrieval.",
-		"route": "/docs/reference/platform.docs/docs.tech.docs-search",
-		"source": "generated",
-		"contentPath": "platform.docs/docs.tech.docs-search.md"
-	},
-	{
-		"id": "platform.docs/docs.tech.docs-system",
-		"title": "Docs system overview",
-		"summary": "ContractSpec treats documentation as a first-class output of your specs. The docs system combines contracts, DocBlocks, manifests, and presentations into a consistent docs surface.",
-		"route": "/docs/reference/platform.docs/docs.tech.docs-system",
-		"source": "generated",
-		"contentPath": "platform.docs/docs.tech.docs-system.md"
-	},
-	{
-		"id": "platform.docs/platform.docs",
-		"title": "platform.docs",
-		"summary": "Generate, publish, search, and reference contract documentation and DocBlocks\n- **Type**: feature\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts-spec/src/docs/docs.feature.ts`\n- `docs.generate` (v1.0.0)",
-		"route": "/docs/reference/platform.docs/platform.docs",
-		"source": "generated",
-		"contentPath": "platform.docs/platform.docs.md"
-	}
+  {
+    "id": "platform.docs/AddNumbersSpec",
+    "title": "AddNumbersSpec",
+    "summary": "- **Type**: operation (command)\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts-spec/src/docs/docblocks.manifest.generated.ts`\n```typescript\nexport const AddNumbersSpec = defineCommand({\\n  meta: { name: 'math.add', version: '1.0.0', /* … */ },\\n  io: {\\n    input: AddNumbersInput,\\n    output: AddNumbersOutput,\\n  },\\n  policy: { auth: 'user' },\\n});",
+    "route": "/docs/reference/platform.docs/AddNumbersSpec",
+    "source": "generated",
+    "contentPath": "platform.docs/AddNumbersSpec.md"
+  },
+  {
+    "id": "platform.docs/docs_search",
+    "title": "docs_search",
+    "summary": "Search and filter DocBlocks by query, tag, or visibility.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: search, index\n- **File**: `packages/libs/contracts-spec/src/docs/queries/docsIndex.query.ts`",
+    "route": "/docs/reference/platform.docs/docs_search",
+    "source": "generated",
+    "contentPath": "platform.docs/docs_search.md"
+  },
+  {
+    "id": "platform.docs/docs_search.form",
+    "title": "docs_search.form",
+    "summary": "Search form for documentation discovery.\n- **Type**: form (form)\n- **Version**: 1.0.0\n- **Tags**: search\n- **File**: `packages/libs/contracts-spec/src/docs/forms/docsSearch.form.ts`\n```typescript\nimport { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';",
+    "route": "/docs/reference/platform.docs/docs_search.form",
+    "source": "generated",
+    "contentPath": "platform.docs/docs_search.form.md"
+  },
+  {
+    "id": "platform.docs/docs.accessibility_wcag_compliance_specs",
+    "title": "Accessibility & WCAG Compliance — **specs.md**",
+    "summary": "> **Goal:** Ship interfaces that are usable by everyone, by default. This spec sets non‑negotiable rules, checklists, and CI gates to meet **WCAG 2.2 AA** (aim for AAA where low‑cost), align with **EN 301 549** (EU), and keep parity on **web (Next.js)** and **mobile (Expo/React Native)**.",
+    "route": "/docs/reference/platform.docs/docs.accessibility_wcag_compliance_specs",
+    "source": "generated",
+    "contentPath": "platform.docs/docs.accessibility_wcag_compliance_specs.md"
+  },
+  {
+    "id": "platform.docs/docs.contract.reference",
+    "title": "docs.contract.reference",
+    "summary": "Resolve a contract into a documentation-ready reference.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: reference\n- **File**: `packages/libs/contracts-spec/src/docs/queries/contractReference.query.ts`",
+    "route": "/docs/reference/platform.docs/docs.contract.reference",
+    "source": "generated",
+    "contentPath": "platform.docs/docs.contract.reference.md"
+  },
+  {
+    "id": "platform.docs/docs.generate",
+    "title": "docs.generate",
+    "summary": "Generate documentation artifacts from ContractSpecs.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: generation\n- **File**: `packages/libs/contracts-spec/src/docs/commands/docsGenerate.command.ts`",
+    "route": "/docs/reference/platform.docs/docs.generate",
+    "source": "generated",
+    "contentPath": "platform.docs/docs.generate.md"
+  },
+  {
+    "id": "platform.docs/docs.generated",
+    "title": "docs.generated",
+    "summary": "Emitted when documentation artifacts are generated.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: generation\n- **File**: `packages/libs/contracts-spec/src/docs/events/docsGenerated.event.ts`\n```typescript",
+    "route": "/docs/reference/platform.docs/docs.generated",
+    "source": "generated",
+    "contentPath": "platform.docs/docs.generated.md"
+  },
+  {
+    "id": "platform.docs/docs.layout",
+    "title": "docs.layout",
+    "summary": "Shared layout shell for documentation pages.\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Tags**: layout\n- **File**: `packages/libs/contracts-spec/src/docs/presentations/docsLayout.presentation.ts`",
+    "route": "/docs/reference/platform.docs/docs.layout",
+    "source": "generated",
+    "contentPath": "platform.docs/docs.layout.md"
+  },
+  {
+    "id": "platform.docs/docs.meta.docblocks-process",
+    "title": "platform.docs/docs.meta.docblocks-process",
+    "summary": "- Colocate docs beside implementation; avoid barrel /docs folders.\n- Split intent:\n- **goal**: why this exists (before implementation).\n- **how**: operational/runbook steps.\n- **usage**: quick checklist for consumers.",
+    "route": "/docs/reference/platform.docs/docs.meta.docblocks-process",
+    "source": "generated",
+    "contentPath": "platform.docs/docs.meta.docblocks-process.md"
+  },
+  {
+    "id": "platform.docs/docs.publish",
+    "title": "docs.publish",
+    "summary": "Publish generated documentation artifacts.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: publish\n- **File**: `packages/libs/contracts-spec/src/docs/commands/docsPublish.command.ts`\nDeploy docs to the public docs surface with consistent versioning.",
+    "route": "/docs/reference/platform.docs/docs.publish",
+    "source": "generated",
+    "contentPath": "platform.docs/docs.publish.md"
+  },
+  {
+    "id": "platform.docs/docs.published",
+    "title": "docs.published",
+    "summary": "Emitted when documentation is published.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: publish\n- **File**: `packages/libs/contracts-spec/src/docs/events/docsPublished.event.ts`\n```typescript\nimport { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';",
+    "route": "/docs/reference/platform.docs/docs.published",
+    "source": "generated",
+    "contentPath": "platform.docs/docs.published.md"
+  },
+  {
+    "id": "platform.docs/docs.reference.page",
+    "title": "docs.reference.page",
+    "summary": "Reference page layout for contract documentation.\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Tags**: reference\n- **File**: `packages/libs/contracts-spec/src/docs/presentations/docsReferencePage.presentation.ts`",
+    "route": "/docs/reference/platform.docs/docs.reference.page",
+    "source": "generated",
+    "contentPath": "platform.docs/docs.reference.page.md"
+  },
+  {
+    "id": "platform.docs/docs.search",
+    "title": "docs_search",
+    "summary": "Search and filter DocBlocks by query, tag, or visibility.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: search, index\n- **File**: `packages/libs/contracts-spec/src/docs/queries/docsIndex.query.ts`",
+    "route": "/docs/reference/platform.docs/docs.search",
+    "source": "generated",
+    "contentPath": "platform.docs/docs.search.md"
+  },
+  {
+    "id": "platform.docs/docs.system",
+    "title": "docs.system",
+    "summary": "End-to-end docs generation, indexing, and presentation.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: system\n- **File**: `packages/libs/contracts-spec/src/docs/capabilities/documentationSystem.capability.ts`",
+    "route": "/docs/reference/platform.docs/docs.system",
+    "source": "generated",
+    "contentPath": "platform.docs/docs.system.md"
+  },
+  {
+    "id": "platform.docs/docs.tech.docs-generator",
+    "title": "Docs generator",
+    "summary": "The generator produces documentation artifacts, search metadata, and reference pages from ContractSpecs and DocBlocks.",
+    "route": "/docs/reference/platform.docs/docs.tech.docs-generator",
+    "source": "generated",
+    "contentPath": "platform.docs/docs.tech.docs-generator.md"
+  },
+  {
+    "id": "platform.docs/docs.tech.docs-publish",
+    "title": "Docs publish",
+    "summary": "Publishing moves generated artifacts to a hosting target with versioning and release metadata.",
+    "route": "/docs/reference/platform.docs/docs.tech.docs-publish",
+    "source": "generated",
+    "contentPath": "platform.docs/docs.tech.docs-publish.md"
+  },
+  {
+    "id": "platform.docs/docs.tech.docs-reference",
+    "title": "Contract reference",
+    "summary": "Contract reference pages are generated from spec metadata plus schema details and exposed as a docs-ready payload.",
+    "route": "/docs/reference/platform.docs/docs.tech.docs-reference",
+    "source": "generated",
+    "contentPath": "platform.docs/docs.tech.docs-reference.md"
+  },
+  {
+    "id": "platform.docs/docs.tech.docs-search",
+    "title": "Docs index and search",
+    "summary": "The docs index is the canonical list of DocBlocks exposed to UI, CLI, and MCP surfaces for filtering and retrieval.",
+    "route": "/docs/reference/platform.docs/docs.tech.docs-search",
+    "source": "generated",
+    "contentPath": "platform.docs/docs.tech.docs-search.md"
+  },
+  {
+    "id": "platform.docs/docs.tech.docs-system",
+    "title": "Docs system overview",
+    "summary": "ContractSpec treats documentation as a first-class output of your specs. The docs system combines contracts, DocBlocks, manifests, and presentations into a consistent docs surface.",
+    "route": "/docs/reference/platform.docs/docs.tech.docs-system",
+    "source": "generated",
+    "contentPath": "platform.docs/docs.tech.docs-system.md"
+  },
+  {
+    "id": "platform.docs/platform.docs",
+    "title": "platform.docs",
+    "summary": "Generate, publish, search, and reference contract documentation and DocBlocks\n- **Type**: feature\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts-spec/src/docs/docs.feature.ts`\n- `docs.generate` (v1.0.0)",
+    "route": "/docs/reference/platform.docs/platform.docs",
+    "source": "generated",
+    "contentPath": "platform.docs/platform.docs.md"
+  }
 ]

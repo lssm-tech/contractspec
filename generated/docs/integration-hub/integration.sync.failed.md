@@ -16,6 +16,9 @@ Fired when a sync run fails
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const SyncFailedEvent = defineEvent({
 	meta: {
 		key: 'integration.sync.failed',

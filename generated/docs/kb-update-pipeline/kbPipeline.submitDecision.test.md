@@ -16,6 +16,8 @@ Test for submitting decision
 ## Source Definition
 
 ```typescript
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
+
 export const SubmitDecisionTest = defineTestSpec({
 	meta: {
 		key: 'kbPipeline.submitDecision.test',

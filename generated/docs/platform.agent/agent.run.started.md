@@ -14,6 +14,17 @@ Emitted when an agent run starts executing.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { docId } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { defineEvent } from '../../events';
+import {
+	AGENT_DOMAIN,
+	AGENT_OWNERS,
+	AGENT_STABILITY,
+	AGENT_TAGS,
+} from '../constants';
+
 export const AgentRunStartedEvent = defineEvent({
 	meta: {
 		key: 'agent.run.started',

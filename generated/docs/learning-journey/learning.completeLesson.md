@@ -23,6 +23,20 @@ Called when a learner finishes a lesson.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import {
+	CompleteLessonInput,
+	EnrollInCourseInput,
+	EnrollmentModel,
+	GetDueCardsInput,
+	GetDueCardsOutput,
+	GetLearnerDashboardInput,
+	LearnerDashboardModel,
+	SubmitCardReviewInput,
+	SuccessOutput,
+} from './models';
+import { LEARNING_JOURNEY_OWNERS } from './shared';
+
 export const CompleteLessonContract = defineCommand({
 	meta: {
 		key: 'learning.completeLesson',

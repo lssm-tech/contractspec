@@ -24,6 +24,9 @@ Used by the opencode-cli example package.
 ## Source Definition
 
 ```typescript
+import { defineCommand } from '@contractspec/lib.contracts-spec/operations';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const OpenCodeEchoCommand = defineCommand({
 	meta: {
 		key: 'opencode.example.echo',

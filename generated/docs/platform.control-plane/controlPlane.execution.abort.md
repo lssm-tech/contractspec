@@ -22,6 +22,15 @@ Used when operators must terminate a lane instead of pausing or shutting it down
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { defineCommand } from '../../operations';
+import {
+	CONTROL_PLANE_DOMAIN,
+	CONTROL_PLANE_OWNERS,
+	CONTROL_PLANE_STABILITY,
+	CONTROL_PLANE_TAGS,
+} from '../constants';
+
 export const ControlPlaneExecutionAbortCommand = defineCommand({
 	meta: {
 		key: 'controlPlane.execution.abort',

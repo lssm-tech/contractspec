@@ -28,6 +28,21 @@ Mapping configuration.
 ## Source Definition
 
 ```typescript
+import {
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import {
+	AddFieldMappingInputModel,
+	CreateSyncConfigInputModel,
+	FieldMappingModel,
+	ListSyncRunsInputModel,
+	ListSyncRunsOutputModel,
+	SyncConfigModel,
+	SyncRunModel,
+	TriggerSyncInputModel,
+} from './sync.schema';
+
 export const AddFieldMappingContract = defineCommand({
 	meta: {
 		key: 'integration.fieldMapping.add',

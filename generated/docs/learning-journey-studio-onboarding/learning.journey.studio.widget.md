@@ -21,6 +21,13 @@ Displayed in the Studio sidebar or header.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	type PresentationSpecMeta,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { StudioJourneyTrackModel } from '../operations';
+
 export const StudioOnboardingWidgetPresentation = definePresentation({
 	meta: {
 		key: 'learning.journey.studio.widget',

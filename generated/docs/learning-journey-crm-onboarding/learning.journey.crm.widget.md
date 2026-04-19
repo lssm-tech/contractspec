@@ -13,6 +13,13 @@ Compact widget for CRM onboarding progress
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	type PresentationSpecMeta,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { CrmJourneyTrackModel } from '../operations';
+
 export const CrmOnboardingWidgetPresentation = definePresentation({
 	meta: {
 		key: 'learning.journey.crm.widget',

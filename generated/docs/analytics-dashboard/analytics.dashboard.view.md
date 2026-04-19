@@ -23,6 +23,12 @@ The interactive viewing interface.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { DashboardModel } from './dashboard.schema';
+
 export const DashboardViewPresentation = definePresentation({
 	meta: {
 		key: 'analytics.dashboard.view',

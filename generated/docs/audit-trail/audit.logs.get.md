@@ -24,6 +24,13 @@ Log detail view.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import {
+	defineEnum,
+	defineSchemaModel,
+	ScalarTypeEnum,
+} from '@contractspec/lib.schema';
+
 export const GetAuditLogContract = defineQuery({
 	meta: {
 		key: 'audit.logs.get',

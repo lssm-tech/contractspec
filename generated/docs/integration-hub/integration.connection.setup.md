@@ -23,6 +23,12 @@ The onboarding flow for new integrations.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { ConnectionModel } from './connection.schema';
+
 export const ConnectionSetupPresentation = definePresentation({
 	meta: {
 		key: 'integration.connection.setup',

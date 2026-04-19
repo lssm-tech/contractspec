@@ -16,6 +16,9 @@ A workflow instance has entered a new step.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const StepEnteredEvent = defineEvent({
 	meta: {
 		key: 'workflow.step.entered',

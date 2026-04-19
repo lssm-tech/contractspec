@@ -28,6 +28,17 @@ Post-purchase.
 ## Source Definition
 
 ```typescript
+import {
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import {
+	CreateReviewInputModel,
+	ListReviewsInputModel,
+	ListReviewsOutputModel,
+	ReviewModel,
+} from './review.schema';
+
 export const CreateReviewContract = defineCommand({
 	meta: {
 		key: 'marketplace.review.create',

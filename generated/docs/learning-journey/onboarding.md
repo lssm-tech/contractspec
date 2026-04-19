@@ -15,6 +15,11 @@ User onboarding and first-time experience flows
 ## Source Definition
 
 ```typescript
+import {
+	defineCapability,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const OnboardingCapability = defineCapability({
 	meta: {
 		key: 'onboarding',

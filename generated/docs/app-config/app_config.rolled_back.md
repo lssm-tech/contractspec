@@ -13,6 +13,10 @@ A tenant config was rolled back to a previous version.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { defineEvent } from '../events';
+import { OwnersEnum, StabilityEnum, TagsEnum } from '../ownership';
+
 export const ConfigRolledBackEvent = defineEvent({
 	meta: {
 		...lifecycleOwnership,

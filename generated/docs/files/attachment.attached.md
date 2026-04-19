@@ -16,6 +16,9 @@ A file has been attached to an entity.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const AttachmentAttachedEvent = defineEvent({
 	meta: {
 		key: 'attachment.attached',

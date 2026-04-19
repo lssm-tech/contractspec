@@ -24,6 +24,16 @@ Used by training plans, progress analytics, and recovery workflows.
 ## Source Definition
 
 ```typescript
+import {
+	type AnyOperationSpec,
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import type { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations/registry';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { HealthWorkoutRecord } from '../models';
+import { HEALTH_TELEMETRY_EVENTS } from '../telemetry';
+
 export const HealthListWorkouts = defineQuery({
 	meta: {
 		key: 'health.workouts.list',

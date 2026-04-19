@@ -24,6 +24,13 @@ Quote creation.
 ## Source Definition
 
 ```typescript
+import { defineCommand } from '@contractspec/lib.contracts-spec';
+import {
+	AcceptQuoteInputModel,
+	CreateQuoteInputModel,
+	QuoteModel,
+} from './quote.schema';
+
 export const CreateQuoteContract = defineCommand({
 	meta: {
 		key: 'service.quote.create',

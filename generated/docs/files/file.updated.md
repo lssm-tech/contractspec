@@ -16,6 +16,9 @@ A file has been updated.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const FileUpdatedEvent = defineEvent({
 	meta: {
 		key: 'file.updated',

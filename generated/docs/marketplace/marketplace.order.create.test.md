@@ -16,6 +16,8 @@ Test for creating order
 ## Source Definition
 
 ```typescript
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
+
 export const OrderCreateTest = defineTestSpec({
 	meta: {
 		key: 'marketplace.order.create.test',

@@ -77,7 +77,7 @@ export const LearningJourneyRegistryFeature = defineFeature({
 		{
 			key: 'learning.journey.progress_widget',
 			version: '1.0.0',
-			targets: ['react'],
+			targets: ['react', 'markdown'],
 		},
 	],
 

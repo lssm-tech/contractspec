@@ -15,6 +15,11 @@ User identity and authentication
 ## Source Definition
 
 ```typescript
+import {
+	defineCapability,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const IdentityCapability = defineCapability({
 	meta: {
 		key: 'identity',

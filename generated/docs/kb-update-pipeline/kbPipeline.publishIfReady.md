@@ -24,6 +24,14 @@ Called by job or UI to attempt publish.
 ## Source Definition
 
 ```typescript
+import { defineCommand } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import {
+	ChangeCandidateModel,
+	ReviewDecisionEnum,
+	ReviewTaskModel,
+} from '../entities/models';
+
 export const KbPipelinePublishIfReadyContract = defineCommand({
 	meta: {
 		key: 'kbPipeline.publishIfReady',

@@ -22,6 +22,17 @@ Used by docs generators and UI to render consistent reference pages.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { defineQuery } from '../../operations';
+import {
+	DOCS_DOMAIN,
+	DOCS_OWNERS,
+	DOCS_STABILITY,
+	DOCS_TAGS,
+} from '../constants';
+import { docId } from '../registry';
+import type { DocBlock } from '../types';
+
 export const ContractReferenceQuery = defineQuery({
 	meta: {
 		key: 'docs.contract.reference',

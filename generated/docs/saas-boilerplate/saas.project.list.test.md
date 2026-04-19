@@ -16,6 +16,8 @@ Test for listing projects
 ## Source Definition
 
 ```typescript
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
+
 export const ProjectListTest = defineTestSpec({
 	meta: {
 		key: 'saas.project.list.test',

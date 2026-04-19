@@ -16,6 +16,13 @@ An agent generated a message during a run.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import {
+	defineEnum,
+	defineSchemaModel,
+	ScalarTypeEnum,
+} from '@contractspec/lib.schema';
+
 export const MessageGeneratedEvent = defineEvent({
 	meta: {
 		key: 'agent.run.messageGenerated',

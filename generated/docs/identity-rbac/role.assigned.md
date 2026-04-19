@@ -16,6 +16,9 @@ A role has been assigned.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+
 export const RoleAssignedEvent = defineEvent({
 	meta: {
 		key: 'role.assigned',

@@ -16,6 +16,9 @@ A product has been published.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const ProductPublishedEvent = defineEvent({
 	meta: {
 		key: 'marketplace.product.published',

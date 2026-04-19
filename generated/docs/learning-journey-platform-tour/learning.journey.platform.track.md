@@ -13,6 +13,13 @@ Platform primitives tour track detail
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	type PresentationSpecMeta,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { PlatformJourneyTrackModel } from '../operations';
+
 export const PlatformTourTrackPresentation = definePresentation({
 	meta: {
 		key: 'learning.journey.platform.track',
@@ -24,7 +31,7 @@ export const PlatformTourTrackPresentation = definePresentation({
 		type: 'component',
 		framework: 'react',
 		componentKey: 'LearningTrackDetail',
-		props: PlatformTourTrackModel,
+		props: PlatformJourneyTrackModel,
 	},
 	targets: ['react', 'markdown', 'application/json'],
 });

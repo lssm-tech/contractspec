@@ -16,6 +16,9 @@ An order has been paid.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const OrderPaidEvent = defineEvent({
 	meta: {
 		key: 'marketplace.order.paid',

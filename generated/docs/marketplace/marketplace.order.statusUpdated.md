@@ -16,6 +16,9 @@ An order status has been updated.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const OrderStatusUpdatedEvent = defineEvent({
 	meta: {
 		key: 'marketplace.order.statusUpdated',

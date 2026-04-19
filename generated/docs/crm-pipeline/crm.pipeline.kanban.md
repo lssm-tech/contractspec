@@ -23,6 +23,12 @@ Used in the sales dashboard and management reports.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { DealModel } from '../deal/deal.schema';
+
 export const PipelineKanbanPresentation = definePresentation({
 	meta: {
 		key: 'crm.pipeline.kanban',

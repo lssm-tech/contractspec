@@ -16,6 +16,9 @@ Assistant answer requested (policy gate will run).
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const AssistantAnswerRequestedEvent = defineEvent({
 	meta: {
 		key: 'assistant.answer.requested',

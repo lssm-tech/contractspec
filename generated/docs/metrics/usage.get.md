@@ -24,6 +24,9 @@ Called to analyze usage.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const GetUsageContract = defineQuery({
 	meta: {
 		key: 'usage.get',

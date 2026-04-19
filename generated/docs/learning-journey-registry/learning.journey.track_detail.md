@@ -13,6 +13,12 @@ Track detail with steps and progress state.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	type PresentationSpecMeta,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const LearningTrackDetailPresentation = definePresentation({
 	meta: {
 		key: 'learning.journey.track_detail',

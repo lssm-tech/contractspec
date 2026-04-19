@@ -16,6 +16,8 @@ Verifies query execution
 ## Source Definition
 
 ```typescript
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
+
 export const ExecuteQueryTest = defineTestSpec({
 	meta: {
 		key: 'analytics.query.execute.test',

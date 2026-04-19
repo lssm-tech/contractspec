@@ -16,6 +16,9 @@ A ritual was scheduled.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const RitualScheduledEvent = defineEvent({
 	meta: {
 		key: 'team.ritual.scheduled',

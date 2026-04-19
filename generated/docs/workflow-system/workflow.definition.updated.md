@@ -16,6 +16,9 @@ A workflow definition has been updated.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const WorkflowUpdatedEvent = defineEvent({
 	meta: {
 		key: 'workflow.definition.updated',

@@ -28,6 +28,14 @@ Approval inbox, workflow detail.
 ## Source Definition
 
 ```typescript
+import {
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import { ApprovalDecisionEnum, ApprovalStatusEnum } from './approval.enum';
+import { ApprovalCommentModel, ApprovalRequestModel } from './approval.schema';
+
 export const SubmitDecisionContract = defineCommand({
 	meta: {
 		key: 'workflow.approval.decide',

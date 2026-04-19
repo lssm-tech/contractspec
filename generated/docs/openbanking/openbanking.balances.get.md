@@ -24,6 +24,16 @@ Used by Pocket Family Office UI surfaces and automation steps that require balan
 ## Source Definition
 
 ```typescript
+import {
+	type AnyOperationSpec,
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import type { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations/registry';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { AccountBalanceRecord } from '../models';
+import { OPENBANKING_TELEMETRY_EVENTS } from '../telemetry';
+
 export const OpenBankingGetBalances = defineQuery({
 	meta: {
 		key: 'openbanking.balances.get',

@@ -16,6 +16,8 @@ Test for creating review task
 ## Source Definition
 
 ```typescript
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
+
 export const CreateReviewTaskTest = defineTestSpec({
 	meta: {
 		key: 'kbPipeline.createReviewTask.test',

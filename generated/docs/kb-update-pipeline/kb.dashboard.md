@@ -23,6 +23,12 @@ Dashboard
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { ChangeCandidateModel, ReviewTaskModel } from './entities/models';
+
 export const KbDashboardPresentation = definePresentation({
 	meta: {
 		key: 'kb.dashboard',

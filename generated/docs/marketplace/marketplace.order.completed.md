@@ -16,6 +16,9 @@ An order has been completed.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const OrderCompletedEvent = defineEvent({
 	meta: {
 		key: 'marketplace.order.completed',

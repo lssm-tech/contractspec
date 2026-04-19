@@ -23,6 +23,12 @@ Financial dashboard for sellers.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { PayoutModel } from './payout.schema';
+
 export const PayoutListPresentation = definePresentation({
 	meta: {
 		key: 'marketplace.payout.viewList',

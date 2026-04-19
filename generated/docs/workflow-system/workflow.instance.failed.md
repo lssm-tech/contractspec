@@ -16,6 +16,9 @@ A workflow instance has failed.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const InstanceFailedEvent = defineEvent({
 	meta: {
 		key: 'workflow.instance.failed',

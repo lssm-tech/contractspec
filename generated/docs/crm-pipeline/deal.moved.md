@@ -16,6 +16,9 @@ A deal has been moved to a different stage.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const DealMovedEvent = defineEvent({
 	meta: {
 		key: 'deal.moved',

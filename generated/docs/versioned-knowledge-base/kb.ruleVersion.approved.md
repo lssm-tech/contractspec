@@ -16,6 +16,9 @@ Rule version approved (human verified).
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const KbRuleVersionApprovedEvent = defineEvent({
 	meta: {
 		key: 'kb.ruleVersion.approved',

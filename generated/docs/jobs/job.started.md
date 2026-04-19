@@ -15,6 +15,9 @@ A job has started processing.
 ## Source Definition
 
 ```typescript
+import { defineEvent, StabilityEnum } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const JobStartedEvent = defineEvent({
 	meta: {
 		key: 'job.started',

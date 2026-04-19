@@ -16,6 +16,9 @@ Assistant answer delivered (must include KB snapshot citations).
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const AssistantAnswerDeliveredEvent = defineEvent({
 	meta: {
 		key: 'assistant.answer.delivered',

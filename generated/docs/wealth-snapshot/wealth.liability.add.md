@@ -24,6 +24,9 @@ Debt onboarding/update.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const AddLiabilityContract = defineCommand({
 	meta: {
 		key: 'wealth.liability.add',

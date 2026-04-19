@@ -23,6 +23,14 @@ Workflow administration and setup
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { ApprovalRequestModel } from '../approval/approval.schema';
+import { WorkflowInstanceModel } from '../instance/instance.schema';
+import { WorkflowDefinitionModel } from '../workflow/workflow.schema';
+
 export const WorkflowDesignerPresentation = definePresentation({
 	meta: {
 		key: 'workflow.designer',

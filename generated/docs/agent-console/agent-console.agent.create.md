@@ -24,6 +24,20 @@ Called from the agent builder UI when creating a new agent.
 ## Source Definition
 
 ```typescript
+import {
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import { AgentStatusEnum, ModelProviderEnum } from './agent.enum';
+import { AgentCreatedEvent } from './agent.event';
+import {
+	AgentSummaryModel,
+	AgentWithToolsModel,
+	CreateAgentInputModel,
+	UpdateAgentInputModel,
+} from './agent.schema';
+
 export const CreateAgentCommand = defineCommand({
 	meta: {
 		key: 'agent-console.agent.create',

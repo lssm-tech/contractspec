@@ -16,6 +16,8 @@ Test for getting tool
 ## Source Definition
 
 ```typescript
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
+
 export const toolGetTest = defineTestSpec({
 	meta: {
 		key: 'test.agent.tool.get',

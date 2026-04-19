@@ -16,6 +16,9 @@ An invitation has been accepted.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+
 export const OrgInviteAcceptedEvent = defineEvent({
 	meta: {
 		key: 'org.invite.accepted',

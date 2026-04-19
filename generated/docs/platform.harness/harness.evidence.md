@@ -14,6 +14,14 @@ Capture and retrieve normalized evidence artifacts.
 ## Source Definition
 
 ```typescript
+import { defineCapability } from '../../capabilities';
+import {
+	HARNESS_DOMAIN,
+	HARNESS_OWNERS,
+	HARNESS_STABILITY,
+	HARNESS_TAGS,
+} from '../constants';
+
 export const HarnessEvidenceCapability = defineCapability({
 	meta: {
 		key: 'harness.evidence',

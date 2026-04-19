@@ -24,6 +24,19 @@ Tool builder UI - test panel.
 ## Source Definition
 
 ```typescript
+import {
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import { ToolCategoryEnum, ToolStatusEnum } from './tool.enum';
+import {
+	CreateToolInputModel,
+	ToolModel,
+	ToolSummaryModel,
+	UpdateToolInputModel,
+} from './tool.schema';
+
 export const TestToolCommand = defineCommand({
 	meta: {
 		key: 'agent.tool.test',

@@ -28,6 +28,22 @@ Called from project creation UI or API.
 ## Source Definition
 
 ```typescript
+import {
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import {
+	CreateProjectInputModel,
+	DeleteProjectInputModel,
+	DeleteProjectOutputModel,
+	GetProjectInputModel,
+	ListProjectsInputModel,
+	ListProjectsOutputModel,
+	ProjectDeletedPayloadModel,
+	ProjectModel,
+	UpdateProjectInputModel,
+} from './project.schema';
+
 export const CreateProjectContract = defineCommand({
 	meta: {
 		key: 'saas.project.create',

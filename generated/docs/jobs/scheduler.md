@@ -15,6 +15,11 @@ Scheduled job execution
 ## Source Definition
 
 ```typescript
+import {
+	defineCapability,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const SchedulerCapability = defineCapability({
 	meta: {
 		key: 'scheduler',

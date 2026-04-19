@@ -16,6 +16,9 @@ A member
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+
 export const OrgMemberRoleChangedEvent = defineEvent({
 	meta: {
 		key: 'org.member.role_changed',

@@ -24,6 +24,9 @@ Called when updating a document.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const CreateVersionContract = defineCommand({
 	meta: {
 		key: 'file.version.create',

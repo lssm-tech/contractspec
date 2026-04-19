@@ -22,6 +22,17 @@ Used for live data access with redaction and auditing.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { docRef } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { defineQuery } from '../../operations';
+import {
+	DATABASE_DOMAIN,
+	DATABASE_OWNERS,
+	DATABASE_STABILITY,
+	DATABASE_TAGS,
+} from '../constants';
+
 export const DatabaseQueryReadonlyQuery = defineQuery({
 	meta: {
 		key: 'database.query.readonly',

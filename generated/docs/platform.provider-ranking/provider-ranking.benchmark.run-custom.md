@@ -22,6 +22,18 @@ Used by operators to run proprietary benchmarks and compare models.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { docId } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { defineCommand } from '../../operations';
+import {
+	PROVIDER_RANKING_DOMAIN,
+	PROVIDER_RANKING_OWNERS,
+	PROVIDER_RANKING_STABILITY,
+	PROVIDER_RANKING_TAGS,
+} from '../constants';
+import { BenchmarkCustomCompletedEvent } from '../events/benchmarkCustomCompleted.event';
+
 export const BenchmarkRunCustomCommand = defineCommand({
 	meta: {
 		key: 'provider-ranking.benchmark.run-custom',

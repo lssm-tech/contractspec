@@ -23,6 +23,12 @@ The main workspace for managing a single deal execution.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { DealModel } from '../deal/deal.schema';
+
 export const DealDetailPresentation = definePresentation({
 	meta: {
 		key: 'crm.deal.detail',

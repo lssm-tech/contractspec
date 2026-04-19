@@ -24,6 +24,17 @@ Product page, store page.
 ## Source Definition
 
 ```typescript
+import {
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import {
+	CreateReviewInputModel,
+	ListReviewsInputModel,
+	ListReviewsOutputModel,
+	ReviewModel,
+} from './review.schema';
+
 export const ListReviewsContract = defineQuery({
 	meta: {
 		key: 'marketplace.review.list',

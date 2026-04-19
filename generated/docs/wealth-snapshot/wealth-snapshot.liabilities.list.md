@@ -23,6 +23,11 @@ Overview
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const LiabilitiesListPresentation = definePresentation({
 	meta: {
 		key: 'wealth-snapshot.liabilities.list',

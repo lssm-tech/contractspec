@@ -22,6 +22,15 @@ Executed before runtime dispatch to decide autonomous, assist, or blocked mode.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { defineCommand } from '../../operations';
+import {
+	CONTROL_PLANE_DOMAIN,
+	CONTROL_PLANE_OWNERS,
+	CONTROL_PLANE_STABILITY,
+	CONTROL_PLANE_TAGS,
+} from '../constants';
+
 export const ControlPlanePlanVerifyCommand = defineCommand({
 	meta: {
 		key: 'controlPlane.plan.verify',

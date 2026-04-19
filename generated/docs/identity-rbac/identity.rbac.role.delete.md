@@ -24,6 +24,10 @@ Role management. Removes all policy bindings using this role.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { SuccessResultModel } from './user';
+
 export const DeleteRoleContract = defineCommand({
 	meta: {
 		key: 'identity.rbac.role.delete',

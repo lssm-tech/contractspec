@@ -13,6 +13,10 @@ A new tenant config draft was created.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { defineEvent } from '../events';
+import { OwnersEnum, StabilityEnum, TagsEnum } from '../ownership';
+
 export const ConfigDraftCreatedEvent = defineEvent({
 	meta: {
 		...lifecycleOwnership,

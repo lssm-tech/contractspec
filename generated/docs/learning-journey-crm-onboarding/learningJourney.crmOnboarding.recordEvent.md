@@ -24,6 +24,11 @@ Called by handlers or demo scripts to emit step completion events.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import { JourneyTrackModel } from '@contractspec/module.learning-journey/contracts/journey';
+import { crmFirstWinTrack } from '../track';
+
 export const RecordCrmOnboardingEvent = defineCommand({
 	meta: {
 		key: 'learningJourney.crmOnboarding.recordEvent',

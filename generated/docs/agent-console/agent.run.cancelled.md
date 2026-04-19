@@ -16,6 +16,13 @@ An agent run was cancelled by the user.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import {
+	defineEnum,
+	defineSchemaModel,
+	ScalarTypeEnum,
+} from '@contractspec/lib.schema';
+
 export const RunCancelledEvent = defineEvent({
 	meta: {
 		key: 'agent.run.cancelled',

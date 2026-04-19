@@ -24,6 +24,20 @@ Dashboard editor.
 ## Source Definition
 
 ```typescript
+import {
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import {
+	AddWidgetInputModel,
+	CreateDashboardInputModel,
+	DashboardModel,
+	GetDashboardInputModel,
+	ListDashboardsInputModel,
+	ListDashboardsOutputModel,
+	WidgetModel,
+} from './dashboard.schema';
+
 export const AddWidgetContract = defineCommand({
 	meta: {
 		key: 'analytics.widget.add',

@@ -28,6 +28,10 @@ Team management.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { SuccessResultModel } from './user';
+
 export const RemoveMemberContract = defineCommand({
 	meta: {
 		key: 'identity.org.member.remove',

@@ -22,6 +22,12 @@ Used by ACP clients to start a new session using HTTP streamable transport.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { docRef } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { defineCommand } from '../../operations';
+import { ACP_DOMAIN, ACP_OWNERS, ACP_STABILITY, ACP_TAGS } from '../constants';
+
 export const AcpSessionInitCommand = defineCommand({
 	meta: {
 		key: 'acp.session.init',

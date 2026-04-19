@@ -23,6 +23,12 @@ Management tool for analysts.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { DashboardModel } from './dashboard.schema';
+
 export const DashboardEditorPresentation = definePresentation({
 	meta: {
 		key: 'analytics.dashboard.editor',

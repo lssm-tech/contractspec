@@ -24,6 +24,14 @@ Used by integration hubs and sync workflows to enumerate meetings before pulling
 ## Source Definition
 
 ```typescript
+import {
+	type AnyOperationSpec,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import type { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations/registry';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { MeetingRecord } from '../models';
+
 export const MeetingRecorderListMeetings = defineQuery({
 	meta: {
 		key: 'meeting-recorder.meetings.list',

@@ -22,6 +22,15 @@ Used by docs surfaces to present contract reference content and schemas.
 ## Source Definition
 
 ```typescript
+import { definePresentation } from '../../presentations';
+import {
+	DOCS_DOMAIN,
+	DOCS_OWNERS,
+	DOCS_STABILITY,
+	DOCS_TAGS,
+} from '../constants';
+import { docId } from '../registry';
+
 export const DocsReferencePagePresentation = definePresentation({
 	meta: {
 		key: 'docs.reference.page',

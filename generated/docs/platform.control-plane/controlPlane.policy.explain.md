@@ -22,6 +22,15 @@ Used in operator UIs and incident review to inspect verdict rationale.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { defineQuery } from '../../operations';
+import {
+	CONTROL_PLANE_DOMAIN,
+	CONTROL_PLANE_OWNERS,
+	CONTROL_PLANE_STABILITY,
+	CONTROL_PLANE_TAGS,
+} from '../constants';
+
 export const ControlPlanePolicyExplainQuery = defineQuery({
 	meta: {
 		key: 'controlPlane.policy.explain',

@@ -13,6 +13,9 @@ KB change summarized.
 ## Source Definition
 
 ```typescript
+import { defineEvent, StabilityEnum } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const KbChangeSummarizedEvent = defineEvent({
 	meta: {
 		key: 'kb.change.summarized',

@@ -24,6 +24,18 @@ Billing page, usage dashboards.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import {
+	CheckFeatureAccessInputModel,
+	CheckFeatureAccessOutputModel,
+	GetUsageSummaryInputModel,
+	GetUsageSummaryOutputModel,
+	RecordUsageInputModel,
+	RecordUsageOutputModel,
+	SubscriptionModel,
+	UsageRecordedPayloadModel,
+} from './billing.schema';
+
 export const GetUsageSummaryContract = defineQuery({
 	meta: {
 		key: 'saas.billing.usage.summary',

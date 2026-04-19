@@ -16,6 +16,9 @@ A feature flag has been evaluated.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const FlagEvaluatedEvent = defineEvent({
 	meta: {
 		key: 'flag.evaluated',

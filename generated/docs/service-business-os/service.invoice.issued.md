@@ -16,6 +16,9 @@ An invoice was issued.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const InvoiceIssuedEvent = defineEvent({
 	meta: {
 		key: 'service.invoice.issued',

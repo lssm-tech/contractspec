@@ -24,6 +24,10 @@ Example and documentation surfaces.
 ## Source Definition
 
 ```typescript
+import { defineQuery } from '@contractspec/lib.contracts-spec/operations';
+import { fromZod } from '@contractspec/lib.schema';
+import { z } from 'zod';
+
 export const ListDataGridShowcaseRowsQuery = defineQuery({
 	meta: {
 		key: 'examples.data-grid-showcase.rows.list',

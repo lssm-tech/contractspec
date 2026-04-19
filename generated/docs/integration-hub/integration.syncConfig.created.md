@@ -16,6 +16,9 @@ Fired when a sync configuration is created
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const SyncConfigCreatedEvent = defineEvent({
 	meta: {
 		key: 'integration.syncConfig.created',

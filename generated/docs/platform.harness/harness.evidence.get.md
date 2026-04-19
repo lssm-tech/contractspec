@@ -22,6 +22,16 @@ Used by audit UIs and replay tooling.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { defineQuery } from '../../operations';
+import {
+	HARNESS_DOMAIN,
+	HARNESS_OWNERS,
+	HARNESS_STABILITY,
+	HARNESS_TAGS,
+} from '../constants';
+import { EvidenceArtifactModel } from '../models';
+
 export const HarnessEvidenceGetQuery = defineQuery({
 	meta: {
 		key: 'harness.evidence.get',

@@ -24,6 +24,18 @@ Feature access checks, upgrade prompts.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import {
+	CheckFeatureAccessInputModel,
+	CheckFeatureAccessOutputModel,
+	GetUsageSummaryInputModel,
+	GetUsageSummaryOutputModel,
+	RecordUsageInputModel,
+	RecordUsageOutputModel,
+	SubscriptionModel,
+	UsageRecordedPayloadModel,
+} from './billing.schema';
+
 export const CheckFeatureAccessContract = defineQuery({
 	meta: {
 		key: 'saas.billing.feature.check',

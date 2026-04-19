@@ -24,6 +24,12 @@ Curated messaging demo example for ContractSpec.
 ## Source Definition
 
 ```typescript
+import {
+	defineCommand,
+	defineSchemaModel,
+} from '@contractspec/lib.contracts-spec';
+import { ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const ProcessMessagingAgentAction = defineCommand({
 	meta: {
 		key: 'messaging.agentActions.process',

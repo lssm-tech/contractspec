@@ -23,6 +23,11 @@ Data-intensive widget for sales managers.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const PipelineMetricsPresentation = definePresentation({
 	meta: {
 		key: 'crm.pipeline.metrics',

@@ -15,6 +15,10 @@ A daily goal has been completed.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import { LEARNING_JOURNEY_OWNERS } from './contracts/shared';
+
 export const DailyGoalCompletedEvent = defineEvent({
 	meta: {
 		key: 'daily_goal.completed',

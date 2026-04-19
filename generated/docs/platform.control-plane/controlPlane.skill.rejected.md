@@ -14,6 +14,16 @@ Emitted when a skill install attempt is rejected.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { defineEvent } from '../../events';
+import {
+	CONTROL_PLANE_DOMAIN,
+	CONTROL_PLANE_OWNERS,
+	CONTROL_PLANE_STABILITY,
+	CONTROL_PLANE_TAGS,
+} from '../constants';
+import { ControlPlaneSkillVerificationIssueModel } from '../skills/schema';
+
 export const ControlPlaneSkillRejectedEvent = defineEvent({
 	meta: {
 		key: 'controlPlane.skill.rejected',

@@ -24,6 +24,19 @@ Dashboard, monitoring.
 ## Source Definition
 
 ```typescript
+import {
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import { InstanceStatusEnum } from './instance.enum';
+import {
+	StartWorkflowInputModel,
+	TransitionInputModel,
+	TransitionResultModel,
+	WorkflowInstanceModel,
+} from './instance.schema';
+
 export const ListInstancesContract = defineQuery({
 	meta: {
 		key: 'workflow.instance.list',

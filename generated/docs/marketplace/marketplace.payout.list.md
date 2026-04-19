@@ -24,6 +24,9 @@ Seller dashboard.
 ## Source Definition
 
 ```typescript
+import { defineQuery } from '@contractspec/lib.contracts-spec/operations';
+import { ListPayoutsInputModel, ListPayoutsOutputModel } from './payout.schema';
+
 export const ListPayoutsContract = defineQuery({
 	meta: {
 		key: 'marketplace.payout.list',

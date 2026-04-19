@@ -16,6 +16,9 @@ An experiment has stopped.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const ExperimentStoppedEvent = defineEvent({
 	meta: {
 		key: 'experiment.stopped',

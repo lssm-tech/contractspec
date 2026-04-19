@@ -16,6 +16,9 @@ A user has joined an organization.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+
 export const OrgMemberAddedEvent = defineEvent({
 	meta: {
 		key: 'org.member.added',

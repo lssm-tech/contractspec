@@ -22,6 +22,17 @@ Used by Studio and agents to understand what a pack will include before snapshot
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { docRef } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { defineQuery } from '../../operations';
+import {
+	CONTEXT_DOMAIN,
+	CONTEXT_OWNERS,
+	CONTEXT_STABILITY,
+	CONTEXT_TAGS,
+} from '../constants';
+
 export const ContextPackDescribeQuery = defineQuery({
 	meta: {
 		key: 'context.pack.describe',

@@ -16,6 +16,9 @@ A workflow instance has been cancelled.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const InstanceCancelledEvent = defineEvent({
 	meta: {
 		key: 'workflow.instance.cancelled',

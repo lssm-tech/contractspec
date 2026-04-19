@@ -16,6 +16,8 @@ Test for getting project
 ## Source Definition
 
 ```typescript
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
+
 export const ProjectGetTest = defineTestSpec({
 	meta: {
 		key: 'saas.project.get.test',

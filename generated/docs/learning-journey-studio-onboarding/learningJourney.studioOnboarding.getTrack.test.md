@@ -16,6 +16,8 @@ Test for getting studio onboarding track
 ## Source Definition
 
 ```typescript
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
+
 export const GetTrackTest = defineTestSpec({
 	meta: {
 		key: 'learningJourney.studioOnboarding.getTrack.test',

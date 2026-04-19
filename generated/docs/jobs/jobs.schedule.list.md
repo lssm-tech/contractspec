@@ -24,6 +24,9 @@ Admin dashboard.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const ListScheduledJobsContract = defineQuery({
 	meta: {
 		key: 'jobs.schedule.list',

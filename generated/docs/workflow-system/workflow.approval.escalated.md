@@ -16,6 +16,9 @@ An approval has been escalated.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const ApprovalEscalatedEvent = defineEvent({
 	meta: {
 		key: 'workflow.approval.escalated',

@@ -24,6 +24,9 @@ Called when configuring limits.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const CreateThresholdContract = defineCommand({
 	meta: {
 		key: 'threshold.create',

@@ -22,6 +22,16 @@ Used by Studio and audit surfaces to present snapshot details.
 ## Source Definition
 
 ```typescript
+import { docRef } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { definePresentation } from '../../presentations';
+import {
+	CONTEXT_DOMAIN,
+	CONTEXT_OWNERS,
+	CONTEXT_STABILITY,
+	CONTEXT_TAGS,
+} from '../constants';
+
 export const ContextSnapshotSummaryPresentation = definePresentation({
 	meta: {
 		key: 'context.snapshot.summary',

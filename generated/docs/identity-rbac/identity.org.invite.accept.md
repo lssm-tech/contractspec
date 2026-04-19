@@ -28,6 +28,10 @@ Called from invitation email link.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { SuccessResultModel } from './user';
+
 export const AcceptInviteContract = defineCommand({
 	meta: {
 		key: 'identity.org.invite.accept',

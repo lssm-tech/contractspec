@@ -23,6 +23,14 @@ Global navigation or sidebar
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { ApprovalRequestModel } from '../approval/approval.schema';
+import { WorkflowInstanceModel } from '../instance/instance.schema';
+import { WorkflowDefinitionModel } from '../workflow/workflow.schema';
+
 export const PendingApprovalsBadgePresentation = definePresentation({
 	meta: {
 		key: 'workflow.approval.badge',

@@ -16,6 +16,9 @@ A file has been detached from an entity.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const AttachmentDetachedEvent = defineEvent({
 	meta: {
 		key: 'attachment.detached',

@@ -16,6 +16,8 @@ Test for adding field mapping
 ## Source Definition
 
 ```typescript
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
+
 export const FieldMappingAddTest = defineTestSpec({
 	meta: {
 		key: 'integration.fieldMapping.add.test',

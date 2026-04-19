@@ -28,6 +28,9 @@ Only pending jobs can be cancelled.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const CancelJobContract = defineCommand({
 	meta: {
 		key: 'jobs.cancel',

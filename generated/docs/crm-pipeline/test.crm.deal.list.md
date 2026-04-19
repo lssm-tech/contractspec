@@ -16,6 +16,8 @@ Test for listing deals
 ## Source Definition
 
 ```typescript
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
+
 export const dealListTest = defineTestSpec({
 	meta: {
 		key: 'test.crm.deal.list',

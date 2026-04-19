@@ -22,6 +22,17 @@ Used by Studio to show diffs, files, and run outputs.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { docId } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { defineQuery } from '../../operations';
+import {
+	AGENT_DOMAIN,
+	AGENT_OWNERS,
+	AGENT_STABILITY,
+	AGENT_TAGS,
+} from '../constants';
+
 export const AgentArtifactsQuery = defineQuery({
 	meta: {
 		key: 'agent.artifacts',

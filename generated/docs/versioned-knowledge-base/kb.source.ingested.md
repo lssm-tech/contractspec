@@ -16,6 +16,9 @@ Source document ingested (immutable).
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const KbSourceIngestedEvent = defineEvent({
 	meta: {
 		key: 'kb.source.ingested',

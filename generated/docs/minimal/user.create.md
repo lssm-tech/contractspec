@@ -24,6 +24,9 @@ User account management
 ## Source Definition
 
 ```typescript
+import { defineCommand } from '@contractspec/lib.contracts-spec';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+
 export const CreateUser = defineCommand({
 	meta: {
 		key: 'user.create',

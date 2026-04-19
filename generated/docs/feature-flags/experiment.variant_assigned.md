@@ -16,6 +16,9 @@ A subject has been assigned to an experiment variant.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const VariantAssignedEvent = defineEvent({
 	meta: {
 		key: 'experiment.variant_assigned',

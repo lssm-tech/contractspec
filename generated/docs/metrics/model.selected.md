@@ -16,6 +16,9 @@ An AI model has been selected via ranking-driven selection.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const ModelSelectionEvent = defineEvent({
 	meta: {
 		key: 'model.selected',

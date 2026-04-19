@@ -15,6 +15,10 @@ A learner has leveled up.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import { LEARNING_JOURNEY_OWNERS } from './contracts/shared';
+
 export const LevelUpEvent = defineEvent({
 	meta: {
 		key: 'level.up',

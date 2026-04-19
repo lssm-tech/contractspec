@@ -13,6 +13,12 @@ Compact widget showing progress for active track.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	type PresentationSpecMeta,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const LearningTrackProgressWidgetPresentation = definePresentation({
 	meta: {
 		key: 'learning.journey.progress_widget',
@@ -25,6 +31,6 @@ export const LearningTrackProgressWidgetPresentation = definePresentation({
 		framework: 'react',
 		componentKey: 'LearningTrackProgressWidget',
 	},
-	targets: ['react'],
+	targets: ['react', 'markdown'],
 });
 ```

@@ -16,6 +16,9 @@ A ritual occurrence was logged.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const RitualOccurredEvent = defineEvent({
 	meta: {
 		key: 'team.ritual.occurred',

@@ -16,6 +16,9 @@ A user has verified their email address.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+
 export const UserEmailVerifiedEvent = defineEvent({
 	meta: {
 		key: 'user.email_verified',

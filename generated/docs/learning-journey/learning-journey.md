@@ -15,9 +15,9 @@ Learning platform with courses, onboarding, flashcards, and gamification
 
 ## Operations (8)
 
-- `learning.onboarding.recordEvent` (v1.0.0)
-- `learning.onboarding.listTracks` (v1.0.0)
-- `learning.onboarding.getProgress` (v1.0.0)
+- `learning.journey.recordEvent` (v1.0.0)
+- `learning.journey.listTracks` (v1.0.0)
+- `learning.journey.getProgress` (v1.0.0)
 - `learning.enroll` (v1.0.0)
 - `learning.completeLesson` (v1.0.0)
 - `learning.submitCardReview` (v1.0.0)
@@ -73,9 +73,9 @@ export const LearningJourneyFeature = defineFeature({
 	// All contract operations included in this feature
 	operations: [
 		// Onboarding operations
-		{ key: 'learning.onboarding.recordEvent', version: '1.0.0' },
-		{ key: 'learning.onboarding.listTracks', version: '1.0.0' },
-		{ key: 'learning.onboarding.getProgress', version: '1.0.0' },
+		{ key: 'learning.journey.recordEvent', version: '1.0.0' },
+		{ key: 'learning.journey.listTracks', version: '1.0.0' },
+		{ key: 'learning.journey.getProgress', version: '1.0.0' },
 
 		// Core learning operations
 		{ key: 'learning.enroll', version: '1.0.0' },

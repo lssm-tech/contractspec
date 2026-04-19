@@ -13,6 +13,10 @@ A tenant config draft was promoted to preview.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { defineEvent } from '../events';
+import { OwnersEnum, StabilityEnum, TagsEnum } from '../ownership';
+
 export const ConfigPromotedToPreviewEvent = defineEvent({
 	meta: {
 		...lifecycleOwnership,

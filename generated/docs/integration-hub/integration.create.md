@@ -28,6 +28,12 @@ Integration setup.
 ## Source Definition
 
 ```typescript
+import { defineCommand } from '@contractspec/lib.contracts-spec/operations';
+import {
+	CreateIntegrationInputModel,
+	IntegrationModel,
+} from './integration.schema';
+
 export const CreateIntegrationContract = defineCommand({
 	meta: {
 		key: 'integration.create',

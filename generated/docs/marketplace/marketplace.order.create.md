@@ -28,6 +28,13 @@ Checkout flow.
 ## Source Definition
 
 ```typescript
+import { defineCommand } from '@contractspec/lib.contracts-spec/operations';
+import {
+	CreateOrderInputModel,
+	OrderModel,
+	UpdateOrderStatusInputModel,
+} from './order.schema';
+
 export const CreateOrderContract = defineCommand({
 	meta: {
 		key: 'marketplace.order.create',

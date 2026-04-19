@@ -16,6 +16,8 @@ Test for deciding on approval
 ## Source Definition
 
 ```typescript
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
+
 export const ApprovalDecideTest = defineTestSpec({
 	meta: {
 		key: 'workflow.approval.decide.test',

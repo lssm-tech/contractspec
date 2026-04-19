@@ -24,6 +24,17 @@ Product catalog, search.
 ## Source Definition
 
 ```typescript
+import {
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import {
+	CreateProductInputModel,
+	ListProductsInputModel,
+	ListProductsOutputModel,
+	ProductModel,
+} from './product.schema';
+
 export const ListProductsContract = defineQuery({
 	meta: {
 		key: 'marketplace.product.list',

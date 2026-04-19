@@ -23,6 +23,12 @@ The marketplace of integrations within the hub.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { IntegrationModel } from './integration.schema';
+
 export const IntegrationListPresentation = definePresentation({
 	meta: {
 		key: 'integration.list',

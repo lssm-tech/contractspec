@@ -16,6 +16,8 @@ Test for getting subscription
 ## Source Definition
 
 ```typescript
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
+
 export const BillingSubscriptionGetTest = defineTestSpec({
 	meta: {
 		key: 'saas.billing.subscription.get.test',

@@ -22,6 +22,15 @@ Used when execution must be halted due to policy, operator decision, or runtime 
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { defineCommand } from '../../operations';
+import {
+	CONTROL_PLANE_DOMAIN,
+	CONTROL_PLANE_OWNERS,
+	CONTROL_PLANE_STABILITY,
+	CONTROL_PLANE_TAGS,
+} from '../constants';
+
 export const ControlPlaneExecutionCancelCommand = defineCommand({
 	meta: {
 		key: 'controlPlane.execution.cancel',

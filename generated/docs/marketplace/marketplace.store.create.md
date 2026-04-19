@@ -28,6 +28,9 @@ Seller onboarding.
 ## Source Definition
 
 ```typescript
+import { defineCommand } from '@contractspec/lib.contracts-spec/operations';
+import { CreateStoreInputModel, StoreModel } from './store.schema';
+
 export const CreateStoreContract = defineCommand({
 	meta: {
 		key: 'marketplace.store.create',

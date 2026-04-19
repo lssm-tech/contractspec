@@ -24,6 +24,13 @@ Same constraints as assistant.answer.
 ## Source Definition
 
 ```typescript
+import { defineCommand } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import {
+	AssistantAnswerIRModel,
+	LLMCallEnvelopeModel,
+} from '../entities/models';
+
 export const AssistantExplainConceptContract = defineCommand({
 	meta: {
 		key: 'assistant.explainConcept',

@@ -15,6 +15,11 @@ Task management for teams
 ## Source Definition
 
 ```typescript
+import {
+	defineCapability,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const TasksCapability = defineCapability({
 	meta: {
 		key: 'tasks',

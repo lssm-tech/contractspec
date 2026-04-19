@@ -24,6 +24,15 @@ Triggered by configured webhook endpoints for official, aggregator, and unoffici
 ## Source Definition
 
 ```typescript
+import {
+	type AnyOperationSpec,
+	defineCommand,
+} from '@contractspec/lib.contracts-spec/operations';
+import type { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations/registry';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { HealthWebhookEventRecord } from '../models';
+import { HEALTH_TELEMETRY_EVENTS } from '../telemetry';
+
 export const HealthWebhookIngest = defineCommand({
 	meta: {
 		key: 'health.webhooks.ingest',

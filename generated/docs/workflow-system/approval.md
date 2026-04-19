@@ -15,6 +15,11 @@ Approval workflows and user decisions
 ## Source Definition
 
 ```typescript
+import {
+	defineCapability,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const ApprovalCapability = defineCapability({
 	meta: {
 		key: 'approval',

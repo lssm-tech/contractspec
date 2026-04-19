@@ -16,6 +16,9 @@ A new seller store has been created.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const StoreCreatedEvent = defineEvent({
 	meta: {
 		key: 'marketplace.store.created',

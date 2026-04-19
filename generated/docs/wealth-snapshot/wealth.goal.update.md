@@ -24,6 +24,9 @@ Periodic update.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const UpdateGoalContract = defineCommand({
 	meta: {
 		key: 'wealth.goal.update',

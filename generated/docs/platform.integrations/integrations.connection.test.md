@@ -24,6 +24,14 @@ Triggered manually or by background monitors to confirm provider availability.
 ## Source Definition
 
 ```typescript
+import {
+	type AnyOperationSpec,
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import type { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations/registry';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+
 export const TestIntegrationConnection = defineCommand({
 	meta: {
 		key: 'integrations.connection.test',

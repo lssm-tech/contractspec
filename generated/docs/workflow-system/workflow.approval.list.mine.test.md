@@ -16,6 +16,8 @@ Test for listing my approvals
 ## Source Definition
 
 ```typescript
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
+
 export const ApprovalListMineTest = defineTestSpec({
 	meta: {
 		key: 'workflow.approval.list.mine.test',

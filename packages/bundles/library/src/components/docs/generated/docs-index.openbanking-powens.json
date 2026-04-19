@@ -1,10 +1,10 @@
 [
-	{
-		"id": "openbanking-powens/openbanking-powens",
-		"title": "openbanking-powens",
-		"summary": "Powens open banking OAuth callback and webhook handler patterns\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples\n- **Tags**: openbanking, powens, oauth, webhooks",
-		"route": "/docs/reference/openbanking-powens/openbanking-powens",
-		"source": "generated",
-		"contentPath": "openbanking-powens/openbanking-powens.md"
-	}
+  {
+    "id": "openbanking-powens/openbanking-powens",
+    "title": "openbanking-powens",
+    "summary": "Powens open banking OAuth callback and webhook handler patterns\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples\n- **Tags**: openbanking, powens, oauth, webhooks",
+    "route": "/docs/reference/openbanking-powens/openbanking-powens",
+    "source": "generated",
+    "contentPath": "openbanking-powens/openbanking-powens.md"
+  }
 ]

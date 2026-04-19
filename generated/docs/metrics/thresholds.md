@@ -15,6 +15,11 @@ Usage threshold alerts and limits
 ## Source Definition
 
 ```typescript
+import {
+	defineCapability,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const ThresholdsCapability = defineCapability({
 	meta: {
 		key: 'thresholds',

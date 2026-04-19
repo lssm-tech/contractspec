@@ -2,71 +2,98 @@
 
 ## Purpose
 
-`ThemeSpec` defines a structured, versioned source of truth for design tokens, component variants, and scoped overrides. Use it to describe how tenants or individual users should experience the design system without hand-maintaining ad-hoc theme files. Specs live in `@contractspec/lib.contracts-spec`, making them accessible to generators, docs, and runtime tooling.
+`ThemeSpec` defines a structured, versioned source of truth for design tokens, component variants, and scoped overrides. Use it to describe how tenants or individual users should experience the design system without hand-maintaining ad-hoc theme files.
 
 ## Location
 
-- Types & registry: `packages/libs/contracts/src/themes.ts`
+- Types, helper, registry, and validation: `packages/libs/contracts-spec/src/themes.ts` and `packages/libs/contracts-spec/src/themes.validation.ts`
 - Design tokens bridge: `packages/libs/design-system/src/theme/*`
 
 ## Schema
 
 ```ts
 export interface ThemeSpec {
-  meta: ThemeMeta;            // ownership metadata + { name, version, extends?, scopes? }
-  tokens: ThemeTokens;        // design tokens grouped by colors, radii, space, etc.
-  components?: ComponentVariantSpec[]; // per-component variant configuration
-  overrides?: ThemeOverride[];         // scoped tenant/user overrides
+  meta: ThemeMeta;            // ownership metadata + { key, version, extends?, scopes? }
+  tokens: ThemeTokens;
+  components?: ComponentVariantSpec[];
+  overrides?: ThemeOverride[];
 }
 ```
 
 - **ThemeMeta**
-  - `name`: fully-qualified identifier (e.g., `design.pastel`)
-  - `version`: increment when tokens/variants change in a breaking way
-  - `extends?`: optional `{ name, version }` pointer to a base theme
+  - `key`: fully-qualified identifier (for example `design.pastel`)
+  - `version`: semver string such as `1.0.0`
+  - `extends?`: optional `ThemeRef` to a base theme
   - `scopes?`: default scopes where the theme applies (`global`, `tenant`, `user`)
 - **ThemeTokens**
   - `colors`, `radii`, `space`, `typography`, `shadows`, `motion`
-  - Each entry is a map of `{ value: T; description?: string }`
+  - each entry is a map of `{ value, description? }`
 - **ComponentVariantSpec**
-  - `component`: design-system component key (e.g., `Button`, `NavMain`)
-  - `variants`: map of variant names → `{ props?, tokens? }`
+  - `component`: design-system component key (for example `Button`, `NavMain`)
+  - `variants`: map of variant names to `{ props?, tokens? }`
 - **ThemeOverride**
   - `scope`: `'global' | 'tenant' | 'user'`
-  - `target`: identifier (e.g., `tenant:artisanos`, `user:123`)
-  - `tokens?` / `components?`: partial token/variant overrides for the target
+  - `target`: scoped identifier such as `tenant:artisanos` or `user:123`
+  - `tokens?` / `components?`: partial overrides for that target
+
+## Authoring
+
+```ts
+import { defineTheme } from '@contractspec/lib.contracts-spec/themes';
+
+export const PastelTheme = defineTheme({
+  meta: {
+    key: 'design.pastel',
+    version: '1.0.0',
+    title: 'Pastel',
+    description: 'Soft pastel palette for marketing surfaces.',
+    domain: 'design-system',
+    owners: ['platform.design'],
+    tags: ['theme', 'marketing'],
+    stability: 'experimental',
+    scopes: ['tenant'],
+  },
+  tokens: {
+    colors: {
+      background: { value: '#fdf2f8' },
+    },
+  },
+});
+```
+
+Use `validateThemeSpec()` or `assertThemeSpecValid()` in CI and setup flows to catch duplicate overrides, empty targets, self-referential inheritance, and missing ownership metadata before publish time.
 
 ## Registry Usage
 
 ```ts
 import { ThemeRegistry } from '@contractspec/lib.contracts-spec/themes';
-import { PastelTheme } from './themes/design.pastel';
 
 const themes = new ThemeRegistry();
 themes.register(PastelTheme);
 
-const theme = themes.get('design.pastel');
-const tenantVariant = themes
-  .get('design.pastel')
-  ?.overrides?.find((o) => o.target === 'tenant:artisanos');
+const theme = themes.get('design.pastel', '1.0.0');
+const tenantVariant = theme?.overrides?.find(
+  (override) => override.target === 'tenant:artisanos'
+);
 ```
 
-The registry guarantees `name + version` uniqueness and exposes `list()` for discovery tooling.
+The registry guarantees `key + version` uniqueness and exposes `list()` for discovery tooling.
 
 ## Rendering
 
-The design system consumes specs (via adapters you provide) to build runtime tokens. A simple adapter might:
+The design system consumes specs through adapters you provide:
 
-1. Resolve the base theme + applicable overrides.
+1. Resolve the base theme plus applicable overrides.
 2. Merge token maps using `ThemeTokens`.
 3. Feed the result into `mapTokensForPlatform` in `@contractspec/lib.design-system`.
 
 ```ts
-import { ThemeRegistry } from '@contractspec/lib.contracts-spec/themes';
-import { mapTokensForPlatform } from '@contractspec/lib.design-system';
-
-function resolveTokens(registry: ThemeRegistry, ref: ThemeRef, ctx: { tenant?: string; user?: string }) {
-  const spec = registry.get(ref.name, ref.version);
+function resolveTokens(
+  registry: ThemeRegistry,
+  ref: ThemeRef,
+  ctx: { tenant?: string; user?: string }
+) {
+  const spec = registry.get(ref.key, ref.version);
   if (!spec) throw new Error('Theme not found');
 
   const tokens = deepMerge(spec.tokens, collectOverrides(spec.overrides, ctx));
@@ -74,20 +101,10 @@ function resolveTokens(registry: ThemeRegistry, ref: ThemeRef, ctx: { tenant?: s
 }
 ```
 
-## Authoring Guidelines
+## CLI
 
-1. Keep token names aligned with the design-system defaults (`background`, `mutedForeground`, etc.).
-2. Use `extends` to create layered themes (base brand → tenant tweaks → user-level overrides).
-3. Document variants with `description` to help designers and automation understand intent.
-4. Prefer scoped overrides (`tenant:foo`) instead of duplicating the entire theme per tenant.
-5. When tokens influence multiple components, capture them in `tokens` and keep `components` for API-level variant wiring.
+```
+contractspec create theme
+```
 
-## CLI (Future Work)
-
-The `contractspec` CLI does not yet scaffold theme specs. Planned additions:
-
-- `contractspec create --type theme`
-- `contractspec build <theme.theme.ts>` → generate design-system adapters
-
-For now, author specs manually and register them alongside contract bundles.
-
+Use the theme wizard to scaffold a `.theme.ts` file that already imports and calls `defineTheme(...)`.

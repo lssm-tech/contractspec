@@ -23,6 +23,11 @@ Billing section
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const SubscriptionPresentation = definePresentation({
 	meta: {
 		key: 'saas.billing.subscription',

@@ -14,6 +14,14 @@ Applies contract-backed blocked, assist, and autonomous routing for inbound mess
 ## Source Definition
 
 ```typescript
+import { definePolicy } from '../../policy';
+import {
+	CONTROL_PLANE_DOMAIN,
+	CONTROL_PLANE_OWNERS,
+	CONTROL_PLANE_STABILITY,
+	CONTROL_PLANE_TAGS,
+} from '../constants';
+
 export const ControlPlaneMessagingPolicy = definePolicy({
 	meta: {
 		key: 'channel.messaging-policy',

@@ -28,6 +28,20 @@ Workflow designer, admin panel.
 ## Source Definition
 
 ```typescript
+import {
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import { WorkflowStatusEnum } from './workflow.enum';
+import {
+	AddStepInputModel,
+	CreateWorkflowInputModel,
+	UpdateWorkflowInputModel,
+	WorkflowDefinitionModel,
+	WorkflowStepModel,
+} from './workflow.schema';
+
 export const CreateWorkflowContract = defineCommand({
 	meta: {
 		key: 'workflow.definition.create',

@@ -16,6 +16,9 @@ A quote was sent to the client.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const QuoteSentEvent = defineEvent({
 	meta: {
 		key: 'service.quote.sent',

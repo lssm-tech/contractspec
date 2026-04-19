@@ -23,6 +23,12 @@ The main dashboard management view.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { DashboardModel } from './dashboard.schema';
+
 export const DashboardsListPresentation = definePresentation({
 	meta: {
 		key: 'analytics.dashboard.viewList',

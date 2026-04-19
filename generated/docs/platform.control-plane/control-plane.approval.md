@@ -14,6 +14,14 @@ Human approval and rejection gates for execution steps.
 ## Source Definition
 
 ```typescript
+import { defineCapability } from '../../capabilities';
+import {
+	CONTROL_PLANE_DOMAIN,
+	CONTROL_PLANE_OWNERS,
+	CONTROL_PLANE_STABILITY,
+	CONTROL_PLANE_TAGS,
+} from '../constants';
+
 export const ControlPlaneApprovalCapability = defineCapability({
 	meta: {
 		key: 'control-plane.approval',

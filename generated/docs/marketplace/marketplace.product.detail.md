@@ -23,6 +23,12 @@ Product showcase including images, descriptions, and ratings.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { ProductModel } from './product.schema';
+
 export const ProductDetailPresentation = definePresentation({
 	meta: {
 		key: 'marketplace.product.detail',

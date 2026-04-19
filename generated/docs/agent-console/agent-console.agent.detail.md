@@ -23,6 +23,12 @@ Detailed view of an agent.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { AgentSummaryModel } from './agent.schema';
+
 export const AgentDetailPresentation = definePresentation({
 	meta: {
 		key: 'agent-console.agent.detail',

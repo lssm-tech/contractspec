@@ -23,6 +23,12 @@ Used in the user order history or product page.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { ReviewModel } from './review.schema';
+
 export const ReviewFormPresentation = definePresentation({
 	meta: {
 		key: 'marketplace.review.form',

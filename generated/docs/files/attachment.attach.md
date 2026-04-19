@@ -24,6 +24,9 @@ Called when associating files with entities.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const AttachFileContract = defineCommand({
 	meta: {
 		key: 'attachment.attach',

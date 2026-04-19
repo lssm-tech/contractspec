@@ -22,6 +22,14 @@ Used by review surfaces to inspect bounded harness execution.
 ## Source Definition
 
 ```typescript
+import { definePresentation } from '../../presentations';
+import {
+	HARNESS_DOMAIN,
+	HARNESS_OWNERS,
+	HARNESS_STABILITY,
+	HARNESS_TAGS,
+} from '../constants';
+
 export const HarnessRunAuditPresentation = definePresentation({
 	meta: {
 		key: 'harness.run.audit',

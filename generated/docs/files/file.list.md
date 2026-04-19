@@ -24,6 +24,9 @@ Called to browse file library.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const ListFilesContract = defineQuery({
 	meta: {
 		key: 'file.list',

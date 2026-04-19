@@ -14,6 +14,15 @@ Benchmark ingestion, scoring, and ranking for AI providers and models.
 ## Source Definition
 
 ```typescript
+import { defineCapability } from '../../capabilities';
+import { docId } from '../../docs/registry';
+import {
+	PROVIDER_RANKING_DOMAIN,
+	PROVIDER_RANKING_OWNERS,
+	PROVIDER_RANKING_STABILITY,
+	PROVIDER_RANKING_TAGS,
+} from '../constants';
+
 export const ProviderRankingCapability = defineCapability({
 	meta: {
 		key: 'provider-ranking.system',

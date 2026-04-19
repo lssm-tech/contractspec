@@ -11,5 +11,10 @@
 ## Source Definition
 
 ```typescript
+import { compareVersions } from 'compare-versions';
+import type { DocBlock } from '../docs/types';
+import type { OwnerShipMeta } from '../ownership';
+import type { OptionalVersionedSpecRef } from '../versioning';
+
 export const AddNumbersSpec = defineCommand({\n  meta: { name: 'math.add', version: '1.0.0', /* \u2026 */ },\n  io: {\n    input: AddNumbersInput,\n    output: AddNumbersOutput,\n  },\n  policy: { auth: 'user' },\n});
 ```

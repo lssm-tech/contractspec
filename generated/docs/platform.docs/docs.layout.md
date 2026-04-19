@@ -22,6 +22,15 @@ Used by web docs surfaces to render DocBlock-based content.
 ## Source Definition
 
 ```typescript
+import { definePresentation } from '../../presentations';
+import {
+	DOCS_DOMAIN,
+	DOCS_OWNERS,
+	DOCS_STABILITY,
+	DOCS_TAGS,
+} from '../constants';
+import { docId } from '../registry';
+
 export const DocsLayoutPresentation = definePresentation({
 	meta: {
 		key: 'docs.layout',

@@ -13,6 +13,9 @@ An asset was added or updated.
 ## Source Definition
 
 ```typescript
+import { defineEvent, StabilityEnum } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const AssetAddedEvent = defineEvent({
 	meta: {
 		key: 'wealth.asset.added',

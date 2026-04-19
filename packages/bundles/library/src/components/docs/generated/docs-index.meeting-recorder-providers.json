@@ -1,10 +1,10 @@
 [
-	{
-		"id": "meeting-recorder-providers/meeting-recorder-providers",
-		"title": "meeting-recorder-providers",
-		"summary": "Meeting recorder provider integration with transcripts and webhook handling\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples\n- **Tags**: meeting, recorder, transcripts, webhooks",
-		"route": "/docs/reference/meeting-recorder-providers/meeting-recorder-providers",
-		"source": "generated",
-		"contentPath": "meeting-recorder-providers/meeting-recorder-providers.md"
-	}
+  {
+    "id": "meeting-recorder-providers/meeting-recorder-providers",
+    "title": "meeting-recorder-providers",
+    "summary": "Meeting recorder provider integration with transcripts and webhook handling\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples\n- **Tags**: meeting, recorder, transcripts, webhooks",
+    "route": "/docs/reference/meeting-recorder-providers/meeting-recorder-providers",
+    "source": "generated",
+    "contentPath": "meeting-recorder-providers/meeting-recorder-providers.md"
+  }
 ]

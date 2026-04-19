@@ -24,6 +24,13 @@ User dismisses a notification.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import {
+	defineEnum,
+	defineSchemaModel,
+	ScalarTypeEnum,
+} from '@contractspec/lib.schema';
+
 export const DeleteNotificationContract = defineCommand({
 	meta: {
 		key: 'notifications.delete',

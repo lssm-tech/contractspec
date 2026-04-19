@@ -22,6 +22,17 @@ Used by reviewers to approve or reject agent actions.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { docId } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { defineCommand } from '../../operations';
+import {
+	AGENT_DOMAIN,
+	AGENT_OWNERS,
+	AGENT_STABILITY,
+	AGENT_TAGS,
+} from '../constants';
+
 export const AgentApprovalsCommand = defineCommand({
 	meta: {
 		key: 'agent.approvals',

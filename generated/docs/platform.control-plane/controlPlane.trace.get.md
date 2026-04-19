@@ -22,6 +22,15 @@ Used by operator surfaces when inspecting policy and tool execution history.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { defineQuery } from '../../operations';
+import {
+	CONTROL_PLANE_DOMAIN,
+	CONTROL_PLANE_OWNERS,
+	CONTROL_PLANE_STABILITY,
+	CONTROL_PLANE_TAGS,
+} from '../constants';
+
 export const ControlPlaneTraceGetQuery = defineQuery({
 	meta: {
 		key: 'controlPlane.trace.get',

@@ -24,6 +24,16 @@ Used by analytics dashboards, coaching workflows, and health summaries.
 ## Source Definition
 
 ```typescript
+import {
+	type AnyOperationSpec,
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import type { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations/registry';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { HealthActivityRecord } from '../models';
+import { HEALTH_TELEMETRY_EVENTS } from '../telemetry';
+
 export const HealthListActivities = defineQuery({
 	meta: {
 		key: 'health.activities.list',

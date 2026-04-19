@@ -23,6 +23,16 @@ Configuration interface for sync jobs.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import {
+	FieldMappingModel,
+	SyncConfigModel,
+	SyncRunModel,
+} from './sync.schema';
+
 export const SyncConfigEditorPresentation = definePresentation({
 	meta: {
 		key: 'integration.syncConfig.editor',

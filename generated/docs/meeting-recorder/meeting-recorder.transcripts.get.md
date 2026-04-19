@@ -24,6 +24,16 @@ Used by agents and dashboards to access the transcript for a selected meeting.
 ## Source Definition
 
 ```typescript
+import {
+	type AnyOperationSpec,
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import type { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations/registry';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { MeetingTranscriptRecord } from '../models';
+import { MEETING_RECORDER_TELEMETRY_EVENTS } from '../telemetry';
+
 export const MeetingRecorderGetTranscript = defineQuery({
 	meta: {
 		key: 'meeting-recorder.transcripts.get',

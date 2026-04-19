@@ -16,6 +16,9 @@ Fired when a single record is synced
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const RecordSyncedEvent = defineEvent({
 	meta: {
 		key: 'integration.record.synced',

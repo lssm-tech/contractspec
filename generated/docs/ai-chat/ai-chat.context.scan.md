@@ -24,6 +24,15 @@ Background
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import {
+	ChatConversationModel,
+	ListConversationsOutputModel,
+	SendMessageInputModel,
+	SendMessageOutputModel,
+} from './schema';
+
 export const ScanContextContract = defineCommand({
 	meta: {
 		key: 'ai-chat.context.scan',

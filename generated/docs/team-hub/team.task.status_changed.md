@@ -16,6 +16,9 @@ A task status changed.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const TaskStatusChangedEvent = defineEvent({
 	meta: {
 		key: 'team.task.status_changed',

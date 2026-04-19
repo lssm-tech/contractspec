@@ -24,6 +24,9 @@ Called when a flag is no longer needed.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const DeleteFlagContract = defineCommand({
 	meta: {
 		key: 'flag.delete',

@@ -23,6 +23,12 @@ Integration showcase and support page.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { IntegrationModel } from './integration.schema';
+
 export const IntegrationDetailPresentation = definePresentation({
 	meta: {
 		key: 'integration.detail',

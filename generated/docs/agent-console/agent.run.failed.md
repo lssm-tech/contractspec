@@ -16,6 +16,13 @@ An agent run encountered an error.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import {
+	defineEnum,
+	defineSchemaModel,
+	ScalarTypeEnum,
+} from '@contractspec/lib.schema';
+
 export const RunFailedEvent = defineEvent({
 	meta: {
 		key: 'agent.run.failed',

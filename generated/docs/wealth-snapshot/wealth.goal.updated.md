@@ -13,6 +13,9 @@ A goal was updated.
 ## Source Definition
 
 ```typescript
+import { defineEvent, StabilityEnum } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const GoalUpdatedEvent = defineEvent({
 	meta: {
 		key: 'wealth.goal.updated',

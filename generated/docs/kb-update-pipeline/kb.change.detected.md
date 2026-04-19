@@ -13,6 +13,9 @@ KB source change detected.
 ## Source Definition
 
 ```typescript
+import { defineEvent, StabilityEnum } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const KbChangeDetectedEvent = defineEvent({
 	meta: {
 		key: 'kb.change.detected',

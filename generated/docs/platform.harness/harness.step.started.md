@@ -14,6 +14,15 @@ Emitted when a harness step starts.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { defineEvent } from '../../events';
+import {
+	HARNESS_DOMAIN,
+	HARNESS_OWNERS,
+	HARNESS_STABILITY,
+	HARNESS_TAGS,
+} from '../constants';
+
 export const HarnessStepStartedEvent = defineEvent({
 	meta: {
 		key: 'harness.step.started',

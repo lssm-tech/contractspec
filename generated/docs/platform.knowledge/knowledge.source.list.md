@@ -24,6 +24,14 @@ Used by App Studio and Ops flows to surface knowledge sources and their health.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import {
+	type AnyOperationSpec,
+	defineCommand,
+	defineQuery,
+} from '../operations/';
+import type { OperationSpecRegistry } from '../operations/registry';
+
 export const ListKnowledgeSources = defineQuery({
 	meta: {
 		key: 'knowledge.source.list',

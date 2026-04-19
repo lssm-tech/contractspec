@@ -16,6 +16,9 @@ Feature usage has been recorded.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const UsageRecordedEvent = defineEvent({
 	meta: {
 		key: 'billing.usage.recorded',

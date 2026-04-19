@@ -22,6 +22,12 @@ Used by ACP clients to send messages and receive outputs.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { docRef } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { defineCommand } from '../../operations';
+import { ACP_DOMAIN, ACP_OWNERS, ACP_STABILITY, ACP_TAGS } from '../constants';
+
 export const AcpPromptTurnCommand = defineCommand({
 	meta: {
 		key: 'acp.prompt.turn',

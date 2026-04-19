@@ -16,6 +16,10 @@ Message received from AI
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import { ChatConversationModel, ChatMessageModel } from './schema';
+
 export const MessageReceivedEvent = defineEvent({
 	meta: {
 		key: 'ai-chat.message.received',

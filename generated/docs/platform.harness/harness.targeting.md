@@ -14,6 +14,14 @@ Resolve preview, task, shared, and sandbox harness targets.
 ## Source Definition
 
 ```typescript
+import { defineCapability } from '../../capabilities';
+import {
+	HARNESS_DOMAIN,
+	HARNESS_OWNERS,
+	HARNESS_STABILITY,
+	HARNESS_TAGS,
+} from '../constants';
+
 export const HarnessTargetingCapability = defineCapability({
 	meta: {
 		key: 'harness.targeting',

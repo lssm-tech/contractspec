@@ -23,6 +23,12 @@ Root dashboard of the Agent Console.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { AgentSummaryModel } from './agent.schema';
+
 export const AgentConsoleDashboardPresentation = definePresentation({
 	meta: {
 		key: 'agent-console.dashboard',

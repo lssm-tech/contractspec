@@ -22,6 +22,16 @@ Used by Studio to compare two or more models across dimensions.
 ## Source Definition
 
 ```typescript
+import { docId } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { definePresentation } from '../../presentations';
+import {
+	PROVIDER_RANKING_DOMAIN,
+	PROVIDER_RANKING_OWNERS,
+	PROVIDER_RANKING_STABILITY,
+	PROVIDER_RANKING_TAGS,
+} from '../constants';
+
 export const ModelComparisonPresentation = definePresentation({
 	meta: {
 		key: 'provider-ranking.model.comparison',

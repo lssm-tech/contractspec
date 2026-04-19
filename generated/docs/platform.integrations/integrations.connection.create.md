@@ -24,6 +24,14 @@ Used by Ops or the App Studio to configure external integrations such as Stripe 
 ## Source Definition
 
 ```typescript
+import {
+	type AnyOperationSpec,
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import type { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations/registry';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+
 export const CreateIntegrationConnection = defineCommand({
 	meta: {
 		key: 'integrations.connection.create',

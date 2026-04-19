@@ -15,6 +15,9 @@ A job attempt has failed.
 ## Source Definition
 
 ```typescript
+import { defineEvent, StabilityEnum } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const JobFailedEvent = defineEvent({
 	meta: {
 		key: 'job.failed',

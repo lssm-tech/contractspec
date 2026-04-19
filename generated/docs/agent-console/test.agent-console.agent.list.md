@@ -16,6 +16,8 @@ Test for listing agents
 ## Source Definition
 
 ```typescript
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
+
 export const agentListTest = defineTestSpec({
 	meta: {
 		key: 'test.agent-console.agent.list',

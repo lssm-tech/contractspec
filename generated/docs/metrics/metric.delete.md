@@ -24,6 +24,9 @@ Called when removing a metric.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const DeleteMetricContract = defineCommand({
 	meta: {
 		key: 'metric.delete',

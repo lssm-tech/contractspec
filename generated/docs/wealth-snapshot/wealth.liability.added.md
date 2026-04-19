@@ -13,6 +13,9 @@ A liability was added or updated.
 ## Source Definition
 
 ```typescript
+import { defineEvent, StabilityEnum } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const LiabilityAddedEvent = defineEvent({
 	meta: {
 		key: 'wealth.liability.added',

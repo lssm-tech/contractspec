@@ -29,6 +29,19 @@ Order creation, request submission, etc.
 ## Source Definition
 
 ```typescript
+import {
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import { InstanceStatusEnum } from './instance.enum';
+import {
+	StartWorkflowInputModel,
+	TransitionInputModel,
+	TransitionResultModel,
+	WorkflowInstanceModel,
+} from './instance.schema';
+
 export const StartWorkflowContract = defineCommand({
 	meta: {
 		key: 'workflow.instance.start',

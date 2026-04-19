@@ -28,6 +28,22 @@ Project settings page.
 ## Source Definition
 
 ```typescript
+import {
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import {
+	CreateProjectInputModel,
+	DeleteProjectInputModel,
+	DeleteProjectOutputModel,
+	GetProjectInputModel,
+	ListProjectsInputModel,
+	ListProjectsOutputModel,
+	ProjectDeletedPayloadModel,
+	ProjectModel,
+	UpdateProjectInputModel,
+} from './project.schema';
+
 export const DeleteProjectContract = defineCommand({
 	meta: {
 		key: 'saas.project.delete',

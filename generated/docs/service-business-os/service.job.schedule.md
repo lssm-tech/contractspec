@@ -24,6 +24,14 @@ Job scheduling.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import {
+	CompleteJobInputModel,
+	JobModel,
+	ScheduleJobInputModel,
+} from './job.schema';
+
 export const ScheduleJobContract = defineCommand({
 	meta: {
 		key: 'service.job.schedule',

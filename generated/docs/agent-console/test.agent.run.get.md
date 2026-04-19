@@ -16,6 +16,8 @@ Test for getting run
 ## Source Definition
 
 ```typescript
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
+
 export const runGetTest = defineTestSpec({
 	meta: {
 		key: 'test.agent.run.get',

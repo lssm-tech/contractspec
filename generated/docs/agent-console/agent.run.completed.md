@@ -16,6 +16,13 @@ An agent run completed successfully.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import {
+	defineEnum,
+	defineSchemaModel,
+	ScalarTypeEnum,
+} from '@contractspec/lib.schema';
+
 export const RunCompletedEvent = defineEvent({
 	meta: {
 		key: 'agent.run.completed',

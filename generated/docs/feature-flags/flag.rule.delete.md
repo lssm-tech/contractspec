@@ -24,6 +24,9 @@ Called when removing targeting conditions.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const DeleteRuleContract = defineCommand({
 	meta: {
 		key: 'flag.rule.delete',

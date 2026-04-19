@@ -23,6 +23,12 @@ Tool management dashboard.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { ToolSummaryModel } from './tool.schema';
+
 export const ToolListPresentation = definePresentation({
 	meta: {
 		key: 'agent-console.tool.list',

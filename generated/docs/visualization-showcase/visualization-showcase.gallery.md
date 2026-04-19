@@ -23,6 +23,11 @@ Sandbox presentation used for react and markdown previews.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const VisualizationShowcasePresentation = definePresentation({
 	meta: {
 		key: 'visualization-showcase.gallery',

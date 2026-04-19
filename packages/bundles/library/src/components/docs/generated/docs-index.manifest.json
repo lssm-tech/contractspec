@@ -1,433 +1,433 @@
 {
-	"generatedAt": "2026-04-09T02:40:04.488Z",
-	"total": 1127,
-	"version": null,
-	"contentRoot": "../../../../../../../generated/docs",
-	"chunks": [
-		{
-			"key": "_common",
-			"file": "docs-index._common.json",
-			"total": 180
-		},
-		{
-			"key": "agent-console",
-			"file": "docs-index.agent-console.json",
-			"total": 47
-		},
-		{
-			"key": "ai-chat",
-			"file": "docs-index.ai-chat.json",
-			"total": 13
-		},
-		{
-			"key": "ai-chat-assistant",
-			"file": "docs-index.ai-chat-assistant.json",
-			"total": 2
-		},
-		{
-			"key": "ai-support-bot",
-			"file": "docs-index.ai-support-bot.json",
-			"total": 1
-		},
-		{
-			"key": "analytics-dashboard",
-			"file": "docs-index.analytics-dashboard.json",
-			"total": 21
-		},
-		{
-			"key": "app-config",
-			"file": "docs-index.app-config.json",
-			"total": 17
-		},
-		{
-			"key": "artisan.knowledge.product",
-			"file": "docs-index.artisan-knowledge-product.json",
-			"total": 2
-		},
-		{
-			"key": "artisan.payments.stripe",
-			"file": "docs-index.artisan-payments-stripe.json",
-			"total": 4
-		},
-		{
-			"key": "audit-trail",
-			"file": "docs-index.audit-trail.json",
-			"total": 6
-		},
-		{
-			"key": "calendar-google",
-			"file": "docs-index.calendar-google.json",
-			"total": 1
-		},
-		{
-			"key": "content-generation",
-			"file": "docs-index.content-generation.json",
-			"total": 1
-		},
-		{
-			"key": "control-plane",
-			"file": "docs-index.control-plane.json",
-			"total": 2
-		},
-		{
-			"key": "crm-pipeline",
-			"file": "docs-index.crm-pipeline.json",
-			"total": 20
-		},
-		{
-			"key": "data-grid-showcase",
-			"file": "docs-index.data-grid-showcase.json",
-			"total": 2
-		},
-		{
-			"key": "defineExample",
-			"file": "docs-index.defineExample.json",
-			"total": 1
-		},
-		{
-			"key": "email-gmail",
-			"file": "docs-index.email-gmail.json",
-			"total": 1
-		},
-		{
-			"key": "feature-flags",
-			"file": "docs-index.feature-flags.json",
-			"total": 27
-		},
-		{
-			"key": "files",
-			"file": "docs-index.files.json",
-			"total": 22
-		},
-		{
-			"key": "harness-lab",
-			"file": "docs-index.harness-lab.json",
-			"total": 1
-		},
-		{
-			"key": "health",
-			"file": "docs-index.health.json",
-			"total": 12
-		},
-		{
-			"key": "identity-rbac",
-			"file": "docs-index.identity-rbac.json",
-			"total": 39
-		},
-		{
-			"key": "in-app-docs",
-			"file": "docs-index.in-app-docs.json",
-			"total": 1
-		},
-		{
-			"key": "integration-hub",
-			"file": "docs-index.integration-hub.json",
-			"total": 33
-		},
-		{
-			"key": "integration-posthog",
-			"file": "docs-index.integration-posthog.json",
-			"total": 1
-		},
-		{
-			"key": "integration-stripe",
-			"file": "docs-index.integration-stripe.json",
-			"total": 1
-		},
-		{
-			"key": "integration-supabase",
-			"file": "docs-index.integration-supabase.json",
-			"total": 1
-		},
-		{
-			"key": "jobs",
-			"file": "docs-index.jobs.json",
-			"total": 17
-		},
-		{
-			"key": "kb-update-pipeline",
-			"file": "docs-index.kb-update-pipeline.json",
-			"total": 16
-		},
-		{
-			"key": "knowledge-canon",
-			"file": "docs-index.knowledge-canon.json",
-			"total": 1
-		},
-		{
-			"key": "learning-journey",
-			"file": "docs-index.learning-journey.json",
-			"total": 27
-		},
-		{
-			"key": "learning-journey-ambient-coach",
-			"file": "docs-index.learning-journey-ambient-coach.json",
-			"total": 1
-		},
-		{
-			"key": "learning-journey-crm-onboarding",
-			"file": "docs-index.learning-journey-crm-onboarding.json",
-			"total": 6
-		},
-		{
-			"key": "learning-journey-duo-drills",
-			"file": "docs-index.learning-journey-duo-drills.json",
-			"total": 1
-		},
-		{
-			"key": "learning-journey-platform-tour",
-			"file": "docs-index.learning-journey-platform-tour.json",
-			"total": 6
-		},
-		{
-			"key": "learning-journey-quest-challenges",
-			"file": "docs-index.learning-journey-quest-challenges.json",
-			"total": 1
-		},
-		{
-			"key": "learning-journey-registry",
-			"file": "docs-index.learning-journey-registry.json",
-			"total": 4
-		},
-		{
-			"key": "learning-journey-studio-onboarding",
-			"file": "docs-index.learning-journey-studio-onboarding.json",
-			"total": 6
-		},
-		{
-			"key": "learning-journey-ui-coaching",
-			"file": "docs-index.learning-journey-ui-coaching.json",
-			"total": 1
-		},
-		{
-			"key": "learning-journey-ui-gamified",
-			"file": "docs-index.learning-journey-ui-gamified.json",
-			"total": 1
-		},
-		{
-			"key": "learning-journey-ui-onboarding",
-			"file": "docs-index.learning-journey-ui-onboarding.json",
-			"total": 1
-		},
-		{
-			"key": "learning-journey-ui-shared",
-			"file": "docs-index.learning-journey-ui-shared.json",
-			"total": 1
-		},
-		{
-			"key": "learning-patterns",
-			"file": "docs-index.learning-patterns.json",
-			"total": 1
-		},
-		{
-			"key": "lifecycle-cli",
-			"file": "docs-index.lifecycle-cli.json",
-			"total": 1
-		},
-		{
-			"key": "lifecycle-dashboard",
-			"file": "docs-index.lifecycle-dashboard.json",
-			"total": 1
-		},
-		{
-			"key": "locale-jurisdiction-gate",
-			"file": "docs-index.locale-jurisdiction-gate.json",
-			"total": 7
-		},
-		{
-			"key": "marketplace",
-			"file": "docs-index.marketplace.json",
-			"total": 42
-		},
-		{
-			"key": "meeting-recorder",
-			"file": "docs-index.meeting-recorder.json",
-			"total": 6
-		},
-		{
-			"key": "meeting-recorder-providers",
-			"file": "docs-index.meeting-recorder-providers.json",
-			"total": 1
-		},
-		{
-			"key": "messaging-agent-actions",
-			"file": "docs-index.messaging-agent-actions.json",
-			"total": 2
-		},
-		{
-			"key": "metrics",
-			"file": "docs-index.metrics.json",
-			"total": 25
-		},
-		{
-			"key": "minimal",
-			"file": "docs-index.minimal.json",
-			"total": 2
-		},
-		{
-			"key": "mobile-demo.tasks",
-			"file": "docs-index.mobile-demo-tasks.json",
-			"total": 4
-		},
-		{
-			"key": "notifications",
-			"file": "docs-index.notifications.json",
-			"total": 8
-		},
-		{
-			"key": "openbanking",
-			"file": "docs-index.openbanking.json",
-			"total": 8
-		},
-		{
-			"key": "openbanking-powens",
-			"file": "docs-index.openbanking-powens.json",
-			"total": 1
-		},
-		{
-			"key": "opencode-cli",
-			"file": "docs-index.opencode-cli.json",
-			"total": 2
-		},
-		{
-			"key": "personalization",
-			"file": "docs-index.personalization.json",
-			"total": 1
-		},
-		{
-			"key": "platform.acp",
-			"file": "docs-index.platform-acp.json",
-			"total": 17
-		},
-		{
-			"key": "platform.agent",
-			"file": "docs-index.platform-agent.json",
-			"total": 23
-		},
-		{
-			"key": "platform.context",
-			"file": "docs-index.platform-context.json",
-			"total": 13
-		},
-		{
-			"key": "platform.control-plane",
-			"file": "docs-index.platform-control-plane.json",
-			"total": 40
-		},
-		{
-			"key": "platform.database",
-			"file": "docs-index.platform-database.json",
-			"total": 11
-		},
-		{
-			"key": "platform.docs",
-			"file": "docs-index.platform-docs.json",
-			"total": 19
-		},
-		{
-			"key": "platform.harness",
-			"file": "docs-index.platform-harness.json",
-			"total": 22
-		},
-		{
-			"key": "platform.integrations",
-			"file": "docs-index.platform-integrations.json",
-			"total": 41
-		},
-		{
-			"key": "platform.knowledge",
-			"file": "docs-index.platform-knowledge.json",
-			"total": 7
-		},
-		{
-			"key": "platform.provider-ranking",
-			"file": "docs-index.platform-provider-ranking.json",
-			"total": 23
-		},
-		{
-			"key": "pocket-family-office",
-			"file": "docs-index.pocket-family-office.json",
-			"total": 16
-		},
-		{
-			"key": "policy-safe-knowledge-assistant",
-			"file": "docs-index.policy-safe-knowledge-assistant.json",
-			"total": 1
-		},
-		{
-			"key": "product-intent",
-			"file": "docs-index.product-intent.json",
-			"total": 1
-		},
-		{
-			"key": "project-management-sync",
-			"file": "docs-index.project-management-sync.json",
-			"total": 1
-		},
-		{
-			"key": "saas-boilerplate",
-			"file": "docs-index.saas-boilerplate.json",
-			"total": 26
-		},
-		{
-			"key": "service-business-os",
-			"file": "docs-index.service-business-os.json",
-			"total": 24
-		},
-		{
-			"key": "team-hub",
-			"file": "docs-index.team-hub.json",
-			"total": 23
-		},
-		{
-			"key": "unknown",
-			"file": "docs-index.unknown.json",
-			"total": 65
-		},
-		{
-			"key": "versioned-knowledge-base",
-			"file": "docs-index.versioned-knowledge-base.json",
-			"total": 10
-		},
-		{
-			"key": "video-api-showcase",
-			"file": "docs-index.video-api-showcase.json",
-			"total": 4
-		},
-		{
-			"key": "video-docs-terminal",
-			"file": "docs-index.video-docs-terminal.json",
-			"total": 1
-		},
-		{
-			"key": "video-marketing-clip",
-			"file": "docs-index.video-marketing-clip.json",
-			"total": 1
-		},
-		{
-			"key": "visualization-showcase",
-			"file": "docs-index.visualization-showcase.json",
-			"total": 2
-		},
-		{
-			"key": "voice-providers",
-			"file": "docs-index.voice-providers.json",
-			"total": 1
-		},
-		{
-			"key": "wealth-snapshot",
-			"file": "docs-index.wealth-snapshot.json",
-			"total": 19
-		},
-		{
-			"key": "workflow-system",
-			"file": "docs-index.workflow-system.json",
-			"total": 54
-		},
-		{
-			"key": "workspace-cli",
-			"file": "docs-index.workspace-cli.json",
-			"total": 1
-		}
-	]
+  "generatedAt": "2026-04-19T15:19:28.556Z",
+  "total": 1142,
+  "version": null,
+  "contentRoot": "../../../../../../../generated/docs",
+  "chunks": [
+    {
+      "key": "_common",
+      "file": "docs-index._common.json",
+      "total": 181
+    },
+    {
+      "key": "agent-console",
+      "file": "docs-index.agent-console.json",
+      "total": 47
+    },
+    {
+      "key": "ai-chat",
+      "file": "docs-index.ai-chat.json",
+      "total": 13
+    },
+    {
+      "key": "ai-chat-assistant",
+      "file": "docs-index.ai-chat-assistant.json",
+      "total": 2
+    },
+    {
+      "key": "ai-support-bot",
+      "file": "docs-index.ai-support-bot.json",
+      "total": 1
+    },
+    {
+      "key": "analytics-dashboard",
+      "file": "docs-index.analytics-dashboard.json",
+      "total": 21
+    },
+    {
+      "key": "app-config",
+      "file": "docs-index.app-config.json",
+      "total": 17
+    },
+    {
+      "key": "artisan.knowledge.product",
+      "file": "docs-index.artisan-knowledge-product.json",
+      "total": 2
+    },
+    {
+      "key": "artisan.payments.stripe",
+      "file": "docs-index.artisan-payments-stripe.json",
+      "total": 4
+    },
+    {
+      "key": "audit-trail",
+      "file": "docs-index.audit-trail.json",
+      "total": 6
+    },
+    {
+      "key": "calendar-google",
+      "file": "docs-index.calendar-google.json",
+      "total": 1
+    },
+    {
+      "key": "content-generation",
+      "file": "docs-index.content-generation.json",
+      "total": 1
+    },
+    {
+      "key": "control-plane",
+      "file": "docs-index.control-plane.json",
+      "total": 2
+    },
+    {
+      "key": "crm-pipeline",
+      "file": "docs-index.crm-pipeline.json",
+      "total": 20
+    },
+    {
+      "key": "data-grid-showcase",
+      "file": "docs-index.data-grid-showcase.json",
+      "total": 3
+    },
+    {
+      "key": "defineExample",
+      "file": "docs-index.defineExample.json",
+      "total": 1
+    },
+    {
+      "key": "email-gmail",
+      "file": "docs-index.email-gmail.json",
+      "total": 1
+    },
+    {
+      "key": "feature-flags",
+      "file": "docs-index.feature-flags.json",
+      "total": 27
+    },
+    {
+      "key": "files",
+      "file": "docs-index.files.json",
+      "total": 22
+    },
+    {
+      "key": "harness-lab",
+      "file": "docs-index.harness-lab.json",
+      "total": 1
+    },
+    {
+      "key": "health",
+      "file": "docs-index.health.json",
+      "total": 12
+    },
+    {
+      "key": "identity-rbac",
+      "file": "docs-index.identity-rbac.json",
+      "total": 39
+    },
+    {
+      "key": "in-app-docs",
+      "file": "docs-index.in-app-docs.json",
+      "total": 1
+    },
+    {
+      "key": "integration-hub",
+      "file": "docs-index.integration-hub.json",
+      "total": 33
+    },
+    {
+      "key": "integration-posthog",
+      "file": "docs-index.integration-posthog.json",
+      "total": 1
+    },
+    {
+      "key": "integration-stripe",
+      "file": "docs-index.integration-stripe.json",
+      "total": 1
+    },
+    {
+      "key": "integration-supabase",
+      "file": "docs-index.integration-supabase.json",
+      "total": 1
+    },
+    {
+      "key": "jobs",
+      "file": "docs-index.jobs.json",
+      "total": 17
+    },
+    {
+      "key": "kb-update-pipeline",
+      "file": "docs-index.kb-update-pipeline.json",
+      "total": 16
+    },
+    {
+      "key": "knowledge-canon",
+      "file": "docs-index.knowledge-canon.json",
+      "total": 1
+    },
+    {
+      "key": "learning-journey",
+      "file": "docs-index.learning-journey.json",
+      "total": 30
+    },
+    {
+      "key": "learning-journey-ambient-coach",
+      "file": "docs-index.learning-journey-ambient-coach.json",
+      "total": 1
+    },
+    {
+      "key": "learning-journey-crm-onboarding",
+      "file": "docs-index.learning-journey-crm-onboarding.json",
+      "total": 6
+    },
+    {
+      "key": "learning-journey-duo-drills",
+      "file": "docs-index.learning-journey-duo-drills.json",
+      "total": 1
+    },
+    {
+      "key": "learning-journey-platform-tour",
+      "file": "docs-index.learning-journey-platform-tour.json",
+      "total": 6
+    },
+    {
+      "key": "learning-journey-quest-challenges",
+      "file": "docs-index.learning-journey-quest-challenges.json",
+      "total": 1
+    },
+    {
+      "key": "learning-journey-registry",
+      "file": "docs-index.learning-journey-registry.json",
+      "total": 4
+    },
+    {
+      "key": "learning-journey-studio-onboarding",
+      "file": "docs-index.learning-journey-studio-onboarding.json",
+      "total": 6
+    },
+    {
+      "key": "learning-journey-ui-coaching",
+      "file": "docs-index.learning-journey-ui-coaching.json",
+      "total": 1
+    },
+    {
+      "key": "learning-journey-ui-gamified",
+      "file": "docs-index.learning-journey-ui-gamified.json",
+      "total": 1
+    },
+    {
+      "key": "learning-journey-ui-onboarding",
+      "file": "docs-index.learning-journey-ui-onboarding.json",
+      "total": 1
+    },
+    {
+      "key": "learning-journey-ui-shared",
+      "file": "docs-index.learning-journey-ui-shared.json",
+      "total": 1
+    },
+    {
+      "key": "learning-patterns",
+      "file": "docs-index.learning-patterns.json",
+      "total": 1
+    },
+    {
+      "key": "lifecycle-cli",
+      "file": "docs-index.lifecycle-cli.json",
+      "total": 1
+    },
+    {
+      "key": "lifecycle-dashboard",
+      "file": "docs-index.lifecycle-dashboard.json",
+      "total": 1
+    },
+    {
+      "key": "locale-jurisdiction-gate",
+      "file": "docs-index.locale-jurisdiction-gate.json",
+      "total": 8
+    },
+    {
+      "key": "marketplace",
+      "file": "docs-index.marketplace.json",
+      "total": 42
+    },
+    {
+      "key": "meeting-recorder",
+      "file": "docs-index.meeting-recorder.json",
+      "total": 6
+    },
+    {
+      "key": "meeting-recorder-providers",
+      "file": "docs-index.meeting-recorder-providers.json",
+      "total": 1
+    },
+    {
+      "key": "messaging-agent-actions",
+      "file": "docs-index.messaging-agent-actions.json",
+      "total": 2
+    },
+    {
+      "key": "metrics",
+      "file": "docs-index.metrics.json",
+      "total": 25
+    },
+    {
+      "key": "minimal",
+      "file": "docs-index.minimal.json",
+      "total": 2
+    },
+    {
+      "key": "mobile-demo.tasks",
+      "file": "docs-index.mobile-demo-tasks.json",
+      "total": 4
+    },
+    {
+      "key": "notifications",
+      "file": "docs-index.notifications.json",
+      "total": 8
+    },
+    {
+      "key": "openbanking",
+      "file": "docs-index.openbanking.json",
+      "total": 8
+    },
+    {
+      "key": "openbanking-powens",
+      "file": "docs-index.openbanking-powens.json",
+      "total": 1
+    },
+    {
+      "key": "opencode-cli",
+      "file": "docs-index.opencode-cli.json",
+      "total": 2
+    },
+    {
+      "key": "personalization",
+      "file": "docs-index.personalization.json",
+      "total": 1
+    },
+    {
+      "key": "platform.acp",
+      "file": "docs-index.platform-acp.json",
+      "total": 17
+    },
+    {
+      "key": "platform.agent",
+      "file": "docs-index.platform-agent.json",
+      "total": 25
+    },
+    {
+      "key": "platform.context",
+      "file": "docs-index.platform-context.json",
+      "total": 15
+    },
+    {
+      "key": "platform.control-plane",
+      "file": "docs-index.platform-control-plane.json",
+      "total": 40
+    },
+    {
+      "key": "platform.database",
+      "file": "docs-index.platform-database.json",
+      "total": 11
+    },
+    {
+      "key": "platform.docs",
+      "file": "docs-index.platform-docs.json",
+      "total": 20
+    },
+    {
+      "key": "platform.harness",
+      "file": "docs-index.platform-harness.json",
+      "total": 22
+    },
+    {
+      "key": "platform.integrations",
+      "file": "docs-index.platform-integrations.json",
+      "total": 41
+    },
+    {
+      "key": "platform.knowledge",
+      "file": "docs-index.platform-knowledge.json",
+      "total": 7
+    },
+    {
+      "key": "platform.provider-ranking",
+      "file": "docs-index.platform-provider-ranking.json",
+      "total": 27
+    },
+    {
+      "key": "pocket-family-office",
+      "file": "docs-index.pocket-family-office.json",
+      "total": 16
+    },
+    {
+      "key": "policy-safe-knowledge-assistant",
+      "file": "docs-index.policy-safe-knowledge-assistant.json",
+      "total": 1
+    },
+    {
+      "key": "product-intent",
+      "file": "docs-index.product-intent.json",
+      "total": 1
+    },
+    {
+      "key": "project-management-sync",
+      "file": "docs-index.project-management-sync.json",
+      "total": 1
+    },
+    {
+      "key": "saas-boilerplate",
+      "file": "docs-index.saas-boilerplate.json",
+      "total": 26
+    },
+    {
+      "key": "service-business-os",
+      "file": "docs-index.service-business-os.json",
+      "total": 24
+    },
+    {
+      "key": "team-hub",
+      "file": "docs-index.team-hub.json",
+      "total": 23
+    },
+    {
+      "key": "unknown",
+      "file": "docs-index.unknown.json",
+      "total": 65
+    },
+    {
+      "key": "versioned-knowledge-base",
+      "file": "docs-index.versioned-knowledge-base.json",
+      "total": 10
+    },
+    {
+      "key": "video-api-showcase",
+      "file": "docs-index.video-api-showcase.json",
+      "total": 4
+    },
+    {
+      "key": "video-docs-terminal",
+      "file": "docs-index.video-docs-terminal.json",
+      "total": 1
+    },
+    {
+      "key": "video-marketing-clip",
+      "file": "docs-index.video-marketing-clip.json",
+      "total": 1
+    },
+    {
+      "key": "visualization-showcase",
+      "file": "docs-index.visualization-showcase.json",
+      "total": 2
+    },
+    {
+      "key": "voice-providers",
+      "file": "docs-index.voice-providers.json",
+      "total": 1
+    },
+    {
+      "key": "wealth-snapshot",
+      "file": "docs-index.wealth-snapshot.json",
+      "total": 19
+    },
+    {
+      "key": "workflow-system",
+      "file": "docs-index.workflow-system.json",
+      "total": 54
+    },
+    {
+      "key": "workspace-cli",
+      "file": "docs-index.workspace-cli.json",
+      "total": 1
+    }
+  ]
 }

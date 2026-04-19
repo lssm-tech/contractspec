@@ -16,6 +16,8 @@ Test for listing tools
 ## Source Definition
 
 ```typescript
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
+
 export const toolListTest = defineTestSpec({
 	meta: {
 		key: 'test.agent.tool.list',

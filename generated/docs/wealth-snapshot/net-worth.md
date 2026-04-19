@@ -15,6 +15,11 @@ Net worth visualization and tracking
 ## Source Definition
 
 ```typescript
+import {
+	defineCapability,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const NetWorthCapability = defineCapability({
 	meta: {
 		key: 'net-worth',

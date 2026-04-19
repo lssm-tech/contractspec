@@ -15,6 +15,11 @@ Financial goal setting and progress tracking
 ## Source Definition
 
 ```typescript
+import {
+	defineCapability,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const GoalsCapability = defineCapability({
 	meta: {
 		key: 'goals',

@@ -15,6 +15,11 @@ Workflow definitions and orchestration
 ## Source Definition
 
 ```typescript
+import {
+	defineCapability,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const WorkflowCapability = defineCapability({
 	meta: {
 		key: 'workflow',

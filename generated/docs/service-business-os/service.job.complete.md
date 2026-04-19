@@ -24,6 +24,14 @@ Job management.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import {
+	CompleteJobInputModel,
+	JobModel,
+	ScheduleJobInputModel,
+} from './job.schema';
+
 export const CompleteJobContract = defineCommand({
 	meta: {
 		key: 'service.job.complete',

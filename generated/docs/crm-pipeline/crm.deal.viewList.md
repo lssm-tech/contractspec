@@ -23,6 +23,12 @@ Standard view for deal management and bulk actions.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { DealModel } from '../deal/deal.schema';
+
 export const DealListPresentation = definePresentation({
 	meta: {
 		key: 'crm.deal.viewList',

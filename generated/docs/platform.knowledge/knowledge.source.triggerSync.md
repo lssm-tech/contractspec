@@ -24,6 +24,14 @@ Invoked by Ops tooling or monitors when knowledge content must be refreshed or r
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import {
+	type AnyOperationSpec,
+	defineCommand,
+	defineQuery,
+} from '../operations/';
+import type { OperationSpecRegistry } from '../operations/registry';
+
 export const TriggerKnowledgeSourceSync = defineCommand({
 	meta: {
 		key: 'knowledge.source.triggerSync',

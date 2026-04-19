@@ -24,6 +24,21 @@ Run details page - steps tab.
 ## Source Definition
 
 ```typescript
+import {
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import { GranularityEnum, LogLevelEnum, RunStatusEnum } from './run.enum';
+import {
+	RunInputModel,
+	RunLogModel,
+	RunModel,
+	RunStepModel,
+	RunSummaryModel,
+	TimelineDataPointModel,
+} from './run.schema';
+
 export const GetRunStepsQuery = defineQuery({
 	meta: {
 		key: 'agent.run.getSteps',

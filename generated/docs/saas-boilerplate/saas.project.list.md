@@ -23,6 +23,12 @@ Project list page
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { ProjectModel } from './project.schema';
+
 export const ProjectListPresentation = definePresentation({
 	meta: {
 		key: 'saas.project.list',

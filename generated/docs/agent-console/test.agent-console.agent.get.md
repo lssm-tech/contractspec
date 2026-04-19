@@ -16,6 +16,8 @@ Test for getting agent
 ## Source Definition
 
 ```typescript
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
+
 export const agentGetTest = defineTestSpec({
 	meta: {
 		key: 'test.agent-console.agent.get',

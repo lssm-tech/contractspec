@@ -16,6 +16,8 @@ Verifies adding widget to dashboard
 ## Source Definition
 
 ```typescript
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
+
 export const AddWidgetTest = defineTestSpec({
 	meta: {
 		key: 'analytics.widget.add.test',

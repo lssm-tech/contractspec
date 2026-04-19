@@ -23,6 +23,16 @@ Real-time operations monitor.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import {
+	FieldMappingModel,
+	SyncConfigModel,
+	SyncRunModel,
+} from './sync.schema';
+
 export const SyncActivityPresentation = definePresentation({
 	meta: {
 		key: 'integration.sync.activity',

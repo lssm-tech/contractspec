@@ -16,6 +16,8 @@ Test for listing products
 ## Source Definition
 
 ```typescript
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
+
 export const ProductListTest = defineTestSpec({
 	meta: {
 		key: 'marketplace.product.list.test',

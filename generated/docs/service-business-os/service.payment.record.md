@@ -24,6 +24,9 @@ Billing.
 ## Source Definition
 
 ```typescript
+import { defineCommand } from '@contractspec/lib.contracts-spec';
+import { PaymentModel, RecordPaymentInputModel } from './payment.schema';
+
 export const RecordPaymentContract = defineCommand({
 	meta: {
 		key: 'service.payment.record',

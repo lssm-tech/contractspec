@@ -14,6 +14,13 @@ Requires explicit locale, jurisdiction, knowledge snapshot, and allowed scope be
 ## Source Definition
 
 ```typescript
+import {
+	OwnersEnum,
+	StabilityEnum,
+	TagsEnum,
+} from '@contractspec/lib.contracts-spec/ownership';
+import { definePolicy } from '@contractspec/lib.contracts-spec/policy';
+
 export const AssistantGatePolicy = definePolicy({
 	meta: {
 		key: 'locale-jurisdiction-gate.policy.gate',

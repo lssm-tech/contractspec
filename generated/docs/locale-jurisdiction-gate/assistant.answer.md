@@ -24,6 +24,13 @@ Called by UI or workflows; must fail-closed if envelope is invalid or citations 
 ## Source Definition
 
 ```typescript
+import { defineCommand } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import {
+	AssistantAnswerIRModel,
+	LLMCallEnvelopeModel,
+} from '../entities/models';
+
 export const AssistantAnswerContract = defineCommand({
 	meta: {
 		key: 'assistant.answer',

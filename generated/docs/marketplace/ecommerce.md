@@ -15,6 +15,11 @@ E-commerce operations and product catalog
 ## Source Definition
 
 ```typescript
+import {
+	defineCapability,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const EcommerceCapability = defineCapability({
 	meta: {
 		key: 'ecommerce',

@@ -13,6 +13,9 @@ A net worth snapshot was generated.
 ## Source Definition
 
 ```typescript
+import { defineEvent, StabilityEnum } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const NetWorthSnapshotCreatedEvent = defineEvent({
 	meta: {
 		key: 'wealth.networth.snapshot_created',

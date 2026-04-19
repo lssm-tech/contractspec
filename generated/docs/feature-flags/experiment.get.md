@@ -24,6 +24,9 @@ Called to inspect experiment status.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const GetExperimentContract = defineQuery({
 	meta: {
 		key: 'experiment.get',

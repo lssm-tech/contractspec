@@ -16,6 +16,9 @@ An AI tool configuration was updated.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const ToolUpdatedEvent = defineEvent({
 	meta: {
 		key: 'agent.tool.updated',

@@ -24,6 +24,9 @@ Called when setting up targeting.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const CreateRuleContract = defineCommand({
 	meta: {
 		key: 'flag.rule.create',

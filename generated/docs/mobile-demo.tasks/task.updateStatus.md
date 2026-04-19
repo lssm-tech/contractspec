@@ -24,6 +24,12 @@ Used by TaskListScreen checkbox.
 ## Source Definition
 
 ```typescript
+import {
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+
 export const TaskUpdateStatusCommand = defineCommand({
 	meta: {
 		key: 'task.updateStatus',

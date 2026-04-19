@@ -28,6 +28,9 @@ Self-service profile updates.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+
 export const UpdateUserContract = defineCommand({
 	meta: {
 		key: 'identity.user.update',

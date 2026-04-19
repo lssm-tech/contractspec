@@ -14,6 +14,17 @@ Emitted when a context snapshot is created.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { docRef } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { defineEvent } from '../../events';
+import {
+	CONTEXT_DOMAIN,
+	CONTEXT_OWNERS,
+	CONTEXT_STABILITY,
+	CONTEXT_TAGS,
+} from '../constants';
+
 export const ContextSnapshotCreatedEvent = defineEvent({
 	meta: {
 		key: 'context.snapshot.created',

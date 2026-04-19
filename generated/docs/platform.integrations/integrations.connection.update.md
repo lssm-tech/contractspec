@@ -24,6 +24,14 @@ Supports rotating API keys, toggling status, or updating labels for tenant integ
 ## Source Definition
 
 ```typescript
+import {
+	type AnyOperationSpec,
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import type { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations/registry';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+
 export const UpdateIntegrationConnection = defineCommand({
 	meta: {
 		key: 'integrations.connection.update',

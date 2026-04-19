@@ -23,6 +23,12 @@ Accessed from the order list to see specific items, shipping, and payment detail
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { OrderModel } from './order.schema';
+
 export const OrderDetailPresentation = definePresentation({
 	meta: {
 		key: 'marketplace.order.detail',

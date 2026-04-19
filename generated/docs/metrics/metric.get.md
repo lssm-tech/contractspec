@@ -24,6 +24,9 @@ Called to inspect metric details.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const GetMetricContract = defineQuery({
 	meta: {
 		key: 'metric.get',

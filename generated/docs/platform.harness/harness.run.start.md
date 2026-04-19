@@ -22,6 +22,17 @@ Used by agents, QA flows, and evaluation runners.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { defineCommand } from '../../operations';
+import {
+	HARNESS_DOMAIN,
+	HARNESS_OWNERS,
+	HARNESS_STABILITY,
+	HARNESS_TAGS,
+} from '../constants';
+import { HarnessRunStartedEvent } from '../events/harnessRunStarted.event';
+import { HarnessRunModel } from '../models';
+
 export const HarnessRunStartCommand = defineCommand({
 	meta: {
 		key: 'harness.run.start',

@@ -22,6 +22,15 @@ Used when operators or agents abort a harness session.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { defineCommand } from '../../operations';
+import {
+	HARNESS_DOMAIN,
+	HARNESS_OWNERS,
+	HARNESS_STABILITY,
+	HARNESS_TAGS,
+} from '../constants';
+
 export const HarnessRunCancelCommand = defineCommand({
 	meta: {
 		key: 'harness.run.cancel',

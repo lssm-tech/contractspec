@@ -24,6 +24,9 @@ Billing.
 ## Source Definition
 
 ```typescript
+import { defineCommand } from '@contractspec/lib.contracts-spec';
+import { InvoiceModel, IssueInvoiceInputModel } from './invoice.schema';
+
 export const IssueInvoiceContract = defineCommand({
 	meta: {
 		key: 'service.invoice.issue',

@@ -15,6 +15,11 @@ Team rituals like standups and retrospectives
 ## Source Definition
 
 ```typescript
+import {
+	defineCapability,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const RitualsCapability = defineCapability({
 	meta: {
 		key: 'rituals',

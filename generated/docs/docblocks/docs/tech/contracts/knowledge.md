@@ -45,7 +45,9 @@ Implemented in `@contractspec/lib.knowledge/ingestion`:
 2. **EmbeddingService** – batches fragments through an `EmbeddingProvider`
    (Mistral in the reference implementation).
 3. **VectorIndexer** – upserts fragments into a `VectorStoreProvider`
-   (Qdrant in production, with in-memory implementations for tests).
+   (Qdrant in production, with in-memory implementations for tests) and
+   persists canonical `payload.text` content alongside fragment metadata
+   so retrieval and query flows can reuse indexed text directly.
 4. **Adapters**
    - `GmailIngestionAdapter`: list threads → convert to raw documents →
      index.
@@ -64,7 +66,9 @@ Cloud Tasks / Pub/Sub or in-memory workers. Handlers:
 
 1. Embed the user query using the configured provider.
 2. Search the vector store for top-k matches.
-3. Compose prompts combining system instructions + contextual snippets.
+3. Compose prompts combining system instructions + indexed contextual
+   snippets from `payload.text` (falling back to legacy `payload.content`
+   when needed).
 4. Invoke the LLM provider (Mistral) and return the answer plus
    references and token usage.
 

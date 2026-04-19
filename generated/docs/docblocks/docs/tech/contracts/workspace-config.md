@@ -64,6 +64,55 @@ export interface ContractsrcConfig {
     };
     canonPacks?: Array<{ ref: string; readOnly?: boolean }>;
     studio?: { enabled?: boolean; mode?: 'off' | 'review-bridge'; endpoint?: string; queue?: string };
+    adoption?: {
+      enabled?: boolean;
+      catalog?: {
+        indexPath?: string;
+        overrideManifestPath?: string;
+      };
+      workspaceScan?: {
+        include?: string[];
+        exclude?: string[];
+      };
+      families?: {
+        ui?: boolean;
+        contracts?: boolean;
+        integrations?: boolean;
+        runtime?: boolean;
+        sharedLibs?: boolean;
+        solutions?: boolean;
+      };
+      thresholds?: {
+        workspaceReuse?: 'permit' | 'rewrite' | 'require_review' | 'deny';
+        contractspecReuse?: 'permit' | 'rewrite' | 'require_review' | 'deny';
+        ambiguous?: 'permit' | 'rewrite' | 'require_review' | 'deny';
+        newExternalDependency?: 'permit' | 'rewrite' | 'require_review' | 'deny';
+        newImplementation?: 'permit' | 'rewrite' | 'require_review' | 'deny';
+      };
+    };
+  };
+}
+```
+
+### Builder
+
+The `builder` section configures preset-driven Builder onboarding without requiring live bootstrap during setup.
+
+```ts
+export interface ContractsrcConfig {
+  builder?: {
+    enabled?: boolean;
+    runtimeMode?: 'managed' | 'local' | 'hybrid';
+    bootstrapPreset?: 'managed_mvp' | 'local_daemon_mvp' | 'hybrid_mvp';
+    api?: {
+      baseUrl?: string;
+      controlPlaneTokenEnvVar?: string;
+    };
+    localRuntime?: {
+      runtimeId?: string;
+      grantedTo?: string;
+      providerIds?: string[];
+    };
   };
 }
 ```

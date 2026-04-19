@@ -22,6 +22,17 @@ Used by Studio and agent surfaces to find relevant context packs and snapshot en
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { docRef } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { defineQuery } from '../../operations';
+import {
+	CONTEXT_DOMAIN,
+	CONTEXT_OWNERS,
+	CONTEXT_STABILITY,
+	CONTEXT_TAGS,
+} from '../constants';
+
 export const ContextPackSearchQuery = defineQuery({
 	meta: {
 		key: 'context.pack.search',

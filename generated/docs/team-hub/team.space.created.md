@@ -16,6 +16,9 @@ A space was created.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const SpaceCreatedEvent = defineEvent({
 	meta: {
 		key: 'team.space.created',

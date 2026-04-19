@@ -14,6 +14,15 @@ Background agent execution, approvals, and artifacts.
 ## Source Definition
 
 ```typescript
+import { defineCapability } from '../../capabilities';
+import { docId } from '../../docs/registry';
+import {
+	AGENT_DOMAIN,
+	AGENT_OWNERS,
+	AGENT_STABILITY,
+	AGENT_TAGS,
+} from '../constants';
+
 export const AgentExecutionCapability = defineCapability({
 	meta: {
 		key: 'agent.execution',

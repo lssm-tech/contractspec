@@ -24,6 +24,9 @@ Admin dashboard user management.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+
 export const ListUsersContract = defineQuery({
 	meta: {
 		key: 'identity.user.list',

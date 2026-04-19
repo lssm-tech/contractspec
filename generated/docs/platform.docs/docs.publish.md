@@ -22,6 +22,18 @@ Used by release pipelines to push generated docs to hosting targets.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { defineCommand } from '../../operations';
+import {
+	DOCS_DOMAIN,
+	DOCS_OWNERS,
+	DOCS_STABILITY,
+	DOCS_TAGS,
+} from '../constants';
+import { DocsPublishedEvent } from '../events/docsPublished.event';
+import { docId } from '../registry';
+import type { DocBlock } from '../types';
+
 export const DocsPublishCommand = defineCommand({
 	meta: {
 		key: 'docs.publish',

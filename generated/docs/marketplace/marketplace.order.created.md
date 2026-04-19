@@ -16,6 +16,9 @@ A new order has been created.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const OrderCreatedEvent = defineEvent({
 	meta: {
 		key: 'marketplace.order.created',

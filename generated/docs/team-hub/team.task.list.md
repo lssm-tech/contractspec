@@ -24,6 +24,14 @@ Task management
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import {
+	CreateTaskInputModel,
+	TaskModel,
+	UpdateTaskStatusInputModel,
+} from './task.schema';
+
 export const ListTasksOperation = defineQuery({
 	meta: {
 		key: 'team.task.list',

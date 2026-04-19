@@ -16,6 +16,9 @@ A payout has been sent.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const PayoutPaidEvent = defineEvent({
 	meta: {
 		key: 'marketplace.payout.paid',

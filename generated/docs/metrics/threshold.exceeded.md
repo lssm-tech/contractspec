@@ -16,6 +16,9 @@ Usage has exceeded a threshold.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const ThresholdExceededEvent = defineEvent({
 	meta: {
 		key: 'threshold.exceeded',

@@ -16,6 +16,10 @@ New conversation created
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import { ChatConversationModel, ChatMessageModel } from './schema';
+
 export const ConversationCreatedEvent = defineEvent({
 	meta: {
 		key: 'ai-chat.conversation.created',

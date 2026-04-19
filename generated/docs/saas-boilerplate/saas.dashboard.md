@@ -23,6 +23,11 @@ Main dashboard
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const SaasDashboardPresentation = definePresentation({
 	meta: {
 		key: 'saas.dashboard',

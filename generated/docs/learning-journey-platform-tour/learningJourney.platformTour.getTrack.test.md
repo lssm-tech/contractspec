@@ -16,6 +16,8 @@ Test for getting platform tour track
 ## Source Definition
 
 ```typescript
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
+
 export const GetTrackTest = defineTestSpec({
 	meta: {
 		key: 'learningJourney.platformTour.getTrack.test',

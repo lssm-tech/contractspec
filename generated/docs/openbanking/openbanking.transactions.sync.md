@@ -24,6 +24,16 @@ Triggered by scheduled workflows or on-demand actions when activity is expected 
 ## Source Definition
 
 ```typescript
+import {
+	type AnyOperationSpec,
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import type { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations/registry';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { BankTransactionRecord } from '../models';
+import { OPENBANKING_TELEMETRY_EVENTS } from '../telemetry';
+
 export const OpenBankingSyncTransactions = defineCommand({
 	meta: {
 		key: 'openbanking.transactions.sync',

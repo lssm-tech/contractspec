@@ -15,6 +15,9 @@ Knowledge base and content management capability
 ## Source Definition
 
 ```typescript
+import { defineCapability } from '../capabilities';
+import { StabilityEnum } from '../ownership';
+
 export const KnowledgeCapability = defineCapability({
 	meta: {
 		key: 'knowledge',

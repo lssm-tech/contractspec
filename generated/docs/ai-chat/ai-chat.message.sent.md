@@ -16,6 +16,10 @@ Message sent by user
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import { ChatConversationModel, ChatMessageModel } from './schema';
+
 export const MessageSentEvent = defineEvent({
 	meta: {
 		key: 'ai-chat.message.sent',

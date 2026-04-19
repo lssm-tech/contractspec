@@ -16,6 +16,9 @@ A file has been deleted.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const FileDeletedEvent = defineEvent({
 	meta: {
 		key: 'file.deleted',

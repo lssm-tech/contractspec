@@ -15,6 +15,11 @@ State machine orchestration and transitions
 ## Source Definition
 
 ```typescript
+import {
+	defineCapability,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const StateMachineCapability = defineCapability({
 	meta: {
 		key: 'state-machine',

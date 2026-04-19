@@ -16,6 +16,8 @@ Test for listing workflow instances
 ## Source Definition
 
 ```typescript
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
+
 export const InstanceListTest = defineTestSpec({
 	meta: {
 		key: 'workflow.instance.list.test',

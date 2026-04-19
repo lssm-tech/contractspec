@@ -22,6 +22,15 @@ Used by approval workflows to stop execution when policy or operator criteria fa
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { defineCommand } from '../../operations';
+import {
+	CONTROL_PLANE_DOMAIN,
+	CONTROL_PLANE_OWNERS,
+	CONTROL_PLANE_STABILITY,
+	CONTROL_PLANE_TAGS,
+} from '../constants';
+
 export const ControlPlaneExecutionRejectCommand = defineCommand({
 	meta: {
 		key: 'controlPlane.execution.reject',

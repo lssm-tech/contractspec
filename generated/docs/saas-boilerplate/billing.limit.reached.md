@@ -16,6 +16,9 @@ Usage limit has been reached for a feature.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const UsageLimitReachedEvent = defineEvent({
 	meta: {
 		key: 'billing.limit.reached',

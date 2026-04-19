@@ -24,6 +24,9 @@ Called on app load and after profile updates.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+
 export const GetCurrentUserContract = defineQuery({
 	meta: {
 		key: 'identity.user.me',

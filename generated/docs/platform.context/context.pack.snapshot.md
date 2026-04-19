@@ -22,6 +22,18 @@ Used when launching background agents or when operators want to lock context sta
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { docRef } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { defineCommand } from '../../operations';
+import {
+	CONTEXT_DOMAIN,
+	CONTEXT_OWNERS,
+	CONTEXT_STABILITY,
+	CONTEXT_TAGS,
+} from '../constants';
+import { ContextSnapshotCreatedEvent } from '../events/contextSnapshotCreated.event';
+
 export const ContextPackSnapshotCommand = defineCommand({
 	meta: {
 		key: 'context.pack.snapshot',

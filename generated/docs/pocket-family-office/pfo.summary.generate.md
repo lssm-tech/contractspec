@@ -22,6 +22,24 @@ Uses RAG over ingested knowledge. Summaries can be dispatched or viewed in app.
 ## Source Definition
 
 ```typescript
+import { OPENBANKING_TELEMETRY_EVENTS } from '@contractspec/lib.contracts-integrations';
+import {
+	defineCommand,
+	defineQuery,
+	type OperationSpec,
+} from '@contractspec/lib.contracts-spec';
+import {
+	OwnersEnum,
+	StabilityEnum,
+	TagsEnum,
+} from '@contractspec/lib.contracts-spec/ownership';
+import {
+	defineEnum,
+	defineSchemaModel,
+	ScalarTypeEnum,
+	type ZodSchemaModel,
+} from '@contractspec/lib.schema';
+
 export const generateFinancialSummaryContract = defineQuery({
 	meta: {
 		key: 'pfo.summary.generate',

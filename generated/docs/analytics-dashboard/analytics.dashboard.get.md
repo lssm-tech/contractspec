@@ -24,6 +24,20 @@ Dashboard view.
 ## Source Definition
 
 ```typescript
+import {
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import {
+	AddWidgetInputModel,
+	CreateDashboardInputModel,
+	DashboardModel,
+	GetDashboardInputModel,
+	ListDashboardsInputModel,
+	ListDashboardsOutputModel,
+	WidgetModel,
+} from './dashboard.schema';
+
 export const GetDashboardContract = defineQuery({
 	meta: {
 		key: 'analytics.dashboard.get',

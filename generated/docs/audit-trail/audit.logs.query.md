@@ -24,6 +24,13 @@ Admin dashboard, compliance reporting, debugging.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import {
+	defineEnum,
+	defineSchemaModel,
+	ScalarTypeEnum,
+} from '@contractspec/lib.schema';
+
 export const QueryAuditLogsContract = defineQuery({
 	meta: {
 		key: 'audit.logs.query',

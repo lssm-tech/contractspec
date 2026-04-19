@@ -23,6 +23,16 @@ Schema mapping tool for data consistency.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import {
+	FieldMappingModel,
+	SyncConfigModel,
+	SyncRunModel,
+} from './sync.schema';
+
 export const FieldMappingEditorPresentation = definePresentation({
 	meta: {
 		key: 'integration.fieldMapping.editor',

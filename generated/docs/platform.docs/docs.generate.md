@@ -22,6 +22,18 @@ Used by CLI and CI to keep docs in sync with contract definitions.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { defineCommand } from '../../operations';
+import {
+	DOCS_DOMAIN,
+	DOCS_OWNERS,
+	DOCS_STABILITY,
+	DOCS_TAGS,
+} from '../constants';
+import { DocsGeneratedEvent } from '../events/docsGenerated.event';
+import { docId } from '../registry';
+import type { DocBlock } from '../types';
+
 export const DocsGenerateCommand = defineCommand({
 	meta: {
 		key: 'docs.generate',

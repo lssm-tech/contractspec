@@ -22,6 +22,21 @@ Used by the control plane or marketplace workflows when enabling new skills.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { defineCommand } from '../../operations';
+import {
+	CONTROL_PLANE_DOMAIN,
+	CONTROL_PLANE_OWNERS,
+	CONTROL_PLANE_STABILITY,
+	CONTROL_PLANE_TAGS,
+} from '../constants';
+import { ControlPlaneSkillInstalledEvent } from '../events/controlPlaneSkillInstalled.event';
+import { ControlPlaneSkillRejectedEvent } from '../events/controlPlaneSkillRejected.event';
+import {
+	ControlPlaneSkillManifestModel,
+	ControlPlaneSkillVerificationIssueModel,
+} from '../skills/schema';
+
 export const ControlPlaneSkillInstallCommand = defineCommand({
 	meta: {
 		key: 'controlPlane.skill.install',

@@ -16,6 +16,9 @@ Fired when a sync run completes successfully
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const SyncCompletedEvent = defineEvent({
 	meta: {
 		key: 'integration.sync.completed',

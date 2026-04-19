@@ -23,6 +23,12 @@ The library of reusable data definitions.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { QueryModel } from './query.schema';
+
 export const QueriesListPresentation = definePresentation({
 	meta: {
 		key: 'analytics.query.list',

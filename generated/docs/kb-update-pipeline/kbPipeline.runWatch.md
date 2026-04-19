@@ -24,6 +24,14 @@ Scheduled job or manual trigger in demos.
 ## Source Definition
 
 ```typescript
+import { defineCommand } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import {
+	ChangeCandidateModel,
+	ReviewDecisionEnum,
+	ReviewTaskModel,
+} from '../entities/models';
+
 export const KbPipelineRunWatchContract = defineCommand({
 	meta: {
 		key: 'kbPipeline.runWatch',

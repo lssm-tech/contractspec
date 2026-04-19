@@ -28,6 +28,17 @@ Product management.
 ## Source Definition
 
 ```typescript
+import {
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import {
+	CreateProductInputModel,
+	ListProductsInputModel,
+	ListProductsOutputModel,
+	ProductModel,
+} from './product.schema';
+
 export const CreateProductContract = defineCommand({
 	meta: {
 		key: 'marketplace.product.create',

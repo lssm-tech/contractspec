@@ -16,6 +16,13 @@ A tool was invoked during an agent run.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import {
+	defineEnum,
+	defineSchemaModel,
+	ScalarTypeEnum,
+} from '@contractspec/lib.schema';
+
 export const ToolInvokedEvent = defineEvent({
 	meta: {
 		key: 'agent.run.toolInvoked',

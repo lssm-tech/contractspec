@@ -23,6 +23,11 @@ Dashboard
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const WealthDashboardPresentation = definePresentation({
 	meta: {
 		key: 'wealth-snapshot.dashboard',

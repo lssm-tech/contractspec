@@ -24,6 +24,9 @@ Called when user wants to download a file.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const GetDownloadUrlContract = defineQuery({
 	meta: {
 		key: 'file.downloadUrl',

@@ -24,6 +24,9 @@ Called when concluding an A/B test.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const StopExperimentContract = defineCommand({
 	meta: {
 		key: 'experiment.stop',

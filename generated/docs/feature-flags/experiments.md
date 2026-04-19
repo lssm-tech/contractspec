@@ -15,6 +15,11 @@ A/B testing and experimentation platform
 ## Source Definition
 
 ```typescript
+import {
+	defineCapability,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const ExperimentsCapability = defineCapability({
 	meta: {
 		key: 'experiments',

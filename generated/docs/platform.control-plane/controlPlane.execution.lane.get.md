@@ -22,6 +22,16 @@ Used by dashboards, APIs, and CLI surfaces to inspect one lane run.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { defineQuery } from '../../operations';
+import {
+	CONTROL_PLANE_DOMAIN,
+	CONTROL_PLANE_OWNERS,
+	CONTROL_PLANE_STABILITY,
+	CONTROL_PLANE_TAGS,
+} from '../constants';
+import { ControlPlaneExecutionLaneDetailModel } from './controlPlaneExecutionLane.models';
+
 export const ControlPlaneExecutionLaneGetQuery = defineQuery({
 	meta: {
 		key: 'controlPlane.execution.lane.get',

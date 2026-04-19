@@ -22,6 +22,16 @@ Used by evaluation dashboards and automation.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { defineQuery } from '../../operations';
+import {
+	HARNESS_DOMAIN,
+	HARNESS_OWNERS,
+	HARNESS_STABILITY,
+	HARNESS_TAGS,
+} from '../constants';
+import { HarnessEvaluationModel } from '../models';
+
 export const HarnessEvaluationGetQuery = defineQuery({
 	meta: {
 		key: 'harness.evaluation.get',

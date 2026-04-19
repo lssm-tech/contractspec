@@ -23,6 +23,11 @@ Task modal or page.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const TaskDetailPresentation = definePresentation({
 	meta: {
 		key: 'team-hub.task.detail',

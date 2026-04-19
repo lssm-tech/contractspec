@@ -15,6 +15,11 @@ Third-party integration connections
 ## Source Definition
 
 ```typescript
+import {
+	defineCapability,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const IntegrationCapability = defineCapability({
 	meta: {
 		key: 'integration',

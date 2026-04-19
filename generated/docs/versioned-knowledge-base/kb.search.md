@@ -24,6 +24,15 @@ Assistant queries curated rules from a specific snapshot.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import {
+	KBSnapshotModel,
+	RuleVersionModel,
+	SourceDocumentModel,
+	SourceRefModel,
+} from '../entities/models';
+
 export const KbSearchContract = defineQuery({
 	meta: {
 		key: 'kb.search',

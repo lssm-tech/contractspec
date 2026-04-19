@@ -23,6 +23,11 @@ Project management view.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const TaskBoardPresentation = definePresentation({
 	meta: {
 		key: 'team-hub.task.board',

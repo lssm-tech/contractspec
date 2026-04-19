@@ -24,6 +24,9 @@ Called to inspect flag details.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const GetFlagContract = defineQuery({
 	meta: {
 		key: 'flag.get',

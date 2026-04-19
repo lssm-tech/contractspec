@@ -24,6 +24,9 @@ Called at runtime to check feature availability.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const EvaluateFlagContract = defineQuery({
 	meta: {
 		key: 'flag.evaluate',

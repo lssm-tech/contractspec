@@ -23,6 +23,12 @@ Operations dashboard for integration hub health.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { IntegrationModel } from './integration.schema';
+
 export const IntegrationHealthPresentation = definePresentation({
 	meta: {
 		key: 'integration.health',

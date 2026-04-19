@@ -15,6 +15,9 @@ A job has been cancelled.
 ## Source Definition
 
 ```typescript
+import { defineEvent, StabilityEnum } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const JobCancelledEvent = defineEvent({
 	meta: {
 		key: 'job.cancelled',

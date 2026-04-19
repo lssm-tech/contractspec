@@ -24,6 +24,9 @@ Called for large file uploads.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const CreatePresignedUrlContract = defineCommand({
 	meta: {
 		key: 'file.presignedUrl.create',

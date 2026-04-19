@@ -23,6 +23,12 @@ Management tool for store owners.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { ProductModel } from './product.schema';
+
 export const ProductEditorPresentation = definePresentation({
 	meta: {
 		key: 'marketplace.product.editor',

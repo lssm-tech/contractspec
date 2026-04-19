@@ -16,6 +16,9 @@ A usage threshold has been created.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const ThresholdCreatedEvent = defineEvent({
 	meta: {
 		key: 'threshold.created',

@@ -24,6 +24,12 @@ Communication.
 ## Source Definition
 
 ```typescript
+import { defineCommand } from '@contractspec/lib.contracts-spec';
+import {
+	AnnouncementModel,
+	PostAnnouncementInputModel,
+} from './announcement.schema';
+
 export const PostAnnouncementContract = defineCommand({
 	meta: {
 		key: 'team.announcement.post',

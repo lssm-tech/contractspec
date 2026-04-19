@@ -15,6 +15,11 @@ Feature flag management and evaluation
 ## Source Definition
 
 ```typescript
+import {
+	defineCapability,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const FeatureFlagsCapability = defineCapability({
 	meta: {
 		key: 'feature-flag',

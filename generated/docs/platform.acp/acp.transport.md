@@ -14,6 +14,11 @@ Agent Client Protocol transport surfaces.
 ## Source Definition
 
 ```typescript
+import { defineCapability } from '../../capabilities';
+import { docRef } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import { ACP_DOMAIN, ACP_OWNERS, ACP_STABILITY, ACP_TAGS } from '../constants';
+
 export const AcpTransportCapability = defineCapability({
 	meta: {
 		key: 'acp.transport',

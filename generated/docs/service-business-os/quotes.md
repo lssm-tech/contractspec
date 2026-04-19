@@ -15,6 +15,11 @@ Quote generation and management for service businesses
 ## Source Definition
 
 ```typescript
+import {
+	defineCapability,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const QuotesCapability = defineCapability({
 	meta: {
 		key: 'quotes',

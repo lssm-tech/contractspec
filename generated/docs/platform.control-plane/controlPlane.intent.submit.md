@@ -22,6 +22,16 @@ Used by channels and UIs to register user intent before planning and execution.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { defineCommand } from '../../operations';
+import {
+	CONTROL_PLANE_DOMAIN,
+	CONTROL_PLANE_OWNERS,
+	CONTROL_PLANE_STABILITY,
+	CONTROL_PLANE_TAGS,
+} from '../constants';
+import { ControlPlaneIntentReceivedEvent } from '../events/controlPlaneIntentReceived.event';
+
 export const ControlPlaneIntentSubmitCommand = defineCommand({
 	meta: {
 		key: 'controlPlane.intent.submit',

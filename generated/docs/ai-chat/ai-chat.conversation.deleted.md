@@ -16,6 +16,10 @@ Conversation deleted
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import { ChatConversationModel, ChatMessageModel } from './schema';
+
 export const ConversationDeletedEvent = defineEvent({
 	meta: {
 		key: 'ai-chat.conversation.deleted',

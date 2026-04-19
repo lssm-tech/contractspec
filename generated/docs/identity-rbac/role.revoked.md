@@ -16,6 +16,9 @@ A role has been revoked.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+
 export const RoleRevokedEvent = defineEvent({
 	meta: {
 		key: 'role.revoked',

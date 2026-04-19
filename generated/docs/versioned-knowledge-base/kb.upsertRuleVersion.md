@@ -24,6 +24,15 @@ Automation or curators propose draft rule versions.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import {
+	KBSnapshotModel,
+	RuleVersionModel,
+	SourceDocumentModel,
+	SourceRefModel,
+} from '../entities/models';
+
 export const KbUpsertRuleVersionContract = defineCommand({
 	meta: {
 		key: 'kb.upsertRuleVersion',

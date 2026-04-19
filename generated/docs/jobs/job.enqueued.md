@@ -15,6 +15,9 @@ A job has been added to the queue.
 ## Source Definition
 
 ```typescript
+import { defineEvent, StabilityEnum } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const JobEnqueuedEvent = defineEvent({
 	meta: {
 		key: 'job.enqueued',

@@ -16,6 +16,8 @@ Test for creating sync config
 ## Source Definition
 
 ```typescript
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
+
 export const SyncConfigCreateTest = defineTestSpec({
 	meta: {
 		key: 'integration.syncConfig.create.test',

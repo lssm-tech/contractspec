@@ -13,6 +13,12 @@ List of learning journeys available to the learner.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	type PresentationSpecMeta,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const LearningTrackListPresentation = definePresentation({
 	meta: {
 		key: 'learning.journey.track_list',

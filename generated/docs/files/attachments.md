@@ -15,6 +15,11 @@ File attachments for entities
 ## Source Definition
 
 ```typescript
+import {
+	defineCapability,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const AttachmentsCapability = defineCapability({
 	meta: {
 		key: 'attachments',

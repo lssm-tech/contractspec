@@ -15,6 +15,9 @@ A job has exhausted all retries and moved to dead letter queue.
 ## Source Definition
 
 ```typescript
+import { defineEvent, StabilityEnum } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const JobDeadLetteredEvent = defineEvent({
 	meta: {
 		key: 'job.dead_lettered',

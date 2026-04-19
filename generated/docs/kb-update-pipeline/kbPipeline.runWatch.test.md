@@ -16,6 +16,8 @@ Test for run watch operation
 ## Source Definition
 
 ```typescript
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
+
 export const RunWatchTest = defineTestSpec({
 	meta: {
 		key: 'kbPipeline.runWatch.test',

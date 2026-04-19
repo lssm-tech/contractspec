@@ -14,6 +14,14 @@ End-to-end docs generation, indexing, and presentation.
 ## Source Definition
 
 ```typescript
+import { defineCapability } from '../../capabilities';
+import {
+	DOCS_DOMAIN,
+	DOCS_OWNERS,
+	DOCS_STABILITY,
+	DOCS_TAGS,
+} from '../constants';
+
 export const DocumentationSystemCapability = defineCapability({
 	meta: {
 		key: 'docs.system',

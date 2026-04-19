@@ -24,6 +24,14 @@ Supports editing how a tenant ingests knowledge (e.g., toggling sync cadence).
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import {
+	type AnyOperationSpec,
+	defineCommand,
+	defineQuery,
+} from '../operations/';
+import type { OperationSpecRegistry } from '../operations/registry';
+
 export const UpdateKnowledgeSource = defineCommand({
 	meta: {
 		key: 'knowledge.source.update',

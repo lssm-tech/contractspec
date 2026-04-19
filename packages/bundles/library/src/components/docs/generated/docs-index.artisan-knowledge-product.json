@@ -1,18 +1,18 @@
 [
-	{
-		"id": "artisan.knowledge.product/artisan.knowledge.product",
-		"title": "artisan.knowledge.product",
-		"summary": "Blueprint that surfaces canonical product knowledge to agents and workflows.\n- **Type**: app-config (app-config)\n- **Version**: 1.0.0\n- **Tags**: knowledge, product-canon\n- **File**: `packages/examples/knowledge-canon/src/blueprint.ts`",
-		"route": "/docs/reference/artisan.knowledge.product/artisan.knowledge.product",
-		"source": "generated",
-		"contentPath": "artisan.knowledge.product/artisan.knowledge.product.md"
-	},
-	{
-		"id": "artisan.knowledge.product/knowledge-canon",
-		"title": "knowledge-canon",
-		"summary": "Curated product knowledge space with blueprint, tenant config, and FAQ workflow\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples\n- **Tags**: knowledge, canon, faq",
-		"route": "/docs/reference/artisan.knowledge.product/knowledge-canon",
-		"source": "generated",
-		"contentPath": "artisan.knowledge.product/knowledge-canon.md"
-	}
+  {
+    "id": "artisan.knowledge.product/artisan.knowledge.product",
+    "title": "artisan.knowledge.product",
+    "summary": "Blueprint that surfaces canonical product knowledge to agents and workflows.\n- **Type**: app-config (app-config)\n- **Version**: 1.0.0\n- **Tags**: knowledge, product-canon\n- **File**: `packages/examples/knowledge-canon/src/blueprint.ts`",
+    "route": "/docs/reference/artisan.knowledge.product/artisan.knowledge.product",
+    "source": "generated",
+    "contentPath": "artisan.knowledge.product/artisan.knowledge.product.md"
+  },
+  {
+    "id": "artisan.knowledge.product/knowledge-canon",
+    "title": "knowledge-canon",
+    "summary": "Curated product knowledge space with blueprint, tenant config, and FAQ workflow\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @examples\n- **Tags**: knowledge, canon, faq",
+    "route": "/docs/reference/artisan.knowledge.product/knowledge-canon",
+    "source": "generated",
+    "contentPath": "artisan.knowledge.product/knowledge-canon.md"
+  }
 ]

@@ -24,6 +24,9 @@ Workspace creation.
 ## Source Definition
 
 ```typescript
+import { defineCommand } from '@contractspec/lib.contracts-spec';
+import { CreateSpaceInputModel, SpaceModel } from './space.schema';
+
 export const CreateSpaceContract = defineCommand({
 	meta: {
 		key: 'team.space.create',

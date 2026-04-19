@@ -16,6 +16,9 @@ A payment was recorded.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const PaymentReceivedEvent = defineEvent({
 	meta: {
 		key: 'service.payment.received',

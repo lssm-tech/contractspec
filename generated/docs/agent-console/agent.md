@@ -15,6 +15,11 @@ AI agent management and console capability
 ## Source Definition
 
 ```typescript
+import {
+	defineCapability,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const AgentCapability = defineCapability({
 	meta: {
 		key: 'agent',

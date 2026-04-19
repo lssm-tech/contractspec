@@ -16,6 +16,9 @@ A user has left or been removed from an organization.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+
 export const OrgMemberRemovedEvent = defineEvent({
 	meta: {
 		key: 'org.member.removed',

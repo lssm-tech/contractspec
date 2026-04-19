@@ -24,6 +24,16 @@ Triggered by scheduled workflows before generating summaries or forecasting cash
 ## Source Definition
 
 ```typescript
+import {
+	type AnyOperationSpec,
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import type { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations/registry';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { AccountBalanceRecord } from '../models';
+import { OPENBANKING_TELEMETRY_EVENTS } from '../telemetry';
+
 export const OpenBankingRefreshBalances = defineCommand({
 	meta: {
 		key: 'openbanking.balances.refresh',

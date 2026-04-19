@@ -15,6 +15,10 @@ An achievement has been unlocked.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import { LEARNING_JOURNEY_OWNERS } from './contracts/shared';
+
 export const AchievementUnlockedEvent = defineEvent({
 	meta: {
 		key: 'achievement.unlocked',

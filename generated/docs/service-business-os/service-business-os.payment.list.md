@@ -23,6 +23,11 @@ Payment reconciliation
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const PaymentListPresentation = definePresentation({
 	meta: {
 		key: 'service-business-os.payment.list',

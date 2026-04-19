@@ -23,6 +23,12 @@ The final stage of the purchasing journey.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { OrderModel } from './order.schema';
+
 export const CheckoutPresentation = definePresentation({
 	meta: {
 		key: 'marketplace.checkout',

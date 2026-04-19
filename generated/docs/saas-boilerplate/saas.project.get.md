@@ -24,6 +24,22 @@ Project detail page, API calls.
 ## Source Definition
 
 ```typescript
+import {
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import {
+	CreateProjectInputModel,
+	DeleteProjectInputModel,
+	DeleteProjectOutputModel,
+	GetProjectInputModel,
+	ListProjectsInputModel,
+	ListProjectsOutputModel,
+	ProjectDeletedPayloadModel,
+	ProjectModel,
+	UpdateProjectInputModel,
+} from './project.schema';
+
 export const GetProjectContract = defineQuery({
 	meta: {
 		key: 'saas.project.get',

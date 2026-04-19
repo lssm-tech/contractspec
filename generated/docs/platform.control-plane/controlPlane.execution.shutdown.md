@@ -22,6 +22,15 @@ Used when a lane must be terminated rather than paused or retried.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { defineCommand } from '../../operations';
+import {
+	CONTROL_PLANE_DOMAIN,
+	CONTROL_PLANE_OWNERS,
+	CONTROL_PLANE_STABILITY,
+	CONTROL_PLANE_TAGS,
+} from '../constants';
+
 export const ControlPlaneExecutionShutdownCommand = defineCommand({
 	meta: {
 		key: 'controlPlane.execution.shutdown',

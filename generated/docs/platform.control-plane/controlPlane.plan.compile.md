@@ -22,6 +22,16 @@ Executed after intent submission to produce executable, traceable steps.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { defineCommand } from '../../operations';
+import {
+	CONTROL_PLANE_DOMAIN,
+	CONTROL_PLANE_OWNERS,
+	CONTROL_PLANE_STABILITY,
+	CONTROL_PLANE_TAGS,
+} from '../constants';
+import { ControlPlanePlanCompiledEvent } from '../events/controlPlanePlanCompiled.event';
+
 export const ControlPlanePlanCompileCommand = defineCommand({
 	meta: {
 		key: 'controlPlane.plan.compile',

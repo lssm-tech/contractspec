@@ -16,6 +16,9 @@ A new file version has been created.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const FileVersionCreatedEvent = defineEvent({
 	meta: {
 		key: 'file.version_created',

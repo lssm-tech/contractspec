@@ -14,6 +14,14 @@ Run scenario evaluations and inspect assertion outcomes.
 ## Source Definition
 
 ```typescript
+import { defineCapability } from '../../capabilities';
+import {
+	HARNESS_DOMAIN,
+	HARNESS_OWNERS,
+	HARNESS_STABILITY,
+	HARNESS_TAGS,
+} from '../constants';
+
 export const HarnessEvaluationCapability = defineCapability({
 	meta: {
 		key: 'harness.evaluation',

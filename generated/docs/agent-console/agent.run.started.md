@@ -16,6 +16,13 @@ An agent run was started.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import {
+	defineEnum,
+	defineSchemaModel,
+	ScalarTypeEnum,
+} from '@contractspec/lib.schema';
+
 export const RunStartedEvent = defineEvent({
 	meta: {
 		key: 'agent.run.started',

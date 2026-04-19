@@ -23,6 +23,12 @@ The primary workspace for store owners.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { StoreModel } from './store.schema';
+
 export const SellerDashboardPresentation = definePresentation({
 	meta: {
 		key: 'marketplace.seller.dashboard',

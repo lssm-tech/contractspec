@@ -16,6 +16,9 @@ A user profile has been updated.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+
 export const UserUpdatedEvent = defineEvent({
 	meta: {
 		key: 'user.updated',

@@ -24,6 +24,9 @@ CRM.
 ## Source Definition
 
 ```typescript
+import { defineCommand } from '@contractspec/lib.contracts-spec';
+import { ClientModel, CreateClientInputModel } from './client.schema';
+
 export const CreateClientContract = defineCommand({
 	meta: {
 		key: 'service.client.create',

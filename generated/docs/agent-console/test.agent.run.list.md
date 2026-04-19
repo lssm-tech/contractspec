@@ -16,6 +16,8 @@ Test for listing runs
 ## Source Definition
 
 ```typescript
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
+
 export const runListTest = defineTestSpec({
 	meta: {
 		key: 'test.agent.run.list',

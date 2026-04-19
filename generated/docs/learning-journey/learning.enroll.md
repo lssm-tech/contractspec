@@ -23,6 +23,20 @@ Called when a learner wants to start a course.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import {
+	CompleteLessonInput,
+	EnrollInCourseInput,
+	EnrollmentModel,
+	GetDueCardsInput,
+	GetDueCardsOutput,
+	GetLearnerDashboardInput,
+	LearnerDashboardModel,
+	SubmitCardReviewInput,
+	SuccessOutput,
+} from './models';
+import { LEARNING_JOURNEY_OWNERS } from './shared';
+
 export const EnrollInCourseContract = defineCommand({
 	meta: {
 		key: 'learning.enroll',

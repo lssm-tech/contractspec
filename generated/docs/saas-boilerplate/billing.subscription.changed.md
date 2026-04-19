@@ -16,6 +16,9 @@ Subscription status has changed.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const SubscriptionChangedEvent = defineEvent({
 	meta: {
 		key: 'billing.subscription.changed',

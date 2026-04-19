@@ -28,6 +28,10 @@ Called during onboarding or when creating additional workspaces.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { SuccessResultModel } from './user';
+
 export const CreateOrgContract = defineCommand({
 	meta: {
 		key: 'identity.org.create',

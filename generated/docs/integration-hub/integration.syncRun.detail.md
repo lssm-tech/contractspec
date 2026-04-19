@@ -23,6 +23,16 @@ Detailed troubleshooting view.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import {
+	FieldMappingModel,
+	SyncConfigModel,
+	SyncRunModel,
+} from './sync.schema';
+
 export const SyncRunDetailPresentation = definePresentation({
 	meta: {
 		key: 'integration.syncRun.detail',

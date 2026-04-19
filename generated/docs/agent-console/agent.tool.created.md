@@ -16,6 +16,9 @@ A new AI tool was created.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const ToolCreatedEvent = defineEvent({
 	meta: {
 		key: 'agent.tool.created',

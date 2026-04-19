@@ -16,6 +16,9 @@ A tool was removed from an agent.
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const AgentToolRemovedEvent = defineEvent({
 	meta: {
 		key: 'agent-console.agent.toolRemoved',

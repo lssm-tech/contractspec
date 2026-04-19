@@ -28,6 +28,9 @@ Called by any service that needs async processing.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const EnqueueJobContract = defineCommand({
 	meta: {
 		key: 'jobs.enqueue',

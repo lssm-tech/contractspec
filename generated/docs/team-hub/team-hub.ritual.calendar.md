@@ -23,6 +23,11 @@ Calendar view.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+
 export const RitualCalendarPresentation = definePresentation({
 	meta: {
 		key: 'team-hub.ritual.calendar',

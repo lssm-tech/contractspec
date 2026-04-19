@@ -24,6 +24,19 @@ Called from the tool settings UI.
 ## Source Definition
 
 ```typescript
+import {
+	defineCommand,
+	defineQuery,
+} from '@contractspec/lib.contracts-spec/operations';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import { ToolCategoryEnum, ToolStatusEnum } from './tool.enum';
+import {
+	CreateToolInputModel,
+	ToolModel,
+	ToolSummaryModel,
+	UpdateToolInputModel,
+} from './tool.schema';
+
 export const UpdateToolCommand = defineCommand({
 	meta: {
 		key: 'agent.tool.update',

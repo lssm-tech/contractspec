@@ -16,6 +16,8 @@ Verifies query creation flow
 ## Source Definition
 
 ```typescript
+import { defineTestSpec } from '@contractspec/lib.contracts-spec/tests';
+
 export const CreateQueryTest = defineTestSpec({
 	meta: {
 		key: 'analytics.query.create.test',

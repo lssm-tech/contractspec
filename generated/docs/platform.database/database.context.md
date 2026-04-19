@@ -14,6 +14,16 @@ Schema, migration, dictionary, and read-only query surfaces.
 ## Source Definition
 
 ```typescript
+import { defineCapability } from '../../capabilities';
+import { docRef } from '../../docs/registry';
+import type { DocBlock } from '../../docs/types';
+import {
+	DATABASE_DOMAIN,
+	DATABASE_OWNERS,
+	DATABASE_STABILITY,
+	DATABASE_TAGS,
+} from '../constants';
+
 export const DatabaseContextCapability = defineCapability({
 	meta: {
 		key: 'database.context',

@@ -14,6 +14,15 @@ Emitted when a new control plane intent is accepted.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { defineEvent } from '../../events';
+import {
+	CONTROL_PLANE_DOMAIN,
+	CONTROL_PLANE_OWNERS,
+	CONTROL_PLANE_STABILITY,
+	CONTROL_PLANE_TAGS,
+} from '../constants';
+
 export const ControlPlaneIntentReceivedEvent = defineEvent({
 	meta: {
 		key: 'controlPlane.intent.received',

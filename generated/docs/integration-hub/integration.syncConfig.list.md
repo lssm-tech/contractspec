@@ -23,6 +23,16 @@ Management view for data synchronization.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import {
+	FieldMappingModel,
+	SyncConfigModel,
+	SyncRunModel,
+} from './sync.schema';
+
 export const SyncConfigListPresentation = definePresentation({
 	meta: {
 		key: 'integration.syncConfig.list',

@@ -23,6 +23,12 @@ Detailed view of a tool.
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { ToolSummaryModel } from './tool.schema';
+
 export const ToolDetailPresentation = definePresentation({
 	meta: {
 		key: 'agent-console.tool.detail',

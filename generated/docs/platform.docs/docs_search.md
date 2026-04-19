@@ -22,6 +22,17 @@ Used by docs surfaces to list and filter DocBlocks without coupling to storage.
 ## Source Definition
 
 ```typescript
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+import { defineQuery } from '../../operations';
+import {
+	DOCS_DOMAIN,
+	DOCS_OWNERS,
+	DOCS_STABILITY,
+	DOCS_TAGS,
+} from '../constants';
+import { docId } from '../registry';
+import type { DocBlock } from '../types';
+
 export const DocsIndexQuery = defineQuery({
 	meta: {
 		key: 'docs_search',

@@ -16,6 +16,9 @@ An AI tool status was changed (activated, deprecated, disabled).
 ## Source Definition
 
 ```typescript
+import { defineEvent } from '@contractspec/lib.contracts-spec';
+import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+
 export const ToolStatusChangedEvent = defineEvent({
 	meta: {
 		key: 'agent.tool.statusChanged',

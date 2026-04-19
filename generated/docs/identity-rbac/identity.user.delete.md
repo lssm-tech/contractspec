@@ -28,6 +28,9 @@ Self-service account deletion. Cascades to memberships, sessions, etc.
 ## Source Definition
 
 ```typescript
+import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
+import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
+
 export const DeleteUserContract = defineCommand({
 	meta: {
 		key: 'identity.user.delete',

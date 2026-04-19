@@ -13,6 +13,13 @@ Compact widget for platform tour progress
 ## Source Definition
 
 ```typescript
+import {
+	definePresentation,
+	type PresentationSpecMeta,
+	StabilityEnum,
+} from '@contractspec/lib.contracts-spec';
+import { PlatformJourneyTrackModel } from '../operations';
+
 export const PlatformTourWidgetPresentation = definePresentation({
 	meta: {
 		key: 'learning.journey.platform.widget',
