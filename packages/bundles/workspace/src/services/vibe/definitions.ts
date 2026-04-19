@@ -98,9 +98,9 @@ export const builtinWorkflows: Workflow[] = [
 				manualMessage: 'Review version bump. Continue to publish?',
 			},
 			{
-				id: 'changelog',
-				label: 'Generate Changelog',
-				command: 'contractspec changelog',
+				id: 'release',
+				label: 'Prepare Release',
+				command: 'contractspec release prepare',
 			},
 			{
 				id: 'publish',

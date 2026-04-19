@@ -145,6 +145,30 @@ jobs:
             generated/releases/**/*
           retention-days: 90
 
+      - name: Get ContractSpec release version
+        if: steps.changesets.outputs.hasChangesets == 'false' && steps.npm-targets.outputs.count != '0'
+        id: contractspec-version
+        run: |
+          VERSION=$(jq -r .version package.json)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
+      - name: Create ContractSpec GitHub Release
+        if: steps.changesets.outputs.hasChangesets == 'false' && steps.npm-targets.outputs.count != '0'
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: contractspec-v${{ steps.contractspec-version.outputs.version }}
+          name: ContractSpec v${{ steps.contractspec-version.outputs.version }}
+          body_path: generated/releases/patch-notes.md
+          files: |
+            generated/releases/customer-guide.md
+            generated/releases/manifest.json
+            generated/releases/upgrade-manifest.json
+            generated/releases/prompts/*.md
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
       - name: Determine non-npm publish targets
         if: steps.changesets.outputs.hasChangesets == 'false'
         id: non-npm-targets

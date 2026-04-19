@@ -6,6 +6,7 @@ import type {
 import { ReleaseCapsuleSchema } from '@contractspec/lib.contracts-spec';
 import { dump, load } from 'js-yaml';
 import type { FsAdapter } from '../../ports/fs';
+import type { ReleaseCapsuleReadIssue } from './release-service.types';
 
 const CHANGESET_PATTERN = '.changeset/*.md';
 const RELEASE_CAPSULE_PATTERN = '.changeset/*.release.yaml';
@@ -23,6 +24,11 @@ export interface ParsedChangesetFile {
 	slug: string;
 	summary: string;
 	packages: ReleaseCapsulePackage[];
+}
+
+export interface ReadReleaseCapsulesResult {
+	capsules: Map<string, ReleaseCapsule>;
+	issues: ReleaseCapsuleReadIssue[];
 }
 
 export async function listChangesetFiles(
@@ -58,6 +64,23 @@ export async function readReleaseCapsules(
 	workspaceRoot: string,
 	changesets: ParsedChangesetFile[]
 ): Promise<Map<string, ReleaseCapsule>> {
+	const result = await readReleaseCapsulesDetailed(
+		fs,
+		workspaceRoot,
+		changesets
+	);
+	if (result.issues.length > 0) {
+		throw new Error(formatReleaseCapsuleReadIssues(result.issues));
+	}
+
+	return result.capsules;
+}
+
+export async function readReleaseCapsulesDetailed(
+	fs: FsAdapter,
+	workspaceRoot: string,
+	changesets: ParsedChangesetFile[]
+): Promise<ReadReleaseCapsulesResult> {
 	const files = await fs.glob({
 		pattern: RELEASE_CAPSULE_PATTERN,
 		cwd: workspaceRoot,
@@ -67,19 +90,24 @@ export async function readReleaseCapsules(
 		changesets.map((changeset) => [changeset.slug, changeset.packages])
 	);
 	const capsules = new Map<string, ReleaseCapsule>();
+	const issues: ReleaseCapsuleReadIssue[] = [];
 
 	for (const filePath of files) {
 		const slug = fs.basename(filePath).replace(/\.release\.yaml$/, '');
-		const parsed = load(await fs.readFile(filePath));
-		const capsule = normalizeCapsule(
-			parsed,
-			slug,
-			fallbackPackages.get(slug) ?? []
-		);
-		capsules.set(slug, capsule);
+		try {
+			const parsed = load(await fs.readFile(filePath));
+			const capsule = normalizeCapsule(
+				parsed,
+				slug,
+				fallbackPackages.get(slug) ?? []
+			);
+			capsules.set(slug, capsule);
+		} catch (error) {
+			issues.push(createReleaseCapsuleReadIssue(filePath, slug, error));
+		}
 	}
 
-	return capsules;
+	return { capsules, issues };
 }
 
 export async function discoverWorkspacePackages(
@@ -148,6 +176,23 @@ export function renderReleaseCapsuleYaml(capsule: ReleaseCapsule): string {
 	});
 }
 
+export function formatReleaseCapsuleReadIssues(
+	issues: ReleaseCapsuleReadIssue[]
+): string {
+	return issues
+		.map((issue) => {
+			const position =
+				issue.line && issue.column
+					? `:${issue.line}:${issue.column}`
+					: issue.line
+						? `:${issue.line}`
+						: '';
+			const suggestion = issue.suggestion ? ` ${issue.suggestion}` : '';
+			return `${issue.filePath}${position} ${issue.message}.${suggestion}`.trim();
+		})
+		.join('\n');
+}
+
 function parseChangesetContent(
 	fileName: string,
 	content: string
@@ -211,4 +256,46 @@ function normalizeCapsule(
 					? legacyPackageNames
 					: fallbackPackages,
 	});
+}
+
+function createReleaseCapsuleReadIssue(
+	filePath: string,
+	slug: string,
+	error: unknown
+): ReleaseCapsuleReadIssue {
+	const record =
+		typeof error === 'object' && error !== null
+			? (error as {
+					message?: string;
+					reason?: string;
+					issues?: Array<{ message?: string }>;
+					mark?: { line?: number; column?: number };
+				})
+			: null;
+	const zodIssues = Array.isArray(record?.issues)
+		? record.issues
+				.map((issue) => issue.message)
+				.filter((message): message is string => typeof message === 'string')
+		: [];
+	const message =
+		zodIssues.length > 0
+			? `Release capsule validation failed: ${zodIssues.join('; ')}`
+			: typeof record?.reason === 'string'
+				? `Release capsule YAML parse failed: ${record.reason}`
+				: `Release capsule parse failed: ${
+						error instanceof Error ? error.message : String(error)
+					}`;
+
+	return {
+		slug,
+		filePath,
+		message,
+		line:
+			typeof record?.mark?.line === 'number' ? record.mark.line + 1 : undefined,
+		column:
+			typeof record?.mark?.column === 'number'
+				? record.mark.column + 1
+				: undefined,
+		suggestion: `Re-run \`contractspec release edit ${slug}\` to rewrite the capsule safely.`,
+	};
 }

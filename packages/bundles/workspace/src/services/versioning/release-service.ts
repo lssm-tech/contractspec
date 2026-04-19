@@ -16,9 +16,10 @@ import type { LoggerAdapter } from '../../ports/logger';
 import { detectImpact } from '../impact';
 import {
 	discoverWorkspacePackages,
+	formatReleaseCapsuleReadIssues,
 	matchChangedFilesToPackages,
 	readChangesets,
-	readReleaseCapsules,
+	readReleaseCapsulesDetailed,
 	renderChangesetMarkdown,
 	renderReleaseCapsuleYaml,
 } from './release-files';
@@ -172,7 +173,15 @@ export async function buildReleaseArtifacts(
 		options.outputDir ?? DEFAULT_OUTPUT_DIR
 	);
 	const changesets = await readChangesets(fs, workspaceRoot);
-	const capsules = await readReleaseCapsules(fs, workspaceRoot, changesets);
+	const capsuleResult = await readReleaseCapsulesDetailed(
+		fs,
+		workspaceRoot,
+		changesets
+	);
+	if (capsuleResult.issues.length > 0) {
+		throw new Error(formatReleaseCapsuleReadIssues(capsuleResult.issues));
+	}
+	const capsules = capsuleResult.capsules;
 	const workspacePackages = await discoverWorkspacePackages(fs, workspaceRoot);
 
 	const releases = await Promise.all(
@@ -273,9 +282,20 @@ export async function checkReleaseArtifacts(
 	const warnings: string[] = [];
 	const errors: string[] = [];
 	const changesets = await readChangesets(fs, workspaceRoot);
-	const capsules = await readReleaseCapsules(fs, workspaceRoot, changesets);
+	const capsuleResult = await readReleaseCapsulesDetailed(
+		fs,
+		workspaceRoot,
+		changesets
+	);
+	const capsules = capsuleResult.capsules;
 	const hasPendingChangesets = changesets.length > 0;
 	const hasPostVersionCapsules = !hasPendingChangesets && capsules.size > 0;
+
+	errors.push(
+		...capsuleResult.issues.map((issue) =>
+			formatReleaseCapsuleReadIssues([issue])
+		)
+	);
 
 	recordCheck(
 		checks,

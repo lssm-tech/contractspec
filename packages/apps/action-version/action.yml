@@ -1,5 +1,5 @@
 name: 'ContractSpec Version Manager'
-description: 'Automated version bumping and changelog generation for ContractSpec workspaces'
+description: 'Automated ContractSpec version analysis and bumping for CI workflows'
 author: 'LSSM'
 
 inputs:
@@ -101,10 +101,8 @@ runs:
 
         if [ -n "$CLI_PATH" ]; then
           bun run $CLI_PATH version bump $ARGS
-          bun run $CLI_PATH changelog generate
         else
           bunx @lssm/app.cli-contractspec version bump $ARGS
-          bunx @lssm/app.cli-contractspec changelog generate
         fi
 
     - name: Create Pull Request

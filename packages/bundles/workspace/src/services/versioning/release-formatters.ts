@@ -16,6 +16,17 @@ function formatSteps(steps: string[]): string[] {
 	return steps.map((step) => `  - ${step}`);
 }
 
+function formatAudienceSummaries(
+	entry: GeneratedReleaseManifestEntry,
+	kinds: Array<'maintainer' | 'customer' | 'integrator'>
+): string[] {
+	return entry.audiences
+		.filter((audience) =>
+			kinds.includes(audience.kind as (typeof kinds)[number])
+		)
+		.map((audience) => `- ${capitalize(audience.kind)}: ${audience.summary}`);
+}
+
 export function renderMaintainerSummary(
 	entry: GeneratedReleaseManifestEntry
 ): string {
@@ -25,6 +36,7 @@ export function renderMaintainerSummary(
 		`- Date: ${entry.date}`,
 		`- Breaking: ${entry.isBreaking ? 'yes' : 'no'}`,
 		...formatPackages(entry),
+		...formatAudienceSummaries(entry, ['maintainer']),
 	];
 
 	if (entry.deprecations.length > 0) {
@@ -38,7 +50,16 @@ export function renderMaintainerSummary(
 export function renderCustomerPatchNote(
 	entry: GeneratedReleaseManifestEntry
 ): string {
-	const lines = [`### ${entry.summary}`, ...formatPackages(entry)];
+	const lines = [
+		`### ${entry.summary}`,
+		...formatPackages(entry),
+		...formatAudienceSummaries(entry, ['customer', 'integrator']),
+	];
+
+	if (entry.deprecations.length > 0) {
+		lines.push('- Deprecations:');
+		lines.push(...entry.deprecations.map((item) => `  - ${item}`));
+	}
 
 	for (const instruction of entry.migrationInstructions) {
 		lines.push(`- ${instruction.title}: ${instruction.summary}`);
@@ -50,7 +71,10 @@ export function renderCustomerPatchNote(
 export function renderMigrationGuide(
 	entry: GeneratedReleaseManifestEntry
 ): string {
-	const lines = [`### ${entry.summary}`];
+	const lines = [
+		`### ${entry.summary}`,
+		...formatAudienceSummaries(entry, ['customer']),
+	];
 
 	if (entry.migrationInstructions.length === 0) {
 		lines.push('- No manual migration steps recorded.');
@@ -60,6 +84,16 @@ export function renderMigrationGuide(
 	for (const instruction of entry.migrationInstructions) {
 		lines.push(`- ${instruction.title}: ${instruction.summary}`);
 		lines.push(...formatSteps(instruction.steps));
+	}
+
+	if (entry.upgradeSteps.length > 0) {
+		lines.push('- Upgrade steps:');
+		for (const step of entry.upgradeSteps) {
+			lines.push(`  - [${step.level}] ${step.title}: ${step.summary}`);
+			lines.push(
+				...step.instructions.map((instruction) => `    - ${instruction}`)
+			);
+		}
 	}
 
 	return lines.join('\n');
@@ -79,7 +113,11 @@ export function renderCustomerGuide(
 	return [
 		'# Customer Upgrade Guide',
 		'',
-		...manifest.releases.map(renderMigrationGuide),
+		...manifest.releases.flatMap((release) => [
+			renderCustomerPatchNote(release),
+			'',
+			renderMigrationGuide(release),
+		]),
 	].join('\n\n');
 }
 
@@ -118,4 +156,8 @@ export function renderUpgradePrompt(
 		'Required steps:',
 		renderUpgradeChecklist(plan),
 	].join('\n');
+}
+
+function capitalize(value: string): string {
+	return value.charAt(0).toUpperCase() + value.slice(1);
 }

@@ -56,7 +56,7 @@ Reusable utilities, contracts, and the design system. (e.g., `contracts`, `desig
 - Run `bunx contractspec ci` for contract validation and rules.
 - Run `bun run lint` for linting.
 - Run `bun run test` for unit tests (when touching modules with tests).
-- When a change affects published packages, add both `.changeset/<slug>.md` and `.changeset/<slug>.release.yaml`, then run `bun run release:build` and `bun run release:check:strict`.
+- When a change affects published packages, run `contractspec release prepare`. It will guide the release draft, write both `.changeset/<slug>.md` and `.changeset/<slug>.release.yaml`, rebuild `generated/releases/*`, and run the strict release checks for you.
 
 ## 🤝 Contribution Workflow
 
@@ -72,13 +72,14 @@ Reusable utilities, contracts, and the design system. (e.g., `contracts`, `desig
 
 3.  **Validate**:
     - Run `bunx contractspec ci` to run validation checks locally.
-    - If published packages changed, create the matching changeset and release capsule pair and confirm `bun run release:build` plus `bun run release:check:strict` both pass.
+    - If published packages changed, use `contractspec release prepare` and confirm the generated release artifacts look correct.
 
 4.  **Pull Request**:
     - Open a PR.
     - Our `action-validation` will check your code.
     - Our `action-version` will analyze versioning impact.
-    - Pull requests that touch published-package release work must keep each `.changeset/*.md` file paired with a sibling `.release.yaml` file.
+    - Pull requests that touch published-package release work must keep each `.changeset/*.md` file paired with a sibling `.release.yaml` file and include the updated `generated/releases/*` artifacts.
+    - See [Canonical release workflow](./docs/release-workflow.md) for the exact contributor path.
     - Wait for the bots to report status.
 
 ## 📏 Standards & Conventions

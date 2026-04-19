@@ -1,0 +1,86 @@
+schemaVersion: "1"
+slug: canonical-release-pipeline
+summary: Unify release authoring around guided capsules, canonical generated artifacts, and manifest-backed changelog surfaces.
+isBreaking: true
+packages:
+  - name: "@contractspec/bundle.workspace"
+    releaseType: minor
+    version: "4.4.0"
+  - name: "@contractspec/app.cli-contractspec"
+    releaseType: major
+    version: "5.0.0"
+  - name: "@contractspec/action.version"
+    releaseType: major
+    version: "2.7.13"
+  - name: "@contractspec/app.web-landing"
+    releaseType: patch
+    version: "3.8.12"
+affectedRuntimes:
+  - bun
+  - node
+  - github-actions
+affectedFrameworks:
+  - changesets
+  - nextjs
+  - github-actions
+audiences:
+  - kind: maintainer
+    summary: Release preparation now runs through guided `contractspec release prepare` and `contractspec release edit` flows, generated release artifacts become the canonical source of truth, and stable publish automation creates a GitHub Release from patch notes plus attached release artifacts.
+    affectedPackages:
+      - "@contractspec/bundle.workspace"
+      - "@contractspec/app.cli-contractspec"
+      - "@contractspec/action.version"
+  - kind: customer
+    summary: The public changelog now renders canonical release summaries, deprecations, migration guidance, and upgrade steps directly from the generated release manifest instead of scraping package changelogs.
+    affectedPackages:
+      - "@contractspec/app.web-landing"
+  - kind: integrator
+    summary: Existing tooling that depended on `contractspec changelog` or on the `@contractspec/action.version` changelog side effect must move to `contractspec release prepare` plus `generated/releases/*`.
+    affectedPackages:
+      - "@contractspec/app.cli-contractspec"
+      - "@contractspec/action.version"
+deprecations:
+  - "`contractspec changelog generate` is no longer the supported release-authoring flow."
+  - "`contractspec changelog show` is no longer the supported public release surface."
+migrationInstructions:
+  - id: replace-legacy-changelog-cli
+    title: Replace the legacy changelog CLI flow
+    summary: Stop invoking `contractspec changelog` for release preparation and use `contractspec release prepare`, `contractspec release build`, or `contractspec release brief` instead.
+    required: true
+    when: When local scripts, docs, or release automation still call the legacy changelog commands.
+    steps:
+      - Replace `contractspec changelog generate` and `contractspec changelog show` calls with the new release commands that match the workflow intent.
+      - Treat `generated/releases/manifest.json` and `generated/releases/upgrade-manifest.json` as the canonical inputs for downstream changelog and upgrade tooling.
+  - id: update-action-version-consumers
+    title: Stop relying on action-version changelog side effects
+    summary: `@contractspec/action.version` no longer runs the generic changelog generator during bump mode.
+    required: true
+    when: When CI expects the action to emit generic changelog files automatically.
+    steps:
+      - Generate canonical release artifacts with the release pipeline instead of expecting generic changelog output from the action.
+      - Read release data from `generated/releases/*` rather than from package changelog aggregation.
+upgradeSteps:
+  - id: run-release-prepare
+    title: Use guided release authoring
+    summary: Create and revise release metadata through `contractspec release prepare` and `contractspec release edit` instead of editing capsules by hand.
+    level: manual
+    instructions:
+      - Run `contractspec release prepare` for new published-package release work.
+      - Run `contractspec release edit <slug>` to revise an existing release entry safely.
+  - id: publish-canonical-release-artifacts
+    title: Publish canonical release artifacts
+    summary: Stable release automation now uploads the release manifest, upgrade manifest, customer guide, and agent prompts, and uses generated patch notes as the GitHub Release body.
+    level: assisted
+    instructions:
+      - Review `generated/releases/*` as part of release preparation.
+      - Use the attached release artifacts instead of scraping package CHANGELOG files or generic changelog JSON.
+validation:
+  commands:
+    - bun test packages/bundles/workspace/src/services/versioning/release-authoring.test.ts packages/bundles/workspace/src/services/versioning/release-service.test.ts packages/apps/cli-contractspec/src/commands/release/index.test.ts packages/apps/web-landing/src/lib/changelog-service.test.ts
+    - bun run --cwd packages/bundles/workspace typecheck
+    - bun run --cwd packages/apps/cli-contractspec typecheck
+    - bun run --cwd packages/apps/web-landing build:types
+  evidence:
+    - "Focused release pipeline tests now pass for guided release authoring, actionable capsule parse failures, CLI prepare/edit flows, rerun behavior, and manifest-only website changelog aggregation."
+    - "Stable publish automation now creates a canonical ContractSpec GitHub Release from generated patch notes and attaches the customer guide, release manifest, upgrade manifest, and agent prompts."
+    - "Package-local and website typechecks remain blocked by pre-existing unrelated issues outside this release-pipeline worktree slice."

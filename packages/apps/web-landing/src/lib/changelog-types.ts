@@ -1,3 +1,29 @@
+export interface ChangelogAudienceDetail {
+	kind: string;
+	summary: string;
+	affectedPackages: string[];
+	affectedRuntimes: string[];
+	affectedFrameworks: string[];
+}
+
+export interface ChangelogMigrationInstruction {
+	id: string;
+	title: string;
+	summary: string;
+	required: boolean;
+	when?: string;
+	steps: string[];
+}
+
+export interface ChangelogUpgradeStep {
+	id: string;
+	title: string;
+	summary: string;
+	level: 'auto' | 'assisted' | 'manual';
+	instructions: string[];
+	packages: string[];
+}
+
 export interface ChangelogChangeDetail {
 	text: string;
 	packages: string[];
@@ -12,6 +38,17 @@ export interface ChangelogPackageDetail {
 	changes: string[];
 }
 
+export interface ChangelogReleaseEntryDetail {
+	slug: string;
+	summary: string;
+	isBreaking: boolean;
+	packages: ChangelogPackageDetail[];
+	audiences: ChangelogAudienceDetail[];
+	deprecations: string[];
+	migrationInstructions: ChangelogMigrationInstruction[];
+	upgradeSteps: ChangelogUpgradeStep[];
+}
+
 export interface ChangelogReleaseSummary {
 	version: string;
 	date: string;
@@ -20,11 +57,17 @@ export interface ChangelogReleaseSummary {
 	changeCount: number;
 	layers: string[];
 	highlights: string[];
+	releaseCount: number;
 }
 
 export interface ChangelogReleaseDetail extends ChangelogReleaseSummary {
 	changes: ChangelogChangeDetail[];
 	packages: ChangelogPackageDetail[];
+	audiences: ChangelogAudienceDetail[];
+	deprecations: string[];
+	migrationInstructions: ChangelogMigrationInstruction[];
+	upgradeSteps: ChangelogUpgradeStep[];
+	releases: ChangelogReleaseEntryDetail[];
 }
 
 export interface ChangelogManifest {

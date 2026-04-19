@@ -10,6 +10,10 @@ export {
 	formatKeepAChangelog,
 } from './changelog-formatter';
 export * from './conventional-commits';
+export {
+	prepareReleaseAuthoring,
+	saveReleaseDraft,
+} from './release-authoring';
 export * from './release-formatters';
 export {
 	buildReleaseArtifacts,

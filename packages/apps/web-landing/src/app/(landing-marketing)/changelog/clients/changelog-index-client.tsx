@@ -191,7 +191,8 @@ export function ChangelogIndexClient({ manifest }: ChangelogIndexClientProps) {
 
 							<p className="text-muted-foreground text-sm">
 								{release.packageCount} packages impacted · {release.changeCount}{' '}
-								unique changes
+								unique changes · {release.releaseCount} release{' '}
+								{release.releaseCount === 1 ? 'entry' : 'entries'}
 							</p>
 
 							<div className="flex flex-wrap gap-2">

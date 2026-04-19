@@ -1,363 +1,53 @@
-import { GeneratedReleaseManifestSchema } from '@contractspec/lib.contracts-spec';
+import {
+	compareVersions,
+	GeneratedReleaseManifestSchema,
+} from '@contractspec/lib.contracts-spec';
 import fs from 'fs';
 import {
 	changelogConfigToCacheKey,
 	resolveChangelogConfig,
 } from '@/lib/changelog-config';
-import {
-	type ParsedPackageRelease,
-	parseChangelogReleases,
-} from '@/lib/changelog-parser';
 import type {
+	ChangelogAudienceDetail,
 	ChangelogEntry,
 	ChangelogManifest,
+	ChangelogMigrationInstruction,
 	ChangelogPackageDetail,
 	ChangelogReleaseDetail,
+	ChangelogReleaseEntryDetail,
+	ChangelogReleaseSummary,
+	ChangelogUpgradeStep,
 } from '@/lib/changelog-types';
 
-interface ReleaseAccumulator {
-	version: string;
-	date: string;
-	isBreaking: boolean;
-	packageMap: Map<string, ChangelogPackageDetail>;
-	changeMap: Map<string, ChangelogChangeDetailAccumulator>;
-}
-interface ChangelogChangeDetailAccumulator {
-	text: string;
-	packages: Set<string>;
-	layers: Set<string>;
-	occurrences: number;
-}
 interface ChangelogDataset {
 	key: string;
 	manifest: ChangelogManifest;
 	detailsByVersion: Map<string, ChangelogReleaseDetail>;
 	legacyEntries: ChangelogEntry[];
 }
+
+interface ReleaseAccumulator {
+	version: string;
+	date: string;
+	isBreaking: boolean;
+	packages: Map<string, ChangelogPackageDetail>;
+	changes: Map<
+		string,
+		{
+			text: string;
+			packages: Set<string>;
+			layers: Set<string>;
+			occurrences: number;
+		}
+	>;
+	audiences: Map<string, ChangelogAudienceDetail>;
+	deprecations: Set<string>;
+	migrationInstructions: Map<string, ChangelogMigrationInstruction>;
+	upgradeSteps: Map<string, ChangelogUpgradeStep>;
+	releases: ChangelogReleaseEntryDetail[];
+}
+
 let cachedDataset: ChangelogDataset | null = null;
-
-function compareVersions(a: string, b: string): number {
-	const [aMajor, aMinor, aPatch] = a
-		.split('.')
-		.map((part) => Number(part))
-		.map((part) => (Number.isFinite(part) ? part : 0));
-	const [bMajor, bMinor, bPatch] = b
-		.split('.')
-		.map((part) => Number(part))
-		.map((part) => (Number.isFinite(part) ? part : 0));
-	if (aMajor !== bMajor) {
-		return bMajor - aMajor;
-	}
-	if (aMinor !== bMinor) {
-		return bMinor - aMinor;
-	}
-	return bPatch - aPatch;
-}
-
-function sortReleaseKeys(a: ReleaseAccumulator, b: ReleaseAccumulator): number {
-	const dateOrder = new Date(b.date).getTime() - new Date(a.date).getTime();
-	if (dateOrder !== 0) {
-		return dateOrder;
-	}
-	return compareVersions(a.version, b.version);
-}
-
-function upsertReleaseAccumulator(
-	map: Map<string, ReleaseAccumulator>,
-	release: ParsedPackageRelease
-): ReleaseAccumulator {
-	const existing = map.get(release.version);
-	if (existing) {
-		if (release.date > existing.date) {
-			existing.date = release.date;
-		}
-		if (release.isBreaking) {
-			existing.isBreaking = true;
-		}
-		return existing;
-	}
-	const created: ReleaseAccumulator = {
-		version: release.version,
-		date: release.date,
-		isBreaking: release.isBreaking,
-		packageMap: new Map<string, ChangelogPackageDetail>(),
-		changeMap: new Map<string, ChangelogChangeDetailAccumulator>(),
-	};
-	map.set(release.version, created);
-	return created;
-}
-
-function addPackageChanges(
-	accumulator: ReleaseAccumulator,
-	release: ParsedPackageRelease
-): void {
-	const existingPackage = accumulator.packageMap.get(release.packageName);
-	const packageDetails: ChangelogPackageDetail = existingPackage ?? {
-		name: release.packageName,
-		packageSlug: release.packageSlug,
-		layer: release.layer,
-		changes: [],
-	};
-	for (const changeText of release.changes) {
-		if (!packageDetails.changes.includes(changeText)) {
-			packageDetails.changes.push(changeText);
-		}
-
-		const existingChange = accumulator.changeMap.get(changeText);
-		if (!existingChange) {
-			accumulator.changeMap.set(changeText, {
-				text: changeText,
-				packages: new Set([release.packageName]),
-				layers: new Set([release.layer]),
-				occurrences: 1,
-			});
-			continue;
-		}
-
-		existingChange.packages.add(release.packageName);
-		existingChange.layers.add(release.layer);
-		existingChange.occurrences += 1;
-	}
-	accumulator.packageMap.set(release.packageName, packageDetails);
-}
-
-function convertAccumulatorToDetail(
-	accumulator: ReleaseAccumulator
-): ChangelogReleaseDetail {
-	const packages = Array.from(accumulator.packageMap.values())
-		.map((entry) => ({
-			...entry,
-			changes: [...entry.changes].sort((a, b) => a.localeCompare(b)),
-		}))
-		.sort((a, b) => a.name.localeCompare(b.name));
-
-	const changes = Array.from(accumulator.changeMap.values())
-		.map((entry) => ({
-			text: entry.text,
-			packages: Array.from(entry.packages).sort((a, b) => a.localeCompare(b)),
-			layers: Array.from(entry.layers).sort((a, b) => a.localeCompare(b)),
-			occurrences: entry.occurrences,
-		}))
-		.sort((a, b) => {
-			if (b.occurrences !== a.occurrences) {
-				return b.occurrences - a.occurrences;
-			}
-			return a.text.localeCompare(b.text);
-		});
-	const layers = Array.from(new Set(packages.map((entry) => entry.layer))).sort(
-		(a, b) => a.localeCompare(b)
-	);
-	return {
-		version: accumulator.version,
-		date: accumulator.date,
-		isBreaking: accumulator.isBreaking,
-		packageCount: packages.length,
-		changeCount: changes.length,
-		layers,
-		highlights: changes.slice(0, 3).map((entry) => entry.text),
-		changes,
-		packages,
-	};
-}
-
-function buildDataset(): ChangelogDataset {
-	const config = resolveChangelogConfig();
-	const key = changelogConfigToCacheKey(config);
-	const generated = buildGeneratedDataset(config, key);
-	if (generated) {
-		return generated;
-	}
-	const releases = parseChangelogReleases(config);
-	const map = new Map<string, ReleaseAccumulator>();
-	for (const release of releases) {
-		const accumulator = upsertReleaseAccumulator(map, release);
-		addPackageChanges(accumulator, release);
-	}
-
-	const details = Array.from(map.values())
-		.sort(sortReleaseKeys)
-		.map(convertAccumulatorToDetail);
-	const detailMap = new Map(details.map((entry) => [entry.version, entry]));
-	const summaries = details.map((entry) => ({
-		version: entry.version,
-		date: entry.date,
-		isBreaking: entry.isBreaking,
-		packageCount: entry.packageCount,
-		changeCount: entry.changeCount,
-		layers: entry.layers,
-		highlights: entry.highlights,
-	}));
-
-	const manifest: ChangelogManifest = {
-		generatedAt: new Date().toISOString(),
-		totalReleases: summaries.length,
-		availableLayers: Array.from(
-			new Set(summaries.flatMap((release) => release.layers))
-		).sort((a, b) => a.localeCompare(b)),
-		config: {
-			includeLayers: [...config.includeLayers],
-			excludeLayers: [...config.excludeLayers],
-			defaultPageSize: config.defaultPageSize,
-		},
-		releases: summaries,
-	};
-
-	const legacyEntries: ChangelogEntry[] = details.map((entry) => ({
-		version: entry.version,
-		date: entry.date,
-		isBreaking: entry.isBreaking,
-		packages: entry.packages.map((pkg) => ({
-			name: pkg.name,
-			changes: pkg.changes.map((change) => `- ${change}`),
-		})),
-	}));
-	return {
-		key,
-		manifest,
-		detailsByVersion: detailMap,
-		legacyEntries,
-	};
-}
-
-function buildGeneratedDataset(
-	config: ReturnType<typeof resolveChangelogConfig>,
-	key: string
-): ChangelogDataset | null {
-	if (!fs.existsSync(config.generatedManifestPath)) {
-		return null;
-	}
-
-	try {
-		const manifest = GeneratedReleaseManifestSchema.parse(
-			JSON.parse(fs.readFileSync(config.generatedManifestPath, 'utf-8'))
-		);
-		const details = manifest.releases.map((release) => {
-			const packages = release.packages.map((pkg) => ({
-				name: pkg.name,
-				packageSlug:
-					pkg.name
-						.split('/')
-						.pop()
-						?.replace(/^app\.|^lib\.|^module\.|^bundle\.|^integration\./, '') ??
-					pkg.name,
-				layer: inferLayer(pkg.name),
-				changes: [
-					release.summary,
-					...release.upgradeSteps.map((step) => step.summary),
-					...release.migrationInstructions.map(
-						(instruction) => instruction.summary
-					),
-					...release.deprecations,
-				].filter(Boolean),
-			}));
-			const changes = [
-				{
-					text: release.summary,
-					packages: release.packages.map((pkg) => pkg.name),
-					layers: Array.from(
-						new Set(release.packages.map((pkg) => inferLayer(pkg.name)))
-					),
-					occurrences: release.packages.length || 1,
-				},
-				...release.upgradeSteps.map((step) => ({
-					text: step.summary,
-					packages: step.packages ?? release.packages.map((pkg) => pkg.name),
-					layers: Array.from(
-						new Set(
-							(step.packages ?? release.packages.map((pkg) => pkg.name)).map(
-								inferLayer
-							)
-						)
-					),
-					occurrences: 1,
-				})),
-			];
-			const layers = Array.from(new Set(packages.map((pkg) => pkg.layer))).sort(
-				(a, b) => a.localeCompare(b)
-			);
-
-			return {
-				version: release.version,
-				date: release.date,
-				isBreaking: release.isBreaking,
-				packageCount: packages.length,
-				changeCount: changes.length,
-				layers,
-				highlights: [release.summary, ...release.deprecations].slice(0, 3),
-				changes,
-				packages,
-			};
-		});
-		const detailMap = new Map(details.map((entry) => [entry.version, entry]));
-		const summaries = details.map((entry) => ({
-			version: entry.version,
-			date: entry.date,
-			isBreaking: entry.isBreaking,
-			packageCount: entry.packageCount,
-			changeCount: entry.changeCount,
-			layers: entry.layers,
-			highlights: entry.highlights,
-		}));
-
-		return {
-			key,
-			manifest: {
-				generatedAt: manifest.generatedAt,
-				totalReleases: summaries.length,
-				availableLayers: Array.from(
-					new Set(summaries.flatMap((release) => release.layers))
-				).sort((a, b) => a.localeCompare(b)),
-				config: {
-					includeLayers: [...config.includeLayers],
-					excludeLayers: [...config.excludeLayers],
-					defaultPageSize: config.defaultPageSize,
-				},
-				releases: summaries,
-			},
-			detailsByVersion: detailMap,
-			legacyEntries: details.map((entry) => ({
-				version: entry.version,
-				date: entry.date,
-				isBreaking: entry.isBreaking,
-				packages: entry.packages.map((pkg) => ({
-					name: pkg.name,
-					changes: pkg.changes.map((change) => `- ${change}`),
-				})),
-			})),
-		};
-	} catch {
-		return null;
-	}
-}
-
-function inferLayer(packageName: string): string {
-	if (packageName.startsWith('@contractspec/app.')) {
-		return 'apps';
-	}
-	if (packageName.startsWith('@contractspec/bundle.')) {
-		return 'bundles';
-	}
-	if (packageName.startsWith('@contractspec/module.')) {
-		return 'modules';
-	}
-	if (packageName.startsWith('@contractspec/integration.')) {
-		return 'integrations';
-	}
-	if (packageName.startsWith('@contractspec/lib.')) {
-		return 'libs';
-	}
-	return 'other';
-}
-
-function getDataset(): ChangelogDataset {
-	const config = resolveChangelogConfig();
-	const key = changelogConfigToCacheKey(config);
-	if (cachedDataset && cachedDataset.key === key) {
-		return cachedDataset;
-	}
-	cachedDataset = buildDataset();
-	return cachedDataset;
-}
 
 export async function getChangelogManifest(): Promise<ChangelogManifest> {
 	return getDataset().manifest;
@@ -375,4 +65,270 @@ export async function getChangelogVersions(): Promise<string[]> {
 
 export async function getAggregatedChangelog(): Promise<ChangelogEntry[]> {
 	return getDataset().legacyEntries;
+}
+
+function getDataset(): ChangelogDataset {
+	const config = resolveChangelogConfig();
+	const key = changelogConfigToCacheKey(config);
+	if (cachedDataset && cachedDataset.key === key) {
+		return cachedDataset;
+	}
+
+	const manifestPath = config.generatedManifestPath;
+	if (!fs.existsSync(manifestPath)) {
+		throw new Error(
+			`Missing canonical release manifest at ${manifestPath}. Run \`contractspec release build\` before building the website.`
+		);
+	}
+
+	const manifest = GeneratedReleaseManifestSchema.parse(
+		JSON.parse(fs.readFileSync(manifestPath, 'utf-8'))
+	);
+	const releases = new Map<string, ReleaseAccumulator>();
+
+	for (const release of manifest.releases) {
+		const packages = release.packages
+			.map((pkg) => ({
+				name: pkg.name,
+				packageSlug:
+					pkg.name
+						.split('/')
+						.pop()
+						?.replace(/^app\.|^lib\.|^module\.|^bundle\.|^integration\./, '') ??
+					pkg.name,
+				layer: inferLayer(pkg.name),
+				changes: [
+					release.summary,
+					...release.upgradeSteps.map((step) => step.summary),
+					...release.migrationInstructions.map(
+						(instruction) => instruction.summary
+					),
+					...release.deprecations,
+				].filter(Boolean),
+			}))
+			.filter((pkg) =>
+				config.includeLayers.includes(pkg.layer)
+					? !config.excludeLayers.includes(pkg.layer)
+					: config.includeLayers.length === 0
+			);
+		if (packages.length === 0) {
+			continue;
+		}
+
+		const entry: ChangelogReleaseEntryDetail = {
+			slug: release.slug,
+			summary: release.summary,
+			isBreaking: release.isBreaking,
+			packages,
+			audiences: release.audiences.map((audience) => ({
+				kind: audience.kind,
+				summary: audience.summary,
+				affectedPackages: audience.affectedPackages ?? [],
+				affectedRuntimes: audience.affectedRuntimes ?? [],
+				affectedFrameworks: audience.affectedFrameworks ?? [],
+			})),
+			deprecations: [...release.deprecations],
+			migrationInstructions: release.migrationInstructions.map(
+				(instruction) => ({
+					...instruction,
+				})
+			),
+			upgradeSteps: release.upgradeSteps.map((step) => ({
+				...step,
+				packages: step.packages ?? release.packages.map((pkg) => pkg.name),
+			})),
+		};
+		const accumulator = upsertAccumulator(
+			releases,
+			release.version,
+			release.date,
+			release.isBreaking
+		);
+		accumulator.releases.push(entry);
+		for (const pkg of entry.packages) {
+			accumulator.packages.set(pkg.name, pkg);
+			for (const changeText of pkg.changes) {
+				upsertChange(accumulator, changeText, pkg.name, pkg.layer);
+			}
+		}
+		for (const audience of entry.audiences) {
+			accumulator.audiences.set(audience.kind, audience);
+		}
+		for (const deprecation of entry.deprecations) {
+			accumulator.deprecations.add(deprecation);
+		}
+		for (const instruction of entry.migrationInstructions) {
+			accumulator.migrationInstructions.set(instruction.id, instruction);
+		}
+		for (const step of entry.upgradeSteps) {
+			accumulator.upgradeSteps.set(step.id, step);
+		}
+	}
+
+	const details = Array.from(releases.values())
+		.sort((left, right) => sortReleases(right, left))
+		.map(toDetail);
+	const summaries: ChangelogReleaseSummary[] = details.map((detail) => ({
+		version: detail.version,
+		date: detail.date,
+		isBreaking: detail.isBreaking,
+		packageCount: detail.packageCount,
+		changeCount: detail.changeCount,
+		layers: detail.layers,
+		highlights: detail.highlights,
+		releaseCount: detail.releaseCount,
+	}));
+
+	cachedDataset = {
+		key,
+		manifest: {
+			generatedAt: manifest.generatedAt,
+			totalReleases: summaries.length,
+			availableLayers: Array.from(
+				new Set(summaries.flatMap((release) => release.layers))
+			).sort((a, b) => a.localeCompare(b)),
+			config: {
+				includeLayers: [...config.includeLayers],
+				excludeLayers: [...config.excludeLayers],
+				defaultPageSize: config.defaultPageSize,
+			},
+			releases: summaries,
+		},
+		detailsByVersion: new Map(
+			details.map((detail) => [detail.version, detail])
+		),
+		legacyEntries: details.map((detail) => ({
+			version: detail.version,
+			date: detail.date,
+			isBreaking: detail.isBreaking,
+			packages: detail.packages.map((pkg) => ({
+				name: pkg.name,
+				changes: pkg.changes.map((change) => `- ${change}`),
+			})),
+		})),
+	};
+
+	return cachedDataset;
+}
+
+function upsertAccumulator(
+	map: Map<string, ReleaseAccumulator>,
+	version: string,
+	date: string,
+	isBreaking: boolean
+): ReleaseAccumulator {
+	const existing = map.get(version);
+	if (existing) {
+		if (new Date(date).getTime() > new Date(existing.date).getTime()) {
+			existing.date = date;
+		}
+		existing.isBreaking ||= isBreaking;
+		return existing;
+	}
+
+	const created: ReleaseAccumulator = {
+		version,
+		date,
+		isBreaking,
+		packages: new Map(),
+		changes: new Map(),
+		audiences: new Map(),
+		deprecations: new Set(),
+		migrationInstructions: new Map(),
+		upgradeSteps: new Map(),
+		releases: [],
+	};
+	map.set(version, created);
+	return created;
+}
+
+function upsertChange(
+	accumulator: ReleaseAccumulator,
+	text: string,
+	packageName: string,
+	layer: string
+): void {
+	const existing = accumulator.changes.get(text);
+	if (!existing) {
+		accumulator.changes.set(text, {
+			text,
+			packages: new Set([packageName]),
+			layers: new Set([layer]),
+			occurrences: 1,
+		});
+		return;
+	}
+	existing.packages.add(packageName);
+	existing.layers.add(layer);
+	existing.occurrences += 1;
+}
+
+function toDetail(accumulator: ReleaseAccumulator): ChangelogReleaseDetail {
+	const packages = Array.from(accumulator.packages.values()).sort((a, b) =>
+		a.name.localeCompare(b.name)
+	);
+	const changes = Array.from(accumulator.changes.values())
+		.map((change) => ({
+			text: change.text,
+			packages: Array.from(change.packages).sort((a, b) => a.localeCompare(b)),
+			layers: Array.from(change.layers).sort((a, b) => a.localeCompare(b)),
+			occurrences: change.occurrences,
+		}))
+		.sort(
+			(a, b) => b.occurrences - a.occurrences || a.text.localeCompare(b.text)
+		);
+	const layers = Array.from(new Set(packages.map((pkg) => pkg.layer))).sort(
+		(a, b) => a.localeCompare(b)
+	);
+	const deprecations = Array.from(accumulator.deprecations).sort((a, b) =>
+		a.localeCompare(b)
+	);
+	const highlights = Array.from(
+		new Set([
+			...accumulator.releases.map((release) => release.summary),
+			...deprecations,
+		])
+	).slice(0, 3);
+
+	return {
+		version: accumulator.version,
+		date: accumulator.date,
+		isBreaking: accumulator.isBreaking,
+		packageCount: packages.length,
+		changeCount: changes.length,
+		layers,
+		highlights,
+		releaseCount: accumulator.releases.length,
+		changes,
+		packages,
+		audiences: Array.from(accumulator.audiences.values()),
+		deprecations,
+		migrationInstructions: Array.from(
+			accumulator.migrationInstructions.values()
+		),
+		upgradeSteps: Array.from(accumulator.upgradeSteps.values()),
+		releases: accumulator.releases.sort((a, b) => a.slug.localeCompare(b.slug)),
+	};
+}
+
+function sortReleases(
+	left: ReleaseAccumulator,
+	right: ReleaseAccumulator
+): number {
+	const dateOrder =
+		new Date(left.date).getTime() - new Date(right.date).getTime();
+	if (dateOrder !== 0) {
+		return dateOrder;
+	}
+	return compareVersions(left.version, right.version);
+}
+
+function inferLayer(packageName: string): string {
+	if (packageName.startsWith('@contractspec/app.')) return 'apps';
+	if (packageName.startsWith('@contractspec/bundle.')) return 'bundles';
+	if (packageName.startsWith('@contractspec/module.')) return 'modules';
+	if (packageName.startsWith('@contractspec/integration.'))
+		return 'integrations';
+	if (packageName.startsWith('@contractspec/lib.')) return 'libs';
+	return 'other';
 }
