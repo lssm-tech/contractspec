@@ -1,5 +1,18 @@
-import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test';
+import {
+	afterAll,
+	afterEach,
+	beforeEach,
+	describe,
+	expect,
+	it,
+	mock,
+} from 'bun:test';
 
+const BUNDLE_WORKSPACE_MODULE = new URL(
+	'../../../../../bundles/workspace/src/index.ts',
+	import.meta.url
+).pathname;
+const actualBundleWorkspace = await import(BUNDLE_WORKSPACE_MODULE);
 const detectImpactMock = mock(async () => ({
 	hasBreaking: false,
 	hasNonBreaking: false,
@@ -19,26 +32,30 @@ const logger = {
 	error: mock(() => {}),
 };
 
-mock.module('@contractspec/bundle.workspace', () => ({
-	createConsoleLoggerAdapter: () => logger,
-	createNodeFsAdapter: () => ({}),
-	createNodeGitAdapter: () => ({}),
-	createNoopLoggerAdapter: () => logger,
-	impact: {
-		detectImpact: detectImpactMock,
-		formatJson: formatJsonMock,
-		formatPrComment: formatPrCommentMock,
-		formatCheckRun: formatCheckRunMock,
-	},
-}));
+function installImpactMocks() {
+	mock.module('@contractspec/bundle.workspace', () => ({
+		...actualBundleWorkspace,
+		impact: {
+			...actualBundleWorkspace.impact,
+			detectImpact: detectImpactMock,
+			formatJson: formatJsonMock,
+			formatPrComment: formatPrCommentMock,
+			formatCheckRun: formatCheckRunMock,
+		},
+	}));
+}
 
-const { createImpactCommand, runImpactCommand } = await import('./index');
+function loadImpactModule() {
+	return import(`./index?test=${Date.now()}-${Math.random()}`);
+}
 
 const originalConsoleLog = console.log;
 const originalExit = process.exit;
 
 describe('impact command', () => {
 	beforeEach(() => {
+		mock.restore();
+		installImpactMocks();
 		detectImpactMock.mockClear();
 		formatJsonMock.mockClear();
 		formatPrCommentMock.mockClear();
@@ -50,9 +67,12 @@ describe('impact command', () => {
 	afterEach(() => {
 		console.log = originalConsoleLog;
 		process.exit = originalExit;
+		mock.restore();
+		mock.module('@contractspec/bundle.workspace', () => actualBundleWorkspace);
 	});
 
-	it('keeps the operator-facing flags on the command surface', () => {
+	it('keeps the operator-facing flags on the command surface', async () => {
+		const { createImpactCommand } = await loadImpactModule();
 		const command = createImpactCommand();
 		expect(command.options.map((option) => option.long)).toEqual([
 			'--baseline',
@@ -64,6 +84,7 @@ describe('impact command', () => {
 	});
 
 	it('routes json and markdown output through the documented formatters', async () => {
+		const { runImpactCommand } = await loadImpactModule();
 		await runImpactCommand({ format: 'json' });
 		await runImpactCommand({ format: 'markdown' });
 
@@ -73,6 +94,7 @@ describe('impact command', () => {
 	});
 
 	it('exits non-zero when --fail-on-breaking is used with breaking changes', async () => {
+		const { runImpactCommand } = await loadImpactModule();
 		detectImpactMock.mockResolvedValueOnce({
 			hasBreaking: true,
 			hasNonBreaking: false,
@@ -92,4 +114,8 @@ describe('impact command', () => {
 			'exit:1'
 		);
 	});
+});
+
+afterAll(() => {
+	mock.restore();
 });

@@ -427,6 +427,7 @@
       "version": "3.8.12",
       "dependencies": {
         "@apollo/client": "^4.1.7",
+        "@contractspec/bundle.workspace": "workspace:*",
         "@contractspec/lib.ai-providers": "workspace:*",
         "@contractspec/lib.content-gen": "workspace:*",
         "@contractspec/lib.contracts-integrations": "workspace:*",
@@ -567,6 +568,7 @@
         "@contractspec/lib.contracts-spec": "workspace:*",
         "@contractspec/lib.contracts-transformers": "workspace:*",
         "@contractspec/lib.source-extractors": "workspace:*",
+        "@contractspec/lib.surface-runtime": "workspace:*",
         "@contractspec/lib.utils-typescript": "workspace:*",
         "@contractspec/module.workspace": "workspace:*",
         "ai": "catalog:ai",

@@ -28,6 +28,8 @@ Examples may depend on any lower layer to demonstrate the stack, and tools suppo
 ## First-Class Surfaces
 
 - **Contracts and generation**: `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`, and `@contractspec/app.cli-contractspec`.
+- **Connect and governed repo workflows**: ContractSpec Connect for context packs, plan packets, patch verdicts, review packets, replay/eval artifacts, and adoption-aware reuse guidance.
+- **Builder control plane**: governed authoring, managed/local/hybrid runtime modes, Builder bootstrap presets, previews, readiness gates, exports, and mobile review surfaces.
 - **Runtime adapters**: REST, GraphQL, MCP, React runtime packages under `packages/libs/contracts-runtime-*`, and Workflow DevKit support via `@contractspec/integration.workflow-devkit`.
 - **Agent systems**: `@contractspec/lib.ai-agent` and `@contractspec/module.ai-chat`.
 - **Harness and evaluation**: `@contractspec/lib.harness` and `@contractspec/integration.harness-runtime`.
@@ -63,6 +65,12 @@ Examples may depend on any lower layer to demonstrate the stack, and tools suppo
 3. Keep dependency flow downward and apps thin.
 4. Use standard TypeScript and composable packages rather than hidden proprietary runtimes.
 5. Prefer package-local `README.md` and `AGENTS.md` when working inside a specific package.
+
+## Release Workflow
+
+- Treat `.changeset/<slug>.md` and `.changeset/<slug>.release.yaml` as the canonical release-facing source of truth for user and contributor workflow changes.
+- Run `contractspec release build` before building changelog or upgrade surfaces that depend on generated release manifests.
+- When a release changes public workflow expectations, keep root docs, package docs, website docs, and `/llms*` summaries aligned with the release capsule.
 
 ## Resources
 

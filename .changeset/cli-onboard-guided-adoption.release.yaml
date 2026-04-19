@@ -47,7 +47,7 @@ migrationInstructions:
       - Use `--example <key>` when you want the command to create a lightweight example stub under `.contractspec/examples/`.
   - id: expose-usage-guide-target
     title: Include the new `usage-md` setup target in setup automation
-    summary: `contractspec init` can now create or merge a managed `USAGE.md` section in addition to `AGENTS.md`.
+    summary: "`contractspec init` can now create or merge a managed `USAGE.md` section in addition to `AGENTS.md`."
     required: false
     when: When custom setup wrappers or tests enumerate setup targets explicitly.
     steps:
@@ -59,15 +59,15 @@ upgradeSteps:
     summary: The onboarding flow now syncs and consults the existing adoption catalog before recommending new surfaces.
     level: assisted
     instructions:
-      - Use `contractspec connect adoption sync` to refresh the local adoption catalog outside the onboarding command when needed.
-      - Prefer `contractspec connect adoption resolve --family <family> --stdin` for custom tooling that needs the same reuse recommendations.
+      - "Use `contractspec connect adoption sync` to refresh the local adoption catalog outside the onboarding command when needed."
+      - "Prefer `contractspec connect adoption resolve --family <family> --stdin` for custom tooling that needs the same reuse recommendations."
   - id: consume-mcp-onboarding
     title: Use CLI MCP onboarding resources instead of hardcoded prompts
     summary: The CLI MCP surface now exposes onboarding tracks, rendered artifacts, and next-command suggestions.
     level: manual
     instructions:
-      - Read `onboarding://tracks` and `onboarding://track/{id}` for the canonical onboarding catalog.
-      - Call `onboarding_suggestTracks`, `onboarding_renderArtifacts`, and `onboarding_nextCommand` for repo-specific planning and guide rendering.
+      - "Read `onboarding://tracks` and `onboarding://track/{id}` for the canonical onboarding catalog."
+      - "Call `onboarding_suggestTracks`, `onboarding_renderArtifacts`, and `onboarding_nextCommand` for repo-specific planning and guide rendering."
 validation:
   commands:
     - "cd packages/bundles/workspace && bun test src/services/onboarding/service.test.ts src/services/setup/setup-service.test.ts src/services/setup/targets/agents-md.test.ts src/services/setup/targets/usage-md.test.ts"

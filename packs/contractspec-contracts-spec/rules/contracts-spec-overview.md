@@ -17,3 +17,4 @@ Every meaningful change must:
 3. pass through ContractSpec Connect before risky edits or shell execution
 4. preserve policy/workflow integrity
 5. leave behind review and replay evidence when escalation is required
+6. keep package docs, website docs, and release capsules aligned when the public contract surface or workflow changes

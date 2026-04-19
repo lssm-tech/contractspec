@@ -2,7 +2,7 @@ import type { PackageDocManifest } from './manifest';
 
 export const contractsSpecDocManifest = {
 	packageName: '@contractspec/lib.contracts-spec',
-	generatedAt: '2026-04-19T13:15:09.817Z',
+	generatedAt: '2026-04-19T14:47:50.972Z',
 	blocks: [
 		{
 			id: 'docs.accessibility_wcag_compliance_specs',

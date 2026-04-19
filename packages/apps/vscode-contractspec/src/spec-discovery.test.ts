@@ -1,4 +1,9 @@
-import { afterAll, beforeEach, describe, expect, it, mock } from 'bun:test';
+import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test';
+import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
+
+let workspaceRoot = '/repo';
 
 const appendLine = mock(() => {});
 const show = mock(() => {});
@@ -13,161 +18,173 @@ const showTextDocument = mock(() =>
 		revealRange: mock(() => {}),
 	})
 );
-const discoverSpecs = mock(async () => [
-	{
-		filePath: '/repo/packages/modules/audit/src/contracts/ai-contracts.ts',
-		specType: 'event',
-		key: 'audit.recorded',
-		exportName: 'auditRecorded',
-		declarationLine: 3,
-		version: '1.0.0',
-		hasMeta: true,
-		hasIo: false,
-		hasPolicy: false,
-		hasPayload: true,
-		hasContent: false,
-		hasDefinition: false,
-		kind: 'event',
-	},
-	{
-		filePath: '/repo/packages/modules/audit/src/contracts/ai-contracts.ts',
-		specType: 'operation',
-		key: 'audit.run',
-		exportName: 'runAudit',
-		declarationLine: 8,
-		version: '1.0.0',
-		hasMeta: true,
-		hasIo: true,
-		hasPolicy: true,
-		hasPayload: false,
-		hasContent: false,
-		hasDefinition: false,
-		kind: 'command',
-	},
-]);
-const validateDiscoveredSpecs = mock(
-	async (specs: Array<Record<string, unknown>>) =>
-		specs.map((spec) => ({
-			spec,
-			valid: true,
-			errors: [],
-			warnings: [],
-			code: 'export const spec = {};',
-		}))
-);
-const resolveImplementations = mock(async () => ({
-	status: 'implemented',
-	implementations: [],
-}));
-const WORKSPACE_ADAPTERS_MODULE = new URL(
-	'./workspace/adapters.ts',
-	import.meta.url
-).pathname;
 
-mock.module('vscode', () => ({
-	workspace: {
-		workspaceFolders: [{ uri: { fsPath: '/repo' } }],
-		getConfiguration: () => ({
-			get: (_key: string, fallback?: unknown) => fallback,
-			update: mock(async () => undefined),
-		}),
-		openTextDocument,
-	},
-	window: {
-		showInformationMessage,
-		showWarningMessage,
-		showErrorMessage,
-		showQuickPick,
-		showTextDocument,
-	},
-	EventEmitter: class<T> {
-		readonly event = mock(() => {});
-		fire = mock((_value?: T) => {});
-	},
-	TreeItem: class {
-		label: string;
-		collapsibleState: number;
-		tooltip?: string;
-		description?: string;
-		resourceUri?: { fsPath: string };
-		command?: Record<string, unknown>;
-		iconPath?: unknown;
+type VscodeMockState = {
+	workspaceRoot: string;
+	showInformationMessage: typeof showInformationMessage;
+	showWarningMessage: typeof showWarningMessage;
+	showErrorMessage: typeof showErrorMessage;
+	showQuickPick: typeof showQuickPick;
+	openTextDocument: typeof openTextDocument;
+	showTextDocument: typeof showTextDocument;
+	showInputBox?: (...args: unknown[]) => Promise<unknown>;
+	withProgress?: (...args: unknown[]) => Promise<unknown>;
+};
 
-		constructor(label: string, collapsibleState: number) {
-			this.label = label;
-			this.collapsibleState = collapsibleState;
-		}
-	},
-	TreeItemCollapsibleState: {
-		None: 0,
-		Expanded: 1,
-	},
-	ThemeIcon: class {
-		constructor(
-			public readonly id: string,
-			public readonly color?: unknown
-		) {}
-	},
-	ThemeColor: class {
-		constructor(public readonly id: string) {}
-	},
-	Uri: {
-		file: (fsPath: string) => ({ fsPath }),
-	},
-	Range: class {
-		constructor(
-			public readonly startLine: number,
-			public readonly startCharacter: number,
-			public readonly endLine: number,
-			public readonly endCharacter: number
-		) {}
-	},
-	Selection: class {
-		constructor(
-			public readonly start: unknown,
-			public readonly end: unknown
-		) {}
-	},
-	TextEditorRevealType: {
-		InCenter: 0,
-	},
-}));
+function setVscodeMockState(state: VscodeMockState) {
+	(
+		globalThis as { __contractspecVscodeMockState?: VscodeMockState }
+	).__contractspecVscodeMockState = state;
+}
 
-mock.module('@contractspec/bundle.workspace', () => ({
-	ALL_SETUP_TARGETS: ['cli-config', 'vscode-settings'],
-	discoverSpecs,
-	validateDiscoveredSpecs,
-	resolveImplementations,
-	loadWorkspaceConfig: mock(async () => ({
-		outputDir: './src',
-	})),
-	runSetup: mock(async () => ({
-		success: true,
-		preset: 'core',
-		files: [],
-		summary: 'ok',
-		nextSteps: ['contractspec validate'],
-	})),
-	groupSpecsByType: (specs: Array<{ specType: string }>) => {
-		const groups = new Map<string, Array<{ specType: string }>>();
-		for (const spec of specs) {
-			const current = groups.get(spec.specType) ?? [];
-			current.push(spec);
-			groups.set(spec.specType, current);
-		}
-		return groups;
-	},
-}));
+function getVscodeMockState(): VscodeMockState {
+	const state = (
+		globalThis as { __contractspecVscodeMockState?: VscodeMockState }
+	).__contractspecVscodeMockState;
+	if (!state) {
+		throw new Error('VS Code mock state is not initialized.');
+	}
+	return state;
+}
 
-mock.module(WORKSPACE_ADAPTERS_MODULE, () => ({
-	getWorkspaceAdapters: () => ({ fs: {}, logger: {} }),
-	getWorkspaceInfoCached: () => ({ workspaceRoot: '/repo' }),
-	getPackageRootForFile: () => '/repo/packages/modules/audit',
-	isMonorepoWorkspace: () => true,
-}));
+function installVscodeMock() {
+	mock.module('vscode', () => ({
+		workspace: {
+			get workspaceFolders() {
+				return [{ uri: { fsPath: getVscodeMockState().workspaceRoot } }];
+			},
+			getConfiguration: () => ({
+				get: (_key: string, fallback?: unknown) => fallback,
+				update: mock(async () => undefined),
+			}),
+			openTextDocument: (...args: Parameters<typeof openTextDocument>) =>
+				getVscodeMockState().openTextDocument(...args),
+		},
+		window: {
+			showInformationMessage: (
+				...args: Parameters<typeof showInformationMessage>
+			) => getVscodeMockState().showInformationMessage(...args),
+			showWarningMessage: (...args: Parameters<typeof showWarningMessage>) =>
+				getVscodeMockState().showWarningMessage(...args),
+			showErrorMessage: (...args: Parameters<typeof showErrorMessage>) =>
+				getVscodeMockState().showErrorMessage(...args),
+			showQuickPick: (...args: Parameters<typeof showQuickPick>) =>
+				getVscodeMockState().showQuickPick(...args),
+			showTextDocument: (...args: Parameters<typeof showTextDocument>) =>
+				getVscodeMockState().showTextDocument(...args),
+			showInputBox: (...args: unknown[]) =>
+				getVscodeMockState().showInputBox?.(...args) ??
+				Promise.resolve(undefined),
+			withProgress: (...args: unknown[]) =>
+				getVscodeMockState().withProgress?.(...args) ??
+				Promise.resolve(undefined),
+		},
+		EventEmitter: class<T> {
+			readonly event = mock(() => {});
+			fire = mock((_value?: T) => {});
+		},
+		TreeItem: class {
+			label: string;
+			collapsibleState: number;
+			tooltip?: string;
+			description?: string;
+			resourceUri?: { fsPath: string };
+			command?: Record<string, unknown>;
+			iconPath?: unknown;
+
+			constructor(label: string, collapsibleState: number) {
+				this.label = label;
+				this.collapsibleState = collapsibleState;
+			}
+		},
+		TreeItemCollapsibleState: {
+			None: 0,
+			Expanded: 1,
+		},
+		ThemeIcon: class {
+			constructor(
+				public readonly id: string,
+				public readonly color?: unknown
+			) {}
+		},
+		ThemeColor: class {
+			constructor(public readonly id: string) {}
+		},
+		Uri: {
+			file: (fsPath: string) => ({ fsPath }),
+		},
+		Range: class {
+			constructor(
+				public readonly startLine: number,
+				public readonly startCharacter: number,
+				public readonly endLine: number,
+				public readonly endCharacter: number
+			) {}
+		},
+		Selection: class {
+			constructor(
+				public readonly start: unknown,
+				public readonly end: unknown
+			) {}
+		},
+		TextEditorRevealType: {
+			InCenter: 0,
+		},
+		ProgressLocation: {
+			Notification: 15,
+		},
+		ConfigurationTarget: {
+			Workspace: 2,
+		},
+	}));
+}
 
 describe('VS Code spec-centric discovery', () => {
-	beforeEach(() => {
+	let tempDir = '';
+
+	beforeEach(async () => {
+		tempDir = await mkdtemp(join(tmpdir(), 'contractspec-vscode-specs-'));
+		workspaceRoot = tempDir;
+
+		await writeFile(
+			join(tempDir, 'package.json'),
+			JSON.stringify({ name: 'vscode-specs-fixture', type: 'module' }, null, 2)
+		);
+		await writeFile(
+			join(tempDir, '.contractsrc.json'),
+			JSON.stringify({ outputDir: './src' }, null, 2)
+		);
+		await mkdir(join(tempDir, 'src', 'contracts'), { recursive: true });
+		await writeFile(
+			join(tempDir, 'src', 'contracts', 'ai-contracts.ts'),
+			`import { defineCommand, defineEvent } from '@contractspec/lib.contracts-spec';
+
+export const auditRecorded = defineEvent({
+  meta: { key: 'audit.recorded', version: '1.0.0' },
+  payload: {},
+});
+
+export const runAudit = defineCommand({
+  meta: { key: 'audit.run', version: '1.0.0' },
+  io: {},
+  policy: {},
+});
+`,
+			'utf8'
+		);
+
+		mock.restore();
+		installVscodeMock();
+		setVscodeMockState({
+			workspaceRoot,
+			showInformationMessage,
+			showWarningMessage,
+			showErrorMessage,
+			showQuickPick,
+			openTextDocument,
+			showTextDocument,
+		});
+
 		appendLine.mockClear();
 		show.mockClear();
 		showInformationMessage.mockClear();
@@ -176,16 +193,22 @@ describe('VS Code spec-centric discovery', () => {
 		showQuickPick.mockClear();
 		openTextDocument.mockClear();
 		showTextDocument.mockClear();
-		discoverSpecs.mockClear();
-		validateDiscoveredSpecs.mockClear();
-		resolveImplementations.mockClear();
+
+		const { invalidateWorkspaceCache } = await import('./workspace/adapters');
+		invalidateWorkspaceCache();
+	});
+
+	afterEach(async () => {
+		mock.restore();
+		if (tempDir) {
+			await rm(tempDir, { recursive: true, force: true });
+		}
 	});
 
 	it('lists discovered specs with spec counts', async () => {
 		const { listAllSpecs } = await import('./commands/list');
 		await listAllSpecs({ appendLine, show } as never);
 
-		expect(discoverSpecs).toHaveBeenCalledTimes(1);
 		expect(appendLine).toHaveBeenCalledWith(
 			expect.stringContaining('Found 2 spec(s)')
 		);
@@ -195,7 +218,6 @@ describe('VS Code spec-centric discovery', () => {
 		const { validateWorkspace } = await import('./commands/validate');
 		await validateWorkspace({ appendLine, show } as never);
 
-		expect(validateDiscoveredSpecs).toHaveBeenCalledTimes(1);
 		expect(showInformationMessage).toHaveBeenCalledWith(
 			expect.stringContaining('All 2 spec(s) passed validation')
 		);
@@ -217,8 +239,4 @@ describe('VS Code spec-centric discovery', () => {
 		const specs = await provider.getChildren(operationGroup);
 		expect(specs[0]?.label).toContain('runAudit');
 	});
-});
-
-afterAll(() => {
-	mock.restore();
 });

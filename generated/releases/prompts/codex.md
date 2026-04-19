@@ -1,48 +1,139 @@
 Apply the ContractSpec upgrade plan in this workspace using codex.
 
 Target packages:
-@contractspec/app.cli-contractspec: unknown -> 4.3.0
+@contractspec/app.cli-contractspec: unknown -> 5.0.0
+@contractspec/app.cursor-marketplace: unknown -> latest
 @contractspec/app.web-landing: unknown -> latest
-@contractspec/bundle.library: unknown -> 3.8.10
-@contractspec/bundle.marketing: unknown -> 3.8.10
-@contractspec/bundle.workspace: unknown -> 4.2.0
-@contractspec/integration.builder-telegram: unknown -> 0.1.0
-@contractspec/integration.builder-voice: unknown -> 0.1.0
-@contractspec/integration.builder-whatsapp: unknown -> 0.1.0
-@contractspec/integration.provider.claude-code: unknown -> 0.1.0
-@contractspec/integration.provider.codex: unknown -> 0.1.0
-@contractspec/integration.provider.copilot: unknown -> 0.1.0
-@contractspec/integration.provider.gemini: unknown -> 0.1.0
-@contractspec/integration.provider.local-model: unknown -> 0.1.0
-@contractspec/integration.provider.stt: unknown -> 0.1.0
-@contractspec/integration.runtime: unknown -> 3.8.9
-@contractspec/integration.runtime.hybrid: unknown -> 0.1.0
-@contractspec/integration.runtime.local: unknown -> 0.1.0
-@contractspec/integration.runtime.managed: unknown -> 0.1.0
-@contractspec/lib.accessibility: unknown -> 3.7.16
-@contractspec/lib.builder-runtime: unknown -> 0.1.0
-@contractspec/lib.builder-spec: unknown -> 0.1.0
-@contractspec/lib.contracts-runtime-client-react: unknown -> 3.8.5
-@contractspec/lib.contracts-spec: unknown -> 5.1.0
-@contractspec/lib.design-system: unknown -> 3.8.10
-@contractspec/lib.example-shared-ui: unknown -> 6.0.17
-@contractspec/lib.mobile-control: unknown -> 0.1.0
-@contractspec/lib.presentation-runtime-react: unknown -> 36.0.5
-@contractspec/lib.provider-runtime: unknown -> 0.1.0
-@contractspec/lib.provider-spec: unknown -> 0.1.0
-@contractspec/lib.surface-runtime: unknown -> 0.5.17
-@contractspec/lib.ui-kit: unknown -> 3.8.9
-@contractspec/lib.ui-kit-web: unknown -> 3.9.9
-@contractspec/lib.ui-link: unknown -> 3.7.13
-@contractspec/lib.video-gen: unknown -> 2.7.17
-@contractspec/module.builder-workbench: unknown -> 0.1.0
-@contractspec/module.examples: unknown -> 3.8.9
-@contractspec/module.execution-console: unknown -> 0.1.0
-@contractspec/module.mobile-review: unknown -> 0.1.0
-@contractspec/tool.bun: unknown -> 3.7.13
-agentpacks: unknown -> 1.7.13
+@contractspec/biome-config: unknown -> 3.8.7
+@contractspec/bundle.library: unknown -> 3.8.12
+@contractspec/bundle.marketing: unknown -> 3.8.12
+@contractspec/bundle.workspace: unknown -> 4.4.0
+@contractspec/example.agent-console: unknown -> 3.8.11
+@contractspec/example.ai-chat-assistant: unknown -> 3.8.11
+@contractspec/example.analytics-dashboard: unknown -> 3.9.11
+@contractspec/example.crm-pipeline: unknown -> 3.7.19
+@contractspec/example.data-grid-showcase: unknown -> 3.8.11
+@contractspec/example.integration-hub: unknown -> 3.8.11
+@contractspec/example.learning-journey-ambient-coach: unknown -> 3.7.19
+@contractspec/example.learning-journey-crm-onboarding: unknown -> 3.7.19
+@contractspec/example.learning-journey-duo-drills: unknown -> 3.7.19
+@contractspec/example.learning-journey-platform-tour: unknown -> 3.7.19
+@contractspec/example.learning-journey-quest-challenges: unknown -> 3.7.19
+@contractspec/example.learning-journey-registry: unknown -> 3.7.19
+@contractspec/example.learning-journey-studio-onboarding: unknown -> 3.7.19
+@contractspec/example.learning-journey-ui-coaching: unknown -> 3.7.19
+@contractspec/example.learning-journey-ui-gamified: unknown -> 3.7.19
+@contractspec/example.learning-journey-ui-onboarding: unknown -> 3.7.19
+@contractspec/example.learning-journey-ui-shared: unknown -> 3.7.19
+@contractspec/example.learning-patterns: unknown -> 3.7.19
+@contractspec/example.marketplace: unknown -> 3.8.11
+@contractspec/example.policy-safe-knowledge-assistant: unknown -> 3.7.19
+@contractspec/example.saas-boilerplate: unknown -> 3.8.11
+@contractspec/example.workflow-system: unknown -> 3.8.11
+@contractspec/integration.builder-telegram: unknown -> 0.2.1
+@contractspec/integration.builder-voice: unknown -> 0.2.1
+@contractspec/integration.builder-whatsapp: unknown -> 0.2.1
+@contractspec/integration.provider.claude-code: unknown -> 0.2.0
+@contractspec/integration.provider.codex: unknown -> 0.2.0
+@contractspec/integration.provider.copilot: unknown -> 0.2.0
+@contractspec/integration.provider.gemini: unknown -> 0.2.0
+@contractspec/integration.provider.local-model: unknown -> 0.2.0
+@contractspec/integration.provider.stt: unknown -> 0.2.0
+@contractspec/integration.runtime: unknown -> 3.9.1
+@contractspec/integration.runtime.hybrid: unknown -> 0.2.1
+@contractspec/integration.runtime.local: unknown -> 0.2.1
+@contractspec/integration.runtime.managed: unknown -> 0.2.1
+@contractspec/lib.accessibility: unknown -> 3.7.18
+@contractspec/lib.builder-runtime: unknown -> 0.2.1
+@contractspec/lib.builder-spec: unknown -> 0.2.1
+@contractspec/lib.contracts-runtime-client-react: unknown -> 3.9.0
+@contractspec/lib.contracts-spec: unknown -> 5.3.0
+@contractspec/lib.design-system: unknown -> 3.9.0
+@contractspec/lib.example-shared-ui: unknown -> 6.0.19
+@contractspec/lib.knowledge: unknown -> 3.7.19
+@contractspec/lib.mobile-control: unknown -> 0.2.1
+@contractspec/lib.presentation-runtime-react: unknown -> 36.0.7
+@contractspec/lib.provider-runtime: unknown -> 0.2.1
+@contractspec/lib.provider-spec: unknown -> 0.2.0
+@contractspec/lib.support-bot: unknown -> 3.7.19
+@contractspec/lib.surface-runtime: unknown -> 0.5.19
+@contractspec/lib.ui-kit: unknown -> 3.9.0
+@contractspec/lib.ui-kit-core: unknown -> 3.8.0
+@contractspec/lib.ui-kit-web: unknown -> 3.10.0
+@contractspec/lib.ui-link: unknown -> 3.7.15
+@contractspec/lib.video-gen: unknown -> 2.7.19
+@contractspec/module.builder-workbench: unknown -> 0.2.1
+@contractspec/module.examples: unknown -> 3.8.11
+@contractspec/module.execution-console: unknown -> 0.1.2
+@contractspec/module.learning-journey: unknown -> 3.7.18
+@contractspec/module.mobile-review: unknown -> 0.2.1
+@contractspec/module.notifications: unknown -> 3.7.18
+@contractspec/module.workspace: unknown -> 4.2.0
+@contractspec/tool.bun: unknown -> 3.7.14
+agentpacks: unknown -> 1.8.0
+contractspec: unknown -> 1.46.2
+vscode-contractspec: unknown -> 3.9.0
 
 Required steps:
+- [assisted] Wire adoption-aware Connect hooks in consumer environments: The consumer plugin and Connect CLI now expose adoption-aware hook events in addition to contracts-spec review hooks.
+  - Install or reference the `contractspec-adoption` marketplace/plugin assets where Connect hooks are consumed.
+  - Use `contractspec connect hook adoption before-file-edit|before-shell-execution|after-file-edit --stdin` in host hook wiring.
+- [manual] Prefer higher-level runtime package entrypoints in imports: Generated Biome policy artifacts now flag deprecated monolith usage and obvious deep runtime entrypoint imports.
+  - Replace `@contractspec/lib.contracts` imports with `@contractspec/lib.contracts-spec` plus the appropriate split runtime package.
+  - Prefer package-level runtime entrypoints such as `@contractspec/lib.contracts-runtime-server-mcp` when they already expose the required surface.
+- [assisted] Use the authored validators for contract setup and CI: Prefer the package-level validators over shallow AST checks for the three upgraded surfaces.
+  - Use `validateBlueprint` or `assertBlueprintValid` for app-config specs.
+  - Use `validateThemeSpec` or `assertThemeSpecValid` for theme specs.
+  - Use `validateFeatureSpec` or `assertFeatureSpecValid` for feature specs before registry installation or release review.
+- [manual] Adopt the new theme authoring target across workspace tools: Shared workspace discovery and the CLI now treat `theme` as a first-class authored surface.
+  - Use `.theme.ts` files and `defineTheme(...)` for new theme specs.
+  - Update any custom create flows or discovery logic to include the `theme` authoring target where needed.
+- [assisted] Route onboarding through the existing Connect adoption layer: The onboarding flow now syncs and consults the existing adoption catalog before recommending new surfaces.
+  - Use `contractspec connect adoption sync` to refresh the local adoption catalog outside the onboarding command when needed.
+  - Prefer `contractspec connect adoption resolve --family <family> --stdin` for custom tooling that needs the same reuse recommendations.
+- [manual] Use CLI MCP onboarding resources instead of hardcoded prompts: The CLI MCP surface now exposes onboarding tracks, rendered artifacts, and next-command suggestions.
+  - Read `onboarding://tracks` and `onboarding://track/{id}` for the canonical onboarding catalog.
+  - Call `onboarding_suggestTracks`, `onboarding_renderArtifacts`, and `onboarding_nextCommand` for repo-specific planning and guide rendering.
+- [assisted] Re-run focused table verification after upgrading: The web, native, design-system, and example surfaces should be validated together because the UX and stability changes span all four layers.
+  - Run the focused table test suites in `presentation-runtime-react`, `ui-kit-web`, `ui-kit`, `design-system`, `example.crm-pipeline`, and `example.data-grid-showcase`.
+  - Re-run package typechecks and lint checks for the touched libraries and examples.
+  - Spot-check server-paginated and client-side examples to confirm search, chips, loading, empty states, and column recovery behave as expected.
+- [assisted] Regenerate preview metadata after adding UI-backed examples: Keep the generated preview registry aligned with the workspace examples.
+  - Run `bun scripts/generate-example-registry.ts --write`.
+  - Re-run preview tests in `packages/modules/examples`, `packages/bundles/marketing`, and `packages/bundles/library`.
+  - Verify `/templates` and `/docs/examples/<key>` render the expected inline or fallback preview action.
+- [manual] Verify indexed knowledge payloads expose canonical text: Check that vector payloads now include `payload.text` and that retrieval/query flows surface readable snippets without custom metadata shims.
+  - Re-run the ingestion flow that feeds your knowledge index.
+  - Inspect the stored vector payloads or downstream references for canonical `payload.text` content.
+- [manual] Verify localized notification templates for regional locales: Check that supported regional locales now reuse their base locale template content and that partial locale overrides retain default channel fields.
+  - Upgrade to the patched `@contractspec/module.notifications` release.
+  - Exercise a localized template with a regional locale such as `fr-CA` or `es-MX`.
+  - Confirm that localized templates still preserve default title/action fields when only part of the channel content is overridden.
+- [assisted] Rebuild learning package release artifacts after upgrading: The affected learning packages should be rebuilt and revalidated together because the runtime, examples, and sandbox wiring now depend on the same adaptive presentation/runtime surface.
+  - Run package-level build, test, typecheck, and lint checks for the affected learning packages.
+  - Regenerate example registry artifacts if `@contractspec/module.examples` dependencies change.
+  - Verify at least one supported learning sandbox route renders markdown successfully.
+- [manual] Regenerate docs and release artifacts after workflow copy changes: Keep the generated docs, `/llms*` guides, and release-backed changelog surfaces aligned with the underlying source docs.
+  - Run `cd packages/libs/contracts-spec && bun run docs:manifest` after changing contracts-spec docblocks or package docs.
+  - Run `cd packages/apps/web-landing && bun run llms:generate` after changing package READMEs or `/llms*` guidance.
+  - Run `contractspec release build` before treating changelog or upgrade surfaces as current.
+- [manual] Refresh existing builder-local workspace config when convenient: Existing local-only configs keep working through the hosted API fallback, but rerunning init will persist the new API defaults into workspace config.
+  - Re-run `contractspec init --preset builder-local` if you want the generated `builder.api.baseUrl` and `builder.api.controlPlaneTokenEnvVar` fields written into `.contractsrc.json`.
+  - Set the configured control-plane token environment variable before running `contractspec builder` commands.
+- [manual] Republish the affected integration packages with provenance enabled: Pull the patch releases for the affected integration packages or rerun the release job after the metadata fix lands.
+  - Upgrade the affected integration packages to the patched versions once they are published.
+  - Re-run the release workflow with npm provenance enabled and verify release discovery completes before the publish step starts.
+- [assisted] Adopt preset-driven setup and schema packaging: Use the new init presets and packaged schema assets when bootstrapping workspaces or editor integrations.
+  - Run contractspec init --preset core, connect, builder-managed, builder-local, or builder-hybrid instead of hand-authoring the initial workspace config.
+  - Wire editor or automation experiences to the published contractsrc.schema.json artifact rather than copying ad hoc schema snapshots.
+  - Use the new workspace discovery and package-scaffold validation surfaces before materializing authored package targets.
+- [manual] Adopt the richer form contract and UI surfaces: Switch form-oriented consumers to the new contract exports and UI primitives where you want richer rendering coverage.
+  - Import the new form showcase and workspace-schema exports from @contractspec/lib.contracts-spec when validating or demonstrating rich field coverage.
+  - Update React and design-system form renderers to use the new contract-aware field, theme, and translation surfaces.
+  - Adopt the new ui-kit-web and React Native primitives only where the added controls are needed; existing imports continue to work.
+- [manual] Validate the updated editor setup flow: Confirm VS Code setup and spec discovery use the new shared workspace flow.
+  - Open the VS Code extension and run the setup flow to confirm presets, next steps, and spec discovery match CLI behavior.
+  - Verify the refreshed workspace views discover feature, form, and authored package targets through the shared workspace services.
 - [assisted] Adopt the Builder v3 control-plane packages: Wire provider/runtime integrations through the governed Builder v3 workbench and mobile-review surfaces.
   - Install the Builder v3 contracts and runtime packages alongside the provider integrations you intend to expose in the authoring surface.
   - Use the Builder workbench and mobile-review modules as the host UI surfaces instead of building separate readiness or export orchestration shells.

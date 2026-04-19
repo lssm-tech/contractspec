@@ -9,5 +9,6 @@ export { GuideGenerateDocsClientsSchemasPage } from './GuideGenerateDocsClientsS
 export { GuideHostBuilderWorkbenchPage } from './GuideHostBuilderWorkbenchPage';
 export { GuideImportExistingCodebasesPage } from './GuideImportExistingCodebasesPage';
 export { GuideNextjsOneEndpointPage } from './GuideNextjsOneEndpointPage';
+export { GuideReleaseCapsulesPage } from './GuideReleaseCapsulesPage';
 export { GuideSpecValidationTypingPage } from './GuideSpecValidationTypingPage';
 export { GuidesIndexPage } from './GuidesIndexPage';

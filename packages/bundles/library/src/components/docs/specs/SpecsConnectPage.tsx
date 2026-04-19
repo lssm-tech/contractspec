@@ -20,6 +20,12 @@ const artifacts = [
 	},
 ];
 
+const adoptionOutputs = [
+	'`.contractspec/adoption/catalog.json` mirrored from the bundled ContractSpec catalog',
+	'family-aware reuse recommendations for `ui`, `contracts`, `integrations`, `runtime`, `sharedLibs`, and `solutions`',
+	'verdict thresholds that can prefer workspace reuse, ContractSpec reuse, review, or explicit denial before a new implementation starts',
+];
+
 const adoptionSteps = [
 	'Enable `connect` in `.contractsrc.json` and keep your protected, immutable, generated, and smoke-check policies explicit.',
 	'Run `contractspec connect context` and `contractspec connect plan` before risky work so the agent is operating on task-scoped evidence, not ambient repo assumptions.',
@@ -81,6 +87,8 @@ export function SpecsConnectPage() {
 					language="bash"
 					filename="contractspec-connect"
 					code={`contractspec connect init --scope workspace
+contractspec connect adoption sync --json
+printf '{"goal":"Prefer an existing release helper before adding a new one"}' | contractspec connect adoption resolve --family sharedLibs --stdin --json
 contractspec connect context --task refactor-docs --paths packages/libs/contracts-spec/src/control-plane/contracts.ts --json
 printf '{"objective":"Document the control-plane contract surface","commands":["bun run typecheck"]}' | contractspec connect plan --task refactor-docs --stdin --json
 printf '{"operation":"edit","path":"packages/libs/contracts-spec/src/control-plane/contracts.ts"}' | contractspec connect verify --task refactor-docs --tool acp.fs.access --stdin --json
@@ -110,6 +118,28 @@ contractspec connect replay <decisionId> --json`}
 						</article>
 					))}
 				</div>
+			</section>
+
+			<section className="editorial-panel space-y-5">
+				<div className="space-y-2">
+					<h2 className="font-serif text-3xl tracking-[-0.03em]">
+						Reuse-first adoption is part of the workflow
+					</h2>
+					<p className="text-muted-foreground text-sm leading-7">
+						Connect adoption keeps reuse guidance in the same local control
+						surface. Before a new contract family, helper, or runtime
+						abstraction lands, Connect can mirror the bundled catalog and
+						resolve the best reuse candidate by family.
+					</p>
+				</div>
+				<ul className="editorial-list">
+					{adoptionOutputs.map((item) => (
+						<li key={item}>
+							<span className="editorial-list-marker" />
+							<span>{item}</span>
+						</li>
+					))}
+				</ul>
 			</section>
 
 			<section className="grid gap-5 lg:grid-cols-2">

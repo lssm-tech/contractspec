@@ -1,25 +1,24 @@
 import { afterAll, beforeEach, describe, expect, it, mock } from 'bun:test';
 import type { WorkspaceAdapters } from '../ports/logger';
-import { extractContracts } from './extract';
 
-// Mock importFromOpenApiService
-mock.module('./openapi/index', () => ({
-	importFromOpenApiService: mock(() =>
-		Promise.resolve({
-			imported: 1,
-			skipped: 0,
-			errors: 0,
-			files: [],
-			skippedOperations: [],
-			errorMessages: [],
-		})
-	),
-}));
+function installExtractMocks() {
+	mock.module('./openapi/index', () => ({
+		importFromOpenApiService: mock(() =>
+			Promise.resolve({
+				imported: 1,
+				skipped: 0,
+				errors: 0,
+				files: [],
+				skippedOperations: [],
+				errorMessages: [],
+			})
+		),
+	}));
+}
 
-// Mock config loader
-mock.module('./config', () => ({
-	loadWorkspaceConfig: mock(() => Promise.resolve({ outputDir: 'src' })),
-}));
+function loadExtractModule() {
+	return import(`./extract?test=${Date.now()}-${Math.random()}`);
+}
 
 describe('Extract Service', () => {
 	const mockFs = {
@@ -37,11 +36,14 @@ describe('Extract Service', () => {
 	};
 
 	beforeEach(() => {
+		mock.restore();
+		installExtractMocks();
 		mockFs.exists.mockClear();
 		mockLogger.info.mockClear();
 	});
 
 	it('should extract contracts', async () => {
+		const { extractContracts } = await loadExtractModule();
 		const result = await extractContracts(
 			{ fs: mockFs, logger: mockLogger } as unknown as WorkspaceAdapters,
 			{ source: 'openapi.json', outputDir: 'contracts' },

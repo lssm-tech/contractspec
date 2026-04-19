@@ -23,6 +23,7 @@
 		"./application/context-storage": "./src/application/context-storage/index.ts",
 		"./application/mcp": "./src/application/mcp/index.ts",
 		"./application/mcp/cliMcp": "./src/application/mcp/cliMcp.ts",
+		"./application/mcp/cliMcp.onboarding": "./src/application/mcp/cliMcp.onboarding.ts",
 		"./application/mcp/common": "./src/application/mcp/common.ts",
 		"./application/mcp/contractsMcp": "./src/application/mcp/contractsMcp.ts",
 		"./application/mcp/contractsMcpAdoptionTools": "./src/application/mcp/contractsMcpAdoptionTools.ts",
@@ -99,6 +100,7 @@
 		"./components/docs/guides/GuideHostBuilderWorkbenchPage": "./src/components/docs/guides/GuideHostBuilderWorkbenchPage.tsx",
 		"./components/docs/guides/GuideImportExistingCodebasesPage": "./src/components/docs/guides/GuideImportExistingCodebasesPage.tsx",
 		"./components/docs/guides/GuideNextjsOneEndpointPage": "./src/components/docs/guides/GuideNextjsOneEndpointPage.tsx",
+		"./components/docs/guides/GuideReleaseCapsulesPage": "./src/components/docs/guides/GuideReleaseCapsulesPage.tsx",
 		"./components/docs/guides/guides.docblocks": "./src/components/docs/guides/guides.docblocks.ts",
 		"./components/docs/guides/GuidesIndexPage": "./src/components/docs/guides/GuidesIndexPage.tsx",
 		"./components/docs/guides/GuideSpecValidationTypingPage": "./src/components/docs/guides/GuideSpecValidationTypingPage.tsx",
@@ -424,6 +426,12 @@
 				"bun": "./dist/application/mcp/cliMcp.js",
 				"node": "./dist/node/application/mcp/cliMcp.js",
 				"default": "./dist/application/mcp/cliMcp.js"
+			},
+			"./application/mcp/cliMcp.onboarding": {
+				"types": "./dist/application/mcp/cliMcp.onboarding.d.ts",
+				"bun": "./dist/application/mcp/cliMcp.onboarding.js",
+				"node": "./dist/node/application/mcp/cliMcp.onboarding.js",
+				"default": "./dist/application/mcp/cliMcp.onboarding.js"
 			},
 			"./application/mcp/common": {
 				"types": "./dist/application/mcp/common.d.ts",
@@ -880,6 +888,12 @@
 				"bun": "./dist/components/docs/guides/GuideNextjsOneEndpointPage.js",
 				"node": "./dist/node/components/docs/guides/GuideNextjsOneEndpointPage.js",
 				"default": "./dist/components/docs/guides/GuideNextjsOneEndpointPage.js"
+			},
+			"./components/docs/guides/GuideReleaseCapsulesPage": {
+				"types": "./dist/components/docs/guides/GuideReleaseCapsulesPage.d.ts",
+				"bun": "./dist/components/docs/guides/GuideReleaseCapsulesPage.js",
+				"node": "./dist/node/components/docs/guides/GuideReleaseCapsulesPage.js",
+				"default": "./dist/components/docs/guides/GuideReleaseCapsulesPage.js"
 			},
 			"./components/docs/guides/guides.docblocks": {
 				"types": "./dist/components/docs/guides/guides.docblocks.d.ts",

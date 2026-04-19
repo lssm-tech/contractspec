@@ -1,29 +1,29 @@
-import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test';
+import {
+	afterAll,
+	afterEach,
+	beforeEach,
+	describe,
+	expect,
+	it,
+	mock,
+} from 'bun:test';
+import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 
+const BUNDLE_WORKSPACE_MODULE = new URL(
+	'../../../../../bundles/workspace/src/index.ts',
+	import.meta.url
+).pathname;
+const actualBundleWorkspace = await import(BUNDLE_WORKSPACE_MODULE);
+const AI_PROVIDERS_MODULE = new URL('../../ai/providers.ts', import.meta.url)
+	.pathname;
+const AI_AGENTS_MODULE = new URL('../../ai/agents/index.ts', import.meta.url)
+	.pathname;
+const actualAiProviders = await import(AI_PROVIDERS_MODULE);
+const actualAiAgents = await import(AI_AGENTS_MODULE);
 const inputMock = mock(async () => 'Rename the title and tighten wording.');
 const confirmMock = mock(async () => true);
-const loadConfigMock = mock(async () => ({
-	aiProvider: 'openai',
-	aiModel: 'gpt-4.1',
-	agentMode: 'simple',
-	outputDir: 'src',
-	conventions: {},
-}));
-const mergeConfigMock = mock((_config, options) => ({
-	aiProvider: 'openai',
-	aiModel: 'gpt-4.1',
-	agentMode: 'simple',
-	outputDir: 'src',
-	conventions: {},
-	...options,
-}));
-const readFileMock = mock(async () => 'export const before = true;\n');
-const createNodeAdaptersMock = mock((_options) => ({
-	fs: {
-		readFile: readFileMock,
-	},
-	logger: {},
-}));
 const updateSpecMock = mock(async () => ({
 	updated: true,
 	specPath: 'contracts/sample.ts',
@@ -46,38 +46,68 @@ mock.module('@inquirer/prompts', () => ({
 	confirm: confirmMock,
 }));
 
-mock.module('../../utils/config', () => ({
-	loadConfig: loadConfigMock,
-	mergeConfig: mergeConfigMock,
-}));
+function installUpdateCommandMocks() {
+	mock.module('../../ai/providers', () => ({
+		validateProvider: validateProviderMock,
+	}));
+	mock.module('../../ai/agents/index', () => ({
+		AgentOrchestrator: class {
+			refactor = refactorMock;
+		},
+	}));
+	mock.module('@contractspec/bundle.workspace', () => ({
+		...actualBundleWorkspace,
+		updateSpec: updateSpecMock,
+	}));
+}
 
-mock.module('@contractspec/bundle.workspace', () => ({
-	createNodeAdapters: createNodeAdaptersMock,
-	updateSpec: updateSpecMock,
-}));
-
-mock.module('../../ai/providers', () => ({
-	validateProvider: validateProviderMock,
-}));
-
-mock.module('../../ai/agents/index', () => ({
-	AgentOrchestrator: class {
-		refactor = refactorMock;
-	},
-}));
-
-const { executeUpdateCommand } = await import('./index');
+function loadUpdateCommandModule() {
+	return import(`./index?test=${Date.now()}-${Math.random()}`);
+}
 
 const originalConsoleLog = console.log;
+const originalCwd = process.cwd();
 
 describe('update --ai', () => {
+	let tempDir = '';
+
 	beforeEach(() => {
+		tempDir = '';
+		mock.restore();
+		installUpdateCommandMocks();
+	});
+
+	beforeEach(async () => {
+		tempDir = await mkdtemp(join(tmpdir(), 'contractspec-update-command-'));
+		await writeFile(
+			join(tempDir, 'package.json'),
+			JSON.stringify(
+				{ name: 'update-command-fixture', type: 'module' },
+				null,
+				2
+			)
+		);
+		await writeFile(
+			join(tempDir, '.contractsrc.json'),
+			JSON.stringify(
+				{
+					aiProvider: 'openai',
+					aiModel: 'gpt-4.1',
+					agentMode: 'simple',
+					outputDir: 'src',
+				},
+				null,
+				2
+			)
+		);
+		await mkdir(join(tempDir, 'contracts'), { recursive: true });
+		await writeFile(
+			join(tempDir, 'contracts', 'sample.ts'),
+			'export const before = true;\n'
+		);
+		process.chdir(tempDir);
 		inputMock.mockClear();
 		confirmMock.mockClear();
-		loadConfigMock.mockClear();
-		mergeConfigMock.mockClear();
-		readFileMock.mockClear();
-		createNodeAdaptersMock.mockClear();
 		updateSpecMock.mockClear();
 		validateProviderMock.mockClear();
 		refactorMock.mockClear();
@@ -85,20 +115,21 @@ describe('update --ai', () => {
 	});
 
 	afterEach(() => {
+		process.chdir(originalCwd);
 		console.log = originalConsoleLog;
+		if (tempDir) {
+			void rm(tempDir, { recursive: true, force: true });
+		}
+		mock.restore();
+		mock.module('../../ai/providers', () => actualAiProviders);
+		mock.module('../../ai/agents/index', () => actualAiAgents);
+		mock.module('@contractspec/bundle.workspace', () => actualBundleWorkspace);
 	});
 
 	it('uses the merged config and applies a real AI edit', async () => {
+		const { executeUpdateCommand } = await loadUpdateCommandModule();
 		await executeUpdateCommand('contracts/sample.ts', { ai: true });
 
-		expect(loadConfigMock).toHaveBeenCalledTimes(1);
-		expect(mergeConfigMock).toHaveBeenCalledTimes(1);
-		expect(createNodeAdaptersMock).toHaveBeenCalledWith({
-			config: expect.objectContaining({
-				aiProvider: 'openai',
-				agentMode: 'simple',
-			}),
-		});
 		expect(validateProviderMock).toHaveBeenCalledTimes(1);
 		expect(refactorMock).toHaveBeenCalledTimes(1);
 		expect(updateSpecMock).toHaveBeenCalledWith(
@@ -111,6 +142,7 @@ describe('update --ai', () => {
 	});
 
 	it('fails fast when provider validation fails for simple-agent edits', async () => {
+		const { executeUpdateCommand } = await loadUpdateCommandModule();
 		validateProviderMock.mockResolvedValueOnce({
 			success: false,
 			error: 'OPENAI_API_KEY environment variable not set',
@@ -123,4 +155,8 @@ describe('update --ai', () => {
 		);
 		expect(updateSpecMock).not.toHaveBeenCalled();
 	});
+});
+
+afterAll(() => {
+	mock.restore();
 });

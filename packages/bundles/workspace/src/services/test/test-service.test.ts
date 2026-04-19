@@ -1,8 +1,7 @@
-import { describe, expect, it, mock } from 'bun:test';
+import { afterEach, describe, expect, it, mock } from 'bun:test';
 import { OperationSpecRegistry } from '@contractspec/lib.contracts-spec';
 import type { TestSpec } from '@contractspec/lib.contracts-spec/tests';
 import type { WorkspaceAdapters } from '../../ports/logger';
-import { listTests, runTests } from './test-service';
 
 // Mock dependencies
 const mockLoadAuthoredModuleExports = mock(async (path: string) => {
@@ -22,10 +21,16 @@ const mockLoadAuthoredModuleValue = mock(
 	async () => new OperationSpecRegistry()
 );
 
-mock.module('../module-loader', () => ({
-	loadAuthoredModuleExports: mockLoadAuthoredModuleExports,
-	loadAuthoredModuleValue: mockLoadAuthoredModuleValue,
-}));
+function installTestServiceMocks() {
+	mock.module('../module-loader', () => ({
+		loadAuthoredModuleExports: mockLoadAuthoredModuleExports,
+		loadAuthoredModuleValue: mockLoadAuthoredModuleValue,
+	}));
+}
+
+function loadTestServiceModule() {
+	return import(`./test-service?test=${Date.now()}-${Math.random()}`);
+}
 
 describe('TestService', () => {
 	const logger = {
@@ -36,20 +41,33 @@ describe('TestService', () => {
 
 	const adapters = { logger } as WorkspaceAdapters;
 
+	afterEach(() => {
+		mock.restore();
+	});
+
 	describe('listTests', () => {
 		it('should list tests from valid files', async () => {
+			mock.restore();
+			installTestServiceMocks();
+			const { listTests } = await loadTestServiceModule();
 			const tests = await listTests(['valid-spec.ts'], adapters);
 			expect(tests).toHaveLength(1);
 			expect(tests[0]?.meta.key).toBe('test.op');
 		});
 
 		it('should handle empty files', async () => {
+			mock.restore();
+			installTestServiceMocks();
+			const { listTests } = await loadTestServiceModule();
 			const tests = await listTests(['empty.ts'], adapters);
 			expect(tests).toHaveLength(0);
 			expect(logger.warn).not.toHaveBeenCalled(); // extractTestSpecs handles empty gracefully
 		});
 
 		it('should log warning on load error', async () => {
+			mock.restore();
+			installTestServiceMocks();
+			const { listTests } = await loadTestServiceModule();
 			mockLoadAuthoredModuleExports.mockRejectedValueOnce(
 				new Error('Load failed')
 			);
@@ -61,6 +79,9 @@ describe('TestService', () => {
 
 	describe('runTests', () => {
 		it('should execute tests using runner', async () => {
+			mock.restore();
+			installTestServiceMocks();
+			const { runTests } = await loadTestServiceModule();
 			const registry = new OperationSpecRegistry();
 			const spec = {
 				meta: { key: 'test', version: '1' },

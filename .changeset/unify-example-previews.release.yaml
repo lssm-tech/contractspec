@@ -74,9 +74,9 @@ migrationInstructions:
     required: false
     when: When adding or updating a published example package with a reusable UI export.
     steps:
-      - Add `ui: './ui'` to the example's `entrypoints` object in `src/example.ts`.
-      - Update `scripts/generate-example-registry.ts` if the package needs a non-default preview component export.
-      - Regenerate the example registries before publishing.
+      - "Add `ui: './ui'` to the example's `entrypoints` object in `src/example.ts`."
+      - "Update `scripts/generate-example-registry.ts` if the package needs a non-default preview component export."
+      - "Regenerate the example registries before publishing."
 upgradeSteps:
   - id: refresh-example-preview-registry
     title: Regenerate preview metadata after adding UI-backed examples
@@ -94,6 +94,6 @@ validation:
     - cd packages/bundles/library && bun run typecheck && bun run lint:check
     - cd packages/apps/web-landing && bun run build:types && bun run lint:check
   evidence:
-    - `@contractspec/module.examples` now exports a generated inline preview registry plus helpers for public example docs and sandbox fallback URLs.
-    - `@contractspec/bundle.marketing` no longer maintains its own inline preview allowlist; it consumes the shared registry for `/templates`.
-    - `@contractspec/app.web-landing` now derives `/docs/examples/*` routes and sitemap entries from the public example registry instead of a curated hardcoded subset.
+    - "`@contractspec/module.examples` now exports a generated inline preview registry plus helpers for public example docs and sandbox fallback URLs."
+    - "`@contractspec/bundle.marketing` no longer maintains its own inline preview allowlist; it consumes the shared registry for `/templates`."
+    - "`@contractspec/app.web-landing` now derives `/docs/examples/*` routes and sitemap entries from the public example registry instead of a curated hardcoded subset."

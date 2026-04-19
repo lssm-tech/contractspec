@@ -13,6 +13,13 @@ const builderCommands = [
 	'builder.export.approve',
 	'builder.export.execute',
 ];
+
+const operatorStatusDetails = [
+	'local runtime trust and lease details',
+	'channel-action posture for mobile/operator follow-up',
+	'comparison posture and export readiness from the shared snapshot',
+];
+
 export function GuideHostBuilderWorkbenchPage() {
 	return (
 		<div className="space-y-8">
@@ -68,8 +75,9 @@ export function GuideHostBuilderWorkbenchPage() {
 					/>
 					<p className="text-muted-foreground text-sm">
 						Expected output: one `BuilderWorkspaceSnapshot` containing
-						workspace, plan, providers, runtime targets, preview, export, and
-						mobile review state.
+						workspace, plan, providers, runtime targets, preview, export, mobile
+						review state, and the operator posture needed for local trust,
+						lease, and comparison status.
 					</p>
 				</div>
 				<div className="space-y-3">
@@ -124,7 +132,38 @@ async function runAction(commandKey: string, payload?: Record<string, unknown>) 
 				</div>
 				<div className="space-y-3">
 					<h2 className="font-bold text-2xl">
-						3) Bootstrap providers and routing policy explicitly
+						3) Persist Builder defaults in workspace config
+					</h2>
+					<p className="text-muted-foreground text-sm">
+						The host should agree with the CLI and setup flows on the same
+						control-plane defaults. For local or hybrid setups, keep the Builder
+						API base URL, token env var, and local runtime metadata in
+						`.contractsrc.json`.
+					</p>
+					<CodeBlock
+						language="json"
+						filename=".contractsrc.json"
+						code={`{
+  "builder": {
+    "enabled": true,
+    "runtimeMode": "local",
+    "bootstrapPreset": "local_daemon_mvp",
+    "api": {
+      "baseUrl": "https://api.contractspec.io",
+      "controlPlaneTokenEnvVar": "CONTROL_PLANE_API_TOKEN"
+    },
+    "localRuntime": {
+      "runtimeId": "rt_local_daemon",
+      "grantedTo": "local:operator",
+      "providerIds": ["provider.codex", "provider.local.model"]
+    }
+  }
+}`}
+					/>
+				</div>
+				<div className="space-y-3">
+					<h2 className="font-bold text-2xl">
+						4) Bootstrap providers and routing policy explicitly
 					</h2>
 					<p className="text-muted-foreground text-sm">
 						Builder v3 treats provider routing as policy, not heuristic. Use the
@@ -154,8 +193,18 @@ async function runAction(commandKey: string, payload?: Record<string, unknown>) 
 						))}
 					</ul>
 				</div>
+				<div className="card-subtle space-y-3 p-6">
+					<h3 className="font-semibold text-lg">
+						Snapshot-backed operator details
+					</h3>
+					<ul className="space-y-2 text-muted-foreground text-sm">
+						{operatorStatusDetails.map((detail) => (
+							<li key={detail}>{detail}</li>
+						))}
+					</ul>
+				</div>
 				<div className="space-y-3">
-					<h2 className="font-bold text-2xl">4) Keep runtime mode explicit</h2>
+					<h2 className="font-bold text-2xl">5) Keep runtime mode explicit</h2>
 					<p className="text-muted-foreground text-sm">
 						Preview and export flows are runtime-mode aware. The host chooses
 						between `managed`, `local`, and `hybrid` and passes that choice into
@@ -178,7 +227,7 @@ await executeBuilderCommand({
 					/>
 				</div>
 				<div className="space-y-3">
-					<h2 className="font-bold text-2xl">5) Link mobile review flows</h2>
+					<h2 className="font-bold text-2xl">6) Link mobile review flows</h2>
 					<p className="text-muted-foreground text-sm">
 						When a patch proposal, approval ticket, or incident needs operator
 						follow-up away from the desktop workbench, deep-link into the mobile
@@ -201,7 +250,7 @@ await executeBuilderCommand({
 				</div>
 				<div className="space-y-3">
 					<h2 className="font-bold text-2xl">
-						6) Keep Connect adjacent, not embedded
+						7) Keep Connect adjacent, not embedded
 					</h2>
 					<p className="text-muted-foreground text-sm">
 						Builder owns the authoring control plane. When Builder delegates

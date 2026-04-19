@@ -32,13 +32,20 @@ Foundational contract declarations, registries, capabilities, and shared executi
 - Export `./acp/commands/acpPromptTurn.command` resolves through `./src/acp/commands/acpPromptTurn.command.ts`.
 - Export `./acp/commands/acpSessionInit.command` resolves through `./src/acp/commands/acpSessionInit.command.ts`.
 - Export `./acp/commands/acpSessionResume.command` resolves through `./src/acp/commands/acpSessionResume.command.ts`.
-- The package publishes 375 total export subpaths; keep docs aligned with `package.json`.
+- Export `./app-config/validation` resolves through `./src/app-config/validation.ts`.
+- Export `./features/validation` resolves through `./src/features/validation.ts`.
+- Export `./themes.validation` resolves through `./src/themes.validation.ts`.
+- Export `./workspace-config` resolves through `./src/workspace-config/index.ts`.
+- Export `./workspace-config/contractsrc-schema` resolves through `./src/workspace-config/contractsrc-schema.ts`.
+- Export `./workspace-config/contractsrc-types` resolves through `./src/workspace-config/contractsrc-types.ts`.
+- The package publishes 394 total exports in `package.json`, including the root `.` barrel and 393 subpath exports; keep docs aligned with `package.json`.
 
 ## Guardrails
 
 - This is one of the highest-blast-radius libraries in the repo; export and type changes ripple everywhere.
 - Contract, registry, and capability shapes are public API and must remain compatible or be versioned deliberately.
 - Do not document or expose generated paths that are not actually exported from `package.json`.
+- Keep the package README, package AGENTS guide, and `/llms/lib.contracts-spec` output aligned when public exports or authoring workflows change.
 - Changes here can affect downstream packages such as `@contractspec/lib.schema`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
 ## Local Commands

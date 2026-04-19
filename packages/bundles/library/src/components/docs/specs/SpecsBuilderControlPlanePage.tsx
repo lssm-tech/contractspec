@@ -4,24 +4,31 @@ import Link from '@contractspec/lib.ui-link';
 const runtimeModes = [
 	{
 		title: 'Managed',
-		body: 'Best when the team wants the platform to own setup, routing, readiness, and mobile-safe defaults.',
+		body: 'Best when the team wants the platform to own setup, routing, readiness, API defaults, and mobile-safe operator flows.',
 	},
 	{
 		title: 'Local',
-		body: 'Best for power users who want tenant-local execution providers and tighter data-locality control.',
+		body: 'Best for power users who want local-daemon registration, tenant-local execution providers, and tighter data-locality control.',
 	},
 	{
 		title: 'Hybrid',
-		body: 'Best when some work should stay local while preview, review, or export flows still use managed coordination.',
+		body: 'Best when some work should stay local while preview, review, export, or mobile operator flows still use managed coordination.',
 	},
 ];
 
 const builderLoop = [
+	'Bootstrap managed, local-daemon, or hybrid presets explicitly instead of inventing provider posture ad hoc per host.',
 	'Capture prompts, files, voice, and other inbound sources into a typed workspace instead of relying on a single chat transcript.',
 	'Fuse the sources into decisions, assumptions, and blueprint updates with provenance and approval memory.',
 	'Compile authoring work into execution lanes, then route the work to explicit provider profiles and runtime targets.',
 	'Create previews, run readiness gates, and record receipts before export becomes an operator action.',
 	'Keep mobile review parity so approvals, incidents, and patch proposals can be inspected away from the desktop workbench.',
+];
+
+const operatorSignals = [
+	'local trust and lease posture for registered local runtimes',
+	'channel-action and comparison posture data in the shared Builder snapshot',
+	'preview, readiness, export, and mobile-review state derived from the same workspace snapshot',
 ];
 
 export function SpecsBuilderControlPlanePage() {
@@ -149,6 +156,54 @@ Operate API proxy
 						</li>
 					</ul>
 				</article>
+			</section>
+
+			<section className="editorial-panel space-y-5">
+				<div className="space-y-2">
+					<h2 className="font-serif text-3xl tracking-[-0.03em]">
+						Workspace config carries the current Builder defaults
+					</h2>
+					<p className="text-muted-foreground text-sm leading-7">
+						Builder setup is no longer just an app-shell concern. The shared
+						workspace config now carries runtime mode, bootstrap preset, control
+						plane API defaults, and local runtime registration metadata so the
+						CLI, editors, and web shells resolve the same posture.
+					</p>
+				</div>
+				<CodeBlock
+					language="json"
+					filename=".contractsrc.json"
+					code={`{
+  "builder": {
+    "enabled": true,
+    "runtimeMode": "local",
+    "bootstrapPreset": "local_daemon_mvp",
+    "api": {
+      "baseUrl": "https://api.contractspec.io",
+      "controlPlaneTokenEnvVar": "CONTROL_PLANE_API_TOKEN"
+    },
+    "localRuntime": {
+      "runtimeId": "rt_local_daemon",
+      "grantedTo": "local:operator",
+      "providerIds": ["provider.codex", "provider.local.model"]
+    }
+  }
+}`}
+				/>
+			</section>
+
+			<section className="editorial-panel space-y-4">
+				<h2 className="font-serif text-3xl tracking-[-0.03em]">
+					Operator posture stays visible
+				</h2>
+				<ul className="editorial-list">
+					{operatorSignals.map((item) => (
+						<li key={item}>
+							<span className="editorial-list-marker" />
+							<span>{item}</span>
+						</li>
+					))}
+				</ul>
 			</section>
 
 			<section className="editorial-panel space-y-5">

@@ -2,35 +2,33 @@ engine biome(1.0)
 language js(typescript, jsx)
 
 sequential {
-  `import $imports from $source` where {
-    $source <: or { `"@contractspec/lib.ui-kit-web/ui/button"`, `"@contractspec/lib.ui-kit-web/ui/input"`, `"@contractspec/lib.ui-kit-web/ui/textarea"`, `"@contractspec/lib.ui-kit-web/ui/card"`, `"@contractspec/lib.ui-kit-web/ui/form"`, `"@contractspec/lib.ui-kit-web/ui/label"` },
-    register_diagnostic(
-      span = $source,
-      message = "Prefer @contractspec/lib.design-system over leaf ui-kit-web control imports in application surfaces. Replace these imports with \"@contractspec/lib.design-system\"."
-    )
-  },
-
-  `import $imports from $source` where {
-    $source <: or { `"@contractspec/lib.contracts-runtime-server-mcp/provider-mcp"` },
-    register_diagnostic(
-      span = $source,
-      message = "Prefer package-level ContractSpec runtime entrypoints over leaf runtime imports when the root package already exposes the needed surface. Replace these imports with \"@contractspec/lib.contracts-runtime-server-mcp\"."
-    )
-  },
-
-  `import $imports from $source` where {
-    $source <: or { `"@contractspec/lib.contracts-runtime-server-rest/rest-next-app"` },
-    register_diagnostic(
-      span = $source,
-      message = "Prefer package-level ContractSpec runtime entrypoints over leaf runtime imports when the root package already exposes the needed surface. Replace these imports with \"@contractspec/lib.contracts-runtime-server-rest\"."
-    )
-  },
-
-  `import $imports from $source` where {
-    $source <: or { `"@contractspec/lib.contracts-runtime-server-graphql/graphql-pothos"` },
-    register_diagnostic(
-      span = $source,
-      message = "Prefer package-level ContractSpec runtime entrypoints over leaf runtime imports when the root package already exposes the needed surface. Replace these imports with \"@contractspec/lib.contracts-runtime-server-graphql\"."
-    )
-  }
+	`import $imports from $source` where {
+		$source <: or {
+			`"@contractspec/lib.ui-kit-web/ui/button"`,
+			`"@contractspec/lib.ui-kit-web/ui/input"`,
+			`"@contractspec/lib.ui-kit-web/ui/textarea"`,
+			`"@contractspec/lib.ui-kit-web/ui/card"`,
+			`"@contractspec/lib.ui-kit-web/ui/form"`,
+			`"@contractspec/lib.ui-kit-web/ui/label"`
+		},
+		register_diagnostic(span=$source, message="Prefer @contractspec/lib.design-system over leaf ui-kit-web control imports in application surfaces. Replace these imports with \"@contractspec/lib.design-system\".")
+	},
+	`import $imports from $source` where {
+		$source <: or {
+			`"@contractspec/lib.contracts-runtime-server-mcp/provider-mcp"`
+		},
+		register_diagnostic(span=$source, message="Prefer package-level ContractSpec runtime entrypoints over leaf runtime imports when the root package already exposes the needed surface. Replace these imports with \"@contractspec/lib.contracts-runtime-server-mcp\".")
+	},
+	`import $imports from $source` where {
+		$source <: or {
+			`"@contractspec/lib.contracts-runtime-server-rest/rest-next-app"`
+		},
+		register_diagnostic(span=$source, message="Prefer package-level ContractSpec runtime entrypoints over leaf runtime imports when the root package already exposes the needed surface. Replace these imports with \"@contractspec/lib.contracts-runtime-server-rest\".")
+	},
+	`import $imports from $source` where {
+		$source <: or {
+			`"@contractspec/lib.contracts-runtime-server-graphql/graphql-pothos"`
+		},
+		register_diagnostic(span=$source, message="Prefer package-level ContractSpec runtime entrypoints over leaf runtime imports when the root package already exposes the needed surface. Replace these imports with \"@contractspec/lib.contracts-runtime-server-graphql\".")
+	}
 }

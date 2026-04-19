@@ -419,6 +419,18 @@ export const DOCS_PAGES: readonly DocsPageEntry[] = [
 		ctaMode: 'oss-next',
 	},
 	{
+		href: '/docs/guides/release-capsules',
+		title: 'Author release capsules',
+		description:
+			'Pair changesets with structured release capsules, generate release artifacts, and keep changelog plus docs surfaces aligned.',
+		section: 'operate',
+		order: 25,
+		navTitle: 'Release capsules',
+		primaryNav: true,
+		audience: 'operator',
+		ctaMode: 'reference',
+	},
+	{
 		href: '/docs/safety/security-trust',
 		title: 'Security and trust',
 		description:

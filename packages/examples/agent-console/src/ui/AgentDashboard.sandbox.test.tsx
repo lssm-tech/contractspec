@@ -42,10 +42,19 @@ beforeAll(() => {
 		value: SyntaxError,
 		configurable: true,
 	});
+	const encodeURIComponentFromGlobal =
+		globalThis.encodeURIComponent.bind(globalThis);
+	const decodeURIComponentFromGlobal =
+		globalThis.decodeURIComponent.bind(globalThis);
+	Object.assign(windowInstance, {
+		encodeURIComponent: encodeURIComponentFromGlobal,
+		decodeURIComponent: decodeURIComponentFromGlobal,
+	});
 	Object.assign(globalThis, {
 		window: windowInstance,
 		document: windowInstance.document,
 		navigator: windowInstance.navigator,
+		location: windowInstance.location,
 		HTMLElement: windowInstance.HTMLElement,
 		HTMLButtonElement: windowInstance.HTMLButtonElement,
 		HTMLInputElement: windowInstance.HTMLInputElement,
@@ -55,6 +64,7 @@ beforeAll(() => {
 		MouseEvent: windowInstance.MouseEvent,
 		KeyboardEvent: windowInstance.KeyboardEvent,
 		MutationObserver: windowInstance.MutationObserver,
+		DocumentFragment: windowInstance.DocumentFragment,
 		getComputedStyle: windowInstance.getComputedStyle.bind(windowInstance),
 		requestAnimationFrame: (callback: FrameRequestCallback) =>
 			setTimeout(() => callback(Date.now()), 0),

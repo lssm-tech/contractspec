@@ -47,6 +47,6 @@ validation:
     - cd packages/libs/contracts-spec && bun run scripts/build-docblocks-manifest.ts && bun run typecheck
     - cd packages/apps/web-landing && bun run llms:generate
   evidence:
-    - `VectorIndexer` now writes canonical `payload.text`, and the retriever/query helpers consume the shared payload extraction path.
-    - Package-local tests now cover indexing, adapters, retrieval, query, access guard behavior, and split i18n coverage in `@contractspec/lib.knowledge`.
-    - The pocket-family-office example no longer copies fragment text into metadata, and the knowledge docs/manifests now describe the corrected indexing semantics.
+    - "`VectorIndexer` now writes canonical `payload.text`, and the retriever/query helpers consume the shared payload extraction path."
+    - "Package-local tests now cover indexing, adapters, retrieval, query, access guard behavior, and split i18n coverage in `@contractspec/lib.knowledge`."
+    - "The pocket-family-office example no longer copies fragment text into metadata, and the knowledge docs/manifests now describe the corrected indexing semantics."

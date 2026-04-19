@@ -10,6 +10,7 @@ Every meaningful change must:
 3. pass through ContractSpec Connect before risky edits or shell execution
 4. preserve policy/workflow integrity
 5. leave behind review and replay evidence when escalation is required
+6. keep package docs, website docs, and release capsules aligned when the public contract surface or workflow changes
 
 # ContractSpec Codebase
 
@@ -57,6 +58,13 @@ Every meaningful change must:
 - Package-level `AGENTS.md` files are the authoritative local guides for touched packages; always prefer the nearest one when editing code.
 - When the root guide and a package guide differ, follow the more specific package guidance unless it conflicts with higher-priority safety or security rules.
 
+## Docs And Release Sync
+
+- Treat root `README.md`, the nearest package `README.md`, the nearest package `AGENTS.md`, the website docs, and `/llms*` guidance as one public documentation surface.
+- When contributor or user workflows change, use the paired `.changeset/*.md` and `.changeset/*.release.yaml` files as the canonical release-facing source of truth for what must be reflected in docs.
+- Update the source rule files that generate root guidance instead of hand-editing generated root `AGENTS.md`.
+- If a website or changelog surface depends on generated release artifacts, run `contractspec release build` before treating that surface as current.
+
 ## Code Style (Enforced)
 
 - **Language**: TypeScript (strict mode)
@@ -68,9 +76,10 @@ Every meaningful change must:
 
 1. Read relevant rules for your change type
 2. Check the nearest package `README.md` and `AGENTS.md` before changing behavior
-3. Check existing patterns in the codebase
-4. Plan with DocBlocks if adding new features
-5. Run `/ai-audit` to verify decisions
+3. If the change affects public behavior or operator workflow, inspect the related `.changeset/*.md` and `.release.yaml` files before updating docs
+4. Check existing patterns in the codebase
+5. Plan with DocBlocks if adding new features
+6. Run `/ai-audit` to verify decisions
 
 ## AI Agent Guidelines
 
@@ -79,6 +88,7 @@ When working with AI assistants:
 - Rules are applied contextually based on file type
 - Treat `package.json`, `src/`, local `README.md`, and local `AGENTS.md` as the source of truth for package behavior
 - MCP schemas, exported subpaths, CLI signatures, and generated artifacts are compatibility surfaces and should be changed deliberately
+- Keep generated docs, `/llms*`, and release-manifest-backed website surfaces aligned with the same underlying source docs and release capsules
 - Conflicts resolved by: Security > Compliance > Safety > Quality > UX > Performance
 - All decisions should be traceable and reversible
 - Use `/ai-audit` to verify governance compliance

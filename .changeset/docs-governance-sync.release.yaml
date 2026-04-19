@@ -1,0 +1,61 @@
+schemaVersion: "1"
+slug: docs-governance-sync
+summary: Refresh root, package, website, and LLM-facing docs so Connect, Builder, release capsules, and the current contracts-spec export surface stay aligned.
+isBreaking: false
+packages:
+  - name: "contractspec"
+    releaseType: patch
+  - name: "@contractspec/lib.contracts-spec"
+    releaseType: patch
+  - name: "@contractspec/bundle.library"
+    releaseType: patch
+  - name: "@contractspec/app.web-landing"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - node
+  - nextjs
+affectedFrameworks:
+  - react
+audiences:
+  - kind: maintainer
+    summary: Maintainers now have aligned root guidance, package docs, website docs, and release-manifest-backed changelog copy for the current Connect, Builder, and release-capsule workflows.
+    affectedPackages:
+      - "contractspec"
+      - "@contractspec/lib.contracts-spec"
+      - "@contractspec/bundle.library"
+      - "@contractspec/app.web-landing"
+  - kind: integrator
+    summary: Integrators can follow the updated Connect adoption, Builder workspace-config, and release-capsule workflows without reconciling stale docs across multiple surfaces.
+    affectedPackages:
+      - "@contractspec/lib.contracts-spec"
+      - "@contractspec/bundle.library"
+      - "@contractspec/app.web-landing"
+  - kind: customer
+    summary: Website readers and package consumers now see current guidance for Connect, Builder, and release communication, including the corrected contracts-spec export inventory.
+    affectedPackages:
+      - "contractspec"
+      - "@contractspec/lib.contracts-spec"
+      - "@contractspec/app.web-landing"
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: regenerate-doc-and-release-surfaces
+    title: Regenerate docs and release artifacts after workflow copy changes
+    summary: Keep the generated docs, `/llms*` guides, and release-backed changelog surfaces aligned with the underlying source docs.
+    level: manual
+    instructions:
+      - Run `cd packages/libs/contracts-spec && bun run docs:manifest` after changing contracts-spec docblocks or package docs.
+      - Run `cd packages/apps/web-landing && bun run llms:generate` after changing package READMEs or `/llms*` guidance.
+      - Run `contractspec release build` before treating changelog or upgrade surfaces as current.
+validation:
+  commands:
+    - "cd packages/libs/contracts-spec && bun run docs:manifest"
+    - "cd packages/apps/web-landing && bun run llms:generate"
+    - "bun run release:build"
+    - "bun packages/tools/agentpacks/src/index.ts generate"
+    - "bun run release:check --strict --baseline main"
+  evidence:
+    - "Root README and AGENTS guidance now describe Connect, Builder control-plane defaults, and release-capsule authoring consistently."
+    - "`@contractspec/lib.contracts-spec` README, AGENTS, docblocks, and generated `/llms/lib.contracts-spec` guide now agree on the current validation entrypoints and export inventory."
+    - "`@contractspec/bundle.library` and `@contractspec/app.web-landing` now expose a release-capsules guide and updated Connect/Builder docs that reflect adoption flows, Builder defaults, and operator status surfaces."

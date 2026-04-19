@@ -90,10 +90,16 @@ const resolver = createTranslationResolver({
 
 The canonical data-table example lives in
 [`@contractspec/example.data-grid-showcase`](../../examples/data-grid-showcase/README.md).
-Its composed lane uses `DataTable` and `DataViewTable` from this package:
+Its composed lane uses `DataTable`, `DataTableToolbar`, and `DataViewTable`
+from this package:
 
 ```tsx
-import { Button, DataTable, DataViewTable } from '@contractspec/lib.design-system';
+import {
+  Button,
+  DataTable,
+  DataTableToolbar,
+  DataViewTable,
+} from '@contractspec/lib.design-system';
 import { useContractTable } from '@contractspec/lib.presentation-runtime-react';
 
 import { DataGridShowcaseDataView } from '@contractspec/example.data-grid-showcase/contracts/data-grid-showcase.data-view';
@@ -101,7 +107,6 @@ import { SHOWCASE_ROWS } from '@contractspec/example.data-grid-showcase/ui/data-
 import { useShowcaseColumns } from '@contractspec/example.data-grid-showcase/ui/data-grid-showcase.columns';
 import {
   ExpandedRowContent,
-  ShowcaseToolbar,
 } from '@contractspec/example.data-grid-showcase/ui/data-grid-showcase.parts';
 
 export function AccountHealthTable() {
@@ -129,13 +134,14 @@ export function AccountHealthTable() {
         description="Composed table surface for the canonical account grid."
         headerActions={<Button variant="outline">Reset</Button>}
         toolbar={
-          <ShowcaseToolbar
+          <DataTableToolbar
             controller={controller}
-            label="Client mode"
-            primaryColumnId="account"
-            toggleColumnId="notes"
-            pinColumnId="owner"
-            sortColumnIds={['arr', 'renewalDate']}
+            searchPlaceholder="Search accounts"
+            actionsStart={
+              <Button variant="outline" size="sm">
+                Risk Only
+              </Button>
+            }
           />
         }
         loading={false}
@@ -151,6 +157,10 @@ export function AccountHealthTable() {
   );
 }
 ```
+
+`DataTable` remains the composed card/container surface. `DataTableToolbar` is
+the recommended ergonomic layer for search, chips, selection summary, and
+hidden-column recovery without widening the primitive table API.
 
 ## API map
 

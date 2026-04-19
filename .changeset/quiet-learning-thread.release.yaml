@@ -104,6 +104,6 @@ validation:
     - cd packages/modules/examples && bun run build && bun test && bun run typecheck && bun run lint:check
     - cd packages/examples/learning-patterns && bun run build && bun test && bun run typecheck && bun run lint:check
   evidence:
-    - The shared learning presentation keys resolve in `module.examples`, and markdown rendering succeeds for supported learning templates without the previous descriptor-not-found failure.
-    - `@contractspec/example.learning-journey-registry` owns the template-to-track mapping and shared learning markdown renderers instead of duplicating that logic in the sandbox runtime.
-    - The learning packages publish the adaptive journey runtime/types and branch-aware example tracks consistently across module/examples.
+    - "The shared learning presentation keys resolve in `module.examples`, and markdown rendering succeeds for supported learning templates without the previous descriptor-not-found failure."
+    - "`@contractspec/example.learning-journey-registry` owns the template-to-track mapping and shared learning markdown renderers instead of duplicating that logic in the sandbox runtime."
+    - "The learning packages publish the adaptive journey runtime/types and branch-aware example tracks consistently across module/examples."

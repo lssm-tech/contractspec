@@ -53,6 +53,27 @@ bun add @contractspec/lib.contracts-spec @contractspec/lib.schema
 - `installOp`: one-call helper to register + bind operation handlers.
 - `makeEmit`: typed helper for declared event emission in handlers.
 
+## Validation And Authoring Entry Points
+
+Recent authoring and setup flows use package-level validation APIs directly instead of relying on ad hoc template or registry assumptions.
+
+- `@contractspec/lib.contracts-spec/app-config/validation`
+  - `validateBlueprint`
+  - `validateTenantConfig`
+  - `validateResolvedConfig`
+  - `assertBlueprintValid`
+  - `assertTenantConfigValid`
+  - `assertResolvedConfigValid`
+- `@contractspec/lib.contracts-spec/features/validation`
+  - `validateFeatureSpec`
+  - `assertFeatureSpecValid`
+  - `validateFeatureTargetsV2`
+- `@contractspec/lib.contracts-spec/themes.validation`
+  - `validateThemeSpec`
+  - `assertThemeSpecValid`
+
+These entrypoints are the current public surface for workspace setup, CLI scaffolding, CI, and docs to verify `app-config`, `feature`, and `theme` authoring consistently.
+
 ## Agent Definitions
 
 Agent declarations now live in `@contractspec/lib.contracts-spec/agent`.
@@ -84,13 +105,31 @@ Runtime execution, exporters, MCP bridges, and provider adapters stay in
 `@contractspec/lib.contracts-spec/workspace-config` now includes first-class setup support for:
 
 - `connect` configuration
+- `connect.adoption` configuration for local catalog paths, workspace scan rules, family toggles, and verdict thresholds
 - `builder` configuration with `runtimeMode: "managed" | "local" | "hybrid"`
 - canonical Builder bootstrap presets:
   - `managed_mvp`
   - `local_daemon_mvp`
   - `hybrid_mvp`
+- Builder API fields:
+  - `builder.api.baseUrl`
+  - `builder.api.controlPlaneTokenEnvVar`
+- Builder local runtime fields:
+  - `builder.localRuntime.runtimeId`
+  - `builder.localRuntime.grantedTo`
+  - `builder.localRuntime.providerIds`
+- Published typed entrypoints:
+  - `@contractspec/lib.contracts-spec/workspace-config`
+  - `@contractspec/lib.contracts-spec/workspace-config/contractsrc-schema`
+  - `@contractspec/lib.contracts-spec/workspace-config/contractsrc-types`
 
 Those settings are consumed by the shared setup layer used by the CLI, VS Code extension, and JetBrains plugin.
+
+## Current Authoring Workflow
+
+- Use `defineTheme(...)` plus `contractspec create theme` for first-class theme scaffolding.
+- Route `app-config`, `feature`, and `theme` checks through the package-level validators above when building setup, editor, or CI automation.
+- Use `connect.adoption` and the broader authoring-target discovery flows when the CLI or editors should prefer existing workspace or ContractSpec surfaces before scaffolding new code.
 
 ## Migration Note
 
@@ -187,7 +226,7 @@ See the live example in `/docs/examples/data-grid-showcase` and the browser sand
 
 <!-- CONTRACT_INVENTORY:START -->
 
-The package currently exposes **375 subpath exports**. This map is kept here for high-context navigation and AI grounding.
+The package currently exposes **394 total exports** in `package.json`, including the root `.` barrel and **393 subpath exports**. This summary is kept here for high-context navigation and AI grounding.
 
 ### 1) Registry-level contract types (semantic model)
 
@@ -221,16 +260,16 @@ From `src/types.ts`, `ContractSpecType` currently includes:
 - `visualization`
 - `workflow`
 
-### 2) Export/file artifact kinds (suffix-based)
+### 2) Export/file artifact kinds (suffix-based, subpaths only)
 
 These are the concrete contract artifact kinds visible in package exports:
 
 - `.capability` (17)
 - `.feature` (10)
-- `.command` (28)
+- `.command` (34)
 - `.event` (28)
-- `.query` (24)
-- `.form` (5)
+- `.query` (26)
+- `.form` (6)
 - `.presentation` (6)
 - `.dataView` (11)
 - `.docs` (0)
@@ -245,15 +284,15 @@ These are the concrete contract artifact kinds visible in package exports:
 - `capabilities`: `plain(7)`
 - `context`: `capability(1)`, `feature(1)`, `command(1)`, `event(1)`, `query(2)`, `form(1)`, `presentation(1)`, `dataView(1)`, `plain(10)`
 - `contract-registry`: `plain(3)`
-- `control-plane`: `capability(5)`, `feature(1)`, `command(9)`, `event(10)`, `query(6)`, `plain(13)`
+- `control-plane`: `capability(5)`, `feature(1)`, `command(15)`, `event(10)`, `query(8)`, `plain(16)`
 - `data-views`: `plain(8)`
 - `database`: `capability(1)`, `feature(1)`, `query(4)`, `dataView(1)`, `plain(6)`
-- `docs`: `capability(1)`, `feature(1)`, `command(2)`, `event(2)`, `query(2)`, `form(1)`, `presentation(2)`, `dataView(3)`, `plain(12)`
+- `docs`: `capability(1)`, `feature(1)`, `command(2)`, `event(2)`, `query(2)`, `form(1)`, `presentation(2)`, `dataView(3)`, `plain(15)`
 - `events`: `plain(1)`
 - `examples`: `plain(6)`
 - `experiments`: `plain(3)`
 - `features`: `plain(6)`
-- `forms`: `plain(2)`
+- `forms`: `form(1)`, `plain(2)`
 - `harness`: `capability(4)`, `feature(1)`, `command(3)`, `event(8)`, `query(5)`, `presentation(1)`, `dataView(3)`, `plain(11)`
 - `install`: `plain(1)`
 - `jobs`: `plain(4)`
@@ -276,409 +315,23 @@ These are the concrete contract artifact kinds visible in package exports:
 - `regenerator`: `plain(7)`
 - `registry`: `plain(1)`
 - `registry-utils`: `plain(1)`
+- `release`: `plain(1)`
 - `resources`: `plain(1)`
 - `schema-to-markdown`: `plain(1)`
 - `serialization`: `plain(3)`
 - `telemetry`: `plain(4)`
 - `tests`: `plain(3)`
 - `themes`: `plain(1)`
+- `themes.validation`: `plain(1)`
 - `translations`: `plain(7)`
 - `types`: `plain(1)`
 - `utils`: `plain(1)`
-- `versioning`: `plain(4)`
+- `versioning`: `plain(7)`
 - `visualizations`: `plain(4)`
-- `workflow`: `plain(12)`
+- `workflow`: `plain(14)`
 - `workspace-config`: `plain(3)`
 
-### 4) Fully enumerated named contracts by category
-
-#### acp
-
-- Capabilities (1):
-  - `acp/capabilities/acpTransport.capability`
-- Features (1):
-  - `acp/acp.feature`
-- Commands (7):
-  - `acp/commands/acpFsAccess.command`
-  - `acp/commands/acpPromptTurn.command`
-  - `acp/commands/acpSessionInit.command`
-  - `acp/commands/acpSessionResume.command`
-  - `acp/commands/acpSessionStop.command`
-  - `acp/commands/acpTerminalExec.command`
-  - `acp/commands/acpToolCalls.command`
-- Plain exports (non-suffix artifacts): `5`
-
-#### agent
-
-- Capabilities (1):
-  - `agent/capabilities/agentExecution.capability`
-- Features (1):
-  - `agent/agent.feature`
-- Commands (3):
-  - `agent/commands/agentApprovals.command`
-  - `agent/commands/agentCancel.command`
-  - `agent/commands/agentRun.command`
-- Events (4):
-  - `agent/events/agentApprovalRequested.event`
-  - `agent/events/agentRunCompleted.event`
-  - `agent/events/agentRunFailed.event`
-  - `agent/events/agentRunStarted.event`
-- Queries (2):
-  - `agent/queries/agentArtifacts.query`
-  - `agent/queries/agentStatus.query`
-- Forms (1):
-  - `agent/forms/agentRun.form`
-- Presentations (1):
-  - `agent/presentations/agentRunAudit.presentation`
-- Data views (1):
-  - `agent/views/agentRuns.dataView`
-- Plain exports (non-suffix artifacts): `12`
-
-#### app-config
-
-- Capabilities (1):
-  - `app-config/app-config.capability`
-- Features (1):
-  - `app-config/app-config.feature`
-- Contracts artifacts (1):
-  - `app-config/app-config.contracts`
-- Plain exports (non-suffix artifacts): `9`
-
-#### capabilities
-
-- Plain exports (non-suffix artifacts): `13`
-
-#### context
-
-- Capabilities (1):
-  - `context/capabilities/contextSystem.capability`
-- Features (1):
-  - `context/context.feature`
-- Commands (1):
-  - `context/commands/contextPackSnapshot.command`
-- Events (1):
-  - `context/events/contextSnapshotCreated.event`
-- Queries (2):
-  - `context/queries/contextPackDescribe.query`
-  - `context/queries/contextPackSearch.query`
-- Forms (1):
-  - `context/forms/contextPackSearch.form`
-- Presentations (1):
-  - `context/presentations/contextSnapshot.presentation`
-- Data views (1):
-  - `context/views/contextSnapshots.dataView`
-- Plain exports (non-suffix artifacts): `10`
-
-#### contract-registry
-
-- Plain exports (non-suffix artifacts): `3`
-
-#### control-plane
-
-- Capabilities (5):
-  - `control-plane/capabilities/controlPlaneApproval.capability`
-  - `control-plane/capabilities/controlPlaneAudit.capability`
-  - `control-plane/capabilities/controlPlaneChannelRuntime.capability`
-  - `control-plane/capabilities/controlPlaneCore.capability`
-  - `control-plane/capabilities/controlPlaneSkillRegistry.capability`
-- Features (1):
-  - `control-plane/control-plane.feature`
-- Commands (9):
-  - `control-plane/commands/controlPlaneExecutionApprove.command`
-  - `control-plane/commands/controlPlaneExecutionCancel.command`
-  - `control-plane/commands/controlPlaneExecutionReject.command`
-  - `control-plane/commands/controlPlaneExecutionStart.command`
-  - `control-plane/commands/controlPlaneIntentSubmit.command`
-  - `control-plane/commands/controlPlanePlanCompile.command`
-  - `control-plane/commands/controlPlanePlanVerify.command`
-  - `control-plane/commands/controlPlaneSkillDisable.command`
-  - `control-plane/commands/controlPlaneSkillInstall.command`
-- Events (10):
-  - `control-plane/events/controlPlaneExecutionCompleted.event`
-  - `control-plane/events/controlPlaneExecutionFailed.event`
-  - `control-plane/events/controlPlaneExecutionStepBlocked.event`
-  - `control-plane/events/controlPlaneExecutionStepCompleted.event`
-  - `control-plane/events/controlPlaneExecutionStepStarted.event`
-  - `control-plane/events/controlPlaneIntentReceived.event`
-  - `control-plane/events/controlPlanePlanCompiled.event`
-  - `control-plane/events/controlPlanePlanRejected.event`
-  - `control-plane/events/controlPlaneSkillInstalled.event`
-  - `control-plane/events/controlPlaneSkillRejected.event`
-- Queries (6):
-  - `control-plane/queries/controlPlaneExecutionGet.query`
-  - `control-plane/queries/controlPlaneExecutionList.query`
-  - `control-plane/queries/controlPlanePolicyExplain.query`
-  - `control-plane/queries/controlPlaneSkillList.query`
-  - `control-plane/queries/controlPlaneSkillVerify.query`
-  - `control-plane/queries/controlPlaneTraceGet.query`
-- Plain exports (non-suffix artifacts): `7`
-
-#### data-views
-
-- Plain exports (non-suffix artifacts): `8`
-
-#### database
-
-- Capabilities (1):
-  - `database/capabilities/databaseContext.capability`
-- Features (1):
-  - `database/database.feature`
-- Queries (4):
-  - `database/queries/databaseDictionaryGet.query`
-  - `database/queries/databaseMigrationsList.query`
-  - `database/queries/databaseQueryReadonly.query`
-  - `database/queries/databaseSchemaDescribe.query`
-- Data views (1):
-  - `database/views/databaseSchemas.dataView`
-- Plain exports (non-suffix artifacts): `6`
-
-#### docs
-
-- Capabilities (1):
-  - `docs/capabilities/documentationSystem.capability`
-- Features (1):
-  - `docs/docs.feature`
-- Commands (2):
-  - `docs/commands/docsGenerate.command`
-  - `docs/commands/docsPublish.command`
-- Events (2):
-  - `docs/events/docsGenerated.event`
-  - `docs/events/docsPublished.event`
-- Queries (2):
-  - `docs/queries/contractReference.query`
-  - `docs/queries/docsIndex.query`
-- Forms (1):
-  - `docs/forms/docsSearch.form`
-- Presentations (2):
-  - `docs/presentations/docsLayout.presentation`
-  - `docs/presentations/docsReferencePage.presentation`
-- Data views (3):
-  - `docs/views/contractReference.dataView`
-  - `docs/views/docsIndex.dataView`
-  - `docs/views/exampleCatalog.dataView`
-- Plain exports (non-suffix artifacts): `12`
-
-#### events
-
-- Plain exports (non-suffix artifacts): `1`
-
-#### examples
-
-- Plain exports (non-suffix artifacts): `6`
-
-#### experiments
-
-- Plain exports (non-suffix artifacts): `3`
-
-#### features
-
-- Plain exports (non-suffix artifacts): `6`
-
-#### forms
-
-- Plain exports (non-suffix artifacts): `2`
-
-#### harness
-
-- Capabilities (4):
-  - `harness/capabilities/harnessEvaluation.capability`
-  - `harness/capabilities/harnessEvidence.capability`
-  - `harness/capabilities/harnessExecution.capability`
-  - `harness/capabilities/harnessTargeting.capability`
-- Features (1):
-  - `harness/harness.feature`
-- Commands (3):
-  - `harness/commands/harnessEvaluationRun.command`
-  - `harness/commands/harnessRunCancel.command`
-  - `harness/commands/harnessRunStart.command`
-- Events (8):
-  - `harness/events/harnessEvaluationCompleted.event`
-  - `harness/events/harnessEvidenceCaptured.event`
-  - `harness/events/harnessRunCompleted.event`
-  - `harness/events/harnessRunFailed.event`
-  - `harness/events/harnessRunStarted.event`
-  - `harness/events/harnessStepBlocked.event`
-  - `harness/events/harnessStepCompleted.event`
-  - `harness/events/harnessStepStarted.event`
-- Queries (5):
-  - `harness/queries/harnessEvaluationGet.query`
-  - `harness/queries/harnessEvidenceGet.query`
-  - `harness/queries/harnessEvidenceList.query`
-  - `harness/queries/harnessRunGet.query`
-  - `harness/queries/harnessTargetResolve.query`
-- Presentations (1):
-  - `harness/presentations/harnessRunAudit.presentation`
-- Data views (3):
-  - `harness/views/harnessEvaluations.dataView`
-  - `harness/views/harnessEvidence.dataView`
-  - `harness/views/harnessRuns.dataView`
-- Plain exports (non-suffix artifacts): `11`
-
-#### install
-
-- Plain exports (non-suffix artifacts): `1`
-
-#### jobs
-
-- Plain exports (non-suffix artifacts): `4`
-
-#### jsonschema
-
-- Plain exports (non-suffix artifacts): `1`
-
-#### knowledge
-
-- Capabilities (1):
-  - `knowledge/knowledge.capability`
-- Features (1):
-  - `knowledge/knowledge.feature`
-- Plain exports (non-suffix artifacts): `12`
-
-#### llm
-
-- Plain exports (non-suffix artifacts): `4`
-
-#### markdown
-
-- Plain exports (non-suffix artifacts): `1`
-
-#### migrations
-
-- Plain exports (non-suffix artifacts): `1`
-
-#### model-registry
-
-- Plain exports (non-suffix artifacts): `1`
-
-#### onboarding-base
-
-- Plain exports (non-suffix artifacts): `1`
-
-#### openapi
-
-- Plain exports (non-suffix artifacts): `1`
-
-#### operations
-
-- Plain exports (non-suffix artifacts): `5`
-
-#### ownership
-
-- Plain exports (non-suffix artifacts): `1`
-
-#### policy
-
-- Plain exports (non-suffix artifacts): `8`
-
-#### presentations
-
-- Plain exports (non-suffix artifacts): `4`
-
-#### product-intent
-
-- Plain exports (non-suffix artifacts): `16`
-
-#### prompt
-
-- Plain exports (non-suffix artifacts): `1`
-
-#### promptRegistry
-
-- Plain exports (non-suffix artifacts): `1`
-
-#### provider-ranking
-
-- Capabilities (1):
-  - `provider-ranking/capabilities/providerRanking.capability`
-- Features (1):
-  - `provider-ranking/provider-ranking.feature`
-- Commands (3):
-  - `provider-ranking/commands/benchmarkIngest.command`
-  - `provider-ranking/commands/benchmarkRunCustom.command`
-  - `provider-ranking/commands/rankingRefresh.command`
-- Events (3):
-  - `provider-ranking/events/benchmarkCustomCompleted.event`
-  - `provider-ranking/events/benchmarkIngested.event`
-  - `provider-ranking/events/rankingUpdated.event`
-- Queries (3):
-  - `provider-ranking/queries/benchmarkResultsList.query`
-  - `provider-ranking/queries/modelProfileGet.query`
-  - `provider-ranking/queries/providerRankingGet.query`
-- Forms (2):
-  - `provider-ranking/forms/benchmarkIngest.form`
-  - `provider-ranking/forms/benchmarkRunCustom.form`
-- Presentations (1):
-  - `provider-ranking/presentations/modelComparison.presentation`
-- Data views (2):
-  - `provider-ranking/views/benchmarkResults.dataView`
-  - `provider-ranking/views/providerRankings.dataView`
-- Plain exports (non-suffix artifacts): `10`
-
-#### regenerator
-
-- Plain exports (non-suffix artifacts): `7`
-
-#### registry
-
-- Plain exports (non-suffix artifacts): `1`
-
-#### registry-utils
-
-- Plain exports (non-suffix artifacts): `1`
-
-#### resources
-
-- Plain exports (non-suffix artifacts): `1`
-
-#### schema-to-markdown
-
-- Plain exports (non-suffix artifacts): `1`
-
-#### serialization
-
-- Plain exports (non-suffix artifacts): `3`
-
-#### telemetry
-
-- Plain exports (non-suffix artifacts): `4`
-
-#### tests
-
-- Plain exports (non-suffix artifacts): `3`
-
-#### themes
-
-- Plain exports (non-suffix artifacts): `1`
-
-#### translations
-
-- Plain exports (non-suffix artifacts): `7`
-
-#### types
-
-- Plain exports (non-suffix artifacts): `1`
-
-#### utils
-
-- Plain exports (non-suffix artifacts): `1`
-
-#### versioning
-
-- Plain exports (non-suffix artifacts): `4`
-
-#### visualizations
-
-- Plain exports (non-suffix artifacts): `4`
-
-#### workflow
-
-- Plain exports (non-suffix artifacts): `12`
-
-#### workspace-config
-
-- Plain exports (non-suffix artifacts): `3`
-
-### 5) DocBlock coverage map (for AI context retrieval)
+### 4) DocBlock coverage map (for AI context retrieval)
 
 DocBlocks are authored as same-file exports in their owner modules and loaded through generated manifests, not standalone `*.docblock` package exports.
 

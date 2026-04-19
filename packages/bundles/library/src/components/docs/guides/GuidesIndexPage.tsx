@@ -60,6 +60,13 @@ const guides = [
 		time: '15 min',
 	},
 	{
+		title: 'Author release capsules',
+		description:
+			'Pair changesets with structured release capsules and generate the artifacts that changelog and upgrade flows consume.',
+		href: '/docs/guides/release-capsules',
+		time: '15 min',
+	},
+	{
 		title: 'CI diff gating',
 		description:
 			'Use deterministic checks to catch drift and risky changes before they ship.',

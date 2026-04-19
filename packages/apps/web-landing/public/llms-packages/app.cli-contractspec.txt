@@ -29,12 +29,22 @@ From `packages/apps/cli-contractspec`:
 bun run dev
 ```
 
+## Recommended OSS Onboarding
+
+```bash
+contractspec onboard
+contractspec onboard knowledge --example knowledge-canon
+contractspec init --preset connect
+contractspec validate
+```
+
 ## Core Authoring/Build Model
 
 - `create` authors both runtime specs and package-oriented targets such as `module-bundle`, `builder-spec`, and `provider-spec`.
 - `build` materializes one authored target into runtime artifacts or package scaffolds.
 - `generate` runs workspace-wide generation for docs and derived artifacts.
 - `validate` checks authored targets, package scaffolds, and optional runtime implementations.
+- `onboard` generates repo-local AGENTS/USAGE guidance, recommends examples, and aligns users to the right ContractSpec track.
 
 ## Shell Completion
 
@@ -78,6 +88,8 @@ contractspec init --preset builder-hybrid
 ```
 
 In non-interactive mode, setup remains config-first: it writes `.contractsrc.json`, editor wiring, and tailored follow-up commands, but it does not call live Builder bootstrap APIs for you.
+
+`contractspec builder` remains control-plane-backed for managed, local, and hybrid runtime flows. The CLI resolves the Builder API base URL from `CONTRACTSPEC_API_BASE_URL`, then `.contractsrc.json` `builder.api.baseUrl`, then `https://api.contractspec.io`, and reads auth from the configured control-plane token environment variable.
 
 ## Architecture
 

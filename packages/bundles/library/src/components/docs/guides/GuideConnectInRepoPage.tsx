@@ -8,6 +8,8 @@ const artifactPaths = [
 	'.contractspec/connect/patch-verdict.json',
 	'.contractspec/connect/audit.ndjson',
 	'.contractspec/connect/decisions/<decisionId>/',
+	'.contractspec/adoption/catalog.json',
+	'.contractspec/adoption/overrides.json',
 ];
 
 export function GuideConnectInRepoPage() {
@@ -26,6 +28,7 @@ export function GuideConnectInRepoPage() {
 				<h2 className="font-bold text-2xl">What you&apos;ll build</h2>
 				<ul className="space-y-2 text-muted-foreground text-sm">
 					<li>A workspace-level Connect config in `.contractsrc.json`.</li>
+					<li>A reuse-first adoption check before new implementation work.</li>
 					<li>A context and plan flow for one task.</li>
 					<li>
 						Verified file and shell mutations with local review/replay evidence.
@@ -69,6 +72,28 @@ export function GuideConnectInRepoPage() {
       "allow": ["bun run typecheck"],
       "review": ["git push"],
       "deny": ["git reset --hard", "git push --force", "rm -rf"]
+    },
+    "adoption": {
+      "enabled": true,
+      "catalog": {
+        "indexPath": ".contractspec/adoption/catalog.json",
+        "overrideManifestPath": ".contractspec/adoption/overrides.json"
+      },
+      "workspaceScan": {
+        "include": ["packages/**", "docs/**"],
+        "exclude": ["generated/**", "dist/**"]
+      },
+      "families": {
+        "contracts": true,
+        "runtime": true,
+        "sharedLibs": true
+      },
+      "thresholds": {
+        "workspaceReuse": "permit",
+        "contractspecReuse": "permit",
+        "ambiguous": "require_review",
+        "newImplementation": "require_review"
+      }
     }
   }
 }`}
@@ -94,7 +119,31 @@ export function GuideConnectInRepoPage() {
 
 				<div className="space-y-3">
 					<h2 className="font-bold text-2xl">
-						3) Project context and compile a plan
+						3) Mirror the adoption catalog and resolve reuse first
+					</h2>
+					<p className="text-muted-foreground text-sm">
+						Connect adoption is the reuse-first layer for authoring. Mirror the
+						local catalog, then resolve the best existing surface for the family
+						you are about to touch before you scaffold or invent anything new.
+					</p>
+					<CodeBlock
+						language="bash"
+						filename="connect-adoption"
+						code={`contractspec connect adoption sync --json
+
+printf '{"goal":"Prefer an existing release helper before adding a new one"}' | \\
+  contractspec connect adoption resolve --family sharedLibs --stdin --json`}
+					/>
+					<p className="text-muted-foreground text-sm">
+						Expected output: a mirrored local adoption catalog plus a reuse
+						recommendation that can point to an existing workspace package or a
+						ContractSpec surface before the task reaches file mutation.
+					</p>
+				</div>
+
+				<div className="space-y-3">
+					<h2 className="font-bold text-2xl">
+						4) Project context and compile a plan
 					</h2>
 					<p className="text-muted-foreground text-sm">
 						Use the task id as the thread that connects context, plan, verdict,
@@ -120,7 +169,7 @@ printf '{"objective":"Document the control-plane contract surface","commands":["
 
 				<div className="space-y-3">
 					<h2 className="font-bold text-2xl">
-						4) Verify file and shell mutations
+						5) Verify file and shell mutations
 					</h2>
 					<CodeBlock
 						language="bash"
@@ -151,7 +200,7 @@ printf 'bun run typecheck' | \\
 
 				<div className="space-y-3">
 					<h2 className="font-bold text-2xl">
-						5) Review, replay, and optional Studio sync
+						6) Review, replay, and optional Studio sync
 					</h2>
 					<CodeBlock
 						language="bash"

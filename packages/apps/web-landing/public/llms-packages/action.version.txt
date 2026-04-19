@@ -2,7 +2,7 @@
 
 Website: https://contractspec.io
 
-**GitHub Action for automated ContractSpec version management and changelog generation. Handles versioning and release workflows in CI.**
+**GitHub Action for automated ContractSpec version management in CI.**
 
 ## What It Does
 
