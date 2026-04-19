@@ -24,7 +24,6 @@ export async function createExperimentSpec(
 	await writeSpecFile({
 		specName: specData.name,
 		specType: 'experiment',
-		extension: '.experiment.ts',
 		code,
 		spinnerText: 'Writing experiment spec...',
 		options,

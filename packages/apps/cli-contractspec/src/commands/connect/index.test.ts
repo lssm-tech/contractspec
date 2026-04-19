@@ -9,6 +9,7 @@ describe('connect command', () => {
 			'context',
 			'plan',
 			'verify',
+			'adoption',
 			'hook',
 			'review',
 			'replay',
@@ -31,6 +32,9 @@ describe('connect command', () => {
 		const hook = connectCommand.commands.find(
 			(command) => command.name() === 'hook'
 		);
+		const adoption = connectCommand.commands.find(
+			(command) => command.name() === 'adoption'
+		);
 		const evaluate = connectCommand.commands.find(
 			(command) => command.name() === 'eval'
 		);
@@ -41,6 +45,19 @@ describe('connect command', () => {
 		expect(
 			hook?.commands
 				.find((command) => command.name() === 'contracts-spec')
+				?.commands.map((command) => command.name())
+		).toEqual([
+			'before-file-edit',
+			'before-shell-execution',
+			'after-file-edit',
+		]);
+		expect(adoption?.commands.map((command) => command.name())).toEqual([
+			'sync',
+			'resolve',
+		]);
+		expect(
+			hook?.commands
+				.find((command) => command.name() === 'adoption')
 				?.commands.map((command) => command.name())
 		).toEqual([
 			'before-file-edit',

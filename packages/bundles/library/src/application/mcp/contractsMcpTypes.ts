@@ -44,4 +44,20 @@ export interface ContractsMcpServices {
 	): Promise<{ deleted: boolean; cleanedFiles: string[]; errors: string[] }>;
 
 	fetchRegistryManifest(): Promise<unknown>;
+
+	searchAdoptionCatalog(options: {
+		family?: string;
+		platform?: string;
+		query: string;
+	}): Promise<unknown[]>;
+
+	resolveAdoption(options: {
+		family: string;
+		paths?: string[];
+		platform?: string;
+		query: string;
+		runtime?: string;
+	}): Promise<unknown>;
+
+	syncAdoptionCatalog(): Promise<{ catalogPath: string; total: number }>;
 }

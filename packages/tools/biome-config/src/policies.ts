@@ -1,3 +1,4 @@
+import { adoptionPolicyManifest } from './policies-adoption';
 import type { ContractSpecPolicyRule } from './types';
 
 export const policyManifest: ContractSpecPolicyRule[] = [
@@ -181,4 +182,5 @@ export const policyManifest: ContractSpecPolicyRule[] = [
 			'Handlers, routes, and implementation entrypoints must import or reference a ContractSpec contract before shipping behavior.',
 		docsSource: 'packs/contractspec-rules/rules/contracts-first.md',
 	},
+	...adoptionPolicyManifest,
 ];

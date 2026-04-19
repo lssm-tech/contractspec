@@ -125,7 +125,7 @@ export function generateGritPlugin(audience: PolicyAudience): string {
 		(rule) => rule.engine === 'biome-grit'
 	);
 
-	const snippets = gritRules.flatMap((rule) => {
+	const patterns = gritRules.flatMap((rule) => {
 		const replacements = Object.entries(
 			(rule.options?.replacements as Record<string, string> | undefined) ?? {}
 		);
@@ -139,10 +139,7 @@ export function generateGritPlugin(audience: PolicyAudience): string {
 				.map(([source]) => `\`${JSON.stringify(source)}\``)
 				.join(', ');
 
-			return `engine biome(1.0)
-language js(typescript,jsx)
-
-\`import $imports from $source\` where {
+			return `\`import $imports from $source\` where {
   $source <: or { ${sources} },
   register_diagnostic(
     span = $source,
@@ -152,7 +149,29 @@ language js(typescript,jsx)
 		});
 	});
 
-	return `${snippets.join('\n\n')}\n`;
+	if (patterns.length === 0) {
+		return '';
+	}
+
+	const body =
+		patterns.length === 1
+			? patterns[0]
+			: `sequential {
+${patterns
+	.map((pattern) =>
+		pattern
+			.split('\n')
+			.map((line) => `  ${line}`)
+			.join('\n')
+	)
+	.join(',\n\n')}
+}`;
+
+	return `engine biome(1.0)
+language js(typescript, jsx)
+
+${body}
+`;
 }
 
 export function generateAiRules(audience: PolicyAudience): string {

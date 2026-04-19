@@ -19,6 +19,10 @@
 		{
 			"name": "contractspec-ai-agent",
 			"source": "plugins/contractspec-ai-agent"
+		},
+		{
+			"name": "contractspec-adoption",
+			"source": "plugins/contractspec-adoption"
 		}
 	]
 }

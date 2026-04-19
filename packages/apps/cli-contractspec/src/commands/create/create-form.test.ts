@@ -57,13 +57,11 @@ describe('createFormSpec', () => {
 		const typedArgs = args as unknown as {
 			specName: string;
 			specType: string;
-			extension: string;
 			code: string;
 		};
 
 		expect(typedArgs.specName).toBe(formData.key);
 		expect(typedArgs.specType).toBe('form');
-		expect(typedArgs.extension).toBe('.form.ts');
 		expect(typedArgs.code).toContain('defineFormSpec({');
 		expect(typedArgs.code).toContain('defineSchemaModel({');
 	});

@@ -5,6 +5,12 @@
  */
 
 import path from 'node:path';
+import { isContractSpecType } from '@contractspec/lib.contracts-spec';
+import {
+	type AuthoringContractSpecType,
+	getAuthoringTargetDefaultFileName,
+	getAuthoringTargetDefaultSubdirectory,
+} from '@contractspec/module.workspace';
 import * as vscode from 'vscode';
 import { getWorkspaceConfig, getWorkspaceRoot } from '../workspace/adapters';
 
@@ -65,29 +71,14 @@ function toKebab(name: string): string {
 		.toLowerCase();
 }
 
-function extForType(type: string): string {
-	switch (type) {
-		case 'operation':
-			return '.contracts.ts';
-		case 'event':
-			return '.event.ts';
-		case 'presentation':
-			return '.presentation.ts';
-		case 'workflow':
-			return '.workflow.ts';
-		case 'data-view':
-			return '.data-view.ts';
-		case 'integration':
-			return '.integration.ts';
-		case 'knowledge':
-			return '.knowledge.ts';
-		case 'app-config':
-			return '.app-config.ts';
-		case 'template':
-			return '.template.json';
-		default:
-			return '.ts';
-	}
+function isRegistryFileTarget(
+	specType: string
+): specType is AuthoringContractSpecType {
+	return (
+		isContractSpecType(specType) &&
+		specType !== 'type' &&
+		specType !== 'knowledge-space'
+	);
 }
 
 async function ensureDir(uri: vscode.Uri): Promise<void> {
@@ -121,9 +112,16 @@ async function installRegistryItem(
 	const typeSegment = stripPrefix(item.type);
 
 	if (filesWithContent.length === 1) {
-		const baseOut = vscode.Uri.file(path.resolve(workspaceRoot, outputDir));
+		const subdirectory = isRegistryFileTarget(typeSegment)
+			? getAuthoringTargetDefaultSubdirectory(typeSegment, config.conventions)
+			: '';
+		const baseOut = vscode.Uri.file(
+			path.resolve(workspaceRoot, outputDir, subdirectory)
+		);
 		await ensureDir(baseOut);
-		const fileName = `${toKebab(item.name)}${extForType(typeSegment)}`;
+		const fileName = isRegistryFileTarget(typeSegment)
+			? getAuthoringTargetDefaultFileName(typeSegment, item.name)
+			: `${toKebab(item.name)}.ts`;
 		const fileUri = vscode.Uri.joinPath(baseOut, fileName);
 		await writeFileSafe(fileUri, filesWithContent[0].content);
 		outputChannel.appendLine(

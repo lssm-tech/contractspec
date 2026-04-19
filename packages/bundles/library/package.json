@@ -25,6 +25,7 @@
 		"./application/mcp/cliMcp": "./src/application/mcp/cliMcp.ts",
 		"./application/mcp/common": "./src/application/mcp/common.ts",
 		"./application/mcp/contractsMcp": "./src/application/mcp/contractsMcp.ts",
+		"./application/mcp/contractsMcpAdoptionTools": "./src/application/mcp/contractsMcpAdoptionTools.ts",
 		"./application/mcp/contractsMcpResources": "./src/application/mcp/contractsMcpResources.ts",
 		"./application/mcp/contractsMcpTools": "./src/application/mcp/contractsMcpTools.ts",
 		"./application/mcp/contractsMcpTypes": "./src/application/mcp/contractsMcpTypes.ts",
@@ -162,6 +163,7 @@
 		"./components/docs/libraries/LibrariesSupportBotPage": "./src/components/docs/libraries/LibrariesSupportBotPage.tsx",
 		"./components/docs/libraries/LibrariesTestingPage": "./src/components/docs/libraries/LibrariesTestingPage.tsx",
 		"./components/docs/libraries/LibrariesUIKitPage": "./src/components/docs/libraries/LibrariesUIKitPage.tsx",
+		"./components/docs/libraries/LibrariesUIKitWebPage": "./src/components/docs/libraries/LibrariesUIKitWebPage.tsx",
 		"./components/docs/libraries/LibrariesWorkflowComposerPage": "./src/components/docs/libraries/LibrariesWorkflowComposerPage.tsx",
 		"./components/docs/libraries/LibrariesWorkflowsPage": "./src/components/docs/libraries/LibrariesWorkflowsPage.tsx",
 		"./components/docs/manifesto/ManifestoPage": "./src/components/docs/manifesto/ManifestoPage.tsx",
@@ -433,6 +435,12 @@
 				"bun": "./dist/application/mcp/contractsMcp.js",
 				"node": "./dist/node/application/mcp/contractsMcp.js",
 				"default": "./dist/application/mcp/contractsMcp.js"
+			},
+			"./application/mcp/contractsMcpAdoptionTools": {
+				"types": "./dist/application/mcp/contractsMcpAdoptionTools.d.ts",
+				"bun": "./dist/application/mcp/contractsMcpAdoptionTools.js",
+				"node": "./dist/node/application/mcp/contractsMcpAdoptionTools.js",
+				"default": "./dist/application/mcp/contractsMcpAdoptionTools.js"
 			},
 			"./application/mcp/contractsMcpResources": {
 				"types": "./dist/application/mcp/contractsMcpResources.d.ts",
@@ -1255,6 +1263,12 @@
 				"bun": "./dist/components/docs/libraries/LibrariesUIKitPage.js",
 				"node": "./dist/node/components/docs/libraries/LibrariesUIKitPage.js",
 				"default": "./dist/components/docs/libraries/LibrariesUIKitPage.js"
+			},
+			"./components/docs/libraries/LibrariesUIKitWebPage": {
+				"types": "./dist/components/docs/libraries/LibrariesUIKitWebPage.d.ts",
+				"bun": "./dist/components/docs/libraries/LibrariesUIKitWebPage.js",
+				"node": "./dist/node/components/docs/libraries/LibrariesUIKitWebPage.js",
+				"default": "./dist/components/docs/libraries/LibrariesUIKitWebPage.js"
 			},
 			"./components/docs/libraries/LibrariesWorkflowComposerPage": {
 				"types": "./dist/components/docs/libraries/LibrariesWorkflowComposerPage.d.ts",

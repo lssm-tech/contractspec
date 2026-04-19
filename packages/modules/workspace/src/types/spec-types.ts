@@ -3,25 +3,25 @@
  * Extracted from cli-contractspec/src/types.ts
  */
 
-import type { OpKind } from '@contractspec/lib.contracts-spec';
+import {
+	CONTRACT_SPEC_TYPES,
+	type ContractSpecType,
+	type OpKind,
+} from '@contractspec/lib.contracts-spec';
 
-export type LegacySpecType =
-	| 'operation'
-	| 'event'
-	| 'presentation'
-	| 'form'
-	| 'feature'
-	| 'theme'
-	| 'workflow'
-	| 'data-view'
-	| 'migration'
-	| 'telemetry'
-	| 'experiment'
-	| 'app-config'
-	| 'integration'
-	| 'knowledge';
+export type AuthoringContractSpecType = Exclude<
+	ContractSpecType,
+	'type' | 'knowledge-space'
+>;
 
-export type SpecType = LegacySpecType;
+export const AUTHORING_CONTRACT_SPEC_TYPES = CONTRACT_SPEC_TYPES.filter(
+	(type): type is AuthoringContractSpecType =>
+		type !== 'type' && type !== 'knowledge-space'
+);
+
+export type SupportedLintSpecKind = AuthoringContractSpecType;
+
+export const SUPPORTED_LINT_SPEC_KINDS = AUTHORING_CONTRACT_SPEC_TYPES;
 
 export type PresentationKind = 'web_component' | 'markdown' | 'data';
 

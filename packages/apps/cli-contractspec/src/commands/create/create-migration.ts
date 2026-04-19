@@ -24,7 +24,6 @@ export async function createMigrationSpec(
 	const filePath = await writeSpecFile({
 		specName: specData.name,
 		specType: 'migration',
-		extension: '.migration.ts',
 		code,
 		spinnerText: 'Writing migration spec...',
 		options,

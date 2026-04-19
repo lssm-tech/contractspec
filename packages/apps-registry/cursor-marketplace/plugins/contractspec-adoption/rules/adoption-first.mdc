@@ -1,0 +1,13 @@
+---
+description: Prefer existing workspace and ContractSpec surfaces before creating new code or dependencies
+alwaysApply: true
+globs:
+  - '**/*'
+---
+Use the ContractSpec Adoption Engine before inventing new local code:
+
+- Resolve reuse in this order: workspace-local implementation -> ContractSpec OSS catalog -> family-specific ecosystem fallback -> new implementation.
+- Run `contractspec connect adoption sync --json` to refresh the local catalog when needed.
+- Run `contractspec connect adoption resolve --family <family> --stdin --json` when the correct reusable surface is unclear.
+- Treat `rewrite` results as actionable: reuse the recommended candidate instead of creating a duplicate.
+- Treat `require_review` as blocking for new dependencies or new implementations.

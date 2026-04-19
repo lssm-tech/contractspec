@@ -24,9 +24,13 @@ export type ConnectSurface =
 	| 'cli'
 	| 'contract'
 	| 'harness'
+	| 'integration'
 	| 'knowledge'
+	| 'library'
 	| 'mcp'
-	| 'runtime';
+	| 'runtime'
+	| 'solution'
+	| 'ui';
 
 export type ConnectContractKind =
 	| 'command'

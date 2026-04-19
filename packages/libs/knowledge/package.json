@@ -63,7 +63,8 @@
 		"./retriever/interface": "./src/retriever/interface.ts",
 		"./retriever/static-retriever": "./src/retriever/static-retriever.ts",
 		"./retriever/vector-retriever": "./src/retriever/vector-retriever.ts",
-		"./types": "./src/types.ts"
+		"./types": "./src/types.ts",
+		"./vector-payload": "./src/vector-payload.ts"
 	},
 	"publishConfig": {
 		"access": "public",
@@ -211,6 +212,12 @@
 				"bun": "./dist/types.js",
 				"node": "./dist/node/types.js",
 				"default": "./dist/types.js"
+			},
+			"./vector-payload": {
+				"types": "./dist/vector-payload.d.ts",
+				"bun": "./dist/vector-payload.js",
+				"node": "./dist/node/vector-payload.js",
+				"default": "./dist/vector-payload.js"
 			}
 		},
 		"registry": "https://registry.npmjs.org/"

@@ -1,3 +1,9 @@
+import type { FolderConventions } from '@contractspec/lib.contracts-spec';
+import {
+	type AuthoringContractSpecType,
+	type AuthoringTargetPathOptions,
+	getAuthoringTargetDefaultSubdirectory,
+} from '@contractspec/module.workspace';
 import { existsSync } from 'fs';
 import { mkdir, writeFile } from 'fs/promises';
 import { dirname, isAbsolute, join } from 'path';
@@ -28,75 +34,16 @@ export async function writeFileSafe(
  */
 export function resolveOutputPath(
 	basePath: string,
-	specType:
-		| 'operation'
-		| 'event'
-		| 'presentation'
-		| 'form'
-		| 'feature'
-		| 'theme'
-		| 'workflow'
-		| 'data-view'
-		| 'migration'
-		| 'telemetry'
-		| 'experiment'
-		| 'app-config'
-		| 'integration'
-		| 'knowledge',
-	conventions: Record<string, unknown>,
-	fileName: string
+	specType: AuthoringContractSpecType,
+	conventions: Partial<FolderConventions>,
+	fileName: string,
+	options: AuthoringTargetPathOptions = {}
 ): string {
-	let subPath: string;
-
-	switch (specType) {
-		case 'operation':
-			subPath = (conventions.operations as string) || 'interactions';
-			break;
-		case 'event':
-			subPath = (conventions.events as string) || 'events';
-			break;
-		case 'presentation':
-			subPath = (conventions.presentations as string) || 'presentations';
-			break;
-		case 'form':
-			subPath = (conventions.forms as string) || 'forms';
-			break;
-		case 'feature':
-			subPath = 'features';
-			break;
-		case 'theme':
-			subPath = (conventions.themes as string) || 'themes';
-			break;
-		case 'workflow':
-			subPath = (conventions.workflows as string) || 'workflows';
-			break;
-		case 'data-view':
-			subPath =
-				(conventions['data-views'] as string) ||
-				(conventions.dataViews as string) ||
-				'data-views';
-			break;
-		case 'migration':
-			subPath = (conventions.migrations as string) || 'migrations';
-			break;
-		case 'telemetry':
-			subPath = (conventions.telemetry as string) || 'telemetry';
-			break;
-		case 'experiment':
-			subPath = (conventions.experiments as string) || 'experiments';
-			break;
-		case 'app-config':
-			subPath = (conventions.appConfig as string) || 'app-config';
-			break;
-		case 'integration':
-			subPath = (conventions.integrations as string) || 'integrations';
-			break;
-		case 'knowledge':
-			subPath = (conventions.knowledge as string) || 'knowledge';
-			break;
-		default:
-			subPath = '';
-	}
+	const subPath = getAuthoringTargetDefaultSubdirectory(
+		specType,
+		conventions,
+		options
+	);
 
 	return join(basePath, subPath, fileName);
 }

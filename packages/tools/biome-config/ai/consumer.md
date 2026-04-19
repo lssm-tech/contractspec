@@ -20,3 +20,15 @@ Generated from the typed Biome policy manifest.
 - Message: Handlers, routes, and implementation entrypoints must import or reference a ContractSpec contract before shipping behavior.
 - Docs source: packs/contractspec-rules/rules/contracts-first.md
 
+## consumer/no-deprecated-contracts-monolith
+- Engine: biome-native
+- Severity: error
+- Message: Use split ContractSpec packages instead of the deprecated monolith.
+- Docs source: packs/contractspec-rules/rules/contracts-first.md
+
+## consumer/prefer-contractspec-runtime-entrypoints
+- Engine: biome-grit
+- Severity: error
+- Message: Prefer package-level ContractSpec runtime entrypoints before using deeper runtime leaf imports.
+- Docs source: packs/workspace-specific/rules/package-architecture.md
+

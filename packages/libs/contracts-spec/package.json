@@ -405,6 +405,7 @@
 		"./tests/runner": "./src/tests/runner.ts",
 		"./tests/spec": "./src/tests/spec.ts",
 		"./themes": "./src/themes.ts",
+		"./themes.validation": "./src/themes.validation.ts",
 		"./translations": "./src/translations/index.ts",
 		"./translations/catalog": "./src/translations/catalog.ts",
 		"./translations/i18n-factory": "./src/translations/i18n-factory.ts",
@@ -2582,6 +2583,12 @@
 				"bun": "./dist/themes.js",
 				"node": "./dist/node/themes.js",
 				"default": "./dist/themes.js"
+			},
+			"./themes.validation": {
+				"types": "./dist/themes.validation.d.ts",
+				"bun": "./dist/themes.validation.js",
+				"node": "./dist/node/themes.validation.js",
+				"default": "./dist/themes.validation.js"
 			},
 			"./translations": {
 				"types": "./dist/translations/index.d.ts",

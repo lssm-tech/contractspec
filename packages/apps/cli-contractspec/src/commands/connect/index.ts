@@ -8,6 +8,10 @@ import {
 	runConnectPlanCommand,
 	runConnectVerifyCommand,
 } from './actions';
+import {
+	createAdoptionCommand,
+	createAdoptionHookCommandGroup,
+} from './adoption-command';
 import { runConnectContractsSpecHookCommand } from './hook-actions';
 import { connectErrorExitCode, exitCodeForVerdict } from './io';
 import {
@@ -23,6 +27,7 @@ export const connectCommand = new Command('connect')
 	.addCommand(createContextCommand())
 	.addCommand(createPlanCommand())
 	.addCommand(createVerifyCommand())
+	.addCommand(createAdoptionCommand({ assertStdin, runSafely }))
 	.addCommand(createHookCommand())
 	.addCommand(createReviewCommand())
 	.addCommand(createReplayCommand())
@@ -115,7 +120,8 @@ function createHookCommand() {
 					createContractsSpecHookEventCommand('before-shell-execution')
 				)
 				.addCommand(createContractsSpecHookEventCommand('after-file-edit'))
-		);
+		)
+		.addCommand(createAdoptionHookCommandGroup({ assertStdin, runSafely }));
 }
 
 function createContractsSpecHookEventCommand(
@@ -219,7 +225,7 @@ export const connectCommandDocBlock = {
 	visibility: 'public',
 	route: '/docs/cli/connect',
 	tags: ['cli', 'connect', 'operators'],
-	body: '# contractspec connect\n\nEmit task context, plans, verdicts, review packets, replay/evaluation artifacts, Studio review syncs, and host hook flows through the main CLI.\n\n```bash\ncontractspec connect init --scope workspace\ncontractspec connect context --task task-1 --paths src/foo.ts --json\ncontractspec connect plan --task task-1 --stdin --json\ncontractspec connect verify --task task-1 --tool acp.fs.access --stdin --json\ncontractspec connect hook contracts-spec before-file-edit --stdin\ncontractspec connect review list --json\ncontractspec connect review sync --all --json\ncontractspec connect replay <decisionId> --json\ncontractspec connect eval <decisionId> --registry ./harness-registry.ts --scenario connect.safe-refactor --json\n```',
+	body: '# contractspec connect\n\nEmit task context, plans, verdicts, review packets, replay/evaluation artifacts, adoption recommendations, Studio review syncs, and host hook flows through the main CLI.\n\n```bash\ncontractspec connect init --scope workspace\ncontractspec connect context --task task-1 --paths src/foo.ts --json\ncontractspec connect plan --task task-1 --stdin --json\ncontractspec connect verify --task task-1 --tool acp.fs.access --stdin --json\ncontractspec connect adoption sync --json\ncontractspec connect adoption resolve --family ui --stdin --json\ncontractspec connect hook contracts-spec before-file-edit --stdin\ncontractspec connect hook adoption before-file-edit --stdin\ncontractspec connect review list --json\ncontractspec connect review sync --all --json\ncontractspec connect replay <decisionId> --json\ncontractspec connect eval <decisionId> --registry ./harness-registry.ts --scenario connect.safe-refactor --json\n```',
 } satisfies DocBlock;
 
 registerDocBlocks([connectCommandDocBlock]);

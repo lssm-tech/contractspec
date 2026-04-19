@@ -5,6 +5,7 @@
 
 import type { ContractsMcpServices } from '@contractspec/bundle.library/application/mcp/contractsMcpTypes';
 import {
+	adoption,
 	buildSpec,
 	createNodeAdapters,
 	deleteSpec,
@@ -25,6 +26,7 @@ export function createContractsMcpServices(
 ): ContractsMcpServices {
 	const adapters = createNodeAdapters({ config });
 	const resolvedConfig = config ?? DEFAULT_CONTRACTSRC;
+	const cwd = process.cwd();
 
 	return {
 		async listSpecs(options) {
@@ -107,6 +109,51 @@ export function createContractsMcpServices(
 			const url = resolveRegistryUrl();
 			const client = new RegistryClient({ registryUrl: url });
 			return client.getJson('/r/contractspec.json');
+		},
+
+		async searchAdoptionCatalog(options) {
+			const resolution = await adoption.resolveAdoption(
+				{ fs: adapters.fs },
+				{
+					config: resolvedConfig,
+					cwd,
+					family:
+						(options.family as adoption.AdoptionFamily | undefined) ??
+						'sharedLibs',
+					platform: options.platform,
+					query: options.query,
+				}
+			);
+			return resolution.candidates.map((entry) => entry.candidate);
+		},
+
+		async resolveAdoption(options) {
+			return adoption.resolveAdoption(
+				{ fs: adapters.fs },
+				{
+					config: resolvedConfig,
+					cwd,
+					family: options.family as adoption.AdoptionFamily,
+					paths: options.paths,
+					platform: options.platform,
+					query: options.query,
+					runtime: options.runtime,
+				}
+			);
+		},
+
+		async syncAdoptionCatalog() {
+			const result = await adoption.syncAdoptionCatalog(
+				{ fs: adapters.fs },
+				{
+					config: resolvedConfig,
+					cwd,
+				}
+			);
+			return {
+				catalogPath: result.catalogPath,
+				total: result.catalog.entries.length,
+			};
 		},
 	};
 }

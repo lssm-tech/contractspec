@@ -26,7 +26,6 @@ export async function createThemeSpec(
 	const filePath = await writeSpecFile({
 		specName: specData.key,
 		specType: 'theme',
-		extension: '.theme.ts',
 		code,
 		spinnerText: 'Writing theme spec...',
 		options,

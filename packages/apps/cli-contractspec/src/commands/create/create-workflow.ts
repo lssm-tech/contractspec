@@ -23,7 +23,6 @@ export async function createWorkflowSpec(
 	const filePath = await writeSpecFile({
 		specName: specData.name,
 		specType: 'workflow',
-		extension: '.workflow.ts',
 		code,
 		spinnerText: 'Writing workflow spec...',
 		options,

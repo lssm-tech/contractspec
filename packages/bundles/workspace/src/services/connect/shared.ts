@@ -71,6 +71,31 @@ export function inferSurfaces(paths: string[]): ConnectSurface[] {
 		if (path.includes('/contracts-spec/') || path.includes('/specs/')) {
 			surfaces.add('contract');
 		}
+		if (
+			path.includes('/components/') ||
+			path.includes('/ui/') ||
+			path.endsWith('.tsx') ||
+			path.endsWith('.jsx')
+		) {
+			surfaces.add('ui');
+		}
+		if (path.includes('/integrations/') || path.includes('/provider')) {
+			surfaces.add('integration');
+		}
+		if (
+			path.includes('/libs/') ||
+			path.includes('/shared/') ||
+			path.includes('/utils/')
+		) {
+			surfaces.add('library');
+		}
+		if (
+			path.includes('/modules/') ||
+			path.includes('/bundles/') ||
+			path.includes('/examples/')
+		) {
+			surfaces.add('solution');
+		}
 		if (path.includes('/runtime/')) surfaces.add('runtime');
 		if (path.includes('/harness')) surfaces.add('harness');
 		if (path.includes('/ai-agent/')) surfaces.add('agent');

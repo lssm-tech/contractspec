@@ -46,9 +46,19 @@
 		"workspaceContains:**/*.event.ts",
 		"workspaceContains:**/*.presentation.ts",
 		"workspaceContains:**/*.feature.ts",
+		"workspaceContains:**/*.capability.ts",
 		"workspaceContains:**/*.policy.ts",
 		"workspaceContains:**/*.workflow.ts",
-		"workspaceContains:**/*.telemetry.ts"
+		"workspaceContains:**/*.telemetry.ts",
+		"workspaceContains:**/*.translation.ts",
+		"workspaceContains:**/*.visualization.ts",
+		"workspaceContains:**/*.job.ts",
+		"workspaceContains:**/*.agent.ts",
+		"workspaceContains:**/*.product-intent.ts",
+		"workspaceContains:**/*.harness-scenario.ts",
+		"workspaceContains:**/*.harness-suite.ts",
+		"workspaceContains:**/*.test-spec.ts",
+		"workspaceContains:**/example.ts"
 	],
 	"main": "./dist/extension.js",
 	"contributes": {
@@ -850,7 +860,14 @@
 					".integration.ts",
 					".knowledge.ts",
 					".policy.ts",
-					".test-spec.ts"
+					".test-spec.ts",
+					".translation.ts",
+					".visualization.ts",
+					".job.ts",
+					".agent.ts",
+					".product-intent.ts",
+					".harness-scenario.ts",
+					".harness-suite.ts"
 				]
 			}
 		],

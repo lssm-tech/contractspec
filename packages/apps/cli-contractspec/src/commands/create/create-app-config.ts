@@ -24,7 +24,6 @@ export async function createAppConfigSpec(
 	await writeSpecFile({
 		specName: specData.key,
 		specType: 'app-config',
-		extension: '.app-config.ts',
 		code,
 		spinnerText: 'Writing app config spec...',
 		options,

@@ -498,12 +498,71 @@ describe('connect command black-box', () => {
 		},
 		CONNECT_BLACKBOX_TIMEOUT_MS
 	);
+
+	it(
+		'runs adoption sync, resolve, and hook flows with reuse guidance',
+		() => {
+			const workspace = createWorkspace(tempDirs);
+			writeConnectConfig(workspace, {
+				adoption: {
+					enabled: true,
+				},
+				policy: {
+					smokeChecks: [],
+				},
+			});
+
+			const sync = runCli(workspace, ['connect', 'adoption', 'sync', '--json']);
+			const resolve = runCli(
+				workspace,
+				[
+					'connect',
+					'adoption',
+					'resolve',
+					'--family',
+					'ui',
+					'--stdin',
+					'--json',
+				],
+				'button component'
+			);
+			const hook = runCli(
+				workspace,
+				[
+					'connect',
+					'hook',
+					'adoption',
+					'before-file-edit',
+					'--stdin',
+					'--json',
+				],
+				JSON.stringify({
+					path: 'src/NewButton.tsx',
+				})
+			);
+
+			expect(sync.code).toBe(0);
+			expect(JSON.parse(sync.stdout).catalogPath).toContain(
+				'.contractspec/adoption/catalog.json'
+			);
+			expect(resolve.code).toBe(10);
+			expect(JSON.parse(resolve.stdout)).toMatchObject({
+				verdict: 'rewrite',
+			});
+			expect(hook.code).toBe(10);
+			expect(JSON.parse(hook.stdout)).toMatchObject({
+				verdict: 'rewrite',
+			});
+		},
+		CONNECT_BLACKBOX_TIMEOUT_MS
+	);
 });
 
 function createWorkspace(tempDirs: string[]) {
 	const dir = mkdtempSync(join(tmpdir(), 'contractspec-connect-cli-'));
 	tempDirs.push(dir);
 	mkdirSync(join(dir, 'src'), { recursive: true });
+	mkdirSync(join(dir, 'components'), { recursive: true });
 	mkdirSync(join(dir, 'generated', 'docs'), { recursive: true });
 	mkdirSync(join(dir, 'packages', 'libs', 'contracts-spec'), {
 		recursive: true,
@@ -511,6 +570,11 @@ function createWorkspace(tempDirs: string[]) {
 	writeFileSync(
 		join(dir, 'package.json'),
 		'{"name":"connect-cli-fixture","type":"module"}\n',
+		'utf8'
+	);
+	writeFileSync(
+		join(dir, 'components', 'button.tsx'),
+		'export function Button() { return null; }\n',
 		'utf8'
 	);
 	writeFileSync(
@@ -534,6 +598,9 @@ function createWorkspace(tempDirs: string[]) {
 function writeConnectConfig(
 	cwd: string,
 	connect: {
+		adoption?: {
+			enabled?: boolean;
+		};
 		commands?: { allow?: string[]; deny?: string[]; review?: string[] };
 		policy?: {
 			protectedPaths?: string[];

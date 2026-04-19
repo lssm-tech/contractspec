@@ -1,9 +1,11 @@
 import { randomUUID } from 'crypto';
 import type { WorkspaceAdapters } from '../../ports/logger';
-import { assessConnectPolicy } from './assessment';
+import { evaluateConnectAdoption } from './adoption';
+import { assessConnectPolicy, connectVerdictToPolicy } from './assessment';
 import { buildConnectAuditRecord } from './audit-record';
 import { assertConnectEnabled } from './config';
 import { buildConnectContextPack } from './context';
+import { CONTROL_PLANE_EXECUTION_APPROVE_REF } from './contract-refs';
 import { analyzeConnectImpact } from './impact-analysis';
 import { compileConnectPlanPacket } from './plan';
 import type {
@@ -85,6 +87,7 @@ export async function verifyConnectMutation(
 		smokeFailed,
 		touchedPaths,
 	});
+	const adoption = await evaluateConnectAdoption(adapters, input);
 	const checks = [
 		checkForPathBoundary(
 			assessment.immutablePath,
@@ -97,8 +100,30 @@ export async function verifyConnectMutation(
 			impactAnalysis.driftFiles.length > 0,
 			impactAnalysis.unknownPaths.length > 0
 		),
+		...(adoption.check ? [adoption.check] : []),
 		...smokeChecks,
 	];
+	const verdict = combineVerdicts(assessment, adoption.verdict);
+	const policy = connectVerdictToPolicy(verdict);
+	const reviewReason =
+		adoption.reason ??
+		assessment.reviewReason ??
+		'Connect policy requires human review before continuing.';
+	const requiredApprovals = policy.requiresApproval
+		? assessment.requiredApprovals.length > 0
+			? assessment.requiredApprovals
+			: [
+					{
+						capability: CONTROL_PLANE_EXECUTION_APPROVE_REF.key,
+						reason: reviewReason,
+					},
+				]
+		: [];
+	const adjustedPlanPacket = {
+		...planPacket,
+		requiredApprovals,
+		verificationStatus: policy.verificationStatus,
+	};
 	const historyRefs = decisionArtifactRefs(
 		adapters.fs,
 		workspace,
@@ -134,10 +159,10 @@ export async function verifyConnectMutation(
 		decisionId,
 		input,
 		contextPack,
-		planPacket,
+		adjustedPlanPacket,
 		impactedFiles,
 		checks,
-		assessment.verdict,
+		verdict,
 		undefined
 	);
 	const runtimeLink = runtime.controlPlane
@@ -146,22 +171,24 @@ export async function verifyConnectMutation(
 				createdAt,
 				input,
 				patchVerdict: runtimePatchVerdict,
-				planPacket,
+				planPacket: adjustedPlanPacket,
 				workspace,
 			})
 		: null;
 	const linkedPlanPacket = runtimeLink
 		? {
 				...planPacket,
+				requiredApprovals,
+				verificationStatus: policy.verificationStatus,
 				controlPlane: {
 					...planPacket.controlPlane,
 					decisionId: runtimeLink.decisionId,
 					traceId: runtimeLink.traceId ?? planPacket.controlPlane.traceId,
 				},
 			}
-		: planPacket;
+		: adjustedPlanPacket;
 	const reviewPacket =
-		assessment.verdict === 'require_review'
+		verdict === 'require_review'
 			? buildReviewPacket(
 					workspace,
 					decisionId,
@@ -170,9 +197,7 @@ export async function verifyConnectMutation(
 					touchedPaths,
 					{
 						artifactRefs: historyRefs,
-						reason:
-							assessment.reviewReason ??
-							'Connect policy requires human review before continuing.',
+						reason: reviewReason,
 						runtimeLink,
 					}
 				)
@@ -184,7 +209,7 @@ export async function verifyConnectMutation(
 		linkedPlanPacket,
 		impactedFiles,
 		checks,
-		assessment.verdict,
+		verdict,
 		reviewPacket
 			? artifactRef(
 					adapters.fs,
@@ -194,6 +219,9 @@ export async function verifyConnectMutation(
 			: undefined,
 		runtimeLink
 	);
+	if (adoption.remediation?.length) {
+		patchVerdict.remediation = adoption.remediation;
+	}
 
 	await persistLatestArtifacts(adapters.fs, storage, {
 		contextPack,
@@ -231,7 +259,7 @@ export async function verifyConnectMutation(
 		createdAt,
 		runtimeLink: runtimeLink ?? undefined,
 		taskId: input.taskId,
-		verdict: assessment.verdict,
+		verdict,
 	};
 	await writeDecisionEnvelope(adapters.fs, storage, decisionId, envelope);
 	await appendAuditRecord(
@@ -254,6 +282,37 @@ export async function verifyConnectMutation(
 		reviewPacket,
 		historyDir,
 	};
+}
+
+function combineVerdicts(
+	assessment: ReturnType<typeof assessConnectPolicy>,
+	adoptionVerdict: ConnectPatchVerdict['verdict'] | undefined
+) {
+	if (
+		adoptionVerdict === 'rewrite' &&
+		assessment.verdict === 'require_review' &&
+		!assessment.immutablePath &&
+		!assessment.protectedPath &&
+		assessment.commandState !== 'review' &&
+		assessment.commandState !== 'destructive'
+	) {
+		return adoptionVerdict;
+	}
+	return mostSevereVerdict(assessment.verdict, adoptionVerdict);
+}
+
+function mostSevereVerdict(
+	left: ConnectPatchVerdict['verdict'],
+	right: ConnectPatchVerdict['verdict'] | undefined
+) {
+	if (!right) {
+		return left;
+	}
+	return severity(left) <= severity(right) ? left : right;
+}
+
+function severity(verdict: ConnectPatchVerdict['verdict']) {
+	return { deny: 0, require_review: 1, rewrite: 2, permit: 3 }[verdict];
 }
 
 function toPlanCandidate(input: ConnectVerifyInput) {

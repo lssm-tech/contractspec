@@ -1,10 +1,19 @@
-import type { ContractRegistryItem } from '@contractspec/lib.contracts-spec';
+import {
+	type ContractRegistryItem,
+	isContractSpecType,
+} from '@contractspec/lib.contracts-spec';
+import {
+	type AuthoringContractSpecType,
+	getAuthoringTargetDefaultExtension,
+	getAuthoringTargetDefaultFileName,
+	getAuthoringTargetDefaultSubdirectory,
+} from '@contractspec/module.workspace';
 import chalk from 'chalk';
 import { Command } from 'commander';
 import { join, resolve } from 'path';
-import { loadConfig } from '../../utils/config';
+import { type Config, loadConfig } from '../../utils/config';
 import { getErrorMessage } from '../../utils/errors';
-import { ensureDir, generateFileName, writeFileSafe } from '../../utils/fs';
+import { ensureDir, writeFileSafe } from '../../utils/fs';
 import { RegistryClient, resolveRegistryUrl } from './client';
 
 function stripJsonSuffix(nameOrNameJson: string): string {
@@ -13,83 +22,57 @@ function stripJsonSuffix(nameOrNameJson: string): string {
 		: nameOrNameJson;
 }
 
-function opDirFromConventions(
-	conventions: Record<string, string>,
-	kind: 'command' | 'query'
-): string {
-	const raw = conventions.operations || 'interactions/commands|queries';
-	const [commandsDir, queriesDir] = raw.split('|');
-	const picked = kind === 'query' ? queriesDir : commandsDir;
-	return picked || commandsDir || 'interactions/commands';
+function toKebab(value: string): string {
+	return value
+		.replace(/\./g, '-')
+		.replace(/([a-z])([A-Z])/g, '$1-$2')
+		.toLowerCase();
+}
+
+function isRegistryFileTarget(
+	specType: string
+): specType is AuthoringContractSpecType {
+	return (
+		isContractSpecType(specType) &&
+		specType !== 'type' &&
+		specType !== 'knowledge-space'
+	);
 }
 
 function defaultOutDirForType(
 	specType: string,
-	config: {
-		outputDir: string;
-		conventions: {
-			operations: string;
-			events: string;
-			presentations: string;
-			forms: string;
-		};
-	},
+	config: Pick<Config, 'outputDir' | 'conventions'>,
 	kind: 'command' | 'query'
 ): string {
 	const base = config.outputDir || './src';
-	switch (specType) {
-		case 'operation':
-			return join(base, opDirFromConventions(config.conventions, kind));
-		case 'event':
-			return join(base, config.conventions.events || 'events');
-		case 'presentation':
-			return join(base, config.conventions.presentations || 'presentations');
-		case 'form':
-			return join(base, config.conventions.forms || 'forms');
-		case 'workflow':
-			return join(base, 'workflows');
-		case 'data-view':
-			return join(base, 'data-views');
-		case 'integration':
-			return join(base, 'integrations');
-		case 'knowledge':
-			return join(base, 'knowledge');
-		case 'app-config':
-			return join(base, 'app-config');
-		default:
-			return join(base, specType);
+	if (isRegistryFileTarget(specType)) {
+		return join(
+			base,
+			getAuthoringTargetDefaultSubdirectory(specType, config.conventions, {
+				operationKind: kind,
+			})
+		);
 	}
+
+	return join(base, specType);
 }
 
-function defaultFileExtForType(specType: string): string {
-	switch (specType) {
-		case 'operation':
-			return '.contracts.ts';
-		case 'event':
-			return '.event.ts';
-		case 'presentation':
-			return '.presentation.ts';
-		case 'workflow':
-			return '.workflow.ts';
-		case 'data-view':
-			return '.data-view.ts';
-		case 'telemetry':
-			return '.telemetry.ts';
-		case 'experiment':
-			return '.experiment.ts';
-		case 'migration':
-			return '.migration.ts';
-		case 'app-config':
-			return '.app-config.ts';
-		case 'integration':
-			return '.integration.ts';
-		case 'knowledge':
-			return '.knowledge.ts';
-		case 'template':
-			return '.template.json';
-		default:
-			return '.ts';
+function defaultFileNameForType(
+	specType: string,
+	key: string,
+	kind: 'command' | 'query'
+): string {
+	if (isRegistryFileTarget(specType)) {
+		return getAuthoringTargetDefaultFileName(specType, key, {
+			operationKind: kind,
+		});
 	}
+
+	if (specType === 'template') {
+		return `${toKebab(key)}.template.json`;
+	}
+
+	return `${toKebab(key)}${getAuthoringTargetDefaultExtension('example')}`;
 }
 
 interface RegistryAddOptions {
@@ -145,8 +128,7 @@ export const registryAddCommand = new Command('add')
 			}
 
 			if (filesWithContent[0]) {
-				const ext = defaultFileExtForType(type);
-				const fileName = generateFileName(item.key, ext);
+				const fileName = defaultFileNameForType(type, item.key, kind);
 				const target = join(absoluteOutDir, fileName);
 				await writeFileSafe(target, filesWithContent[0].content);
 

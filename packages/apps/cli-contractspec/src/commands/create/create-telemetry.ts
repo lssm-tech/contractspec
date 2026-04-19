@@ -24,7 +24,6 @@ export async function createTelemetrySpec(
 	await writeSpecFile({
 		specName: specData.name,
 		specType: 'telemetry',
-		extension: '.telemetry.ts',
 		code,
 		spinnerText: 'Writing telemetry spec...',
 		options,

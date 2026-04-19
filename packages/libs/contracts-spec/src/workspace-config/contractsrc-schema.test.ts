@@ -41,6 +41,23 @@ describe('TestingConfigSchema', () => {
 		const result = TestingConfigSchema.safeParse(invalid);
 		expect(result.success).toBe(false);
 	});
+
+	it('accepts the widened canonical contract kinds', () => {
+		const result = TestingConfigSchema.safeParse({
+			integrity: {
+				requireTestsFor: ['agent', 'test-spec', 'product-intent'],
+			},
+		});
+
+		expect(result.success).toBe(true);
+		if (result.success) {
+			expect(result.data.integrity?.requireTestsFor).toEqual([
+				'agent',
+				'test-spec',
+				'product-intent',
+			]);
+		}
+	});
 });
 
 describe('ContractsrcSchema with testing', () => {
@@ -76,6 +93,27 @@ describe('ContractsrcSchema with testing', () => {
 		expect(result.success).toBe(true);
 		if (result.success) {
 			expect(result.data.testing?.runner).toBe('bun');
+		}
+	});
+
+	it('should accept the expanded folder convention keys', () => {
+		const result = ContractsrcSchema.safeParse({
+			conventions: {
+				capabilities: 'platform-capabilities',
+				policies: 'access-policies',
+				tests: 'quality/tests',
+				translations: 'i18n/catalogs',
+			},
+		});
+
+		expect(result.success).toBe(true);
+		if (result.success) {
+			expect(result.data.conventions?.capabilities).toBe(
+				'platform-capabilities'
+			);
+			expect(result.data.conventions?.policies).toBe('access-policies');
+			expect(result.data.conventions?.tests).toBe('quality/tests');
+			expect(result.data.conventions?.translations).toBe('i18n/catalogs');
 		}
 	});
 
@@ -143,6 +181,29 @@ describe('ContractsrcSchema with testing', () => {
 					mode: 'off',
 					queue: 'connect-review',
 				},
+				adoption: {
+					enabled: true,
+					catalog: {
+						indexPath: '.contractspec/adoption/catalog.json',
+						overrideManifestPath: '.contractspec/adoption/overrides.json',
+					},
+					workspaceScan: {
+						include: ['src/**/*.{ts,tsx}'],
+						exclude: ['**/dist/**'],
+					},
+					families: {
+						ui: true,
+						contracts: true,
+						integrations: true,
+						runtime: true,
+						sharedLibs: true,
+						solutions: false,
+					},
+					thresholds: {
+						workspaceReuse: 'rewrite',
+						newImplementation: 'require_review',
+					},
+				},
 			},
 		});
 
@@ -161,6 +222,14 @@ describe('ContractsrcSchema with testing', () => {
 				result.data.connect?.policy?.reviewThresholds?.destructiveCommand
 			).toBe('deny');
 			expect(result.data.connect?.studio?.queue).toBe('connect-review');
+			expect(result.data.connect?.adoption?.enabled).toBe(true);
+			expect(result.data.connect?.adoption?.catalog?.indexPath).toBe(
+				'.contractspec/adoption/catalog.json'
+			);
+			expect(result.data.connect?.adoption?.families?.solutions).toBe(false);
+			expect(result.data.connect?.adoption?.thresholds?.newImplementation).toBe(
+				'require_review'
+			);
 		}
 	});
 

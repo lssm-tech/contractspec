@@ -51,11 +51,13 @@ export async function createOperationSpec(
 	const filePath = await writeSpecFile({
 		specName: specData.name,
 		specType: 'operation',
-		extension: '.contracts.ts',
 		code,
 		spinnerText: 'Writing spec file...',
 		options,
 		config,
+		pathOptions: {
+			operationKind: specData.kind,
+		},
 	});
 
 	console.log(chalk.cyan('\n✨ Next steps:'));

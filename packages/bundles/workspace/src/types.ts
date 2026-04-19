@@ -1,19 +1,3 @@
-export type SpecType =
-	| 'operation'
-	| 'event'
-	| 'presentation'
-	| 'form'
-	| 'feature'
-	| 'theme'
-	| 'workflow'
-	| 'data-view'
-	| 'migration'
-	| 'telemetry'
-	| 'experiment'
-	| 'app-config'
-	| 'integration'
-	| 'knowledge';
-
 export type OpKind = 'command' | 'query';
 
 export type PresentationKind = 'web_component' | 'markdown' | 'data';

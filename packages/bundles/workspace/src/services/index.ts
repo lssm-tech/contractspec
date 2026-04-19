@@ -4,6 +4,7 @@
 
 export * from './action-drift/index';
 export * from './action-pr';
+export * as adoption from './adoption/index';
 export * from './agent-guide/index';
 export * from './build';
 export * from './ci-check/index';

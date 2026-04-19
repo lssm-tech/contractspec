@@ -43,7 +43,6 @@ export async function createEventSpec(
 	const filePath = await writeSpecFile({
 		specName: specData.name,
 		specType: 'event',
-		extension: '.event.ts',
 		code,
 		spinnerText: 'Writing spec file...',
 		options,

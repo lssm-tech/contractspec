@@ -11,6 +11,7 @@ import {
 	OperationSpecRegistry,
 } from '@contractspec/lib.contracts-spec';
 import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import { registerAdoptionOps } from './contractsMcpAdoptionTools';
 import type { ContractsMcpServices } from './contractsMcpTypes';
 
 const OWNERS = ['@contractspec'];
@@ -161,6 +162,7 @@ export function buildContractsOps(services: ContractsMcpServices) {
 	);
 
 	registerMutationTools(registry, services);
+	registerAdoptionOps(registry, services);
 
 	return registry;
 }

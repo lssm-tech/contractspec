@@ -59,6 +59,40 @@ describe('inferSpecTypeFromFilePath', () => {
 			inferSpecTypeFromFilePath('packages/libs/foo/src/foo.provider-spec.ts')
 		).toBe('provider-spec');
 	});
+
+	it('identifies expanded canonical contract file conventions', () => {
+		expect(
+			inferSpecTypeFromFilePath('src/capabilities/payments.capability.ts')
+		).toBe('capability');
+		expect(inferSpecTypeFromFilePath('src/policies/access.policy.ts')).toBe(
+			'policy'
+		);
+		expect(inferSpecTypeFromFilePath('src/tests/operations.test-spec.ts')).toBe(
+			'test-spec'
+		);
+		expect(inferSpecTypeFromFilePath('src/agents/support.agent.ts')).toBe(
+			'agent'
+		);
+		expect(inferSpecTypeFromFilePath('src/jobs/sync.job.ts')).toBe('job');
+		expect(inferSpecTypeFromFilePath('src/i18n/app.en.translation.ts')).toBe(
+			'translation'
+		);
+		expect(
+			inferSpecTypeFromFilePath('src/visualizations/revenue.visualization.ts')
+		).toBe('visualization');
+		expect(
+			inferSpecTypeFromFilePath(
+				'src/product-intent/activation.product-intent.ts'
+			)
+		).toBe('product-intent');
+		expect(
+			inferSpecTypeFromFilePath('src/harness/smoke.harness-scenario.ts')
+		).toBe('harness-scenario');
+		expect(
+			inferSpecTypeFromFilePath('src/harness/smoke.harness-suite.ts')
+		).toBe('harness-suite');
+		expect(inferSpecTypeFromFilePath('src/example.ts')).toBe('example');
+	});
 });
 
 describe('scanSpecSource', () => {
@@ -133,6 +167,69 @@ describe('scanSpecSource', () => {
 		const result = scanSpecSource(code, 'src/test.integration.ts');
 		expect(result.specType).toBe('integration');
 		expect(result.kind).toBe('integration');
+	});
+
+	it('identifies expanded canonical contract helpers', () => {
+		expect(
+			scanSpecSource(
+				"export const capability = defineCapability({ meta: { key: 'payments.core', version: '1.0.0' } });",
+				'src/payments.capability.ts'
+			)
+		).toMatchObject({ specType: 'capability', kind: 'capability' });
+		expect(
+			scanSpecSource(
+				"export const policy = definePolicy({ meta: { key: 'core.policy', version: '1.0.0' }, rules: [] });",
+				'src/core.policy.ts'
+			)
+		).toMatchObject({ specType: 'policy', kind: 'policy' });
+		expect(
+			scanSpecSource(
+				"export const translation = defineTranslation({ meta: { key: 'app.messages', version: '1.0.0', domain: 'app', owners: [], tags: [] }, locale: 'en', messages: {} });",
+				'src/app.en.translation.ts'
+			)
+		).toMatchObject({ specType: 'translation', kind: 'translation' });
+		expect(
+			scanSpecSource(
+				"export const job = defineJob({ meta: { key: 'sync.dispatch', version: '1.0.0' }, payload: { schema: {} } });",
+				'src/sync.job.ts'
+			)
+		).toMatchObject({ specType: 'job', kind: 'job' });
+		expect(
+			scanSpecSource(
+				"export const visualization = defineVisualization({ meta: { key: 'analytics.metric', version: '1.0.0', goal: 'Track', context: 'Dashboard', owners: [], tags: [] }, source: { primary: { key: 'analytics.query.list', version: '1.0.0' } }, visualization: { kind: 'metric', measures: [{ key: 'value', label: 'Value', dataPath: 'value' }], measure: 'value' } });",
+				'src/metric.visualization.ts'
+			)
+		).toMatchObject({ specType: 'visualization', kind: 'visualization' });
+		expect(
+			scanSpecSource(
+				"export const agent = defineAgent({ meta: { key: 'support.agent', version: '1.0.0', description: 'Support', owners: [], tags: [], stability: 'experimental' }, instructions: 'Help', tools: [{ name: 'todo' }] });",
+				'src/support.agent.ts'
+			)
+		).toMatchObject({ specType: 'agent', kind: 'agent' });
+		expect(
+			scanSpecSource(
+				"export const intent = defineProductIntentSpec({ id: 'activation-run', meta: { key: 'product.activation', version: '1.0.0' }, question: 'What next?' });",
+				'src/activation.product-intent.ts'
+			)
+		).toMatchObject({ specType: 'product-intent', kind: 'product-intent' });
+		expect(
+			scanSpecSource(
+				"export const scenario = defineHarnessScenario({ meta: { key: 'smoke.scenario', version: '1.0.0' }, target: {}, allowedModes: ['deterministic-browser'], steps: [], assertions: [] });",
+				'src/smoke.harness-scenario.ts'
+			)
+		).toMatchObject({
+			specType: 'harness-scenario',
+			kind: 'harness-scenario',
+		});
+		expect(
+			scanSpecSource(
+				"export const suite = defineHarnessSuite({ meta: { key: 'smoke.suite', version: '1.0.0' }, scenarios: [] });",
+				'src/smoke.harness-suite.ts'
+			)
+		).toMatchObject({
+			specType: 'harness-suite',
+			kind: 'harness-suite',
+		});
 	});
 
 	it('identifies newer package targets from source markers', () => {

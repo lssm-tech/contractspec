@@ -1,5 +1,9 @@
 import { findPackageRoot } from '@contractspec/bundle.workspace';
 import type { OpenApiSourceConfig } from '@contractspec/lib.contracts-spec';
+import {
+	type AuthoringContractSpecType,
+	getAuthoringTargetDefaultSubdirectory,
+} from '@contractspec/module.workspace';
 import { existsSync } from 'fs';
 import { readFile, writeFile } from 'fs/promises';
 import { join } from 'path';
@@ -95,29 +99,17 @@ export async function getOpenApiSources(
  * Get the output directory for a spec type based on conventions.
  */
 export function getOutputDirForSpecType(
-	specType: 'operation' | 'event' | 'presentation' | 'form' | 'model',
+	specType: AuthoringContractSpecType | 'model',
 	config: Config
 ): string {
 	const baseDir = config.outputDir ?? './src';
-	const conventions = config.conventions;
 
-	switch (specType) {
-		case 'operation':
-			// For operations, use the first part of the convention (before |)
-			return join(
-				baseDir,
-				conventions.operations.split('|')[0] ?? 'operations'
-			);
-		case 'event':
-			return join(baseDir, conventions.events);
-		case 'presentation':
-			return join(baseDir, conventions.presentations);
-		case 'form':
-			return join(baseDir, conventions.forms);
-		case 'model':
-			// Models go in a shared 'models' or 'schemas' directory
-			return join(baseDir, 'models');
-		default:
-			return baseDir;
+	if (specType === 'model') {
+		return join(baseDir, 'models');
 	}
+
+	return join(
+		baseDir,
+		getAuthoringTargetDefaultSubdirectory(specType, config.conventions)
+	);
 }

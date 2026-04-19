@@ -26,7 +26,6 @@ export async function createFormSpec(
 	const filePath = await writeSpecFile({
 		specName: specData.key,
 		specType: 'form',
-		extension: '.form.ts',
 		code,
 		spinnerText: 'Writing form spec...',
 		options,

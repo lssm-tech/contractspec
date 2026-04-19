@@ -26,3 +26,15 @@ Generated from the typed Biome policy manifest.
 - Message: Prefer @contractspec/lib.design-system over leaf ui-kit-web control imports in application surfaces.
 - Docs source: packs/workspace-specific/rules/design-system-usage.md
 
+## repo/no-deprecated-contracts-monolith
+- Engine: biome-native
+- Severity: error
+- Message: Use split ContractSpec packages instead of the deprecated monolith.
+- Docs source: packs/contractspec-rules/rules/contracts-first.md
+
+## repo/prefer-runtime-package-entrypoints
+- Engine: biome-grit
+- Severity: error
+- Message: Prefer package-level ContractSpec runtime entrypoints over leaf runtime imports when the root package already exposes the needed surface.
+- Docs source: packs/workspace-specific/rules/package-architecture.md
+

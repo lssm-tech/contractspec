@@ -9,6 +9,7 @@
 // Core Enums & Simple Types
 // ============================================================================
 
+import type { ContractSpecType } from '../types';
 import type {
 	AgentTarget as VersioningAgentTarget,
 	ReleaseEnforceOn as VersioningReleaseEnforceOn,
@@ -62,25 +63,7 @@ export type RuleSyncTarget =
 
 export type RuleSeverity = 'off' | 'warn' | 'error';
 
-export type SpecKind =
-	| 'operation'
-	| 'event'
-	| 'presentation'
-	| 'feature'
-	| 'workflow'
-	| 'data-view'
-	| 'visualization'
-	| 'migration'
-	| 'telemetry'
-	| 'experiment'
-	| 'app-config'
-	| 'integration'
-	| 'knowledge'
-	| 'policy'
-	| 'form'
-	| 'capability'
-	| 'job'
-	| 'translation';
+export type SpecKind = ContractSpecType;
 
 export type TestLinkingStrategy =
 	| 'target-first' // Use TestSpec.target as primary
@@ -174,6 +157,10 @@ export interface FolderConventions {
 	events?: string;
 	presentations?: string;
 	forms?: string;
+	capabilities?: string;
+	policies?: string;
+	tests?: string;
+	translations?: string;
 	/** Enable feature/module folder grouping (default: true) */
 	groupByFeature?: boolean;
 	/** Grouping rule for operations */
@@ -477,6 +464,63 @@ export interface ConnectStudioConfig {
 	queue?: string;
 }
 
+export type ConnectAdoptionFamily =
+	| 'ui'
+	| 'contracts'
+	| 'integrations'
+	| 'runtime'
+	| 'sharedLibs'
+	| 'solutions';
+
+export interface ConnectAdoptionCatalogConfig {
+	/** Path to the mirrored ContractSpec adoption catalog. */
+	indexPath?: string;
+	/** Optional customer-authored overrides file for catalog entries. */
+	overrideManifestPath?: string;
+}
+
+export interface ConnectAdoptionWorkspaceScanConfig {
+	/** Files or directories to scan for workspace-local reusable surfaces. */
+	include?: string[];
+	/** Files or directories to exclude from workspace-local scanning. */
+	exclude?: string[];
+}
+
+export interface ConnectAdoptionFamiliesConfig {
+	ui?: boolean;
+	contracts?: boolean;
+	integrations?: boolean;
+	runtime?: boolean;
+	sharedLibs?: boolean;
+	solutions?: boolean;
+}
+
+export interface ConnectAdoptionThresholds {
+	/** Verdict to apply when a reusable workspace-local surface exists. */
+	workspaceReuse?: ConnectVerdict;
+	/** Verdict to apply when a ContractSpec OSS package is preferred. */
+	contractspecReuse?: ConnectVerdict;
+	/** Verdict to apply when multiple candidates are equally plausible. */
+	ambiguous?: ConnectVerdict;
+	/** Verdict to apply when only an external ecosystem dependency fits. */
+	newExternalDependency?: ConnectVerdict;
+	/** Verdict to apply when implementation must be created locally. */
+	newImplementation?: ConnectVerdict;
+}
+
+export interface ConnectAdoptionConfig {
+	/** Enable adoption-aware reuse guidance and gating. */
+	enabled?: boolean;
+	/** Catalog storage and overrides. */
+	catalog?: ConnectAdoptionCatalogConfig;
+	/** Workspace scanning configuration. */
+	workspaceScan?: ConnectAdoptionWorkspaceScanConfig;
+	/** Family-specific feature flags. */
+	families?: ConnectAdoptionFamiliesConfig;
+	/** Threshold model for adoption verdicts. */
+	thresholds?: ConnectAdoptionThresholds;
+}
+
 export interface ConnectConfig {
 	/** Enable ContractSpec Connect for this workspace. */
 	enabled?: boolean;
@@ -496,6 +540,8 @@ export interface ConnectConfig {
 	canonPacks?: ConnectCanonPackRef[];
 	/** Optional Studio bridge configuration. */
 	studio?: ConnectStudioConfig;
+	/** ContractSpec adoption and reuse guidance configuration. */
+	adoption?: ConnectAdoptionConfig;
 }
 
 export interface LintRules {
@@ -635,6 +681,10 @@ export interface ResolvedContractsrcConfig extends ContractsrcFileConfig {
 		events: string;
 		presentations: string;
 		forms: string;
+		capabilities: string;
+		policies: string;
+		tests: string;
+		translations: string;
 		groupByFeature: boolean;
 		operationsGrouping?: GroupingRule;
 		modelsGrouping?: GroupingRule;

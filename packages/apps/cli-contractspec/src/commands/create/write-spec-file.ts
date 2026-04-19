@@ -1,31 +1,39 @@
-import { formatFiles } from '@contractspec/module.workspace';
+import {
+	type AuthoringContractSpecType,
+	type AuthoringTargetPathOptions,
+	formatFiles,
+	getAuthoringTargetDefaultFileName,
+} from '@contractspec/module.workspace';
 import chalk from 'chalk';
 import ora from 'ora';
-import type { SpecType } from '../../types';
 import type { Config } from '../../utils/config';
-import {
-	generateFileName,
-	resolveOutputPath,
-	writeFileSafe,
-} from '../../utils/fs';
+import { resolveOutputPath, writeFileSafe } from '../../utils/fs';
 import type { CreateOptions } from './types';
 
 export async function writeSpecFile(args: {
 	specName: string;
-	specType: SpecType;
-	extension: string;
+	specType: AuthoringContractSpecType;
 	code: string;
 	spinnerText: string;
 	options: CreateOptions;
 	config: Config;
+	fileName?: string;
+	pathOptions?: AuthoringTargetPathOptions;
 }): Promise<string> {
 	const basePath = args.options.outputDir || args.config.outputDir;
-	const fileName = generateFileName(args.specName, args.extension);
+	const fileName =
+		args.fileName ??
+		getAuthoringTargetDefaultFileName(
+			args.specType,
+			args.specName,
+			args.pathOptions
+		);
 	const filePath = resolveOutputPath(
 		basePath,
 		args.specType,
 		args.config.conventions,
-		fileName
+		fileName,
+		args.pathOptions
 	);
 
 	const spinner = ora(args.spinnerText).start();

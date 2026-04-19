@@ -16,7 +16,6 @@ export async function createIntegrationSpec(
 	await writeSpecFile({
 		specName: specData.name,
 		specType: 'integration',
-		extension: '.integration.ts',
 		code,
 		spinnerText: 'Writing integration spec...',
 		options,

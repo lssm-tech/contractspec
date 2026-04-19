@@ -82,7 +82,7 @@ export function scanAllSpecsFromSource(
 
 	// Match export definitions: export const X = defineXXX calls
 	const definitionRegex =
-		/export\s+const\s+(\w+)\s*=\s*define(Command|Query|Event|Presentation|Capability|Policy|Type|Example|AppConfig|Integration|Workflow|TestSpec|Feature|Form|DataView|Migration|Telemetry|Experiment|KnowledgeSpace|ModuleBundle)\s*\(/g;
+		/export\s+const\s+(\w+)\s*=\s*define(Command|Query|Event|Presentation|Capability|Policy|Example|AppConfig|Integration|Workflow|TestSpec|Feature|FormSpec|DataView|Migration|Telemetry|Experiment|KnowledgeSpace|Visualization|Agent|HarnessScenario|HarnessSuite|Job|Translation|ProductIntentSpec|Theme|ModuleBundle)\s*\(/g;
 	let match;
 
 	while ((match = definitionRegex.exec(code)) !== null) {
@@ -138,144 +138,8 @@ export function inferSpecTypeFromCodeBlock(fileSourceCode: string): {
 	kind: AnalyzedOperationKind;
 } {
 	const authoringTarget = detectAuthoringTarget(fileSourceCode, '');
-	if (authoringTarget === 'module-bundle') {
-		return {
-			specType: 'module-bundle',
-			kind: 'module-bundle',
-		};
-	}
-	if (authoringTarget === 'builder-spec') {
-		return {
-			specType: 'builder-spec',
-			kind: 'builder-spec',
-		};
-	}
-	if (authoringTarget === 'provider-spec') {
-		return {
-			specType: 'provider-spec',
-			kind: 'provider-spec',
-		};
-	}
-	if (fileSourceCode.includes('defineCommand')) {
-		return {
-			specType: 'operation',
-			kind: 'command',
-		};
-	}
-	if (fileSourceCode.includes('defineQuery')) {
-		return {
-			specType: 'operation',
-			kind: 'query',
-		};
-	}
-	if (fileSourceCode.includes('defineEvent')) {
-		return {
-			specType: 'event',
-			kind: 'event',
-		};
-	}
-	if (fileSourceCode.includes('definePresentation')) {
-		return {
-			specType: 'presentation',
-			kind: 'presentation',
-		};
-	}
-	if (fileSourceCode.includes('defineForm')) {
-		return {
-			specType: 'form',
-			kind: 'form',
-		};
-	}
-	if (fileSourceCode.includes('definePolicy')) {
-		return {
-			specType: 'policy',
-			kind: 'policy',
-		};
-	}
-	if (fileSourceCode.includes('defineCapability')) {
-		return {
-			specType: 'capability',
-			kind: 'capability',
-		};
-	}
-	if (fileSourceCode.includes('defineExample')) {
-		return {
-			specType: 'example',
-			kind: 'example',
-		};
-	}
-	if (
-		fileSourceCode.includes('defineAppConfig') &&
-		!fileSourceCode.includes('export const defineAppConfig')
-	) {
-		return {
-			specType: 'app-config',
-			kind: 'app-config',
-		};
-	}
-	if (fileSourceCode.includes('defineIntegration')) {
-		return {
-			specType: 'integration',
-			kind: 'integration',
-		};
-	}
-	if (fileSourceCode.includes('defineWorkflow')) {
-		return {
-			specType: 'workflow',
-			kind: 'workflow',
-		};
-	}
-	if (fileSourceCode.includes('defineDataView')) {
-		return {
-			specType: 'data-view',
-			kind: 'data-view',
-		};
-	}
-	if (fileSourceCode.includes('defineMigration')) {
-		return {
-			specType: 'migration',
-			kind: 'migration',
-		};
-	}
-	if (fileSourceCode.includes('defineTelemetry')) {
-		return {
-			specType: 'telemetry',
-			kind: 'telemetry',
-		};
-	}
-	if (fileSourceCode.includes('defineExperiment')) {
-		return {
-			specType: 'experiment',
-			kind: 'experiment',
-		};
-	}
-	if (fileSourceCode.includes('defineKnowledgeSpace')) {
-		return {
-			specType: 'knowledge',
-			kind: 'knowledge-space',
-		};
-	}
-	if (fileSourceCode.includes('defineTestSpec')) {
-		return {
-			specType: 'test-spec',
-			kind: 'test-spec',
-		};
-	}
-
-	if (fileSourceCode.includes('defineFeature')) {
-		return {
-			specType: 'feature',
-			kind: 'feature',
-		};
-	}
-	if (
-		fileSourceCode.includes('defineTheme') ||
-		/ThemeSpec/.test(fileSourceCode)
-	) {
-		return {
-			specType: 'theme',
-			kind: 'theme',
-		};
+	if (authoringTarget !== 'unknown') {
+		return mapAuthoringTargetToInference(authoringTarget, fileSourceCode);
 	}
 
 	return {
@@ -377,8 +241,46 @@ export function inferSpecTypeFromFilePath(
 	if (filePath.includes('.type.') || /\/types?\//.test(filePath)) {
 		return 'type';
 	}
-	if (filePath.includes('.example.') || /\/examples?\//.test(filePath)) {
-		return 'example';
-	}
 	return 'unknown';
+}
+
+function mapAuthoringTargetToInference(
+	authoringTarget: Exclude<ReturnType<typeof detectAuthoringTarget>, 'unknown'>,
+	fileSourceCode: string
+): {
+	specType: AnalyzedSpecType;
+	kind: AnalyzedOperationKind;
+} {
+	switch (authoringTarget) {
+		case 'module-bundle':
+			return {
+				specType: 'module-bundle',
+				kind: 'module-bundle',
+			};
+		case 'builder-spec':
+			return {
+				specType: 'builder-spec',
+				kind: 'builder-spec',
+			};
+		case 'provider-spec':
+			return {
+				specType: 'provider-spec',
+				kind: 'provider-spec',
+			};
+		case 'operation':
+			return {
+				specType: 'operation',
+				kind: fileSourceCode.includes('defineQuery') ? 'query' : 'command',
+			};
+		case 'knowledge':
+			return {
+				specType: 'knowledge',
+				kind: 'knowledge-space',
+			};
+		default:
+			return {
+				specType: authoringTarget,
+				kind: authoringTarget,
+			};
+	}
 }

@@ -6,6 +6,7 @@
  */
 
 import * as z from 'zod';
+import { CONTRACT_SPEC_TYPES } from '../types';
 import {
 	AgentTargetSchema,
 	ReleaseEnforceOnSchema,
@@ -24,6 +25,12 @@ import type {
 	ClaudeAgentSDKConfig,
 	ConnectAdapterConfig,
 	ConnectAdapterMode,
+	ConnectAdoptionCatalogConfig,
+	ConnectAdoptionConfig,
+	ConnectAdoptionFamiliesConfig,
+	ConnectAdoptionFamily,
+	ConnectAdoptionThresholds,
+	ConnectAdoptionWorkspaceScanConfig,
 	ConnectCanonPackRef,
 	ConnectCommandPolicy,
 	ConnectConfig,
@@ -216,6 +223,10 @@ export const FolderConventionsSchema: z.ZodType<FolderConventions> = z.object({
 	events: z.string().default('events').optional(),
 	presentations: z.string().default('presentations').optional(),
 	forms: z.string().default('forms').optional(),
+	capabilities: z.string().default('capabilities').optional(),
+	policies: z.string().default('policies').optional(),
+	tests: z.string().default('tests').optional(),
+	translations: z.string().default('translations').optional(),
 	/** Enable feature/module folder grouping (default: true) */
 	groupByFeature: z.boolean().default(true).optional(),
 	/** Grouping rule for operations */
@@ -602,6 +613,84 @@ export const ConnectStudioConfigSchema: z.ZodType<ConnectStudioConfig> =
 		queue: z.string().optional(),
 	});
 
+export const ConnectAdoptionFamilySchema: z.ZodType<ConnectAdoptionFamily> =
+	z.enum([
+		'ui',
+		'contracts',
+		'integrations',
+		'runtime',
+		'sharedLibs',
+		'solutions',
+	]);
+
+export const ConnectAdoptionCatalogConfigSchema: z.ZodType<ConnectAdoptionCatalogConfig> =
+	z.object({
+		indexPath: z
+			.string()
+			.default('.contractspec/adoption/catalog.json')
+			.optional(),
+		overrideManifestPath: z
+			.string()
+			.default('.contractspec/adoption/overrides.json')
+			.optional(),
+	});
+
+export const ConnectAdoptionWorkspaceScanConfigSchema: z.ZodType<ConnectAdoptionWorkspaceScanConfig> =
+	z.object({
+		include: z
+			.array(z.string())
+			.default([
+				'src/**/*.{ts,tsx,js,jsx}',
+				'app/**/*.{ts,tsx,js,jsx}',
+				'components/**/*.{ts,tsx,js,jsx}',
+				'packages/**/*.{ts,tsx,js,jsx}',
+			])
+			.optional(),
+		exclude: z
+			.array(z.string())
+			.default([
+				'**/node_modules/**',
+				'**/dist/**',
+				'**/.next/**',
+				'**/coverage/**',
+				'**/generated/**',
+				'**/*.test.*',
+				'**/*.spec.*',
+				'**/*.stories.*',
+			])
+			.optional(),
+	});
+
+export const ConnectAdoptionFamiliesConfigSchema: z.ZodType<ConnectAdoptionFamiliesConfig> =
+	z.object({
+		ui: z.boolean().default(true).optional(),
+		contracts: z.boolean().default(true).optional(),
+		integrations: z.boolean().default(true).optional(),
+		runtime: z.boolean().default(true).optional(),
+		sharedLibs: z.boolean().default(true).optional(),
+		solutions: z.boolean().default(true).optional(),
+	});
+
+export const ConnectAdoptionThresholdsSchema: z.ZodType<ConnectAdoptionThresholds> =
+	z.object({
+		workspaceReuse: ConnectVerdictSchema.default('rewrite').optional(),
+		contractspecReuse: ConnectVerdictSchema.default('rewrite').optional(),
+		ambiguous: ConnectVerdictSchema.default('require_review').optional(),
+		newExternalDependency:
+			ConnectVerdictSchema.default('require_review').optional(),
+		newImplementation:
+			ConnectVerdictSchema.default('require_review').optional(),
+	});
+
+export const ConnectAdoptionConfigSchema: z.ZodType<ConnectAdoptionConfig> =
+	z.object({
+		enabled: z.boolean().default(false).optional(),
+		catalog: ConnectAdoptionCatalogConfigSchema.optional(),
+		workspaceScan: ConnectAdoptionWorkspaceScanConfigSchema.optional(),
+		families: ConnectAdoptionFamiliesConfigSchema.optional(),
+		thresholds: ConnectAdoptionThresholdsSchema.optional(),
+	});
+
 export const ConnectConfigSchema: z.ZodType<ConnectConfig> = z.object({
 	enabled: z.boolean().default(false).optional(),
 	adapters: z
@@ -616,6 +705,7 @@ export const ConnectConfigSchema: z.ZodType<ConnectConfig> = z.object({
 	commands: ConnectCommandPolicySchema.optional(),
 	canonPacks: z.array(ConnectCanonPackRefSchema).optional(),
 	studio: ConnectStudioConfigSchema.optional(),
+	adoption: ConnectAdoptionConfigSchema.optional(),
 });
 
 // ============================================================================
@@ -634,25 +724,7 @@ export const RuleSeveritySchema: z.ZodType<RuleSeverity> = z.enum([
 /**
  * Contract kinds for per-kind rule overrides.
  */
-export const SpecKindSchema: z.ZodType<SpecKind> = z.enum([
-	'operation',
-	'event',
-	'presentation',
-	'feature',
-	'workflow',
-	'data-view',
-	'migration',
-	'telemetry',
-	'experiment',
-	'app-config',
-	'integration',
-	'knowledge',
-	'policy',
-	'form',
-	'capability',
-	'job',
-	'translation',
-]);
+export const SpecKindSchema: z.ZodType<SpecKind> = z.enum(CONTRACT_SPEC_TYPES);
 
 /**
  * Available lint rules with their severity.
@@ -834,6 +906,10 @@ export const DEFAULT_CONTRACTSRC: ResolvedContractsrcConfig = {
 		events: 'events',
 		presentations: 'presentations',
 		forms: 'forms',
+		capabilities: 'capabilities',
+		policies: 'policies',
+		tests: 'tests',
+		translations: 'translations',
 		groupByFeature: true,
 	},
 	defaultOwners: [],
@@ -906,6 +982,46 @@ export const DEFAULT_CONTRACTSRC: ResolvedContractsrcConfig = {
 		studio: {
 			enabled: false,
 			mode: 'off',
+		},
+		adoption: {
+			enabled: false,
+			catalog: {
+				indexPath: '.contractspec/adoption/catalog.json',
+				overrideManifestPath: '.contractspec/adoption/overrides.json',
+			},
+			workspaceScan: {
+				include: [
+					'src/**/*.{ts,tsx,js,jsx}',
+					'app/**/*.{ts,tsx,js,jsx}',
+					'components/**/*.{ts,tsx,js,jsx}',
+					'packages/**/*.{ts,tsx,js,jsx}',
+				],
+				exclude: [
+					'**/node_modules/**',
+					'**/dist/**',
+					'**/.next/**',
+					'**/coverage/**',
+					'**/generated/**',
+					'**/*.test.*',
+					'**/*.spec.*',
+					'**/*.stories.*',
+				],
+			},
+			families: {
+				ui: true,
+				contracts: true,
+				integrations: true,
+				runtime: true,
+				sharedLibs: true,
+				solutions: true,
+			},
+			thresholds: {
+				workspaceReuse: 'rewrite',
+				contractspecReuse: 'rewrite',
+				ambiguous: 'require_review',
+				newExternalDependency: 'require_review',
+				newImplementation: 'require_review',
+			},
 		},
 	},
 };

@@ -33,6 +33,18 @@ export {
 	ConnectAdapterConfigSchema,
 	type ConnectAdapterMode,
 	ConnectAdapterModeSchema,
+	type ConnectAdoptionCatalogConfig,
+	ConnectAdoptionCatalogConfigSchema,
+	type ConnectAdoptionConfig,
+	ConnectAdoptionConfigSchema,
+	type ConnectAdoptionFamiliesConfig,
+	ConnectAdoptionFamiliesConfigSchema,
+	type ConnectAdoptionFamily,
+	ConnectAdoptionFamilySchema,
+	type ConnectAdoptionThresholds,
+	ConnectAdoptionThresholdsSchema,
+	type ConnectAdoptionWorkspaceScanConfig,
+	ConnectAdoptionWorkspaceScanConfigSchema,
 	type ConnectCanonPackRef,
 	ConnectCanonPackRefSchema,
 	type ConnectCommandPolicy,
@@ -74,6 +86,8 @@ export {
 	RuleSyncTargetSchema,
 	type SchemaFormat,
 	SchemaFormatSchema,
+	type SpecKind,
+	SpecKindSchema,
 	type UpgradeConfig,
 	UpgradeConfigSchema,
 	type VersioningConfig,
@@ -160,6 +174,32 @@ export interface ContractsrcConfig {
     };
     canonPacks?: Array<{ ref: string; readOnly?: boolean }>;
     studio?: { enabled?: boolean; mode?: 'off' | 'review-bridge'; endpoint?: string; queue?: string };
+    adoption?: {
+      enabled?: boolean;
+      catalog?: {
+        indexPath?: string;
+        overrideManifestPath?: string;
+      };
+      workspaceScan?: {
+        include?: string[];
+        exclude?: string[];
+      };
+      families?: {
+        ui?: boolean;
+        contracts?: boolean;
+        integrations?: boolean;
+        runtime?: boolean;
+        sharedLibs?: boolean;
+        solutions?: boolean;
+      };
+      thresholds?: {
+        workspaceReuse?: 'permit' | 'rewrite' | 'require_review' | 'deny';
+        contractspecReuse?: 'permit' | 'rewrite' | 'require_review' | 'deny';
+        ambiguous?: 'permit' | 'rewrite' | 'require_review' | 'deny';
+        newExternalDependency?: 'permit' | 'rewrite' | 'require_review' | 'deny';
+        newImplementation?: 'permit' | 'rewrite' | 'require_review' | 'deny';
+      };
+    };
   };
 }
 \`\`\`

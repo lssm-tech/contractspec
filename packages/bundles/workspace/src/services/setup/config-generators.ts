@@ -193,6 +193,14 @@ Contracts are located in:
 3. **If no contract**: Create a new contract using \`contractspec create\`.
 4. **After changes**: Validate with \`contractspec validate\`.
 
+## Adoption Engine
+
+- Reuse existing workspace code before inventing a new local surface.
+- Prefer ContractSpec OSS packages before reaching for raw framework or vendor primitives.
+- Use \`contractspec connect adoption sync\` to mirror the local catalog.
+- Use \`contractspec connect adoption resolve --family <family> --stdin\` to resolve the recommended reuse target.
+- If Connect says \`rewrite\`, reuse the existing workspace or ContractSpec candidate instead of creating a duplicate.
+
 ## Key Commands
 
 - \`contractspec create\` - Scaffold new specs
@@ -278,6 +286,12 @@ ${monorepoNote}
 - Keep changes spec-first, deterministic, and reviewable.
 - Do not change generated outputs without updating their source contract.
 - When touching nested packages, prefer the nearest \`AGENTS.md\` and \`README.md\` as the local source of truth.
+- Reuse existing workspace code before creating new files, packages, or dependencies.
+- Prefer ContractSpec OSS packages by family:
+  - UI: local reusable UI -> \`@contractspec/lib.design-system\` -> platform ui-kit -> shadcn/web fallback
+  - Contracts: existing local spec -> \`@contractspec/lib.contracts-spec\` / \`@contractspec/lib.schema\`
+  - Integrations/runtime/shared libs: existing workspace surface -> ContractSpec OSS catalog -> reviewed fallback
+- Use \`contractspec connect adoption sync\` and \`contractspec connect adoption resolve --family <family>\` when the right reusable surface is unclear.
 
 ## Initialization Preset
 
@@ -294,9 +308,25 @@ function createPresetConnectConfig(options: SetupOptions) {
 		...DEFAULT_CONTRACTSRC.connect,
 		enabled: true,
 		adapters: {
-			cursor: { enabled: true, mode: 'plugin' as const },
-			codex: { enabled: true, mode: 'wrapper' as const },
-			'claude-code': { enabled: true, mode: 'rule' as const },
+			cursor: {
+				enabled: true,
+				mode: 'plugin' as const,
+				packageRef: 'contractspec-adoption',
+			},
+			codex: {
+				enabled: true,
+				mode: 'wrapper' as const,
+				packageRef: 'contractspec-adoption',
+			},
+			'claude-code': {
+				enabled: true,
+				mode: 'rule' as const,
+				packageRef: 'contractspec-adoption',
+			},
+		},
+		adoption: {
+			...DEFAULT_CONTRACTSRC.connect?.adoption,
+			enabled: true,
 		},
 		studio: options.connectStudioEndpoint
 			? {

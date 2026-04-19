@@ -1,3 +1,4 @@
+import { runAdoptionHook } from './adoption-hooks';
 import { runContractsSpecHook } from './contracts-spec-hooks';
 import { type ContractsSpecHookEvent } from './hook-payload';
 import { buildActor, parseJsonOrText, readRequiredStdin } from './io';
@@ -15,6 +16,26 @@ export async function runConnectContractsSpecHookCommand(options: {
 		sessionId: 'contracts-spec-hook',
 	});
 	return runContractsSpecHook({
+		actor,
+		ctx,
+		event: options.event,
+		json: options.json,
+		payload,
+	});
+}
+
+export async function runConnectAdoptionHookCommand(options: {
+	event: ContractsSpecHookEvent;
+	json?: boolean;
+}) {
+	const ctx = await createConnectCommandContext(options);
+	const payload = parseJsonOrText(await readRequiredStdin());
+	const actor = buildActor(`adoption:${options.event}`, {
+		actorId: 'hook:adoption',
+		actorType: 'tool',
+		sessionId: 'adoption-hook',
+	});
+	return runAdoptionHook({
 		actor,
 		ctx,
 		event: options.event,

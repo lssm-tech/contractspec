@@ -56,13 +56,11 @@ describe('createFeatureSpec', () => {
 		const typedArgs = args as unknown as {
 			specName: string;
 			specType: string;
-			extension: string;
 			code: string;
 		};
 
 		expect(typedArgs.specName).toBe(featureData.key);
 		expect(typedArgs.specType).toBe('feature');
-		expect(typedArgs.extension).toBe('.feature.ts');
 		expect(typedArgs.code).toContain('defineFeature({');
 		expect(typedArgs.code).toContain('meta: {');
 	});

@@ -3,6 +3,7 @@ import { select } from '@inquirer/prompts';
 import chalk from 'chalk';
 import { validateProvider } from '../../ai/providers';
 import type { Config } from '../../utils/config';
+import { createAdditionalContractSpec } from './create-additional-contract';
 import { createAppConfigSpec } from './create-app-config';
 import { createDataViewSpec } from './create-data-view';
 import { createEventSpec } from './create-event';
@@ -64,6 +65,28 @@ export async function createCommand(options: CreateOptions, config: Config) {
 		form: createFormSpec,
 		feature: createFeatureSpec,
 		theme: createThemeSpec,
+		capability: (opts: CreateOptions, cfg: Config) =>
+			createAdditionalContractSpec('capability', opts, cfg),
+		policy: (opts: CreateOptions, cfg: Config) =>
+			createAdditionalContractSpec('policy', opts, cfg),
+		'test-spec': (opts: CreateOptions, cfg: Config) =>
+			createAdditionalContractSpec('test-spec', opts, cfg),
+		translation: (opts: CreateOptions, cfg: Config) =>
+			createAdditionalContractSpec('translation', opts, cfg),
+		example: (opts: CreateOptions, cfg: Config) =>
+			createAdditionalContractSpec('example', opts, cfg),
+		visualization: (opts: CreateOptions, cfg: Config) =>
+			createAdditionalContractSpec('visualization', opts, cfg),
+		job: (opts: CreateOptions, cfg: Config) =>
+			createAdditionalContractSpec('job', opts, cfg),
+		agent: (opts: CreateOptions, cfg: Config) =>
+			createAdditionalContractSpec('agent', opts, cfg),
+		'product-intent': (opts: CreateOptions, cfg: Config) =>
+			createAdditionalContractSpec('product-intent', opts, cfg),
+		'harness-scenario': (opts: CreateOptions, cfg: Config) =>
+			createAdditionalContractSpec('harness-scenario', opts, cfg),
+		'harness-suite': (opts: CreateOptions, cfg: Config) =>
+			createAdditionalContractSpec('harness-suite', opts, cfg),
 		'module-bundle': createModuleBundleSpec,
 		'builder-spec': createBuilderSpecPackage,
 		'provider-spec': createProviderSpecPackage,

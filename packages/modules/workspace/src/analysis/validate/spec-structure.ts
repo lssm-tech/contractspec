@@ -16,6 +16,7 @@ import type {
 	SpecScanResult,
 	ValidationResult,
 } from '../../types/analysis-types';
+import type { SupportedLintSpecKind } from '../../types/spec-types';
 
 export type { ValidationResult };
 
@@ -27,18 +28,7 @@ export type RuleSeverity = 'off' | 'warn' | 'error';
 /**
  * Spec kind for rule overrides mapping.
  */
-export type SpecKind =
-	| 'operation'
-	| 'event'
-	| 'presentation'
-	| 'feature'
-	| 'theme'
-	| 'workflow'
-	| 'data-view'
-	| 'migration'
-	| 'telemetry'
-	| 'experiment'
-	| 'app-config';
+export type SpecKind = SupportedLintSpecKind;
 
 /**
  * Interface for resolving rule severity.

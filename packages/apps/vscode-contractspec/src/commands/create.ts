@@ -4,34 +4,33 @@
  * Provides an interactive wizard to create new contract specifications.
  */
 
-import {
-	createSpecCreator,
-	loadWorkspaceConfig,
-	SpecCreatorService,
-} from '@contractspec/bundle.workspace';
+import { loadWorkspaceConfig, templates } from '@contractspec/bundle.workspace';
+import type { AuthoringContractSpecType } from '@contractspec/module.workspace';
 import * as path from 'path';
 import * as vscode from 'vscode';
 import { getWorkspaceAdapters } from '../workspace/adapters';
+import {
+	buildDefaultCreatePath,
+	getCreateQuickPickItems,
+} from './create-helpers';
 
-type SpecType =
-	| 'operation'
-	| 'event'
-	| 'presentation'
-	| 'data-view'
-	| 'workflow'
-	| 'migration'
-	| 'telemetry'
-	| 'experiment'
-	| 'app-config'
-	| 'integration'
-	| 'knowledge';
-
-interface OperationInputs {
-	name: string;
-	kind: 'command' | 'query';
+type CreateInputs = {
+	key: string;
 	description: string;
-	domain: string;
-}
+	domain?: string;
+	kind?: 'command' | 'query';
+	locale?: string;
+	targetType?: 'operation' | 'workflow';
+	targetKey?: string;
+	sourceOperationKey?: string;
+	question?: string;
+	instructions?: string;
+	scenarioKey?: string;
+};
+
+type TemplateStability = 'experimental' | 'beta' | 'stable' | 'deprecated';
+
+const STABILITY: TemplateStability = 'experimental';
 
 /**
  * Create a new spec file with wizard.
@@ -44,39 +43,25 @@ export async function createSpec(
 		adapters.fs,
 		vscode.workspace.workspaceFolders?.[0]?.uri.fsPath
 	);
-	const specCreator = createSpecCreator(config);
 
 	outputChannel.appendLine('\n=== Creating new spec ===');
 	outputChannel.show(true);
 
 	try {
-		// Step 1: Select spec type
 		const specType = await selectSpecType();
-		if (!specType) {
-			return;
-		}
+		if (!specType) return;
 
 		outputChannel.appendLine(`Spec type: ${specType}`);
 
-		// Step 2: Gather inputs based on spec type
-
 		const inputs = await gatherInputs(specType);
-		if (!inputs) {
-			return;
-		}
+		if (!inputs) return;
 
-		// Step 3: Select output location
-		const outputPath = await selectOutputLocation(specType, inputs);
-		if (!outputPath) {
-			return;
-		}
+		const outputPath = await selectOutputLocation(specType, inputs, config);
+		if (!outputPath) return;
 
 		outputChannel.appendLine(`Output path: ${outputPath}`);
 
-		// Step 4: Generate spec content
-		const content = generateSpecContent(specType, inputs, specCreator);
-
-		// Step 5: Write file
+		const content = generateSpecContent(specType, inputs, templates);
 		await adapters.fs.writeFile(outputPath, content);
 
 		outputChannel.appendLine(`✅ Created: ${outputPath}`);
@@ -84,7 +69,6 @@ export async function createSpec(
 			`Spec created successfully: ${path.basename(outputPath)}`
 		);
 
-		// Step 6: Open the file
 		const doc = await vscode.workspace.openTextDocument(outputPath);
 		await vscode.window.showTextDocument(doc);
 	} catch (error) {
@@ -94,79 +78,11 @@ export async function createSpec(
 	}
 }
 
-/**
- * Select spec type.
- */
-async function selectSpecType(): Promise<SpecType | undefined> {
+async function selectSpecType(): Promise<
+	AuthoringContractSpecType | undefined
+> {
 	const selected = await vscode.window.showQuickPick(
-		[
-			{
-				label: '$(symbol-method) Operation',
-				description: 'Command or Query',
-				detail: 'Define a command (write) or query (read) operation',
-				value: 'operation' as SpecType,
-			},
-			{
-				label: '$(broadcast) Event',
-				description: 'Domain Event',
-				detail: 'Define an event that occurs in the system',
-				value: 'event' as SpecType,
-			},
-			{
-				label: '$(browser) Presentation',
-				description: 'UI Component',
-				detail: 'Define a presentation/UI component',
-				value: 'presentation' as SpecType,
-			},
-			{
-				label: '$(database) Data View',
-				description: 'Data Renderer',
-				detail: 'Define a data view/renderer',
-				value: 'data-view' as SpecType,
-			},
-			{
-				label: '$(git-branch) Workflow',
-				description: 'Multi-step Process',
-				detail: 'Define a workflow with multiple steps',
-				value: 'workflow' as SpecType,
-			},
-			{
-				label: '$(history) Migration',
-				description: 'Data Migration',
-				detail: 'Define a database migration',
-				value: 'migration' as SpecType,
-			},
-			{
-				label: '$(graph) Telemetry',
-				description: 'Analytics Events',
-				detail: 'Define telemetry/analytics events',
-				value: 'telemetry' as SpecType,
-			},
-			{
-				label: '$(beaker) Experiment',
-				description: 'A/B Test',
-				detail: 'Define an experiment/feature flag',
-				value: 'experiment' as SpecType,
-			},
-			{
-				label: '$(settings-gear) App Config',
-				description: 'App Blueprint',
-				detail: 'Define application configuration',
-				value: 'app-config' as SpecType,
-			},
-			{
-				label: '$(plug) Integration',
-				description: 'External Integration',
-				detail: 'Define an integration with external service',
-				value: 'integration' as SpecType,
-			},
-			{
-				label: '$(book) Knowledge',
-				description: 'Knowledge Space',
-				detail: 'Define a knowledge space/documentation',
-				value: 'knowledge' as SpecType,
-			},
-		],
+		getCreateQuickPickItems(),
 		{
 			placeHolder: 'Select spec type to create',
 			matchOnDescription: true,
@@ -177,194 +93,173 @@ async function selectSpecType(): Promise<SpecType | undefined> {
 	return selected?.value;
 }
 
-/**
- * Gather inputs based on spec type.
- */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function gatherInputs(specType: SpecType): Promise<any> {
+async function gatherInputs(
+	specType: AuthoringContractSpecType
+): Promise<CreateInputs | undefined> {
 	switch (specType) {
 		case 'operation':
-			return await gatherOperationInputs();
+			return gatherOperationInputs();
 		case 'event':
-			return await gatherEventInputs();
+			return gatherEventInputs();
 		case 'presentation':
-			return await gatherPresentationInputs();
+			return gatherPresentationInputs();
+		case 'translation':
+			return gatherTranslationInputs();
+		case 'test-spec':
+			return gatherTestSpecInputs();
+		case 'visualization':
+			return gatherVisualizationInputs();
+		case 'agent':
+			return gatherAgentInputs();
+		case 'product-intent':
+			return gatherProductIntentInputs();
+		case 'harness-suite':
+			return gatherHarnessSuiteInputs();
 		default:
-			return await gatherGenericInputs(specType);
+			return gatherGenericInputs(specType);
 	}
 }
 
-/**
- * Gather inputs for operation spec.
- */
-async function gatherOperationInputs(): Promise<OperationInputs | undefined> {
+async function gatherOperationInputs(): Promise<CreateInputs | undefined> {
 	const kind = await vscode.window.showQuickPick(
 		[
-			{
-				label: 'Command',
-				description: 'Write operation (POST, PUT, DELETE)',
-				value: 'command',
-			},
-			{ label: 'Query', description: 'Read operation (GET)', value: 'query' },
+			{ label: 'Command', description: 'Write operation', value: 'command' },
+			{ label: 'Query', description: 'Read operation', value: 'query' },
 		],
 		{ placeHolder: 'Is this a command or query?' }
 	);
+	if (!kind) return undefined;
 
-	if (!kind) {
-		return undefined;
-	}
+	const domain = await promptRequired('Domain', 'user');
+	if (!domain) return undefined;
 
-	const domain = await vscode.window.showInputBox({
-		prompt: 'Domain (e.g., user, order, product)',
-		placeHolder: 'user',
-		validateInput: (value) => {
-			if (!value || value.trim().length === 0) {
-				return 'Domain is required';
-			}
-			if (!/^[a-z][a-z0-9-]*$/.test(value)) {
-				return 'Domain must be lowercase letters, numbers, and hyphens';
-			}
-			return null;
-		},
-	});
+	const operationName = await promptRequired(
+		'Operation name (camelCase)',
+		kind.value === 'command' ? 'createItem' : 'getItem'
+	);
+	if (!operationName) return undefined;
 
-	if (!domain) {
-		return undefined;
-	}
-
-	const operationName = await vscode.window.showInputBox({
-		prompt: 'Operation name (e.g., signup, getProfile)',
-		placeHolder: kind.value === 'command' ? 'createItem' : 'getItem',
-		validateInput: (value) => {
-			if (!value || value.trim().length === 0) {
-				return 'Operation name is required';
-			}
-			if (!/^[a-z][a-zA-Z0-9]*$/.test(value)) {
-				return 'Operation name must be camelCase';
-			}
-			return null;
-		},
-	});
-
-	if (!operationName) {
-		return undefined;
-	}
-
-	const description = await vscode.window.showInputBox({
-		prompt: 'Short description',
-		placeHolder: 'What does this operation do?',
-	});
-
+	const description = await promptDescription();
 	return {
-		name: `${domain}.${operationName}`,
+		key: `${domain}.${operationName}`,
 		kind: kind.value as 'command' | 'query',
-		description: description || '',
+		description,
 		domain,
 	};
 }
 
-/**
- * Gather inputs for event spec.
- */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function gatherEventInputs(): Promise<any> {
-	const domain = await vscode.window.showInputBox({
-		prompt: 'Domain (e.g., user, order)',
-		placeHolder: 'user',
-	});
-
-	if (!domain) {
-		return undefined;
-	}
-
-	const eventName = await vscode.window.showInputBox({
-		prompt: 'Event name (e.g., created, updated)',
-		placeHolder: 'created',
-	});
-
-	if (!eventName) {
-		return undefined;
-	}
-
-	const description = await vscode.window.showInputBox({
-		prompt: 'Description',
-		placeHolder: 'When is this event emitted?',
-	});
-
+async function gatherEventInputs(): Promise<CreateInputs | undefined> {
+	const domain = await promptRequired('Domain', 'user');
+	if (!domain) return undefined;
+	const eventName = await promptRequired('Event name', 'created');
+	if (!eventName) return undefined;
 	return {
-		name: `${domain}.${eventName}`,
-		description: description || '',
+		key: `${domain}.${eventName}`,
+		description: await promptDescription(),
 		domain,
-		eventName,
 	};
 }
 
-/**
- * Gather inputs for presentation spec.
- */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function gatherPresentationInputs(): Promise<any> {
-	const componentName = await vscode.window.showInputBox({
-		prompt: 'Component name (PascalCase)',
-		placeHolder: 'UserProfileCard',
-		validateInput: (value) => {
-			if (!value || value.trim().length === 0) {
-				return 'Component name is required';
-			}
-			if (!/^[A-Z][a-zA-Z0-9]*$/.test(value)) {
-				return 'Component name must be PascalCase';
-			}
-			return null;
-		},
-	});
-
-	if (!componentName) {
-		return undefined;
-	}
-
-	const description = await vscode.window.showInputBox({
-		prompt: 'Description',
-		placeHolder: 'What does this component display?',
-	});
-
+async function gatherPresentationInputs(): Promise<CreateInputs | undefined> {
+	const componentName = await promptRequired(
+		'Component name (PascalCase)',
+		'UserProfileCard'
+	);
+	if (!componentName) return undefined;
 	return {
-		name: componentName,
-		description: description || '',
+		key: componentName,
+		description: await promptDescription(),
 	};
 }
 
-/**
- * Gather generic inputs for other spec types.
- */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-async function gatherGenericInputs(specType: SpecType): Promise<any> {
-	const name = await vscode.window.showInputBox({
-		prompt: 'Spec name',
-		placeHolder: `my-${specType}`,
-	});
+async function gatherTranslationInputs(): Promise<CreateInputs | undefined> {
+	const base = await gatherGenericInputs('translation');
+	if (!base) return undefined;
+	const locale = await promptRequired('Locale', 'en');
+	if (!locale) return undefined;
+	return { ...base, locale };
+}
 
-	if (!name) {
-		return undefined;
-	}
-
-	const description = await vscode.window.showInputBox({
-		prompt: 'Description',
-		placeHolder: 'Short description',
-	});
-
+async function gatherTestSpecInputs(): Promise<CreateInputs | undefined> {
+	const base = await gatherGenericInputs('test-spec');
+	if (!base) return undefined;
+	const targetType = await vscode.window.showQuickPick(
+		[
+			{ label: 'Operation', value: 'operation' },
+			{ label: 'Workflow', value: 'workflow' },
+		],
+		{ placeHolder: 'What does this test spec target?' }
+	);
+	if (!targetType) return undefined;
+	const targetKey = await promptRequired('Target key', 'example.operation');
+	if (!targetKey) return undefined;
 	return {
-		name,
-		description: description || '',
+		...base,
+		targetType: targetType.value as 'operation' | 'workflow',
+		targetKey,
 	};
 }
 
-/**
- * Select output location.
- */
+async function gatherVisualizationInputs(): Promise<CreateInputs | undefined> {
+	const base = await gatherGenericInputs('visualization');
+	if (!base) return undefined;
+	const sourceOperationKey = await promptRequired(
+		'Source operation key',
+		'analytics.query.list'
+	);
+	if (!sourceOperationKey) return undefined;
+	return { ...base, sourceOperationKey };
+}
+
+async function gatherAgentInputs(): Promise<CreateInputs | undefined> {
+	const base = await gatherGenericInputs('agent');
+	if (!base) return undefined;
+	const instructions = await promptRequired(
+		'Instructions',
+		`You are responsible for ${base.description.toLowerCase()}.`
+	);
+	if (!instructions) return undefined;
+	return { ...base, instructions };
+}
+
+async function gatherProductIntentInputs(): Promise<CreateInputs | undefined> {
+	const base = await gatherGenericInputs('product-intent');
+	if (!base) return undefined;
+	const question = await promptRequired(
+		'Discovery question',
+		`How should we improve ${base.key.split('.').at(-1) ?? base.key}?`
+	);
+	if (!question) return undefined;
+	return { ...base, question };
+}
+
+async function gatherHarnessSuiteInputs(): Promise<CreateInputs | undefined> {
+	const base = await gatherGenericInputs('harness-suite');
+	if (!base) return undefined;
+	const scenarioKey = await promptRequired(
+		'Scenario key',
+		`${base.key}.scenario`
+	);
+	if (!scenarioKey) return undefined;
+	return { ...base, scenarioKey };
+}
+
+async function gatherGenericInputs(
+	specType: AuthoringContractSpecType
+): Promise<CreateInputs | undefined> {
+	const key = await promptRequired('Spec key', `my.${specType}`);
+	if (!key) return undefined;
+	return {
+		key,
+		description: await promptDescription(),
+		domain: key.split('.')[0] ?? specType,
+	};
+}
+
 async function selectOutputLocation(
-	specType: SpecType,
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	inputs: any
+	specType: AuthoringContractSpecType,
+	inputs: CreateInputs,
+	config: Awaited<ReturnType<typeof loadWorkspaceConfig>>
 ): Promise<string | undefined> {
 	const workspaceFolders = vscode.workspace.workspaceFolders;
 	if (!workspaceFolders || workspaceFolders.length === 0) {
@@ -373,12 +268,14 @@ async function selectOutputLocation(
 	}
 
 	const workspaceRoot = workspaceFolders[0].uri.fsPath;
-
-	// Suggest default path based on spec type
-	const defaultDir = path.join(workspaceRoot, 'src', 'contracts');
-	const extension = getSpecExtension(specType);
-	const fileName = `${inputs.name || 'spec'}.${extension}`;
-	const defaultPath = path.join(defaultDir, fileName);
+	const defaultPath = buildDefaultCreatePath(
+		workspaceRoot,
+		config.outputDir,
+		specType,
+		inputs,
+		config.conventions
+	);
+	const defaultDir = path.dirname(defaultPath);
 
 	const useDefault = await vscode.window.showQuickPick(
 		[
@@ -387,147 +284,142 @@ async function selectOutputLocation(
 		],
 		{ placeHolder: `Default: ${path.relative(workspaceRoot, defaultPath)}` }
 	);
-
-	if (useDefault === undefined) {
-		return undefined;
-	}
+	if (useDefault === undefined) return undefined;
 
 	if (useDefault.value) {
-		// Ensure directory exists
 		const adapters = getWorkspaceAdapters();
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		await (adapters.fs as any).ensureDir(defaultDir);
 		return defaultPath;
 	}
 
-	// Let user choose custom location
 	const uri = await vscode.window.showSaveDialog({
 		defaultUri: vscode.Uri.file(defaultPath),
-		filters: {
-			TypeScript: ['ts'],
-		},
+		filters: { TypeScript: ['ts'] },
 	});
-
 	return uri?.fsPath;
 }
 
-/**
- * Get file extension for spec type.
- */
-function getSpecExtension(specType: SpecType): string {
-	switch (specType) {
-		case 'operation':
-			return 'contracts.ts';
-		case 'event':
-			return 'event.ts';
-		case 'presentation':
-			return 'presentation.ts';
-		case 'data-view':
-			return 'data-view.ts';
-		case 'workflow':
-			return 'workflow.ts';
-		case 'migration':
-			return 'migration.ts';
-		case 'telemetry':
-			return 'telemetry.ts';
-		case 'experiment':
-			return 'experiment.ts';
-		case 'app-config':
-			return 'app-config.ts';
-		case 'integration':
-			return 'integration.ts';
-		case 'knowledge':
-			return 'knowledge.ts';
-		default:
-			return 'contracts.ts';
-	}
-}
-
-/**
- * Generate spec content based on type and inputs.
- */
 function generateSpecContent(
-	specType: SpecType,
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	inputs: any,
-	specCreator: SpecCreatorService
+	specType: AuthoringContractSpecType,
+	inputs: CreateInputs,
+	specTemplates: typeof templates
 ): string {
 	switch (specType) {
 		case 'operation':
-			return specCreator.templates.generateOperationSpec({
+			return specTemplates.generateOperationSpec({
+				name: inputs.key,
 				version: '1.0.0',
+				description: inputs.description,
 				goal: '',
 				context: '',
-				stability: 'experimental',
+				stability: STABILITY,
 				owners: [],
 				tags: inputs.domain ? [inputs.domain] : [],
+				kind: inputs.kind ?? 'query',
+				hasInput: true,
+				hasOutput: true,
 				auth: 'user',
 				flags: [],
 				emitsEvents: false,
-				...inputs,
 			});
 		case 'event':
-			return specCreator.templates.generateEventSpec({
-				...inputs,
+			return specTemplates.generateEventSpec({
+				name: inputs.key,
 				version: '1.0.0',
-				stability: 'experimental',
+				description: inputs.description,
 				owners: [],
 				tags: inputs.domain ? [inputs.domain] : [],
+				stability: STABILITY,
 				piiFields: [],
 			});
 		case 'presentation':
-			return specCreator.templates.generatePresentationSpec({
-				...inputs,
+			return specTemplates.generatePresentationSpec({
+				name: inputs.key,
 				version: '1.0.0',
-				stability: 'experimental',
+				description: inputs.description,
 				owners: [],
 				tags: [],
-				presentationKind: 'web_component', // Default
+				stability: STABILITY,
+				presentationKind: 'web_component',
 			});
 		case 'data-view':
-			return specCreator.templates.generateDataViewSpec({
-				...inputs,
+			return specTemplates.generateDataViewSpec({
+				name: inputs.key,
 				version: '1.0.0',
-				stability: 'experimental',
+				title: toTitleCase(inputs.key),
+				description: inputs.description,
+				domain: inputs.domain ?? 'app',
 				owners: [],
 				tags: [],
+				stability: STABILITY,
+				entity: 'entity',
+				kind: 'list',
+				primaryOperation: { name: 'todo.query.list', version: '1.0.0' },
+				fields: [],
 			});
 		case 'workflow':
-			return specCreator.templates.generateWorkflowSpec({
-				...inputs,
+			return specTemplates.generateWorkflowSpec({
+				name: inputs.key,
 				version: '1.0.0',
-				stability: 'experimental',
+				title: toTitleCase(inputs.key),
+				description: inputs.description,
+				domain: inputs.domain ?? 'app',
 				owners: [],
 				tags: [],
+				stability: STABILITY,
+				steps: [],
+				transitions: [],
+				policyFlags: [],
 			});
 		case 'migration':
-			return specCreator.templates.generateMigrationSpec({
-				...inputs,
+			return specTemplates.generateMigrationSpec({
+				name: inputs.key,
 				version: '1.0.0',
+				title: toTitleCase(inputs.key),
+				description: inputs.description,
+				domain: inputs.domain ?? 'app',
 				owners: [],
-				steps: [],
+				tags: [],
+				stability: STABILITY,
+				dependencies: [],
+				up: [],
 			});
 		case 'telemetry':
-			return specCreator.templates.generateTelemetrySpec({
-				...inputs,
+			return specTemplates.generateTelemetrySpec({
+				name: inputs.key,
 				version: '1.0.0',
+				description: inputs.description,
+				domain: inputs.domain ?? 'app',
 				owners: [],
+				tags: [],
+				stability: STABILITY,
 				events: [],
 			});
 		case 'experiment':
-			return specCreator.templates.generateExperimentSpec({
-				...inputs,
+			return specTemplates.generateExperimentSpec({
+				name: inputs.key,
 				version: '1.0.0',
+				description: inputs.description,
+				domain: inputs.domain ?? 'app',
 				owners: [],
+				tags: [],
+				stability: STABILITY,
+				controlVariant: 'control',
 				variants: [],
-				hypothesis: '',
+				allocation: { type: 'random' },
 			});
 		case 'app-config':
-			return specCreator.templates.generateAppBlueprintSpec({
-				...inputs,
+			return specTemplates.generateAppBlueprintSpec({
+				key: inputs.key,
 				version: '1.0.0',
+				title: toTitleCase(inputs.key),
+				description: inputs.description,
+				domain: inputs.domain ?? 'app',
 				owners: [],
-				appId: inputs.name, // app-config template requires appId
+				tags: [],
+				stability: STABILITY,
+				appId: inputs.key,
 				capabilitiesEnabled: [],
 				capabilitiesDisabled: [],
 				featureIncludes: [],
@@ -540,39 +432,192 @@ function generateSpecContent(
 				pausedExperiments: [],
 				featureFlags: [],
 				routes: [],
-				stability: 'experimental',
-				domain: 'app',
 			});
 		case 'integration':
-			return specCreator.templates.generateIntegrationSpec({
-				...inputs,
+			return specTemplates.generateIntegrationSpec({
+				name: inputs.key,
 				version: '1.0.0',
+				title: toTitleCase(inputs.key),
+				description: inputs.description,
+				domain: inputs.domain ?? 'app',
+				displayName: toTitleCase(inputs.key),
+				category: 'custom',
 				owners: [],
-				provider: 'custom',
+				tags: [],
+				stability: STABILITY,
+				supportedModes: ['managed'],
+				capabilitiesProvided: [],
+				capabilitiesRequired: [],
+				configFields: [],
+				secretFields: [],
+				healthCheckMethod: 'ping',
 			});
 		case 'knowledge':
-			return specCreator.templates.generateKnowledgeSpaceSpec({
-				...inputs,
+			return specTemplates.generateKnowledgeSpaceSpec({
+				name: inputs.key,
 				version: '1.0.0',
+				description: inputs.description,
 				owners: [],
-				category: 'documentation',
-				displayName: inputs.name,
-				title: inputs.name,
-				domain: 'knowledge',
 				tags: [],
-				stability: 'experimental',
-				trustLevel: 'green',
+				stability: STABILITY,
+				title: toTitleCase(inputs.key),
+				domain: inputs.domain ?? 'knowledge',
+				displayName: toTitleCase(inputs.key),
+				category: 'operational',
+				retention: { ttlDays: null, archiveAfterDays: undefined },
+				trustLevel: 'medium',
 				automationWritable: false,
-				links: [],
-				retention: { ttlDays: null, archiveAfterDays: null },
 			});
-		default:
-			// Fallback to a basic template if specific one not found, or error
-			// Ideally we should have templates for everything exposed in selectSpecType
-			return ``;
+		case 'capability':
+			return specTemplates.generateCapabilitySpec({
+				key: inputs.key,
+				version: '1.0.0',
+				description: inputs.description,
+				owners: [],
+				tags: [],
+				stability: STABILITY,
+				domain: inputs.domain,
+			});
+		case 'policy':
+			return specTemplates.generatePolicySpec({
+				key: inputs.key,
+				version: '1.0.0',
+				description: inputs.description,
+				owners: [],
+				tags: [],
+				stability: STABILITY,
+				domain: inputs.domain,
+			});
+		case 'test-spec':
+			return specTemplates.generateTestSpec({
+				key: inputs.key,
+				version: '1.0.0',
+				description: inputs.description,
+				owners: [],
+				tags: [],
+				stability: STABILITY,
+				domain: inputs.domain,
+				targetType: inputs.targetType ?? 'operation',
+				targetKey: inputs.targetKey ?? 'todo.operation',
+			});
+		case 'translation':
+			return specTemplates.generateTranslationSpec({
+				key: inputs.key,
+				version: '1.0.0',
+				description: inputs.description,
+				owners: [],
+				tags: [],
+				stability: STABILITY,
+				domain: inputs.domain,
+				locale: inputs.locale ?? 'en',
+			});
+		case 'example':
+			return specTemplates.generateExampleSpec({
+				key: inputs.key,
+				version: '1.0.0',
+				description: inputs.description,
+				owners: [],
+				tags: [],
+				stability: STABILITY,
+				domain: inputs.domain,
+			});
+		case 'visualization':
+			return specTemplates.generateVisualizationSpec({
+				key: inputs.key,
+				version: '1.0.0',
+				description: inputs.description,
+				owners: [],
+				tags: [],
+				stability: STABILITY,
+				domain: inputs.domain,
+				sourceOperationKey: inputs.sourceOperationKey ?? 'analytics.query.list',
+			});
+		case 'job':
+			return specTemplates.generateJobSpec({
+				key: inputs.key,
+				version: '1.0.0',
+				description: inputs.description,
+				owners: [],
+				tags: [],
+				stability: STABILITY,
+				domain: inputs.domain,
+			});
+		case 'agent':
+			return specTemplates.generateAgentSpec({
+				key: inputs.key,
+				version: '1.0.0',
+				description: inputs.description,
+				owners: [],
+				tags: [],
+				stability: STABILITY,
+				instructions:
+					inputs.instructions ??
+					`You are responsible for ${inputs.description.toLowerCase()}.`,
+			});
+		case 'product-intent':
+			return specTemplates.generateProductIntentSpec({
+				key: inputs.key,
+				version: '1.0.0',
+				description: inputs.description,
+				owners: [],
+				tags: [],
+				stability: STABILITY,
+				domain: inputs.domain,
+				question:
+					inputs.question ??
+					`How should we improve ${inputs.key.split('.').at(-1) ?? inputs.key}?`,
+			});
+		case 'harness-scenario':
+			return specTemplates.generateHarnessScenarioSpec({
+				key: inputs.key,
+				version: '1.0.0',
+				description: inputs.description,
+				owners: [],
+				tags: [],
+				stability: STABILITY,
+				domain: inputs.domain,
+			});
+		case 'harness-suite':
+			return specTemplates.generateHarnessSuiteSpec({
+				key: inputs.key,
+				version: '1.0.0',
+				description: inputs.description,
+				owners: [],
+				tags: [],
+				stability: STABILITY,
+				domain: inputs.domain,
+				scenarioKey: inputs.scenarioKey ?? `${inputs.key}.scenario`,
+			});
 	}
+
+	throw new Error(`Unsupported create target: ${specType}`);
 }
 
-/**
- * Convert string to PascalCase.
- */
+async function promptRequired(
+	prompt: string,
+	placeHolder: string
+): Promise<string | undefined> {
+	return vscode.window.showInputBox({
+		prompt,
+		placeHolder,
+		validateInput: (value) =>
+			value.trim().length > 0 ? null : `${prompt} is required`,
+	});
+}
+
+async function promptDescription(): Promise<string> {
+	return (
+		(await vscode.window.showInputBox({
+			prompt: 'Description',
+			placeHolder: 'Short description',
+		})) ?? ''
+	);
+}
+
+function toTitleCase(value: string): string {
+	return value
+		.split(/[-_.]/)
+		.filter(Boolean)
+		.map((segment) => segment.charAt(0).toUpperCase() + segment.slice(1))
+		.join(' ');
+}

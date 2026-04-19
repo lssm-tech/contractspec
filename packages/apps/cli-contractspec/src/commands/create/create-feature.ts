@@ -26,7 +26,6 @@ export async function createFeatureSpec(
 	const filePath = await writeSpecFile({
 		specName: specData.key,
 		specType: 'feature',
-		extension: '.feature.ts',
 		code,
 		spinnerText: 'Writing feature spec...',
 		options,

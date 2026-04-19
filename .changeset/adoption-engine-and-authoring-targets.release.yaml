@@ -1,0 +1,112 @@
+schemaVersion: "1"
+slug: adoption-engine-and-authoring-targets
+summary: Add a family-aware ContractSpec Adoption Engine, expand contract authoring targets across CLI and VS Code tooling, and refresh release-facing schema and policy artifacts for downstream workspaces.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.contracts-spec"
+    releaseType: minor
+  - name: "@contractspec/module.workspace"
+    releaseType: minor
+  - name: "@contractspec/bundle.workspace"
+    releaseType: minor
+  - name: "@contractspec/bundle.library"
+    releaseType: minor
+  - name: "@contractspec/app.cli-contractspec"
+    releaseType: minor
+  - name: "vscode-contractspec"
+    releaseType: minor
+  - name: "contractspec"
+    releaseType: patch
+  - name: "@contractspec/lib.knowledge"
+    releaseType: patch
+  - name: "@contractspec/biome-config"
+    releaseType: patch
+  - name: "@contractspec/app.cursor-marketplace"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - node
+  - vscode
+  - mcp
+affectedFrameworks:
+  - commander
+  - elysia
+  - vscode
+audiences:
+  - kind: maintainer
+    summary: Maintainers get a shared adoption catalog and resolver, Connect adoption hooks, MCP exposure for reuse decisions, expanded authoring-target coverage, and updated static policy artifacts.
+    affectedPackages:
+      - "@contractspec/lib.contracts-spec"
+      - "@contractspec/module.workspace"
+      - "@contractspec/bundle.workspace"
+      - "@contractspec/bundle.library"
+      - "@contractspec/app.cli-contractspec"
+      - "@contractspec/biome-config"
+      - "@contractspec/app.cursor-marketplace"
+  - kind: integrator
+    summary: Integrators can resolve existing workspace or ContractSpec OSS surfaces before adding new implementations, and can scaffold more contract families from the CLI and VS Code extension.
+    affectedPackages:
+      - "@contractspec/lib.contracts-spec"
+      - "@contractspec/module.workspace"
+      - "@contractspec/bundle.workspace"
+      - "@contractspec/bundle.library"
+      - "@contractspec/app.cli-contractspec"
+      - "vscode-contractspec"
+      - "@contractspec/lib.knowledge"
+  - kind: customer
+    summary: Customer workspaces gain setup-managed adoption guidance, Connect `adoption sync/resolve` flows, stronger runtime-import and deprecated-monolith guardrails, and updated bundled schemas in the published CLI entrypoint.
+    affectedPackages:
+      - "@contractspec/app.cli-contractspec"
+      - "contractspec"
+      - "@contractspec/biome-config"
+      - "vscode-contractspec"
+deprecations: []
+migrationInstructions:
+  - id: enable-connect-adoption
+    title: Enable the new Connect adoption engine in workspace config
+    summary: ContractSpec workspaces can now opt into family-aware reuse guidance and local catalog sync through `connect.adoption`.
+    required: false
+    when: When a workspace uses `contractspec init --preset connect`, Connect hooks, or custom `.contractsrc.json` management.
+    steps:
+      - Add or review `.contractsrc.json > connect.adoption`.
+      - Run `contractspec connect adoption sync --json` to mirror the local catalog.
+      - Route uncertain reuse decisions through `contractspec connect adoption resolve --family <family> --stdin`.
+  - id: adopt-expanded-authoring-targets
+    title: Use the expanded authoring-target surface in CLI and VS Code flows
+    summary: Shared workspace discovery and IDE/CLI create flows now recognize additional contract families beyond the original core set.
+    required: false
+    when: When using `contractspec create`, VS Code create commands, or custom authoring-target integrations.
+    steps:
+      - Use the new create targets for capability, policy, translation, visualization, job, agent, product-intent, harness scenario, and harness suite scaffolds where appropriate.
+      - Update any custom file-name or directory assumptions to rely on shared authoring-target helpers instead of hard-coded extensions.
+upgradeSteps:
+  - id: wire-adoption-hooks
+    title: Wire adoption-aware Connect hooks in consumer environments
+    summary: The consumer plugin and Connect CLI now expose adoption-aware hook events in addition to contracts-spec review hooks.
+    level: assisted
+    instructions:
+      - Install or reference the `contractspec-adoption` marketplace/plugin assets where Connect hooks are consumed.
+      - Use `contractspec connect hook adoption before-file-edit|before-shell-execution|after-file-edit --stdin` in host hook wiring.
+  - id: prefer-runtime-entrypoints
+    title: Prefer higher-level runtime package entrypoints in imports
+    summary: Generated Biome policy artifacts now flag deprecated monolith usage and obvious deep runtime entrypoint imports.
+    level: manual
+    instructions:
+      - Replace `@contractspec/lib.contracts` imports with `@contractspec/lib.contracts-spec` plus the appropriate split runtime package.
+      - Prefer package-level runtime entrypoints such as `@contractspec/lib.contracts-runtime-server-mcp` when they already expose the required surface.
+validation:
+  commands:
+    - "bun test packages/libs/contracts-spec/src/workspace-config/contractsrc-schema.test.ts packages/bundles/workspace/src/services/adoption/resolve.test.ts packages/bundles/workspace/src/services/setup/targets/cli-config.test.ts packages/tools/biome-config/src/generate.test.ts packages/bundles/library/src/application/mcp/contractsMcp.test.ts packages/apps/cli-contractspec/src/commands/connect/index.test.ts packages/apps/cli-contractspec/src/commands/connect/blackbox.test.ts"
+    - "cd packages/libs/contracts-spec && bun run typecheck"
+    - "cd packages/bundles/workspace && bun run typecheck"
+    - "cd packages/apps/cli-contractspec && bun run typecheck"
+    - "cd packages/apps/api-library && bun run typecheck"
+    - "cd packages/bundles/library && bun run typecheck"
+    - "cd packages/tools/biome-config && bun run typecheck"
+    - "cd packages/apps-registry/cursor-marketplace && bun run validate"
+  evidence:
+    - "`@contractspec/lib.contracts-spec` now exposes `connect.adoption` in the typed workspace-config contract and the generated schema artifacts shipped through the CLI entrypoints."
+    - "`@contractspec/bundle.workspace` now ships a family-aware adoption catalog, workspace scan, resolver, and Connect integration that can emit `rewrite` or `require_review` based on reuse opportunities."
+    - "`@contractspec/bundle.library` and `@contractspec/app.api-library` now expose adoption catalog search, resolution, and sync through the local contracts MCP surface."
+    - "`@contractspec/app.cli-contractspec`, `contractspec`, and `vscode-contractspec` now expose adoption flows and broader authored contract creation/discovery targets."
+    - "`@contractspec/biome-config` and `@contractspec/app.cursor-marketplace` now ship updated policy/plugin artifacts for adoption-first guidance and deprecated import detection."

@@ -35,9 +35,19 @@ describe('@contractspec/biome-config', () => {
 	it('generates a consumer plugin and AI rule summary', () => {
 		const plugin = generateGritPlugin('consumer');
 		const aiRules = generateAiRules('consumer');
+		const engineMatches = plugin.match(/engine biome\(1\.0\)/g) ?? [];
 
 		expect(plugin).toContain('@contractspec/lib.ui-kit-web/ui/button');
+		expect(plugin).toContain(
+			'@contractspec/lib.contracts-runtime-server-mcp/provider-mcp'
+		);
+		expect(engineMatches).toHaveLength(1);
+		expect(plugin).toContain('sequential {');
 		expect(aiRules).toContain('consumer/require-contract-first');
+		expect(aiRules).toContain('consumer/no-deprecated-contracts-monolith');
+		expect(aiRules).toContain(
+			'consumer/prefer-contractspec-runtime-entrypoints'
+		);
 	});
 
 	it('bundles generated artifacts by audience', () => {

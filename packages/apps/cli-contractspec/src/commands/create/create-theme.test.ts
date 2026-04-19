@@ -53,13 +53,11 @@ describe('createThemeSpec', () => {
 		const typedArgs = args as unknown as {
 			specName: string;
 			specType: string;
-			extension: string;
 			code: string;
 		};
 
 		expect(typedArgs.specName).toBe(themeData.key);
 		expect(typedArgs.specType).toBe('theme');
-		expect(typedArgs.extension).toBe('.theme.ts');
 		expect(typedArgs.code).toContain('defineTheme({');
 		expect(typedArgs.code).toContain("key: 'design.console'");
 	});

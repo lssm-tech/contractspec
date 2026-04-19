@@ -2,6 +2,8 @@
  * Spec templates for generation.
  */
 
+export * from './additional-contracts.template';
+export * from './advanced-contracts.template';
 export * from './app-config.template';
 export * from './data-view.template';
 export * from './data-view-renderer.template';

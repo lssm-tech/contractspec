@@ -1,0 +1,2667 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "noEmit": false,
+    "incremental": false,
+    "emitDeclarationOnly": true,
+    "declaration": true,
+    "declarationMap": false,
+    "outDir": "dist",
+    "rootDir": "src",
+    "baseUrl": ".",
+    "paths": {
+      "@contractspec/lib.ai-providers": [
+        "../../libs/ai-providers/dist/index.d.ts"
+      ],
+      "@contractspec/lib.ai-providers/*": [
+        "../../libs/ai-providers/dist/*"
+      ],
+      "@contractspec/lib.ai-providers/factory": [
+        "../../libs/ai-providers/dist/factory.d.ts"
+      ],
+      "@contractspec/lib.ai-providers/legacy": [
+        "../../libs/ai-providers/dist/legacy.d.ts"
+      ],
+      "@contractspec/lib.ai-providers/models": [
+        "../../libs/ai-providers/dist/models.d.ts"
+      ],
+      "@contractspec/lib.ai-providers/selector": [
+        "../../libs/ai-providers/dist/selector.d.ts"
+      ],
+      "@contractspec/lib.ai-providers/selector-types": [
+        "../../libs/ai-providers/dist/selector-types.d.ts"
+      ],
+      "@contractspec/lib.ai-providers/types": [
+        "../../libs/ai-providers/dist/types.d.ts"
+      ],
+      "@contractspec/lib.ai-providers/validation": [
+        "../../libs/ai-providers/dist/validation.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec": [
+        "../../libs/contracts-spec/dist/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/*": [
+        "../../libs/contracts-spec/dist/*"
+      ],
+      "@contractspec/lib.contracts-spec/acp": [
+        "../../libs/contracts-spec/dist/acp/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/acp/acp.feature": [
+        "../../libs/contracts-spec/dist/acp/acp.feature.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/acp/capabilities": [
+        "../../libs/contracts-spec/dist/acp/capabilities/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/acp/capabilities/acpTransport.capability": [
+        "../../libs/contracts-spec/dist/acp/capabilities/acpTransport.capability.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/acp/commands": [
+        "../../libs/contracts-spec/dist/acp/commands/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/acp/commands/acpFsAccess.command": [
+        "../../libs/contracts-spec/dist/acp/commands/acpFsAccess.command.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/acp/commands/acpPromptTurn.command": [
+        "../../libs/contracts-spec/dist/acp/commands/acpPromptTurn.command.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/acp/commands/acpSessionInit.command": [
+        "../../libs/contracts-spec/dist/acp/commands/acpSessionInit.command.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/acp/commands/acpSessionResume.command": [
+        "../../libs/contracts-spec/dist/acp/commands/acpSessionResume.command.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/acp/commands/acpSessionStop.command": [
+        "../../libs/contracts-spec/dist/acp/commands/acpSessionStop.command.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/acp/commands/acpTerminalExec.command": [
+        "../../libs/contracts-spec/dist/acp/commands/acpTerminalExec.command.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/acp/commands/acpToolCalls.command": [
+        "../../libs/contracts-spec/dist/acp/commands/acpToolCalls.command.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/acp/constants": [
+        "../../libs/contracts-spec/dist/acp/constants.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/acp/contracts": [
+        "../../libs/contracts-spec/dist/acp/contracts.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/agent": [
+        "../../libs/contracts-spec/dist/agent/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/agent/agent.feature": [
+        "../../libs/contracts-spec/dist/agent/agent.feature.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/agent/capabilities": [
+        "../../libs/contracts-spec/dist/agent/capabilities/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/agent/capabilities/agentExecution.capability": [
+        "../../libs/contracts-spec/dist/agent/capabilities/agentExecution.capability.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/agent/commands": [
+        "../../libs/contracts-spec/dist/agent/commands/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/agent/commands/agentApprovals.command": [
+        "../../libs/contracts-spec/dist/agent/commands/agentApprovals.command.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/agent/commands/agentCancel.command": [
+        "../../libs/contracts-spec/dist/agent/commands/agentCancel.command.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/agent/commands/agentRun.command": [
+        "../../libs/contracts-spec/dist/agent/commands/agentRun.command.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/agent/constants": [
+        "../../libs/contracts-spec/dist/agent/constants.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/agent/contracts": [
+        "../../libs/contracts-spec/dist/agent/contracts.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/agent/events": [
+        "../../libs/contracts-spec/dist/agent/events/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/agent/events/agentApprovalRequested.event": [
+        "../../libs/contracts-spec/dist/agent/events/agentApprovalRequested.event.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/agent/events/agentRunCompleted.event": [
+        "../../libs/contracts-spec/dist/agent/events/agentRunCompleted.event.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/agent/events/agentRunFailed.event": [
+        "../../libs/contracts-spec/dist/agent/events/agentRunFailed.event.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/agent/events/agentRunStarted.event": [
+        "../../libs/contracts-spec/dist/agent/events/agentRunStarted.event.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/agent/forms": [
+        "../../libs/contracts-spec/dist/agent/forms/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/agent/forms/agentRun.form": [
+        "../../libs/contracts-spec/dist/agent/forms/agentRun.form.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/agent/presentations": [
+        "../../libs/contracts-spec/dist/agent/presentations/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/agent/presentations/agentRunAudit.presentation": [
+        "../../libs/contracts-spec/dist/agent/presentations/agentRunAudit.presentation.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/agent/queries": [
+        "../../libs/contracts-spec/dist/agent/queries/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/agent/queries/agentArtifacts.query": [
+        "../../libs/contracts-spec/dist/agent/queries/agentArtifacts.query.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/agent/queries/agentStatus.query": [
+        "../../libs/contracts-spec/dist/agent/queries/agentStatus.query.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/agent/registry": [
+        "../../libs/contracts-spec/dist/agent/registry.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/agent/spec": [
+        "../../libs/contracts-spec/dist/agent/spec.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/agent/views": [
+        "../../libs/contracts-spec/dist/agent/views/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/agent/views/agentRuns.dataView": [
+        "../../libs/contracts-spec/dist/agent/views/agentRuns.dataView.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/app-config": [
+        "../../libs/contracts-spec/dist/app-config/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/app-config/app-config.capability": [
+        "../../libs/contracts-spec/dist/app-config/app-config.capability.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/app-config/app-config.contracts": [
+        "../../libs/contracts-spec/dist/app-config/app-config.contracts.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/app-config/app-config.feature": [
+        "../../libs/contracts-spec/dist/app-config/app-config.feature.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/app-config/branding": [
+        "../../libs/contracts-spec/dist/app-config/branding.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/app-config/events": [
+        "../../libs/contracts-spec/dist/app-config/events.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/app-config/integrations": [
+        "../../libs/contracts-spec/dist/app-config/integrations.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/app-config/lifecycle": [
+        "../../libs/contracts-spec/dist/app-config/lifecycle.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/app-config/lifecycle-contracts": [
+        "../../libs/contracts-spec/dist/app-config/lifecycle-contracts.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/app-config/runtime": [
+        "../../libs/contracts-spec/dist/app-config/runtime.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/app-config/spec": [
+        "../../libs/contracts-spec/dist/app-config/spec.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/app-config/validation": [
+        "../../libs/contracts-spec/dist/app-config/validation.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/capabilities": [
+        "../../libs/contracts-spec/dist/capabilities/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/capabilities/capabilities": [
+        "../../libs/contracts-spec/dist/capabilities/capabilities.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/capabilities/context": [
+        "../../libs/contracts-spec/dist/capabilities/context.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/capabilities/guards": [
+        "../../libs/contracts-spec/dist/capabilities/guards.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/capabilities/meeting-recorder": [
+        "../../libs/contracts-spec/dist/capabilities/meeting-recorder.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/capabilities/openbanking": [
+        "../../libs/contracts-spec/dist/capabilities/openbanking.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/capabilities/validation": [
+        "../../libs/contracts-spec/dist/capabilities/validation.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/context": [
+        "../../libs/contracts-spec/dist/context/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/context/capabilities": [
+        "../../libs/contracts-spec/dist/context/capabilities/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/context/capabilities/contextSystem.capability": [
+        "../../libs/contracts-spec/dist/context/capabilities/contextSystem.capability.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/context/commands": [
+        "../../libs/contracts-spec/dist/context/commands/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/context/commands/contextPackSnapshot.command": [
+        "../../libs/contracts-spec/dist/context/commands/contextPackSnapshot.command.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/context/constants": [
+        "../../libs/contracts-spec/dist/context/constants.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/context/context.feature": [
+        "../../libs/contracts-spec/dist/context/context.feature.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/context/contracts": [
+        "../../libs/contracts-spec/dist/context/contracts.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/context/events": [
+        "../../libs/contracts-spec/dist/context/events/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/context/events/contextSnapshotCreated.event": [
+        "../../libs/contracts-spec/dist/context/events/contextSnapshotCreated.event.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/context/forms": [
+        "../../libs/contracts-spec/dist/context/forms/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/context/forms/contextPackSearch.form": [
+        "../../libs/contracts-spec/dist/context/forms/contextPackSearch.form.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/context/presentations": [
+        "../../libs/contracts-spec/dist/context/presentations/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/context/presentations/contextSnapshot.presentation": [
+        "../../libs/contracts-spec/dist/context/presentations/contextSnapshot.presentation.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/context/queries": [
+        "../../libs/contracts-spec/dist/context/queries/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/context/queries/contextPackDescribe.query": [
+        "../../libs/contracts-spec/dist/context/queries/contextPackDescribe.query.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/context/queries/contextPackSearch.query": [
+        "../../libs/contracts-spec/dist/context/queries/contextPackSearch.query.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/context/views": [
+        "../../libs/contracts-spec/dist/context/views/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/context/views/contextSnapshots.dataView": [
+        "../../libs/contracts-spec/dist/context/views/contextSnapshots.dataView.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/contract-registry": [
+        "../../libs/contracts-spec/dist/contract-registry/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/contract-registry/schemas": [
+        "../../libs/contracts-spec/dist/contract-registry/schemas.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/contract-registry/types": [
+        "../../libs/contracts-spec/dist/contract-registry/types.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane": [
+        "../../libs/contracts-spec/dist/control-plane/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/capabilities": [
+        "../../libs/contracts-spec/dist/control-plane/capabilities/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/capabilities/controlPlaneApproval.capability": [
+        "../../libs/contracts-spec/dist/control-plane/capabilities/controlPlaneApproval.capability.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/capabilities/controlPlaneAudit.capability": [
+        "../../libs/contracts-spec/dist/control-plane/capabilities/controlPlaneAudit.capability.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/capabilities/controlPlaneChannelRuntime.capability": [
+        "../../libs/contracts-spec/dist/control-plane/capabilities/controlPlaneChannelRuntime.capability.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/capabilities/controlPlaneCore.capability": [
+        "../../libs/contracts-spec/dist/control-plane/capabilities/controlPlaneCore.capability.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/capabilities/controlPlaneSkillRegistry.capability": [
+        "../../libs/contracts-spec/dist/control-plane/capabilities/controlPlaneSkillRegistry.capability.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/commands": [
+        "../../libs/contracts-spec/dist/control-plane/commands/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/commands/controlPlaneExecutionAbort.command": [
+        "../../libs/contracts-spec/dist/control-plane/commands/controlPlaneExecutionAbort.command.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/commands/controlPlaneExecutionApprove.command": [
+        "../../libs/contracts-spec/dist/control-plane/commands/controlPlaneExecutionApprove.command.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/commands/controlPlaneExecutionCancel.command": [
+        "../../libs/contracts-spec/dist/control-plane/commands/controlPlaneExecutionCancel.command.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/commands/controlPlaneExecutionEvidenceExport.command": [
+        "../../libs/contracts-spec/dist/control-plane/commands/controlPlaneExecutionEvidenceExport.command.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/commands/controlPlaneExecutionPause.command": [
+        "../../libs/contracts-spec/dist/control-plane/commands/controlPlaneExecutionPause.command.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/commands/controlPlaneExecutionReject.command": [
+        "../../libs/contracts-spec/dist/control-plane/commands/controlPlaneExecutionReject.command.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/commands/controlPlaneExecutionResume.command": [
+        "../../libs/contracts-spec/dist/control-plane/commands/controlPlaneExecutionResume.command.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/commands/controlPlaneExecutionRetry.command": [
+        "../../libs/contracts-spec/dist/control-plane/commands/controlPlaneExecutionRetry.command.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/commands/controlPlaneExecutionShutdown.command": [
+        "../../libs/contracts-spec/dist/control-plane/commands/controlPlaneExecutionShutdown.command.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/commands/controlPlaneExecutionStart.command": [
+        "../../libs/contracts-spec/dist/control-plane/commands/controlPlaneExecutionStart.command.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/commands/controlPlaneIntentSubmit.command": [
+        "../../libs/contracts-spec/dist/control-plane/commands/controlPlaneIntentSubmit.command.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/commands/controlPlanePlanCompile.command": [
+        "../../libs/contracts-spec/dist/control-plane/commands/controlPlanePlanCompile.command.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/commands/controlPlanePlanVerify.command": [
+        "../../libs/contracts-spec/dist/control-plane/commands/controlPlanePlanVerify.command.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/commands/controlPlaneSkillDisable.command": [
+        "../../libs/contracts-spec/dist/control-plane/commands/controlPlaneSkillDisable.command.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/commands/controlPlaneSkillInstall.command": [
+        "../../libs/contracts-spec/dist/control-plane/commands/controlPlaneSkillInstall.command.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/constants": [
+        "../../libs/contracts-spec/dist/control-plane/constants.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/contracts": [
+        "../../libs/contracts-spec/dist/control-plane/contracts.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/control-plane.feature": [
+        "../../libs/contracts-spec/dist/control-plane/control-plane.feature.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/events": [
+        "../../libs/contracts-spec/dist/control-plane/events/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/events/controlPlaneExecutionCompleted.event": [
+        "../../libs/contracts-spec/dist/control-plane/events/controlPlaneExecutionCompleted.event.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/events/controlPlaneExecutionFailed.event": [
+        "../../libs/contracts-spec/dist/control-plane/events/controlPlaneExecutionFailed.event.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/events/controlPlaneExecutionStepBlocked.event": [
+        "../../libs/contracts-spec/dist/control-plane/events/controlPlaneExecutionStepBlocked.event.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/events/controlPlaneExecutionStepCompleted.event": [
+        "../../libs/contracts-spec/dist/control-plane/events/controlPlaneExecutionStepCompleted.event.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/events/controlPlaneExecutionStepStarted.event": [
+        "../../libs/contracts-spec/dist/control-plane/events/controlPlaneExecutionStepStarted.event.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/events/controlPlaneIntentReceived.event": [
+        "../../libs/contracts-spec/dist/control-plane/events/controlPlaneIntentReceived.event.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/events/controlPlanePlanCompiled.event": [
+        "../../libs/contracts-spec/dist/control-plane/events/controlPlanePlanCompiled.event.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/events/controlPlanePlanRejected.event": [
+        "../../libs/contracts-spec/dist/control-plane/events/controlPlanePlanRejected.event.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/events/controlPlaneSkillInstalled.event": [
+        "../../libs/contracts-spec/dist/control-plane/events/controlPlaneSkillInstalled.event.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/events/controlPlaneSkillRejected.event": [
+        "../../libs/contracts-spec/dist/control-plane/events/controlPlaneSkillRejected.event.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/policies": [
+        "../../libs/contracts-spec/dist/control-plane/policies/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/policies/controlPlaneMessaging.policy": [
+        "../../libs/contracts-spec/dist/control-plane/policies/controlPlaneMessaging.policy.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/queries": [
+        "../../libs/contracts-spec/dist/control-plane/queries/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/queries/controlPlaneExecutionGet.query": [
+        "../../libs/contracts-spec/dist/control-plane/queries/controlPlaneExecutionGet.query.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/queries/controlPlaneExecutionLane.models": [
+        "../../libs/contracts-spec/dist/control-plane/queries/controlPlaneExecutionLane.models.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/queries/controlPlaneExecutionLaneGet.query": [
+        "../../libs/contracts-spec/dist/control-plane/queries/controlPlaneExecutionLaneGet.query.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/queries/controlPlaneExecutionLaneList.query": [
+        "../../libs/contracts-spec/dist/control-plane/queries/controlPlaneExecutionLaneList.query.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/queries/controlPlaneExecutionList.query": [
+        "../../libs/contracts-spec/dist/control-plane/queries/controlPlaneExecutionList.query.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/queries/controlPlanePolicyExplain.query": [
+        "../../libs/contracts-spec/dist/control-plane/queries/controlPlanePolicyExplain.query.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/queries/controlPlaneSkillList.query": [
+        "../../libs/contracts-spec/dist/control-plane/queries/controlPlaneSkillList.query.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/queries/controlPlaneSkillVerify.query": [
+        "../../libs/contracts-spec/dist/control-plane/queries/controlPlaneSkillVerify.query.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/queries/controlPlaneTraceGet.query": [
+        "../../libs/contracts-spec/dist/control-plane/queries/controlPlaneTraceGet.query.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/skills": [
+        "../../libs/contracts-spec/dist/control-plane/skills/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/skills/schema": [
+        "../../libs/contracts-spec/dist/control-plane/skills/schema.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/skills/signer": [
+        "../../libs/contracts-spec/dist/control-plane/skills/signer.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/skills/types": [
+        "../../libs/contracts-spec/dist/control-plane/skills/types.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/skills/validator": [
+        "../../libs/contracts-spec/dist/control-plane/skills/validator.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/control-plane/skills/verifier": [
+        "../../libs/contracts-spec/dist/control-plane/skills/verifier.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/data-views": [
+        "../../libs/contracts-spec/dist/data-views/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/data-views/data-views": [
+        "../../libs/contracts-spec/dist/data-views/data-views.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/data-views/query-generator": [
+        "../../libs/contracts-spec/dist/data-views/query-generator.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/data-views/registry": [
+        "../../libs/contracts-spec/dist/data-views/registry.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/data-views/report/contractVerificationTable": [
+        "../../libs/contracts-spec/dist/data-views/report/contractVerificationTable.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/data-views/runtime": [
+        "../../libs/contracts-spec/dist/data-views/runtime.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/data-views/spec": [
+        "../../libs/contracts-spec/dist/data-views/spec.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/data-views/types": [
+        "../../libs/contracts-spec/dist/data-views/types.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/database": [
+        "../../libs/contracts-spec/dist/database/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/database/capabilities": [
+        "../../libs/contracts-spec/dist/database/capabilities/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/database/capabilities/databaseContext.capability": [
+        "../../libs/contracts-spec/dist/database/capabilities/databaseContext.capability.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/database/constants": [
+        "../../libs/contracts-spec/dist/database/constants.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/database/contracts": [
+        "../../libs/contracts-spec/dist/database/contracts.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/database/database.feature": [
+        "../../libs/contracts-spec/dist/database/database.feature.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/database/queries": [
+        "../../libs/contracts-spec/dist/database/queries/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/database/queries/databaseDictionaryGet.query": [
+        "../../libs/contracts-spec/dist/database/queries/databaseDictionaryGet.query.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/database/queries/databaseMigrationsList.query": [
+        "../../libs/contracts-spec/dist/database/queries/databaseMigrationsList.query.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/database/queries/databaseQueryReadonly.query": [
+        "../../libs/contracts-spec/dist/database/queries/databaseQueryReadonly.query.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/database/queries/databaseSchemaDescribe.query": [
+        "../../libs/contracts-spec/dist/database/queries/databaseSchemaDescribe.query.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/database/views": [
+        "../../libs/contracts-spec/dist/database/views/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/database/views/databaseSchemas.dataView": [
+        "../../libs/contracts-spec/dist/database/views/databaseSchemas.dataView.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/docs": [
+        "../../libs/contracts-spec/dist/docs/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/docs/capabilities": [
+        "../../libs/contracts-spec/dist/docs/capabilities/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/docs/capabilities/documentationSystem.capability": [
+        "../../libs/contracts-spec/dist/docs/capabilities/documentationSystem.capability.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/docs/commands": [
+        "../../libs/contracts-spec/dist/docs/commands/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/docs/commands/docsGenerate.command": [
+        "../../libs/contracts-spec/dist/docs/commands/docsGenerate.command.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/docs/commands/docsPublish.command": [
+        "../../libs/contracts-spec/dist/docs/commands/docsPublish.command.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/docs/constants": [
+        "../../libs/contracts-spec/dist/docs/constants.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/docs/contracts": [
+        "../../libs/contracts-spec/dist/docs/contracts.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/docs/docblocks.manifest.generated": [
+        "../../libs/contracts-spec/dist/docs/docblocks.manifest.generated.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/docs/docs.feature": [
+        "../../libs/contracts-spec/dist/docs/docs.feature.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/docs/events": [
+        "../../libs/contracts-spec/dist/docs/events/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/docs/events/docsGenerated.event": [
+        "../../libs/contracts-spec/dist/docs/events/docsGenerated.event.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/docs/events/docsPublished.event": [
+        "../../libs/contracts-spec/dist/docs/events/docsPublished.event.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/docs/forms": [
+        "../../libs/contracts-spec/dist/docs/forms/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/docs/forms/docsSearch.form": [
+        "../../libs/contracts-spec/dist/docs/forms/docsSearch.form.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/docs/manifest": [
+        "../../libs/contracts-spec/dist/docs/manifest.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/docs/manifest-builder": [
+        "../../libs/contracts-spec/dist/docs/manifest-builder.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/docs/presentations": [
+        "../../libs/contracts-spec/dist/docs/presentations.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/docs/presentations/docsLayout.presentation": [
+        "../../libs/contracts-spec/dist/docs/presentations/docsLayout.presentation.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/docs/presentations/docsReferencePage.presentation": [
+        "../../libs/contracts-spec/dist/docs/presentations/docsReferencePage.presentation.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/docs/queries": [
+        "../../libs/contracts-spec/dist/docs/queries/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/docs/queries/contractReference.query": [
+        "../../libs/contracts-spec/dist/docs/queries/contractReference.query.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/docs/queries/docsIndex.query": [
+        "../../libs/contracts-spec/dist/docs/queries/docsIndex.query.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/docs/registry": [
+        "../../libs/contracts-spec/dist/docs/registry.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/docs/types": [
+        "../../libs/contracts-spec/dist/docs/types.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/docs/views": [
+        "../../libs/contracts-spec/dist/docs/views/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/docs/views/contractReference.dataView": [
+        "../../libs/contracts-spec/dist/docs/views/contractReference.dataView.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/docs/views/docsIndex.dataView": [
+        "../../libs/contracts-spec/dist/docs/views/docsIndex.dataView.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/docs/views/exampleCatalog.dataView": [
+        "../../libs/contracts-spec/dist/docs/views/exampleCatalog.dataView.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/events": [
+        "../../libs/contracts-spec/dist/events.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/examples": [
+        "../../libs/contracts-spec/dist/examples/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/examples/define": [
+        "../../libs/contracts-spec/dist/examples/define.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/examples/registry": [
+        "../../libs/contracts-spec/dist/examples/registry.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/examples/schema": [
+        "../../libs/contracts-spec/dist/examples/schema.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/examples/types": [
+        "../../libs/contracts-spec/dist/examples/types.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/examples/validation": [
+        "../../libs/contracts-spec/dist/examples/validation.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/experiments/evaluator": [
+        "../../libs/contracts-spec/dist/experiments/evaluator.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/experiments/spec": [
+        "../../libs/contracts-spec/dist/experiments/spec.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/experiments/spec-resolver": [
+        "../../libs/contracts-spec/dist/experiments/spec-resolver.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/features": [
+        "../../libs/contracts-spec/dist/features/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/features/install": [
+        "../../libs/contracts-spec/dist/features/install.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/features/registry": [
+        "../../libs/contracts-spec/dist/features/registry.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/features/types": [
+        "../../libs/contracts-spec/dist/features/types.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/features/validate-bundle-requires": [
+        "../../libs/contracts-spec/dist/features/validate-bundle-requires.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/features/validation": [
+        "../../libs/contracts-spec/dist/features/validation.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/forms": [
+        "../../libs/contracts-spec/dist/forms/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/forms/forms": [
+        "../../libs/contracts-spec/dist/forms/forms.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/forms/richFieldsShowcase.form": [
+        "../../libs/contracts-spec/dist/forms/richFieldsShowcase.form.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness": [
+        "../../libs/contracts-spec/dist/harness/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/capabilities": [
+        "../../libs/contracts-spec/dist/harness/capabilities/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/capabilities/harnessEvaluation.capability": [
+        "../../libs/contracts-spec/dist/harness/capabilities/harnessEvaluation.capability.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/capabilities/harnessEvidence.capability": [
+        "../../libs/contracts-spec/dist/harness/capabilities/harnessEvidence.capability.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/capabilities/harnessExecution.capability": [
+        "../../libs/contracts-spec/dist/harness/capabilities/harnessExecution.capability.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/capabilities/harnessTargeting.capability": [
+        "../../libs/contracts-spec/dist/harness/capabilities/harnessTargeting.capability.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/commands": [
+        "../../libs/contracts-spec/dist/harness/commands/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/commands/harnessEvaluationRun.command": [
+        "../../libs/contracts-spec/dist/harness/commands/harnessEvaluationRun.command.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/commands/harnessRunCancel.command": [
+        "../../libs/contracts-spec/dist/harness/commands/harnessRunCancel.command.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/commands/harnessRunStart.command": [
+        "../../libs/contracts-spec/dist/harness/commands/harnessRunStart.command.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/constants": [
+        "../../libs/contracts-spec/dist/harness/constants.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/contracts": [
+        "../../libs/contracts-spec/dist/harness/contracts.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/events": [
+        "../../libs/contracts-spec/dist/harness/events/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/events/harnessEvaluationCompleted.event": [
+        "../../libs/contracts-spec/dist/harness/events/harnessEvaluationCompleted.event.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/events/harnessEvidenceCaptured.event": [
+        "../../libs/contracts-spec/dist/harness/events/harnessEvidenceCaptured.event.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/events/harnessRunCompleted.event": [
+        "../../libs/contracts-spec/dist/harness/events/harnessRunCompleted.event.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/events/harnessRunFailed.event": [
+        "../../libs/contracts-spec/dist/harness/events/harnessRunFailed.event.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/events/harnessRunStarted.event": [
+        "../../libs/contracts-spec/dist/harness/events/harnessRunStarted.event.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/events/harnessStepBlocked.event": [
+        "../../libs/contracts-spec/dist/harness/events/harnessStepBlocked.event.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/events/harnessStepCompleted.event": [
+        "../../libs/contracts-spec/dist/harness/events/harnessStepCompleted.event.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/events/harnessStepStarted.event": [
+        "../../libs/contracts-spec/dist/harness/events/harnessStepStarted.event.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/harness.feature": [
+        "../../libs/contracts-spec/dist/harness/harness.feature.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/models": [
+        "../../libs/contracts-spec/dist/harness/models.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/presentations": [
+        "../../libs/contracts-spec/dist/harness/presentations/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/presentations/harnessRunAudit.presentation": [
+        "../../libs/contracts-spec/dist/harness/presentations/harnessRunAudit.presentation.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/queries": [
+        "../../libs/contracts-spec/dist/harness/queries/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/queries/harnessEvaluationGet.query": [
+        "../../libs/contracts-spec/dist/harness/queries/harnessEvaluationGet.query.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/queries/harnessEvidenceGet.query": [
+        "../../libs/contracts-spec/dist/harness/queries/harnessEvidenceGet.query.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/queries/harnessEvidenceList.query": [
+        "../../libs/contracts-spec/dist/harness/queries/harnessEvidenceList.query.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/queries/harnessRunGet.query": [
+        "../../libs/contracts-spec/dist/harness/queries/harnessRunGet.query.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/queries/harnessTargetResolve.query": [
+        "../../libs/contracts-spec/dist/harness/queries/harnessTargetResolve.query.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/types": [
+        "../../libs/contracts-spec/dist/harness/types.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/views": [
+        "../../libs/contracts-spec/dist/harness/views/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/views/harnessEvaluations.dataView": [
+        "../../libs/contracts-spec/dist/harness/views/harnessEvaluations.dataView.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/views/harnessEvidence.dataView": [
+        "../../libs/contracts-spec/dist/harness/views/harnessEvidence.dataView.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/harness/views/harnessRuns.dataView": [
+        "../../libs/contracts-spec/dist/harness/views/harnessRuns.dataView.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/install": [
+        "../../libs/contracts-spec/dist/install.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/jobs": [
+        "../../libs/contracts-spec/dist/jobs/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/jobs/define-job": [
+        "../../libs/contracts-spec/dist/jobs/define-job.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/jobs/queue": [
+        "../../libs/contracts-spec/dist/jobs/queue.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/jobs/spec": [
+        "../../libs/contracts-spec/dist/jobs/spec.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/jsonschema": [
+        "../../libs/contracts-spec/dist/jsonschema.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/knowledge": [
+        "../../libs/contracts-spec/dist/knowledge/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/knowledge/binding": [
+        "../../libs/contracts-spec/dist/knowledge/binding.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/knowledge/knowledge.capability": [
+        "../../libs/contracts-spec/dist/knowledge/knowledge.capability.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/knowledge/knowledge.feature": [
+        "../../libs/contracts-spec/dist/knowledge/knowledge.feature.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/knowledge/operations": [
+        "../../libs/contracts-spec/dist/knowledge/operations.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/knowledge/source": [
+        "../../libs/contracts-spec/dist/knowledge/source.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/knowledge/spaces": [
+        "../../libs/contracts-spec/dist/knowledge/spaces/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/knowledge/spaces/email-threads": [
+        "../../libs/contracts-spec/dist/knowledge/spaces/email-threads.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/knowledge/spaces/financial-docs": [
+        "../../libs/contracts-spec/dist/knowledge/spaces/financial-docs.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/knowledge/spaces/financial-overview": [
+        "../../libs/contracts-spec/dist/knowledge/spaces/financial-overview.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/knowledge/spaces/product-canon": [
+        "../../libs/contracts-spec/dist/knowledge/spaces/product-canon.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/knowledge/spaces/support-faq": [
+        "../../libs/contracts-spec/dist/knowledge/spaces/support-faq.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/knowledge/spaces/uploaded-docs": [
+        "../../libs/contracts-spec/dist/knowledge/spaces/uploaded-docs.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/knowledge/spec": [
+        "../../libs/contracts-spec/dist/knowledge/spec.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/llm": [
+        "../../libs/contracts-spec/dist/llm/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/llm/exporters": [
+        "../../libs/contracts-spec/dist/llm/exporters.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/llm/prompts": [
+        "../../libs/contracts-spec/dist/llm/prompts.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/llm/types": [
+        "../../libs/contracts-spec/dist/llm/types.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/markdown": [
+        "../../libs/contracts-spec/dist/markdown.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/migrations": [
+        "../../libs/contracts-spec/dist/migrations.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/model-registry": [
+        "../../libs/contracts-spec/dist/model-registry.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/onboarding-base": [
+        "../../libs/contracts-spec/dist/onboarding-base.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/openapi": [
+        "../../libs/contracts-spec/dist/openapi.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/operations": [
+        "../../libs/contracts-spec/dist/operations/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/operations/operation": [
+        "../../libs/contracts-spec/dist/operations/operation.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/operations/registry": [
+        "../../libs/contracts-spec/dist/operations/registry.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/operations/report": [
+        "../../libs/contracts-spec/dist/operations/report/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/operations/report/getContractVerificationStatus": [
+        "../../libs/contracts-spec/dist/operations/report/getContractVerificationStatus.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/ownership": [
+        "../../libs/contracts-spec/dist/ownership.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/policy": [
+        "../../libs/contracts-spec/dist/policy/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/policy/context": [
+        "../../libs/contracts-spec/dist/policy/context.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/policy/engine": [
+        "../../libs/contracts-spec/dist/policy/engine.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/policy/guards": [
+        "../../libs/contracts-spec/dist/policy/guards.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/policy/opa-adapter": [
+        "../../libs/contracts-spec/dist/policy/opa-adapter.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/policy/registry": [
+        "../../libs/contracts-spec/dist/policy/registry.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/policy/spec": [
+        "../../libs/contracts-spec/dist/policy/spec.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/policy/validation": [
+        "../../libs/contracts-spec/dist/policy/validation.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/presentations": [
+        "../../libs/contracts-spec/dist/presentations/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/presentations/presentations": [
+        "../../libs/contracts-spec/dist/presentations/presentations.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/presentations/registry": [
+        "../../libs/contracts-spec/dist/presentations/registry.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/presentations/shim-blocknotejs": [
+        "../../libs/contracts-spec/dist/presentations/shim-blocknotejs.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/product-intent": [
+        "../../libs/contracts-spec/dist/product-intent/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/product-intent/contract-patch-intent": [
+        "../../libs/contracts-spec/dist/product-intent/contract-patch-intent.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/product-intent/contract-spec-patch": [
+        "../../libs/contracts-spec/dist/product-intent/contract-spec-patch.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/product-intent/evidence": [
+        "../../libs/contracts-spec/dist/product-intent/evidence.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/product-intent/findings": [
+        "../../libs/contracts-spec/dist/product-intent/findings.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/product-intent/impact-report": [
+        "../../libs/contracts-spec/dist/product-intent/impact-report.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/product-intent/insights": [
+        "../../libs/contracts-spec/dist/product-intent/insights.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/product-intent/opportunity-brief": [
+        "../../libs/contracts-spec/dist/product-intent/opportunity-brief.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/product-intent/problems": [
+        "../../libs/contracts-spec/dist/product-intent/problems.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/product-intent/registry": [
+        "../../libs/contracts-spec/dist/product-intent/registry.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/product-intent/runtime": [
+        "../../libs/contracts-spec/dist/product-intent/runtime.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/product-intent/spec": [
+        "../../libs/contracts-spec/dist/product-intent/spec.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/product-intent/task-pack": [
+        "../../libs/contracts-spec/dist/product-intent/task-pack.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/product-intent/tickets": [
+        "../../libs/contracts-spec/dist/product-intent/tickets.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/product-intent/types": [
+        "../../libs/contracts-spec/dist/product-intent/types.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/product-intent/ui-wireframe": [
+        "../../libs/contracts-spec/dist/product-intent/ui-wireframe.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/prompt": [
+        "../../libs/contracts-spec/dist/prompt.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/promptRegistry": [
+        "../../libs/contracts-spec/dist/promptRegistry.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/provider-ranking": [
+        "../../libs/contracts-spec/dist/provider-ranking/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/provider-ranking/capabilities": [
+        "../../libs/contracts-spec/dist/provider-ranking/capabilities/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/provider-ranking/capabilities/providerRanking.capability": [
+        "../../libs/contracts-spec/dist/provider-ranking/capabilities/providerRanking.capability.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/provider-ranking/commands": [
+        "../../libs/contracts-spec/dist/provider-ranking/commands/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/provider-ranking/commands/benchmarkIngest.command": [
+        "../../libs/contracts-spec/dist/provider-ranking/commands/benchmarkIngest.command.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/provider-ranking/commands/benchmarkRunCustom.command": [
+        "../../libs/contracts-spec/dist/provider-ranking/commands/benchmarkRunCustom.command.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/provider-ranking/commands/rankingRefresh.command": [
+        "../../libs/contracts-spec/dist/provider-ranking/commands/rankingRefresh.command.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/provider-ranking/constants": [
+        "../../libs/contracts-spec/dist/provider-ranking/constants.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/provider-ranking/contracts": [
+        "../../libs/contracts-spec/dist/provider-ranking/contracts.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/provider-ranking/events": [
+        "../../libs/contracts-spec/dist/provider-ranking/events/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/provider-ranking/events/benchmarkCustomCompleted.event": [
+        "../../libs/contracts-spec/dist/provider-ranking/events/benchmarkCustomCompleted.event.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/provider-ranking/events/benchmarkIngested.event": [
+        "../../libs/contracts-spec/dist/provider-ranking/events/benchmarkIngested.event.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/provider-ranking/events/rankingUpdated.event": [
+        "../../libs/contracts-spec/dist/provider-ranking/events/rankingUpdated.event.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/provider-ranking/forms": [
+        "../../libs/contracts-spec/dist/provider-ranking/forms/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/provider-ranking/forms/benchmarkIngest.form": [
+        "../../libs/contracts-spec/dist/provider-ranking/forms/benchmarkIngest.form.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/provider-ranking/forms/benchmarkRunCustom.form": [
+        "../../libs/contracts-spec/dist/provider-ranking/forms/benchmarkRunCustom.form.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/provider-ranking/presentations": [
+        "../../libs/contracts-spec/dist/provider-ranking/presentations/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/provider-ranking/presentations/modelComparison.presentation": [
+        "../../libs/contracts-spec/dist/provider-ranking/presentations/modelComparison.presentation.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/provider-ranking/provider-ranking.feature": [
+        "../../libs/contracts-spec/dist/provider-ranking/provider-ranking.feature.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/provider-ranking/queries": [
+        "../../libs/contracts-spec/dist/provider-ranking/queries/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/provider-ranking/queries/benchmarkResultsList.query": [
+        "../../libs/contracts-spec/dist/provider-ranking/queries/benchmarkResultsList.query.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/provider-ranking/queries/modelProfileGet.query": [
+        "../../libs/contracts-spec/dist/provider-ranking/queries/modelProfileGet.query.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/provider-ranking/queries/providerRankingGet.query": [
+        "../../libs/contracts-spec/dist/provider-ranking/queries/providerRankingGet.query.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/provider-ranking/views": [
+        "../../libs/contracts-spec/dist/provider-ranking/views/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/provider-ranking/views/benchmarkResults.dataView": [
+        "../../libs/contracts-spec/dist/provider-ranking/views/benchmarkResults.dataView.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/provider-ranking/views/providerRankings.dataView": [
+        "../../libs/contracts-spec/dist/provider-ranking/views/providerRankings.dataView.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/regenerator": [
+        "../../libs/contracts-spec/dist/regenerator/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/regenerator/adapters": [
+        "../../libs/contracts-spec/dist/regenerator/adapters.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/regenerator/executor": [
+        "../../libs/contracts-spec/dist/regenerator/executor.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/regenerator/service": [
+        "../../libs/contracts-spec/dist/regenerator/service.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/regenerator/sinks": [
+        "../../libs/contracts-spec/dist/regenerator/sinks.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/regenerator/types": [
+        "../../libs/contracts-spec/dist/regenerator/types.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/regenerator/utils": [
+        "../../libs/contracts-spec/dist/regenerator/utils.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/registry": [
+        "../../libs/contracts-spec/dist/registry.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/registry-utils": [
+        "../../libs/contracts-spec/dist/registry-utils.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/release": [
+        "../../libs/contracts-spec/dist/release/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/resources": [
+        "../../libs/contracts-spec/dist/resources.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/schema-to-markdown": [
+        "../../libs/contracts-spec/dist/schema-to-markdown.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/serialization": [
+        "../../libs/contracts-spec/dist/serialization/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/serialization/serializers": [
+        "../../libs/contracts-spec/dist/serialization/serializers.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/serialization/types": [
+        "../../libs/contracts-spec/dist/serialization/types.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/telemetry": [
+        "../../libs/contracts-spec/dist/telemetry/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/telemetry/anomaly": [
+        "../../libs/contracts-spec/dist/telemetry/anomaly.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/telemetry/spec": [
+        "../../libs/contracts-spec/dist/telemetry/spec.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/telemetry/tracker": [
+        "../../libs/contracts-spec/dist/telemetry/tracker.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/tests": [
+        "../../libs/contracts-spec/dist/tests/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/tests/runner": [
+        "../../libs/contracts-spec/dist/tests/runner.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/tests/spec": [
+        "../../libs/contracts-spec/dist/tests/spec.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/themes": [
+        "../../libs/contracts-spec/dist/themes.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/themes.validation": [
+        "../../libs/contracts-spec/dist/themes.validation.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/translations": [
+        "../../libs/contracts-spec/dist/translations/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/translations/catalog": [
+        "../../libs/contracts-spec/dist/translations/catalog.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/translations/i18n-factory": [
+        "../../libs/contracts-spec/dist/translations/i18n-factory.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/translations/registry": [
+        "../../libs/contracts-spec/dist/translations/registry.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/translations/spec": [
+        "../../libs/contracts-spec/dist/translations/spec.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/translations/tenant": [
+        "../../libs/contracts-spec/dist/translations/tenant.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/translations/validation": [
+        "../../libs/contracts-spec/dist/translations/validation.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/types": [
+        "../../libs/contracts-spec/dist/types.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/utils/safe-json": [
+        "../../libs/contracts-spec/dist/utils/safe-json.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/versioning": [
+        "../../libs/contracts-spec/dist/versioning/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/versioning/refs": [
+        "../../libs/contracts-spec/dist/versioning/refs.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/versioning/release-types": [
+        "../../libs/contracts-spec/dist/versioning/release-types.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/versioning/release-utils": [
+        "../../libs/contracts-spec/dist/versioning/release-utils.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/versioning/schema": [
+        "../../libs/contracts-spec/dist/versioning/schema.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/versioning/types": [
+        "../../libs/contracts-spec/dist/versioning/types.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/versioning/utils": [
+        "../../libs/contracts-spec/dist/versioning/utils.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/visualizations": [
+        "../../libs/contracts-spec/dist/visualizations/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/visualizations/registry": [
+        "../../libs/contracts-spec/dist/visualizations/registry.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/visualizations/spec": [
+        "../../libs/contracts-spec/dist/visualizations/spec.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/visualizations/types": [
+        "../../libs/contracts-spec/dist/visualizations/types.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/workflow": [
+        "../../libs/contracts-spec/dist/workflow/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/workflow/adapters": [
+        "../../libs/contracts-spec/dist/workflow/adapters/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/workflow/adapters/db-adapter": [
+        "../../libs/contracts-spec/dist/workflow/adapters/db-adapter.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/workflow/adapters/file-adapter": [
+        "../../libs/contracts-spec/dist/workflow/adapters/file-adapter.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/workflow/adapters/memory-store": [
+        "../../libs/contracts-spec/dist/workflow/adapters/memory-store.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/workflow/context": [
+        "../../libs/contracts-spec/dist/workflow/context.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/workflow/expression": [
+        "../../libs/contracts-spec/dist/workflow/expression.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/workflow/runner": [
+        "../../libs/contracts-spec/dist/workflow/runner.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/workflow/sla-monitor": [
+        "../../libs/contracts-spec/dist/workflow/sla-monitor.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/workflow/spec": [
+        "../../libs/contracts-spec/dist/workflow/spec.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/workflow/state": [
+        "../../libs/contracts-spec/dist/workflow/state.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/workflow/validation": [
+        "../../libs/contracts-spec/dist/workflow/validation.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/workflow/validation-workflow-devkit": [
+        "../../libs/contracts-spec/dist/workflow/validation-workflow-devkit.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/workflow/workflow-devkit": [
+        "../../libs/contracts-spec/dist/workflow/workflow-devkit.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/workspace-config": [
+        "../../libs/contracts-spec/dist/workspace-config/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/workspace-config/contractsrc-schema": [
+        "../../libs/contracts-spec/dist/workspace-config/contractsrc-schema.d.ts"
+      ],
+      "@contractspec/lib.contracts-spec/workspace-config/contractsrc-types": [
+        "../../libs/contracts-spec/dist/workspace-config/contractsrc-types.d.ts"
+      ],
+      "@contractspec/lib.contracts-library": [
+        "../../libs/contracts-library/dist/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-library/*": [
+        "../../libs/contracts-library/dist/*"
+      ],
+      "@contractspec/lib.contracts-library/templates": [
+        "../../libs/contracts-library/dist/templates/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-library/templates/messaging": [
+        "../../libs/contracts-library/dist/templates/messaging.d.ts"
+      ],
+      "@contractspec/lib.contracts-library/templates/recipes": [
+        "../../libs/contracts-library/dist/templates/recipes.d.ts"
+      ],
+      "@contractspec/lib.contracts-library/templates/todos": [
+        "../../libs/contracts-library/dist/templates/todos.d.ts"
+      ],
+      "@contractspec/lib.content-gen": [
+        "../../libs/content-gen/dist/index.d.ts"
+      ],
+      "@contractspec/lib.content-gen/*": [
+        "../../libs/content-gen/dist/*"
+      ],
+      "@contractspec/lib.content-gen/generators": [
+        "../../libs/content-gen/dist/generators/index.d.ts"
+      ],
+      "@contractspec/lib.content-gen/generators/blog": [
+        "../../libs/content-gen/dist/generators/blog.d.ts"
+      ],
+      "@contractspec/lib.content-gen/generators/email": [
+        "../../libs/content-gen/dist/generators/email.d.ts"
+      ],
+      "@contractspec/lib.content-gen/generators/landing-page": [
+        "../../libs/content-gen/dist/generators/landing-page.d.ts"
+      ],
+      "@contractspec/lib.content-gen/generators/social": [
+        "../../libs/content-gen/dist/generators/social.d.ts"
+      ],
+      "@contractspec/lib.content-gen/i18n": [
+        "../../libs/content-gen/dist/i18n/index.d.ts"
+      ],
+      "@contractspec/lib.content-gen/i18n/catalogs": [
+        "../../libs/content-gen/dist/i18n/catalogs/index.d.ts"
+      ],
+      "@contractspec/lib.content-gen/i18n/catalogs/en": [
+        "../../libs/content-gen/dist/i18n/catalogs/en.d.ts"
+      ],
+      "@contractspec/lib.content-gen/i18n/catalogs/es": [
+        "../../libs/content-gen/dist/i18n/catalogs/es.d.ts"
+      ],
+      "@contractspec/lib.content-gen/i18n/catalogs/fr": [
+        "../../libs/content-gen/dist/i18n/catalogs/fr.d.ts"
+      ],
+      "@contractspec/lib.content-gen/i18n/keys": [
+        "../../libs/content-gen/dist/i18n/keys.d.ts"
+      ],
+      "@contractspec/lib.content-gen/i18n/locale": [
+        "../../libs/content-gen/dist/i18n/locale.d.ts"
+      ],
+      "@contractspec/lib.content-gen/i18n/messages": [
+        "../../libs/content-gen/dist/i18n/messages.d.ts"
+      ],
+      "@contractspec/lib.content-gen/seo": [
+        "../../libs/content-gen/dist/seo/index.d.ts"
+      ],
+      "@contractspec/lib.content-gen/seo/optimizer": [
+        "../../libs/content-gen/dist/seo/optimizer.d.ts"
+      ],
+      "@contractspec/lib.content-gen/types": [
+        "../../libs/content-gen/dist/types.d.ts"
+      ],
+      "@contractspec/lib.contracts-runtime-server-mcp": [
+        "../../libs/contracts-runtime-server-mcp/dist/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-runtime-server-mcp/*": [
+        "../../libs/contracts-runtime-server-mcp/dist/*"
+      ],
+      "@contractspec/lib.contracts-runtime-server-mcp/mcp/createMcpServer": [
+        "../../libs/contracts-runtime-server-mcp/dist/mcp/createMcpServer.d.ts"
+      ],
+      "@contractspec/lib.contracts-runtime-server-mcp/mcp/mcpTypes": [
+        "../../libs/contracts-runtime-server-mcp/dist/mcp/mcpTypes.d.ts"
+      ],
+      "@contractspec/lib.contracts-runtime-server-mcp/mcp/registerPresentations": [
+        "../../libs/contracts-runtime-server-mcp/dist/mcp/registerPresentations.d.ts"
+      ],
+      "@contractspec/lib.contracts-runtime-server-mcp/mcp/registerPrompts": [
+        "../../libs/contracts-runtime-server-mcp/dist/mcp/registerPrompts.d.ts"
+      ],
+      "@contractspec/lib.contracts-runtime-server-mcp/mcp/registerResources": [
+        "../../libs/contracts-runtime-server-mcp/dist/mcp/registerResources.d.ts"
+      ],
+      "@contractspec/lib.contracts-runtime-server-mcp/mcp/registerTools": [
+        "../../libs/contracts-runtime-server-mcp/dist/mcp/registerTools.d.ts"
+      ],
+      "@contractspec/lib.contracts-runtime-server-mcp/provider-mcp": [
+        "../../libs/contracts-runtime-server-mcp/dist/provider-mcp.d.ts"
+      ],
+      "@contractspec/lib.design-system": [
+        "../../libs/design-system/dist/index.d.ts"
+      ],
+      "@contractspec/lib.design-system/*": [
+        "../../libs/design-system/dist/*"
+      ],
+      "@contractspec/lib.surface-runtime": [
+        "../../libs/surface-runtime/dist/index.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/*": [
+        "../../libs/surface-runtime/dist/*"
+      ],
+      "@contractspec/lib.surface-runtime/adapters": [
+        "../../libs/surface-runtime/dist/adapters/index.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/adapters/ai-sdk-stub": [
+        "../../libs/surface-runtime/dist/adapters/ai-sdk-stub.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/adapters/blocknote-stub": [
+        "../../libs/surface-runtime/dist/adapters/blocknote-stub.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/adapters/dnd-kit-adapter": [
+        "../../libs/surface-runtime/dist/adapters/dnd-kit-adapter.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/adapters/dnd-kit-stub": [
+        "../../libs/surface-runtime/dist/adapters/dnd-kit-stub.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/adapters/floating-ui-stub": [
+        "../../libs/surface-runtime/dist/adapters/floating-ui-stub.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/adapters/interfaces": [
+        "../../libs/surface-runtime/dist/adapters/interfaces.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/adapters/motion-stub": [
+        "../../libs/surface-runtime/dist/adapters/motion-stub.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/adapters/resizable-panels-stub": [
+        "../../libs/surface-runtime/dist/adapters/resizable-panels-stub.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/evals/golden-context": [
+        "../../libs/surface-runtime/dist/evals/golden-context.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/evals/golden-harness": [
+        "../../libs/surface-runtime/dist/evals/golden-harness.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/examples/pm-workbench.bundle": [
+        "../../libs/surface-runtime/dist/examples/pm-workbench.bundle.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/i18n": [
+        "../../libs/surface-runtime/dist/i18n/index.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/i18n/catalogs": [
+        "../../libs/surface-runtime/dist/i18n/catalogs/index.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/i18n/catalogs/en": [
+        "../../libs/surface-runtime/dist/i18n/catalogs/en.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/i18n/catalogs/es": [
+        "../../libs/surface-runtime/dist/i18n/catalogs/es.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/i18n/catalogs/fr": [
+        "../../libs/surface-runtime/dist/i18n/catalogs/fr.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/i18n/keys": [
+        "../../libs/surface-runtime/dist/i18n/keys.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/i18n/messages": [
+        "../../libs/surface-runtime/dist/i18n/messages.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/react": [
+        "../../libs/surface-runtime/dist/react/index.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/react/BundleProvider": [
+        "../../libs/surface-runtime/dist/react/BundleProvider.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/react/BundleRenderer": [
+        "../../libs/surface-runtime/dist/react/BundleRenderer.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/react/OverlayConflictResolver": [
+        "../../libs/surface-runtime/dist/react/OverlayConflictResolver.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/react/PatchProposalCard": [
+        "../../libs/surface-runtime/dist/react/PatchProposalCard.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/react/RegionRenderer": [
+        "../../libs/surface-runtime/dist/react/RegionRenderer.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/react/SlotRenderer": [
+        "../../libs/surface-runtime/dist/react/SlotRenderer.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/react/WidgetPalette": [
+        "../../libs/surface-runtime/dist/react/WidgetPalette.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/runtime": [
+        "../../libs/surface-runtime/dist/runtime/index.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/runtime/apply-surface-patch": [
+        "../../libs/surface-runtime/dist/runtime/apply-surface-patch.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/runtime/audit-events": [
+        "../../libs/surface-runtime/dist/runtime/audit-events.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/runtime/build-context": [
+        "../../libs/surface-runtime/dist/runtime/build-context.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/runtime/extension-registry": [
+        "../../libs/surface-runtime/dist/runtime/extension-registry.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/runtime/field-renderer-registry": [
+        "../../libs/surface-runtime/dist/runtime/field-renderer-registry.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/runtime/overlay-alignment": [
+        "../../libs/surface-runtime/dist/runtime/overlay-alignment.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/runtime/overlay-signer": [
+        "../../libs/surface-runtime/dist/runtime/overlay-signer.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/runtime/override-store": [
+        "../../libs/surface-runtime/dist/runtime/override-store.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/runtime/planner-prompt": [
+        "../../libs/surface-runtime/dist/runtime/planner-prompt.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/runtime/planner-tools": [
+        "../../libs/surface-runtime/dist/runtime/planner-tools.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/runtime/policy-eval": [
+        "../../libs/surface-runtime/dist/runtime/policy-eval.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/runtime/preference-adapter": [
+        "../../libs/surface-runtime/dist/runtime/preference-adapter.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/runtime/resolve-bundle": [
+        "../../libs/surface-runtime/dist/runtime/resolve-bundle.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/runtime/resolve-preferences": [
+        "../../libs/surface-runtime/dist/runtime/resolve-preferences.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/runtime/rollback": [
+        "../../libs/surface-runtime/dist/runtime/rollback.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/runtime/widget-registry": [
+        "../../libs/surface-runtime/dist/runtime/widget-registry.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/spec": [
+        "../../libs/surface-runtime/dist/spec/index.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/spec/define-module-bundle": [
+        "../../libs/surface-runtime/dist/spec/define-module-bundle.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/spec/types": [
+        "../../libs/surface-runtime/dist/spec/types.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/spec/validate-bundle": [
+        "../../libs/surface-runtime/dist/spec/validate-bundle.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/spec/validate-surface-patch": [
+        "../../libs/surface-runtime/dist/spec/validate-surface-patch.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/spec/verification-snapshot-types": [
+        "../../libs/surface-runtime/dist/spec/verification-snapshot-types.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/telemetry": [
+        "../../libs/surface-runtime/dist/telemetry/index.d.ts"
+      ],
+      "@contractspec/lib.surface-runtime/telemetry/surface-metrics": [
+        "../../libs/surface-runtime/dist/telemetry/surface-metrics.d.ts"
+      ],
+      "@contractspec/lib.provider-ranking": [
+        "../../libs/provider-ranking/dist/index.d.ts"
+      ],
+      "@contractspec/lib.provider-ranking/*": [
+        "../../libs/provider-ranking/dist/*"
+      ],
+      "@contractspec/lib.provider-ranking/eval": [
+        "../../libs/provider-ranking/dist/eval/index.d.ts"
+      ],
+      "@contractspec/lib.provider-ranking/eval/runner": [
+        "../../libs/provider-ranking/dist/eval/runner.d.ts"
+      ],
+      "@contractspec/lib.provider-ranking/eval/types": [
+        "../../libs/provider-ranking/dist/eval/types.d.ts"
+      ],
+      "@contractspec/lib.provider-ranking/in-memory-store": [
+        "../../libs/provider-ranking/dist/in-memory-store.d.ts"
+      ],
+      "@contractspec/lib.provider-ranking/ingesters": [
+        "../../libs/provider-ranking/dist/ingesters/index.d.ts"
+      ],
+      "@contractspec/lib.provider-ranking/ingesters/artificial-analysis": [
+        "../../libs/provider-ranking/dist/ingesters/artificial-analysis.d.ts"
+      ],
+      "@contractspec/lib.provider-ranking/ingesters/chatbot-arena": [
+        "../../libs/provider-ranking/dist/ingesters/chatbot-arena.d.ts"
+      ],
+      "@contractspec/lib.provider-ranking/ingesters/fetch-utils": [
+        "../../libs/provider-ranking/dist/ingesters/fetch-utils.d.ts"
+      ],
+      "@contractspec/lib.provider-ranking/ingesters/open-llm-leaderboard": [
+        "../../libs/provider-ranking/dist/ingesters/open-llm-leaderboard.d.ts"
+      ],
+      "@contractspec/lib.provider-ranking/ingesters/registry": [
+        "../../libs/provider-ranking/dist/ingesters/registry.d.ts"
+      ],
+      "@contractspec/lib.provider-ranking/ingesters/swe-bench": [
+        "../../libs/provider-ranking/dist/ingesters/swe-bench.d.ts"
+      ],
+      "@contractspec/lib.provider-ranking/ingesters/types": [
+        "../../libs/provider-ranking/dist/ingesters/types.d.ts"
+      ],
+      "@contractspec/lib.provider-ranking/scoring": [
+        "../../libs/provider-ranking/dist/scoring/index.d.ts"
+      ],
+      "@contractspec/lib.provider-ranking/scoring/composite-scorer": [
+        "../../libs/provider-ranking/dist/scoring/composite-scorer.d.ts"
+      ],
+      "@contractspec/lib.provider-ranking/scoring/dimension-weights": [
+        "../../libs/provider-ranking/dist/scoring/dimension-weights.d.ts"
+      ],
+      "@contractspec/lib.provider-ranking/scoring/normalizer": [
+        "../../libs/provider-ranking/dist/scoring/normalizer.d.ts"
+      ],
+      "@contractspec/lib.provider-ranking/store": [
+        "../../libs/provider-ranking/dist/store.d.ts"
+      ],
+      "@contractspec/lib.provider-ranking/types": [
+        "../../libs/provider-ranking/dist/types.d.ts"
+      ],
+      "@contractspec/lib.example-shared-ui": [
+        "../../libs/example-shared-ui/dist/index.d.ts"
+      ],
+      "@contractspec/lib.example-shared-ui/*": [
+        "../../libs/example-shared-ui/dist/*"
+      ],
+      "@contractspec/lib.example-shared-ui/bundles": [
+        "../../libs/example-shared-ui/dist/bundles/index.d.ts"
+      ],
+      "@contractspec/lib.example-shared-ui/bundles/ExampleTemplateBundle": [
+        "../../libs/example-shared-ui/dist/bundles/ExampleTemplateBundle.d.ts"
+      ],
+      "@contractspec/lib.example-shared-ui/EvolutionDashboard": [
+        "../../libs/example-shared-ui/dist/EvolutionDashboard.d.ts"
+      ],
+      "@contractspec/lib.example-shared-ui/EvolutionSidebar": [
+        "../../libs/example-shared-ui/dist/EvolutionSidebar.d.ts"
+      ],
+      "@contractspec/lib.example-shared-ui/hooks": [
+        "../../libs/example-shared-ui/dist/hooks/index.d.ts"
+      ],
+      "@contractspec/lib.example-shared-ui/hooks/useBehaviorTracking": [
+        "../../libs/example-shared-ui/dist/hooks/useBehaviorTracking.d.ts"
+      ],
+      "@contractspec/lib.example-shared-ui/hooks/useEvolution": [
+        "../../libs/example-shared-ui/dist/hooks/useEvolution.d.ts"
+      ],
+      "@contractspec/lib.example-shared-ui/hooks/useRegistryTemplates": [
+        "../../libs/example-shared-ui/dist/hooks/useRegistryTemplates.d.ts"
+      ],
+      "@contractspec/lib.example-shared-ui/hooks/useSpecContent": [
+        "../../libs/example-shared-ui/dist/hooks/useSpecContent.d.ts"
+      ],
+      "@contractspec/lib.example-shared-ui/hooks/useWorkflowComposer": [
+        "../../libs/example-shared-ui/dist/hooks/useWorkflowComposer.d.ts"
+      ],
+      "@contractspec/lib.example-shared-ui/lib/component-registry": [
+        "../../libs/example-shared-ui/dist/lib/component-registry.d.ts"
+      ],
+      "@contractspec/lib.example-shared-ui/lib/runtime-context": [
+        "../../libs/example-shared-ui/dist/lib/runtime-context.d.ts"
+      ],
+      "@contractspec/lib.example-shared-ui/lib/types": [
+        "../../libs/example-shared-ui/dist/lib/types.d.ts"
+      ],
+      "@contractspec/lib.example-shared-ui/LocalDataIndicator": [
+        "../../libs/example-shared-ui/dist/LocalDataIndicator.d.ts"
+      ],
+      "@contractspec/lib.example-shared-ui/markdown/formatPresentationName": [
+        "../../libs/example-shared-ui/dist/markdown/formatPresentationName.d.ts"
+      ],
+      "@contractspec/lib.example-shared-ui/markdown/useMarkdownPresentation": [
+        "../../libs/example-shared-ui/dist/markdown/useMarkdownPresentation.d.ts"
+      ],
+      "@contractspec/lib.example-shared-ui/MarkdownView": [
+        "../../libs/example-shared-ui/dist/MarkdownView.d.ts"
+      ],
+      "@contractspec/lib.example-shared-ui/overlay-types": [
+        "../../libs/example-shared-ui/dist/overlay-types.d.ts"
+      ],
+      "@contractspec/lib.example-shared-ui/OverlayContextProvider": [
+        "../../libs/example-shared-ui/dist/OverlayContextProvider.d.ts"
+      ],
+      "@contractspec/lib.example-shared-ui/PersonalizationInsights": [
+        "../../libs/example-shared-ui/dist/PersonalizationInsights.d.ts"
+      ],
+      "@contractspec/lib.example-shared-ui/SaveToStudioButton": [
+        "../../libs/example-shared-ui/dist/SaveToStudioButton.d.ts"
+      ],
+      "@contractspec/lib.example-shared-ui/SpecDrivenTemplateShell": [
+        "../../libs/example-shared-ui/dist/SpecDrivenTemplateShell.d.ts"
+      ],
+      "@contractspec/lib.example-shared-ui/SpecEditorPanel": [
+        "../../libs/example-shared-ui/dist/SpecEditorPanel.d.ts"
+      ],
+      "@contractspec/lib.example-shared-ui/TemplateShell": [
+        "../../libs/example-shared-ui/dist/TemplateShell.d.ts"
+      ],
+      "@contractspec/lib.example-shared-ui/utils": [
+        "../../libs/example-shared-ui/dist/utils/index.d.ts"
+      ],
+      "@contractspec/lib.example-shared-ui/utils/fetchPresentationData": [
+        "../../libs/example-shared-ui/dist/utils/fetchPresentationData.d.ts"
+      ],
+      "@contractspec/lib.example-shared-ui/utils/generateSpecFromTemplate": [
+        "../../libs/example-shared-ui/dist/utils/generateSpecFromTemplate.d.ts"
+      ],
+      "@contractspec/lib.knowledge": [
+        "../../libs/knowledge/dist/index.d.ts"
+      ],
+      "@contractspec/lib.knowledge/*": [
+        "../../libs/knowledge/dist/*"
+      ],
+      "@contractspec/lib.knowledge/access": [
+        "../../libs/knowledge/dist/access/index.d.ts"
+      ],
+      "@contractspec/lib.knowledge/access/guard": [
+        "../../libs/knowledge/dist/access/guard.d.ts"
+      ],
+      "@contractspec/lib.knowledge/i18n": [
+        "../../libs/knowledge/dist/i18n/index.d.ts"
+      ],
+      "@contractspec/lib.knowledge/i18n/catalogs": [
+        "../../libs/knowledge/dist/i18n/catalogs/index.d.ts"
+      ],
+      "@contractspec/lib.knowledge/i18n/catalogs/en": [
+        "../../libs/knowledge/dist/i18n/catalogs/en.d.ts"
+      ],
+      "@contractspec/lib.knowledge/i18n/catalogs/es": [
+        "../../libs/knowledge/dist/i18n/catalogs/es.d.ts"
+      ],
+      "@contractspec/lib.knowledge/i18n/catalogs/fr": [
+        "../../libs/knowledge/dist/i18n/catalogs/fr.d.ts"
+      ],
+      "@contractspec/lib.knowledge/i18n/keys": [
+        "../../libs/knowledge/dist/i18n/keys.d.ts"
+      ],
+      "@contractspec/lib.knowledge/i18n/locale": [
+        "../../libs/knowledge/dist/i18n/locale.d.ts"
+      ],
+      "@contractspec/lib.knowledge/i18n/messages": [
+        "../../libs/knowledge/dist/i18n/messages.d.ts"
+      ],
+      "@contractspec/lib.knowledge/ingestion": [
+        "../../libs/knowledge/dist/ingestion/index.d.ts"
+      ],
+      "@contractspec/lib.knowledge/ingestion/document-processor": [
+        "../../libs/knowledge/dist/ingestion/document-processor.d.ts"
+      ],
+      "@contractspec/lib.knowledge/ingestion/embedding-service": [
+        "../../libs/knowledge/dist/ingestion/embedding-service.d.ts"
+      ],
+      "@contractspec/lib.knowledge/ingestion/gmail-adapter": [
+        "../../libs/knowledge/dist/ingestion/gmail-adapter.d.ts"
+      ],
+      "@contractspec/lib.knowledge/ingestion/storage-adapter": [
+        "../../libs/knowledge/dist/ingestion/storage-adapter.d.ts"
+      ],
+      "@contractspec/lib.knowledge/ingestion/vector-indexer": [
+        "../../libs/knowledge/dist/ingestion/vector-indexer.d.ts"
+      ],
+      "@contractspec/lib.knowledge/query": [
+        "../../libs/knowledge/dist/query/index.d.ts"
+      ],
+      "@contractspec/lib.knowledge/query/service": [
+        "../../libs/knowledge/dist/query/service.d.ts"
+      ],
+      "@contractspec/lib.knowledge/retriever": [
+        "../../libs/knowledge/dist/retriever/index.d.ts"
+      ],
+      "@contractspec/lib.knowledge/retriever/interface": [
+        "../../libs/knowledge/dist/retriever/interface.d.ts"
+      ],
+      "@contractspec/lib.knowledge/retriever/static-retriever": [
+        "../../libs/knowledge/dist/retriever/static-retriever.d.ts"
+      ],
+      "@contractspec/lib.knowledge/retriever/vector-retriever": [
+        "../../libs/knowledge/dist/retriever/vector-retriever.d.ts"
+      ],
+      "@contractspec/lib.knowledge/types": [
+        "../../libs/knowledge/dist/types.d.ts"
+      ],
+      "@contractspec/lib.knowledge/vector-payload": [
+        "../../libs/knowledge/dist/vector-payload.d.ts"
+      ],
+      "@contractspec/lib.logger": [
+        "../../libs/logger/dist/index.d.ts"
+      ],
+      "@contractspec/lib.logger/*": [
+        "../../libs/logger/dist/*"
+      ],
+      "@contractspec/lib.logger/context": [
+        "../../libs/logger/dist/context.d.ts"
+      ],
+      "@contractspec/lib.logger/context.browser": [
+        "../../libs/logger/dist/context.browser.d.ts"
+      ],
+      "@contractspec/lib.logger/context.node": [
+        "../../libs/logger/dist/context.node.d.ts"
+      ],
+      "@contractspec/lib.logger/elysia-plugin": [
+        "../../libs/logger/dist/elysia-plugin.d.ts"
+      ],
+      "@contractspec/lib.logger/formatters": [
+        "../../libs/logger/dist/formatters.d.ts"
+      ],
+      "@contractspec/lib.logger/index.browser": [
+        "../../libs/logger/dist/index.browser.d.ts"
+      ],
+      "@contractspec/lib.logger/logger": [
+        "../../libs/logger/dist/logger.d.ts"
+      ],
+      "@contractspec/lib.logger/logger.browser": [
+        "../../libs/logger/dist/logger.browser.d.ts"
+      ],
+      "@contractspec/lib.logger/logger.node": [
+        "../../libs/logger/dist/logger.node.d.ts"
+      ],
+      "@contractspec/lib.logger/timer": [
+        "../../libs/logger/dist/timer.d.ts"
+      ],
+      "@contractspec/lib.logger/tracer": [
+        "../../libs/logger/dist/tracer.d.ts"
+      ],
+      "@contractspec/lib.logger/tracer.browser": [
+        "../../libs/logger/dist/tracer.browser.d.ts"
+      ],
+      "@contractspec/lib.logger/tracer.node": [
+        "../../libs/logger/dist/tracer.node.d.ts"
+      ],
+      "@contractspec/lib.logger/types": [
+        "../../libs/logger/dist/types.d.ts"
+      ],
+      "@contractspec/lib.runtime-sandbox": [
+        "../../libs/runtime-sandbox/dist/index.d.ts"
+      ],
+      "@contractspec/lib.runtime-sandbox/*": [
+        "../../libs/runtime-sandbox/dist/*"
+      ],
+      "@contractspec/lib.schema": [
+        "../../libs/schema/dist/index.d.ts"
+      ],
+      "@contractspec/lib.schema/*": [
+        "../../libs/schema/dist/*"
+      ],
+      "@contractspec/lib.schema/entity": [
+        "../../libs/schema/dist/entity/index.d.ts"
+      ],
+      "@contractspec/lib.schema/entity/defineEntity": [
+        "../../libs/schema/dist/entity/defineEntity.d.ts"
+      ],
+      "@contractspec/lib.schema/entity/generator": [
+        "../../libs/schema/dist/entity/generator.d.ts"
+      ],
+      "@contractspec/lib.schema/entity/types": [
+        "../../libs/schema/dist/entity/types.d.ts"
+      ],
+      "@contractspec/lib.schema/EnumType": [
+        "../../libs/schema/dist/EnumType.d.ts"
+      ],
+      "@contractspec/lib.schema/FieldType": [
+        "../../libs/schema/dist/FieldType.d.ts"
+      ],
+      "@contractspec/lib.schema/GraphQLSchemaType": [
+        "../../libs/schema/dist/GraphQLSchemaType.d.ts"
+      ],
+      "@contractspec/lib.schema/JsonSchemaType": [
+        "../../libs/schema/dist/JsonSchemaType.d.ts"
+      ],
+      "@contractspec/lib.schema/ScalarFactoryCache": [
+        "../../libs/schema/dist/ScalarFactoryCache.d.ts"
+      ],
+      "@contractspec/lib.schema/ScalarTypeEnum": [
+        "../../libs/schema/dist/ScalarTypeEnum.d.ts"
+      ],
+      "@contractspec/lib.schema/SchemaModel": [
+        "../../libs/schema/dist/SchemaModel.d.ts"
+      ],
+      "@contractspec/lib.schema/SchemaModelType": [
+        "../../libs/schema/dist/SchemaModelType.d.ts"
+      ],
+      "@contractspec/lib.schema/ZodSchemaType": [
+        "../../libs/schema/dist/ZodSchemaType.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web": [
+        "../../libs/ui-kit-web/dist/index.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/*": [
+        "../../libs/ui-kit-web/dist/*"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/accordion": [
+        "../../libs/ui-kit-web/dist/ui/accordion.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/alert": [
+        "../../libs/ui-kit-web/dist/ui/alert.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/alert-dialog": [
+        "../../libs/ui-kit-web/dist/ui/alert-dialog.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/aspect-ratio": [
+        "../../libs/ui-kit-web/dist/ui/aspect-ratio.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/atoms/FilterSelect": [
+        "../../libs/ui-kit-web/dist/ui/atoms/FilterSelect/index.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/atoms/FilterSelect/FilterSelect": [
+        "../../libs/ui-kit-web/dist/ui/atoms/FilterSelect/FilterSelect.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/atoms/FilterSelect/types": [
+        "../../libs/ui-kit-web/dist/ui/atoms/FilterSelect/types.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/atoms/LoadingSpinner": [
+        "../../libs/ui-kit-web/dist/ui/atoms/LoadingSpinner/index.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/atoms/LoadingSpinner/LoadingSpinner": [
+        "../../libs/ui-kit-web/dist/ui/atoms/LoadingSpinner/LoadingSpinner.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/atoms/Pagination": [
+        "../../libs/ui-kit-web/dist/ui/atoms/Pagination/index.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/atoms/Pagination/Pagination": [
+        "../../libs/ui-kit-web/dist/ui/atoms/Pagination/Pagination.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/atoms/Pagination/types": [
+        "../../libs/ui-kit-web/dist/ui/atoms/Pagination/types.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/atoms/SearchInput": [
+        "../../libs/ui-kit-web/dist/ui/atoms/SearchInput/index.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/atoms/SearchInput/SearchInput": [
+        "../../libs/ui-kit-web/dist/ui/atoms/SearchInput/SearchInput.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/atoms/SearchInput/types": [
+        "../../libs/ui-kit-web/dist/ui/atoms/SearchInput/types.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/avatar": [
+        "../../libs/ui-kit-web/dist/ui/avatar.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/badge": [
+        "../../libs/ui-kit-web/dist/ui/badge.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/breadcrumb": [
+        "../../libs/ui-kit-web/dist/ui/breadcrumb.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/button": [
+        "../../libs/ui-kit-web/dist/ui/button.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/button-group": [
+        "../../libs/ui-kit-web/dist/ui/button-group.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/calendar": [
+        "../../libs/ui-kit-web/dist/ui/calendar.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/card": [
+        "../../libs/ui-kit-web/dist/ui/card.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/carousel": [
+        "../../libs/ui-kit-web/dist/ui/carousel.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/chart": [
+        "../../libs/ui-kit-web/dist/ui/chart.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/checkbox": [
+        "../../libs/ui-kit-web/dist/ui/checkbox.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/collapsible": [
+        "../../libs/ui-kit-web/dist/ui/collapsible.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/combobox": [
+        "../../libs/ui-kit-web/dist/ui/combobox.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/command": [
+        "../../libs/ui-kit-web/dist/ui/command.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/confirm-dialog": [
+        "../../libs/ui-kit-web/dist/ui/confirm-dialog.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/context-menu": [
+        "../../libs/ui-kit-web/dist/ui/context-menu.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/contracts.typecheck": [
+        "../../libs/ui-kit-web/dist/ui/contracts.typecheck.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/cta": [
+        "../../libs/ui-kit-web/dist/ui/cta.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/data-table": [
+        "../../libs/ui-kit-web/dist/ui/data-table.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/data-table.parts": [
+        "../../libs/ui-kit-web/dist/ui/data-table.parts.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/date-picker": [
+        "../../libs/ui-kit-web/dist/ui/date-picker.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/date-range-picker": [
+        "../../libs/ui-kit-web/dist/ui/date-range-picker.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/datetime-picker": [
+        "../../libs/ui-kit-web/dist/ui/datetime-picker.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/dialog": [
+        "../../libs/ui-kit-web/dist/ui/dialog.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/direction": [
+        "../../libs/ui-kit-web/dist/ui/direction.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/drawer": [
+        "../../libs/ui-kit-web/dist/ui/drawer.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/dropdown-menu": [
+        "../../libs/ui-kit-web/dist/ui/dropdown-menu.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/empty": [
+        "../../libs/ui-kit-web/dist/ui/empty.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/empty-state": [
+        "../../libs/ui-kit-web/dist/ui/empty-state.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/field": [
+        "../../libs/ui-kit-web/dist/ui/field.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/focus-on-route-change": [
+        "../../libs/ui-kit-web/dist/ui/focus-on-route-change.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/form": [
+        "../../libs/ui-kit-web/dist/ui/form.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/hover-card": [
+        "../../libs/ui-kit-web/dist/ui/hover-card.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/input": [
+        "../../libs/ui-kit-web/dist/ui/input.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/input-group": [
+        "../../libs/ui-kit-web/dist/ui/input-group.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/input-otp": [
+        "../../libs/ui-kit-web/dist/ui/input-otp.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/item": [
+        "../../libs/ui-kit-web/dist/ui/item.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/kbd": [
+        "../../libs/ui-kit-web/dist/ui/kbd.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/label": [
+        "../../libs/ui-kit-web/dist/ui/label.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/link": [
+        "../../libs/ui-kit-web/dist/ui/link.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/live-region": [
+        "../../libs/ui-kit-web/dist/ui/live-region.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/loading-button": [
+        "../../libs/ui-kit-web/dist/ui/loading-button.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/map": [
+        "../../libs/ui-kit-web/dist/ui/map/index.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/map/MapBase": [
+        "../../libs/ui-kit-web/dist/ui/map/MapBase.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/map/MapGeoJsonOverlay": [
+        "../../libs/ui-kit-web/dist/ui/map/MapGeoJsonOverlay.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/map/MapHeatmapH3": [
+        "../../libs/ui-kit-web/dist/ui/map/MapHeatmapH3.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/map/MapMarkers": [
+        "../../libs/ui-kit-web/dist/ui/map/MapMarkers.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/marketing": [
+        "../../libs/ui-kit-web/dist/ui/marketing/index.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/marketing/FeatureGrid": [
+        "../../libs/ui-kit-web/dist/ui/marketing/FeatureGrid.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/marketing/Hero": [
+        "../../libs/ui-kit-web/dist/ui/marketing/Hero.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/marketing/PricingTable": [
+        "../../libs/ui-kit-web/dist/ui/marketing/PricingTable.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/menubar": [
+        "../../libs/ui-kit-web/dist/ui/menubar.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/molecules/Autocomplete": [
+        "../../libs/ui-kit-web/dist/ui/molecules/Autocomplete/index.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/molecules/SearchAndFilter": [
+        "../../libs/ui-kit-web/dist/ui/molecules/SearchAndFilter/index.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/molecules/SearchAndFilter/SearchAndFilter": [
+        "../../libs/ui-kit-web/dist/ui/molecules/SearchAndFilter/SearchAndFilter.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/molecules/SearchAndFilter/types": [
+        "../../libs/ui-kit-web/dist/ui/molecules/SearchAndFilter/types.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/molecules/SkeletonList": [
+        "../../libs/ui-kit-web/dist/ui/molecules/SkeletonList.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/native-select": [
+        "../../libs/ui-kit-web/dist/ui/native-select.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/nav-layout": [
+        "../../libs/ui-kit-web/dist/ui/nav-layout.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/navigation-menu": [
+        "../../libs/ui-kit-web/dist/ui/navigation-menu.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/organisms/ErrorBoundary": [
+        "../../libs/ui-kit-web/dist/ui/organisms/ErrorBoundary/index.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/organisms/ErrorBoundary/ErrorBoundary": [
+        "../../libs/ui-kit-web/dist/ui/organisms/ErrorBoundary/ErrorBoundary.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/organisms/ListPage": [
+        "../../libs/ui-kit-web/dist/ui/organisms/ListPage/index.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/organisms/ListPage/ListPage": [
+        "../../libs/ui-kit-web/dist/ui/organisms/ListPage/ListPage.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/organisms/ListPage/types": [
+        "../../libs/ui-kit-web/dist/ui/organisms/ListPage/types.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/page-header": [
+        "../../libs/ui-kit-web/dist/ui/page-header.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/pagination": [
+        "../../libs/ui-kit-web/dist/ui/pagination.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/popover": [
+        "../../libs/ui-kit-web/dist/ui/popover.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/progress": [
+        "../../libs/ui-kit-web/dist/ui/progress.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/radio-group": [
+        "../../libs/ui-kit-web/dist/ui/radio-group.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/resizable": [
+        "../../libs/ui-kit-web/dist/ui/resizable.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/route-announcer": [
+        "../../libs/ui-kit-web/dist/ui/route-announcer.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/scroll-area": [
+        "../../libs/ui-kit-web/dist/ui/scroll-area.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/section": [
+        "../../libs/ui-kit-web/dist/ui/section.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/select": [
+        "../../libs/ui-kit-web/dist/ui/select.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/separator": [
+        "../../libs/ui-kit-web/dist/ui/separator.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/sheet": [
+        "../../libs/ui-kit-web/dist/ui/sheet.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/sidebar": [
+        "../../libs/ui-kit-web/dist/ui/sidebar.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/skeleton": [
+        "../../libs/ui-kit-web/dist/ui/skeleton.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/skip-link": [
+        "../../libs/ui-kit-web/dist/ui/skip-link.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/slider": [
+        "../../libs/ui-kit-web/dist/ui/slider.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/sonner": [
+        "../../libs/ui-kit-web/dist/ui/sonner.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/spinner": [
+        "../../libs/ui-kit-web/dist/ui/spinner.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/stack": [
+        "../../libs/ui-kit-web/dist/ui/stack.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/stat-card-group": [
+        "../../libs/ui-kit-web/dist/ui/stat-card-group.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/stepper": [
+        "../../libs/ui-kit-web/dist/ui/stepper.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/switch": [
+        "../../libs/ui-kit-web/dist/ui/switch.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/table": [
+        "../../libs/ui-kit-web/dist/ui/table.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/tabs": [
+        "../../libs/ui-kit-web/dist/ui/tabs.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/text": [
+        "../../libs/ui-kit-web/dist/ui/text.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/textarea": [
+        "../../libs/ui-kit-web/dist/ui/textarea.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/time-picker": [
+        "../../libs/ui-kit-web/dist/ui/time-picker.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/toast": [
+        "../../libs/ui-kit-web/dist/ui/toast.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/toaster": [
+        "../../libs/ui-kit-web/dist/ui/toaster.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/toggle": [
+        "../../libs/ui-kit-web/dist/ui/toggle.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/toggle-group": [
+        "../../libs/ui-kit-web/dist/ui/toggle-group.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/tooltip": [
+        "../../libs/ui-kit-web/dist/ui/tooltip.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/typography": [
+        "../../libs/ui-kit-web/dist/ui/typography.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/use-media-query": [
+        "../../libs/ui-kit-web/dist/ui/use-media-query.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/use-mobile": [
+        "../../libs/ui-kit-web/dist/ui/use-mobile.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/use-reduced-motion": [
+        "../../libs/ui-kit-web/dist/ui/use-reduced-motion.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/use-toast": [
+        "../../libs/ui-kit-web/dist/ui/use-toast.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/usecases": [
+        "../../libs/ui-kit-web/dist/ui/usecases/index.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/usecases/UseCaseCard": [
+        "../../libs/ui-kit-web/dist/ui/usecases/UseCaseCard.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/usecases/UserStoryCard": [
+        "../../libs/ui-kit-web/dist/ui/usecases/UserStoryCard.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/useListState": [
+        "../../libs/ui-kit-web/dist/ui/useListState.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/utils": [
+        "../../libs/ui-kit-web/dist/ui/utils.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/visualization": [
+        "../../libs/ui-kit-web/dist/ui/visualization/index.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/visualization/Visualization": [
+        "../../libs/ui-kit-web/dist/ui/visualization/Visualization.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/visualization/Visualization.support": [
+        "../../libs/ui-kit-web/dist/ui/visualization/Visualization.support.d.ts"
+      ],
+      "@contractspec/lib.ui-kit-web/ui/visually-hidden": [
+        "../../libs/ui-kit-web/dist/ui/visually-hidden.d.ts"
+      ],
+      "@contractspec/lib.ui-link": [
+        "../../libs/ui-link/dist/index.d.ts"
+      ],
+      "@contractspec/lib.ui-link/*": [
+        "../../libs/ui-link/dist/*"
+      ],
+      "@contractspec/lib.ui-link/ui/link": [
+        "../../libs/ui-link/dist/ui/link.d.ts"
+      ],
+      "@contractspec/module.context-storage": [
+        "../../modules/context-storage/dist/index.d.ts"
+      ],
+      "@contractspec/module.context-storage/*": [
+        "../../modules/context-storage/dist/*"
+      ],
+      "@contractspec/module.context-storage/entities": [
+        "../../modules/context-storage/dist/entities/index.d.ts"
+      ],
+      "@contractspec/module.context-storage/pipeline/context-snapshot-pipeline": [
+        "../../modules/context-storage/dist/pipeline/context-snapshot-pipeline.d.ts"
+      ],
+      "@contractspec/module.context-storage/storage": [
+        "../../modules/context-storage/dist/storage/index.d.ts"
+      ],
+      "@contractspec/module.examples": [
+        "../../modules/examples/dist/index.d.ts"
+      ],
+      "@contractspec/module.examples/*": [
+        "../../modules/examples/dist/*"
+      ],
+      "@contractspec/lib.contracts-integrations": [
+        "../../libs/contracts-integrations/dist/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/*": [
+        "../../libs/contracts-integrations/dist/*"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations": [
+        "../../libs/contracts-integrations/dist/integrations/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/auth": [
+        "../../libs/contracts-integrations/dist/integrations/auth.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/auth-helpers": [
+        "../../libs/contracts-integrations/dist/integrations/auth-helpers.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/binding": [
+        "../../libs/contracts-integrations/dist/integrations/binding.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/byok": [
+        "../../libs/contracts-integrations/dist/integrations/byok.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/connection": [
+        "../../libs/contracts-integrations/dist/integrations/connection.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/docs/integrations.docblock": [
+        "../../libs/contracts-integrations/dist/integrations/docs/integrations.docblock.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/health": [
+        "../../libs/contracts-integrations/dist/integrations/health.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/health/contracts": [
+        "../../libs/contracts-integrations/dist/integrations/health/contracts/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/health/contracts/activities": [
+        "../../libs/contracts-integrations/dist/integrations/health/contracts/activities.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/health/contracts/biometrics": [
+        "../../libs/contracts-integrations/dist/integrations/health/contracts/biometrics.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/health/contracts/nutrition": [
+        "../../libs/contracts-integrations/dist/integrations/health/contracts/nutrition.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/health/contracts/sleep": [
+        "../../libs/contracts-integrations/dist/integrations/health/contracts/sleep.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/health/contracts/webhooks": [
+        "../../libs/contracts-integrations/dist/integrations/health/contracts/webhooks.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/health/contracts/workouts": [
+        "../../libs/contracts-integrations/dist/integrations/health/contracts/workouts.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/health/guards": [
+        "../../libs/contracts-integrations/dist/integrations/health/guards.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/health/health.capability": [
+        "../../libs/contracts-integrations/dist/integrations/health/health.capability.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/health/health.feature": [
+        "../../libs/contracts-integrations/dist/integrations/health/health.feature.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/health/models": [
+        "../../libs/contracts-integrations/dist/integrations/health/models.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/health/telemetry": [
+        "../../libs/contracts-integrations/dist/integrations/health/telemetry.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/integrations.capability": [
+        "../../libs/contracts-integrations/dist/integrations/integrations.capability.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/integrations.feature": [
+        "../../libs/contracts-integrations/dist/integrations/integrations.feature.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/meeting-recorder/contracts": [
+        "../../libs/contracts-integrations/dist/integrations/meeting-recorder/contracts/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/meeting-recorder/contracts/meetings": [
+        "../../libs/contracts-integrations/dist/integrations/meeting-recorder/contracts/meetings.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/meeting-recorder/contracts/transcripts": [
+        "../../libs/contracts-integrations/dist/integrations/meeting-recorder/contracts/transcripts.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/meeting-recorder/contracts/webhooks": [
+        "../../libs/contracts-integrations/dist/integrations/meeting-recorder/contracts/webhooks.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/meeting-recorder/meeting-recorder.capability": [
+        "../../libs/contracts-integrations/dist/integrations/meeting-recorder/meeting-recorder.capability.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/meeting-recorder/meeting-recorder.feature": [
+        "../../libs/contracts-integrations/dist/integrations/meeting-recorder/meeting-recorder.feature.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/meeting-recorder/models": [
+        "../../libs/contracts-integrations/dist/integrations/meeting-recorder/models.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/meeting-recorder/telemetry": [
+        "../../libs/contracts-integrations/dist/integrations/meeting-recorder/telemetry.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/openbanking/contracts": [
+        "../../libs/contracts-integrations/dist/integrations/openbanking/contracts/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/openbanking/contracts/accounts": [
+        "../../libs/contracts-integrations/dist/integrations/openbanking/contracts/accounts.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/openbanking/contracts/balances": [
+        "../../libs/contracts-integrations/dist/integrations/openbanking/contracts/balances.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/openbanking/contracts/transactions": [
+        "../../libs/contracts-integrations/dist/integrations/openbanking/contracts/transactions.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/openbanking/guards": [
+        "../../libs/contracts-integrations/dist/integrations/openbanking/guards.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/openbanking/models": [
+        "../../libs/contracts-integrations/dist/integrations/openbanking/models.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/openbanking/openbanking.capability": [
+        "../../libs/contracts-integrations/dist/integrations/openbanking/openbanking.capability.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/openbanking/openbanking.feature": [
+        "../../libs/contracts-integrations/dist/integrations/openbanking/openbanking.feature.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/openbanking/telemetry": [
+        "../../libs/contracts-integrations/dist/integrations/openbanking/telemetry.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/operations": [
+        "../../libs/contracts-integrations/dist/integrations/operations.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers": [
+        "../../libs/contracts-integrations/dist/integrations/providers/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/analytics": [
+        "../../libs/contracts-integrations/dist/integrations/providers/analytics.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/analytics-reader": [
+        "../../libs/contracts-integrations/dist/integrations/providers/analytics-reader.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/analytics-writer": [
+        "../../libs/contracts-integrations/dist/integrations/providers/analytics-writer.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/apple-health": [
+        "../../libs/contracts-integrations/dist/integrations/providers/apple-health.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/calendar": [
+        "../../libs/contracts-integrations/dist/integrations/providers/calendar.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/composio": [
+        "../../libs/contracts-integrations/dist/integrations/providers/composio.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/database": [
+        "../../libs/contracts-integrations/dist/integrations/providers/database.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/deepgram": [
+        "../../libs/contracts-integrations/dist/integrations/providers/deepgram.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/eightsleep": [
+        "../../libs/contracts-integrations/dist/integrations/providers/eightsleep.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/elevenlabs": [
+        "../../libs/contracts-integrations/dist/integrations/providers/elevenlabs.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/email": [
+        "../../libs/contracts-integrations/dist/integrations/providers/email.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/embedding": [
+        "../../libs/contracts-integrations/dist/integrations/providers/embedding.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/fal": [
+        "../../libs/contracts-integrations/dist/integrations/providers/fal.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/fal-image": [
+        "../../libs/contracts-integrations/dist/integrations/providers/fal-image.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/fathom": [
+        "../../libs/contracts-integrations/dist/integrations/providers/fathom.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/fireflies": [
+        "../../libs/contracts-integrations/dist/integrations/providers/fireflies.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/fitbit": [
+        "../../libs/contracts-integrations/dist/integrations/providers/fitbit.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/garmin": [
+        "../../libs/contracts-integrations/dist/integrations/providers/garmin.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/gcs-storage": [
+        "../../libs/contracts-integrations/dist/integrations/providers/gcs-storage.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/gmail": [
+        "../../libs/contracts-integrations/dist/integrations/providers/gmail.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/google-calendar": [
+        "../../libs/contracts-integrations/dist/integrations/providers/google-calendar.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/gradium": [
+        "../../libs/contracts-integrations/dist/integrations/providers/gradium.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/granola": [
+        "../../libs/contracts-integrations/dist/integrations/providers/granola.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/health": [
+        "../../libs/contracts-integrations/dist/integrations/providers/health.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/health-provider-shared": [
+        "../../libs/contracts-integrations/dist/integrations/providers/health-provider-shared.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/image": [
+        "../../libs/contracts-integrations/dist/integrations/providers/image.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/jira": [
+        "../../libs/contracts-integrations/dist/integrations/providers/jira.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/linear": [
+        "../../libs/contracts-integrations/dist/integrations/providers/linear.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/llm": [
+        "../../libs/contracts-integrations/dist/integrations/providers/llm.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/meeting-recorder": [
+        "../../libs/contracts-integrations/dist/integrations/providers/meeting-recorder.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/messaging": [
+        "../../libs/contracts-integrations/dist/integrations/providers/messaging.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/messaging-github": [
+        "../../libs/contracts-integrations/dist/integrations/providers/messaging-github.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/messaging-slack": [
+        "../../libs/contracts-integrations/dist/integrations/providers/messaging-slack.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/messaging-telegram": [
+        "../../libs/contracts-integrations/dist/integrations/providers/messaging-telegram.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/messaging-whatsapp-meta": [
+        "../../libs/contracts-integrations/dist/integrations/providers/messaging-whatsapp-meta.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/messaging-whatsapp-twilio": [
+        "../../libs/contracts-integrations/dist/integrations/providers/messaging-whatsapp-twilio.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/mistral": [
+        "../../libs/contracts-integrations/dist/integrations/providers/mistral.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/mistral-conversational": [
+        "../../libs/contracts-integrations/dist/integrations/providers/mistral-conversational.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/mistral-stt": [
+        "../../libs/contracts-integrations/dist/integrations/providers/mistral-stt.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/myfitnesspal": [
+        "../../libs/contracts-integrations/dist/integrations/providers/myfitnesspal.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/notion": [
+        "../../libs/contracts-integrations/dist/integrations/providers/notion.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/openai-image": [
+        "../../libs/contracts-integrations/dist/integrations/providers/openai-image.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/openai-realtime": [
+        "../../libs/contracts-integrations/dist/integrations/providers/openai-realtime.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/openbanking": [
+        "../../libs/contracts-integrations/dist/integrations/providers/openbanking.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/openwearables": [
+        "../../libs/contracts-integrations/dist/integrations/providers/openwearables.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/oura": [
+        "../../libs/contracts-integrations/dist/integrations/providers/oura.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/payments": [
+        "../../libs/contracts-integrations/dist/integrations/providers/payments.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/peloton": [
+        "../../libs/contracts-integrations/dist/integrations/providers/peloton.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/posthog": [
+        "../../libs/contracts-integrations/dist/integrations/providers/posthog.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/posthog-llm-telemetry": [
+        "../../libs/contracts-integrations/dist/integrations/providers/posthog-llm-telemetry.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/postmark": [
+        "../../libs/contracts-integrations/dist/integrations/providers/postmark.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/powens": [
+        "../../libs/contracts-integrations/dist/integrations/providers/powens.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/project-management": [
+        "../../libs/contracts-integrations/dist/integrations/providers/project-management.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/qdrant": [
+        "../../libs/contracts-integrations/dist/integrations/providers/qdrant.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/registry": [
+        "../../libs/contracts-integrations/dist/integrations/providers/registry.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/sms": [
+        "../../libs/contracts-integrations/dist/integrations/providers/sms.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/storage": [
+        "../../libs/contracts-integrations/dist/integrations/providers/storage.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/strava": [
+        "../../libs/contracts-integrations/dist/integrations/providers/strava.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/stripe": [
+        "../../libs/contracts-integrations/dist/integrations/providers/stripe.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/supabase-postgres": [
+        "../../libs/contracts-integrations/dist/integrations/providers/supabase-postgres.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/supabase-vector": [
+        "../../libs/contracts-integrations/dist/integrations/providers/supabase-vector.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/tldv": [
+        "../../libs/contracts-integrations/dist/integrations/providers/tldv.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/twilio-sms": [
+        "../../libs/contracts-integrations/dist/integrations/providers/twilio-sms.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/vector-store": [
+        "../../libs/contracts-integrations/dist/integrations/providers/vector-store.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/video": [
+        "../../libs/contracts-integrations/dist/integrations/providers/video.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/voice": [
+        "../../libs/contracts-integrations/dist/integrations/providers/voice.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/voice-video-sync": [
+        "../../libs/contracts-integrations/dist/integrations/providers/voice-video-sync.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/providers/whoop": [
+        "../../libs/contracts-integrations/dist/integrations/providers/whoop.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/runtime": [
+        "../../libs/contracts-integrations/dist/integrations/runtime.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/secrets": [
+        "../../libs/contracts-integrations/dist/integrations/secrets/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/secrets-types": [
+        "../../libs/contracts-integrations/dist/integrations/secrets-types.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/secrets/aws-secret-manager": [
+        "../../libs/contracts-integrations/dist/integrations/secrets/aws-secret-manager.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/secrets/env-secret-provider": [
+        "../../libs/contracts-integrations/dist/integrations/secrets/env-secret-provider.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/secrets/gcp-secret-manager": [
+        "../../libs/contracts-integrations/dist/integrations/secrets/gcp-secret-manager.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/secrets/manager": [
+        "../../libs/contracts-integrations/dist/integrations/secrets/manager.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/secrets/provider": [
+        "../../libs/contracts-integrations/dist/integrations/secrets/provider.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/secrets/scaleway-secret-manager": [
+        "../../libs/contracts-integrations/dist/integrations/secrets/scaleway-secret-manager.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/spec": [
+        "../../libs/contracts-integrations/dist/integrations/spec.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/transport": [
+        "../../libs/contracts-integrations/dist/integrations/transport.d.ts"
+      ],
+      "@contractspec/lib.contracts-integrations/integrations/versioning": [
+        "../../libs/contracts-integrations/dist/integrations/versioning.d.ts"
+      ],
+      "@contractspec/lib.contracts-runtime-server-rest": [
+        "../../libs/contracts-runtime-server-rest/dist/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-runtime-server-rest/*": [
+        "../../libs/contracts-runtime-server-rest/dist/*"
+      ],
+      "@contractspec/lib.contracts-runtime-server-rest/contracts-adapter-hydration": [
+        "../../libs/contracts-runtime-server-rest/dist/contracts-adapter-hydration.d.ts"
+      ],
+      "@contractspec/lib.contracts-runtime-server-rest/contracts-adapter-input": [
+        "../../libs/contracts-runtime-server-rest/dist/contracts-adapter-input.d.ts"
+      ],
+      "@contractspec/lib.contracts-runtime-server-rest/rest-elysia": [
+        "../../libs/contracts-runtime-server-rest/dist/rest-elysia.d.ts"
+      ],
+      "@contractspec/lib.contracts-runtime-server-rest/rest-express": [
+        "../../libs/contracts-runtime-server-rest/dist/rest-express.d.ts"
+      ],
+      "@contractspec/lib.contracts-runtime-server-rest/rest-generic": [
+        "../../libs/contracts-runtime-server-rest/dist/rest-generic.d.ts"
+      ],
+      "@contractspec/lib.contracts-runtime-server-rest/rest-next-app": [
+        "../../libs/contracts-runtime-server-rest/dist/rest-next-app.d.ts"
+      ],
+      "@contractspec/lib.contracts-runtime-server-rest/rest-next-pages": [
+        "../../libs/contracts-runtime-server-rest/dist/rest-next-pages.d.ts"
+      ],
+      "@contractspec/lib.contracts-runtime-server-graphql": [
+        "../../libs/contracts-runtime-server-graphql/dist/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-runtime-server-graphql/*": [
+        "../../libs/contracts-runtime-server-graphql/dist/*"
+      ],
+      "@contractspec/lib.contracts-runtime-server-graphql/graphql-pothos": [
+        "../../libs/contracts-runtime-server-graphql/dist/graphql-pothos.d.ts"
+      ],
+      "@contractspec/lib.contracts-runtime-client-react": [
+        "../../libs/contracts-runtime-client-react/dist/index.d.ts"
+      ],
+      "@contractspec/lib.contracts-runtime-client-react/*": [
+        "../../libs/contracts-runtime-client-react/dist/*"
+      ],
+      "@contractspec/lib.contracts-runtime-client-react/drivers/rn-reusables": [
+        "../../libs/contracts-runtime-client-react/dist/drivers/rn-reusables.d.ts"
+      ],
+      "@contractspec/lib.contracts-runtime-client-react/drivers/shadcn": [
+        "../../libs/contracts-runtime-client-react/dist/drivers/shadcn.d.ts"
+      ],
+      "@contractspec/lib.contracts-runtime-client-react/feature-render": [
+        "../../libs/contracts-runtime-client-react/dist/feature-render.d.ts"
+      ],
+      "@contractspec/lib.contracts-runtime-client-react/form-render": [
+        "../../libs/contracts-runtime-client-react/dist/form-render.d.ts"
+      ],
+      "@contractspec/lib.contracts-runtime-client-react/form-render.impl": [
+        "../../libs/contracts-runtime-client-react/dist/form-render.impl.d.ts"
+      ],
+      "@contractspec/lib.contracts-runtime-client-react/transform-engine": [
+        "../../libs/contracts-runtime-client-react/dist/transform-engine.d.ts"
+      ],
+      "@contractspec/tool.typescript/*": [
+        "../../tools/typescript/dist/*"
+      ],
+      "@contractspec/tool.bun": [
+        "../../tools/bun/index.js"
+      ],
+      "@contractspec/tool.bun/*": [
+        "../../tools/bun/dist/*"
+      ]
+    }
+  }
+}

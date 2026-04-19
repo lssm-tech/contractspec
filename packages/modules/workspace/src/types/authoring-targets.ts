@@ -1,11 +1,23 @@
-import type { LegacySpecType } from './spec-types';
+import type { AuthoringContractSpecType } from './spec-types';
 
 export type PackageAuthoringTargetId =
 	| 'module-bundle'
 	| 'builder-spec'
 	| 'provider-spec';
 
-export type AuthoringTargetId = LegacySpecType | PackageAuthoringTargetId;
+export type ConfigurableFolderConventionKey =
+	| 'operations'
+	| 'events'
+	| 'presentations'
+	| 'forms'
+	| 'capabilities'
+	| 'policies'
+	| 'tests'
+	| 'translations';
+
+export type AuthoringTargetId =
+	| AuthoringContractSpecType
+	| PackageAuthoringTargetId;
 
 export type AuthoringTargetPosture = 'file' | 'package';
 
@@ -29,6 +41,8 @@ export interface AuthoringTargetDefinition {
 	defaultExtension: string;
 	defaultBaseDir?: string;
 	defaultPackagePrefix?: string;
+	defaultSubdirectory?: string;
+	folderConventionKey?: ConfigurableFolderConventionKey;
 }
 
 export const AUTHORING_TARGET_DEFINITIONS: readonly AuthoringTargetDefinition[] =
@@ -40,6 +54,7 @@ export const AUTHORING_TARGET_DEFINITIONS: readonly AuthoringTargetDefinition[] 
 			materialization: 'runtime',
 			validation: 'runtime-implementation',
 			defaultExtension: '.contracts.ts',
+			folderConventionKey: 'operations',
 		},
 		{
 			id: 'event',
@@ -48,6 +63,7 @@ export const AUTHORING_TARGET_DEFINITIONS: readonly AuthoringTargetDefinition[] 
 			materialization: 'docs',
 			validation: 'structure',
 			defaultExtension: '.event.ts',
+			folderConventionKey: 'events',
 		},
 		{
 			id: 'presentation',
@@ -56,14 +72,7 @@ export const AUTHORING_TARGET_DEFINITIONS: readonly AuthoringTargetDefinition[] 
 			materialization: 'runtime',
 			validation: 'runtime-implementation',
 			defaultExtension: '.presentation.ts',
-		},
-		{
-			id: 'form',
-			title: 'Form',
-			posture: 'file',
-			materialization: 'runtime',
-			validation: 'runtime-implementation',
-			defaultExtension: '.form.ts',
+			folderConventionKey: 'presentations',
 		},
 		{
 			id: 'feature',
@@ -72,22 +81,16 @@ export const AUTHORING_TARGET_DEFINITIONS: readonly AuthoringTargetDefinition[] 
 			materialization: 'docs',
 			validation: 'structure',
 			defaultExtension: '.feature.ts',
+			defaultSubdirectory: 'features',
 		},
 		{
-			id: 'theme',
-			title: 'Theme',
+			id: 'capability',
+			title: 'Capability',
 			posture: 'file',
 			materialization: 'docs',
 			validation: 'structure',
-			defaultExtension: '.theme.ts',
-		},
-		{
-			id: 'workflow',
-			title: 'Workflow',
-			posture: 'file',
-			materialization: 'runtime',
-			validation: 'runtime-implementation',
-			defaultExtension: '.workflow.ts',
+			defaultExtension: '.capability.ts',
+			folderConventionKey: 'capabilities',
 		},
 		{
 			id: 'data-view',
@@ -96,6 +99,34 @@ export const AUTHORING_TARGET_DEFINITIONS: readonly AuthoringTargetDefinition[] 
 			materialization: 'runtime',
 			validation: 'runtime-implementation',
 			defaultExtension: '.data-view.ts',
+			defaultSubdirectory: 'data-views',
+		},
+		{
+			id: 'visualization',
+			title: 'Visualization',
+			posture: 'file',
+			materialization: 'runtime',
+			validation: 'structure',
+			defaultExtension: '.visualization.ts',
+			defaultSubdirectory: 'visualizations',
+		},
+		{
+			id: 'form',
+			title: 'Form',
+			posture: 'file',
+			materialization: 'runtime',
+			validation: 'runtime-implementation',
+			defaultExtension: '.form.ts',
+			folderConventionKey: 'forms',
+		},
+		{
+			id: 'agent',
+			title: 'Agent',
+			posture: 'file',
+			materialization: 'runtime',
+			validation: 'structure',
+			defaultExtension: '.agent.ts',
+			defaultSubdirectory: 'agents',
 		},
 		{
 			id: 'migration',
@@ -104,14 +135,16 @@ export const AUTHORING_TARGET_DEFINITIONS: readonly AuthoringTargetDefinition[] 
 			materialization: 'docs',
 			validation: 'structure',
 			defaultExtension: '.migration.ts',
+			defaultSubdirectory: 'migrations',
 		},
 		{
-			id: 'telemetry',
-			title: 'Telemetry',
+			id: 'workflow',
+			title: 'Workflow',
 			posture: 'file',
-			materialization: 'docs',
-			validation: 'structure',
-			defaultExtension: '.telemetry.ts',
+			materialization: 'runtime',
+			validation: 'runtime-implementation',
+			defaultExtension: '.workflow.ts',
+			defaultSubdirectory: 'workflows',
 		},
 		{
 			id: 'experiment',
@@ -120,14 +153,7 @@ export const AUTHORING_TARGET_DEFINITIONS: readonly AuthoringTargetDefinition[] 
 			materialization: 'docs',
 			validation: 'structure',
 			defaultExtension: '.experiment.ts',
-		},
-		{
-			id: 'app-config',
-			title: 'App blueprint',
-			posture: 'file',
-			materialization: 'docs',
-			validation: 'structure',
-			defaultExtension: '.app-config.ts',
+			defaultSubdirectory: 'experiments',
 		},
 		{
 			id: 'integration',
@@ -136,6 +162,16 @@ export const AUTHORING_TARGET_DEFINITIONS: readonly AuthoringTargetDefinition[] 
 			materialization: 'docs',
 			validation: 'structure',
 			defaultExtension: '.integration.ts',
+			defaultSubdirectory: 'integrations',
+		},
+		{
+			id: 'theme',
+			title: 'Theme',
+			posture: 'file',
+			materialization: 'docs',
+			validation: 'structure',
+			defaultExtension: '.theme.ts',
+			defaultSubdirectory: 'themes',
 		},
 		{
 			id: 'knowledge',
@@ -144,6 +180,96 @@ export const AUTHORING_TARGET_DEFINITIONS: readonly AuthoringTargetDefinition[] 
 			materialization: 'docs',
 			validation: 'structure',
 			defaultExtension: '.knowledge.ts',
+			defaultSubdirectory: 'knowledge',
+		},
+		{
+			id: 'telemetry',
+			title: 'Telemetry',
+			posture: 'file',
+			materialization: 'docs',
+			validation: 'structure',
+			defaultExtension: '.telemetry.ts',
+			defaultSubdirectory: 'telemetry',
+		},
+		{
+			id: 'example',
+			title: 'Example',
+			posture: 'file',
+			materialization: 'docs',
+			validation: 'structure',
+			defaultExtension: '.ts',
+		},
+		{
+			id: 'app-config',
+			title: 'App blueprint',
+			posture: 'file',
+			materialization: 'docs',
+			validation: 'structure',
+			defaultExtension: '.app-config.ts',
+			defaultSubdirectory: 'app-config',
+		},
+		{
+			id: 'product-intent',
+			title: 'Product intent',
+			posture: 'file',
+			materialization: 'docs',
+			validation: 'structure',
+			defaultExtension: '.product-intent.ts',
+			defaultSubdirectory: 'product-intent',
+		},
+		{
+			id: 'policy',
+			title: 'Policy',
+			posture: 'file',
+			materialization: 'docs',
+			validation: 'structure',
+			defaultExtension: '.policy.ts',
+			folderConventionKey: 'policies',
+		},
+		{
+			id: 'test-spec',
+			title: 'Test spec',
+			posture: 'file',
+			materialization: 'docs',
+			validation: 'structure',
+			defaultExtension: '.test-spec.ts',
+			folderConventionKey: 'tests',
+		},
+		{
+			id: 'harness-scenario',
+			title: 'Harness scenario',
+			posture: 'file',
+			materialization: 'docs',
+			validation: 'structure',
+			defaultExtension: '.harness-scenario.ts',
+			defaultSubdirectory: 'harness/scenarios',
+		},
+		{
+			id: 'harness-suite',
+			title: 'Harness suite',
+			posture: 'file',
+			materialization: 'docs',
+			validation: 'structure',
+			defaultExtension: '.harness-suite.ts',
+			defaultSubdirectory: 'harness/suites',
+		},
+		{
+			id: 'job',
+			title: 'Job',
+			posture: 'file',
+			materialization: 'runtime',
+			validation: 'structure',
+			defaultExtension: '.job.ts',
+			defaultSubdirectory: 'jobs',
+		},
+		{
+			id: 'translation',
+			title: 'Translation',
+			posture: 'file',
+			materialization: 'docs',
+			validation: 'structure',
+			defaultExtension: '.translation.ts',
+			folderConventionKey: 'translations',
 		},
 		{
 			id: 'module-bundle',

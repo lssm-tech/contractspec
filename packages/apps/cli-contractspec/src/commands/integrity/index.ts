@@ -16,6 +16,7 @@ import {
 	generateMermaidDiagram,
 	type IntegrityAnalysisResult,
 } from '@contractspec/bundle.workspace';
+import { isContractSpecType } from '@contractspec/lib.contracts-spec';
 import chalk from 'chalk';
 import { Command } from 'commander';
 
@@ -79,6 +80,15 @@ export const integrityCommand = new Command('integrity')
  */
 async function runIntegrityAnalysis(options: IntegrityOptions): Promise<void> {
 	const adapters = createNodeAdapters({ silent: false });
+	const requireTestsFor = (options.requireTests ?? []).filter(
+		isContractSpecType
+	);
+
+	for (const type of options.requireTests ?? []) {
+		if (!isContractSpecType(type)) {
+			adapters.logger.warn(`Ignoring unknown contract spec type: ${type}`);
+		}
+	}
 
 	// Determine format
 	const format: OutputFormat = options.diagram
@@ -97,8 +107,7 @@ async function runIntegrityAnalysis(options: IntegrityOptions): Promise<void> {
 		{
 			all: options.all,
 			featureKey: options.feature,
-			requireTestsFor: (options.requireTests ??
-				[]) as import('@contractspec/module.workspace').SpecType[],
+			requireTestsFor,
 		}
 	);
 

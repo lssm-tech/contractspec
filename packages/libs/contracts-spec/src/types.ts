@@ -70,34 +70,43 @@ export interface SecretProviderPort {
  *
  * Used to identify the kind of spec in registries and runtime operations.
  */
-export type ContractSpecType =
-	| 'operation'
-	| 'event'
-	| 'presentation'
-	| 'feature'
-	| 'capability'
-	| 'data-view'
-	| 'visualization'
-	| 'form'
-	| 'agent'
-	| 'migration'
-	| 'workflow'
-	| 'experiment'
-	| 'integration'
-	| 'theme'
-	| 'knowledge'
-	| 'telemetry'
-	| 'example'
-	| 'app-config'
-	| 'product-intent'
-	| 'policy'
-	| 'test-spec'
-	| 'harness-scenario'
-	| 'harness-suite'
-	| 'type'
-	| 'knowledge-space'
-	| 'job'
-	| 'translation';
+export const CONTRACT_SPEC_TYPES = [
+	'operation',
+	'event',
+	'presentation',
+	'feature',
+	'capability',
+	'data-view',
+	'visualization',
+	'form',
+	'agent',
+	'migration',
+	'workflow',
+	'experiment',
+	'integration',
+	'theme',
+	'knowledge',
+	'telemetry',
+	'example',
+	'app-config',
+	'product-intent',
+	'policy',
+	'test-spec',
+	'harness-scenario',
+	'harness-suite',
+	'type',
+	'knowledge-space',
+	'job',
+	'translation',
+] as const satisfies readonly string[];
+
+export type ContractSpecType = (typeof CONTRACT_SPEC_TYPES)[number];
+
+const CONTRACT_SPEC_TYPE_SET = new Set<string>(CONTRACT_SPEC_TYPES);
+
+export function isContractSpecType(value: string): value is ContractSpecType {
+	return CONTRACT_SPEC_TYPE_SET.has(value);
+}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Policy Decision Types

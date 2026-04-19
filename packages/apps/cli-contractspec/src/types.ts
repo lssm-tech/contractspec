@@ -1,6 +1,6 @@
 export type {
+	AuthoringContractSpecType,
 	AuthoringTargetId,
-	SpecType,
 } from '@contractspec/module.workspace';
 
 export type OpKind = 'command' | 'query';

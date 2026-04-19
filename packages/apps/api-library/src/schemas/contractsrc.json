@@ -76,6 +76,22 @@
 					"default": "forms",
 					"type": "string"
 				},
+				"capabilities": {
+					"default": "capabilities",
+					"type": "string"
+				},
+				"policies": {
+					"default": "policies",
+					"type": "string"
+				},
+				"tests": {
+					"default": "tests",
+					"type": "string"
+				},
+				"translations": {
+					"default": "translations",
+					"type": "string"
+				},
 				"groupByFeature": {
 					"default": true,
 					"type": "boolean"
@@ -493,17 +509,27 @@
 							"event",
 							"presentation",
 							"feature",
-							"workflow",
-							"data-view",
-							"migration",
-							"telemetry",
-							"experiment",
-							"app-config",
-							"integration",
-							"knowledge",
-							"policy",
-							"form",
 							"capability",
+							"data-view",
+							"visualization",
+							"form",
+							"agent",
+							"migration",
+							"workflow",
+							"experiment",
+							"integration",
+							"theme",
+							"knowledge",
+							"telemetry",
+							"example",
+							"app-config",
+							"product-intent",
+							"policy",
+							"test-spec",
+							"harness-scenario",
+							"harness-suite",
+							"type",
+							"knowledge-space",
 							"job",
 							"translation"
 						]
@@ -567,17 +593,27 @@
 						"event",
 						"presentation",
 						"feature",
-						"workflow",
-						"data-view",
-						"migration",
-						"telemetry",
-						"experiment",
-						"app-config",
-						"integration",
-						"knowledge",
-						"policy",
-						"form",
 						"capability",
+						"data-view",
+						"visualization",
+						"form",
+						"agent",
+						"migration",
+						"workflow",
+						"experiment",
+						"integration",
+						"theme",
+						"knowledge",
+						"telemetry",
+						"example",
+						"app-config",
+						"product-intent",
+						"policy",
+						"test-spec",
+						"harness-scenario",
+						"harness-suite",
+						"type",
+						"knowledge-space",
 						"job",
 						"translation"
 					]
@@ -616,17 +652,27 @@
 									"event",
 									"presentation",
 									"feature",
-									"workflow",
-									"data-view",
-									"migration",
-									"telemetry",
-									"experiment",
-									"app-config",
-									"integration",
-									"knowledge",
-									"policy",
-									"form",
 									"capability",
+									"data-view",
+									"visualization",
+									"form",
+									"agent",
+									"migration",
+									"workflow",
+									"experiment",
+									"integration",
+									"theme",
+									"knowledge",
+									"telemetry",
+									"example",
+									"app-config",
+									"product-intent",
+									"policy",
+									"test-spec",
+									"harness-scenario",
+									"harness-suite",
+									"type",
+									"knowledge-space",
 									"job",
 									"translation"
 								]
@@ -1192,6 +1238,125 @@
 						},
 						"queue": {
 							"type": "string"
+						}
+					},
+					"additionalProperties": false
+				},
+				"adoption": {
+					"type": "object",
+					"properties": {
+						"enabled": {
+							"default": false,
+							"type": "boolean"
+						},
+						"catalog": {
+							"type": "object",
+							"properties": {
+								"indexPath": {
+									"default": ".contractspec/adoption/catalog.json",
+									"type": "string"
+								},
+								"overrideManifestPath": {
+									"default": ".contractspec/adoption/overrides.json",
+									"type": "string"
+								}
+							},
+							"additionalProperties": false
+						},
+						"workspaceScan": {
+							"type": "object",
+							"properties": {
+								"include": {
+									"default": [
+										"src/**/*.{ts,tsx,js,jsx}",
+										"app/**/*.{ts,tsx,js,jsx}",
+										"components/**/*.{ts,tsx,js,jsx}",
+										"packages/**/*.{ts,tsx,js,jsx}"
+									],
+									"type": "array",
+									"items": {
+										"type": "string"
+									}
+								},
+								"exclude": {
+									"default": [
+										"**/node_modules/**",
+										"**/dist/**",
+										"**/.next/**",
+										"**/coverage/**",
+										"**/generated/**",
+										"**/*.test.*",
+										"**/*.spec.*",
+										"**/*.stories.*"
+									],
+									"type": "array",
+									"items": {
+										"type": "string"
+									}
+								}
+							},
+							"additionalProperties": false
+						},
+						"families": {
+							"type": "object",
+							"properties": {
+								"ui": {
+									"default": true,
+									"type": "boolean"
+								},
+								"contracts": {
+									"default": true,
+									"type": "boolean"
+								},
+								"integrations": {
+									"default": true,
+									"type": "boolean"
+								},
+								"runtime": {
+									"default": true,
+									"type": "boolean"
+								},
+								"sharedLibs": {
+									"default": true,
+									"type": "boolean"
+								},
+								"solutions": {
+									"default": true,
+									"type": "boolean"
+								}
+							},
+							"additionalProperties": false
+						},
+						"thresholds": {
+							"type": "object",
+							"properties": {
+								"workspaceReuse": {
+									"default": "rewrite",
+									"type": "string",
+									"enum": ["permit", "rewrite", "require_review", "deny"]
+								},
+								"contractspecReuse": {
+									"default": "rewrite",
+									"type": "string",
+									"enum": ["permit", "rewrite", "require_review", "deny"]
+								},
+								"ambiguous": {
+									"default": "require_review",
+									"type": "string",
+									"enum": ["permit", "rewrite", "require_review", "deny"]
+								},
+								"newExternalDependency": {
+									"default": "require_review",
+									"type": "string",
+									"enum": ["permit", "rewrite", "require_review", "deny"]
+								},
+								"newImplementation": {
+									"default": "require_review",
+									"type": "string",
+									"enum": ["permit", "rewrite", "require_review", "deny"]
+								}
+							},
+							"additionalProperties": false
 						}
 					},
 					"additionalProperties": false

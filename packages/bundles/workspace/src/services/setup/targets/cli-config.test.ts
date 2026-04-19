@@ -50,9 +50,17 @@ describe('setupCliConfig', () => {
 		);
 
 		const written = JSON.parse(await readFile(configPath, 'utf8')) as {
-			connect?: { enabled?: boolean };
+			connect?: {
+				adapters?: { cursor?: { packageRef?: string } };
+				adoption?: { enabled?: boolean };
+				enabled?: boolean;
+			};
 		};
 		expect(written.connect?.enabled).toBe(true);
+		expect(written.connect?.adoption?.enabled).toBe(true);
+		expect(written.connect?.adapters?.cursor?.packageRef).toBe(
+			'contractspec-adoption'
+		);
 	});
 
 	it('writes a bundled schema reference at workspace scope', async () => {

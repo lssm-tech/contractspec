@@ -87,6 +87,54 @@ export function buildContractsResources(services: ContractsMcpServices) {
 		})
 	);
 
+	resources.register(
+		defineResourceTemplate({
+			meta: {
+				uriTemplate: 'adoption://catalog',
+				title: 'ContractSpec adoption catalog',
+				description:
+					'Bundled ContractSpec adoption catalog used by Connect and MCP.',
+				mimeType: 'application/json',
+				tags: TAGS,
+			},
+			input: z.object({}),
+			resolve: async () => {
+				const results = await services.searchAdoptionCatalog({
+					query: 'contractspec',
+				});
+				return {
+					uri: 'adoption://catalog',
+					mimeType: 'application/json',
+					data: JSON.stringify(results, null, 2),
+				};
+			},
+		})
+	);
+
+	resources.register(
+		defineResourceTemplate({
+			meta: {
+				uriTemplate: 'adoption://policy/{family}',
+				title: 'ContractSpec adoption policy',
+				description: 'Family-aware adoption recommendation and verdict policy.',
+				mimeType: 'application/json',
+				tags: TAGS,
+			},
+			input: z.object({ family: z.string() }),
+			resolve: async ({ family }) => {
+				const resolution = await services.resolveAdoption({
+					family,
+					query: family,
+				});
+				return {
+					uri: `adoption://policy/${encodeURIComponent(family)}`,
+					mimeType: 'application/json',
+					data: JSON.stringify(resolution, null, 2),
+				};
+			},
+		})
+	);
+
 	return resources;
 }
 
@@ -124,6 +172,7 @@ export function buildContractsPrompts() {
 						'3. Edit content and call contracts.update',
 						'4. Run contracts.validate to verify changes',
 						'5. Run contracts.build to regenerate artifacts',
+						'6. Use adoption.resolve to prefer existing workspace or ContractSpec surfaces before inventing new ones',
 						goal ? `Agent goal: ${goal}` : '',
 					]
 						.filter(Boolean)

@@ -52,7 +52,6 @@ export async function createPresentationSpec(
 	const filePath = await writeSpecFile({
 		specName: specData.name,
 		specType: 'presentation',
-		extension: '.presentation.ts',
 		code,
 		spinnerText: 'Writing spec file...',
 		options,

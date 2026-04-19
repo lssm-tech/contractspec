@@ -24,7 +24,6 @@ export async function createDataViewSpec(
 	const filePath = await writeSpecFile({
 		specName: specData.name,
 		specType: 'data-view',
-		extension: '.data-view.ts',
 		code,
 		spinnerText: 'Writing data view spec...',
 		options,

@@ -1,143 +1,190 @@
 {
-	"$schema": "https://biomejs.dev/schemas/2.4.8/schema.json",
-	"files": {
-		"includes": ["**", "!generated", "!generated/**"]
-	},
-	"formatter": {
-		"enabled": true
-	},
-	"css": {
-		"parser": {
-			"tailwindDirectives": true
-		}
-	},
-	"assist": {
-		"enabled": true,
-		"actions": {
-			"source": {
-				"organizeImports": "on",
-				"noDuplicateClasses": {
-					"level": "on",
-					"options": {
-						"functions": ["cn", "clsx", "cva", "twMerge", "tv"]
-					}
-				}
-			}
-		}
-	},
-	"linter": {
-		"enabled": true,
-		"rules": {
-			"recommended": false,
-			"correctness": {
-				"noUnusedImports": "error",
-				"noUnusedVariables": {
-					"level": "error",
-					"options": {
-						"ignoreRestSiblings": true
-					}
-				}
-			},
-			"nursery": {
-				"useSortedClasses": {
-					"level": "error",
-					"options": {
-						"functions": ["cn", "clsx", "cva", "twMerge", "tv"]
-					}
-				}
-			}
-		}
-	},
-	"overrides": [
-		{
-			"includes": [
-				"packages/apps/**/*.{jsx,tsx}",
-				"packages/bundles/**/*.{jsx,tsx}",
-				"packages/examples/**/*.{jsx,tsx}",
-				"packages/modules/**/*.{jsx,tsx}"
-			],
-			"plugins": ["../plugins/repo-prefer-design-system.grit"]
-		},
-		{
-			"includes": [
-				"packages/apps/**/*.{js,jsx,ts,tsx}",
-				"packages/bundles/**/*.{js,jsx,ts,tsx}",
-				"packages/examples/**/*.{js,jsx,ts,tsx}",
-				"packages/modules/**/*.{js,jsx,ts,tsx}",
-				"!packages/apps/mobile-demo/**/*.{js,jsx,ts,tsx}"
-			],
-			"linter": {
-				"rules": {
-					"style": {
-						"noRestrictedImports": {
-							"level": "error",
-							"options": {
-								"paths": {
-									"@contractspec/lib.ui-kit": "Do not import native ui-kit in web code. Use @contractspec/lib.design-system or @contractspec/lib.ui-kit-web."
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		{
-			"includes": ["packages/apps/mobile-demo/**/*.{js,jsx,ts,tsx}"],
-			"linter": {
-				"rules": {
-					"style": {
-						"noRestrictedImports": {
-							"level": "error",
-							"options": {
-								"paths": {
-									"@contractspec/lib.ui-kit-web": "Do not import web ui-kit in native code directly. Use the design-system boundary or platform mapping."
-								}
-							}
-						}
-					}
-				}
-			}
-		},
-		{
-			"includes": [
-				"packages/apps/**/*.{jsx,tsx}",
-				"packages/bundles/**/*.{jsx,tsx}",
-				"packages/examples/**/*.{jsx,tsx}",
-				"packages/modules/**/*.{jsx,tsx}"
-			],
-			"linter": {
-				"rules": {
-					"correctness": {
-						"noRestrictedElements": {
-							"level": "error",
-							"options": {
-								"elements": {
-									"div": "Use layout primitives from @contractspec/lib.design-system instead of <div> in application surfaces.",
-									"section": "Use layout primitives from @contractspec/lib.design-system instead of <section> in application surfaces.",
-									"main": "Use an app or marketing layout component instead of <main> in application surfaces.",
-									"header": "Use a design-system header or page-header component instead of <header> in application surfaces.",
-									"footer": "Use a design-system layout primitive instead of <footer> in application surfaces.",
-									"nav": "Use the shared navigation primitives instead of <nav> in application surfaces.",
-									"span": "Use typography primitives instead of raw <span> in application surfaces.",
-									"p": "Use typography primitives instead of raw <p> in application surfaces.",
-									"h1": "Use typography primitives instead of raw heading tags in application surfaces.",
-									"h2": "Use typography primitives instead of raw heading tags in application surfaces.",
-									"h3": "Use typography primitives instead of raw heading tags in application surfaces.",
-									"h4": "Use typography primitives instead of raw heading tags in application surfaces.",
-									"h5": "Use typography primitives instead of raw heading tags in application surfaces.",
-									"h6": "Use typography primitives instead of raw heading tags in application surfaces.",
-									"button": "Use a design-system action primitive instead of raw <button> in application surfaces.",
-									"input": "Use a design-system form primitive instead of raw <input> in application surfaces.",
-									"textarea": "Use a design-system form primitive instead of raw <textarea> in application surfaces.",
-									"select": "Use a design-system form primitive instead of raw <select> in application surfaces.",
-									"form": "Use a design-system form primitive instead of raw <form> in application surfaces.",
-									"label": "Use a design-system form primitive instead of raw <label> in application surfaces."
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-	]
+  "$schema": "https://biomejs.dev/schemas/2.4.8/schema.json",
+  "files": {
+    "includes": [
+      "**",
+      "!generated",
+      "!generated/**"
+    ]
+  },
+  "formatter": {
+    "enabled": true
+  },
+  "css": {
+    "parser": {
+      "tailwindDirectives": true
+    }
+  },
+  "assist": {
+    "enabled": true,
+    "actions": {
+      "source": {
+        "organizeImports": "on",
+        "noDuplicateClasses": {
+          "level": "on",
+          "options": {
+            "functions": [
+              "cn",
+              "clsx",
+              "cva",
+              "twMerge",
+              "tv"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": false,
+      "correctness": {
+        "noUnusedImports": "error",
+        "noUnusedVariables": {
+          "level": "error",
+          "options": {
+            "ignoreRestSiblings": true
+          }
+        }
+      },
+      "nursery": {
+        "useSortedClasses": {
+          "level": "error",
+          "options": {
+            "functions": [
+              "cn",
+              "clsx",
+              "cva",
+              "twMerge",
+              "tv"
+            ]
+          }
+        }
+      }
+    }
+  },
+  "overrides": [
+    {
+      "includes": [
+        "packages/apps/**/*.{jsx,tsx}",
+        "packages/bundles/**/*.{jsx,tsx}",
+        "packages/examples/**/*.{jsx,tsx}",
+        "packages/modules/**/*.{jsx,tsx}"
+      ],
+      "plugins": [
+        "../plugins/repo-prefer-design-system.grit"
+      ]
+    },
+    {
+      "includes": [
+        "packages/**/*.{js,jsx,ts,tsx}"
+      ],
+      "plugins": [
+        "../plugins/repo-prefer-design-system.grit"
+      ]
+    },
+    {
+      "includes": [
+        "packages/apps/**/*.{js,jsx,ts,tsx}",
+        "packages/bundles/**/*.{js,jsx,ts,tsx}",
+        "packages/examples/**/*.{js,jsx,ts,tsx}",
+        "packages/modules/**/*.{js,jsx,ts,tsx}",
+        "!packages/apps/mobile-demo/**/*.{js,jsx,ts,tsx}"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "paths": {
+                  "@contractspec/lib.ui-kit": "Do not import native ui-kit in web code. Use @contractspec/lib.design-system or @contractspec/lib.ui-kit-web."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "packages/apps/mobile-demo/**/*.{js,jsx,ts,tsx}"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "paths": {
+                  "@contractspec/lib.ui-kit-web": "Do not import web ui-kit in native code directly. Use the design-system boundary or platform mapping."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "packages/**/*.{js,jsx,ts,tsx}"
+      ],
+      "linter": {
+        "rules": {
+          "style": {
+            "noRestrictedImports": {
+              "level": "error",
+              "options": {
+                "paths": {
+                  "@contractspec/lib.contracts": "Use @contractspec/lib.contracts-spec and the split runtime packages instead of @contractspec/lib.contracts."
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    {
+      "includes": [
+        "packages/apps/**/*.{jsx,tsx}",
+        "packages/bundles/**/*.{jsx,tsx}",
+        "packages/examples/**/*.{jsx,tsx}",
+        "packages/modules/**/*.{jsx,tsx}"
+      ],
+      "linter": {
+        "rules": {
+          "correctness": {
+            "noRestrictedElements": {
+              "level": "error",
+              "options": {
+                "elements": {
+                  "div": "Use layout primitives from @contractspec/lib.design-system instead of <div> in application surfaces.",
+                  "section": "Use layout primitives from @contractspec/lib.design-system instead of <section> in application surfaces.",
+                  "main": "Use an app or marketing layout component instead of <main> in application surfaces.",
+                  "header": "Use a design-system header or page-header component instead of <header> in application surfaces.",
+                  "footer": "Use a design-system layout primitive instead of <footer> in application surfaces.",
+                  "nav": "Use the shared navigation primitives instead of <nav> in application surfaces.",
+                  "span": "Use typography primitives instead of raw <span> in application surfaces.",
+                  "p": "Use typography primitives instead of raw <p> in application surfaces.",
+                  "h1": "Use typography primitives instead of raw heading tags in application surfaces.",
+                  "h2": "Use typography primitives instead of raw heading tags in application surfaces.",
+                  "h3": "Use typography primitives instead of raw heading tags in application surfaces.",
+                  "h4": "Use typography primitives instead of raw heading tags in application surfaces.",
+                  "h5": "Use typography primitives instead of raw heading tags in application surfaces.",
+                  "h6": "Use typography primitives instead of raw heading tags in application surfaces.",
+                  "button": "Use a design-system action primitive instead of raw <button> in application surfaces.",
+                  "input": "Use a design-system form primitive instead of raw <input> in application surfaces.",
+                  "textarea": "Use a design-system form primitive instead of raw <textarea> in application surfaces.",
+                  "select": "Use a design-system form primitive instead of raw <select> in application surfaces.",
+                  "form": "Use a design-system form primitive instead of raw <form> in application surfaces.",
+                  "label": "Use a design-system form primitive instead of raw <label> in application surfaces."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
 }

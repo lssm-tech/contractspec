@@ -16,7 +16,6 @@ export async function createKnowledgeSpec(
 	await writeSpecFile({
 		specName: specData.name,
 		specType: 'knowledge',
-		extension: '.knowledge.ts',
 		code,
 		spinnerText: 'Writing knowledge space spec...',
 		options,
