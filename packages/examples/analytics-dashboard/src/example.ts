@@ -1,42 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesAnalyticsDashboardExample = defineExample({
 	meta: {
-		key: 'analytics-dashboard',
+		key: 'examples.analytics-dashboard',
 		version: '1.0.0',
 		title: 'Analytics Dashboard',
 		description:
-			'Tenant-scoped dashboards, widgets, query builder, and scheduled reports (spec-first widgets/queries).',
+			'Analytics Dashboard example with widgets and query engine for ContractSpec',
 		kind: 'template',
-		visibility: 'public',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['analytics', 'dashboards', 'bi', 'queries'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.analytics-dashboard',
-		goalDocId: 'docs.examples.analytics-dashboard.goal',
-		usageDocId: 'docs.examples.analytics-dashboard.usage',
-		constraintsDocId: 'docs.examples.analytics-dashboard.constraints',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.analytics-dashboard',
-		feature: './feature',
-		contracts: './contracts',
-		presentations: './presentations',
-		handlers: './handlers',
-		docs: './docs',
-		ui: './ui',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'analytics-dashboard'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: {
-			enabled: true,
-			modes: ['playground', 'specs', 'builder', 'markdown', 'evolution'],
-		},
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.analytics-dashboard',
 	},
 });
 
-export default example;
+export default ExamplesAnalyticsDashboardExample;
+export { ExamplesAnalyticsDashboardExample };

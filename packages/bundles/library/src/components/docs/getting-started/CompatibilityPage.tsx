@@ -59,6 +59,20 @@ export function CompatibilityPage() {
 						<li>Custom adapters for other SQL/NoSQL stores</li>
 					</ul>
 				</div>
+
+				<div className="card-subtle space-y-3 p-6">
+					<h2 className="font-bold text-2xl">Cross-platform UI architecture</h2>
+					<p className="text-muted-foreground">
+						Need the React and React Native component compatibility story? Read{' '}
+						<Link
+							href="/docs/libraries/cross-platform-ui"
+							className="text-[color:var(--rust)] underline underline-offset-4"
+						>
+							Cross-platform UI
+						</Link>{' '}
+						for the runtime and UI-layer split.
+					</p>
+				</div>
 			</div>
 
 			<div className="flex flex-wrap items-center gap-3 pt-2">

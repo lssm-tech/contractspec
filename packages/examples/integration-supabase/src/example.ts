@@ -1,32 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesIntegrationSupabaseExample = defineExample({
 	meta: {
-		key: 'integration-supabase',
+		key: 'examples.integration-supabase',
 		version: '1.0.0',
-		title: 'Integration - Supabase Vector + Postgres',
+		title: 'Integration Supabase',
 		description:
-			'Wire AppBlueprint and TenantAppConfig to use Supabase for both vector retrieval and SQL workloads.',
-		kind: 'integration',
-		visibility: 'public',
+			'Integration example - Supabase vector store + Postgres database wiring.',
+		kind: 'template',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['supabase', 'pgvector', 'postgres', 'integration', 'knowledge'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.integration-supabase',
-		usageDocId: 'docs.examples.integration-supabase.usage',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.integration-supabase',
-		docs: './docs',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'integration-supabase'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: { enabled: true, modes: ['markdown', 'specs'] },
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.integration-supabase',
 	},
 });
 
-export default example;
+export default ExamplesIntegrationSupabaseExample;
+export { ExamplesIntegrationSupabaseExample };

@@ -15,14 +15,29 @@
 	"defaultOwners": ["@contractspec-core"],
 	"defaultTags": [],
 	"packages": [
-		"packages/modules/*",
 		"packages/libs/*",
+		"packages/integrations/*",
+		"packages/modules/*",
+		"packages/bundles/*",
 		"packages/apps/*",
+		"packages/apps-registry/*",
 		"packages/examples/*"
 	],
-	"excludePackages": ["packages/apps/cli-*"],
 	"ci": {
 		"checks": ["structure", "integrity", "deps", "doctor", "policy"],
+		"packageDeclarations": {
+			"severity": "error",
+			"requiredByKind": {
+				"libs": "feature",
+				"modules": "feature",
+				"integrations": "integration",
+				"bundles": "module-bundle",
+				"apps": "app-config",
+				"appsRegistry": "app-config",
+				"examples": "example"
+			},
+			"allowMissing": []
+		},
 		"uploadSarif": true,
 		"failOnWarnings": false
 	},

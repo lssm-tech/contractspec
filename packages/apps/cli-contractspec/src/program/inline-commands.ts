@@ -63,6 +63,11 @@ function createCreateCommand(): Command {
 		.option('--model <model>', 'AI model to use')
 		.option('--endpoint <endpoint>', 'Custom endpoint for AI provider')
 		.option('-o, --output-dir <dir>', 'Output directory')
+		.option(
+			'--package-declarations',
+			'Generate or repair canonical package declaration specs across the workspace'
+		)
+		.option('--dry-run', 'Preview package declaration changes without writing')
 		.action(async (options) => {
 			try {
 				const config = await loadConfig();

@@ -1,3 +1,4 @@
+export * from './example';
 export { default as example } from './example';
 export type {
 	EvidenceLoadOptions,

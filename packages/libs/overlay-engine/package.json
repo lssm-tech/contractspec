@@ -51,6 +51,7 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./merger": "./src/merger.ts",
+		"./overlay-engine.feature": "./src/overlay-engine.feature.ts",
 		"./react": "./src/react.ts",
 		"./registry": "./src/registry.ts",
 		"./runtime": "./src/runtime.ts",
@@ -73,6 +74,12 @@
 				"bun": "./dist/merger.js",
 				"node": "./dist/node/merger.js",
 				"default": "./dist/merger.js"
+			},
+			"./overlay-engine.feature": {
+				"types": "./dist/overlay-engine.feature.d.ts",
+				"bun": "./dist/overlay-engine.feature.js",
+				"node": "./dist/node/overlay-engine.feature.js",
+				"default": "./dist/overlay-engine.feature.js"
 			},
 			"./react": {
 				"types": "./dist/react.d.ts",

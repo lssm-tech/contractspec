@@ -36,5 +36,8 @@
 		"@contractspec/tool.typescript": "workspace:*",
 		"typescript": "catalog:"
 	},
-	"type": "module"
+	"type": "module",
+	"exports": {
+		".": "./src/index.ts"
+	}
 }

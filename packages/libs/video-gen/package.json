@@ -104,7 +104,8 @@
 		"./renderers": "./src/renderers/index.ts",
 		"./renderers/config": "./src/renderers/config.ts",
 		"./renderers/local": "./src/renderers/local.ts",
-		"./types": "./src/types.ts"
+		"./types": "./src/types.ts",
+		"./video-gen.feature": "./src/video-gen.feature.ts"
 	},
 	"publishConfig": {
 		"access": "public",
@@ -402,6 +403,13 @@
 				"bun": "./dist/types.js",
 				"node": "./dist/node/types.js",
 				"default": "./dist/types.js"
+			},
+			"./video-gen.feature": {
+				"types": "./dist/video-gen.feature.d.ts",
+				"browser": "./dist/browser/video-gen.feature.js",
+				"bun": "./dist/video-gen.feature.js",
+				"node": "./dist/node/video-gen.feature.js",
+				"default": "./dist/video-gen.feature.js"
 			}
 		}
 	}

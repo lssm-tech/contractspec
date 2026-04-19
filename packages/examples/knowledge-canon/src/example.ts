@@ -1,32 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesKnowledgeCanonExample = defineExample({
 	meta: {
-		key: 'knowledge-canon',
+		key: 'examples.knowledge-canon',
 		version: '1.0.0',
-		title: 'Knowledge Canon (Product Canon space)',
+		title: 'Knowledge Canon',
 		description:
-			'Bind a canonical knowledge space to a tenant and route assistant/workflow requests to the right sources (blueprint + app config pattern).',
-		kind: 'knowledge',
-		visibility: 'public',
+			'Knowledge example – Product Canon space (blueprint + tenant config + source sample + runtime helper).',
+		kind: 'template',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['knowledge', 'canon', 'app-config', 'agents', 'workflows'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.knowledge-canon',
-		usageDocId: 'docs.examples.knowledge-canon.usage',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.knowledge-canon',
-		docs: './docs',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'knowledge-canon'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: { enabled: true, modes: ['markdown', 'specs'] },
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.knowledge-canon',
 	},
 });
 
-export default example;
+export default ExamplesKnowledgeCanonExample;
+export { ExamplesKnowledgeCanonExample };

@@ -29,7 +29,8 @@
 	"dependencies": {
 		"@contractspec/lib.ui-kit-core": "workspace:*",
 		"react": "catalog:",
-		"react-dom": "catalog:"
+		"react-dom": "catalog:",
+		"@contractspec/lib.contracts-spec": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",

@@ -1,31 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesLearningJourneyAmbientCoachExample = defineExample({
 	meta: {
-		key: 'learning-journey-ambient-coach',
+		key: 'examples.learning-journey-ambient-coach',
 		version: '1.0.0',
-		title: 'Learning Journey — Ambient Coach',
+		title: 'Learning Journey Ambient Coach',
 		description:
-			'Ambient coaching pattern: lightweight nudges driven by context and recent progress.',
+			'Ambient coach learning journey example with contextual tips and follow-up actions.',
 		kind: 'template',
-		visibility: 'public',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['learning', 'coaching', 'ambient'],
-	},
-	docs: {
-		rootDocId: 'docs.learning-journey.ambient-coach',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.learning-journey-ambient-coach',
-		docs: './docs',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'learning-journey-ambient-coach'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: { enabled: true, modes: ['playground', 'markdown'] },
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.learning-journey-ambient-coach',
 	},
 });
 
-export default example;
+export default ExamplesLearningJourneyAmbientCoachExample;
+export { ExamplesLearningJourneyAmbientCoachExample };

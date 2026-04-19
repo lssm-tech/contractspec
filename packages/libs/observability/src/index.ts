@@ -28,6 +28,7 @@ export {
 	getMeter,
 	standardMetrics,
 } from './metrics';
+export * from './observability.feature';
 export {
 	EvolutionPipeline,
 	type EvolutionPipelineEvent,

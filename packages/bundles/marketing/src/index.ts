@@ -1,3 +1,4 @@
+export * from './bundles/MarketingBundle';
 export * from './components/marketing';
 export * from './components/templates';
 // Email utilities
@@ -11,5 +12,4 @@ export type {
 } from './libs/email/types';
 export { joinWaitlist } from './libs/email/waitlist';
 export { submitWaitlistApplication } from './libs/email/waitlist-application';
-
 export * from './registry';

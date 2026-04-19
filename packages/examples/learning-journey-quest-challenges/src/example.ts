@@ -1,31 +1,27 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesLearningJourneyQuestChallengesExample = defineExample({
 	meta: {
-		key: 'learning-journey-quest-challenges',
+		key: 'examples.learning-journey-quest-challenges',
 		version: '1.0.0',
-		title: 'Learning Journey — Quest Challenges',
-		description:
-			'Quest/challenge pattern: multi-step goals with progress events, rewards, and streak hooks.',
+		title: 'Learning Journey Quest Challenges',
+		description: 'Time-bound quest/challenge learning journey example.',
 		kind: 'template',
-		visibility: 'public',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['learning', 'quests', 'challenges'],
-	},
-	docs: {
-		rootDocId: 'docs.learning-journey.quest-challenges',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.learning-journey-quest-challenges',
-		docs: './docs',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'learning-journey-quest-challenges'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: { enabled: true, modes: ['playground', 'markdown'] },
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.learning-journey-quest-challenges',
 	},
 });
 
-export default example;
+export default ExamplesLearningJourneyQuestChallengesExample;
+export { ExamplesLearningJourneyQuestChallengesExample };

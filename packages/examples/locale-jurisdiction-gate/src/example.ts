@@ -1,34 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesLocaleJurisdictionGateExample = defineExample({
 	meta: {
-		key: 'locale-jurisdiction-gate',
+		key: 'examples.locale-jurisdiction-gate',
 		version: '1.0.0',
-		title: 'Locale / Jurisdiction Gate',
+		title: 'Locale Jurisdiction Gate',
 		description:
-			'Fail-closed gating for assistant calls: locale + jurisdiction + kbSnapshotId + allowedScope must be explicit, answers must cite a snapshot.',
-		kind: 'knowledge',
-		visibility: 'public',
+			'Example: enforce locale + jurisdiction + kbSnapshotId + allowed scope for assistant calls (fail-closed).',
+		kind: 'template',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['policy', 'locale', 'jurisdiction', 'assistant', 'gating'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.locale-jurisdiction-gate',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.locale-jurisdiction-gate',
-		feature: './feature',
-		contracts: './contracts',
-		handlers: './handlers',
-		docs: './docs',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'locale-jurisdiction-gate'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: { enabled: true, modes: ['markdown', 'specs'] },
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.locale-jurisdiction-gate',
 	},
 });
 
-export default example;
+export default ExamplesLocaleJurisdictionGateExample;
+export { ExamplesLocaleJurisdictionGateExample };

@@ -1,35 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesMinimalExample = defineExample({
 	meta: {
-		key: 'minimal',
+		key: 'examples.minimal',
 		version: '1.0.0',
-		title: 'Minimal Example',
+		title: 'Minimal',
 		description:
-			'Smallest end-to-end ContractSpec example with one command and one feature.',
+			'ContractSpec package declaration for @contractspec/example.minimal.',
 		kind: 'template',
-		visibility: 'public',
-		stability: 'stable',
-		owners: ['@platform.core'],
-		tags: ['minimal', 'quickstart', 'example'],
-		summary: 'Single-command starter for validating the ContractSpec basics.',
-	},
-	docs: {
-		rootDocId: 'docs.examples.minimal',
-		usageDocId: 'docs.examples.minimal.usage',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.minimal',
-		feature: './minimal.feature',
-		contracts: './contracts/user',
-		docs: './docs',
+		visibility: 'experimental',
+		stability: 'experimental',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'minimal'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: { enabled: true, modes: ['specs', 'markdown'] },
-		studio: { enabled: true, installable: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
 		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.minimal',
 	},
 });
 
-export default example;
+export default ExamplesMinimalExample;
+export { ExamplesMinimalExample };

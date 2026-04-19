@@ -18,3 +18,5 @@ export type {
 	XpBarProps,
 } from './types';
 import './docs';
+
+export * from './example';

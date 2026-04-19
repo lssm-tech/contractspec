@@ -36,7 +36,8 @@
 		"@contractspec/lib.provider-spec": "workspace:*",
 		"@contractspec/lib.ui-kit-web": "workspace:*",
 		"@contractspec/module.ai-chat": "workspace:*",
-		"react": "catalog:"
+		"react": "catalog:",
+		"@contractspec/lib.contracts-spec": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.bun": "workspace:*",

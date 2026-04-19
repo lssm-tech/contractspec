@@ -25,7 +25,8 @@
 		"@modelcontextprotocol/sdk": "^1.29.0",
 		"drizzle-orm": "^0.45.2",
 		"elysia": "^1.4.28",
-		"zod": "catalog:"
+		"zod": "catalog:",
+		"@contractspec/lib.contracts-spec": "workspace:*"
 	},
 	"optionalDependencies": {
 		"pg": "^8.20.0"
@@ -45,5 +46,8 @@
 		"registry": "https://registry.npmjs.org/",
 		"access": "public"
 	},
-	"homepage": "https://agentpacks.dev"
+	"homepage": "https://agentpacks.dev",
+	"exports": {
+		".": "./src/index.ts"
+	}
 }

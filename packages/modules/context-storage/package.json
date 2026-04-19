@@ -28,7 +28,8 @@
 		"@contractspec/lib.context-storage": "workspace:*",
 		"@contractspec/lib.schema": "workspace:*",
 		"@contractspec/lib.contracts-integrations": "workspace:*",
-		"@contractspec/lib.knowledge": "workspace:*"
+		"@contractspec/lib.knowledge": "workspace:*",
+		"@contractspec/lib.contracts-spec": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",
@@ -37,6 +38,7 @@
 	},
 	"exports": {
 		".": "./src/index.ts",
+		"./context-storage.feature": "./src/context-storage.feature.ts",
 		"./entities": "./src/entities/index.ts",
 		"./pipeline/context-snapshot-pipeline": "./src/pipeline/context-snapshot-pipeline.ts",
 		"./storage": "./src/storage/index.ts"
@@ -53,6 +55,12 @@
 				"bun": "./dist/index.js",
 				"node": "./dist/node/index.js",
 				"default": "./dist/index.js"
+			},
+			"./context-storage.feature": {
+				"types": "./dist/context-storage.feature.d.ts",
+				"bun": "./dist/context-storage.feature.js",
+				"node": "./dist/node/context-storage.feature.js",
+				"default": "./dist/context-storage.feature.js"
 			},
 			"./entities": {
 				"types": "./dist/entities/index.d.ts",

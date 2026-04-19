@@ -45,6 +45,7 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./nativewind-env.d": "./src/nativewind-env.d.ts",
+		"./presentation-runtime-react.feature": "./src/presentation-runtime-react.feature.ts",
 		"./table.state": "./src/table.state.ts",
 		"./table.types": "./src/table.types.ts",
 		"./table.utils": "./src/table.utils.ts",
@@ -70,6 +71,12 @@
 				"browser": "./dist/browser/nativewind-env.d.js",
 				"bun": "./dist/nativewind-env.d.js",
 				"default": "./dist/nativewind-env.d.js"
+			},
+			"./presentation-runtime-react.feature": {
+				"types": "./dist/presentation-runtime-react.feature.d.ts",
+				"browser": "./dist/browser/presentation-runtime-react.feature.js",
+				"bun": "./dist/presentation-runtime-react.feature.js",
+				"default": "./dist/presentation-runtime-react.feature.js"
 			},
 			"./table.state": {
 				"types": "./dist/table.state.d.ts",

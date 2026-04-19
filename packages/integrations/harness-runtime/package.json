@@ -25,7 +25,9 @@
 	},
 	"dependencies": {
 		"@contractspec/lib.contracts-spec": "workspace:*",
-		"@contractspec/lib.harness": "workspace:*"
+		"@contractspec/lib.harness": "workspace:*",
+		"@contractspec/lib.contracts-integrations": "workspace:*",
+		"@contractspec/lib.schema": "workspace:*"
 	},
 	"peerDependencies": {
 		"playwright": "^1.54.0"
@@ -47,6 +49,7 @@
 		"./adapters/visualHarnessAdapter": "./src/adapters/visualHarnessAdapter.ts",
 		"./artifacts/filesystemArtifactStore": "./src/artifacts/filesystemArtifactStore.ts",
 		"./artifacts/inMemoryArtifactStore": "./src/artifacts/inMemoryArtifactStore.ts",
+		"./integration": "./src/integration.ts",
 		"./mcp/exposure": "./src/mcp/exposure.ts",
 		"./targets/defaultTargetResolver": "./src/targets/defaultTargetResolver.ts",
 		"./types": "./src/types.ts"
@@ -90,6 +93,12 @@
 				"bun": "./dist/artifacts/inMemoryArtifactStore.js",
 				"node": "./dist/node/artifacts/inMemoryArtifactStore.js",
 				"default": "./dist/artifacts/inMemoryArtifactStore.js"
+			},
+			"./integration": {
+				"types": "./dist/integration.d.ts",
+				"bun": "./dist/integration.js",
+				"node": "./dist/node/integration.js",
+				"default": "./dist/integration.js"
 			},
 			"./mcp/exposure": {
 				"types": "./dist/mcp/exposure.d.ts",

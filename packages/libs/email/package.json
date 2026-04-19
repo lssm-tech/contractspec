@@ -39,6 +39,13 @@
 				"node": "./dist/node/client.js",
 				"default": "./dist/client.js"
 			},
+			"./email.feature": {
+				"types": "./dist/email.feature.d.ts",
+				"browser": "./dist/browser/email.feature.js",
+				"bun": "./dist/email.feature.js",
+				"node": "./dist/node/email.feature.js",
+				"default": "./dist/email.feature.js"
+			},
 			"./types": {
 				"types": "./dist/types.d.ts",
 				"browser": "./dist/browser/types.js",
@@ -58,6 +65,7 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./client": "./src/client.ts",
+		"./email.feature": "./src/email.feature.ts",
 		"./types": "./src/types.ts",
 		"./utils": "./src/utils.ts"
 	},
@@ -65,7 +73,8 @@
 	"dependencies": {
 		"@scaleway/sdk": "^3.4.4",
 		"@scaleway/sdk-client": "^2.2.2",
-		"@contractspec/lib.logger": "workspace:*"
+		"@contractspec/lib.logger": "workspace:*",
+		"@contractspec/lib.contracts-spec": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",

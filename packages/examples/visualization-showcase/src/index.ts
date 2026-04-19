@@ -5,3 +5,5 @@ export * from './visualization-showcase.presentation';
 export * from './visualizations';
 
 import './docs';
+
+export * from './example';

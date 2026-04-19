@@ -1,32 +1,27 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesLearningJourneyRegistryExample = defineExample({
 	meta: {
-		key: 'learning-journey-registry',
+		key: 'examples.learning-journey-registry',
 		version: '1.0.0',
 		title: 'Learning Journey Registry',
-		description:
-			'Registry of learning journey tracks + presentations + UI mini-app bindings.',
-		kind: 'library',
-		visibility: 'public',
+		description: 'Registry that aggregates learning journey example tracks.',
+		kind: 'template',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['learning', 'journey', 'registry'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.learning-journey-registry',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.learning-journey-registry',
-		docs: './docs',
-		ui: './ui',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'learning-journey-registry'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: { enabled: true, modes: ['markdown', 'specs'] },
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.learning-journey-registry',
 	},
 });
 
-export default example;
+export default ExamplesLearningJourneyRegistryExample;
+export { ExamplesLearningJourneyRegistryExample };

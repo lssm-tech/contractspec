@@ -3,5 +3,6 @@ export type { LibraryStageEntry } from './data/library-stage-map';
 export { getLocalizedLibraryStageMap } from './data/library-stage-map';
 export type { StagePlaybookData } from './data/stage-playbooks';
 export { getLocalizedStagePlaybooks } from './data/stage-playbooks';
+export * from './lifecycle-advisor.feature';
 export * from './recommendations/library-recommender';
 export * from './recommendations/recommendation-engine';

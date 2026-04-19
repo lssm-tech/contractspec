@@ -1,18 +1,18 @@
 [
-  {
-    "id": "opencode-cli/opencode-cli",
-    "title": "opencode-cli",
-    "summary": "Agent-mode contract building and validation for the OpenCode CLI\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @contractspec/examples\n- **Tags**: opencode, example, cli\n- **File**: `packages/examples/opencode-cli/src/opencode-cli.feature.ts`",
-    "route": "/docs/reference/opencode-cli/opencode-cli",
-    "source": "generated",
-    "contentPath": "opencode-cli/opencode-cli.md"
-  },
-  {
-    "id": "opencode-cli/opencode.example.echo",
-    "title": "opencode.example.echo",
-    "summary": "Echo a prompt for the OpenCode CLI example.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @contractspec/examples\n- **Tags**: opencode, example, echo\n- **File**: `packages/examples/opencode-cli/src/contracts/opencode.contracts.ts`",
-    "route": "/docs/reference/opencode-cli/opencode.example.echo",
-    "source": "generated",
-    "contentPath": "opencode-cli/opencode.example.echo.md"
-  }
+	{
+		"id": "opencode-cli/opencode-cli",
+		"title": "opencode-cli",
+		"summary": "Agent-mode contract building and validation for the OpenCode CLI\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @contractspec/examples\n- **Tags**: opencode, example, cli\n- **File**: `packages/examples/opencode-cli/src/opencode-cli.feature.ts`",
+		"route": "/docs/reference/opencode-cli/opencode-cli",
+		"source": "generated",
+		"contentPath": "opencode-cli/opencode-cli.md"
+	},
+	{
+		"id": "opencode-cli/opencode.example.echo",
+		"title": "opencode.example.echo",
+		"summary": "Echo a prompt for the OpenCode CLI example.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: stable\n- **Owners**: @contractspec/examples\n- **Tags**: opencode, example, echo\n- **File**: `packages/examples/opencode-cli/src/contracts/opencode.contracts.ts`",
+		"route": "/docs/reference/opencode-cli/opencode.example.echo",
+		"source": "generated",
+		"contentPath": "opencode-cli/opencode.example.echo.md"
+	}
 ]

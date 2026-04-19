@@ -131,6 +131,7 @@
 		"./contract-registry": "./src/contract-registry/index.ts",
 		"./contract-registry/schemas": "./src/contract-registry/schemas.ts",
 		"./contract-registry/types": "./src/contract-registry/types.ts",
+		"./contracts-spec.feature": "./src/contracts-spec.feature.ts",
 		"./control-plane": "./src/control-plane/index.ts",
 		"./control-plane/capabilities": "./src/control-plane/capabilities/index.ts",
 		"./control-plane/capabilities/controlPlaneApproval.capability": "./src/control-plane/capabilities/controlPlaneApproval.capability.ts",
@@ -939,6 +940,12 @@
 				"bun": "./dist/contract-registry/types.js",
 				"node": "./dist/node/contract-registry/types.js",
 				"default": "./dist/contract-registry/types.js"
+			},
+			"./contracts-spec.feature": {
+				"types": "./dist/contracts-spec.feature.d.ts",
+				"bun": "./dist/contracts-spec.feature.js",
+				"node": "./dist/node/contracts-spec.feature.js",
+				"default": "./dist/contracts-spec.feature.js"
 			},
 			"./control-plane": {
 				"types": "./dist/control-plane/index.d.ts",

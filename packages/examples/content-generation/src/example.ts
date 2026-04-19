@@ -1,32 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesContentGenerationExample = defineExample({
 	meta: {
-		key: 'content-generation',
+		key: 'examples.content-generation',
 		version: '1.0.0',
 		title: 'Content Generation',
 		description:
-			'Generate blog/landing/email/social/SEO assets from a typed ContentBrief using @contractspec/lib.content-gen.',
-		kind: 'script',
-		visibility: 'public',
+			'Content generation example using @contractspec/lib.content-gen.',
+		kind: 'template',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['content', 'marketing', 'generation', 'ai'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.content-generation',
-		usageDocId: 'docs.examples.content-generation.usage',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.content-generation',
-		docs: './docs',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'content-generation'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: { enabled: true, modes: ['markdown'] },
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.content-generation',
 	},
 });
 
-export default example;
+export default ExamplesContentGenerationExample;
+export { ExamplesContentGenerationExample };

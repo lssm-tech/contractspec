@@ -18,3 +18,4 @@ export * from './formatters/index';
 export * from './templates/index';
 // Types
 export * from './types/index';
+export * from './workspace.feature';

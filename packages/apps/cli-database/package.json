@@ -29,7 +29,8 @@
 		"@contractspec/lib.schema": "workspace:*",
 		"prisma": "^7.7.0",
 		"minimist": "^1.2.8",
-		"execa": "^9.6.1"
+		"execa": "^9.6.1",
+		"@contractspec/lib.contracts-spec": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",
@@ -44,6 +45,7 @@
 	],
 	"exports": {
 		".": "./dist/index.mjs",
+		"./blueprint": "./dist/blueprint.mjs",
 		"./cli": "./dist/cli.mjs",
 		"./commands/check": "./dist/commands/check.mjs",
 		"./commands/generate": "./dist/commands/generate.mjs",

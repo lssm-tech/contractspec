@@ -1,31 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesLearningJourneyStudioOnboardingExample = defineExample({
 	meta: {
-		key: 'learning-journey-studio-onboarding',
+		key: 'examples.learning-journey-studio-onboarding',
 		version: '1.0.0',
-		title: 'Learning Journey — Studio Getting Started',
+		title: 'Learning Journey Studio Onboarding',
 		description:
-			'Onboarding track guiding a new Studio user through template spawn, spec edit, regeneration, playground, and evolution.',
+			'Learning journey track for first 30 minutes in ContractSpec Studio.',
 		kind: 'template',
-		visibility: 'public',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['learning', 'onboarding', 'studio'],
-	},
-	docs: {
-		rootDocId: 'docs.learning-journey.studio-onboarding',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.learning-journey-studio-onboarding',
-		docs: './docs',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'learning-journey-studio-onboarding'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: { enabled: true, modes: ['playground', 'markdown'] },
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.learning-journey-studio-onboarding',
 	},
 });
 
-export default example;
+export default ExamplesLearningJourneyStudioOnboardingExample;
+export { ExamplesLearningJourneyStudioOnboardingExample };

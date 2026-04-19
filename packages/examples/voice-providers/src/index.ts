@@ -5,3 +5,5 @@ export * from './handlers/list-voices';
 export * from './handlers/synthesize';
 export * from './voice-providers.feature';
 import './docs';
+
+export * from './example';

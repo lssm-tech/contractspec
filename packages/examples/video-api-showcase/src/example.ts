@@ -1,32 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesVideoApiShowcaseExample = defineExample({
 	meta: {
-		key: 'video-api-showcase',
+		key: 'examples.video-api-showcase',
 		version: '1.0.0',
-		title: 'Video API Showcase',
+		title: 'Video Api Showcase',
 		description:
 			'Generate API documentation videos from contract spec definitions using the ApiOverview composition.',
-		kind: 'script',
-		visibility: 'public',
+		kind: 'template',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['video', 'api', 'documentation', 'spec-driven'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.video-api-showcase',
-		usageDocId: 'docs.examples.video-api-showcase.usage',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.video-api-showcase',
-		docs: './docs',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'video-api-showcase'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: { enabled: true, modes: ['markdown'] },
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.video-api-showcase',
 	},
 });
 
-export default example;
+export default ExamplesVideoApiShowcaseExample;
+export { ExamplesVideoApiShowcaseExample };

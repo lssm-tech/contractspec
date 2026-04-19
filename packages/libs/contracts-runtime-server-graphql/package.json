@@ -48,6 +48,7 @@
 	],
 	"exports": {
 		".": "./src/index.ts",
+		"./contracts-runtime-server-graphql.feature": "./src/contracts-runtime-server-graphql.feature.ts",
 		"./graphql-pothos": "./src/graphql-pothos.ts"
 	},
 	"publishConfig": {
@@ -60,6 +61,13 @@
 				"bun": "./dist/index.js",
 				"node": "./dist/node/index.js",
 				"default": "./dist/index.js"
+			},
+			"./contracts-runtime-server-graphql.feature": {
+				"types": "./dist/contracts-runtime-server-graphql.feature.d.ts",
+				"browser": "./dist/browser/contracts-runtime-server-graphql.feature.js",
+				"bun": "./dist/contracts-runtime-server-graphql.feature.js",
+				"node": "./dist/node/contracts-runtime-server-graphql.feature.js",
+				"default": "./dist/contracts-runtime-server-graphql.feature.js"
 			},
 			"./graphql-pothos": {
 				"types": "./dist/graphql-pothos.d.ts",

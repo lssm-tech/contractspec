@@ -4,7 +4,7 @@
 export * from './access';
 // Ingestion pipeline
 export * from './ingestion';
-
+export * from './knowledge.feature';
 // Query service
 export * from './query';
 // Retriever interface and implementations

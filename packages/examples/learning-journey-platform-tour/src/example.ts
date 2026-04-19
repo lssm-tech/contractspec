@@ -1,33 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesLearningJourneyPlatformTourExample = defineExample({
 	meta: {
-		key: 'learning-journey-platform-tour',
+		key: 'examples.learning-journey-platform-tour',
 		version: '1.0.0',
-		title: 'Learning Journey — Platform Tour',
+		title: 'Learning Journey Platform Tour',
 		description:
-			'Learning journey track + contracts + presentations for a platform tour.',
+			'Learning journey track covering ContractSpec platform primitives.',
 		kind: 'template',
-		visibility: 'public',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['learning', 'journey', 'platform-tour'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.platform-tour',
-		goalDocId: 'docs.examples.platform-tour.goal',
-		usageDocId: 'docs.examples.platform-tour.usage',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.learning-journey-platform-tour',
-		docs: './docs',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'learning-journey-platform-tour'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: { enabled: true, modes: ['markdown', 'playground'] },
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.learning-journey-platform-tour',
 	},
 });
 
-export default example;
+export default ExamplesLearningJourneyPlatformTourExample;
+export { ExamplesLearningJourneyPlatformTourExample };

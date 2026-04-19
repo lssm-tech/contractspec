@@ -8,4 +8,5 @@ export async function run(argv: readonly string[] = process.argv) {
 	return createProgram().parseAsync(argv);
 }
 
+export * from './blueprint';
 export { ContractSpecCliDocBlock, createProgram };

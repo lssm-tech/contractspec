@@ -13,5 +13,11 @@
 		"url": "https://github.com/lssm-tech/contractspec.git",
 		"directory": "packages/apps-registry/cursor-marketplace"
 	},
-	"homepage": "https://contractspec.io"
+	"homepage": "https://contractspec.io",
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	}
 }

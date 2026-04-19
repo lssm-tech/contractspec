@@ -23,6 +23,64 @@ or
 
 Import the root entrypoint from `@contractspec/lib.presentation-runtime-core`, or choose a documented subpath when you only need one part of the package surface.
 
+## Bundler Helpers
+
+Import the bundler helpers from the root package:
+
+```ts
+import {
+  withPresentationTurbopackAliases,
+  withPresentationWebpackAliases,
+  withPresentationMetroAliases,
+} from '@contractspec/lib.presentation-runtime-core';
+```
+
+### Next.js Turbopack helper (default)
+
+Use Turbopack as the default Next.js path:
+
+```ts
+import { withPresentationTurbopackAliases } from '@contractspec/lib.presentation-runtime-core';
+
+const nextConfig = withPresentationTurbopackAliases({
+  turbopack: {
+    resolveAlias: {
+      fs: { browser: 'browserify-fs' },
+    },
+  },
+});
+
+export default nextConfig;
+```
+
+### Next.js Webpack helper (fallback)
+
+Use Webpack only when you opt in with `next dev --webpack` or `next build --webpack`:
+
+```ts
+import { withPresentationWebpackAliases } from '@contractspec/lib.presentation-runtime-core';
+
+const nextConfig = {
+  webpack: (config) => withPresentationWebpackAliases(config),
+};
+
+export default nextConfig;
+```
+
+### Expo / Metro helper
+
+```js
+const { getDefaultConfig } = require('expo/metro-config');
+const {
+  withPresentationMetroAliases,
+} = require('@contractspec/lib.presentation-runtime-core');
+
+const projectRoot = __dirname;
+const config = getDefaultConfig(projectRoot);
+
+module.exports = withPresentationMetroAliases(config);
+```
+
 ## Architecture
 
 - `src/index.ts` is the root public barrel and package entrypoint.
@@ -36,6 +94,7 @@ Import the root entrypoint from `@contractspec/lib.presentation-runtime-core`, o
 ## Public Entry Points
 
 - Export `.` resolves through `./src/index.ts`.
+- Bundler helpers are part of the root entrypoint; no dedicated `./webpack` or `./turbopack` subpaths are published.
 - Export `./table` resolves through `./src/table.ts`.
 - Export `./visualization` resolves through `./src/visualization.ts`.
 - Export `./visualization.echarts` resolves through `./src/visualization.echarts.ts`.

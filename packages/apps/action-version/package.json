@@ -20,5 +20,11 @@
 		"type": "git",
 		"url": "https://github.com/lssm-tech/contractspec.git",
 		"directory": "packages/apps/action-version"
+	},
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*"
+	},
+	"exports": {
+		".": "./src/index.ts"
 	}
 }

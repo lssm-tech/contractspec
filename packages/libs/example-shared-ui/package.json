@@ -8,6 +8,7 @@
 		"./bundles/ExampleTemplateBundle": "./src/bundles/ExampleTemplateBundle.ts",
 		"./EvolutionDashboard": "./src/EvolutionDashboard.tsx",
 		"./EvolutionSidebar": "./src/EvolutionSidebar.tsx",
+		"./example-shared-ui.feature": "./src/example-shared-ui.feature.ts",
 		"./hooks": "./src/hooks/index.ts",
 		"./hooks/useBehaviorTracking": "./src/hooks/useBehaviorTracking.ts",
 		"./hooks/useEvolution": "./src/hooks/useEvolution.ts",
@@ -90,6 +91,13 @@
 				"bun": "./dist/EvolutionSidebar.js",
 				"node": "./dist/node/EvolutionSidebar.js",
 				"default": "./dist/EvolutionSidebar.js"
+			},
+			"./example-shared-ui.feature": {
+				"types": "./dist/example-shared-ui.feature.d.ts",
+				"browser": "./dist/browser/example-shared-ui.feature.js",
+				"bun": "./dist/example-shared-ui.feature.js",
+				"node": "./dist/node/example-shared-ui.feature.js",
+				"default": "./dist/example-shared-ui.feature.js"
 			},
 			"./hooks": {
 				"types": "./dist/hooks/index.d.ts",

@@ -46,6 +46,7 @@
 		".": "./src/index.ts",
 		"./contracts-adapter-hydration": "./src/contracts-adapter-hydration.ts",
 		"./contracts-adapter-input": "./src/contracts-adapter-input.ts",
+		"./contracts-runtime-server-rest.feature": "./src/contracts-runtime-server-rest.feature.ts",
 		"./rest-elysia": "./src/rest-elysia.ts",
 		"./rest-express": "./src/rest-express.ts",
 		"./rest-generic": "./src/rest-generic.ts",
@@ -76,6 +77,13 @@
 				"bun": "./dist/contracts-adapter-input.js",
 				"node": "./dist/node/contracts-adapter-input.js",
 				"default": "./dist/contracts-adapter-input.js"
+			},
+			"./contracts-runtime-server-rest.feature": {
+				"types": "./dist/contracts-runtime-server-rest.feature.d.ts",
+				"browser": "./dist/browser/contracts-runtime-server-rest.feature.js",
+				"bun": "./dist/contracts-runtime-server-rest.feature.js",
+				"node": "./dist/node/contracts-runtime-server-rest.feature.js",
+				"default": "./dist/contracts-runtime-server-rest.feature.js"
 			},
 			"./rest-elysia": {
 				"types": "./dist/rest-elysia.d.ts",

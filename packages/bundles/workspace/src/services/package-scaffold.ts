@@ -123,7 +123,15 @@ export const ${input.exportName} = defineModuleBundle({
       layouts: [],
       data: [],
       verification: {
-        level: "basic",
+        dimensions: {
+          guidance: "Scaffolded guidance profile for ${input.title}.",
+          density: "Scaffolded density profile for ${input.title}.",
+          dataDepth: "Scaffolded data-depth profile for ${input.title}.",
+          control: "Scaffolded control profile for ${input.title}.",
+          media: "Scaffolded media profile for ${input.title}.",
+          pace: "Scaffolded pace profile for ${input.title}.",
+          narrative: "Scaffolded narrative profile for ${input.title}.",
+        },
       },
     },
   },

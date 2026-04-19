@@ -1,7 +1,7 @@
 /**
  * Marketplace Feature Module Specification
  */
-import { defineFeature } from '@contractspec/lib.contracts-spec';
+import { defineFeature } from '@contractspec/lib.contracts-spec/features';
 import { MarketplaceVisualizationRefs } from './visualizations';
 
 /**

@@ -1,31 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesLearningJourneyUiSharedExample = defineExample({
 	meta: {
-		key: 'learning-journey-ui-shared',
+		key: 'examples.learning-journey-ui-shared',
 		version: '1.0.0',
-		title: 'Learning Journey UI — Shared',
+		title: 'Learning Journey Ui Shared',
 		description:
 			'Shared UI components and hooks for learning journey mini-apps.',
-		kind: 'ui',
-		visibility: 'public',
+		kind: 'template',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['learning', 'ui', 'shared'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.learning-journey-ui-shared',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.learning-journey-ui-shared',
-		docs: './docs',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'learning-journey-ui-shared'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: { enabled: true, modes: ['playground', 'markdown'] },
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.learning-journey-ui-shared',
 	},
 });
 
-export default example;
+export default ExamplesLearningJourneyUiSharedExample;
+export { ExamplesLearningJourneyUiSharedExample };

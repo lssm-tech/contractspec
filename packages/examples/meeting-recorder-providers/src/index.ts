@@ -6,3 +6,5 @@ export * from './handlers/list-meetings';
 export * from './handlers/webhook-handler';
 export * from './meeting-recorder-providers.feature';
 import './docs';
+
+export * from './example';

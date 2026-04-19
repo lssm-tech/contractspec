@@ -22,3 +22,4 @@ export function createSttProviderPayload() {
 		},
 	} as const;
 }
+export * from './integration';

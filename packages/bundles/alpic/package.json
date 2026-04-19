@@ -32,7 +32,8 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@contractspec/module.alpic": "workspace:*"
+		"@contractspec/module.alpic": "workspace:*",
+		"@contractspec/lib.surface-runtime": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",

@@ -11,6 +11,11 @@ import type { FsAdapter } from '../../../ports/fs';
 import type { LoggerAdapter } from '../../../ports/logger';
 import { loadWorkspaceConfig } from '../../config';
 import { listSpecs } from '../../list';
+import {
+	auditPackageDeclarations,
+	createPackageDeclarationIssue,
+	resolvePackageDeclarationConfig,
+} from '../../package-declarations';
 import type { CICheckOptions, CIIssue } from '../types';
 
 const IMPLEMENTATION_PATH_PATTERN =
@@ -166,6 +171,7 @@ export async function runPolicyChecks(
 	const config = options.config
 		? resolvePolicyConfig(options.config)
 		: await loadWorkspaceConfig(fs);
+	const packageDeclarationConfig = resolvePackageDeclarationConfig(config);
 
 	const scannedSpecs = await listSpecs({ fs }, { config });
 	const specFiles = new Set(
@@ -214,6 +220,40 @@ export async function runPolicyChecks(
 			logger.warn('Policy scan failed for file', {
 				file,
 				error: error instanceof Error ? error.message : String(error),
+			});
+		}
+	}
+
+	if (packageDeclarationConfig.severity !== 'off') {
+		const packageDeclarations = await auditPackageDeclarations(fs, {
+			config,
+			workspaceRoot: options.workspaceRoot,
+		});
+
+		for (const declaration of packageDeclarations) {
+			if (declaration.exists && declaration.matchesExpectedTarget) {
+				continue;
+			}
+
+			const issue = createPackageDeclarationIssue(
+				declaration,
+				packageDeclarationConfig.allowMissing ?? []
+			);
+			issues.push({
+				ruleId: 'policy-package-declaration',
+				severity:
+					issue.allowlisted || packageDeclarationConfig.severity === 'warning'
+						? 'warning'
+						: 'error',
+				message: issue.message,
+				category: 'policy',
+				file: declaration.canonicalDeclarationPath,
+				context: {
+					allowlisted: issue.allowlisted,
+					expectedTarget: declaration.target,
+					packageName: declaration.packageName,
+					packageRoot: declaration.relativePackageRoot,
+				},
 			});
 		}
 	}

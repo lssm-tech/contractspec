@@ -31,5 +31,6 @@ export * from './extract';
 export * as extractors from './extractors/index';
 // Extractor registry and detection
 export * from './registry';
+export * from './source-extractors.feature';
 // Core types
 export * from './types';

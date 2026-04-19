@@ -34,7 +34,8 @@
 	"dependencies": {
 		"ai": "catalog:ai",
 		"@contractspec/lib.contracts-spec": "workspace:*",
-		"@contractspec/module.product-intent-core": "workspace:*"
+		"@contractspec/module.product-intent-core": "workspace:*",
+		"@contractspec/lib.surface-runtime": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",

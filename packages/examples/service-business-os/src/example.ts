@@ -1,38 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesServiceBusinessOsExample = defineExample({
 	meta: {
-		key: 'service-business-os',
+		key: 'examples.service-business-os',
 		version: '1.0.0',
-		title: 'Service Business OS',
+		title: 'Service Business Os',
 		description:
-			'Service business operating system: jobs, clients, scheduling, invoicing, and ops dashboards.',
+			'Service Business OS example (clients, quotes, jobs, invoices) for ContractSpec',
 		kind: 'template',
-		visibility: 'public',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['service-business', 'jobs', 'scheduling', 'invoicing'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.service-business-os',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.service-business-os',
-		feature: './feature',
-		contracts: './contracts',
-		presentations: './presentations',
-		handlers: './handlers',
-		docs: './docs',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'service-business-os'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: {
-			enabled: true,
-			modes: ['playground', 'specs', 'builder', 'markdown', 'evolution'],
-		},
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.service-business-os',
 	},
 });
 
-export default example;
+export default ExamplesServiceBusinessOsExample;
+export { ExamplesServiceBusinessOsExample };

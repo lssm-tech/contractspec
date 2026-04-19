@@ -71,6 +71,7 @@ import { LibrariesAnalyticsPage } from '@contractspec/bundle.library/components/
 import { LibrariesContentGenPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesContentGenPage';
 import { LibrariesContractsPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesContractsPage';
 import { LibrariesCostTrackingPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesCostTrackingPage';
+import { LibrariesCrossPlatformUIPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesCrossPlatformUIPage';
 import { LibrariesDataBackendPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesDataBackendPage';
 import { LibrariesDataViewsPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesDataViewsPage';
 import { LibrariesDesignSystemPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesDesignSystemPage';
@@ -142,6 +143,7 @@ export const docsComponentMap: ComponentMap = {
 	LibrariesAccessibilityPage,
 	LibrariesContentGenPage,
 	LibrariesCostTrackingPage,
+	LibrariesCrossPlatformUIPage,
 	LibrariesDataBackendPage,
 	LibrariesDataViewsPage,
 	LibrariesDesignSystemPage,
@@ -375,6 +377,12 @@ export const docsPresentations: [string, PresentationSpec][] = [
 		'web-landing.docs.libraries.cost-tracking',
 		'LibrariesCostTrackingPage',
 		'ContractSpec cost tracking library'
+	),
+	docsEntry(
+		'/docs/libraries/cross-platform-ui',
+		'web-landing.docs.libraries.cross-platform-ui',
+		'LibrariesCrossPlatformUIPage',
+		'ContractSpec cross-platform UI architecture guide'
 	),
 	docsEntry(
 		'/docs/libraries/data-backend',

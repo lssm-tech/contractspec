@@ -38,7 +38,8 @@
 		"@tanstack/react-table": "^8.21.3",
 		"@contractspec/lib.presentation-runtime-react": "workspace:*",
 		"@contractspec/lib.presentation-runtime-core": "workspace:*",
-		"@contractspec/lib.ui-kit": "workspace:*"
+		"@contractspec/lib.ui-kit": "workspace:*",
+		"@contractspec/lib.contracts-spec": "workspace:*"
 	},
 	"files": [
 		"dist",
@@ -47,6 +48,7 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./nativewind-env.d": "./src/nativewind-env.d.ts",
+		"./presentation-runtime-react-native.feature": "./src/presentation-runtime-react-native.feature.ts",
 		"./useContractTable": "./src/useContractTable.ts",
 		"./useDataViewTable": "./src/useDataViewTable.ts"
 	},
@@ -64,6 +66,12 @@
 				"browser": "./dist/browser/nativewind-env.d.js",
 				"bun": "./dist/nativewind-env.d.js",
 				"default": "./dist/nativewind-env.d.js"
+			},
+			"./presentation-runtime-react-native.feature": {
+				"types": "./dist/presentation-runtime-react-native.feature.d.ts",
+				"browser": "./dist/browser/presentation-runtime-react-native.feature.js",
+				"bun": "./dist/presentation-runtime-react-native.feature.js",
+				"default": "./dist/presentation-runtime-react-native.feature.js"
 			},
 			"./useContractTable": {
 				"types": "./dist/useContractTable.d.ts",

@@ -78,7 +78,9 @@ describe('impact command', () => {
 	it('keeps the operator-facing flags on the command surface', async () => {
 		const { createImpactCommand } = await loadImpactModule();
 		const command = createImpactCommand();
-		expect(command.options.map((option: { long?: string }) => option.long)).toEqual([
+		expect(
+			command.options.map((option: { long?: string }) => option.long)
+		).toEqual([
 			'--baseline',
 			'--format',
 			'--fail-on-breaking',

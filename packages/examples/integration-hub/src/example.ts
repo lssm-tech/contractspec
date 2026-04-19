@@ -1,42 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesIntegrationHubExample = defineExample({
 	meta: {
-		key: 'integration-hub',
+		key: 'examples.integration-hub',
 		version: '1.0.0',
 		title: 'Integration Hub',
 		description:
-			'Provider-agnostic integration center with connectors, connections, field mappings, and sync logs.',
+			'Integration Hub example with sync engine and field mappings for ContractSpec',
 		kind: 'template',
-		visibility: 'public',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['integrations', 'sync', 'etl', 'connectors'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.integration-hub',
-		goalDocId: 'docs.examples.integration-hub.goal',
-		usageDocId: 'docs.examples.integration-hub.usage',
-		constraintsDocId: 'docs.examples.integration-hub.constraints',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.integration-hub',
-		feature: './feature',
-		contracts: './contracts',
-		presentations: './presentations',
-		handlers: './handlers',
-		docs: './docs',
-		ui: './ui',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'integration-hub'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: {
-			enabled: true,
-			modes: ['playground', 'specs', 'builder', 'markdown', 'evolution'],
-		},
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.integration-hub',
 	},
 });
 
-export default example;
+export default ExamplesIntegrationHubExample;
+export { ExamplesIntegrationHubExample };

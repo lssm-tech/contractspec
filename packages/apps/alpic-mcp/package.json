@@ -15,7 +15,8 @@
 	},
 	"dependencies": {
 		"@contractspec/bundle.alpic": "workspace:*",
-		"@contractspec/lib.logger": "workspace:*"
+		"@contractspec/lib.logger": "workspace:*",
+		"@contractspec/lib.contracts-spec": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.tsdown": "workspace:*",
@@ -37,6 +38,7 @@
 	"homepage": "https://contractspec.io",
 	"exports": {
 		".": "./dist/index.mjs",
+		"./blueprint": "./dist/blueprint.mjs",
 		"./server": "./dist/server.mjs",
 		"./*": "./*"
 	}

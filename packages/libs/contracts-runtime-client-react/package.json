@@ -45,6 +45,7 @@
 	],
 	"exports": {
 		".": "./src/index.ts",
+		"./contracts-runtime-client-react.feature": "./src/contracts-runtime-client-react.feature.ts",
 		"./drivers/rn-reusables": "./src/drivers/rn-reusables.ts",
 		"./drivers/shadcn": "./src/drivers/shadcn.ts",
 		"./feature-render": "./src/feature-render.ts",
@@ -62,6 +63,13 @@
 				"bun": "./dist/index.js",
 				"node": "./dist/node/index.js",
 				"default": "./dist/index.js"
+			},
+			"./contracts-runtime-client-react.feature": {
+				"types": "./dist/contracts-runtime-client-react.feature.d.ts",
+				"browser": "./dist/browser/contracts-runtime-client-react.feature.js",
+				"bun": "./dist/contracts-runtime-client-react.feature.js",
+				"node": "./dist/node/contracts-runtime-client-react.feature.js",
+				"default": "./dist/contracts-runtime-client-react.feature.js"
 			},
 			"./drivers/rn-reusables": {
 				"types": "./dist/drivers/rn-reusables.d.ts",

@@ -1,34 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesKbUpdatePipelineExample = defineExample({
 	meta: {
-		key: 'kb-update-pipeline',
+		key: 'examples.kb-update-pipeline',
 		version: '1.0.0',
-		title: 'KB Update Pipeline',
+		title: 'Kb Update Pipeline',
 		description:
-			'Automation proposes KB updates; humans verify; everything audited and notified.',
-		kind: 'knowledge',
-		visibility: 'public',
+			'Example: KB update automation pipeline with HITL review and auditability.',
+		kind: 'template',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['knowledge', 'pipeline', 'hitl', 'audit'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.kb-update-pipeline',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.kb-update-pipeline',
-		feature: './feature',
-		contracts: './contracts',
-		handlers: './handlers',
-		docs: './docs',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'kb-update-pipeline'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: { enabled: true, modes: ['markdown', 'specs', 'builder'] },
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.kb-update-pipeline',
 	},
 });
 
-export default example;
+export default ExamplesKbUpdatePipelineExample;
+export { ExamplesKbUpdatePipelineExample };

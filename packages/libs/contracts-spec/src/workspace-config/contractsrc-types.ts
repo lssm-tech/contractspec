@@ -200,6 +200,34 @@ export interface ImpactConfig {
 	exclude?: string[];
 }
 
+export type PackageDeclarationRollout = 'off' | 'warning' | 'error';
+
+export type PackageDeclarationTarget =
+	| 'feature'
+	| 'integration'
+	| 'app-config'
+	| 'module-bundle'
+	| 'example';
+
+export interface PackageDeclarationRequiredByKind {
+	libs?: PackageDeclarationTarget;
+	modules?: PackageDeclarationTarget;
+	integrations?: PackageDeclarationTarget;
+	bundles?: PackageDeclarationTarget;
+	apps?: PackageDeclarationTarget;
+	appsRegistry?: PackageDeclarationTarget;
+	examples?: PackageDeclarationTarget;
+}
+
+export interface PackageDeclarationConfig {
+	/** Staged rollout severity for missing package declarations. */
+	severity?: PackageDeclarationRollout;
+	/** Required declaration target for each top-level workspace package family. */
+	requiredByKind?: PackageDeclarationRequiredByKind;
+	/** Package roots or package names temporarily exempted from hard failure. */
+	allowMissing?: string[];
+}
+
 export interface CiConfig {
 	/** Default checks to run */
 	checks?: string[];
@@ -215,6 +243,8 @@ export interface CiConfig {
 	checkRun?: CheckRunConfig;
 	/** Impact detection configuration */
 	impact?: ImpactConfig;
+	/** Package-level declaration coverage policy. */
+	packageDeclarations?: PackageDeclarationConfig;
 }
 
 export interface ExternalWorkspace {

@@ -58,5 +58,8 @@
 		"url": "https://github.com/lssm-tech/contractspec.git",
 		"directory": "packages/libs/cost-tracking"
 	},
-	"homepage": "https://contractspec.io"
+	"homepage": "https://contractspec.io",
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*"
+	}
 }

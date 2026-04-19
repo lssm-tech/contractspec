@@ -210,6 +210,9 @@ export {
 	VisualizationRenderer,
 	type VisualizationRendererProps,
 } from './components/visualization/VisualizationRenderer';
+// Overlays re-exports (web default; native via Metro alias)
+// Overlays are used directly from ui-kit(s) in apps for now to avoid DTS bundling issues
+export * from './design-system.feature';
 // export {
 //   DropdownMenu,
 //   DropdownMenuPortal,
@@ -241,6 +244,3 @@ export { mapTokensForPlatform } from './theme/tokenBridge';
 export * from './theme/tokens';
 export * from './theme/variants';
 export * from './types/navigation';
-
-// Overlays re-exports (web default; native via Metro alias)
-// Overlays are used directly from ui-kit(s) in apps for now to avoid DTS bundling issues

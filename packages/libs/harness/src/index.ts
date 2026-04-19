@@ -1,5 +1,6 @@
 export * from './assertions/engine';
 export * from './evidence/normalizer';
+export * from './harness.feature';
 export * from './orchestration/evaluation-runner';
 export * from './orchestration/runner';
 export * from './policy/classifier';

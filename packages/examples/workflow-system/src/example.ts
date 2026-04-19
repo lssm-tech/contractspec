@@ -1,42 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesWorkflowSystemExample = defineExample({
 	meta: {
-		key: 'workflow-system',
+		key: 'examples.workflow-system',
 		version: '1.0.0',
-		title: 'Workflow / Approval System',
+		title: 'Workflow System',
 		description:
-			'State-machine driven approvals with RBAC, audit trail, notifications, and jobs.',
+			'Workflow and approval system example for ContractSpec - State machine with role-based transitions',
 		kind: 'template',
-		visibility: 'public',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['workflow', 'approval', 'state-machine', 'rbac'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.workflow-system',
-		goalDocId: 'docs.examples.workflow-system.goal',
-		usageDocId: 'docs.examples.workflow-system.usage',
-		constraintsDocId: 'docs.examples.workflow-system.constraints',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.workflow-system',
-		feature: './feature',
-		contracts: './contracts',
-		presentations: './presentations',
-		handlers: './handlers',
-		docs: './docs',
-		ui: './ui',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'workflow-system'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: {
-			enabled: true,
-			modes: ['playground', 'specs', 'builder', 'markdown', 'evolution'],
-		},
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.workflow-system',
 	},
 });
 
-export default example;
+export default ExamplesWorkflowSystemExample;
+export { ExamplesWorkflowSystemExample };

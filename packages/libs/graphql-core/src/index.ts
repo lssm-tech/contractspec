@@ -74,3 +74,4 @@ export function createLoggerTracing(logger: LoggerLike, opLabel = 'gql.field') {
 		},
 	} as CreateBuilderOptions<unknown>['tracing'];
 }
+export * from './graphql-core.feature';

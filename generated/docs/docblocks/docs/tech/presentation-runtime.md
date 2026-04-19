@@ -4,22 +4,41 @@ Cross-platform runtime for list pages, presentation flows, and headless Contract
 
 ### Packages
 
-- `@contractspec/lib.presentation-runtime-core`: shared state/types for URL state, list coordination, and headless table controllers
+- `@contractspec/lib.presentation-runtime-core`: shared state/types for URL state, list coordination, headless table controllers, and bundler alias helpers
 - `@contractspec/lib.presentation-runtime-react`: React hooks (web/native-compatible API)
 - `@contractspec/lib.presentation-runtime-react-native`: Native entrypoint (re-exports the shared React table hooks and keeps native form/list helpers)
 
-### Next.js config helper
+### Next.js Turbopack helper (default)
 
 ```ts
 // next.config.mjs
-import { withPresentationNextAliases } from '@contractspec/lib.presentation-runtime-core/next';
+import { withPresentationTurbopackAliases } from '@contractspec/lib.presentation-runtime-core';
+
+const nextConfig = withPresentationTurbopackAliases({
+  turbopack: {
+    resolveAlias: {
+      fs: { browser: 'browserify-fs' },
+    },
+  },
+});
+
+export default nextConfig;
+```
+
+### Next.js Webpack helper (fallback)
+
+```ts
+// next.config.mjs
+import { withPresentationWebpackAliases } from '@contractspec/lib.presentation-runtime-core';
 
 const nextConfig = {
-  webpack: (config) => withPresentationNextAliases(config),
+  webpack: (config) => withPresentationWebpackAliases(config),
 };
 
 export default nextConfig;
 ```
+
+Use Webpack only when you explicitly opt in with `next dev --webpack` or `next build --webpack`.
 
 ### Metro config helper
 
@@ -28,7 +47,7 @@ export default nextConfig;
 const { getDefaultConfig } = require('expo/metro-config');
 const {
   withPresentationMetroAliases,
-} = require('@contractspec/lib.presentation-runtime-core/src/metro.cjs');
+} = require('@contractspec/lib.presentation-runtime-core');
 
 const projectRoot = __dirname;
 const config = getDefaultConfig(projectRoot);

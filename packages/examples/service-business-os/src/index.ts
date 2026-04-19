@@ -6,6 +6,7 @@
 
 // Domain exports
 export * from './client';
+export * from './example';
 export * from './invoice';
 export * from './job';
 export * from './payment';

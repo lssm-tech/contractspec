@@ -37,7 +37,8 @@
 		"@contractspec/lib.lifecycle": "workspace:*",
 		"@contractspec/lib.observability": "workspace:*",
 		"@contractspec/module.lifecycle-advisor": "workspace:*",
-		"@contractspec/module.lifecycle-core": "workspace:*"
+		"@contractspec/module.lifecycle-core": "workspace:*",
+		"@contractspec/lib.surface-runtime": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",

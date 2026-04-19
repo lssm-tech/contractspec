@@ -16,4 +16,5 @@ import './styles.css';
 
 export { AccessibilityPanel } from './AccessibilityPanel';
 export { AccessibilityProvider } from './AccessibilityProvider';
+export * from './accessibility.feature';
 export { NextRouteAnnouncer } from './next-route-announcer';

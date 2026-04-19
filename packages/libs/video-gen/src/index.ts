@@ -22,3 +22,4 @@ export {
 export * from './types';
 // Note: LocalRenderer must be imported directly from './renderers/local'
 // as it requires Node.js (@remotion/renderer)
+export * from './video-gen.feature';

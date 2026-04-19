@@ -49,5 +49,8 @@
 				"default": "./dist/index.js"
 			}
 		}
+	},
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*"
 	}
 }

@@ -916,5 +916,8 @@
 	"publishConfig": {
 		"registry": "https://registry.npmjs.org/",
 		"access": "public"
+	},
+	"exports": {
+		".": "./src/index.ts"
 	}
 }

@@ -40,7 +40,8 @@
 		"@contractspec/lib.logger": "workspace:*",
 		"@contractspec/lib.provider-spec": "workspace:*",
 		"@google-cloud/secret-manager": "^6.1.1",
-		"google-gax": "^5.0.0"
+		"google-gax": "^5.0.0",
+		"@contractspec/lib.schema": "workspace:*"
 	},
 	"optionalDependencies": {
 		"pg": "^8.20.0"
@@ -103,6 +104,7 @@
 		"./channel/whatsapp-meta": "./src/channel/whatsapp-meta.ts",
 		"./channel/whatsapp-twilio": "./src/channel/whatsapp-twilio.ts",
 		"./health": "./src/health.ts",
+		"./integration": "./src/integration.ts",
 		"./runtime": "./src/runtime.ts",
 		"./secrets": "./src/secrets/index.ts",
 		"./secrets/env-secret-provider": "./src/secrets/env-secret-provider.ts",
@@ -428,6 +430,12 @@
 				"bun": "./dist/health.js",
 				"node": "./dist/node/health.js",
 				"default": "./dist/health.js"
+			},
+			"./integration": {
+				"types": "./dist/integration.d.ts",
+				"bun": "./dist/integration.js",
+				"node": "./dist/node/integration.js",
+				"default": "./dist/integration.js"
 			},
 			"./runtime": {
 				"types": "./dist/runtime.d.ts",

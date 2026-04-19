@@ -1,3 +1,4 @@
+export * from './contracts-integrations.feature';
 export * from './integrations';
 export * from './integrations/auth';
 export * from './integrations/binding';

@@ -41,10 +41,11 @@ export function generateExampleSpec(data: ExampleSpecTemplateData): string {
 	const packageName =
 		data.packageName ??
 		`@contractspec/example.${toKebabCase(data.key.split('.').at(-1) ?? data.key)}`;
+	const exportName = `${toPascalCase(data.key)}Example`;
 
 	return `import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-export const ${toPascalCase(data.key)}Example = defineExample({
+const ${exportName} = defineExample({
   meta: {
     key: '${data.key}',
     version: '${data.version}',
@@ -66,6 +67,9 @@ export const ${toPascalCase(data.key)}Example = defineExample({
     packageName: '${packageName}',
   },
 });
+
+export default ${exportName};
+export { ${exportName} };
 `;
 }
 

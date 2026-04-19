@@ -1,39 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesAiChatAssistantExample = defineExample({
 	meta: {
-		key: 'ai-chat-assistant',
+		key: 'examples.ai-chat-assistant',
 		version: '1.0.0',
-		title: 'AI Chat Assistant',
+		title: 'Ai Chat Assistant',
 		description:
-			'Focused template: full ai-chat with reasoning, chain of thought, sources, suggestions, and MCP tools.',
+			'Focused AI chat assistant template with MCP tools, reasoning, chain of thought, sources, and suggestions.',
 		kind: 'template',
-		visibility: 'public',
-		stability: 'beta',
-		owners: ['@platform.core'],
-		tags: ['ai', 'chat', 'mcp', 'tools'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.ai-chat-assistant',
-		goalDocId: 'docs.examples.ai-chat-assistant.goal',
-		usageDocId: 'docs.examples.ai-chat-assistant.usage',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.ai-chat-assistant',
-		contracts: './contracts',
-		handlers: './handlers',
-		docs: './docs',
-		ui: './ui',
+		visibility: 'experimental',
+		stability: 'experimental',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'ai-chat-assistant'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: {
-			enabled: true,
-			modes: ['playground', 'specs', 'markdown'],
-		},
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.ai-chat-assistant',
 	},
 });
 
-export default example;
+export default ExamplesAiChatAssistantExample;
+export { ExamplesAiChatAssistantExample };

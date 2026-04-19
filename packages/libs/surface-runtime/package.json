@@ -114,6 +114,7 @@
 		"./spec/validate-bundle": "./src/spec/validate-bundle.ts",
 		"./spec/validate-surface-patch": "./src/spec/validate-surface-patch.ts",
 		"./spec/verification-snapshot-types": "./src/spec/verification-snapshot-types.ts",
+		"./surface-runtime.feature": "./src/surface-runtime.feature.ts",
 		"./telemetry": "./src/telemetry/index.ts",
 		"./telemetry/surface-metrics": "./src/telemetry/surface-metrics.ts"
 	},
@@ -476,6 +477,13 @@
 				"bun": "./dist/spec/verification-snapshot-types.js",
 				"node": "./dist/node/spec/verification-snapshot-types.js",
 				"default": "./dist/spec/verification-snapshot-types.js"
+			},
+			"./surface-runtime.feature": {
+				"types": "./dist/surface-runtime.feature.d.ts",
+				"browser": "./dist/browser/surface-runtime.feature.js",
+				"bun": "./dist/surface-runtime.feature.js",
+				"node": "./dist/node/surface-runtime.feature.js",
+				"default": "./dist/surface-runtime.feature.js"
 			},
 			"./telemetry": {
 				"types": "./dist/telemetry/index.d.ts",

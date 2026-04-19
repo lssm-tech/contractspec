@@ -1,32 +1,27 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesCalendarGoogleExample = defineExample({
 	meta: {
-		key: 'calendar-google',
+		key: 'examples.calendar-google',
 		version: '1.0.0',
-		title: 'Google Calendar',
-		description:
-			'List upcoming events and create a new event using the Google Calendar provider.',
-		kind: 'integration',
-		visibility: 'public',
+		title: 'Calendar Google',
+		description: 'Google Calendar integration example: list and create events.',
+		kind: 'template',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.integrations'],
-		tags: ['calendar', 'google-calendar', 'integrations'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.calendar-google',
-		usageDocId: 'docs.examples.calendar-google.usage',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.calendar-google',
-		docs: './docs',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'calendar-google'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: { enabled: true, modes: ['markdown', 'specs'] },
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.calendar-google',
 	},
 });
 
-export default example;
+export default ExamplesCalendarGoogleExample;
+export { ExamplesCalendarGoogleExample };

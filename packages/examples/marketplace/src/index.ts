@@ -4,6 +4,7 @@
  * Demonstrates a complete marketplace with stores, products, orders, payouts, and reviews.
  */
 
+export * from './example';
 export * from './handlers/marketplace.handlers';
 export * from './order';
 export * from './payout';

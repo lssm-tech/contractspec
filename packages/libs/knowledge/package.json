@@ -57,6 +57,7 @@
 		"./ingestion/gmail-adapter": "./src/ingestion/gmail-adapter.ts",
 		"./ingestion/storage-adapter": "./src/ingestion/storage-adapter.ts",
 		"./ingestion/vector-indexer": "./src/ingestion/vector-indexer.ts",
+		"./knowledge.feature": "./src/knowledge.feature.ts",
 		"./query": "./src/query/index.ts",
 		"./query/service": "./src/query/service.ts",
 		"./retriever": "./src/retriever/index.ts",
@@ -170,6 +171,12 @@
 				"bun": "./dist/ingestion/vector-indexer.js",
 				"node": "./dist/node/ingestion/vector-indexer.js",
 				"default": "./dist/ingestion/vector-indexer.js"
+			},
+			"./knowledge.feature": {
+				"types": "./dist/knowledge.feature.d.ts",
+				"bun": "./dist/knowledge.feature.js",
+				"node": "./dist/node/knowledge.feature.js",
+				"default": "./dist/knowledge.feature.js"
 			},
 			"./query": {
 				"types": "./dist/query/index.d.ts",

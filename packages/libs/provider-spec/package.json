@@ -30,7 +30,9 @@
 		"prebuild": "contractspec-bun-build prebuild",
 		"typecheck": "tsc --noEmit"
 	},
-	"dependencies": {},
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*"
+	},
 	"devDependencies": {
 		"@contractspec/tool.bun": "workspace:*",
 		"@contractspec/tool.typescript": "workspace:*",

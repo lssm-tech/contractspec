@@ -14,3 +14,4 @@ export * from './sync';
 export * from './tts';
 // Shared types
 export * from './types';
+export * from './voice.feature';

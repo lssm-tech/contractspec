@@ -1,32 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesOpenbankingPowensExample = defineExample({
 	meta: {
-		key: 'openbanking-powens',
+		key: 'examples.openbanking-powens',
 		version: '1.0.0',
-		title: 'Open Banking — Powens',
+		title: 'Openbanking Powens',
 		description:
-			'OAuth callback + webhook handler patterns for Powens open banking integration (provider + workflow orchestration).',
-		kind: 'integration',
-		visibility: 'public',
+			'OpenBanking Powens example: OAuth callback + webhook handler patterns (provider + workflows).',
+		kind: 'template',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['openbanking', 'powens', 'oauth', 'webhooks', 'integrations'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.openbanking-powens',
-		usageDocId: 'docs.examples.openbanking-powens.usage',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.openbanking-powens',
-		docs: './docs',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'openbanking-powens'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: { enabled: true, modes: ['markdown', 'specs'] },
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.openbanking-powens',
 	},
 });
 
-export default example;
+export default ExamplesOpenbankingPowensExample;
+export { ExamplesOpenbankingPowensExample };

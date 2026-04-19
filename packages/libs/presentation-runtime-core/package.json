@@ -47,6 +47,8 @@
 	],
 	"exports": {
 		".": "./src/index.ts",
+		"./presentation-aliases": "./src/presentation-aliases.ts",
+		"./presentation-runtime-core.feature": "./src/presentation-runtime-core.feature.ts",
 		"./table": "./src/table.ts",
 		"./transform-engine": "./src/transform-engine.ts",
 		"./transform-engine.markdown": "./src/transform-engine.markdown.ts",
@@ -67,6 +69,20 @@
 				"bun": "./dist/index.js",
 				"node": "./dist/node/index.js",
 				"default": "./dist/index.js"
+			},
+			"./presentation-aliases": {
+				"types": "./dist/presentation-aliases.d.ts",
+				"browser": "./dist/browser/presentation-aliases.js",
+				"bun": "./dist/presentation-aliases.js",
+				"node": "./dist/node/presentation-aliases.js",
+				"default": "./dist/presentation-aliases.js"
+			},
+			"./presentation-runtime-core.feature": {
+				"types": "./dist/presentation-runtime-core.feature.d.ts",
+				"browser": "./dist/browser/presentation-runtime-core.feature.js",
+				"bun": "./dist/presentation-runtime-core.feature.js",
+				"node": "./dist/node/presentation-runtime-core.feature.js",
+				"default": "./dist/presentation-runtime-core.feature.js"
 			},
 			"./table": {
 				"types": "./dist/table.d.ts",

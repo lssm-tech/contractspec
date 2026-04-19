@@ -42,6 +42,7 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./config": "./src/config.ts",
+		"./plugins.feature": "./src/plugins.feature.ts",
 		"./registry": "./src/registry.ts",
 		"./types": "./src/types.ts"
 	},
@@ -66,6 +67,13 @@
 				"bun": "./dist/config.js",
 				"node": "./dist/node/config.js",
 				"default": "./dist/config.js"
+			},
+			"./plugins.feature": {
+				"types": "./dist/plugins.feature.d.ts",
+				"browser": "./dist/browser/plugins.feature.js",
+				"bun": "./dist/plugins.feature.js",
+				"node": "./dist/node/plugins.feature.js",
+				"default": "./dist/plugins.feature.js"
 			},
 			"./registry": {
 				"types": "./dist/registry.d.ts",

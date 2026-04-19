@@ -1,0 +1,39 @@
+schemaVersion: "1"
+slug: cross-platform-ui-docs
+summary: Add a dedicated cross-platform UI docs page that explains how the React, React Native, runtime, primitive UI, and design-system layers stay compatible.
+isBreaking: false
+packages:
+  - name: "@contractspec/bundle.library"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - node
+  - nextjs
+affectedFrameworks:
+  - react
+  - react-native
+audiences:
+  - kind: maintainer
+    summary: Maintainers now have a dedicated website docs page and exported bundle-library docs component for explaining the React and React Native UI layering model.
+    affectedPackages:
+      - "@contractspec/bundle.library"
+  - kind: integrator
+    summary: Integrators can follow one architecture-first explanation for when to use presentation-runtime-core, the React bindings, ui-kit-web, ui-kit, and the design-system layer.
+    affectedPackages:
+      - "@contractspec/bundle.library"
+  - kind: customer
+    summary: Website readers now have a direct cross-platform UI guide instead of piecing the React and React Native compatibility story together from several separate library pages.
+    affectedPackages:
+      - "@contractspec/bundle.library"
+deprecations: []
+migrationInstructions: []
+upgradeSteps: []
+validation:
+  commands:
+    - "cd packages/bundles/library && bun test src/components/docs/docsManifest.test.ts && bun run typecheck && bun run lint:check"
+    - "cd packages/bundles/marketing && bun run typecheck && bun run lint:check"
+    - "cd packages/apps/web-landing && bun run build:types && bun run lint:check"
+  evidence:
+    - "`@contractspec/bundle.library` now exports `LibrariesCrossPlatformUIPage` and documents the package split between shared runtime models, web/native primitives, and the design-system layer."
+    - "`@contractspec/app.web-landing` now serves `/docs/libraries/cross-platform-ui`, and related library docs link back to that shared architecture guide."
+    - "`@contractspec/bundle.marketing` now registers the new docs presentation key `web-landing.docs.libraries.cross-platform-ui` for delivery surfaces that rely on the docs registry."

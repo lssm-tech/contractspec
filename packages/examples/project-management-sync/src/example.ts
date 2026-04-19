@@ -1,32 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesProjectManagementSyncExample = defineExample({
 	meta: {
-		key: 'project-management-sync',
+		key: 'examples.project-management-sync',
 		version: '1.0.0',
 		title: 'Project Management Sync',
 		description:
-			'Create project-management work items in Linear, Jira Cloud, or Notion from a shared payload.',
-		kind: 'integration',
-		visibility: 'public',
+			'Project management sync example: Linear, Jira, and Notion work item creation.',
+		kind: 'template',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.integrations'],
-		tags: ['project-management', 'linear', 'jira', 'notion', 'integrations'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.project-management-sync',
-		usageDocId: 'docs.examples.project-management-sync.usage',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.project-management-sync',
-		docs: './docs',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'project-management-sync'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: { enabled: true, modes: ['markdown', 'specs'] },
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.project-management-sync',
 	},
 });
 
-export default example;
+export default ExamplesProjectManagementSyncExample;
+export { ExamplesProjectManagementSyncExample };

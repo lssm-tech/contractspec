@@ -1,32 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesVideoDocsTerminalExample = defineExample({
 	meta: {
-		key: 'video-docs-terminal',
+		key: 'examples.video-docs-terminal',
 		version: '1.0.0',
 		title: 'Video Docs Terminal',
 		description:
 			'Generate terminal demo videos from CLI walkthroughs using the TerminalDemo composition and ScriptGenerator.',
-		kind: 'script',
-		visibility: 'public',
+		kind: 'template',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['video', 'documentation', 'terminal', 'cli', 'tutorial'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.video-docs-terminal',
-		usageDocId: 'docs.examples.video-docs-terminal.usage',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.video-docs-terminal',
-		docs: './docs',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'video-docs-terminal'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: { enabled: true, modes: ['markdown'] },
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.video-docs-terminal',
 	},
 });
 
-export default example;
+export default ExamplesVideoDocsTerminalExample;
+export { ExamplesVideoDocsTerminalExample };

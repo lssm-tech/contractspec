@@ -1,0 +1,164 @@
+{
+	"name": "@contractspec/lib.data-exchange-client",
+	"version": "0.1.0",
+	"description": "Shared controllers plus web and native UI surfaces for data interchange",
+	"keywords": [
+		"contractspec",
+		"data",
+		"import",
+		"export",
+		"react",
+		"typescript"
+	],
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"sideEffects": false,
+	"scripts": {
+		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+		"publish:pkg:canary": "bun publish:pkg --tag canary",
+		"build": "bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"dev": "contractspec-bun-build dev",
+		"clean": "rimraf dist .turbo",
+		"lint": "bun lint:fix",
+		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
+		"lint:check": "node ../../../scripts/biome.cjs check .",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit"
+	},
+	"peerDependencies": {
+		"react": "^19.2.4",
+		"react-dom": ">=19.2.4",
+		"react-native": "*"
+	},
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/lib.data-exchange-core": "workspace:*",
+		"@contractspec/lib.presentation-runtime-react": "workspace:*",
+		"@contractspec/lib.ui-kit-web": "workspace:*"
+	},
+	"devDependencies": {
+		"react": "catalog:",
+		"react-dom": "catalog:",
+		"react-native": "0.84.1",
+		"@contractspec/tool.typescript": "workspace:*",
+		"typescript": "catalog:",
+		"@contractspec/tool.bun": "workspace:*"
+	},
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"exports": {
+		".": "./src/index.ts",
+		"./controllers": "./src/controllers/index.ts",
+		"./controllers/model": "./src/controllers/model.ts",
+		"./controllers/useDataExchangeController": "./src/controllers/useDataExchangeController.tsx",
+		"./data-exchange-client.feature": "./src/data-exchange-client.feature.ts",
+		"./native": "./src/native/index.tsx",
+		"./native/panels": "./src/native/panels.tsx",
+		"./native/table": "./src/native/table.tsx",
+		"./types": "./src/types.ts",
+		"./web": "./src/web/index.tsx",
+		"./web/panels": "./src/web/panels.tsx",
+		"./web/table": "./src/web/table.tsx"
+	},
+	"publishConfig": {
+		"access": "public",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"browser": "./dist/browser/index.js",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./controllers": {
+				"types": "./dist/controllers/index.d.ts",
+				"browser": "./dist/browser/controllers/index.js",
+				"bun": "./dist/controllers/index.js",
+				"node": "./dist/node/controllers/index.js",
+				"default": "./dist/controllers/index.js"
+			},
+			"./controllers/model": {
+				"types": "./dist/controllers/model.d.ts",
+				"browser": "./dist/browser/controllers/model.js",
+				"bun": "./dist/controllers/model.js",
+				"node": "./dist/node/controllers/model.js",
+				"default": "./dist/controllers/model.js"
+			},
+			"./controllers/useDataExchangeController": {
+				"types": "./dist/controllers/useDataExchangeController.d.ts",
+				"browser": "./dist/browser/controllers/useDataExchangeController.js",
+				"bun": "./dist/controllers/useDataExchangeController.js",
+				"node": "./dist/node/controllers/useDataExchangeController.js",
+				"default": "./dist/controllers/useDataExchangeController.js"
+			},
+			"./data-exchange-client.feature": {
+				"types": "./dist/data-exchange-client.feature.d.ts",
+				"browser": "./dist/browser/data-exchange-client.feature.js",
+				"bun": "./dist/data-exchange-client.feature.js",
+				"node": "./dist/node/data-exchange-client.feature.js",
+				"default": "./dist/data-exchange-client.feature.js"
+			},
+			"./native": {
+				"types": "./dist/native/index.d.ts",
+				"browser": "./dist/browser/native/index.js",
+				"bun": "./dist/native/index.js",
+				"node": "./dist/node/native/index.js",
+				"default": "./dist/native/index.js"
+			},
+			"./native/panels": {
+				"types": "./dist/native/panels.d.ts",
+				"browser": "./dist/browser/native/panels.js",
+				"bun": "./dist/native/panels.js",
+				"node": "./dist/node/native/panels.js",
+				"default": "./dist/native/panels.js"
+			},
+			"./native/table": {
+				"types": "./dist/native/table.d.ts",
+				"browser": "./dist/browser/native/table.js",
+				"bun": "./dist/native/table.js",
+				"node": "./dist/node/native/table.js",
+				"default": "./dist/native/table.js"
+			},
+			"./types": {
+				"types": "./dist/types.d.ts",
+				"browser": "./dist/browser/types.js",
+				"bun": "./dist/types.js",
+				"node": "./dist/node/types.js",
+				"default": "./dist/types.js"
+			},
+			"./web": {
+				"types": "./dist/web/index.d.ts",
+				"browser": "./dist/browser/web/index.js",
+				"bun": "./dist/web/index.js",
+				"node": "./dist/node/web/index.js",
+				"default": "./dist/web/index.js"
+			},
+			"./web/panels": {
+				"types": "./dist/web/panels.d.ts",
+				"browser": "./dist/browser/web/panels.js",
+				"bun": "./dist/web/panels.js",
+				"node": "./dist/node/web/panels.js",
+				"default": "./dist/web/panels.js"
+			},
+			"./web/table": {
+				"types": "./dist/web/table.d.ts",
+				"browser": "./dist/browser/web/table.js",
+				"bun": "./dist/web/table.js",
+				"node": "./dist/node/web/table.js",
+				"default": "./dist/web/table.js"
+			}
+		},
+		"registry": "https://registry.npmjs.org/"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/libs/data-exchange-client"
+	},
+	"homepage": "https://contractspec.io"
+}

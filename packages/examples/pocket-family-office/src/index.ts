@@ -9,3 +9,5 @@ export * from './tenant.sample';
 export * from './workflows';
 
 import './docs';
+
+export * from './example';

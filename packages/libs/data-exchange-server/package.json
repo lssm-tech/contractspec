@@ -1,0 +1,156 @@
+{
+	"name": "@contractspec/lib.data-exchange-server",
+	"version": "0.1.0",
+	"description": "Server-side adapters and execution services for SchemaModel-first data interchange",
+	"keywords": [
+		"contractspec",
+		"data",
+		"import",
+		"export",
+		"server",
+		"typescript"
+	],
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"sideEffects": false,
+	"scripts": {
+		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+		"publish:pkg:canary": "bun publish:pkg --tag canary",
+		"build": "bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"dev": "contractspec-bun-build dev",
+		"clean": "rimraf dist .turbo",
+		"lint": "bun lint:fix",
+		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
+		"lint:check": "node ../../../scripts/biome.cjs check .",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/lib.data-exchange-core": "workspace:*"
+	},
+	"devDependencies": {
+		"@contractspec/tool.typescript": "workspace:*",
+		"typescript": "catalog:",
+		"@contractspec/tool.bun": "workspace:*"
+	},
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"exports": {
+		".": "./src/index.ts",
+		"./adapters": "./src/adapters/index.ts",
+		"./adapters/file": "./src/adapters/file.ts",
+		"./adapters/http": "./src/adapters/http.ts",
+		"./adapters/sql": "./src/adapters/sql.ts",
+		"./adapters/storage": "./src/adapters/storage.ts",
+		"./data-exchange-server.feature": "./src/data-exchange-server.feature.ts",
+		"./services": "./src/services/index.ts",
+		"./services/execution": "./src/services/execution.ts",
+		"./services/io": "./src/services/io.ts",
+		"./services/retry": "./src/services/retry.ts",
+		"./types": "./src/types.ts",
+		"./workflow": "./src/workflow/index.ts",
+		"./workflow/interchange-workflow": "./src/workflow/interchange-workflow.ts"
+	},
+	"publishConfig": {
+		"access": "public",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./adapters": {
+				"types": "./dist/adapters/index.d.ts",
+				"bun": "./dist/adapters/index.js",
+				"node": "./dist/node/adapters/index.js",
+				"default": "./dist/adapters/index.js"
+			},
+			"./adapters/file": {
+				"types": "./dist/adapters/file.d.ts",
+				"bun": "./dist/adapters/file.js",
+				"node": "./dist/node/adapters/file.js",
+				"default": "./dist/adapters/file.js"
+			},
+			"./adapters/http": {
+				"types": "./dist/adapters/http.d.ts",
+				"bun": "./dist/adapters/http.js",
+				"node": "./dist/node/adapters/http.js",
+				"default": "./dist/adapters/http.js"
+			},
+			"./adapters/sql": {
+				"types": "./dist/adapters/sql.d.ts",
+				"bun": "./dist/adapters/sql.js",
+				"node": "./dist/node/adapters/sql.js",
+				"default": "./dist/adapters/sql.js"
+			},
+			"./adapters/storage": {
+				"types": "./dist/adapters/storage.d.ts",
+				"bun": "./dist/adapters/storage.js",
+				"node": "./dist/node/adapters/storage.js",
+				"default": "./dist/adapters/storage.js"
+			},
+			"./data-exchange-server.feature": {
+				"types": "./dist/data-exchange-server.feature.d.ts",
+				"bun": "./dist/data-exchange-server.feature.js",
+				"node": "./dist/node/data-exchange-server.feature.js",
+				"default": "./dist/data-exchange-server.feature.js"
+			},
+			"./services": {
+				"types": "./dist/services/index.d.ts",
+				"bun": "./dist/services/index.js",
+				"node": "./dist/node/services/index.js",
+				"default": "./dist/services/index.js"
+			},
+			"./services/execution": {
+				"types": "./dist/services/execution.d.ts",
+				"bun": "./dist/services/execution.js",
+				"node": "./dist/node/services/execution.js",
+				"default": "./dist/services/execution.js"
+			},
+			"./services/io": {
+				"types": "./dist/services/io.d.ts",
+				"bun": "./dist/services/io.js",
+				"node": "./dist/node/services/io.js",
+				"default": "./dist/services/io.js"
+			},
+			"./services/retry": {
+				"types": "./dist/services/retry.d.ts",
+				"bun": "./dist/services/retry.js",
+				"node": "./dist/node/services/retry.js",
+				"default": "./dist/services/retry.js"
+			},
+			"./types": {
+				"types": "./dist/types.d.ts",
+				"bun": "./dist/types.js",
+				"node": "./dist/node/types.js",
+				"default": "./dist/types.js"
+			},
+			"./workflow": {
+				"types": "./dist/workflow/index.d.ts",
+				"bun": "./dist/workflow/index.js",
+				"node": "./dist/node/workflow/index.js",
+				"default": "./dist/workflow/index.js"
+			},
+			"./workflow/interchange-workflow": {
+				"types": "./dist/workflow/interchange-workflow.d.ts",
+				"bun": "./dist/workflow/interchange-workflow.js",
+				"node": "./dist/node/workflow/interchange-workflow.js",
+				"default": "./dist/workflow/interchange-workflow.js"
+			}
+		},
+		"registry": "https://registry.npmjs.org/"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/libs/data-exchange-server"
+	},
+	"homepage": "https://contractspec.io"
+}

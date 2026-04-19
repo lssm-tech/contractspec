@@ -33,5 +33,8 @@
 		"registry": "https://registry.npmjs.org/",
 		"access": "public"
 	},
-	"homepage": "https://contractspec.io"
+	"homepage": "https://contractspec.io",
+	"exports": {
+		".": "./src/index.ts"
+	}
 }

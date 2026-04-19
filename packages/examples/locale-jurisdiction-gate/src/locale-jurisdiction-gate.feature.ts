@@ -1,4 +1,4 @@
-import { defineFeature } from '@contractspec/lib.contracts-spec';
+import { defineFeature } from '@contractspec/lib.contracts-spec/features';
 import { AssistantGatePolicy } from './policy/assistant-gate.policy';
 
 export const LocaleJurisdictionGateFeature = defineFeature({

@@ -1,32 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesIntegrationStripeExample = defineExample({
 	meta: {
-		key: 'integration-stripe',
+		key: 'examples.integration-stripe',
 		version: '1.0.0',
-		title: 'Integration — Stripe Payments',
+		title: 'Integration Stripe',
 		description:
-			'Wire AppBlueprint + Workflow + TenantAppConfig to enable Stripe-backed payments (spec-first integration pattern).',
-		kind: 'integration',
-		visibility: 'public',
+			'Integration example – Stripe Payments (blueprint + workflow + tenant config).',
+		kind: 'template',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['stripe', 'payments', 'integration', 'blueprint', 'workflow'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.integration-stripe',
-		usageDocId: 'docs.examples.integration-stripe.usage',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.integration-stripe',
-		docs: './docs',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'integration-stripe'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: { enabled: true, modes: ['markdown', 'specs'] },
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.integration-stripe',
 	},
 });
 
-export default example;
+export default ExamplesIntegrationStripeExample;
+export { ExamplesIntegrationStripeExample };

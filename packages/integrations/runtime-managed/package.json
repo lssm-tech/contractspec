@@ -26,7 +26,9 @@
 	},
 	"dependencies": {
 		"@contractspec/integration.runtime": "workspace:*",
-		"@contractspec/lib.provider-spec": "workspace:*"
+		"@contractspec/lib.provider-spec": "workspace:*",
+		"@contractspec/lib.contracts-integrations": "workspace:*",
+		"@contractspec/lib.schema": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.bun": "workspace:*",
@@ -34,7 +36,8 @@
 		"typescript": "catalog:"
 	},
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./integration": "./src/integration.ts"
 	},
 	"publishConfig": {
 		"exports": {
@@ -44,6 +47,13 @@
 				"bun": "./dist/index.js",
 				"node": "./dist/node/index.js",
 				"default": "./dist/index.js"
+			},
+			"./integration": {
+				"types": "./dist/integration.d.ts",
+				"browser": "./dist/browser/integration.js",
+				"bun": "./dist/integration.js",
+				"node": "./dist/node/integration.js",
+				"default": "./dist/integration.js"
 			}
 		}
 	}

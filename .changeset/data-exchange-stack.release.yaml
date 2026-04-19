@@ -1,0 +1,82 @@
+schemaVersion: "1"
+slug: data-exchange-stack
+summary: Add a new SchemaModel-first data interchange stack with shared codecs, planning APIs, server adapters, client mapping surfaces, and a compatibility refresh for `@contractspec/lib.exporter`.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.data-exchange-core"
+    releaseType: minor
+  - name: "@contractspec/lib.data-exchange-server"
+    releaseType: minor
+  - name: "@contractspec/lib.data-exchange-client"
+    releaseType: minor
+  - name: "@contractspec/lib.exporter"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - node
+  - nextjs
+  - expo
+affectedFrameworks:
+  - react
+  - react-native
+audiences:
+  - kind: maintainer
+    summary: Maintainers now have a dedicated data-interchange package family instead of the orphaned `lib.exporter` stub, with SchemaModel-driven planning in core, adapter-based execution on the server, and reusable mapping/review controllers on the client.
+    affectedPackages:
+      - "@contractspec/lib.data-exchange-core"
+      - "@contractspec/lib.data-exchange-server"
+      - "@contractspec/lib.data-exchange-client"
+      - "@contractspec/lib.exporter"
+  - kind: integrator
+    summary: Integrators can profile CSV/JSON/XML payloads into normalized record batches, infer mappings against SchemaModels, preview and validate changes, and route execution through file, HTTP, SQL, or storage adapter families.
+    affectedPackages:
+      - "@contractspec/lib.data-exchange-core"
+      - "@contractspec/lib.data-exchange-server"
+      - "@contractspec/lib.data-exchange-client"
+  - kind: customer
+    summary: Existing `@contractspec/lib.exporter` consumers keep the legacy CSV/XML payload API and gain a JSON wrapper, while new work can adopt the more robust data-exchange stack directly.
+    affectedPackages:
+      - "@contractspec/lib.exporter"
+      - "@contractspec/lib.data-exchange-core"
+deprecations:
+  - package: "@contractspec/lib.exporter"
+    summary: Prefer `@contractspec/lib.data-exchange-core` for new import/export work; `lib.exporter` remains as a compatibility shim.
+migrationInstructions:
+  - id: move-new-work-to-data-exchange-core
+    title: Prefer the new core codecs and planning APIs for new integrations
+    summary: Keep `lib.exporter` only for legacy payload callers; build new import/export flows on the new core/server/client package family.
+    required: false
+    when: When implementing new interchange flows or connector-backed imports/exports.
+    steps:
+      - Use `@contractspec/lib.data-exchange-core` for normalized `RecordBatch`, mapping, preview, and reconciliation planning.
+      - Use `@contractspec/lib.data-exchange-server` for file, HTTP, SQL, or storage execution services.
+      - Use `@contractspec/lib.data-exchange-client` for shared mapping/review UI surfaces.
+  - id: keep-exporter-callers-stable
+    title: Keep legacy exporter callers on the compatibility shim
+    summary: The old payload shape remains valid, with CSV/XML preserved and JSON added.
+    required: false
+    when: When an existing integration already depends on `toCsvGeneric` or `toXmlGeneric`.
+    steps:
+      - Keep the existing `CsvXmlExportPayload` shape.
+      - Use `toJsonGeneric(...)` when the same legacy payload now needs JSON output.
+      - Migrate to the new core package only when you are ready to adopt normalized `RecordBatch` flows.
+upgradeSteps:
+  - id: verify-data-exchange-packages
+    title: Re-run focused package verification
+    summary: The new stack spans new packages plus the legacy exporter shim.
+    level: assisted
+    instructions:
+      - Run the focused bun test suites for `data-exchange-core`, `data-exchange-server`, `data-exchange-client`, and `exporter`.
+      - Run targeted typechecks and lint checks for the same four packages.
+      - Treat `build:bundle` as the current build proof; if `contractspec-bun-build types` stalls, rely on the separate package typechecks until the build tool issue is fixed.
+validation:
+  commands:
+    - cd packages/libs/data-exchange-core && bun test && bun run typecheck && bun run lint:check
+    - cd packages/libs/data-exchange-server && bun test && bun run typecheck && bun run lint:check
+    - cd packages/libs/data-exchange-client && bun test && bun run typecheck && bun run lint:check
+    - cd packages/libs/exporter && bun test && bun run typecheck && bun run lint:check
+  evidence:
+    - "`@contractspec/lib.data-exchange-core` now exposes normalized `RecordBatch`, mapping rules, SchemaModel coercion, preview diffs, and CSV/JSON/XML codecs."
+    - "`@contractspec/lib.data-exchange-server` now provides adapter families for file, HTTP, SQL, and storage plus execution services and interchange workflow templates."
+    - "`@contractspec/lib.data-exchange-client` now provides shared mapping/review view models with web and native presentation surfaces."
+    - "`@contractspec/lib.exporter` now delegates CSV/XML formatting to the new core and adds `toJsonGeneric(...)` for the legacy payload shape."

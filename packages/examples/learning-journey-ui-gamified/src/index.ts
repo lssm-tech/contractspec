@@ -8,3 +8,5 @@ export * from './learning-journey-ui-gamified.feature';
 // Views
 export { Overview, Progress, Steps, Timeline } from './views';
 import './docs';
+
+export * from './example';

@@ -1,31 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesLifecycleDashboardExample = defineExample({
 	meta: {
-		key: 'lifecycle-dashboard',
+		key: 'examples.lifecycle-dashboard',
 		version: '1.0.0',
-		title: 'Lifecycle Dashboard (snippet)',
+		title: 'Lifecycle Dashboard',
 		description:
-			'A minimal dashboard page pattern: call lifecycle-managed endpoints and render a mobile-friendly status card.',
-		kind: 'blueprint',
-		visibility: 'public',
+			'Lifecycle dashboard example (snippet): how to call lifecycle-managed APIs and render a status card.',
+		kind: 'template',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['lifecycle', 'dashboard', 'nextjs', 'snippet'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.lifecycle-dashboard',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.lifecycle-dashboard',
-		docs: './docs',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'lifecycle-dashboard'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: { enabled: true, modes: ['markdown', 'specs'] },
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.lifecycle-dashboard',
 	},
 });
 
-export default example;
+export default ExamplesLifecycleDashboardExample;
+export { ExamplesLifecycleDashboardExample };

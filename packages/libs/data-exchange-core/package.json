@@ -1,0 +1,250 @@
+{
+	"name": "@contractspec/lib.data-exchange-core",
+	"version": "0.1.0",
+	"description": "SchemaModel-first core primitives for data import/export and mapping",
+	"keywords": [
+		"contractspec",
+		"data",
+		"import",
+		"export",
+		"mapping",
+		"typescript"
+	],
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"sideEffects": false,
+	"scripts": {
+		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+		"publish:pkg:canary": "bun publish:pkg --tag canary",
+		"build": "bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"dev": "contractspec-bun-build dev",
+		"clean": "rimraf dist .turbo",
+		"lint": "bun lint:fix",
+		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
+		"lint:check": "node ../../../scripts/biome.cjs check .",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/lib.schema": "workspace:*"
+	},
+	"devDependencies": {
+		"@contractspec/tool.typescript": "workspace:*",
+		"typescript": "catalog:",
+		"@contractspec/tool.bun": "workspace:*"
+	},
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"exports": {
+		".": "./src/index.ts",
+		"./codecs": "./src/codecs/index.ts",
+		"./codecs/csv": "./src/codecs/csv.ts",
+		"./codecs/json": "./src/codecs/json.ts",
+		"./codecs/xml": "./src/codecs/xml.ts",
+		"./data-exchange-core.feature": "./src/data-exchange-core.feature.ts",
+		"./mapping": "./src/mapping/index.ts",
+		"./mapping/infer": "./src/mapping/infer.ts",
+		"./mapping/rules": "./src/mapping/rules.ts",
+		"./plans": "./src/plans/index.ts",
+		"./plans/export-plan": "./src/plans/export-plan.ts",
+		"./plans/import-plan": "./src/plans/import-plan.ts",
+		"./plans/shared": "./src/plans/shared.ts",
+		"./preview": "./src/preview/index.ts",
+		"./preview/diff": "./src/preview/diff.ts",
+		"./preview/preview": "./src/preview/preview.ts",
+		"./records": "./src/records/index.ts",
+		"./records/batch": "./src/records/batch.ts",
+		"./records/flatten": "./src/records/flatten.ts",
+		"./records/path": "./src/records/path.ts",
+		"./schema": "./src/schema/index.ts",
+		"./schema/coerce": "./src/schema/coerce.ts",
+		"./schema/describe": "./src/schema/describe.ts",
+		"./types": "./src/types.ts"
+	},
+	"publishConfig": {
+		"access": "public",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"browser": "./dist/browser/index.js",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./codecs": {
+				"types": "./dist/codecs/index.d.ts",
+				"browser": "./dist/browser/codecs/index.js",
+				"bun": "./dist/codecs/index.js",
+				"node": "./dist/node/codecs/index.js",
+				"default": "./dist/codecs/index.js"
+			},
+			"./codecs/csv": {
+				"types": "./dist/codecs/csv.d.ts",
+				"browser": "./dist/browser/codecs/csv.js",
+				"bun": "./dist/codecs/csv.js",
+				"node": "./dist/node/codecs/csv.js",
+				"default": "./dist/codecs/csv.js"
+			},
+			"./codecs/json": {
+				"types": "./dist/codecs/json.d.ts",
+				"browser": "./dist/browser/codecs/json.js",
+				"bun": "./dist/codecs/json.js",
+				"node": "./dist/node/codecs/json.js",
+				"default": "./dist/codecs/json.js"
+			},
+			"./codecs/xml": {
+				"types": "./dist/codecs/xml.d.ts",
+				"browser": "./dist/browser/codecs/xml.js",
+				"bun": "./dist/codecs/xml.js",
+				"node": "./dist/node/codecs/xml.js",
+				"default": "./dist/codecs/xml.js"
+			},
+			"./data-exchange-core.feature": {
+				"types": "./dist/data-exchange-core.feature.d.ts",
+				"browser": "./dist/browser/data-exchange-core.feature.js",
+				"bun": "./dist/data-exchange-core.feature.js",
+				"node": "./dist/node/data-exchange-core.feature.js",
+				"default": "./dist/data-exchange-core.feature.js"
+			},
+			"./mapping": {
+				"types": "./dist/mapping/index.d.ts",
+				"browser": "./dist/browser/mapping/index.js",
+				"bun": "./dist/mapping/index.js",
+				"node": "./dist/node/mapping/index.js",
+				"default": "./dist/mapping/index.js"
+			},
+			"./mapping/infer": {
+				"types": "./dist/mapping/infer.d.ts",
+				"browser": "./dist/browser/mapping/infer.js",
+				"bun": "./dist/mapping/infer.js",
+				"node": "./dist/node/mapping/infer.js",
+				"default": "./dist/mapping/infer.js"
+			},
+			"./mapping/rules": {
+				"types": "./dist/mapping/rules.d.ts",
+				"browser": "./dist/browser/mapping/rules.js",
+				"bun": "./dist/mapping/rules.js",
+				"node": "./dist/node/mapping/rules.js",
+				"default": "./dist/mapping/rules.js"
+			},
+			"./plans": {
+				"types": "./dist/plans/index.d.ts",
+				"browser": "./dist/browser/plans/index.js",
+				"bun": "./dist/plans/index.js",
+				"node": "./dist/node/plans/index.js",
+				"default": "./dist/plans/index.js"
+			},
+			"./plans/export-plan": {
+				"types": "./dist/plans/export-plan.d.ts",
+				"browser": "./dist/browser/plans/export-plan.js",
+				"bun": "./dist/plans/export-plan.js",
+				"node": "./dist/node/plans/export-plan.js",
+				"default": "./dist/plans/export-plan.js"
+			},
+			"./plans/import-plan": {
+				"types": "./dist/plans/import-plan.d.ts",
+				"browser": "./dist/browser/plans/import-plan.js",
+				"bun": "./dist/plans/import-plan.js",
+				"node": "./dist/node/plans/import-plan.js",
+				"default": "./dist/plans/import-plan.js"
+			},
+			"./plans/shared": {
+				"types": "./dist/plans/shared.d.ts",
+				"browser": "./dist/browser/plans/shared.js",
+				"bun": "./dist/plans/shared.js",
+				"node": "./dist/node/plans/shared.js",
+				"default": "./dist/plans/shared.js"
+			},
+			"./preview": {
+				"types": "./dist/preview/index.d.ts",
+				"browser": "./dist/browser/preview/index.js",
+				"bun": "./dist/preview/index.js",
+				"node": "./dist/node/preview/index.js",
+				"default": "./dist/preview/index.js"
+			},
+			"./preview/diff": {
+				"types": "./dist/preview/diff.d.ts",
+				"browser": "./dist/browser/preview/diff.js",
+				"bun": "./dist/preview/diff.js",
+				"node": "./dist/node/preview/diff.js",
+				"default": "./dist/preview/diff.js"
+			},
+			"./preview/preview": {
+				"types": "./dist/preview/preview.d.ts",
+				"browser": "./dist/browser/preview/preview.js",
+				"bun": "./dist/preview/preview.js",
+				"node": "./dist/node/preview/preview.js",
+				"default": "./dist/preview/preview.js"
+			},
+			"./records": {
+				"types": "./dist/records/index.d.ts",
+				"browser": "./dist/browser/records/index.js",
+				"bun": "./dist/records/index.js",
+				"node": "./dist/node/records/index.js",
+				"default": "./dist/records/index.js"
+			},
+			"./records/batch": {
+				"types": "./dist/records/batch.d.ts",
+				"browser": "./dist/browser/records/batch.js",
+				"bun": "./dist/records/batch.js",
+				"node": "./dist/node/records/batch.js",
+				"default": "./dist/records/batch.js"
+			},
+			"./records/flatten": {
+				"types": "./dist/records/flatten.d.ts",
+				"browser": "./dist/browser/records/flatten.js",
+				"bun": "./dist/records/flatten.js",
+				"node": "./dist/node/records/flatten.js",
+				"default": "./dist/records/flatten.js"
+			},
+			"./records/path": {
+				"types": "./dist/records/path.d.ts",
+				"browser": "./dist/browser/records/path.js",
+				"bun": "./dist/records/path.js",
+				"node": "./dist/node/records/path.js",
+				"default": "./dist/records/path.js"
+			},
+			"./schema": {
+				"types": "./dist/schema/index.d.ts",
+				"browser": "./dist/browser/schema/index.js",
+				"bun": "./dist/schema/index.js",
+				"node": "./dist/node/schema/index.js",
+				"default": "./dist/schema/index.js"
+			},
+			"./schema/coerce": {
+				"types": "./dist/schema/coerce.d.ts",
+				"browser": "./dist/browser/schema/coerce.js",
+				"bun": "./dist/schema/coerce.js",
+				"node": "./dist/node/schema/coerce.js",
+				"default": "./dist/schema/coerce.js"
+			},
+			"./schema/describe": {
+				"types": "./dist/schema/describe.d.ts",
+				"browser": "./dist/browser/schema/describe.js",
+				"bun": "./dist/schema/describe.js",
+				"node": "./dist/node/schema/describe.js",
+				"default": "./dist/schema/describe.js"
+			},
+			"./types": {
+				"types": "./dist/types.d.ts",
+				"browser": "./dist/browser/types.js",
+				"bun": "./dist/types.js",
+				"node": "./dist/node/types.js",
+				"default": "./dist/types.js"
+			}
+		},
+		"registry": "https://registry.npmjs.org/"
+	},
+	"license": "MIT",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/libs/data-exchange-core"
+	},
+	"homepage": "https://contractspec.io"
+}

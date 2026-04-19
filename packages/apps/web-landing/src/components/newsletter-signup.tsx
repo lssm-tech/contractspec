@@ -1,6 +1,5 @@
 'use client';
 
-import { subscribeToNewsletter } from '@contractspec/bundle.marketing/libs/email/newsletter';
 import type { SubmitNewsletterResult } from '@contractspec/bundle.marketing/libs/email/types';
 import { ActionForm, Link as DSLink } from '@contractspec/lib.design-system';
 import {
@@ -13,31 +12,13 @@ import { HStack, VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import { Muted, Small } from '@contractspec/lib.ui-kit-web/ui/typography';
 import { AlertCircle, CheckCircle, Mail } from 'lucide-react';
 import { useActionState } from 'react';
+import { submitNewsletterSignup } from '../lib/newsletter-action';
 
 export default function NewsletterSignup() {
-	const handleSubmit = async (
-		_prevState: SubmitNewsletterResult | null,
-		formData: FormData
-	) => {
-		const result = await subscribeToNewsletter(formData);
-
-		if (result.success) {
-			return {
-				success: true,
-				text: 'Thanks for subscribing! Check your inbox for a confirmation.',
-			};
-		} else {
-			return {
-				success: false,
-				text: result.text || 'Something went wrong. Please try again.',
-			};
-		}
-	};
-
 	const [submitResult, submitAction, isPending] = useActionState<
 		SubmitNewsletterResult | null,
 		FormData
-	>(handleSubmit, null);
+	>(submitNewsletterSignup, null);
 
 	return (
 		<VStack className="gap-3">
@@ -53,13 +34,15 @@ export default function NewsletterSignup() {
 								type="email"
 								name="email"
 								placeholder="your@email.com"
+								autoComplete="email"
+								data-lpignore="true"
 								disabled={isPending || submitResult?.success}
 								aria-label="Email address"
 								className="border-0 bg-transparent p-0 shadow-none focus-visible:ring-0"
 								required
 							/>
-							<InputGroupAddon>
-								<Mail />
+							<InputGroupAddon aria-hidden="true" suppressHydrationWarning>
+								<Mail aria-hidden="true" />
 							</InputGroupAddon>
 							<InputGroupAddon align="inline-end">
 								<InputGroupButton

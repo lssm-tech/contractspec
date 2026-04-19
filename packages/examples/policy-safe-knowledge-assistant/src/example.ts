@@ -1,37 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesPolicySafeKnowledgeAssistantExample = defineExample({
 	meta: {
-		key: 'policy-safe-knowledge-assistant',
+		key: 'examples.policy-safe-knowledge-assistant',
 		version: '1.0.0',
-		title: 'Policy-safe Knowledge Assistant',
+		title: 'Policy Safe Knowledge Assistant',
 		description:
-			'All-in-one template: locale/jurisdiction gating + versioned KB snapshots + HITL update pipeline + learning hub.',
+			'All-in-one template example: policy-safe knowledge assistant with locale/jurisdiction gating, versioned KB snapshots, HITL update pipeline, and learning hub.',
 		kind: 'template',
-		visibility: 'public',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['assistant', 'knowledge', 'policy', 'hitl', 'learning'],
-	},
-	docs: {
-		goalDocId: 'docs.examples.policy-safe-knowledge-assistant.goal',
-		usageDocId: 'docs.examples.policy-safe-knowledge-assistant.usage',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.policy-safe-knowledge-assistant',
-		feature: './policy-safe-knowledge-assistant.feature',
-		docs: './docs',
-		ui: './ui',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'policy-safe-knowledge-assistant'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: {
-			enabled: true,
-			modes: ['playground', 'specs', 'builder', 'markdown', 'evolution'],
-		},
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.policy-safe-knowledge-assistant',
 	},
 });
 
-export default example;
+export default ExamplesPolicySafeKnowledgeAssistantExample;
+export { ExamplesPolicySafeKnowledgeAssistantExample };

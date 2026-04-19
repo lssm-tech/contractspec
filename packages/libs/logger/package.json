@@ -39,7 +39,8 @@
 		}
 	},
 	"dependencies": {
-		"zone.js": "^0.16.1"
+		"zone.js": "^0.16.1",
+		"@contractspec/lib.contracts-spec": "workspace:*"
 	},
 	"types": "./dist/index.d.ts",
 	"files": [
@@ -70,6 +71,7 @@
 			"default": "./src/logger.node.ts"
 		},
 		"./logger.browser": "./src/logger.browser.ts",
+		"./logger.feature": "./src/logger.feature.ts",
 		"./logger.node": "./src/logger.node.ts",
 		"./timer": "./src/timer.ts",
 		"./tracer": {
@@ -135,6 +137,12 @@
 				"types": "./dist/logger.browser.d.ts",
 				"bun": "./dist/logger.browser.js",
 				"default": "./dist/logger.browser.js"
+			},
+			"./logger.feature": {
+				"types": "./dist/logger.feature.d.ts",
+				"bun": "./dist/logger.feature.js",
+				"node": "./dist/node/logger.feature.js",
+				"default": "./dist/logger.feature.js"
 			},
 			"./logger.node": {
 				"types": "./dist/logger.node.d.ts",

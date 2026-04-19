@@ -24,5 +24,8 @@
 		"@remotion/renderer": "^4.0.447",
 		"@types/react": "^19.0.0",
 		"typescript": "^5.9.3"
+	},
+	"exports": {
+		".": "./src/index.ts"
 	}
 }

@@ -55,6 +55,10 @@ import type {
 	OpenApiExportConfig,
 	OpenApiSourceConfig,
 	OpenCodeSDKConfig,
+	PackageDeclarationConfig,
+	PackageDeclarationRequiredByKind,
+	PackageDeclarationRollout,
+	PackageDeclarationTarget,
 	PrCommentConfig,
 	ReleaseConfig,
 	ResolvedContractsrcConfig,
@@ -275,6 +279,32 @@ export const ImpactConfigSchema: z.ZodType<ImpactConfig> = z.object({
 	exclude: z.array(z.string()).optional(),
 });
 
+export const PackageDeclarationRolloutSchema: z.ZodType<PackageDeclarationRollout> =
+	z.enum(['off', 'warning', 'error']);
+
+export const PackageDeclarationTargetSchema: z.ZodType<PackageDeclarationTarget> =
+	z.enum(['feature', 'integration', 'app-config', 'module-bundle', 'example']);
+
+export const PackageDeclarationRequiredByKindSchema: z.ZodType<PackageDeclarationRequiredByKind> =
+	z.object({
+		libs: PackageDeclarationTargetSchema.default('feature').optional(),
+		modules: PackageDeclarationTargetSchema.default('feature').optional(),
+		integrations:
+			PackageDeclarationTargetSchema.default('integration').optional(),
+		bundles: PackageDeclarationTargetSchema.default('module-bundle').optional(),
+		apps: PackageDeclarationTargetSchema.default('app-config').optional(),
+		appsRegistry:
+			PackageDeclarationTargetSchema.default('app-config').optional(),
+		examples: PackageDeclarationTargetSchema.default('example').optional(),
+	});
+
+export const PackageDeclarationConfigSchema: z.ZodType<PackageDeclarationConfig> =
+	z.object({
+		severity: PackageDeclarationRolloutSchema.default('error').optional(),
+		requiredByKind: PackageDeclarationRequiredByKindSchema.optional(),
+		allowMissing: z.array(z.string()).default([]).optional(),
+	});
+
 /**
  * CI/CD configuration section.
  */
@@ -296,6 +326,8 @@ export const CiConfigSchema: z.ZodType<CiConfig> = z.object({
 	checkRun: CheckRunConfigSchema.optional(),
 	/** Impact detection configuration */
 	impact: ImpactConfigSchema.optional(),
+	/** Package-level declaration coverage policy */
+	packageDeclarations: PackageDeclarationConfigSchema.optional(),
 });
 
 /**
@@ -900,6 +932,21 @@ export const DEFAULT_CONTRACTSRC: ResolvedContractsrcConfig = {
 	aiProvider: 'claude',
 	agentMode: 'simple',
 	outputDir: './src',
+	ci: {
+		packageDeclarations: {
+			severity: 'error',
+			requiredByKind: {
+				libs: 'feature',
+				modules: 'feature',
+				integrations: 'integration',
+				bundles: 'module-bundle',
+				apps: 'app-config',
+				appsRegistry: 'app-config',
+				examples: 'example',
+			},
+			allowMissing: [],
+		},
+	},
 	conventions: {
 		models: 'models',
 		operations: 'interactions/commands|queries',

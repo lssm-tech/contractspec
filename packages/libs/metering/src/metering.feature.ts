@@ -1,77 +1,41 @@
-/**
- * Metering Feature Module Specification
- *
- * Defines the feature module for usage metering and threshold management.
- */
-import { defineFeature } from '@contractspec/lib.contracts-spec';
+import { defineFeature } from '@contractspec/lib.contracts-spec/features';
 
-/**
- * Metering feature module that bundles usage tracking,
- * metrics definitions, and billing capabilities.
- */
 export const MeteringFeature = defineFeature({
 	meta: {
-		key: 'metrics',
+		key: 'libs.metering',
 		version: '1.0.0',
-		title: 'Usage Metering',
-		description: 'Usage metering, metric definitions, and threshold alerting',
-		domain: 'platform',
-		owners: ['@platform.metering'],
-		tags: ['metering', 'usage', 'billing', 'thresholds'],
-		stability: 'stable',
+		title: 'Metering',
+		description:
+			'Usage metering and billing core module for ContractSpec applications',
+		domain: 'metering',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'libs', 'metering'],
+		stability: 'experimental',
 	},
-
-	// All contract operations included in this feature
 	operations: [
-		// Metric operations
 		{ key: 'metric.define', version: '1.0.0' },
 		{ key: 'metric.update', version: '1.0.0' },
 		{ key: 'metric.delete', version: '1.0.0' },
 		{ key: 'metric.get', version: '1.0.0' },
 		{ key: 'metric.list', version: '1.0.0' },
-
-		// Usage operations
 		{ key: 'usage.record', version: '1.0.0' },
 		{ key: 'usage.recordBatch', version: '1.0.0' },
 		{ key: 'usage.get', version: '1.0.0' },
 		{ key: 'usage.getSummary', version: '1.0.0' },
-
-		// Threshold operations
 		{ key: 'threshold.create', version: '1.0.0' },
 		{ key: 'threshold.update', version: '1.0.0' },
 		{ key: 'threshold.delete', version: '1.0.0' },
 		{ key: 'threshold.list', version: '1.0.0' },
 	],
-
-	// Events emitted by this feature
 	events: [
-		// Metric events
 		{ key: 'metric.defined', version: '1.0.0' },
 		{ key: 'metric.updated', version: '1.0.0' },
-
-		// Usage events
 		{ key: 'usage.recorded', version: '1.0.0' },
 		{ key: 'usage.batch_recorded', version: '1.0.0' },
 		{ key: 'usage.aggregated', version: '1.0.0' },
-
-		// Threshold events
 		{ key: 'threshold.created', version: '1.0.0' },
 		{ key: 'threshold.exceeded', version: '1.0.0' },
 		{ key: 'threshold.approaching', version: '1.0.0' },
 		{ key: 'model.selected', version: '1.0.0' },
 	],
-
-	// No presentations for this library feature
-	presentations: [],
-	opToPresentation: [],
-	presentationsTargets: [],
-
-	// Capability definitions
-	capabilities: {
-		provides: [
-			{ key: 'metering', version: '1.0.0' },
-			{ key: 'thresholds', version: '1.0.0' },
-		],
-		requires: [],
-	},
 });

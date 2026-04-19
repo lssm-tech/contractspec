@@ -43,6 +43,7 @@
 	},
 	"exports": {
 		".": "./src/index.ts",
+		"./content-gen.feature": "./src/content-gen.feature.ts",
 		"./generators": "./src/generators/index.ts",
 		"./generators/blog": "./src/generators/blog.ts",
 		"./generators/email": "./src/generators/email.ts",
@@ -69,6 +70,13 @@
 				"bun": "./dist/index.js",
 				"node": "./dist/node/index.js",
 				"default": "./dist/index.js"
+			},
+			"./content-gen.feature": {
+				"types": "./dist/content-gen.feature.d.ts",
+				"browser": "./dist/browser/content-gen.feature.js",
+				"bun": "./dist/content-gen.feature.js",
+				"node": "./dist/node/content-gen.feature.js",
+				"default": "./dist/content-gen.feature.js"
 			},
 			"./generators": {
 				"types": "./dist/generators/index.d.ts",

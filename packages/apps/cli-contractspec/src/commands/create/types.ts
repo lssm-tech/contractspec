@@ -7,6 +7,8 @@ export interface CreateOptions {
 	provider?: string;
 	model?: string;
 	outputDir?: string;
+	packageDeclarations?: boolean;
+	dryRun?: boolean;
 	/** Skip formatting generated files */
 	noFormat?: boolean;
 	/** Override formatter type */

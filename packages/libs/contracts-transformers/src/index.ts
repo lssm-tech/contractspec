@@ -15,5 +15,6 @@
  */
 
 export * from './common';
+export * from './contracts-transformers.feature';
 // Re-export all modules
 export * from './openapi';

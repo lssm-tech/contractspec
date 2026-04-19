@@ -10,3 +10,5 @@ export * from './seed';
 export * from './ui';
 
 import './docs';
+
+export * from './example';

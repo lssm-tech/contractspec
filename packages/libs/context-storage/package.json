@@ -29,7 +29,9 @@
 		"prebuild": "contractspec-bun-build prebuild",
 		"typecheck": "tsc --noEmit"
 	},
-	"dependencies": {},
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*"
+	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",
 		"@contractspec/tool.bun": "workspace:*",
@@ -37,6 +39,7 @@
 	},
 	"exports": {
 		".": "./src/index.ts",
+		"./context-storage.feature": "./src/context-storage.feature.ts",
 		"./in-memory-store": "./src/in-memory-store.ts",
 		"./store": "./src/store.ts",
 		"./types": "./src/types.ts"
@@ -50,6 +53,13 @@
 				"bun": "./dist/index.js",
 				"node": "./dist/node/index.js",
 				"default": "./dist/index.js"
+			},
+			"./context-storage.feature": {
+				"types": "./dist/context-storage.feature.d.ts",
+				"browser": "./dist/browser/context-storage.feature.js",
+				"bun": "./dist/context-storage.feature.js",
+				"node": "./dist/node/context-storage.feature.js",
+				"default": "./dist/context-storage.feature.js"
 			},
 			"./in-memory-store": {
 				"types": "./dist/in-memory-store.d.ts",

@@ -41,5 +41,8 @@
 		"@types/react": "^19.2.14",
 		"tailwindcss": "catalog:build",
 		"typescript": "catalog:"
+	},
+	"exports": {
+		".": "./src/index.ts"
 	}
 }

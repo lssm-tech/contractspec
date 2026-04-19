@@ -15,3 +15,5 @@ export * from './policy';
 export * from './translations';
 
 import './docs';
+
+export * from './example';

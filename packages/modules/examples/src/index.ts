@@ -4,6 +4,7 @@
  * Pure types + registries for ContractSpec examples.
  */
 
+export * from './examples.feature';
 // Core registry
 export * from './registry';
 export * from './runtime/context';

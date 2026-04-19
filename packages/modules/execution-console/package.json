@@ -33,7 +33,8 @@
 	"dependencies": {
 		"@contractspec/lib.execution-lanes": "workspace:*",
 		"@contractspec/lib.ui-kit-web": "workspace:*",
-		"react": "catalog:"
+		"react": "catalog:",
+		"@contractspec/lib.contracts-spec": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.bun": "workspace:*",

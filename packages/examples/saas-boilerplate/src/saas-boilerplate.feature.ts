@@ -3,7 +3,7 @@
  *
  * Defines the feature module for the SaaS application foundation.
  */
-import { defineFeature } from '@contractspec/lib.contracts-spec';
+import { defineFeature } from '@contractspec/lib.contracts-spec/features';
 import { SaasVisualizationRefs } from './visualizations';
 
 /**

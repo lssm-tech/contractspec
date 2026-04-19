@@ -17,6 +17,7 @@
 		".": "./src/index.ts",
 		"./config": "./src/config.ts",
 		"./generator": "./src/generator.ts",
+		"./integration": "./src/integration.ts",
 		"./types": "./src/types.ts"
 	},
 	"files": [
@@ -44,7 +45,8 @@
 	"dependencies": {
 		"@contractspec/lib.contracts-spec": "workspace:*",
 		"@contractspec/lib.schema": "workspace:*",
-		"zod": "catalog:"
+		"zod": "catalog:",
+		"@contractspec/lib.contracts-integrations": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",
@@ -78,6 +80,12 @@
 				"bun": "./dist/generator.js",
 				"node": "./dist/node/generator.js",
 				"default": "./dist/generator.js"
+			},
+			"./integration": {
+				"types": "./dist/integration.d.ts",
+				"bun": "./dist/integration.js",
+				"node": "./dist/node/integration.js",
+				"default": "./dist/integration.js"
 			},
 			"./types": {
 				"types": "./dist/types.d.ts",

@@ -8,3 +8,5 @@ export { OnboardingMiniApp } from './OnboardingMiniApp';
 // Views
 export { Overview, Progress, Steps, Timeline } from './views';
 import './docs';
+
+export * from './example';

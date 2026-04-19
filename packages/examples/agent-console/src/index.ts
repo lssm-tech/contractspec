@@ -31,3 +31,5 @@ export * from './tool';
 export * from './ui';
 export * from './visualizations';
 import './docs';
+
+export * from './example';

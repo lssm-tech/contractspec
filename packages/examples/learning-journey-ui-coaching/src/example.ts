@@ -1,31 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesLearningJourneyUiCoachingExample = defineExample({
 	meta: {
-		key: 'learning-journey-ui-coaching',
+		key: 'examples.learning-journey-ui-coaching',
 		version: '1.0.0',
-		title: 'Learning Journey UI — Coaching',
+		title: 'Learning Journey Ui Coaching',
 		description:
-			'UI mini-app for coaching patterns: tips, engagement meter, progress.',
-		kind: 'ui',
-		visibility: 'public',
+			'Contextual coaching UI with tip cards and engagement tracking.',
+		kind: 'template',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['learning', 'ui', 'coaching'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.learning-journey-ui-coaching',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.learning-journey-ui-coaching',
-		docs: './docs',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'learning-journey-ui-coaching'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: { enabled: true, modes: ['playground', 'markdown'] },
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.learning-journey-ui-coaching',
 	},
 });
 
-export default example;
+export default ExamplesLearningJourneyUiCoachingExample;
+export { ExamplesLearningJourneyUiCoachingExample };

@@ -1,39 +1,27 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesSaasBoilerplateExample = defineExample({
 	meta: {
-		key: 'saas-boilerplate',
+		key: 'examples.saas-boilerplate',
 		version: '1.0.0',
-		title: 'SaaS Boilerplate',
-		description:
-			'Multi-tenant SaaS foundation with orgs, projects, settings, billing usage, and RBAC.',
+		title: 'Saas Boilerplate',
+		description: 'SaaS Boilerplate - Users, Orgs, Projects, Billing, Settings',
 		kind: 'template',
-		visibility: 'public',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['saas', 'multi-tenant', 'billing', 'rbac'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.saas-boilerplate',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.saas-boilerplate',
-		feature: './feature',
-		contracts: './contracts',
-		presentations: './presentations',
-		handlers: './handlers',
-		docs: './docs',
-		ui: './ui',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'saas-boilerplate'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: {
-			enabled: true,
-			modes: ['playground', 'specs', 'builder', 'markdown', 'evolution'],
-		},
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.saas-boilerplate',
 	},
 });
 
-export default example;
+export default ExamplesSaasBoilerplateExample;
+export { ExamplesSaasBoilerplateExample };
