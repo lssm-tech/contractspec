@@ -1,0 +1,103 @@
+schemaVersion: "1"
+slug: release-provenance-metadata-fix
+summary: Restore npm provenance-safe publishing for the public integration packages by declaring repository metadata and failing release discovery before publish when it is missing.
+isBreaking: false
+packages:
+  - name: "@contractspec/integration.builder-telegram"
+    releaseType: patch
+  - name: "@contractspec/integration.builder-voice"
+    releaseType: patch
+  - name: "@contractspec/integration.builder-whatsapp"
+    releaseType: patch
+  - name: "@contractspec/integration.provider.claude-code"
+    releaseType: patch
+  - name: "@contractspec/integration.provider.codex"
+    releaseType: patch
+  - name: "@contractspec/integration.provider.copilot"
+    releaseType: patch
+  - name: "@contractspec/integration.provider.gemini"
+    releaseType: patch
+  - name: "@contractspec/integration.provider.local-model"
+    releaseType: patch
+  - name: "@contractspec/integration.provider.stt"
+    releaseType: patch
+  - name: "@contractspec/integration.runtime.hybrid"
+    releaseType: patch
+  - name: "@contractspec/integration.runtime.local"
+    releaseType: patch
+  - name: "@contractspec/integration.runtime.managed"
+    releaseType: patch
+affectedRuntimes:
+  - node
+  - github-actions
+affectedFrameworks:
+  - changesets
+  - npm
+audiences:
+  - kind: maintainer
+    summary: Release discovery now blocks publishable manifests that omit repository metadata, and the affected integration packages declare the canonical GitHub repository URL and directory before npm provenance is requested.
+    affectedPackages:
+      - "@contractspec/integration.builder-telegram"
+      - "@contractspec/integration.builder-voice"
+      - "@contractspec/integration.builder-whatsapp"
+      - "@contractspec/integration.provider.claude-code"
+      - "@contractspec/integration.provider.codex"
+      - "@contractspec/integration.provider.copilot"
+      - "@contractspec/integration.provider.gemini"
+      - "@contractspec/integration.provider.local-model"
+      - "@contractspec/integration.provider.stt"
+      - "@contractspec/integration.runtime.hybrid"
+      - "@contractspec/integration.runtime.local"
+      - "@contractspec/integration.runtime.managed"
+  - kind: integrator
+    summary: Integrator release automation can republish the affected integration packages with npm provenance enabled without hitting the empty repository URL validation failure.
+    affectedPackages:
+      - "@contractspec/integration.builder-telegram"
+      - "@contractspec/integration.builder-voice"
+      - "@contractspec/integration.builder-whatsapp"
+      - "@contractspec/integration.provider.claude-code"
+      - "@contractspec/integration.provider.codex"
+      - "@contractspec/integration.provider.copilot"
+      - "@contractspec/integration.provider.gemini"
+      - "@contractspec/integration.provider.local-model"
+      - "@contractspec/integration.provider.stt"
+      - "@contractspec/integration.runtime.hybrid"
+      - "@contractspec/integration.runtime.local"
+      - "@contractspec/integration.runtime.managed"
+  - kind: customer
+    summary: This patch only corrects publish metadata for the affected integration packages; their runtime APIs and behavior are unchanged.
+    affectedPackages:
+      - "@contractspec/integration.builder-telegram"
+      - "@contractspec/integration.builder-voice"
+      - "@contractspec/integration.builder-whatsapp"
+      - "@contractspec/integration.provider.claude-code"
+      - "@contractspec/integration.provider.codex"
+      - "@contractspec/integration.provider.copilot"
+      - "@contractspec/integration.provider.gemini"
+      - "@contractspec/integration.provider.local-model"
+      - "@contractspec/integration.provider.stt"
+      - "@contractspec/integration.runtime.hybrid"
+      - "@contractspec/integration.runtime.local"
+      - "@contractspec/integration.runtime.managed"
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: republish-provenance-safe-integrations
+    title: Republish the affected integration packages with provenance enabled
+    summary: Pull the patch releases for the affected integration packages or rerun the release job after the metadata fix lands.
+    level: manual
+    instructions:
+      - Upgrade the affected integration packages to the patched versions once they are published.
+      - Re-run the release workflow with npm provenance enabled and verify release discovery completes before the publish step starts.
+validation:
+  commands:
+    - "node scripts/biome.cjs check scripts/release-package-utils.js scripts/release-package-utils.test.mjs packages/integrations/builder-telegram/package.json packages/integrations/builder-voice/package.json packages/integrations/builder-whatsapp/package.json packages/integrations/provider-claude-code/package.json packages/integrations/provider-codex/package.json packages/integrations/provider-copilot/package.json packages/integrations/provider-gemini/package.json packages/integrations/provider-local-model/package.json packages/integrations/provider-stt/package.json packages/integrations/runtime-hybrid/package.json packages/integrations/runtime-local/package.json packages/integrations/runtime-managed/package.json"
+    - "bun test scripts/release-package-utils.test.mjs"
+    - >-
+      node --input-type=module -e
+      "import('./scripts/release-package-utils.js').then(({ discoverPublishablePackages })
+      => discoverPublishablePackages(process.cwd(), { log: () => {}, warn: () =>
+      {} }))"
+  evidence:
+    - The 12 public integration package manifests now declare the canonical GitHub repository URL and per-package directory metadata required by npm provenance validation.
+    - Release discovery now fails immediately with a clear metadata error when a publishable package omits repository metadata, instead of surfacing the problem mid-publish from npm.
