@@ -17,7 +17,7 @@ export function Progress({ track, progress }: LearningViewProps) {
 	const totalXp =
 		track.totalXp ??
 		track.steps.reduce((sum, s) => sum + (s.xpReward ?? 0), 0) +
-			(track.completionRewards?.xpBonus ?? 0);
+			(track.completionRewards?.xp ?? 0);
 
 	const completedSteps = progress.completedStepIds.length;
 	const totalSteps = track.steps.length;
@@ -70,11 +70,11 @@ export function Progress({ track, progress }: LearningViewProps) {
 						size="lg"
 					/>
 
-					{track.completionRewards?.xpBonus && percentComplete < 100 && (
+					{track.completionRewards?.xp && percentComplete < 100 && (
 						<p className="text-muted-foreground text-sm">
 							🎁 Complete all steps for a{' '}
 							<span className="font-semibold text-green-500">
-								+{track.completionRewards.xpBonus} XP
+								+{track.completionRewards.xp} XP
 							</span>{' '}
 							bonus!
 						</p>

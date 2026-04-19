@@ -1,5 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { getChangelogVersions } from '@/lib/changelog';
+import { listPublicExampleDocsRoutes } from './docs/examples/example-doc-routes';
 
 const BASE_URL =
 	process.env.NEXT_PUBLIC_APP_URL || 'https://www.contractspec.io';
@@ -28,8 +29,7 @@ const DOCS_ROUTES = [
 	'/docs',
 	'/docs/manifesto',
 	'/docs/examples',
-	'/docs/examples/agent-console',
-	'/docs/examples/ai-chat-assistant',
+	...listPublicExampleDocsRoutes(),
 	// Getting Started
 	'/docs/getting-started/installation',
 	'/docs/getting-started/hello-world',
@@ -80,6 +80,7 @@ const DOCS_ROUTES = [
 	'/docs/libraries/observability',
 	'/docs/libraries/progressive-delivery',
 	'/docs/libraries/schema',
+	'/docs/libraries/ui-kit-web',
 	// Advanced
 	'/docs/advanced/mcp',
 	'/docs/advanced/overlay-editor',

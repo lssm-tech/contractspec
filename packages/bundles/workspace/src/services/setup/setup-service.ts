@@ -198,10 +198,7 @@ export async function runSetup(
 	}
 
 	let builderApiBaseUrl = seededOptions.builderApiBaseUrl;
-	if (
-		options.interactive &&
-		(preset === 'builder-managed' || preset === 'builder-hybrid')
-	) {
+	if (options.interactive && preset.startsWith('builder-')) {
 		builderApiBaseUrl = await prompts.input(
 			'Builder API base URL:',
 			builderApiBaseUrl ?? 'https://api.contractspec.io'

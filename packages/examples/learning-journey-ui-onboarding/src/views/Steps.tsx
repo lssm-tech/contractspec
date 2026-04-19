@@ -74,9 +74,9 @@ export function Steps({ track, progress, onStepComplete }: LearningViewProps) {
 				<div className="rounded-lg border border-blue-500/30 bg-blue-500/5 p-4">
 					<p className="text-sm">
 						🎁 Complete all steps to unlock:
-						{track.completionRewards.xpBonus && (
+						{track.completionRewards.xp && (
 							<span className="ml-2 font-semibold text-blue-500">
-								+{track.completionRewards.xpBonus} XP bonus
+								+{track.completionRewards.xp} XP bonus
 							</span>
 						)}
 						{track.completionRewards.badgeKey && (

@@ -2,6 +2,7 @@
  * Dependency analysis service.
  */
 
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts-spec';
 import {
 	addContractNode,
 	buildReverseEdges,
@@ -13,7 +14,6 @@ import {
 	parseImportedSpecNames,
 	toDot,
 } from '@contractspec/module.workspace';
-import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts-spec';
 import type { FsAdapter } from '../ports/fs';
 import { discoverSpecFiles } from './discover';
 

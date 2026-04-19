@@ -23,5 +23,6 @@ export { LibrariesSLOPage } from './LibrariesSLOPage';
 export { LibrariesSupportBotPage } from './LibrariesSupportBotPage';
 export { LibrariesTestingPage } from './LibrariesTestingPage';
 export { LibrariesUIKitPage } from './LibrariesUIKitPage';
+export { LibrariesUIKitWebPage } from './LibrariesUIKitWebPage';
 export { LibrariesWorkflowComposerPage } from './LibrariesWorkflowComposerPage';
 export { LibrariesWorkflowsPage } from './LibrariesWorkflowsPage';

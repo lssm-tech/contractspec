@@ -22,7 +22,7 @@ export function Overview({ track, progress, onStart }: GamifiedOverviewProps) {
 	const totalXp =
 		track.totalXp ??
 		track.steps.reduce((sum, s) => sum + (s.xpReward ?? 0), 0) +
-			(track.completionRewards?.xpBonus ?? 0);
+			(track.completionRewards?.xp ?? 0);
 
 	const completedSteps = progress.completedStepIds.length;
 	const totalSteps = track.steps.length;

@@ -469,20 +469,14 @@ async function checkPresetConfiguration(
 	const missing: string[] = [];
 	const tokenEnvVar = config.builder?.api?.controlPlaneTokenEnvVar;
 
-	if (
-		(preset === 'builder-managed' || preset === 'builder-hybrid') &&
-		!config.builder?.api?.baseUrl
-	) {
+	if (preset.startsWith('builder-') && !config.builder?.api?.baseUrl) {
 		missing.push('builder.api.baseUrl');
 	}
-	if (
-		(preset === 'builder-managed' || preset === 'builder-hybrid') &&
-		!tokenEnvVar
-	) {
+	if (preset.startsWith('builder-') && !tokenEnvVar) {
 		missing.push('builder.api.controlPlaneTokenEnvVar');
 	}
 	if (
-		(preset === 'builder-managed' || preset === 'builder-hybrid') &&
+		preset.startsWith('builder-') &&
 		tokenEnvVar &&
 		!process.env[tokenEnvVar]
 	) {
@@ -520,12 +514,12 @@ async function checkBuilderVscodeMirror(
 	const config = await loadWorkspaceConfig(fs, configRoot);
 	const preset = inferSetupPresetFromConfig(config);
 
-	if (preset !== 'builder-managed' && preset !== 'builder-hybrid') {
+	if (!preset.startsWith('builder-')) {
 		return {
 			category: 'config',
 			name: 'VS Code API Mirror',
 			status: 'skip',
-			message: 'Builder managed/hybrid preset is not enabled',
+			message: 'Builder preset is not enabled',
 		};
 	}
 

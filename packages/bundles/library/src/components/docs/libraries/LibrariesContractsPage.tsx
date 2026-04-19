@@ -2,6 +2,55 @@ import { CodeBlock, InstallCommand } from '@contractspec/lib.design-system';
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
 
+const DATA_TABLE_CONTRACT_EXAMPLE = `import { defineDataView } from '@contractspec/lib.contracts-spec/data-views';
+import { ListDataGridShowcaseRowsQuery } from '@contractspec/example.data-grid-showcase/contracts/data-grid-showcase.operation';
+
+export const DataGridShowcaseDataView = defineDataView({
+  meta: {
+    key: 'examples.data-grid-showcase.table',
+    version: '1.0.0',
+    entity: 'account',
+    title: 'Data Grid Showcase Table',
+    description:
+      'Declarative DataViewSpec for the ContractSpec table showcase.',
+    domain: 'examples',
+    owners: ['@platform.core'],
+    tags: ['examples', 'table', 'data-grid'],
+    stability: 'experimental',
+  },
+  source: {
+    primary: {
+      key: ListDataGridShowcaseRowsQuery.meta.key,
+      version: ListDataGridShowcaseRowsQuery.meta.version,
+    },
+  },
+  view: {
+    kind: 'table',
+    executionMode: 'client',
+    selection: 'multiple',
+    columnVisibility: true,
+    columnResizing: true,
+    columnPinning: true,
+    rowExpansion: {
+      fields: ['notes', 'renewalDate', 'lastActivityAt'],
+    },
+    initialState: {
+      pageSize: 4,
+      hiddenColumns: ['notes'],
+      pinnedColumns: {
+        left: ['account'],
+      },
+      sorting: [{ field: 'arr', desc: true }],
+    },
+    fields: [
+      { key: 'account', label: 'Account', dataPath: 'account', sortable: true },
+      { key: 'owner', label: 'Owner', dataPath: 'owner', sortable: true },
+      { key: 'status', label: 'Status', dataPath: 'status', sortable: true },
+      { key: 'notes', label: 'Notes', dataPath: 'notes' },
+    ],
+  },
+});`;
+
 export function LibrariesContractsPage() {
 	return (
 		<div className="space-y-8">
@@ -47,33 +96,24 @@ export function LibrariesContractsPage() {
 			</div>
 
 			<div className="space-y-4">
-				<h2 className="font-bold text-2xl">Quick Example</h2>
-				<CodeBlock
-					language="typescript"
-					code={`import { defineCommand } from '@contractspec/lib.contracts-spec';
-import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
-
-const CreateUserInput = new SchemaModel({
-  name: 'CreateUserInput',
-  fields: {
-    email: { type: ScalarTypeEnum.Email(), isOptional: false },
-    name: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
-  },
-});
-
-export const CreateUser = defineCommand({
-  meta: {
-    key: 'users.createUser',
-    version: '1.0.0',
-    description: 'Create a new user account',
-  },
-  io: {
-    input: CreateUserInput,
-    output: /* ... */,
-  },
-  policy: { auth: 'admin' },
-});`}
-				/>
+				<h2 className="font-bold text-2xl">Data table contract example</h2>
+				<p className="text-muted-foreground">
+					The canonical account-grid example starts here in{' '}
+					<code>@contractspec/lib.contracts-spec</code>. The contract declares
+					table execution mode, selection, pinning, resizing, row expansion, and
+					initial state before any renderer is chosen.
+				</p>
+				<CodeBlock language="typescript" code={DATA_TABLE_CONTRACT_EXAMPLE} />
+				<p className="text-muted-foreground text-sm">
+					See the live version in{' '}
+					<Link
+						href="/docs/examples/data-grid-showcase"
+						className="text-[color:var(--rust)] underline underline-offset-4"
+					>
+						/docs/examples/data-grid-showcase
+					</Link>
+					.
+				</p>
 			</div>
 
 			<div className="space-y-4">
@@ -103,6 +143,11 @@ export const CreateUser = defineCommand({
 					<li>
 						<strong>PresentationSpec (V2)</strong>: Describes how data is
 						rendered (Web Components, Markdown, Data).
+					</li>
+					<li>
+						<strong>DataViewSpec</strong>: Declarative list, table, grid, and
+						detail contracts that the table showcase uses as its canonical
+						account-grid example.
 					</li>
 				</ul>
 			</div>

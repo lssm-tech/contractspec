@@ -3,10 +3,10 @@
 import { Button } from '@contractspec/lib.design-system';
 import { Card, CardContent } from '@contractspec/lib.ui-kit-web/ui/card';
 import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
-import type { LearningJourneyStepSpec } from '@contractspec/module.learning-journey/track-spec';
+import type { JourneyStepSpec } from '@contractspec/module.learning-journey/track-spec';
 
 interface TipCardProps {
-	step: LearningJourneyStepSpec;
+	step: JourneyStepSpec;
 	isCompleted: boolean;
 	isCurrent: boolean;
 	onComplete?: () => void;

@@ -10,7 +10,7 @@ Website: https://contractspec.io
 - **Consumers**: apps (web-landing, docs), bundles (contractspec-studio).
 - Related ContractSpec packages include `@contractspec/example.agent-console`, `@contractspec/example.ai-chat-assistant`, `@contractspec/example.ai-support-bot`, `@contractspec/example.analytics-dashboard`, `@contractspec/example.calendar-google`, `@contractspec/example.content-generation`, ...
 - `agent-console` is the default autonomous-agent showcase surfaced through `/sandbox`.
-- `data-grid-showcase` is the focused ContractSpec table showcase surfaced through `/sandbox?template=data-grid-showcase`.
+- `data-grid-showcase` is the canonical ContractSpec table showcase surfaced through `/sandbox?template=data-grid-showcase` and `/docs/examples/data-grid-showcase`.
 
 ## Installation
 

@@ -3,7 +3,7 @@ import {
 	type PresentationSpecMeta,
 	StabilityEnum,
 } from '@contractspec/lib.contracts-spec';
-import { CrmOnboardingTrackModel } from '../operations';
+import { CrmJourneyTrackModel } from '../operations';
 
 const baseMeta: Pick<
 	PresentationSpecMeta,
@@ -29,7 +29,7 @@ export const CrmOnboardingTrackPresentation = definePresentation({
 		type: 'component',
 		framework: 'react',
 		componentKey: 'LearningTrackDetail',
-		props: CrmOnboardingTrackModel,
+		props: CrmJourneyTrackModel,
 	},
 	targets: ['react', 'markdown', 'application/json'],
 });

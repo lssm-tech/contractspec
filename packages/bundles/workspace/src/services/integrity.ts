@@ -7,6 +7,7 @@
  * - Feature coverage metrics
  */
 
+import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts-spec';
 import {
 	type AnalyzedSpecType,
 	type FeatureScanResult,
@@ -15,7 +16,6 @@ import {
 	scanAllSpecsFromSource,
 	scanFeatureSource,
 } from '@contractspec/module.workspace';
-import type { ResolvedContractsrcConfig } from '@contractspec/lib.contracts-spec';
 import type { FsAdapter } from '../ports/fs';
 import type { LoggerAdapter } from '../ports/logger';
 import { discoverSpecFiles } from './discover';

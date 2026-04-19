@@ -18,6 +18,29 @@ function readJson(filePath) {
 	return JSON.parse(fs.readFileSync(filePath, 'utf8'));
 }
 
+function getRepositoryUrl(manifest) {
+	const { repository } = manifest;
+	if (typeof repository === 'string') {
+		return repository.trim();
+	}
+	if (
+		repository &&
+		typeof repository === 'object' &&
+		typeof repository.url === 'string'
+	) {
+		return repository.url.trim();
+	}
+	return '';
+}
+
+function getPublishableManifestMetadataError(manifest, pkgDir) {
+	if (getRepositoryUrl(manifest)) {
+		return null;
+	}
+
+	return `Publishable package ${manifest.name || pkgDir} (${pkgDir}) is missing repository.url metadata required for npm provenance.`;
+}
+
 function findPackageJsonFiles(dir, files = []) {
 	const entries = fs.readdirSync(dir, { withFileTypes: true });
 
@@ -190,6 +213,7 @@ export function discoverPublishablePackages(
 	const log = options.log ?? console.log;
 	const warn = options.warn ?? console.warn;
 	const discoveredManifests = [];
+	const metadataErrors = [];
 
 	const rootManifestPath = path.join(repoRoot, 'package.json');
 	try {
@@ -200,16 +224,24 @@ export function discoverPublishablePackages(
 			rootManifest.private !== true &&
 			rootManifest.scripts?.['publish:pkg']
 		) {
-			discoveredManifests.push({
-				name: rootManifest.name,
-				dir: '.',
-				version: rootManifest.version,
-				hasBuildScript: Boolean(rootManifest.scripts?.build),
-				manifest: rootManifest,
-			});
-			log(
-				`[discover] Including root package: ${rootManifest.name}@${rootManifest.version}`
+			const metadataError = getPublishableManifestMetadataError(
+				rootManifest,
+				'.'
 			);
+			if (metadataError) {
+				metadataErrors.push(metadataError);
+			} else {
+				discoveredManifests.push({
+					name: rootManifest.name,
+					dir: '.',
+					version: rootManifest.version,
+					hasBuildScript: Boolean(rootManifest.scripts?.build),
+					manifest: rootManifest,
+				});
+				log(
+					`[discover] Including root package: ${rootManifest.name}@${rootManifest.version}`
+				);
+			}
 		}
 	} catch (error) {
 		warn(
@@ -233,6 +265,14 @@ export function discoverPublishablePackages(
 				log(`[discover] Skipping package without name: ${pkgDir}`);
 				continue;
 			}
+			const metadataError = getPublishableManifestMetadataError(
+				manifest,
+				pkgDir
+			);
+			if (metadataError) {
+				metadataErrors.push(metadataError);
+				continue;
+			}
 
 			discoveredManifests.push({
 				name: manifest.name,
@@ -246,6 +286,12 @@ export function discoverPublishablePackages(
 				`[discover] Error reading ${fullPath}: ${error instanceof Error ? error.message : String(error)}`
 			);
 		}
+	}
+
+	if (metadataErrors.length > 0) {
+		throw new Error(
+			`Publishable package metadata validation failed:\n${metadataErrors.map((error) => `- ${error}`).join('\n')}`
+		);
 	}
 
 	const publishableNames = new Set(

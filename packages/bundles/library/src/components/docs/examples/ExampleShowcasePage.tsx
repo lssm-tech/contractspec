@@ -5,7 +5,7 @@ import { FileCode2, Play, TerminalSquare } from 'lucide-react';
 import { getExampleShowcaseData } from './exampleShowcaseData';
 
 interface ExampleShowcasePageProps {
-	exampleKey: 'agent-console' | 'ai-chat-assistant' | 'messaging-agent-actions';
+	exampleKey: string;
 }
 
 export function ExampleShowcasePage({ exampleKey }: ExampleShowcasePageProps) {
@@ -28,7 +28,9 @@ export function ExampleShowcasePage({ exampleKey }: ExampleShowcasePageProps) {
 				<p className="editorial-subtitle">{showcase.lead}</p>
 				<p className="editorial-copy max-w-4xl">{summary}</p>
 				<div className="flex flex-wrap gap-3">
-					<ButtonLink href={showcase.sandboxHref}>Open sandbox</ButtonLink>
+					{showcase.sandboxHref ? (
+						<ButtonLink href={showcase.sandboxHref}>Open sandbox</ButtonLink>
+					) : null}
 					<ButtonLink href={showcase.referenceHref} variant="outline">
 						Generated reference
 					</ButtonLink>
@@ -36,21 +38,23 @@ export function ExampleShowcasePage({ exampleKey }: ExampleShowcasePageProps) {
 			</section>
 
 			<section className="grid gap-5 lg:grid-cols-3">
-				<article className="editorial-panel space-y-4">
-					<div className="flex items-center gap-3">
-						<div className="rounded-full border border-border/80 bg-background/85 p-2">
-							<Play size={18} />
+				{showcase.sandboxHref ? (
+					<article className="editorial-panel space-y-4">
+						<div className="flex items-center gap-3">
+							<div className="rounded-full border border-border/80 bg-background/85 p-2">
+								<Play size={18} />
+							</div>
+							<h2 className="font-semibold text-xl">Sandbox preview</h2>
 						</div>
-						<h2 className="font-semibold text-xl">Sandbox preview</h2>
-					</div>
-					<p className="editorial-copy text-sm">
-						Load the same public browser surface used for the prepared live
-						demo.
-					</p>
-					<ButtonLink href={showcase.sandboxHref} size="sm">
-						Open preview
-					</ButtonLink>
-				</article>
+						<p className="editorial-copy text-sm">
+							Load the same public browser surface used for the prepared live
+							demo.
+						</p>
+						<ButtonLink href={showcase.sandboxHref} size="sm">
+							Open preview
+						</ButtonLink>
+					</article>
+				) : null}
 
 				<article className="editorial-panel space-y-4">
 					<div className="flex items-center gap-3">
@@ -100,8 +104,8 @@ export function ExampleShowcasePage({ exampleKey }: ExampleShowcasePageProps) {
 						Exact local commands for the meetup lane
 					</h2>
 					<p className="editorial-copy text-sm">
-						Use the package build and test first, then launch the web shell and
-						open the prepared sandbox route.
+						Build the example package, then launch the web shell and open the
+						prepared docs or sandbox route.
 					</p>
 				</div>
 				<CodeBlock

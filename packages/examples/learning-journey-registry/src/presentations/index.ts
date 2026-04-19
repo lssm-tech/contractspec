@@ -59,7 +59,7 @@ export const LearningTrackProgressWidgetPresentation = definePresentation({
 		framework: 'react',
 		componentKey: 'LearningTrackProgressWidget',
 	},
-	targets: ['react'],
+	targets: ['react', 'markdown'],
 });
 
 export const learningJourneyPresentations = [

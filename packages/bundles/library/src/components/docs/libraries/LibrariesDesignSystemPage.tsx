@@ -2,6 +2,56 @@ import { CodeBlock, InstallCommand } from '@contractspec/lib.design-system';
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
 
+const DESIGN_SYSTEM_TABLE_EXAMPLE = `import { Button, DataTable } from '@contractspec/lib.design-system';
+import { useContractTable } from '@contractspec/lib.presentation-runtime-react';
+
+import { SHOWCASE_ROWS } from '@contractspec/example.data-grid-showcase/ui/data-grid-showcase.data';
+import { useShowcaseColumns } from '@contractspec/example.data-grid-showcase/ui/data-grid-showcase.columns';
+import {
+  ExpandedRowContent,
+  ShowcaseToolbar,
+} from '@contractspec/example.data-grid-showcase/ui/data-grid-showcase.parts';
+
+export function AccountHealthTable() {
+  const columns = useShowcaseColumns();
+
+  const controller = useContractTable({
+    data: SHOWCASE_ROWS,
+    columns,
+    selectionMode: 'multiple',
+    initialState: {
+      sorting: [{ id: 'arr', desc: true }],
+      pagination: { pageIndex: 0, pageSize: 4 },
+      columnVisibility: { notes: false },
+      columnPinning: { left: ['account'], right: [] },
+    },
+    renderExpandedContent: (row) => <ExpandedRowContent row={row} />,
+    getCanExpand: () => true,
+  });
+
+  return (
+    <DataTable
+      controller={controller}
+      title="Account health"
+      description="Composed table surface for the canonical account grid."
+      headerActions={<Button variant="outline">Reset</Button>}
+      toolbar={
+        <ShowcaseToolbar
+          controller={controller}
+          label="Client mode"
+          primaryColumnId="account"
+          toggleColumnId="notes"
+          pinColumnId="owner"
+          sortColumnIds={['arr', 'renewalDate']}
+        />
+      }
+      loading={false}
+      emptyState={<div>No rows available.</div>}
+      footer={\`Page \${controller.pageIndex + 1} of \${controller.pageCount}\`}
+    />
+  );
+}`;
+
 export function LibrariesDesignSystemPage() {
 	return (
 		<div className="space-y-8">
@@ -52,65 +102,19 @@ export function LibrariesDesignSystemPage() {
 			</div>
 
 			<div className="space-y-4">
-				<h2 className="font-bold text-2xl">Example: App Layout</h2>
-				<CodeBlock
-					language="tsx"
-					code={`import { AppLayout } from '@contractspec/lib.design-system';
-import { AppSidebar } from '@contractspec/lib.design-system';
-
-export function Layout({ children }) {
-  return (
-    <AppLayout sidebar={<AppSidebar />}>
-      {children}
-    </AppLayout>
-  );
-}`}
-				/>
-			</div>
-
-			<div className="space-y-4">
-				<h2 className="font-bold text-2xl">Example: Zod Form</h2>
-				<CodeBlock
-					language="tsx"
-					code={`import { ZodForm } from '@contractspec/lib.design-system';
-import * as z from "zod";
-
-const schema = z.object({
-  name: z.string().min(1),
-  email: z.string().email(),
-});
-
-export function SignupForm() {
-  return (
-    <ZodForm
-      schema={schema}
-      onSubmit={(data) => console.log(data)}
-      submitLabel="Submit"
-    />
-  );
-}`}
-				/>
-			</div>
-
-			<div className="space-y-4">
-				<h2 className="font-bold text-2xl">
-					Example: Code Block with Package Manager Tabs
-				</h2>
-				<CodeBlock
-					language="tsx"
-					code={`import { CodeBlock, InstallCommand } from '@contractspec/lib.design-system';
-
-// For installation commands with package manager tabs
-<InstallCommand package="my-package" />
-<InstallCommand package={["react", "react-dom"]} dev />
-
-// For code examples with syntax highlighting
-<CodeBlock
-  language="typescript"
-  code={\`const hello = "world";\`}
-  filename="example.ts"
-/>`}
-				/>
+				<h2 className="font-bold text-2xl">Data table example</h2>
+				<p className="text-muted-foreground">
+					This is the composed lane from the canonical{' '}
+					<Link
+						href="/docs/examples/data-grid-showcase"
+						className="text-[color:var(--rust)] underline underline-offset-4"
+					>
+						Data Grid Showcase
+					</Link>
+					. The design-system wrapper owns title, description, header actions,
+					and the opinionated card shell on top of the raw web primitive.
+				</p>
+				<CodeBlock language="tsx" code={DESIGN_SYSTEM_TABLE_EXAMPLE} />
 			</div>
 
 			<div className="space-y-4">
@@ -127,6 +131,8 @@ export function SignupForm() {
 					<div className="card-subtle p-4">
 						<h3 className="mb-2 font-semibold">Data & Forms</h3>
 						<ul className="space-y-1 text-muted-foreground text-sm">
+							<li>DataTable</li>
+							<li>DataViewTable</li>
 							<li>DataViewRenderer</li>
 							<li>ZodForm</li>
 							<li>FormLayout, FormDialog</li>
@@ -151,8 +157,8 @@ export function SignupForm() {
 			</div>
 
 			<div className="flex items-center gap-4 pt-4">
-				<Link href="/docs/libraries/ui-kit" className="btn-ghost">
-					Previous: UI Kit
+				<Link href="/docs/libraries/ui-kit-web" className="btn-ghost">
+					Previous: UI Kit Web
 				</Link>
 				<Link href="/docs/libraries/accessibility" className="btn-primary">
 					Next: Accessibility <ChevronRight size={16} />

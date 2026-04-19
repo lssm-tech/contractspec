@@ -6,6 +6,14 @@ import {
 	useContractTable,
 	useDataViewTable,
 } from '@contractspec/lib.presentation-runtime-react';
+import {
+	Card,
+	CardContent,
+	CardDescription,
+	CardHeader,
+	CardTitle,
+} from '@contractspec/lib.ui-kit-web/ui/card';
+import { DataTable as WebPrimitiveDataTable } from '@contractspec/lib.ui-kit-web/ui/data-table';
 import * as React from 'react';
 import { DataGridShowcaseDataView } from '../contracts/data-grid-showcase.data-view';
 import { useShowcaseColumns } from './data-grid-showcase.columns';
@@ -19,14 +27,30 @@ import {
 	formatCurrency,
 	formatDate,
 	formatDateTime,
+	ShowcaseHeaderActions,
 	ShowcaseToolbar,
 	StatusBadge,
 } from './data-grid-showcase.parts';
 
-export function ClientModeTable() {
+function logRowPress(
+	label: string,
+	row: ShowcaseRow,
+	onEvent?: (message: string) => void
+) {
+	onEvent?.(`${label}: pressed row "${row.account}" (${row.status})`);
+}
+
+export function ClientModeTable({
+	onEvent,
+}: {
+	onEvent?: (message: string) => void;
+}) {
 	const columns = useShowcaseColumns();
+	const [loading, setLoading] = React.useState(false);
+	const [showEmpty, setShowEmpty] = React.useState(false);
+	const rows = showEmpty ? [] : SHOWCASE_ROWS;
 	const controller = useContractTable<ShowcaseRow>({
-		data: SHOWCASE_ROWS,
+		data: rows,
 		columns,
 		selectionMode: 'multiple',
 		initialState: {
@@ -42,8 +66,34 @@ export function ClientModeTable() {
 	return (
 		<DataTable
 			controller={controller}
-			title="Generic Client"
-			description="All table features driven by the shared headless controller with local data."
+			title="Client Controller + Design System"
+			description="The design-system wrapper adds title, description, header actions, toolbar, footer, loading, and empty states on top of the shared headless controller."
+			headerActions={
+				<ShowcaseHeaderActions
+					label="Client"
+					loading={loading}
+					showEmpty={showEmpty}
+					onToggleLoading={() => {
+						setLoading((current) => !current);
+						onEvent?.('Client: toggled simulated loading');
+					}}
+					onToggleEmpty={() => {
+						setShowEmpty((current) => !current);
+						onEvent?.('Client: toggled empty-state mode');
+					}}
+					onReset={() => {
+						setLoading(false);
+						setShowEmpty(false);
+						onEvent?.('Client: reset header actions');
+					}}
+				/>
+			}
+			loading={loading}
+			emptyState={
+				<div className="rounded-md border border-dashed p-6 text-center text-muted-foreground text-sm">
+					Client mode is showing the empty state on purpose.
+				</div>
+			}
 			toolbar={
 				<ShowcaseToolbar
 					controller={controller}
@@ -51,14 +101,21 @@ export function ClientModeTable() {
 					primaryColumnId="account"
 					toggleColumnId="notes"
 					pinColumnId="owner"
+					sortColumnIds={['arr', 'renewalDate']}
+					onAction={onEvent}
 				/>
 			}
 			footer={`Page ${controller.pageIndex + 1} of ${controller.pageCount}`}
+			onRowPress={(row) => logRowPress('Client', row.original, onEvent)}
 		/>
 	);
 }
 
-export function ServerModeTable() {
+export function ServerModeTable({
+	onEvent,
+}: {
+	onEvent?: (message: string) => void;
+}) {
 	const columns = useShowcaseColumns();
 	const [sorting, setSorting] = React.useState<ContractTableSort[]>([
 		{ id: 'arr', desc: true },
@@ -70,6 +127,8 @@ export function ServerModeTable() {
 	const [rows, setRows] = React.useState<ShowcaseRow[]>([]);
 	const [total, setTotal] = React.useState(SHOWCASE_ROWS.length);
 	const [loading, setLoading] = React.useState(true);
+	const [showEmpty, setShowEmpty] = React.useState(false);
+	const [forceLoading, setForceLoading] = React.useState(false);
 
 	React.useEffect(() => {
 		let active = true;
@@ -78,6 +137,7 @@ export function ServerModeTable() {
 			pageIndex: pagination.pageIndex,
 			pageSize: pagination.pageSize,
 			sorting,
+			empty: showEmpty,
 		}).then((result) => {
 			if (!active) return;
 			setRows(result.items);
@@ -87,13 +147,13 @@ export function ServerModeTable() {
 		return () => {
 			active = false;
 		};
-	}, [pagination.pageIndex, pagination.pageSize, sorting]);
+	}, [pagination.pageIndex, pagination.pageSize, showEmpty, sorting]);
 
 	const controller = useContractTable<ShowcaseRow>({
 		data: rows,
 		columns,
 		executionMode: 'server',
-		selectionMode: 'multiple',
+		selectionMode: 'single',
 		totalItems: total,
 		state: { sorting, pagination },
 		onSortingChange: (nextSorting) => {
@@ -112,9 +172,37 @@ export function ServerModeTable() {
 	return (
 		<DataTable
 			controller={controller}
-			title="Generic Server"
-			description="Same API, but sorting and pagination stay remote to simulate larger datasets."
-			loading={loading}
+			title="Server Controller + Design System"
+			description="The same headless controller can stay fully remote for sorting and pagination while still rendering selection, pinning, resizing, and expansion locally."
+			headerActions={
+				<ShowcaseHeaderActions
+					label="Server"
+					loading={forceLoading}
+					showEmpty={showEmpty}
+					onToggleLoading={() => {
+						setForceLoading((current) => !current);
+						onEvent?.('Server: toggled forced loading');
+					}}
+					onToggleEmpty={() => {
+						setShowEmpty((current) => !current);
+						setPagination((current) => ({ ...current, pageIndex: 0 }));
+						onEvent?.('Server: toggled empty-state mode');
+					}}
+					onReset={() => {
+						setForceLoading(false);
+						setShowEmpty(false);
+						setSorting([{ id: 'arr', desc: true }]);
+						setPagination({ pageIndex: 0, pageSize: 3 });
+						onEvent?.('Server: reset controller state');
+					}}
+				/>
+			}
+			loading={loading || forceLoading}
+			emptyState={
+				<div className="rounded-md border border-dashed p-6 text-center text-muted-foreground text-sm">
+					Server mode is returning an empty remote page.
+				</div>
+			}
 			toolbar={
 				<ShowcaseToolbar
 					controller={controller}
@@ -122,17 +210,27 @@ export function ServerModeTable() {
 					primaryColumnId="account"
 					toggleColumnId="notes"
 					pinColumnId="owner"
+					sortColumnIds={['arr', 'renewalDate']}
+					onAction={onEvent}
 				/>
 			}
 			footer={`Remote rows ${rows.length} / ${total}`}
+			onRowPress={(row) => logRowPress('Server', row.original, onEvent)}
 		/>
 	);
 }
 
-export function DataViewModeTable() {
+export function DataViewModeTable({
+	onEvent,
+}: {
+	onEvent?: (message: string) => void;
+}) {
+	const [loading, setLoading] = React.useState(false);
+	const [showEmpty, setShowEmpty] = React.useState(false);
+	const rows = showEmpty ? [] : SHOWCASE_ROWS;
 	const controller = useDataViewTable<ShowcaseRow>({
 		spec: DataGridShowcaseDataView,
-		data: SHOWCASE_ROWS,
+		data: rows,
 		renderValue: ({ field, value }) => {
 			if (field.key === 'status') {
 				return <StatusBadge status={value as ShowcaseRow['status']} />;
@@ -154,8 +252,34 @@ export function DataViewModeTable() {
 	return (
 		<DataTable
 			controller={controller}
-			title="DataView Adapter"
-			description="Declarative DataView contract adapted onto the same table primitive."
+			title="DataView Contract + Design System"
+			description="The declarative DataView contract maps onto the exact same table controller, so sorting, visibility, pinning, expansion, and pagination stay aligned with the contract."
+			headerActions={
+				<ShowcaseHeaderActions
+					label="DataView"
+					loading={loading}
+					showEmpty={showEmpty}
+					onToggleLoading={() => {
+						setLoading((current) => !current);
+						onEvent?.('DataView: toggled simulated loading');
+					}}
+					onToggleEmpty={() => {
+						setShowEmpty((current) => !current);
+						onEvent?.('DataView: toggled empty-state mode');
+					}}
+					onReset={() => {
+						setLoading(false);
+						setShowEmpty(false);
+						onEvent?.('DataView: reset header actions');
+					}}
+				/>
+			}
+			loading={loading}
+			emptyState={
+				<div className="rounded-md border border-dashed p-6 text-center text-muted-foreground text-sm">
+					The declarative DataView lane is intentionally empty.
+				</div>
+			}
 			toolbar={
 				<ShowcaseToolbar
 					controller={controller}
@@ -163,9 +287,95 @@ export function DataViewModeTable() {
 					primaryColumnId="account"
 					toggleColumnId="notes"
 					pinColumnId="owner"
+					sortColumnIds={['arr', 'renewalDate']}
+					onAction={onEvent}
 				/>
 			}
 			footer={`DataView rows ${controller.totalItems}`}
+			onRowPress={(row) => logRowPress('DataView', row.original, onEvent)}
 		/>
+	);
+}
+
+export function WebPrimitiveTable({
+	onEvent,
+}: {
+	onEvent?: (message: string) => void;
+}) {
+	const columns = useShowcaseColumns();
+	const [loading, setLoading] = React.useState(false);
+	const [showEmpty, setShowEmpty] = React.useState(false);
+	const rows = showEmpty ? [] : SHOWCASE_ROWS;
+	const controller = useContractTable<ShowcaseRow>({
+		data: rows,
+		columns,
+		selectionMode: 'single',
+		initialState: {
+			sorting: [{ id: 'lastActivityAt', desc: true }],
+			pagination: { pageIndex: 0, pageSize: 4 },
+			columnVisibility: { notes: false },
+			columnPinning: { left: ['account'], right: [] },
+		},
+		renderExpandedContent: (row) => <ExpandedRowContent row={row} />,
+		getCanExpand: () => true,
+	});
+
+	return (
+		<Card>
+			<CardHeader>
+				<CardTitle>Raw Web Primitive</CardTitle>
+				<CardDescription>
+					This lane renders the unwrapped <code>ui-kit-web/ui/data-table</code>{' '}
+					component directly. It still supports loading, empty state, selection,
+					visibility, resizing, pinning, expansion, and pagination, but title,
+					description, and header actions are intentionally owned by the
+					design-system wrapper.
+				</CardDescription>
+				<ShowcaseHeaderActions
+					label="Web primitive"
+					loading={loading}
+					showEmpty={showEmpty}
+					onToggleLoading={() => {
+						setLoading((current) => !current);
+						onEvent?.('Web primitive: toggled simulated loading');
+					}}
+					onToggleEmpty={() => {
+						setShowEmpty((current) => !current);
+						onEvent?.('Web primitive: toggled empty-state mode');
+					}}
+					onReset={() => {
+						setLoading(false);
+						setShowEmpty(false);
+						onEvent?.('Web primitive: reset header actions');
+					}}
+				/>
+			</CardHeader>
+			<CardContent>
+				<WebPrimitiveDataTable
+					controller={controller}
+					loading={loading}
+					emptyState={
+						<div className="rounded-md border border-dashed p-6 text-center text-muted-foreground text-sm">
+							The raw primitive is intentionally showing its empty state.
+						</div>
+					}
+					toolbar={
+						<ShowcaseToolbar
+							controller={controller}
+							label="Web primitive"
+							primaryColumnId="account"
+							toggleColumnId="notes"
+							pinColumnId="owner"
+							sortColumnIds={['arr', 'renewalDate']}
+							onAction={onEvent}
+						/>
+					}
+					footer={`Single-select primitive rows ${controller.totalItems}`}
+					onRowPress={(row) =>
+						logRowPress('Web primitive', row.original, onEvent)
+					}
+				/>
+			</CardContent>
+		</Card>
 	);
 }

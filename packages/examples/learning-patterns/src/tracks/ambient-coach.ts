@@ -1,7 +1,7 @@
-import type { LearningJourneyTrackSpec } from '@contractspec/module.learning-journey/track-spec';
+import type { JourneyTrackSpec } from '@contractspec/module.learning-journey/track-spec';
 import { LEARNING_EVENTS } from '../events';
 
-export const ambientCoachTrack: LearningJourneyTrackSpec = {
+export const ambientCoachTrack: JourneyTrackSpec = {
 	id: 'learning_patterns_ambient_coach_basics',
 	name: 'Ambient Coach Basics',
 	description: 'Contextual tips triggered by behavior events.',
@@ -20,6 +20,7 @@ export const ambientCoachTrack: LearningJourneyTrackSpec = {
 			id: 'tip_acknowledged',
 			title: 'Acknowledge a tip',
 			order: 2,
+			prerequisites: [{ kind: 'step_completed', stepId: 'tip_shown' }],
 			completion: {
 				kind: 'event',
 				eventName: LEARNING_EVENTS.COACH_TIP_ACKNOWLEDGED,
@@ -30,6 +31,7 @@ export const ambientCoachTrack: LearningJourneyTrackSpec = {
 			id: 'tip_action_taken',
 			title: 'Take an action from a tip',
 			order: 3,
+			prerequisites: [{ kind: 'step_completed', stepId: 'tip_acknowledged' }],
 			completion: {
 				kind: 'event',
 				eventName: LEARNING_EVENTS.COACH_TIP_ACTION_TAKEN,
@@ -39,6 +41,4 @@ export const ambientCoachTrack: LearningJourneyTrackSpec = {
 	],
 };
 
-export const ambientCoachTracks: LearningJourneyTrackSpec[] = [
-	ambientCoachTrack,
-];
+export const ambientCoachTracks: JourneyTrackSpec[] = [ambientCoachTrack];

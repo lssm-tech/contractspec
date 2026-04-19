@@ -2,7 +2,7 @@
 
 Website: https://contractspec.io
 
-**Comprehensive learning journey engine - onboarding, LMS, flashcards, gamification, and AI personalization.**
+**Canonical adaptive journey runtime for onboarding, drills, coaching, LMS, flashcards, gamification, and AI personalization.**
 
 ## What It Provides
 
@@ -40,13 +40,14 @@ Import the root entrypoint from `@contractspec/module.learning-journey`, or choo
 - Export `.` resolves through `./src/index.ts`.
 - Export `./contracts` resolves through `./src/contracts/index.ts`.
 - Export `./contracts/models` resolves through `./src/contracts/models.ts`.
-- Export `./contracts/onboarding` resolves through `./src/contracts/onboarding.ts`.
+- Export `./contracts/journey` resolves through `./src/contracts/journey.ts`.
 - Export `./contracts/operations` resolves through `./src/contracts/operations.ts`.
 - Export `./contracts/shared` resolves through `./src/contracts/shared.ts`.
 - Export `./docs` resolves through `./src/docs/index.ts`.
 - Export `./docs/learning-journey.docblock` resolves through `./src/docs/learning-journey.docblock.ts`.
 - Export `./engines` resolves through `./src/engines/index.ts`.
 - Export `./engines/srs` resolves through `./src/engines/srs.ts`.
+- Export `./runtime` resolves through `./src/runtime/index.ts`.
 - The package publishes 32 total export subpaths; keep docs aligned with `package.json`.
 
 ## Local Commands

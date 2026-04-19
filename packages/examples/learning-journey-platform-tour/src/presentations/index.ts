@@ -3,7 +3,7 @@ import {
 	type PresentationSpecMeta,
 	StabilityEnum,
 } from '@contractspec/lib.contracts-spec';
-import { PlatformTourTrackModel } from '../operations';
+import { PlatformJourneyTrackModel } from '../operations';
 
 const baseMeta: Pick<
 	PresentationSpecMeta,
@@ -29,7 +29,7 @@ export const PlatformTourTrackPresentation = definePresentation({
 		type: 'component',
 		framework: 'react',
 		componentKey: 'LearningTrackDetail',
-		props: PlatformTourTrackModel,
+		props: PlatformJourneyTrackModel,
 	},
 	targets: ['react', 'markdown', 'application/json'],
 });

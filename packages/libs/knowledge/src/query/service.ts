@@ -8,6 +8,7 @@ import type {
 } from '@contractspec/lib.contracts-integrations';
 import type { KnowledgeI18n } from '../i18n/messages';
 import { createKnowledgeI18n, getDefaultI18n } from '../i18n/messages';
+import { extractKnowledgePayloadText } from '../vector-payload';
 
 export interface KnowledgeQueryConfig {
 	collection: string;
@@ -66,7 +67,7 @@ export class KnowledgeQueryService {
 				.join(''),
 			references: results.map((result) => ({
 				...result,
-				text: extractText(result),
+				text: extractKnowledgePayloadText(result.payload),
 			})),
 			usage: response.usage,
 		};
@@ -102,7 +103,7 @@ function buildContext(
 	}
 	return results
 		.map((result, index) => {
-			const text = extractText(result);
+			const text = extractKnowledgePayloadText(result.payload);
 			const label = i18n.t('query.sourceLabel', {
 				index: index + 1,
 				score: result.score.toFixed(3),
@@ -110,11 +111,4 @@ function buildContext(
 			return `${label}\n${text}`;
 		})
 		.join('\n\n');
-}
-
-function extractText(result: VectorSearchResult): string {
-	const payload = result.payload ?? {};
-	if (typeof payload.text === 'string') return payload.text;
-	if (typeof payload.content === 'string') return payload.content;
-	return JSON.stringify(payload);
 }

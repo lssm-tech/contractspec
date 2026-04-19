@@ -112,11 +112,13 @@ export function createSetupNextSteps(
 			];
 		case 'builder-managed':
 			return [
+				'contractspec doctor',
 				`contractspec builder init --workspace-id ${workspaceId} --preset managed-mvp`,
 				`contractspec builder status --workspace-id ${workspaceId}`,
 			];
 		case 'builder-local':
 			return [
+				'contractspec doctor',
 				`contractspec builder init --workspace-id ${workspaceId} --preset local-daemon-mvp`,
 				`contractspec builder local register --workspace-id ${workspaceId} --runtime-id ${
 					options.builderLocalRuntimeId ?? 'rt_local_daemon'
@@ -124,6 +126,7 @@ export function createSetupNextSteps(
 			];
 		case 'builder-hybrid':
 			return [
+				'contractspec doctor',
 				`contractspec builder init --workspace-id ${workspaceId} --preset hybrid-mvp`,
 				`contractspec builder local register --workspace-id ${workspaceId} --runtime-id ${
 					options.builderLocalRuntimeId ?? 'rt_local_daemon'

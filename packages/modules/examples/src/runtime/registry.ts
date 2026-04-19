@@ -1,3 +1,4 @@
+import { getLearningTemplateIds } from '@contractspec/example.learning-journey-registry';
 import type {
 	TemplateCategory,
 	TemplateDefinition,
@@ -5,6 +6,12 @@ import type {
 	TemplateId,
 } from '@contractspec/lib.example-shared-ui';
 import { listExamples } from '../registry';
+
+const LEARNING_TEMPLATE_PRESENTATIONS = [
+	'learning.journey.track_list',
+	'learning.journey.track_detail',
+	'learning.journey.progress_widget',
+] as const;
 
 const PRESENTATIONS_BY_TEMPLATE: Record<string, string[]> = {
 	'saas-boilerplate': [
@@ -40,36 +47,12 @@ const PRESENTATIONS_BY_TEMPLATE: Record<string, string[]> = {
 		'analytics-dashboard.query.builder',
 	],
 	'visualization-showcase': ['visualization-showcase.gallery'],
-	'learning-journey-studio-onboarding': [
-		'learning.journey.track_list',
-		'learning.journey.track_detail',
-		'learning.journey.progress_widget',
-	],
-	'learning-journey-platform-tour': [
-		'learning.journey.track_list',
-		'learning.journey.track_detail',
-		'learning.journey.progress_widget',
-	],
-	'learning-journey-crm-onboarding': [
-		'learning.journey.track_list',
-		'learning.journey.track_detail',
-		'learning.journey.progress_widget',
-	],
-	'learning-journey-duo-drills': [
-		'learning.journey.track_list',
-		'learning.journey.track_detail',
-		'learning.journey.progress_widget',
-	],
-	'learning-journey-ambient-coach': [
-		'learning.journey.track_list',
-		'learning.journey.track_detail',
-		'learning.journey.progress_widget',
-	],
-	'learning-journey-quest-challenges': [
-		'learning.journey.track_list',
-		'learning.journey.track_detail',
-		'learning.journey.progress_widget',
-	],
+	...Object.fromEntries(
+		getLearningTemplateIds().map((templateId) => [
+			templateId,
+			[...LEARNING_TEMPLATE_PRESENTATIONS],
+		])
+	),
 };
 
 const GENERATED_TEMPLATE_REGISTRY: TemplateDefinition[] = listExamples()

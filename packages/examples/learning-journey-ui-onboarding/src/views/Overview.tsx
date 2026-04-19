@@ -33,7 +33,7 @@ export function Overview({
 	const totalXp =
 		track.totalXp ??
 		track.steps.reduce((sum, s) => sum + (s.xpReward ?? 0), 0) +
-			(track.completionRewards?.xpBonus ?? 0);
+			(track.completionRewards?.xp ?? 0);
 
 	return (
 		<div className="space-y-6">

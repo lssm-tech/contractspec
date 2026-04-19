@@ -1,3 +1,4 @@
+import { learningJourneyPresentations } from '@contractspec/example.learning-journey-registry/presentations';
 import type { PresentationSpec } from '@contractspec/lib.contracts-spec/presentations';
 
 function createComponentPresentation(
@@ -221,6 +222,12 @@ const TEMPLATE_PRESENTATIONS: Record<string, PresentationSpec> = {
 		'Inspect the state and approvals for a workflow instance.',
 		'Sandbox presentation used for markdown previews.',
 		'WorkflowInstanceDetail'
+	),
+	...Object.fromEntries(
+		learningJourneyPresentations.map((presentation) => [
+			presentation.meta.key,
+			presentation,
+		])
 	),
 };
 

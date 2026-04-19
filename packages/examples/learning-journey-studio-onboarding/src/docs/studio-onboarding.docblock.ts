@@ -27,10 +27,10 @@ XP: 20/20/20/20/30 with bonus 25 XP if completed within 48h (streak rule). Badge
 
 ## Wiring
 - Tracks export from \`@contractspec/example.learning-journey-studio-onboarding/track\`.
-- Use onboarding API:
-  - \`learning.onboarding.listTracks\` to surface catalog
-  - \`learning.onboarding.getProgress\` to render progress
-  - \`learning.onboarding.recordEvent\` to advance from bus events
+- Use the adaptive journey API:
+  - \`learning.journey.listTracks\` to surface catalog
+  - \`learning.journey.getProgress\` to render progress
+  - \`learning.journey.recordEvent\` to advance from bus events
 - Events should be emitted by Studio surfaces (template creation, spec save, regeneration, playground session start, evolution apply).`,
 	},
 ];

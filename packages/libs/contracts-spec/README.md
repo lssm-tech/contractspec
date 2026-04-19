@@ -124,6 +124,65 @@ Use these example packages when you want one focused, importable reference per c
 - `migration`: [`@contractspec/example.versioned-knowledge-base`](../../examples/versioned-knowledge-base/README.md)
 - `telemetry`: [`@contractspec/example.pocket-family-office`](../../examples/pocket-family-office/README.md)
 
+## Data table contract example
+
+The canonical data-table example lives in
+[`@contractspec/example.data-grid-showcase`](../../examples/data-grid-showcase/README.md)
+and starts with a declarative `DataViewSpec` in this package:
+
+```ts
+import { defineDataView } from '@contractspec/lib.contracts-spec/data-views';
+import { ListDataGridShowcaseRowsQuery } from '@contractspec/example.data-grid-showcase/contracts/data-grid-showcase.operation';
+
+export const DataGridShowcaseDataView = defineDataView({
+  meta: {
+    key: 'examples.data-grid-showcase.table',
+    version: '1.0.0',
+    entity: 'account',
+    title: 'Data Grid Showcase Table',
+    description:
+      'Declarative DataViewSpec for the ContractSpec table showcase.',
+    domain: 'examples',
+    owners: ['@platform.core'],
+    tags: ['examples', 'table', 'data-grid'],
+    stability: 'experimental',
+  },
+  source: {
+    primary: {
+      key: ListDataGridShowcaseRowsQuery.meta.key,
+      version: ListDataGridShowcaseRowsQuery.meta.version,
+    },
+  },
+  view: {
+    kind: 'table',
+    executionMode: 'client',
+    selection: 'multiple',
+    columnVisibility: true,
+    columnResizing: true,
+    columnPinning: true,
+    rowExpansion: {
+      fields: ['notes', 'renewalDate', 'lastActivityAt'],
+    },
+    initialState: {
+      pageSize: 4,
+      hiddenColumns: ['notes'],
+      pinnedColumns: {
+        left: ['account'],
+      },
+      sorting: [{ field: 'arr', desc: true }],
+    },
+    fields: [
+      { key: 'account', label: 'Account', dataPath: 'account', sortable: true },
+      { key: 'owner', label: 'Owner', dataPath: 'owner', sortable: true },
+      { key: 'status', label: 'Status', dataPath: 'status', sortable: true },
+      { key: 'notes', label: 'Notes', dataPath: 'notes' },
+    ],
+  },
+});
+```
+
+See the live example in `/docs/examples/data-grid-showcase` and the browser sandbox in `/sandbox?template=data-grid-showcase`.
+
 ## Full contract inventory (explicit map)
 
 <!-- CONTRACT_INVENTORY:START -->

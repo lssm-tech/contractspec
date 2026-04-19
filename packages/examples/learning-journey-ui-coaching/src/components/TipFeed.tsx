@@ -1,10 +1,10 @@
 'use client';
 
 import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
-import type { LearningJourneyStepSpec } from '@contractspec/module.learning-journey/track-spec';
+import type { JourneyStepSpec } from '@contractspec/module.learning-journey/track-spec';
 
 interface TipFeedItem {
-	step: LearningJourneyStepSpec;
+	step: JourneyStepSpec;
 	isCompleted: boolean;
 	completedAt?: string;
 }

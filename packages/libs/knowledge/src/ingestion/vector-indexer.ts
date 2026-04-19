@@ -3,6 +3,7 @@ import type {
 	VectorStoreProvider,
 	VectorUpsertRequest,
 } from '@contractspec/lib.contracts-integrations';
+import { buildKnowledgeVectorPayload } from '../vector-payload';
 import type { DocumentFragment } from './document-processor';
 
 export interface VectorIndexConfig {
@@ -24,16 +25,15 @@ export class VectorIndexer {
 		fragments: DocumentFragment[],
 		embeddings: EmbeddingResult[]
 	): Promise<void> {
+		const fragmentsById = new Map(
+			fragments.map((fragment) => [fragment.id, fragment])
+		);
 		const documents = embeddings.map((embedding) => {
-			const fragment = fragments.find((f) => f.id === embedding.id);
+			const fragment = fragmentsById.get(embedding.id);
 			return {
 				id: embedding.id,
 				vector: embedding.vector,
-				payload: {
-					...this.config.metadata,
-					...(fragment?.metadata ?? {}),
-					documentId: fragment?.documentId,
-				},
+				payload: buildKnowledgeVectorPayload(fragment, this.config.metadata),
 				namespace: this.config.namespace,
 			};
 		});

@@ -1,6 +1,6 @@
-import type { LearningJourneyTrackSpec } from '@contractspec/module.learning-journey/track-spec';
+import type { JourneyTrackSpec } from '@contractspec/module.learning-journey/track-spec';
 
-export const drillsLanguageBasicsTrack: LearningJourneyTrackSpec = {
+export const drillsLanguageBasicsTrack: JourneyTrackSpec = {
 	id: 'drills_language_basics',
 	name: 'Language Basics Drills',
 	description:
@@ -8,7 +8,7 @@ export const drillsLanguageBasicsTrack: LearningJourneyTrackSpec = {
 	targetUserSegment: 'learner',
 	targetRole: 'individual',
 	totalXp: 50,
-	completionRewards: { xpBonus: 25 },
+	completionRewards: { xp: 25 },
 	steps: [
 		{
 			id: 'complete_first_session',
@@ -19,6 +19,25 @@ export const drillsLanguageBasicsTrack: LearningJourneyTrackSpec = {
 				kind: 'event',
 				eventName: 'drill.session.completed',
 			},
+			branches: [
+				{
+					key: 'fast_track',
+					when: {
+						kind: 'event',
+						eventName: 'drill.session.completed',
+						payloadFilter: { accuracyBucket: 'high' },
+					},
+					blockStepIds: ['reach_accuracy_threshold'],
+					reward: { xp: 10 },
+				},
+				{
+					key: 'guided_practice',
+					when: {
+						kind: 'event',
+						eventName: 'drill.session.completed',
+					},
+				},
+			],
 			xpReward: 20,
 			metadata: { surface: 'drills' },
 		},
@@ -27,6 +46,13 @@ export const drillsLanguageBasicsTrack: LearningJourneyTrackSpec = {
 			title: 'Hit high accuracy in sessions',
 			description: 'Achieve three high-accuracy sessions to build confidence.',
 			order: 2,
+			prerequisites: [
+				{
+					kind: 'branch_selected',
+					stepId: 'complete_first_session',
+					branchKey: 'guided_practice',
+				},
+			],
 			completion: {
 				kind: 'count',
 				eventName: 'drill.session.completed',
@@ -42,8 +68,20 @@ export const drillsLanguageBasicsTrack: LearningJourneyTrackSpec = {
 			description:
 				'Reach mastery on at least five cards in the first skill to unlock the next one.',
 			order: 3,
+			prerequisiteMode: 'any',
+			prerequisites: [
+				{
+					kind: 'step_completed',
+					stepId: 'reach_accuracy_threshold',
+				},
+				{
+					kind: 'branch_selected',
+					stepId: 'complete_first_session',
+					branchKey: 'fast_track',
+				},
+			],
 			completion: {
-				kind: 'srs_mastery',
+				kind: 'mastery',
 				eventName: 'drill.card.mastered',
 				minimumMastery: 0.8,
 				requiredCount: 5,
@@ -57,6 +95,4 @@ export const drillsLanguageBasicsTrack: LearningJourneyTrackSpec = {
 	],
 };
 
-export const drillTracks: LearningJourneyTrackSpec[] = [
-	drillsLanguageBasicsTrack,
-];
+export const drillTracks: JourneyTrackSpec[] = [drillsLanguageBasicsTrack];

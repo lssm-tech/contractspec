@@ -29,10 +29,10 @@ XP: 20 per step, 20 bonus XP upon completion.
 
 ## Wiring
 - Tracks export from \`@contractspec/example.learning-journey-platform-tour/track\`.
-- Use onboarding API to surface progress:
-  - \`learning.onboarding.listTracks\`
-  - \`learning.onboarding.getProgress\`
-  - \`learning.onboarding.recordEvent\` wired from each module's event bus handlers.
+- Use adaptive journey API to surface progress:
+  - \`learning.journey.listTracks\`
+  - \`learning.journey.getProgress\`
+  - \`learning.journey.recordEvent\` wired from each module's event bus handlers.
 - Align event payloads with modules: identity-rbac, audit-trail, notifications, jobs, feature-flags, files, metering.`,
 	},
 ];

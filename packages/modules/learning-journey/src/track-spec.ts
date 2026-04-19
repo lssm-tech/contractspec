@@ -1,140 +1,187 @@
-export interface BaseEventConditionSpec {
-	/**
-	 * Required event name to satisfy the condition.
-	 */
+import type { StreakState } from './engines/streak';
+
+export interface JourneyBaseEventConditionSpec {
 	eventName: string;
-	/**
-	 * Optional event version to match.
-	 */
 	eventVersion?: number;
-	/**
-	 * Optional source module to match (for disambiguation).
-	 */
 	sourceModule?: string;
-	/**
-	 * Optional payload filter (shallow equality on keys).
-	 */
 	payloadFilter?: Record<string, unknown>;
 }
 
-export interface EventCompletionConditionSpec extends BaseEventConditionSpec {
+export interface JourneyEventConditionSpec
+	extends JourneyBaseEventConditionSpec {
 	kind?: 'event';
 }
 
-export interface CountCompletionConditionSpec extends BaseEventConditionSpec {
+export interface JourneyCountConditionSpec
+	extends JourneyBaseEventConditionSpec {
 	kind: 'count';
-	/**
-	 * Minimum number of matching events required to complete the step.
-	 */
 	atLeast: number;
-	/**
-	 * Optional time window (hours) from track start for counting.
-	 */
 	withinHours?: number;
 }
 
-export interface TimeWindowCompletionConditionSpec
-	extends BaseEventConditionSpec {
+export interface JourneyTimeWindowConditionSpec
+	extends JourneyBaseEventConditionSpec {
 	kind: 'time_window';
-	/**
-	 * Must be completed within this window (hours) from track start.
-	 */
 	withinHoursOfStart?: number;
-	/**
-	 * Optional additional delay before the step becomes available (hours).
-	 */
 	availableAfterHours?: number;
 }
 
-export interface SrsMasteryCompletionConditionSpec {
-	kind: 'srs_mastery';
-	/**
-	 * Event carrying mastery info (defaults to drill/flashcard mastery events).
-	 */
+export interface JourneyMasteryConditionSpec {
+	kind: 'mastery';
 	eventName: string;
-	/**
-	 * Payload key containing skill identifier; defaults to `skillId`.
-	 */
 	skillIdField?: string;
-	/**
-	 * Payload key containing mastery value; defaults to `mastery`.
-	 */
 	masteryField?: string;
-	/**
-	 * Minimum mastery value required (e.g., 0-1 or a numeric level).
-	 */
 	minimumMastery: number;
-	/**
-	 * Optional number of mastered cards required to complete step.
-	 */
 	requiredCount?: number;
-	/**
-	 * Optional payload filter.
-	 */
 	payloadFilter?: Record<string, unknown>;
 }
 
-export type StepCompletionConditionSpec =
-	| EventCompletionConditionSpec
-	| CountCompletionConditionSpec
-	| TimeWindowCompletionConditionSpec
-	| SrsMasteryCompletionConditionSpec;
+export type JourneyConditionSpec =
+	| JourneyCountConditionSpec
+	| JourneyEventConditionSpec
+	| JourneyMasteryConditionSpec
+	| JourneyTimeWindowConditionSpec;
 
-export interface StepAvailabilitySpec {
-	/**
-	 * Unlock step after a delay (hours) from track start.
-	 */
+export interface JourneyAvailabilitySpec {
 	unlockAfterHours?: number;
-	/**
-	 * Unlock on a specific day from track start (day 1 = start day).
-	 */
 	unlockOnDay?: number;
-	/**
-	 * Optional due window (hours) from unlock; if exceeded, step is considered missed.
-	 */
 	dueWithinHours?: number;
 }
 
-export interface StreakRuleSpec {
-	hoursWindow?: number;
-	bonusXp?: number;
-}
-
-export interface CompletionRewardsSpec {
-	xpBonus?: number;
+export interface JourneyRewardSpec {
 	badgeKey?: string;
+	xp?: number;
 }
 
-export interface LearningJourneyStepSpec {
-	id: string;
-	title: string;
-	description?: string;
-	instructions?: string;
-	helpUrl?: string;
-	order?: number;
-	completion: StepCompletionConditionSpec;
-	availability?: StepAvailabilitySpec;
-	xpReward?: number;
-	isRequired?: boolean;
-	canSkip?: boolean;
-	actionUrl?: string;
-	actionLabel?: string;
+export interface JourneyPrerequisiteSpec {
+	kind: 'branch_selected' | 'step_completed';
+	branchKey?: string;
+	stepId: string;
+}
+
+export interface JourneyBranchSpec {
+	key: string;
+	blockStepIds?: string[];
+	label?: string;
 	metadata?: Record<string, unknown>;
+	reward?: JourneyRewardSpec;
+	when?: JourneyConditionSpec;
 }
 
-export interface LearningJourneyTrackSpec {
-	id: string;
-	productId?: string;
-	name: string;
+export interface JourneyStreakRuleSpec {
+	bonusXp?: number;
+	hoursWindow?: number;
+}
+
+export interface JourneyStepSpec {
+	actionLabel?: string;
+	actionUrl?: string;
+	availability?: JourneyAvailabilitySpec;
+	branches?: JourneyBranchSpec[];
+	canSkip?: boolean;
+	completion: JourneyConditionSpec;
 	description?: string;
-	targetUserSegment?: string;
-	targetRole?: string;
-	totalXp?: number;
+	helpUrl?: string;
+	id: string;
+	instructions?: string;
+	isRequired?: boolean;
+	metadata?: Record<string, unknown>;
+	order?: number;
+	prerequisiteMode?: 'all' | 'any';
+	prerequisites?: JourneyPrerequisiteSpec[];
+	reward?: JourneyRewardSpec;
+	title: string;
+	xpReward?: number;
+}
+
+export interface JourneyTrackSpec {
+	canSkip?: boolean;
+	completionRewards?: JourneyRewardSpec;
+	description?: string;
+	id: string;
 	isActive?: boolean;
 	isRequired?: boolean;
-	canSkip?: boolean;
-	streakRule?: StreakRuleSpec;
-	completionRewards?: CompletionRewardsSpec;
-	steps: LearningJourneyStepSpec[];
 	metadata?: Record<string, unknown>;
+	name: string;
+	productId?: string;
+	steps: JourneyStepSpec[];
+	streakRule?: JourneyStreakRuleSpec;
+	targetRole?: string;
+	targetUserSegment?: string;
+	totalXp?: number;
+}
+
+export interface JourneyEvent {
+	learnerId?: string;
+	name: string;
+	occurredAt?: Date;
+	payload?: Record<string, unknown>;
+	sourceModule?: string;
+	trackId?: string;
+	version?: number;
+}
+
+export type JourneyStepStatus =
+	| 'AVAILABLE'
+	| 'BLOCKED'
+	| 'COMPLETED'
+	| 'LOCKED'
+	| 'MISSED'
+	| 'SKIPPED';
+
+export interface JourneyStepProgressState {
+	availableAt?: Date;
+	blockedAt?: Date;
+	blockedByBranchKey?: string;
+	blockedByStepId?: string;
+	completedAt?: Date;
+	dueAt?: Date;
+	eventPayload?: Record<string, unknown>;
+	manual?: boolean;
+	masteryCount: number;
+	missedAt?: Date;
+	occurrences: number;
+	selectedBranchKey?: string;
+	skippedAt?: Date;
+	status: JourneyStepStatus;
+	stepId: string;
+	triggeringEvent?: string;
+	xpEarned: number;
+}
+
+export interface JourneyProgressState {
+	badges: string[];
+	completedAt?: Date;
+	completionRewardApplied: boolean;
+	eventLog: JourneyEvent[];
+	lastActivityAt?: Date;
+	learnerId?: string;
+	startedAt?: Date;
+	steps: JourneyStepProgressState[];
+	streak: StreakState;
+	trackId: string;
+	xpEarned: number;
+}
+
+export interface JourneyProgressSnapshot {
+	activeStepCount: number;
+	availableStepIds: string[];
+	badges: string[];
+	blockedStepIds: string[];
+	completedAt?: Date;
+	completedStepCount: number;
+	completedStepIds: string[];
+	currentStepId: string | null;
+	isCompleted: boolean;
+	lastActivityAt?: Date;
+	learnerId?: string;
+	missedStepIds: string[];
+	nextStepId: string | null;
+	progressPercent: number;
+	startedAt?: Date;
+	steps: JourneyStepProgressState[];
+	streakDays: number;
+	totalSteps: number;
+	trackId: string;
+	xpEarned: number;
 }

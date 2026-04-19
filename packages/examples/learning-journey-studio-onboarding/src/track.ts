@@ -1,6 +1,6 @@
-import type { LearningJourneyTrackSpec } from '@contractspec/module.learning-journey/track-spec';
+import type { JourneyTrackSpec } from '@contractspec/module.learning-journey/track-spec';
 
-export const studioGettingStartedTrack: LearningJourneyTrackSpec = {
+export const studioGettingStartedTrack: JourneyTrackSpec = {
 	id: 'studio_getting_started',
 	productId: 'contractspec-studio',
 	name: 'Studio Getting Started',
@@ -10,7 +10,7 @@ export const studioGettingStartedTrack: LearningJourneyTrackSpec = {
 	targetRole: 'developer',
 	totalXp: 110,
 	streakRule: { hoursWindow: 48, bonusXp: 25 },
-	completionRewards: { xpBonus: 25, badgeKey: 'studio_first_30m' },
+	completionRewards: { xp: 25, badgeKey: 'studio_first_30m' },
 	steps: [
 		{
 			id: 'choose_template',
@@ -30,6 +30,7 @@ export const studioGettingStartedTrack: LearningJourneyTrackSpec = {
 			description: 'Change the spec (not generated code) and save.',
 			instructions: 'Open spec editor, tweak a contract or presentation, save.',
 			order: 2,
+			prerequisites: [{ kind: 'step_completed', stepId: 'choose_template' }],
 			completion: {
 				eventName: 'spec.changed',
 				sourceModule: '@contractspec/bundle.studio',
@@ -42,6 +43,7 @@ export const studioGettingStartedTrack: LearningJourneyTrackSpec = {
 			title: 'Regenerate the app',
 			description: 'Regenerate artifacts from the updated spec.',
 			order: 3,
+			prerequisites: [{ kind: 'step_completed', stepId: 'edit_spec' }],
 			completion: {
 				eventName: 'regeneration.completed',
 				sourceModule: '@contractspec/lib.contracts-spec/regenerator',
@@ -54,6 +56,7 @@ export const studioGettingStartedTrack: LearningJourneyTrackSpec = {
 			title: 'Open the canvas',
 			description: 'Visit the canvas module for your project.',
 			order: 4,
+			prerequisites: [{ kind: 'step_completed', stepId: 'regenerate_app' }],
 			completion: {
 				eventName: 'module.navigated',
 				sourceModule: '@contractspec/bundle.studio',
@@ -67,6 +70,7 @@ export const studioGettingStartedTrack: LearningJourneyTrackSpec = {
 			title: 'Try evolution mode',
 			description: 'Request a change via Evolution, then regenerate.',
 			order: 5,
+			prerequisites: [{ kind: 'step_completed', stepId: 'open_canvas' }],
 			completion: {
 				eventName: 'studio.evolution.applied',
 				sourceModule: '@contractspec/lib.evolution',
@@ -81,6 +85,6 @@ export const studioGettingStartedTrack: LearningJourneyTrackSpec = {
 	},
 };
 
-export const studioLearningTracks: LearningJourneyTrackSpec[] = [
+export const studioLearningTracks: JourneyTrackSpec[] = [
 	studioGettingStartedTrack,
 ];

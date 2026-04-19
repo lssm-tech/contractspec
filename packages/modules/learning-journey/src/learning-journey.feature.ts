@@ -25,9 +25,9 @@ export const LearningJourneyFeature = defineFeature({
 	// All contract operations included in this feature
 	operations: [
 		// Onboarding operations
-		{ key: 'learning.onboarding.recordEvent', version: '1.0.0' },
-		{ key: 'learning.onboarding.listTracks', version: '1.0.0' },
-		{ key: 'learning.onboarding.getProgress', version: '1.0.0' },
+		{ key: 'learning.journey.recordEvent', version: '1.0.0' },
+		{ key: 'learning.journey.listTracks', version: '1.0.0' },
+		{ key: 'learning.journey.getProgress', version: '1.0.0' },
 
 		// Core learning operations
 		{ key: 'learning.enroll', version: '1.0.0' },

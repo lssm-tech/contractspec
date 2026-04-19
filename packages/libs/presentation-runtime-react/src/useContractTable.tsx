@@ -130,6 +130,51 @@ export function useContractTable<TItem>({
 			),
 		[data, getRowId]
 	);
+	const knownRowIdSet = React.useMemo(
+		() => new Set(knownRowIds),
+		[knownRowIds]
+	);
+
+	React.useEffect(() => {
+		if (controlledState?.expanded || controlledState?.rowSelection) return;
+
+		setUncontrolledState((current) => {
+			const expanded = Object.fromEntries(
+				Object.entries(current.expanded).filter(([rowId]) =>
+					knownRowIdSet.has(rowId)
+				)
+			);
+			const rowSelection = coerceRowSelectionState(
+				Object.fromEntries(
+					Object.entries(current.rowSelection).filter(([rowId]) =>
+						knownRowIdSet.has(rowId)
+					)
+				),
+				selectionMode
+			);
+
+			const expandedChanged =
+				Object.keys(expanded).length !== Object.keys(current.expanded).length;
+			const selectionChanged =
+				Object.keys(rowSelection).length !==
+				Object.keys(current.rowSelection).length;
+
+			if (!expandedChanged && !selectionChanged) {
+				return current;
+			}
+
+			return {
+				...current,
+				expanded,
+				rowSelection,
+			};
+		});
+	}, [
+		controlledState?.expanded,
+		controlledState?.rowSelection,
+		knownRowIdSet,
+		selectionMode,
+	]);
 
 	const table = useReactTable<TItem>({
 		data: [...data],

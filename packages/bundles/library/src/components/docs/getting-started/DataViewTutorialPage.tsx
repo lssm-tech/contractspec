@@ -2,6 +2,54 @@ import { CodeBlock } from '@contractspec/lib.design-system';
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
 
+const DATAVIEW_TUTORIAL_EXAMPLE = `import { defineDataView } from '@contractspec/lib.contracts-spec/data-views';
+import { ListTransactions } from './list-transactions';
+
+export const TransactionHistory = defineDataView({
+  meta: {
+    key: 'billing.transactionHistory',
+    version: '1.0.0',
+    entity: 'transaction',
+    title: 'Transaction History',
+    description: 'Customer payment history',
+    domain: 'billing',
+    owners: ['team-billing'],
+    tags: ['payments'],
+    stability: 'stable',
+  },
+  source: {
+    primary: {
+      key: ListTransactions.meta.key,
+      version: ListTransactions.meta.version,
+    },
+  },
+  view: {
+    kind: 'table',
+    executionMode: 'client',
+    selection: 'multiple',
+    columnVisibility: true,
+    columnResizing: true,
+    columnPinning: true,
+    rowExpansion: {
+      fields: ['notes', 'renewalDate', 'lastActivityAt'],
+    },
+    initialState: {
+      pageSize: 4,
+      hiddenColumns: ['notes'],
+      pinnedColumns: {
+        left: ['account'],
+      },
+      sorting: [{ field: 'arr', desc: true }],
+    },
+    fields: [
+      { key: 'account', label: 'Account', dataPath: 'account', sortable: true },
+      { key: 'owner', label: 'Owner', dataPath: 'owner', sortable: true },
+      { key: 'status', label: 'Status', dataPath: 'status', sortable: true },
+      { key: 'notes', label: 'Notes', dataPath: 'notes' },
+    ],
+  },
+});`;
+
 export function DataViewTutorialPage() {
 	return (
 		<div className="space-y-8">
@@ -46,77 +94,18 @@ export const ListTransactions = defineQuery({
 				<CodeBlock
 					language="typescript"
 					filename="lib/specs/billing/transaction-history.data-view.ts"
-					code={`import { defineDataView } from '@contractspec/lib.contracts-spec';
-import { ListTransactions } from './list-transactions';
-
-export const TransactionHistory = defineDataView({
-  meta: {
-    key: 'billing.transactionHistory',
-    version: '1.0.0',
-    entity: 'transaction',
-    description: 'Customer payment history',
-    goal: 'Help customers track spending',
-    context: 'Account dashboard',
-    owners: ['team-billing'],
-    stability: 'stable',
-    tags: ['payments'],
-  },
-  source: {
-    primary: ListTransactions,
-  },
-  view: {
-    kind: 'list',
-    fields: [
-      {
-        key: 'date',
-        label: 'Date',
-        dataPath: 'createdAt',
-        format: 'date',
-        sortable: true
-      },
-      {
-        key: 'description',
-        label: 'Description',
-        dataPath: 'description'
-      },
-      {
-        key: 'amount',
-        label: 'Amount',
-        dataPath: 'amount',
-        format: 'currency',
-        sortable: true
-      },
-      {
-        key: 'status',
-        label: 'Status',
-        dataPath: 'status',
-        format: 'badge'
-      },
-    ],
-    filters: [
-      {
-        key: 'status',
-        label: 'Status',
-        field: 'status',
-        type: 'enum',
-        options: [
-          { value: 'succeeded', label: 'Paid' },
-          { value: 'pending', label: 'Pending' },
-          { value: 'failed', label: 'Failed' },
-        ],
-      },
-      {
-        key: 'dateRange',
-        label: 'Date Range',
-        field: 'createdAt',
-        type: 'dateRange',
-      },
-    ],
-    defaultSort: { field: 'date', direction: 'desc' },
-    pagination: { pageSize: 25 },
-  },
-});`}
+					code={DATAVIEW_TUTORIAL_EXAMPLE}
 				/>
+				<p className="text-muted-foreground text-sm">
+					The live version of this pattern is available in the canonical{' '}
+					<Link
+						href="/docs/examples/data-grid-showcase"
+						className="text-[color:var(--rust)] underline underline-offset-4"
+					>
+						Data Grid Showcase
+					</Link>
+					.
+				</p>
 			</div>
 
 			<div className="space-y-4">
@@ -161,6 +150,10 @@ export function TransactionsPage() {
 				<ul className="space-y-2 text-muted-foreground text-sm">
 					<li>Same spec renders on web (React) and mobile (React Native)</li>
 					<li>Filters, sorting, and pagination handled automatically</li>
+					<li>
+						Column visibility, pinning, resizing, and row expansion stay
+						contract-driven
+					</li>
 					<li>Format rules (currency, dates, badges) applied consistently</li>
 					<li>Export to CSV/PDF using the same spec</li>
 					<li>A/B test different layouts without touching the backend</li>

@@ -45,6 +45,7 @@ describe('init command', () => {
 				enabled?: boolean;
 				runtimeMode?: string;
 				bootstrapPreset?: string;
+				api?: { baseUrl?: string; controlPlaneTokenEnvVar?: string };
 				localRuntime?: { runtimeId?: string; grantedTo?: string };
 			};
 			connect?: { enabled?: boolean };
@@ -53,9 +54,20 @@ describe('init command', () => {
 		expect(written.builder?.enabled).toBe(true);
 		expect(written.builder?.runtimeMode).toBe('local');
 		expect(written.builder?.bootstrapPreset).toBe('local_daemon_mvp');
+		expect(written.builder?.api?.baseUrl).toBe('https://api.contractspec.io');
+		expect(written.builder?.api?.controlPlaneTokenEnvVar).toBe(
+			'CONTROL_PLANE_API_TOKEN'
+		);
 		expect(written.builder?.localRuntime?.runtimeId).toBe('rt_local_daemon');
 		expect(written.builder?.localRuntime?.grantedTo).toBe('local:operator');
 		expect(written.connect?.enabled).toBeUndefined();
+
+		const vscodeSettings = JSON.parse(
+			await readFile(join(tempDir, '.vscode', 'settings.json'), 'utf8')
+		) as Record<string, unknown>;
+		expect(vscodeSettings['contractspec.api.baseUrl']).toBe(
+			'https://api.contractspec.io'
+		);
 
 		const gitignore = await readFile(join(tempDir, '.gitignore'), 'utf8');
 		expect(gitignore).toContain(GITIGNORE_BLOCK_START);

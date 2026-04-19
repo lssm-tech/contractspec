@@ -56,6 +56,63 @@ Use this package for Expo and React Native surfaces. Do not use it as the design
 - `./ui/empty-state`
 - `./ui/slider`
 
+## Data table example
+
+The canonical data-table example lives in
+[`@contractspec/example.data-grid-showcase`](../../examples/data-grid-showcase/README.md).
+Its native-first lane renders the same account-grid controller through
+`@contractspec/lib.ui-kit/ui/data-table`:
+
+```tsx
+import { DataTable } from '@contractspec/lib.ui-kit/ui/data-table';
+import { useContractTable } from '@contractspec/lib.presentation-runtime-react';
+
+import { SHOWCASE_ROWS } from '@contractspec/example.data-grid-showcase/ui/data-grid-showcase.data';
+import { useShowcaseColumns } from '@contractspec/example.data-grid-showcase/ui/data-grid-showcase.columns';
+import {
+  ExpandedRowContent,
+  ShowcaseToolbar,
+} from '@contractspec/example.data-grid-showcase/ui/data-grid-showcase.parts';
+
+export function NativeAccountGrid() {
+  const columns = useShowcaseColumns();
+
+  const controller = useContractTable({
+    data: SHOWCASE_ROWS,
+    columns,
+    selectionMode: 'single',
+    initialState: {
+      sorting: [{ id: 'arr', desc: true }],
+      pagination: { pageIndex: 0, pageSize: 4 },
+      columnVisibility: { notes: false },
+      columnPinning: { left: ['account'], right: [] },
+    },
+    renderExpandedContent: (row) => <ExpandedRowContent row={row} />,
+    getCanExpand: () => true,
+  });
+
+  return (
+    <DataTable
+      controller={controller}
+      toolbar={
+        <ShowcaseToolbar
+          controller={controller}
+          label="Native primitive"
+          primaryColumnId="account"
+          toggleColumnId="notes"
+          pinColumnId="owner"
+          sortColumnIds={['arr', 'renewalDate']}
+        />
+      }
+      loading={false}
+      footer={\`Rows \${controller.rows.length}\`}
+    />
+  );
+}
+```
+
+This example explicitly demonstrates the same sorting, pagination, selection, column visibility, column resizing, left/right pinning, row expansion, loading, and empty-state contracts used by the browser lanes.
+
 ### Hooks, utilities, and grouped surfaces
 
 - `./ui/useColorScheme`

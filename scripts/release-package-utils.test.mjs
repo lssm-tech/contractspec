@@ -24,6 +24,27 @@ function createTempDir(prefix) {
 	return dir;
 }
 
+function createTempRepo() {
+	const dir = createTempDir('contractspec-release-utils-');
+	fs.mkdirSync(path.join(dir, 'packages', 'integrations', 'demo'), {
+		recursive: true,
+	});
+	fs.writeFileSync(
+		path.join(dir, 'package.json'),
+		`${JSON.stringify({ name: 'contractspec', version: '1.0.0', type: 'module' }, null, 2)}\n`,
+		'utf8'
+	);
+	return dir;
+}
+
+function createRepository(directory) {
+	return {
+		type: 'git',
+		url: 'https://github.com/lssm-tech/contractspec.git',
+		directory,
+	};
+}
+
 function writeJson(filePath, value) {
 	fs.mkdirSync(path.dirname(filePath), { recursive: true });
 	fs.writeFileSync(filePath, `${JSON.stringify(value, null, 2)}\n`, 'utf8');
@@ -40,6 +61,7 @@ describe('discoverPublishablePackages', () => {
 		writeJson(path.join(repoRoot, 'packages/apps/cli/package.json'), {
 			name: '@contractspec/app.cli-contractspec',
 			version: '1.0.0',
+			repository: createRepository('packages/apps/cli'),
 			dependencies: {
 				'@contractspec/lib.alpha': 'workspace:*',
 			},
@@ -58,6 +80,7 @@ describe('discoverPublishablePackages', () => {
 			{
 				name: 'contractspec',
 				version: '1.0.0',
+				repository: createRepository('packages/apps-registry/contractspec'),
 				dependencies: {
 					'@contractspec/app.cli-contractspec': 'workspace:*',
 				},
@@ -66,18 +89,22 @@ describe('discoverPublishablePackages', () => {
 		writeJson(path.join(repoRoot, 'packages/libs/alpha/package.json'), {
 			name: '@contractspec/lib.alpha',
 			version: '1.0.0',
+			repository: createRepository('packages/libs/alpha'),
 		});
 		writeJson(path.join(repoRoot, 'packages/libs/optional/package.json'), {
 			name: '@contractspec/lib.optional',
 			version: '1.0.0',
+			repository: createRepository('packages/libs/optional'),
 		});
 		writeJson(path.join(repoRoot, 'packages/libs/peer/package.json'), {
 			name: '@contractspec/lib.peer',
 			version: '1.0.0',
+			repository: createRepository('packages/libs/peer'),
 		});
 		writeJson(path.join(repoRoot, 'packages/libs/dev-only/package.json'), {
 			name: '@contractspec/lib.dev-only',
 			version: '1.0.0',
+			repository: createRepository('packages/libs/dev-only'),
 		});
 
 		const packages = discoverPublishablePackages(repoRoot, {
@@ -93,6 +120,57 @@ describe('discoverPublishablePackages', () => {
 			'@contractspec/lib.optional',
 			'@contractspec/lib.peer',
 		]);
+	});
+
+	it('discovers publishable packages with repository metadata', () => {
+		const repo = createTempRepo();
+		writeJson(
+			path.join(repo, 'packages', 'integrations', 'demo', 'package.json'),
+			{
+				name: '@contractspec/integration.demo',
+				version: '1.0.0',
+				scripts: {
+					build: 'echo ok',
+				},
+				repository: createRepository('packages/integrations/demo'),
+			}
+		);
+
+		const packages = discoverPublishablePackages(repo, {
+			log: () => {},
+			warn: () => {},
+		});
+
+		expect(packages).toHaveLength(1);
+		expect(packages[0]).toMatchObject({
+			name: '@contractspec/integration.demo',
+			dir: 'packages/integrations/demo',
+			hasBuildScript: true,
+		});
+	});
+
+	it('throws when a publishable package is missing repository metadata', () => {
+		const repo = createTempRepo();
+		writeJson(
+			path.join(repo, 'packages', 'integrations', 'demo', 'package.json'),
+			{
+				name: '@contractspec/integration.demo',
+				version: '1.0.0',
+			}
+		);
+
+		expect(() =>
+			discoverPublishablePackages(repo, {
+				log: () => {},
+				warn: () => {},
+			})
+		).toThrow('Publishable package metadata validation failed');
+		expect(() =>
+			discoverPublishablePackages(repo, {
+				log: () => {},
+				warn: () => {},
+			})
+		).toThrow('@contractspec/integration.demo');
 	});
 });
 

@@ -143,6 +143,7 @@ describe('ContextSnapshotPipeline', () => {
 			snapshotId: 'snap-2',
 			sourceKey: 'docs/indexed',
 			kind: 'docblock',
+			text: 'Hello indexed',
 		});
 	});
 });

@@ -9,6 +9,8 @@ export * from './entities';
 export * from './events';
 // Feature module specification
 export * from './learning-journey.feature';
+// Adaptive journey runtime
+export * from './runtime';
 // Track spec types
 export * from './track-spec';
 

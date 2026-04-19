@@ -21,14 +21,14 @@ const registryDocBlocks: DocBlock[] = [
 
 ## Exports
 - \`learningJourneyTracks\` — raw specs
-- \`onboardingTrackCatalog\` — DTOs aligned with onboarding API
+- \`journeyTrackCatalog\` — DTOs aligned with the adaptive journey API
 - \`mapTrackSpecToDto\` — helper to map individual tracks
 
 ## Wiring
-- Use with onboarding API contracts:
-  - \`learning.onboarding.listTracks\`
-  - \`learning.onboarding.getProgress\`
-  - \`learning.onboarding.recordEvent\`
+- Use with adaptive journey API contracts:
+  - \`learning.journey.listTracks\`
+  - \`learning.journey.getProgress\`
+  - \`learning.journey.recordEvent\`
 - Intended for registry/adapters in Studio UI or services that surface tracks.`,
 	},
 ];

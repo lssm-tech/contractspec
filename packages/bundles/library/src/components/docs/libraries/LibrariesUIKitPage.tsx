@@ -2,6 +2,52 @@ import { CodeBlock, InstallCommand } from '@contractspec/lib.design-system';
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
 
+const NATIVE_TABLE_EXAMPLE = `import { DataTable } from '@contractspec/lib.ui-kit/ui/data-table';
+import { useContractTable } from '@contractspec/lib.presentation-runtime-react';
+
+import { SHOWCASE_ROWS } from '@contractspec/example.data-grid-showcase/ui/data-grid-showcase.data';
+import { useShowcaseColumns } from '@contractspec/example.data-grid-showcase/ui/data-grid-showcase.columns';
+import {
+  ExpandedRowContent,
+  ShowcaseToolbar,
+} from '@contractspec/example.data-grid-showcase/ui/data-grid-showcase.parts';
+
+export function NativeAccountGrid() {
+  const columns = useShowcaseColumns();
+
+  const controller = useContractTable({
+    data: SHOWCASE_ROWS,
+    columns,
+    selectionMode: 'single',
+    initialState: {
+      sorting: [{ id: 'arr', desc: true }],
+      pagination: { pageIndex: 0, pageSize: 4 },
+      columnVisibility: { notes: false },
+      columnPinning: { left: ['account'], right: [] },
+    },
+    renderExpandedContent: (row) => <ExpandedRowContent row={row} />,
+    getCanExpand: () => true,
+  });
+
+  return (
+    <DataTable
+      controller={controller}
+      toolbar={
+        <ShowcaseToolbar
+          controller={controller}
+          label="Native primitive"
+          primaryColumnId="account"
+          toggleColumnId="notes"
+          pinColumnId="owner"
+          sortColumnIds={['arr', 'renewalDate']}
+        />
+      }
+      loading={false}
+      footer={\`Rows \${controller.rows.length}\`}
+    />
+  );
+}`;
+
 export function LibrariesUIKitPage() {
 	return (
 		<div className="space-y-8">
@@ -41,29 +87,21 @@ export function LibrariesUIKitPage() {
 			</div>
 
 			<div className="space-y-4">
-				<h2 className="font-bold text-2xl">Example Usage</h2>
-				<CodeBlock
-					language="tsx"
-					code={`import { Button } from '@contractspec/lib.ui-kit/ui/button';
-import { Text } from '@contractspec/lib.ui-kit/ui/text';
-import { Card, CardHeader, CardTitle, CardContent } from '@contractspec/lib.ui-kit/ui/card';
-
-export function MyComponent() {
-  return (
-    <Card className="w-full max-w-md">
-      <CardHeader>
-        <CardTitle>Welcome</CardTitle>
-      </CardHeader>
-      <CardContent className="gap-4">
-        <Text>This works on Web and Native.</Text>
-        <Button onPress={() => console.log('Clicked!')}>
-          Click me
-        </Button>
-      </CardContent>
-    </Card>
-  );
-}`}
-				/>
+				<h2 className="font-bold text-2xl">Data table example</h2>
+				<p className="text-muted-foreground">
+					The canonical{' '}
+					<Link
+						href="/docs/examples/data-grid-showcase"
+						className="text-[color:var(--rust)] underline underline-offset-4"
+					>
+						Data Grid Showcase
+					</Link>{' '}
+					uses <code>@contractspec/lib.ui-kit/ui/data-table</code> as the
+					native-first primitive lane. It shares the same controller model as
+					the web renderer while keeping the React Native / Expo surface
+					explicit.
+				</p>
+				<CodeBlock language="tsx" code={NATIVE_TABLE_EXAMPLE} />
 			</div>
 
 			<div className="space-y-4">
@@ -104,8 +142,8 @@ export function MyComponent() {
 				<Link href="/docs/libraries/schema" className="btn-ghost">
 					Previous: Schema
 				</Link>
-				<Link href="/docs/libraries/design-system" className="btn-primary">
-					Next: Design System <ChevronRight size={16} />
+				<Link href="/docs/libraries/ui-kit-web" className="btn-primary">
+					Next: UI Kit Web <ChevronRight size={16} />
 				</Link>
 			</div>
 		</div>

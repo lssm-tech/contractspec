@@ -33,16 +33,17 @@ export const frMessages = defineTranslation({
 		},
 		'prompt.autoResponder.user': {
 			value:
-				'Ticket #{ticketId} ({category}, {priority}, {sentiment})\nSujet\u00a0: {subject}\n\n{body}\n\nConnaissances\u00a0:\n{knowledge}\n\nR\u00e9pondez au client.',
+				'Tonalite : {tone}\nTicket ({category}, {priority}, {sentiment})\nSujet : {subject}\n\nMessage client :\n{body}\n\nReponse resolue :\n{answer}\n\nCitations :\n{citations}\n\nRedigez la reponse de support.',
 			description: 'Auto-responder user prompt template',
 			placeholders: [
-				{ name: 'ticketId', type: 'string' },
+				{ name: 'tone', type: 'string' },
 				{ name: 'category', type: 'string' },
 				{ name: 'priority', type: 'string' },
 				{ name: 'sentiment', type: 'string' },
 				{ name: 'subject', type: 'string' },
 				{ name: 'body', type: 'string' },
-				{ name: 'knowledge', type: 'string' },
+				{ name: 'answer', type: 'string' },
+				{ name: 'citations', type: 'string' },
 			],
 		},
 

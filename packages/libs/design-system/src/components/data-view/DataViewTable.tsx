@@ -21,6 +21,8 @@ export interface DataViewTableProps {
 	items: Record<string, unknown>[];
 	className?: string;
 	onRowClick?: (item: Record<string, unknown>) => void;
+	toolbar?: React.ReactNode;
+	loading?: boolean;
 	emptyState?: React.ReactNode;
 	headerActions?: React.ReactNode;
 	footer?: React.ReactNode;
@@ -31,6 +33,8 @@ export function DataViewTable({
 	items,
 	className,
 	onRowClick,
+	toolbar,
+	loading,
 	emptyState,
 	headerActions,
 	footer,
@@ -88,6 +92,8 @@ export function DataViewTable({
 			className={className}
 			title={resolveTranslationString(spec.meta.title, translate)}
 			description={resolveTranslationString(spec.meta.description, translate)}
+			toolbar={toolbar}
+			loading={loading}
 			headerActions={headerActions}
 			emptyState={emptyState}
 			footer={footer}

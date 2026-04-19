@@ -3,6 +3,7 @@ import type {
 	VectorStoreProvider,
 } from '@contractspec/lib.contracts-integrations';
 import type { RetrievalOptions, RetrievalResult } from '../types';
+import { extractKnowledgePayloadText } from '../vector-payload';
 import type { KnowledgeRetriever, RetrieverConfig } from './interface';
 
 /**
@@ -70,7 +71,7 @@ export class VectorRetriever implements KnowledgeRetriever {
 
 		// Map to RetrievalResult
 		return filtered.map((result) => ({
-			content: this.extractContent(result.payload),
+			content: extractKnowledgePayloadText(result.payload),
 			source: result.id,
 			score: result.score,
 			metadata: result.payload as Record<string, unknown> | undefined,
@@ -87,13 +88,6 @@ export class VectorRetriever implements KnowledgeRetriever {
 
 	listSpaces(): string[] {
 		return [...this.spaceCollections.keys()];
-	}
-
-	private extractContent(payload: Record<string, unknown> | undefined): string {
-		if (!payload) return '';
-		if (typeof payload.text === 'string') return payload.text;
-		if (typeof payload.content === 'string') return payload.content;
-		return JSON.stringify(payload);
 	}
 }
 

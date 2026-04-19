@@ -1,3 +1,5 @@
+import { resolveLocale } from '../i18n/locale';
+
 /**
  * Template variable definition.
  */
@@ -29,6 +31,15 @@ export interface ChannelContentMap {
 }
 
 /**
+ * Locale-specific channel overrides.
+ *
+ * Overrides may redefine only the fields that change for a locale.
+ */
+export type LocalizedChannelContentMap = {
+	[K in keyof ChannelContentMap]?: Partial<NonNullable<ChannelContentMap[K]>>;
+};
+
+/**
  * Notification template definition.
  */
 export interface NotificationTemplateDefinition {
@@ -43,7 +54,7 @@ export interface NotificationTemplateDefinition {
 	 * Per-locale channel content overrides.
 	 * Falls back to `channels` for unlisted locales.
 	 */
-	localeChannels?: Record<string, Partial<ChannelContentMap>>;
+	localeChannels?: Record<string, LocalizedChannelContentMap>;
 }
 
 /**
@@ -97,11 +108,19 @@ export function renderNotificationTemplate(
 	variables: Record<string, unknown>,
 	locale?: string
 ): RenderedNotification | null {
-	const channelContent =
-		(locale && template.localeChannels?.[locale]?.[channel]) ??
-		template.channels[channel];
+	const resolvedLocale = locale ? resolveLocale(locale) : undefined;
+	const baseChannelContent = template.channels[channel];
+	const localizedChannelContent = resolvedLocale
+		? template.localeChannels?.[resolvedLocale]?.[channel]
+		: undefined;
+	const channelContent = localizedChannelContent
+		? {
+				...(baseChannelContent ?? {}),
+				...localizedChannelContent,
+			}
+		: baseChannelContent;
 
-	if (!channelContent) {
+	if (!channelContent?.body) {
 		return null;
 	}
 

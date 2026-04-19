@@ -110,6 +110,7 @@ export interface ShowcaseServerInput {
 	pageIndex: number;
 	pageSize: number;
 	sorting: ContractTableSort[];
+	empty?: boolean;
 }
 
 export interface ShowcaseServerResult {
@@ -140,6 +141,14 @@ function getSortValue(row: ShowcaseRow, sortId?: string) {
 export async function fetchShowcaseRows(
 	input: ShowcaseServerInput
 ): Promise<ShowcaseServerResult> {
+	if (input.empty) {
+		await new Promise((resolve) => setTimeout(resolve, 10));
+		return {
+			items: [],
+			total: 0,
+		};
+	}
+
 	const [sort] = input.sorting;
 	const sorted = [...SHOWCASE_ROWS].sort((left, right) => {
 		const leftValue = getSortValue(left, sort?.id);

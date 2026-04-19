@@ -3930,7 +3930,7 @@ Typical flow:
 
 - `RawDocument`, `DocumentFragment`, and `DocumentProcessor`: extract raw document content into indexable fragments.
 - `EmbeddingService`: batch fragment embeddings through an `EmbeddingProvider`.
-- `VectorIndexer` and `VectorIndexConfig`: map embeddings to `VectorStoreProvider.upsert()` requests.
+- `VectorIndexer` and `VectorIndexConfig`: map embeddings to `VectorStoreProvider.upsert()` requests and persist canonical `payload.text` content for later retrieval/query use.
 - `GmailIngestionAdapter`: convert email threads into plaintext documents and index them.
 - `StorageIngestionAdapter`: fetch object content and run the same process/index pipeline.
 
@@ -3971,7 +3971,8 @@ Use `package.json` as the exhaustive source of truth for subpaths; the README ca
 - `StaticRetriever.retrieve()` does simple line-level substring matching. It is not semantic retrieval.
 - `VectorRetriever.retrieve()` returns `[]` when the requested `spaceKey` is not mapped to a collection.
 - `VectorRetriever` uses `tenantId` as the vector-store namespace when provided.
-- `KnowledgeQueryService` always runs embed -> vector search -> prompt build -> `LLMProvider.chat()`.
+- `VectorIndexer.upsert()` stores fragment text under `payload.text`, together with merged fragment/config metadata and `documentId`.
+- `KnowledgeQueryService` always runs embed -> vector search -> prompt build -> `LLMProvider.chat()`, using indexed `payload.text` as the primary context source and falling back to legacy `payload.content` when needed.
 - `KnowledgeAccessGuard` defaults to blocking writes to `external` and `ephemeral` knowledge categories.
 - `KnowledgeAccessGuard` defaults to requiring workflow binding and not requiring agent binding.
 - `GmailIngestionAdapter` converts threads into plaintext and strips HTML when text bodies are missing.

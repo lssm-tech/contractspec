@@ -9,8 +9,8 @@ import {
 	scanSpecSource,
 } from '@contractspec/module.workspace';
 import type { FsAdapter } from '../ports/fs';
-import { discoverSpecFiles } from './discover';
 import { isLibraryDefinitionFile, isTestFile } from '../utils';
+import { discoverSpecFiles } from './discover';
 
 /**
  * Options for listing specs.

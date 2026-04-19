@@ -2,7 +2,10 @@
  * List specs command for ContractSpec extension.
  */
 
-import { discoverSpecs, groupSpecsByType } from '@contractspec/bundle.workspace';
+import {
+	discoverSpecs,
+	groupSpecsByType,
+} from '@contractspec/bundle.workspace';
 import * as vscode from 'vscode';
 import { getWorkspaceAdapters } from '../workspace/adapters';
 

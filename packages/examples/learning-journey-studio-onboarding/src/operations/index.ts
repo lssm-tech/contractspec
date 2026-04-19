@@ -1,57 +1,17 @@
 import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
 import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import { JourneyTrackModel } from '@contractspec/module.learning-journey/contracts/journey';
 
 import { studioGettingStartedTrack } from '../track';
 
 const OWNERS = ['examples.learning-journey.studio-onboarding'] as const;
-
-const StepModel = defineSchemaModel({
-	name: 'StudioOnboardingStep',
-	description: 'Step metadata for Studio onboarding journey',
-	fields: {
-		id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-		title: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-		description: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-		completionEvent: {
-			type: ScalarTypeEnum.String_unsecure(),
-			isOptional: false,
-		},
-		sourceModule: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-		xpReward: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
-		order: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
-	},
-});
-
-export const StudioOnboardingTrackModel = defineSchemaModel({
-	name: 'StudioOnboardingTrack',
-	description: 'Studio onboarding track definition',
-	fields: {
-		id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-		name: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-		description: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-		totalXp: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
-		completionXpBonus: {
-			type: ScalarTypeEnum.Int_unsecure(),
-			isOptional: true,
-		},
-		completionBadgeKey: {
-			type: ScalarTypeEnum.String_unsecure(),
-			isOptional: true,
-		},
-		streakHoursWindow: {
-			type: ScalarTypeEnum.Int_unsecure(),
-			isOptional: true,
-		},
-		streakBonusXp: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
-		steps: { type: StepModel, isArray: true, isOptional: false },
-	},
-});
+export const StudioJourneyTrackModel = JourneyTrackModel;
 
 const TrackResponseModel = defineSchemaModel({
 	name: 'StudioOnboardingTrackResponse',
 	description: 'Response wrapper for studio onboarding track',
 	fields: {
-		track: { type: StudioOnboardingTrackModel, isOptional: false },
+		track: { type: StudioJourneyTrackModel, isOptional: false },
 	},
 });
 

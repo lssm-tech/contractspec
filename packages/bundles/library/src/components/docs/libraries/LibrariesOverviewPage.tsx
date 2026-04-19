@@ -37,9 +37,15 @@ const libraryGroups = [
 				href: '/docs/libraries/ui-kit',
 			},
 			{
+				title: '@contractspec/lib.ui-kit-web',
+				description:
+					'Use the raw web primitive layer directly when you want the browser table, accessibility, and interaction model without the design-system shell.',
+				href: '/docs/libraries/ui-kit-web',
+			},
+			{
 				title: '@contractspec/lib.design-system',
 				description:
-					'Build higher-level product surfaces and documented marketing/docs primitives on top of the UI kit.',
+					'Build higher-level product surfaces and documented marketing/docs primitives on top of the web and native UI packages.',
 				href: '/docs/libraries/design-system',
 			},
 			{

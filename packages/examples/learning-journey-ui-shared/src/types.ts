@@ -1,22 +1,19 @@
-import type { LearningJourneyTrackSpec } from '@contractspec/module.learning-journey/track-spec';
+import type {
+	JourneyProgressSnapshot,
+	JourneyTrackSpec,
+} from '@contractspec/module.learning-journey/track-spec';
 
 /** View types for learning mini-apps */
 export type LearningView = 'overview' | 'steps' | 'progress' | 'timeline';
 
-/** Progress state for a learning track */
-export interface LearningProgressState {
-	trackId: string;
-	completedStepIds: string[];
-	currentStepId: string | null;
-	xpEarned: number;
-	streakDays: number;
+/** Progress state projected from the canonical learning runtime */
+export interface LearningProgressState extends JourneyProgressSnapshot {
 	lastActivityDate: string | null;
-	badges: string[];
 }
 
 /** Props for mini-app components */
 export interface LearningMiniAppProps {
-	track: LearningJourneyTrackSpec;
+	track: JourneyTrackSpec;
 	progress: LearningProgressState;
 	onStepComplete?: (stepId: string) => void;
 	onViewChange?: (view: LearningView) => void;
@@ -25,7 +22,7 @@ export interface LearningMiniAppProps {
 
 /** Props for view components */
 export interface LearningViewProps {
-	track: LearningJourneyTrackSpec;
+	track: JourneyTrackSpec;
 	progress: LearningProgressState;
 	onStepComplete?: (stepId: string) => void;
 }

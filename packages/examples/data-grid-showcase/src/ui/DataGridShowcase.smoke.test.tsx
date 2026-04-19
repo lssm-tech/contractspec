@@ -48,6 +48,18 @@ async function renderShowcase() {
 	return { container, root };
 }
 
+function click(element: Element | null) {
+	if (!element) {
+		throw new Error('Expected element to exist before clicking.');
+	}
+
+	act(() => {
+		element.dispatchEvent(
+			new window.MouseEvent('click', { bubbles: true, cancelable: true })
+		);
+	});
+}
+
 describe('@contractspec/example.data-grid-showcase smoke', () => {
 	test('publishes the focused table example metadata', () => {
 		expect(example.meta.kind).toBe('ui');
@@ -61,12 +73,37 @@ describe('@contractspec/example.data-grid-showcase smoke', () => {
 	test('renders the showcase table surfaces', async () => {
 		const { container, root } = await renderShowcase();
 
-		expect(container.textContent).toContain('Generic Client');
-		expect(container.textContent).toContain('Generic Server');
-		expect(container.textContent).toContain('DataView Adapter');
-		expect(container.textContent).toContain('Show Notes Column');
-		expect(container.textContent).toContain('Widen Account');
-		expect(container.textContent).toContain('Page 1 of 2');
+		expect(container.textContent).toContain('Canonical example');
+		expect(container.textContent).toContain('ContractSpec Data Table Showcase');
+		expect(container.textContent).toContain('@contractspec/lib.contracts-spec');
+		expect(container.textContent).toContain('@contractspec/lib.ui-kit');
+		expect(container.textContent).toContain('@contractspec/lib.ui-kit-web');
+		expect(container.textContent).toContain('@contractspec/lib.design-system');
+		expect(container.textContent).toContain('Client');
+		expect(container.textContent).toContain('Server');
+		expect(container.textContent).toContain('DataView');
+		expect(container.textContent).toContain('Web Primitive');
+		expect(container.textContent).toContain('Native Primitive');
+		expect(container.textContent).toContain('Pin Owner Right');
+		expect(container.textContent).toContain('Unpin Owner');
+		expect(container.textContent).toContain('Toggle ARR Sort');
+		expect(container.textContent).toContain('Simulate Loading');
+		expect(container.textContent).toContain('Show Empty State');
+		expect(container.textContent).toContain('Interaction Log');
+		expect(
+			container.querySelector('th[aria-sort="descending"]')
+		).not.toBeNull();
+
+		click(container.querySelector('[aria-label="Expand row acct-1"]'));
+		expect(container.textContent).not.toContain('Client: pressed row');
+
+		const firstRow = Array.from(container.querySelectorAll('tr')).find((row) =>
+			row.textContent?.includes('Northwind Cloud')
+		);
+		click(firstRow ?? null);
+		expect(container.textContent).toContain(
+			'Client: pressed row "Northwind Cloud" (healthy)'
+		);
 
 		await act(async () => {
 			root.unmount();

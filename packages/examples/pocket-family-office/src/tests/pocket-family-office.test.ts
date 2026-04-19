@@ -173,16 +173,8 @@ describe('Pocket Family Office configuration', () => {
 		};
 
 		const fragments = await processor.process(rawDocument);
-		const enrichedFragments = fragments.map((fragment) => ({
-			...fragment,
-			metadata: {
-				...(fragment.metadata ?? {}),
-				text: fragment.text,
-			},
-		}));
-		const fragmentEmbeddings =
-			await embeddingService.embedFragments(enrichedFragments);
-		await indexer.upsert(enrichedFragments, fragmentEmbeddings);
+		const fragmentEmbeddings = await embeddingService.embedFragments(fragments);
+		await indexer.upsert(fragments, fragmentEmbeddings);
 
 		const queryService = new KnowledgeQueryService(
 			embeddings,

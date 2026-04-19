@@ -33,14 +33,18 @@ describe('learning journey registry api', () => {
 		if (!progress) return;
 
 		expect(progress.isCompleted).toBeTrue();
-		expect(progress.progress).toBe(100);
-		// base xp: track totalXp (110) + completion bonus (25) + streak bonus (25)
-		expect(progress.xpEarned).toBeGreaterThanOrEqual(160);
+		expect(progress.progressPercent).toBe(100);
+		expect(progress.xpEarned).toBeGreaterThanOrEqual(125);
 	});
 
 	it('lists tracks with empty progress for new learner', () => {
 		const result = listTracks('new-learner');
 		expect(result.tracks.length).toBeGreaterThan(0);
-		expect(result.progress.length).toBe(0);
+		expect(result.progress.length).toBe(result.tracks.length);
+		expect(
+			result.progress.every(
+				(snapshot) => snapshot.completedStepIds.length === 0
+			)
+		).toBeTrue();
 	});
 });

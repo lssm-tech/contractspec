@@ -86,6 +86,72 @@ const resolver = createTranslationResolver({
 </DesignSystemTranslationProvider>;
 ```
 
+### Render the canonical account grid
+
+The canonical data-table example lives in
+[`@contractspec/example.data-grid-showcase`](../../examples/data-grid-showcase/README.md).
+Its composed lane uses `DataTable` and `DataViewTable` from this package:
+
+```tsx
+import { Button, DataTable, DataViewTable } from '@contractspec/lib.design-system';
+import { useContractTable } from '@contractspec/lib.presentation-runtime-react';
+
+import { DataGridShowcaseDataView } from '@contractspec/example.data-grid-showcase/contracts/data-grid-showcase.data-view';
+import { SHOWCASE_ROWS } from '@contractspec/example.data-grid-showcase/ui/data-grid-showcase.data';
+import { useShowcaseColumns } from '@contractspec/example.data-grid-showcase/ui/data-grid-showcase.columns';
+import {
+  ExpandedRowContent,
+  ShowcaseToolbar,
+} from '@contractspec/example.data-grid-showcase/ui/data-grid-showcase.parts';
+
+export function AccountHealthTable() {
+  const columns = useShowcaseColumns();
+
+  const controller = useContractTable({
+    data: SHOWCASE_ROWS,
+    columns,
+    selectionMode: 'multiple',
+    initialState: {
+      sorting: [{ id: 'arr', desc: true }],
+      pagination: { pageIndex: 0, pageSize: 4 },
+      columnVisibility: { notes: false },
+      columnPinning: { left: ['account'], right: [] },
+    },
+    renderExpandedContent: (row) => <ExpandedRowContent row={row} />,
+    getCanExpand: () => true,
+  });
+
+  return (
+    <>
+      <DataTable
+        controller={controller}
+        title="Account health"
+        description="Composed table surface for the canonical account grid."
+        headerActions={<Button variant="outline">Reset</Button>}
+        toolbar={
+          <ShowcaseToolbar
+            controller={controller}
+            label="Client mode"
+            primaryColumnId="account"
+            toggleColumnId="notes"
+            pinColumnId="owner"
+            sortColumnIds={['arr', 'renewalDate']}
+          />
+        }
+        loading={false}
+        emptyState={<div>No rows available.</div>}
+        footer={\`Page \${controller.pageIndex + 1} of \${controller.pageCount}\`}
+      />
+
+      <DataViewTable
+        spec={DataGridShowcaseDataView}
+        items={SHOWCASE_ROWS}
+      />
+    </>
+  );
+}
+```
+
 ## API map
 
 ### Theme and platform

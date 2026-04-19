@@ -195,6 +195,7 @@ describe('Setup Service', () => {
 
 		expect(result.preset).toBe('builder-local');
 		expect(result.nextSteps).toEqual([
+			'contractspec doctor',
 			'contractspec builder init --workspace-id ws-demo-app --preset local-daemon-mvp',
 			'contractspec builder local register --workspace-id ws-demo-app --runtime-id rt_local_daemon --granted-to local:operator',
 		]);

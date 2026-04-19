@@ -42,11 +42,6 @@ const nextConfig = {
 		}
 		return config;
 	},
-	// Mark sql.js as external to prevent server bundling
-	outputFileTracingExcludes: {
-		'/templates': ['**/*'],
-		'/sandbox': ['**/*'],
-	},
 	async rewrites() {
 		return [
 			{

@@ -10,10 +10,10 @@ export * from './learner';
 
 import { learnerEntities, learnerEnums } from './learner';
 
-// Onboarding entities
-export * from './onboarding';
+// Journey entities
+export * from './journey';
 
-import { onboardingEntities, onboardingEnums } from './onboarding';
+import { journeyEntities, journeyEnums } from './journey';
 
 // Flashcard entities
 export * from './flashcard';
@@ -41,7 +41,7 @@ import { aiEntities, aiEnums } from './ai';
 export const learningJourneyEntities = [
 	...courseEntities,
 	...learnerEntities,
-	...onboardingEntities,
+	...journeyEntities,
 	...flashcardEntities,
 	...quizEntities,
 	...gamificationEntities,
@@ -54,7 +54,7 @@ export const learningJourneyEntities = [
 export const learningJourneyEnums = [
 	...courseEnums,
 	...learnerEnums,
-	...onboardingEnums,
+	...journeyEnums,
 	...flashcardEnums,
 	...quizEnums,
 	...gamificationEnums,

@@ -1,101 +1,93 @@
 'use client';
 
-import type { LearningJourneyTrackSpec } from '@contractspec/module.learning-journey/track-spec';
+import {
+	completeJourneyStep,
+	createJourneyProgressState,
+	projectJourneyProgress,
+	recordJourneyEvent,
+} from '@contractspec/module.learning-journey/runtime';
+import type {
+	JourneyProgressState,
+	JourneyTrackSpec,
+} from '@contractspec/module.learning-journey/track-spec';
 import { useCallback, useMemo, useState } from 'react';
 import type { LearningProgressState } from '../types';
 
-/** Default progress state for a new track */
-function createDefaultProgress(trackId: string): LearningProgressState {
+export const projectLearningProgressState = (
+	track: JourneyTrackSpec,
+	state: JourneyProgressState
+): LearningProgressState => {
+	const projected = projectJourneyProgress(track, state);
 	return {
-		trackId,
-		completedStepIds: [],
-		currentStepId: null,
-		xpEarned: 0,
-		streakDays: 0,
-		lastActivityDate: null,
-		badges: [],
+		...projected,
+		completedStepIds: projected.steps
+			.filter(
+				(step) =>
+					step.status === 'BLOCKED' ||
+					step.status === 'COMPLETED' ||
+					step.status === 'SKIPPED'
+			)
+			.map((step) => step.stepId),
+		lastActivityDate: state.lastActivityAt?.toISOString() ?? null,
 	};
-}
+};
 
-/** Hook for managing learning progress state */
-export function useLearningProgress(track: LearningJourneyTrackSpec) {
-	const [progress, setProgress] = useState<LearningProgressState>(() =>
-		createDefaultProgress(track.id)
+/** Hook for managing learning progress state through the module runtime */
+export function useLearningProgress(track: JourneyTrackSpec) {
+	const [state, setState] = useState<JourneyProgressState>(() =>
+		createJourneyProgressState(track)
+	);
+
+	const progress = useMemo(
+		() => projectLearningProgressState(track, state),
+		[state, track]
 	);
 
 	const completeStep = useCallback(
 		(stepId: string) => {
-			const step = track.steps.find((s) => s.id === stepId);
-			if (!step || progress.completedStepIds.includes(stepId)) return;
-
-			setProgress((prev) => {
-				const newCompletedIds = [...prev.completedStepIds, stepId];
-				const xpReward = step.xpReward ?? 0;
-
-				// Find next incomplete step
-				const nextStep = track.steps.find(
-					(s) => !newCompletedIds.includes(s.id)
-				);
-
-				// Check if track is complete
-				const isTrackComplete = newCompletedIds.length === track.steps.length;
-				const completionBonus = isTrackComplete
-					? (track.completionRewards?.xpBonus ?? 0)
-					: 0;
-
-				return {
-					...prev,
-					completedStepIds: newCompletedIds,
-					currentStepId: nextStep?.id ?? null,
-					xpEarned: prev.xpEarned + xpReward + completionBonus,
-					lastActivityDate: new Date().toISOString(),
-					badges:
-						isTrackComplete && track.completionRewards?.badgeKey
-							? [...prev.badges, track.completionRewards.badgeKey]
-							: prev.badges,
-				};
-			});
+			setState((prev) => completeJourneyStep(track, prev, stepId));
 		},
-		[track, progress.completedStepIds]
+		[track]
 	);
 
 	const resetProgress = useCallback(() => {
-		setProgress(createDefaultProgress(track.id));
-	}, [track.id]);
+		setState(createJourneyProgressState(track));
+	}, [track]);
 
 	const incrementStreak = useCallback(() => {
-		setProgress((prev) => ({
-			...prev,
-			streakDays: prev.streakDays + 1,
-			lastActivityDate: new Date().toISOString(),
-		}));
-	}, []);
+		setState((prev) =>
+			recordJourneyEvent(track, prev, {
+				name: 'journey.streak.pulse',
+			})
+		);
+	}, [track]);
 
 	const stats = useMemo(() => {
-		const totalSteps = track.steps.length;
-		const completedSteps = progress.completedStepIds.length;
-		const percentComplete =
-			totalSteps > 0 ? Math.round((completedSteps / totalSteps) * 100) : 0;
 		const totalXp =
 			track.totalXp ??
-			track.steps.reduce((sum, s) => sum + (s.xpReward ?? 0), 0) +
-				(track.completionRewards?.xpBonus ?? 0);
+			track.steps.reduce(
+				(sum, step) => sum + (step.reward?.xp ?? step.xpReward ?? 0),
+				0
+			) + (track.completionRewards?.xp ?? 0);
 
 		return {
-			totalSteps,
-			completedSteps,
-			remainingSteps: totalSteps - completedSteps,
-			percentComplete,
+			completedSteps: progress.completedStepIds.length,
+			isComplete: progress.isCompleted,
+			percentComplete: progress.progressPercent,
+			remainingSteps: Math.max(
+				track.steps.length - progress.completedStepIds.length,
+				0
+			),
+			totalSteps: track.steps.length,
 			totalXp,
-			isComplete: completedSteps === totalSteps,
 		};
-	}, [track, progress.completedStepIds]);
+	}, [progress, track]);
 
 	return {
-		progress,
-		stats,
 		completeStep,
-		resetProgress,
 		incrementStreak,
+		progress,
+		resetProgress,
+		stats,
 	};
 }

@@ -1,10 +1,11 @@
-import type { LearningJourneyTrackSpec } from '@contractspec/module.learning-journey/track-spec';
+import type { JourneyTrackSpec } from '@contractspec/module.learning-journey/track-spec';
 
 const makeTipStep = (
 	id: string,
 	tipId: string,
-	description: string
-): LearningJourneyTrackSpec['steps'][number] => ({
+	description: string,
+	previousStepId?: string
+): JourneyTrackSpec['steps'][number] => ({
 	id,
 	title: `Resolve tip: ${tipId}`,
 	description,
@@ -13,11 +14,14 @@ const makeTipStep = (
 		eventName: 'coach.tip.follow_up_action_taken',
 		payloadFilter: { tipId },
 	},
+	prerequisites: previousStepId
+		? [{ kind: 'step_completed', stepId: previousStepId }]
+		: undefined,
 	xpReward: 20,
 	metadata: { tipId },
 });
 
-export const moneyAmbientCoachTrack: LearningJourneyTrackSpec = {
+export const moneyAmbientCoachTrack: JourneyTrackSpec = {
 	id: 'money_ambient_coach',
 	name: 'Ambient Coach — Money',
 	description:
@@ -33,17 +37,19 @@ export const moneyAmbientCoachTrack: LearningJourneyTrackSpec = {
 		makeTipStep(
 			'no_savings_goal',
 			'no_savings_goal',
-			'Prompt setting a first savings goal.'
+			'Prompt setting a first savings goal.',
+			'cash_buffer_too_high'
 		),
 		makeTipStep(
 			'irregular_savings',
 			'irregular_savings',
-			'Recommend recurring saves after irregular deposits.'
+			'Recommend recurring saves after irregular deposits.',
+			'no_savings_goal'
 		),
 	],
 };
 
-export const colivingAmbientCoachTrack: LearningJourneyTrackSpec = {
+export const colivingAmbientCoachTrack: JourneyTrackSpec = {
 	id: 'coliving_ambient_coach',
 	name: 'Ambient Coach — Coliving',
 	description: 'Contextual tips for healthy coliving habits.',
@@ -58,17 +64,19 @@ export const colivingAmbientCoachTrack: LearningJourneyTrackSpec = {
 		makeTipStep(
 			'guest_frequency_high',
 			'guest_frequency_high',
-			'Set guest frequency expectations for the house.'
+			'Set guest frequency expectations for the house.',
+			'noise_late_evening'
 		),
 		makeTipStep(
 			'shared_space_conflicts',
 			'shared_space_conflicts',
-			'Offer a shared-space checklist to reduce conflicts.'
+			'Offer a shared-space checklist to reduce conflicts.',
+			'guest_frequency_high'
 		),
 	],
 };
 
-export const ambientCoachTracks: LearningJourneyTrackSpec[] = [
+export const ambientCoachTracks: JourneyTrackSpec[] = [
 	moneyAmbientCoachTrack,
 	colivingAmbientCoachTrack,
 ];

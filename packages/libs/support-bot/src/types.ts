@@ -69,11 +69,14 @@ export interface SupportResponseDraft {
 	citations: SupportCitation[];
 }
 
+export interface SupportBotThresholds {
+	autoResolveMinConfidence?: number;
+	escalationConfidenceThreshold?: number;
+	maxIterations?: number;
+}
+
 export interface SupportBotSpec extends AgentSpec {
-	thresholds?: {
-		autoResolveMinConfidence?: number;
-		maxIterations?: number;
-	};
+	thresholds?: SupportBotThresholds;
 	review?: {
 		queueName?: string;
 		approvalWorkflow?: string;

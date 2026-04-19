@@ -73,11 +73,7 @@ export async function setupVscodeSettings(
 				existing,
 				defaults as Record<string, unknown>
 			);
-			if (
-				(options.preset === 'builder-managed' ||
-					options.preset === 'builder-hybrid') &&
-				'contractspec.api.baseUrl' in (defaults as Record<string, unknown>)
-			) {
+			if ('contractspec.api.baseUrl' in (defaults as Record<string, unknown>)) {
 				merged['contractspec.api.baseUrl'] = (
 					defaults as Record<string, unknown>
 				)['contractspec.api.baseUrl'];

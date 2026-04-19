@@ -5,28 +5,28 @@ import { platformLearningTracks } from '@contractspec/example.learning-journey-p
 import { questTracks } from '@contractspec/example.learning-journey-quest-challenges/track';
 import { studioLearningTracks } from '@contractspec/example.learning-journey-studio-onboarding/track';
 import type {
-	LearningJourneyStepSpec,
-	LearningJourneyTrackSpec,
-	StepAvailabilitySpec,
-	StepCompletionConditionSpec,
+	JourneyAvailabilitySpec,
+	JourneyConditionSpec,
+	JourneyStepSpec,
+	JourneyTrackSpec,
 } from '@contractspec/module.learning-journey/track-spec';
 
-export interface OnboardingStepDto {
+export interface JourneyStepDto {
 	id: string;
 	title: string;
 	description?: string;
 	completionEvent: string;
-	completionCondition?: StepCompletionConditionSpec;
+	completionCondition?: JourneyConditionSpec;
 	xpReward?: number;
 	isRequired?: boolean;
 	canSkip?: boolean;
 	actionUrl?: string;
 	actionLabel?: string;
-	availability?: StepAvailabilitySpec;
+	availability?: JourneyAvailabilitySpec;
 	metadata?: Record<string, unknown>;
 }
 
-export interface OnboardingTrackDto {
+export interface JourneyTrackDto {
 	id: string;
 	name: string;
 	description?: string;
@@ -34,13 +34,13 @@ export interface OnboardingTrackDto {
 	targetUserSegment?: string;
 	targetRole?: string;
 	totalXp?: number;
-	streakRule?: LearningJourneyTrackSpec['streakRule'];
-	completionRewards?: LearningJourneyTrackSpec['completionRewards'];
-	steps: OnboardingStepDto[];
+	streakRule?: JourneyTrackSpec['streakRule'];
+	completionRewards?: JourneyTrackSpec['completionRewards'];
+	steps: JourneyStepDto[];
 	metadata?: Record<string, unknown>;
 }
 
-const mapStep = (step: LearningJourneyStepSpec): OnboardingStepDto => ({
+const mapStep = (step: JourneyStepSpec): JourneyStepDto => ({
 	id: step.id,
 	title: step.title,
 	description: step.description,
@@ -56,8 +56,8 @@ const mapStep = (step: LearningJourneyStepSpec): OnboardingStepDto => ({
 });
 
 export const mapTrackSpecToDto = (
-	track: LearningJourneyTrackSpec
-): OnboardingTrackDto => ({
+	track: JourneyTrackSpec
+): JourneyTrackDto => ({
 	id: track.id,
 	name: track.name,
 	description: track.description,
@@ -71,7 +71,7 @@ export const mapTrackSpecToDto = (
 	metadata: track.metadata,
 });
 
-export const learningJourneyTracks: LearningJourneyTrackSpec[] = [
+export const learningJourneyTracks: JourneyTrackSpec[] = [
 	...studioLearningTracks,
 	...platformLearningTracks,
 	...crmLearningTracks,
@@ -80,7 +80,7 @@ export const learningJourneyTracks: LearningJourneyTrackSpec[] = [
 	...questTracks,
 ];
 
-export const onboardingTrackCatalog: OnboardingTrackDto[] =
+export const journeyTrackCatalog: JourneyTrackDto[] =
 	learningJourneyTracks.map(mapTrackSpecToDto);
 
 export {

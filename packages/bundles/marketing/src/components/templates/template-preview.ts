@@ -2,6 +2,7 @@ import type {
 	RegistryTemplate,
 	TemplateId,
 } from '@contractspec/lib.example-shared-ui';
+import { supportsInlineExamplePreview } from '@contractspec/module.examples';
 import type { LocalTemplateCatalogItem } from './template-catalog';
 
 export type TemplatePreviewAction =
@@ -14,25 +15,8 @@ export type LocalTemplatePreviewAction = Exclude<
 	{ kind: 'disabled' }
 >;
 
-export const INLINE_TEMPLATE_PREVIEW_IDS = [
-	'agent-console',
-	'ai-chat-assistant',
-	'analytics-dashboard',
-	'crm-pipeline',
-	'data-grid-showcase',
-	'integration-hub',
-	'marketplace',
-	'saas-boilerplate',
-	'visualization-showcase',
-	'workflow-system',
-] as const;
-
-const INLINE_TEMPLATE_PREVIEW_SET = new Set<string>(
-	INLINE_TEMPLATE_PREVIEW_IDS
-);
-
 export function supportsInlineTemplatePreview(templateId: TemplateId): boolean {
-	return INLINE_TEMPLATE_PREVIEW_SET.has(templateId);
+	return supportsInlineExamplePreview(templateId);
 }
 
 export function getLocalTemplatePreviewAction(

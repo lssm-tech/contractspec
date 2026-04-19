@@ -1,7 +1,7 @@
-import type { LearningJourneyTrackSpec } from '@contractspec/module.learning-journey/track-spec';
+import type { JourneyTrackSpec } from '@contractspec/module.learning-journey/track-spec';
 import { LEARNING_EVENTS } from '../events';
 
-export const questTrack: LearningJourneyTrackSpec = {
+export const questTrack: JourneyTrackSpec = {
 	id: 'learning_patterns_quest_7day',
 	name: 'Quest (7-day)',
 	description: 'Time-bounded quest with day unlocks.',
@@ -20,6 +20,7 @@ export const questTrack: LearningJourneyTrackSpec = {
 			id: 'day1_complete',
 			title: 'Complete day 1 step',
 			order: 2,
+			prerequisites: [{ kind: 'step_completed', stepId: 'day1_start' }],
 			completion: {
 				kind: 'event',
 				eventName: LEARNING_EVENTS.QUEST_STEP_COMPLETED,
@@ -31,6 +32,7 @@ export const questTrack: LearningJourneyTrackSpec = {
 			id: 'day2_complete',
 			title: 'Complete day 2 step',
 			order: 3,
+			prerequisites: [{ kind: 'step_completed', stepId: 'day1_complete' }],
 			completion: {
 				kind: 'event',
 				eventName: LEARNING_EVENTS.QUEST_STEP_COMPLETED,
@@ -41,4 +43,4 @@ export const questTrack: LearningJourneyTrackSpec = {
 	],
 };
 
-export const questTracks: LearningJourneyTrackSpec[] = [questTrack];
+export const questTracks: JourneyTrackSpec[] = [questTrack];

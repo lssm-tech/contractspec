@@ -79,6 +79,8 @@ contractspec init --preset builder-hybrid
 
 In non-interactive mode, setup remains config-first: it writes `.contractsrc.json`, editor wiring, and tailored follow-up commands, but it does not call live Builder bootstrap APIs for you.
 
+`contractspec builder` remains control-plane-backed for managed, local, and hybrid runtime flows. The CLI resolves the Builder API base URL from `CONTRACTSPEC_API_BASE_URL`, then `.contractsrc.json` `builder.api.baseUrl`, then `https://api.contractspec.io`, and reads auth from the configured control-plane token environment variable.
+
 ## Architecture
 
 - **Commands** (`src/commands/`) - Thin wrappers that call bundle services.

@@ -14,7 +14,6 @@ import {
 	generateTestsWithAgent,
 	generateWithAgent,
 } from './agent-generation';
-import { detectSpecType } from './spec-detect';
 import type { BuildOptions } from './types';
 
 export async function buildCommand(

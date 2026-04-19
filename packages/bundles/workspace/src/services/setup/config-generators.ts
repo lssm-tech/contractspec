@@ -112,7 +112,7 @@ export function generateVscodeSettings(options: SetupOptions): object {
 		'contractspec.specsExplorer.groupBy': 'type',
 	};
 
-	if (preset === 'builder-managed' || preset === 'builder-hybrid') {
+	if (getBuilderRuntimeModeForPreset(preset)) {
 		settings['contractspec.api.baseUrl'] =
 			options.builderApiBaseUrl ?? 'https://api.contractspec.io';
 	}
@@ -320,7 +320,7 @@ function createPresetBuilderConfig(options: SetupOptions) {
 		return undefined;
 	}
 
-	const includeApi = runtimeMode === 'managed' || runtimeMode === 'hybrid';
+	const includeApi = true;
 	const includeLocal = runtimeMode === 'local' || runtimeMode === 'hybrid';
 
 	return {

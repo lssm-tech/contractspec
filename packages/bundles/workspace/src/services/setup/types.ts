@@ -70,7 +70,7 @@ export const SETUP_PRESET_DESCRIPTIONS: Record<SetupPreset, string> = {
 	'builder-managed':
 		'Core workspace setup plus Builder config for managed runtime and API-based next steps.',
 	'builder-local':
-		'Core workspace setup plus Builder config for local runtime registration.',
+		'Core workspace setup plus Builder config for local runtime registration and control-plane-backed next steps.',
 	'builder-hybrid':
 		'Core workspace setup plus Builder config for hybrid runtime with API and local defaults.',
 };
@@ -106,7 +106,7 @@ export interface SetupOptions {
 	projectName?: string;
 	/** Default code owners. */
 	defaultOwners?: string[];
-	/** Builder API base URL for managed or hybrid presets. */
+	/** Builder API base URL for Builder presets. */
 	builderApiBaseUrl?: string;
 	/** Builder control-plane token environment variable name. */
 	builderControlPlaneTokenEnvVar?: string;

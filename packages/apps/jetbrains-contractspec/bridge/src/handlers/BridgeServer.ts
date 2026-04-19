@@ -33,17 +33,17 @@ interface BridgeValidationResult {
 }
 
 type BridgeWorkspaceModule = typeof workspace & {
-	createNodeAdapters: (options?: {
-		cwd?: string;
-		silent?: boolean;
-	}) => {
+	createNodeAdapters: (options?: { cwd?: string; silent?: boolean }) => {
 		fs: unknown;
 		git: unknown;
 		watcher: unknown;
 		ai: unknown;
 		logger: unknown;
 	};
-	loadWorkspaceConfig: (fs: unknown, cwd?: string) => Promise<Record<string, any>>;
+	loadWorkspaceConfig: (
+		fs: unknown,
+		cwd?: string
+	) => Promise<Record<string, any>>;
 	discoverSpecs: (
 		adapters: { fs: unknown },
 		options?: {
@@ -162,7 +162,9 @@ function normalizeWorkspaceRoot(value?: string | null): string | null {
 	return value.replace('file://', '');
 }
 
-function mapBridgeSpec(spec: Awaited<ReturnType<typeof discoverSpecs>>[number]) {
+function mapBridgeSpec(
+	spec: Awaited<ReturnType<typeof discoverSpecs>>[number]
+) {
 	return {
 		...spec,
 		name: spec.key ?? spec.exportName ?? spec.filePath,
@@ -171,9 +173,11 @@ function mapBridgeSpec(spec: Awaited<ReturnType<typeof discoverSpecs>>[number]) 
 
 export class BridgeServer {
 	private connection: Connection;
-	private workspaceAdapters: ReturnType<typeof createNodeAdapters> | null = null;
-	private workspaceConfig: Awaited<ReturnType<typeof loadWorkspaceConfig>> | null =
+	private workspaceAdapters: ReturnType<typeof createNodeAdapters> | null =
 		null;
+	private workspaceConfig: Awaited<
+		ReturnType<typeof loadWorkspaceConfig>
+	> | null = null;
 	private workspaceRoot: string | null = null;
 	private activeWatcher: ReturnType<typeof watchSpecs> | null = null;
 
@@ -453,17 +457,18 @@ export class BridgeServer {
 			throw new Error('Workspace not properly initialized');
 		}
 
-			const result = await syncSpecs(
-				this.workspaceAdapters as any,
-				this.workspaceConfig as any
-			);
+		const result = await syncSpecs(
+			this.workspaceAdapters as any,
+			this.workspaceConfig as any
+		);
 		const failedRuns = result.runs.filter((run) => Boolean(run.error));
 		return {
 			specsProcessed: result.runs.length,
 			specsBuilt: result.runs.length - failedRuns.length,
 			specsFailed: failedRuns.length,
-			errors: failedRuns.map((run) =>
-				`${run.specPath}: ${run.error?.message ?? 'unknown sync error'}`
+			errors: failedRuns.map(
+				(run) =>
+					`${run.specPath}: ${run.error?.message ?? 'unknown sync error'}`
 			),
 		};
 	}
@@ -490,7 +495,8 @@ export class BridgeServer {
 				},
 				this.workspaceConfig,
 				{
-					pattern: '**/*.{command,query,operation,operations,event,presentation,feature,workflow,data-view,form,migration,telemetry,experiment,app-config,integration,knowledge,policy,test-spec}.ts',
+					pattern:
+						'**/*.{command,query,operation,operations,event,presentation,feature,workflow,data-view,form,migration,telemetry,experiment,app-config,integration,knowledge,policy,test-spec}.ts',
 					runBuild: true,
 				}
 			);
@@ -506,12 +512,15 @@ export class BridgeServer {
 			throw new Error('Workspace not properly initialized');
 		}
 
-			const result = await cleanArtifacts(this.workspaceAdapters as any, {
-			// Bridge adapters are created by bundle.workspace; cast locally to
-			// satisfy the bridge package’s isolated type surface.
-			dryRun: params.dryRun || false,
-			outputDir: this.workspaceConfig.outputDir,
-		} as any);
+		const result = await cleanArtifacts(
+			this.workspaceAdapters as any,
+			{
+				// Bridge adapters are created by bundle.workspace; cast locally to
+				// satisfy the bridge package’s isolated type surface.
+				dryRun: params.dryRun || false,
+				outputDir: this.workspaceConfig.outputDir,
+			} as any
+		);
 		return {
 			dryRun: params.dryRun || false,
 			filesRemoved: result.removed.map((item) => item.path),
@@ -526,9 +535,7 @@ export class BridgeServer {
 		if (!this.workspaceAdapters)
 			throw new Error('Workspace adapters not initialized');
 
-		const result = await analyzeDeps(
-			{ fs: this.workspaceAdapters.fs }
-		);
+		const result = await analyzeDeps({ fs: this.workspaceAdapters.fs });
 
 		return {
 			dependencies: Object.fromEntries(
@@ -577,7 +584,7 @@ export class BridgeServer {
 		if (!this.workspaceAdapters)
 			throw new Error('Workspace adapters not initialized');
 
-			return await analyzeIntegrity(this.workspaceAdapters as any);
+		return await analyzeIntegrity(this.workspaceAdapters as any);
 	}
 
 	// OpenAPI handlers
@@ -701,7 +708,12 @@ export class BridgeServer {
 	// Setup handlers
 	private async handleRunSetupWizard(
 		params: {
-			preset?: 'core' | 'connect' | 'builder-managed' | 'builder-local' | 'builder-hybrid';
+			preset?:
+				| 'core'
+				| 'connect'
+				| 'builder-managed'
+				| 'builder-local'
+				| 'builder-hybrid';
 			projectName?: string;
 			builderApiBaseUrl?: string;
 			builderLocalRuntimeId?: string;
@@ -725,7 +737,12 @@ export class BridgeServer {
 
 	private async handleRunQuickSetup(
 		params: {
-			preset?: 'core' | 'connect' | 'builder-managed' | 'builder-local' | 'builder-hybrid';
+			preset?:
+				| 'core'
+				| 'connect'
+				| 'builder-managed'
+				| 'builder-local'
+				| 'builder-hybrid';
 		} = {}
 	): Promise<any> {
 		if (!this.workspaceAdapters)

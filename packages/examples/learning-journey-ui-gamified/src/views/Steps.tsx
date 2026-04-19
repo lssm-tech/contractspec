@@ -39,9 +39,9 @@ export function Steps({ track, progress, onStepComplete }: LearningViewProps) {
 			{/* Progress Summary */}
 			<div className="text-center text-muted-foreground text-sm">
 				{progress.completedStepIds.length} of {track.steps.length} completed
-				{track.completionRewards?.xpBonus && (
+				{track.completionRewards?.xp && (
 					<span className="ml-2 text-green-500">
-						(+{track.completionRewards.xpBonus} XP bonus on completion)
+						(+{track.completionRewards.xp} XP bonus on completion)
 					</span>
 				)}
 			</div>

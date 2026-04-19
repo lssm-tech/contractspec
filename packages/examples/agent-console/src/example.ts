@@ -25,6 +25,7 @@ const example = defineExample({
 		presentations: './presentations',
 		handlers: './handlers',
 		docs: './docs',
+		ui: './ui',
 	},
 	surfaces: {
 		templates: true,

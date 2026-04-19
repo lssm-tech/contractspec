@@ -6,26 +6,31 @@ const dataGridShowcaseDocBlocks: DocBlock[] = [
 		id: 'docs.examples.data-grid-showcase',
 		title: 'Data Grid Showcase',
 		summary:
-			'Focused example for the ContractSpec-native table stack across generic and DataView-driven APIs.',
+			'Canonical example for the full ContractSpec data-table stack across contract, primitive, and composed surfaces.',
 		kind: 'reference',
 		visibility: 'public',
 		route: '/docs/examples/data-grid-showcase',
 		tags: ['table', 'data-grid', 'examples'],
 		body: `## What it covers
 
-- Generic client-mode tables using \`useContractTable\`.
-- Generic server-mode tables using the same controller API with remote sorting/pagination.
-- Declarative DataView tables via \`useDataViewTable\`.
+- Client-mode tables using \`useContractTable\` + \`@contractspec/lib.design-system\`.
+- Server-mode tables using the same controller API with remote sorting/pagination.
+- Declarative DataView tables via \`defineDataView\` + \`useDataViewTable\`.
+- Raw web primitive rendering through \`@contractspec/lib.ui-kit-web/ui/data-table\`.
+- Native-first primitive rendering through \`@contractspec/lib.ui-kit/ui/data-table\` (shown as code in the browser docs lane).
 
 ## Capabilities
 
+- Client and server execution modes.
+- Single and multiple row selection.
 - Sorting, pagination, row selection, column visibility, column resizing, column pinning, and row expansion.
-- Shared design-system rendering through \`DataTable\`.
+- Loading states, empty states, row-press feedback, and explicit design-system header actions / toolbar / footer slots.
+- Shared rendering through the contract layer, raw primitives, and the opinionated design-system wrapper.
 
 ## Notes
 
-- This package is intentionally narrow and demonstrative.
-- The same table stack is reused by the larger business examples.`,
+- This package stays intentionally narrow and demonstrative.
+- The same table stack is reused by the larger business examples, but this package is the canonical reference.`,
 	},
 	{
 		id: 'docs.examples.data-grid-showcase.goal',
@@ -37,8 +42,8 @@ const dataGridShowcaseDocBlocks: DocBlock[] = [
 		tags: ['table', 'goal'],
 		body: `## Goal
 
-- Give teams one compact example that shows the ContractSpec table primitive without unrelated business complexity.
-- Demonstrate that the same rendering surface can sit on top of either a generic headless controller or a declarative DataView contract.`,
+- Give teams one compact example that shows every supported table capability without unrelated business complexity.
+- Demonstrate how the same account-grid scenario flows through \`contracts-spec\`, \`ui-kit\`, \`ui-kit-web\`, and \`design-system\` without changing the underlying controller model.`,
 	},
 	{
 		id: 'docs.examples.data-grid-showcase.usage',
@@ -50,14 +55,17 @@ const dataGridShowcaseDocBlocks: DocBlock[] = [
 		tags: ['table', 'usage'],
 		body: `## Usage
 
-1. Start in the client-mode lane to understand the generic controller shape.
-2. Switch to server mode to see sorting/pagination stay on the same API.
-3. Open the DataView lane to see the adapter path with a declarative table contract.
+1. Start in the client lane to see the composed design-system surface with header actions, toolbar, footer, loading, and empty-state slots.
+2. Switch to server mode to see remote sorting/pagination on the same controller API.
+3. Open the DataView lane to inspect the declarative contract path.
+4. Open the web primitive lane to see the unwrapped browser renderer.
+5. Use the native primitive lane when you need the Expo / React Native code path.
 
 ## Adoption pattern
 
 - Use \`useContractTable\` when your example or product code already owns row fetching and column definitions.
-- Use \`useDataViewTable\` when the table should stay declarative and spec-driven.`,
+- Use \`useDataViewTable\` when the table should stay declarative and spec-driven.
+- Use \`@contractspec/lib.design-system\` when you want the product-facing card shell, and drop down to \`ui-kit-web\` or \`ui-kit\` when you need the raw primitive.`,
 	},
 ];
 

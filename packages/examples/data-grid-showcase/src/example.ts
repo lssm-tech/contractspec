@@ -6,14 +6,14 @@ const example = defineExample({
 		version: '1.0.0',
 		title: 'Data Grid Showcase',
 		description:
-			'Focused ContractSpec table example covering client mode, server mode, and DataView adapter paths.',
+			'Canonical ContractSpec table example covering contract, primitive, and design-system lanes for every supported table capability.',
 		kind: 'ui',
 		visibility: 'public',
 		stability: 'experimental',
 		owners: ['@platform.core'],
 		tags: ['table', 'data-grid', 'ui', 'tanstack'],
 		summary:
-			'Reference implementation for the ContractSpec headless table stack.',
+			'Reference implementation for the full ContractSpec data-table stack, from DataView contracts to web/native primitives and the design-system wrapper.',
 	},
 	docs: {
 		rootDocId: 'docs.examples.data-grid-showcase',

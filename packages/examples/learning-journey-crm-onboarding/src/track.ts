@@ -1,6 +1,6 @@
-import type { LearningJourneyTrackSpec } from '@contractspec/module.learning-journey/track-spec';
+import type { JourneyTrackSpec } from '@contractspec/module.learning-journey/track-spec';
 
-export const crmFirstWinTrack: LearningJourneyTrackSpec = {
+export const crmFirstWinTrack: JourneyTrackSpec = {
 	id: 'crm_first_win',
 	productId: 'crm-pipeline',
 	name: 'CRM First Win',
@@ -10,7 +10,7 @@ export const crmFirstWinTrack: LearningJourneyTrackSpec = {
 	targetRole: 'sales',
 	totalXp: 135,
 	streakRule: { hoursWindow: 72, bonusXp: 25 },
-	completionRewards: { xpBonus: 25, badgeKey: 'crm_first_win' },
+	completionRewards: { xp: 25, badgeKey: 'crm_first_win' },
 	steps: [
 		{
 			id: 'create_pipeline',
@@ -29,6 +29,7 @@ export const crmFirstWinTrack: LearningJourneyTrackSpec = {
 			title: 'Create contact and company',
 			description: 'Add your first contact and associated company.',
 			order: 2,
+			prerequisites: [{ kind: 'step_completed', stepId: 'create_pipeline' }],
 			completion: {
 				eventName: 'contact.created',
 				sourceModule: '@contractspec/example.crm-pipeline',
@@ -41,6 +42,9 @@ export const crmFirstWinTrack: LearningJourneyTrackSpec = {
 			title: 'Log first deal',
 			description: 'Create your first deal in the pipeline.',
 			order: 3,
+			prerequisites: [
+				{ kind: 'step_completed', stepId: 'create_contact_and_company' },
+			],
 			completion: {
 				eventName: 'deal.created',
 				sourceModule: '@contractspec/example.crm-pipeline',
@@ -53,6 +57,7 @@ export const crmFirstWinTrack: LearningJourneyTrackSpec = {
 			title: 'Move a deal across stages',
 			description: 'Move a deal across at least three stages.',
 			order: 4,
+			prerequisites: [{ kind: 'step_completed', stepId: 'create_first_deal' }],
 			completion: {
 				eventName: 'deal.moved',
 				sourceModule: '@contractspec/example.crm-pipeline',
@@ -65,6 +70,9 @@ export const crmFirstWinTrack: LearningJourneyTrackSpec = {
 			title: 'Close a deal as won',
 			description: 'Close a deal as won to hit first revenue.',
 			order: 5,
+			prerequisites: [
+				{ kind: 'step_completed', stepId: 'move_deal_in_pipeline' },
+			],
 			completion: {
 				eventName: 'deal.won',
 				sourceModule: '@contractspec/example.crm-pipeline',
@@ -78,6 +86,7 @@ export const crmFirstWinTrack: LearningJourneyTrackSpec = {
 			description:
 				'Create a follow-up task and notification for a contact or deal.',
 			order: 6,
+			prerequisites: [{ kind: 'step_completed', stepId: 'close_deal_won' }],
 			completion: {
 				eventName: 'task.completed',
 				sourceModule: '@contractspec/example.crm-pipeline',
@@ -92,4 +101,4 @@ export const crmFirstWinTrack: LearningJourneyTrackSpec = {
 	},
 };
 
-export const crmLearningTracks: LearningJourneyTrackSpec[] = [crmFirstWinTrack];
+export const crmLearningTracks: JourneyTrackSpec[] = [crmFirstWinTrack];

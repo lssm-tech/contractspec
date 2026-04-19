@@ -26,6 +26,10 @@ import {
 	type IntegrationHandlers,
 } from '@contractspec/example.integration-hub';
 import {
+	buildLearningPresentationData,
+	isLearningTemplate,
+} from '@contractspec/example.learning-journey-registry';
+import {
 	createMarketplaceHandlers,
 	type MarketplaceHandlers,
 } from '@contractspec/example.marketplace';
@@ -302,6 +306,22 @@ export function TemplateRuntimeProvider({
 							metadata: {
 								timestamp: new Date(),
 								source: 'visualization-showcase',
+							},
+						};
+					}
+
+					if (
+						isLearningTemplate(templateId) &&
+						(presentationName === 'learning.journey.track_list' ||
+							presentationName === 'learning.journey.track_detail' ||
+							presentationName === 'learning.journey.progress_widget')
+					) {
+						return {
+							data: buildLearningPresentationData(templateId, presentationName),
+							metadata: {
+								timestamp: new Date(),
+								source: 'learning-journey',
+								templateId,
 							},
 						};
 					}

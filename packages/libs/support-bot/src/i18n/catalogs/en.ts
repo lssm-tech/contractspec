@@ -36,16 +36,17 @@ export const enMessages = defineTranslation({
 		},
 		'prompt.autoResponder.user': {
 			value:
-				'Ticket #{ticketId} ({category}, {priority}, {sentiment})\nSubject: {subject}\n\n{body}\n\nKnowledge:\n{knowledge}\n\nRespond to the customer.',
+				'Tone: {tone}\nTicket ({category}, {priority}, {sentiment})\nSubject: {subject}\n\nCustomer message:\n{body}\n\nResolved answer:\n{answer}\n\nCitations:\n{citations}\n\nDraft the support reply.',
 			description: 'Auto-responder user prompt template',
 			placeholders: [
-				{ name: 'ticketId', type: 'string' },
+				{ name: 'tone', type: 'string' },
 				{ name: 'category', type: 'string' },
 				{ name: 'priority', type: 'string' },
 				{ name: 'sentiment', type: 'string' },
 				{ name: 'subject', type: 'string' },
 				{ name: 'body', type: 'string' },
-				{ name: 'knowledge', type: 'string' },
+				{ name: 'answer', type: 'string' },
+				{ name: 'citations', type: 'string' },
 			],
 		},
 

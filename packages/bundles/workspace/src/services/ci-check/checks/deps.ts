@@ -4,8 +4,8 @@
 
 import type { FsAdapter } from '../../../ports/fs';
 import type { LoggerAdapter } from '../../../ports/logger';
-import { analyzeDeps } from '../../deps';
 import { loadWorkspaceConfig } from '../../config';
+import { analyzeDeps } from '../../deps';
 import type { CICheckOptions, CIIssue } from '../types';
 
 /**

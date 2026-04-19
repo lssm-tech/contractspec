@@ -53,15 +53,10 @@ export class AutoResponder {
 		classification: TicketClassification
 	): Promise<SupportResponseDraft> {
 		const { t } = this.i18n;
-		const prompt = t('prompt.autoResponder.user', {
-			tone: this.tone,
-			subject: ticket.subject,
-			body: ticket.body,
-			category: classification.category,
-			priority: classification.priority,
-			answer: resolution.answer,
-			citations: resolution.citations.map((c) => c.label).join(', '),
-		});
+		const prompt = t(
+			'prompt.autoResponder.user',
+			this.buildPromptContext(ticket, resolution, classification)
+		);
 
 		// eslint-disable-next-line @typescript-eslint/no-non-null-assertion
 		const response = await this.llm!.chat(
@@ -124,9 +119,7 @@ ${t('responder.signature')}`;
 	): SupportResponseDraft {
 		return {
 			ticketId: ticket.id,
-			subject: ticket.subject.startsWith('Re:')
-				? ticket.subject
-				: `Re: ${ticket.subject}`,
+			subject: this.buildReplySubject(ticket.subject),
 			body,
 			confidence: Math.min(resolution.confidence, classification.confidence),
 			requiresEscalation:
@@ -134,6 +127,40 @@ ${t('responder.signature')}`;
 				Boolean(classification.escalationRequired),
 			citations: resolution.citations,
 		};
+	}
+
+	private buildPromptContext(
+		ticket: SupportTicket,
+		resolution: SupportResolution,
+		classification: TicketClassification
+	): Record<string, string | number> {
+		return {
+			tone: this.tone,
+			subject: ticket.subject,
+			body: ticket.body,
+			category: classification.category,
+			priority: classification.priority,
+			sentiment: classification.sentiment,
+			answer: resolution.answer,
+			citations: resolution.citations.length
+				? resolution.citations
+						.map((citation) =>
+							citation.url
+								? `${citation.label} (${citation.url})`
+								: citation.label
+						)
+						.join('\n')
+				: 'None',
+		};
+	}
+
+	private buildReplySubject(subject: string): string {
+		const { t } = this.i18n;
+		const replySubject = t('responder.subject.replyPrefix', { subject });
+		const replyPrefix = t('responder.subject.replyPrefix', {
+			subject: '',
+		}).trim();
+		return subject.startsWith(replyPrefix) ? subject : replySubject;
 	}
 
 	private renderCategoryIntro(classification: TicketClassification) {

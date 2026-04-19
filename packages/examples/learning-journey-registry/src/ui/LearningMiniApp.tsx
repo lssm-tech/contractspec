@@ -5,44 +5,20 @@ import { GamifiedMiniApp } from '@contractspec/example.learning-journey-ui-gamif
 import { OnboardingMiniApp } from '@contractspec/example.learning-journey-ui-onboarding';
 import type { LearningView } from '@contractspec/example.learning-journey-ui-shared';
 import { useMemo } from 'react';
-import { learningJourneyTracks } from '../tracks';
-
-/** Template IDs that map to learning journey tracks */
-type LearningTemplateId =
-	| 'learning-journey-duo-drills'
-	| 'learning-journey-quest-challenges'
-	| 'learning-journey-studio-onboarding'
-	| 'learning-journey-platform-tour'
-	| 'learning-journey-ambient-coach'
-	| 'learning-journey-crm-onboarding';
-
-/** Map template IDs to track IDs */
-const TEMPLATE_TO_TRACK: Record<LearningTemplateId, string> = {
-	'learning-journey-duo-drills': 'drills_language_basics',
-	'learning-journey-quest-challenges': 'money_reset_7day',
-	'learning-journey-studio-onboarding': 'studio_getting_started',
-	'learning-journey-platform-tour': 'platform_tour',
-	'learning-journey-ambient-coach': 'money_ambient_coach',
-	'learning-journey-crm-onboarding': 'crm_first_win',
-};
-
-/** Map template IDs to mini-app type */
-const TEMPLATE_TO_APP_TYPE: Record<
-	LearningTemplateId,
-	'gamified' | 'onboarding' | 'coaching'
-> = {
-	'learning-journey-duo-drills': 'gamified',
-	'learning-journey-quest-challenges': 'gamified',
-	'learning-journey-studio-onboarding': 'onboarding',
-	'learning-journey-platform-tour': 'onboarding',
-	'learning-journey-ambient-coach': 'coaching',
-	'learning-journey-crm-onboarding': 'coaching',
-};
+import { getLearningAppType, getLearningTrack } from './template-config';
 
 interface LearningMiniAppProps {
-	templateId: string;
 	initialView?: LearningView;
 	onViewChange?: (view: LearningView) => void;
+	templateId: string;
+}
+
+function MissingLearningTemplate({ templateId }: { templateId: string }) {
+	return (
+		<div className="rounded-lg border border-amber-500/50 bg-amber-500/10 p-6 text-center">
+			<p className="text-amber-500">Unknown learning template: {templateId}</p>
+		</div>
+	);
 }
 
 /** Router component that picks the correct mini-app based on template ID */
@@ -51,27 +27,13 @@ export function LearningMiniApp({
 	initialView = 'overview',
 	onViewChange,
 }: LearningMiniAppProps) {
-	// Find the track for this template
-	const track = useMemo(() => {
-		const trackId = TEMPLATE_TO_TRACK[templateId as LearningTemplateId];
-		if (!trackId) return null;
-		return learningJourneyTracks.find((t) => t.id === trackId);
-	}, [templateId]);
+	const track = useMemo(() => getLearningTrack(templateId), [templateId]);
+	const appType = getLearningAppType(templateId);
 
-	// Determine app type
-	const appType = TEMPLATE_TO_APP_TYPE[templateId as LearningTemplateId];
-
-	if (!track) {
-		return (
-			<div className="rounded-lg border border-amber-500/50 bg-amber-500/10 p-6 text-center">
-				<p className="text-amber-500">
-					Unknown learning template: {templateId}
-				</p>
-			</div>
-		);
+	if (!track || !appType) {
+		return <MissingLearningTemplate templateId={templateId} />;
 	}
 
-	// Render the appropriate mini-app
 	switch (appType) {
 		case 'gamified':
 			return (
@@ -98,24 +60,25 @@ export function LearningMiniApp({
 				/>
 			);
 		default:
-			return (
-				<div className="rounded-lg border border-red-500/50 bg-red-500/10 p-6 text-center">
-					<p className="text-red-500">
-						Unknown app type for template: {templateId}
-					</p>
-				</div>
-			);
+			return <MissingLearningTemplate templateId={templateId} />;
 	}
 }
 
-/** Check if a template ID is a learning journey template */
-export function isLearningTemplate(
-	templateId: string
-): templateId is LearningTemplateId {
-	return templateId in TEMPLATE_TO_TRACK;
+export function LearningTrackList({ templateId }: { templateId?: string }) {
+	if (!templateId) return <MissingLearningTemplate templateId="unknown" />;
+	return <LearningMiniApp templateId={templateId} initialView="overview" />;
 }
 
-/** Get all learning template IDs */
-export function getLearningTemplateIds(): LearningTemplateId[] {
-	return Object.keys(TEMPLATE_TO_TRACK) as LearningTemplateId[];
+export function LearningTrackDetail({ templateId }: { templateId?: string }) {
+	if (!templateId) return <MissingLearningTemplate templateId="unknown" />;
+	return <LearningMiniApp templateId={templateId} initialView="steps" />;
+}
+
+export function LearningTrackProgressWidget({
+	templateId,
+}: {
+	templateId?: string;
+}) {
+	if (!templateId) return <MissingLearningTemplate templateId="unknown" />;
+	return <LearningMiniApp templateId={templateId} initialView="progress" />;
 }

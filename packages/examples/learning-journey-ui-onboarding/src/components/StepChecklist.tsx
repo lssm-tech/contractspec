@@ -2,10 +2,10 @@
 
 import { Button } from '@contractspec/lib.design-system';
 import { cn } from '@contractspec/lib.ui-kit-core';
-import type { LearningJourneyStepSpec } from '@contractspec/module.learning-journey/track-spec';
+import type { JourneyStepSpec } from '@contractspec/module.learning-journey/track-spec';
 
 interface StepChecklistProps {
-	step: LearningJourneyStepSpec;
+	step: JourneyStepSpec;
 	stepNumber: number;
 	isCompleted: boolean;
 	isCurrent: boolean;

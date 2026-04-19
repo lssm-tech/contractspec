@@ -19,8 +19,8 @@ export type XPActivityType =
 	| 'achievement_unlock'
 	| 'daily_goal_complete'
 	| 'first_lesson'
-	| 'onboarding_step'
-	| 'onboarding_complete';
+	| 'journey_step'
+	| 'journey_complete';
 
 export interface XPCalculationInput {
 	/** Type of activity */
@@ -90,8 +90,8 @@ export const DEFAULT_XP_CONFIG: XPConfig = {
 		achievement_unlock: 0, // XP comes from achievement
 		daily_goal_complete: 15,
 		first_lesson: 25,
-		onboarding_step: 5,
-		onboarding_complete: 50,
+		journey_step: 5,
+		journey_complete: 50,
 	},
 	scoreThresholds: [
 		{ min: 90, multiplier: 1.5 },

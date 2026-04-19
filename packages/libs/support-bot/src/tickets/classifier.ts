@@ -1,4 +1,5 @@
 import type { LLMProvider } from '@contractspec/lib.contracts-integrations';
+import * as z from 'zod';
 import { createSupportBotI18n } from '../i18n';
 import type {
 	SupportTicket,
@@ -16,6 +17,32 @@ type LocaleKeywords = Record<TicketCategory, string[]>;
 type LocalePriorityHints = Record<TicketPriority, string[]>;
 type LocaleSentimentHints = Record<TicketSentiment, string[]>;
 type SupportedLocale = 'en' | 'fr' | 'es';
+const ticketCategoryValues = [
+	'billing',
+	'technical',
+	'product',
+	'account',
+	'compliance',
+	'other',
+] as const;
+const ticketPriorityValues = ['urgent', 'high', 'medium', 'low'] as const;
+const ticketSentimentValues = [
+	'positive',
+	'neutral',
+	'negative',
+	'frustrated',
+] as const;
+const llmClassificationSchema = z
+	.object({
+		category: z.enum(ticketCategoryValues).optional(),
+		priority: z.enum(ticketPriorityValues).optional(),
+		sentiment: z.enum(ticketSentimentValues).optional(),
+		intents: z.array(z.string()).optional(),
+		tags: z.array(z.string()).optional(),
+		confidence: z.number().optional(),
+		escalationRequired: z.boolean().optional(),
+	})
+	.passthrough();
 
 const CATEGORY_KEYWORDS: Record<SupportedLocale, LocaleKeywords> = {
 	en: {
@@ -264,14 +291,24 @@ export class TicketClassifier {
 			);
 			const content = llmResult.message.content.find((part) => 'text' in part);
 			if (content && 'text' in content) {
-				const parsed = JSON.parse(
-					content.text
-				) as Partial<TicketClassification>;
+				const parsed = llmClassificationSchema.safeParse(
+					JSON.parse(content.text)
+				);
+				if (!parsed.success) {
+					return heuristics;
+				}
 				return {
 					...heuristics,
-					...parsed,
-					intents: parsed.intents ?? heuristics.intents,
-					tags: parsed.tags ?? heuristics.tags,
+					category: parsed.data.category ?? heuristics.category,
+					priority: parsed.data.priority ?? heuristics.priority,
+					sentiment: parsed.data.sentiment ?? heuristics.sentiment,
+					intents: parsed.data.intents ?? heuristics.intents,
+					tags: parsed.data.tags ?? heuristics.tags,
+					confidence: this.normalizeConfidence(
+						parsed.data.confidence ?? heuristics.confidence
+					),
+					escalationRequired:
+						parsed.data.escalationRequired ?? heuristics.escalationRequired,
 				};
 			}
 		} catch {
@@ -363,6 +400,10 @@ export class TicketClassifier {
 		if (category !== 'other') base += 0.1;
 		if (priority === 'urgent' || priority === 'low') base += 0.05;
 		if (sentiment === 'frustrated') base -= 0.05;
-		return Math.min(0.95, Math.max(0.4, Number(base.toFixed(2))));
+		return this.normalizeConfidence(base, 0.4, 0.95);
+	}
+
+	private normalizeConfidence(confidence: number, min = 0, max = 1): number {
+		return Number(Math.min(max, Math.max(min, confidence)).toFixed(2));
 	}
 }

@@ -57,6 +57,62 @@ function AppShell({ title, children }: { title: string; children: React.ReactNod
 }
 ```
 
+### Render the canonical account grid
+
+The canonical data-table example lives in
+[`@contractspec/example.data-grid-showcase`](../../examples/data-grid-showcase/README.md).
+Its raw browser lane renders `@contractspec/lib.ui-kit-web/ui/data-table`
+directly:
+
+```tsx
+import { DataTable } from '@contractspec/lib.ui-kit-web/ui/data-table';
+import { useContractTable } from '@contractspec/lib.presentation-runtime-react';
+
+import { SHOWCASE_ROWS } from '@contractspec/example.data-grid-showcase/ui/data-grid-showcase.data';
+import { useShowcaseColumns } from '@contractspec/example.data-grid-showcase/ui/data-grid-showcase.columns';
+import {
+  ExpandedRowContent,
+  ShowcaseToolbar,
+} from '@contractspec/example.data-grid-showcase/ui/data-grid-showcase.parts';
+
+export function WebAccountGrid() {
+  const columns = useShowcaseColumns();
+
+  const controller = useContractTable({
+    data: SHOWCASE_ROWS,
+    columns,
+    selectionMode: 'single',
+    initialState: {
+      sorting: [{ id: 'lastActivityAt', desc: true }],
+      pagination: { pageIndex: 0, pageSize: 4 },
+      columnVisibility: { notes: false },
+      columnPinning: { left: ['account'], right: [] },
+    },
+    renderExpandedContent: (row) => <ExpandedRowContent row={row} />,
+    getCanExpand: () => true,
+  });
+
+  return (
+    <DataTable
+      controller={controller}
+      toolbar={
+        <ShowcaseToolbar
+          controller={controller}
+          label="Web primitive"
+          primaryColumnId="account"
+          toggleColumnId="notes"
+          pinColumnId="owner"
+          sortColumnIds={['arr', 'renewalDate']}
+        />
+      }
+      loading={false}
+      emptyState={<div>No rows available.</div>}
+      footer={\`Rows \${controller.totalItems}\`}
+    />
+  );
+}
+```
+
 ## API map
 
 ### Controls and forms

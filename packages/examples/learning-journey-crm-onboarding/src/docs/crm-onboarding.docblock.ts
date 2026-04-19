@@ -29,10 +29,10 @@ XP: 15/20/20/20/30/30 with 25 bonus within 72h. Badge: \`crm_first_win\`.
 ## Wiring
 - Depends on \`@contractspec/example.crm-pipeline\` events.
 - Tracks export from \`@contractspec/example.learning-journey-crm-onboarding/track\`.
-- Use onboarding API:
-  - \`learning.onboarding.listTracks\`
-  - \`learning.onboarding.getProgress\`
-  - \`learning.onboarding.recordEvent\` wired from CRM event bus handlers.
+- Use the adaptive journey API:
+  - \`learning.journey.listTracks\`
+  - \`learning.journey.getProgress\`
+  - \`learning.journey.recordEvent\` wired from CRM event bus handlers.
 - Surface in CRM dashboard/pipeline UI to guide new users.`,
 	},
 ];

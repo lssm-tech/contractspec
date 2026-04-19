@@ -26,6 +26,8 @@ export interface DataViewRendererProps {
 	renderActions?: (item: Record<string, unknown>) => React.ReactNode;
 	onSelect?: (item: Record<string, unknown>) => void;
 	onRowClick?: (item: Record<string, unknown>) => void;
+	toolbar?: React.ReactNode;
+	loading?: boolean;
 	headerActions?: React.ReactNode;
 	emptyState?: React.ReactNode;
 	footer?: React.ReactNode;
@@ -53,6 +55,8 @@ export function DataViewRenderer({
 	renderActions,
 	onSelect,
 	onRowClick,
+	toolbar,
+	loading,
 	headerActions,
 	emptyState,
 	footer,
@@ -84,6 +88,8 @@ export function DataViewRenderer({
 						items={items}
 						className={className}
 						onRowClick={onRowClick}
+						toolbar={toolbar}
+						loading={loading}
 						emptyState={emptyState}
 						headerActions={headerActions}
 						footer={footer}
@@ -140,6 +146,8 @@ export function DataViewRenderer({
 		renderActions,
 		onSelect,
 		onRowClick,
+		toolbar,
+		loading,
 		headerActions,
 		emptyState,
 		footer,
@@ -184,7 +192,7 @@ export function DataViewRenderer({
 							? () => onFilterChange?.({})
 							: undefined
 					}
-					right={headerActions}
+					right={spec.view.kind === 'table' ? undefined : headerActions}
 				>
 					{/* Render filter dropdowns here if needed */}
 				</FiltersToolbar>

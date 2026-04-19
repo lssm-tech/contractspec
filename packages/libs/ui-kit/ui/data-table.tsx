@@ -136,39 +136,40 @@ function renderSection<TItem>(
 				</TableRow>
 			</TableHeader>
 			<TableBody>
-				{controller.rows.map((row) => (
-					<VStack key={row.id} gap="none">
-						<TableRow onPress={() => onRowPress?.(row)}>
-							{columns.map((column) => {
-								const cell = row.cells.find(
-									(candidate) => candidate.columnId === column.id
-								);
-								return (
+				{controller.rows.map((row) => {
+					const cellsByColumnId = new Map(
+						row.cells.map((cell) => [cell.columnId, cell])
+					);
+
+					return (
+						<VStack key={row.id} gap="none">
+							<TableRow onPress={() => onRowPress?.(row)}>
+								{columns.map((column) => (
 									<TableCell
 										key={column.id}
 										style={{ width: column.size, minWidth: column.size }}
 									>
-										{renderCellContent(row, cell)}
+										{renderCellContent(row, cellsByColumnId.get(column.id))}
 									</TableCell>
-								);
-							})}
-						</TableRow>
-						{row.isExpanded && row.expandedContent ? (
-							<TableRow>
-								<TableCell
-									style={{
-										width: columns.reduce(
-											(sum, column) => sum + column.size,
-											0
-										),
-									}}
-								>
-									{row.expandedContent}
-								</TableCell>
+								))}
 							</TableRow>
-						) : null}
-					</VStack>
-				))}
+							{row.isExpanded && row.expandedContent ? (
+								<TableRow>
+									<TableCell
+										style={{
+											width: columns.reduce(
+												(sum, column) => sum + column.size,
+												0
+											),
+										}}
+									>
+										{row.expandedContent}
+									</TableCell>
+								</TableRow>
+							) : null}
+						</VStack>
+					);
+				})}
 			</TableBody>
 		</Table>
 	);
@@ -241,7 +242,12 @@ function renderHeaderContent<TItem>(
 	if (column.kind === 'selection' && controller.selectionMode === 'multiple') {
 		return (
 			<Checkbox
+				aria-label="Select all rows"
+				accessibilityLabel="Select all rows"
 				checked={controller.allRowsSelected || controller.someRowsSelected}
+				onPress={(event: { stopPropagation?: () => void }) =>
+					event.stopPropagation?.()
+				}
 				onCheckedChange={(checked) =>
 					controller.toggleAllRowsSelected?.(Boolean(checked))
 				}
@@ -266,7 +272,12 @@ function renderCellContent<TItem>(
 	if (cell.kind === 'selection') {
 		return (
 			<Checkbox
+				aria-label={`Select row ${row.id}`}
+				accessibilityLabel={`Select row ${row.id}`}
 				checked={row.isSelected}
+				onPress={(event: { stopPropagation?: () => void }) =>
+					event.stopPropagation?.()
+				}
 				onCheckedChange={(checked) => row.toggleSelected?.(Boolean(checked))}
 			/>
 		);
@@ -277,7 +288,16 @@ function renderCellContent<TItem>(
 			<Button
 				variant="ghost"
 				size="icon"
-				onPress={() => row.toggleExpanded?.()}
+				aria-label={
+					row.isExpanded ? `Collapse row ${row.id}` : `Expand row ${row.id}`
+				}
+				accessibilityLabel={
+					row.isExpanded ? `Collapse row ${row.id}` : `Expand row ${row.id}`
+				}
+				onPress={(event: { stopPropagation?: () => void }) => {
+					event.stopPropagation?.();
+					row.toggleExpanded?.();
+				}}
 			>
 				{row.isExpanded ? (
 					<ChevronDown size={16} />

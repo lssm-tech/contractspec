@@ -9,6 +9,7 @@ import { cn } from '@contractspec/lib.ui-kit-core/utils';
 import * as React from 'react';
 import { Pagination } from './atoms/Pagination';
 import {
+	ariaSortValue,
 	ColumnVisibilityMenu,
 	PinMenu,
 	ResizeHandle,
@@ -45,7 +46,12 @@ export function DataTable<TItem>({
 }: DataTableProps<TItem>) {
 	return (
 		<div className={cn('space-y-3', className)}>
-			<div className="flex items-center justify-between gap-3">
+			<div
+				className={cn(
+					'flex items-center gap-3',
+					toolbar ? 'justify-between' : 'justify-end'
+				)}
+			>
 				<div>{toolbar}</div>
 				<ColumnVisibilityMenu columns={controller.columns} />
 			</div>
@@ -56,22 +62,34 @@ export function DataTable<TItem>({
 						{controller.visibleColumns.map((column) => (
 							<TableHead
 								key={column.id}
-								className={cn(
-									'relative bg-background',
-									column.canSort && 'cursor-pointer select-none'
-								)}
+								aria-sort={ariaSortValue(column)}
+								className="relative bg-background"
 								style={stickyStyle(column, true)}
-								onClick={
-									column.kind === 'data' ? column.toggleSorting : undefined
-								}
 							>
 								<div className="flex items-center gap-2">
-									{renderHeaderContent(controller, column)}
-									{column.kind === 'data' && column.sortDirection ? (
-										<span className="text-muted-foreground text-xs uppercase">
-											{column.sortDirection}
-										</span>
-									) : null}
+									{column.kind === 'data' && column.canSort ? (
+										<button
+											type="button"
+											className="inline-flex items-center gap-2 text-left font-medium text-sm outline-none focus-visible:ring-2 focus-visible:ring-ring/50"
+											onClick={column.toggleSorting}
+										>
+											{renderHeaderContent(controller, column)}
+											{column.sortDirection ? (
+												<span className="text-muted-foreground text-xs uppercase">
+													{column.sortDirection}
+												</span>
+											) : null}
+										</button>
+									) : (
+										<>
+											{renderHeaderContent(controller, column)}
+											{column.kind === 'data' && column.sortDirection ? (
+												<span className="text-muted-foreground text-xs uppercase">
+													{column.sortDirection}
+												</span>
+											) : null}
+										</>
+									)}
 									{column.kind === 'data' ? <PinMenu column={column} /> : null}
 								</div>
 								{column.canResize ? <ResizeHandle column={column} /> : null}
@@ -93,36 +111,44 @@ export function DataTable<TItem>({
 									))}
 								</TableRow>
 							))
-						: controller.rows.map((row) => (
-								<React.Fragment key={row.id}>
-									<TableRow
-										data-state={row.isSelected ? 'selected' : undefined}
-										className={onRowPress ? 'cursor-pointer' : undefined}
-										onClick={() => onRowPress?.(row)}
-									>
-										{controller.visibleColumns.map((column) => {
-											const cell = row.cells.find(
-												(candidate) => candidate.columnId === column.id
-											);
-											return (
-												<TableCell key={column.id} style={stickyStyle(column)}>
-													{renderCellContent(row, cell)}
-												</TableCell>
-											);
-										})}
-									</TableRow>
-									{row.isExpanded && row.expandedContent ? (
-										<TableRow>
-											<TableCell
-												className="bg-muted/20 text-muted-foreground text-sm"
-												colSpan={controller.visibleColumns.length}
+						: controller.rows.map((row) =>
+								(() => {
+									const cellsByColumnId = new Map(
+										row.cells.map((cell) => [cell.columnId, cell])
+									);
+									return (
+										<React.Fragment key={row.id}>
+											<TableRow
+												data-state={row.isSelected ? 'selected' : undefined}
+												className={onRowPress ? 'cursor-pointer' : undefined}
+												onClick={() => onRowPress?.(row)}
 											>
-												{row.expandedContent}
-											</TableCell>
-										</TableRow>
-									) : null}
-								</React.Fragment>
-							))}
+												{controller.visibleColumns.map((column) => (
+													<TableCell
+														key={column.id}
+														style={stickyStyle(column)}
+													>
+														{renderCellContent(
+															row,
+															cellsByColumnId.get(column.id)
+														)}
+													</TableCell>
+												))}
+											</TableRow>
+											{row.isExpanded && row.expandedContent ? (
+												<TableRow>
+													<TableCell
+														className="bg-muted/20 text-muted-foreground text-sm"
+														colSpan={controller.visibleColumns.length}
+													>
+														{row.expandedContent}
+													</TableCell>
+												</TableRow>
+											) : null}
+										</React.Fragment>
+									);
+								})()
+							)}
 				</TableBody>
 			</Table>
 

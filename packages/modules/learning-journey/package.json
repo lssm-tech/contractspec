@@ -40,8 +40,8 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./contracts": "./src/contracts/index.ts",
+		"./contracts/journey": "./src/contracts/journey.ts",
 		"./contracts/models": "./src/contracts/models.ts",
-		"./contracts/onboarding": "./src/contracts/onboarding.ts",
 		"./contracts/operations": "./src/contracts/operations.ts",
 		"./contracts/shared": "./src/contracts/shared.ts",
 		"./docs": "./src/docs/index.ts",
@@ -55,8 +55,8 @@
 		"./entities/course": "./src/entities/course.ts",
 		"./entities/flashcard": "./src/entities/flashcard.ts",
 		"./entities/gamification": "./src/entities/gamification.ts",
+		"./entities/journey": "./src/entities/journey.ts",
 		"./entities/learner": "./src/entities/learner.ts",
-		"./entities/onboarding": "./src/entities/onboarding.ts",
 		"./entities/quiz": "./src/entities/quiz.ts",
 		"./events": "./src/events.ts",
 		"./i18n": "./src/i18n/index.ts",
@@ -69,6 +69,10 @@
 		"./i18n/messages": "./src/i18n/messages.ts",
 		"./learning-journey.capability": "./src/learning-journey.capability.ts",
 		"./learning-journey.feature": "./src/learning-journey.feature.ts",
+		"./runtime": "./src/runtime/index.ts",
+		"./runtime/matchers": "./src/runtime/matchers.ts",
+		"./runtime/progress-state": "./src/runtime/progress-state.ts",
+		"./runtime/snapshot": "./src/runtime/snapshot.ts",
 		"./track-spec": "./src/track-spec.ts"
 	},
 	"files": [
@@ -92,19 +96,19 @@
 				"node": "./dist/node/contracts/index.js",
 				"default": "./dist/contracts/index.js"
 			},
+			"./contracts/journey": {
+				"types": "./dist/contracts/journey.d.ts",
+				"browser": "./dist/browser/contracts/journey.js",
+				"bun": "./dist/contracts/journey.js",
+				"node": "./dist/node/contracts/journey.js",
+				"default": "./dist/contracts/journey.js"
+			},
 			"./contracts/models": {
 				"types": "./dist/contracts/models.d.ts",
 				"browser": "./dist/browser/contracts/models.js",
 				"bun": "./dist/contracts/models.js",
 				"node": "./dist/node/contracts/models.js",
 				"default": "./dist/contracts/models.js"
-			},
-			"./contracts/onboarding": {
-				"types": "./dist/contracts/onboarding.d.ts",
-				"browser": "./dist/browser/contracts/onboarding.js",
-				"bun": "./dist/contracts/onboarding.js",
-				"node": "./dist/node/contracts/onboarding.js",
-				"default": "./dist/contracts/onboarding.js"
 			},
 			"./contracts/operations": {
 				"types": "./dist/contracts/operations.d.ts",
@@ -197,19 +201,19 @@
 				"node": "./dist/node/entities/gamification.js",
 				"default": "./dist/entities/gamification.js"
 			},
+			"./entities/journey": {
+				"types": "./dist/entities/journey.d.ts",
+				"browser": "./dist/browser/entities/journey.js",
+				"bun": "./dist/entities/journey.js",
+				"node": "./dist/node/entities/journey.js",
+				"default": "./dist/entities/journey.js"
+			},
 			"./entities/learner": {
 				"types": "./dist/entities/learner.d.ts",
 				"browser": "./dist/browser/entities/learner.js",
 				"bun": "./dist/entities/learner.js",
 				"node": "./dist/node/entities/learner.js",
 				"default": "./dist/entities/learner.js"
-			},
-			"./entities/onboarding": {
-				"types": "./dist/entities/onboarding.d.ts",
-				"browser": "./dist/browser/entities/onboarding.js",
-				"bun": "./dist/entities/onboarding.js",
-				"node": "./dist/node/entities/onboarding.js",
-				"default": "./dist/entities/onboarding.js"
 			},
 			"./entities/quiz": {
 				"types": "./dist/entities/quiz.d.ts",
@@ -294,6 +298,34 @@
 				"bun": "./dist/learning-journey.feature.js",
 				"node": "./dist/node/learning-journey.feature.js",
 				"default": "./dist/learning-journey.feature.js"
+			},
+			"./runtime": {
+				"types": "./dist/runtime/index.d.ts",
+				"browser": "./dist/browser/runtime/index.js",
+				"bun": "./dist/runtime/index.js",
+				"node": "./dist/node/runtime/index.js",
+				"default": "./dist/runtime/index.js"
+			},
+			"./runtime/matchers": {
+				"types": "./dist/runtime/matchers.d.ts",
+				"browser": "./dist/browser/runtime/matchers.js",
+				"bun": "./dist/runtime/matchers.js",
+				"node": "./dist/node/runtime/matchers.js",
+				"default": "./dist/runtime/matchers.js"
+			},
+			"./runtime/progress-state": {
+				"types": "./dist/runtime/progress-state.d.ts",
+				"browser": "./dist/browser/runtime/progress-state.js",
+				"bun": "./dist/runtime/progress-state.js",
+				"node": "./dist/node/runtime/progress-state.js",
+				"default": "./dist/runtime/progress-state.js"
+			},
+			"./runtime/snapshot": {
+				"types": "./dist/runtime/snapshot.d.ts",
+				"browser": "./dist/browser/runtime/snapshot.js",
+				"bun": "./dist/runtime/snapshot.js",
+				"node": "./dist/node/runtime/snapshot.js",
+				"default": "./dist/runtime/snapshot.js"
 			},
 			"./track-spec": {
 				"types": "./dist/track-spec.d.ts",

@@ -19,6 +19,7 @@ const example = defineExample({
 	entrypoints: {
 		packageName: '@contractspec/example.learning-journey-registry',
 		docs: './docs',
+		ui: './ui',
 	},
 	surfaces: {
 		templates: true,

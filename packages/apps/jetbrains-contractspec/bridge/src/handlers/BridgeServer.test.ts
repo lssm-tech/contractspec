@@ -21,13 +21,14 @@ const discoverSpecs = mock(async () => [
 		kind: 'event',
 	},
 ]);
-const validateDiscoveredSpecs = mock(async (specs: Array<Record<string, unknown>>) =>
-	specs.map((spec) => ({
-		spec,
-		valid: true,
-		errors: [],
-		warnings: [],
-	}))
+const validateDiscoveredSpecs = mock(
+	async (specs: Array<Record<string, unknown>>) =>
+		specs.map((spec) => ({
+			spec,
+			valid: true,
+			errors: [],
+			warnings: [],
+		}))
 );
 const getWorkspaceInfo = mock(() => ({ workspaceRoot: '/repo' }));
 const runDoctor = mock(async () => ({ healthy: true }));

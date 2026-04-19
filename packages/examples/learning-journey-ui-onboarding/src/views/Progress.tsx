@@ -22,7 +22,7 @@ export function ProgressView({ track, progress }: LearningViewProps) {
 	const totalXp =
 		track.totalXp ??
 		track.steps.reduce((sum, s) => sum + (s.xpReward ?? 0), 0) +
-			(track.completionRewards?.xpBonus ?? 0);
+			(track.completionRewards?.xp ?? 0);
 
 	const remainingSteps = totalSteps - completedSteps;
 	const estimatedMinutes = remainingSteps * 5;

@@ -16,7 +16,10 @@
 		"./progress-store": "./src/progress-store.ts",
 		"./tracks": "./src/tracks.ts",
 		"./ui": "./src/ui/index.ts",
-		"./ui/LearningMiniApp": "./src/ui/LearningMiniApp.tsx"
+		"./ui/LearningMiniApp": "./src/ui/LearningMiniApp.tsx",
+		"./ui/presentation-data": "./src/ui/presentation-data.ts",
+		"./ui/renderers/learning.markdown": "./src/ui/renderers/learning.markdown.ts",
+		"./ui/template-config": "./src/ui/template-config.ts"
 	},
 	"scripts": {
 		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
@@ -142,6 +145,27 @@
 				"bun": "./dist/ui/LearningMiniApp.js",
 				"node": "./dist/node/ui/LearningMiniApp.js",
 				"default": "./dist/ui/LearningMiniApp.js"
+			},
+			"./ui/presentation-data": {
+				"types": "./dist/ui/presentation-data.d.ts",
+				"browser": "./dist/browser/ui/presentation-data.js",
+				"bun": "./dist/ui/presentation-data.js",
+				"node": "./dist/node/ui/presentation-data.js",
+				"default": "./dist/ui/presentation-data.js"
+			},
+			"./ui/renderers/learning.markdown": {
+				"types": "./dist/ui/renderers/learning.markdown.d.ts",
+				"browser": "./dist/browser/ui/renderers/learning.markdown.js",
+				"bun": "./dist/ui/renderers/learning.markdown.js",
+				"node": "./dist/node/ui/renderers/learning.markdown.js",
+				"default": "./dist/ui/renderers/learning.markdown.js"
+			},
+			"./ui/template-config": {
+				"types": "./dist/ui/template-config.d.ts",
+				"browser": "./dist/browser/ui/template-config.js",
+				"bun": "./dist/ui/template-config.js",
+				"node": "./dist/node/ui/template-config.js",
+				"default": "./dist/ui/template-config.js"
 			}
 		},
 		"registry": "https://registry.npmjs.org/",

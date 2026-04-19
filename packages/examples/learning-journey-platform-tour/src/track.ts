@@ -1,6 +1,6 @@
-import type { LearningJourneyTrackSpec } from '@contractspec/module.learning-journey/track-spec';
+import type { JourneyTrackSpec } from '@contractspec/module.learning-journey/track-spec';
 
-export const platformPrimitivesTourTrack: LearningJourneyTrackSpec = {
+export const platformPrimitivesTourTrack: JourneyTrackSpec = {
 	id: 'platform_primitives_tour',
 	productId: 'contractspec-platform',
 	name: 'Platform Primitives Tour',
@@ -9,7 +9,7 @@ export const platformPrimitivesTourTrack: LearningJourneyTrackSpec = {
 	targetUserSegment: 'platform_developer',
 	targetRole: 'developer',
 	totalXp: 140,
-	completionRewards: { xpBonus: 20, badgeKey: 'platform_primitives' },
+	completionRewards: { xp: 20, badgeKey: 'platform_primitives' },
 	steps: [
 		{
 			id: 'identity_rbac',
@@ -28,6 +28,7 @@ export const platformPrimitivesTourTrack: LearningJourneyTrackSpec = {
 			title: 'Emit an auditable event',
 			description: 'Emit an event that lands in the audit log.',
 			order: 2,
+			prerequisites: [{ kind: 'step_completed', stepId: 'identity_rbac' }],
 			completion: {
 				eventName: 'audit_log.created',
 				sourceModule: '@contractspec/module.audit-trail',
@@ -40,6 +41,7 @@ export const platformPrimitivesTourTrack: LearningJourneyTrackSpec = {
 			title: 'Send a notification',
 			description: 'Send yourself a notification and verify delivery.',
 			order: 3,
+			prerequisites: [{ kind: 'step_completed', stepId: 'event_bus_audit' }],
 			completion: {
 				eventName: 'notification.sent',
 				sourceModule: '@contractspec/module.notifications',
@@ -52,6 +54,7 @@ export const platformPrimitivesTourTrack: LearningJourneyTrackSpec = {
 			title: 'Schedule and run a job',
 			description: 'Schedule a background job and let it run once.',
 			order: 4,
+			prerequisites: [{ kind: 'step_completed', stepId: 'notifications' }],
 			completion: {
 				eventName: 'job.completed',
 				sourceModule: '@contractspec/lib.jobs',
@@ -64,6 +67,7 @@ export const platformPrimitivesTourTrack: LearningJourneyTrackSpec = {
 			title: 'Create and toggle a feature flag',
 			description: 'Create a feature flag and toggle it at least once.',
 			order: 5,
+			prerequisites: [{ kind: 'step_completed', stepId: 'jobs_scheduler' }],
 			completion: {
 				eventName: 'flag.toggled',
 				sourceModule: '@contractspec/lib.feature-flags',
@@ -76,6 +80,7 @@ export const platformPrimitivesTourTrack: LearningJourneyTrackSpec = {
 			title: 'Attach a file',
 			description: 'Upload and attach a file to any entity.',
 			order: 6,
+			prerequisites: [{ kind: 'step_completed', stepId: 'feature_flags' }],
 			completion: {
 				eventName: 'attachment.attached',
 				sourceModule: '@contractspec/lib.files',
@@ -88,6 +93,7 @@ export const platformPrimitivesTourTrack: LearningJourneyTrackSpec = {
 			title: 'Record usage',
 			description: 'Emit a usage metric (regeneration, agent run, or similar).',
 			order: 7,
+			prerequisites: [{ kind: 'step_completed', stepId: 'files_attachments' }],
 			completion: {
 				eventName: 'usage.recorded',
 				sourceModule: '@contractspec/lib.metering',
@@ -101,6 +107,6 @@ export const platformPrimitivesTourTrack: LearningJourneyTrackSpec = {
 	},
 };
 
-export const platformLearningTracks: LearningJourneyTrackSpec[] = [
+export const platformLearningTracks: JourneyTrackSpec[] = [
 	platformPrimitivesTourTrack,
 ];

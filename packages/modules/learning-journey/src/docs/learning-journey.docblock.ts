@@ -6,23 +6,24 @@ const learningJourneyDocBlocks: DocBlock[] = [
 		id: 'docs.learning-journey.engine',
 		title: 'Learning Journey Engine',
 		summary:
-			'Tracks learners, tracks/modules/steps, progress, quizzes, streaks, XP, and AI coaching hooks for product-integrated onboarding.',
+			'Headless adaptive journey runtime for tracks, branching steps, progress, quizzes, streaks, XP, and AI coaching hooks.',
 		kind: 'reference',
 		visibility: 'public',
 		route: '/docs/learning-journey/engine',
-		tags: ['learning', 'onboarding', 'journey', 'education'],
+		tags: ['adaptive-learning', 'journey', 'education'],
 		body: `## Capabilities
 
 - **Entities**: Learner, Track, Module, Step, Progress, Quiz, Flashcard, AI Coach, Gamification (XP, streaks, badges).
-- **Contracts**: enroll/resume/advance steps, complete quizzes, record streaks, assign XP, fetch progress dashboards, onboarding list/progress/recordEvent.
+- **Contracts**: enroll/resume/advance steps, complete quizzes, record streaks, assign XP, fetch progress dashboards, journey list/progress/recordEvent.
+- **Runtime**: canonical branch/prerequisite evaluator + projected next-step snapshots.
 - **Engines**: spaced-repetition (SRS), streak calculator, XP progression.
-- **Events**: learner.enrolled, step.completed, quiz.scored, streak.reset, xp.awarded, onboarding.started/completed/step_completed.
+- **Events**: learner.enrolled, step.completed, quiz.scored, streak.reset, xp.awarded, journey.started/completed/step_completed.
 
 ## Completion conditions
 - Event-based: name/version/source + payload filter
 - Count-based: require N events (optional time window)
 - Time-bounded: must complete within a window; steps can unlock by day/hour
-- SRS mastery: complete when cards/skills hit mastery thresholds (with required counts)
+- Mastery: complete when cards/skills hit mastery thresholds (with required counts)
 
 ## Usage
 
@@ -33,7 +34,7 @@ const learningJourneyDocBlocks: DocBlock[] = [
 - Import from \`@contractspec/module.learning-journey\` into your spec registry.
 
 3) Bind to product actions
-- Tie \`Step\` completion conditions to domain events (e.g., deal.created, agent.run.completed, drill.session.completed).
+- Tie \`JourneyStep\` completion conditions and branch rules to domain events (e.g., deal.created, agent.run.completed, drill.session.completed).
 - Trigger notifications via Notification Center and audits on completion.
 
 4) Gamification
@@ -54,7 +55,7 @@ ${'```'},
 - Keep steps bound to real product events, not just button clicks.
 - Avoid storing PII in content; keep org/user scoping for multi-tenant isolation.
 - Emit analytics and audit logs for completions; respect \`prefers-reduced-motion\` in UIs consuming these specs.
-- Track completion bonuses: \`completionXpBonus\`, \`completionBadgeKey\`, optional \`streakHoursWindow\` + \`streakBonusXp\`.
+- Track completion bonuses: \`completionRewards\`, optional \`streakRule\`, and branch-level rewards.
 `,
 	},
 	{
@@ -67,8 +68,8 @@ ${'```'},
 		route: '/docs/learning-journey/goal',
 		tags: ['learning', 'goal'],
 		body: `## Why it matters
-- Provides a regenerable onboarding/education engine tied to product signals.
-- Keeps tracks, steps, quizzes, and gamification consistent across surfaces.
+- Provides a regenerable adaptive-journey engine tied to product signals.
+- Keeps tracks, steps, branches, quizzes, and gamification consistent across surfaces.
 
 ## Business/Product goal
 - Drive activation and retention with measurable progress, SRS, and streaks.
@@ -89,15 +90,15 @@ ${'```'},
 		body: `## Setup
 1) Include \`learningJourneyEntities\` in schema composition.
 2) Register contracts/events from \`@contractspec/module.learning-journey\`.
-3) Bind steps to real product events (e.g., deal.created, run.completed).
+3) Bind steps and branch outcomes to real product events (e.g., deal.created, run.completed).
 
 ## Extend & regenerate
-1) Update track/module/step definitions or quiz schemas in spec.
+1) Update track/module/step definitions, branch rules, or quiz schemas in spec.
 2) Regenerate to sync UI/API/events; mark PII paths where needed.
 3) Use Feature Flags to trial new tracks or streak rules.
 
 ## Guardrails
-- Avoid hardcoded progression; keep engines declarative.
+- Avoid hardcoded progression; keep runtime rules declarative.
 - Emit analytics/audit for completions; respect user locale/accessibility in presentations.
 - Keep content free of PII; scope learners by org/tenant.`,
 	},
@@ -111,7 +112,7 @@ ${'```'},
 		route: '/docs/learning-journey/constraints',
 		tags: ['learning', 'constraints', 'internal'],
 		body: `## Constraints
-- Progression (tracks/modules/steps) and engines (SRS, streaks, XP) must stay declarative in spec.
+- Progression (tracks/modules/steps/branches) and engines (SRS, streaks, XP) must stay declarative in spec.
 - Events to emit: learner.enrolled, step.completed, quiz.scored, streak.reset, xp.awarded.
 - Regeneration should not change scoring/streak rules without explicit spec change.
 

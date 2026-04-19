@@ -21,6 +21,7 @@ const example = defineExample({
 		packageName: '@contractspec/example.policy-safe-knowledge-assistant',
 		feature: './policy-safe-knowledge-assistant.feature',
 		docs: './docs',
+		ui: './ui',
 	},
 	surfaces: {
 		templates: true,

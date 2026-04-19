@@ -1,3 +1,5 @@
+import { loadConfig } from '../../utils/config';
+
 export interface BuilderApiOperationInput {
 	workspaceId?: string;
 	entityId?: string;
@@ -5,24 +7,27 @@ export interface BuilderApiOperationInput {
 	payload?: Record<string, unknown>;
 }
 
-function resolveBuilderApiBaseUrl() {
-	const apiBaseUrl = process.env.CONTRACTSPEC_API_BASE_URL;
-	if (!apiBaseUrl) {
-		throw new Error(
-			'CONTRACTSPEC_API_BASE_URL is required for builder CLI commands.'
-		);
-	}
-	return apiBaseUrl.endsWith('/') ? apiBaseUrl : `${apiBaseUrl}/`;
-}
+const DEFAULT_BUILDER_API_BASE_URL = 'https://api.contractspec.io';
+const DEFAULT_BUILDER_TOKEN_ENV_VAR = 'CONTROL_PLANE_API_TOKEN';
 
-function resolveBuilderApiToken() {
-	const token = process.env.CONTROL_PLANE_API_TOKEN;
+async function resolveBuilderClientConfig() {
+	const config = await loadConfig();
+	const configuredApiBaseUrl = config.builder?.api?.baseUrl?.trim();
+	const configuredTokenEnvVar =
+		config.builder?.api?.controlPlaneTokenEnvVar?.trim();
+	const apiBaseUrl =
+		process.env.CONTRACTSPEC_API_BASE_URL?.trim() ||
+		configuredApiBaseUrl ||
+		DEFAULT_BUILDER_API_BASE_URL;
+	const tokenEnvVar = configuredTokenEnvVar || DEFAULT_BUILDER_TOKEN_ENV_VAR;
+	const token = process.env[tokenEnvVar];
 	if (!token) {
-		throw new Error(
-			'CONTROL_PLANE_API_TOKEN is required for builder CLI commands.'
-		);
+		throw new Error(`Set ${tokenEnvVar} to use Builder CLI commands.`);
 	}
-	return token;
+	return {
+		apiBaseUrl: apiBaseUrl.endsWith('/') ? apiBaseUrl : `${apiBaseUrl}/`,
+		token,
+	};
 }
 
 async function parseBuilderApiResponse<T>(response: Response) {
@@ -46,14 +51,15 @@ export async function executeBuilderApiCommand<T>(
 	commandKey: string,
 	input: BuilderApiOperationInput
 ) {
+	const { apiBaseUrl, token } = await resolveBuilderClientConfig();
 	const target = new URL(
 		`internal/builder/commands/${encodeURIComponent(commandKey)}`,
-		resolveBuilderApiBaseUrl()
+		apiBaseUrl
 	);
 	const response = await fetch(target, {
 		method: 'POST',
 		headers: {
-			authorization: `Bearer ${resolveBuilderApiToken()}`,
+			authorization: `Bearer ${token}`,
 			'content-type': 'application/json',
 		},
 		body: JSON.stringify(input),
@@ -65,9 +71,10 @@ export async function executeBuilderApiQuery<T>(
 	queryKey: string,
 	input: BuilderApiOperationInput
 ) {
+	const { apiBaseUrl, token } = await resolveBuilderClientConfig();
 	const target = new URL(
 		`internal/builder/queries/${encodeURIComponent(queryKey)}`,
-		resolveBuilderApiBaseUrl()
+		apiBaseUrl
 	);
 	if (input.workspaceId)
 		target.searchParams.set('workspaceId', input.workspaceId);
@@ -77,7 +84,7 @@ export async function executeBuilderApiQuery<T>(
 	}
 	const response = await fetch(target, {
 		headers: {
-			authorization: `Bearer ${resolveBuilderApiToken()}`,
+			authorization: `Bearer ${token}`,
 		},
 	});
 	return parseBuilderApiResponse<T>(response);

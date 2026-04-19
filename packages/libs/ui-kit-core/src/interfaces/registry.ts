@@ -85,4 +85,8 @@ export const sharedUiContractKeys = [
 	'visualization/Visualization',
 ] as const;
 
-export const sharedUiContractExclusions = ['link', 'utils'] as const;
+export const sharedUiContractExclusions = [
+	'contracts.typecheck',
+	'link',
+	'utils',
+] as const;

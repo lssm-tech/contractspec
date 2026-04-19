@@ -29,6 +29,11 @@ import {
 	syncConfigMarkdownRenderer,
 } from '@contractspec/example.integration-hub';
 import {
+	learningTrackDetailMarkdownRenderer as registryLearningTrackDetailMarkdownRenderer,
+	learningTrackListMarkdownRenderer as registryLearningTrackListMarkdownRenderer,
+	learningTrackProgressWidgetMarkdownRenderer as registryLearningTrackProgressWidgetMarkdownRenderer,
+} from '@contractspec/example.learning-journey-registry';
+import {
 	marketplaceDashboardMarkdownRenderer,
 	orderListMarkdownRenderer,
 	productCatalogMarkdownRenderer,
@@ -114,6 +119,11 @@ function registerTemplateRenderers(engine: TransformEngine): void {
 	engine.register(analyticsDashboardMarkdownRenderer);
 	engine.register(dashboardListMarkdownRenderer);
 	engine.register(queryBuilderMarkdownRenderer);
+
+	// Learning Journey Registry renderers
+	engine.register(registryLearningTrackListMarkdownRenderer);
+	engine.register(registryLearningTrackDetailMarkdownRenderer);
+	engine.register(registryLearningTrackProgressWidgetMarkdownRenderer);
 
 	// Visualization Showcase renderers
 	engine.register(visualizationShowcaseMarkdownRenderer);

@@ -33,6 +33,7 @@ export function ColumnVisibilityMenu({
 	columns: ContractTableController<unknown, React.ReactNode>['columns'];
 }) {
 	const hideableColumns = columns.filter((column) => column.canHide);
+	const hasHiddenColumns = hideableColumns.some((column) => !column.visible);
 	if (!hideableColumns.length) return null;
 
 	return (
@@ -57,6 +58,20 @@ export function ColumnVisibilityMenu({
 						{column.label}
 					</DropdownMenuCheckboxItem>
 				))}
+				{hasHiddenColumns ? (
+					<>
+						<DropdownMenuSeparator />
+						<DropdownMenuItem
+							onClick={() => {
+								hideableColumns.forEach((column) =>
+									column.toggleVisibility?.(true)
+								);
+							}}
+						>
+							Show All Columns
+						</DropdownMenuItem>
+					</>
+				) : null}
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);
@@ -105,6 +120,13 @@ export function ResizeHandle({
 	column: ContractTableColumnRenderModel<React.ReactNode>;
 }) {
 	const lastX = React.useRef<number | null>(null);
+	const removeListenersRef = React.useRef<(() => void) | null>(null);
+
+	React.useEffect(() => {
+		return () => {
+			removeListenersRef.current?.();
+		};
+	}, []);
 
 	const onMouseDown = React.useCallback(
 		(event: React.MouseEvent<HTMLSpanElement>) => {
@@ -125,6 +147,7 @@ export function ResizeHandle({
 				window.removeEventListener('mouseup', onMouseUp);
 			};
 
+			removeListenersRef.current = onMouseUp;
 			window.addEventListener('mousemove', onMouseMove);
 			window.addEventListener('mouseup', onMouseUp);
 		},
@@ -181,6 +204,7 @@ export function renderCellContent<TItem>(
 				aria-label={`Select row ${row.id}`}
 				checked={row.isSelected}
 				onCheckedChange={(checked) => row.toggleSelected?.(Boolean(checked))}
+				onClick={(event) => event.stopPropagation()}
 			/>
 		);
 	}
@@ -193,7 +217,10 @@ export function renderCellContent<TItem>(
 				aria-label={
 					row.isExpanded ? `Collapse row ${row.id}` : `Expand row ${row.id}`
 				}
-				onClick={() => row.toggleExpanded?.()}
+				onClick={(event) => {
+					event.stopPropagation();
+					row.toggleExpanded?.();
+				}}
 			>
 				{row.isExpanded ? (
 					<ChevronDown className="h-4 w-4" />
@@ -219,4 +246,13 @@ export function stickyStyle(
 		position: column.pinState ? 'sticky' : 'relative',
 		zIndex: column.pinState ? (isHeader ? 30 : 20) : undefined,
 	} as React.CSSProperties;
+}
+
+export function ariaSortValue(
+	column: ContractTableColumnRenderModel<React.ReactNode>
+) {
+	if (column.kind !== 'data' || !column.canSort) return undefined;
+	if (column.sortDirection === 'asc') return 'ascending';
+	if (column.sortDirection === 'desc') return 'descending';
+	return 'none';
 }

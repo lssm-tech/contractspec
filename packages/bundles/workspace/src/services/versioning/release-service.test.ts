@@ -34,7 +34,10 @@ const gitAdapter = {
 	diffFiles: async () => [],
 };
 
-function getCheck(result: Awaited<ReturnType<typeof checkReleaseArtifacts>>, name: string) {
+function getCheck(
+	result: Awaited<ReturnType<typeof checkReleaseArtifacts>>,
+	name: string
+) {
 	return result.checks.find((check) => check.name === name);
 }
 
@@ -169,7 +172,9 @@ describe('checkReleaseArtifacts', () => {
 	});
 
 	it('treats a capsules-only post-version state as valid', async () => {
-		const workspaceRoot = seedWorkspaceRoot('contractspec-release-post-version-');
+		const workspaceRoot = seedWorkspaceRoot(
+			'contractspec-release-post-version-'
+		);
 		writeFileSync(
 			join(workspaceRoot, '.changeset', 'post-version.release.yaml'),
 			`schemaVersion: "1"
@@ -201,7 +206,8 @@ validation:
 		expect(getCheck(result, 'changesets')).toEqual({
 			name: 'changesets',
 			ok: true,
-			message: 'No pending release changesets found; release capsules are present.',
+			message:
+				'No pending release changesets found; release capsules are present.',
 		});
 		expect(
 			result.warnings.includes('No pending release changesets were found.')
@@ -227,7 +233,9 @@ validation:
 			ok: false,
 			message: 'No release changesets found.',
 		});
-		expect(result.warnings).toContain('No pending release changesets were found.');
+		expect(result.warnings).toContain(
+			'No pending release changesets were found.'
+		);
 	});
 
 	it('should report missing migration notes and evidence for incomplete capsules', async () => {
@@ -308,7 +316,8 @@ validation:
 		expect(getCheck(result, 'changesets')).toEqual({
 			name: 'changesets',
 			ok: true,
-			message: 'No pending release changesets found; release capsules are present.',
+			message:
+				'No pending release changesets found; release capsules are present.',
 		});
 		expect(
 			result.errors.some((error) => error.includes('migration instructions'))

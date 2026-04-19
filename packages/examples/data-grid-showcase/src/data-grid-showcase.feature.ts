@@ -6,7 +6,7 @@ export const DataGridShowcaseFeature = defineFeature({
 		version: '1.0.0',
 		title: 'Data Grid Showcase',
 		description:
-			'Focused ContractSpec table example covering client mode, server mode, and DataView adapter paths.',
+			'Canonical ContractSpec table example spanning contracts-spec, ui-kit, ui-kit-web, and design-system surfaces.',
 		domain: 'ui',
 		owners: ['@platform.core'],
 		tags: ['table', 'data-grid', 'ui', 'tanstack'],

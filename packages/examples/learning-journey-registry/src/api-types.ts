@@ -1,43 +1,14 @@
-import type { LearningJourneyTrackSpec } from '@contractspec/module.learning-journey/track-spec';
+import type {
+	JourneyEvent,
+	JourneyProgressSnapshot,
+	JourneyProgressState,
+	JourneyTrackSpec,
+} from '@contractspec/module.learning-journey/track-spec';
 
-export interface LearningEvent {
-	name: string;
-	version?: number;
-	sourceModule?: string;
-	payload?: Record<string, unknown>;
-	occurredAt?: Date;
+export type LearningEvent = JourneyEvent & {
 	learnerId: string;
-	trackId?: string;
-}
+};
 
-export type StepStatus = 'PENDING' | 'COMPLETED';
-
-export interface StepProgress {
-	id: string;
-	status: StepStatus;
-	xpEarned: number;
-	completedAt?: Date;
-	triggeringEvent?: string;
-	eventPayload?: Record<string, unknown>;
-	occurrences?: number;
-	counterStartedAt?: Date;
-	availableAt?: Date;
-	dueAt?: Date;
-	masteryCount?: number;
-}
-
-export interface TrackProgress {
-	learnerId: string;
-	trackId: string;
-	progress: number;
-	isCompleted: boolean;
-	xpEarned: number;
-	startedAt?: Date;
-	completedAt?: Date;
-	lastActivityAt?: Date;
-	steps: StepProgress[];
-}
-
-export type TrackResolver = (
-	trackId: string
-) => LearningJourneyTrackSpec | undefined;
+export type TrackProgress = JourneyProgressState;
+export type TrackProgressSnapshot = JourneyProgressSnapshot;
+export type TrackResolver = (trackId: string) => JourneyTrackSpec | undefined;

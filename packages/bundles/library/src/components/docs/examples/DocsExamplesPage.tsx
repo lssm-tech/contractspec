@@ -8,8 +8,10 @@ import {
 } from '@contractspec/lib.design-system';
 import { HStack, VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import { H1, Muted } from '@contractspec/lib.ui-kit-web/ui/typography';
-import { listExamples } from '@contractspec/module.examples';
-import { getExampleShowcaseData } from './exampleShowcaseData';
+import {
+	buildExampleDocsHref,
+	listPublicExamples,
+} from '@contractspec/module.examples';
 
 interface ExampleItem extends Record<string, unknown> {
 	id: string;
@@ -20,25 +22,15 @@ interface ExampleItem extends Record<string, unknown> {
 	sandboxEnabled: boolean;
 }
 
-function buildReferenceRoute(key: string) {
-	return `/docs/reference/${key}/${key}`;
-}
-
-function buildDocsRoute(key: string) {
-	return getExampleShowcaseData(key)?.sandboxHref
-		? `/docs/examples/${key}`
-		: buildReferenceRoute(key);
-}
-
 export function DocsExamplesPage() {
-	const items: ExampleItem[] = listExamples()
+	const items: ExampleItem[] = listPublicExamples()
 		.map((example) => {
 			const title = example.meta.title ?? example.meta.key;
 			return {
 				id: example.meta.key,
 				title,
 				summary: example.meta.summary ?? example.meta.description,
-				route: buildDocsRoute(example.meta.key),
+				route: buildExampleDocsHref(example.meta.key),
 				tags: example.meta.tags,
 				sandboxEnabled: example.surfaces.sandbox.enabled,
 			};

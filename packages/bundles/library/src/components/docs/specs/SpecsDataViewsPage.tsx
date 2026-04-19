@@ -1,6 +1,55 @@
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
 
+const SPECS_DATAVIEWS_EXAMPLE = `import { defineDataView } from '@contractspec/lib.contracts-spec/data-views';
+import { ListDataGridShowcaseRowsQuery } from '@contractspec/example.data-grid-showcase/contracts/data-grid-showcase.operation';
+
+export const DataGridShowcaseDataView = defineDataView({
+  meta: {
+    key: 'examples.data-grid-showcase.table',
+    version: '1.0.0',
+    entity: 'account',
+    title: 'Data Grid Showcase Table',
+    description:
+      'Declarative DataViewSpec for the ContractSpec table showcase.',
+    domain: 'examples',
+    owners: ['@platform.core'],
+    tags: ['examples', 'table', 'data-grid'],
+    stability: 'experimental',
+  },
+  source: {
+    primary: {
+      key: ListDataGridShowcaseRowsQuery.meta.key,
+      version: ListDataGridShowcaseRowsQuery.meta.version,
+    },
+  },
+  view: {
+    kind: 'table',
+    executionMode: 'client',
+    selection: 'multiple',
+    columnVisibility: true,
+    columnResizing: true,
+    columnPinning: true,
+    rowExpansion: {
+      fields: ['notes', 'renewalDate', 'lastActivityAt'],
+    },
+    initialState: {
+      pageSize: 4,
+      hiddenColumns: ['notes'],
+      pinnedColumns: {
+        left: ['account'],
+      },
+      sorting: [{ field: 'arr', desc: true }],
+    },
+    fields: [
+      { key: 'account', label: 'Account', dataPath: 'account', sortable: true },
+      { key: 'owner', label: 'Owner', dataPath: 'owner', sortable: true },
+      { key: 'status', label: 'Status', dataPath: 'status', sortable: true },
+      { key: 'notes', label: 'Notes', dataPath: 'notes' },
+    ],
+  },
+});`;
+
 // export const metadata = {
 //   title: 'DataViews: ContractSpec Docs',
 //   description:
@@ -69,51 +118,23 @@ export function SpecsDataViewsPage() {
 			<div className="space-y-4">
 				<h2 className="font-bold text-2xl">Example DataViewSpec</h2>
 				<p className="text-muted-foreground">
-					Here's a DataView for listing orders in TypeScript:
+					Here is the canonical table contract used by the live{' '}
+					<Link
+						href="/docs/examples/data-grid-showcase"
+						className="text-[color:var(--rust)] underline underline-offset-4"
+					>
+						Data Grid Showcase
+					</Link>
+					:
 				</p>
 				<div className="overflow-x-auto rounded-lg border border-border bg-background/50 p-4 font-mono text-muted-foreground text-sm">
-					<pre>{`import { defineDataView } from '@contractspec/lib.contracts-spec';
-import { SchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
-
-export const OrderList = defineDataView({
-  meta: {
-    key: 'order.list',
-    version: '1.0.0',
-    description: 'List of recent orders',
-  },
-  source: {
-    type: 'database',
-    table: 'orders',
-  },
-  fields: [
-    { name: 'orderId', type: 'uuid', sortable: true },
-    { name: 'customerName', type: 'string', searchable: true },
-    { name: 'total', type: 'number', sortable: true },
-    { 
-      name: 'status', 
-      type: 'enum', 
-      values: ['pending', 'processing', 'shipped'],
-      filterable: true 
-    },
-    { 
-      name: 'createdAt', 
-      type: 'timestamp', 
-      sortable: true, 
-      defaultSort: 'desc' 
-    },
-  ],
-  filters: [
-    { name: 'status', field: 'status', operator: 'in' },
-    { name: 'dateRange', field: 'createdAt', operator: 'between' },
-    { name: 'minTotal', field: 'total', operator: 'gte' },
-  ],
-  pagination: {
-    type: 'cursor',
-    defaultPageSize: 50,
-    maxPageSize: 200,
-  },
-});`}</pre>
+					<pre>{SPECS_DATAVIEWS_EXAMPLE}</pre>
 				</div>
+				<p className="text-muted-foreground text-sm">
+					This one contract drives the DataView lane, while the same rows and
+					controller also feed the raw web primitive, native-first primitive,
+					and composed design-system demos.
+				</p>
 			</div>
 
 			<div className="space-y-4">

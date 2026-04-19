@@ -1,57 +1,17 @@
 import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
 import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import { JourneyTrackModel } from '@contractspec/module.learning-journey/contracts/journey';
 
 import { crmFirstWinTrack } from '../track';
 
 const OWNERS = ['examples.learning-journey.crm-onboarding'] as const;
-
-const StepModel = defineSchemaModel({
-	name: 'CrmOnboardingStep',
-	description: 'Step metadata for CRM first win journey',
-	fields: {
-		id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-		title: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-		description: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-		completionEvent: {
-			type: ScalarTypeEnum.String_unsecure(),
-			isOptional: false,
-		},
-		sourceModule: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-		xpReward: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
-		order: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
-	},
-});
-
-export const CrmOnboardingTrackModel = defineSchemaModel({
-	name: 'CrmOnboardingTrack',
-	description: 'CRM onboarding track definition',
-	fields: {
-		id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-		name: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-		description: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-		totalXp: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
-		completionXpBonus: {
-			type: ScalarTypeEnum.Int_unsecure(),
-			isOptional: true,
-		},
-		completionBadgeKey: {
-			type: ScalarTypeEnum.String_unsecure(),
-			isOptional: true,
-		},
-		streakHoursWindow: {
-			type: ScalarTypeEnum.Int_unsecure(),
-			isOptional: true,
-		},
-		streakBonusXp: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
-		steps: { type: StepModel, isArray: true, isOptional: false },
-	},
-});
+export const CrmJourneyTrackModel = JourneyTrackModel;
 
 const TrackResponseModel = defineSchemaModel({
 	name: 'CrmOnboardingTrackResponse',
 	description: 'Response wrapper for CRM onboarding track',
 	fields: {
-		track: { type: CrmOnboardingTrackModel, isOptional: false },
+		track: { type: CrmJourneyTrackModel, isOptional: false },
 	},
 });
 

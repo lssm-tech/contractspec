@@ -23,6 +23,7 @@ const example = defineExample({
 		contracts: './contracts',
 		handlers: './handlers',
 		docs: './docs',
+		ui: './ui',
 	},
 	surfaces: {
 		templates: true,

@@ -104,8 +104,14 @@ export function useDataViewTable<TItem extends Record<string, unknown>>({
 				...initialState?.columnVisibility,
 			},
 			columnPinning: {
-				left: view.initialState?.pinnedColumns?.left ?? [],
-				right: view.initialState?.pinnedColumns?.right ?? [],
+				left:
+					initialState?.columnPinning?.left ??
+					view.initialState?.pinnedColumns?.left ??
+					[],
+				right:
+					initialState?.columnPinning?.right ??
+					view.initialState?.pinnedColumns?.right ??
+					[],
 			},
 			expanded: {
 				...expanded,

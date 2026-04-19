@@ -1,5 +1,6 @@
 import type { Tool } from '@ai-sdk/provider-utils';
 import * as z from 'zod';
+import { createSupportBotI18n } from '../i18n';
 import type { TicketResolver } from '../rag/ticket-resolver';
 import type { TicketClassifier } from '../tickets/classifier';
 import type {
@@ -19,9 +20,10 @@ const ticketSchema = z.object({
 	subject: z.string(),
 	body: z.string(),
 	channel: z.enum(['email', 'chat', 'phone', 'portal']),
+	locale: z.string().optional(),
 	customerName: z.string().optional(),
 	customerEmail: z.string().optional(),
-	metadata: z.object().optional(),
+	metadata: z.record(z.string(), z.string()).optional(),
 }) satisfies z.ZodType<SupportTicket>;
 const supportCitationSchema = z.object({
 	label: z.string(),
@@ -32,7 +34,7 @@ const supportCitationSchema = z.object({
 const supportActionSchema = z.object({
 	type: z.enum(['respond', 'escalate', 'refund', 'manual']),
 	label: z.string(),
-	payload: z.record(z.string(), z.string()),
+	payload: z.record(z.string(), z.string()).optional(),
 }) satisfies z.ZodType<SupportAction>;
 const supportResolutionSchema = z.object({
 	ticketId: z.string(),
@@ -71,42 +73,98 @@ const ticketClassificationSchema = z.object({
 	escalationRequired: z.boolean().optional(),
 }) satisfies z.ZodType<TicketClassification>;
 
-function ensureTicket(input: unknown): SupportTicket {
-	if (!input || typeof input !== 'object' || !('ticket' in input)) {
-		throw new Error('Input must include ticket');
-	}
-	const ticket = (input as { ticket: SupportTicket }).ticket;
-	if (!ticket?.id) throw new Error('Ticket is missing id');
-	return ticket;
-}
+const classifyInputSchema = z.object({
+	ticket: ticketSchema,
+});
 
-function extractResolution(input: unknown): SupportResolution | undefined {
-	if (!input || typeof input !== 'object' || !('resolution' in input))
-		return undefined;
-	return (input as { resolution?: SupportResolution }).resolution;
-}
-
-function extractClassification(
-	input: unknown
-): TicketClassification | undefined {
-	if (!input || typeof input !== 'object' || !('classification' in input))
-		return undefined;
-	return (input as { classification?: TicketClassification }).classification;
-}
+const draftInputSchema = z.object({
+	ticket: ticketSchema,
+	resolution: supportResolutionSchema,
+	classification: ticketClassificationSchema,
+});
 
 export interface SupportToolsetOptions {
 	resolver: TicketResolver;
 	classifier: TicketClassifier;
 	responder: AutoResponder;
+	locale?: string;
+}
+
+type Translate = ReturnType<typeof createSupportBotI18n>['t'];
+
+function isTicketMissing(error: z.ZodError): boolean {
+	return error.issues.some(
+		(issue) => issue.path.length === 1 && issue.path[0] === 'ticket'
+	);
+}
+
+function isTicketIdInvalid(error: z.ZodError): boolean {
+	return error.issues.some(
+		(issue) => issue.path[0] === 'ticket' && issue.path[1] === 'id'
+	);
+}
+
+function isResolutionOrClassificationInvalid(error: z.ZodError): boolean {
+	return error.issues.some(
+		(issue) =>
+			issue.path[0] === 'resolution' || issue.path[0] === 'classification'
+	);
+}
+
+function ensureTicketId(ticket: SupportTicket, t: Translate): SupportTicket {
+	if (!ticket.id.trim()) {
+		throw new Error(t('error.ticketMissingId'));
+	}
+	return ticket;
+}
+
+function parseTicketInput(input: unknown, t: Translate): SupportTicket {
+	const parsed = classifyInputSchema.safeParse(input);
+	if (!parsed.success) {
+		if (isTicketIdInvalid(parsed.error)) {
+			throw new Error(t('error.ticketMissingId'));
+		}
+		throw new Error(t('error.inputMustIncludeTicket'));
+	}
+	return ensureTicketId(parsed.data.ticket, t);
+}
+
+function parseDraftInput(
+	input: unknown,
+	t: Translate
+): {
+	ticket: SupportTicket;
+	resolution: SupportResolution;
+	classification: TicketClassification;
+} {
+	const parsed = draftInputSchema.safeParse(input);
+	if (!parsed.success) {
+		if (isTicketMissing(parsed.error)) {
+			throw new Error(t('error.inputMustIncludeTicket'));
+		}
+		if (isTicketIdInvalid(parsed.error)) {
+			throw new Error(t('error.ticketMissingId'));
+		}
+		if (isResolutionOrClassificationInvalid(parsed.error)) {
+			throw new Error(t('error.resolutionClassificationRequired'));
+		}
+		throw new Error(t('error.resolutionClassificationRequired'));
+	}
+
+	return {
+		...parsed.data,
+		ticket: ensureTicketId(parsed.data.ticket, t),
+	};
 }
 
 export function createSupportTools(options: SupportToolsetOptions): Tool[] {
+	const { t } = createSupportBotI18n(options.locale);
 	const classifyTool: Tool = {
 		title: 'support_classify_ticket',
-		description: 'Classify a ticket for priority, sentiment, and category',
+		description: t('tool.classify.description'),
 		inputSchema: z.object({ ticket: ticketSchema }),
 		execute: async (input: unknown) => {
-			const ticket = ensureTicket(input);
+			const ticket = parseTicketInput(input, t);
 			const classification = await options.classifier.classify(ticket);
 			return {
 				content: JSON.stringify(classification),
@@ -117,10 +175,10 @@ export function createSupportTools(options: SupportToolsetOptions): Tool[] {
 
 	const resolveTool: Tool = {
 		title: 'support_resolve_ticket',
-		description: 'Generate a knowledge-grounded resolution for a ticket',
+		description: t('tool.resolve.description'),
 		inputSchema: z.object({ ticket: ticketSchema }),
 		execute: async (input: unknown) => {
-			const ticket = ensureTicket(input);
+			const ticket = parseTicketInput(input, t);
 			const resolution = await options.resolver.resolve(ticket);
 			return {
 				content: JSON.stringify(resolution),
@@ -131,20 +189,14 @@ export function createSupportTools(options: SupportToolsetOptions): Tool[] {
 
 	const responderTool: Tool = {
 		title: 'support_draft_response',
-		description:
-			'Draft a user-facing reply based on resolution + classification',
+		description: t('tool.draft.description'),
 		inputSchema: z.object({
 			ticket: ticketSchema,
 			resolution: supportResolutionSchema,
 			classification: ticketClassificationSchema,
 		}),
 		execute: async (input: unknown) => {
-			const ticket = ensureTicket(input);
-			const resolution = extractResolution(input);
-			const classification = extractClassification(input);
-			if (!resolution || !classification) {
-				throw new Error('resolution and classification are required');
-			}
+			const { ticket, resolution, classification } = parseDraftInput(input, t);
 			const draft = await options.responder.draft(
 				ticket,
 				resolution,

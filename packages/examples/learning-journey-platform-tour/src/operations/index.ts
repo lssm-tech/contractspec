@@ -1,57 +1,17 @@
 import { defineCommand, defineQuery } from '@contractspec/lib.contracts-spec';
 import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
+import { JourneyTrackModel } from '@contractspec/module.learning-journey/contracts/journey';
 
 import { platformPrimitivesTourTrack } from '../track';
 
 const OWNERS = ['examples.learning-journey.platform-tour'] as const;
-
-const StepModel = defineSchemaModel({
-	name: 'PlatformTourStep',
-	description: 'Step metadata for platform primitives tour',
-	fields: {
-		id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-		title: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-		description: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-		completionEvent: {
-			type: ScalarTypeEnum.String_unsecure(),
-			isOptional: false,
-		},
-		sourceModule: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-		xpReward: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
-		order: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
-	},
-});
-
-export const PlatformTourTrackModel = defineSchemaModel({
-	name: 'PlatformTourTrack',
-	description: 'Platform primitives tour track definition',
-	fields: {
-		id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-		name: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-		description: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-		totalXp: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
-		completionXpBonus: {
-			type: ScalarTypeEnum.Int_unsecure(),
-			isOptional: true,
-		},
-		completionBadgeKey: {
-			type: ScalarTypeEnum.String_unsecure(),
-			isOptional: true,
-		},
-		streakHoursWindow: {
-			type: ScalarTypeEnum.Int_unsecure(),
-			isOptional: true,
-		},
-		streakBonusXp: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
-		steps: { type: StepModel, isArray: true, isOptional: false },
-	},
-});
+export const PlatformJourneyTrackModel = JourneyTrackModel;
 
 const TrackResponseModel = defineSchemaModel({
 	name: 'PlatformTourTrackResponse',
 	description: 'Response wrapper for platform tour track',
 	fields: {
-		track: { type: PlatformTourTrackModel, isOptional: false },
+		track: { type: PlatformJourneyTrackModel, isOptional: false },
 	},
 });
 
