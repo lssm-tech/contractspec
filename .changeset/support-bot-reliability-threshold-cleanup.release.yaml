@@ -1,0 +1,38 @@
+schemaVersion: "1"
+slug: support-bot-reliability-threshold-cleanup
+summary: "Harden support-bot runtime validation, align responder prompts with i18n, and replace the overloaded support-bot threshold config with explicit semantics."
+isBreaking: true
+packages:
+  - name: "@contractspec/lib.support-bot"
+    releaseType: major
+affectedRuntimes:
+  - bun
+  - node
+audiences:
+  - kind: maintainer
+    summary: "Support-bot now validates tool inputs and classifier LLM overrides more defensively, and its responder prompt/catalog wiring is aligned and covered by focused unit tests."
+    affectedPackages:
+      - "@contractspec/lib.support-bot"
+  - kind: integrator
+    summary: "`defineSupportBot` no longer accepts `autoEscalateThreshold`; integrators must migrate to the explicit `thresholds` object and can now pass `review` directly."
+    affectedPackages:
+      - "@contractspec/lib.support-bot"
+migrationInstructions:
+  - id: support-bot-thresholds
+    title: Replace the old support-bot threshold field
+    summary: "Migrate `defineSupportBot` calls from the overloaded `autoEscalateThreshold` field to the explicit `thresholds` object."
+    required: true
+    when: "When upgrading code that constructs `@contractspec/lib.support-bot` specs through `defineSupportBot`."
+    steps:
+      - Replace `autoEscalateThreshold` with `thresholds.autoResolveMinConfidence` when you mean the auto-response cutoff.
+      - Set `thresholds.escalationConfidenceThreshold` when you need a distinct policy escalation cutoff.
+      - Move any external review routing into the new top-level `review` field if the spec should expose queue or approval workflow metadata.
+validation:
+  commands:
+    - cd packages/libs/support-bot && bun run test
+    - cd packages/libs/support-bot && bun run lint:check
+    - cd packages/libs/support-bot && bun run typecheck
+  evidence:
+    - Support-bot now has direct unit coverage for defineSupportBot, AutoResponder, createSupportTools, TicketClassifier, and TicketResolver.
+    - AutoResponder prompt placeholders and runtime interpolation are aligned across the English, French, and Spanish catalogs.
+    - Tool descriptions/errors and classifier override handling are localized/validated instead of relying on hardcoded strings and unchecked JSON merges.
