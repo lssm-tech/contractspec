@@ -1,5 +1,14 @@
 # @contractspec/example.learning-journey-ui-shared
 
+## 4.0.1
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/lib.design-system@3.10.1
+  - @contractspec/lib.ui-kit-web@3.10.2
+
 ## 4.0.0
 
 ### Major Changes

@@ -1,5 +1,13 @@
 # @contractspec/app.provider-ranking-mcp
 
+## 1.6.21
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.21
+
 ## 1.6.20
 
 ### Patch Changes

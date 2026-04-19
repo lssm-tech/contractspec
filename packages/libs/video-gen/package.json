@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.video-gen",
-	"version": "2.7.20",
+	"version": "2.7.21",
 	"type": "module",
 	"main": "./dist/index.js",
 	"module": "./dist/index.js",

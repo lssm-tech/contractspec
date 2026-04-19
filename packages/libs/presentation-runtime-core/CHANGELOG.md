@@ -1,5 +1,13 @@
 # @contractspec/lib.presentation-runtime-core
 
+## 4.0.0
+
+### Major Changes
+
+- Replace the old Next alias helper with explicit Webpack and Turbopack helpers, keep Metro stable, and refresh the public docs to teach the current Next.js bundler path.
+  - Packages: @contractspec/lib.presentation-runtime-core (major)
+  - Migration: The old helper name has been removed in favor of bundler-specific names.; Turbopack aliasing is now configured by patching the full Next config object instead of mutating a webpack resolver config.
+
 ## 3.9.8
 
 ### Patch Changes

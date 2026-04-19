@@ -1,5 +1,13 @@
 # @contractspec/lib.contracts-runtime-server-mcp
 
+## 3.7.21
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Replace the old Next alias helper with explicit Webpack and Turbopack helpers, keep Metro stable, and refresh the public docs to teach the current Next.js bundler path.
+  - @contractspec/lib.presentation-runtime-core@4.0.0
+
 ## 3.7.20
 
 ### Patch Changes

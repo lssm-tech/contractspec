@@ -1,5 +1,15 @@
 # Changelog
 
+## 3.9.13
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Replace the old Next alias helper with explicit Webpack and Turbopack helpers, keep Metro stable, and refresh the public docs to teach the current Next.js bundler path.
+  - @contractspec/lib.design-system@3.10.1
+  - @contractspec/lib.presentation-runtime-core@4.0.0
+
 ## 3.9.12
 
 ### Patch Changes

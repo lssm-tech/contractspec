@@ -1,5 +1,13 @@
 # spec-driven-development
 
+## 3.7.20
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/app.cli-contractspec@6.0.1
+
 ## 3.7.19
 
 ### Patch Changes

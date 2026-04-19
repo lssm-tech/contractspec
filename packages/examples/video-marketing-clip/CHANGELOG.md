@@ -1,5 +1,13 @@
 # @contractspec/example.video-marketing-clip
 
+## 3.7.21
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/lib.video-gen@2.7.21
+
 ## 3.7.20
 
 ### Patch Changes

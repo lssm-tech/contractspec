@@ -1,5 +1,14 @@
 # @contractspec/module.builder-workbench
 
+## 0.2.3
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/lib.ui-kit-web@3.10.2
+  - @contractspec/module.ai-chat@4.3.21
+
 ## 0.2.2
 
 ### Patch Changes

@@ -39,8 +39,7 @@ audiences:
       - "@contractspec/lib.exporter"
       - "@contractspec/lib.data-exchange-core"
 deprecations:
-  - package: "@contractspec/lib.exporter"
-    summary: Prefer `@contractspec/lib.data-exchange-core` for new import/export work; `lib.exporter` remains as a compatibility shim.
+  - "`@contractspec/lib.exporter` remains as a compatibility shim; prefer `@contractspec/lib.data-exchange-core` for new import/export work."
 migrationInstructions:
   - id: move-new-work-to-data-exchange-core
     title: Prefer the new core codecs and planning APIs for new integrations

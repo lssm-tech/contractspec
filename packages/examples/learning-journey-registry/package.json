@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/example.learning-journey-registry",
-	"version": "4.0.0",
+	"version": "4.0.1",
 	"description": "Registry that aggregates learning journey example tracks.",
 	"type": "module",
 	"types": "./dist/index.d.ts",

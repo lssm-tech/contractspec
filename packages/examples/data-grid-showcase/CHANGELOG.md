@@ -1,5 +1,15 @@
 # @contractspec/example.data-grid-showcase
 
+## 3.8.13
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/lib.design-system@3.10.1
+  - @contractspec/lib.presentation-runtime-react@37.0.0
+  - @contractspec/lib.ui-kit-web@3.10.2
+
 ## 3.8.12
 
 ### Patch Changes

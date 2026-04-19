@@ -1,5 +1,14 @@
 # Changelog
 
+## 3.10.1
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/module.ai-chat@4.3.21
+  - @contractspec/module.examples@3.9.1
+
 ## 3.10.0
 
 ### Minor Changes

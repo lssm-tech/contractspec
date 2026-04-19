@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/example.data-grid-showcase",
-	"version": "3.8.12",
+	"version": "3.8.13",
 	"description": "Focused data-grid example for ContractSpec table capabilities",
 	"type": "module",
 	"types": "./dist/index.d.ts",

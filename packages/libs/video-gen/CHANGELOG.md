@@ -1,5 +1,13 @@
 # @contractspec/lib.video-gen
 
+## 2.7.21
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/lib.design-system@3.10.1
+
 ## 2.7.20
 
 ### Patch Changes

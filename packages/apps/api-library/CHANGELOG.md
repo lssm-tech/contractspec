@@ -1,5 +1,15 @@
 # @contractspec/app.api-library
 
+## 3.8.14
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add a dedicated cross-platform UI docs page that explains how the React, React Native, runtime, primitive UI, and design-system layers stay compatible.
+  - @contractspec/bundle.marketing@3.8.14
+  - @contractspec/bundle.library@3.9.1
+
 ## 3.8.13
 
 ### Patch Changes

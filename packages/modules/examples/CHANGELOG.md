@@ -1,5 +1,37 @@
 # @contractspec/module.examples
 
+## 3.9.1
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Replace the old Next alias helper with explicit Webpack and Turbopack helpers, keep Metro stable, and refresh the public docs to teach the current Next.js bundler path.
+  - @contractspec/example.agent-console@3.8.13
+  - @contractspec/example.ai-chat-assistant@3.8.13
+  - @contractspec/example.analytics-dashboard@3.9.13
+  - @contractspec/example.crm-pipeline@3.7.21
+  - @contractspec/example.data-grid-showcase@3.8.13
+  - @contractspec/example.in-app-docs@3.7.21
+  - @contractspec/example.integration-hub@3.8.13
+  - @contractspec/example.learning-journey-crm-onboarding@4.0.1
+  - @contractspec/example.learning-journey-registry@4.0.1
+  - @contractspec/example.learning-journey-ui-coaching@4.0.1
+  - @contractspec/example.learning-journey-ui-gamified@4.0.1
+  - @contractspec/example.learning-journey-ui-onboarding@4.0.1
+  - @contractspec/example.learning-journey-ui-shared@4.0.1
+  - @contractspec/example.marketplace@3.8.13
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.21
+  - @contractspec/example.saas-boilerplate@3.8.13
+  - @contractspec/example.video-api-showcase@3.7.21
+  - @contractspec/example.video-docs-terminal@3.7.21
+  - @contractspec/example.video-marketing-clip@3.7.21
+  - @contractspec/example.visualization-showcase@3.9.13
+  - @contractspec/example.workflow-system@3.8.13
+  - @contractspec/lib.contracts-runtime-client-react@3.9.2
+  - @contractspec/lib.example-shared-ui@6.0.21
+  - @contractspec/lib.presentation-runtime-core@4.0.0
+
 ## 3.9.0
 
 ### Minor Changes

@@ -1,5 +1,13 @@
 # @contractspec/lib.ui-kit
 
+## 3.9.2
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Replace the old Next alias helper with explicit Webpack and Turbopack helpers, keep Metro stable, and refresh the public docs to teach the current Next.js bundler path.
+  - @contractspec/lib.presentation-runtime-core@4.0.0
+
 ## 3.9.1
 
 ### Patch Changes

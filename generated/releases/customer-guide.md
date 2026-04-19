@@ -6,9 +6,9 @@
 - @contractspec/lib.contracts-spec@5.4.0 (minor)
 - @contractspec/module.workspace@4.3.0 (minor)
 - @contractspec/bundle.workspace@4.5.0 (minor)
-- @contractspec/bundle.library@3.9.0 (minor)
-- @contractspec/app.cli-contractspec@6.0.0 (minor)
-- vscode-contractspec@3.10.0 (minor)
+- @contractspec/bundle.library@3.9.1 (minor)
+- @contractspec/app.cli-contractspec@6.0.1 (minor)
+- vscode-contractspec@3.10.1 (minor)
 - contractspec@1.46.2 (patch)
 - @contractspec/lib.knowledge@3.7.20 (patch)
 - @contractspec/biome-config@3.8.8 (patch)
@@ -39,7 +39,7 @@
 
 ### Fix Builder local onboarding so setup writes usable control-plane defaults and the CLI resolves Builder API settings from workspace config.
 - @contractspec/bundle.workspace@4.5.0 (patch)
-- @contractspec/app.cli-contractspec@6.0.0 (patch)
+- @contractspec/app.cli-contractspec@6.0.1 (patch)
 - Integrator: Fresh `contractspec init --preset builder-local` workspaces now include the Builder API base URL in both `.contractsrc.json` and VS Code settings, while older local-only configs still work through the hosted API fallback.
 
 
@@ -52,12 +52,12 @@
 - @contractspec/lib.builder-runtime@0.2.2 (minor)
 - @contractspec/lib.mobile-control@0.2.2 (minor)
 - @contractspec/lib.provider-runtime@0.2.2 (minor)
-- @contractspec/module.builder-workbench@0.2.2 (minor)
-- @contractspec/module.mobile-review@0.2.2 (minor)
+- @contractspec/module.builder-workbench@0.2.3 (minor)
+- @contractspec/module.mobile-review@0.2.3 (minor)
 - @contractspec/integration.runtime.local@0.2.2 (minor)
 - @contractspec/integration.provider.gemini@0.2.1 (minor)
-- @contractspec/app.cli-contractspec@6.0.0 (minor)
-- @contractspec/bundle.library@3.9.0 (patch)
+- @contractspec/app.cli-contractspec@6.0.1 (minor)
+- @contractspec/bundle.library@3.9.1 (patch)
 - Integrator: Integrators can adopt canonical bootstrap presets, register trusted local daemons, and consume richer snapshot-backed mobile review and operator posture data.
 - Customer: Builder operators get clearer local runtime trust, lease, and channel-action status when reviewing rollouts away from the desktop workbench.
 
@@ -74,8 +74,8 @@
 - @contractspec/lib.builder-runtime@0.2.2 (minor)
 - @contractspec/lib.mobile-control@0.2.2 (minor)
 - @contractspec/lib.provider-runtime@0.2.2 (minor)
-- @contractspec/module.builder-workbench@0.2.2 (minor)
-- @contractspec/module.mobile-review@0.2.2 (minor)
+- @contractspec/module.builder-workbench@0.2.3 (minor)
+- @contractspec/module.mobile-review@0.2.3 (minor)
 - @contractspec/integration.runtime@3.9.2 (minor)
 - @contractspec/integration.runtime.managed@0.2.2 (minor)
 - @contractspec/integration.runtime.local@0.2.2 (minor)
@@ -100,7 +100,7 @@
 
 ### Unify release authoring around guided capsules, canonical generated artifacts, and manifest-backed changelog surfaces.
 - @contractspec/bundle.workspace@4.5.0 (minor)
-- @contractspec/app.cli-contractspec@6.0.0 (major)
+- @contractspec/app.cli-contractspec@6.0.1 (major)
 - @contractspec/action.version@3.0.0 (major)
 - @contractspec/app.web-landing@3.8.12 (patch)
 - Customer: The public changelog now renders canonical release summaries, deprecations, migration guidance, and upgrade steps directly from the generated release manifest instead of scraping package changelogs.
@@ -130,9 +130,9 @@
     - Use the attached release artifacts instead of scraping package CHANGELOG files or generic changelog JSON.
 
 ### Add a CLI-first onboarding workflow that reuses Connect adoption guidance, models guided onboarding through the surface runtime, generates managed AGENTS/USAGE guides, and exposes the same onboarding tracks through the CLI MCP surface and docs entrypoints.
-- @contractspec/app.cli-contractspec@6.0.0 (minor)
+- @contractspec/app.cli-contractspec@6.0.1 (minor)
 - @contractspec/bundle.workspace@4.5.0 (minor)
-- @contractspec/bundle.library@3.9.0 (minor)
+- @contractspec/bundle.library@3.9.1 (minor)
 - Integrator: Integrators can bootstrap OSS adoption with track-aware guidance for contracts, UI design, knowledge, AI agents, and learning journeys without inventing a second Builder or Connect model.
 - Customer: CLI users can run `contractspec onboard` to generate repo-local AGENTS/USAGE guidance, get recommended examples and next commands, and query the same onboarding information through MCP.
 - Use `contractspec onboard` as the primary OSS onboarding flow: The CLI now provides a first-class onboarding command that should replace ad hoc “quickstart + create one spec” repo bootstraps.
@@ -160,8 +160,8 @@
 ### Implement ContractSpec Connect as a first-class spec, runtime, and CLI workflow.
 - @contractspec/lib.contracts-spec@5.4.0 (minor)
 - @contractspec/bundle.workspace@4.5.0 (minor)
-- @contractspec/app.cli-contractspec@6.0.0 (minor)
-- @contractspec/bundle.library@3.9.0 (patch)
+- @contractspec/app.cli-contractspec@6.0.1 (minor)
+- @contractspec/bundle.library@3.9.1 (patch)
 - agentpacks@1.8.0 (minor)
 - Integrator: Integrators can enable `.contractsrc.json > connect`, emit local context/plan/verdict artifacts, and route adapter-facing review or replay flows through the shared workspace services.
 - Enable ContractSpec Connect in the workspace config: Turn on the Connect adapter flow before relying on task-scoped context, review, replay, or evaluation artifacts.
@@ -183,7 +183,7 @@
 - @contractspec/lib.contracts-spec@5.4.0 (minor)
 - @contractspec/module.workspace@4.3.0 (minor)
 - @contractspec/bundle.workspace@4.5.0 (minor)
-- @contractspec/app.cli-contractspec@6.0.0 (minor)
+- @contractspec/app.cli-contractspec@6.0.1 (minor)
 - Integrator: Integrators get a stable `defineTheme` authoring path, new theme and feature validation helpers, and key-based app-config DTOs and templates across shared tooling.
 - Customer: CLI users can now run `contractspec create theme`, and validation catches more app-config, theme, and feature mistakes before publish or CI promotion.
 - Update custom app-config DTO callers to key-based refs: Shared app-config authoring DTOs and templates now use `key`-based spec references instead of older `name`-based helper fields.
@@ -210,13 +210,54 @@
     - Use `.theme.ts` files and `defineTheme(...)` for new theme specs.
     - Update any custom create flows or discovery logic to include the `theme` authoring target where needed.
 
+### Add a dedicated cross-platform UI docs page that explains how the React, React Native, runtime, primitive UI, and design-system layers stay compatible.
+- @contractspec/bundle.library@3.9.1 (patch)
+- Integrator: Integrators can follow one architecture-first explanation for when to use presentation-runtime-core, the React bindings, ui-kit-web, ui-kit, and the design-system layer.
+- Customer: Website readers now have a direct cross-platform UI guide instead of piecing the React and React Native compatibility story together from several separate library pages.
+
+
+
+### Add a dedicated cross-platform UI docs page that explains how the React, React Native, runtime, primitive UI, and design-system layers stay compatible.
+- Customer: Website readers now have a direct cross-platform UI guide instead of piecing the React and React Native compatibility story together from several separate library pages.
+- No manual migration steps recorded.
+
+### Add a new SchemaModel-first data interchange stack with shared codecs, planning APIs, server adapters, client mapping surfaces, and a compatibility refresh for `@contractspec/lib.exporter`.
+- @contractspec/lib.data-exchange-core@0.2.0 (minor)
+- @contractspec/lib.data-exchange-server@0.2.0 (minor)
+- @contractspec/lib.data-exchange-client@0.2.0 (minor)
+- @contractspec/lib.exporter (patch)
+- Integrator: Integrators can profile CSV/JSON/XML payloads into normalized record batches, infer mappings against SchemaModels, preview and validate changes, and route execution through file, HTTP, SQL, or storage adapter families.
+- Customer: Existing `@contractspec/lib.exporter` consumers keep the legacy CSV/XML payload API and gain a JSON wrapper, while new work can adopt the more robust data-exchange stack directly.
+- Deprecations:
+  - `@contractspec/lib.exporter` remains as a compatibility shim; prefer `@contractspec/lib.data-exchange-core` for new import/export work.
+- Prefer the new core codecs and planning APIs for new integrations: Keep `lib.exporter` only for legacy payload callers; build new import/export flows on the new core/server/client package family.
+- Keep legacy exporter callers on the compatibility shim: The old payload shape remains valid, with CSV/XML preserved and JSON added.
+
+
+
+### Add a new SchemaModel-first data interchange stack with shared codecs, planning APIs, server adapters, client mapping surfaces, and a compatibility refresh for `@contractspec/lib.exporter`.
+- Customer: Existing `@contractspec/lib.exporter` consumers keep the legacy CSV/XML payload API and gain a JSON wrapper, while new work can adopt the more robust data-exchange stack directly.
+- Prefer the new core codecs and planning APIs for new integrations: Keep `lib.exporter` only for legacy payload callers; build new import/export flows on the new core/server/client package family.
+  - Use `@contractspec/lib.data-exchange-core` for normalized `RecordBatch`, mapping, preview, and reconciliation planning.
+  - Use `@contractspec/lib.data-exchange-server` for file, HTTP, SQL, or storage execution services.
+  - Use `@contractspec/lib.data-exchange-client` for shared mapping/review UI surfaces.
+- Keep legacy exporter callers on the compatibility shim: The old payload shape remains valid, with CSV/XML preserved and JSON added.
+  - Keep the existing `CsvXmlExportPayload` shape.
+  - Use `toJsonGeneric(...)` when the same legacy payload now needs JSON output.
+  - Migrate to the new core package only when you are ready to adopt normalized `RecordBatch` flows.
+- Upgrade steps:
+  - [assisted] Re-run focused package verification: The new stack spans new packages plus the legacy exporter shim.
+    - Run the focused bun test suites for `data-exchange-core`, `data-exchange-server`, `data-exchange-client`, and `exporter`.
+    - Run targeted typechecks and lint checks for the same four packages.
+    - Treat `build:bundle` as the current build proof; if `contractspec-bun-build types` stalls, rely on the separate package typechecks until the build tool issue is fixed.
+
 ### Harden the shared data-table stack and add a first-class composed toolbar for search, filter chips, selection summary, and hidden-column recovery.
-- @contractspec/lib.design-system@3.10.0 (minor)
-- @contractspec/lib.presentation-runtime-react@36.0.8 (patch)
-- @contractspec/lib.ui-kit-web@3.10.1 (patch)
-- @contractspec/lib.ui-kit@3.9.1 (patch)
-- @contractspec/example.crm-pipeline@3.7.20 (patch)
-- @contractspec/example.data-grid-showcase@3.8.12 (patch)
+- @contractspec/lib.design-system@3.10.1 (minor)
+- @contractspec/lib.presentation-runtime-react@37.0.0 (patch)
+- @contractspec/lib.ui-kit-web@3.10.2 (patch)
+- @contractspec/lib.ui-kit@3.9.2 (patch)
+- @contractspec/example.crm-pipeline@3.7.21 (patch)
+- @contractspec/example.data-grid-showcase@3.8.13 (patch)
 - Integrator: Integrators can adopt `DataTableToolbar` without changing the underlying `DataTable` or `useContractTable` API, and server-paginated tables now behave more defensively when data, columns, or totals change.
 - Customer: The CRM and canonical data-grid examples now expose search, filter chips, selection summaries, safer column recovery, and less failure-prone table interactions across web and native paths.
 - Move high-level table UX into `DataTableToolbar`: Keep the primitive `DataTable` lean and compose richer UX through the existing `toolbar` slot.
@@ -242,7 +283,7 @@
 ### Refresh root, package, website, and LLM-facing docs so Connect, Builder, release capsules, and the current contracts-spec export surface stay aligned.
 - contractspec@1.46.2 (patch)
 - @contractspec/lib.contracts-spec@5.4.0 (patch)
-- @contractspec/bundle.library@3.9.0 (patch)
+- @contractspec/bundle.library@3.9.1 (patch)
 - @contractspec/app.web-landing (patch)
 - Integrator: Integrators can follow the updated Connect adoption, Builder workspace-config, and release-capsule workflows without reconciling stale docs across multiple surfaces.
 - Customer: Website readers and package consumers now see current guidance for Connect, Builder, and release communication, including the corrected contracts-spec export inventory.
@@ -254,7 +295,7 @@
 - No manual migration steps recorded.
 
 ### Expand the spec-pack docs into a fuller learning path across the public docs site.
-- @contractspec/bundle.library@3.9.0 (patch)
+- @contractspec/bundle.library@3.9.1 (patch)
 - @contractspec/app.web-landing (patch)
 - Customer: Public docs readers can follow a clearer spec-pack learning path from overview pages into Connect, module bundles, and Builder workbench hosting guides.
 
@@ -285,21 +326,21 @@
 
 ### Pass Bun transpile paths through production JSX mode so published browser bundles stop emitting the dev runtime.
 - @contractspec/tool.bun@3.7.14 (patch)
-- @contractspec/bundle.marketing@3.8.13 (patch)
-- @contractspec/lib.accessibility@3.7.19 (patch)
-- @contractspec/lib.contracts-runtime-client-react@3.9.1 (patch)
-- @contractspec/lib.design-system@3.10.0 (patch)
-- @contractspec/lib.example-shared-ui@6.0.20 (patch)
-- @contractspec/lib.presentation-runtime-react@36.0.8 (patch)
+- @contractspec/bundle.marketing@3.8.14 (patch)
+- @contractspec/lib.accessibility@3.7.20 (patch)
+- @contractspec/lib.contracts-runtime-client-react@3.9.2 (patch)
+- @contractspec/lib.design-system@3.10.1 (patch)
+- @contractspec/lib.example-shared-ui@6.0.21 (patch)
+- @contractspec/lib.presentation-runtime-react@37.0.0 (patch)
 - @contractspec/lib.surface-runtime@0.5.20 (patch)
-- @contractspec/lib.ui-kit@3.9.1 (patch)
-- @contractspec/lib.ui-kit-web@3.10.1 (patch)
+- @contractspec/lib.ui-kit@3.9.2 (patch)
+- @contractspec/lib.ui-kit-web@3.10.2 (patch)
 - @contractspec/lib.ui-link@3.7.15 (patch)
-- @contractspec/lib.video-gen@2.7.20 (patch)
-- @contractspec/module.builder-workbench@0.2.2 (patch)
-- @contractspec/module.examples@3.9.0 (patch)
-- @contractspec/module.execution-console@0.1.3 (patch)
-- @contractspec/module.mobile-review@0.2.2 (patch)
+- @contractspec/lib.video-gen@2.7.21 (patch)
+- @contractspec/module.builder-workbench@0.2.3 (patch)
+- @contractspec/module.examples@3.9.1 (patch)
+- @contractspec/module.execution-console@0.1.4 (patch)
+- @contractspec/module.mobile-review@0.2.3 (patch)
 - Integrator: Browser-facing Contractspec packages no longer publish `react/jsx-dev-runtime` imports in their production JS artifacts.
 - Customer: Production React bundles built from the affected Contractspec packages stop depending on the development JSX runtime.
 - Upgrade to the rebuilt package versions: Pull the patch releases for the affected Contractspec React/browser packages.
@@ -318,16 +359,16 @@
 
 ### Expand ContractSpec authoring with preset-driven workspace setup, shell completion, packaged workspace schema artifacts, and richer form and UI surfaces across the CLI, editors, and shared runtimes.
 - contractspec@1.46.2 (major)
-- @contractspec/app.cli-contractspec@6.0.0 (major)
+- @contractspec/app.cli-contractspec@6.0.1 (major)
 - @contractspec/bundle.workspace@4.5.0 (minor)
 - @contractspec/module.workspace@4.3.0 (minor)
 - @contractspec/lib.contracts-spec@5.4.0 (minor)
-- @contractspec/lib.contracts-runtime-client-react@3.9.1 (minor)
-- @contractspec/lib.design-system@3.10.0 (minor)
+- @contractspec/lib.contracts-runtime-client-react@3.9.2 (minor)
+- @contractspec/lib.design-system@3.10.1 (minor)
 - @contractspec/lib.ui-kit-core@3.8.0 (minor)
-- @contractspec/lib.ui-kit-web@3.10.1 (minor)
-- @contractspec/lib.ui-kit@3.9.1 (minor)
-- vscode-contractspec@3.10.0 (minor)
+- @contractspec/lib.ui-kit-web@3.10.2 (minor)
+- @contractspec/lib.ui-kit@3.9.2 (minor)
+- vscode-contractspec@3.10.1 (minor)
 - Integrator: Integrators can scaffold feature, form, and package targets, consume the published schema and rich form exports, and reuse the new UI kit primitives across web and React Native surfaces.
 - Customer: CLI and VS Code users get shell completion, guided setup presets, stronger spec discovery, and richer generated form and data-view rendering.
 - Deprecations:
@@ -381,20 +422,45 @@
 ### Normalize notification template locale resolution and merge partial locale channel overrides without dropping base channel content.
 - No manual migration steps recorded.
 
+### Replace the old Next alias helper with explicit Webpack and Turbopack helpers, keep Metro stable, and refresh the public docs to teach the current Next.js bundler path.
+- @contractspec/lib.presentation-runtime-core@4.0.0 (major)
+- Integrator: Integrators must rename `withPresentationNextAliases` calls to `withPresentationWebpackAliases` or move to `withPresentationTurbopackAliases`, depending on which Next.js bundler they use.
+- Customer: Public docs now teach Turbopack as the default Next.js path and Webpack as an explicit fallback, with root-imported helpers for Next and Metro examples.
+- Replace the removed Next helper: The old helper name has been removed in favor of bundler-specific names.
+- Move Turbopack setup to `nextConfig.turbopack`: Turbopack aliasing is now configured by patching the full Next config object instead of mutating a webpack resolver config.
+
+
+
+### Replace the old Next alias helper with explicit Webpack and Turbopack helpers, keep Metro stable, and refresh the public docs to teach the current Next.js bundler path.
+- Customer: Public docs now teach Turbopack as the default Next.js path and Webpack as an explicit fallback, with root-imported helpers for Next and Metro examples.
+- Replace the removed Next helper: The old helper name has been removed in favor of bundler-specific names.
+  - Replace `withPresentationNextAliases` with `withPresentationTurbopackAliases` for default Next.js apps that use the `turbopack` config block.
+  - Replace `withPresentationNextAliases` with `withPresentationWebpackAliases` only in code that still configures `nextConfig.webpack`.
+  - Import all three helpers from the root `@contractspec/lib.presentation-runtime-core` entrypoint.
+- Move Turbopack setup to `nextConfig.turbopack`: Turbopack aliasing is now configured by patching the full Next config object instead of mutating a webpack resolver config.
+  - Wrap the full Next config object with `withPresentationTurbopackAliases(...)`.
+  - Keep any existing `turbopack.resolveAlias` entries; the helper merges them with the presentation aliases.
+  - Use `next dev --webpack` or `next build --webpack` only when a project intentionally stays on the webpack fallback path.
+- Upgrade steps:
+  - [assisted] Re-run helper and docs verification: Confirm the runtime helpers, generated docs, and website-facing docs now agree on the new names.
+    - Run the focused helper tests, typecheck, and lint checks in `@contractspec/lib.presentation-runtime-core`.
+    - Re-run the bundle-library docs manifest test and typecheck.
+    - Regenerate the web-facing `/llms*` surface after the README changes.
+
 ### Redesign the learning system around the adaptive journey runtime and repair shared learning sandbox presentation wiring.
 - @contractspec/module.learning-journey@4.0.0 (major)
-- @contractspec/module.examples@3.9.0 (patch)
+- @contractspec/module.examples@3.9.1 (patch)
 - @contractspec/example.learning-journey-ambient-coach@4.0.0 (major)
-- @contractspec/example.learning-journey-crm-onboarding@4.0.0 (major)
+- @contractspec/example.learning-journey-crm-onboarding@4.0.1 (major)
 - @contractspec/example.learning-journey-duo-drills@4.0.0 (major)
 - @contractspec/example.learning-journey-platform-tour@4.0.0 (major)
 - @contractspec/example.learning-journey-quest-challenges@4.0.0 (major)
-- @contractspec/example.learning-journey-registry@4.0.0 (major)
+- @contractspec/example.learning-journey-registry@4.0.1 (major)
 - @contractspec/example.learning-journey-studio-onboarding@4.0.0 (major)
-- @contractspec/example.learning-journey-ui-coaching@4.0.0 (major)
-- @contractspec/example.learning-journey-ui-gamified@4.0.0 (major)
-- @contractspec/example.learning-journey-ui-onboarding@4.0.0 (major)
-- @contractspec/example.learning-journey-ui-shared@4.0.0 (major)
+- @contractspec/example.learning-journey-ui-coaching@4.0.1 (major)
+- @contractspec/example.learning-journey-ui-gamified@4.0.1 (major)
+- @contractspec/example.learning-journey-ui-onboarding@4.0.1 (major)
+- @contractspec/example.learning-journey-ui-shared@4.0.1 (major)
 - @contractspec/example.learning-patterns@4.0.0 (major)
 - Integrator: Integrators must adopt the new adaptive journey contracts/types and can rely on shared learning sandbox presentations resolving correctly for the supported `learning-journey-*` templates.
 - Customer: Learning journey demos now follow the adaptive branch-aware runtime, and the public sandbox no longer fails when loading the shared learning presentation descriptors for supported learning templates.
@@ -455,20 +521,20 @@
   - Move any external review routing into the new top-level `review` field if the spec should expose queue or approval workflow metadata.
 
 ### Unify example preview metadata so templates and docs derive inline preview support from shared example registry data instead of hand-maintained lists.
-- @contractspec/module.examples@3.9.0 (minor)
-- @contractspec/bundle.marketing@3.8.13 (patch)
-- @contractspec/bundle.library@3.9.0 (patch)
+- @contractspec/module.examples@3.9.1 (minor)
+- @contractspec/bundle.marketing@3.8.14 (patch)
+- @contractspec/bundle.library@3.9.1 (patch)
 - @contractspec/app.web-landing (patch)
-- @contractspec/example.agent-console@3.8.12 (patch)
-- @contractspec/example.ai-chat-assistant@3.8.12 (patch)
-- @contractspec/example.analytics-dashboard@3.9.12 (patch)
-- @contractspec/example.crm-pipeline@3.7.20 (patch)
-- @contractspec/example.integration-hub@3.8.12 (patch)
-- @contractspec/example.learning-journey-registry@4.0.0 (patch)
-- @contractspec/example.marketplace@3.8.12 (patch)
-- @contractspec/example.policy-safe-knowledge-assistant@3.7.20 (patch)
-- @contractspec/example.saas-boilerplate@3.8.12 (patch)
-- @contractspec/example.workflow-system@3.8.12 (patch)
+- @contractspec/example.agent-console@3.8.13 (patch)
+- @contractspec/example.ai-chat-assistant@3.8.13 (patch)
+- @contractspec/example.analytics-dashboard@3.9.13 (patch)
+- @contractspec/example.crm-pipeline@3.7.21 (patch)
+- @contractspec/example.integration-hub@3.8.13 (patch)
+- @contractspec/example.learning-journey-registry@4.0.1 (patch)
+- @contractspec/example.marketplace@3.8.13 (patch)
+- @contractspec/example.policy-safe-knowledge-assistant@3.7.21 (patch)
+- @contractspec/example.saas-boilerplate@3.8.13 (patch)
+- @contractspec/example.workflow-system@3.8.13 (patch)
 - Integrator: Integrators consuming public example metadata can now detect inline-preview capability through `@contractspec/module.examples`, and every public example now has a first-party `/docs/examples/<key>` route in web-landing.
 - Customer: The public site now provides richer template previews and full docs-example coverage, with inline embeds for UI-backed examples and fallback sandbox/reference actions elsewhere.
 - Declare `entrypoints.ui` for UI-backed example packages: Any published example that exports `./ui` should also advertise that UI surface in its `ExampleSpec` entrypoints so preview tooling can discover it.
@@ -490,7 +556,7 @@
 ### Add versioning-backed release capsules, generated patch notes, and guided upgrade flows.
 - @contractspec/lib.contracts-spec@5.4.0 (minor)
 - @contractspec/bundle.workspace@4.5.0 (minor)
-- @contractspec/app.cli-contractspec@6.0.0 (minor)
+- @contractspec/app.cli-contractspec@6.0.1 (minor)
 - @contractspec/app.web-landing (patch)
 - Integrator: Guided upgrade plans and agent prompts now come from generated upgrade manifests instead of ad hoc prose.
 - Customer: Web changelog consumers can prefer generated release manifests while older package changelogs remain supported as fallback.

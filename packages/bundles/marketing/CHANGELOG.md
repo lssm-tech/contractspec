@@ -1,5 +1,29 @@
 # @contractspec/bundle.marketing
 
+## 3.8.14
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add a dedicated cross-platform UI docs page that explains how the React, React Native, runtime, primitive UI, and design-system layers stay compatible.
+  - @contractspec/example.agent-console@3.8.13
+  - @contractspec/example.ai-chat-assistant@3.8.13
+  - @contractspec/example.analytics-dashboard@3.9.13
+  - @contractspec/example.crm-pipeline@3.7.21
+  - @contractspec/example.data-grid-showcase@3.8.13
+  - @contractspec/example.integration-hub@3.8.13
+  - @contractspec/example.marketplace@3.8.13
+  - @contractspec/example.saas-boilerplate@3.8.13
+  - @contractspec/example.visualization-showcase@3.9.13
+  - @contractspec/example.workflow-system@3.8.13
+  - @contractspec/lib.contracts-runtime-client-react@3.9.2
+  - @contractspec/lib.design-system@3.10.1
+  - @contractspec/lib.example-shared-ui@6.0.21
+  - @contractspec/lib.ui-kit-web@3.10.2
+  - @contractspec/module.examples@3.9.1
+  - @contractspec/bundle.library@3.9.1
+
 ## 3.8.13
 
 ### Patch Changes

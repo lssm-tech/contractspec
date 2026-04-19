@@ -1,5 +1,16 @@
 # @contractspec/lib.design-system
 
+## 3.10.1
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/lib.contracts-runtime-client-react@3.9.2
+  - @contractspec/lib.presentation-runtime-react@37.0.0
+  - @contractspec/lib.ui-kit@3.9.2
+  - @contractspec/lib.ui-kit-web@3.10.2
+
 ## 3.10.0
 
 ### Minor Changes

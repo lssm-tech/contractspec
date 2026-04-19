@@ -2,35 +2,35 @@ Apply the ContractSpec upgrade plan in this workspace using codex.
 
 Target packages:
 @contractspec/action.version: unknown -> 3.0.0
-@contractspec/app.cli-contractspec: unknown -> 6.0.0
+@contractspec/app.cli-contractspec: unknown -> 6.0.1
 @contractspec/app.cursor-marketplace: unknown -> latest
 @contractspec/app.web-landing: unknown -> 3.8.12
 @contractspec/biome-config: unknown -> 3.8.8
-@contractspec/bundle.library: unknown -> 3.9.0
-@contractspec/bundle.marketing: unknown -> 3.8.13
+@contractspec/bundle.library: unknown -> 3.9.1
+@contractspec/bundle.marketing: unknown -> 3.8.14
 @contractspec/bundle.workspace: unknown -> 4.5.0
-@contractspec/example.agent-console: unknown -> 3.8.12
-@contractspec/example.ai-chat-assistant: unknown -> 3.8.12
-@contractspec/example.analytics-dashboard: unknown -> 3.9.12
-@contractspec/example.crm-pipeline: unknown -> 3.7.20
-@contractspec/example.data-grid-showcase: unknown -> 3.8.12
-@contractspec/example.integration-hub: unknown -> 3.8.12
+@contractspec/example.agent-console: unknown -> 3.8.13
+@contractspec/example.ai-chat-assistant: unknown -> 3.8.13
+@contractspec/example.analytics-dashboard: unknown -> 3.9.13
+@contractspec/example.crm-pipeline: unknown -> 3.7.21
+@contractspec/example.data-grid-showcase: unknown -> 3.8.13
+@contractspec/example.integration-hub: unknown -> 3.8.13
 @contractspec/example.learning-journey-ambient-coach: unknown -> 4.0.0
-@contractspec/example.learning-journey-crm-onboarding: unknown -> 4.0.0
+@contractspec/example.learning-journey-crm-onboarding: unknown -> 4.0.1
 @contractspec/example.learning-journey-duo-drills: unknown -> 4.0.0
 @contractspec/example.learning-journey-platform-tour: unknown -> 4.0.0
 @contractspec/example.learning-journey-quest-challenges: unknown -> 4.0.0
-@contractspec/example.learning-journey-registry: unknown -> 4.0.0
+@contractspec/example.learning-journey-registry: unknown -> 4.0.1
 @contractspec/example.learning-journey-studio-onboarding: unknown -> 4.0.0
-@contractspec/example.learning-journey-ui-coaching: unknown -> 4.0.0
-@contractspec/example.learning-journey-ui-gamified: unknown -> 4.0.0
-@contractspec/example.learning-journey-ui-onboarding: unknown -> 4.0.0
-@contractspec/example.learning-journey-ui-shared: unknown -> 4.0.0
+@contractspec/example.learning-journey-ui-coaching: unknown -> 4.0.1
+@contractspec/example.learning-journey-ui-gamified: unknown -> 4.0.1
+@contractspec/example.learning-journey-ui-onboarding: unknown -> 4.0.1
+@contractspec/example.learning-journey-ui-shared: unknown -> 4.0.1
 @contractspec/example.learning-patterns: unknown -> 4.0.0
-@contractspec/example.marketplace: unknown -> 3.8.12
-@contractspec/example.policy-safe-knowledge-assistant: unknown -> 3.7.20
-@contractspec/example.saas-boilerplate: unknown -> 3.8.12
-@contractspec/example.workflow-system: unknown -> 3.8.12
+@contractspec/example.marketplace: unknown -> 3.8.13
+@contractspec/example.policy-safe-knowledge-assistant: unknown -> 3.7.21
+@contractspec/example.saas-boilerplate: unknown -> 3.8.13
+@contractspec/example.workflow-system: unknown -> 3.8.13
 @contractspec/integration.builder-telegram: unknown -> 0.2.2
 @contractspec/integration.builder-voice: unknown -> 0.2.2
 @contractspec/integration.builder-whatsapp: unknown -> 0.2.2
@@ -44,36 +44,41 @@ Target packages:
 @contractspec/integration.runtime.hybrid: unknown -> 0.2.2
 @contractspec/integration.runtime.local: unknown -> 0.2.2
 @contractspec/integration.runtime.managed: unknown -> 0.2.2
-@contractspec/lib.accessibility: unknown -> 3.7.19
+@contractspec/lib.accessibility: unknown -> 3.7.20
 @contractspec/lib.builder-runtime: unknown -> 0.2.2
 @contractspec/lib.builder-spec: unknown -> 0.2.2
-@contractspec/lib.contracts-runtime-client-react: unknown -> 3.9.1
+@contractspec/lib.contracts-runtime-client-react: unknown -> 3.9.2
 @contractspec/lib.contracts-spec: unknown -> 5.4.0
-@contractspec/lib.design-system: unknown -> 3.10.0
-@contractspec/lib.example-shared-ui: unknown -> 6.0.20
+@contractspec/lib.data-exchange-client: unknown -> 0.2.0
+@contractspec/lib.data-exchange-core: unknown -> 0.2.0
+@contractspec/lib.data-exchange-server: unknown -> 0.2.0
+@contractspec/lib.design-system: unknown -> 3.10.1
+@contractspec/lib.example-shared-ui: unknown -> 6.0.21
+@contractspec/lib.exporter: unknown -> latest
 @contractspec/lib.knowledge: unknown -> 3.7.20
 @contractspec/lib.mobile-control: unknown -> 0.2.2
-@contractspec/lib.presentation-runtime-react: unknown -> 36.0.8
+@contractspec/lib.presentation-runtime-core: unknown -> 4.0.0
+@contractspec/lib.presentation-runtime-react: unknown -> 37.0.0
 @contractspec/lib.provider-runtime: unknown -> 0.2.2
 @contractspec/lib.provider-spec: unknown -> 0.2.0
 @contractspec/lib.support-bot: unknown -> 4.0.0
 @contractspec/lib.surface-runtime: unknown -> 0.5.20
-@contractspec/lib.ui-kit: unknown -> 3.9.1
+@contractspec/lib.ui-kit: unknown -> 3.9.2
 @contractspec/lib.ui-kit-core: unknown -> 3.8.0
-@contractspec/lib.ui-kit-web: unknown -> 3.10.1
+@contractspec/lib.ui-kit-web: unknown -> 3.10.2
 @contractspec/lib.ui-link: unknown -> 3.7.15
-@contractspec/lib.video-gen: unknown -> 2.7.20
-@contractspec/module.builder-workbench: unknown -> 0.2.2
-@contractspec/module.examples: unknown -> 3.9.0
-@contractspec/module.execution-console: unknown -> 0.1.3
+@contractspec/lib.video-gen: unknown -> 2.7.21
+@contractspec/module.builder-workbench: unknown -> 0.2.3
+@contractspec/module.examples: unknown -> 3.9.1
+@contractspec/module.execution-console: unknown -> 0.1.4
 @contractspec/module.learning-journey: unknown -> 4.0.0
-@contractspec/module.mobile-review: unknown -> 0.2.2
+@contractspec/module.mobile-review: unknown -> 0.2.3
 @contractspec/module.notifications: unknown -> 3.7.19
 @contractspec/module.workspace: unknown -> 4.3.0
 @contractspec/tool.bun: unknown -> 3.7.14
 agentpacks: unknown -> 1.8.0
 contractspec: unknown -> 1.46.2
-vscode-contractspec: unknown -> 3.10.0
+vscode-contractspec: unknown -> 3.10.1
 
 Required steps:
 - [assisted] Route onboarding through the existing Connect adoption layer: The onboarding flow now syncs and consults the existing adoption catalog before recommending new surfaces.
@@ -101,6 +106,10 @@ Required steps:
 - [assisted] Publish canonical release artifacts: Stable release automation now uploads the release manifest, upgrade manifest, customer guide, and agent prompts, and uses generated patch notes as the GitHub Release body.
   - Review `generated/releases/*` as part of release preparation.
   - Use the attached release artifacts instead of scraping package CHANGELOG files or generic changelog JSON.
+- [assisted] Re-run helper and docs verification: Confirm the runtime helpers, generated docs, and website-facing docs now agree on the new names.
+  - Run the focused helper tests, typecheck, and lint checks in `@contractspec/lib.presentation-runtime-core`.
+  - Re-run the bundle-library docs manifest test and typecheck.
+  - Regenerate the web-facing `/llms*` surface after the README changes.
 - [assisted] Rebuild learning package release artifacts after upgrading: The affected learning packages should be rebuilt and revalidated together because the runtime, examples, and sandbox wiring now depend on the same adaptive presentation/runtime surface.
   - Run package-level build, test, typecheck, and lint checks for the affected learning packages.
   - Regenerate example registry artifacts if `@contractspec/module.examples` dependencies change.
@@ -124,6 +133,10 @@ Required steps:
   - Run `cd packages/libs/contracts-spec && bun run docs:manifest` after changing contracts-spec docblocks or package docs.
   - Run `cd packages/apps/web-landing && bun run llms:generate` after changing package READMEs or `/llms*` guidance.
   - Run `contractspec release build` before treating changelog or upgrade surfaces as current.
+- [assisted] Re-run focused package verification: The new stack spans new packages plus the legacy exporter shim.
+  - Run the focused bun test suites for `data-exchange-core`, `data-exchange-server`, `data-exchange-client`, and `exporter`.
+  - Run targeted typechecks and lint checks for the same four packages.
+  - Treat `build:bundle` as the current build proof; if `contractspec-bun-build types` stalls, rely on the separate package typechecks until the build tool issue is fixed.
 - [manual] Refresh existing builder-local workspace config when convenient: Existing local-only configs keep working through the hosted API fallback, but rerunning init will persist the new API defaults into workspace config.
   - Re-run `contractspec init --preset builder-local` if you want the generated `builder.api.baseUrl` and `builder.api.controlPlaneTokenEnvVar` fields written into `.contractsrc.json`.
   - Set the configured control-plane token environment variable before running `contractspec builder` commands.
