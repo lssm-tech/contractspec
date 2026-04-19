@@ -1,0 +1,40 @@
+schemaVersion: "1"
+slug: notifications-template-locale-hardening
+summary: Normalize notification template locale resolution and merge partial locale channel overrides without dropping base channel content.
+isBreaking: false
+packages:
+  - name: "@contractspec/module.notifications"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - node
+affectedFrameworks: []
+audiences:
+  - kind: maintainer
+    summary: Notification template rendering now resolves regional locales like `fr-CA` through the shared locale resolver and allows locale overrides to override only the fields that changed.
+    affectedPackages:
+      - "@contractspec/module.notifications"
+  - kind: integrator
+    summary: Localized notification templates no longer fall back to English for supported regional locale variants, and partial localized channel overrides retain the default title/action payload.
+    affectedPackages:
+      - "@contractspec/module.notifications"
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: verify-notification-template-locales
+    title: Verify localized notification templates for regional locales
+    summary: Check that supported regional locales now reuse their base locale template content and that partial locale overrides retain default channel fields.
+    level: manual
+    instructions:
+      - Upgrade to the patched `@contractspec/module.notifications` release.
+      - Exercise a localized template with a regional locale such as `fr-CA` or `es-MX`.
+      - Confirm that localized templates still preserve default title/action fields when only part of the channel content is overridden.
+validation:
+  commands:
+    - cd packages/modules/notifications && bun test
+    - cd packages/modules/notifications && bun run typecheck
+    - cd packages/modules/notifications && bun run lint:check
+  evidence:
+    - `renderNotificationTemplate` now resolves incoming locales before checking `localeChannels`, so base-language localized content is used for regional variants.
+    - Locale-specific channel overrides are merged with the default channel definition instead of replacing it, preserving default title and action values.
+    - Focused regression tests cover both regional locale fallback and partial locale override merging in `src/templates/templates.test.ts`.
