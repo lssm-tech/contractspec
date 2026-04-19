@@ -34,6 +34,7 @@ export * from './layer-discovery';
 export * from './list';
 export * from './llm/index';
 export * from './module-loader';
+export * as onboarding from './onboarding/index';
 export * from './openapi/index';
 export * from './package-scaffold';
 export * from './quickstart/index';
@@ -49,6 +50,13 @@ export * from './validate/index';
 export * from './verification-cache/index';
 export * from './verify/index';
 export * as versioning from './versioning/index';
+export type {
+	ReleaseAuthoringDraft,
+	ReleaseAuthoringResult,
+	ReleaseCapsuleReadIssue,
+	SaveReleaseDraftOptions,
+	SaveReleaseDraftResult,
+} from './versioning/release-service.types';
 export type { SpecVersionAnalysis } from './versioning/types';
 export * as vibe from './vibe/index';
 export * from './view/index';

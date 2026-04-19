@@ -63,6 +63,7 @@ Choose one verified starting path. For the public CLI onboarding flows below, us
 ```bash
 bun add -D contractspec
 contractspec quickstart
+contractspec onboard
 contractspec init
 contractspec create --type operation
 contractspec generate
@@ -95,15 +96,38 @@ See the [CLI documentation](packages/apps/cli-contractspec/README.md) and [tutor
 | Package manager | `bun` 1.3.x is first-class for CLI onboarding and daily use |
 | Operating system | Linux and macOS are covered by packaged smoke tests; Windows is not yet a supported CLI onboarding target |
 | Alternate package managers | `npm` and `pnpm` can install libraries, but the `contractspec` CLI onboarding path is not yet certified on them |
-| Greenfield onboarding | `contractspec quickstart` + `contractspec init` |
+| Greenfield onboarding | `contractspec quickstart` + `contractspec onboard` + `contractspec init` |
 | Brownfield onboarding | `contractspec openapi import` |
 | Example exploration | `contractspec examples list` + `contractspec examples init` |
 | CI validation | `contractspec ci` (`--check-drift` optional when generated artifacts are part of the contract) |
 | Diagnostics | `contractspec doctor` (read-only), `contractspec doctor --fix` (repair mode) |
 
+## Connect For Coding-Agent Safety
+
+ContractSpec Connect keeps risky coding-agent actions attached to local, reviewable artifacts instead of adapter-specific prompt rules.
+
+- `contractspec connect context` projects repo state and impacted surfaces into a task-scoped `ContextPack`.
+- `contractspec connect plan` compiles a `PlanPacket` before risky edits or shell execution.
+- `contractspec connect verify` emits `PatchVerdict` decisions for file edits and commands, with review and replay artifacts under `.contractspec/connect/`.
+- `connect.adoption` in `.contractsrc.json` can mirror the local adoption catalog and prefer workspace or ContractSpec reuse before greenfield implementation.
+
+See the maintained walkthroughs in [Connect in a repo](https://contractspec.io/docs/guides/connect-in-a-repo) and the [Connect spec page](https://contractspec.io/docs/specs/connect).
+
+## Builder Control Plane
+
+Builder is the governed authoring control plane that sits on top of the OSS foundation. It keeps multimodal capture, provider routing, readiness, preview, export, and mobile review explicit instead of hiding them inside a frontier coding agent.
+
+- Builder workspace config supports `runtimeMode: "managed" | "local" | "hybrid"`.
+- Preset-driven bootstrap now uses canonical `managed_mvp`, `local_daemon_mvp`, and `hybrid_mvp` values.
+- Builder API defaults and local runtime metadata live in `.contractsrc.json`, so CLI, editors, and hosted shells can resolve the same control-plane settings.
+
+See [Host the Builder workbench](https://contractspec.io/docs/guides/host-builder-workbench) and [Builder control plane](https://contractspec.io/docs/specs/builder-control-plane).
+
 ## First-Class Surfaces
 
 - **Contracts and generation**: `@contractspec/lib.contracts-spec`, the main CLI, and runtime adapters for REST, GraphQL, MCP, and React.
+- **Connect and governed repo workflows**: ContractSpec Connect for context packs, plan packets, patch verdicts, local review packets, replay, and evaluation artifacts.
+- **Builder control plane**: governed authoring, provider routing, runtime modes, previews, readiness gates, exports, and mobile review surfaces.
 - **Agent and chat runtime**: `@contractspec/lib.ai-agent` and `@contractspec/module.ai-chat` for tool-aware, MCP-aware, agent-governed experiences.
 - **Harness and evaluation**: `@contractspec/lib.harness` and `@contractspec/integration.harness-runtime` for controlled inspection, replay, evaluation, and proof-oriented workflows.
 - **Ranking and MCP operations**: provider-ranking module and MCP surfaces for ingesting benchmarks, refreshing rankings, and serving leaderboards.
@@ -112,10 +136,29 @@ See the [CLI documentation](packages/apps/cli-contractspec/README.md) and [tutor
 ## Trust & Verification
 
 - Published npm packages are shipped from provenance-enabled GitHub Actions runs, and each release run uploads a manifest artifact with package name, version, dist-tag, tarball filename, and SHA256.
+- Release communication is now changeset-backed in two files: `.changeset/<slug>.md` for package/version intent and `.changeset/<slug>.release.yaml` for summary, migration guidance, validation commands, and evidence.
+- Run `bun run release:build` to materialize generated release manifests before building changelog or upgrade surfaces that depend on them.
 - Run `bun run repo:health` in this repo to reproduce the baseline trust checks locally: doctor, contract CI, and example validation.
 - Verify the published CLI tag with `npm view contractspec dist-tags --json`.
 - Verify a specific published package with `npm view contractspec@<version> dist.tarball dist.integrity --json`.
 - Security disclosure and support expectations are documented in [SECURITY.md](SECURITY.md).
+
+## Release Capsules
+
+Every publishable changeset should leave behind both:
+
+- `.changeset/<slug>.md` for package bumps and reader-facing change intent
+- `.changeset/<slug>.release.yaml` for structured release metadata such as audiences, migration steps, upgrade steps, validation commands, and evidence
+
+Use:
+
+```bash
+contractspec release init
+contractspec release build
+contractspec release check --strict
+```
+
+This keeps the website changelog, upgrade prompts, and maintainer guidance aligned with the same release metadata instead of ad hoc prose.
 
 ## GitHub Actions Quickstart
 

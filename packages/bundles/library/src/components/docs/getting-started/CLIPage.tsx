@@ -5,6 +5,13 @@ import { ChevronRight } from 'lucide-react';
 export function CLIPage() {
 	const commands = [
 		{
+			name: 'onboard',
+			description:
+				'Primary OSS onboarding flow that recommends tracks, examples, and repo-local guides',
+			usage:
+				'contractspec onboard [track...] [--example <key>] [--dry-run] [--json]',
+		},
+		{
 			name: 'create',
 			description: 'Interactive wizard to create contract specifications',
 			usage: 'contractspec create [--type operation] [--ai]',
@@ -73,16 +80,17 @@ export function CLIPage() {
 					<CodeBlock
 						language="bash"
 						code={`# Initialize project
+contractspec onboard
 bunx contractspec init
 
 # Create a spec
 contractspec create --type operation
 
 # Generate code
-contractspec build src/contracts/mySpec.ts
+contractspec generate
 
 # Validate
-contractspec validate src/contracts/mySpec.ts`}
+contractspec validate`}
 					/>
 				</div>
 

@@ -8,4 +8,5 @@ export { setupCliConfig } from './cli-config';
 export { setupCursorRules } from './cursor-rules';
 export { setupMcpClaude } from './mcp-claude';
 export { setupMcpCursor } from './mcp-cursor';
+export { setupUsageMd } from './usage-md';
 export { setupVscodeSettings } from './vscode-settings';

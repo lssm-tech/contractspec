@@ -164,12 +164,10 @@ export const quickstartCommand = new Command('quickstart')
 			// Next steps
 			if (result.success && !options.dryRun) {
 				console.log(chalk.bold('\n🚀 Next steps:\n'));
-				console.log(`  1. Create your first spec:`);
-				console.log(
-					`     ${chalk.cyan('contractspec create command order.create')}`
-				);
-				console.log(`  2. Validate your specs:`);
-				console.log(`     ${chalk.cyan('contractspec validate')}`);
+				console.log(`  1. Generate repo-local onboarding guidance:`);
+				console.log(`     ${chalk.cyan('contractspec onboard')}`);
+				console.log(`  2. Initialize ContractSpec defaults in this repo:`);
+				console.log(`     ${chalk.cyan('contractspec init')}`);
 				console.log(`  3. Check your setup:`);
 				console.log(`     ${chalk.cyan('contractspec doctor')}`);
 				console.log();

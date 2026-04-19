@@ -3,7 +3,6 @@ import { actionDriftCommand } from '../commands/action-drift/index';
 import { actionPrCommand } from '../commands/action-pr/index';
 import { agentCommand } from '../commands/agent/index';
 import { builderCommand } from '../commands/builder/index';
-import { createChangelogCommand } from '../commands/changelog/index';
 import { chatCommand } from '../commands/chat/index';
 import { ciCommand } from '../commands/ci/index';
 import { cicdCommand } from '../commands/cicd/index';
@@ -30,6 +29,7 @@ import { initCommand } from '../commands/init/index';
 import { integrityCommand } from '../commands/integrity/index';
 import { listCommand } from '../commands/list/index';
 import { llmCommand } from '../commands/llm/index';
+import { onboardCommand } from '../commands/onboard/index';
 import { openapiCommand } from '../commands/openapi/index';
 import { pluginsCommand } from '../commands/plugins/index';
 import { quickstartCommand } from '../commands/quickstart/index';
@@ -69,6 +69,7 @@ export function registerRootCommands(
 	program.addCommand(withCategory(quickstartCommand, CATEGORY_ESSENTIALS));
 	program.addCommand(withCategory(workspaceCommand, CATEGORY_ESSENTIALS));
 	program.addCommand(withCategory(viewCommand, CATEGORY_ESSENTIALS));
+	program.addCommand(withCategory(onboardCommand, CATEGORY_ESSENTIALS));
 	program.addCommand(withCategory(generateCommand, CATEGORY_ESSENTIALS));
 	program.addCommand(withCategory(extractCommand, CATEGORY_ESSENTIALS));
 	program.addCommand(withCategory(gapCommand, CATEGORY_ESSENTIALS));
@@ -100,9 +101,6 @@ export function registerRootCommands(
 	program.addCommand(withCategory(executionLanesCommand, CATEGORY_OPERATIONS));
 	program.addCommand(withCategory(cicdCommand, CATEGORY_OPERATIONS));
 	program.addCommand(withCategory(createVersionCommand(), CATEGORY_OPERATIONS));
-	program.addCommand(
-		withCategory(createChangelogCommand(), CATEGORY_OPERATIONS)
-	);
 	program.addCommand(withCategory(createReleaseCommand(), CATEGORY_OPERATIONS));
 	program.addCommand(withCategory(actionPrCommand, CATEGORY_OPERATIONS));
 	program.addCommand(withCategory(actionDriftCommand, CATEGORY_OPERATIONS));

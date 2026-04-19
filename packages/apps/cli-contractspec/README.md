@@ -29,12 +29,22 @@ From `packages/apps/cli-contractspec`:
 bun run dev
 ```
 
+## Recommended OSS Onboarding
+
+```bash
+contractspec onboard
+contractspec onboard knowledge --example knowledge-canon
+contractspec init --preset connect
+contractspec validate
+```
+
 ## Core Authoring/Build Model
 
 - `create` authors both runtime specs and package-oriented targets such as `module-bundle`, `builder-spec`, and `provider-spec`.
 - `build` materializes one authored target into runtime artifacts or package scaffolds.
 - `generate` runs workspace-wide generation for docs and derived artifacts.
 - `validate` checks authored targets, package scaffolds, and optional runtime implementations.
+- `onboard` generates repo-local AGENTS/USAGE guidance, recommends examples, and aligns users to the right ContractSpec track.
 
 ## Shell Completion
 

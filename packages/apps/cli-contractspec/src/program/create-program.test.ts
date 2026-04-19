@@ -17,6 +17,9 @@ describe('createProgram', () => {
 		const agentCommand = program.commands.find(
 			(command) => command.name() === 'agent'
 		);
+		const onboard = program.commands.find(
+			(command) => command.name() === 'onboard'
+		);
 
 		expect(createCommand?.helpInformation()).toContain('module-bundle');
 		expect(createCommand?.helpInformation()).toContain('builder-spec');
@@ -24,6 +27,7 @@ describe('createProgram', () => {
 		expect(agentCommand?.description()).toBe(
 			'Export agent specs to external agent runtimes'
 		);
+		expect(onboard?.description()).toContain('repo-local onboarding');
 	});
 
 	it('updates build/generate/validate help to the new authoring model', () => {

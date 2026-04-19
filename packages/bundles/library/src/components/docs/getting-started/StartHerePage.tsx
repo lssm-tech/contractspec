@@ -19,12 +19,13 @@ export function StartHerePage() {
 				</div>
 
 				<div className="space-y-3">
-					<h2 className="font-bold text-2xl">Add core libraries</h2>
-					<InstallCommand
-						package={[
-							'@contractspec/lib.contracts-spec',
-							'@contractspec/lib.schema',
-						]}
+					<h2 className="font-bold text-2xl">Generate repo-local guidance</h2>
+					<CodeBlock
+						language="bash"
+						filename="start-here-onboard"
+						code={`contractspec onboard
+# optional focused track
+contractspec onboard knowledge --example knowledge-canon`}
 					/>
 				</div>
 
@@ -38,7 +39,7 @@ export function StartHerePage() {
 				</div>
 
 				<div className="space-y-3">
-					<h2 className="font-bold text-2xl">Create your first contract</h2>
+					<h2 className="font-bold text-2xl">Author your first contract</h2>
 					<CodeBlock
 						language="bash"
 						filename="start-here-create"
@@ -51,8 +52,8 @@ export function StartHerePage() {
 					<CodeBlock
 						language="bash"
 						filename="start-here-build"
-						code={`contractspec build src/contracts/mySpec.ts
-contractspec validate src/contracts/mySpec.ts`}
+						code={`contractspec generate
+contractspec validate`}
 					/>
 				</div>
 			</div>

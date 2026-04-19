@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, mock } from 'bun:test';
+import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test';
 import { join } from 'node:path';
 import type { FsAdapter } from '../../ports/fs';
 import type { SetupFileResult, SetupPromptCallbacks } from './types';
@@ -25,40 +25,51 @@ const mockSetupMcpClaude = mock(() =>
 const mockSetupCursorRules = mock(() =>
 	Promise.resolve({ action: 'created' } as SetupFileResult)
 );
+const mockSetupUsageMd = mock(() =>
+	Promise.resolve({ action: 'created' } as SetupFileResult)
+);
 
 const mockFindWorkspaceRoot = mock(() => '/root');
 const mockFindPackageRoot = mock(() => '/root/pkg');
 const mockIsMonorepo = mock(() => false);
 const mockGetPackageName = mock(() => 'pkg');
 
-mock.module('./targets/index', () => ({
-	setupAgentsMd: mockSetupAgentsMd,
-	setupCliConfig: mockSetupCliConfig,
-	setupBiomeConfig: mockSetupBiomeConfig,
-	setupVscodeSettings: mockSetupVscodeSettings,
-	setupMcpCursor: mockSetupMcpCursor,
-	setupMcpClaude: mockSetupMcpClaude,
-	setupCursorRules: mockSetupCursorRules,
-}));
+function installSetupServiceMocks() {
+	mock.module('./targets/index', () => ({
+		setupAgentsMd: mockSetupAgentsMd,
+		setupCliConfig: mockSetupCliConfig,
+		setupBiomeConfig: mockSetupBiomeConfig,
+		setupVscodeSettings: mockSetupVscodeSettings,
+		setupMcpCursor: mockSetupMcpCursor,
+		setupMcpClaude: mockSetupMcpClaude,
+		setupCursorRules: mockSetupCursorRules,
+		setupUsageMd: mockSetupUsageMd,
+	}));
 
-mock.module('../../adapters/workspace', () => ({
-	findWorkspaceRoot: mockFindWorkspaceRoot,
-	findPackageRoot: mockFindPackageRoot,
-	isMonorepo: mockIsMonorepo,
-	getPackageName: mockGetPackageName,
-}));
+	mock.module('../../adapters/workspace', () => ({
+		findWorkspaceRoot: mockFindWorkspaceRoot,
+		findPackageRoot: mockFindPackageRoot,
+		isMonorepo: mockIsMonorepo,
+		getPackageName: mockGetPackageName,
+	}));
+}
 
-const { runSetup } = await import('./setup-service');
+function loadSetupServiceModule() {
+	return import(`./setup-service?test=${Date.now()}-${Math.random()}`);
+}
 
 describe('Setup Service', () => {
 	let mockFs: FsAdapter;
 
 	beforeEach(() => {
+		mock.restore();
+		installSetupServiceMocks();
 		mockSetupAgentsMd.mockClear();
 		mockSetupCliConfig.mockClear();
 		mockSetupBiomeConfig.mockClear();
 		mockSetupVscodeSettings.mockClear();
 		mockSetupMcpCursor.mockClear();
+		mockSetupUsageMd.mockClear();
 		mockFindWorkspaceRoot.mockClear();
 		mockIsMonorepo.mockClear();
 
@@ -77,7 +88,12 @@ describe('Setup Service', () => {
 		} as unknown as FsAdapter;
 	});
 
+	afterEach(() => {
+		mock.restore();
+	});
+
 	it('should run setup for all targets when none specified', async () => {
+		const { runSetup } = await loadSetupServiceModule();
 		const result = await runSetup(mockFs, {
 			workspaceRoot: '/root',
 			targets: [],
@@ -91,7 +107,8 @@ describe('Setup Service', () => {
 			'contractspec doctor',
 		]);
 		expect(
-			result.files.find((file) => file.target === 'gitignore')?.action
+			result.files.find((file: SetupFileResult) => file.target === 'gitignore')
+				?.action
 		).toBe('created');
 		// Should call all setup functions
 		expect(mockSetupAgentsMd).toHaveBeenCalled();
@@ -101,6 +118,7 @@ describe('Setup Service', () => {
 	});
 
 	it('should run setup for specific targets', async () => {
+		const { runSetup } = await loadSetupServiceModule();
 		const result = await runSetup(mockFs, {
 			workspaceRoot: '/root',
 			targets: ['agents-md'],
@@ -112,11 +130,13 @@ describe('Setup Service', () => {
 		expect(mockSetupBiomeConfig).not.toHaveBeenCalled();
 		expect(mockSetupVscodeSettings).not.toHaveBeenCalled();
 		expect(
-			result.files.find((file) => file.target === 'gitignore')?.action
+			result.files.find((file: SetupFileResult) => file.target === 'gitignore')
+				?.action
 		).toBe('created');
 	});
 
 	it('should prompt for targets in interactive mode', async () => {
+		const { runSetup } = await loadSetupServiceModule();
 		const mockMultiSelect = mock(() => Promise.resolve(['cli-config']));
 		const mockSelect = mock(async <T extends string>() => 'core' as T);
 		const prompts: SetupPromptCallbacks = {
@@ -141,11 +161,13 @@ describe('Setup Service', () => {
 		expect(mockSetupCliConfig).toHaveBeenCalled();
 		expect(mockSetupVscodeSettings).not.toHaveBeenCalled();
 		expect(
-			result.files.find((file) => file.target === 'gitignore')?.action
+			result.files.find((file: SetupFileResult) => file.target === 'gitignore')
+				?.action
 		).toBe('created');
 	});
 
 	it('should handle monorepo scope selection in interactive mode', async () => {
+		const { runSetup } = await loadSetupServiceModule();
 		mockIsMonorepo.mockReturnValue(true);
 		mockFindPackageRoot.mockReturnValue('/root/pkg');
 
@@ -185,6 +207,7 @@ describe('Setup Service', () => {
 	});
 
 	it('should derive builder-local next steps from preset defaults', async () => {
+		const { runSetup } = await loadSetupServiceModule();
 		const result = await runSetup(mockFs, {
 			workspaceRoot: '/root',
 			targets: [],
@@ -202,6 +225,7 @@ describe('Setup Service', () => {
 	});
 
 	it('should skip gitignore updates when explicitly disabled', async () => {
+		const { runSetup } = await loadSetupServiceModule();
 		const result = await runSetup(mockFs, {
 			workspaceRoot: '/root',
 			targets: [],
@@ -209,8 +233,8 @@ describe('Setup Service', () => {
 			gitignoreBehavior: 'skip',
 		});
 
-		expect(result.files.some((file) => file.target === 'gitignore')).toBe(
-			false
-		);
+		expect(
+			result.files.some((file: SetupFileResult) => file.target === 'gitignore')
+		).toBe(false);
 	});
 });

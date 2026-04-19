@@ -339,6 +339,7 @@
 		"react": "catalog:"
 	},
 	"dependencies": {
+		"@contractspec/bundle.workspace": "workspace:*",
 		"@apollo/client": "^4.1.7",
 		"@modelcontextprotocol/sdk": "catalog:ai",
 		"@contractspec/lib.ai-providers": "workspace:*",

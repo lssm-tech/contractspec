@@ -27,6 +27,7 @@ import {
 	setupCursorRules,
 	setupMcpClaude,
 	setupMcpCursor,
+	setupUsageMd,
 	setupVscodeSettings,
 } from './targets/index';
 import type {
@@ -287,6 +288,8 @@ async function setupTarget(
 			return setupMcpClaude(fs, options, prompts);
 		case 'cursor-rules':
 			return setupCursorRules(fs, options, prompts);
+		case 'usage-md':
+			return setupUsageMd(fs, options, prompts);
 		default:
 			return {
 				target,

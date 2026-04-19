@@ -73,6 +73,16 @@ export const SHARED_CATALOG_ENTRIES: AdoptionCatalogEntry[] = [
 		'AI agent orchestration with contract governance.'
 	),
 	entry(
+		'shared.knowledge',
+		'@contractspec/lib.knowledge',
+		'sharedLibs',
+		'primitive',
+		68,
+		['shared', 'knowledge', 'retrieval', 'ingestion', 'spaces'],
+		['knowledge spaces', 'retrieval flows', 'ingestion pipelines'],
+		'Knowledge spaces, bindings, ingestion, and governed retrieval helpers.'
+	),
+	entry(
 		'shared.ai-providers',
 		'@contractspec/lib.ai-providers',
 		'sharedLibs',

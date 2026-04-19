@@ -13,6 +13,16 @@ export const SOLUTION_CATALOG_ENTRIES: AdoptionCatalogEntry[] = [
 		'Reusably packaged AI chat system.'
 	),
 	entry(
+		'solutions.learning-journey',
+		'@contractspec/module.learning-journey',
+		'solutions',
+		'module',
+		58,
+		['solutions', 'module', 'learning', 'journey', 'onboarding'],
+		['guided onboarding tracks', 'adaptive learning flows'],
+		'Adaptive learning-journey runtime for onboarding, coaching, drills, and progression.'
+	),
+	entry(
 		'solutions.provider-ranking',
 		'@contractspec/module.provider-ranking',
 		'solutions',

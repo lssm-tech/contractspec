@@ -1,9 +1,5 @@
-/**
- * AGENTS.md setup target.
- */
-
 import type { FsAdapter } from '../../../ports/fs';
-import { generateAgentsGuide } from '../config-generators';
+import { generateUsageGuide } from '../config-generators';
 import {
 	mergeManagedMarkdown,
 	renderManagedMarkdownBlock,
@@ -14,23 +10,20 @@ import type {
 	SetupPromptCallbacks,
 } from '../types';
 
-export const CONTRACTSPEC_AGENTS_BLOCK_START =
-	'<!-- contractspec:init:agents:start -->';
-export const CONTRACTSPEC_AGENTS_BLOCK_END =
-	'<!-- contractspec:init:agents:end -->';
-const CONTRACTSPEC_AGENTS_BLOCK_NOTE =
+export const CONTRACTSPEC_USAGE_BLOCK_START =
+	'<!-- contractspec:init:usage:start -->';
+export const CONTRACTSPEC_USAGE_BLOCK_END =
+	'<!-- contractspec:init:usage:end -->';
+const CONTRACTSPEC_USAGE_BLOCK_NOTE =
 	'<!-- This section is managed by `contractspec init` and `contractspec onboard`. Content outside these markers is user-owned and preserved. -->';
 
 const MANAGED_SECTION = {
-	endMarker: CONTRACTSPEC_AGENTS_BLOCK_END,
-	note: CONTRACTSPEC_AGENTS_BLOCK_NOTE,
-	startMarker: CONTRACTSPEC_AGENTS_BLOCK_START,
+	endMarker: CONTRACTSPEC_USAGE_BLOCK_END,
+	note: CONTRACTSPEC_USAGE_BLOCK_NOTE,
+	startMarker: CONTRACTSPEC_USAGE_BLOCK_START,
 } as const;
 
-/**
- * Setup AGENTS.md
- */
-export async function setupAgentsMd(
+export async function setupUsageMd(
 	fs: FsAdapter,
 	options: SetupOptions,
 	prompts: SetupPromptCallbacks
@@ -39,11 +32,11 @@ export async function setupAgentsMd(
 		options.isMonorepo && options.scope === 'package'
 			? (options.packageRoot ?? options.workspaceRoot)
 			: options.workspaceRoot;
-	const filePath = fs.join(targetRoot, 'AGENTS.md');
+	const filePath = fs.join(targetRoot, 'USAGE.md');
 
 	try {
 		const exists = await fs.exists(filePath);
-		const guideContent = generateAgentsGuide(options);
+		const guideContent = generateUsageGuide(options);
 
 		if (exists) {
 			const existingContent = await fs.readFile(filePath);
@@ -54,10 +47,10 @@ export async function setupAgentsMd(
 				);
 				if (!proceed) {
 					return {
-						target: 'agents-md',
+						target: 'usage-md',
 						filePath,
 						action: 'skipped',
-						message: 'User skipped AGENTS guide merge',
+						message: 'User skipped usage guide merge',
 					};
 				}
 			}
@@ -72,10 +65,10 @@ export async function setupAgentsMd(
 				)
 			);
 			return {
-				target: 'agents-md',
+				target: 'usage-md',
 				filePath,
 				action: 'merged',
-				message: 'Added or updated the ContractSpec-managed AGENTS.md section',
+				message: 'Added or updated the ContractSpec-managed USAGE.md section',
 			};
 		}
 
@@ -84,14 +77,14 @@ export async function setupAgentsMd(
 			renderManagedMarkdownBlock(guideContent, MANAGED_SECTION)
 		);
 		return {
-			target: 'agents-md',
+			target: 'usage-md',
 			filePath,
 			action: 'created',
-			message: 'Created AI agent guide',
+			message: 'Created usage guide',
 		};
 	} catch (error) {
 		return {
-			target: 'agents-md',
+			target: 'usage-md',
 			filePath,
 			action: 'error',
 			message: error instanceof Error ? error.message : 'Unknown error',

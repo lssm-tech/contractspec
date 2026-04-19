@@ -12,6 +12,11 @@ import { defineSchemaModel, ScalarTypeEnum } from '@contractspec/lib.schema';
 import path from 'path';
 import z from 'zod';
 import { appLogger } from '../../infrastructure/elysia/logger';
+import {
+	registerCliOnboardingOps,
+	registerCliOnboardingPrompts,
+	registerCliOnboardingResources,
+} from './cliMcp.onboarding';
 import { createMcpElysiaHandler } from './common';
 
 const CLI_DOC_PATHS = {
@@ -22,11 +27,11 @@ const CLI_DOC_PATHS = {
 
 const CLI_DOC_FALLBACK = {
 	quickstart:
-		'# ContractSpec CLI quickstart\n\ncontractspec create\ncontractspec build <spec>\ncontractspec validate <spec>',
+		'# ContractSpec CLI quickstart\n\ncontractspec quickstart\ncontractspec onboard\ncontractspec validate',
 	reference:
-		'# ContractSpec CLI reference\n\nKey commands: create, build, validate. See README for full options.',
+		'# ContractSpec CLI reference\n\nKey commands: onboard, create, generate, validate. See README for full options.',
 	readme:
-		'# ContractSpec CLI\n\nStabilize AI-generated code across API, DB, UI, events. Use create/build/validate commands.',
+		'# ContractSpec CLI\n\nStabilize AI-generated code across API, DB, UI, events. Use onboard/create/generate/validate commands.',
 };
 
 const CLI_DOC_TAGS = ['cli', 'mcp'];
@@ -109,6 +114,12 @@ function buildCliResources() {
 			resolve: async () => {
 				const commands = [
 					{
+						command: 'contractspec onboard',
+						summary:
+							'Generate repo-local AGENTS.md and USAGE.md guidance plus recommended tracks.',
+						doc: 'cli://doc/quickstart',
+					},
+					{
 						command: 'contractspec create',
 						summary: 'Interactive wizard to author specs (with optional AI).',
 						doc: 'cli://doc/quickstart',
@@ -136,6 +147,7 @@ function buildCliResources() {
 		})
 	);
 
+	registerCliOnboardingResources(resources);
 	return resources;
 }
 
@@ -178,6 +190,7 @@ function buildCliPrompts() {
 		})
 	);
 
+	registerCliOnboardingPrompts(prompts);
 	return prompts;
 }
 
@@ -224,6 +237,19 @@ function buildCliOps() {
 	installOp(registry, suggestSpec, async ({ goal, prefersAi }) => {
 		const lower = goal.toLowerCase();
 
+		if (
+			lower.includes('onboard') ||
+			lower.includes('start') ||
+			lower.includes('guide') ||
+			lower.includes('install')
+		) {
+			return {
+				command: 'contractspec onboard',
+				docUri: 'cli://doc/quickstart',
+				reason: 'Starts the CLI-first onboarding flow for the current repo.',
+			};
+		}
+
 		if (lower.includes('create') || lower.includes('new')) {
 			return {
 				command: prefersAi ? 'contractspec create --ai' : 'contractspec create',
@@ -258,6 +284,7 @@ function buildCliOps() {
 		};
 	});
 
+	registerCliOnboardingOps(registry);
 	return registry;
 }
 

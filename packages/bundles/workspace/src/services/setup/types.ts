@@ -12,7 +12,8 @@ export type SetupTarget =
 	| 'mcp-cursor'
 	| 'mcp-claude'
 	| 'cursor-rules'
-	| 'agents-md';
+	| 'agents-md'
+	| 'usage-md';
 
 /**
  * All available setup targets.
@@ -25,6 +26,7 @@ export const ALL_SETUP_TARGETS: SetupTarget[] = [
 	'mcp-claude',
 	'cursor-rules',
 	'agents-md',
+	'usage-md',
 ];
 
 /**
@@ -38,6 +40,7 @@ export const SETUP_TARGET_LABELS: Record<SetupTarget, string> = {
 	'mcp-claude': 'MCP for Claude Desktop',
 	'cursor-rules': 'Cursor AI Rules (.cursor/rules/)',
 	'agents-md': 'AI Agent Guide (AGENTS.md)',
+	'usage-md': 'Usage Guide (USAGE.md)',
 };
 
 export type SetupPreset =
