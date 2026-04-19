@@ -1,0 +1,52 @@
+schemaVersion: "1"
+slug: knowledge-indexed-payload-hardening
+summary: Persist canonical knowledge payload text during indexing and align the retrieval/query docs with the corrected behavior.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.knowledge"
+    releaseType: patch
+  - name: "@contractspec/lib.contracts-spec"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - node
+affectedFrameworks: []
+audiences:
+  - kind: maintainer
+    summary: The knowledge ingestion/query path now persists fragment text into vector payloads, package tests cover the corrected behavior, and the knowledge doc surfaces were refreshed.
+    affectedPackages:
+      - "@contractspec/lib.knowledge"
+      - "@contractspec/lib.contracts-spec"
+  - kind: integrator
+    summary: Consumers of `@contractspec/lib.knowledge` no longer need to copy fragment text into metadata for retrieval and RAG queries to work.
+    affectedPackages:
+      - "@contractspec/lib.knowledge"
+deprecations: []
+migrationInstructions:
+  - id: remove-knowledge-text-workarounds
+    title: Remove custom knowledge payload text shims
+    summary: Stop copying fragment text into metadata solely to make downstream retrieval/query flows return readable content.
+    required: false
+    when: When a consumer previously worked around missing indexed text by injecting `text` into fragment metadata before upsert.
+    steps:
+      - Upgrade to the patched `@contractspec/lib.knowledge` release.
+      - Remove any pre-upsert metadata workaround that duplicates `fragment.text` into `metadata.text`.
+upgradeSteps:
+  - id: verify-knowledge-payload-text
+    title: Verify indexed knowledge payloads expose canonical text
+    summary: Check that vector payloads now include `payload.text` and that retrieval/query flows surface readable snippets without custom metadata shims.
+    level: manual
+    instructions:
+      - Re-run the ingestion flow that feeds your knowledge index.
+      - Inspect the stored vector payloads or downstream references for canonical `payload.text` content.
+validation:
+  commands:
+    - cd packages/libs/knowledge && bun run lint:check && bun run typecheck && bun run test
+    - cd packages/modules/context-storage && bun test && bun run typecheck
+    - cd packages/examples/pocket-family-office && bun run test && bun run typecheck
+    - cd packages/libs/contracts-spec && bun run scripts/build-docblocks-manifest.ts && bun run typecheck
+    - cd packages/apps/web-landing && bun run llms:generate
+  evidence:
+    - `VectorIndexer` now writes canonical `payload.text`, and the retriever/query helpers consume the shared payload extraction path.
+    - Package-local tests now cover indexing, adapters, retrieval, query, access guard behavior, and split i18n coverage in `@contractspec/lib.knowledge`.
+    - The pocket-family-office example no longer copies fragment text into metadata, and the knowledge docs/manifests now describe the corrected indexing semantics.
