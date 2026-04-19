@@ -3,6 +3,7 @@
 import {
 	Button,
 	DataTable,
+	DataTableToolbar,
 	LoaderBlock,
 } from '@contractspec/lib.design-system';
 import type { ContractTableSort } from '@contractspec/lib.presentation-runtime-core';
@@ -41,13 +42,58 @@ export interface DealListDataTableProps {
 	pageIndex: number;
 	pageSize: number;
 	sorting: ContractTableSort[];
+	search: string;
+	status: 'OPEN' | 'WON' | 'LOST' | 'all';
 	loading?: boolean;
 	onSortingChange: (sorting: ContractTableSort[]) => void;
 	onPaginationChange: (pagination: {
 		pageIndex: number;
 		pageSize: number;
 	}) => void;
+	onSearchChange: (value: string) => void;
+	onStatusChange: (value: 'OPEN' | 'WON' | 'LOST' | 'all') => void;
 	onDealClick?: (dealId: string) => void;
+}
+
+function buildStatusActions({
+	value,
+	onChange,
+}: {
+	value: 'OPEN' | 'WON' | 'LOST' | 'all';
+	onChange: (value: 'OPEN' | 'WON' | 'LOST' | 'all') => void;
+}) {
+	return (
+		<HStack gap="sm" className="flex-wrap">
+			<Button
+				variant={value === 'all' ? 'secondary' : 'outline'}
+				size="sm"
+				onPress={() => onChange('all')}
+			>
+				All Deals
+			</Button>
+			<Button
+				variant={value === 'OPEN' ? 'secondary' : 'outline'}
+				size="sm"
+				onPress={() => onChange('OPEN')}
+			>
+				Open Only
+			</Button>
+			<Button
+				variant={value === 'WON' ? 'secondary' : 'outline'}
+				size="sm"
+				onPress={() => onChange('WON')}
+			>
+				Won Only
+			</Button>
+			<Button
+				variant={value === 'LOST' ? 'secondary' : 'outline'}
+				size="sm"
+				onPress={() => onChange('LOST')}
+			>
+				Lost Only
+			</Button>
+		</HStack>
+	);
 }
 
 export function DealListDataTable({
@@ -56,9 +102,13 @@ export function DealListDataTable({
 	pageIndex,
 	pageSize,
 	sorting,
+	search,
+	status,
 	loading,
 	onSortingChange,
 	onPaginationChange,
+	onSearchChange,
+	onStatusChange,
 	onDealClick,
 }: DealListDataTableProps) {
 	const controller = useContractTable<Deal>({
@@ -216,14 +266,36 @@ export function DealListDataTable({
 			description="Server-mode table using the shared ContractSpec controller."
 			loading={loading}
 			toolbar={
-				<HStack gap="sm" className="flex-wrap">
-					<Text className="text-muted-foreground text-sm">
-						Selected {controller.selectedRowIds.length}
-					</Text>
-					<Text className="text-muted-foreground text-sm">
-						{totalItems} total deals
-					</Text>
-				</HStack>
+				<DataTableToolbar
+					controller={controller}
+					searchPlaceholder="Search deals, companies, contacts, or notes"
+					searchValue={search}
+					onSearchChange={onSearchChange}
+					activeChips={
+						status === 'all'
+							? []
+							: [
+									{
+										key: 'status',
+										label: `Status: ${status}`,
+										onRemove: () => onStatusChange('all'),
+									},
+								]
+					}
+					onClearAll={() => {
+						onSearchChange('');
+						onStatusChange('all');
+					}}
+					actionsStart={buildStatusActions({
+						value: status,
+						onChange: onStatusChange,
+					})}
+					actionsEnd={
+						<Text className="text-muted-foreground text-sm">
+							{totalItems} total deals
+						</Text>
+					}
+				/>
 			}
 			footer={`Page ${controller.pageIndex + 1} of ${controller.pageCount}`}
 			emptyState={
@@ -247,9 +319,15 @@ export function DealListTab({
 		pageIndex: 0,
 		pageSize: 3,
 	});
+	const [search, setSearch] = React.useState('');
+	const [status, setStatus] = React.useState<'OPEN' | 'WON' | 'LOST' | 'all'>(
+		'all'
+	);
 	const { data, loading } = useDealList({
 		pageIndex: pagination.pageIndex,
 		pageSize: pagination.pageSize,
+		search,
+		status,
 		sorting,
 	});
 
@@ -264,12 +342,22 @@ export function DealListTab({
 			pageIndex={pagination.pageIndex}
 			pageSize={pagination.pageSize}
 			sorting={sorting}
+			search={search}
+			status={status}
 			loading={loading}
 			onSortingChange={(nextSorting) => {
 				setSorting(nextSorting);
 				setPagination((current) => ({ ...current, pageIndex: 0 }));
 			}}
 			onPaginationChange={setPagination}
+			onSearchChange={(value) => {
+				setSearch(value);
+				setPagination((current) => ({ ...current, pageIndex: 0 }));
+			}}
+			onStatusChange={(value) => {
+				setStatus(value);
+				setPagination((current) => ({ ...current, pageIndex: 0 }));
+			}}
 			onDealClick={onDealClick}
 		/>
 	);

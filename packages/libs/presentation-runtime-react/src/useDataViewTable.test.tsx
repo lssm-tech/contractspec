@@ -15,16 +15,26 @@ beforeAll(() => {
 		value: SyntaxError,
 		configurable: true,
 	});
+	const encodeURIComponentFromGlobal =
+		globalThis.encodeURIComponent.bind(globalThis);
+	const decodeURIComponentFromGlobal =
+		globalThis.decodeURIComponent.bind(globalThis);
+	Object.assign(windowInstance, {
+		encodeURIComponent: encodeURIComponentFromGlobal,
+		decodeURIComponent: decodeURIComponentFromGlobal,
+	});
 	Object.assign(globalThis, {
 		window: windowInstance,
 		document: windowInstance.document,
 		navigator: windowInstance.navigator,
+		location: windowInstance.location,
 		HTMLElement: windowInstance.HTMLElement,
 		HTMLButtonElement: windowInstance.HTMLButtonElement,
 		Node: windowInstance.Node,
 		Event: windowInstance.Event,
 		MouseEvent: windowInstance.MouseEvent,
 		MutationObserver: windowInstance.MutationObserver,
+		DocumentFragment: windowInstance.DocumentFragment,
 		getComputedStyle: windowInstance.getComputedStyle.bind(windowInstance),
 		requestAnimationFrame: (callback: FrameRequestCallback) =>
 			setTimeout(() => callback(Date.now()), 0),
@@ -109,6 +119,69 @@ function ControllerHarness({ onReady, rows }: ControllerHarnessProps) {
 		},
 		renderExpandedContent: () => 'Expanded',
 		getCanExpand: () => true,
+	});
+
+	React.useEffect(() => {
+		onReady(controller);
+	}, [controller, onReady]);
+
+	return null;
+}
+
+interface ColumnControllerHarnessProps {
+	onReady: (
+		controller: ReturnType<typeof useContractTable<(typeof BASE_ROWS)[number]>>
+	) => void;
+	columns: {
+		id: string;
+		header: string;
+		accessorKey: 'account' | 'status';
+	}[];
+}
+
+function ColumnControllerHarness({
+	onReady,
+	columns,
+}: ColumnControllerHarnessProps) {
+	const controller = useContractTable({
+		data: BASE_ROWS,
+		columns,
+	});
+
+	React.useEffect(() => {
+		onReady(controller);
+	}, [controller, onReady]);
+
+	return null;
+}
+
+interface PaginationHarnessProps {
+	onReady: (
+		controller: ReturnType<typeof useContractTable<(typeof BASE_ROWS)[number]>>
+	) => void;
+	totalItems: number;
+}
+
+function PaginationHarness({ onReady, totalItems }: PaginationHarnessProps) {
+	const controller = useContractTable({
+		data: BASE_ROWS.slice(0, Math.min(totalItems, BASE_ROWS.length)),
+		columns: [
+			{
+				id: 'account',
+				header: 'Account',
+				accessorKey: 'account',
+			},
+			{
+				id: 'status',
+				header: 'Status',
+				accessorKey: 'status',
+			},
+		],
+		executionMode: 'server',
+		totalItems,
+		initialState: {
+			pagination: { pageIndex: 2, pageSize: 2 },
+		},
 	});
 
 	React.useEffect(() => {
@@ -211,6 +284,114 @@ describe('table hooks', () => {
 		expect(
 			controllerRef?.rows.some((row) => row.id === 'acct-1' && row.isExpanded)
 		).toBe(false);
+
+		await act(async () => {
+			root.unmount();
+		});
+	});
+
+	test('useContractTable prunes stale visibility and pinning after columns disappear', async () => {
+		let controllerRef:
+			| ReturnType<typeof useContractTable<(typeof BASE_ROWS)[number]>>
+			| undefined;
+		const onReady = (controller: typeof controllerRef) => {
+			controllerRef = controller ?? undefined;
+		};
+
+		const container = document.createElement('div');
+		document.body.append(container);
+		const root: Root = createRoot(container);
+		const fullColumns = [
+			{ id: 'account', header: 'Account', accessorKey: 'account' as const },
+			{ id: 'status', header: 'Status', accessorKey: 'status' as const },
+		];
+
+		act(() => {
+			root.render(
+				<ColumnControllerHarness onReady={onReady} columns={fullColumns} />
+			);
+		});
+
+		act(() => {
+			controllerRef?.columns
+				.find((column) => column.id === 'status')
+				?.toggleVisibility?.(false);
+		});
+		await act(async () => {});
+		act(() => {
+			controllerRef?.columns
+				.find((column) => column.id === 'status')
+				?.pin?.('right');
+		});
+		await act(async () => {});
+
+		expect(controllerRef?.visibleColumns.map((column) => column.id)).toEqual([
+			'account',
+		]);
+		expect(
+			controllerRef?.columns.find((column) => column.id === 'status')?.pinState
+		).toBe('right');
+
+		act(() => {
+			root.render(
+				<ColumnControllerHarness
+					onReady={onReady}
+					columns={[fullColumns[0]!]}
+				/>
+			);
+		});
+		await act(async () => {});
+
+		expect(controllerRef?.visibleColumns.map((column) => column.id)).toEqual([
+			'account',
+		]);
+
+		act(() => {
+			root.render(
+				<ColumnControllerHarness onReady={onReady} columns={fullColumns} />
+			);
+		});
+		await act(async () => {});
+
+		expect(controllerRef?.visibleColumns.map((column) => column.id)).toEqual([
+			'account',
+			'status',
+		]);
+		expect(
+			controllerRef?.columns.find((column) => column.id === 'status')?.pinState
+		).toBe(false);
+
+		await act(async () => {
+			root.unmount();
+		});
+	});
+
+	test('useContractTable clamps server pagination when totals shrink', async () => {
+		let controllerRef:
+			| ReturnType<typeof useContractTable<(typeof BASE_ROWS)[number]>>
+			| undefined;
+		const onReady = (controller: typeof controllerRef) => {
+			controllerRef = controller ?? undefined;
+		};
+
+		const container = document.createElement('div');
+		document.body.append(container);
+		const root: Root = createRoot(container);
+
+		act(() => {
+			root.render(<PaginationHarness onReady={onReady} totalItems={6} />);
+		});
+
+		expect(controllerRef?.pageIndex).toBe(2);
+		expect(controllerRef?.pageCount).toBe(3);
+
+		act(() => {
+			root.render(<PaginationHarness onReady={onReady} totalItems={2} />);
+		});
+
+		expect(controllerRef?.pageIndex).toBe(0);
+		expect(controllerRef?.pageCount).toBe(1);
+		expect(controllerRef?.canNextPage).toBe(false);
 
 		await act(async () => {
 			root.unmount();

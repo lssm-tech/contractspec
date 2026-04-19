@@ -20,16 +20,26 @@ beforeAll(() => {
 		value: SyntaxError,
 		configurable: true,
 	});
+	const encodeURIComponentFromGlobal =
+		globalThis.encodeURIComponent.bind(globalThis);
+	const decodeURIComponentFromGlobal =
+		globalThis.decodeURIComponent.bind(globalThis);
+	Object.assign(windowInstance, {
+		encodeURIComponent: encodeURIComponentFromGlobal,
+		decodeURIComponent: decodeURIComponentFromGlobal,
+	});
 	Object.assign(globalThis, {
 		window: windowInstance,
 		document: windowInstance.document,
 		navigator: windowInstance.navigator,
+		location: windowInstance.location,
 		HTMLElement: windowInstance.HTMLElement,
 		HTMLButtonElement: windowInstance.HTMLButtonElement,
 		Node: windowInstance.Node,
 		Event: windowInstance.Event,
 		MouseEvent: windowInstance.MouseEvent,
 		MutationObserver: windowInstance.MutationObserver,
+		DocumentFragment: windowInstance.DocumentFragment,
 		getComputedStyle: windowInstance.getComputedStyle.bind(windowInstance),
 		requestAnimationFrame: (callback: FrameRequestCallback) =>
 			setTimeout(() => callback(Date.now()), 0),
@@ -45,10 +55,23 @@ afterEach(() => {
 function sortDeals(
 	pageIndex: number,
 	pageSize: number,
-	sorting: { id: string; desc: boolean }[]
+	sorting: { id: string; desc: boolean }[],
+	search: string,
+	status: 'OPEN' | 'WON' | 'LOST' | 'all'
 ) {
 	const [sort] = sorting;
-	const sorted = [...TEST_DEALS].sort((left, right) => {
+	const filtered = TEST_DEALS.filter((deal) => {
+		const matchesStatus = status === 'all' ? true : deal.status === status;
+		const matchesSearch =
+			!search ||
+			[deal.name, deal.companyId, deal.contactId, deal.notes, deal.ownerId]
+				.filter(Boolean)
+				.join(' ')
+				.toLowerCase()
+				.includes(search.toLowerCase());
+		return matchesStatus && matchesSearch;
+	});
+	const sorted = [...filtered].sort((left, right) => {
 		const leftValue =
 			sort?.id === 'deal'
 				? left.name
@@ -82,15 +105,50 @@ function Harness() {
 		pageIndex: 0,
 		pageSize: 3,
 	});
+	const [search, setSearch] = React.useState('');
+	const [status, setStatus] = React.useState<'OPEN' | 'WON' | 'LOST' | 'all'>(
+		'all'
+	);
+	const filteredDeals = sortDeals(
+		pagination.pageIndex,
+		pagination.pageSize,
+		sorting,
+		search,
+		status
+	);
+	const totalItems = TEST_DEALS.filter((deal) => {
+		const matchesStatus = status === 'all' ? true : deal.status === status;
+		const matchesSearch =
+			!search ||
+			[deal.name, deal.companyId, deal.contactId, deal.notes, deal.ownerId]
+				.filter(Boolean)
+				.join(' ')
+				.toLowerCase()
+				.includes(search.toLowerCase());
+		return matchesStatus && matchesSearch;
+	}).length;
 	return (
 		<DealListDataTable
-			deals={sortDeals(pagination.pageIndex, pagination.pageSize, sorting)}
-			totalItems={TEST_DEALS.length}
+			deals={filteredDeals}
+			totalItems={totalItems}
 			pageIndex={pagination.pageIndex}
 			pageSize={pagination.pageSize}
 			sorting={sorting}
-			onSortingChange={setSorting}
+			search={search}
+			status={status}
+			onSortingChange={(nextSorting) => {
+				setSorting(nextSorting);
+				setPagination((current) => ({ ...current, pageIndex: 0 }));
+			}}
 			onPaginationChange={setPagination}
+			onSearchChange={(value) => {
+				setSearch(value);
+				setPagination((current) => ({ ...current, pageIndex: 0 }));
+			}}
+			onStatusChange={(value) => {
+				setStatus(value);
+				setPagination((current) => ({ ...current, pageIndex: 0 }));
+			}}
 		/>
 	);
 }
@@ -141,6 +199,13 @@ describe('DealListDataTable', () => {
 		expect(container.textContent).toContain(
 			'Affichage de 4 à 6 sur 6 résultats'
 		);
+
+		await click(
+			[...container.getElementsByTagName('button')].find(
+				(button) => button.textContent?.trim() === 'Won Only'
+			)
+		);
+		expect(container.textContent).toContain('Status: WON');
 
 		await act(async () => {
 			root.unmount();

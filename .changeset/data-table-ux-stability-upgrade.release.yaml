@@ -1,0 +1,86 @@
+schemaVersion: "1"
+slug: data-table-ux-stability-upgrade
+summary: Harden the shared data-table stack and add a first-class composed toolbar for search, filter chips, selection summary, and hidden-column recovery.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.design-system"
+    releaseType: minor
+  - name: "@contractspec/lib.presentation-runtime-react"
+    releaseType: patch
+  - name: "@contractspec/lib.ui-kit-web"
+    releaseType: patch
+  - name: "@contractspec/lib.ui-kit"
+    releaseType: patch
+  - name: "@contractspec/example.crm-pipeline"
+    releaseType: patch
+  - name: "@contractspec/example.data-grid-showcase"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - node
+  - nextjs
+  - expo
+affectedFrameworks:
+  - react
+  - react-native
+audiences:
+  - kind: maintainer
+    summary: The shared table controller now sanitizes stale row and column state, and the design-system exports `DataTableToolbar` as the preferred composed UX layer above the primitive tables.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+      - "@contractspec/lib.presentation-runtime-react"
+      - "@contractspec/lib.ui-kit-web"
+      - "@contractspec/lib.ui-kit"
+  - kind: integrator
+    summary: Integrators can adopt `DataTableToolbar` without changing the underlying `DataTable` or `useContractTable` API, and server-paginated tables now behave more defensively when data, columns, or totals change.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+      - "@contractspec/lib.presentation-runtime-react"
+      - "@contractspec/lib.ui-kit-web"
+      - "@contractspec/lib.ui-kit"
+  - kind: customer
+    summary: The CRM and canonical data-grid examples now expose search, filter chips, selection summaries, safer column recovery, and less failure-prone table interactions across web and native paths.
+    affectedPackages:
+      - "@contractspec/example.crm-pipeline"
+      - "@contractspec/example.data-grid-showcase"
+deprecations: []
+migrationInstructions:
+  - id: adopt-data-table-toolbar
+    title: Move high-level table UX into `DataTableToolbar`
+    summary: Keep the primitive `DataTable` lean and compose richer UX through the existing `toolbar` slot.
+    required: false
+    when: When a table needs search, active chips, selection summary, or hidden-column recovery.
+    steps:
+      - Import `DataTableToolbar` from `@contractspec/lib.design-system`.
+      - Pass the existing table controller into `DataTableToolbar`.
+      - Keep product-specific buttons or filter toggles in `actionsStart` or `actionsEnd`.
+  - id: keep-server-table-state-authoritative
+    title: Reset page-level UI state when server filters change
+    summary: The examples now reset page index when search or status filters change so server-mode tables stay aligned with remote pagination.
+    required: false
+    when: When composing server-paginated tables with external search or filter state.
+    steps:
+      - Reset `pageIndex` whenever remote search or filter inputs change.
+      - Continue passing sorting and pagination through the shared controller state.
+upgradeSteps:
+  - id: revalidate-table-surfaces
+    title: Re-run focused table verification after upgrading
+    summary: The web, native, design-system, and example surfaces should be validated together because the UX and stability changes span all four layers.
+    level: assisted
+    instructions:
+      - Run the focused table test suites in `presentation-runtime-react`, `ui-kit-web`, `ui-kit`, `design-system`, `example.crm-pipeline`, and `example.data-grid-showcase`.
+      - Re-run package typechecks and lint checks for the touched libraries and examples.
+      - Spot-check server-paginated and client-side examples to confirm search, chips, loading, empty states, and column recovery behave as expected.
+validation:
+  commands:
+    - bun test packages/libs/presentation-runtime-react/src/useDataViewTable.test.tsx packages/libs/ui-kit-web/ui/data-table.test.tsx packages/libs/ui-kit/ui/data-table.smoke.test.tsx packages/libs/design-system/src/components/data-table/DataTableToolbar.test.tsx packages/examples/crm-pipeline/src/ui/tables/DealListTab.smoke.test.tsx packages/examples/data-grid-showcase/src/ui/DataGridShowcase.smoke.test.tsx
+    - cd packages/libs/presentation-runtime-react && bun run typecheck && bun run lint:check
+    - cd packages/libs/ui-kit-web && bun run typecheck && bun run lint:check
+    - cd packages/libs/ui-kit && bun run typecheck && bun run lint:check
+    - cd packages/libs/design-system && bun run typecheck && bun run lint:check
+    - cd packages/examples/crm-pipeline && bun run typecheck && bun run lint:check
+    - cd packages/examples/data-grid-showcase && bun run typecheck && bun run lint:check
+  evidence:
+    - "`@contractspec/lib.design-system` now exports `DataTableToolbar` with search, chips, selection summary, and hidden-column recovery while keeping `DataTable` backward compatible."
+    - "`@contractspec/lib.presentation-runtime-react` prunes stale row and column state and clamps invalid page indexes before they can destabilize TanStack-backed rendering."
+    - "The CRM and data-grid showcase examples now demonstrate the composed toolbar path for client and server tables, including search, status filters, loading, empty states, and column recovery."

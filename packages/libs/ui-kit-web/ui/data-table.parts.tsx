@@ -27,13 +27,33 @@ import {
 	DropdownMenuTrigger,
 } from './dropdown-menu';
 
+export function showAllColumns(
+	columns: ContractTableController<unknown, React.ReactNode>['columns']
+) {
+	columns.forEach((column) => column.toggleVisibility?.(true));
+}
+
+export function canHideDataColumn(
+	columns: ContractTableController<unknown, React.ReactNode>['columns'],
+	column: ContractTableColumnRenderModel<React.ReactNode>
+) {
+	if (column.kind !== 'data' || !column.visible) return true;
+	return (
+		columns.filter(
+			(candidate) => candidate.kind === 'data' && candidate.visible
+		).length > 1
+	);
+}
+
 export function ColumnVisibilityMenu({
 	columns,
 }: {
 	columns: ContractTableController<unknown, React.ReactNode>['columns'];
 }) {
-	const hideableColumns = columns.filter((column) => column.canHide);
-	const hasHiddenColumns = hideableColumns.some((column) => !column.visible);
+	const dataColumns = columns.filter((column) => column.kind === 'data');
+	const hideableColumns = dataColumns.filter((column) => column.canHide);
+	const hiddenColumns = hideableColumns.filter((column) => !column.visible);
+	const hasPinnedColumns = dataColumns.some((column) => column.pinState);
 	if (!hideableColumns.length) return null;
 
 	return (
@@ -47,29 +67,47 @@ export function ColumnVisibilityMenu({
 			<DropdownMenuContent align="end">
 				<DropdownMenuLabel>Visible Columns</DropdownMenuLabel>
 				<DropdownMenuSeparator />
-				{hideableColumns.map((column) => (
-					<DropdownMenuCheckboxItem
-						key={column.id}
-						checked={column.visible}
-						onCheckedChange={(checked) =>
-							column.toggleVisibility?.(Boolean(checked))
-						}
-					>
-						{column.label}
-					</DropdownMenuCheckboxItem>
-				))}
-				{hasHiddenColumns ? (
-					<>
-						<DropdownMenuSeparator />
-						<DropdownMenuItem
-							onClick={() => {
-								hideableColumns.forEach((column) =>
-									column.toggleVisibility?.(true)
-								);
+				{hideableColumns.map((column) => {
+					const isLastVisibleColumn = !canHideDataColumn(columns, column);
+					return (
+						<DropdownMenuCheckboxItem
+							key={column.id}
+							checked={column.visible}
+							disabled={isLastVisibleColumn}
+							onCheckedChange={(checked) => {
+								const nextVisible = Boolean(checked);
+								if (!nextVisible && isLastVisibleColumn) return;
+								column.toggleVisibility?.(nextVisible);
 							}}
 						>
-							Show All Columns
-						</DropdownMenuItem>
+							<div className="flex w-full items-center justify-between gap-3">
+								<span>{column.label}</span>
+								{isLastVisibleColumn ? (
+									<span className="text-muted-foreground text-xs">
+										Required
+									</span>
+								) : null}
+							</div>
+						</DropdownMenuCheckboxItem>
+					);
+				})}
+				{hiddenColumns.length || hasPinnedColumns ? (
+					<>
+						<DropdownMenuSeparator />
+						{hiddenColumns.length ? (
+							<DropdownMenuItem onClick={() => showAllColumns(hideableColumns)}>
+								Show All Columns
+							</DropdownMenuItem>
+						) : null}
+						{hasPinnedColumns ? (
+							<DropdownMenuItem
+								onClick={() =>
+									dataColumns.forEach((column) => column.pin?.(false))
+								}
+							>
+								Reset Pins
+							</DropdownMenuItem>
+						) : null}
 					</>
 				) : null}
 			</DropdownMenuContent>
@@ -120,38 +158,96 @@ export function ResizeHandle({
 	column: ContractTableColumnRenderModel<React.ReactNode>;
 }) {
 	const lastX = React.useRef<number | null>(null);
+	const pendingDelta = React.useRef(0);
+	const frameRef = React.useRef<number | null>(null);
 	const removeListenersRef = React.useRef<(() => void) | null>(null);
 
+	const flushResize = React.useCallback(() => {
+		frameRef.current = null;
+		if (!pendingDelta.current) return;
+		column.resizeBy?.(pendingDelta.current);
+		pendingDelta.current = 0;
+	}, [column]);
+
+	const scheduleResize = React.useCallback(
+		(delta: number) => {
+			if (!Number.isFinite(delta) || delta === 0) return;
+			pendingDelta.current += delta;
+			if (frameRef.current != null) return;
+			frameRef.current = window.requestAnimationFrame(flushResize);
+		},
+		[flushResize]
+	);
+
+	const cleanupResize = React.useCallback(() => {
+		lastX.current = null;
+		removeListenersRef.current?.();
+		removeListenersRef.current = null;
+		if (frameRef.current != null) {
+			window.cancelAnimationFrame(frameRef.current);
+			frameRef.current = null;
+		}
+		if (!pendingDelta.current) return;
+		column.resizeBy?.(pendingDelta.current);
+		pendingDelta.current = 0;
+	}, [column]);
+
 	React.useEffect(() => {
-		return () => {
-			removeListenersRef.current?.();
-		};
-	}, []);
+		return cleanupResize;
+	}, [cleanupResize]);
 
-	const onMouseDown = React.useCallback(
-		(event: React.MouseEvent<HTMLSpanElement>) => {
-			event.preventDefault();
-			event.stopPropagation();
-			lastX.current = event.clientX;
+	const beginResize = React.useCallback(
+		(
+			clientX: number,
+			moveEventName: 'mousemove' | 'pointermove',
+			endEventNames: ('mouseup' | 'pointerup' | 'pointercancel')[]
+		) => {
+			cleanupResize();
+			lastX.current = clientX;
 
-			const onMouseMove = (moveEvent: MouseEvent) => {
+			const onMove = (moveEvent: MouseEvent | PointerEvent) => {
 				if (lastX.current == null) return;
 				const delta = moveEvent.clientX - lastX.current;
 				lastX.current = moveEvent.clientX;
-				column.resizeBy?.(delta);
+				scheduleResize(delta);
+			};
+			const onEnd = () => cleanupResize();
+			const removeListeners = () => {
+				window.removeEventListener(moveEventName, onMove);
+				for (const eventName of endEventNames) {
+					window.removeEventListener(eventName, onEnd);
+				}
 			};
 
-			const onMouseUp = () => {
-				lastX.current = null;
-				window.removeEventListener('mousemove', onMouseMove);
-				window.removeEventListener('mouseup', onMouseUp);
-			};
-
-			removeListenersRef.current = onMouseUp;
-			window.addEventListener('mousemove', onMouseMove);
-			window.addEventListener('mouseup', onMouseUp);
+			removeListenersRef.current = removeListeners;
+			window.addEventListener(moveEventName, onMove);
+			for (const eventName of endEventNames) {
+				window.addEventListener(eventName, onEnd);
+			}
 		},
-		[column]
+		[cleanupResize, scheduleResize]
+	);
+
+	const onPointerDown = React.useCallback(
+		(event: React.PointerEvent<HTMLSpanElement>) => {
+			event.preventDefault();
+			event.stopPropagation();
+			event.currentTarget.setPointerCapture?.(event.pointerId);
+			beginResize(event.clientX, 'pointermove', ['pointerup', 'pointercancel']);
+		},
+		[beginResize]
+	);
+
+	const onMouseDown = React.useCallback(
+		(event: React.MouseEvent<HTMLSpanElement>) => {
+			if (typeof window.PointerEvent === 'function') {
+				return;
+			}
+			event.preventDefault();
+			event.stopPropagation();
+			beginResize(event.clientX, 'mousemove', ['mouseup']);
+		},
+		[beginResize]
 	);
 
 	return (
@@ -161,6 +257,7 @@ export function ResizeHandle({
 			aria-orientation="vertical"
 			tabIndex={-1}
 			className="absolute inset-y-0 right-0 flex w-3 cursor-col-resize items-center justify-center"
+			onPointerDown={onPointerDown}
 			onMouseDown={onMouseDown}
 		>
 			<GripVertical className="h-3.5 w-3.5 text-muted-foreground" />

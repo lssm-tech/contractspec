@@ -13,8 +13,8 @@ export function FiltersToolbar({
 	onSearchChange,
 	onSearchSubmit,
 	debounceMs = 250,
-	activeChips: _activeChips = [],
-	onClearAll: _onClearAll,
+	activeChips = [],
+	onClearAll,
 }: FiltersToolbarProps) {
 	const [q, setQ] = React.useState<string>(searchValue ?? '');
 
@@ -47,7 +47,25 @@ export function FiltersToolbar({
 				{children}
 				{right}
 			</HStack>
-			{/* For now chips are omitted on mobile; can add a compact chip row later with Pressable rows */}
+			{(activeChips.length > 0 || onClearAll) && (
+				<HStack className="mt-2 flex flex-wrap items-center gap-2">
+					{activeChips.map((chip) => (
+						<Button
+							key={chip.key}
+							size="sm"
+							variant="secondary"
+							onPress={chip.onRemove}
+						>
+							{chip.label}
+						</Button>
+					))}
+					{onClearAll ? (
+						<Button size="sm" variant="ghost" onPress={onClearAll}>
+							Effacer les filtres
+						</Button>
+					) : null}
+				</HStack>
+			)}
 		</VStack>
 	);
 }

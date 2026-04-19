@@ -16,6 +16,12 @@ import {
 	type VisibilityState,
 } from '@tanstack/react-table';
 import * as React from 'react';
+import {
+	arraysEqual,
+	paginationStatesEqual,
+	sanitizeTableState,
+	stateRecordsEqual,
+} from './table.state';
 import type { UseContractTableOptions } from './table.types';
 import {
 	coerceRowSelectionState,
@@ -64,8 +70,106 @@ export function useContractTable<TItem>({
 		() => mergeTableState(uncontrolledState, controlledState),
 		[controlledState, uncontrolledState]
 	);
-	const stateRef = React.useRef(state);
-	stateRef.current = state;
+
+	const tableColumns = React.useMemo(
+		() => createTableColumns({ columns, hasExpansion, selectionMode }),
+		[columns, hasExpansion, selectionMode]
+	);
+
+	const knownRowIds = React.useMemo(
+		() =>
+			data.map(
+				(item, rowIndex) =>
+					getRowId?.(item, rowIndex) ?? getTableRowId(item, rowIndex)
+			),
+		[data, getRowId]
+	);
+	const knownColumnIds = React.useMemo(
+		() =>
+			tableColumns
+				.map((column) => column.id)
+				.filter((columnId): columnId is string => typeof columnId === 'string'),
+		[tableColumns]
+	);
+	const totalItemCount =
+		executionMode === 'server' ? (totalItems ?? data.length) : data.length;
+	const sanitizedState = React.useMemo(
+		() =>
+			sanitizeTableState(state, {
+				rowIds: knownRowIds,
+				columnIds: knownColumnIds,
+				selectionMode,
+				totalItems: totalItemCount,
+			}),
+		[knownColumnIds, knownRowIds, selectionMode, state, totalItemCount]
+	);
+	const stateRef = React.useRef(sanitizedState);
+	stateRef.current = sanitizedState;
+
+	React.useEffect(() => {
+		setUncontrolledState((current) => {
+			const next = sanitizeTableState(current, {
+				rowIds: knownRowIds,
+				columnIds: knownColumnIds,
+				selectionMode,
+				totalItems: totalItemCount,
+			});
+			const patchedCurrent = { ...current };
+			let changed = false;
+
+			if (
+				!controlledState?.pagination &&
+				!paginationStatesEqual(current.pagination, next.pagination)
+			) {
+				patchedCurrent.pagination = next.pagination;
+				changed = true;
+			}
+			if (
+				!controlledState?.columnVisibility &&
+				!stateRecordsEqual(current.columnVisibility, next.columnVisibility)
+			) {
+				patchedCurrent.columnVisibility = next.columnVisibility;
+				changed = true;
+			}
+			if (
+				!controlledState?.columnSizing &&
+				!stateRecordsEqual(current.columnSizing, next.columnSizing)
+			) {
+				patchedCurrent.columnSizing = next.columnSizing;
+				changed = true;
+			}
+			if (
+				!controlledState?.columnPinning &&
+				(!arraysEqual(current.columnPinning.left, next.columnPinning.left) ||
+					!arraysEqual(current.columnPinning.right, next.columnPinning.right))
+			) {
+				patchedCurrent.columnPinning = next.columnPinning;
+				changed = true;
+			}
+			if (
+				!controlledState?.expanded &&
+				!stateRecordsEqual(current.expanded, next.expanded)
+			) {
+				patchedCurrent.expanded = next.expanded;
+				changed = true;
+			}
+			if (
+				!controlledState?.rowSelection &&
+				!stateRecordsEqual(current.rowSelection, next.rowSelection)
+			) {
+				patchedCurrent.rowSelection = next.rowSelection;
+				changed = true;
+			}
+
+			return changed ? patchedCurrent : current;
+		});
+	}, [
+		controlledState,
+		knownColumnIds,
+		knownRowIds,
+		selectionMode,
+		totalItemCount,
+	]);
 
 	const updateTableState = React.useCallback(
 		<K extends keyof ContractTableState>(
@@ -86,25 +190,33 @@ export function useContractTable<TItem>({
 							)
 						: nextValue,
 			} as ContractTableState;
+			const sanitizedNext = sanitizeTableState(requestedNext, {
+				rowIds: knownRowIds,
+				columnIds: knownColumnIds,
+				selectionMode,
+				totalItems: totalItemCount,
+			});
 
-			setUncontrolledState(requestedNext);
-			onStateChange?.(requestedNext);
+			setUncontrolledState(sanitizedNext);
+			onStateChange?.(sanitizedNext);
 
-			if (key === 'sorting') onSortingChange?.(requestedNext.sorting);
-			if (key === 'pagination') onPaginationChange?.(requestedNext.pagination);
+			if (key === 'sorting') onSortingChange?.(sanitizedNext.sorting);
+			if (key === 'pagination') onPaginationChange?.(sanitizedNext.pagination);
 			if (key === 'columnVisibility') {
-				onColumnVisibilityChange?.(requestedNext.columnVisibility);
+				onColumnVisibilityChange?.(sanitizedNext.columnVisibility);
 			}
 			if (key === 'columnSizing')
-				onColumnSizingChange?.(requestedNext.columnSizing);
+				onColumnSizingChange?.(sanitizedNext.columnSizing);
 			if (key === 'columnPinning')
-				onColumnPinningChange?.(requestedNext.columnPinning);
-			if (key === 'expanded') onExpandedChange?.(requestedNext.expanded);
+				onColumnPinningChange?.(sanitizedNext.columnPinning);
+			if (key === 'expanded') onExpandedChange?.(sanitizedNext.expanded);
 			if (key === 'rowSelection') {
-				onRowSelectionChange?.(requestedNext.rowSelection);
+				onRowSelectionChange?.(sanitizedNext.rowSelection);
 			}
 		},
 		[
+			knownColumnIds,
+			knownRowIds,
 			onColumnPinningChange,
 			onColumnSizingChange,
 			onColumnVisibilityChange,
@@ -114,79 +226,25 @@ export function useContractTable<TItem>({
 			onSortingChange,
 			onStateChange,
 			selectionMode,
+			totalItemCount,
 		]
 	);
-
-	const tableColumns = React.useMemo(
-		() => createTableColumns({ columns, hasExpansion, selectionMode }),
-		[columns, hasExpansion, selectionMode]
-	);
-
-	const knownRowIds = React.useMemo(
-		() =>
-			data.map(
-				(item, rowIndex) =>
-					getRowId?.(item, rowIndex) ?? getTableRowId(item, rowIndex)
-			),
-		[data, getRowId]
-	);
-	const knownRowIdSet = React.useMemo(
-		() => new Set(knownRowIds),
-		[knownRowIds]
-	);
-
-	React.useEffect(() => {
-		if (controlledState?.expanded || controlledState?.rowSelection) return;
-
-		setUncontrolledState((current) => {
-			const expanded = Object.fromEntries(
-				Object.entries(current.expanded).filter(([rowId]) =>
-					knownRowIdSet.has(rowId)
-				)
-			);
-			const rowSelection = coerceRowSelectionState(
-				Object.fromEntries(
-					Object.entries(current.rowSelection).filter(([rowId]) =>
-						knownRowIdSet.has(rowId)
-					)
-				),
-				selectionMode
-			);
-
-			const expandedChanged =
-				Object.keys(expanded).length !== Object.keys(current.expanded).length;
-			const selectionChanged =
-				Object.keys(rowSelection).length !==
-				Object.keys(current.rowSelection).length;
-
-			if (!expandedChanged && !selectionChanged) {
-				return current;
-			}
-
-			return {
-				...current,
-				expanded,
-				rowSelection,
-			};
-		});
-	}, [
-		controlledState?.expanded,
-		controlledState?.rowSelection,
-		knownRowIdSet,
-		selectionMode,
-	]);
+	const pageCount =
+		totalItemCount > 0
+			? Math.ceil(totalItemCount / sanitizedState.pagination.pageSize)
+			: 0;
 
 	const table = useReactTable<TItem>({
-		data: [...data],
+		data: data as TItem[],
 		columns: tableColumns,
 		state: {
-			sorting: state.sorting as SortingState,
-			pagination: state.pagination as PaginationState,
-			columnVisibility: state.columnVisibility as VisibilityState,
-			columnSizing: state.columnSizing as ColumnSizingState,
-			columnPinning: state.columnPinning,
-			expanded: state.expanded as ExpandedState,
-			rowSelection: state.rowSelection as RowSelectionState,
+			sorting: sanitizedState.sorting as SortingState,
+			pagination: sanitizedState.pagination as PaginationState,
+			columnVisibility: sanitizedState.columnVisibility as VisibilityState,
+			columnSizing: sanitizedState.columnSizing as ColumnSizingState,
+			columnPinning: sanitizedState.columnPinning,
+			expanded: sanitizedState.expanded as ExpandedState,
+			rowSelection: sanitizedState.rowSelection as RowSelectionState,
 		},
 		getRowId: (item, rowIndex) =>
 			getRowId?.(item, rowIndex) ?? getTableRowId(item, rowIndex),
@@ -198,6 +256,10 @@ export function useContractTable<TItem>({
 		enableMultiRowSelection: selectionMode === 'multiple',
 		manualSorting: executionMode === 'server',
 		manualPagination: executionMode === 'server',
+		autoResetExpanded: false,
+		autoResetPageIndex: false,
+		pageCount: executionMode === 'server' ? pageCount : undefined,
+		rowCount: executionMode === 'server' ? totalItemCount : undefined,
 		onSortingChange: (updater) =>
 			updateTableState('sorting', updater as SortingState),
 		onPaginationChange: (updater) =>
@@ -227,16 +289,28 @@ export function useContractTable<TItem>({
 			executionMode === 'client' ? getPaginationRowModel() : undefined,
 	});
 
-	const allColumns = React.useMemo(() => createRenderColumns(table), [table]);
+	const allColumns = React.useMemo(
+		() => createRenderColumns(table),
+		[
+			sanitizedState.columnPinning,
+			sanitizedState.columnSizing,
+			sanitizedState.columnVisibility,
+			sanitizedState.sorting,
+			table,
+		]
+	);
 	const rows = React.useMemo(
 		() => createRenderRows(table, renderExpandedContent),
-		[renderExpandedContent, table]
+		[
+			data,
+			renderExpandedContent,
+			sanitizedState.expanded,
+			sanitizedState.pagination,
+			sanitizedState.rowSelection,
+			sanitizedState.sorting,
+			table,
+		]
 	);
-
-	const totalItemCount =
-		executionMode === 'server'
-			? (totalItems ?? data.length)
-			: table.getPrePaginationRowModel().rows.length;
 
 	return {
 		executionMode,
@@ -244,7 +318,7 @@ export function useContractTable<TItem>({
 		columns: allColumns,
 		visibleColumns: allColumns.filter((column) => column.visible),
 		rows,
-		selectedRowIds: Object.entries(state.rowSelection)
+		selectedRowIds: Object.entries(sanitizedState.rowSelection)
 			.filter(([, selected]) => selected)
 			.map(([id]) => id),
 		allRowsSelected:
@@ -255,12 +329,9 @@ export function useContractTable<TItem>({
 			selectionMode === 'multiple'
 				? (next?: boolean) => table.toggleAllPageRowsSelected(next)
 				: undefined,
-		pageIndex: state.pagination.pageIndex,
-		pageSize: state.pagination.pageSize,
-		pageCount:
-			totalItemCount > 0
-				? Math.ceil(totalItemCount / state.pagination.pageSize)
-				: 0,
+		pageIndex: sanitizedState.pagination.pageIndex,
+		pageSize: sanitizedState.pagination.pageSize,
+		pageCount,
 		totalItems: totalItemCount,
 		canNextPage: table.getCanNextPage(),
 		canPreviousPage: table.getCanPreviousPage(),

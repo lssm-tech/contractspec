@@ -1,6 +1,10 @@
 'use client';
 
-import { Button, CodeBlock } from '@contractspec/lib.design-system';
+import {
+	Button,
+	CodeBlock,
+	DataTableToolbar,
+} from '@contractspec/lib.design-system';
 import type { ContractTableController } from '@contractspec/lib.presentation-runtime-react';
 import { Badge } from '@contractspec/lib.ui-kit-web/ui/badge';
 import { HStack, VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
@@ -75,6 +79,11 @@ export function ShowcaseToolbar({
 	toggleColumnId,
 	pinColumnId,
 	sortColumnIds,
+	searchValue,
+	onSearchChange,
+	activeChips,
+	onClearAll,
+	filterActions,
 	onAction,
 }: {
 	controller: ContractTableController<ShowcaseRow, React.ReactNode>;
@@ -83,6 +92,15 @@ export function ShowcaseToolbar({
 	toggleColumnId: string;
 	pinColumnId: string;
 	sortColumnIds: [string, string];
+	searchValue?: string;
+	onSearchChange?: (value: string) => void;
+	activeChips?: {
+		key: string;
+		label: React.ReactNode;
+		onRemove?: () => void;
+	}[];
+	onClearAll?: () => void;
+	filterActions?: React.ReactNode;
 	onAction?: (message: string) => void;
 }) {
 	const firstRow = controller.rows[0];
@@ -111,116 +129,128 @@ export function ShowcaseToolbar({
 	);
 
 	return (
-		<HStack gap="sm" className="flex-wrap">
-			<Badge variant="outline">{label}</Badge>
-			<Text className="text-muted-foreground text-sm">
-				Selected {controller.selectedRowIds.length}
-			</Text>
-			<Button
-				variant="outline"
-				size="sm"
-				onPress={() =>
-					runAction('toggled first-row selection', () =>
-						firstRow?.toggleSelected?.(!firstRow?.isSelected)
-					)
-				}
-			>
-				Select First Row
-			</Button>
-			<Button
-				variant="outline"
-				size="sm"
-				onPress={() =>
-					runAction('toggled first-row expansion', () =>
-						firstRow?.toggleExpanded?.(!firstRow?.isExpanded)
-					)
-				}
-			>
-				Expand First Row
-			</Button>
-			<Button
-				variant="outline"
-				size="sm"
-				onPress={() =>
-					runAction(
-						toggleColumn?.visible
-							? 'hid the notes column'
-							: 'showed the notes column',
-						() => toggleColumn?.toggleVisibility?.(!toggleColumn?.visible)
-					)
-				}
-			>
-				{toggleColumn?.visible ? 'Hide Notes Column' : 'Show Notes Column'}
-			</Button>
-			<Button
-				variant="outline"
-				size="sm"
-				onPress={() =>
-					runAction('pinned owner left', () => pinColumn?.pin?.('left'))
-				}
-			>
-				Pin Owner Left
-			</Button>
-			<Button
-				variant="outline"
-				size="sm"
-				onPress={() =>
-					runAction('pinned owner right', () => pinColumn?.pin?.('right'))
-				}
-			>
-				Pin Owner Right
-			</Button>
-			<Button
-				variant="outline"
-				size="sm"
-				onPress={() =>
-					runAction('cleared owner pinning', () => pinColumn?.pin?.(false))
-				}
-			>
-				Unpin Owner
-			</Button>
-			<Button
-				variant="outline"
-				size="sm"
-				onPress={() =>
-					runAction(
-						`toggled sorting for ${firstSortColumn?.label ?? sortColumnIds[0]}`,
-						() => firstSortColumn?.toggleSorting?.()
-					)
-				}
-			>
-				Toggle ARR Sort
-			</Button>
-			<Button
-				variant="outline"
-				size="sm"
-				onPress={() =>
-					runAction(
-						`toggled sorting for ${secondSortColumn?.label ?? sortColumnIds[1]}`,
-						() => secondSortColumn?.toggleSorting?.()
-					)
-				}
-			>
-				Toggle Renewal Sort
-			</Button>
-			<Button
-				variant="outline"
-				size="sm"
-				onPress={() =>
-					runAction('widened the account column', () =>
-						primaryColumn?.resizeBy?.(40)
-					)
-				}
-			>
-				Widen Account
-			</Button>
-			<Text className="text-muted-foreground text-xs">
-				Account width {primaryColumn?.size ?? 0}px
-			</Text>
-			<Text className="text-muted-foreground text-xs">
-				Pin state {String(pinColumn?.pinState || 'none')}
-			</Text>
-		</HStack>
+		<DataTableToolbar
+			controller={controller}
+			searchPlaceholder="Search accounts, owners, regions, or notes"
+			searchValue={searchValue}
+			onSearchChange={onSearchChange}
+			activeChips={activeChips}
+			onClearAll={onClearAll}
+			actionsStart={
+				<HStack gap="sm" className="flex-wrap">
+					<Badge variant="outline">{label}</Badge>
+					<Button
+						variant="outline"
+						size="sm"
+						onPress={() =>
+							runAction('toggled first-row selection', () =>
+								firstRow?.toggleSelected?.(!firstRow?.isSelected)
+							)
+						}
+					>
+						Select First Row
+					</Button>
+					<Button
+						variant="outline"
+						size="sm"
+						onPress={() =>
+							runAction('toggled first-row expansion', () =>
+								firstRow?.toggleExpanded?.(!firstRow?.isExpanded)
+							)
+						}
+					>
+						Expand First Row
+					</Button>
+					<Button
+						variant="outline"
+						size="sm"
+						onPress={() =>
+							runAction(
+								toggleColumn?.visible
+									? 'hid the notes column'
+									: 'showed the notes column',
+								() => toggleColumn?.toggleVisibility?.(!toggleColumn?.visible)
+							)
+						}
+					>
+						{toggleColumn?.visible ? 'Hide Notes Column' : 'Show Notes Column'}
+					</Button>
+					<Button
+						variant="outline"
+						size="sm"
+						onPress={() =>
+							runAction('pinned owner left', () => pinColumn?.pin?.('left'))
+						}
+					>
+						Pin Owner Left
+					</Button>
+					<Button
+						variant="outline"
+						size="sm"
+						onPress={() =>
+							runAction('pinned owner right', () => pinColumn?.pin?.('right'))
+						}
+					>
+						Pin Owner Right
+					</Button>
+					<Button
+						variant="outline"
+						size="sm"
+						onPress={() =>
+							runAction('cleared owner pinning', () => pinColumn?.pin?.(false))
+						}
+					>
+						Unpin Owner
+					</Button>
+					<Button
+						variant="outline"
+						size="sm"
+						onPress={() =>
+							runAction(
+								`toggled sorting for ${firstSortColumn?.label ?? sortColumnIds[0]}`,
+								() => firstSortColumn?.toggleSorting?.()
+							)
+						}
+					>
+						Toggle ARR Sort
+					</Button>
+					<Button
+						variant="outline"
+						size="sm"
+						onPress={() =>
+							runAction(
+								`toggled sorting for ${secondSortColumn?.label ?? sortColumnIds[1]}`,
+								() => secondSortColumn?.toggleSorting?.()
+							)
+						}
+					>
+						Toggle Renewal Sort
+					</Button>
+					<Button
+						variant="outline"
+						size="sm"
+						onPress={() =>
+							runAction('widened the account column', () =>
+								primaryColumn?.resizeBy?.(40)
+							)
+						}
+					>
+						Widen Account
+					</Button>
+					{filterActions}
+				</HStack>
+			}
+			actionsEnd={
+				<>
+					<Text className="text-muted-foreground text-xs">
+						Account width {primaryColumn?.size ?? 0}px
+					</Text>
+					<Text className="text-muted-foreground text-xs">
+						Pin state {String(pinColumn?.pinState || 'none')}
+					</Text>
+				</>
+			}
+		/>
 	);
 }
 
@@ -372,15 +402,13 @@ export function NativePrimitivePanel() {
 	);
 }
 
-const NATIVE_PRIMITIVE_CODE = `import { DataTable } from "@contractspec/lib.ui-kit/ui/data-table";
+const NATIVE_PRIMITIVE_CODE = `import { DataTableToolbar } from "@contractspec/lib.design-system";
+import { DataTable } from "@contractspec/lib.ui-kit/ui/data-table";
 import { useContractTable } from "@contractspec/lib.presentation-runtime-react";
 
 import { SHOWCASE_ROWS } from "./data-grid-showcase.data";
 import { useShowcaseColumns } from "./data-grid-showcase.columns";
-import {
-  ExpandedRowContent,
-  ShowcaseToolbar,
-} from "./data-grid-showcase.parts";
+import { ExpandedRowContent } from "./data-grid-showcase.parts";
 
 export function NativePrimitiveTable() {
   const columns = useShowcaseColumns();
@@ -403,13 +431,9 @@ export function NativePrimitiveTable() {
     <DataTable
       controller={controller}
       toolbar={
-        <ShowcaseToolbar
+        <DataTableToolbar
           controller={controller}
-          label="Native primitive"
-          primaryColumnId="account"
-          toggleColumnId="notes"
-          pinColumnId="owner"
-          sortColumnIds={["arr", "renewalDate"]}
+          searchPlaceholder="Search accounts"
         />
       }
       footer={\`Rows \${controller.rows.length}\`}

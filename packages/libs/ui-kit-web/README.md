@@ -113,6 +113,11 @@ export function WebAccountGrid() {
 }
 ```
 
+Use the web primitive when you want direct control over the render surface.
+For higher-level search, active chips, selection summary, and hidden-column
+recovery, keep this primitive lean and layer
+`@contractspec/lib.design-system` `DataTableToolbar` into the `toolbar` slot.
+
 ## API map
 
 ### Controls and forms

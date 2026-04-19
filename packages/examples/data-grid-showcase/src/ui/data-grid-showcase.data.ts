@@ -111,6 +111,8 @@ export interface ShowcaseServerInput {
 	pageSize: number;
 	sorting: ContractTableSort[];
 	empty?: boolean;
+	search?: string;
+	status?: ShowcaseStatus | 'all';
 }
 
 export interface ShowcaseServerResult {
@@ -138,6 +140,29 @@ function getSortValue(row: ShowcaseRow, sortId?: string) {
 	}
 }
 
+export function filterShowcaseRows(
+	rows: readonly ShowcaseRow[],
+	input: {
+		search?: string;
+		status?: ShowcaseStatus | 'all';
+	}
+) {
+	const normalizedSearch = input.search?.trim().toLowerCase() ?? '';
+	return rows.filter((row) => {
+		const matchesStatus =
+			!input.status || input.status === 'all'
+				? true
+				: row.status === input.status;
+		const matchesSearch =
+			!normalizedSearch ||
+			[row.account, row.owner, row.region, row.notes]
+				.join(' ')
+				.toLowerCase()
+				.includes(normalizedSearch);
+		return matchesStatus && matchesSearch;
+	});
+}
+
 export async function fetchShowcaseRows(
 	input: ShowcaseServerInput
 ): Promise<ShowcaseServerResult> {
@@ -150,13 +175,15 @@ export async function fetchShowcaseRows(
 	}
 
 	const [sort] = input.sorting;
-	const sorted = [...SHOWCASE_ROWS].sort((left, right) => {
-		const leftValue = getSortValue(left, sort?.id);
-		const rightValue = getSortValue(right, sort?.id);
-		if (leftValue === rightValue) return 0;
-		const comparison = leftValue > rightValue ? 1 : -1;
-		return sort?.desc ? comparison * -1 : comparison;
-	});
+	const sorted = filterShowcaseRows(SHOWCASE_ROWS, input).sort(
+		(left, right) => {
+			const leftValue = getSortValue(left, sort?.id);
+			const rightValue = getSortValue(right, sort?.id);
+			if (leftValue === rightValue) return 0;
+			const comparison = leftValue > rightValue ? 1 : -1;
+			return sort?.desc ? comparison * -1 : comparison;
+		}
+	);
 	const start = input.pageIndex * input.pageSize;
 	const items = sorted.slice(start, start + input.pageSize);
 
@@ -164,6 +191,6 @@ export async function fetchShowcaseRows(
 
 	return {
 		items,
-		total: SHOWCASE_ROWS.length,
+		total: sorted.length,
 	};
 }

@@ -45,7 +45,7 @@ export function useDealList(options: UseDealListOptions = {}) {
 	const pageIndex = options.pageIndex ?? internalPage;
 	const pageSize = options.pageSize ?? options.limit ?? 50;
 	const [sort] = options.sorting ?? [];
-	const sortBy = sort?.id;
+	const sortBy = sort?.id === 'deal' ? 'name' : sort?.id;
 	const sortDirection = sort ? (sort.desc ? 'desc' : 'asc') : undefined;
 
 	const fetchData = useCallback(async () => {

@@ -5,7 +5,11 @@ import * as React from 'react';
 import { act } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 import { DataTable } from './data-table';
-import { ResizeHandle } from './data-table.parts';
+import {
+	canHideDataColumn,
+	ResizeHandle,
+	showAllColumns,
+} from './data-table.parts';
 
 beforeAll(() => {
 	const windowInstance = new Window({
@@ -15,16 +19,28 @@ beforeAll(() => {
 		value: SyntaxError,
 		configurable: true,
 	});
+	const encodeURIComponentFromGlobal =
+		globalThis.encodeURIComponent.bind(globalThis);
+	const decodeURIComponentFromGlobal =
+		globalThis.decodeURIComponent.bind(globalThis);
+	Object.assign(windowInstance, {
+		encodeURIComponent: encodeURIComponentFromGlobal,
+		decodeURIComponent: decodeURIComponentFromGlobal,
+	});
 	Object.assign(globalThis, {
 		window: windowInstance,
 		document: windowInstance.document,
 		navigator: windowInstance.navigator,
+		location: windowInstance.location,
 		HTMLElement: windowInstance.HTMLElement,
 		HTMLButtonElement: windowInstance.HTMLButtonElement,
 		Node: windowInstance.Node,
 		Event: windowInstance.Event,
 		MouseEvent: windowInstance.MouseEvent,
+		KeyboardEvent: windowInstance.KeyboardEvent,
+		PointerEvent: windowInstance.PointerEvent ?? windowInstance.MouseEvent,
 		MutationObserver: windowInstance.MutationObserver,
+		DocumentFragment: windowInstance.DocumentFragment,
 		getComputedStyle: windowInstance.getComputedStyle.bind(windowInstance),
 		requestAnimationFrame: (callback: FrameRequestCallback) =>
 			setTimeout(() => callback(Date.now()), 0),
@@ -120,13 +136,29 @@ function WideTableHarness({
 	);
 }
 
-function renderTable(onRowPress?: (rowId: string) => void) {
+function renderTable({
+	onRowPress,
+	onController,
+	initialSortingDesc,
+}: {
+	onRowPress?: (rowId: string) => void;
+	onController?: (
+		controller: ReturnType<typeof useContractTable<(typeof ROWS)[number]>>
+	) => void;
+	initialSortingDesc?: boolean;
+} = {}) {
 	const container = document.createElement('div');
 	document.body.append(container);
 	const root: Root = createRoot(container);
 
 	act(() => {
-		root.render(<WideTableHarness onRowPress={onRowPress} />);
+		root.render(
+			<WideTableHarness
+				onRowPress={onRowPress}
+				onController={onController}
+				initialSortingDesc={initialSortingDesc}
+			/>
+		);
 	});
 
 	return { container, root };
@@ -144,7 +176,9 @@ function click(element: Element | null) {
 describe('ui-kit-web data-table', () => {
 	test('keeps row-local controls isolated from row press', async () => {
 		const rowPresses: string[] = [];
-		const { container, root } = renderTable((rowId) => rowPresses.push(rowId));
+		const { container, root } = renderTable({
+			onRowPress: (rowId) => rowPresses.push(rowId),
+		});
 
 		click(container.querySelector('[aria-label="Select row row-1"]'));
 		click(container.querySelector('[aria-label="Expand row row-1"]'));
@@ -162,14 +196,48 @@ describe('ui-kit-web data-table', () => {
 		});
 	});
 
-	test('updates aria-sort and can reset hidden columns', async () => {
-		const container = document.createElement('div');
-		document.body.append(container);
-		const root: Root = createRoot(container);
+	test('supports keyboard row activation without leaking from nested controls', async () => {
+		const rowPresses: string[] = [];
+		const { container, root } = renderTable({
+			onRowPress: (rowId) => rowPresses.push(rowId),
+		});
+
+		const row = Array.from(container.querySelectorAll('tr')).find((candidate) =>
+			candidate.textContent?.includes('Account 1')
+		);
+		if (!row) {
+			throw new Error('Expected data row to exist.');
+		}
 
 		act(() => {
-			root.render(<WideTableHarness />);
+			row.dispatchEvent(
+				new window.KeyboardEvent('keydown', {
+					bubbles: true,
+					cancelable: true,
+					key: 'Enter',
+				})
+			);
 		});
+
+		act(() => {
+			container.querySelector('[aria-label="Select row row-1"]')?.dispatchEvent(
+				new window.KeyboardEvent('keydown', {
+					bubbles: true,
+					cancelable: true,
+					key: ' ',
+				})
+			);
+		});
+
+		expect(rowPresses).toEqual(['row-1']);
+
+		act(() => {
+			root.unmount();
+		});
+	});
+
+	test('updates aria-sort and can reset hidden columns', async () => {
+		const { container, root } = renderTable();
 
 		expect(container.querySelector('th[aria-sort="ascending"]')).not.toBeNull();
 		act(() => {
@@ -210,6 +278,114 @@ describe('ui-kit-web data-table', () => {
 		});
 	});
 
+	test('prevents hiding the last visible data column and restores hidden columns', async () => {
+		const accountToggles: boolean[] = [];
+		const statusToggles: boolean[] = [];
+		const notesToggles: boolean[] = [];
+		const columns = [
+			{
+				id: 'account',
+				kind: 'data' as const,
+				header: 'Account',
+				label: 'Account',
+				align: 'left' as const,
+				size: 160,
+				pinState: false as const,
+				canSort: true,
+				sortDirection: false as const,
+				canHide: true,
+				visible: true,
+				canPin: true,
+				canResize: true,
+				isResizing: false,
+				toggleVisibility: (next?: boolean) => {
+					accountToggles.push(Boolean(next));
+				},
+			},
+			{
+				id: 'status',
+				kind: 'data' as const,
+				header: 'Status',
+				label: 'Status',
+				align: 'left' as const,
+				size: 160,
+				pinState: 'left' as const,
+				canSort: true,
+				sortDirection: false as const,
+				canHide: true,
+				visible: false,
+				canPin: true,
+				canResize: true,
+				isResizing: false,
+				toggleVisibility: (next?: boolean) => {
+					statusToggles.push(Boolean(next));
+				},
+				pin: () => void 0,
+			},
+			{
+				id: 'notes',
+				kind: 'data' as const,
+				header: 'Notes',
+				label: 'Notes',
+				align: 'left' as const,
+				size: 160,
+				pinState: false as const,
+				canSort: false,
+				sortDirection: false as const,
+				canHide: true,
+				visible: false,
+				canPin: true,
+				canResize: true,
+				isResizing: false,
+				toggleVisibility: (next?: boolean) => {
+					notesToggles.push(Boolean(next));
+				},
+			},
+		];
+
+		expect(canHideDataColumn(columns, columns[0]!)).toBe(false);
+		showAllColumns(columns);
+
+		expect(accountToggles).toEqual([true]);
+		expect(statusToggles).toEqual([true]);
+		expect(notesToggles).toEqual([true]);
+	});
+
+	test('handles repeated resize and visibility churn on wide tables without throwing', async () => {
+		let controllerRef:
+			| ReturnType<typeof useContractTable<(typeof ROWS)[number]>>
+			| undefined;
+		const { root } = renderTable({
+			onController: (controller) => {
+				controllerRef = controller;
+			},
+		});
+
+		expect(() => {
+			act(() => {
+				for (let index = 0; index < 12; index += 1) {
+					controllerRef?.columns
+						.find((column) => column.id === 'account')
+						?.resizeBy?.(4);
+					controllerRef?.columns
+						.find((column) => column.id === 'status')
+						?.toggleVisibility?.(index % 2 === 0);
+					controllerRef?.columns
+						.find((column) => column.id === 'notes')
+						?.toggleVisibility?.(index % 3 === 0);
+				}
+			});
+		}).not.toThrow();
+
+		expect(
+			controllerRef?.visibleColumns.some((column) => column.id === 'account')
+		).toBe(true);
+
+		act(() => {
+			root.unmount();
+		});
+	});
+
 	test('does not leak resize listeners after unmount', async () => {
 		const container = document.createElement('div');
 		document.body.append(container);
@@ -243,7 +419,7 @@ describe('ui-kit-web data-table', () => {
 
 		act(() => {
 			resizeHandle?.dispatchEvent(
-				new window.MouseEvent('mousedown', {
+				new window.PointerEvent('pointerdown', {
 					bubbles: true,
 					cancelable: true,
 					clientX: 40,
@@ -257,14 +433,17 @@ describe('ui-kit-web data-table', () => {
 
 		expect(() => {
 			window.dispatchEvent(
-				new window.MouseEvent('mousemove', {
+				new window.PointerEvent('pointermove', {
 					bubbles: true,
 					cancelable: true,
 					clientX: 100,
 				})
 			);
 			window.dispatchEvent(
-				new window.MouseEvent('mouseup', { bubbles: true, cancelable: true })
+				new window.PointerEvent('pointerup', {
+					bubbles: true,
+					cancelable: true,
+				})
 			);
 		}).not.toThrow();
 	});

@@ -44,6 +44,26 @@ export function DataTable<TItem>({
 	loading,
 	onRowPress,
 }: DataTableProps<TItem>) {
+	const handleRowKeyDown = React.useCallback(
+		(
+			event: React.KeyboardEvent<HTMLTableRowElement>,
+			row: ContractTableRowRenderModel<TItem, React.ReactNode>
+		) => {
+			if (!onRowPress || (event.key !== 'Enter' && event.key !== ' ')) return;
+			if (
+				event.target instanceof HTMLElement &&
+				event.target.closest(
+					'button, a, input, select, textarea, [role="checkbox"], [role="separator"]'
+				)
+			) {
+				return;
+			}
+			event.preventDefault();
+			onRowPress(row);
+		},
+		[onRowPress]
+	);
+
 	return (
 		<div className={cn('space-y-3', className)}>
 			<div
@@ -120,8 +140,14 @@ export function DataTable<TItem>({
 										<React.Fragment key={row.id}>
 											<TableRow
 												data-state={row.isSelected ? 'selected' : undefined}
-												className={onRowPress ? 'cursor-pointer' : undefined}
+												className={
+													onRowPress
+														? 'cursor-pointer focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring/50'
+														: undefined
+												}
 												onClick={() => onRowPress?.(row)}
+												onKeyDown={(event) => handleRowKeyDown(event, row)}
+												tabIndex={onRowPress ? 0 : undefined}
 											>
 												{controller.visibleColumns.map((column) => (
 													<TableCell

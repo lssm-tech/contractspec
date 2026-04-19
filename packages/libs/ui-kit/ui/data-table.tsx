@@ -15,6 +15,7 @@ import {
 	DropdownMenu,
 	DropdownMenuCheckboxItem,
 	DropdownMenuContent,
+	DropdownMenuItem,
 	DropdownMenuLabel,
 	DropdownMenuSeparator,
 	DropdownMenuTrigger,
@@ -180,7 +181,11 @@ function ColumnVisibilityMenu({
 }: {
 	columns: ContractTableController<unknown, React.ReactNode>['columns'];
 }) {
-	const hideableColumns = columns.filter((column) => column.canHide);
+	const dataColumns = columns.filter((column) => column.kind === 'data');
+	const hideableColumns = dataColumns.filter((column) => column.canHide);
+	const hiddenColumns = hideableColumns.filter((column) => !column.visible);
+	const visibleDataColumns = dataColumns.filter((column) => column.visible);
+	const hasPinnedColumns = dataColumns.some((column) => column.pinState);
 	if (!hideableColumns.length) return null;
 
 	return (
@@ -194,17 +199,56 @@ function ColumnVisibilityMenu({
 			<DropdownMenuContent>
 				<DropdownMenuLabel>Visible Columns</DropdownMenuLabel>
 				<DropdownMenuSeparator />
-				{hideableColumns.map((column) => (
-					<DropdownMenuCheckboxItem
-						key={column.id}
-						checked={column.visible}
-						onCheckedChange={(checked) =>
-							column.toggleVisibility?.(Boolean(checked))
-						}
-					>
-						<Text>{column.label}</Text>
-					</DropdownMenuCheckboxItem>
-				))}
+				{hideableColumns.map((column) => {
+					const isLastVisibleColumn =
+						column.visible && visibleDataColumns.length <= 1;
+					return (
+						<DropdownMenuCheckboxItem
+							key={column.id}
+							checked={column.visible}
+							disabled={isLastVisibleColumn}
+							onCheckedChange={(checked) => {
+								const nextVisible = Boolean(checked);
+								if (!nextVisible && isLastVisibleColumn) return;
+								column.toggleVisibility?.(nextVisible);
+							}}
+						>
+							<HStack justify="between" className="w-full">
+								<Text>{column.label}</Text>
+								{isLastVisibleColumn ? (
+									<Text className="text-muted-foreground text-xs">
+										Required
+									</Text>
+								) : null}
+							</HStack>
+						</DropdownMenuCheckboxItem>
+					);
+				})}
+				{hiddenColumns.length || hasPinnedColumns ? (
+					<>
+						<DropdownMenuSeparator />
+						{hiddenColumns.length ? (
+							<DropdownMenuItem
+								onPress={() =>
+									hideableColumns.forEach((column) =>
+										column.toggleVisibility?.(true)
+									)
+								}
+							>
+								<Text>Show All Columns</Text>
+							</DropdownMenuItem>
+						) : null}
+						{hasPinnedColumns ? (
+							<DropdownMenuItem
+								onPress={() =>
+									dataColumns.forEach((column) => column.pin?.(false))
+								}
+							>
+								<Text>Reset Pins</Text>
+							</DropdownMenuItem>
+						) : null}
+					</>
+				) : null}
 			</DropdownMenuContent>
 		</DropdownMenu>
 	);
@@ -222,9 +266,16 @@ function ResizeHandle({
 			onGestureEvent={(event) => {
 				const delta = event.nativeEvent.translationX - lastTranslation.current;
 				lastTranslation.current = event.nativeEvent.translationX;
+				if (!Number.isFinite(delta) || delta === 0) return;
 				column.resizeBy?.(delta);
 			}}
 			onEnded={() => {
+				lastTranslation.current = 0;
+			}}
+			onCancelled={() => {
+				lastTranslation.current = 0;
+			}}
+			onFailed={() => {
 				lastTranslation.current = 0;
 			}}
 		>

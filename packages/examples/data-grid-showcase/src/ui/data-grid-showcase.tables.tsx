@@ -1,6 +1,6 @@
 'use client';
 
-import { DataTable } from '@contractspec/lib.design-system';
+import { Button, DataTable } from '@contractspec/lib.design-system';
 import type { ContractTableSort } from '@contractspec/lib.presentation-runtime-core';
 import {
 	useContractTable,
@@ -19,8 +19,10 @@ import { DataGridShowcaseDataView } from '../contracts/data-grid-showcase.data-v
 import { useShowcaseColumns } from './data-grid-showcase.columns';
 import {
 	fetchShowcaseRows,
+	filterShowcaseRows,
 	SHOWCASE_ROWS,
 	type ShowcaseRow,
+	type ShowcaseStatus,
 } from './data-grid-showcase.data';
 import {
 	ExpandedRowContent,
@@ -40,6 +42,53 @@ function logRowPress(
 	onEvent?.(`${label}: pressed row "${row.account}" (${row.status})`);
 }
 
+function buildStatusFilterActions({
+	value,
+	onChange,
+	onEvent,
+	label,
+}: {
+	value: ShowcaseStatus | 'all';
+	onChange: (value: ShowcaseStatus | 'all') => void;
+	onEvent?: (message: string) => void;
+	label: string;
+}) {
+	return (
+		<>
+			<Button
+				variant={value === 'all' ? 'secondary' : 'outline'}
+				size="sm"
+				onPress={() => {
+					onChange('all');
+					onEvent?.(`${label}: reset status filter`);
+				}}
+			>
+				All Statuses
+			</Button>
+			<Button
+				variant={value === 'attention' ? 'secondary' : 'outline'}
+				size="sm"
+				onPress={() => {
+					onChange('attention');
+					onEvent?.(`${label}: filtered to attention accounts`);
+				}}
+			>
+				Attention Only
+			</Button>
+			<Button
+				variant={value === 'risk' ? 'secondary' : 'outline'}
+				size="sm"
+				onPress={() => {
+					onChange('risk');
+					onEvent?.(`${label}: filtered to risk accounts`);
+				}}
+			>
+				Risk Only
+			</Button>
+		</>
+	);
+}
+
 export function ClientModeTable({
 	onEvent,
 }: {
@@ -48,7 +97,20 @@ export function ClientModeTable({
 	const columns = useShowcaseColumns();
 	const [loading, setLoading] = React.useState(false);
 	const [showEmpty, setShowEmpty] = React.useState(false);
-	const rows = showEmpty ? [] : SHOWCASE_ROWS;
+	const [search, setSearch] = React.useState('');
+	const [statusFilter, setStatusFilter] = React.useState<
+		ShowcaseStatus | 'all'
+	>('all');
+	const rows = React.useMemo(
+		() =>
+			showEmpty
+				? []
+				: filterShowcaseRows(SHOWCASE_ROWS, {
+						search,
+						status: statusFilter,
+					}),
+		[search, showEmpty, statusFilter]
+	);
 	const controller = useContractTable<ShowcaseRow>({
 		data: rows,
 		columns,
@@ -84,6 +146,8 @@ export function ClientModeTable({
 					onReset={() => {
 						setLoading(false);
 						setShowEmpty(false);
+						setSearch('');
+						setStatusFilter('all');
 						onEvent?.('Client: reset header actions');
 					}}
 				/>
@@ -102,6 +166,30 @@ export function ClientModeTable({
 					toggleColumnId="notes"
 					pinColumnId="owner"
 					sortColumnIds={['arr', 'renewalDate']}
+					searchValue={search}
+					onSearchChange={setSearch}
+					activeChips={
+						statusFilter === 'all'
+							? []
+							: [
+									{
+										key: 'status',
+										label: `Status: ${statusFilter}`,
+										onRemove: () => setStatusFilter('all'),
+									},
+								]
+					}
+					onClearAll={() => {
+						setSearch('');
+						setStatusFilter('all');
+						onEvent?.('Client: cleared search and filters');
+					}}
+					filterActions={buildStatusFilterActions({
+						value: statusFilter,
+						onChange: setStatusFilter,
+						onEvent,
+						label: 'Client',
+					})}
 					onAction={onEvent}
 				/>
 			}
@@ -129,6 +217,10 @@ export function ServerModeTable({
 	const [loading, setLoading] = React.useState(true);
 	const [showEmpty, setShowEmpty] = React.useState(false);
 	const [forceLoading, setForceLoading] = React.useState(false);
+	const [search, setSearch] = React.useState('');
+	const [statusFilter, setStatusFilter] = React.useState<
+		ShowcaseStatus | 'all'
+	>('all');
 
 	React.useEffect(() => {
 		let active = true;
@@ -138,6 +230,8 @@ export function ServerModeTable({
 			pageSize: pagination.pageSize,
 			sorting,
 			empty: showEmpty,
+			search,
+			status: statusFilter,
 		}).then((result) => {
 			if (!active) return;
 			setRows(result.items);
@@ -147,7 +241,14 @@ export function ServerModeTable({
 		return () => {
 			active = false;
 		};
-	}, [pagination.pageIndex, pagination.pageSize, showEmpty, sorting]);
+	}, [
+		pagination.pageIndex,
+		pagination.pageSize,
+		search,
+		showEmpty,
+		sorting,
+		statusFilter,
+	]);
 
 	const controller = useContractTable<ShowcaseRow>({
 		data: rows,
@@ -191,6 +292,8 @@ export function ServerModeTable({
 					onReset={() => {
 						setForceLoading(false);
 						setShowEmpty(false);
+						setSearch('');
+						setStatusFilter('all');
 						setSorting([{ id: 'arr', desc: true }]);
 						setPagination({ pageIndex: 0, pageSize: 3 });
 						onEvent?.('Server: reset controller state');
@@ -211,6 +314,43 @@ export function ServerModeTable({
 					toggleColumnId="notes"
 					pinColumnId="owner"
 					sortColumnIds={['arr', 'renewalDate']}
+					searchValue={search}
+					onSearchChange={(value) => {
+						setSearch(value);
+						setPagination((current) => ({ ...current, pageIndex: 0 }));
+					}}
+					activeChips={
+						statusFilter === 'all'
+							? []
+							: [
+									{
+										key: 'status',
+										label: `Status: ${statusFilter}`,
+										onRemove: () => {
+											setStatusFilter('all');
+											setPagination((current) => ({
+												...current,
+												pageIndex: 0,
+											}));
+										},
+									},
+								]
+					}
+					onClearAll={() => {
+						setSearch('');
+						setStatusFilter('all');
+						setPagination((current) => ({ ...current, pageIndex: 0 }));
+						onEvent?.('Server: cleared search and filters');
+					}}
+					filterActions={buildStatusFilterActions({
+						value: statusFilter,
+						onChange: (value) => {
+							setStatusFilter(value);
+							setPagination((current) => ({ ...current, pageIndex: 0 }));
+						},
+						onEvent,
+						label: 'Server',
+					})}
 					onAction={onEvent}
 				/>
 			}
@@ -227,7 +367,20 @@ export function DataViewModeTable({
 }) {
 	const [loading, setLoading] = React.useState(false);
 	const [showEmpty, setShowEmpty] = React.useState(false);
-	const rows = showEmpty ? [] : SHOWCASE_ROWS;
+	const [search, setSearch] = React.useState('');
+	const [statusFilter, setStatusFilter] = React.useState<
+		ShowcaseStatus | 'all'
+	>('all');
+	const rows = React.useMemo(
+		() =>
+			showEmpty
+				? []
+				: filterShowcaseRows(SHOWCASE_ROWS, {
+						search,
+						status: statusFilter,
+					}),
+		[search, showEmpty, statusFilter]
+	);
 	const controller = useDataViewTable<ShowcaseRow>({
 		spec: DataGridShowcaseDataView,
 		data: rows,
@@ -270,6 +423,8 @@ export function DataViewModeTable({
 					onReset={() => {
 						setLoading(false);
 						setShowEmpty(false);
+						setSearch('');
+						setStatusFilter('all');
 						onEvent?.('DataView: reset header actions');
 					}}
 				/>
@@ -288,6 +443,30 @@ export function DataViewModeTable({
 					toggleColumnId="notes"
 					pinColumnId="owner"
 					sortColumnIds={['arr', 'renewalDate']}
+					searchValue={search}
+					onSearchChange={setSearch}
+					activeChips={
+						statusFilter === 'all'
+							? []
+							: [
+									{
+										key: 'status',
+										label: `Status: ${statusFilter}`,
+										onRemove: () => setStatusFilter('all'),
+									},
+								]
+					}
+					onClearAll={() => {
+						setSearch('');
+						setStatusFilter('all');
+						onEvent?.('DataView: cleared search and filters');
+					}}
+					filterActions={buildStatusFilterActions({
+						value: statusFilter,
+						onChange: setStatusFilter,
+						onEvent,
+						label: 'DataView',
+					})}
 					onAction={onEvent}
 				/>
 			}

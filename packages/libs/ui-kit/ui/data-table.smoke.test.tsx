@@ -1,7 +1,7 @@
 import { afterEach, beforeAll, describe, expect, mock, test } from 'bun:test';
 import { useContractTable } from '@contractspec/lib.presentation-runtime-react';
 import Window from 'happy-dom/lib/window/Window.js';
-import type * as React from 'react';
+import * as React from 'react';
 import { act } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
 
@@ -21,7 +21,30 @@ mock.module('react-native', () => ({
 	}) => <div {...props}>{children}</div>,
 }));
 mock.module('react-native-gesture-handler', () => ({
-	PanGestureHandler: ({ children }: { children: React.ReactNode }) => children,
+	PanGestureHandler: ({
+		children,
+		onGestureEvent,
+		onEnded,
+		onCancelled,
+	}: {
+		children: React.ReactNode;
+		onGestureEvent?: (event: { nativeEvent: { translationX: number } }) => void;
+		onEnded?: () => void;
+		onCancelled?: () => void;
+	}) => (
+		<div
+			data-gesture="true"
+			role="button"
+			tabIndex={-1}
+			onMouseMove={(event) =>
+				onGestureEvent?.({ nativeEvent: { translationX: event.clientX } })
+			}
+			onMouseUp={() => onEnded?.()}
+			onMouseLeave={() => onCancelled?.()}
+		>
+			{children}
+		</div>
+	),
 }));
 mock.module('lucide-react-native', () => ({
 	ChevronDown: () => <span>ChevronDown</span>,
@@ -126,15 +149,27 @@ mock.module('./dropdown-menu', () => ({
 		children,
 		onCheckedChange,
 		checked,
+		disabled,
 	}: {
 		children?: React.ReactNode;
 		onCheckedChange?: (checked: boolean) => void;
 		checked?: boolean;
+		disabled?: boolean;
 	}) => (
-		<button onClick={() => onCheckedChange?.(!Boolean(checked))}>
+		<button
+			disabled={disabled}
+			onClick={() => onCheckedChange?.(!Boolean(checked))}
+		>
 			{children}
 		</button>
 	),
+	DropdownMenuItem: ({
+		children,
+		onPress,
+	}: {
+		children?: React.ReactNode;
+		onPress?: () => void;
+	}) => <button onClick={() => onPress?.()}>{children}</button>,
 }));
 mock.module('./skeleton', () => ({
 	Skeleton: ({ ...props }: Record<string, unknown>) => <div {...props} />,
@@ -153,16 +188,26 @@ beforeAll(() => {
 		value: SyntaxError,
 		configurable: true,
 	});
+	const encodeURIComponentFromGlobal =
+		globalThis.encodeURIComponent.bind(globalThis);
+	const decodeURIComponentFromGlobal =
+		globalThis.decodeURIComponent.bind(globalThis);
+	Object.assign(windowInstance, {
+		encodeURIComponent: encodeURIComponentFromGlobal,
+		decodeURIComponent: decodeURIComponentFromGlobal,
+	});
 	Object.assign(globalThis, {
 		window: windowInstance,
 		document: windowInstance.document,
 		navigator: windowInstance.navigator,
+		location: windowInstance.location,
 		HTMLElement: windowInstance.HTMLElement,
 		HTMLButtonElement: windowInstance.HTMLButtonElement,
 		Node: windowInstance.Node,
 		Event: windowInstance.Event,
 		MouseEvent: windowInstance.MouseEvent,
 		MutationObserver: windowInstance.MutationObserver,
+		DocumentFragment: windowInstance.DocumentFragment,
 		getComputedStyle: windowInstance.getComputedStyle.bind(windowInstance),
 		requestAnimationFrame: (callback: FrameRequestCallback) =>
 			setTimeout(() => callback(Date.now()), 0),
@@ -194,7 +239,7 @@ function NativeTableHarness({
 				id: 'account',
 				header: 'Account',
 				accessorKey: 'account',
-				canHide: false,
+				canHide: true,
 				canResize: true,
 				canPin: true,
 			},
@@ -202,7 +247,7 @@ function NativeTableHarness({
 				id: 'status',
 				header: 'Status',
 				accessorKey: 'status',
-				canHide: false,
+				canHide: true,
 				canResize: true,
 				canPin: true,
 			},
@@ -234,13 +279,14 @@ async function renderTable(
 	await act(async () => {
 		root.render(<NativeTableHarness {...props} />);
 	});
+	await act(async () => {});
 
 	return { container, root };
 }
 
-function click(element: Element | null) {
+async function click(element: Element | null) {
 	if (!element) throw new Error('Expected element to exist.');
-	act(() => {
+	await act(async () => {
 		element.dispatchEvent(
 			new window.MouseEvent('click', { bubbles: true, cancelable: true })
 		);
@@ -254,14 +300,14 @@ describe('ui-kit data-table smoke', () => {
 			onRowPress: (rowId) => rowPresses.push(rowId),
 		});
 
-		click(container.querySelector('[aria-label="Select row acct-1"]'));
-		click(container.querySelector('[aria-label="Expand row acct-1"]'));
+		await click(container.querySelector('[aria-label="Select row acct-1"]'));
+		await click(container.querySelector('[aria-label="Expand row acct-1"]'));
 
 		expect(rowPresses).toEqual([]);
 		const dataRow = Array.from(container.querySelectorAll('[role="row"]')).find(
 			(row) => row.textContent?.includes('Northwind')
 		);
-		click(dataRow ?? null);
+		await click(dataRow ?? null);
 		expect(rowPresses).toEqual(['acct-1']);
 
 		act(() => {
@@ -273,6 +319,61 @@ describe('ui-kit data-table smoke', () => {
 		const { container, root } = await renderTable({ rows: [] });
 
 		expect(container.textContent).toContain('Native empty');
+
+		act(() => {
+			root.unmount();
+		});
+	});
+
+	test('keeps the last visible data column available and can restore hidden columns', async () => {
+		const { container, root } = await renderTable();
+
+		await click(
+			Array.from(container.querySelectorAll('button')).find(
+				(button) => button.textContent?.trim() === 'Status'
+			) ?? null
+		);
+		await act(async () => {});
+		const accountButton = Array.from(container.querySelectorAll('button')).find(
+			(button) => button.textContent?.includes('Account')
+		) as HTMLButtonElement | undefined;
+
+		expect(accountButton?.disabled).toBe(true);
+		await click(accountButton ?? null);
+		expect(accountButton?.disabled).toBe(true);
+
+		await click(
+			Array.from(container.querySelectorAll('button')).find((button) =>
+				button.textContent?.includes('Show All Columns')
+			) ?? null
+		);
+		await act(async () => {});
+		expect(accountButton?.disabled).toBe(false);
+
+		act(() => {
+			root.unmount();
+		});
+	});
+
+	test('resize gesture cleanup does not throw', async () => {
+		const { container, root } = await renderTable();
+		const gesture = container.querySelector('[data-gesture="true"]');
+
+		expect(() => {
+			gesture?.dispatchEvent(
+				new window.MouseEvent('mousemove', {
+					bubbles: true,
+					cancelable: true,
+					clientX: 48,
+				})
+			);
+			gesture?.dispatchEvent(
+				new window.MouseEvent('mouseleave', {
+					bubbles: true,
+					cancelable: true,
+				})
+			);
+		}).not.toThrow();
 
 		act(() => {
 			root.unmount();

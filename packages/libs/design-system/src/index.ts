@@ -34,6 +34,10 @@ export {
 	DataTable,
 	type DataTableProps,
 } from './components/data-table/DataTable';
+export {
+	DataTableToolbar,
+	type DataTableToolbarProps,
+} from './components/data-table/DataTableToolbar';
 export { DataViewDetail } from './components/data-view/DataViewDetail';
 export { DataViewList } from './components/data-view/DataViewList';
 export { DataViewRenderer } from './components/data-view/DataViewRenderer';
