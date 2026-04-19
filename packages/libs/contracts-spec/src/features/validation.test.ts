@@ -2,7 +2,12 @@ import { describe, expect, it } from 'bun:test';
 import { StabilityEnum } from '../ownership';
 import type { PresentationSpec } from '../presentations/presentations';
 import type { FeatureModuleSpec } from './types';
-import { validateFeatureTargetsV2 } from './validation';
+import {
+	assertFeatureSpecValid,
+	FeatureValidationError,
+	validateFeatureSpec,
+	validateFeatureTargetsV2,
+} from './validation';
 
 describe('validateFeatureTargetsV2', () => {
 	const createFeature = (
@@ -156,5 +161,105 @@ describe('validateFeatureTargetsV2', () => {
 		expect(() => validateFeatureTargetsV2(feature, descriptors)).toThrow(
 			/V2 descriptor not found test.presentation.v2.0.0/
 		);
+	});
+
+	it('validates an internally consistent feature', () => {
+		const result = validateFeatureSpec(
+			createFeature({
+				operations: [{ key: 'widgets.create', version: '1.0.0' }],
+				presentations: [{ key: 'widgets.editor', version: '1.0.0' }],
+				opToPresentation: [
+					{
+						op: { key: 'widgets.create', version: '1.0.0' },
+						pres: { key: 'widgets.editor', version: '1.0.0' },
+					},
+				],
+				presentationsTargets: [
+					{
+						key: 'widgets.editor',
+						version: '1.0.0',
+						targets: ['react'],
+					},
+				],
+			})
+		);
+
+		expect(result.valid).toBe(true);
+		expect(result.issues).toHaveLength(0);
+	});
+
+	it('warns when feature only declares metadata', () => {
+		const result = validateFeatureSpec(createFeature());
+		expect(result.valid).toBe(true);
+		expect(result.issues).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({ level: 'warning', path: 'meta' }),
+			])
+		);
+	});
+
+	it('reports duplicate refs and undeclared linked refs', () => {
+		const result = validateFeatureSpec(
+			createFeature({
+				operations: [
+					{ key: 'widgets.create', version: '1.0.0' },
+					{ key: 'widgets.create', version: '1.0.0' },
+				],
+				presentations: [{ key: 'widgets.editor', version: '1.0.0' }],
+				opToPresentation: [
+					{
+						op: { key: 'widgets.update', version: '1.0.0' },
+						pres: { key: 'widgets.editor', version: '1.0.0' },
+					},
+				],
+				presentationsTargets: [
+					{
+						key: 'widgets.editor',
+						version: '1.0.0',
+						targets: [],
+					},
+					{
+						key: 'widgets.editor',
+						version: '1.0.0',
+						targets: ['react'],
+					},
+				],
+			})
+		);
+
+		expect(result.valid).toBe(false);
+		expect(result.issues).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({ path: 'operations[1]', level: 'error' }),
+				expect.objectContaining({
+					path: 'opToPresentation[0].op',
+					level: 'error',
+				}),
+				expect.objectContaining({
+					path: 'presentationsTargets[0].targets',
+					level: 'error',
+				}),
+				expect.objectContaining({
+					path: 'presentationsTargets[1]',
+					level: 'error',
+				}),
+			])
+		);
+	});
+
+	it('throws FeatureValidationError for invalid features', () => {
+		expect(() =>
+			assertFeatureSpecValid(
+				createFeature({
+					presentationsTargets: [
+						{
+							key: 'widgets.editor',
+							version: '1.0.0',
+							targets: ['react'],
+						},
+					],
+				})
+			)
+		).toThrow(FeatureValidationError);
 	});
 });

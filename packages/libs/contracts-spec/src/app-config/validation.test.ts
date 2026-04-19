@@ -12,6 +12,10 @@ import type {
 	TenantAppConfig,
 } from './spec';
 import {
+	AppConfigValidationError,
+	assertBlueprintValid,
+	assertResolvedConfigValid,
+	assertTenantConfigValid,
 	type ValidationContext,
 	validateBlueprint,
 	validateResolvedConfig,
@@ -269,6 +273,82 @@ describe('validateResolvedConfig', () => {
 					path: 'integrations.payments.primary',
 				}),
 			])
+		);
+	});
+});
+
+describe('assert helpers', () => {
+	it('assertBlueprintValid does not throw for a valid blueprint', () => {
+		expect(() => assertBlueprintValid(baseBlueprint)).not.toThrow();
+	});
+
+	it('assertBlueprintValid throws for invalid blueprint', () => {
+		const duplicated: AppBlueprintSpec = {
+			...baseBlueprint,
+			integrationSlots: [
+				...(baseBlueprint.integrationSlots ?? []),
+				...(baseBlueprint.integrationSlots ?? []),
+			],
+		};
+
+		expect(() => assertBlueprintValid(duplicated)).toThrow(
+			AppConfigValidationError
+		);
+	});
+
+	it('assertTenantConfigValid throws for invalid tenant config', () => {
+		const tenant: TenantAppConfig = {
+			meta: {
+				id: 'cfg-2',
+				tenantId: 'tenant-a',
+				appId: 'example',
+				blueprintName: baseBlueprint.meta.key,
+				blueprintVersion: '1.0.0',
+				version: '1.0.0',
+				status: 'draft',
+			},
+			integrations: [],
+		};
+
+		expect(() => assertTenantConfigValid(baseBlueprint, tenant)).toThrow(
+			AppConfigValidationError
+		);
+	});
+
+	it('assertResolvedConfigValid throws for invalid resolved config', () => {
+		const resolved: ResolvedAppConfig = {
+			appId: 'example',
+			tenantId: 'tenant-a',
+			blueprintName: baseBlueprint.meta.key,
+			blueprintVersion: baseBlueprint.meta.version,
+			configVersion: '4.0.0',
+			capabilities: { enabled: [], disabled: [] },
+			features: { include: [], exclude: [] },
+			dataViews: {},
+			workflows: {},
+			jobs: {},
+			policies: [],
+			experiments: { catalog: [], active: [], paused: [] },
+			featureFlags: [],
+			routes: [],
+			integrations: [],
+			knowledge: [],
+			translation: {
+				defaultLocale: 'en',
+				supportedLocales: ['en'],
+				blueprintCatalog: baseBlueprint.translationCatalog,
+				tenantOverrides: [],
+			},
+			branding: {
+				appName: 'Example',
+				assets: {},
+				colors: { primary: '#000000', secondary: '#ffffff' },
+				domain: 'tenant-a.example.app',
+			},
+		};
+
+		expect(() => assertResolvedConfigValid(baseBlueprint, resolved)).toThrow(
+			AppConfigValidationError
 		);
 	});
 });

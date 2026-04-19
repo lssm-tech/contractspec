@@ -71,6 +71,18 @@ export interface FeatureSpecData {
 	experiments: { key: string; version: string }[];
 }
 
+export interface ThemeSpecData {
+	key: string;
+	version: string;
+	title: string;
+	description: string;
+	domain: string;
+	owners: string[];
+	tags: string[];
+	stability: Stability;
+	scopes: Array<'global' | 'tenant' | 'user'>;
+}
+
 export interface WorkflowStepData {
 	id: string;
 	label: string;
@@ -230,8 +242,8 @@ export interface ExperimentSpecData extends BaseSpecData {
 
 export interface AppConfigMappingData {
 	slot: string;
-	name: string;
-	version?: number;
+	key: string;
+	version?: string;
 }
 
 export interface AppConfigFeatureFlagData {
@@ -246,16 +258,22 @@ export interface AppRouteConfigData {
 	label?: string;
 	dataView?: string;
 	workflow?: string;
-	guardName?: string;
-	guardVersion?: number;
+	guardKey?: string;
+	guardVersion?: string;
 	featureFlag?: string;
-	experimentName?: string;
-	experimentVersion?: number;
+	experimentKey?: string;
+	experimentVersion?: string;
 }
 
-export interface AppBlueprintSpecData extends BaseSpecData {
+export interface AppBlueprintSpecData {
+	key: string;
+	version: string;
 	title: string;
+	description: string;
 	domain: string;
+	owners: string[];
+	tags: string[];
+	stability: Stability;
 	appId: string;
 	capabilitiesEnabled: string[];
 	capabilitiesDisabled: string[];
@@ -263,12 +281,12 @@ export interface AppBlueprintSpecData extends BaseSpecData {
 	featureExcludes: string[];
 	dataViews: AppConfigMappingData[];
 	workflows: AppConfigMappingData[];
-	policyRefs: { name: string; version?: number }[];
-	theme?: { name: string; version: number };
-	themeFallbacks: { name: string; version: number }[];
-	telemetry?: { name: string; version?: number };
-	activeExperiments: { name: string; version?: number }[];
-	pausedExperiments: { name: string; version?: number }[];
+	policyRefs: { key: string; version?: string }[];
+	theme?: { key: string; version: string };
+	themeFallbacks: { key: string; version: string }[];
+	telemetry?: { key: string; version?: string };
+	activeExperiments: { key: string; version?: string }[];
+	pausedExperiments: { key: string; version?: string }[];
 	featureFlags: AppConfigFeatureFlagData[];
 	routes: AppRouteConfigData[];
 	notes?: string;

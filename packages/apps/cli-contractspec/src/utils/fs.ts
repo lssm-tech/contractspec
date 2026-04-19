@@ -34,6 +34,7 @@ export function resolveOutputPath(
 		| 'presentation'
 		| 'form'
 		| 'feature'
+		| 'theme'
 		| 'workflow'
 		| 'data-view'
 		| 'migration'
@@ -62,6 +63,9 @@ export function resolveOutputPath(
 			break;
 		case 'feature':
 			subPath = 'features';
+			break;
+		case 'theme':
+			subPath = (conventions.themes as string) || 'themes';
 			break;
 		case 'workflow':
 			subPath = (conventions.workflows as string) || 'workflows';

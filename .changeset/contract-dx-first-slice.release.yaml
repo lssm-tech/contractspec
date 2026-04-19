@@ -1,0 +1,85 @@
+schemaVersion: "1"
+slug: contract-dx-first-slice
+summary: Improve app-config, theme, and feature authoring with explicit validation APIs, first-class theme discovery and scaffolding, and key-based app-config generation across contracts, workspace tooling, and the CLI.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.contracts-spec"
+    releaseType: minor
+  - name: "@contractspec/module.workspace"
+    releaseType: minor
+  - name: "@contractspec/bundle.workspace"
+    releaseType: minor
+  - name: "@contractspec/app.cli-contractspec"
+    releaseType: minor
+affectedRuntimes:
+  - bun
+  - node
+  - vscode
+affectedFrameworks:
+  - commander
+audiences:
+  - kind: maintainer
+    summary: Maintainers can rely on authored validators for app-config, theme, and feature specs instead of shallow per-surface checks, and can scaffold theme specs directly from the CLI.
+    affectedPackages:
+      - "@contractspec/lib.contracts-spec"
+      - "@contractspec/module.workspace"
+      - "@contractspec/bundle.workspace"
+      - "@contractspec/app.cli-contractspec"
+  - kind: integrator
+    summary: Integrators get a stable `defineTheme` authoring path, new theme and feature validation helpers, and key-based app-config DTOs and templates across shared tooling.
+    affectedPackages:
+      - "@contractspec/lib.contracts-spec"
+      - "@contractspec/module.workspace"
+      - "@contractspec/bundle.workspace"
+  - kind: customer
+    summary: CLI users can now run `contractspec create theme`, and validation catches more app-config, theme, and feature mistakes before publish or CI promotion.
+    affectedPackages:
+      - "@contractspec/app.cli-contractspec"
+      - "@contractspec/bundle.workspace"
+deprecations: []
+migrationInstructions:
+  - id: update-custom-app-config-dto-callers
+    title: Update custom app-config DTO callers to key-based refs
+    summary: Shared app-config authoring DTOs and templates now use `key`-based spec references instead of older `name`-based helper fields.
+    required: false
+    when: When custom tooling imports `AppBlueprintSpecData`, `AppConfigMappingData`, or related route reference DTOs from workspace or bundle packages.
+    steps:
+      - Replace `name` fields with `key` for app-config spec references.
+      - Replace `guardName` and `experimentName` with `guardKey` and `experimentKey` in route DTOs.
+      - Keep versions as semver strings rather than numeric literals.
+  - id: adopt-define-theme-helper
+    title: Adopt `defineTheme(...)` for new theme specs
+    summary: Theme authoring now has a canonical helper and authored-validator support.
+    required: false
+    when: When creating or refreshing theme specs used by generators, docs, or CI validation.
+    steps:
+      - Import `defineTheme` from `@contractspec/lib.contracts-spec/themes`.
+      - Prefer `defineTheme({...})` for new theme specs, while keeping existing `ThemeSpec` object literals valid.
+      - Add `validateThemeSpec` or `assertThemeSpecValid` to CI or publish-time checks where theme correctness matters.
+upgradeSteps:
+  - id: route-authored-validation-through-package-validators
+    title: Use the authored validators for contract setup and CI
+    summary: Prefer the package-level validators over shallow AST checks for the three upgraded surfaces.
+    level: assisted
+    instructions:
+      - Use `validateBlueprint` or `assertBlueprintValid` for app-config specs.
+      - Use `validateThemeSpec` or `assertThemeSpecValid` for theme specs.
+      - Use `validateFeatureSpec` or `assertFeatureSpecValid` for feature specs before registry installation or release review.
+  - id: adopt-theme-authoring-target
+    title: Adopt the new theme authoring target across workspace tools
+    summary: Shared workspace discovery and the CLI now treat `theme` as a first-class authored surface.
+    level: manual
+    instructions:
+      - Use `.theme.ts` files and `defineTheme(...)` for new theme specs.
+      - Update any custom create flows or discovery logic to include the `theme` authoring target where needed.
+validation:
+  commands:
+    - "cd packages/libs/contracts-spec && bun run docs:manifest && bun test && bun run typecheck && bun run lint:check"
+    - "cd packages/modules/workspace && bun test && bun run typecheck && bun run lint:check"
+    - "cd packages/bundles/workspace && bun run typecheck && bun run lint:check && bun test src/services/validate/spec-validator.test.ts src/templates/theme.template.test.ts"
+    - "cd packages/apps/cli-contractspec && bun run typecheck && bun run lint:check && bun test src/commands/create/create-theme.test.ts src/templates/app-config.template.test.ts src/commands/completion/resolver.test.ts"
+  evidence:
+    - "`@contractspec/lib.contracts-spec` now exports `defineTheme`, `validateThemeSpec`, `validateFeatureSpec`, and app-config assertion helpers, and its docs/examples align with the current `key`-based contract model."
+    - "`@contractspec/module.workspace` now detects `theme` specs as a first-class authoring target and includes theme-aware structure validation and scan coverage."
+    - "`@contractspec/bundle.workspace` now routes authored app-config, theme, and feature validation through the package validators and exports a shared theme template."
+    - "`@contractspec/app.cli-contractspec` now supports `contractspec create theme` and generates app-config scaffolds with `key`-based refs and semver string versions."

@@ -22,7 +22,7 @@ export async function createAppConfigSpec(
 	const code = generateAppBlueprintSpec(specData);
 
 	await writeSpecFile({
-		specName: specData.name,
+		specName: specData.key,
 		specType: 'app-config',
 		extension: '.app-config.ts',
 		code,

@@ -34,6 +34,16 @@ export interface ValidationResult {
 	info: ValidationIssue[];
 }
 
+export class AppConfigValidationError extends Error {
+	constructor(
+		message: string,
+		public readonly result: ValidationResult
+	) {
+		super(message);
+		this.name = 'AppConfigValidationError';
+	}
+}
+
 export interface ValidationContext {
 	integrationSpecs?: AppConfigIntegrationRegistry;
 	knowledgeSpaces?: KnowledgeSpaceRegistry;
@@ -210,6 +220,47 @@ export function validateResolvedConfig(
 ): ValidationResult {
 	const issues = getRegistry().validateResolved(blueprint, resolved, context);
 	return buildResult(issues);
+}
+
+export function assertBlueprintValid(
+	blueprint: AppBlueprintSpec,
+	context: ValidationContext = EMPTY_CONTEXT
+): void {
+	const result = validateBlueprint(blueprint, context);
+	if (!result.valid) {
+		throw new AppConfigValidationError(
+			`App blueprint ${blueprint.meta.key}.v${blueprint.meta.version} is invalid`,
+			result
+		);
+	}
+}
+
+export function assertTenantConfigValid(
+	blueprint: AppBlueprintSpec,
+	tenant: TenantAppConfig,
+	context: ValidationContext = EMPTY_CONTEXT
+): void {
+	const result = validateTenantConfig(blueprint, tenant, context);
+	if (!result.valid) {
+		throw new AppConfigValidationError(
+			`Tenant app config ${tenant.meta.id} for ${blueprint.meta.key}.v${blueprint.meta.version} is invalid`,
+			result
+		);
+	}
+}
+
+export function assertResolvedConfigValid(
+	blueprint: AppBlueprintSpec,
+	resolved: ResolvedAppConfig,
+	context: ValidationContext = EMPTY_CONTEXT
+): void {
+	const result = validateResolvedConfig(blueprint, resolved, context);
+	if (!result.valid) {
+		throw new AppConfigValidationError(
+			`Resolved app config ${resolved.appId} for ${blueprint.meta.key}.v${blueprint.meta.version} is invalid`,
+			result
+		);
+	}
 }
 
 function buildResult(issues: ValidationIssue[]): ValidationResult {

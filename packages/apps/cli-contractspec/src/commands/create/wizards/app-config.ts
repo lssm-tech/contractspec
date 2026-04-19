@@ -1,4 +1,4 @@
-import { confirm, input, number, select } from '@inquirer/prompts';
+import { confirm, input, select } from '@inquirer/prompts';
 import type {
 	AppBlueprintSpecData,
 	AppConfigFeatureFlagData,
@@ -7,22 +7,23 @@ import type {
 	Stability,
 } from '../../../types';
 
+const SEMVER_PATTERN = /^\d+\.\d+\.\d+([-.][a-z0-9.]+)?$/i;
+
 export async function appConfigWizard(): Promise<AppBlueprintSpecData> {
-	const name = await input({
-		message: 'Config name (e.g., "tenant.app"):',
+	const key = await input({
+		message: 'Blueprint key (e.g., "tenant.app"):',
 		validate: required,
 	});
 
-	const versionValue = await number({
+	const version = await input({
 		message: 'Version:',
-		default: 1,
-		validate: positiveInt,
+		default: '1.0.0',
+		validate: validateVersion,
 	});
-	const version = versionValue ?? 1;
 
 	const title = await input({
 		message: 'Title:',
-		default: `${name} config`,
+		default: `${key} config`,
 	});
 
 	const description = await input({
@@ -32,11 +33,12 @@ export async function appConfigWizard(): Promise<AppBlueprintSpecData> {
 
 	const domain = await input({
 		message: 'Domain/bounded context:',
-		default: name.split('.')[0] ?? 'core',
+		default: key.split('.')[0] ?? 'core',
+		validate: required,
 	});
 
 	const ownersInput = await input({
-		message: 'Owners (comma-separated @handles):',
+		message: 'Owners (comma-separated):',
 		default: '@team.platform',
 		validate: validateOwners,
 	});
@@ -59,7 +61,7 @@ export async function appConfigWizard(): Promise<AppBlueprintSpecData> {
 
 	const appId = await input({
 		message: 'Application id:',
-		default: name.split('.')[1] ?? 'app',
+		default: key.split('.')[1] ?? 'app',
 		validate: required,
 	});
 
@@ -78,14 +80,12 @@ export async function appConfigWizard(): Promise<AppBlueprintSpecData> {
 
 	const dataViews = await collectMappings('Add data view slot?');
 	const workflows = await collectMappings('Add workflow slot?');
-	const policyRefs = await collectPolicyRefs();
-	const theme = await collectThemeBinding();
+	const policyRefs = await collectVersionedRefs('Add policy reference?');
+	const theme = await collectPrimaryTheme();
 	const themeFallbacks = await collectThemeFallbacks();
-	const telemetry = await collectSpecRef('Bind telemetry spec?');
-	const activeExperiments = await collectExperimentRefs(
-		'Activate experiments?'
-	);
-	const pausedExperiments = await collectExperimentRefs('Pause experiments?');
+	const telemetry = await collectOptionalVersionedRef('Bind telemetry spec?');
+	const activeExperiments = await collectVersionedRefs('Activate experiments?');
+	const pausedExperiments = await collectVersionedRefs('Pause experiments?');
 	const featureFlags = await collectFeatureFlags();
 	const routes = await collectRoutes();
 
@@ -95,8 +95,8 @@ export async function appConfigWizard(): Promise<AppBlueprintSpecData> {
 	});
 
 	return {
-		name,
-		version: String(version),
+		key,
+		version,
 		title,
 		description,
 		domain,
@@ -132,87 +132,79 @@ async function collectMappings(
 			message: 'Slot key (e.g., "dashboard"):',
 			validate: required,
 		});
-		const name = await input({
-			message: 'Spec name:',
+		const key = await input({
+			message: 'Spec key:',
 			validate: required,
 		});
-		const versionValue = await number({
-			message: 'Spec version (optional):',
-			default: undefined,
-		});
+		const version = await collectOptionalVersion('Spec version (optional):');
 		mappings.push({
 			slot,
-			name,
-			version: typeof versionValue === 'number' ? versionValue : undefined,
+			key,
+			version,
 		});
 		add = await confirm({ message: promptMessage, default: false });
 	}
 	return mappings;
 }
 
-async function collectPolicyRefs(): Promise<
-	{ name: string; version?: number }[]
-> {
-	const policies: { name: string; version?: number }[] = [];
-	let add = await confirm({ message: 'Add policy reference?', default: false });
+async function collectVersionedRefs(
+	prompt: string
+): Promise<Array<{ key: string; version?: string }>> {
+	const refs: Array<{ key: string; version?: string }> = [];
+	let add = await confirm({ message: prompt, default: false });
 	while (add) {
-		const name = await input({
-			message: 'Policy name:',
+		const key = await input({
+			message: 'Spec key:',
 			validate: required,
 		});
-		const versionValue = await number({
-			message: 'Policy version (optional):',
-			default: undefined,
-		});
-		policies.push({
-			name,
-			version: typeof versionValue === 'number' ? versionValue : undefined,
-		});
+		const version = await collectOptionalVersion('Spec version (optional):');
+		refs.push({ key, version });
 		add = await confirm({
-			message: 'Add another policy reference?',
+			message: 'Add another reference?',
 			default: false,
 		});
 	}
-	return policies;
+	return refs;
 }
 
-async function collectThemeBinding(): Promise<AppBlueprintSpecData['theme']> {
+async function collectPrimaryTheme(): Promise<AppBlueprintSpecData['theme']> {
 	const attach = await confirm({
 		message: 'Bind a primary theme?',
 		default: true,
 	});
 	if (!attach) return undefined;
-	const name = await input({
-		message: 'Theme name:',
+
+	const key = await input({
+		message: 'Theme key:',
 		validate: required,
 	});
-	const versionValue = await number({
+	const version = await input({
 		message: 'Theme version:',
-		default: 1,
-		validate: positiveInt,
+		default: '1.0.0',
+		validate: validateVersion,
 	});
-	return { name, version: versionValue ?? 1 };
+	return { key, version };
 }
 
 async function collectThemeFallbacks(): Promise<
-	{ name: string; version: number }[]
+	Array<{ key: string; version: string }>
 > {
-	const fallbacks: { name: string; version: number }[] = [];
+	const fallbacks: Array<{ key: string; version: string }> = [];
 	let add = await confirm({
 		message: 'Add theme fallback?',
 		default: false,
 	});
 	while (add) {
-		const name = await input({
-			message: 'Fallback theme name:',
+		const key = await input({
+			message: 'Fallback theme key:',
 			validate: required,
 		});
-		const versionValue = await number({
+		const version = await input({
 			message: 'Fallback theme version:',
-			default: 1,
-			validate: positiveInt,
+			default: '1.0.0',
+			validate: validateVersion,
 		});
-		fallbacks.push({ name, version: versionValue ?? 1 });
+		fallbacks.push({ key, version });
 		add = await confirm({
 			message: 'Add another fallback?',
 			default: false,
@@ -221,44 +213,18 @@ async function collectThemeFallbacks(): Promise<
 	return fallbacks;
 }
 
-async function collectSpecRef(
+async function collectOptionalVersionedRef(
 	message: string
-): Promise<{ name: string; version?: number } | undefined> {
+): Promise<{ key: string; version?: string } | undefined> {
 	const attach = await confirm({ message, default: false });
 	if (!attach) return undefined;
-	const name = await input({
-		message: 'Spec name:',
+
+	const key = await input({
+		message: 'Spec key:',
 		validate: required,
 	});
-	const versionValue = await number({
-		message: 'Spec version (optional):',
-		default: undefined,
-	});
-	return {
-		name,
-		version: typeof versionValue === 'number' ? versionValue : undefined,
-	};
-}
-
-async function collectExperimentRefs(prompt: string) {
-	const experiments: { name: string; version?: number }[] = [];
-	let add = await confirm({ message: prompt, default: false });
-	while (add) {
-		const name = await input({
-			message: 'Experiment name:',
-			validate: required,
-		});
-		const versionValue = await number({
-			message: 'Experiment version (optional):',
-			default: undefined,
-		});
-		experiments.push({
-			name,
-			version: typeof versionValue === 'number' ? versionValue : undefined,
-		});
-		add = await confirm({ message: 'Add another experiment?', default: false });
-	}
-	return experiments;
+	const version = await collectOptionalVersion('Spec version (optional):');
+	return { key, version };
 }
 
 async function collectFeatureFlags(): Promise<AppConfigFeatureFlagData[]> {
@@ -321,47 +287,34 @@ async function collectRoutes(): Promise<AppRouteConfigData[]> {
 			message: 'Workflow slot (optional):',
 			default: '',
 		});
-		const guardName = await input({
-			message: 'Guard policy name (optional):',
+		const guardKey = await input({
+			message: 'Guard policy key (optional):',
 			default: '',
 		});
-		let guardVersion: number | undefined;
-		if (guardName.trim()) {
-			const guardVersionValue = await number({
-				message: 'Guard policy version (optional):',
-				default: undefined,
-			});
-			guardVersion =
-				typeof guardVersionValue === 'number' ? guardVersionValue : undefined;
-		}
+		const guardVersion = guardKey.trim()
+			? await collectOptionalVersion('Guard policy version (optional):')
+			: undefined;
 		const featureFlag = await input({
 			message: 'Feature flag key (optional):',
 			default: '',
 		});
-		const experimentName = await input({
-			message: 'Experiment name (optional):',
+		const experimentKey = await input({
+			message: 'Experiment key (optional):',
 			default: '',
 		});
-		let experimentVersion: number | undefined;
-		if (experimentName.trim()) {
-			const experimentVersionValue = await number({
-				message: 'Experiment version (optional):',
-				default: undefined,
-			});
-			experimentVersion =
-				typeof experimentVersionValue === 'number'
-					? experimentVersionValue
-					: undefined;
-		}
+		const experimentVersion = experimentKey.trim()
+			? await collectOptionalVersion('Experiment version (optional):')
+			: undefined;
+
 		routes.push({
 			path,
 			label: label || undefined,
 			dataView: dataView || undefined,
 			workflow: workflow || undefined,
-			guardName: guardName || undefined,
+			guardKey: guardKey || undefined,
 			guardVersion,
 			featureFlag: featureFlag || undefined,
-			experimentName: experimentName || undefined,
+			experimentKey: experimentKey || undefined,
 			experimentVersion,
 		});
 		add = await confirm({
@@ -380,6 +333,17 @@ async function collectList(message: string): Promise<string[]> {
 	return splitList(answer);
 }
 
+async function collectOptionalVersion(
+	message: string
+): Promise<string | undefined> {
+	const version = await input({
+		message,
+		default: '',
+		validate: optionalVersion,
+	});
+	return version.trim() || undefined;
+}
+
 function splitList(value: string): string[] {
 	return value
 		.split(',')
@@ -391,18 +355,15 @@ function required(value: string) {
 	return value.trim().length > 0 || 'Value is required';
 }
 
-function positiveInt(value?: number) {
-	if (typeof value !== 'number' || !Number.isInteger(value) || value <= 0) {
-		return 'Must be a positive integer';
-	}
-	return true;
+function validateVersion(value: string) {
+	return SEMVER_PATTERN.test(value) || 'Version must look like 1.0.0';
+}
+
+function optionalVersion(value: string) {
+	return value.trim().length === 0 || validateVersion(value);
 }
 
 function validateOwners(value: string) {
 	const owners = splitList(value);
-	if (owners.length === 0) return 'At least one owner is required';
-	if (!owners.every((owner) => owner.startsWith('@'))) {
-		return 'Owners must start with @ (e.g., "@team.platform")';
-	}
-	return true;
+	return owners.length > 0 || 'At least one owner is required';
 }

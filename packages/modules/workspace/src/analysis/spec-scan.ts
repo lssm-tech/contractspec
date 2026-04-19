@@ -268,6 +268,15 @@ export function inferSpecTypeFromCodeBlock(fileSourceCode: string): {
 			kind: 'feature',
 		};
 	}
+	if (
+		fileSourceCode.includes('defineTheme') ||
+		/ThemeSpec/.test(fileSourceCode)
+	) {
+		return {
+			specType: 'theme',
+			kind: 'theme',
+		};
+	}
 
 	return {
 		specType: 'unknown',

@@ -74,6 +74,14 @@ export const AUTHORING_TARGET_DEFINITIONS: readonly AuthoringTargetDefinition[] 
 			defaultExtension: '.feature.ts',
 		},
 		{
+			id: 'theme',
+			title: 'Theme',
+			posture: 'file',
+			materialization: 'docs',
+			validation: 'structure',
+			defaultExtension: '.theme.ts',
+		},
+		{
 			id: 'workflow',
 			title: 'Workflow',
 			posture: 'file',

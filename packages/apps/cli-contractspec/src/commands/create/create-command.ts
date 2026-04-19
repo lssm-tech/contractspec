@@ -20,6 +20,7 @@ import {
 } from './create-package-target';
 import { createPresentationSpec } from './create-presentation';
 import { createTelemetrySpec } from './create-telemetry';
+import { createThemeSpec } from './create-theme';
 import { createWorkflowSpec } from './create-workflow';
 import type { CreateOptions } from './types';
 
@@ -62,6 +63,7 @@ export async function createCommand(options: CreateOptions, config: Config) {
 		knowledge: createKnowledgeSpec,
 		form: createFormSpec,
 		feature: createFeatureSpec,
+		theme: createThemeSpec,
 		'module-bundle': createModuleBundleSpec,
 		'builder-spec': createBuilderSpecPackage,
 		'provider-spec': createProviderSpecPackage,

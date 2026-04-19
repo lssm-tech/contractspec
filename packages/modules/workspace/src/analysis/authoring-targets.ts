@@ -65,6 +65,9 @@ export function detectAuthoringTargetFromCodeBlock(
 	if (code.includes('defineFeature')) {
 		return 'feature';
 	}
+	if (code.includes('defineTheme') || /ThemeSpec/.test(code)) {
+		return 'theme';
+	}
 	if (code.includes('defineWorkflow') || /WorkflowSpec/.test(code)) {
 		return 'workflow';
 	}
@@ -134,6 +137,9 @@ export function inferAuthoringTargetFromFilePath(
 	}
 	if (filePath.includes('.feature.') || /\/features?\//.test(filePath)) {
 		return 'feature';
+	}
+	if (filePath.includes('.theme.') || /\/themes?\//.test(filePath)) {
+		return 'theme';
 	}
 	if (filePath.includes('.workflow.') || /\/workflows?\//.test(filePath)) {
 		return 'workflow';

@@ -1,6 +1,14 @@
 import { describe, expect, it } from 'bun:test';
 import { type Owner, StabilityEnum, type Tag } from './ownership';
-import { makeThemeRef, ThemeRegistry, type ThemeSpec } from './themes';
+import {
+	assertThemeSpecValid,
+	defineTheme,
+	makeThemeRef,
+	ThemeRegistry,
+	type ThemeSpec,
+	ThemeValidationError,
+	validateThemeSpec,
+} from './themes';
 
 const baseMeta = {
 	title: 'Pastel Theme' as const,
@@ -57,6 +65,10 @@ const pastelTheme: ThemeSpec = {
 };
 
 describe('ThemeRegistry', () => {
+	it('defines a theme via helper', () => {
+		expect(defineTheme(pastelTheme)).toBe(pastelTheme);
+	});
+
 	it('registers and retrieves themes by name/version', () => {
 		const registry = new ThemeRegistry();
 		registry.register(pastelTheme);
@@ -79,5 +91,88 @@ describe('ThemeRegistry', () => {
 	it('creates stable theme references', () => {
 		const ref = makeThemeRef(pastelTheme);
 		expect(ref).toEqual({ key: 'design.pastel', version: '1.0.0' });
+	});
+
+	it('validates a well-formed theme', () => {
+		const result = validateThemeSpec(pastelTheme);
+		expect(result.valid).toBe(true);
+		expect(result.issues).toHaveLength(0);
+	});
+
+	it('reports missing metadata and material configuration', () => {
+		const result = validateThemeSpec({
+			meta: {
+				...baseMeta,
+				key: 'design.empty',
+				version: '1.0.0',
+				title: '',
+				description: '',
+				domain: '',
+				owners: [],
+				tags: [],
+			},
+			tokens: {},
+		});
+
+		expect(result.valid).toBe(false);
+		expect(result.issues).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({ path: 'meta.title', level: 'error' }),
+				expect.objectContaining({ path: 'meta.description', level: 'error' }),
+				expect.objectContaining({ path: 'meta.domain', level: 'error' }),
+				expect.objectContaining({ path: 'meta.owners', level: 'error' }),
+				expect.objectContaining({ path: 'meta.tags', level: 'error' }),
+				expect.objectContaining({ path: 'tokens', level: 'error' }),
+			])
+		);
+	});
+
+	it('reports duplicate overrides and suspicious tenant targets', () => {
+		const result = validateThemeSpec({
+			...pastelTheme,
+			overrides: [
+				{
+					scope: 'tenant',
+					target: 'tenant:artisanos',
+				},
+				{
+					scope: 'tenant',
+					target: 'tenant:artisanos',
+				},
+				{
+					scope: 'tenant',
+					target: 'artisanos',
+				},
+			],
+		});
+
+		expect(result.valid).toBe(false);
+		expect(result.issues).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({
+					path: 'overrides[1]',
+					level: 'error',
+				}),
+				expect.objectContaining({
+					path: 'overrides[2].target',
+					level: 'warning',
+				}),
+			])
+		);
+	});
+
+	it('throws ThemeValidationError for invalid themes', () => {
+		expect(() =>
+			assertThemeSpecValid({
+				...pastelTheme,
+				meta: {
+					...pastelTheme.meta,
+					extends: {
+						key: pastelTheme.meta.key,
+						version: pastelTheme.meta.version,
+					},
+				},
+			})
+		).toThrow(ThemeValidationError);
 	});
 });

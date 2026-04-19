@@ -32,6 +32,7 @@ export type SpecKind =
 	| 'event'
 	| 'presentation'
 	| 'feature'
+	| 'theme'
 	| 'workflow'
 	| 'data-view'
 	| 'migration'
@@ -94,6 +95,9 @@ export function validateSpecStructure(
 			break;
 		case 'presentation':
 			validatePresentationSpec(sourceFile, errors, warnings);
+			break;
+		case 'theme':
+			validateThemeSpec(sourceFile, errors, warnings, rulesConfig);
 			break;
 		case 'workflow':
 			validateWorkflowSpec(sourceFile, errors, warnings, rulesConfig);
@@ -415,6 +419,55 @@ function validateAppConfigSpec(
 			'app-config-capabilities',
 			'app-config',
 			'App blueprint spec does not declare capabilities',
+			errors,
+			warnings,
+			rulesConfig
+		);
+	}
+}
+
+function validateThemeSpec(
+	sourceFile: SourceFile,
+	errors: string[],
+	warnings: string[],
+	rulesConfig: RulesConfig
+) {
+	const callExpressions = sourceFile.getDescendantsOfKind(
+		SyntaxKind.CallExpression
+	);
+	const defineCall = callExpressions.find(
+		(call) => call.getExpression().getText() === 'defineTheme'
+	);
+
+	let specObject: ObjectLiteralExpression | undefined;
+
+	if (defineCall) {
+		const args = defineCall.getArguments();
+		if (args.length > 0 && Node.isObjectLiteralExpression(args[0])) {
+			specObject = args[0];
+		}
+	} else {
+		specObject = getSpecObject(sourceFile, 'ThemeSpec');
+	}
+
+	if (!specObject) {
+		errors.push('Missing defineTheme call or ThemeSpec type annotation');
+		return;
+	}
+
+	if (!specObject.getProperty('meta')) {
+		errors.push('ThemeSpec must define meta');
+	}
+
+	const hasTokens = Boolean(specObject.getProperty('tokens'));
+	const hasComponents = Boolean(specObject.getProperty('components'));
+	const hasOverrides = Boolean(specObject.getProperty('overrides'));
+
+	if (!hasTokens && !hasComponents && !hasOverrides) {
+		emitRule(
+			'theme-material-config',
+			'theme',
+			'ThemeSpec should declare tokens, components, or overrides',
 			errors,
 			warnings,
 			rulesConfig
@@ -785,6 +838,7 @@ function validateCommonFields(
 		code.includes('PresentationSpec') ||
 		code.includes('EventSpec') ||
 		code.includes('FeatureSpec') ||
+		code.includes('ThemeSpec') ||
 		code.includes('WorkflowSpec') ||
 		code.includes('DataViewSpec') ||
 		code.includes('MigrationSpec') ||
@@ -795,6 +849,7 @@ function validateCommonFields(
 		code.includes('defineQuery') ||
 		code.includes('defineEvent') ||
 		code.includes('definePresentation') ||
+		code.includes('defineTheme') ||
 		code.includes('defineWorkflow') ||
 		code.includes('defineDataView') ||
 		code.includes('defineAppConfig') ||

@@ -4,6 +4,7 @@ export type SpecType =
 	| 'presentation'
 	| 'form'
 	| 'feature'
+	| 'theme'
 	| 'workflow'
 	| 'data-view'
 	| 'migration'
@@ -220,7 +221,7 @@ export interface ExperimentSpecData extends BaseSpecData {
 
 export interface AppConfigMappingData {
 	slot: string;
-	name: string;
+	key: string;
 	version?: string;
 }
 
@@ -236,16 +237,22 @@ export interface AppRouteConfigData {
 	label?: string;
 	dataView?: string;
 	workflow?: string;
-	guardName?: string;
+	guardKey?: string;
 	guardVersion?: string;
 	featureFlag?: string;
-	experimentName?: string;
+	experimentKey?: string;
 	experimentVersion?: string;
 }
 
-export interface AppBlueprintSpecData extends BaseSpecData {
+export interface AppBlueprintSpecData {
+	key: string;
+	version: string;
 	title: string;
+	description: string;
 	domain: string;
+	owners: string[];
+	tags: string[];
+	stability: Stability;
 	appId: string;
 	capabilitiesEnabled: string[];
 	capabilitiesDisabled: string[];
@@ -253,12 +260,12 @@ export interface AppBlueprintSpecData extends BaseSpecData {
 	featureExcludes: string[];
 	dataViews: AppConfigMappingData[];
 	workflows: AppConfigMappingData[];
-	policyRefs: { name: string; version?: string }[];
-	theme?: { name: string; version: string };
-	themeFallbacks: { name: string; version: string }[];
-	telemetry?: { name: string; version?: string };
-	activeExperiments: { name: string; version?: string }[];
-	pausedExperiments: { name: string; version?: string }[];
+	policyRefs: { key: string; version?: string }[];
+	theme?: { key: string; version: string };
+	themeFallbacks: { key: string; version: string }[];
+	telemetry?: { key: string; version?: string };
+	activeExperiments: { key: string; version?: string }[];
+	pausedExperiments: { key: string; version?: string }[];
 	featureFlags: AppConfigFeatureFlagData[];
 	routes: AppRouteConfigData[];
 	notes?: string;

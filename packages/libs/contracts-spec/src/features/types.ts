@@ -144,6 +144,67 @@ export const tech_contracts_ops_to_presentation_linking_DocBlocks: DocBlock[] =
 			visibility: 'public',
 			route: '/docs/tech/contracts/ops-to-presentation-linking',
 			tags: ['tech', 'contracts', 'ops-to-presentation-linking'],
-			body: "### Ops \u2194 Presentation linking (V2)\n\nThis document explains how operations (OperationSpec) are linked to Presentations (PresentationSpec) via Feature modules.\n\n- Location: `@contractspec/lib.contracts-spec/src/features.ts`\n- Field: `FeatureModuleSpec.opToPresentation?: { op: { name; version }; pres: { name; version } }[]`\n- Validation: `installFeature()` validates that linked ops exist in `OperationSpecRegistry` and linked presentations exist in the registry, and that declared targets are present.\n\nExample:\n\n```ts\nimport type { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/src/registry';\nimport { FeatureRegistry, createFeatureModule } from '@contractspec/lib.contracts-spec';\n\nexport function buildFeaturesWithOps(ops: OperationSpecRegistry) {\n  const features = new FeatureRegistry();\n  features.register(\n    createFeatureModule(\n      {\n        key: 'myapp.widgets.linkage',\n        title: 'Widgets (linked)',\n        description: 'Links create/update ops to UI presentations',\n        domain: 'widgets',\n        tags: ['widgets', 'linkage'],\n        stability: 'beta',\n      },\n      {\n        operations: [\n          { name: 'widgets.create', version: '1.0.0' },\n          { name: 'widgets.update', version: '1.0.0' },\n        ],\n        presentations: [{ name: 'myapp.widgets.editor.page', version: '1.0.0' }],\n        opToPresentation: [\n          {\n            op: { name: 'widgets.create', version: '1.0.0' },\n            pres: { name: 'myapp.widgets.editor.page', version: '1.0.0' },\n          },\n          {\n            op: { name: 'widgets.update', version: '1.0.0' },\n            pres: { name: 'myapp.widgets.editor.page', version: '1.0.0' },\n          },\n        ],\n        presentationsTargets: [\n          {\n            name: 'myapp.widgets.editor.page',\n            version: '1.0.0',\n            targets: ['react', 'markdown'],\n          },\n        ],\n      }\n    )\n  );\n  return { features };\n}\n```\n\nNotes\n\n- This enables traceability: the UI flow that realizes an op is discoverable via the feature catalog.\n- Presentations can target multiple outputs (`react`, `markdown`, `application/json`, `application/xml`).\n- Use `renderFeaturePresentation()` to render a descriptor to a given target with a component map.\n",
+			body: `### Ops to Presentation Linking (V2)
+
+This document explains how operations (\`OperationSpec\`) are linked to presentations (\`PresentationSpec\`) via feature modules.
+
+- Location: \`packages/libs/contracts-spec/src/features/types.ts\`
+- Field: \`FeatureModuleSpec.opToPresentation?: { op: OpRef; pres: PresentationRef }[]\`
+- Validation:
+  - \`validateFeatureSpec()\` checks that linked refs are declared in the feature itself
+  - \`installFeature()\` checks that declared refs exist in the provided registries
+  - \`validateFeatureTargetsV2()\` checks descriptor target support
+
+Example:
+
+\`\`\`ts
+import { defineFeature, FeatureRegistry } from '@contractspec/lib.contracts-spec/features';
+
+export const WidgetsFeature = defineFeature({
+  meta: {
+    key: 'myapp.widgets.linkage',
+    version: '1.0.0',
+    title: 'Widgets (linked)',
+    description: 'Links create and update operations to UI presentations.',
+    domain: 'widgets',
+    owners: ['platform.widgets'],
+    tags: ['widgets', 'linkage'],
+    stability: 'beta',
+  },
+  operations: [
+    { key: 'widgets.create', version: '1.0.0' },
+    { key: 'widgets.update', version: '1.0.0' },
+  ],
+  presentations: [
+    { key: 'myapp.widgets.editor.page', version: '1.0.0' },
+  ],
+  opToPresentation: [
+    {
+      op: { key: 'widgets.create', version: '1.0.0' },
+      pres: { key: 'myapp.widgets.editor.page', version: '1.0.0' },
+    },
+    {
+      op: { key: 'widgets.update', version: '1.0.0' },
+      pres: { key: 'myapp.widgets.editor.page', version: '1.0.0' },
+    },
+  ],
+  presentationsTargets: [
+    {
+      key: 'myapp.widgets.editor.page',
+      version: '1.0.0',
+      targets: ['react', 'markdown'],
+    },
+  ],
+});
+
+const features = new FeatureRegistry().register(WidgetsFeature);
+\`\`\`
+
+Notes:
+
+- This enables traceability: the UI flow that realizes an operation is discoverable via the feature catalog.
+- Presentations can target multiple outputs (\`react\`, \`markdown\`, \`application/json\`, \`application/xml\`).
+- Use \`renderFeaturePresentation()\` to render a descriptor to a given target with a component map.
+`,
 		},
 	];

@@ -2,7 +2,7 @@ import type { AppBlueprintSpecData } from '../types';
 
 export function generateAppBlueprintSpec(data: AppBlueprintSpecData): string {
 	const exportName =
-		toPascalCase(data.name.split('.').pop() ?? 'App') + 'AppConfig';
+		toPascalCase(data.key.split('.').pop() ?? 'App') + 'AppConfig';
 
 	const capabilitiesSection = buildCapabilitiesSection(data);
 	const featuresSection = buildFeaturesSection(data);
@@ -22,8 +22,8 @@ export function generateAppBlueprintSpec(data: AppBlueprintSpecData): string {
 
 export const ${exportName}: AppBlueprintSpec = {
   meta: {
-    key: '${escapeString(data.name)}',
-    version: ${data.version},
+    key: '${escapeString(data.key)}',
+    version: '${data.version}',
     title: '${escapeString(data.title)}',
     description: '${escapeString(data.description)}',
     domain: '${escapeString(data.domain)}',
@@ -44,15 +44,11 @@ function buildCapabilitiesSection(data: AppBlueprintSpecData): string {
 	}
 	const enabled =
 		data.capabilitiesEnabled.length > 0
-			? `    enabled: [${data.capabilitiesEnabled
-					.map((key) => formatCapabilityRef(key))
-					.join(', ')}],\n`
+			? `    enabled: [${data.capabilitiesEnabled.map((key) => formatCapabilityRef(key)).join(', ')}],\n`
 			: '';
 	const disabled =
 		data.capabilitiesDisabled.length > 0
-			? `    disabled: [${data.capabilitiesDisabled
-					.map((key) => formatCapabilityRef(key))
-					.join(', ')}],\n`
+			? `    disabled: [${data.capabilitiesDisabled.map((key) => formatCapabilityRef(key)).join(', ')}],\n`
 			: '';
 	return `  capabilities: {\n${enabled}${disabled}  },\n`;
 }
@@ -63,15 +59,11 @@ function buildFeaturesSection(data: AppBlueprintSpecData): string {
 	}
 	const include =
 		data.featureIncludes.length > 0
-			? `    include: [${data.featureIncludes
-					.map((key) => `{ key: '${escapeString(key)}' }`)
-					.join(', ')}],\n`
+			? `    include: [${data.featureIncludes.map((key) => `{ key: '${escapeString(key)}' }`).join(', ')}],\n`
 			: '';
 	const exclude =
 		data.featureExcludes.length > 0
-			? `    exclude: [${data.featureExcludes
-					.map((key) => `{ key: '${escapeString(key)}' }`)
-					.join(', ')}],\n`
+			? `    exclude: [${data.featureExcludes.map((key) => `{ key: '${escapeString(key)}' }`).join(', ')}],\n`
 			: '';
 	return `  features: {\n${include}${exclude}  },\n`;
 }
@@ -84,8 +76,9 @@ function buildMappingSection(
 	const body = mappings
 		.map(
 			(mapping) => `    ${mapping.slot}: {
-      name: '${escapeString(mapping.name)}',
-      ${mapping.version !== undefined ? `version: '${mapping.version}',` : ''}
+      key: '${escapeString(mapping.key)}'${
+				mapping.version ? `,\n      version: '${mapping.version}'` : ''
+			}
     }`
 		)
 		.join(',\n');
@@ -97,7 +90,9 @@ function buildPolicySection(data: AppBlueprintSpecData): string {
 	const entries = data.policyRefs
 		.map(
 			(policy) => `    {
-      name: '${escapeString(policy.name)}'${policy.version !== undefined ? `,\n      version: '${policy.version}'` : ''}
+      key: '${escapeString(policy.key)}'${
+				policy.version ? `,\n      version: '${policy.version}'` : ''
+			}
     }`
 		)
 		.join(',\n');
@@ -106,13 +101,13 @@ function buildPolicySection(data: AppBlueprintSpecData): string {
 
 function buildThemeSection(data: AppBlueprintSpecData): string {
 	if (!data.theme) return '';
-	const primary = `    primary: { name: '${escapeString(data.theme.name)}', version: '${data.theme.version}' },\n`;
+	const primary = `    primary: { key: '${escapeString(data.theme.key)}', version: '${data.theme.version}' },\n`;
 	const fallbacks =
 		data.themeFallbacks.length > 0
 			? `    fallbacks: [${data.themeFallbacks
 					.map(
 						(theme) =>
-							`{ name: '${escapeString(theme.name)}', version: '${theme.version}' }`
+							`{ key: '${escapeString(theme.key)}', version: '${theme.version}' }`
 					)
 					.join(', ')}],\n`
 			: '';
@@ -123,9 +118,9 @@ function buildTelemetrySection(data: AppBlueprintSpecData): string {
 	if (!data.telemetry) return '';
 	return `  telemetry: {
     spec: {
-      name: '${escapeString(data.telemetry.name)}'${
-				data.telemetry.version !== undefined
-					? `\n      version: '${data.telemetry.version}'`
+      key: '${escapeString(data.telemetry.key)}'${
+				data.telemetry.version
+					? `,\n      version: '${data.telemetry.version}'`
 					: ''
 			}
     },
@@ -141,15 +136,11 @@ function buildExperimentsSection(data: AppBlueprintSpecData): string {
 	}
 	const active =
 		data.activeExperiments.length > 0
-			? `    active: [${data.activeExperiments
-					.map((exp) => formatExperimentRef(exp))
-					.join(', ')}],\n`
+			? `    active: [${data.activeExperiments.map((exp) => formatExperimentRef(exp)).join(', ')}],\n`
 			: '';
 	const paused =
 		data.pausedExperiments.length > 0
-			? `    paused: [${data.pausedExperiments
-					.map((exp) => formatExperimentRef(exp))
-					.join(', ')}],\n`
+			? `    paused: [${data.pausedExperiments.map((exp) => formatExperimentRef(exp)).join(', ')}],\n`
 			: '';
 	return `  experiments: {\n${active}${paused}  },\n`;
 }
@@ -178,19 +169,17 @@ function buildRoutesSection(data: AppBlueprintSpecData): string {
 				route.label ? `label: '${escapeString(route.label)}'` : null,
 				route.dataView ? `dataView: '${escapeString(route.dataView)}'` : null,
 				route.workflow ? `workflow: '${escapeString(route.workflow)}'` : null,
-				route.guardName
-					? `guard: { name: '${escapeString(route.guardName)}'${
-							route.guardVersion !== undefined
-								? `, version: '${route.guardVersion}'`
-								: ''
+				route.guardKey
+					? `guard: { key: '${escapeString(route.guardKey)}'${
+							route.guardVersion ? `, version: '${route.guardVersion}'` : ''
 						} }`
 					: null,
 				route.featureFlag
 					? `featureFlag: '${escapeString(route.featureFlag)}'`
 					: null,
-				route.experimentName
-					? `experiment: { name: '${escapeString(route.experimentName)}'${
-							route.experimentVersion !== undefined
+				route.experimentKey
+					? `experiment: { key: '${escapeString(route.experimentKey)}'${
+							route.experimentVersion
 								? `, version: '${route.experimentVersion}'`
 								: ''
 						} }`
@@ -206,13 +195,9 @@ function formatCapabilityRef(key: string): string {
 	return `{ key: '${escapeString(key)}' }`;
 }
 
-function formatExperimentRef(exp: {
-	name: string;
-	version?: string | number;
-}): string {
-	const version =
-		exp.version !== undefined ? `, version: '${exp.version}'` : '';
-	return `{ name: '${escapeString(exp.name)}'${version} }`;
+function formatExperimentRef(exp: { key: string; version?: string }): string {
+	const version = exp.version ? `, version: '${exp.version}'` : '';
+	return `{ key: '${escapeString(exp.key)}'${version} }`;
 }
 
 function toPascalCase(value: string): string {

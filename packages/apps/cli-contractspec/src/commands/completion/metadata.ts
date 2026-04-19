@@ -25,6 +25,7 @@ const COMMAND_OPTION_VALUES: Record<string, string[]> = {
 		'presentation',
 		'form',
 		'feature',
+		'theme',
 		'workflow',
 		'data-view',
 		'migration',

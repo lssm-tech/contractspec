@@ -16,6 +16,7 @@ export * from './migration.template';
 export * from './operation.template';
 export * from './presentation.template';
 export * from './telemetry.template';
+export * from './theme.template';
 export * from './workflow.template';
 export * from './workflow-devkit.template';
 export * from './workflow-runner.template';

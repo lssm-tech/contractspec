@@ -4,8 +4,8 @@ import { generateAppBlueprintSpec } from './app-config';
 
 describe('generateAppBlueprintSpec', () => {
 	const baseData: AppBlueprintSpecData = {
-		name: 'test.app',
-		version: '1',
+		key: 'test.app',
+		version: '1.0.0',
 		title: 'Test App',
 		description: 'Test Description',
 		domain: 'test-domain',
@@ -60,11 +60,37 @@ describe('generateAppBlueprintSpec', () => {
 	it('includes data views mapping', () => {
 		const data: AppBlueprintSpecData = {
 			...baseData,
-			dataViews: [{ slot: 'main', name: 'view.main', version: '1' }],
+			dataViews: [{ slot: 'main', key: 'view.main', version: '1.0.0' }],
 		};
 		const code = generateAppBlueprintSpec(data);
 		expect(code).toContain('main: {');
-		expect(code).toContain("name: 'view.main'");
+		expect(code).toContain("key: 'view.main'");
+		expect(code).toContain("version: '1.0.0'");
+	});
+
+	it('includes key-based policy, theme, telemetry, and route refs', () => {
+		const data: AppBlueprintSpecData = {
+			...baseData,
+			policyRefs: [{ key: 'policy.access', version: '1.0.0' }],
+			theme: { key: 'theme.console', version: '1.0.0' },
+			themeFallbacks: [{ key: 'theme.default', version: '1.0.0' }],
+			telemetry: { key: 'telemetry.app', version: '1.0.0' },
+			activeExperiments: [{ key: 'exp.onboarding', version: '1.0.0' }],
+			routes: [
+				{
+					path: '/',
+					guardKey: 'policy.access',
+					guardVersion: '1.0.0',
+					experimentKey: 'exp.onboarding',
+					experimentVersion: '1.0.0',
+				},
+			],
+		};
+		const code = generateAppBlueprintSpec(data);
+		expect(code).toContain("key: 'policy.access'");
+		expect(code).toContain("primary: { key: 'theme.console'");
+		expect(code).toContain("key: 'telemetry.app'");
+		expect(code).toContain("experiment: { key: 'exp.onboarding'");
 	});
 
 	it('includes routes', () => {

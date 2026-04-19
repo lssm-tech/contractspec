@@ -45,6 +45,7 @@ export type AnalyzedOperationKind =
 	| 'integration'
 	| 'workflow'
 	| 'feature'
+	| 'theme'
 	| 'data-view'
 	| 'migration'
 	| 'telemetry'

@@ -32,4 +32,12 @@ export {
 	validateBundleRequires,
 } from './validate-bundle-requires';
 // Validation
-export { validateFeatureTargetsV2 } from './validation';
+export {
+	assertFeatureSpecValid,
+	FeatureValidationError,
+	type FeatureValidationIssue,
+	type FeatureValidationLevel,
+	type FeatureValidationResult,
+	validateFeatureSpec,
+	validateFeatureTargetsV2,
+} from './validation';

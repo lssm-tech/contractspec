@@ -39,6 +39,15 @@ describe('inferSpecTypeFromFilePath', () => {
 		);
 	});
 
+	it('identifies theme specs', () => {
+		expect(inferSpecTypeFromFilePath('src/domain/design.theme.ts')).toBe(
+			'theme'
+		);
+		expect(inferSpecTypeFromFilePath('src/domain/themes/design.ts')).toBe(
+			'theme'
+		);
+	});
+
 	it('identifies package-oriented authoring targets', () => {
 		expect(
 			inferSpecTypeFromFilePath('packages/bundles/workspace/src/demo.bundle.ts')
@@ -93,6 +102,14 @@ describe('scanSpecSource', () => {
 		const result = scanSpecSource(code, 'src/test.workflow.ts');
 		expect(result.specType).toBe('workflow');
 		expect(result.kind).toBe('workflow');
+	});
+
+	it('identifies theme spec', () => {
+		const code =
+			'export const theme = defineTheme({ meta: { key: "design.console", version: "1.0.0" }, tokens: {} });';
+		const result = scanSpecSource(code, 'src/design.theme.ts');
+		expect(result.specType).toBe('theme');
+		expect(result.kind).toBe('theme');
 	});
 
 	it('identifies form and data view specs', () => {
