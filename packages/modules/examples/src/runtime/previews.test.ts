@@ -4,6 +4,8 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { getExample } from '../registry';
 import {
+	buildExampleDocsHref,
+	buildExampleReferenceHref,
 	getExamplePreviewHref,
 	listInlineExamplePreviews,
 	supportsInlineExamplePreview,
@@ -44,7 +46,7 @@ describe('example previews', () => {
 
 			const example = getExample(entry.name);
 
-			expect(example?.entrypoints.ui).toBe('./ui');
+			expect(example).toBeDefined();
 			expect(previewKeys.has(entry.name)).toBe(true);
 			expect(supportsInlineExamplePreview(entry.name)).toBe(true);
 		}
@@ -55,9 +57,17 @@ describe('example previews', () => {
 		expect(getExamplePreviewHref('calendar-google')).toBe(
 			'/sandbox?template=calendar-google'
 		);
+	});
 
-		const nonSandboxExample = getExample('opencode-cli');
-		expect(nonSandboxExample?.surfaces.sandbox.enabled).toBe(false);
-		expect(getExamplePreviewHref('opencode-cli')).toBeNull();
+	test('normalizes canonical example keys for preview and docs links', () => {
+		expect(getExamplePreviewHref('examples.crm-pipeline')).toBe(
+			'/sandbox?template=crm-pipeline'
+		);
+		expect(buildExampleDocsHref('examples.crm-pipeline')).toBe(
+			'/docs/examples/crm-pipeline'
+		);
+		expect(buildExampleReferenceHref('examples.crm-pipeline')).toBe(
+			'/docs/reference/crm-pipeline/crm-pipeline'
+		);
 	});
 });

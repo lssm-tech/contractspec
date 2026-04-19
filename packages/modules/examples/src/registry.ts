@@ -2,15 +2,42 @@ import { ExampleRegistry } from '@contractspec/lib.contracts-spec/examples/regis
 import type { ExampleSpec } from '@contractspec/lib.contracts-spec/examples/types';
 import { EXAMPLE_REGISTRY as BUILTIN_EXAMPLES } from './builtins';
 
+const EXAMPLE_KEY_PREFIX = 'examples.';
+
+function normalizeExampleKey(key: string): string {
+	return key.startsWith(EXAMPLE_KEY_PREFIX)
+		? key.slice(EXAMPLE_KEY_PREFIX.length)
+		: key;
+}
+
+function normalizeExample(example: ExampleSpec): ExampleSpec {
+	const key = normalizeExampleKey(example.meta.key);
+	if (key === example.meta.key) {
+		return example;
+	}
+
+	return {
+		...example,
+		meta: {
+			...example.meta,
+			key,
+		},
+	};
+}
+
 // Export the ExampleRegistry class from contracts
 export { ExampleRegistry } from '@contractspec/lib.contracts-spec/examples/registry';
 
 // Create a global registry instance populated with builtins
 const globalRegistry = new ExampleRegistry();
+const exampleByKey = new Map<string, ExampleSpec>();
 
 // Register all builtin examples
 for (const example of BUILTIN_EXAMPLES) {
-	globalRegistry.register(example);
+	const normalizedExample = normalizeExample(example);
+	globalRegistry.register(normalizedExample);
+	exampleByKey.set(normalizedExample.meta.key, normalizedExample);
+	exampleByKey.set(example.meta.key, normalizedExample);
 }
 
 /**
@@ -27,15 +54,37 @@ export function listExamples(): readonly ExampleSpec[] {
 }
 
 /**
+ * Return the public example id used by CLI/docs/sandbox routes.
+ */
+export function getExampleId(exampleOrKey: ExampleSpec | string): string {
+	return normalizeExampleKey(
+		typeof exampleOrKey === 'string' ? exampleOrKey : exampleOrKey.meta.key
+	);
+}
+
+/**
  * Get an example by its key.
  */
 export function getExample(key: string): ExampleSpec | undefined {
-	return globalRegistry.get(key);
+	return exampleByKey.get(key);
 }
 
 /**
  * Search examples by query (matches key, title, description, tags).
  */
 export function searchExamples(query: string): ExampleSpec[] {
-	return globalRegistry.search(query);
+	const normalizedQuery = normalizeExampleKey(query);
+	const matches = new Map<string, ExampleSpec>();
+
+	for (const example of globalRegistry.search(query)) {
+		matches.set(example.meta.key, example);
+	}
+
+	if (normalizedQuery !== query) {
+		for (const example of globalRegistry.search(normalizedQuery)) {
+			matches.set(example.meta.key, example);
+		}
+	}
+
+	return [...matches.values()];
 }

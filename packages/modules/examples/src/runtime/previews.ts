@@ -1,5 +1,5 @@
 import type { ExampleSpec } from '@contractspec/lib.contracts-spec/examples/types';
-import { getExample, listExamples } from '../registry';
+import { getExample, getExampleId, listExamples } from '../registry';
 import { INLINE_EXAMPLE_PREVIEW_REGISTRY } from './previews.generated';
 
 export interface InlineExamplePreviewDefinition {
@@ -14,15 +14,11 @@ const PUBLIC_EXAMPLES = listExamples().filter(
 	(example) => example.meta.visibility === 'public'
 );
 
-const PUBLIC_EXAMPLE_BY_KEY = new Map(
-	PUBLIC_EXAMPLES.map((example) => [example.meta.key, example] as const)
-);
-
 const INLINE_EXAMPLE_PREVIEWS = INLINE_EXAMPLE_PREVIEW_REGISTRY.flatMap(
 	(registration): InlineExamplePreviewDefinition[] => {
 		const example = getExample(registration.key);
 
-		if (!example?.entrypoints.ui) {
+		if (!example) {
 			return [];
 		}
 
@@ -45,7 +41,8 @@ export function listPublicExamples(): readonly ExampleSpec[] {
 }
 
 export function getPublicExample(exampleKey: string): ExampleSpec | undefined {
-	return PUBLIC_EXAMPLE_BY_KEY.get(exampleKey);
+	const example = getExample(exampleKey);
+	return example?.meta.visibility === 'public' ? example : undefined;
 }
 
 export function listInlineExamplePreviews(): readonly InlineExamplePreviewDefinition[] {
@@ -55,19 +52,19 @@ export function listInlineExamplePreviews(): readonly InlineExamplePreviewDefini
 export function getInlineExamplePreview(
 	exampleKey: string
 ): InlineExamplePreviewDefinition | undefined {
-	return INLINE_EXAMPLE_PREVIEW_BY_KEY.get(exampleKey);
+	return INLINE_EXAMPLE_PREVIEW_BY_KEY.get(getExampleId(exampleKey));
 }
 
 export function supportsInlineExamplePreview(exampleKey: string): boolean {
-	return INLINE_EXAMPLE_PREVIEW_BY_KEY.has(exampleKey);
+	return INLINE_EXAMPLE_PREVIEW_BY_KEY.has(getExampleId(exampleKey));
 }
 
 export function buildExampleDocsHref(exampleKey: string): string {
-	return `/docs/examples/${encodeURIComponent(exampleKey)}`;
+	return `/docs/examples/${encodeURIComponent(getExampleId(exampleKey))}`;
 }
 
 export function buildExampleReferenceHref(exampleKey: string): string {
-	const slug = encodeURIComponent(exampleKey);
+	const slug = encodeURIComponent(getExampleId(exampleKey));
 	return `/docs/reference/${slug}/${slug}`;
 }
 
@@ -78,5 +75,5 @@ export function getExamplePreviewHref(exampleKey: string): string | null {
 		return null;
 	}
 
-	return `/sandbox?template=${encodeURIComponent(exampleKey)}`;
+	return `/sandbox?template=${encodeURIComponent(getExampleId(exampleKey))}`;
 }
