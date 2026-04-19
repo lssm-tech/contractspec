@@ -1,5 +1,42 @@
 # @contractspec/bundle.workspace
 
+## 4.5.0
+
+### Minor Changes
+
+- Add a family-aware ContractSpec Adoption Engine, expand contract authoring targets across CLI and VS Code tooling, and refresh release-facing schema and policy artifacts for downstream workspaces.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/module.workspace (minor), @contractspec/bundle.workspace (minor), @contractspec/bundle.library (minor), @contractspec/app.cli-contractspec (minor), vscode-contractspec (minor), contractspec (patch), @contractspec/lib.knowledge (patch), @contractspec/biome-config (patch), @contractspec/app.cursor-marketplace (patch)
+  - Migration: ContractSpec workspaces can now opt into family-aware reuse guidance and local catalog sync through `connect.adoption`.; Shared workspace discovery and IDE/CLI create flows now recognize additional contract families beyond the original core set.
+- Unify release authoring around guided capsules, canonical generated artifacts, and manifest-backed changelog surfaces.
+  - Packages: @contractspec/bundle.workspace@4.4.0 (minor), @contractspec/app.cli-contractspec@5.0.0 (major), @contractspec/action.version@2.7.13 (major), @contractspec/app.web-landing@3.8.12 (patch)
+  - Migration: Stop invoking `contractspec changelog` for release preparation and use `contractspec release prepare`, `contractspec release build`, or `contractspec release brief` instead.; `@contractspec/action.version` no longer runs the generic changelog generator during bump mode.
+  - Deprecations: `contractspec changelog generate` is no longer the supported release-authoring flow.; `contractspec changelog show` is no longer the supported public release surface.
+- Add a CLI-first onboarding workflow that reuses Connect adoption guidance, models guided onboarding through the surface runtime, generates managed AGENTS/USAGE guides, and exposes the same onboarding tracks through the CLI MCP surface and docs entrypoints.
+  - Packages: @contractspec/app.cli-contractspec (minor), @contractspec/bundle.workspace (minor), @contractspec/bundle.library (minor)
+  - Migration: The CLI now provides a first-class onboarding command that should replace ad hoc “quickstart + create one spec” repo bootstraps.; `contractspec init` can now create or merge a managed `USAGE.md` section in addition to `AGENTS.md`.
+- Improve app-config, theme, and feature authoring with explicit validation APIs, first-class theme discovery and scaffolding, and key-based app-config generation across contracts, workspace tooling, and the CLI.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/module.workspace (minor), @contractspec/bundle.workspace (minor), @contractspec/app.cli-contractspec (minor)
+  - Migration: Shared app-config authoring DTOs and templates now use `key`-based spec references instead of older `name`-based helper fields.; Theme authoring now has a canonical helper and authored-validator support.
+
+### Patch Changes
+
+- Fix Builder local onboarding so setup writes usable control-plane defaults and the CLI resolves Builder API settings from workspace config.
+  - Packages: @contractspec/bundle.workspace (patch), @contractspec/app.cli-contractspec (patch)
+- Updated dependencies because of Add a family-aware ContractSpec Adoption Engine, expand contract authoring targets across CLI and VS Code tooling, and refresh release-facing schema and policy artifacts for downstream workspaces.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Improve app-config, theme, and feature authoring with explicit validation APIs, first-class theme discovery and scaffolding, and key-based app-config generation across contracts, workspace tooling, and the CLI.
+- Updated dependencies because of Refresh root, package, website, and LLM-facing docs so Connect, Builder, release capsules, and the current contracts-spec export surface stay aligned.
+- Updated dependencies because of Persist canonical knowledge payload text during indexing and align the retrieval/query docs with the corrected behavior.
+  - @contractspec/lib.contracts-spec@5.4.0
+  - @contractspec/module.workspace@4.3.0
+  - @contractspec/biome-config@3.8.8
+  - @contractspec/integration.runtime@3.9.2
+  - @contractspec/lib.ai-agent@8.0.8
+  - @contractspec/lib.contracts-integrations@3.8.12
+  - @contractspec/lib.contracts-transformers@3.7.20
+  - @contractspec/lib.source-extractors@2.7.20
+  - @contractspec/lib.surface-runtime@0.5.20
+
 ## 4.4.0
 
 ### Minor Changes

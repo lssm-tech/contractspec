@@ -1,5 +1,13 @@
 # @contractspec/app.alpic-mcp
 
+## 3.7.19
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/bundle.alpic@3.7.19
+
 ## 3.7.18
 
 ### Patch Changes

@@ -1,5 +1,18 @@
 # @contractspec/lib.product-intent-utils
 
+## 3.7.20
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Add a family-aware ContractSpec Adoption Engine, expand contract authoring targets across CLI and VS Code tooling, and refresh release-facing schema and policy artifacts for downstream workspaces.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Improve app-config, theme, and feature authoring with explicit validation APIs, first-class theme discovery and scaffolding, and key-based app-config generation across contracts, workspace tooling, and the CLI.
+- Updated dependencies because of Refresh root, package, website, and LLM-facing docs so Connect, Builder, release capsules, and the current contracts-spec export surface stay aligned.
+- Updated dependencies because of Persist canonical knowledge payload text during indexing and align the retrieval/query docs with the corrected behavior.
+  - @contractspec/lib.contracts-spec@5.4.0
+  - @contractspec/lib.contracts-integrations@3.8.12
+
 ## 3.7.19
 
 ### Patch Changes

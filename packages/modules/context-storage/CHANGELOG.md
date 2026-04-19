@@ -1,5 +1,16 @@
 # @contractspec/module.context-storage
 
+## 0.7.19
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Add a family-aware ContractSpec Adoption Engine, expand contract authoring targets across CLI and VS Code tooling, and refresh release-facing schema and policy artifacts for downstream workspaces.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Persist canonical knowledge payload text during indexing and align the retrieval/query docs with the corrected behavior.
+  - @contractspec/lib.knowledge@3.7.20
+  - @contractspec/lib.contracts-integrations@3.8.12
+
 ## 0.7.18
 
 ### Patch Changes

@@ -1,5 +1,63 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 3.8.13
+
+### Patch Changes
+
+- Unify release authoring around guided capsules, canonical generated artifacts, and manifest-backed changelog surfaces.
+  - Packages: @contractspec/bundle.workspace@4.4.0 (minor), @contractspec/app.cli-contractspec@5.0.0 (major), @contractspec/action.version@2.7.13 (major), @contractspec/app.web-landing@3.8.12 (patch)
+  - Migration: Stop invoking `contractspec changelog` for release preparation and use `contractspec release prepare`, `contractspec release build`, or `contractspec release brief` instead.; `@contractspec/action.version` no longer runs the generic changelog generator during bump mode.
+  - Deprecations: `contractspec changelog generate` is no longer the supported release-authoring flow.; `contractspec changelog show` is no longer the supported public release surface.
+- Refresh root, package, website, and LLM-facing docs so Connect, Builder, release capsules, and the current contracts-spec export surface stay aligned.
+  - Packages: contractspec (patch), @contractspec/lib.contracts-spec (patch), @contractspec/bundle.library (patch), @contractspec/app.web-landing (patch)
+- Unify example preview metadata so templates and docs derive inline preview support from shared example registry data instead of hand-maintained lists.
+  - Packages: @contractspec/module.examples (minor), @contractspec/bundle.marketing (patch), @contractspec/bundle.library (patch), @contractspec/app.web-landing (patch), @contractspec/example.agent-console (patch), @contractspec/example.ai-chat-assistant (patch), @contractspec/example.analytics-dashboard (patch), @contractspec/example.crm-pipeline (patch), @contractspec/example.integration-hub (patch), @contractspec/example.learning-journey-registry (patch), @contractspec/example.marketplace (patch), @contractspec/example.policy-safe-knowledge-assistant (patch), @contractspec/example.saas-boilerplate (patch), @contractspec/example.workflow-system (patch)
+  - Migration: Any published example that exports `./ui` should also advertise that UI surface in its `ExampleSpec` entrypoints so preview tooling can discover it.
+- Updated dependencies because of Add a family-aware ContractSpec Adoption Engine, expand contract authoring targets across CLI and VS Code tooling, and refresh release-facing schema and policy artifacts for downstream workspaces.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add a CLI-first onboarding workflow that reuses Connect adoption guidance, models guided onboarding through the surface runtime, generates managed AGENTS/USAGE guides, and exposes the same onboarding tracks through the CLI MCP surface and docs entrypoints.
+- Updated dependencies because of Improve app-config, theme, and feature authoring with explicit validation APIs, first-class theme discovery and scaffolding, and key-based app-config generation across contracts, workspace tooling, and the CLI.
+- Updated dependencies because of Harden the shared data-table stack and add a first-class composed toolbar for search, filter chips, selection summary, and hidden-column recovery.
+- Updated dependencies because of Refresh root, package, website, and LLM-facing docs so Connect, Builder, release capsules, and the current contracts-spec export surface stay aligned.
+- Updated dependencies because of Persist canonical knowledge payload text during indexing and align the retrieval/query docs with the corrected behavior.
+- Updated dependencies because of Redesign the learning system around the adaptive journey runtime and repair shared learning sandbox presentation wiring.
+- Updated dependencies because of Restore npm provenance-safe publishing for the public integration packages by declaring repository metadata and failing release discovery before publish when it is missing.
+- Updated dependencies because of Unify example preview metadata so templates and docs derive inline preview support from shared example registry data instead of hand-maintained lists.
+  - @contractspec/lib.contracts-spec@5.4.0
+  - @contractspec/bundle.library@3.9.0
+  - @contractspec/example.in-app-docs@3.7.20
+  - @contractspec/example.visualization-showcase@3.9.12
+  - @contractspec/lib.builder-spec@0.2.2
+  - @contractspec/lib.example-shared-ui@6.0.20
+  - @contractspec/lib.progressive-delivery@34.0.19
+  - @contractspec/lib.surface-runtime@0.5.20
+  - @contractspec/module.ai-chat@4.3.20
+  - @contractspec/module.builder-workbench@0.2.2
+  - @contractspec/lib.design-system@3.10.0
+  - @contractspec/lib.ui-kit-web@3.10.1
+  - @contractspec/lib.ui-kit@3.9.1
+  - @contractspec/example.crm-pipeline@3.7.20
+  - @contractspec/example.data-grid-showcase@3.8.12
+  - @contractspec/module.examples@3.9.0
+  - @contractspec/integration.provider.claude-code@0.2.1
+  - @contractspec/integration.provider.codex@0.2.1
+  - @contractspec/integration.provider.copilot@0.2.1
+  - @contractspec/integration.provider.gemini@0.2.1
+  - @contractspec/integration.provider.local-model@0.2.1
+  - @contractspec/integration.provider.stt@0.2.1
+  - @contractspec/integration.runtime.hybrid@0.2.2
+  - @contractspec/integration.runtime.local@0.2.2
+  - @contractspec/integration.runtime.managed@0.2.2
+  - @contractspec/bundle.marketing@3.8.13
+  - @contractspec/example.agent-console@3.8.12
+  - @contractspec/example.ai-chat-assistant@3.8.12
+  - @contractspec/example.analytics-dashboard@3.9.12
+  - @contractspec/example.integration-hub@3.8.12
+  - @contractspec/example.marketplace@3.8.12
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.20
+  - @contractspec/example.saas-boilerplate@3.8.12
+  - @contractspec/example.workflow-system@3.8.12
+
 ## 3.8.12
 
 ### Patch Changes

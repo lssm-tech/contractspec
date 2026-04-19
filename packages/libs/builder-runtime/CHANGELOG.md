@@ -1,5 +1,19 @@
 # @contractspec/lib.builder-runtime
 
+## 0.2.2
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/lib.builder-spec@0.2.2
+  - @contractspec/lib.execution-lanes@0.1.3
+  - @contractspec/lib.files@3.7.20
+  - @contractspec/lib.harness@0.2.13
+  - @contractspec/lib.mobile-control@0.2.2
+  - @contractspec/lib.provider-runtime@0.2.2
+  - @contractspec/lib.voice@1.7.20
+
 ## 0.2.1
 
 ### Patch Changes

@@ -1,5 +1,31 @@
 # @contractspec/example.crm-pipeline
 
+## 3.7.20
+
+### Patch Changes
+
+- Harden the shared data-table stack and add a first-class composed toolbar for search, filter chips, selection summary, and hidden-column recovery.
+  - Packages: @contractspec/lib.design-system (minor), @contractspec/lib.presentation-runtime-react (patch), @contractspec/lib.ui-kit-web (patch), @contractspec/lib.ui-kit (patch), @contractspec/example.crm-pipeline (patch), @contractspec/example.data-grid-showcase (patch)
+  - Migration: Keep the primitive `DataTable` lean and compose richer UX through the existing `toolbar` slot.; The examples now reset page index when search or status filters change so server-mode tables stay aligned with remote pagination.
+- Unify example preview metadata so templates and docs derive inline preview support from shared example registry data instead of hand-maintained lists.
+  - Packages: @contractspec/module.examples (minor), @contractspec/bundle.marketing (patch), @contractspec/bundle.library (patch), @contractspec/app.web-landing (patch), @contractspec/example.agent-console (patch), @contractspec/example.ai-chat-assistant (patch), @contractspec/example.analytics-dashboard (patch), @contractspec/example.crm-pipeline (patch), @contractspec/example.integration-hub (patch), @contractspec/example.learning-journey-registry (patch), @contractspec/example.marketplace (patch), @contractspec/example.policy-safe-knowledge-assistant (patch), @contractspec/example.saas-boilerplate (patch), @contractspec/example.workflow-system (patch)
+  - Migration: Any published example that exports `./ui` should also advertise that UI surface in its `ExampleSpec` entrypoints so preview tooling can discover it.
+- Updated dependencies because of Add a family-aware ContractSpec Adoption Engine, expand contract authoring targets across CLI and VS Code tooling, and refresh release-facing schema and policy artifacts for downstream workspaces.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Improve app-config, theme, and feature authoring with explicit validation APIs, first-class theme discovery and scaffolding, and key-based app-config generation across contracts, workspace tooling, and the CLI.
+- Updated dependencies because of Harden the shared data-table stack and add a first-class composed toolbar for search, filter chips, selection summary, and hidden-column recovery.
+- Updated dependencies because of Refresh root, package, website, and LLM-facing docs so Connect, Builder, release capsules, and the current contracts-spec export surface stay aligned.
+- Updated dependencies because of Persist canonical knowledge payload text during indexing and align the retrieval/query docs with the corrected behavior.
+- Updated dependencies because of Normalize notification template locale resolution and merge partial locale channel overrides without dropping base channel content.
+  - @contractspec/lib.contracts-spec@5.4.0
+  - @contractspec/lib.example-shared-ui@6.0.20
+  - @contractspec/lib.identity-rbac@3.7.20
+  - @contractspec/lib.presentation-runtime-core@3.9.8
+  - @contractspec/module.audit-trail@3.7.20
+  - @contractspec/lib.design-system@3.10.0
+  - @contractspec/lib.ui-kit-web@3.10.1
+  - @contractspec/module.notifications@3.7.19
+
 ## 3.7.19
 
 ### Patch Changes

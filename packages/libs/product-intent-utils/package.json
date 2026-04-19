@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.product-intent-utils",
-	"version": "3.7.19",
+	"version": "3.7.20",
 	"description": "Prompt builders and validators for product-intent workflows.",
 	"keywords": [
 		"contractspec",

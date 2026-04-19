@@ -1,5 +1,20 @@
 # Changelog
 
+## 3.9.12
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Add a family-aware ContractSpec Adoption Engine, expand contract authoring targets across CLI and VS Code tooling, and refresh release-facing schema and policy artifacts for downstream workspaces.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Improve app-config, theme, and feature authoring with explicit validation APIs, first-class theme discovery and scaffolding, and key-based app-config generation across contracts, workspace tooling, and the CLI.
+- Updated dependencies because of Harden the shared data-table stack and add a first-class composed toolbar for search, filter chips, selection summary, and hidden-column recovery.
+- Updated dependencies because of Refresh root, package, website, and LLM-facing docs so Connect, Builder, release capsules, and the current contracts-spec export surface stay aligned.
+- Updated dependencies because of Persist canonical knowledge payload text during indexing and align the retrieval/query docs with the corrected behavior.
+  - @contractspec/lib.contracts-spec@5.4.0
+  - @contractspec/lib.presentation-runtime-core@3.9.8
+  - @contractspec/lib.design-system@3.10.0
+
 ## 3.9.11
 
 ### Patch Changes

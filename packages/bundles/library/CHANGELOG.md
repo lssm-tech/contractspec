@@ -1,5 +1,51 @@
 # @contractspec/bundle.library
 
+## 3.9.0
+
+### Minor Changes
+
+- Add a family-aware ContractSpec Adoption Engine, expand contract authoring targets across CLI and VS Code tooling, and refresh release-facing schema and policy artifacts for downstream workspaces.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/module.workspace (minor), @contractspec/bundle.workspace (minor), @contractspec/bundle.library (minor), @contractspec/app.cli-contractspec (minor), vscode-contractspec (minor), contractspec (patch), @contractspec/lib.knowledge (patch), @contractspec/biome-config (patch), @contractspec/app.cursor-marketplace (patch)
+  - Migration: ContractSpec workspaces can now opt into family-aware reuse guidance and local catalog sync through `connect.adoption`.; Shared workspace discovery and IDE/CLI create flows now recognize additional contract families beyond the original core set.
+- Add a CLI-first onboarding workflow that reuses Connect adoption guidance, models guided onboarding through the surface runtime, generates managed AGENTS/USAGE guides, and exposes the same onboarding tracks through the CLI MCP surface and docs entrypoints.
+  - Packages: @contractspec/app.cli-contractspec (minor), @contractspec/bundle.workspace (minor), @contractspec/bundle.library (minor)
+  - Migration: The CLI now provides a first-class onboarding command that should replace ad hoc “quickstart + create one spec” repo bootstraps.; `contractspec init` can now create or merge a managed `USAGE.md` section in addition to `AGENTS.md`.
+
+### Patch Changes
+
+- Refresh root, package, website, and LLM-facing docs so Connect, Builder, release capsules, and the current contracts-spec export surface stay aligned.
+  - Packages: contractspec (patch), @contractspec/lib.contracts-spec (patch), @contractspec/bundle.library (patch), @contractspec/app.web-landing (patch)
+- Unify example preview metadata so templates and docs derive inline preview support from shared example registry data instead of hand-maintained lists.
+  - Packages: @contractspec/module.examples (minor), @contractspec/bundle.marketing (patch), @contractspec/bundle.library (patch), @contractspec/app.web-landing (patch), @contractspec/example.agent-console (patch), @contractspec/example.ai-chat-assistant (patch), @contractspec/example.analytics-dashboard (patch), @contractspec/example.crm-pipeline (patch), @contractspec/example.integration-hub (patch), @contractspec/example.learning-journey-registry (patch), @contractspec/example.marketplace (patch), @contractspec/example.policy-safe-knowledge-assistant (patch), @contractspec/example.saas-boilerplate (patch), @contractspec/example.workflow-system (patch)
+  - Migration: Any published example that exports `./ui` should also advertise that UI surface in its `ExampleSpec` entrypoints so preview tooling can discover it.
+- Updated dependencies because of Add a family-aware ContractSpec Adoption Engine, expand contract authoring targets across CLI and VS Code tooling, and refresh release-facing schema and policy artifacts for downstream workspaces.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Fix Builder local onboarding so setup writes usable control-plane defaults and the CLI resolves Builder API settings from workspace config.
+- Updated dependencies because of Unify release authoring around guided capsules, canonical generated artifacts, and manifest-backed changelog surfaces.
+- Updated dependencies because of Add a CLI-first onboarding workflow that reuses Connect adoption guidance, models guided onboarding through the surface runtime, generates managed AGENTS/USAGE guides, and exposes the same onboarding tracks through the CLI MCP surface and docs entrypoints.
+- Updated dependencies because of Improve app-config, theme, and feature authoring with explicit validation APIs, first-class theme discovery and scaffolding, and key-based app-config generation across contracts, workspace tooling, and the CLI.
+- Updated dependencies because of Harden the shared data-table stack and add a first-class composed toolbar for search, filter chips, selection summary, and hidden-column recovery.
+- Updated dependencies because of Refresh root, package, website, and LLM-facing docs so Connect, Builder, release capsules, and the current contracts-spec export surface stay aligned.
+- Updated dependencies because of Persist canonical knowledge payload text during indexing and align the retrieval/query docs with the corrected behavior.
+- Updated dependencies because of Redesign the learning system around the adaptive journey runtime and repair shared learning sandbox presentation wiring.
+- Updated dependencies because of Unify example preview metadata so templates and docs derive inline preview support from shared example registry data instead of hand-maintained lists.
+  - @contractspec/lib.contracts-spec@5.4.0
+  - @contractspec/bundle.workspace@4.5.0
+  - @contractspec/lib.knowledge@3.7.20
+  - @contractspec/lib.content-gen@3.7.20
+  - @contractspec/lib.contracts-integrations@3.8.12
+  - @contractspec/lib.contracts-library@3.7.20
+  - @contractspec/lib.contracts-runtime-client-react@3.9.1
+  - @contractspec/lib.contracts-runtime-server-graphql@3.7.20
+  - @contractspec/lib.contracts-runtime-server-mcp@3.7.20
+  - @contractspec/lib.contracts-runtime-server-rest@3.7.20
+  - @contractspec/lib.example-shared-ui@6.0.20
+  - @contractspec/lib.surface-runtime@0.5.20
+  - @contractspec/module.context-storage@0.7.19
+  - @contractspec/lib.design-system@3.10.0
+  - @contractspec/lib.ui-kit-web@3.10.1
+  - @contractspec/module.examples@3.9.0
+
 ## 3.8.12
 
 ### Patch Changes

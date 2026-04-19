@@ -1,5 +1,23 @@
 # @contractspec/example.learning-journey-platform-tour
 
+## 4.0.0
+
+### Major Changes
+
+- Redesign the learning system around the adaptive journey runtime and repair shared learning sandbox presentation wiring.
+  - Packages: @contractspec/module.learning-journey (major), @contractspec/module.examples (patch), @contractspec/example.learning-journey-ambient-coach (major), @contractspec/example.learning-journey-crm-onboarding (major), @contractspec/example.learning-journey-duo-drills (major), @contractspec/example.learning-journey-platform-tour (major), @contractspec/example.learning-journey-quest-challenges (major), @contractspec/example.learning-journey-registry (major), @contractspec/example.learning-journey-studio-onboarding (major), @contractspec/example.learning-journey-ui-coaching (major), @contractspec/example.learning-journey-ui-gamified (major), @contractspec/example.learning-journey-ui-onboarding (major), @contractspec/example.learning-journey-ui-shared (major), @contractspec/example.learning-patterns (major)
+  - Migration: Replace the old onboarding-centric learning contracts and local example progress logic with the canonical adaptive `learning.journey.*` runtime.; Use the shared learning registry mapping/data helpers so supported learning sandbox templates resolve the shared presentation set consistently.
+
+### Patch Changes
+
+- Updated dependencies because of Add a family-aware ContractSpec Adoption Engine, expand contract authoring targets across CLI and VS Code tooling, and refresh release-facing schema and policy artifacts for downstream workspaces.
+- Updated dependencies because of Improve app-config, theme, and feature authoring with explicit validation APIs, first-class theme discovery and scaffolding, and key-based app-config generation across contracts, workspace tooling, and the CLI.
+- Updated dependencies because of Refresh root, package, website, and LLM-facing docs so Connect, Builder, release capsules, and the current contracts-spec export surface stay aligned.
+- Updated dependencies because of Persist canonical knowledge payload text during indexing and align the retrieval/query docs with the corrected behavior.
+- Updated dependencies because of Redesign the learning system around the adaptive journey runtime and repair shared learning sandbox presentation wiring.
+  - @contractspec/lib.contracts-spec@5.4.0
+  - @contractspec/module.learning-journey@4.0.0
+
 ## 3.7.19
 
 ### Patch Changes

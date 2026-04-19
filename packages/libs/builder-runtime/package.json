@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.builder-runtime",
-	"version": "0.2.1",
+	"version": "0.2.2",
 	"description": "Backend-neutral Builder runtime, ingestion, fusion, readiness, and replay services.",
 	"keywords": [
 		"contractspec",

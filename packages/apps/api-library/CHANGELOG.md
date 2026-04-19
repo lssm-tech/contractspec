@@ -1,5 +1,31 @@
 # @contractspec/app.api-library
 
+## 3.8.13
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Add a family-aware ContractSpec Adoption Engine, expand contract authoring targets across CLI and VS Code tooling, and refresh release-facing schema and policy artifacts for downstream workspaces.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Fix Builder local onboarding so setup writes usable control-plane defaults and the CLI resolves Builder API settings from workspace config.
+- Updated dependencies because of Unify release authoring around guided capsules, canonical generated artifacts, and manifest-backed changelog surfaces.
+- Updated dependencies because of Add a CLI-first onboarding workflow that reuses Connect adoption guidance, models guided onboarding through the surface runtime, generates managed AGENTS/USAGE guides, and exposes the same onboarding tracks through the CLI MCP surface and docs entrypoints.
+- Updated dependencies because of Improve app-config, theme, and feature authoring with explicit validation APIs, first-class theme discovery and scaffolding, and key-based app-config generation across contracts, workspace tooling, and the CLI.
+- Updated dependencies because of Refresh root, package, website, and LLM-facing docs so Connect, Builder, release capsules, and the current contracts-spec export surface stay aligned.
+- Updated dependencies because of Persist canonical knowledge payload text during indexing and align the retrieval/query docs with the corrected behavior.
+- Updated dependencies because of Restore npm provenance-safe publishing for the public integration packages by declaring repository metadata and failing release discovery before publish when it is missing.
+- Updated dependencies because of Unify example preview metadata so templates and docs derive inline preview support from shared example registry data instead of hand-maintained lists.
+  - @contractspec/lib.contracts-spec@5.4.0
+  - @contractspec/bundle.workspace@4.5.0
+  - @contractspec/bundle.library@3.9.0
+  - @contractspec/integration.providers-impls@3.8.12
+  - @contractspec/integration.runtime@3.9.2
+  - @contractspec/integration.builder-telegram@0.2.2
+  - @contractspec/integration.builder-whatsapp@0.2.2
+  - @contractspec/integration.provider.codex@0.2.1
+  - @contractspec/integration.runtime.managed@0.2.2
+  - @contractspec/bundle.marketing@3.8.13
+
 ## 3.8.12
 
 ### Patch Changes

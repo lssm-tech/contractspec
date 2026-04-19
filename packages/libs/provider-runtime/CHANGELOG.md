@@ -1,5 +1,14 @@
 # @contractspec/lib.provider-runtime
 
+## 0.2.2
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/lib.builder-spec@0.2.2
+  - @contractspec/lib.mobile-control@0.2.2
+
 ## 0.2.1
 
 ### Patch Changes

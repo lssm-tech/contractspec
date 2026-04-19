@@ -1,5 +1,17 @@
 # @contractspec/module.builder-workbench
 
+## 0.2.2
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Harden the shared data-table stack and add a first-class composed toolbar for search, filter chips, selection summary, and hidden-column recovery.
+  - @contractspec/lib.builder-runtime@0.2.2
+  - @contractspec/lib.builder-spec@0.2.2
+  - @contractspec/module.ai-chat@4.3.20
+  - @contractspec/lib.ui-kit-web@3.10.1
+
 ## 0.2.1
 
 ### Patch Changes

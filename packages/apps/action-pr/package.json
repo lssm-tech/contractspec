@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/action.pr",
-	"version": "2.7.19",
+	"version": "2.7.20",
 	"description": "GitHub Action for ContractSpec PR checks",
 	"repository": {
 		"type": "git",

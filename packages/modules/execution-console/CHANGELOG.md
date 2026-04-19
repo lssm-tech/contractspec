@@ -1,5 +1,15 @@
 # @contractspec/module.execution-console
 
+## 0.1.3
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Harden the shared data-table stack and add a first-class composed toolbar for search, filter chips, selection summary, and hidden-column recovery.
+  - @contractspec/lib.execution-lanes@0.1.3
+  - @contractspec/lib.ui-kit-web@3.10.1
+
 ## 0.1.2
 
 ### Patch Changes

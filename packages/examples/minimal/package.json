@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/example.minimal",
-	"version": "2.8.11",
+	"version": "2.8.12",
 	"type": "module",
 	"exports": {
 		".": "./src/index.ts",

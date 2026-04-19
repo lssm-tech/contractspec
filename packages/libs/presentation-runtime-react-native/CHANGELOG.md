@@ -1,5 +1,16 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 36.0.7
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Harden the shared data-table stack and add a first-class composed toolbar for search, filter chips, selection summary, and hidden-column recovery.
+  - @contractspec/lib.presentation-runtime-core@3.9.8
+  - @contractspec/lib.presentation-runtime-react@36.0.8
+  - @contractspec/lib.ui-kit@3.9.1
+
 ## 36.0.6
 
 ### Patch Changes

@@ -2,7 +2,7 @@
 	"name": "vscode-contractspec",
 	"displayName": "ContractSpec",
 	"description": "ContractSpec: spec-first development for AI-written software. Validate, scaffold, and explore your contract specifications.",
-	"version": "3.9.0",
+	"version": "3.10.0",
 	"publisher": "lssm",
 	"license": "MIT",
 	"icon": "assets/icon.png",

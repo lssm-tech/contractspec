@@ -1,5 +1,15 @@
 # @contractspec/lib.ui-kit
 
+## 3.9.1
+
+### Patch Changes
+
+- Harden the shared data-table stack and add a first-class composed toolbar for search, filter chips, selection summary, and hidden-column recovery.
+  - Packages: @contractspec/lib.design-system (minor), @contractspec/lib.presentation-runtime-react (patch), @contractspec/lib.ui-kit-web (patch), @contractspec/lib.ui-kit (patch), @contractspec/example.crm-pipeline (patch), @contractspec/example.data-grid-showcase (patch)
+  - Migration: Keep the primitive `DataTable` lean and compose richer UX through the existing `toolbar` slot.; The examples now reset page index when search or status filters change so server-mode tables stay aligned with remote pagination.
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/lib.presentation-runtime-core@3.9.8
+
 ## 3.9.0
 
 ### Minor Changes

@@ -1,5 +1,14 @@
 # @contractspec/action.version
 
+## 3.0.0
+
+### Major Changes
+
+- Unify release authoring around guided capsules, canonical generated artifacts, and manifest-backed changelog surfaces.
+  - Packages: @contractspec/bundle.workspace@4.4.0 (minor), @contractspec/app.cli-contractspec@5.0.0 (major), @contractspec/action.version@2.7.13 (major), @contractspec/app.web-landing@3.8.12 (patch)
+  - Migration: Stop invoking `contractspec changelog` for release preparation and use `contractspec release prepare`, `contractspec release build`, or `contractspec release brief` instead.; `@contractspec/action.version` no longer runs the generic changelog generator during bump mode.
+  - Deprecations: `contractspec changelog generate` is no longer the supported release-authoring flow.; `contractspec changelog show` is no longer the supported public release surface.
+
 ## 2.7.13
 
 ### Patch Changes

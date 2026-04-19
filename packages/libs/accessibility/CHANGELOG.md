@@ -1,5 +1,15 @@
 # @contractspec/lib.accessibility
 
+## 3.7.19
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Harden the shared data-table stack and add a first-class composed toolbar for search, filter chips, selection summary, and hidden-column recovery.
+  - @contractspec/lib.design-system@3.10.0
+  - @contractspec/lib.ui-kit-web@3.10.1
+  - @contractspec/lib.ui-kit@3.9.1
+
 ## 3.7.18
 
 ### Patch Changes
