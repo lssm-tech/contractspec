@@ -3,6 +3,11 @@ import {
 	type InputProps as WebInputProps,
 } from '@contractspec/lib.ui-kit-web/ui/input';
 import { type KeyboardOptions, mapKeyboardToWeb } from '../../lib/keyboard';
+import {
+	type ThemedPrimitiveProps,
+	useThemedPrimitive,
+	useTranslatedText,
+} from '../primitives/themed';
 
 interface BaseFieldProps {
 	// value?: string | number;
@@ -24,7 +29,8 @@ export type InputProps = Omit<
 	WebInputProps,
 	'input' // | 'onChange' | 'value' | 'defaultValue'
 > &
-	BaseFieldProps;
+	BaseFieldProps &
+	ThemedPrimitiveProps;
 
 export function Input({
 	value,
@@ -40,14 +46,29 @@ export function Input({
 	name,
 	className,
 	keyboard,
+	componentKey,
+	themeVariant,
+	placeholderI18n,
+	ariaLabelI18n,
 	...rest
 }: InputProps) {
 	const webKeyboard = mapKeyboardToWeb(keyboard);
+	const themed = useThemedPrimitive({
+		defaultComponentKey: 'Input',
+		componentKey,
+		themeVariant,
+		className,
+		style: rest.style,
+	});
+	const translate = useTranslatedText();
+	const resolvedPlaceholder = translate(placeholderI18n ?? placeholder);
 
 	return (
 		<WebInput
+			{...(themed.props as Partial<WebInputProps>)}
 			{...rest}
-			className={className}
+			className={themed.className}
+			style={themed.style}
 			value={value}
 			defaultValue={defaultValue}
 			// onChange={onChange ? (e) => onChange?.(e.target.value) : undefined}
@@ -55,7 +76,8 @@ export function Input({
 			onChange={onChange}
 			onFocus={onFocus}
 			onBlur={onBlur}
-			placeholder={placeholder}
+			placeholder={resolvedPlaceholder}
+			aria-label={translate(ariaLabelI18n)}
 			disabled={disabled}
 			readOnly={readOnly}
 			maxLength={maxLength}

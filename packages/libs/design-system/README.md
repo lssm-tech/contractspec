@@ -67,6 +67,40 @@ const webTokens = resolvePlatformTheme(
 );
 ```
 
+### Translate ThemeSpec into Tailwind tokens
+
+Use the Tailwind bridge when a `ThemeSpec` should drive CSS variables and
+utility names without requiring a generated file:
+
+```ts
+import {
+  resolveThemeModeTokens,
+  themeSpecToCssVariables,
+  themeSpecToTailwindCss,
+  themeSpecToTailwindPreset,
+} from "@contractspec/lib.design-system";
+
+const tokens = resolveThemeModeTokens(themeSpec, "light", {
+  targets: ["tenant:acme"],
+});
+
+export default themeSpecToTailwindPreset(tokens);
+
+const variables = themeSpecToCssVariables(themeSpec, {
+  targets: ["tenant:acme"],
+});
+
+const cssText = themeSpecToTailwindCss(variables, {
+  includeCustomVariant: true,
+});
+```
+
+The bridge emits stable variables such as `--ds-color-primary`,
+`--ds-radius-md`, and `--ds-space-sm`, plus Tailwind v4 `@theme inline`
+aliases like `--color-primary: var(--ds-color-primary)`. Color values are
+passed through unchanged, so OKLCH tokens such as
+`oklch(0.72 0.11 221.19)` can be authored directly in `ThemeSpec`.
+
 ### Provide translations to contract-driven renderers
 
 ```tsx
@@ -85,6 +119,41 @@ const resolver = createTranslationResolver({
   {children}
 </DesignSystemTranslationProvider>;
 ```
+
+### Provide contract-backed themes to controls
+
+```tsx
+import {
+  DesignSystemThemeProvider,
+  Input,
+  Select,
+} from "@contractspec/lib.design-system";
+
+<DesignSystemThemeProvider
+  theme={themeSpec}
+  targets={["tenant:acme"]}
+  mode="dark"
+  applyCssVariables
+>
+  <Input
+    componentKey="Input"
+    themeVariant="default"
+    placeholderI18n="form.customerName.placeholder"
+  />
+  <Select
+    componentKey="Select"
+    options={[{ labelI18n: "status.draft", value: "draft" }]}
+  />
+</DesignSystemThemeProvider>;
+```
+
+### Use form controls from the design-system boundary
+
+The root barrel exposes themed and translation-aware controls for product
+surfaces: `Button`, `Input`, `Textarea`, `Select`, `NativeSelect`,
+`Autocomplete`, `Combobox`, `Checkbox`, `RadioGroup`, `Switch`, `DatePicker`,
+`TimePicker`, `DateTimePicker`, `DateRangePicker`, `Field*`, `InputGroup`,
+`InputOTP`, `LoadingButton`, plus `Box`, `HStack`, and `VStack`.
 
 ### Render forms on mobile through the shared renderer
 
@@ -190,6 +259,8 @@ hidden-column recovery without widening the primitive table API.
 - `defaultTokens` and token interfaces from `./theme/tokens`
 - `mapTokensForPlatform` from `./theme/tokenBridge`
 - `resolveThemeSpecTokens`, `resolveThemeRefTokens`, and `resolvePlatformTheme` from `./theme/contracts`
+- `resolveThemeModeTokens`, `themeSpecToCssVariables`, `themeSpecToTailwindTheme`, `themeSpecToTailwindPreset`, and `themeSpecToTailwindCss`
+- `DesignSystemThemeProvider`, `useDesignSystemTheme`, and `useComponentTheme`
 - theme variants
 - `withPlatformUI`
 - `useColorScheme`
@@ -201,6 +272,7 @@ hidden-column recovery without widening the primitive table API.
 - renderer exports from `./renderers`
 - form-contract renderer support, including readonly, autocomplete, address, phone, date, time, and datetime FormSpec fields
 - translation-aware rendering through `DesignSystemTranslationProvider` and `createTranslationResolver`
+- theme-aware form controls and stack primitives that consume ThemeSpec component variant props
 - hooks such as `useListUrlState`
 - navigation-related shared types
 
@@ -240,7 +312,7 @@ The package also ships registry metadata and build support:
 - Token names and token shapes are compatibility surface.
 - `mapTokensForPlatform()` deliberately returns different token shapes for web and native, and can now map resolved contract-backed tokens.
 - `withPlatformUI()` is a lightweight adapter, not a full runtime framework.
-- Theme integration is utility-first in this tranche: resolve tokens from `ThemeSpec` / `ThemeRef`, then map them per platform. There is no runtime theme provider yet.
+- `DesignSystemThemeProvider` resolves `ThemeSpec` / `ThemeRef` tokens, scoped overrides, and component variant default props. Explicit caller props win over theme defaults.
 - The root barrel is broad and therefore high-blast-radius.
 - This package depends on both `ui-kit` and `ui-kit-web`.
 - The package includes legal, marketing, agent, app-shell, and visualization compositions, not just low-level primitives.

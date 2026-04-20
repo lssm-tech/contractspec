@@ -1,6 +1,11 @@
 import { Textarea as NativeTextarea } from '@contractspec/lib.ui-kit/ui/textarea';
 import * as React from 'react';
 import { type KeyboardOptions, mapKeyboardToNative } from '../../lib/keyboard';
+import {
+	type ThemedPrimitiveProps,
+	useThemedPrimitive,
+	useTranslatedText,
+} from '../primitives/themed';
 
 interface BaseFieldProps {
 	value?: string;
@@ -22,7 +27,8 @@ export type TextareaProps = Omit<
 	NativeTextareaComponentProps,
 	'onChangeText' | 'value' | 'defaultValue'
 > &
-	BaseFieldProps;
+	BaseFieldProps &
+	ThemedPrimitiveProps;
 
 export function Textarea({
 	value,
@@ -37,16 +43,28 @@ export function Textarea({
 	maxLength,
 	className,
 	keyboard,
+	componentKey,
+	themeVariant,
+	placeholderI18n,
+	ariaLabelI18n,
 	...rest
 }: TextareaProps) {
 	const nativeKeyboard = mapKeyboardToNative(keyboard);
+	const themed = useThemedPrimitive({
+		defaultComponentKey: 'Textarea',
+		componentKey,
+		themeVariant,
+		className,
+	});
+	const translate = useTranslatedText();
 
 	return (
 		<NativeTextarea
+			{...(themed.props as NativeTextareaComponentProps)}
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			{...(rest as any)}
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			className={className as any}
+			className={themed.className as any}
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			value={value as any}
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -59,7 +77,8 @@ export function Textarea({
 			onFocus={onFocus as any}
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			onBlur={onBlur as any}
-			placeholder={placeholder}
+			placeholder={translate(placeholderI18n ?? placeholder)}
+			accessibilityLabel={translate(ariaLabelI18n)}
 			editable={!disabled && !readOnly}
 			maxLength={maxLength}
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

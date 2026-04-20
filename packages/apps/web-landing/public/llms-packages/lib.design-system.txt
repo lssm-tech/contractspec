@@ -67,6 +67,13 @@ const webTokens = resolvePlatformTheme(
 );
 ```
 
+### Translate ThemeSpec into Tailwind tokens
+
+Use `resolveThemeModeTokens`, `themeSpecToCssVariables`,
+`themeSpecToTailwindPreset`, and `themeSpecToTailwindCss` when a `ThemeSpec`
+should drive Tailwind semantic utilities and CSS variables without requiring a
+generated file. OKLCH values are passed through unchanged.
+
 ### Provide translations to contract-driven renderers
 
 ```tsx
@@ -169,6 +176,8 @@ hidden-column recovery without widening the primitive table API.
 - `defaultTokens` and token interfaces from `./theme/tokens`
 - `mapTokensForPlatform` from `./theme/tokenBridge`
 - `resolveThemeSpecTokens`, `resolveThemeRefTokens`, and `resolvePlatformTheme` from `./theme/contracts`
+- `resolveThemeModeTokens`, `themeSpecToCssVariables`, `themeSpecToTailwindTheme`, `themeSpecToTailwindPreset`, and `themeSpecToTailwindCss`
+- `DesignSystemThemeProvider`, `useDesignSystemTheme`, and `useComponentTheme`
 - theme variants
 - `withPlatformUI`
 - `useColorScheme`
@@ -180,6 +189,7 @@ hidden-column recovery without widening the primitive table API.
 - renderer exports from `./renderers`
 - form-contract renderer support, including readonly, autocomplete, address, phone, date, time, and datetime FormSpec fields
 - translation-aware rendering through `DesignSystemTranslationProvider` and `createTranslationResolver`
+- theme-aware form controls and stack primitives that consume ThemeSpec component variant props
 - hooks such as `useListUrlState`
 - navigation-related shared types
 
@@ -219,7 +229,7 @@ The package also ships registry metadata and build support:
 - Token names and token shapes are compatibility surface.
 - `mapTokensForPlatform()` deliberately returns different token shapes for web and native, and can now map resolved contract-backed tokens.
 - `withPlatformUI()` is a lightweight adapter, not a full runtime framework.
-- Theme integration is utility-first in this tranche: resolve tokens from `ThemeSpec` / `ThemeRef`, then map them per platform. There is no runtime theme provider yet.
+- `DesignSystemThemeProvider` resolves `ThemeSpec` / `ThemeRef` tokens, scoped overrides, light/dark modes, CSS variables, and component variant default props. Explicit caller props win over theme defaults.
 - The root barrel is broad and therefore high-blast-radius.
 - This package depends on both `ui-kit` and `ui-kit-web`.
 - The package includes legal, marketing, agent, app-shell, and visualization compositions, not just low-level primitives.

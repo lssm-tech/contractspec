@@ -4,6 +4,11 @@ import {
 } from '@contractspec/lib.ui-kit-web/ui/textarea';
 import * as React from 'react';
 import { type KeyboardOptions, mapKeyboardToWeb } from '../../lib/keyboard';
+import {
+	type ThemedPrimitiveProps,
+	useThemedPrimitive,
+	useTranslatedText,
+} from '../primitives/themed';
 
 interface BaseFieldProps {
 	value?: string;
@@ -22,7 +27,9 @@ interface BaseFieldProps {
 	keyboard?: KeyboardOptions;
 }
 
-export type TextareaProps = WebTextareaProps & BaseFieldProps;
+export type TextareaProps = WebTextareaProps &
+	BaseFieldProps &
+	ThemedPrimitiveProps;
 
 // export type TextareaProps = Omit<
 //   WebTextareaProps,
@@ -45,9 +52,21 @@ export function Textarea({
 	className,
 	rows,
 	keyboard,
+	componentKey,
+	themeVariant,
+	placeholderI18n,
+	ariaLabelI18n,
 	...rest
 }: TextareaProps) {
 	const webKeyboard = mapKeyboardToWeb(keyboard);
+	const themed = useThemedPrimitive({
+		defaultComponentKey: 'Textarea',
+		componentKey,
+		themeVariant,
+		className,
+		style: rest.style,
+	});
+	const translate = useTranslatedText();
 
 	const handleChange = React.useCallback<
 		React.ChangeEventHandler<HTMLTextAreaElement>
@@ -67,9 +86,11 @@ export function Textarea({
 
 	return (
 		<WebTextarea
+			{...(themed.props as Partial<WebTextareaProps>)}
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			{...(rest as any)}
-			className={className}
+			className={themed.className}
+			style={themed.style}
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			value={value as any}
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -80,7 +101,8 @@ export function Textarea({
 			onFocus={onFocus as any}
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			onBlur={onBlur as any}
-			placeholder={placeholder}
+			placeholder={translate(placeholderI18n ?? placeholder)}
+			aria-label={translate(ariaLabelI18n)}
 			disabled={disabled}
 			readOnly={readOnly}
 			maxLength={maxLength}

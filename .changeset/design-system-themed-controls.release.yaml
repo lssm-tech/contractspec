@@ -1,0 +1,47 @@
+schemaVersion: "1"
+slug: design-system-themed-controls
+summary: Add a ThemeSpec-aware and TranslationSpec-aware design-system form/control layer with stack primitives, exported control wrappers, and FormSpec renderer alignment.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.design-system"
+    releaseType: minor
+affectedRuntimes:
+  - bun
+  - node
+  - nextjs
+  - expo
+affectedFrameworks:
+  - react
+  - react-native
+audiences:
+  - kind: maintainer
+    summary: Maintainers now have a shared design-system control boundary for forms, stacks, themes, translations, and FormSpec rendering.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+  - kind: integrator
+    summary: Integrators can import themed and translated controls from `@contractspec/lib.design-system` instead of reaching into web or native UI kit primitives directly.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+  - kind: customer
+    summary: Product surfaces and contract-rendered forms can now share the same ThemeSpec-aware and TranslationSpec-aware design-system controls across web and React Native.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: adopt-design-system-controls
+    title: Prefer design-system controls for themed and translated forms
+    summary: Use the design-system form and stack exports before dropping to platform-specific UI kit primitives.
+    level: manual
+    instructions:
+      - Wrap surfaces in `DesignSystemThemeProvider` when ThemeSpec or scoped theme overrides are available.
+      - Wrap surfaces in `DesignSystemTranslationProvider` when TranslationSpec messages should resolve labels or placeholders.
+      - Import controls such as `Select`, `Autocomplete`, `DatePicker`, `TimePicker`, `DateTimePicker`, `Box`, `HStack`, and `VStack` from `@contractspec/lib.design-system`.
+validation:
+  commands:
+    - "cd packages/libs/design-system && bun run typecheck && bun run lint:check && bun run test"
+    - "cd packages/bundles/library && bun test src/components/docs/docsManifest.test.ts && bun run typecheck"
+  evidence:
+    - "`@contractspec/lib.design-system` now exports theme runtime hooks/providers and a broader form/control surface."
+    - "FormSpec rendering now consumes exported design-system controls for select, autocomplete, choice, date, time, and datetime fields."
+    - "README, AGENTS, and cross-platform UI guidance now describe the ThemeSpec/TranslationSpec-aware control boundary."

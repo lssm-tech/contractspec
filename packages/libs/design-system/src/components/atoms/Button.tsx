@@ -4,6 +4,12 @@ import {
 } from '@contractspec/lib.ui-kit-web/ui/button';
 import { Loader2 } from 'lucide-react';
 import * as React from 'react';
+import {
+	type ThemedPrimitiveProps,
+	useThemedPrimitive,
+	useTranslatedNode,
+	useTranslatedText,
+} from '../primitives/themed';
 
 type SpinnerPlacement = 'start' | 'end';
 
@@ -24,7 +30,7 @@ export type ButtonProps = Omit<
 	// Web-only optional onClick for compatibility
 	onClick?: React.MouseEventHandler<HTMLButtonElement>;
 	disabled?: boolean;
-};
+} & ThemedPrimitiveProps;
 
 export function Button({
 	children,
@@ -42,8 +48,20 @@ export function Button({
 	onClick,
 	className,
 	disabled,
+	componentKey,
+	themeVariant,
+	labelI18n,
+	ariaLabelI18n,
 	...rest
 }: ButtonProps) {
+	const themed = useThemedPrimitive({
+		defaultComponentKey: 'Button',
+		componentKey,
+		themeVariant,
+		className,
+	});
+	const translateNode = useTranslatedNode();
+	const translate = useTranslatedText();
 	const isDisabled = Boolean(disabled || loading);
 	const handleClick = onPress
 		? () => {
@@ -56,23 +74,25 @@ export function Button({
 			{loading && spinnerPlacement === 'start' ? (
 				<Loader2 className="h-4 w-4 animate-spin" />
 			) : null}
-			{children}
+			{translateNode(labelI18n ?? children)}
 			{loading && spinnerPlacement === 'end' ? (
 				<Loader2 className="h-4 w-4 animate-spin" />
 			) : null}
 		</>
 	) : (
-		children
+		translateNode(labelI18n ?? children)
 	);
 
 	return (
 		<WebButton
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
+			{...(themed.props as any)}
 			{...(rest as any)}
-			className={className}
+			className={themed.className}
 			disabled={isDisabled}
 			aria-busy={loading ? true : undefined}
 			aria-disabled={isDisabled ? true : undefined}
+			aria-label={translate(ariaLabelI18n)}
 			onClick={handleClick}
 			onMouseDown={onMouseDown || onPressIn}
 			onMouseUp={onMouseUp || onPressOut}

@@ -4,48 +4,33 @@ import { shadcnDriver } from '@contractspec/lib.contracts-runtime-client-react/d
 import { createFormRenderer } from '@contractspec/lib.contracts-runtime-client-react/form-render';
 import type {
 	AddressFormValue,
-	AutocompleteOption,
 	FormOption,
 	PhoneFormValue,
 } from '@contractspec/lib.contracts-spec/forms';
-import { Checkbox as CheckboxUiKit } from '@contractspec/lib.ui-kit-web/ui/checkbox';
+import { Text } from '@contractspec/lib.ui-kit-web/ui/text';
+import { Button } from '../components/atoms/Button';
+import { Input } from '../components/atoms/Input';
+import { Textarea } from '../components/atoms/Textarea';
+import { Autocomplete } from '../components/forms/controls/Autocomplete';
 import {
-	Command,
-	CommandEmpty,
-	CommandGroup,
-	CommandInput,
-	CommandItem,
-	CommandList,
-} from '@contractspec/lib.ui-kit-web/ui/command';
-import { DatePicker } from '@contractspec/lib.ui-kit-web/ui/date-picker';
-import { DateTimePicker } from '@contractspec/lib.ui-kit-web/ui/datetime-picker';
+	Checkbox,
+	RadioGroup,
+	Switch,
+} from '../components/forms/controls/ChoiceControls';
+import {
+	DatePicker,
+	DateTimePicker,
+	TimePicker,
+} from '../components/forms/controls/DateTimeControls';
 import {
 	FieldDescription,
 	FieldError,
 	FieldGroup,
 	FieldLabel,
 	Field as FieldWrap,
-} from '@contractspec/lib.ui-kit-web/ui/field';
-import { Label } from '@contractspec/lib.ui-kit-web/ui/label';
-import {
-	RadioGroupItem,
-	RadioGroup as RadioGroupUiKit,
-} from '@contractspec/lib.ui-kit-web/ui/radio-group';
-import {
-	SelectContent,
-	SelectGroup,
-	SelectItem,
-	SelectTrigger,
-	Select as SelectUiKit,
-	SelectValue,
-} from '@contractspec/lib.ui-kit-web/ui/select';
-import { HStack, VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
-import { Switch as SwitchUiKit } from '@contractspec/lib.ui-kit-web/ui/switch';
-import { Text } from '@contractspec/lib.ui-kit-web/ui/text';
-import { TimePicker } from '@contractspec/lib.ui-kit-web/ui/time-picker';
-import { Button } from '../components/atoms/Button';
-import { Input } from '../components/atoms/Input';
-import { Textarea } from '../components/atoms/Textarea';
+} from '../components/forms/controls/Field';
+import { Select } from '../components/forms/controls/Select';
+import { HStack, VStack } from '../components/layout/Stack';
 import {
 	resolveTranslationNode,
 	resolveTranslationString,
@@ -77,12 +62,9 @@ const FORM_FALLBACK_TEXT = {
 	city: 'City',
 	countryCode: 'Country code',
 	extension: 'Extension',
-	noResultsFound: 'No results found.',
 	phoneNumber: 'Phone number',
 	postalCode: 'Postal code',
 	region: 'Region',
-	search: 'Search',
-	selected: 'Selected',
 } as const;
 
 function useTranslateString() {
@@ -91,190 +73,10 @@ function useTranslateString() {
 		resolveTranslationString(value, translate);
 }
 
-function translateWithFallback(
-	translate: (value: string | undefined) => string | undefined,
-	value: string | undefined,
-	fallback: string
-) {
-	return translate(value) ?? fallback;
-}
-
 function useTranslateNode() {
 	const translate = useDesignSystemTranslation();
 	return (value: React.ReactNode) => resolveTranslationNode(value, translate);
 }
-
-const Select = (props: {
-	options?: FormOption[];
-	value?: unknown;
-	onChange?: (value: unknown) => void;
-	placeholder?: string;
-	disabled?: boolean;
-	id?: string;
-	name?: string;
-}) => {
-	const translate = useTranslateString();
-	const { options, value, onChange, placeholder, ...rest } = props;
-	return (
-		<SelectUiKit
-			value={value == null ? '' : optionValue(value)}
-			onValueChange={(next) => onChange?.(next)}
-			{...rest}
-		>
-			<SelectTrigger className="w-full">
-				<SelectValue placeholder={translate(placeholder)} />
-			</SelectTrigger>
-			<SelectContent>
-				<SelectGroup>
-					{options?.map((option, index) => (
-						<SelectItem
-							key={`${optionValue(option.value)}-${index}`}
-							value={optionValue(option.value)}
-							disabled={option.disabled}
-						>
-							{translate(option.labelI18n)}
-						</SelectItem>
-					))}
-				</SelectGroup>
-			</SelectContent>
-		</SelectUiKit>
-	);
-};
-
-const Checkbox = (props: {
-	checked?: boolean;
-	onCheckedChange?: (value: boolean) => void;
-}) => (
-	<CheckboxUiKit
-		checked={Boolean(props.checked)}
-		onCheckedChange={(value) => props.onCheckedChange?.(Boolean(value))}
-	/>
-);
-
-const RadioGroup = (props: {
-	options?: FormOption[];
-	value?: unknown;
-	onValueChange?: (value: unknown) => void;
-	disabled?: boolean;
-}) => {
-	const translate = useTranslateString();
-	return (
-		<RadioGroupUiKit
-			value={props.value == null ? '' : optionValue(props.value)}
-			onValueChange={(value) => props.onValueChange?.(value)}
-			disabled={props.disabled}
-		>
-			{props.options?.map((option) => {
-				const value = optionValue(option.value);
-				return (
-					<HStack key={value} gap="sm" align="center">
-						<RadioGroupItem value={value} id={value} />
-						<Label htmlFor={value}>{translate(option.labelI18n)}</Label>
-					</HStack>
-				);
-			})}
-		</RadioGroupUiKit>
-	);
-};
-
-const Switch = (props: {
-	checked?: boolean;
-	onCheckedChange?: (value: boolean) => void;
-}) => (
-	<SwitchUiKit
-		checked={Boolean(props.checked)}
-		onCheckedChange={(value) => props.onCheckedChange?.(Boolean(value))}
-	/>
-);
-
-const Autocomplete = (props: {
-	query: string;
-	options: AutocompleteOption[];
-	selectedOptions: AutocompleteOption[];
-	onQueryChange?: (query: string) => void;
-	onSelectOption?: (option: AutocompleteOption) => void;
-	onRemoveOption?: (option: AutocompleteOption) => void;
-	multiple?: boolean;
-	placeholder?: string;
-	readOnly?: boolean;
-	disabled?: boolean;
-}) => {
-	const translate = useTranslateString();
-	return (
-		<VStack gap="sm">
-			<Command shouldFilter={false} className="rounded-md border border-input">
-				<CommandInput
-					value={props.query}
-					onValueChange={props.onQueryChange}
-					placeholder={translateWithFallback(
-						translate,
-						props.placeholder,
-						FORM_FALLBACK_TEXT.search
-					)}
-					disabled={props.disabled || props.readOnly}
-				/>
-				<CommandList>
-					<CommandEmpty>
-						{translateWithFallback(
-							translate,
-							FORM_FALLBACK_TEXT.noResultsFound,
-							FORM_FALLBACK_TEXT.noResultsFound
-						)}
-					</CommandEmpty>
-					<CommandGroup>
-						{props.options.map((option) => {
-							const selected = props.selectedOptions.some(
-								(item) => optionValue(item.value) === optionValue(option.value)
-							);
-							return (
-								<CommandItem
-									key={optionValue(option.value)}
-									value={translate(option.labelI18n) ?? option.labelI18n}
-									onSelect={() => props.onSelectOption?.(option)}
-									disabled={props.disabled || option.disabled || props.readOnly}
-								>
-									<VStack gap="xs">
-										<Text>{translate(option.labelI18n)}</Text>
-										{option.descriptionI18n ? (
-											<Text className="text-muted-foreground text-xs">
-												{translate(option.descriptionI18n)}
-											</Text>
-										) : null}
-									</VStack>
-									{selected ? (
-										<Text className="ml-auto text-muted-foreground text-xs">
-											{translateWithFallback(
-												translate,
-												FORM_FALLBACK_TEXT.selected,
-												FORM_FALLBACK_TEXT.selected
-											)}
-										</Text>
-									) : null}
-								</CommandItem>
-							);
-						})}
-					</CommandGroup>
-				</CommandList>
-			</Command>
-			{props.selectedOptions.length ? (
-				<HStack gap="sm" wrap="wrap">
-					{props.selectedOptions.map((option) => (
-						<Button
-							key={`selected-${optionValue(option.value)}`}
-							type="button"
-							variant="outline"
-							size="sm"
-							onClick={() => props.onRemoveOption?.(option)}
-							disabled={!props.multiple || props.readOnly || props.disabled}
-						>
-							{translate(option.labelI18n)}
-						</Button>
-					))}
-				</HStack>
-			) : null}
-		</VStack>
-	);
-};
 
 function updateAddress(
 	value: AddressFormValue | null | undefined,
@@ -492,71 +294,6 @@ const PhoneField = (props: {
 	);
 };
 
-const DateField = (props: {
-	value?: Date | null;
-	onChange?: (value: Date | null) => void;
-	disabled?: boolean;
-	placeholder?: string;
-	minDate?: Date;
-	maxDate?: Date;
-}) => {
-	const translate = useTranslateString();
-	return (
-		<DatePicker
-			value={props.value ?? null}
-			onChange={props.onChange ?? (() => undefined)}
-			disabled={props.disabled}
-			placeholder={translate(props.placeholder)}
-			minDate={props.minDate}
-			maxDate={props.maxDate}
-		/>
-	);
-};
-
-const TimeField = (props: {
-	value?: Date | null;
-	onChange?: (value: Date | null) => void;
-	disabled?: boolean;
-	placeholder?: string;
-	is24Hour?: boolean;
-}) => {
-	const translate = useTranslateString();
-	return (
-		<TimePicker
-			value={props.value ?? null}
-			onChange={props.onChange ?? (() => undefined)}
-			disabled={props.disabled}
-			placeholder={translate(props.placeholder)}
-			is24Hour={props.is24Hour}
-		/>
-	);
-};
-
-const DateTimeField = (props: {
-	value?: Date | null;
-	onChange?: (value: Date | null) => void;
-	disabled?: boolean;
-	datePlaceholder?: string;
-	timePlaceholder?: string;
-	minDate?: Date;
-	maxDate?: Date;
-	is24Hour?: boolean;
-}) => {
-	const translate = useTranslateString();
-	return (
-		<DateTimePicker
-			value={props.value ?? null}
-			onChange={props.onChange ?? (() => undefined)}
-			disabled={props.disabled}
-			datePlaceholder={translate(props.datePlaceholder)}
-			timePlaceholder={translate(props.timePlaceholder)}
-			minDate={props.minDate}
-			maxDate={props.maxDate}
-			is24Hour={props.is24Hour}
-		/>
-	);
-};
-
 const TranslatedFieldLabel = (
 	props: React.ComponentProps<typeof FieldLabel>
 ) => {
@@ -678,9 +415,9 @@ export const formRenderer = createFormRenderer({
 		Autocomplete,
 		AddressField,
 		PhoneField,
-		DateField,
-		TimeField,
-		DateTimeField,
+		DateField: DatePicker as never,
+		TimeField: TimePicker as never,
+		DateTimeField: DateTimePicker as never,
 		Button: TranslatedButton as never,
 	}),
 });

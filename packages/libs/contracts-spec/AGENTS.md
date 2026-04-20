@@ -44,6 +44,7 @@ Foundational contract declarations, registries, capabilities, and shared executi
 
 - This is one of the highest-blast-radius libraries in the repo; export and type changes ripple everywhere.
 - Contract, registry, and capability shapes are public API and must remain compatible or be versioned deliberately.
+- ThemeSpec tokens, mode overlays, and validation semantics are public API; keep additions backward compatible and preserve existing `tokens` authoring.
 - Do not document or expose generated paths that are not actually exported from `package.json`.
 - Keep the package README, package AGENTS guide, and `/llms/lib.contracts-spec` output aligned when public exports or authoring workflows change.
 - Changes here can affect downstream packages such as `@contractspec/lib.schema`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.

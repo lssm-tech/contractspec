@@ -127,7 +127,8 @@ Those settings are consumed by the shared setup layer used by the CLI, VS Code e
 
 ## Current Authoring Workflow
 
-- Use `defineTheme(...)` plus `contractspec create theme` for first-class theme scaffolding.
+- Use `defineTheme(...)` plus `contractspec create theme` for first-class theme scaffolding; keep `tokens` as the default/light-compatible bag and add `modes.dark.tokens` for dark-mode overlays.
+- Theme color tokens may carry `format` metadata such as `oklch`, with CSS color strings passed through to design-system bridges.
 - Route `app-config`, `feature`, and `theme` checks through the package-level validators above when building setup, editor, or CI automation.
 - Use `connect.adoption` and the broader authoring-target discovery flows when the CLI or editors should prefer existing workspace or ContractSpec surfaces before scaffolding new code.
 

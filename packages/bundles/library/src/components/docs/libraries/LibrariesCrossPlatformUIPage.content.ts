@@ -21,7 +21,7 @@ export const layerCards = [
 	},
 	{
 		title: '@contractspec/lib.design-system',
-		body: 'Composed components, token helpers, and paired web/mobile implementations that sit on top of both UI kits.',
+		body: 'Composed components, ThemeSpec/TranslationSpec-aware controls, token helpers, and paired web/mobile implementations that sit on top of both UI kits.',
 	},
 ] as const;
 export const hookCards = [
@@ -103,6 +103,7 @@ export const gotchas = [
 	'Metro only rewrites @contractspec/lib.ui-kit-web/ui/* imports. Router-specific web packages and other web-only helpers still need platform-aware imports.',
 	'presentation-runtime-core is headless. It owns models and config helpers, not rendered React components.',
 	'design-system compatibility comes from paired .tsx / .mobile.tsx implementations and token helpers such as withPlatformUI and mapTokensForPlatform.',
+	'Form controls should come from @contractspec/lib.design-system when product code needs ThemeSpec or TranslationSpec support.',
 	'Stack primitives are similar across platforms, but the prop surface is not identical. Stay inside the common subset for shared renderers.',
 	'Alias helpers solve module resolution only. They do not replace app-level monorepo watchFolders, Expo Router setup, or other Next configuration.',
 ] as const;
@@ -228,6 +229,7 @@ export const customerPolicyMarkdown = `# Cross-Surface Rendering Policy
 - Use \`withPresentationWebpackAliases\` only when the app explicitly opts into webpack.
 - Use \`withPresentationMetroAliases\` for Expo and Metro builds.
 - Prefer \`@contractspec/lib.design-system\` for shared product-facing surfaces.
+- Use design-system controls when a field must respect ThemeSpec component variants or TranslationSpec messages.
 - Use \`@contractspec/lib.ui-kit-web\` only for web-specific primitive lanes.
 - Use \`@contractspec/lib.ui-kit\` only for native-specific primitive lanes.
 - Keep shared layout code inside the common \`VStack\` / \`HStack\` / \`Box\` subset.
@@ -245,5 +247,6 @@ export const customerChecklistMarkdown = `# Cross-Surface Rendering Checklist
    - native primitive: \`@contractspec/lib.ui-kit\`
    - shared product surface: \`@contractspec/lib.design-system\`
 4. Verify mirrored \`.tsx\` / \`.mobile.tsx\` implementations where the design-system owns the surface.
-5. In shared layout code, set \`gap\`, \`align\`, \`justify\`, and \`wrap\` explicitly.
-6. Check docs and examples for root imports and current helper names before copying them into product code.`;
+5. Wrap product surfaces in \`DesignSystemThemeProvider\` and \`DesignSystemTranslationProvider\` when ThemeSpec or TranslationSpec data is available.
+6. In shared layout code, set \`gap\`, \`align\`, \`justify\`, and \`wrap\` explicitly.
+7. Check docs and examples for root imports and current helper names before copying them into product code.`;

@@ -52,6 +52,38 @@ export function AccountHealthTable() {
   );
 }`;
 
+const THEME_TAILWIND_EXAMPLE = `import {
+  DesignSystemThemeProvider,
+  resolveThemeModeTokens,
+  themeSpecToCssVariables,
+  themeSpecToTailwindCss,
+  themeSpecToTailwindPreset,
+} from '@contractspec/lib.design-system';
+
+const tokens = resolveThemeModeTokens(themeSpec, 'light', {
+  targets: ['tenant:acme'],
+});
+
+export default themeSpecToTailwindPreset(tokens);
+
+const css = themeSpecToTailwindCss(
+  themeSpecToCssVariables(themeSpec, { targets: ['tenant:acme'] }),
+  { includeCustomVariant: true }
+);
+
+export function TenantSurface({ children }: { children: React.ReactNode }) {
+  return (
+    <DesignSystemThemeProvider
+      theme={themeSpec}
+      targets={['tenant:acme']}
+      mode="dark"
+      applyCssVariables
+    >
+      {children}
+    </DesignSystemThemeProvider>
+  );
+}`;
+
 export function LibrariesDesignSystemPage() {
 	return (
 		<div className="space-y-8">
@@ -95,10 +127,25 @@ export function LibrariesDesignSystemPage() {
 						adaptive design
 					</li>
 					<li>
+						<strong>Theme Bridge</strong>: ThemeSpec to Tailwind variables,
+						presets, CSS text, and runtime light/dark mode
+					</li>
+					<li>
 						<strong>Legal Templates</strong>: Compliant templates for Terms,
 						Privacy, and GDPR
 					</li>
 				</ul>
+			</div>
+
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">ThemeSpec to Tailwind</h2>
+				<p className="text-muted-foreground">
+					The theme bridge keeps <code>ThemeSpec</code> as the source of truth
+					and exposes no-generation Tailwind helpers, optional CSS text
+					serialization, runtime CSS variables, light/dark modes, and OKLCH
+					color pass-through.
+				</p>
+				<CodeBlock language="tsx" code={THEME_TAILWIND_EXAMPLE} />
 			</div>
 
 			<div className="space-y-4">
