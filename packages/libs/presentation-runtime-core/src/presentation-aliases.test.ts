@@ -5,6 +5,11 @@ import {
 	withPresentationTurbopackAliases,
 	withPresentationWebpackAliases,
 } from './index';
+import { withPresentationMetroAliases as withPresentationMetroAliasesFromSubpath } from './metro';
+import {
+	withPresentationTurbopackAliases as withPresentationTurbopackAliasesFromSubpath,
+	withPresentationWebpackAliases as withPresentationWebpackAliasesFromSubpath,
+} from './next';
 
 describe('presentation alias helpers', () => {
 	test('withPresentationWebpackAliases merges aliases and prepends web extensions', () => {
@@ -164,5 +169,11 @@ describe('presentation alias helpers', () => {
 				platform: 'web',
 			},
 		]);
+	});
+
+	test('subpath helpers remain importable', () => {
+		expect(typeof withPresentationMetroAliasesFromSubpath).toBe('function');
+		expect(typeof withPresentationTurbopackAliasesFromSubpath).toBe('function');
+		expect(typeof withPresentationWebpackAliasesFromSubpath).toBe('function');
 	});
 });

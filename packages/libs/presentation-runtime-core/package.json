@@ -16,8 +16,9 @@
 	"scripts": {
 		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
 		"publish:pkg:canary": "bun publish:pkg --tag canary",
-		"build": "bun run build:bundle && bun run build:types",
+		"build": "bun run build:bundle && bun run build:require && bun run build:types",
 		"build:bundle": "contractspec-bun-build transpile",
+		"build:require": "bun build src/metro.ts --target node --format cjs --packages external --outfile dist/metro.cjs",
 		"build:types": "contractspec-bun-build types",
 		"clean": "rimraf dist .turbo",
 		"dev": "contractspec-bun-build dev",
@@ -43,38 +44,142 @@
 	},
 	"files": [
 		"dist",
-		"src/metro.cjs",
 		"README.md"
 	],
 	"exports": {
 		".": {
-			"types": "./src/index.ts",
-			"require": "./src/metro.cjs",
-			"default": "./src/index.ts"
+			"types": "./dist/index.d.ts",
+			"require": "./dist/metro.cjs",
+			"browser": "./dist/browser/index.js",
+			"bun": "./dist/index.js",
+			"node": "./dist/node/index.js",
+			"default": "./dist/index.js"
 		},
-		"./presentation-aliases": "./src/presentation-aliases.ts",
-		"./presentation-runtime-core.feature": "./src/presentation-runtime-core.feature.ts",
-		"./table": "./src/table.ts",
-		"./transform-engine": "./src/transform-engine.ts",
-		"./transform-engine.markdown": "./src/transform-engine.markdown.ts",
-		"./visualization": "./src/visualization.ts",
-		"./visualization.echarts": "./src/visualization.echarts.ts",
-		"./visualization.model": "./src/visualization.model.ts",
-		"./visualization.model.builders": "./src/visualization.model.builders.ts",
-		"./visualization.model.helpers": "./src/visualization.model.helpers.ts",
-		"./visualization.types": "./src/visualization.types.ts",
-		"./visualization.utils": "./src/visualization.utils.ts"
+		"./metro": {
+			"types": "./dist/metro.d.ts",
+			"require": "./dist/metro.cjs",
+			"browser": "./dist/browser/metro.js",
+			"bun": "./dist/metro.js",
+			"node": "./dist/node/metro.js",
+			"default": "./dist/metro.js"
+		},
+		"./next": {
+			"types": "./dist/next.d.ts",
+			"browser": "./dist/browser/next.js",
+			"bun": "./dist/next.js",
+			"node": "./dist/node/next.js",
+			"default": "./dist/next.js"
+		},
+		"./presentation-aliases": {
+			"types": "./dist/presentation-aliases.d.ts",
+			"browser": "./dist/browser/presentation-aliases.js",
+			"bun": "./dist/presentation-aliases.js",
+			"node": "./dist/node/presentation-aliases.js",
+			"default": "./dist/presentation-aliases.js"
+		},
+		"./presentation-runtime-core.feature": {
+			"types": "./dist/presentation-runtime-core.feature.d.ts",
+			"browser": "./dist/browser/presentation-runtime-core.feature.js",
+			"bun": "./dist/presentation-runtime-core.feature.js",
+			"node": "./dist/node/presentation-runtime-core.feature.js",
+			"default": "./dist/presentation-runtime-core.feature.js"
+		},
+		"./table": {
+			"types": "./dist/table.d.ts",
+			"browser": "./dist/browser/table.js",
+			"bun": "./dist/table.js",
+			"node": "./dist/node/table.js",
+			"default": "./dist/table.js"
+		},
+		"./transform-engine": {
+			"types": "./dist/transform-engine.d.ts",
+			"browser": "./dist/browser/transform-engine.js",
+			"bun": "./dist/transform-engine.js",
+			"node": "./dist/node/transform-engine.js",
+			"default": "./dist/transform-engine.js"
+		},
+		"./transform-engine.markdown": {
+			"types": "./dist/transform-engine.markdown.d.ts",
+			"browser": "./dist/browser/transform-engine.markdown.js",
+			"bun": "./dist/transform-engine.markdown.js",
+			"node": "./dist/node/transform-engine.markdown.js",
+			"default": "./dist/transform-engine.markdown.js"
+		},
+		"./visualization": {
+			"types": "./dist/visualization.d.ts",
+			"browser": "./dist/browser/visualization.js",
+			"bun": "./dist/visualization.js",
+			"node": "./dist/node/visualization.js",
+			"default": "./dist/visualization.js"
+		},
+		"./visualization.echarts": {
+			"types": "./dist/visualization.echarts.d.ts",
+			"browser": "./dist/browser/visualization.echarts.js",
+			"bun": "./dist/visualization.echarts.js",
+			"node": "./dist/node/visualization.echarts.js",
+			"default": "./dist/visualization.echarts.js"
+		},
+		"./visualization.model": {
+			"types": "./dist/visualization.model.d.ts",
+			"browser": "./dist/browser/visualization.model.js",
+			"bun": "./dist/visualization.model.js",
+			"node": "./dist/node/visualization.model.js",
+			"default": "./dist/visualization.model.js"
+		},
+		"./visualization.model.builders": {
+			"types": "./dist/visualization.model.builders.d.ts",
+			"browser": "./dist/browser/visualization.model.builders.js",
+			"bun": "./dist/visualization.model.builders.js",
+			"node": "./dist/node/visualization.model.builders.js",
+			"default": "./dist/visualization.model.builders.js"
+		},
+		"./visualization.model.helpers": {
+			"types": "./dist/visualization.model.helpers.d.ts",
+			"browser": "./dist/browser/visualization.model.helpers.js",
+			"bun": "./dist/visualization.model.helpers.js",
+			"node": "./dist/node/visualization.model.helpers.js",
+			"default": "./dist/visualization.model.helpers.js"
+		},
+		"./visualization.types": {
+			"types": "./dist/visualization.types.d.ts",
+			"browser": "./dist/browser/visualization.types.js",
+			"bun": "./dist/visualization.types.js",
+			"node": "./dist/node/visualization.types.js",
+			"default": "./dist/visualization.types.js"
+		},
+		"./visualization.utils": {
+			"types": "./dist/visualization.utils.d.ts",
+			"browser": "./dist/browser/visualization.utils.js",
+			"bun": "./dist/visualization.utils.js",
+			"node": "./dist/node/visualization.utils.js",
+			"default": "./dist/visualization.utils.js"
+		}
 	},
 	"publishConfig": {
 		"access": "public",
 		"exports": {
 			".": {
 				"types": "./dist/index.d.ts",
-				"require": "./src/metro.cjs",
+				"require": "./dist/metro.cjs",
 				"browser": "./dist/browser/index.js",
 				"bun": "./dist/index.js",
 				"node": "./dist/node/index.js",
 				"default": "./dist/index.js"
+			},
+			"./metro": {
+				"types": "./dist/metro.d.ts",
+				"require": "./dist/metro.cjs",
+				"browser": "./dist/browser/metro.js",
+				"bun": "./dist/metro.js",
+				"node": "./dist/node/metro.js",
+				"default": "./dist/metro.js"
+			},
+			"./next": {
+				"types": "./dist/next.d.ts",
+				"browser": "./dist/browser/next.js",
+				"bun": "./dist/next.js",
+				"node": "./dist/node/next.js",
+				"default": "./dist/next.js"
 			},
 			"./presentation-aliases": {
 				"types": "./dist/presentation-aliases.d.ts",

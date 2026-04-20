@@ -1,11 +1,4 @@
 import type { DocBlock } from '@contractspec/lib.contracts-spec/docs';
-import {
-	createPresentationAliasMap,
-	createTurbopackResolveExtensions,
-	type PresentationAliasOptions,
-	type TurbopackAliasTarget,
-	WEBPACK_WEB_EXTENSIONS,
-} from './presentation-aliases';
 export interface ListState<TFilters extends Record<string, unknown>> {
 	q: string;
 	page: number;
@@ -18,6 +11,27 @@ export type ListFetcher<TVars, TItem> = (
 	vars: TVars
 ) => Promise<{ items: TItem[]; totalItems?: number; totalPages?: number }>;
 
+// ---- Framework config helpers (Webpack / Turbopack / Metro) ----
+export type {
+	MetroAliasOptions,
+	MetroConfigLike,
+	MetroResolveContextLike,
+	MetroResolveRequestLike,
+	MetroResolveResult,
+	MetroResolverLike,
+} from './metro';
+export { withPresentationMetroAliases } from './metro';
+export type {
+	NextAliasOptions,
+	NextConfigLike,
+	TurbopackConfigLike,
+	WebpackConfigLike,
+	WebpackResolveLike,
+} from './next';
+export {
+	withPresentationTurbopackAliases,
+	withPresentationWebpackAliases,
+} from './next';
 export type {
 	ContractTableCellAlign,
 	ContractTableCellRenderModel,
@@ -53,126 +67,6 @@ export {
 	formatVisualizationValue,
 } from './visualization';
 export { buildVisualizationEChartsOption } from './visualization.echarts';
-
-// ---- Framework config helpers (Webpack / Turbopack / Metro) ----
-/** @deprecated Use PresentationAliasOptions. */
-export type NextAliasOptions = PresentationAliasOptions;
-
-export interface WebpackResolveLike {
-	alias?: Record<string, unknown>;
-	extensions?: string[];
-	[key: string]: unknown;
-}
-
-export interface WebpackConfigLike {
-	resolve?: WebpackResolveLike;
-	[key: string]: unknown;
-}
-
-export interface TurbopackConfigLike {
-	resolveAlias?: Record<string, TurbopackAliasTarget>;
-	resolveExtensions?: string[];
-	[key: string]: unknown;
-}
-
-export interface NextConfigLike {
-	turbopack?: TurbopackConfigLike;
-	[key: string]: unknown;
-}
-
-export function withPresentationWebpackAliases<T extends WebpackConfigLike>(
-	config: T,
-	opts: PresentationAliasOptions = {}
-) {
-	const resolve = config.resolve ?? {};
-
-	resolve.alias = {
-		...(resolve.alias ?? {}),
-		...createPresentationAliasMap(opts),
-	};
-	resolve.extensions = [
-		...WEBPACK_WEB_EXTENSIONS,
-		...(resolve.extensions ?? []),
-	];
-	config.resolve = resolve;
-
-	return config;
-}
-
-export function withPresentationTurbopackAliases<T extends NextConfigLike>(
-	nextConfig: T,
-	opts: PresentationAliasOptions = {}
-) {
-	const turbopack = nextConfig.turbopack ?? {};
-
-	turbopack.resolveAlias = {
-		...(turbopack.resolveAlias ?? {}),
-		...createPresentationAliasMap(opts),
-	};
-	turbopack.resolveExtensions = createTurbopackResolveExtensions(
-		turbopack.resolveExtensions
-	);
-	nextConfig.turbopack = turbopack;
-
-	return nextConfig;
-}
-
-export type MetroAliasOptions = PresentationAliasOptions & {
-	monorepoRoot?: string;
-};
-
-export function withPresentationMetroAliases(
-	// eslint-disable-next-line @typescript-eslint/no-explicit-any
-	config: any,
-	opts: MetroAliasOptions = {}
-) {
-	const uiWeb = opts.uiKitWeb ?? '@contractspec/lib.ui-kit-web';
-	const uiNative = opts.uiKitNative ?? '@contractspec/lib.ui-kit';
-	const presReact =
-		opts.presentationReact ?? '@contractspec/lib.presentation-runtime-react';
-	const presNative =
-		opts.presentationNative ??
-		'@contractspec/lib.presentation-runtime-react-native';
-
-	// Prefer package exports resolution
-	config.resolver ??= {};
-	config.resolver.unstable_enablePackageExports = true;
-
-	// Platform resolution ordering
-	config.resolver.platforms = [
-		'ios',
-		'android',
-		'native',
-		'mobile',
-		'web',
-		...((config.resolver.platforms as string[]) || []),
-	];
-
-	// Map web kit → native at resolver-level
-	const original = config.resolver.resolveRequest;
-	config.resolver.resolveRequest = (
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		ctx: any,
-		moduleName: string,
-		platform: string
-	) => {
-		if (platform === 'ios' || platform === 'android' || platform === 'native') {
-			if (
-				typeof moduleName === 'string' &&
-				moduleName.startsWith(uiWeb + '/ui')
-			) {
-				const mapped = moduleName.replace(uiWeb + '/ui', uiNative + '/ui');
-				return (original ?? ctx.resolveRequest)(ctx, mapped, platform);
-			}
-			if (moduleName === presReact) {
-				return (original ?? ctx.resolveRequest)(ctx, presNative, platform);
-			}
-		}
-		return (original ?? ctx.resolveRequest)(ctx, moduleName, platform);
-	};
-
-	return config;
-}
 
 export const tech_presentation_runtime_DocBlocks: DocBlock[] = [
 	{
