@@ -165,6 +165,11 @@ surfaces: `Button`, `Input`, `Textarea`, `Select`, `NativeSelect`,
 `TimePicker`, `DateTimePicker`, `DateRangePicker`, `Field*`, `InputGroup`,
 `InputOTP`, `LoadingButton`, plus `Box`, `HStack`, and `VStack`.
 
+`Field*` includes semantic `FieldSet`, `FieldLegend`, `FieldGroup`,
+`FieldContent`, `FieldLabel`, `FieldDescription`, `FieldError`, and
+`FieldSeparator` wrappers so contract-driven forms can preserve accessible
+legend, description, invalid, and grouped-control structure.
+
 ### Render forms on mobile through the shared renderer
 
 Use the focused shared renderer subpath when rendering `FormSpec` contracts in
@@ -280,7 +285,7 @@ hidden-column recovery without widening the primitive table API.
 ### Renderers and hooks
 
 - renderer exports from `./renderers`
-- form-contract renderer support, including readonly, autocomplete, address, phone, date, time, and datetime FormSpec fields
+- form-contract renderer support, including readonly, autocomplete, address, phone, date, time, datetime, semantic FormSpec groups, grid layout hints, and text/textarea input groups
 - translation-aware rendering through `DesignSystemTranslationProvider` and `createTranslationResolver`
 - theme-aware form controls and stack primitives that consume ThemeSpec component variant props
 - hooks such as `useListUrlState`

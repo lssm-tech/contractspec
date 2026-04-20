@@ -47,6 +47,11 @@ describe('design-system form renderer', () => {
 		expect(html).toContain('1 Main Street');
 		expect(html).toContain('+33');
 		expect(html).toContain('Support');
+		expect(html).toContain('<fieldset');
+		expect(html).toContain('Publication details');
+		expect(html).toContain('data-slot="input-group"');
+		expect(html).toContain('data-slot="input-group-addon"');
+		expect(html).toContain('md:grid-cols-2');
 	});
 
 	it('exports the shared form renderer from the renderers barrel', () => {

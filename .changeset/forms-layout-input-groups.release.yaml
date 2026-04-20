@@ -1,0 +1,73 @@
+schemaVersion: "1"
+slug: forms-layout-input-groups
+summary: Add FormSpec layout hints, semantic field rendering, and portable text/textarea input-group addons.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.contracts-spec"
+    releaseType: minor
+  - name: "@contractspec/lib.contracts-runtime-client-react"
+    releaseType: minor
+  - name: "@contractspec/lib.design-system"
+    releaseType: minor
+  - name: "@contractspec/lib.ui-kit-web"
+    releaseType: patch
+  - name: "@contractspec/lib.ui-kit"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - browser
+  - nextjs
+  - expo
+affectedFrameworks:
+  - react
+  - react-native
+audiences:
+  - kind: maintainer
+    summary: Maintainers can express richer FormSpec layout and field chrome without embedding renderer-specific UI.
+    affectedPackages:
+      - "@contractspec/lib.contracts-spec"
+      - "@contractspec/lib.contracts-runtime-client-react"
+      - "@contractspec/lib.design-system"
+  - kind: integrator
+    summary: Integrators can render contract forms with semantic legends, descriptions, errors, grid rows, colspans, and input addons through driver slots.
+    affectedPackages:
+      - "@contractspec/lib.contracts-runtime-client-react"
+      - "@contractspec/lib.design-system"
+  - kind: customer
+    summary: Contract-driven forms can now present dense multi-column layouts and input adornments while preserving accessible field semantics.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+deprecations:
+  - "`FieldSpec.wrapper.orientation` remains supported but should be replaced by `FieldSpec.layout.orientation` in new specs."
+migrationInstructions:
+  - Existing forms continue to render without changes.
+  - New multi-column forms should use `FormSpec.layout`, `group.layout`, and `field.layout.colSpan`.
+  - New input addons should use `inputGroup.addons` on text and textarea fields.
+upgradeSteps:
+  - id: adopt-layout-hints
+    title: Use FormSpec layout hints for dense forms
+    summary: Replace renderer-specific row wrappers with portable column and colspan metadata.
+    level: manual
+    instructions:
+      - Add `layout.columns` at form or group level.
+      - Use `field.layout.colSpan` for fields that should expand across columns.
+      - Use `group.legendI18n` when a section needs a semantic legend.
+  - id: adopt-input-groups
+    title: Use serializable input-group addons
+    summary: Add text or icon addon descriptors to text and textarea fields.
+    level: manual
+    instructions:
+      - Add `inputGroup.addons` to text or textarea field specs.
+      - Resolve icon keys in the host driver through the `InputGroupIcon` slot.
+validation:
+  commands:
+    - "bun test packages/libs/contracts-spec/src/forms/forms.test.ts packages/libs/contracts-runtime-client-react/src/form-render.impl.test.tsx packages/libs/design-system/src/renderers/form-contract.test.tsx"
+    - "cd packages/libs/contracts-spec && bun run typecheck && bun run lint:check"
+    - "cd packages/libs/contracts-runtime-client-react && bun run typecheck && bun run lint:check"
+    - "cd packages/libs/design-system && bun run typecheck && bun run lint:check && bun run test"
+    - "cd packages/libs/ui-kit-web && bun run typecheck && bun run lint:check"
+    - "cd packages/libs/ui-kit && bun run typecheck && bun run lint:check"
+  evidence:
+    - "FormSpec exposes additive layout, legend, and input-group addon types."
+    - "React renderer maps layout and input-group descriptors to semantic Field and InputGroup driver slots."
+    - "Design-system renderer consumes exported themed/translated Field and InputGroup controls."

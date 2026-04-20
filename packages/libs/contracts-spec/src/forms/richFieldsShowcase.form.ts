@@ -56,67 +56,110 @@ export const RichFieldsShowcaseForm = defineFormSpec({
 		stability: StabilityEnum.Experimental,
 	},
 	model: RichFieldsShowcaseModel,
+	layout: { columns: 1, gap: 'lg' },
 	fields: [
 		{
-			kind: 'text',
-			name: 'recordId',
-			labelI18n: 'Record ID',
-			readOnly: true,
-		},
-		{
-			kind: 'select',
-			name: 'status',
-			labelI18n: 'Status',
-			options: {
-				kind: 'static',
-				options: [
-					{ labelI18n: 'Draft', value: 'draft' },
-					{ labelI18n: 'Ready', value: 'ready' },
-					{ labelI18n: 'Published', value: 'published' },
-				],
+			kind: 'group',
+			legendI18n: 'Publication details',
+			descriptionI18n: 'Review metadata used before publishing.',
+			layout: {
+				columns: { base: 1, md: 2 },
+				gap: 'md',
 			},
+			fields: [
+				{
+					kind: 'text',
+					name: 'recordId',
+					labelI18n: 'Record ID',
+					readOnly: true,
+					inputGroup: {
+						addons: [
+							{
+								align: 'inline-start',
+								items: [
+									{
+										kind: 'icon',
+										iconKey: 'info',
+										labelI18n: 'Record identifier',
+									},
+									{ kind: 'text', textI18n: 'ID' },
+								],
+							},
+						],
+					},
+				},
+				{
+					kind: 'select',
+					name: 'status',
+					labelI18n: 'Status',
+					options: {
+						kind: 'static',
+						options: [
+							{ labelI18n: 'Draft', value: 'draft' },
+							{ labelI18n: 'Ready', value: 'ready' },
+							{ labelI18n: 'Published', value: 'published' },
+						],
+					},
+				},
+				{
+					kind: 'autocomplete',
+					name: 'reviewer',
+					labelI18n: 'Reviewer',
+					placeholderI18n: 'Search a reviewer',
+					layout: { colSpan: 'full' },
+					source: {
+						kind: 'local',
+						searchKeys: ['id', 'name', 'email'],
+						options: [
+							{
+								labelI18n: 'Alice Martin',
+								value: 'usr_1',
+								data: {
+									id: 'usr_1',
+									name: 'Alice Martin',
+									email: 'alice@example.com',
+								},
+							},
+							{
+								labelI18n: 'Bob Chen',
+								value: 'usr_2',
+								data: {
+									id: 'usr_2',
+									name: 'Bob Chen',
+									email: 'bob@example.com',
+								},
+							},
+						],
+					},
+					valueMapping: { mode: 'object' },
+				},
+			],
 		},
 		{
-			kind: 'autocomplete',
-			name: 'reviewer',
-			labelI18n: 'Reviewer',
-			placeholderI18n: 'Search a reviewer',
-			source: {
-				kind: 'local',
-				searchKeys: ['id', 'name', 'email'],
-				options: [
-					{
-						labelI18n: 'Alice Martin',
-						value: 'usr_1',
-						data: {
-							id: 'usr_1',
-							name: 'Alice Martin',
-							email: 'alice@example.com',
-						},
-					},
-					{
-						labelI18n: 'Bob Chen',
-						value: 'usr_2',
-						data: { id: 'usr_2', name: 'Bob Chen', email: 'bob@example.com' },
-					},
-				],
+			kind: 'group',
+			legendI18n: 'Contact channels',
+			layout: {
+				columns: { base: 1, md: 2 },
+				gap: 'md',
 			},
-			valueMapping: { mode: 'object' },
-		},
-		{ kind: 'address', name: 'address', labelI18n: 'Address' },
-		{ kind: 'phone', name: 'phone', labelI18n: 'Phone' },
-		{ kind: 'date', name: 'startDate', labelI18n: 'Start date' },
-		{
-			kind: 'time',
-			name: 'startTime',
-			labelI18n: 'Start time',
-			is24Hour: true,
-		},
-		{
-			kind: 'datetime',
-			name: 'publishedAt',
-			labelI18n: 'Published at',
-			is24Hour: true,
+			fields: [
+				{ kind: 'address', name: 'address', labelI18n: 'Address' },
+				{ kind: 'phone', name: 'phone', labelI18n: 'Phone' },
+				{ kind: 'date', name: 'startDate', labelI18n: 'Start date' },
+				{
+					kind: 'time',
+					name: 'startTime',
+					labelI18n: 'Start time',
+					is24Hour: true,
+				},
+				{
+					kind: 'datetime',
+					name: 'publishedAt',
+					labelI18n: 'Published at',
+					layout: { colSpan: 'full' },
+					is24Hour: true,
+				},
+			],
 		},
 		{
 			kind: 'array',

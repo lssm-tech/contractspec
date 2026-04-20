@@ -14,23 +14,30 @@ import {
 	TimePicker,
 } from '../../components/forms/controls/DateTimeControls';
 import {
+	FieldContent,
 	FieldGroup,
+	FieldLegend,
+	FieldSet,
 	Field as FieldWrap,
+	InputGroup,
+	InputGroupAddon,
 } from '../../components/forms/controls/Field';
 import { Select } from '../../components/forms/controls/Select';
-import { VStack } from '../../components/layout/Stack';
 import { AddressField, PhoneField } from './rich-fields';
 import {
 	Actions,
 	FieldArray,
 	FieldArrayItem,
-	FieldLegend,
 	FormRoot,
+	InputGroupIcon,
 	TranslatedButton,
 	TranslatedFieldDescription,
 	TranslatedFieldError,
 	TranslatedFieldLabel,
 	TranslatedInput,
+	TranslatedInputGroupInput,
+	TranslatedInputGroupText,
+	TranslatedInputGroupTextarea,
 	TranslatedTextarea,
 } from './shell';
 
@@ -42,14 +49,21 @@ export const formRenderer = createFormRenderer({
 		FieldLabel: TranslatedFieldLabel,
 		FieldDescription: TranslatedFieldDescription,
 		FieldError: TranslatedFieldError,
+		FieldContent,
 		FieldGroup,
-		FieldSet: (props) => <VStack gap="md" {...props} />,
+		FieldSet,
 		FieldLegend,
 		FieldArray,
 		FieldArrayItem,
 		Actions,
 		Input: TranslatedInput as never,
 		Textarea: TranslatedTextarea as never,
+		InputGroup,
+		InputGroupAddon,
+		InputGroupInput: TranslatedInputGroupInput as never,
+		InputGroupTextarea: TranslatedInputGroupTextarea as never,
+		InputGroupText: TranslatedInputGroupText,
+		InputGroupIcon,
 		Select,
 		Checkbox,
 		RadioGroup,

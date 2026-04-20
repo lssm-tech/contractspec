@@ -1,4 +1,11 @@
-import { Text } from '@contractspec/lib.ui-kit-web/ui/text';
+import {
+	CalendarIcon,
+	ClockIcon,
+	InfoIcon,
+	MailIcon,
+	SearchIcon,
+	UserIcon,
+} from 'lucide-react';
 import type * as React from 'react';
 import { Button } from '../../components/atoms/Button';
 import { Input } from '../../components/atoms/Input';
@@ -7,6 +14,9 @@ import {
 	FieldDescription,
 	FieldError,
 	FieldLabel,
+	InputGroupInput,
+	InputGroupText,
+	InputGroupTextarea,
 } from '../../components/forms/controls/Field';
 import { HStack, VStack } from '../../components/layout/Stack';
 import {
@@ -47,6 +57,62 @@ export const TranslatedTextarea = (
 ) => {
 	const translate = useTranslatedText();
 	return <Textarea {...props} placeholder={translate(props.placeholder)} />;
+};
+
+export const TranslatedInputGroupInput = (
+	props: React.ComponentProps<typeof InputGroupInput>
+) => {
+	const translate = useTranslatedText();
+	return (
+		<InputGroupInput {...props} placeholder={translate(props.placeholder)} />
+	);
+};
+
+export const TranslatedInputGroupTextarea = (
+	props: React.ComponentProps<typeof InputGroupTextarea>
+) => {
+	const translate = useTranslatedText();
+	return (
+		<InputGroupTextarea {...props} placeholder={translate(props.placeholder)} />
+	);
+};
+
+export const TranslatedInputGroupText = (
+	props: React.ComponentProps<typeof InputGroupText>
+) => {
+	const translate = useTranslatedNode();
+	return (
+		<InputGroupText {...props}>{translate(props.children)}</InputGroupText>
+	);
+};
+
+const inputGroupIcons: Record<
+	string,
+	React.ComponentType<{ className?: string }>
+> = {
+	calendar: CalendarIcon,
+	clock: ClockIcon,
+	info: InfoIcon,
+	mail: MailIcon,
+	search: SearchIcon,
+	user: UserIcon,
+};
+
+export const InputGroupIcon = ({
+	iconKey,
+	label,
+}: {
+	iconKey: string;
+	label?: string;
+}) => {
+	const Icon = inputGroupIcons[iconKey] ?? InfoIcon;
+	return (
+		<Icon
+			aria-hidden={label ? undefined : true}
+			aria-label={label}
+			className="size-4"
+		/>
+	);
 };
 
 type TranslatedButtonProps = Omit<
@@ -110,8 +176,3 @@ export const Actions = ({
 		{children}
 	</HStack>
 );
-
-export const FieldLegend = (props: React.ComponentProps<typeof Text>) => {
-	const translate = useTranslatedNode();
-	return <Text {...props}>{translate(props.children)}</Text>;
-};

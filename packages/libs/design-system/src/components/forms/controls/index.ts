@@ -38,14 +38,23 @@ export {
 } from './DropdownMenu';
 export {
 	Field,
+	FieldContent,
+	type FieldContentProps,
 	FieldDescription,
 	type FieldDescriptionProps,
 	FieldError,
 	type FieldErrorProps,
 	FieldGroup,
+	type FieldGroupProps,
 	FieldLabel,
 	type FieldLabelProps,
+	FieldLegend,
+	type FieldLegendProps,
 	type FieldProps,
+	FieldSeparator,
+	type FieldSeparatorProps,
+	FieldSet,
+	type FieldSetProps,
 } from './Field';
 export {
 	InputGroup,
