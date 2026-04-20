@@ -2,19 +2,19 @@ import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
 const ExamplesDataGridShowcaseExample = defineExample({
 	meta: {
-		key: 'examples.data-grid-showcase',
+		key: 'data-grid-showcase',
 		version: '1.0.0',
 		title: 'Data Grid Showcase',
 		description:
 			'Focused data-grid example for ContractSpec table capabilities',
-		kind: 'template',
-		visibility: 'experimental',
+		kind: 'ui',
+		visibility: 'public',
 		stability: 'experimental',
 		owners: ['@contractspec-core'],
 		tags: ['package', 'examples', 'data-grid-showcase'],
 	},
 	surfaces: {
-		templates: true,
+		templates: false,
 		sandbox: { enabled: true, modes: ['playground', 'specs'] },
 		studio: { enabled: false, installable: false },
 		mcp: { enabled: false },

@@ -2,13 +2,13 @@ import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
 const ExamplesWorkflowSystemExample = defineExample({
 	meta: {
-		key: 'examples.workflow-system',
+		key: 'workflow-system',
 		version: '1.0.0',
 		title: 'Workflow System',
 		description:
 			'Workflow and approval system example for ContractSpec - State machine with role-based transitions',
 		kind: 'template',
-		visibility: 'experimental',
+		visibility: 'public',
 		stability: 'experimental',
 		owners: ['@contractspec-core'],
 		tags: ['package', 'examples', 'workflow-system'],

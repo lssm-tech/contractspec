@@ -2,14 +2,14 @@ import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
 const ExamplesAiChatAssistantExample = defineExample({
 	meta: {
-		key: 'examples.ai-chat-assistant',
+		key: 'ai-chat-assistant',
 		version: '1.0.0',
 		title: 'Ai Chat Assistant',
 		description:
 			'Focused AI chat assistant template with MCP tools, reasoning, chain of thought, sources, and suggestions.',
 		kind: 'template',
-		visibility: 'experimental',
-		stability: 'experimental',
+		visibility: 'public',
+		stability: 'beta',
 		owners: ['@contractspec-core'],
 		tags: ['package', 'examples', 'ai-chat-assistant'],
 	},

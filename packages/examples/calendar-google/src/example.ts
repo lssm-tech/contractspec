@@ -2,12 +2,12 @@ import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
 const ExamplesCalendarGoogleExample = defineExample({
 	meta: {
-		key: 'examples.calendar-google',
+		key: 'calendar-google',
 		version: '1.0.0',
 		title: 'Calendar Google',
 		description: 'Google Calendar integration example: list and create events.',
 		kind: 'template',
-		visibility: 'experimental',
+		visibility: 'public',
 		stability: 'experimental',
 		owners: ['@contractspec-core'],
 		tags: ['package', 'examples', 'calendar-google'],

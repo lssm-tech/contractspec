@@ -1,10 +1,9 @@
-import { afterAll, describe, expect, it, mock } from 'bun:test';
+import { describe, expect, it, mock } from 'bun:test';
 import type { OperationSpec } from '@contractspec/lib.contracts-spec';
-import type { LanguageModel } from 'ai';
+import type { generateText, LanguageModel } from 'ai';
 import type { LoggerAdapter } from '../../ports/logger';
 import { TestGeneratorService } from './test-generator-service';
 
-// Mock lib.ai-agent
 const mockGenerateText = mock(async () => ({
 	text: JSON.stringify({
 		fixtures: [],
@@ -19,10 +18,6 @@ const mockGenerateText = mock(async () => ({
 	usage: { promptTokens: 10, completionTokens: 20, totalTokens: 30 },
 }));
 
-mock.module('ai', () => ({
-	generateText: mockGenerateText,
-}));
-
 describe('TestGeneratorService', () => {
 	const logger = {
 		info: mock(),
@@ -33,7 +28,8 @@ describe('TestGeneratorService', () => {
 
 	const service = new TestGeneratorService(
 		logger,
-		{} as unknown as LanguageModel
+		{} as unknown as LanguageModel,
+		mockGenerateText as unknown as typeof generateText
 	);
 
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -76,8 +72,4 @@ describe('TestGeneratorService', () => {
 		expect(service.generateTests(sampleOp)).rejects.toThrow('AI Busy');
 		expect(logger.error).toHaveBeenCalled();
 	});
-});
-
-afterAll(() => {
-	mock.restore();
 });

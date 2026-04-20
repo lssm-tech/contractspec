@@ -2,7 +2,7 @@
 
 > Aggregated content from all packages. For summary, see /llms
 
-Generated: 2026-04-20T17:23:21.688Z
+Generated: 2026-04-20T22:45:51.753Z
 Packages: 189
 
 ---
@@ -2456,6 +2456,7 @@ Use this package for:
 - Agent definition contracts (`defineAgent`, `AgentRegistry`, `AgentSpec`, `AgentToolConfig`).
 - Core registries (`OperationSpecRegistry`, `EventRegistry`, `FormRegistry`, `ResourceRegistry`).
 - Shared execution/runtime-neutral types (`HandlerCtx`, policy decision types, telemetry trigger types).
+- Typed success/failure/result contracts (`ContractResult`, `ContractSuccess`, `ContractProblem`, `ContractSpecError`) via `@contractspec/lib.contracts-spec/results`.
 - Contract installation helpers (`installOp`, `op`, `makeEmit`).
 
 Do not use this package for framework adapters:
@@ -2479,11 +2480,76 @@ bun add @contractspec/lib.contracts-spec @contractspec/lib.schema
 - `defineCommand` / `defineQuery`: typed operation specs with metadata, I/O schema, policy, transport hints, and side effects.
 - `defineAgent` + `AgentRegistry`: typed agent-definition contracts that runtime packages execute, export, or adapt.
 - `OperationSpecRegistry`: registers specs, binds handlers, and executes with validation/policy/event guards.
+- `ContractResult`: canonical success/failure envelope used by operation, workflow, job, API, MCP, GraphQL, and React runtimes while preserving raw-response compatibility for adapters.
 - `defineEvent` + `EventRegistry`: typed event contracts and lookup.
 - `defineResourceTemplate` + `ResourceRegistry`: URI-template-based resource contracts.
 - `FormRegistry`: contract-first form declarations consumed by UI runtimes, including readonly, autocomplete, address, phone, date, time, datetime, and grouped array authoring through `@contractspec/lib.contracts-spec/forms`.
 - `installOp`: one-call helper to register + bind operation handlers.
 - `makeEmit`: typed helper for declared event emission in handlers.
+
+## Typed Results
+
+`@contractspec/lib.contracts-spec/results` is the canonical success/failure
+surface for operations, workflows, jobs, API adapters, MCP tools, GraphQL
+resolvers, and React clients.
+
+Handlers can keep returning raw output for ordinary `OK` results. Use
+`contractOk`, `contractAccepted`, `contractQueued`, `contractNoContent`,
+`contractPartial`, and `contractFail` when an operation needs explicit status,
+headers, retry metadata, warnings, partial problems, or typed error args.
+
+```ts
+import {
+  contractAccepted,
+  createContractError,
+  defineResultCatalog,
+  failure,
+  standardErrors,
+  standardSuccess,
+  success,
+} from "@contractspec/lib.contracts-spec/results";
+
+const results = defineResultCatalog({
+  success: {
+    ...standardSuccess.pick("OK", "CREATED"),
+    QUEUED_FOR_REVIEW: success.queued<{ reviewId: string }>(),
+  },
+  errors: {
+    ...standardErrors.pick("UNAUTHENTICATED", "FORBIDDEN"),
+    INTENT_NOT_FOUND: failure.notFound<{ intentId: string }>({
+      description: "The referenced intent does not exist.",
+      gqlCode: "INTENT_NOT_FOUND",
+    }),
+  },
+});
+```
+
+`OperationSpecRegistry.executeResult(...)` returns a `ContractResult`.
+Legacy `execute(...)` remains compatible: it unwraps success data and throws
+`ContractSpecError` on failure. Custom success and failure codes should be
+declared in `spec.results` or `io.success`/`io.errors`; undeclared custom
+failure codes normalize to `INTERNAL_ERROR`.
+
+Adapter defaults:
+
+- REST/Fetch keeps raw success bodies by default and emits failures as
+  `application/problem+json`; set `resultEnvelope: true` for `{ ok, data }`
+  success envelopes.
+- Next.js can use the injected `NextResponse.json(...)` helper from the REST
+  runtime.
+- NestJS support is exposed as duck-typed exception filter/interceptor helpers
+  without adding `@nestjs/common` as a hard dependency.
+- GraphQL keeps field success payloads unchanged by default; enable
+  `resultExtensions` to collect success metadata, while failures use
+  `extensions.contractspec.problem`.
+- MCP tools return normal content for success and `isError: true` with a safe
+  problem payload for failures.
+- React runtime helpers normalize REST, GraphQL, MCP, workflow, job, and legacy
+  error shapes into a `ContractResult`.
+
+Migration note: prefer `ContractSpecError`, `createContractError`, and
+`contractFail` over `@contractspec/lib.error/AppError`. `@contractspec/lib.error`
+is kept as a compatibility bridge.
 
 ## Validation And Authoring Entry Points
 
@@ -2559,7 +2625,8 @@ Those settings are consumed by the shared setup layer used by the CLI, VS Code e
 
 ## Current Authoring Workflow
 
-- Use `defineTheme(...)` plus `contractspec create theme` for first-class theme scaffolding.
+- Use `defineTheme(...)` plus `contractspec create theme` for first-class theme scaffolding; keep `tokens` as the default/light-compatible bag and add `modes.dark.tokens` for dark-mode overlays.
+- Theme color tokens may carry `format` metadata such as `oklch`, with CSS color strings passed through to design-system bridges.
 - Route `app-config`, `feature`, and `theme` checks through the package-level validators above when building setup, editor, or CI automation.
 - Use `connect.adoption` and the broader authoring-target discovery flows when the CLI or editors should prefer existing workspace or ContractSpec surfaces before scaffolding new code.
 
@@ -2658,7 +2725,7 @@ See the live example in `/docs/examples/data-grid-showcase` and the browser sand
 
 <!-- CONTRACT_INVENTORY:START -->
 
-The package currently exposes **394 total exports** in `package.json`, including the root `.` barrel and **393 subpath exports**. This summary is kept here for high-context navigation and AI grounding.
+The package currently exposes **397 total exports** in `package.json`, including the root `.` barrel and **396 subpath exports**. This summary is kept here for high-context navigation and AI grounding.
 
 ### 1) Registry-level contract types (semantic model)
 
@@ -5023,6 +5090,10 @@ Website: https://contractspec.io
 
 **Structured error handling and HTTP error utilities.**
 
+> Deprecated: prefer `@contractspec/lib.contracts-spec/results` for new
+> success/error/result handling. This package remains as a compatibility bridge
+> for existing `AppError` consumers.
+
 ## What It Provides
 
 - **Layer**: lib.
@@ -5253,9 +5324,9 @@ module.exports = withPresentationMetroAliases(config);
 
 ## Architecture
 
-- `src/index.ts` is the root public barrel and package entrypoint.
-- `src/metro.cjs` is part of the package's public or composition surface.
-- `src/next.mjs` is part of the package's public or composition surface.
+- `src/index.ts` is the root public barrel that builds the package entrypoint.
+- `src/metro.ts` is part of the package's public or composition surface.
+- `src/next.ts` is part of the package's public or composition surface.
 - `src/table.ts` is part of the package's public or composition surface.
 - `src/visualization.echarts.ts` is part of the package's public or composition surface.
 - `src/visualization.model.builders.ts` is part of the package's public or composition surface.
@@ -5263,16 +5334,18 @@ module.exports = withPresentationMetroAliases(config);
 
 ## Public Entry Points
 
-- Export `.` resolves through `./src/index.ts`.
+- Export `.` publishes through `./dist/index.js`; CommonJS `require` resolves to the generated Metro helper at `./dist/metro.cjs`.
 - Bundler helpers are part of the root entrypoint; no dedicated `./webpack` or `./turbopack` subpaths are published.
-- Export `./table` resolves through `./src/table.ts`.
-- Export `./visualization` resolves through `./src/visualization.ts`.
-- Export `./visualization.echarts` resolves through `./src/visualization.echarts.ts`.
-- Export `./visualization.model` resolves through `./src/visualization.model.ts`.
-- Export `./visualization.model.builders` resolves through `./src/visualization.model.builders.ts`.
-- Export `./visualization.model.helpers` resolves through `./src/visualization.model.helpers.ts`.
-- Export `./visualization.types` resolves through `./src/visualization.types.ts`.
-- Export `./visualization.utils` resolves through `./src/visualization.utils.ts`.
+- Export `./metro` builds from `./src/metro.ts` and publishes a generated CommonJS `dist/metro.cjs` require target for Metro config files.
+- Export `./next` builds from `./src/next.ts`.
+- Export `./table` builds from `./src/table.ts`.
+- Export `./visualization` builds from `./src/visualization.ts`.
+- Export `./visualization.echarts` builds from `./src/visualization.echarts.ts`.
+- Export `./visualization.model` builds from `./src/visualization.model.ts`.
+- Export `./visualization.model.builders` builds from `./src/visualization.model.builders.ts`.
+- Export `./visualization.model.helpers` builds from `./src/visualization.model.helpers.ts`.
+- Export `./visualization.types` builds from `./src/visualization.types.ts`.
+- Export `./visualization.utils` builds from `./src/visualization.utils.ts`.
 
 ## Local Commands
 
@@ -5363,6 +5436,16 @@ const ui = withPlatformUI({
 });
 ```
 
+Focused public subpaths are available when consumers do not need the full root
+barrel:
+
+```ts
+import { themeSpecToTailwindPreset } from "@contractspec/lib.design-system/theme";
+import { Select } from "@contractspec/lib.design-system/controls";
+import { FormDialog } from "@contractspec/lib.design-system/forms";
+import { HStack } from "@contractspec/lib.design-system/layout";
+```
+
 ### Resolve contract-backed themes
 
 ```ts
@@ -5378,6 +5461,40 @@ const webTokens = resolvePlatformTheme(
   { targets: ["tenant:acme"] }
 );
 ```
+
+### Translate ThemeSpec into Tailwind tokens
+
+Use the Tailwind bridge when a `ThemeSpec` should drive CSS variables and
+utility names without requiring a generated file:
+
+```ts
+import {
+  resolveThemeModeTokens,
+  themeSpecToCssVariables,
+  themeSpecToTailwindCss,
+  themeSpecToTailwindPreset,
+} from "@contractspec/lib.design-system";
+
+const tokens = resolveThemeModeTokens(themeSpec, "light", {
+  targets: ["tenant:acme"],
+});
+
+export default themeSpecToTailwindPreset(tokens);
+
+const variables = themeSpecToCssVariables(themeSpec, {
+  targets: ["tenant:acme"],
+});
+
+const cssText = themeSpecToTailwindCss(variables, {
+  includeCustomVariant: true,
+});
+```
+
+The bridge emits stable variables such as `--ds-color-primary`,
+`--ds-radius-md`, and `--ds-space-sm`, plus Tailwind v4 `@theme inline`
+aliases like `--color-primary: var(--ds-color-primary)`. Color values are
+passed through unchanged, so OKLCH tokens such as
+`oklch(0.72 0.11 221.19)` can be authored directly in `ThemeSpec`.
 
 ### Provide translations to contract-driven renderers
 
@@ -5396,6 +5513,62 @@ const resolver = createTranslationResolver({
 <DesignSystemTranslationProvider resolver={resolver}>
   {children}
 </DesignSystemTranslationProvider>;
+```
+
+### Provide contract-backed themes to controls
+
+```tsx
+import {
+  DesignSystemThemeProvider,
+  Input,
+  Select,
+} from "@contractspec/lib.design-system";
+
+<DesignSystemThemeProvider
+  theme={themeSpec}
+  targets={["tenant:acme"]}
+  mode="dark"
+  applyCssVariables
+>
+  <Input
+    componentKey="Input"
+    themeVariant="default"
+    placeholderI18n="form.customerName.placeholder"
+  />
+  <Select
+    componentKey="Select"
+    options={[{ labelI18n: "status.draft", value: "draft" }]}
+  />
+</DesignSystemThemeProvider>;
+```
+
+### Use form controls from the design-system boundary
+
+The root barrel exposes themed and translation-aware controls for product
+surfaces: `Button`, `Input`, `Textarea`, `Select`, `NativeSelect`,
+`Autocomplete`, `Combobox`, `Checkbox`, `RadioGroup`, `Switch`, `DatePicker`,
+`TimePicker`, `DateTimePicker`, `DateRangePicker`, `Field*`, `InputGroup`,
+`InputOTP`, `LoadingButton`, plus `Box`, `HStack`, and `VStack`.
+
+### Render forms on mobile through the shared renderer
+
+Use the focused shared renderer subpath when rendering `FormSpec` contracts in
+Expo or React Native apps:
+
+```tsx
+import { formRenderer } from "@contractspec/lib.design-system/renderers";
+```
+
+Expo apps must keep the presentation Metro aliases enabled so design-system
+imports of `@contractspec/lib.ui-kit-web/ui/*` are remapped to
+`@contractspec/lib.ui-kit/ui/*` at bundle time:
+
+```js
+const {
+  withPresentationMetroAliases,
+} = require("@contractspec/lib.presentation-runtime-core");
+
+module.exports = withPresentationMetroAliases(config, { monorepoRoot });
 ```
 
 ### Render the canonical account grid
@@ -5481,6 +5654,8 @@ hidden-column recovery without widening the primitive table API.
 - `defaultTokens` and token interfaces from `./theme/tokens`
 - `mapTokensForPlatform` from `./theme/tokenBridge`
 - `resolveThemeSpecTokens`, `resolveThemeRefTokens`, and `resolvePlatformTheme` from `./theme/contracts`
+- `resolveThemeModeTokens`, `themeSpecToCssVariables`, `themeSpecToTailwindTheme`, `themeSpecToTailwindPreset`, and `themeSpecToTailwindCss`
+- `DesignSystemThemeProvider`, `useDesignSystemTheme`, and `useComponentTheme`
 - theme variants
 - `withPlatformUI`
 - `useColorScheme`
@@ -5492,6 +5667,7 @@ hidden-column recovery without widening the primitive table API.
 - renderer exports from `./renderers`
 - form-contract renderer support, including readonly, autocomplete, address, phone, date, time, and datetime FormSpec fields
 - translation-aware rendering through `DesignSystemTranslationProvider` and `createTranslationResolver`
+- theme-aware form controls and stack primitives that consume ThemeSpec component variant props
 - hooks such as `useListUrlState`
 - navigation-related shared types
 
@@ -5515,9 +5691,12 @@ The root barrel at `src/index.ts` is the main public API for this package.
 
 The export map is broad, but it is centralized:
 
-- theme and platform helpers
-- renderer exports
-- high-level components grouped by composition layer
+- `.` for backward-compatible root imports across theme, platform, renderers, controls, and composed components
+- `./theme` for ThemeSpec runtime, platform token mapping, and Tailwind bridge helpers
+- `./controls` for themed and translated controls
+- `./forms` for form controls, layouts, and `ZodForm`
+- `./layout` for `Box`, `HStack`, and `VStack`
+- `./renderers` for focused renderer imports such as `formRenderer`
 - hooks and shared types
 
 The package also ships registry metadata and build support:
@@ -5531,7 +5710,7 @@ The package also ships registry metadata and build support:
 - Token names and token shapes are compatibility surface.
 - `mapTokensForPlatform()` deliberately returns different token shapes for web and native, and can now map resolved contract-backed tokens.
 - `withPlatformUI()` is a lightweight adapter, not a full runtime framework.
-- Theme integration is utility-first in this tranche: resolve tokens from `ThemeSpec` / `ThemeRef`, then map them per platform. There is no runtime theme provider yet.
+- `DesignSystemThemeProvider` resolves `ThemeSpec` / `ThemeRef` tokens, scoped overrides, and component variant default props. Explicit caller props win over theme defaults.
 - The root barrel is broad and therefore high-blast-radius.
 - This package depends on both `ui-kit` and `ui-kit-web`.
 - The package includes legal, marketing, agent, app-shell, and visualization compositions, not just low-level primitives.

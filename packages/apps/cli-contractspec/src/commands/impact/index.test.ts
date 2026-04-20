@@ -1,18 +1,6 @@
-import {
-	afterAll,
-	afterEach,
-	beforeEach,
-	describe,
-	expect,
-	it,
-	mock,
-} from 'bun:test';
+import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test';
+import { createImpactCommand, runImpactCommand } from './index';
 
-const BUNDLE_WORKSPACE_MODULE = new URL(
-	'../../../../../bundles/workspace/src/index.ts',
-	import.meta.url
-).pathname;
-const actualBundleWorkspace = await import(BUNDLE_WORKSPACE_MODULE);
 const detectImpactMock = mock(async () => ({
 	hasBreaking: false,
 	hasNonBreaking: false,
@@ -31,52 +19,49 @@ const formatCheckRunMock = mock(() => ({ status: 'check-run' }));
 const logger = {
 	error: mock(() => {}),
 };
+const logMock = mock(() => {});
+const exitMock = mock((code?: number) => {
+	throw new Error(`exit:${code}`);
+});
 
-function installImpactMocks() {
-	mock.module('@contractspec/bundle.workspace', () => ({
-		...actualBundleWorkspace,
-		createConsoleLoggerAdapter: () => logger,
-		createNoopLoggerAdapter: () => logger,
-		createNodeFsAdapter: () => ({}),
-		createNodeGitAdapter: () => ({}),
-		impact: {
-			...actualBundleWorkspace.impact,
+function deps() {
+	return {
+		createFs: () => ({}) as never,
+		createGit: () => ({}) as never,
+		createConsoleLogger: () => logger as never,
+		createNoopLogger: () => logger as never,
+		impactService: {
 			detectImpact: detectImpactMock,
 			formatJson: formatJsonMock,
 			formatPrComment: formatPrCommentMock,
 			formatCheckRun: formatCheckRunMock,
-		},
-	}));
+		} as never,
+		log: logMock,
+		exit: exitMock as never,
+	};
 }
-
-function loadImpactModule() {
-	return import(`./index?test=${Date.now()}-${Math.random()}`);
-}
-
-const originalConsoleLog = console.log;
-const originalExit = process.exit;
 
 describe('impact command', () => {
 	beforeEach(() => {
-		mock.restore();
-		installImpactMocks();
 		detectImpactMock.mockClear();
 		formatJsonMock.mockClear();
 		formatPrCommentMock.mockClear();
 		formatCheckRunMock.mockClear();
 		logger.error.mockClear();
-		console.log = mock(() => {}) as typeof console.log;
+		logMock.mockClear();
+		exitMock.mockClear();
 	});
 
 	afterEach(() => {
-		console.log = originalConsoleLog;
-		process.exit = originalExit;
-		mock.restore();
-		mock.module('@contractspec/bundle.workspace', () => actualBundleWorkspace);
+		detectImpactMock.mockResolvedValue({
+			hasBreaking: false,
+			hasNonBreaking: false,
+			summary: { breaking: 0, nonBreaking: 0, added: 0, removed: 0 },
+			deltas: [],
+		});
 	});
 
-	it('keeps the operator-facing flags on the command surface', async () => {
-		const { createImpactCommand } = await loadImpactModule();
+	it('keeps the operator-facing flags on the command surface', () => {
 		const command = createImpactCommand();
 		expect(
 			command.options.map((option: { long?: string }) => option.long)
@@ -90,9 +75,8 @@ describe('impact command', () => {
 	});
 
 	it('routes json and markdown output through the documented formatters', async () => {
-		const { runImpactCommand } = await loadImpactModule();
-		await runImpactCommand({ format: 'json' });
-		await runImpactCommand({ format: 'markdown' });
+		await runImpactCommand({ format: 'json' }, deps());
+		await runImpactCommand({ format: 'markdown' }, deps());
 
 		expect(formatJsonMock).toHaveBeenCalledTimes(1);
 		expect(formatPrCommentMock).toHaveBeenCalledTimes(1);
@@ -100,7 +84,6 @@ describe('impact command', () => {
 	});
 
 	it('exits non-zero when --fail-on-breaking is used with breaking changes', async () => {
-		const { runImpactCommand } = await loadImpactModule();
 		detectImpactMock.mockResolvedValueOnce({
 			hasBreaking: true,
 			hasNonBreaking: false,
@@ -112,17 +95,10 @@ describe('impact command', () => {
 			},
 			deltas: [],
 		});
-		process.exit = ((code?: number) => {
-			throw new Error(`exit:${code}`);
-		}) as typeof process.exit;
 
-		await expect(runImpactCommand({ failOnBreaking: true })).rejects.toThrow(
-			'exit:1'
-		);
+		await expect(
+			runImpactCommand({ failOnBreaking: true }, deps())
+		).rejects.toThrow('exit:1');
 		expect(logger.error).not.toHaveBeenCalled();
 	});
-});
-
-afterAll(() => {
-	mock.restore();
 });

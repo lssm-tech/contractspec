@@ -64,6 +64,43 @@ const defaultPrompts: SetupPromptCallbacks = {
 	input: async (_msg, defaultValue) => defaultValue ?? '',
 };
 
+type SetupTargetHandler = (
+	fs: FsAdapter,
+	options: SetupOptions,
+	prompts: SetupPromptCallbacks
+) => Promise<SetupFileResult>;
+
+interface SetupWorkspaceAdapters {
+	findWorkspaceRoot: typeof findWorkspaceRoot;
+	findPackageRoot: typeof findPackageRoot;
+	isMonorepo: typeof isMonorepo;
+	getPackageName: typeof getPackageName;
+}
+
+export interface SetupServiceDeps {
+	targets?: Partial<Record<SetupTarget, SetupTargetHandler>>;
+	workspace?: Partial<SetupWorkspaceAdapters>;
+	setupGitignore?: typeof setupGitignore;
+}
+
+const defaultTargetHandlers: Record<SetupTarget, SetupTargetHandler> = {
+	'agents-md': setupAgentsMd,
+	'biome-config': setupBiomeConfig,
+	'cli-config': setupCliConfig,
+	'cursor-rules': setupCursorRules,
+	'mcp-claude': setupMcpClaude,
+	'mcp-cursor': setupMcpCursor,
+	'usage-md': setupUsageMd,
+	'vscode-settings': setupVscodeSettings,
+};
+
+const defaultWorkspaceAdapters: SetupWorkspaceAdapters = {
+	findWorkspaceRoot,
+	findPackageRoot,
+	isMonorepo,
+	getPackageName,
+};
+
 interface SetupSeedConfig {
 	builder?: {
 		api?: { baseUrl?: string; controlPlaneTokenEnvVar?: string };
@@ -87,19 +124,26 @@ interface SetupSeedConfig {
 export async function runSetup(
 	fs: FsAdapter,
 	options: SetupOptions,
-	prompts: SetupPromptCallbacks = defaultPrompts
+	prompts: SetupPromptCallbacks = defaultPrompts,
+	deps: SetupServiceDeps = {}
 ): Promise<SetupResult> {
 	const results: SetupFileResult[] = [];
 	const targets =
 		options.targets.length > 0 ? options.targets : ALL_SETUP_TARGETS;
+	const workspace = { ...defaultWorkspaceAdapters, ...deps.workspace };
+	const targetHandlers = { ...defaultTargetHandlers, ...deps.targets };
+	const runSetupGitignore = deps.setupGitignore ?? setupGitignore;
 
 	// Detect monorepo context if not already provided
 	const workspaceRoot = options.workspaceRoot;
-	const detectedWorkspaceRoot = findWorkspaceRoot(workspaceRoot);
-	const packageRoot = options.packageRoot ?? findPackageRoot(workspaceRoot);
-	const monorepo = options.isMonorepo ?? isMonorepo(detectedWorkspaceRoot);
+	const detectedWorkspaceRoot = workspace.findWorkspaceRoot(workspaceRoot);
+	const packageRoot =
+		options.packageRoot ?? workspace.findPackageRoot(workspaceRoot);
+	const monorepo =
+		options.isMonorepo ?? workspace.isMonorepo(detectedWorkspaceRoot);
 	const packageName =
-		options.packageName ?? (monorepo ? getPackageName(packageRoot) : undefined);
+		options.packageName ??
+		(monorepo ? workspace.getPackageName(packageRoot) : undefined);
 	const initialPresetConfig = await readSetupConfig(fs, [
 		packageRoot,
 		detectedWorkspaceRoot,
@@ -233,11 +277,17 @@ export async function runSetup(
 
 	// Run each target setup
 	for (const target of selectedTargets) {
-		const result = await setupTarget(fs, target, setupOptions, prompts);
+		const result = await setupTarget(
+			fs,
+			target,
+			setupOptions,
+			prompts,
+			targetHandlers
+		);
 		results.push(result);
 	}
 
-	const gitignoreResult = await setupGitignore(fs, {
+	const gitignoreResult = await runSetupGitignore(fs, {
 		behavior: setupOptions.gitignoreBehavior,
 		interactive: setupOptions.interactive,
 		patterns: createSetupGitignorePatterns({ preset }),
@@ -271,33 +321,20 @@ async function setupTarget(
 	fs: FsAdapter,
 	target: SetupTarget,
 	options: SetupOptions,
-	prompts: SetupPromptCallbacks
+	prompts: SetupPromptCallbacks,
+	handlers: Record<SetupTarget, SetupTargetHandler>
 ): Promise<SetupFileResult> {
-	switch (target) {
-		case 'agents-md':
-			return setupAgentsMd(fs, options, prompts);
-		case 'cli-config':
-			return setupCliConfig(fs, options, prompts);
-		case 'biome-config':
-			return setupBiomeConfig(fs, options, prompts);
-		case 'vscode-settings':
-			return setupVscodeSettings(fs, options, prompts);
-		case 'mcp-cursor':
-			return setupMcpCursor(fs, options, prompts);
-		case 'mcp-claude':
-			return setupMcpClaude(fs, options, prompts);
-		case 'cursor-rules':
-			return setupCursorRules(fs, options, prompts);
-		case 'usage-md':
-			return setupUsageMd(fs, options, prompts);
-		default:
-			return {
-				target,
-				filePath: '',
-				action: 'error',
-				message: `Unknown target: ${target}`,
-			};
+	const handler = handlers[target];
+	if (handler) {
+		return handler(fs, options, prompts);
 	}
+
+	return {
+		target,
+		filePath: '',
+		action: 'error',
+		message: `Unknown target: ${target}`,
+	};
 }
 
 async function readSetupConfig(

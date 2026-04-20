@@ -65,19 +65,19 @@
 				"node": "./dist/node/index.js",
 				"default": "./dist/index.js"
 			},
-			"./contracts-runtime-client-react.feature": {
-				"types": "./dist/contracts-runtime-client-react.feature.d.ts",
-				"browser": "./dist/browser/contracts-runtime-client-react.feature.js",
-				"bun": "./dist/contracts-runtime-client-react.feature.js",
-				"node": "./dist/node/contracts-runtime-client-react.feature.js",
-				"default": "./dist/contracts-runtime-client-react.feature.js"
-			},
 			"./contract-result-client": {
 				"types": "./dist/contract-result-client.d.ts",
 				"browser": "./dist/browser/contract-result-client.js",
 				"bun": "./dist/contract-result-client.js",
 				"node": "./dist/node/contract-result-client.js",
 				"default": "./dist/contract-result-client.js"
+			},
+			"./contracts-runtime-client-react.feature": {
+				"types": "./dist/contracts-runtime-client-react.feature.d.ts",
+				"browser": "./dist/browser/contracts-runtime-client-react.feature.js",
+				"bun": "./dist/contracts-runtime-client-react.feature.js",
+				"node": "./dist/node/contracts-runtime-client-react.feature.js",
+				"default": "./dist/contracts-runtime-client-react.feature.js"
 			},
 			"./drivers/rn-reusables": {
 				"types": "./dist/drivers/rn-reusables.d.ts",

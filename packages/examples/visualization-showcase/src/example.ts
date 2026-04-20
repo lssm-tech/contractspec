@@ -2,16 +2,22 @@ import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
 const ExamplesVisualizationShowcaseExample = defineExample({
 	meta: {
-		key: 'examples.visualization-showcase',
+		key: 'visualization-showcase',
 		version: '1.0.0',
 		title: 'Visualization Showcase',
 		description:
 			'Focused visualization showcase for ContractSpec primitives and design-system wrappers',
 		kind: 'template',
-		visibility: 'experimental',
-		stability: 'experimental',
+		visibility: 'public',
+		stability: 'stable',
 		owners: ['@contractspec-core'],
-		tags: ['package', 'examples', 'visualization-showcase'],
+		tags: [
+			'package',
+			'examples',
+			'visualization-showcase',
+			'visualization',
+			'charts',
+		],
 	},
 	surfaces: {
 		templates: true,

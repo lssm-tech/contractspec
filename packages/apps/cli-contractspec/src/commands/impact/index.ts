@@ -33,6 +33,16 @@ export interface ImpactCommandOptions {
 	quiet?: boolean;
 }
 
+export interface ImpactCommandDeps {
+	createFs?: typeof createNodeFsAdapter;
+	createGit?: typeof createNodeGitAdapter;
+	createConsoleLogger?: typeof createConsoleLoggerAdapter;
+	createNoopLogger?: typeof createNoopLoggerAdapter;
+	impactService?: typeof impact;
+	log?: typeof console.log;
+	exit?: typeof process.exit;
+}
+
 export const ContractSpecImpactCommandDocBlock = {
 	id: 'cli.impact',
 	title: 'contractspec impact Command',
@@ -129,19 +139,21 @@ export function createImpactCommand(): Command {
  * Run the impact command.
  */
 export async function runImpactCommand(
-	options: ImpactCommandOptions
+	options: ImpactCommandOptions,
+	deps: ImpactCommandDeps = {}
 ): Promise<void> {
-	const fs = createNodeFsAdapter();
-	const git = createNodeGitAdapter();
+	const impactService = deps.impactService ?? impact;
+	const fs = (deps.createFs ?? createNodeFsAdapter)();
+	const git = (deps.createGit ?? createNodeGitAdapter)();
 	// Use noop logger for machine-readable formats to keep stdout clean
 	const isTextOutput = options.format === 'text' || !options.format;
 	const logger = isTextOutput
-		? createConsoleLoggerAdapter()
-		: createNoopLoggerAdapter();
-	let result: Awaited<ReturnType<typeof impact.detectImpact>>;
+		? (deps.createConsoleLogger ?? createConsoleLoggerAdapter)()
+		: (deps.createNoopLogger ?? createNoopLoggerAdapter)();
+	let result: Awaited<ReturnType<typeof impactService.detectImpact>>;
 
 	try {
-		result = await impact.detectImpact(
+		result = await impactService.detectImpact(
 			{ fs, git, logger },
 			{
 				baseline: options.baseline,
@@ -155,14 +167,16 @@ export async function runImpactCommand(
 
 		switch (format) {
 			case 'json':
-				output = impact.formatJson(result);
+				output = impactService.formatJson(result);
 				break;
 			case 'markdown':
-				output = impact.formatPrComment(result, { template: 'detailed' });
+				output = impactService.formatPrComment(result, {
+					template: 'detailed',
+				});
 				break;
 			case 'check-run':
 				output = JSON.stringify(
-					impact.formatCheckRun(result, 'HEAD', {
+					impactService.formatCheckRun(result, 'HEAD', {
 						failOnBreaking: options.failOnBreaking,
 					}),
 					null,
@@ -175,10 +189,10 @@ export async function runImpactCommand(
 				break;
 		}
 
-		console.log(output);
+		(deps.log ?? console.log)(output);
 	} catch (error) {
 		logger.error('Impact detection failed', { error });
-		process.exit(1);
+		(deps.exit ?? process.exit)(1);
 		return;
 	}
 
@@ -186,7 +200,7 @@ export async function runImpactCommand(
 	// Keep this outside the try/catch so test stubs that throw from
 	// process.exit() don't get re-labeled as impact-detection failures.
 	if (options.failOnBreaking && result.hasBreaking) {
-		process.exit(1);
+		(deps.exit ?? process.exit)(1);
 	}
 }
 

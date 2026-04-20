@@ -64,7 +64,7 @@
       },
       "devDependencies": {
         "@contractspec/tool.typescript": "workspace:*",
-        "@types/bun": "^1.3.11",
+        "@types/bun": "^1.3.12",
         "@types/node": "^25.6.0",
         "typescript": "catalog:",
       },
@@ -78,7 +78,7 @@
       },
       "devDependencies": {
         "@contractspec/tool.typescript": "workspace:*",
-        "@types/bun": "^1.3.11",
+        "@types/bun": "^1.3.12",
         "@types/node": "^25.6.0",
         "typescript": "catalog:",
       },
@@ -487,7 +487,7 @@
       "devDependencies": {
         "@contractspec/tool.bun": "workspace:*",
         "@contractspec/tool.typescript": "workspace:*",
-        "@types/bun": "~1.3.11",
+        "@types/bun": "^1.3.12",
         "@types/react": "~19.2.14",
         "typescript": "catalog:",
       },
@@ -605,7 +605,7 @@
       "devDependencies": {
         "@contractspec/tool.bun": "workspace:*",
         "@contractspec/tool.typescript": "workspace:*",
-        "@types/bun": "^1.3.11",
+        "@types/bun": "^1.3.12",
         "@types/micromatch": "^4.0.10",
         "@types/node": "^25.6.0",
         "typescript": "catalog:",
@@ -1719,7 +1719,7 @@
       "devDependencies": {
         "@contractspec/tool.bun": "workspace:*",
         "@contractspec/tool.typescript": "workspace:*",
-        "@types/bun": "1.3.11",
+        "@types/bun": "^1.3.12",
         "typescript": "catalog:",
       },
     },
@@ -2781,7 +2781,7 @@
         "@contractspec/tool.bun": "workspace:*",
         "@contractspec/tool.typescript": "workspace:*",
         "@electric-sql/pglite": "^0.4.4",
-        "@types/bun": "~1.3.11",
+        "@types/bun": "^1.3.12",
         "drizzle-orm": "^0.45.2",
         "typescript": "catalog:",
       },
@@ -8837,8 +8837,6 @@
 
     "@composio/core/chalk": ["chalk@4.1.2", "", { "dependencies": { "ansi-styles": "^4.1.0", "supports-color": "^7.1.0" } }, "sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA=="],
 
-    "@contractspec/integration.providers-impls/@types/bun": ["@types/bun@1.3.11", "", { "dependencies": { "bun-types": "1.3.11" } }, "sha512-5vPne5QvtpjGpsGYXiFyycfpDF2ECyPcTSsFBMa0fraoxiQyMJ3SmuQIGhzPg2WJuWxVBoxWJ2kClYTcw/4fAg=="],
-
     "@electric-sql/pglite-socket/@electric-sql/pglite": ["@electric-sql/pglite@0.4.1", "", {}, "sha512-mZ9NzzUSYPOCnxHH1oAHPRzoMFJHY472raDKwXl/+6oPbpdJ7g8LsCN4FSaIIfkiCKHhb3iF/Zqo3NYxaIhU7Q=="],
 
     "@electric-sql/pglite-tools/@electric-sql/pglite": ["@electric-sql/pglite@0.4.1", "", {}, "sha512-mZ9NzzUSYPOCnxHH1oAHPRzoMFJHY472raDKwXl/+6oPbpdJ7g8LsCN4FSaIIfkiCKHhb3iF/Zqo3NYxaIhU7Q=="],
@@ -9970,8 +9968,6 @@
     "@composio/core/chalk/ansi-styles": ["ansi-styles@4.3.0", "", { "dependencies": { "color-convert": "^2.0.1" } }, "sha512-zbB9rCJAT1rbjiVDb2hqKFHNYLxgtk8NURxZ3IZwD3F6NtxbXZQCnnSi1Lkx+IDohdPlFp222wVALIheZJQSEg=="],
 
     "@composio/core/chalk/supports-color": ["supports-color@7.2.0", "", { "dependencies": { "has-flag": "^4.0.0" } }, "sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw=="],
-
-    "@contractspec/integration.providers-impls/@types/bun/bun-types": ["bun-types@1.3.11", "", { "dependencies": { "@types/node": "*" } }, "sha512-1KGPpoxQWl9f6wcZh57LvrPIInQMn2TQ7jsgxqpRzg+l0QPOFvJVH7HmvHo/AiPgwXy+/Thf6Ov3EdVn1vOabg=="],
 
     "@esbuild-kit/core-utils/esbuild/@esbuild/android-arm": ["@esbuild/android-arm@0.18.20", "", { "os": "android", "cpu": "arm" }, "sha512-fyi7TDI/ijKKNZTUJAQqiG5T7YjJXgnzkURqmGj13C6dCqckZBLdl4h7bkhHt/t0WP+zO9/zwroDvANaOqO5Sw=="],
 

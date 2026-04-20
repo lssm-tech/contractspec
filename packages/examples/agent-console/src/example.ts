@@ -2,16 +2,16 @@ import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
 const ExamplesAgentConsoleExample = defineExample({
 	meta: {
-		key: 'examples.agent-console',
+		key: 'agent-console',
 		version: '1.0.0',
 		title: 'Agent Console',
 		description:
 			'Agent Console example - AI agent orchestration with tools, runs, and logs',
 		kind: 'template',
-		visibility: 'experimental',
+		visibility: 'public',
 		stability: 'experimental',
 		owners: ['@contractspec-core'],
-		tags: ['package', 'examples', 'agent-console'],
+		tags: ['package', 'examples', 'agent-console', 'agents', 'autonomous'],
 	},
 	surfaces: {
 		templates: true,

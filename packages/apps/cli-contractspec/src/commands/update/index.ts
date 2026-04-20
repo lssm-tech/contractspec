@@ -40,15 +40,30 @@ interface UpdateCommandOptions {
 	endpoint?: string;
 }
 
+export interface UpdateCommandDeps {
+	createNodeAdapters?: typeof createNodeAdapters;
+	updateSpec?: typeof updateSpec;
+	input?: typeof input;
+	confirm?: typeof confirm;
+	validateProvider?: typeof validateProvider;
+	AgentOrchestrator?: typeof AgentOrchestrator;
+	loadConfig?: typeof loadConfig;
+	mergeConfig?: typeof mergeConfig;
+	log?: typeof console.log;
+	error?: typeof console.error;
+	exit?: typeof process.exit;
+}
+
 export async function executeUpdateCommand(
 	specFile: string,
-	options: UpdateCommandOptions
+	options: UpdateCommandOptions,
+	deps: UpdateCommandDeps = {}
 ) {
-	const baseConfig = await loadConfig();
-	const config = mergeConfig(baseConfig, options);
-	const adapters = createNodeAdapters({ config });
+	const baseConfig = await (deps.loadConfig ?? loadConfig)();
+	const config = (deps.mergeConfig ?? mergeConfig)(baseConfig, options);
+	const adapters = (deps.createNodeAdapters ?? createNodeAdapters)({ config });
 
-	console.log(chalk.bold(`\nUpdating spec: ${specFile}\n`));
+	(deps.log ?? console.log)(chalk.bold(`\nUpdating spec: ${specFile}\n`));
 
 	let content: string | undefined = options.content;
 	let fields: SpecFieldPatch[] | undefined;
@@ -61,24 +76,26 @@ export async function executeUpdateCommand(
 	}
 
 	if (options.ai) {
-		const description = await input({
+		const description = await (deps.input ?? input)({
 			message: 'Describe the change you want to make:',
 		});
 
 		if (!description.trim()) {
-			console.log(chalk.yellow('No description provided. Cancelled.'));
+			(deps.log ?? console.log)(
+				chalk.yellow('No description provided. Cancelled.')
+			);
 			return;
 		}
 
 		const currentContent = await adapters.fs.readFile(specFile);
-		content = await applyAiEdit(currentContent, description, config);
+		content = await applyAiEdit(currentContent, description, config, deps);
 
-		const ok = await confirm({
+		const ok = await (deps.confirm ?? confirm)({
 			message: 'Apply the AI-generated changes?',
 			default: true,
 		});
 		if (!ok) {
-			console.log(chalk.yellow('Cancelled.'));
+			(deps.log ?? console.log)(chalk.yellow('Cancelled.'));
 			return;
 		}
 	}
@@ -87,7 +104,7 @@ export async function executeUpdateCommand(
 		throw new Error('Provide --content, --field, or --ai to update the spec.');
 	}
 
-	const result = await updateSpec(specFile, adapters, {
+	const result = await (deps.updateSpec ?? updateSpec)(specFile, adapters, {
 		content,
 		fields,
 		skipValidation: options.skipValidation,
@@ -98,10 +115,10 @@ export async function executeUpdateCommand(
 		throw new Error(result.errors.join('\n'));
 	}
 
-	console.log(chalk.green(`Updated: ${result.specPath}`));
+	(deps.log ?? console.log)(chalk.green(`Updated: ${result.specPath}`));
 	if (result.warnings.length > 0) {
 		for (const w of result.warnings) {
-			console.log(chalk.yellow(`  Warning: ${w}`));
+			(deps.log ?? console.log)(chalk.yellow(`  Warning: ${w}`));
 		}
 	}
 }
@@ -141,10 +158,13 @@ function parseFieldPatches(raw: string[]): SpecFieldPatch[] {
 async function applyAiEdit(
 	currentContent: string,
 	description: string,
-	config: Awaited<ReturnType<typeof loadConfig>>
+	config: Awaited<ReturnType<typeof loadConfig>>,
+	deps: Pick<UpdateCommandDeps, 'AgentOrchestrator' | 'validateProvider'> = {}
 ): Promise<string> {
 	if (config.agentMode === 'simple') {
-		const providerStatus = await validateProvider(config);
+		const providerStatus = await (deps.validateProvider ?? validateProvider)(
+			config
+		);
 		if (!providerStatus.success) {
 			throw new Error(
 				`AI provider unavailable: ${providerStatus.error ?? 'unknown error'}`
@@ -152,7 +172,8 @@ async function applyAiEdit(
 		}
 	}
 
-	const orchestrator = new AgentOrchestrator(config);
+	const Orchestrator = deps.AgentOrchestrator ?? AgentOrchestrator;
+	const orchestrator = new Orchestrator(config);
 	const result = await orchestrator.refactor(
 		[
 			'Apply the requested change to the existing ContractSpec source.',

@@ -2,16 +2,16 @@ import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
 const ExamplesVoiceProvidersExample = defineExample({
 	meta: {
-		key: 'examples.voice-providers',
+		key: 'voice-providers',
 		version: '1.0.0',
 		title: 'Voice Providers',
 		description:
 			'Voice provider example: Gradium and Fal text-to-speech integration patterns.',
 		kind: 'template',
-		visibility: 'experimental',
-		stability: 'experimental',
+		visibility: 'public',
+		stability: 'beta',
 		owners: ['@contractspec-core'],
-		tags: ['package', 'examples', 'voice-providers'],
+		tags: ['package', 'examples', 'voice-providers', 'voice', 'gradium', 'fal'],
 	},
 	surfaces: {
 		templates: true,

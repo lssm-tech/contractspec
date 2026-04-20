@@ -9,7 +9,7 @@
 
 import type { AnySchemaModel } from '@contractspec/lib.schema';
 import { eventKey } from '../events';
-import type { HandlerForOperationSpec } from '../install';
+import type { HandlerForOperationSpecWithResult } from '../install';
 import { SpecContractRegistry } from '../registry';
 import type { ResourceRefDescriptor } from '../resources';
 import {
@@ -68,7 +68,7 @@ export class OperationSpecRegistry extends SpecContractRegistry<
 		O extends AnySchemaModel | ResourceRefDescriptor<boolean>,
 	>(
 		spec: OperationSpec<I, O>,
-		handler: HandlerForOperationSpec<OperationSpec<I, O>>
+		handler: HandlerForOperationSpecWithResult<OperationSpec<I, O>>
 	): this {
 		const key: OperationKey = opKey(spec.meta.key, spec.meta.version);
 

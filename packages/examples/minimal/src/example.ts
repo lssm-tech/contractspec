@@ -2,16 +2,16 @@ import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
 const ExamplesMinimalExample = defineExample({
 	meta: {
-		key: 'examples.minimal',
+		key: 'minimal',
 		version: '1.0.0',
 		title: 'Minimal',
 		description:
 			'ContractSpec package declaration for @contractspec/example.minimal.',
 		kind: 'template',
-		visibility: 'experimental',
-		stability: 'experimental',
+		visibility: 'public',
+		stability: 'stable',
 		owners: ['@contractspec-core'],
-		tags: ['package', 'examples', 'minimal'],
+		tags: ['package', 'examples', 'minimal', 'quickstart'],
 	},
 	surfaces: {
 		templates: true,

@@ -1,10 +1,7 @@
-import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test';
+import { beforeEach, describe, expect, it, mock } from 'bun:test';
+import type { BridgeWorkspaceServices } from './BridgeServer';
+import { BridgeServer } from './BridgeServer';
 
-const BUNDLE_WORKSPACE_MODULE = new URL(
-	'../../../../../bundles/workspace/src/index.ts',
-	import.meta.url
-).pathname;
-const actualBundleWorkspace = await import(`${BUNDLE_WORKSPACE_MODULE}?actual`);
 const discoverSpecs = mock(async () => [
 	{
 		filePath: '/repo/packages/modules/audit/src/contracts/ai-contracts.ts',
@@ -41,62 +38,26 @@ const runSetup = mock(async (fsArg, options) => ({
 	nextSteps: ['contractspec validate'],
 }));
 
-function installBridgeWorkspaceMock() {
-	mock.module(BUNDLE_WORKSPACE_MODULE, () => ({
-		...actualBundleWorkspace,
-		addToRegistry: mock(async () => undefined),
-		analyzeDeps: mock(async () => ({
-			graph: new Map([
-				[
-					'audit.recorded',
-					{
-						key: 'audit.recorded',
-						file: '/repo/packages/modules/audit/src/contracts/ai-contracts.ts',
-						dependencies: [],
-						dependents: [],
-					},
-				],
-			]),
-			cycles: [],
-			missing: [],
-			total: 1,
-		})),
-		analyzeIntegrity: mock(async () => ({})),
-		buildSpec: mock(async () => ({})),
-		cleanArtifacts: mock(async () => ({ removed: [], skipped: [] })),
-		compareSpecs: mock(async () => ({})),
-		createNodeAdapters: () => ({
-			fs: {},
-			git: {},
-			watcher: {},
-			ai: {},
-			logger: {},
-		}),
-		discoverSpecs,
-		exportOpenApi: mock(async () => ({})),
-		getWorkspaceInfo,
-		importFromOpenApiService: mock(async () => ({})),
-		listFromRegistry: mock(async () => []),
-		loadWorkspaceConfig: mock(async () => ({
-			outputDir: './src',
-		})),
-		runDoctor,
-		runSetup,
-		searchRegistry: mock(async () => []),
-		syncSpecs: mock(async () => ({})),
-		validateAgainstOpenApiService: mock(async () => ({})),
-		validateDiscoveredSpecs,
-		watchSpecs: mock(() => ({
-			on: mock(() => {}),
-			close: mock(async () => undefined),
-		})),
-	}));
+const bridgeServices = {
+	discoverSpecs,
+	getWorkspaceInfo,
+	runDoctor,
+	runSetup,
+	validateDiscoveredSpecs,
+};
+
+function createServer() {
+	return new BridgeServer(
+		{
+			onRequest: mock(),
+			console: { log: mock(), error: mock() },
+		} as never,
+		bridgeServices as Partial<BridgeWorkspaceServices>
+	);
 }
 
 describe('BridgeServer spec discovery payloads', () => {
 	beforeEach(() => {
-		mock.restore();
-		installBridgeWorkspaceMock();
 		discoverSpecs.mockClear();
 		validateDiscoveredSpecs.mockClear();
 		runSetup.mockClear();
@@ -104,17 +65,8 @@ describe('BridgeServer spec discovery payloads', () => {
 		getWorkspaceInfo.mockClear();
 	});
 
-	afterEach(() => {
-		mock.restore();
-		mock.module(BUNDLE_WORKSPACE_MODULE, () => actualBundleWorkspace);
-	});
-
 	it('wraps listSpecs responses under specs', async () => {
-		const { BridgeServer } = await import('./BridgeServer');
-		const server = new BridgeServer({
-			onRequest: mock(),
-			console: { log: mock(), error: mock() },
-		} as never);
+		const server = createServer();
 
 		(server as any).workspaceAdapters = { fs: {}, logger: {} };
 		(server as any).workspaceConfig = { outputDir: './src' };
@@ -126,11 +78,7 @@ describe('BridgeServer spec discovery payloads', () => {
 	});
 
 	it('wraps validateSpecs responses under results', async () => {
-		const { BridgeServer } = await import('./BridgeServer');
-		const server = new BridgeServer({
-			onRequest: mock(),
-			console: { log: mock(), error: mock() },
-		} as never);
+		const server = createServer();
 
 		(server as any).workspaceAdapters = { fs: {}, logger: {} };
 		(server as any).workspaceConfig = { outputDir: './src' };
@@ -144,11 +92,7 @@ describe('BridgeServer spec discovery payloads', () => {
 	});
 
 	it('passes setup presets through the setup handler', async () => {
-		const { BridgeServer } = await import('./BridgeServer');
-		const server = new BridgeServer({
-			onRequest: mock(),
-			console: { log: mock(), error: mock() },
-		} as never);
+		const server = createServer();
 
 		(server as any).workspaceAdapters = { fs: {}, logger: {} };
 		(server as any).workspaceRoot = '/repo';
@@ -172,11 +116,7 @@ describe('BridgeServer spec discovery payloads', () => {
 	});
 
 	it('proxies doctor and workspace info results', async () => {
-		const { BridgeServer } = await import('./BridgeServer');
-		const server = new BridgeServer({
-			onRequest: mock(),
-			console: { log: mock(), error: mock() },
-		} as never);
+		const server = createServer();
 
 		(server as any).workspaceAdapters = { fs: {}, logger: {} };
 		(server as any).workspaceRoot = '/repo';

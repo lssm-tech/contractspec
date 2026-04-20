@@ -1,29 +1,13 @@
-import { beforeEach, describe, expect, it, mock } from 'bun:test';
+import { describe, expect, it } from 'bun:test';
 import { mkdirSync, mkdtempSync, writeFileSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { createNodeFsAdapter } from '../../adapters/fs.node';
 import { createNoopLoggerAdapter } from '../../adapters/logger';
-import * as workspaceAdapter from '../../adapters/workspace';
-
-const mockFindWorkspaceRoot = mock(
-	(startDir?: string) => startDir ?? process.cwd()
-);
-
-mock.module('../../adapters/workspace', () => ({
-	...workspaceAdapter,
-	findWorkspaceRoot: mockFindWorkspaceRoot,
-}));
-
-const { buildReleaseArtifacts, checkReleaseArtifacts } = await import(
-	'./release-service'
-);
-
-beforeEach(() => {
-	mockFindWorkspaceRoot.mockImplementation(
-		(startDir?: string) => startDir ?? process.cwd()
-	);
-});
+import {
+	buildReleaseArtifacts,
+	checkReleaseArtifacts,
+} from './release-service';
 
 const gitAdapter = {
 	currentBranch: async () => 'main',

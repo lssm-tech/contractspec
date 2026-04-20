@@ -22,12 +22,25 @@ interface TestCommandOptions {
 	list?: boolean;
 }
 
+export interface TestCommandDeps {
+	createNodeAdapters?: typeof createNodeAdapters;
+	listTests?: typeof listTests;
+	loadAuthoredModuleExports?: typeof loadAuthoredModuleExports;
+	runTestSpecs?: typeof runTestSpecs;
+	TestGeneratorService?: typeof TestGeneratorService;
+	getAIProvider?: typeof getAIProvider;
+	validateProvider?: typeof validateProvider;
+	log?: typeof console.log;
+	exit?: typeof process.exit;
+}
+
 export async function testCommand(
 	specFile: string,
 	options: TestCommandOptions,
-	config: Config
+	config: Config,
+	deps: TestCommandDeps = {}
 ) {
-	const adapters = createNodeAdapters({
+	const adapters = (deps.createNodeAdapters ?? createNodeAdapters)({
 		cwd: process.cwd(),
 		silent: options.json,
 	});
@@ -36,13 +49,13 @@ export async function testCommand(
 		const specFiles = GLOB_CHARS.test(specFile)
 			? await glob(specFile, { ignore: DEFAULT_IGNORES })
 			: [specFile];
-		const specs = await listTests(specFiles, adapters);
+		const specs = await (deps.listTests ?? listTests)(specFiles, adapters);
 		if (options.json) {
-			console.log(JSON.stringify(specs, null, 2));
+			(deps.log ?? console.log)(JSON.stringify(specs, null, 2));
 		} else {
-			console.log(chalk.blue(`Found ${specs.length} tests:`));
+			(deps.log ?? console.log)(chalk.blue(`Found ${specs.length} tests:`));
 			for (const spec of specs) {
-				console.log(`- ${spec.meta.key} (v${spec.meta.version})`);
+				(deps.log ?? console.log)(`- ${spec.meta.key} (v${spec.meta.version})`);
 			}
 		}
 		return;
@@ -56,7 +69,9 @@ export async function testCommand(
 		// This is basic implementation: specific file -> generate test for it
 		try {
 			const resolvedPath = resolve(specFile);
-			const exports = await loadAuthoredModuleExports(resolvedPath);
+			const exports = await (
+				deps.loadAuthoredModuleExports ?? loadAuthoredModuleExports
+			)(resolvedPath);
 
 			// Find OperationSpecs
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -74,16 +89,19 @@ export async function testCommand(
 				return;
 			}
 
-			const providerStatus = await validateProvider(config);
+			const providerStatus = await (deps.validateProvider ?? validateProvider)(
+				config
+			);
 			if (!providerStatus.success) {
 				throw new Error(
 					`AI provider unavailable: ${providerStatus.error ?? 'unknown error'}`
 				);
 			}
 
-			const model = getAIProvider(config);
+			const model = (deps.getAIProvider ?? getAIProvider)(config);
 
-			const generator = new TestGeneratorService(adapters.logger, model);
+			const Generator = deps.TestGeneratorService ?? TestGeneratorService;
+			const generator = new Generator(adapters.logger, model);
 
 			for (const op of operations) {
 				// OperationSpec usually has meta { name, ... } or key
@@ -97,22 +115,22 @@ export async function testCommand(
 				const testSpec = await generator.generateTests(op);
 
 				if (options.json) {
-					console.log(JSON.stringify(testSpec, null, 2));
+					(deps.log ?? console.log)(JSON.stringify(testSpec, null, 2));
 				} else {
 					const opLegacy = op as unknown as {
 						meta?: { name?: string };
 						key?: string;
 					};
 					const name = opLegacy.meta?.name || opLegacy.key || 'unknown';
-					console.log(chalk.green(`Generated test for ${name}`));
-					console.log(JSON.stringify(testSpec, null, 2)); // Print to stdout for pipe
+					(deps.log ?? console.log)(chalk.green(`Generated test for ${name}`));
+					(deps.log ?? console.log)(JSON.stringify(testSpec, null, 2)); // Print to stdout for pipe
 				}
 			}
 		} catch (error) {
 			adapters.logger.error(
 				`Generation failed: ${error instanceof Error ? error.message : String(error)}`
 			);
-			process.exit(1);
+			(deps.exit ?? process.exit)(1);
 		}
 		return;
 	}
@@ -121,7 +139,7 @@ export async function testCommand(
 	const resolvedSpecFiles = GLOB_CHARS.test(specFile)
 		? await glob(specFile, { ignore: DEFAULT_IGNORES })
 		: [specFile];
-	const result = await runTestSpecs(
+	const result = await (deps.runTestSpecs ?? runTestSpecs)(
 		resolvedSpecFiles,
 		{
 			registry: options.registry,
@@ -131,7 +149,7 @@ export async function testCommand(
 	);
 
 	if (options.json) {
-		console.log(
+		(deps.log ?? console.log)(
 			JSON.stringify(
 				result.results.map((r) => ({
 					spec: r.spec.meta,
@@ -155,7 +173,7 @@ export async function testCommand(
 	}
 
 	if (!result.passed) {
-		process.exit(1);
+		(deps.exit ?? process.exit)(1);
 	}
 }
 

@@ -140,7 +140,7 @@
 		]
 	},
 	"author": "Théo Boutron <tboutron@lssm.co>",
-	"packageManager": "bun@1.3.11",
+	"packageManager": "bun@1.3.13",
 	"prisma": {
 		"schema": "packages/libs/database/prisma/schema.prisma"
 	},

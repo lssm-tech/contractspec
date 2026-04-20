@@ -387,7 +387,7 @@
 		"@types/react": "~19.2.14",
 		"@contractspec/tool.typescript": "workspace:*",
 		"typescript": "catalog:",
-		"@types/bun": "~1.3.11",
+		"@types/bun": "^1.3.12",
 		"@contractspec/tool.bun": "workspace:*"
 	},
 	"repository": {

@@ -10,7 +10,10 @@ import {
 import os from 'node:os';
 import path from 'node:path';
 import { runTranspile, runTypes } from '../lib/build.mjs';
-import { normalizeBuildConfig, selectEntriesForTarget } from '../lib/config.mjs';
+import {
+	normalizeBuildConfig,
+	selectEntriesForTarget,
+} from '../lib/config.mjs';
 
 const tempDirs: string[] = [];
 

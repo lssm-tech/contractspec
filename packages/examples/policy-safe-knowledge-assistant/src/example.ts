@@ -2,16 +2,23 @@ import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
 const ExamplesPolicySafeKnowledgeAssistantExample = defineExample({
 	meta: {
-		key: 'examples.policy-safe-knowledge-assistant',
+		key: 'policy-safe-knowledge-assistant',
 		version: '1.0.0',
 		title: 'Policy Safe Knowledge Assistant',
 		description:
 			'All-in-one template example: policy-safe knowledge assistant with locale/jurisdiction gating, versioned KB snapshots, HITL update pipeline, and learning hub.',
 		kind: 'template',
-		visibility: 'experimental',
-		stability: 'experimental',
+		visibility: 'public',
+		stability: 'beta',
 		owners: ['@contractspec-core'],
-		tags: ['package', 'examples', 'policy-safe-knowledge-assistant'],
+		tags: [
+			'package',
+			'examples',
+			'policy-safe-knowledge-assistant',
+			'knowledge',
+			'policy',
+			'assistant',
+		],
 	},
 	surfaces: {
 		templates: true,

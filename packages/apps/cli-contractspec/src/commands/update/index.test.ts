@@ -1,21 +1,8 @@
-import {
-	afterAll,
-	afterEach,
-	beforeEach,
-	describe,
-	expect,
-	it,
-	mock,
-} from 'bun:test';
+import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test';
 import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
-const BUNDLE_WORKSPACE_MODULE = new URL(
-	'../../../../../bundles/workspace/src/index.ts',
-	import.meta.url
-).pathname;
-const actualBundleWorkspace = await import(BUNDLE_WORKSPACE_MODULE);
 const AI_PROVIDERS_MODULE = new URL('../../ai/providers.ts', import.meta.url)
 	.pathname;
 const AI_AGENTS_MODULE = new URL('../../ai/agents/index.ts', import.meta.url)
@@ -46,21 +33,6 @@ mock.module('@inquirer/prompts', () => ({
 	confirm: confirmMock,
 }));
 
-function installUpdateCommandMocks() {
-	mock.module('../../ai/providers', () => ({
-		validateProvider: validateProviderMock,
-	}));
-	mock.module('../../ai/agents/index', () => ({
-		AgentOrchestrator: class {
-			refactor = refactorMock;
-		},
-	}));
-	mock.module('@contractspec/bundle.workspace', () => ({
-		...actualBundleWorkspace,
-		updateSpec: updateSpecMock,
-	}));
-}
-
 function loadUpdateCommandModule() {
 	return import(`./index?test=${Date.now()}-${Math.random()}`);
 }
@@ -73,8 +45,6 @@ describe('update --ai', () => {
 
 	beforeEach(() => {
 		tempDir = '';
-		mock.restore();
-		installUpdateCommandMocks();
 	});
 
 	beforeEach(async () => {
@@ -120,15 +90,26 @@ describe('update --ai', () => {
 		if (tempDir) {
 			void rm(tempDir, { recursive: true, force: true });
 		}
-		mock.restore();
 		mock.module('../../ai/providers', () => actualAiProviders);
 		mock.module('../../ai/agents/index', () => actualAiAgents);
-		mock.module('@contractspec/bundle.workspace', () => actualBundleWorkspace);
 	});
 
 	it('uses the merged config and applies a real AI edit', async () => {
 		const { executeUpdateCommand } = await loadUpdateCommandModule();
-		await executeUpdateCommand('contracts/sample.ts', { ai: true });
+		await executeUpdateCommand(
+			'contracts/sample.ts',
+			{ ai: true },
+			{
+				updateSpec: updateSpecMock as never,
+				input: inputMock as never,
+				confirm: confirmMock as never,
+				validateProvider: validateProviderMock,
+				AgentOrchestrator: class {
+					refactor = refactorMock;
+				} as never,
+				log: mock(() => {}),
+			}
+		);
 
 		expect(validateProviderMock).toHaveBeenCalledTimes(1);
 		expect(refactorMock).toHaveBeenCalledTimes(1);
@@ -149,14 +130,23 @@ describe('update --ai', () => {
 		});
 
 		await expect(
-			executeUpdateCommand('contracts/sample.ts', { ai: true })
+			executeUpdateCommand(
+				'contracts/sample.ts',
+				{ ai: true },
+				{
+					updateSpec: updateSpecMock as never,
+					input: inputMock as never,
+					confirm: confirmMock as never,
+					validateProvider: validateProviderMock,
+					AgentOrchestrator: class {
+						refactor = refactorMock;
+					} as never,
+					log: mock(() => {}),
+				}
+			)
 		).rejects.toThrow(
 			'AI provider unavailable: OPENAI_API_KEY environment variable not set'
 		);
 		expect(updateSpecMock).not.toHaveBeenCalled();
 	});
-});
-
-afterAll(() => {
-	mock.restore();
 });

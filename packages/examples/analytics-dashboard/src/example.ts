@@ -2,16 +2,22 @@ import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
 const ExamplesAnalyticsDashboardExample = defineExample({
 	meta: {
-		key: 'examples.analytics-dashboard',
+		key: 'analytics-dashboard',
 		version: '1.0.0',
 		title: 'Analytics Dashboard',
 		description:
 			'Analytics Dashboard example with widgets and query engine for ContractSpec',
 		kind: 'template',
-		visibility: 'experimental',
-		stability: 'experimental',
+		visibility: 'public',
+		stability: 'stable',
 		owners: ['@contractspec-core'],
-		tags: ['package', 'examples', 'analytics-dashboard'],
+		tags: [
+			'package',
+			'examples',
+			'analytics-dashboard',
+			'analytics',
+			'dashboard',
+		],
 	},
 	surfaces: {
 		templates: true,
