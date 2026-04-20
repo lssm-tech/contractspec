@@ -43,10 +43,15 @@
 	},
 	"files": [
 		"dist",
+		"src/metro.cjs",
 		"README.md"
 	],
 	"exports": {
-		".": "./src/index.ts",
+		".": {
+			"types": "./src/index.ts",
+			"require": "./src/metro.cjs",
+			"default": "./src/index.ts"
+		},
 		"./presentation-aliases": "./src/presentation-aliases.ts",
 		"./presentation-runtime-core.feature": "./src/presentation-runtime-core.feature.ts",
 		"./table": "./src/table.ts",
@@ -65,6 +70,7 @@
 		"exports": {
 			".": {
 				"types": "./dist/index.d.ts",
+				"require": "./src/metro.cjs",
 				"browser": "./dist/browser/index.js",
 				"bun": "./dist/index.js",
 				"node": "./dist/node/index.js",

@@ -38,6 +38,9 @@ Core presentation runtime for contract-driven UIs.
 - Core runtime interface is consumed by all presentation runtimes — changes here affect both web and mobile.
 - Must remain platform-agnostic; no React or React Native imports allowed.
 - API surface changes require coordinated updates in both downstream runtimes.
+- Cross-surface helper changes must stay aligned with `/docs/libraries/cross-platform-ui` and its customer markdown kit.
+- Keep bundler helper imports root-based: `withPresentationTurbopackAliases`, `withPresentationWebpackAliases`, and `withPresentationMetroAliases`.
+- Do not reintroduce `withPresentationNextAliases`; Next.js guidance is Turbopack-first with Webpack as an explicit fallback.
 - Changes here can affect downstream packages such as `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
 ## Local Commands

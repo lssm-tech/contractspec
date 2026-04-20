@@ -31,6 +31,8 @@ Important source-accuracy note: the root entry does not currently expose the use
 - Expo and React Native integration points such as `expo-router`, `nativewind`, and RN primitives are part of package behavior.
 - `./ui/link` remains Expo-router-oriented. It is not the same contract as `@contractspec/lib.ui-link`.
 - `@contractspec/lib.ui-kit-core` compatibility matters for class-merging behavior and low-level helper expectations.
+- This package is the native primitive lane in `/docs/libraries/cross-platform-ui`; do not add web-only assumptions without an explicit platform split and docs update.
+- Keep `VStack`, `HStack`, and `Box` compatible with the documented shared subset. Changes to `gap`, `align`, `justify`, or `wrap` semantics require updating the cross-platform UI docs and customer markdown kit.
 
 ## Editing guidance by area
 

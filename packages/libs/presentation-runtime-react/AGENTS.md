@@ -40,6 +40,8 @@ React presentation runtime with workflow components.
 - Workflow component API is consumed by bundles — breaking changes require coordinated updates.
 - Must stay compatible with presentation-runtime-core interface.
 - Hook signatures (`useWorkflow`) are public API; parameter changes are breaking.
+- `useContractTable` and `useDataViewTable` must stay compatible with the React Native re-export boundary and the cross-surface policy documented at `/docs/libraries/cross-platform-ui`.
+- If controller or table/data-view hook behavior changes, update the cross-platform UI docs and customer markdown kit in the same change.
 - Changes here can affect downstream packages such as `@contractspec/lib.contracts-spec`, `@contractspec/lib.presentation-runtime-core`, `@contractspec/lib.ui-kit-web`, `@contractspec/tool.bun`.
 
 ## Local Commands

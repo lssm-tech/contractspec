@@ -30,6 +30,8 @@ React Native presentation runtime for mobile apps.
 - Must stay compatible with presentation-runtime-core; do not diverge from the shared interface.
 - NativeWind integration is platform-specific — changes must be tested on actual devices/simulators.
 - Avoid web-only APIs; all code must run in React Native's JavaScript environment.
+- Preserve the React runtime re-export model for `useContractTable` and `useDataViewTable` unless the cross-surface docs, customer markdown kit, and migration guidance are updated together.
+- Native rendering changes must respect `/docs/libraries/cross-platform-ui`: `@contractspec/lib.ui-kit` is the native primitive lane, while shared product surfaces should stay behind the design-system boundary.
 - Changes here can affect downstream packages such as `@contractspec/lib.presentation-runtime-core`, `@contractspec/lib.presentation-runtime-react`, `@contractspec/lib.ui-kit`, `@contractspec/tool.bun`.
 
 ## Local Commands
