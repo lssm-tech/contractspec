@@ -157,6 +157,8 @@ export async function normalizeBuildConfig(cwd, config) {
 		kind,
 		targets,
 		external: Array.isArray(config.external) ? config.external : [],
+		rewriteExports:
+			config.exports?.rewrite !== false && config.exports?.all !== false,
 		tsconfigForTypes:
 			config.tsconfigTypes ??
 			(existsSync(path.join(cwd, 'tsconfig.build.json'))

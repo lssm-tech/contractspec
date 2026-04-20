@@ -86,6 +86,27 @@ const resolver = createTranslationResolver({
 </DesignSystemTranslationProvider>;
 ```
 
+### Render forms on mobile through the shared renderer
+
+Use the focused shared renderer subpath when rendering `FormSpec` contracts in
+Expo or React Native apps:
+
+```tsx
+import { formRenderer } from "@contractspec/lib.design-system/renderers";
+```
+
+Expo apps must keep the presentation Metro aliases enabled so design-system
+imports of `@contractspec/lib.ui-kit-web/ui/*` are remapped to
+`@contractspec/lib.ui-kit/ui/*` at bundle time:
+
+```js
+const {
+  withPresentationMetroAliases,
+} = require("@contractspec/lib.presentation-runtime-core");
+
+module.exports = withPresentationMetroAliases(config, { monorepoRoot });
+```
+
 ### Render the canonical account grid
 
 The canonical data-table example lives in

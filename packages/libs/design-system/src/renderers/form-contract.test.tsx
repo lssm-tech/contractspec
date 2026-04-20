@@ -10,6 +10,7 @@ import {
 	DesignSystemTranslationProvider,
 } from '../i18n/translation';
 import { formRenderer } from './form-contract';
+import { formRenderer as rendererFromBarrel } from './index';
 
 describe('design-system form renderer', () => {
 	it('renders the shared rich field showcase without dropping field kinds', () => {
@@ -46,6 +47,18 @@ describe('design-system form renderer', () => {
 		expect(html).toContain('1 Main Street');
 		expect(html).toContain('+33');
 		expect(html).toContain('Support');
+	});
+
+	it('exports the shared form renderer from the renderers barrel', () => {
+		const html = renderToStaticMarkup(
+			rendererFromBarrel.render(RichFieldsShowcaseForm, {
+				defaultValues: {
+					recordId: 'rec_1',
+				},
+			})
+		);
+
+		expect(html).toContain('Record ID');
 	});
 
 	it('resolves translated form labels through the design-system provider', () => {

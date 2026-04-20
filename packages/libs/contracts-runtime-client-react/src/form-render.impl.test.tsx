@@ -163,4 +163,98 @@ describe('contracts-runtime-client-react form renderer', () => {
 		expect(html).toContain('data-widget="time"');
 		expect(html).toContain('data-widget="datetime"');
 	});
+
+	it('keeps native form semantics as the default submit mode', () => {
+		const renderer = createFormRenderer({ driver: mockDriver });
+		const html = renderToStaticMarkup(renderer.render(RichFieldsShowcaseForm));
+
+		expect(html).toContain('<form');
+		expect(html).toContain('type="submit"');
+	});
+
+	it('can render through host-provided form and action slots', () => {
+		const renderer = createFormRenderer({
+			driver: {
+				...mockDriver,
+				FormRoot: ({ children }) => (
+					<section data-form-root="custom">{children}</section>
+				),
+				Actions: ({ children }) => (
+					<nav data-form-actions="custom">{children}</nav>
+				),
+			},
+			submitMode: 'button',
+		});
+
+		const html = renderToStaticMarkup(renderer.render(RichFieldsShowcaseForm));
+
+		expect(html).toContain('data-form-root="custom"');
+		expect(html).toContain('data-form-actions="custom"');
+		expect(html).not.toContain('<form');
+		expect(html).toContain('type="button"');
+	});
+
+	it('invokes submit override through button submit mode', async () => {
+		let capturedSubmit: (() => void) | undefined;
+		let submitted:
+			| { actionKey: string; values: Record<string, unknown> }
+			| undefined;
+		const renderer = createFormRenderer({
+			driver: {
+				...mockDriver,
+				Button: ({ children, onClick, type, ...props }) => {
+					if (type === 'button' && onClick) {
+						capturedSubmit = onClick;
+					}
+					return (
+						<button type={type} {...props}>
+							{children}
+						</button>
+					);
+				},
+			},
+			submitMode: 'button',
+			onSubmitOverride: (values, actionKey) => {
+				submitted = {
+					actionKey,
+					values: values as Record<string, unknown>,
+				};
+			},
+		});
+
+		renderToStaticMarkup(
+			renderer.render(RichFieldsShowcaseForm, {
+				defaultValues: {
+					recordId: 'rec_1',
+					status: 'draft',
+					reviewer: {
+						id: 'usr_1',
+						name: 'Alice Martin',
+						email: 'alice@example.com',
+					},
+					address: {
+						line1: '1 Main Street',
+						city: 'Paris',
+						countryCode: 'FR',
+					},
+					phone: {
+						countryCode: '+33',
+						nationalNumber: '612345678',
+						e164: '+33612345678',
+					},
+					startDate: new Date('2026-04-10T00:00:00.000Z'),
+					startTime: '09:30',
+					publishedAt: new Date('2026-04-10T09:30:00.000Z'),
+					contacts: [{ label: 'Support', value: 'support@example.com' }],
+				},
+			})
+		);
+
+		expect(capturedSubmit).toBeDefined();
+		capturedSubmit?.();
+		await new Promise((resolve) => setTimeout(resolve, 0));
+
+		expect(submitted?.actionKey).toBe('submit');
+		expect(submitted?.values.recordId).toBe('rec_1');
+	});
 });

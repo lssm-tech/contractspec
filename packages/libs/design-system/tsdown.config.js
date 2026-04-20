@@ -2,17 +2,18 @@ import { defineConfig, reactLibrary } from '@contractspec/tool.bun';
 
 export default defineConfig({
 	...reactLibrary,
-	// Keep platform-specific files in the bundle; exclude tests from entry
+	noBundle: true,
 	exports: {
 		devExports: true,
+		rewrite: false,
 	},
 	entry: [
-		'src/index.ts',
-		// 'src/**/*.ts',
-		// 'src/**/*.tsx',
-		// '!src/**/*.mobile.tsx',
-		// '!src/**/*.test.ts',
-		// '!src/**/*.test.tsx',
-		// '!src/**/__tests__/**',
+		'src/**/*.ts',
+		'src/**/*.tsx',
+		'!src/**/*.native.ts',
+		'!src/**/*.native.tsx',
+		'!src/**/*.test.ts',
+		'!src/**/*.test.tsx',
+		'!src/**/__tests__/**',
 	],
 });

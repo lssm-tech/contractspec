@@ -39,7 +39,9 @@ import {
 	Select as SelectUiKit,
 	SelectValue,
 } from '@contractspec/lib.ui-kit-web/ui/select';
+import { HStack, VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import { Switch as SwitchUiKit } from '@contractspec/lib.ui-kit-web/ui/switch';
+import { Text } from '@contractspec/lib.ui-kit-web/ui/text';
 import { TimePicker } from '@contractspec/lib.ui-kit-web/ui/time-picker';
 import { Button } from '../components/atoms/Button';
 import { Input } from '../components/atoms/Input';
@@ -52,6 +54,21 @@ import {
 
 function optionValue(value: unknown) {
 	return typeof value === 'string' ? value : String(value ?? '');
+}
+
+function inputValue(value: unknown) {
+	if (typeof value === 'string') return value;
+	if (typeof value === 'object' && value !== null && 'currentTarget' in value) {
+		const currentTarget = value.currentTarget;
+		if (
+			typeof currentTarget === 'object' &&
+			currentTarget !== null &&
+			'value' in currentTarget
+		) {
+			return optionValue(currentTarget.value);
+		}
+	}
+	return optionValue(value);
 }
 
 const FORM_FALLBACK_TEXT = {
@@ -150,10 +167,10 @@ const RadioGroup = (props: {
 			{props.options?.map((option) => {
 				const value = optionValue(option.value);
 				return (
-					<div key={value} className="flex items-center gap-3">
+					<HStack key={value} gap="sm" align="center">
 						<RadioGroupItem value={value} id={value} />
 						<Label htmlFor={value}>{translate(option.labelI18n)}</Label>
-					</div>
+					</HStack>
 				);
 			})}
 		</RadioGroupUiKit>
@@ -184,7 +201,7 @@ const Autocomplete = (props: {
 }) => {
 	const translate = useTranslateString();
 	return (
-		<div className="space-y-2">
+		<VStack gap="sm">
 			<Command shouldFilter={false} className="rounded-md border border-input">
 				<CommandInput
 					value={props.query}
@@ -216,22 +233,22 @@ const Autocomplete = (props: {
 									onSelect={() => props.onSelectOption?.(option)}
 									disabled={props.disabled || option.disabled || props.readOnly}
 								>
-									<div className="flex flex-col">
-										<span>{translate(option.labelI18n)}</span>
+									<VStack gap="xs">
+										<Text>{translate(option.labelI18n)}</Text>
 										{option.descriptionI18n ? (
-											<span className="text-muted-foreground text-xs">
+											<Text className="text-muted-foreground text-xs">
 												{translate(option.descriptionI18n)}
-											</span>
+											</Text>
 										) : null}
-									</div>
+									</VStack>
 									{selected ? (
-										<span className="ml-auto text-muted-foreground text-xs">
+										<Text className="ml-auto text-muted-foreground text-xs">
 											{translateWithFallback(
 												translate,
 												FORM_FALLBACK_TEXT.selected,
 												FORM_FALLBACK_TEXT.selected
 											)}
-										</span>
+										</Text>
 									) : null}
 								</CommandItem>
 							);
@@ -240,7 +257,7 @@ const Autocomplete = (props: {
 				</CommandList>
 			</Command>
 			{props.selectedOptions.length ? (
-				<div className="flex flex-wrap gap-2">
+				<HStack gap="sm" wrap="wrap">
 					{props.selectedOptions.map((option) => (
 						<Button
 							key={`selected-${optionValue(option.value)}`}
@@ -253,9 +270,9 @@ const Autocomplete = (props: {
 							{translate(option.labelI18n)}
 						</Button>
 					))}
-				</div>
+				</HStack>
 			) : null}
-		</div>
+		</VStack>
 	);
 };
 
@@ -288,12 +305,12 @@ const AddressField = (props: {
 }) => {
 	const translate = useTranslateString();
 	return (
-		<div className="grid gap-3 md:grid-cols-2">
+		<VStack gap="sm">
 			<Input
 				value={props.value?.line1 ?? ''}
 				onChange={(event) =>
 					props.onChange?.(
-						updateAddress(props.value, 'line1', event.currentTarget.value)
+						updateAddress(props.value, 'line1', inputValue(event))
 					)
 				}
 				placeholder={translate(
@@ -307,7 +324,7 @@ const AddressField = (props: {
 				value={props.value?.line2 ?? ''}
 				onChange={(event) =>
 					props.onChange?.(
-						updateAddress(props.value, 'line2', event.currentTarget.value)
+						updateAddress(props.value, 'line2', inputValue(event))
 					)
 				}
 				placeholder={translate(
@@ -321,7 +338,7 @@ const AddressField = (props: {
 				value={props.value?.city ?? ''}
 				onChange={(event) =>
 					props.onChange?.(
-						updateAddress(props.value, 'city', event.currentTarget.value)
+						updateAddress(props.value, 'city', inputValue(event))
 					)
 				}
 				placeholder={translate(
@@ -334,7 +351,7 @@ const AddressField = (props: {
 				value={props.value?.region ?? ''}
 				onChange={(event) =>
 					props.onChange?.(
-						updateAddress(props.value, 'region', event.currentTarget.value)
+						updateAddress(props.value, 'region', inputValue(event))
 					)
 				}
 				placeholder={translate(
@@ -347,7 +364,7 @@ const AddressField = (props: {
 				value={props.value?.postalCode ?? ''}
 				onChange={(event) =>
 					props.onChange?.(
-						updateAddress(props.value, 'postalCode', event.currentTarget.value)
+						updateAddress(props.value, 'postalCode', inputValue(event))
 					)
 				}
 				placeholder={translate(
@@ -373,11 +390,7 @@ const AddressField = (props: {
 					value={props.value?.countryCode ?? ''}
 					onChange={(event) =>
 						props.onChange?.(
-							updateAddress(
-								props.value,
-								'countryCode',
-								event.currentTarget.value
-							)
+							updateAddress(props.value, 'countryCode', inputValue(event))
 						)
 					}
 					placeholder={translate(
@@ -388,7 +401,7 @@ const AddressField = (props: {
 					disabled={props.disabled}
 				/>
 			)}
-		</div>
+		</VStack>
 	);
 };
 
@@ -419,7 +432,7 @@ const PhoneField = (props: {
 }) => {
 	const translate = useTranslateString();
 	return (
-		<div className="grid gap-3 md:grid-cols-3">
+		<VStack gap="sm">
 			{props.countryOptions?.length ? (
 				<Select
 					value={props.value?.countryCode ?? ''}
@@ -436,7 +449,7 @@ const PhoneField = (props: {
 					value={props.value?.countryCode ?? ''}
 					onChange={(event) =>
 						props.onChange?.(
-							updatePhone(props.value, 'countryCode', event.currentTarget.value)
+							updatePhone(props.value, 'countryCode', inputValue(event))
 						)
 					}
 					placeholder={translate(
@@ -451,11 +464,7 @@ const PhoneField = (props: {
 				value={props.value?.nationalNumber ?? ''}
 				onChange={(event) =>
 					props.onChange?.(
-						updatePhone(
-							props.value,
-							'nationalNumber',
-							event.currentTarget.value
-						)
+						updatePhone(props.value, 'nationalNumber', inputValue(event))
 					)
 				}
 				placeholder={translate(
@@ -469,7 +478,7 @@ const PhoneField = (props: {
 				value={props.value?.extension ?? ''}
 				onChange={(event) =>
 					props.onChange?.(
-						updatePhone(props.value, 'extension', event.currentTarget.value)
+						updatePhone(props.value, 'extension', inputValue(event))
 					)
 				}
 				placeholder={translate(
@@ -479,7 +488,7 @@ const PhoneField = (props: {
 				readOnly={props.readOnly}
 				disabled={props.disabled}
 			/>
-		</div>
+		</VStack>
 	);
 };
 
@@ -581,23 +590,85 @@ const TranslatedTextarea = (props: React.ComponentProps<typeof Textarea>) => {
 	return <Textarea {...props} placeholder={translate(props.placeholder)} />;
 };
 
-const TranslatedButton = (props: React.ComponentProps<typeof Button>) => {
-	const translate = useTranslateNode();
-	return <Button {...props}>{translate(props.children)}</Button>;
+type TranslatedButtonProps = Omit<
+	React.ComponentProps<typeof Button>,
+	'onClick' | 'onPress'
+> & {
+	onClick?: () => void;
+	onPress?: () => void;
 };
 
+const TranslatedButton = ({
+	children,
+	onClick,
+	onPress,
+	...props
+}: TranslatedButtonProps) => {
+	const translate = useTranslateNode();
+	return (
+		<Button
+			{...(props as React.ComponentProps<typeof Button>)}
+			onClick={onClick ? () => onClick() : undefined}
+			onPress={onPress ?? onClick}
+		>
+			{translate(children)}
+		</Button>
+	);
+};
+
+const FormRoot = ({
+	children,
+	className,
+}: React.PropsWithChildren<{ className?: string }>) => (
+	<VStack gap="lg" className={className}>
+		{children}
+	</VStack>
+);
+
+const FieldArray = ({
+	children,
+	className,
+}: React.PropsWithChildren<{ className?: string }>) => (
+	<VStack gap="md" className={className}>
+		{children}
+	</VStack>
+);
+
+const FieldArrayItem = ({
+	children,
+	className,
+}: React.PropsWithChildren<{ className?: string }>) => (
+	<VStack gap="sm" className={className}>
+		{children}
+	</VStack>
+);
+
+const Actions = ({
+	children,
+	className,
+}: React.PropsWithChildren<{ className?: string }>) => (
+	<HStack gap="sm" wrap="wrap" className={className}>
+		{children}
+	</HStack>
+);
+
 export const formRenderer = createFormRenderer({
+	submitMode: 'button',
 	driver: shadcnDriver({
+		FormRoot,
 		Field: FieldWrap,
 		FieldLabel: TranslatedFieldLabel,
 		FieldDescription: TranslatedFieldDescription,
 		FieldError: TranslatedFieldError,
 		FieldGroup,
-		FieldSet: (props) => <fieldset {...props} />,
+		FieldSet: (props) => <VStack gap="md" {...props} />,
 		FieldLegend: (props) => {
 			const translate = useTranslateNode();
-			return <legend {...props}>{translate(props.children)}</legend>;
+			return <Text {...props}>{translate(props.children)}</Text>;
 		},
+		FieldArray,
+		FieldArrayItem,
+		Actions,
 		Input: TranslatedInput as never,
 		Textarea: TranslatedTextarea as never,
 		Select,

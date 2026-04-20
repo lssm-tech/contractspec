@@ -39,6 +39,12 @@ import {
 } from 'react-hook-form';
 
 export interface DriverSlots {
+	FormRoot?: React.ComponentType<
+		React.PropsWithChildren<{
+			className?: string;
+			onSubmit?: React.FormEventHandler;
+		}>
+	>;
 	Field: React.ComponentType<
 		React.PropsWithChildren<{
 			'data-invalid'?: boolean;
@@ -59,6 +65,15 @@ export interface DriverSlots {
 	>;
 	FieldLegend?: React.ComponentType<
 		React.PropsWithChildren<{ variant?: 'label' | 'default' }>
+	>;
+	FieldArray?: React.ComponentType<
+		React.PropsWithChildren<{ className?: string }>
+	>;
+	FieldArrayItem?: React.ComponentType<
+		React.PropsWithChildren<{ className?: string }>
+	>;
+	Actions?: React.ComponentType<
+		React.PropsWithChildren<{ className?: string }>
 	>;
 	Input: React.ComponentType<React.InputHTMLAttributes<HTMLInputElement>>;
 	Textarea: React.ComponentType<
@@ -209,6 +224,7 @@ export interface CreateRendererOptions<TValues = Record<string, unknown>> {
 	resolvers?: ResolverMap<TValues>;
 	computations?: ComputationMap<TValues>;
 	unmountStrategy?: 'keep' | 'clear';
+	submitMode?: 'form' | 'button';
 }
 
 export interface RenderOptions<TValues = Record<string, unknown>> {
@@ -955,6 +971,8 @@ function ArrayFieldRenderer<TValues extends FieldValues>(props: {
 	renderField: (field: FieldSpec, parent?: string) => React.ReactElement | null;
 }) {
 	const name = fieldPath(props.parent, props.spec.name);
+	const FieldArray = props.driver.FieldArray ?? 'div';
+	const FieldArrayItem = props.driver.FieldArrayItem ?? 'div';
 	const { fields, append, remove } = useFieldArray({
 		control: props.form.control,
 		name: name as never,
@@ -966,14 +984,14 @@ function ArrayFieldRenderer<TValues extends FieldValues>(props: {
 			: fields.length > props.spec.min) && index >= 0;
 
 	return (
-		<div key={name}>
+		<FieldArray key={name}>
 			{props.spec.labelI18n ? (
 				<props.driver.FieldLabel>
 					{props.spec.labelI18n}
 				</props.driver.FieldLabel>
 			) : null}
 			{fields.map((row, index) => (
-				<div key={row.id ?? index}>
+				<FieldArrayItem key={row.id ?? index}>
 					{props.renderField(props.spec.of, `${name}.${index}`)}
 					{canRemove(index) ? (
 						<props.driver.Button
@@ -985,7 +1003,7 @@ function ArrayFieldRenderer<TValues extends FieldValues>(props: {
 							Remove
 						</props.driver.Button>
 					) : null}
-				</div>
+				</FieldArrayItem>
 			))}
 			{canAdd ? (
 				<props.driver.Button
@@ -997,7 +1015,7 @@ function ArrayFieldRenderer<TValues extends FieldValues>(props: {
 					Add
 				</props.driver.Button>
 			) : null}
-		</div>
+		</FieldArray>
 	);
 }
 
@@ -1326,22 +1344,38 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
 				return props.merged.onSubmitOverride(data, actionKey);
 			}
 		};
+		const FormRoot = props.merged.driver.FormRoot ?? 'form';
+		const Actions = props.merged.driver.Actions ?? 'div';
+		const submitMode = props.merged.submitMode ?? 'form';
+		const submit = form.handleSubmit(onSubmit);
+		const submitButtonProps =
+			submitMode === 'button'
+				? ({
+						type: 'button',
+						onClick: () => {
+							void submit();
+						},
+					} as const)
+				: ({ type: 'submit' } as const);
 
 		return (
-			<form onSubmit={form.handleSubmit(onSubmit)}>
+			<FormRoot onSubmit={submitMode === 'form' ? submit : undefined}>
 				{normalizedSpec.fields.map((field, index) => (
 					<React.Fragment key={index}>{renderField(field)}</React.Fragment>
 				))}
 				{normalizedSpec.actions?.length ? (
-					<div>
+					<Actions>
 						{normalizedSpec.actions.map((action) => (
-							<props.merged.driver.Button key={action.key} type="submit">
+							<props.merged.driver.Button
+								key={action.key}
+								{...submitButtonProps}
+							>
 								{action.labelI18n}
 							</props.merged.driver.Button>
 						))}
-					</div>
+					</Actions>
 				) : null}
-			</form>
+			</FormRoot>
 		);
 	}
 
