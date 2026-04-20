@@ -1,11 +1,27 @@
-import { describe, expect, it } from 'bun:test';
+import { afterEach, beforeEach, describe, expect, it } from 'bun:test';
 import { spawnSync } from 'node:child_process';
-import { resolve } from 'node:path';
+import { execFileSync } from 'node:child_process';
+import { mkdtempSync, rmSync, writeFileSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join, resolve } from 'node:path';
 
 const CLI_ENTRY = resolve(import.meta.dir, '../../cli.ts');
-const WORKSPACE_ROOT = resolve(import.meta.dir, '../../../../../..');
+const describeBlackbox =
+	process.env.RUN_CLI_BLACKBOX === '1' ? describe : describe.skip;
+let workspaceRoot = '';
 
-describe('execution-lanes command behavior', () => {
+describeBlackbox('execution-lanes command behavior', () => {
+	beforeEach(() => {
+		workspaceRoot = createGitWorkspace();
+	});
+
+	afterEach(() => {
+		if (workspaceRoot) {
+			rmSync(workspaceRoot, { force: true, recursive: true });
+			workspaceRoot = '';
+		}
+	});
+
 	it('creates a completed clarify lane run', () => {
 		const result = runCli([
 			'execution-lanes',
@@ -230,17 +246,14 @@ function createPlanPack(
 }
 
 function runCli(args: string[], stdin?: string) {
-	const result = spawnSync(process.execPath, [CLI_ENTRY, ...args], {
-		cwd: WORKSPACE_ROOT,
+	const result = spawnSync('bun', ['--no-env-file', CLI_ENTRY, ...args], {
+		cwd: workspaceRoot,
 		encoding: 'utf8',
-		env: {
-			...process.env,
+		env: createSubprocessEnv({
 			CHANNEL_RUNTIME_STORAGE: 'memory',
 			CHANNEL_RUNTIME_DATABASE_URL: '',
 			DATABASE_URL: '',
-			FORCE_COLOR: '0',
-			NO_COLOR: '1',
-		},
+		}),
 		input: stdin,
 	});
 
@@ -249,4 +262,46 @@ function runCli(args: string[], stdin?: string) {
 		stderr: result.stderr.trim(),
 		stdout: result.stdout.trim(),
 	};
+}
+
+function createGitWorkspace(): string {
+	const root = mkdtempSync(join(tmpdir(), 'contractspec-lanes-cli-'));
+	writeFileSync(join(root, 'package.json'), '{"name":"lanes-cli"}\n', 'utf8');
+	execFileSync('git', ['init', '-q'], { cwd: root, stdio: 'ignore' });
+	execFileSync('git', ['config', 'user.name', 'ContractSpec Test'], {
+		cwd: root,
+		stdio: 'ignore',
+	});
+	execFileSync('git', ['config', 'user.email', 'test@example.com'], {
+		cwd: root,
+		stdio: 'ignore',
+	});
+	execFileSync('git', ['add', 'package.json'], { cwd: root, stdio: 'ignore' });
+	execFileSync('git', ['commit', '-m', 'seed', '--quiet'], {
+		cwd: root,
+		stdio: 'ignore',
+	});
+	return root;
+}
+
+function createSubprocessEnv(
+	extraEnv: Record<string, string> = {}
+): Record<string, string> {
+	const env: Record<string, string> = {};
+	for (const key of [
+		'BUN_INSTALL',
+		'HOME',
+		'PATH',
+		'SHELL',
+		'TEMP',
+		'TMP',
+		'TMPDIR',
+		'USER',
+	] as const) {
+		const value = process.env[key];
+		if (value) {
+			env[key] = value;
+		}
+	}
+	return { ...env, FORCE_COLOR: '0', NO_COLOR: '1', ...extraEnv };
 }

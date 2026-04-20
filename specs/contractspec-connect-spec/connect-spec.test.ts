@@ -296,16 +296,15 @@ function runCli(
 	input?: string,
 	extraEnv: Record<string, string> = {}
 ) {
-	const result = spawnSync('bun', [CLI_ENTRY, ...args], {
+	const result = spawnSync('bun', ['--no-env-file', CLI_ENTRY, ...args], {
 		cwd: workspace,
 		encoding: 'utf8',
-		env: {
-			...process.env,
+		env: createSubprocessEnv({
 			CHANNEL_RUNTIME_DATABASE_URL: '',
 			CHANNEL_RUNTIME_STORAGE: 'postgres',
 			DATABASE_URL: '',
 			...extraEnv,
-		},
+		}),
 		input,
 	});
 
@@ -324,15 +323,14 @@ async function runCliAsync(
 ) {
 	return await new Promise<{ code: number; stderr: string; stdout: string }>(
 		(resolveResult, reject) => {
-			const child = spawn('bun', [CLI_ENTRY, ...args], {
+			const child = spawn('bun', ['--no-env-file', CLI_ENTRY, ...args], {
 				cwd: workspace,
-				env: {
-					...process.env,
+				env: createSubprocessEnv({
 					CHANNEL_RUNTIME_DATABASE_URL: '',
 					CHANNEL_RUNTIME_STORAGE: 'postgres',
 					DATABASE_URL: '',
 					...extraEnv,
-				},
+				}),
 				stdio: 'pipe',
 			});
 			const stdout: Buffer[] = [];
@@ -385,5 +383,32 @@ function startConnectReviewBridgeServer() {
 				Reflect.deleteProperty(process.env, key);
 			}
 		},
+	};
+}
+
+function createSubprocessEnv(
+	extraEnv: Record<string, string> = {}
+): Record<string, string> {
+	const env: Record<string, string> = {};
+	for (const key of [
+		'BUN_INSTALL',
+		'HOME',
+		'PATH',
+		'SHELL',
+		'TEMP',
+		'TMP',
+		'TMPDIR',
+		'USER',
+	] as const) {
+		const value = process.env[key];
+		if (value) {
+			env[key] = value;
+		}
+	}
+	return {
+		...env,
+		FORCE_COLOR: '0',
+		NO_COLOR: '1',
+		...extraEnv,
 	};
 }

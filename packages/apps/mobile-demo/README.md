@@ -28,7 +28,7 @@ bun run dev
 
 ## Architecture
 
-- `app/` contains the Expo Router entrypoint.
+- `src/app/` contains the Expo Router entrypoint.
 - `src/contracts/` defines `mobile-demo.landing` and operations for story loading plus CTA resolution.
 - `src/handlers/` adapts shared marketing content into ContractSpec operation results.
 - `src/components/landing/` renders the mobile-native companion UI.
@@ -37,7 +37,7 @@ bun run dev
 ## Public Entry Points
 
 - Deployable Expo app with no published library exports.
-- Primary runtime surfaces are the Expo route in `app/` and the registered operations in `src/handlers/`.
+- Primary runtime surfaces are the Expo route in `src/app/` and the registered operations in `src/handlers/`.
 - Shared story data comes from the public `@contractspec/bundle.marketing/content` subpath.
 
 ## Local Commands

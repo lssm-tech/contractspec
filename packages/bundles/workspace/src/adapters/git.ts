@@ -2,7 +2,8 @@
  * Node.js git adapter implementation.
  */
 
-import { execFileSync } from 'node:child_process';
+import { spawnSync } from 'node:child_process';
+import { existsSync, readFileSync } from 'node:fs';
 import { access } from 'node:fs/promises';
 import { resolve } from 'node:path';
 import type { GitAdapter, GitCleanOptions, GitLogEntry } from '../ports/git';
@@ -16,15 +17,9 @@ export function createNodeGitAdapter(cwd?: string): GitAdapter {
 	return {
 		async currentBranch(): Promise<string | undefined> {
 			try {
-				const branch = execFileSync(
-					'git',
-					['rev-parse', '--abbrev-ref', 'HEAD'],
-					{
-						cwd: baseCwd,
-						encoding: 'utf-8',
-						stdio: ['ignore', 'pipe', 'pipe'],
-					}
-				).trim();
+				const branch =
+					runGit(['rev-parse', '--abbrev-ref', 'HEAD'], baseCwd).trim() ||
+					readBranchFromGitHead(baseCwd);
 
 				return branch.length > 0 ? branch : undefined;
 			} catch {
@@ -34,11 +29,11 @@ export function createNodeGitAdapter(cwd?: string): GitAdapter {
 
 		async showFile(ref: string, filePath: string): Promise<string> {
 			try {
-				return execFileSync('git', ['show', `${ref}:${filePath}`], {
-					cwd: baseCwd,
-					encoding: 'utf-8',
-					stdio: ['ignore', 'pipe', 'pipe'],
-				});
+				const content = runGit(['show', `${ref}:${filePath}`], baseCwd);
+				if (content.length > 0 || ref !== 'HEAD') {
+					return content;
+				}
+				return readWorkingTreeFile(baseCwd, filePath) ?? content;
 			} catch (error) {
 				throw new Error(
 					`Could not load ${filePath} at ref ${ref}: ${
@@ -55,10 +50,7 @@ export function createNodeGitAdapter(cwd?: string): GitAdapter {
 			if (options?.ignored) flags.push('-x');
 			if (options?.dryRun) flags.push('--dry-run');
 
-			execFileSync('git', ['clean', ...flags], {
-				cwd: baseCwd,
-				stdio: 'inherit',
-			});
+			runGit(['clean', ...flags], baseCwd, { inherit: true });
 		},
 
 		async isGitRepo(path?: string): Promise<boolean> {
@@ -76,11 +68,7 @@ export function createNodeGitAdapter(cwd?: string): GitAdapter {
 			const format = '--format=%H|||%s|||%an|||%aI';
 
 			try {
-				const output = execFileSync('git', ['log', `${ref}..HEAD`, format], {
-					cwd: baseCwd,
-					encoding: 'utf-8',
-					stdio: ['ignore', 'pipe', 'pipe'],
-				});
+				const output = runGit(['log', `${ref}..HEAD`, format], baseCwd);
 
 				const entries: GitLogEntry[] = [];
 
@@ -104,14 +92,9 @@ export function createNodeGitAdapter(cwd?: string): GitAdapter {
 				const pathSpecs =
 					patterns && patterns.length > 0 ? ['--', ...patterns] : [];
 
-				const output = execFileSync(
-					'git',
+				const output = runGit(
 					['diff', '--name-only', `${baseline}...HEAD`, ...pathSpecs],
-					{
-						cwd: baseCwd,
-						encoding: 'utf-8',
-						stdio: ['ignore', 'pipe', 'pipe'],
-					}
+					baseCwd
 				);
 
 				return output.trim().split('\n').filter(Boolean);
@@ -121,4 +104,48 @@ export function createNodeGitAdapter(cwd?: string): GitAdapter {
 			}
 		},
 	};
+}
+
+function readBranchFromGitHead(cwd: string): string {
+	const headPath = resolve(cwd, '.git', 'HEAD');
+	if (!existsSync(headPath)) {
+		return '';
+	}
+	const head = readFileSync(headPath, 'utf8').trim();
+	const prefix = 'ref: refs/heads/';
+	return head.startsWith(prefix) ? head.slice(prefix.length) : head;
+}
+
+function readWorkingTreeFile(
+	cwd: string,
+	filePath: string
+): string | undefined {
+	const absolutePath = resolve(cwd, filePath);
+	if (!existsSync(absolutePath)) {
+		return undefined;
+	}
+	return readFileSync(absolutePath, 'utf8');
+}
+
+function runGit(
+	args: string[],
+	cwd: string,
+	options: { inherit?: boolean } = {}
+): string {
+	const result = spawnSync('git', args, {
+		cwd,
+		encoding: 'utf-8',
+		stdio: options.inherit ? 'inherit' : ['ignore', 'pipe', 'pipe'],
+	});
+	if (result.error) {
+		throw result.error;
+	}
+	if (result.status !== 0) {
+		throw new Error(
+			typeof result.stderr === 'string' && result.stderr.length > 0
+				? result.stderr
+				: `git ${args.join(' ')} failed with status ${result.status ?? 'unknown'}`
+		);
+	}
+	return typeof result.stdout === 'string' ? result.stdout : '';
 }

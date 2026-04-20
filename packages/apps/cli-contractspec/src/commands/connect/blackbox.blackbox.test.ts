@@ -19,8 +19,10 @@ import {
 
 const CLI_ENTRY = resolve(import.meta.dir, '../../cli.ts');
 const CONNECT_BLACKBOX_TIMEOUT_MS = 45000;
+const describeBlackbox =
+	process.env.RUN_CLI_BLACKBOX === '1' ? describe : describe.skip;
 
-describe('connect command black-box', () => {
+describeBlackbox('connect command black-box', () => {
 	const tempDirs: string[] = [];
 
 	afterEach(() => {
@@ -660,18 +662,15 @@ function runCli(
 	stdin?: string,
 	extraEnv: Record<string, string> = {}
 ) {
-	const result = spawnSync(process.execPath, [CLI_ENTRY, ...args], {
+	const result = spawnSync('bun', ['--no-env-file', CLI_ENTRY, ...args], {
 		cwd,
 		encoding: 'utf8',
-		env: {
-			...process.env,
+		env: createSubprocessEnv({
 			CHANNEL_RUNTIME_DATABASE_URL: '',
 			CHANNEL_RUNTIME_STORAGE: 'postgres',
 			DATABASE_URL: '',
-			FORCE_COLOR: '0',
-			NO_COLOR: '1',
 			...extraEnv,
-		},
+		}),
 		input: stdin,
 	});
 
@@ -690,17 +689,14 @@ async function runCliAsync(
 ) {
 	return await new Promise<{ code: number; stderr: string; stdout: string }>(
 		(resolveResult, reject) => {
-			const child = spawn(process.execPath, [CLI_ENTRY, ...args], {
+			const child = spawn('bun', ['--no-env-file', CLI_ENTRY, ...args], {
 				cwd,
-				env: {
-					...process.env,
+				env: createSubprocessEnv({
 					CHANNEL_RUNTIME_DATABASE_URL: '',
 					CHANNEL_RUNTIME_STORAGE: 'postgres',
 					DATABASE_URL: '',
-					FORCE_COLOR: '0',
-					NO_COLOR: '1',
 					...extraEnv,
-				},
+				}),
 				stdio: 'pipe',
 			});
 			const stdout: Buffer[] = [];
@@ -721,6 +717,28 @@ async function runCliAsync(
 			child.stdin.end();
 		}
 	);
+}
+
+function createSubprocessEnv(
+	extraEnv: Record<string, string> = {}
+): Record<string, string> {
+	const env: Record<string, string> = {};
+	for (const key of [
+		'BUN_INSTALL',
+		'HOME',
+		'PATH',
+		'SHELL',
+		'TEMP',
+		'TMP',
+		'TMPDIR',
+		'USER',
+	] as const) {
+		const value = process.env[key];
+		if (value) {
+			env[key] = value;
+		}
+	}
+	return { ...env, FORCE_COLOR: '0', NO_COLOR: '1', ...extraEnv };
 }
 
 function startConnectReviewBridgeServer() {

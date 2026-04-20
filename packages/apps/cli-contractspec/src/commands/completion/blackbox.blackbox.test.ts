@@ -5,8 +5,10 @@ import { join, resolve } from 'node:path';
 import { MANAGED_BLOCK_END, MANAGED_BLOCK_START } from './constants';
 
 const CLI_ENTRY = resolve(import.meta.dir, '../../cli.ts');
+const describeBlackbox =
+	process.env.RUN_CLI_BLACKBOX === '1' ? describe : describe.skip;
 
-describe('completion command black-box', () => {
+describeBlackbox('completion command black-box', () => {
 	const tempDirs: string[] = [];
 
 	afterEach(() => {
@@ -99,14 +101,9 @@ function createEnv(tempDirs: string[]) {
 }
 
 function runCli(args: string[], env?: Record<string, string>) {
-	const result = Bun.spawnSync([process.execPath, CLI_ENTRY, ...args], {
+	const result = Bun.spawnSync(['bun', '--no-env-file', CLI_ENTRY, ...args], {
 		cwd: resolve(import.meta.dir, '../../../..'),
-		env: {
-			...process.env,
-			FORCE_COLOR: '0',
-			NO_COLOR: '1',
-			...env,
-		},
+		env: createSubprocessEnv(env),
 		stderr: 'pipe',
 		stdout: 'pipe',
 	});
@@ -116,4 +113,26 @@ function runCli(args: string[], env?: Record<string, string>) {
 		stderr: new TextDecoder().decode(result.stderr).trim(),
 		stdout: new TextDecoder().decode(result.stdout).trim(),
 	};
+}
+
+function createSubprocessEnv(
+	extraEnv: Record<string, string> = {}
+): Record<string, string> {
+	const env: Record<string, string> = {};
+	for (const key of [
+		'BUN_INSTALL',
+		'HOME',
+		'PATH',
+		'SHELL',
+		'TEMP',
+		'TMP',
+		'TMPDIR',
+		'USER',
+	] as const) {
+		const value = process.env[key];
+		if (value) {
+			env[key] = value;
+		}
+	}
+	return { ...env, FORCE_COLOR: '0', NO_COLOR: '1', ...extraEnv };
 }

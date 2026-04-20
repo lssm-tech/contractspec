@@ -3,7 +3,7 @@
 	"version": "1.1.21",
 	"private": true,
 	"description": "Expo landing companion for the shared ContractSpec OSS-first product story",
-	"main": "expo-router/entry",
+	"main": "index.js",
 	"scripts": {
 		"dev": "expo start",
 		"start": "expo start",
