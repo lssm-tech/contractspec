@@ -4,6 +4,7 @@ import type { EventSpec } from './events';
 import type { AnyOperationSpec, EmitDecl, OperationSpec } from './operations/';
 import { OperationSpecRegistry } from './operations/registry';
 import type { ResourceRefDescriptor } from './resources';
+import type { ContractSuccess } from './results';
 import type { HandlerCtx } from './types';
 
 /** Infer input/output types from a OperationSpec */
@@ -40,7 +41,7 @@ export type RuntimeSpecOutput<Spec extends AnyOperationSpec> =
 export type HandlerForOperationSpec<Spec extends AnyOperationSpec> = (
 	args: ZodOperationSpecInput<Spec>,
 	ctx: HandlerCtx
-) => Promise<RuntimeSpecOutput<Spec>>;
+) => Promise<RuntimeSpecOutput<Spec> | ContractSuccess<unknown, string>>;
 
 /** Typed event param from Spec.sideEffects.emits */
 export type EventParam<

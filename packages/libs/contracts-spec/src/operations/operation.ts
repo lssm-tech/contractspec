@@ -10,6 +10,11 @@ import type { DataViewRef, FormRef, PresentationRef } from '../features';
 import type { OwnerShipMeta } from '../ownership';
 import type { PolicyRef } from '../policy/spec';
 import type { ResourceRefDescriptor } from '../resources';
+import type {
+	ContractFailureSpec,
+	ContractSuccessSpec,
+	ResultCatalog,
+} from '../results';
 import type { TestSpecRef } from '../tests/spec';
 
 /**
@@ -115,17 +120,21 @@ export interface OperationSpec<
 
 		/** Zod schema for output payload */
 		output: Output;
+		/** Named success outcomes this op may return (optional). */
+		success?: Record<string, ContractSuccessSpec>;
 		/** Named, typed errors this op may throw (optional) */
 		errors?: Record<
 			string,
-			{
-				description: string;
+			ContractFailureSpec & {
 				http?: number; // suggested HTTP status if surfaced over REST
 				gqlCode?: string; // suggested GraphQL error code
-				when: string; // human-readable condition
+				when?: string; // human-readable condition
 			}
 		>;
 	};
+
+	/** Preferred typed result catalog for operation-specific success/failure codes. */
+	results?: ResultCatalog;
 
 	policy: {
 		/** Minimal auth category allowed to call this op */

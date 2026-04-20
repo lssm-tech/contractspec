@@ -7,3 +7,4 @@ export * from './spec';
 export * from './state';
 export * from './validation';
 export * from './workflow-devkit';
+export * from './workflow-sdk';

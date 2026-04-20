@@ -56,6 +56,10 @@ export const JobEntity = defineEntity({
 			isOptional: true,
 			description: 'Last error stack trace',
 		}),
+		lastProblem: field.json({
+			isOptional: true,
+			description: 'Canonical ContractProblem for the last failure',
+		}),
 
 		// Timing
 		scheduledAt: field.dateTime({
@@ -101,6 +105,10 @@ export const JobEntity = defineEntity({
 			description: 'Additional metadata',
 		}),
 		result: field.json({ isOptional: true, description: 'Job result data' }),
+		resultEnvelope: field.json({
+			isOptional: true,
+			description: 'Canonical ContractSuccess for the job result',
+		}),
 
 		// Timestamps
 		createdAt: field.createdAt(),

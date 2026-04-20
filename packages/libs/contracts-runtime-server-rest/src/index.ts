@@ -4,5 +4,7 @@ export * from './contracts-runtime-server-rest.feature';
 export * from './rest-elysia';
 export * from './rest-express';
 export * from './rest-generic';
+export * from './rest-nest';
 export * from './rest-next-app';
 export * from './rest-next-pages';
+export * from './result-response';

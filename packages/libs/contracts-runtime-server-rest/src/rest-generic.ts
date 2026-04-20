@@ -1,6 +1,11 @@
 import { defaultRestPath } from '@contractspec/lib.contracts-spec/jsonschema';
 import type { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations/registry';
+import {
+	contractFail,
+	normalizeContractError,
+} from '@contractspec/lib.contracts-spec/results';
 import type { HandlerCtx } from '@contractspec/lib.contracts-spec/types';
+import { contractResultToResponse } from './result-response';
 
 export interface RestOptions {
 	basePath?: string;
@@ -14,6 +19,7 @@ export interface RestOptions {
 				maxAge?: number;
 		  };
 	prettyJson?: number | false;
+	resultEnvelope?: boolean;
 	onError?: (err: unknown) => { status: number; body: unknown };
 }
 
@@ -53,6 +59,7 @@ export function createFetchHandler(
 		basePath: options?.basePath ?? '',
 		cors: options?.cors ?? false,
 		prettyJson: options?.prettyJson ?? false,
+		resultEnvelope: options?.resultEnvelope ?? false,
 		onError: options?.onError,
 	};
 
@@ -115,7 +122,20 @@ export function createFetchHandler(
 					headers,
 					corsHeaders(opts.cors === true ? {} : opts.cors)
 				);
-			return makeJson(404, { error: 'NotFound', path: url.pathname }, headers);
+			return contractResultToResponse(
+				contractFail(
+					'NOT_FOUND',
+					{ path: url.pathname },
+					{
+						detail: `No ContractSpec route matched ${url.pathname}.`,
+					}
+				),
+				{
+					headers,
+					prettyJson: opts.prettyJson,
+					envelope: opts.resultEnvelope,
+				}
+			);
 		}
 
 		try {
@@ -139,12 +159,31 @@ export function createFetchHandler(
 				} else if (!contentType) {
 					input = {};
 				} else {
-					return makeJson(415, { error: 'UnsupportedMediaType', contentType });
+					return contractResultToResponse(
+						contractFail(
+							'BAD_REQUEST',
+							{ contentType },
+							{
+								status: 415,
+								title: 'Unsupported Media Type',
+								detail: `Unsupported content type: ${contentType}`,
+							}
+						),
+						{
+							prettyJson: opts.prettyJson,
+							envelope: opts.resultEnvelope,
+						}
+					);
 				}
 			}
 
 			const ctx = ctxFactory(req);
-			const result = await reg.execute(route.name, route.version, input, ctx);
+			const result = await reg.executeResult(
+				route.name,
+				route.version,
+				input,
+				ctx
+			);
 
 			const headers: HeadersInit = {};
 			if (opts.cors)
@@ -152,7 +191,11 @@ export function createFetchHandler(
 					headers,
 					corsHeaders(opts.cors === true ? {} : opts.cors)
 				);
-			return makeJson(200, result, headers);
+			return contractResultToResponse(result, {
+				headers,
+				prettyJson: opts.prettyJson,
+				envelope: opts.resultEnvelope,
+			});
 		} catch (err: unknown) {
 			if (opts.onError) {
 				const mapped = opts.onError(err);
@@ -170,23 +213,11 @@ export function createFetchHandler(
 					headers,
 					corsHeaders(opts.cors === true ? {} : opts.cors)
 				);
-			if ((err as { issues?: unknown })?.issues) {
-				return makeJson(
-					400,
-					{
-						error: 'ValidationError',
-						issues: (err as { issues: unknown }).issues,
-					},
-					headers
-				);
-			}
-			if (
-				typeof (err as { message?: unknown })?.message === 'string' &&
-				(err as { message: string }).message.startsWith('PolicyDenied')
-			) {
-				return makeJson(403, { error: 'PolicyDenied' }, headers);
-			}
-			return makeJson(500, { error: 'InternalError' }, headers);
+			return contractResultToResponse(normalizeContractError(err), {
+				headers,
+				prettyJson: opts.prettyJson,
+				envelope: opts.resultEnvelope,
+			});
 		}
 	};
 }

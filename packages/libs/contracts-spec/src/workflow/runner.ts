@@ -8,6 +8,15 @@ import type {
 } from '../app-config/runtime';
 import type { CapabilityRef } from '../capabilities';
 import type { OpRef } from '../features';
+import {
+	type ContractProblem,
+	ContractSpecError,
+	contractOk,
+	isContractFailure,
+	isContractSuccess,
+	normalizeContractError,
+	problemToSafeMessage,
+} from '../results';
 import type { SecretProviderPort, TranslationResolver } from '../types';
 import { evaluateExpression } from './expression';
 import type {
@@ -227,9 +236,23 @@ export class WorkflowRunner {
 		await this.config.stateStore.update(workflowId, () => workingState);
 
 		try {
-			const output = await this.executeWithStepTimeout(step, () =>
+			const stepOutput = await this.executeWithStepTimeout(step, () =>
 				this.runStepAction(step, workingState, input)
 			);
+			if (isContractFailure(stepOutput)) {
+				throw new ContractSpecError(stepOutput.problem);
+			}
+			const output = isContractSuccess(stepOutput)
+				? stepOutput.data
+				: stepOutput;
+			const stepResult = isContractSuccess(stepOutput)
+				? stepOutput
+				: contractOk(output, {
+						traceId: state.traceId,
+						source: { workflowId, stepId: step.id },
+					});
+			execution.result = stepResult;
+			workingState.result = stepResult;
 			execution.output = output;
 			execution.status = 'completed';
 			execution.completedAt = new Date();
@@ -270,12 +293,16 @@ export class WorkflowRunner {
 				workflowName: state.workflowName,
 				stepId: step.id,
 				status: workingState.status,
+				output,
+				result: stepResult,
 			});
 		} catch (error) {
 			const classification = classifyExecutionError(error);
 			execution.status = 'failed';
 			execution.completedAt = new Date();
 			execution.error = classification.message;
+			execution.problem = classification.problem;
+			workingState.problem = classification.problem;
 			workingState.updatedAt = new Date();
 
 			if (step.retry && classification.retryable) {
@@ -287,10 +314,9 @@ export class WorkflowRunner {
 						backoff === 'exponential'
 							? baseDelay * Math.pow(2, retries)
 							: baseDelay;
-					const cappedDelay = Math.min(
-						delay,
-						step.retry.maxDelayMs ?? Infinity
-					);
+					const cappedDelay =
+						retryAfterMs(classification.problem.retryAfter) ??
+						Math.min(delay, step.retry.maxDelayMs ?? Infinity);
 
 					workingState.retryCounts = {
 						...(state.retryCounts ?? {}),
@@ -305,6 +331,7 @@ export class WorkflowRunner {
 						metadata: {
 							attempt: String(retries + 1),
 							errorKind: classification.kind,
+							errorCode: classification.problem.code,
 						},
 					};
 
@@ -326,6 +353,7 @@ export class WorkflowRunner {
 						delay: cappedDelay,
 						error: execution.error,
 						errorKind: classification.kind,
+						problem: classification.problem,
 					});
 
 					await new Promise((resolve) => setTimeout(resolve, cappedDelay));
@@ -349,6 +377,7 @@ export class WorkflowRunner {
 				stepId: step.id,
 				error: execution.error ?? 'unknown',
 				errorKind: classification.kind,
+				problem: classification.problem,
 			});
 
 			// Trigger compensation if configured
@@ -777,29 +806,72 @@ function classifyExecutionError(error: unknown): {
 	kind: WorkflowExecutionErrorKind;
 	message: string;
 	retryable: boolean;
+	problem: ContractProblem<string, Record<string, unknown>>;
 } {
+	const normalized = normalizeContractError(error, {
+		source: { service: 'workflow' },
+	});
 	if (error instanceof WorkflowExecutionError) {
+		const problem = normalizeWorkflowProblem(normalized.problem, error.kind);
 		return {
 			kind: error.kind,
-			message: error.message,
+			message: problemToSafeMessage(problem),
 			retryable: error.kind === 'retryable' || error.kind === 'timeout',
+			problem,
 		};
 	}
 
 	const kind = readErrorKind(error);
 	if (kind) {
+		const problem = normalizeWorkflowProblem(normalized.problem, kind);
 		return {
 			kind,
-			message: error instanceof Error ? error.message : String(error),
+			message: problemToSafeMessage(problem),
 			retryable: kind === 'retryable' || kind === 'timeout',
+			problem,
 		};
 	}
 
+	const fallbackKind: WorkflowExecutionErrorKind = normalized.problem.retryable
+		? 'retryable'
+		: 'fatal';
 	return {
-		kind: 'retryable',
-		message: error instanceof Error ? error.message : String(error),
-		retryable: false,
+		kind: fallbackKind,
+		message: problemToSafeMessage(normalized.problem),
+		retryable: normalized.problem.retryable,
+		problem: normalized.problem,
 	};
+}
+
+function normalizeWorkflowProblem(
+	problem: ContractProblem<string, Record<string, unknown>>,
+	kind: WorkflowExecutionErrorKind
+): ContractProblem<string, Record<string, unknown>> {
+	const retryable = kind === 'retryable' || kind === 'timeout';
+	return {
+		...problem,
+		category:
+			kind === 'policy_blocked'
+				? 'policy'
+				: kind === 'guard_rejected'
+					? 'workflow'
+					: kind === 'timeout'
+						? 'timeout'
+						: problem.category,
+		retryable,
+	};
+}
+
+function retryAfterMs(
+	retryAfter: number | Date | undefined
+): number | undefined {
+	if (retryAfter instanceof Date) {
+		return Math.max(0, retryAfter.getTime() - Date.now());
+	}
+	if (typeof retryAfter === 'number') {
+		return Math.max(0, retryAfter);
+	}
+	return undefined;
 }
 
 function readErrorKind(error: unknown): WorkflowExecutionErrorKind | undefined {

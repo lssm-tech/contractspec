@@ -4,6 +4,10 @@ Website: https://contractspec.io
 
 **Structured error handling and HTTP error utilities.**
 
+> Deprecated: prefer `@contractspec/lib.contracts-spec/results` for new
+> success/error/result handling. This package remains as a compatibility bridge
+> for existing `AppError` consumers.
+
 ## What It Provides
 
 - **Layer**: lib.

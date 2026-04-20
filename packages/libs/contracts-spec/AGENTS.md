@@ -38,7 +38,7 @@ Foundational contract declarations, registries, capabilities, and shared executi
 - Export `./workspace-config` resolves through `./src/workspace-config/index.ts`.
 - Export `./workspace-config/contractsrc-schema` resolves through `./src/workspace-config/contractsrc-schema.ts`.
 - Export `./workspace-config/contractsrc-types` resolves through `./src/workspace-config/contractsrc-types.ts`.
-- The package publishes 394 total exports in `package.json`, including the root `.` barrel and 393 subpath exports; keep docs aligned with `package.json`.
+- The package publishes 397 total exports in `package.json`, including the root `.` barrel and 396 subpath exports; keep docs aligned with `package.json`.
 
 ## Guardrails
 

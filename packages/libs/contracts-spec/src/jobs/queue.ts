@@ -1,4 +1,5 @@
 import * as z from 'zod';
+import type { ContractProblem, ContractSuccess } from '../results';
 
 /**
  * Job status values.
@@ -30,12 +31,14 @@ export interface Job<TPayload = unknown> {
 	completedAt?: Date;
 	timeoutAt?: Date;
 	lastError?: string;
+	lastProblem?: ContractProblem<string, Record<string, unknown>>;
 	dedupeKey?: string;
 	tenantId?: string;
 	userId?: string;
 	traceId?: string;
 	metadata?: Record<string, unknown>;
 	result?: unknown;
+	resultEnvelope?: ContractSuccess<unknown, string>;
 }
 
 /**
@@ -67,7 +70,7 @@ export interface EnqueueOptions {
  */
 export type JobHandler<TPayload = unknown, TResult = void> = (
 	job: Job<TPayload>
-) => Promise<TResult>;
+) => Promise<TResult | ContractSuccess<TResult, string>>;
 
 /**
  * Job queue interface.

@@ -25,8 +25,8 @@
 	},
 	"peerDependencies": {
 		"@hookform/resolvers": "^5.2.2",
-		"react": "^19.2.4",
-		"react-dom": "^19.2.4",
+		"react": "catalog:",
+		"react-dom": "catalog:",
 		"react-hook-form": "^7.72.0"
 	},
 	"dependencies": {
@@ -45,6 +45,7 @@
 	],
 	"exports": {
 		".": "./src/index.ts",
+		"./contract-result-client": "./src/contract-result-client.tsx",
 		"./contracts-runtime-client-react.feature": "./src/contracts-runtime-client-react.feature.ts",
 		"./drivers/rn-reusables": "./src/drivers/rn-reusables.ts",
 		"./drivers/shadcn": "./src/drivers/shadcn.ts",
@@ -70,6 +71,13 @@
 				"bun": "./dist/contracts-runtime-client-react.feature.js",
 				"node": "./dist/node/contracts-runtime-client-react.feature.js",
 				"default": "./dist/contracts-runtime-client-react.feature.js"
+			},
+			"./contract-result-client": {
+				"types": "./dist/contract-result-client.d.ts",
+				"browser": "./dist/browser/contract-result-client.js",
+				"bun": "./dist/contract-result-client.js",
+				"node": "./dist/node/contract-result-client.js",
+				"default": "./dist/contract-result-client.js"
 			},
 			"./drivers/rn-reusables": {
 				"types": "./dist/drivers/rn-reusables.d.ts",

@@ -1,3 +1,8 @@
+import {
+	isContractSuccess,
+	normalizeContractError,
+	problemToSafeMessage,
+} from '@contractspec/lib.contracts-spec/results';
 import { randomUUID } from 'crypto';
 import type {
 	EnqueueOptions,
@@ -188,19 +193,28 @@ export class MemoryJobQueue implements JobQueue {
 
 		try {
 			const result = await handler(job);
+			if (isContractSuccess(result)) {
+				job.resultEnvelope = result;
+				job.result = result.data;
+			} else {
+				job.result = result;
+			}
 			job.status = 'completed';
 			job.completedAt = new Date();
-			job.result = result;
 		} catch (error) {
-			const errorMessage =
-				error instanceof Error ? error.message : 'Unknown error';
-			job.lastError = errorMessage;
+			const failure = normalizeContractError(error, {
+				source: { service: 'jobs', jobId: job.id },
+			});
+			job.lastProblem = failure.problem;
+			job.lastError = problemToSafeMessage(failure.problem);
 
-			if (job.attempts >= job.maxRetries) {
+			if (!failure.problem.retryable || job.attempts >= job.maxRetries) {
 				job.status = 'dead_letter';
 			} else {
 				// Schedule retry with backoff
-				const backoff = calculateBackoff(job.attempts, this.retryPolicy);
+				const backoff =
+					retryAfterMs(failure.problem.retryAfter) ??
+					calculateBackoff(job.attempts, this.retryPolicy);
 				job.status = 'pending';
 				job.scheduledAt = new Date(Date.now() + backoff);
 			}
@@ -209,4 +223,16 @@ export class MemoryJobQueue implements JobQueue {
 			this.activeCount--;
 		}
 	}
+}
+
+function retryAfterMs(
+	retryAfter: number | Date | undefined
+): number | undefined {
+	if (retryAfter instanceof Date) {
+		return Math.max(0, retryAfter.getTime() - Date.now());
+	}
+	if (typeof retryAfter === 'number') {
+		return Math.max(0, retryAfter);
+	}
+	return undefined;
 }

@@ -1,5 +1,6 @@
 import type { OwnerShipMeta } from '../ownership';
 import { SpecContractRegistry } from '../registry';
+import type { ResultCatalog } from '../results';
 import type { VersionedSpecRef } from '../versioning';
 import type { RetryPolicy } from './queue';
 
@@ -22,6 +23,8 @@ export interface JobSpec {
 	timeoutMs?: number;
 	/** Optional scheduling configuration for recurring jobs. */
 	schedule?: JobSchedule;
+	/** Optional typed result catalog for job success/failure outcomes. */
+	results?: ResultCatalog;
 }
 
 /** Reference to a job spec by key and version. */
