@@ -129,7 +129,7 @@ function extractStringValues(obj: unknown): string[] {
 function checkErrorCaseCoverage(
 	code: string,
 	errorCode: string,
-	errorDef: { description: string; http?: number; when: string }
+	errorDef: { description: string; http?: number; when?: string }
 ): BehaviorCheck {
 	// Check if error code is referenced
 	const hasErrorCode = code.includes(errorCode);
@@ -140,7 +140,8 @@ function checkErrorCaseCoverage(
 		: true;
 
 	// Check for keywords from the 'when' condition
-	const whenKeywords = errorDef.when
+	const when = errorDef.when ?? errorDef.description;
+	const whenKeywords = when
 		.toLowerCase()
 		.split(/\s+/)
 		.filter((w) => w.length > 3);
@@ -157,7 +158,7 @@ function checkErrorCaseCoverage(
 		name: `Error: ${errorCode}`,
 		type: 'error',
 		passed,
-		expected: `When: ${errorDef.when}; Return: ${errorCode} (HTTP ${errorDef.http ?? 400})`,
+		expected: `When: ${when}; Return: ${errorCode} (HTTP ${errorDef.http ?? 400})`,
 		details: passed
 			? undefined
 			: !hasErrorCode

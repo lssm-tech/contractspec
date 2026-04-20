@@ -2,7 +2,7 @@ import type {
 	ThemeCssVariableMap,
 	ThemeCssVariables,
 	ThemeTailwindBridgeOptions,
-} from './tailwind';
+} from './tailwind-variables';
 
 const DEFAULT_MODE_NAMES = ['light', 'dark'] as const;
 

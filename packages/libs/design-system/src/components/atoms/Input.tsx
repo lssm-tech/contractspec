@@ -2,35 +2,23 @@ import {
 	Input as WebInput,
 	type InputProps as WebInputProps,
 } from '@contractspec/lib.ui-kit-web/ui/input';
-import { type KeyboardOptions, mapKeyboardToWeb } from '../../lib/keyboard';
+import { mapKeyboardToWeb } from '../../lib/keyboard';
 import {
-	type ThemedPrimitiveProps,
-	useThemedPrimitive,
-	useTranslatedText,
-} from '../primitives/themed';
+	type ControlThemeProps,
+	type TextFieldBaseProps,
+	useThemedTextField,
+} from '../primitives/control';
 
-interface BaseFieldProps {
-	// value?: string | number;
-	// defaultValue?: string | number;
-	// onChange?: (text: string) => void;
-	onSubmit?: () => void;
-	onFocus?: () => void;
-	// onBlur?: () => void;
-	placeholder?: string;
-	disabled?: boolean;
-	readOnly?: boolean;
-	maxLength?: number;
+interface InputBaseProps extends TextFieldBaseProps {
 	name?: string;
-	className?: string;
-	keyboard?: KeyboardOptions;
 }
 
 export type InputProps = Omit<
 	WebInputProps,
 	'input' // | 'onChange' | 'value' | 'defaultValue'
 > &
-	BaseFieldProps &
-	ThemedPrimitiveProps;
+	InputBaseProps &
+	ControlThemeProps;
 
 export function Input({
 	value,
@@ -53,22 +41,23 @@ export function Input({
 	...rest
 }: InputProps) {
 	const webKeyboard = mapKeyboardToWeb(keyboard);
-	const themed = useThemedPrimitive({
+	const field = useThemedTextField({
 		defaultComponentKey: 'Input',
 		componentKey,
 		themeVariant,
 		className,
 		style: rest.style,
+		placeholder,
+		placeholderI18n,
+		ariaLabelI18n,
 	});
-	const translate = useTranslatedText();
-	const resolvedPlaceholder = translate(placeholderI18n ?? placeholder);
 
 	return (
 		<WebInput
-			{...(themed.props as Partial<WebInputProps>)}
+			{...(field.themed.props as Partial<WebInputProps>)}
 			{...rest}
-			className={themed.className}
-			style={themed.style}
+			className={field.themed.className}
+			style={field.themed.style}
 			value={value}
 			defaultValue={defaultValue}
 			// onChange={onChange ? (e) => onChange?.(e.target.value) : undefined}
@@ -76,8 +65,8 @@ export function Input({
 			onChange={onChange}
 			onFocus={onFocus}
 			onBlur={onBlur}
-			placeholder={resolvedPlaceholder}
-			aria-label={translate(ariaLabelI18n)}
+			placeholder={field.placeholder}
+			aria-label={field.ariaLabel}
 			disabled={disabled}
 			readOnly={readOnly}
 			maxLength={maxLength}

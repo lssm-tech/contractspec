@@ -2,7 +2,7 @@
 
 > Aggregated content from all packages. For summary, see /llms
 
-Generated: 2026-04-19T22:32:43.025Z
+Generated: 2026-04-20T17:23:21.688Z
 Packages: 189
 
 ---
@@ -7581,6 +7581,7 @@ URL: /llms/bundle.marketing
 ## What It Provides
 
 - Marketing page bodies consumed by `@contractspec/app.web-landing`
+- Platform-neutral landing story data consumed by web and Expo shells
 - Scenario/template browsing surfaces used on `/templates`
 - Support and program pages such as contact, contribute, cofounder, and design-partner
 - Email/contact helpers and marketing-adjacent utilities
@@ -7588,6 +7589,7 @@ URL: /llms/bundle.marketing
 ## Architecture
 
 - `src/components/marketing/` owns the public marketing narratives, section composition, and page-level stories.
+- `src/content/` owns React-free story data shared by web and mobile shells.
 - `src/components/templates/` owns template browsing, preview, and template-to-CLI/Studio flows.
 - `src/libs/email/` owns contact/newsletter/waitlist actions and helpers used by marketing surfaces.
 - `src/index.ts` is the root public entrypoint.
@@ -7599,6 +7601,7 @@ The important boundary:
 ## Public Entry Points
 
 - Root export `.` through `src/index.ts`
+- `./content` for platform-neutral landing story data and CTA helpers
 - `./components/marketing/*` for landing, product, pricing, contact, contribute, cofounder, and design-partner surfaces
 - `./components/templates/*` for templates browsing and preview surfaces
 - `./libs/email/*` for marketing contact/newsletter/waitlist helpers
@@ -8908,25 +8911,27 @@ jobs:
 
 ## @contractspec/app.expo-demo
 
-Description: Minimal Expo React Native app - Task List demo for ContractSpec mobile runtime
+Description: Expo landing companion for the shared ContractSpec OSS-first product story
 Path: packages/apps/mobile-demo
 URL: /llms/app.expo-demo
 
 # @contractspec/app.expo-demo
 
-**Minimal Expo React Native app demonstrating ContractSpec's mobile runtime with a task list workflow.**
+**Expo landing companion for the shared ContractSpec OSS-first product story.**
 
 ## What This Demonstrates
 
-- Demonstrates a spec-first mobile flow from contracts to handlers to React Native screens.
-- Uses the RN-safe subset of the ContractSpec UI kit and presentation runtime.
-- Ships task list, create-task, and status-update flows backed by an in-memory store.
-- `src/contracts/` contains contract specs, operations, entities, and registry exports.
-- `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
+- Shares platform-neutral landing content from `@contractspec/bundle.marketing/content`.
+- Presents the same positioning as `@contractspec/app.web-landing`: open spec system first, Studio as the optional operating layer.
+- Uses a mobile-native Expo screen with ContractSpec registry-backed story loading and CTA resolution.
+- `src/contracts/` defines landing companion query and CTA command specs.
+- `src/handlers/` registers demo handlers against the operation registry.
+- `src/components/landing/` and `src/screens/` contain the React Native composition.
 
 ## Running Locally
 
 From `packages/apps/mobile-demo`:
+
 - `bun run dev`
 - `bun run start`
 - `bun run test`
@@ -8940,38 +8945,35 @@ bun run dev
 
 ## Architecture
 
-- `app/` contains Expo Router routes and screen wiring.
-- `src/contracts/` defines the task entity and mobile demo operations.
-- `src/handlers/` registers demo handlers against the operation registry.
-- `src/screens/` contains screen-level UI composition for list and form flows.
+- `app/` contains the Expo Router entrypoint.
+- `src/contracts/` defines `mobile-demo.landing` and operations for story loading plus CTA resolution.
+- `src/handlers/` adapts shared marketing content into ContractSpec operation results.
+- `src/components/landing/` renders the mobile-native companion UI.
+- `src/screens/` owns screen-level loading, error, and CTA opening behavior.
 
 ## Public Entry Points
 
 - Deployable Expo app with no published library exports.
-- Primary runtime surfaces are the Expo routes in `app/` and the registered operations in `src/handlers/`.
+- Primary runtime surfaces are the Expo route in `app/` and the registered operations in `src/handlers/`.
+- Shared story data comes from the public `@contractspec/bundle.marketing/content` subpath.
 
 ## Local Commands
 
-- `bun run dev` — expo start
-- `bun run start` — expo start
-- `bun run test` — bun test
-- `bun run lint` — bun run lint:fix
-- `bun run lint:check` — biome check .
-- `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
-- `bun run typecheck` — tsc --noEmit
-- `bun run android` — expo start --android
-- `bun run ios` — expo start --ios
-
-## Recent Updates
-
-- Replace eslint+prettier by biomejs to optimize speed.
-- Stability.
-- Package exports.
-- Mobile app example.
+- `bun run dev` - expo start
+- `bun run start` - expo start
+- `bun run test` - bun test
+- `bun run lint` - bun run lint:fix
+- `bun run lint:check` - biome check .
+- `bun run lint:fix` - biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run typecheck` - tsc --noEmit
+- `bun run android` - expo run:android
+- `bun run ios` - expo run:ios
 
 ## Notes
 
-- Works alongside `@contractspec/lib.contracts-spec`, `@contractspec/lib.presentation-runtime-core`, `@contractspec/lib.presentation-runtime-react-native`, `@contractspec/lib.schema`, `@contractspec/lib.ui-kit`, ...
+- This package intentionally replaces the old task-list demo with a landing companion use-case.
+- Keep app-local UI mobile-native; do not import web-only marketing components into Expo.
+- Keep `@contractspec/bundle.marketing/content`, this README, and `@contractspec/app.web-landing` positioning aligned when the public story changes.
 
 
 ---

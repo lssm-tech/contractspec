@@ -19,6 +19,7 @@ The root barrel is the primary API.
 ## Change boundaries
 
 - Root exports, token shapes, and component names are compatibility surface.
+- Focused subpaths (`./theme`, `./controls`, `./forms`, `./layout`, `./renderers`) are public API and must stay aligned with root exports.
 - Registry metadata and build support matter when changing shadcn-style registry contents.
 - Do not flatten grouped docs into file inventories.
 - Keep `exports` and `publishConfig.exports` aligned.

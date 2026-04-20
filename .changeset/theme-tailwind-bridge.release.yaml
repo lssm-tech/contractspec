@@ -36,7 +36,7 @@ upgradeSteps:
   - id: adopt-theme-tailwind-bridge
     title: Use ThemeSpec as the Tailwind theme source
     summary: Resolve ThemeSpec tokens for the active mode and feed them to the Tailwind preset or CSS serializer.
-    level: optional
+    level: assisted
     instructions:
       - Keep existing `tokens` as the default/light-compatible token bag.
       - Add `modes.dark.tokens` when a dark-mode overlay is needed.

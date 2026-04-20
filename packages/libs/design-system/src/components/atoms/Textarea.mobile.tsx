@@ -1,25 +1,16 @@
 import { Textarea as NativeTextarea } from '@contractspec/lib.ui-kit/ui/textarea';
 import * as React from 'react';
-import { type KeyboardOptions, mapKeyboardToNative } from '../../lib/keyboard';
+import { mapKeyboardToNative } from '../../lib/keyboard';
 import {
-	type ThemedPrimitiveProps,
-	useThemedPrimitive,
-	useTranslatedText,
-} from '../primitives/themed';
+	type ControlThemeProps,
+	type TextFieldBaseProps,
+	useThemedTextField,
+} from '../primitives/control';
 
-interface BaseFieldProps {
+interface TextareaBaseProps extends TextFieldBaseProps {
 	value?: string;
 	defaultValue?: string;
 	onChange?: (text: string) => void;
-	onSubmit?: () => void;
-	onFocus?: () => void;
-	onBlur?: () => void;
-	placeholder?: string;
-	disabled?: boolean;
-	readOnly?: boolean;
-	maxLength?: number;
-	className?: string;
-	keyboard?: KeyboardOptions;
 }
 
 type NativeTextareaComponentProps = React.ComponentProps<typeof NativeTextarea>;
@@ -27,8 +18,8 @@ export type TextareaProps = Omit<
 	NativeTextareaComponentProps,
 	'onChangeText' | 'value' | 'defaultValue'
 > &
-	BaseFieldProps &
-	ThemedPrimitiveProps;
+	TextareaBaseProps &
+	ControlThemeProps;
 
 export function Textarea({
 	value,
@@ -50,21 +41,23 @@ export function Textarea({
 	...rest
 }: TextareaProps) {
 	const nativeKeyboard = mapKeyboardToNative(keyboard);
-	const themed = useThemedPrimitive({
+	const field = useThemedTextField({
 		defaultComponentKey: 'Textarea',
 		componentKey,
 		themeVariant,
 		className,
+		placeholder,
+		placeholderI18n,
+		ariaLabelI18n,
 	});
-	const translate = useTranslatedText();
 
 	return (
 		<NativeTextarea
-			{...(themed.props as NativeTextareaComponentProps)}
+			{...(field.themed.props as NativeTextareaComponentProps)}
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			{...(rest as any)}
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			className={themed.className as any}
+			className={field.themed.className as any}
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			value={value as any}
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -77,8 +70,8 @@ export function Textarea({
 			onFocus={onFocus as any}
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			onBlur={onBlur as any}
-			placeholder={translate(placeholderI18n ?? placeholder)}
-			accessibilityLabel={translate(ariaLabelI18n)}
+			placeholder={field.placeholder}
+			accessibilityLabel={field.ariaLabel}
 			editable={!disabled && !readOnly}
 			maxLength={maxLength}
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

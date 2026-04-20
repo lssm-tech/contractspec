@@ -84,6 +84,14 @@ export function TenantSurface({ children }: { children: React.ReactNode }) {
   );
 }`;
 
+const FOCUSED_SUBPATHS_EXAMPLE = `import { themeSpecToTailwindPreset } from '@contractspec/lib.design-system/theme';
+import { Select } from '@contractspec/lib.design-system/controls';
+import { FormDialog } from '@contractspec/lib.design-system/forms';
+import { HStack } from '@contractspec/lib.design-system/layout';
+
+// Root imports remain supported:
+import { Button, DataTable } from '@contractspec/lib.design-system';`;
+
 export function LibrariesDesignSystemPage() {
 	return (
 		<div className="space-y-8">
@@ -146,6 +154,15 @@ export function LibrariesDesignSystemPage() {
 					color pass-through.
 				</p>
 				<CodeBlock language="tsx" code={THEME_TAILWIND_EXAMPLE} />
+			</div>
+
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Focused import surfaces</h2>
+				<p className="text-muted-foreground">
+					New code can use focused subpaths for theme, controls, forms, and
+					layout while existing root imports remain compatible.
+				</p>
+				<CodeBlock language="tsx" code={FOCUSED_SUBPATHS_EXAMPLE} />
 			</div>
 
 			<div className="space-y-4">

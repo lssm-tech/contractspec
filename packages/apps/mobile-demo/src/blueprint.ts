@@ -5,12 +5,12 @@ export const MobileDemoBlueprint = defineAppConfig({
 		...{
 			key: 'apps.mobile-demo',
 			version: '1.0.0',
-			title: 'Mobile Demo',
+			title: 'Mobile Landing Companion',
 			description:
-				'Minimal Expo React Native app - Task List demo for ContractSpec mobile runtime',
+				'Expo landing companion for the shared ContractSpec OSS-first product story',
 			domain: 'mobile-demo',
 			owners: ['@contractspec-core'],
-			tags: ['package', 'apps', 'mobile-demo'],
+			tags: ['package', 'apps', 'mobile-demo', 'landing'],
 			stability: 'experimental',
 		},
 		appId: 'mobile-demo',
@@ -21,6 +21,6 @@ export const MobileDemoBlueprint = defineAppConfig({
 		],
 	},
 	features: {
-		include: [{ key: 'mobile-demo.tasks' }],
+		include: [{ key: 'mobile-demo.landing' }],
 	},
 });

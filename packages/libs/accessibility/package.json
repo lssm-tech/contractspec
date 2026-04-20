@@ -37,7 +37,7 @@
 		"@contractspec/tool.bun": "workspace:*"
 	},
 	"peerDependencies": {
-		"react": "19.2.4",
+		"react": "catalog:",
 		"next": "16.2.3"
 	},
 	"type": "module",

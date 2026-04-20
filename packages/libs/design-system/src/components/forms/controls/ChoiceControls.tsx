@@ -9,15 +9,12 @@ import {
 } from '@contractspec/lib.ui-kit-web/ui/radio-group';
 import { Switch as WebSwitch } from '@contractspec/lib.ui-kit-web/ui/switch';
 import { HStack, VStack } from '../../layout/Stack';
+import { optionValue } from '../../primitives/control';
 import {
 	type ThemedPrimitiveProps,
 	useThemedPrimitive,
 	useTranslatedText,
 } from '../../primitives/themed';
-
-function optionValue(value: unknown) {
-	return typeof value === 'string' ? value : String(value ?? '');
-}
 
 export interface CheckboxProps extends ThemedPrimitiveProps {
 	checked?: boolean;

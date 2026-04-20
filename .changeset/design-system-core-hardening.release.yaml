@@ -1,0 +1,50 @@
+schemaVersion: "1"
+slug: design-system-core-hardening
+summary: Add focused design-system subpaths and harden ThemeSpec runtime, Tailwind bridge, form-control helpers, and form renderer internals without changing root-import compatibility.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.design-system"
+    releaseType: minor
+affectedRuntimes:
+  - bun
+  - node
+  - nextjs
+  - expo
+affectedFrameworks:
+  - react
+  - react-native
+  - tailwindcss
+audiences:
+  - kind: maintainer
+    summary: Maintainers now have smaller internal design-system modules and focused subpaths for theme, controls, forms, layout, and renderers.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+  - kind: integrator
+    summary: Integrators can keep root imports or adopt focused subpaths such as `@contractspec/lib.design-system/theme` and `@contractspec/lib.design-system/forms`.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+  - kind: customer
+    summary: Contract-rendered forms and themed controls keep the same behavior while the design-system internals become easier to maintain.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: adopt-focused-design-system-subpaths
+    title: Prefer focused subpaths for new imports
+    summary: Existing root imports stay supported, but new code can import from focused design-system surfaces.
+    level: optional
+    instructions:
+      - Use `@contractspec/lib.design-system/theme` for ThemeSpec runtime and Tailwind helpers.
+      - Use `@contractspec/lib.design-system/controls` for themed and translated controls.
+      - Use `@contractspec/lib.design-system/forms` for form layouts, controls, and `ZodForm`.
+      - Use `@contractspec/lib.design-system/layout` for stack primitives.
+validation:
+  commands:
+    - "cd packages/libs/contracts-spec && bun run test && bun run typecheck && bun run lint:check"
+    - "cd packages/libs/design-system && bun run test && bun run typecheck && bun run lint:check && bun run build && bun run test:build-artifacts"
+    - "cd packages/bundles/library && bun test src/components/docs/docsManifest.test.ts && bun run typecheck && bun run lint:check"
+  evidence:
+    - "`@contractspec/lib.design-system` now publishes focused `./theme`, `./controls`, `./forms`, and `./layout` subpaths while keeping root exports."
+    - "Form renderer internals are split into rich-field, shell, value, and renderer assembly modules."
+    - "Shared control helpers reduce duplicated option/input normalization and text-field theme/translation glue."

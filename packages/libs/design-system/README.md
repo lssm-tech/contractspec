@@ -51,6 +51,16 @@ const ui = withPlatformUI({
 });
 ```
 
+Focused public subpaths are available when consumers do not need the full root
+barrel:
+
+```ts
+import { themeSpecToTailwindPreset } from "@contractspec/lib.design-system/theme";
+import { Select } from "@contractspec/lib.design-system/controls";
+import { FormDialog } from "@contractspec/lib.design-system/forms";
+import { HStack } from "@contractspec/lib.design-system/layout";
+```
+
 ### Resolve contract-backed themes
 
 ```ts
@@ -296,9 +306,12 @@ The root barrel at `src/index.ts` is the main public API for this package.
 
 The export map is broad, but it is centralized:
 
-- theme and platform helpers
-- renderer exports
-- high-level components grouped by composition layer
+- `.` for backward-compatible root imports across theme, platform, renderers, controls, and composed components
+- `./theme` for ThemeSpec runtime, platform token mapping, and Tailwind bridge helpers
+- `./controls` for themed and translated controls
+- `./forms` for form controls, layouts, and `ZodForm`
+- `./layout` for `Box`, `HStack`, and `VStack`
+- `./renderers` for focused renderer imports such as `formRenderer`
 - hooks and shared types
 
 The package also ships registry metadata and build support:

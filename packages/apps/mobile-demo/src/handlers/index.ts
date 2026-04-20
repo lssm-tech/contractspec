@@ -1,1 +1,6 @@
-export { createTaskRegistry, type Task, taskRegistry } from './task.handlers';
+export {
+	createMobileLandingRegistry,
+	type LandingCtaResolveResult,
+	type LandingStoryResult,
+	mobileLandingRegistry,
+} from './mobile-landing.handlers';

@@ -1,6 +1,6 @@
 {
 	"generatedAt": "2026-04-19T15:19:28.556Z",
-	"total": 1142,
+	"total": 1141,
 	"version": null,
 	"contentRoot": "../../../../../../../generated/docs",
 	"chunks": [
@@ -265,9 +265,9 @@
 			"total": 2
 		},
 		{
-			"key": "mobile-demo.tasks",
-			"file": "docs-index.mobile-demo-tasks.json",
-			"total": 4
+			"key": "mobile-demo.landing",
+			"file": "docs-index.mobile-demo-landing.json",
+			"total": 3
 		},
 		{
 			"key": "notifications",

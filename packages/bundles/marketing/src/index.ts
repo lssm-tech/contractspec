@@ -1,6 +1,7 @@
 export * from './bundles/MarketingBundle';
 export * from './components/marketing';
 export * from './components/templates';
+export * from './content';
 // Email utilities
 export { submitContactForm } from './libs/email/contact';
 export { subscribeToNewsletter } from './libs/email/newsletter';

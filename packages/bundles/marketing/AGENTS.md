@@ -14,6 +14,7 @@ Marketing composition bundle for the public ContractSpec site: landing narrative
 ## Architecture
 
 - `src/components/marketing/` owns page-level narratives and marketing composition.
+- `src/content/` owns React-free story data shared by web and mobile shells.
 - `src/components/templates/` owns scenario/template browsing, preview, and template acquisition flows.
 - `src/libs/email/` owns contact, newsletter, and waitlist logic used by marketing surfaces.
 - `src/index.ts` is the root public barrel; keep exported stories stable when they are consumed by app shells.
@@ -21,6 +22,7 @@ Marketing composition bundle for the public ContractSpec site: landing narrative
 ## Public Surface
 
 - Marketing pages under `./components/marketing/*`
+- Platform-neutral story data under `./content`
 - Templates surfaces under `./components/templates/*`
 - Email/contact helpers under `./libs/email/*`
 

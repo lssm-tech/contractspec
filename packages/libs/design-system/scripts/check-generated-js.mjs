@@ -7,12 +7,16 @@ const packageRoot = path.resolve(new URL('..', import.meta.url).pathname);
 const syntaxTargets = [
 	'dist/index.js',
 	'dist/browser/index.js',
+	'dist/components/forms/controls/index.js',
+	'dist/components/forms/index.js',
+	'dist/components/layout/index.js',
 	'dist/renderers/index.js',
+	'dist/theme/index.js',
 ];
 
 const polyfillBoundaries = [
 	{
-		file: 'dist/renderers/form-contract.js',
+		file: 'dist/components/layout/Stack.js',
 		importPath: '@contractspec/lib.ui-kit-web/ui/stack',
 	},
 	{

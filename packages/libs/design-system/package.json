@@ -68,6 +68,10 @@
 	],
 	"exports": {
 		".": "./src/index.ts",
+		"./controls": "./src/components/forms/controls/index.ts",
+		"./forms": "./src/components/forms/index.ts",
+		"./layout": "./src/components/layout/index.ts",
+		"./theme": "./src/theme/index.ts",
 		"./renderers": "./src/renderers/index.ts"
 	},
 	"publishConfig": {
@@ -79,11 +83,35 @@
 				"bun": "./dist/index.js",
 				"default": "./dist/index.js"
 			},
+			"./controls": {
+				"types": "./dist/components/forms/controls/index.d.ts",
+				"browser": "./dist/browser/components/forms/controls/index.js",
+				"bun": "./dist/components/forms/controls/index.js",
+				"default": "./dist/components/forms/controls/index.js"
+			},
+			"./forms": {
+				"types": "./dist/components/forms/index.d.ts",
+				"browser": "./dist/browser/components/forms/index.js",
+				"bun": "./dist/components/forms/index.js",
+				"default": "./dist/components/forms/index.js"
+			},
+			"./layout": {
+				"types": "./dist/components/layout/index.d.ts",
+				"browser": "./dist/browser/components/layout/index.js",
+				"bun": "./dist/components/layout/index.js",
+				"default": "./dist/components/layout/index.js"
+			},
 			"./renderers": {
 				"types": "./dist/renderers/index.d.ts",
 				"browser": "./dist/browser/renderers/index.js",
 				"bun": "./dist/renderers/index.js",
 				"default": "./dist/renderers/index.js"
+			},
+			"./theme": {
+				"types": "./dist/theme/index.d.ts",
+				"browser": "./dist/browser/theme/index.js",
+				"bun": "./dist/theme/index.js",
+				"default": "./dist/theme/index.js"
 			}
 		},
 		"registry": "https://registry.npmjs.org/"

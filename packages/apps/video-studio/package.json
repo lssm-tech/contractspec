@@ -17,8 +17,8 @@
 		"@contractspec/lib.design-system": "workspace:*",
 		"remotion": "^4.0.447",
 		"@remotion/cli": "^4.0.447",
-		"react": "^19.0.0",
-		"react-dom": "^19.0.0"
+		"react": "catalog:",
+		"react-dom": "catalog:"
 	},
 	"devDependencies": {
 		"@remotion/renderer": "^4.0.447",
