@@ -25,7 +25,7 @@ audiences:
       - "@contractspec/module.examples"
       - "@contractspec/bundle.marketing"
       - "@contractspec/bundle.library"
-  - kind: operator
+  - kind: integrator
     summary: "CLI installs avoid the full example dependency set and can fetch a selected example source on demand with `contractspec examples download <key>`."
     affectedPackages:
       - "@contractspec/app.cli-contractspec"
