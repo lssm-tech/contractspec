@@ -8,7 +8,7 @@
 - @contractspec/bundle.workspace@4.5.1 (minor)
 - @contractspec/bundle.library@3.9.3 (minor)
 - @contractspec/app.cli-contractspec@6.1.0 (minor)
-- vscode-contractspec@3.10.3 (minor)
+- vscode-contractspec@3.10.4 (minor)
 - contractspec@1.46.2 (patch)
 - @contractspec/lib.knowledge@3.7.21 (patch)
 - @contractspec/biome-config@3.8.8 (patch)
@@ -290,7 +290,7 @@
 - @contractspec/app.cli-contractspec@6.1.0 (minor)
 - @contractspec/app.api-library (patch)
 - @contractspec/app.registry-packs@1.7.15 (patch)
-- vscode-contractspec@3.10.3 (patch)
+- vscode-contractspec@3.10.4 (patch)
 - @contractspec/example.project-management-sync@3.7.22 (patch)
 - @contractspec/example.voice-providers@3.7.22 (patch)
 - @contractspec/example.meeting-recorder-providers@3.7.22 (patch)
@@ -328,6 +328,16 @@
 
 ### Add a ThemeSpec-aware and TranslationSpec-aware design-system form/control layer with stack primitives, exported control wrappers, and FormSpec renderer alignment.
 - Customer: Product surfaces and contract-rendered forms can now share the same ThemeSpec-aware and TranslationSpec-aware design-system controls across web and React Native.
+- No manual migration steps recorded.
+
+### Wrap UI-backed docs example previews in the template runtime provider so public example pages prerender with the same runtime boundary as sandbox and template previews.
+- @contractspec/app.web-landing (patch)
+- Customer: Public docs pages for UI-backed examples, including `analytics-dashboard`, now prerender successfully instead of failing on missing template runtime context.
+
+
+
+### Wrap UI-backed docs example previews in the template runtime provider so public example pages prerender with the same runtime boundary as sandbox and template previews.
+- Customer: Public docs pages for UI-backed examples, including `analytics-dashboard`, now prerender successfully instead of failing on missing template runtime context.
 - No manual migration steps recorded.
 
 ### Refresh root, package, website, and LLM-facing docs so Connect, Builder, release capsules, and the current contracts-spec export surface stay aligned.
@@ -453,7 +463,7 @@
 - @contractspec/lib.ui-kit-core@3.8.1 (minor)
 - @contractspec/lib.ui-kit-web@3.11.0 (minor)
 - @contractspec/lib.ui-kit@4.0.0 (minor)
-- vscode-contractspec@3.10.3 (minor)
+- vscode-contractspec@3.10.4 (minor)
 - Integrator: Integrators can scaffold feature, form, and package targets, consume the published schema and rich form exports, and reuse the new UI kit primitives across web and React Native surfaces.
 - Customer: CLI and VS Code users get shell completion, guided setup presets, stronger spec discovery, and richer generated form and data-view rendering.
 - Deprecations:
@@ -829,3 +839,14 @@
   - [assisted] Use generated release manifests in tooling: Prefer generated release artifacts for changelog and upgrade flows.
     - Run `contractspec release build` to populate `generated/releases/`.
     - Point changelog or upgrade tooling at `generated/releases/manifest.json` and `generated/releases/upgrade-manifest.json`.
+
+### Keep the VS Code extension production typecheck focused on runtime sources while allowing Bun-typed workspace imports to resolve.
+- vscode-contractspec@3.10.4 (patch)
+- Integrator: VS Code extension packaging no longer fails when workspace source imports reference Bun globals through shared ContractSpec packages.
+- Customer: This patch restores extension build reliability without changing runtime extension behavior.
+
+
+
+### Keep the VS Code extension production typecheck focused on runtime sources while allowing Bun-typed workspace imports to resolve.
+- Customer: This patch restores extension build reliability without changing runtime extension behavior.
+- No manual migration steps recorded.

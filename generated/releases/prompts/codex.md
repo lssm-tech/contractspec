@@ -92,7 +92,7 @@ Target packages:
 @contractspec/tool.bun: unknown -> 3.7.16
 agentpacks: unknown -> 1.8.0
 contractspec: unknown -> 1.46.2
-vscode-contractspec: unknown -> 3.10.3
+vscode-contractspec: unknown -> 3.10.4
 
 Required steps:
 - [manual] Use FormSpec layout hints for dense forms: Replace renderer-specific row wrappers with portable column and colspan metadata.
@@ -129,6 +129,9 @@ Required steps:
   - Use `@contractspec/lib.design-system/controls` for themed and translated controls.
   - Use `@contractspec/lib.design-system/forms` for form layouts, controls, and `ZodForm`.
   - Use `@contractspec/lib.design-system/layout` for stack primitives.
+- [manual] Rebuild the VS Code extension package: Re-run the extension build so the corrected TypeScript boundary is applied before packaging.
+  - Run `bun run --cwd packages/apps/vscode-contractspec build`.
+  - Package or publish the extension from the rebuilt output.
 - [assisted] Verify web and mobile example preview parity: Re-run catalog, web preview, mobile preview, and Expo export checks after changing example preview wiring.
   - Run the module examples runtime preview tests.
   - Run mobile example registry and landing handler tests.

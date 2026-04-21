@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-21T15:09:27.909Z",
+  "generatedAt": "2026-04-21T16:31:10.022Z",
   "releases": [
     {
       "slug": "adoption-engine-and-authoring-targets",
@@ -36,7 +36,7 @@
         {
           "name": "vscode-contractspec",
           "releaseType": "minor",
-          "version": "3.10.3"
+          "version": "3.10.4"
         },
         {
           "name": "contractspec",
@@ -1440,7 +1440,7 @@
         {
           "name": "vscode-contractspec",
           "releaseType": "patch",
-          "version": "3.10.3"
+          "version": "3.10.4"
         },
         {
           "name": "@contractspec/example.project-management-sync",
@@ -1693,6 +1693,58 @@
           "`@contractspec/lib.design-system` now exports theme runtime hooks/providers and a broader form/control surface.",
           "FormSpec rendering now consumes exported design-system controls for select, autocomplete, choice, date, time, and datetime fields.",
           "README, AGENTS, and cross-platform UI guidance now describe the ThemeSpec/TranslationSpec-aware control boundary."
+        ]
+      }
+    },
+    {
+      "slug": "docs-example-runtime-preview",
+      "version": "0.0.0",
+      "summary": "Wrap UI-backed docs example previews in the template runtime provider so public example pages prerender with the same runtime boundary as sandbox and template previews.",
+      "date": "2026-04-21",
+      "isBreaking": false,
+      "packages": [
+        {
+          "name": "@contractspec/app.web-landing",
+          "releaseType": "patch"
+        }
+      ],
+      "affectedRuntimes": [
+        "bun",
+        "nextjs"
+      ],
+      "affectedFrameworks": [
+        "react"
+      ],
+      "audiences": [
+        {
+          "kind": "maintainer",
+          "summary": "The `/docs/examples/<key>` inline preview section now initializes `TemplateRuntimeProvider` for examples with inline runtime UI while preserving lightweight fallback previews for non-UI examples.",
+          "affectedPackages": [
+            "@contractspec/app.web-landing"
+          ]
+        },
+        {
+          "kind": "customer",
+          "summary": "Public docs pages for UI-backed examples, including `analytics-dashboard`, now prerender successfully instead of failing on missing template runtime context.",
+          "affectedPackages": [
+            "@contractspec/app.web-landing"
+          ]
+        }
+      ],
+      "deprecations": [],
+      "migrationInstructions": [],
+      "upgradeSteps": [],
+      "validation": {
+        "commands": [
+          "bun test packages/apps/web-landing/src/app/docs/examples/ExampleInlinePreviewSection.test.tsx",
+          "bun run --cwd packages/apps/web-landing lint:check",
+          "cd packages/apps/web-landing && bun --bun next build",
+          "bun run --cwd packages/apps/web-landing build:types"
+        ],
+        "evidence": [
+          "`ExampleInlinePreviewSection` now wraps `ExampleWebPreview` in `TemplateRuntimeProvider` only when the shared preview surface reports inline preview support.",
+          "The regression test covers `analytics-dashboard`, the failing docs example page, and verifies the runtime initialization fallback renders during static markup generation.",
+          "The production Next build generated all 1,369 static pages without the previous `/docs/examples/analytics-dashboard` prerender error."
         ]
       }
     },
@@ -2303,7 +2355,7 @@
         {
           "name": "vscode-contractspec",
           "releaseType": "minor",
-          "version": "3.10.3"
+          "version": "3.10.4"
         }
       ],
       "affectedRuntimes": [
@@ -4223,6 +4275,77 @@
         "evidence": [
           "Release artifacts and upgrade prompts are generated from versioning-backed schemas and bundle.workspace services.",
           "Guided upgrade manifest resolution now honors the current package root inside parent monorepos."
+        ]
+      }
+    },
+    {
+      "slug": "vscode-bun-type-boundary",
+      "version": "3.10.4",
+      "summary": "Keep the VS Code extension production typecheck focused on runtime sources while allowing Bun-typed workspace imports to resolve.",
+      "date": "2026-04-21",
+      "isBreaking": false,
+      "packages": [
+        {
+          "name": "vscode-contractspec",
+          "releaseType": "patch",
+          "version": "3.10.4"
+        }
+      ],
+      "affectedRuntimes": [
+        "bun",
+        "node",
+        "vscode"
+      ],
+      "affectedFrameworks": [
+        "vscode"
+      ],
+      "audiences": [
+        {
+          "kind": "maintainer",
+          "summary": "The extension build now excludes Bun test files from the production typecheck and includes Bun ambient types for workspace source imports that expose Bun adapters.",
+          "affectedPackages": [
+            "vscode-contractspec"
+          ]
+        },
+        {
+          "kind": "integrator",
+          "summary": "VS Code extension packaging no longer fails when workspace source imports reference Bun globals through shared ContractSpec packages.",
+          "affectedPackages": [
+            "vscode-contractspec"
+          ]
+        },
+        {
+          "kind": "customer",
+          "summary": "This patch restores extension build reliability without changing runtime extension behavior.",
+          "affectedPackages": [
+            "vscode-contractspec"
+          ]
+        }
+      ],
+      "deprecations": [],
+      "migrationInstructions": [],
+      "upgradeSteps": [
+        {
+          "id": "rebuild-vscode-extension",
+          "title": "Rebuild the VS Code extension package",
+          "summary": "Re-run the extension build so the corrected TypeScript boundary is applied before packaging.",
+          "level": "manual",
+          "instructions": [
+            "Run `bun run --cwd packages/apps/vscode-contractspec build`.",
+            "Package or publish the extension from the rebuilt output."
+          ]
+        }
+      ],
+      "validation": {
+        "commands": [
+          "bun run --cwd packages/apps/vscode-contractspec build:types",
+          "bun run --cwd packages/apps/vscode-contractspec build",
+          "cd packages/apps/vscode-contractspec && node ../../../scripts/biome.cjs check tsconfig.json"
+        ],
+        "evidence": [
+          "The extension typecheck excludes `src/**/*.test.ts`, so Bun test imports are not part of the production build program.",
+          "The extension typecheck includes Bun ambient types, so transitive workspace source files that reference Bun globals resolve cleanly.",
+          "The VS Code extension bundle completed successfully after the TypeScript boundary fix."
         ]
       }
     }

@@ -1,5 +1,12 @@
 # Changelog
 
+## 3.10.4
+
+### Patch Changes
+
+- Keep the VS Code extension production typecheck focused on runtime sources while allowing Bun-typed workspace imports to resolve.
+  - Packages: vscode-contractspec (patch)
+
 ## 3.10.3
 
 ### Patch Changes

@@ -1,5 +1,12 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 3.8.17
+
+### Patch Changes
+
+- Wrap UI-backed docs example previews in the template runtime provider so public example pages prerender with the same runtime boundary as sandbox and template previews.
+  - Packages: @contractspec/app.web-landing (patch)
+
 ## 3.8.16
 
 ### Patch Changes

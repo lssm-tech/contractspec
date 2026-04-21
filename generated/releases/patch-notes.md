@@ -11,7 +11,7 @@
 - @contractspec/bundle.workspace@4.5.1 (minor)
 - @contractspec/bundle.library@3.9.3 (minor)
 - @contractspec/app.cli-contractspec@6.1.0 (minor)
-- vscode-contractspec@3.10.3 (minor)
+- vscode-contractspec@3.10.4 (minor)
 - contractspec@1.46.2 (patch)
 - @contractspec/lib.knowledge@3.7.21 (patch)
 - @contractspec/biome-config@3.8.8 (patch)
@@ -156,7 +156,7 @@
 - @contractspec/app.cli-contractspec@6.1.0 (minor)
 - @contractspec/app.api-library (patch)
 - @contractspec/app.registry-packs@1.7.15 (patch)
-- vscode-contractspec@3.10.3 (patch)
+- vscode-contractspec@3.10.4 (patch)
 - @contractspec/example.project-management-sync@3.7.22 (patch)
 - @contractspec/example.voice-providers@3.7.22 (patch)
 - @contractspec/example.meeting-recorder-providers@3.7.22 (patch)
@@ -177,6 +177,13 @@
 - Breaking: no
 - @contractspec/lib.design-system@3.11.1 (minor)
 - Maintainer: Maintainers now have a shared design-system control boundary for forms, stacks, themes, translations, and FormSpec rendering.
+
+### Wrap UI-backed docs example previews in the template runtime provider so public example pages prerender with the same runtime boundary as sandbox and template previews.
+- Slug: docs-example-runtime-preview
+- Date: 2026-04-21
+- Breaking: no
+- @contractspec/app.web-landing (patch)
+- Maintainer: The `/docs/examples/<key>` inline preview section now initializes `TemplateRuntimeProvider` for examples with inline runtime UI while preserving lightweight fallback previews for non-UI examples.
 
 ### Refresh root, package, website, and LLM-facing docs so Connect, Builder, release capsules, and the current contracts-spec export surface stay aligned.
 - Slug: docs-governance-sync
@@ -253,7 +260,7 @@
 - @contractspec/lib.ui-kit-core@3.8.1 (minor)
 - @contractspec/lib.ui-kit-web@3.11.0 (minor)
 - @contractspec/lib.ui-kit@4.0.0 (minor)
-- vscode-contractspec@3.10.3 (minor)
+- vscode-contractspec@3.10.4 (minor)
 - Maintainer: Maintainers can ship the CLI and workspace packages with preset-driven setup, generated contractsrc schema assets, authoring-target discovery, and unified package-scaffold validation from the same release.
 - Deprecations:
   - The standalone contractspec apply command has been removed; use contractspec generate for write-generation flows.
@@ -442,3 +449,10 @@
 - Maintainer: Release communication is now generated from versioning-backed release capsules and enforced on release branches.
 - Deprecations:
   - The standalone release domain under `@contractspec/lib.contracts-spec/release` is deprecated in favor of versioning-owned release metadata.
+
+### Keep the VS Code extension production typecheck focused on runtime sources while allowing Bun-typed workspace imports to resolve.
+- Slug: vscode-bun-type-boundary
+- Date: 2026-04-21
+- Breaking: no
+- vscode-contractspec@3.10.4 (patch)
+- Maintainer: The extension build now excludes Bun test files from the production typecheck and includes Bun ambient types for workspace source imports that expose Bun adapters.

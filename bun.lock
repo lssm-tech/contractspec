@@ -345,7 +345,7 @@
     },
     "packages/apps/vscode-contractspec": {
       "name": "vscode-contractspec",
-      "version": "3.10.3",
+      "version": "3.10.4",
       "dependencies": {
         "@contractspec/bundle.workspace": "workspace:*",
         "@contractspec/lib.ai-agent": "workspace:*",
@@ -371,7 +371,7 @@
     },
     "packages/apps/web-landing": {
       "name": "@contractspec/app.web-landing",
-      "version": "3.8.16",
+      "version": "3.8.17",
       "dependencies": {
         "@contractspec/bundle.library": "workspace:*",
         "@contractspec/bundle.marketing": "workspace:*",
