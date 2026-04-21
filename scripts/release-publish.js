@@ -2,11 +2,15 @@
 
 import { spawnSync } from 'node:child_process';
 import { pathToFileURL } from 'node:url';
-import { publishPackages } from './publish-packages.js';
+import {
+	publishPackages,
+	resolveRequestedPackageNames,
+} from './publish-packages.js';
 import {
 	discoverPublishablePackages,
 	getPackageNameSelection,
 	getPreparationPackageNames,
+	shouldIncludeMissingRegistryPackages,
 } from './release-package-utils.js';
 
 const repoRoot = process.cwd();
@@ -19,12 +23,28 @@ function parseArgs(argv) {
 		manifestPath: undefined,
 		packageNames: [],
 		packageNamesSpecified: false,
+		allPackages: false,
+		includeMissingPackages: undefined,
 	};
 
 	for (let index = 0; index < argv.length; index += 1) {
 		const arg = argv[index];
 		if (arg === '--dry-run') {
 			options.dryRun = true;
+			continue;
+		}
+		if (arg === '--all') {
+			options.allPackages = true;
+			options.packageNames = [];
+			options.packageNamesSpecified = false;
+			continue;
+		}
+		if (arg === '--include-missing') {
+			options.includeMissingPackages = true;
+			continue;
+		}
+		if (arg === '--no-include-missing') {
+			options.includeMissingPackages = false;
 			continue;
 		}
 		if (arg === '--tag' && argv[index + 1]) {
@@ -73,8 +93,13 @@ function runCommand(command, args, options = {}) {
 function buildReleaseTargets(options = {}) {
 	const { packageNames, packageNamesSpecified } =
 		getPackageNameSelection(options);
+	const npmTag = options.npmTag ?? process.env.NPM_TAG ?? 'latest';
 
-	if (packageNamesSpecified && packageNames.length === 0) {
+	if (
+		packageNamesSpecified &&
+		packageNames.length === 0 &&
+		!shouldIncludeMissingRegistryPackages(options, npmTag)
+	) {
 		console.log('[release] Skip build: no npm publish targets were resolved.');
 		return;
 	}
@@ -84,9 +109,13 @@ function buildReleaseTargets(options = {}) {
 			log: () => {},
 		}).map((pkg) => [pkg.name, pkg])
 	);
-	const requestedPackageNames = packageNamesSpecified
-		? packageNames
-		: Array.from(packagesByName.keys());
+	const requestedPackageNames = resolveRequestedPackageNames({
+		selectedPackageNames: packageNames,
+		packageNamesSpecified,
+		packagesByName,
+		npmTag,
+		includeMissingPackages: options.includeMissingPackages,
+	});
 	const buildTargets = getPreparationPackageNames(
 		requestedPackageNames,
 		packagesByName
