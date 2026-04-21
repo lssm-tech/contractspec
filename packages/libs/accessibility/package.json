@@ -53,7 +53,11 @@
 		"./AccessibilityProvider": "./src/AccessibilityProvider.tsx",
 		"./nativewind-env.d": "./src/nativewind-env.d.ts",
 		"./next-route-announcer": "./src/next-route-announcer.tsx",
-		"./preferences": "./src/preferences.tsx"
+		"./preferences": "./src/preferences.tsx",
+		"./styles.css": {
+			"style": "./src/styles.css",
+			"default": "./src/styles.css"
+		}
 	},
 	"files": [
 		"dist",
@@ -103,6 +107,10 @@
 				"browser": "./dist/browser/preferences.js",
 				"bun": "./dist/preferences.js",
 				"default": "./dist/preferences.js"
+			},
+			"./styles.css": {
+				"style": "./dist/styles.css",
+				"default": "./dist/styles.css"
 			}
 		},
 		"registry": "https://registry.npmjs.org/"

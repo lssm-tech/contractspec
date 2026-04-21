@@ -3,7 +3,6 @@ import { mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { runBuilderInitCommand } from './actions';
-import { builderCommand } from './index';
 
 const originalCwd = process.cwd();
 const originalFetch = globalThis.fetch;

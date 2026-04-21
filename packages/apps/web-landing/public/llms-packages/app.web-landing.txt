@@ -7,6 +7,7 @@
 - Owns the app shell, metadata, OG generation, route wrappers, and public site delivery.
 - Publishes the marketing experience while delegating most page-body composition to `@contractspec/bundle.marketing`.
 - Serves docs, registry, sandbox, and operate surfaces while keeping their shared shell consistent with the public brand system.
+- Shares example preview rendering across docs, `/templates`, and `/sandbox`, with rich UI for UI-backed examples and fallback cards for the rest of the discoverable catalog.
 - Publishes `/llms`, `/llms.txt`, `/llms-full.txt`, and package-specific `/llms/[slug]` endpoints for agent-friendly repo guidance.
 
 ## Architecture

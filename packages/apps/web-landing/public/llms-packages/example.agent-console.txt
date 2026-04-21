@@ -11,6 +11,7 @@ Website: https://contractspec.io
 - Run tracking with status enums and event-driven state transitions.
 - Tool registry with typed schemas and operation handlers.
 - Presentation layer with React UI components, hooks, modals, overlays, and a server-mode shared `DataTable` for run history.
+- Shared `AgentConsolePreview` component rendered by both the web inline preview and the Expo mobile demo through the UI kit alias layer.
 - Shared table capabilities including sorting, pagination, column visibility toggles, and expandable run diagnostics.
 - Contract-backed visualization surfaces for run status, activity, and duration-vs-token analysis.
 - One deterministic demo runtime shared across React hooks, markdown renderers, and the sandbox runtime.
@@ -68,6 +69,7 @@ Use `@contractspec/example.agent-console` as a reference implementation, or impo
 - `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
 - `src/index.ts` is the root public barrel and package entrypoint.
 - `src/proof/` contains the exported meetup proof scenario and suite.
+- `src/ui/AgentConsolePreview.tsx` is the cross-platform preview component used by web and mobile example surfaces.
 
 ## Public Entry Points
 

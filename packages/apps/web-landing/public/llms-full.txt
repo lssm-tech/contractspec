@@ -2,7 +2,7 @@
 
 > Aggregated content from all packages. For summary, see /llms
 
-Generated: 2026-04-21T06:41:03.405Z
+Generated: 2026-04-21T15:57:32.523Z
 Packages: 189
 
 ---
@@ -6985,12 +6985,12 @@ URL: /llms/module.examples
 
 Website: https://contractspec.io
 
-**Example contract specifications collection.**
+**Catalog-first ContractSpec example metadata, with optional runtime helpers for rich example surfaces.**
 
 ## What It Provides
 
 - **Layer**: module.
-- **Consumers**: apps (web-landing, docs), bundles (contractspec-studio).
+- **Consumers**: CLIs, editor bridges, apps, docs, and rich sandbox/template surfaces.
 - Related ContractSpec packages include `@contractspec/example.agent-console`, `@contractspec/example.ai-chat-assistant`, `@contractspec/example.ai-support-bot`, `@contractspec/example.analytics-dashboard`, `@contractspec/example.calendar-google`, `@contractspec/example.content-generation`, ...
 - `agent-console` is the default autonomous-agent showcase surfaced through `/sandbox`.
 - `data-grid-showcase` is the canonical ContractSpec table showcase surfaced through `/sandbox?template=data-grid-showcase` and `/docs/examples/data-grid-showcase`.
@@ -7005,19 +7005,36 @@ or
 
 ## Usage
 
-Import the root entrypoint from `@contractspec/module.examples`, or choose a documented subpath when you only need one part of the package surface.
+Use the root entrypoint or `@contractspec/module.examples/catalog` for metadata-only discovery. Use `@contractspec/module.examples/runtime` only when rendering rich template previews or sandbox runtime surfaces. The catalog also exposes shared preview-surface helpers so apps can show every discoverable example while loading rich UI only for packages that export `./ui`.
+
+```ts
+import { getExample, listExamples } from '@contractspec/module.examples/catalog';
+```
+
+```ts
+import { ExampleWebPreview, TemplateRuntimeProvider, listTemplates } from '@contractspec/module.examples/runtime';
+```
+
+The catalog contains source metadata for each example. CLI users can fetch a full example only when needed:
+
+```sh
+contractspec examples download minimal --out-dir ./examples/minimal
+```
 
 ## Architecture
 
-- `src/builtins.ts` is part of the package's public or composition surface.
+- `src/builtins.ts` is a generated literal catalog and must not statically import `@contractspec/example.*` packages.
+- `src/catalog.ts` is the metadata-only public surface.
 - `src/index.ts` is the root public barrel and package entrypoint.
 - `src/registry.test.ts` is part of the package's public or composition surface.
 - `src/registry.ts` is part of the package's public or composition surface.
-- `src/runtime` is part of the package's public or composition surface.
+- `src/runtime` is the optional rich runtime surface for consumers that intentionally install example packages.
 
 ## Public Entry Points
 
-- Export `.` resolves through `./src/index.ts`.
+- Export `.` resolves through `./src/index.ts` and is catalog-only.
+- Export `./catalog` resolves through `./src/catalog.ts`.
+- Export `./runtime` resolves through `./src/runtime/index.ts`.
 
 ## Local Commands
 
@@ -7045,9 +7062,9 @@ Import the root entrypoint from `@contractspec/module.examples`, or choose a doc
 
 ## Notes
 
-- This module is a thin aggregator -- business logic belongs in individual example packages under `packages/examples/`.
-- Adding a new example requires both creating the example package and wiring it as a dependency here.
-- Depends on ~30 example workspace packages; keep the dependency list in sync with `packages/examples/`.
+- This module is a thin catalog/runtime bridge -- business logic belongs in individual example packages under `packages/examples/`.
+- Adding a new example requires creating the example package and regenerating the catalog with `bun run generate:registry`; do not add it as a direct dependency here.
+- Root/catalog imports must remain metadata-only. Rich runtime consumers should import `@contractspec/module.examples/runtime` and own any required `@contractspec/example.*` dependencies directly.
 - The meetup-ready autonomous-agent path is the deterministic `agent-console` sandbox plus its replay proof lane.
 - The shared ContractSpec table stack is demonstrated directly by `data-grid-showcase` and reused in `analytics-dashboard`, `crm-pipeline`, `integration-hub`, and `agent-console`.
 
@@ -7624,7 +7641,7 @@ URL: /llms/bundle.library
 ## What It Provides
 
 - Provides the reusable product-facing bundle consumed by API, web, and documentation surfaces.
-- Aggregates docs pages, integration marketplace UI, templates, and library-side MCP implementations.
+- Aggregates docs pages, integration marketplace UI, templates, example showcase pages, and library-side MCP implementations.
 - Acts as the main composition layer between lower-level libraries and app-specific delivery shells.
 - `src/presentation/` contains presentation-layer components and renderers.
 
@@ -7644,6 +7661,7 @@ Import the root entrypoint from `@contractspec/bundle.library`, or choose a docu
 
 - `src/application/` contains application services including MCP implementations and cross-surface orchestration.
 - `src/components/` contains reusable docs, integrations, legal, shell, and template presentation code.
+- `src/components/docs/examples/` derives showcase links from the discoverable example catalog and leaves preview rendering to the shared `@contractspec/module.examples/runtime` host.
 - `src/features/`, `src.config/`, `src.infrastructure/`, and `src.libs/` hold bundle-local composition helpers.
 - `src/presentation/` contains feature-specific UI composition exported to consuming apps.
 - `src/index.ts` is the root public barrel and package entrypoint.
@@ -7767,13 +7785,13 @@ URL: /llms/bundle.marketing
 
 # @contractspec/bundle.marketing
 
-**Marketing composition bundle for the public ContractSpec site: landing narratives, product/pricing/templates pages, support pages, and email-facing marketing helpers.**
+**Marketing composition bundle for the public ContractSpec site: landing narratives, product/templates/examples/pricing pages, support pages, and email-facing marketing helpers.**
 
 ## What It Provides
 
 - Marketing page bodies consumed by `@contractspec/app.web-landing`
-- Platform-neutral landing story data consumed by web and Expo shells
-- Scenario/template browsing surfaces used on `/templates`
+- Platform-neutral landing story, navigation, page, and examples-entry data consumed by web and Expo shells
+- Scenario/template browsing and preview surfaces used on `/templates`
 - Support and program pages such as contact, contribute, cofounder, and design-partner
 - Email/contact helpers and marketing-adjacent utilities
 
@@ -7781,7 +7799,7 @@ URL: /llms/bundle.marketing
 
 - `src/components/marketing/` owns the public marketing narratives, section composition, and page-level stories.
 - `src/content/` owns React-free story data shared by web and mobile shells.
-- `src/components/templates/` owns template browsing, preview, and template-to-CLI/Studio flows.
+- `src/components/templates/` owns template browsing, preview, and template-to-CLI/Studio flows. Preview content uses the shared example preview host from `@contractspec/module.examples/runtime` so UI-backed and fallback examples stay aligned with docs and sandbox.
 - `src/libs/email/` owns contact/newsletter/waitlist actions and helpers used by marketing surfaces.
 - `src/index.ts` is the root public entrypoint.
 
@@ -8342,6 +8360,7 @@ URL: /llms/app.web-landing
 - Owns the app shell, metadata, OG generation, route wrappers, and public site delivery.
 - Publishes the marketing experience while delegating most page-body composition to `@contractspec/bundle.marketing`.
 - Serves docs, registry, sandbox, and operate surfaces while keeping their shared shell consistent with the public brand system.
+- Shares example preview rendering across docs, `/templates`, and `/sandbox`, with rich UI for UI-backed examples and fallback cards for the rest of the discoverable catalog.
 - Publishes `/llms`, `/llms.txt`, `/llms-full.txt`, and package-specific `/llms/[slug]` endpoints for agent-friendly repo guidance.
 
 ## Architecture
@@ -9114,7 +9133,8 @@ URL: /llms/app.expo-demo
 
 - Shares platform-neutral landing, navigation, and page content from `@contractspec/bundle.marketing/content`.
 - Presents the same positioning as `@contractspec/app.web-landing`: open spec system first, Studio as the optional operating layer.
-- Uses native Expo Router screens for Home, Product, Templates, Pricing, Docs, and Changelog.
+- Uses native Expo Router screens for Home, Product, Templates, Examples, Pricing, Docs, and Changelog.
+- Adds a first-class Examples route backed by the same discoverable catalog used by web docs and sandbox surfaces, with in-app previews for every example and richer native panels where exported sample data is available.
 - `src/contracts/` defines landing companion story, navigation, page, and CTA specs.
 - `src/handlers/` registers demo handlers against the operation registry.
 - `src/components/landing/` and `src/screens/` contain the React Native composition.
@@ -9138,8 +9158,9 @@ bun run dev
 
 - `src/app/` contains the Expo Router routes.
 - `src/contracts/` defines `mobile-demo.landing` and operations for story, navigation, page loading, and CTA resolution.
-- `src/handlers/` adapts shared marketing content into ContractSpec operation results.
+- `src/handlers/` adapts shared marketing content and example preview catalog data into ContractSpec operation results.
 - `src/components/landing/` renders reusable mobile-native shell, section, card, page, and CTA components.
+- `src/components/examples/` renders the examples catalog plus native example previews that reuse ContractSpec contracts, metadata, and sample data with React Native primitives.
 - `src/screens/` owns screen-level loading, error, and CTA opening behavior.
 
 ## Public Entry Points
@@ -11508,6 +11529,7 @@ Website: https://contractspec.io
 - Run tracking with status enums and event-driven state transitions.
 - Tool registry with typed schemas and operation handlers.
 - Presentation layer with React UI components, hooks, modals, overlays, and a server-mode shared `DataTable` for run history.
+- Shared `AgentConsolePreview` component rendered by both the web inline preview and the Expo mobile demo through the UI kit alias layer.
 - Shared table capabilities including sorting, pagination, column visibility toggles, and expandable run diagnostics.
 - Contract-backed visualization surfaces for run status, activity, and duration-vs-token analysis.
 - One deterministic demo runtime shared across React hooks, markdown renderers, and the sandbox runtime.
@@ -11565,6 +11587,7 @@ Use `@contractspec/example.agent-console` as a reference implementation, or impo
 - `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
 - `src/index.ts` is the root public barrel and package entrypoint.
 - `src/proof/` contains the exported meetup proof scenario and suite.
+- `src/ui/AgentConsolePreview.tsx` is the cross-platform preview component used by web and mobile example surfaces.
 
 ## Public Entry Points
 
@@ -14422,6 +14445,28 @@ npx contractspec-bun-build --help
 bunx contractspec-bun-build --help
 ```
 
+## Style Exports
+
+`contractspec-bun-build` scans public CSS style entries separately from TypeScript entries so style files do not affect JavaScript output roots.
+
+Default style entries:
+
+- `styles/**/*.css`
+- `src/*.css`
+- `!**/*.module.css`
+
+Packages can override or disable style entries from their build config:
+
+```js
+export default {
+	styleEntry: ['styles/**/*.css'],
+	// or: styles: { entry: ['styles/**/*.css'] },
+	// or: styleEntry: false,
+};
+```
+
+Style entries are exported under the `style` and `default` conditions, for example `./styles/globals.css`.
+
 ## Public Entry Points
 
 - `contractspec-bun-build` -> `./bin/contractspec-bun-build.mjs`
@@ -14435,6 +14480,7 @@ bunx contractspec-bun-build --help
 
 ## Recent Updates
 
+- Add direct CSS style subpath exports for public style files
 - Replace eslint+prettier by biomejs to optimize speed
 - Add multi platform support to bun build
 - Use-client within lib surface-runtime

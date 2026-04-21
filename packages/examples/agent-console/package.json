@@ -48,9 +48,12 @@
 		"./tool/tool.schema": "./src/tool/tool.schema.ts",
 		"./tool/tool.test-spec": "./src/tool/tool.test-spec.ts",
 		"./ui": "./src/ui/index.ts",
+		"./ui/AgentConsolePreview": "./src/ui/AgentConsolePreview.tsx",
+		"./ui/AgentConsolePreview.data": "./src/ui/AgentConsolePreview.data.ts",
+		"./ui/AgentConsolePreviewPanels": "./src/ui/AgentConsolePreviewPanels.tsx",
+		"./ui/AgentConsolePreviewTable": "./src/ui/AgentConsolePreviewTable.tsx",
 		"./ui/AgentDashboard": "./src/ui/AgentDashboard.tsx",
 		"./ui/AgentDashboard.visualizations": "./src/ui/AgentDashboard.visualizations.tsx",
-		"./ui/AgentConsolePreview": "./src/ui/AgentConsolePreview.tsx",
 		"./ui/AgentRunList": "./src/ui/AgentRunList.tsx",
 		"./ui/AgentToolRegistry": "./src/ui/AgentToolRegistry.tsx",
 		"./ui/ExecutionConsoleHost": "./src/ui/ExecutionConsoleHost.tsx",
@@ -423,6 +426,34 @@
 				"node": "./dist/node/ui/index.js",
 				"default": "./dist/ui/index.js"
 			},
+			"./ui/AgentConsolePreview": {
+				"types": "./dist/ui/AgentConsolePreview.d.ts",
+				"browser": "./dist/browser/ui/AgentConsolePreview.js",
+				"bun": "./dist/ui/AgentConsolePreview.js",
+				"node": "./dist/node/ui/AgentConsolePreview.js",
+				"default": "./dist/ui/AgentConsolePreview.js"
+			},
+			"./ui/AgentConsolePreview.data": {
+				"types": "./dist/ui/AgentConsolePreview.data.d.ts",
+				"browser": "./dist/browser/ui/AgentConsolePreview.data.js",
+				"bun": "./dist/ui/AgentConsolePreview.data.js",
+				"node": "./dist/node/ui/AgentConsolePreview.data.js",
+				"default": "./dist/ui/AgentConsolePreview.data.js"
+			},
+			"./ui/AgentConsolePreviewPanels": {
+				"types": "./dist/ui/AgentConsolePreviewPanels.d.ts",
+				"browser": "./dist/browser/ui/AgentConsolePreviewPanels.js",
+				"bun": "./dist/ui/AgentConsolePreviewPanels.js",
+				"node": "./dist/node/ui/AgentConsolePreviewPanels.js",
+				"default": "./dist/ui/AgentConsolePreviewPanels.js"
+			},
+			"./ui/AgentConsolePreviewTable": {
+				"types": "./dist/ui/AgentConsolePreviewTable.d.ts",
+				"browser": "./dist/browser/ui/AgentConsolePreviewTable.js",
+				"bun": "./dist/ui/AgentConsolePreviewTable.js",
+				"node": "./dist/node/ui/AgentConsolePreviewTable.js",
+				"default": "./dist/ui/AgentConsolePreviewTable.js"
+			},
 			"./ui/AgentDashboard": {
 				"types": "./dist/ui/AgentDashboard.d.ts",
 				"browser": "./dist/browser/ui/AgentDashboard.js",
@@ -436,13 +467,6 @@
 				"bun": "./dist/ui/AgentDashboard.visualizations.js",
 				"node": "./dist/node/ui/AgentDashboard.visualizations.js",
 				"default": "./dist/ui/AgentDashboard.visualizations.js"
-			},
-			"./ui/AgentConsolePreview": {
-				"types": "./dist/ui/AgentConsolePreview.d.ts",
-				"browser": "./dist/browser/ui/AgentConsolePreview.js",
-				"bun": "./dist/ui/AgentConsolePreview.js",
-				"node": "./dist/node/ui/AgentConsolePreview.js",
-				"default": "./dist/ui/AgentConsolePreview.js"
 			},
 			"./ui/AgentRunList": {
 				"types": "./dist/ui/AgentRunList.d.ts",
