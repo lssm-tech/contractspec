@@ -3,6 +3,7 @@ import type {
 	LandingPageContent,
 } from '@contractspec/bundle.marketing/content';
 import { Text } from '@contractspec/lib.ui-kit/ui/text';
+import type { ReactNode } from 'react';
 import { ScrollView, View } from 'react-native';
 import { LandingCtaButton } from './LandingCtaButton';
 import { StoryCard } from './StoryCard';
@@ -11,6 +12,7 @@ export function LandingPageView(props: {
 	page: LandingPageContent;
 	busyCtaId: string | null;
 	onPressCta: (cta: LandingCta) => void;
+	afterHero?: ReactNode;
 }) {
 	return (
 		<ScrollView className="flex-1">
@@ -36,6 +38,8 @@ export function LandingPageView(props: {
 						))}
 					</View>
 				</View>
+
+				{props.afterHero}
 
 				{props.page.stats ? (
 					<View className="gap-3">

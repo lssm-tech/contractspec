@@ -1,6 +1,7 @@
 export {
 	LandingStoryOutput,
 	MobileLandingCtaResolveCommand,
+	MobileLandingExamplesListQuery,
 	MobileLandingNavigationListQuery,
 	MobileLandingPageGetQuery,
 	MobileLandingStoryGetQuery,

@@ -8,8 +8,10 @@ import {
 	buildExampleReferenceHref,
 	getDiscoverableExample,
 	getExamplePreviewHref,
+	getExamplePreviewSurface,
 	isDiscoverableExample,
 	listDiscoverableExamples,
+	listExamplePreviewSurfaces,
 	listInlineExamplePreviews,
 	listPublicExamples,
 	listTemplateExamples,
@@ -62,6 +64,29 @@ describe('example previews', () => {
 		expect(getExamplePreviewHref('calendar-google')).toBe(
 			'/sandbox?template=calendar-google'
 		);
+	});
+
+	test('builds preview surface data for every discoverable example', () => {
+		const surfaces = listExamplePreviewSurfaces();
+		const surfaceKeys = surfaces.map((surface) => surface.key).sort();
+		const discoverableKeys = listDiscoverableExamples()
+			.map((example) => example.meta.key)
+			.sort();
+
+		expect(surfaceKeys).toEqual(discoverableKeys);
+
+		for (const example of listDiscoverableExamples()) {
+			const surface = getExamplePreviewSurface(example.meta.key);
+
+			expect(surface).toBeDefined();
+			expect(surface?.sandboxHref).toBe(
+				`/sandbox?template=${encodeURIComponent(example.meta.key)}`
+			);
+			expect(surface?.docsHref).toBe(buildExampleDocsHref(example.meta.key));
+			expect(surface?.llmsHref).toContain(
+				example.entrypoints.packageName.replace('@contractspec/', '')
+			);
+		}
 	});
 
 	test('normalizes canonical example keys for preview and docs links', () => {

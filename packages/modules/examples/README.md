@@ -22,14 +22,14 @@ or
 
 ## Usage
 
-Use the root entrypoint or `@contractspec/module.examples/catalog` for metadata-only discovery. Use `@contractspec/module.examples/runtime` only when rendering rich template previews or sandbox runtime surfaces.
+Use the root entrypoint or `@contractspec/module.examples/catalog` for metadata-only discovery. Use `@contractspec/module.examples/runtime` only when rendering rich template previews or sandbox runtime surfaces. The catalog also exposes shared preview-surface helpers so apps can show every discoverable example while loading rich UI only for packages that export `./ui`.
 
 ```ts
 import { getExample, listExamples } from '@contractspec/module.examples/catalog';
 ```
 
 ```ts
-import { TemplateRuntimeProvider, listTemplates } from '@contractspec/module.examples/runtime';
+import { ExampleWebPreview, TemplateRuntimeProvider, listTemplates } from '@contractspec/module.examples/runtime';
 ```
 
 The catalog contains source metadata for each example. CLI users can fetch a full example only when needed:

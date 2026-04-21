@@ -92,6 +92,7 @@ export type LandingPageKey =
 	| 'home'
 	| 'product'
 	| 'templates'
+	| 'examples'
 	| 'pricing'
 	| 'docs'
 	| 'changelog';

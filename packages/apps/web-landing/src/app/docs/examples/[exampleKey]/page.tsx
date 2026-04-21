@@ -2,7 +2,6 @@ import { ExampleShowcasePage } from '@contractspec/bundle.library/components/doc
 import {
 	buildExampleDocsHref,
 	getDiscoverableExample,
-	supportsInlineExamplePreview,
 } from '@contractspec/module.examples/catalog';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
@@ -68,9 +67,7 @@ export default async function ExampleDocsPage({ params }: PageProps) {
 	return (
 		<div className="space-y-10">
 			<ExampleShowcasePage exampleKey={decodedKey} />
-			{supportsInlineExamplePreview(decodedKey) ? (
-				<ExampleInlinePreviewSection exampleKey={decodedKey} />
-			) : null}
+			<ExampleInlinePreviewSection exampleKey={decodedKey} />
 		</div>
 	);
 }

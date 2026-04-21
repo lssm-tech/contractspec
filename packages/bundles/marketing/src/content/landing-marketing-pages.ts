@@ -109,6 +109,55 @@ export const marketingLandingPages: readonly LandingPageContent[] = [
 		],
 	},
 	{
+		key: 'examples',
+		path: '/examples',
+		kicker: 'Examples',
+		title: 'Explore the same ContractSpec examples on web and mobile.',
+		description:
+			'The examples catalog is shared across web docs, sandbox previews, templates, and the Expo mobile demo so teams can inspect the same contracts and sample surfaces everywhere.',
+		heroCtas: [
+			{
+				id: 'open-examples-web',
+				label: 'Open web examples',
+				href: '/docs/examples',
+				kind: 'internal',
+				variant: 'primary',
+			},
+			{
+				id: 'open-examples-templates',
+				label: 'Open templates',
+				href: '/templates',
+				kind: 'internal',
+				variant: 'ghost',
+			},
+		],
+		stats: [
+			{ value: 'Shared', label: 'example catalog' },
+			{ value: 'Native', label: 'mobile previews' },
+		],
+		sections: [
+			{
+				id: 'example-parity',
+				kicker: 'Parity model',
+				title: 'One catalog, platform-specific rendering.',
+				items: [
+					{
+						title: 'Web docs and sandbox',
+						description:
+							'Browser surfaces resolve docs, inline previews, sandbox fallbacks, and source links from the shared catalog.',
+						iconKey: 'blocks',
+					},
+					{
+						title: 'Mobile native previews',
+						description:
+							'Expo renders every discoverable example in-app and adds richer native panels when packages expose stable sample data or contracts.',
+						iconKey: 'workflow',
+					},
+				],
+			},
+		],
+	},
+	{
 		key: 'pricing',
 		path: '/pricing',
 		kicker: 'Packaging, not upsell fog',

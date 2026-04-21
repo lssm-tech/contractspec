@@ -7,6 +7,7 @@ import type {
 import { Button } from '@contractspec/lib.ui-kit/ui/button';
 import { Text } from '@contractspec/lib.ui-kit/ui/text';
 import { useRouter } from 'expo-router';
+import type { ReactNode } from 'react';
 import { useCallback, useEffect, useState } from 'react';
 import { ActivityIndicator, Linking, View } from 'react-native';
 import { LandingPageView } from '@/components/landing/LandingPageView';
@@ -20,7 +21,10 @@ import {
 
 const ctx = { actor: 'anonymous' as const, channel: 'mobile' as const };
 
-export function LandingRouteScreen(props: { pageKey: LandingPageKey }) {
+export function LandingRouteScreen(props: {
+	pageKey: LandingPageKey;
+	afterHero?: ReactNode;
+}) {
 	const router = useRouter();
 	const [page, setPage] = useState<LandingPageContent | null>(null);
 	const [navigation, setNavigation] = useState<LandingNavigationItem[]>([]);
@@ -113,7 +117,12 @@ export function LandingRouteScreen(props: { pageKey: LandingPageKey }) {
 					<Text className="text-destructive text-sm">{error}</Text>
 				</View>
 			) : null}
-			<LandingPageView page={page} busyCtaId={busyCtaId} onPressCta={openCta} />
+			<LandingPageView
+				page={page}
+				busyCtaId={busyCtaId}
+				onPressCta={openCta}
+				afterHero={props.afterHero}
+			/>
 		</LandingScreenShell>
 	);
 }

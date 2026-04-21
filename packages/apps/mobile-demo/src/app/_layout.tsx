@@ -13,9 +13,18 @@ export default function RootLayout() {
 					<Stack.Screen name="index" options={{ title: 'ContractSpec' }} />
 					<Stack.Screen name="product" options={{ title: 'Product' }} />
 					<Stack.Screen name="templates" options={{ title: 'Templates' }} />
+					<Stack.Screen name="examples" options={{ title: 'Examples' }} />
 					<Stack.Screen name="pricing" options={{ title: 'Pricing' }} />
 					<Stack.Screen name="docs" options={{ title: 'Docs' }} />
 					<Stack.Screen name="changelog" options={{ title: 'Changelog' }} />
+					<Stack.Screen
+						name="examples-preview"
+						options={{ title: 'Examples Preview' }}
+					/>
+					<Stack.Screen
+						name="example-preview"
+						options={{ title: 'Example Preview' }}
+					/>
 				</Stack>
 			</ErrorBoundary>
 		</GestureHandlerRootView>

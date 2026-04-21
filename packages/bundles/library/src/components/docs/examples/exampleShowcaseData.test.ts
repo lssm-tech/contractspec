@@ -12,9 +12,11 @@ describe('example showcase data', () => {
 	test('preserves override copy and generic fallback links', () => {
 		const dataGrid = getExampleShowcaseData('data-grid-showcase');
 		const calendar = getExampleShowcaseData('calendar-google');
+		const opencode = getExampleShowcaseData('opencode-cli');
 
 		expect(dataGrid?.lead).toContain('Canonical table example');
 		expect(calendar?.sandboxHref).toBe('/sandbox?template=calendar-google');
+		expect(opencode?.sandboxHref).toBe('/sandbox?template=opencode-cli');
 		expect(calendar?.referenceHref).toBe(
 			'/docs/reference/calendar-google/calendar-google'
 		);

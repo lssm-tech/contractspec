@@ -15,15 +15,15 @@ describe('template preview actions', () => {
 		});
 	});
 
-	test('falls back to sandbox previews for non-inline template examples', () => {
+	test('uses fallback modal previews for non-inline template examples', () => {
 		const template = buildLocalTemplateCatalog().find(
 			(candidate) => candidate.id === 'calendar-google'
 		);
 
 		expect(template).toBeDefined();
 		expect(getLocalTemplatePreviewAction(template!)).toEqual({
-			kind: 'sandbox',
-			href: '/sandbox?template=calendar-google',
+			kind: 'modal',
+			templateId: 'calendar-google',
 		});
 	});
 

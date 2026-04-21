@@ -1,4 +1,6 @@
 // Main dashboard component
+
+export * from './AgentConsolePreview';
 export * from './AgentDashboard';
 // Backward-compatible exports
 export * from './AgentRunList';

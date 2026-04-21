@@ -1,4 +1,5 @@
 import {
+	CONTRACTSPEC_SITE_BASE_URL,
 	contractspecLandingStory,
 	findContractspecLandingCtaById,
 	findContractspecLandingPage,
@@ -10,8 +11,10 @@ import {
 import { installOp } from '@contractspec/lib.contracts-spec/install';
 import { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations/registry';
 import type { HandlerCtx } from '@contractspec/lib.contracts-spec/types';
+import { listExamplePreviewSurfaces } from '@contractspec/module.examples/catalog';
 import {
 	MobileLandingCtaResolveCommand,
+	MobileLandingExamplesListQuery,
 	MobileLandingNavigationListQuery,
 	MobileLandingPageGetQuery,
 	MobileLandingStoryGetQuery,
@@ -27,6 +30,25 @@ export interface LandingNavigationResult {
 
 export interface LandingPageResult {
 	page: LandingPageContent;
+}
+
+export interface MobileExamplePreviewItem {
+	key: string;
+	title: string;
+	summary: string;
+	tags: readonly string[];
+	visibility: string;
+	stability: string;
+	packageName: string;
+	docsUrl: string;
+	sandboxUrl: string | null;
+	llmsUrl: string | null;
+	sourceUrl: string | null;
+	supportsInlinePreview: boolean;
+}
+
+export interface MobileExamplesListResult {
+	examples: MobileExamplePreviewItem[];
 }
 
 export interface LandingCtaResolveResult {
@@ -80,6 +102,31 @@ export function createMobileLandingRegistry(): OperationSpecRegistry {
 
 	installOp(
 		reg,
+		MobileLandingExamplesListQuery,
+		async (_input, _ctx: HandlerCtx) => {
+			return {
+				examples: listExamplePreviewSurfaces().map((surface) => ({
+					key: surface.key,
+					title: surface.title,
+					summary: surface.description,
+					tags: surface.tags,
+					visibility: surface.visibility,
+					stability: surface.stability,
+					packageName: surface.packageName,
+					docsUrl: buildSiteUrl(surface.docsHref),
+					sandboxUrl: surface.sandboxHref
+						? buildSiteUrl(surface.sandboxHref)
+						: null,
+					llmsUrl: surface.llmsHref ? buildSiteUrl(surface.llmsHref) : null,
+					sourceUrl: surface.sourceHref,
+					supportsInlinePreview: surface.supportsInlinePreview,
+				})),
+			} satisfies MobileExamplesListResult;
+		}
+	);
+
+	installOp(
+		reg,
 		MobileLandingCtaResolveCommand,
 		async (input: { id: string }, _ctx: HandlerCtx) => {
 			const cta = findContractspecLandingCtaById(input.id);
@@ -96,3 +143,7 @@ export function createMobileLandingRegistry(): OperationSpecRegistry {
 }
 
 export const mobileLandingRegistry = createMobileLandingRegistry();
+
+function buildSiteUrl(path: string): string {
+	return new URL(path, CONTRACTSPEC_SITE_BASE_URL).toString();
+}

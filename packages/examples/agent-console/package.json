@@ -50,6 +50,7 @@
 		"./ui": "./src/ui/index.ts",
 		"./ui/AgentDashboard": "./src/ui/AgentDashboard.tsx",
 		"./ui/AgentDashboard.visualizations": "./src/ui/AgentDashboard.visualizations.tsx",
+		"./ui/AgentConsolePreview": "./src/ui/AgentConsolePreview.tsx",
 		"./ui/AgentRunList": "./src/ui/AgentRunList.tsx",
 		"./ui/AgentToolRegistry": "./src/ui/AgentToolRegistry.tsx",
 		"./ui/ExecutionConsoleHost": "./src/ui/ExecutionConsoleHost.tsx",
@@ -102,6 +103,7 @@
 		"@contractspec/lib.contracts-spec": "workspace:*",
 		"@contractspec/lib.example-shared-ui": "workspace:*",
 		"@contractspec/lib.design-system": "workspace:*",
+		"@contractspec/lib.presentation-runtime-react": "workspace:*",
 		"@contractspec/lib.runtime-sandbox": "workspace:*",
 		"@contractspec/lib.ui-kit-web": "workspace:*",
 		"@contractspec/module.execution-console": "workspace:*",
@@ -434,6 +436,13 @@
 				"bun": "./dist/ui/AgentDashboard.visualizations.js",
 				"node": "./dist/node/ui/AgentDashboard.visualizations.js",
 				"default": "./dist/ui/AgentDashboard.visualizations.js"
+			},
+			"./ui/AgentConsolePreview": {
+				"types": "./dist/ui/AgentConsolePreview.d.ts",
+				"browser": "./dist/browser/ui/AgentConsolePreview.js",
+				"bun": "./dist/ui/AgentConsolePreview.js",
+				"node": "./dist/node/ui/AgentConsolePreview.js",
+				"default": "./dist/ui/AgentConsolePreview.js"
 			},
 			"./ui/AgentRunList": {
 				"types": "./dist/ui/AgentRunList.d.ts",

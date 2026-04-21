@@ -17,6 +17,13 @@ export const contractspecPublicNavigation: readonly LandingNavigationItem[] = [
 		pageKey: 'templates',
 	},
 	{
+		id: 'nav-examples',
+		label: 'Examples',
+		href: '/examples',
+		kind: 'native',
+		pageKey: 'examples',
+	},
+	{
 		id: 'nav-pricing',
 		label: 'Pricing',
 		href: '/pricing',

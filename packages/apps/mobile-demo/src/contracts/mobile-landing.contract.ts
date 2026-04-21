@@ -40,6 +40,18 @@ const LandingPageOutput = new SchemaModel({
 	},
 });
 
+const LandingExamplesListOutput = new SchemaModel({
+	name: 'LandingExamplesListOutput',
+	description: 'Preview-only ContractSpec example catalog for mobile shells.',
+	fields: {
+		examples: {
+			type: ScalarTypeEnum.JSONObject(),
+			isOptional: false,
+			isArray: true,
+		},
+	},
+});
+
 const LandingCtaResolveInput = new SchemaModel({
 	name: 'LandingCtaResolveInput',
 	description: 'Input for resolving a landing companion CTA.',
@@ -121,6 +133,26 @@ export const MobileLandingPageGetQuery = defineQuery({
 	io: {
 		input: LandingPageGetInput,
 		output: LandingPageOutput,
+	},
+	policy: {
+		auth: 'anonymous',
+	},
+});
+
+export const MobileLandingExamplesListQuery = defineQuery({
+	meta: {
+		key: 'mobileLanding.examples.list',
+		version: '1.0.0',
+		description: 'List discoverable examples for the Expo examples route.',
+		goal: 'Expose the full ContractSpec example catalog in mobile.',
+		context: 'Used by the examples Expo Router screens.',
+		owners: ['@platform.core'],
+		tags: ['mobile', 'expo', 'examples', 'preview'],
+		stability: 'experimental',
+	},
+	io: {
+		input: null,
+		output: LandingExamplesListOutput,
 	},
 	policy: {
 		auth: 'anonymous',

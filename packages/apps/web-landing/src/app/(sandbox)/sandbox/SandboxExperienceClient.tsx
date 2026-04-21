@@ -4,6 +4,7 @@ import { WorkspaceProjectShellLayout } from '@contractspec/bundle.library/compon
 import type { TemplateId } from '@contractspec/lib.example-shared-ui';
 import { listExamples } from '@contractspec/module.examples/catalog';
 import {
+	ExampleWebPreview,
 	listTemplates,
 	TemplateRuntimeProvider,
 } from '@contractspec/module.examples/runtime';
@@ -20,10 +21,7 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import type React from 'react';
 import { useEffect, useMemo, useState } from 'react';
 import { buildSandboxHref, resolveSandboxTemplateId } from './sandbox-config';
-import {
-	hasRichSandboxPreview,
-	SandboxFallbackPreview,
-} from './sandbox-preview';
+import { hasRichSandboxPreview } from './sandbox-preview';
 
 // Studio dependencies removed for public split
 // import {
@@ -95,92 +93,6 @@ const RecipesExperience = dynamic(
 		import(
 			'@contractspec/bundle.library/components/templates/recipes/RecipeList'
 		).then((m) => m.RecipeList),
-	{ ssr: false }
-);
-
-const SaasDashboard = dynamic(
-	() =>
-		import('@contractspec/example.saas-boilerplate').then(
-			(m) => m.SaasDashboard
-		),
-	{ ssr: false }
-);
-
-const CrmDashboard = dynamic(
-	() =>
-		import('@contractspec/example.crm-pipeline').then((m) => m.CrmDashboard),
-	{ ssr: false }
-);
-
-const DataGridShowcase = dynamic(
-	() =>
-		import('../../../../../../examples/data-grid-showcase/src/ui').then(
-			(m) => m.DataGridShowcase
-		),
-	{ ssr: false }
-);
-
-const VisualizationShowcase = dynamic(
-	() =>
-		import('../../../../../../examples/visualization-showcase/src/ui').then(
-			(m) => m.VisualizationShowcase
-		),
-	{ ssr: false }
-);
-
-const AgentExecutionConsoleHost = dynamic(
-	() =>
-		import('@contractspec/example.agent-console/ui').then(
-			(m) => m.ExecutionConsoleHost
-		),
-	{ ssr: false }
-);
-
-const WorkflowDashboard = dynamic(
-	() =>
-		import('@contractspec/example.workflow-system/ui').then(
-			(m) => m.WorkflowDashboard
-		),
-	{ ssr: false }
-);
-
-const MarketplaceDashboard = dynamic(
-	() =>
-		import('@contractspec/example.marketplace/ui').then(
-			(m) => m.MarketplaceDashboard
-		),
-	{ ssr: false }
-);
-
-const IntegrationDashboard = dynamic(
-	() =>
-		import('@contractspec/example.integration-hub/ui').then(
-			(m) => m.IntegrationDashboard
-		),
-	{ ssr: false }
-);
-
-const AnalyticsDashboard = dynamic(
-	() =>
-		import('@contractspec/example.analytics-dashboard').then(
-			(m) => m.AnalyticsDashboard
-		),
-	{ ssr: false }
-);
-
-const AiChatAssistantDashboard = dynamic(
-	() =>
-		import('@contractspec/example.ai-chat-assistant').then(
-			(m) => m.AiChatAssistantDashboard
-		),
-	{ ssr: false }
-);
-
-const PolicySafeKnowledgeAssistantDashboard = dynamic(
-	() =>
-		import('@contractspec/example.policy-safe-knowledge-assistant').then(
-			(m) => m.PolicySafeKnowledgeAssistantDashboard
-		),
 	{ ssr: false }
 );
 
@@ -297,61 +209,46 @@ export default function SandboxExperienceClient() {
 	const playground = useMemo(() => {
 		switch (templateId) {
 			case 'todos-app':
-				return <TodosTaskList />;
+				return (
+					<TemplateShell
+						title={displayName}
+						description="Local runtime (in-browser) preview."
+						showSaveAction={false}
+					>
+						<TodosTaskList />
+					</TemplateShell>
+				);
 			case 'messaging-app':
-				return <MessagingWorkspace />;
+				return (
+					<TemplateShell
+						title={displayName}
+						description="Local runtime (in-browser) preview."
+						showSaveAction={false}
+					>
+						<MessagingWorkspace />
+					</TemplateShell>
+				);
 			case 'recipe-app-i18n':
-				return <RecipesExperience />;
-			case 'saas-boilerplate':
-				return <SaasDashboard />;
-			case 'crm-pipeline':
-				return <CrmDashboard />;
-			case 'data-grid-showcase':
-				return <DataGridShowcase />;
-			case 'visualization-showcase':
-				return <VisualizationShowcase />;
-			case 'agent-console':
-				return <AgentExecutionConsoleHost />;
-			case 'workflow-system':
-				return <WorkflowDashboard />;
-			case 'marketplace':
-				return <MarketplaceDashboard />;
-			case 'integration-hub':
-				return <IntegrationDashboard />;
-			case 'analytics-dashboard':
-				return <AnalyticsDashboard />;
-			case 'ai-chat-assistant':
-				return <AiChatAssistantDashboard />;
-			case 'policy-safe-knowledge-assistant':
-				return <PolicySafeKnowledgeAssistantDashboard />;
+				return (
+					<TemplateShell
+						title={displayName}
+						description="Local runtime (in-browser) preview."
+						showSaveAction={false}
+					>
+						<RecipesExperience />
+					</TemplateShell>
+				);
 			default:
 				return (
-					<SandboxFallbackPreview
-						templateId={templateId}
-						example={exampleById.get(templateId)}
-						template={templateById.get(templateId)}
-					/>
+					<ExampleWebPreview exampleKey={templateId} title={displayName} />
 				);
 		}
-	}, [exampleById, templateById, templateId]);
+	}, [displayName, templateId]);
 
 	const main = useMemo(() => {
 		switch (mode) {
 			case 'playground':
-				return (
-					<TemplateShell
-						title={displayName}
-						description={
-							hasRichSandboxPreview(templateId)
-								? 'Local runtime (in-browser) preview.'
-								: 'Public template package with docs, source, and agent-facing context.'
-						}
-						// projectId="sandbox"
-						showSaveAction={false}
-					>
-						{playground}
-					</TemplateShell>
-				);
+				return playground;
 			case 'specs':
 				return (
 					<SpecEditorPanel
@@ -386,9 +283,11 @@ export default function SandboxExperienceClient() {
 			default:
 				return <MarkdownView templateId={templateId} />;
 		}
-	}, [mode, templateId, displayName, playground]);
+	}, [mode, templateId, playground]);
 
 	const moduleOptions = MODULES.filter((m) => allowedModes.includes(m.id));
+	const shouldInitializeRuntime =
+		mode !== 'playground' || hasRichSandboxPreview(templateId);
 
 	return (
 		<WorkspaceProjectShellLayout
@@ -431,12 +330,16 @@ export default function SandboxExperienceClient() {
 			}}
 			// assistant removed
 		>
-			<TemplateRuntimeProvider
-				templateId={templateId}
-				projectId={SANDBOX_PROJECT_ID}
-			>
-				{main}
-			</TemplateRuntimeProvider>
+			{shouldInitializeRuntime ? (
+				<TemplateRuntimeProvider
+					templateId={templateId}
+					projectId={SANDBOX_PROJECT_ID}
+				>
+					{main}
+				</TemplateRuntimeProvider>
+			) : (
+				main
+			)}
 		</WorkspaceProjectShellLayout>
 	);
 }

@@ -1,10 +1,18 @@
 import type { VisualizationSurfaceItem } from '@contractspec/lib.design-system';
-import type { Run } from '../ui/hooks/useRunList';
 import {
 	AgentRunActivityVisualization,
 	AgentRunEfficiencyVisualization,
 	AgentRunStatusVisualization,
 } from './catalog';
+
+interface AgentVisualizationRun {
+	durationMs?: number;
+	estimatedCostUsd?: number;
+	queuedAt?: Date;
+	startedAt?: Date;
+	status: string;
+	totalTokens: number;
+}
 
 function dayKey(value: Date | undefined): string {
 	if (!value) return 'unknown';
@@ -12,7 +20,7 @@ function dayKey(value: Date | undefined): string {
 }
 
 export function createAgentVisualizationItems(
-	runs: Run[]
+	runs: readonly AgentVisualizationRun[]
 ): VisualizationSurfaceItem[] {
 	const statusCounts = new Map<string, number>();
 	const activityCounts = new Map<string, number>();

@@ -6,7 +6,8 @@
 
 - Shares platform-neutral landing, navigation, and page content from `@contractspec/bundle.marketing/content`.
 - Presents the same positioning as `@contractspec/app.web-landing`: open spec system first, Studio as the optional operating layer.
-- Uses native Expo Router screens for Home, Product, Templates, Pricing, Docs, and Changelog.
+- Uses native Expo Router screens for Home, Product, Templates, Examples, Pricing, Docs, and Changelog.
+- Adds a first-class Examples route backed by the same discoverable catalog used by web docs and sandbox surfaces, with in-app previews for every example and richer native panels where exported sample data is available.
 - `src/contracts/` defines landing companion story, navigation, page, and CTA specs.
 - `src/handlers/` registers demo handlers against the operation registry.
 - `src/components/landing/` and `src/screens/` contain the React Native composition.
@@ -30,8 +31,9 @@ bun run dev
 
 - `src/app/` contains the Expo Router routes.
 - `src/contracts/` defines `mobile-demo.landing` and operations for story, navigation, page loading, and CTA resolution.
-- `src/handlers/` adapts shared marketing content into ContractSpec operation results.
+- `src/handlers/` adapts shared marketing content and example preview catalog data into ContractSpec operation results.
 - `src/components/landing/` renders reusable mobile-native shell, section, card, page, and CTA components.
+- `src/components/examples/` renders the examples catalog plus native example previews that reuse ContractSpec contracts, metadata, and sample data with React Native primitives.
 - `src/screens/` owns screen-level loading, error, and CTA opening behavior.
 
 ## Public Entry Points

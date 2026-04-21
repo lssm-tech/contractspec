@@ -5,6 +5,7 @@
  */
 
 export * from './context';
+export * from './ExampleWebPreview';
 export * from './engine';
 export * from './installer';
 export * from './previews';

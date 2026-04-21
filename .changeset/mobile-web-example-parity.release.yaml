@@ -1,0 +1,74 @@
+schemaVersion: "1"
+slug: mobile-web-example-parity
+summary: Promote the Expo demo Examples surface to first-class navigation and reuse shared preview components so mobile and web example previews stay aligned.
+isBreaking: false
+packages:
+  - name: "@contractspec/app.expo-demo"
+    releaseType: patch
+  - name: "@contractspec/app.web-landing"
+    releaseType: patch
+  - name: "@contractspec/bundle.library"
+    releaseType: patch
+  - name: "@contractspec/bundle.marketing"
+    releaseType: patch
+  - name: "@contractspec/example.agent-console"
+    releaseType: patch
+  - name: "@contractspec/module.examples"
+    releaseType: minor
+affectedRuntimes:
+  - bun
+  - nextjs
+  - expo
+affectedFrameworks:
+  - react
+  - react-native
+audiences:
+  - kind: maintainer
+    summary: Example preview routing now uses shared catalog helpers and a reusable Agent Console preview component instead of platform-specific allowlists or bespoke mobile summaries.
+    affectedPackages:
+      - "@contractspec/module.examples"
+      - "@contractspec/example.agent-console"
+      - "@contractspec/app.expo-demo"
+      - "@contractspec/app.web-landing"
+  - kind: integrator
+    summary: Consumers can use the example preview surface metadata to provide docs, sandbox, source, LLMS, and native preview actions from one catalog.
+    affectedPackages:
+      - "@contractspec/module.examples"
+      - "@contractspec/bundle.library"
+      - "@contractspec/bundle.marketing"
+  - kind: customer
+    summary: The mobile demo now shows Examples as a normal product surface and renders Agent Console with the same shared preview structure used by web.
+    affectedPackages:
+      - "@contractspec/app.expo-demo"
+      - "@contractspec/example.agent-console"
+deprecations: []
+migrationInstructions:
+  - id: prefer-shared-preview-components
+    title: Prefer shared preview components for web/mobile example parity
+    summary: Rich example previews should reuse cross-platform components through the UI kit alias layer before falling back to app-local native summaries.
+    required: false
+    when: When adding a rich mobile preview for an example package that already has a reusable React preview surface.
+    steps:
+      - Export a focused preview subpath that does not pull web-only modules into Expo.
+      - Import UI primitives through the shared UI kit boundary so Metro can map web imports to native components.
+      - Keep mobile generic fallbacks only for examples without stable shared data or reusable components.
+upgradeSteps:
+  - id: verify-example-parity-surfaces
+    title: Verify web and mobile example preview parity
+    summary: Re-run catalog, web preview, mobile preview, and Expo export checks after changing example preview wiring.
+    level: assisted
+    instructions:
+      - Run the module examples runtime preview tests.
+      - Run mobile example registry and landing handler tests.
+      - Run Agent Console preview smoke tests.
+      - Run an Expo export smoke check for the mobile demo.
+validation:
+  commands:
+    - bun test packages/modules/examples/src/runtime/previews.test.ts packages/apps/web-landing/src/app/docs/examples/example-doc-routes.test.ts packages/apps/web-landing/src/app/(sandbox)/sandbox/sandbox-preview.test.tsx
+    - cd packages/apps/mobile-demo && bun run test && bun run typecheck && bun run lint:check
+    - cd packages/examples/agent-console && bun test src/ui/ExecutionConsoleHost.test.tsx src/ui/AgentDashboard.sandbox.test.tsx && bun run typecheck && bun run lint:check
+    - cd packages/apps/mobile-demo && ../../../node_modules/.bin/expo export --clear --platform ios --output-dir /tmp/contractspec-mobile-demo-export
+  evidence:
+    - "`@contractspec/app.expo-demo` now has a first-class `/examples` route backed by the same discoverable example catalog as web docs and sandbox surfaces."
+    - "`@contractspec/example.agent-console` exposes `./ui/AgentConsolePreview` so web and mobile render the same preview source through UI kit aliasing."
+    - "`@contractspec/module.examples` continues to provide the canonical preview surface metadata for docs, sandbox, source, LLMS, inline-preview, and mobile preview actions."

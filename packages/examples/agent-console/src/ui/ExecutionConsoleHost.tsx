@@ -2,12 +2,12 @@
 
 import { VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import { ExecutionLaneConsoleDemo } from '@contractspec/module.execution-console';
-import { AgentDashboard } from './AgentDashboard';
+import { AgentConsolePreview } from './AgentConsolePreview';
 
 export function ExecutionConsoleHost() {
 	return (
 		<VStack gap="xl" align="stretch">
-			<AgentDashboard />
+			<AgentConsolePreview />
 			<ExecutionLaneConsoleDemo />
 		</VStack>
 	);

@@ -38,10 +38,19 @@ describe('contractspec landing content', () => {
 			navigation.items
 				.filter((item) => item.kind === 'native')
 				.map((item) => item.pageKey)
-		).toEqual(['home', 'product', 'templates', 'pricing', 'docs', 'changelog']);
+		).toEqual([
+			'home',
+			'product',
+			'templates',
+			'examples',
+			'pricing',
+			'docs',
+			'changelog',
+		]);
 		expect(nativeLandingPageKeys).toEqual([
 			'product',
 			'templates',
+			'examples',
 			'pricing',
 			'docs',
 			'changelog',
@@ -49,15 +58,15 @@ describe('contractspec landing content', () => {
 	});
 
 	it('resolves native CTA targets separately from browser URLs', () => {
-		const nativeCta = findContractspecLandingCtaById('nav-product');
-		const page = findContractspecLandingPage('product');
+		const nativeCta = findContractspecLandingCtaById('nav-examples');
+		const page = findContractspecLandingPage('examples');
 
-		expect(page?.path).toBe('/product');
+		expect(page?.path).toBe('/examples');
 		expect(nativeCta).not.toBeNull();
 		expect(resolveContractspecLandingCta(nativeCta!)).toMatchObject({
 			kind: 'native',
-			route: '/product',
-			url: 'https://www.contractspec.io/product',
+			route: '/examples',
+			url: 'https://www.contractspec.io/examples',
 		});
 	});
 });

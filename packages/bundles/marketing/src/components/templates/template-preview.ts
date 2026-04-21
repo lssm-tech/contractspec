@@ -2,7 +2,10 @@ import type {
 	RegistryTemplate,
 	TemplateId,
 } from '@contractspec/lib.example-shared-ui';
-import { supportsInlineExamplePreview } from '@contractspec/module.examples/catalog';
+import {
+	getExamplePreviewSurface,
+	supportsInlineExamplePreview,
+} from '@contractspec/module.examples/catalog';
 import type { LocalTemplateCatalogItem } from './template-catalog';
 
 export type TemplatePreviewAction =
@@ -19,10 +22,14 @@ export function supportsInlineTemplatePreview(templateId: TemplateId): boolean {
 	return supportsInlineExamplePreview(templateId);
 }
 
+export function supportsTemplatePreview(templateId: TemplateId): boolean {
+	return Boolean(getExamplePreviewSurface(templateId));
+}
+
 export function getLocalTemplatePreviewAction(
 	template: LocalTemplateCatalogItem
 ): LocalTemplatePreviewAction {
-	if (supportsInlineTemplatePreview(template.id)) {
+	if (supportsTemplatePreview(template.id)) {
 		return { kind: 'modal', templateId: template.id };
 	}
 

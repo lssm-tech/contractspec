@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'bun:test';
+import { listDiscoverableExamples } from '@contractspec/module.examples/catalog';
 import { mobileLandingRegistry } from './mobile-landing.handlers';
 
 describe('mobile-landing.handlers', () => {
@@ -36,22 +37,80 @@ describe('mobile-landing.handlers', () => {
 			'1.0.0',
 			{},
 			{}
-		)) as { navigation: { items: Array<{ pageKey?: string }> } };
+		)) as { navigation: { items: Array<{ href: string; pageKey?: string }> } };
 
 		expect(
 			result.navigation.items.map((item) => item.pageKey).filter(Boolean)
-		).toEqual(['home', 'product', 'templates', 'pricing', 'docs', 'changelog']);
+		).toEqual([
+			'home',
+			'product',
+			'templates',
+			'examples',
+			'pricing',
+			'docs',
+			'changelog',
+		]);
+		for (const hiddenRoute of ['/examples-preview', '/example-preview']) {
+			expect(
+				result.navigation.items.some((item) => item.href === hiddenRoute)
+			).toBe(false);
+		}
+	});
+
+	it('lists every discoverable example for the mobile examples route', async () => {
+		const result = (await mobileLandingRegistry.execute(
+			'mobileLanding.examples.list',
+			'1.0.0',
+			{},
+			{}
+		)) as {
+			examples: Array<{
+				key: string;
+				docsUrl: string;
+				llmsUrl: string | null;
+				sandboxUrl: string | null;
+				sourceUrl: string | null;
+				supportsInlinePreview: boolean;
+			}>;
+		};
+		const keys = result.examples.map((example) => example.key).sort();
+		const expectedKeys = listDiscoverableExamples()
+			.map((example) => example.meta.key)
+			.sort();
+
+		expect(result.examples).toHaveLength(listDiscoverableExamples().length);
+		expect(keys).toEqual(expectedKeys);
+		expect(keys).toContain('opencode-cli');
+		expect(keys).toContain('agent-console');
+		expect(
+			result.examples.find((example) => example.key === 'agent-console')
+				?.supportsInlinePreview
+		).toBe(true);
+		expect(
+			result.examples.find((example) => example.key === 'opencode-cli')?.docsUrl
+		).toBe('https://www.contractspec.io/docs/examples/opencode-cli');
+		expect(
+			result.examples.find((example) => example.key === 'opencode-cli')
+				?.sandboxUrl
+		).toBe('https://www.contractspec.io/sandbox?template=opencode-cli');
+		expect(
+			result.examples.find((example) => example.key === 'opencode-cli')?.llmsUrl
+		).toBe('https://www.contractspec.io/llms/example.opencode-cli');
+		expect(
+			result.examples.find((example) => example.key === 'opencode-cli')
+				?.sourceUrl
+		).toContain('/packages/examples/opencode-cli');
 	});
 
 	it('returns route page content by key', async () => {
 		const result = (await mobileLandingRegistry.execute(
 			'mobileLanding.page.get',
 			'1.0.0',
-			{ key: 'product' },
+			{ key: 'examples' },
 			{}
 		)) as { page: { key: string; path: string } };
 
-		expect(result.page).toMatchObject({ key: 'product', path: '/product' });
+		expect(result.page).toMatchObject({ key: 'examples', path: '/examples' });
 	});
 
 	it('resolves native CTA ids to native routes plus web fallback URLs', async () => {

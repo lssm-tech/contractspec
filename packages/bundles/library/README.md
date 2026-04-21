@@ -5,7 +5,7 @@
 ## What It Provides
 
 - Provides the reusable product-facing bundle consumed by API, web, and documentation surfaces.
-- Aggregates docs pages, integration marketplace UI, templates, and library-side MCP implementations.
+- Aggregates docs pages, integration marketplace UI, templates, example showcase pages, and library-side MCP implementations.
 - Acts as the main composition layer between lower-level libraries and app-specific delivery shells.
 - `src/presentation/` contains presentation-layer components and renderers.
 
@@ -25,6 +25,7 @@ Import the root entrypoint from `@contractspec/bundle.library`, or choose a docu
 
 - `src/application/` contains application services including MCP implementations and cross-surface orchestration.
 - `src/components/` contains reusable docs, integrations, legal, shell, and template presentation code.
+- `src/components/docs/examples/` derives showcase links from the discoverable example catalog and leaves preview rendering to the shared `@contractspec/module.examples/runtime` host.
 - `src/features/`, `src.config/`, `src.infrastructure/`, and `src.libs/` hold bundle-local composition helpers.
 - `src/presentation/` contains feature-specific UI composition exported to consuming apps.
 - `src/index.ts` is the root public barrel and package entrypoint.

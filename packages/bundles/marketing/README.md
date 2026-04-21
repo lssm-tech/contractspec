@@ -1,12 +1,12 @@
 # @contractspec/bundle.marketing
 
-**Marketing composition bundle for the public ContractSpec site: landing narratives, product/pricing/templates pages, support pages, and email-facing marketing helpers.**
+**Marketing composition bundle for the public ContractSpec site: landing narratives, product/templates/examples/pricing pages, support pages, and email-facing marketing helpers.**
 
 ## What It Provides
 
 - Marketing page bodies consumed by `@contractspec/app.web-landing`
-- Platform-neutral landing story data consumed by web and Expo shells
-- Scenario/template browsing surfaces used on `/templates`
+- Platform-neutral landing story, navigation, page, and examples-entry data consumed by web and Expo shells
+- Scenario/template browsing and preview surfaces used on `/templates`
 - Support and program pages such as contact, contribute, cofounder, and design-partner
 - Email/contact helpers and marketing-adjacent utilities
 
@@ -14,7 +14,7 @@
 
 - `src/components/marketing/` owns the public marketing narratives, section composition, and page-level stories.
 - `src/content/` owns React-free story data shared by web and mobile shells.
-- `src/components/templates/` owns template browsing, preview, and template-to-CLI/Studio flows.
+- `src/components/templates/` owns template browsing, preview, and template-to-CLI/Studio flows. Preview content uses the shared example preview host from `@contractspec/module.examples/runtime` so UI-backed and fallback examples stay aligned with docs and sandbox.
 - `src/libs/email/` owns contact/newsletter/waitlist actions and helpers used by marketing surfaces.
 - `src/index.ts` is the root public entrypoint.
 
