@@ -5,6 +5,7 @@
  */
 
 export * from './announcement';
+export * from './example';
 export * from './presentations';
 export * from './ritual';
 // Domain exports

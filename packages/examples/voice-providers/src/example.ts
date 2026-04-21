@@ -1,32 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesVoiceProvidersExample = defineExample({
 	meta: {
 		key: 'voice-providers',
 		version: '1.0.0',
-		title: 'Voice Providers (Gradium and Fal)',
+		title: 'Voice Providers',
 		description:
-			'Multi-provider voice integration example for Gradium and Fal text-to-speech adapters.',
-		kind: 'integration',
+			'Voice provider example: Gradium and Fal text-to-speech integration patterns.',
+		kind: 'template',
 		visibility: 'public',
-		stability: 'experimental',
-		owners: ['@platform.integrations'],
-		tags: ['voice', 'tts', 'gradium', 'fal', 'integrations'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.voice-providers',
-		usageDocId: 'docs.examples.voice-providers.usage',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.voice-providers',
-		docs: './docs',
+		stability: 'beta',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'voice-providers', 'voice', 'gradium', 'fal'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: { enabled: true, modes: ['markdown', 'specs'] },
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.voice-providers',
 	},
 });
 
-export default example;
+export default ExamplesVoiceProvidersExample;
+export { ExamplesVoiceProvidersExample };

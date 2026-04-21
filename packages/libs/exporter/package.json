@@ -1,12 +1,13 @@
 {
 	"name": "@contractspec/lib.exporter",
-	"version": "3.7.13",
-	"description": "Generic CSV and XML exporters usable across web and mobile.",
+	"version": "3.7.15",
+	"description": "Compatibility exporter shim backed by the data-exchange core.",
 	"keywords": [
 		"contractspec",
 		"export",
 		"csv",
 		"xml",
+		"json",
 		"data",
 		"typescript"
 	],
@@ -57,5 +58,9 @@
 		"url": "https://github.com/lssm-tech/contractspec.git",
 		"directory": "packages/libs/exporter"
 	},
-	"homepage": "https://contractspec.io"
+	"homepage": "https://contractspec.io",
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/lib.data-exchange-core": "workspace:*"
+	}
 }

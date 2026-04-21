@@ -1,5 +1,21 @@
 # @contractspec/example.product-intent
 
+## 3.7.21
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add FormSpec layout hints, semantic field rendering, and portable text/textarea input-group addons.
+- Updated dependencies because of Add ThemeSpec light/dark modes and a design-system Tailwind bridge for CSS variables, presets, CSS text, and OKLCH color pass-through.
+- Updated dependencies because of Add a canonical typed result system for ContractSpec success and failure propagation across operations, workflows, jobs, server adapters, MCP, GraphQL, and React clients.
+  - @contractspec/integration.providers-impls@3.8.13
+  - @contractspec/lib.ai-agent@8.0.9
+  - @contractspec/lib.analytics@3.7.21
+  - @contractspec/lib.contracts-integrations@3.8.13
+  - @contractspec/lib.product-intent-utils@3.7.21
+  - @contractspec/lib.contracts-spec@5.5.0
+
 ## 3.7.20
 
 ### Patch Changes

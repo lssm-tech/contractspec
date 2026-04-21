@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.ai-agent",
-	"version": "8.0.8",
+	"version": "8.0.9",
 	"description": "AI agent orchestration with MCP and tool support",
 	"keywords": [
 		"contractspec",
@@ -83,6 +83,7 @@
 		"./agent/contract-spec-agent": "./src/agent/contract-spec-agent.ts",
 		"./agent/json-runner": "./src/agent/json-runner.ts",
 		"./agent/unified-agent": "./src/agent/unified-agent.ts",
+		"./ai-agent.feature": "./src/ai-agent.feature.ts",
 		"./approval": "./src/approval/index.ts",
 		"./approval/workflow": "./src/approval/workflow.ts",
 		"./exporters": "./src/exporters/index.ts",
@@ -183,6 +184,12 @@
 				"bun": "./dist/agent/unified-agent.js",
 				"node": "./dist/node/agent/unified-agent.js",
 				"default": "./dist/agent/unified-agent.js"
+			},
+			"./ai-agent.feature": {
+				"types": "./dist/ai-agent.feature.d.ts",
+				"bun": "./dist/ai-agent.feature.js",
+				"node": "./dist/node/ai-agent.feature.js",
+				"default": "./dist/ai-agent.feature.js"
 			},
 			"./approval": {
 				"types": "./dist/approval/index.d.ts",

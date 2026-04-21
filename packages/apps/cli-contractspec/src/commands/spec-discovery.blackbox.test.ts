@@ -210,14 +210,10 @@ export const getAudit = defineQuery({
 }
 
 function runCli(cwd: string, args: string[]) {
-	const result = spawnSync(process.execPath, [CLI_ENTRY, ...args], {
+	const result = spawnSync('bun', ['--no-env-file', CLI_ENTRY, ...args], {
 		cwd,
 		encoding: 'utf8',
-		env: {
-			...process.env,
-			FORCE_COLOR: '0',
-			NO_COLOR: '1',
-		},
+		env: createSubprocessEnv(),
 	});
 
 	return {
@@ -225,4 +221,26 @@ function runCli(cwd: string, args: string[]) {
 		stderr: result.stderr.trim(),
 		stdout: result.stdout.trim(),
 	};
+}
+
+function createSubprocessEnv(
+	extraEnv: Record<string, string> = {}
+): Record<string, string> {
+	const env: Record<string, string> = {};
+	for (const key of [
+		'BUN_INSTALL',
+		'HOME',
+		'PATH',
+		'SHELL',
+		'TEMP',
+		'TMP',
+		'TMPDIR',
+		'USER',
+	] as const) {
+		const value = process.env[key];
+		if (value) {
+			env[key] = value;
+		}
+	}
+	return { ...env, FORCE_COLOR: '0', NO_COLOR: '1', ...extraEnv };
 }

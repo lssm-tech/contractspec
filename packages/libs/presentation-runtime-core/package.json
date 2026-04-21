@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.presentation-runtime-core",
-	"version": "3.9.8",
+	"version": "5.0.0",
 	"description": "Core presentation runtime for contract-driven UIs",
 	"keywords": [
 		"contractspec",
@@ -16,8 +16,9 @@
 	"scripts": {
 		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
 		"publish:pkg:canary": "bun publish:pkg --tag canary",
-		"build": "bun run build:bundle && bun run build:types",
+		"build": "bun run build:bundle && bun run build:require && bun run build:types",
 		"build:bundle": "contractspec-bun-build transpile",
+		"build:require": "bun build src/metro.ts --target node --format cjs --packages external --outfile dist/metro.cjs",
 		"build:types": "contractspec-bun-build types",
 		"clean": "rimraf dist .turbo",
 		"dev": "contractspec-bun-build dev",
@@ -46,7 +47,19 @@
 		"README.md"
 	],
 	"exports": {
-		".": "./src/index.ts",
+		".": {
+			"types": "./src/index.ts",
+			"require": "./src/metro.ts",
+			"default": "./src/index.ts"
+		},
+		"./metro": {
+			"types": "./src/metro.ts",
+			"require": "./src/metro.ts",
+			"default": "./src/metro.ts"
+		},
+		"./next": "./src/next.ts",
+		"./presentation-aliases": "./src/presentation-aliases.ts",
+		"./presentation-runtime-core.feature": "./src/presentation-runtime-core.feature.ts",
 		"./table": "./src/table.ts",
 		"./transform-engine": "./src/transform-engine.ts",
 		"./transform-engine.markdown": "./src/transform-engine.markdown.ts",
@@ -63,10 +76,40 @@
 		"exports": {
 			".": {
 				"types": "./dist/index.d.ts",
+				"require": "./dist/metro.cjs",
 				"browser": "./dist/browser/index.js",
 				"bun": "./dist/index.js",
 				"node": "./dist/node/index.js",
 				"default": "./dist/index.js"
+			},
+			"./metro": {
+				"types": "./dist/metro.d.ts",
+				"require": "./dist/metro.cjs",
+				"browser": "./dist/browser/metro.js",
+				"bun": "./dist/metro.js",
+				"node": "./dist/node/metro.js",
+				"default": "./dist/metro.js"
+			},
+			"./next": {
+				"types": "./dist/next.d.ts",
+				"browser": "./dist/browser/next.js",
+				"bun": "./dist/next.js",
+				"node": "./dist/node/next.js",
+				"default": "./dist/next.js"
+			},
+			"./presentation-aliases": {
+				"types": "./dist/presentation-aliases.d.ts",
+				"browser": "./dist/browser/presentation-aliases.js",
+				"bun": "./dist/presentation-aliases.js",
+				"node": "./dist/node/presentation-aliases.js",
+				"default": "./dist/presentation-aliases.js"
+			},
+			"./presentation-runtime-core.feature": {
+				"types": "./dist/presentation-runtime-core.feature.d.ts",
+				"browser": "./dist/browser/presentation-runtime-core.feature.js",
+				"bun": "./dist/presentation-runtime-core.feature.js",
+				"node": "./dist/node/presentation-runtime-core.feature.js",
+				"default": "./dist/presentation-runtime-core.feature.js"
 			},
 			"./table": {
 				"types": "./dist/table.d.ts",

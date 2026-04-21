@@ -1,0 +1,51 @@
+schemaVersion: "1"
+slug: theme-tailwind-bridge
+summary: Add ThemeSpec light/dark modes and a design-system Tailwind bridge for CSS variables, presets, CSS text, and OKLCH color pass-through.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.contracts-spec"
+    releaseType: minor
+  - name: "@contractspec/lib.design-system"
+    releaseType: minor
+affectedRuntimes:
+  - bun
+  - node
+  - nextjs
+  - expo
+affectedFrameworks:
+  - tailwindcss
+  - react
+  - react-native
+audiences:
+  - kind: maintainer
+    summary: Maintainers can keep ThemeSpec as the source of truth while exposing Tailwind variables and runtime theme modes from the design-system package.
+    affectedPackages:
+      - "@contractspec/lib.contracts-spec"
+      - "@contractspec/lib.design-system"
+  - kind: integrator
+    summary: Integrators can resolve ThemeSpec tokens for light or dark mode, consume a Tailwind preset, or serialize CSS text without adding a required generation step.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+  - kind: customer
+    summary: Product surfaces can use ThemeSpec-backed light/dark themes with OKLCH colors while keeping existing Tailwind semantic classes such as `bg-primary` and `text-foreground`.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: adopt-theme-tailwind-bridge
+    title: Use ThemeSpec as the Tailwind theme source
+    summary: Resolve ThemeSpec tokens for the active mode and feed them to the Tailwind preset or CSS serializer.
+    level: assisted
+    instructions:
+      - Keep existing `tokens` as the default/light-compatible token bag.
+      - Add `modes.dark.tokens` when a dark-mode overlay is needed.
+      - Use `themeSpecToTailwindPreset` for config-based Tailwind usage or `themeSpecToTailwindCss` when an app wants an importable CSS artifact.
+validation:
+  commands:
+    - "cd packages/libs/contracts-spec && bun run test && bun run typecheck && bun run lint:check"
+    - "cd packages/libs/design-system && bun run test && bun run typecheck && bun run lint:check"
+  evidence:
+    - "`ThemeSpec` now supports additive mode overlays and token metadata for OKLCH-friendly color authoring."
+    - "`@contractspec/lib.design-system` now exports mode-aware token resolution and ThemeSpec-to-Tailwind bridge helpers."
+    - "Design-system runtime providers can expose ThemeSpec CSS variables and resolve mode-specific component variants."

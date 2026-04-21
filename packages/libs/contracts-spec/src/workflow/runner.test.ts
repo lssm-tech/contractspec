@@ -4,6 +4,7 @@ import type {
 	ResolvedIntegration,
 } from '../app-config/runtime';
 import { OwnersEnum, StabilityEnum, TagsEnum } from '../ownership';
+import { createContractError } from '../results';
 import { InMemoryStateStore } from './adapters/memory-store';
 import {
 	WorkflowExecutionError,
@@ -551,5 +552,117 @@ describe('WorkflowRunner', () => {
 		);
 		const state = await runner.getState(workflowId);
 		expect(state.status).toBe('completed');
+	});
+
+	it('emits canonical success result on step completion', async () => {
+		const events: { event: string; payload: unknown }[] = [];
+		const spec = workflowSpec({
+			steps: [
+				{
+					id: 'start',
+					type: 'automation',
+					label: 'Start',
+					action: { operation: { key: 'sigil.start', version: '1.0.0' } },
+				},
+			],
+			transitions: [],
+		});
+		const { runner } = createRunner(spec, events);
+		const workflowId = await runner.start(spec.meta.key);
+
+		await runner.executeStep(workflowId);
+
+		const completed = events.find(
+			({ event }) => event === 'workflow.step_completed'
+		);
+		expect(completed?.payload).toMatchObject({
+			result: {
+				ok: true,
+				code: 'OK',
+				status: 200,
+				data: { approved: true },
+			},
+		});
+		const state = await runner.getState(workflowId);
+		expect(state.result).toMatchObject({
+			ok: true,
+			data: { approved: true },
+		});
+	});
+
+	it('emits canonical problems on step failure', async () => {
+		const events: { event: string; payload: unknown }[] = [];
+		const spec = workflowSpec({
+			steps: [
+				{
+					id: 'start',
+					type: 'automation',
+					label: 'Failing Start',
+					action: { operation: { key: 'sigil.start', version: '1.0.0' } },
+				},
+			],
+			transitions: [],
+		});
+		const { runner } = createRunner(spec, events, {
+			opExecutor: vi.fn(async () => {
+				throw createContractError('CONFLICT', undefined, {
+					detail: 'Already running.',
+				});
+			}),
+		});
+		const workflowId = await runner.start(spec.meta.key);
+
+		await expect(runner.executeStep(workflowId)).rejects.toThrow(
+			/Already running/
+		);
+
+		const failed = events.find(({ event }) => event === 'workflow.step_failed');
+		expect(failed?.payload).toMatchObject({
+			problem: {
+				code: 'CONFLICT',
+				status: 409,
+				retryable: false,
+			},
+		});
+	});
+
+	it('uses retryAfter for retryable workflow problems', async () => {
+		const events: { event: string; payload: unknown }[] = [];
+		let attempt = 0;
+		const spec = workflowSpec({
+			steps: [
+				{
+					id: 'start',
+					type: 'automation',
+					label: 'Retry After Start',
+					action: { operation: { key: 'sigil.start', version: '1.0.0' } },
+					retry: { maxAttempts: 2, delayMs: 1, backoff: 'linear' },
+				},
+			],
+			transitions: [],
+		});
+		const { runner } = createRunner(spec, events, {
+			opExecutor: vi.fn(async () => {
+				attempt += 1;
+				if (attempt === 1) {
+					throw createContractError('SERVICE_UNAVAILABLE', undefined, {
+						detail: 'Temporarily unavailable.',
+						retryAfter: 15,
+					});
+				}
+				return { approved: true };
+			}),
+		});
+		const workflowId = await runner.start(spec.meta.key);
+
+		await runner.executeStep(workflowId);
+
+		const retrying = events.find(
+			({ event }) => event === 'workflow.step_retrying'
+		);
+		expect(retrying?.payload).toMatchObject({
+			delay: 15,
+			problem: { code: 'SERVICE_UNAVAILABLE' },
+		});
 	});
 });

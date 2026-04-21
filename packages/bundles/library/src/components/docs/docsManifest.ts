@@ -385,6 +385,16 @@ export const DOCS_PAGES: readonly DocsPageEntry[] = [
 		ctaMode: 'oss-next',
 	},
 	{
+		href: '/docs/libraries/cross-platform-ui',
+		title: 'Cross-platform UI',
+		description:
+			'Understand how the presentation runtimes, ui-kit-web, ui-kit, and design-system stay aligned across React and React Native.',
+		section: 'build',
+		order: 71,
+		audience: 'oss',
+		ctaMode: 'oss-next',
+	},
+	{
 		href: '/docs/architecture',
 		title: 'Architecture',
 		description:

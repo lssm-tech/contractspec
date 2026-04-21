@@ -28,6 +28,19 @@ describe('docs manifest learning paths', () => {
 		expect(buildHrefs).toContain('/docs/guides/host-builder-workbench');
 	});
 
+	it('keeps cross-platform UI resolvable without promoting it to primary nav', () => {
+		expect(
+			getDocsPageByHref('/docs/libraries/cross-platform-ui')
+		).toBeDefined();
+
+		const buildSection = getPrimaryDocsSections().find(
+			(section) => section.key === 'build'
+		);
+		const buildHrefs = buildSection?.items.map((item) => item.href) ?? [];
+
+		expect(buildHrefs).not.toContain('/docs/libraries/cross-platform-ui');
+	});
+
 	it('orders the new guides as intended within build traversal', () => {
 		const buildSection = getPrimaryDocsSections().find(
 			(section) => section.key === 'build'
@@ -61,6 +74,7 @@ describe('docs manifest learning paths', () => {
 			'/docs/architecture/control-plane',
 			'/docs/specs/overlays',
 			'/docs/studio',
+			'/docs/libraries/cross-platform-ui',
 		]) {
 			expect(
 				getDocsPageByHref(href) != null || NON_MANIFEST_DOC_ROUTES.has(href)

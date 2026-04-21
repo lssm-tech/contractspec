@@ -69,3 +69,4 @@ appLogger.info(
 
 export type App = typeof app;
 export default app;
+export * from './blueprint';

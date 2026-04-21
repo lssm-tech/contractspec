@@ -23,11 +23,69 @@ or
 
 Import the root entrypoint from `@contractspec/lib.presentation-runtime-core`, or choose a documented subpath when you only need one part of the package surface.
 
+## Bundler Helpers
+
+Import the bundler helpers from the root package:
+
+```ts
+import {
+  withPresentationTurbopackAliases,
+  withPresentationWebpackAliases,
+  withPresentationMetroAliases,
+} from '@contractspec/lib.presentation-runtime-core';
+```
+
+### Next.js Turbopack helper (default)
+
+Use Turbopack as the default Next.js path:
+
+```ts
+import { withPresentationTurbopackAliases } from '@contractspec/lib.presentation-runtime-core';
+
+const nextConfig = withPresentationTurbopackAliases({
+  turbopack: {
+    resolveAlias: {
+      fs: { browser: 'browserify-fs' },
+    },
+  },
+});
+
+export default nextConfig;
+```
+
+### Next.js Webpack helper (fallback)
+
+Use Webpack only when you opt in with `next dev --webpack` or `next build --webpack`:
+
+```ts
+import { withPresentationWebpackAliases } from '@contractspec/lib.presentation-runtime-core';
+
+const nextConfig = {
+  webpack: (config) => withPresentationWebpackAliases(config),
+};
+
+export default nextConfig;
+```
+
+### Expo / Metro helper
+
+```js
+const { getDefaultConfig } = require('expo/metro-config');
+const {
+  withPresentationMetroAliases,
+} = require('@contractspec/lib.presentation-runtime-core');
+
+const projectRoot = __dirname;
+const config = getDefaultConfig(projectRoot);
+
+module.exports = withPresentationMetroAliases(config);
+```
+
 ## Architecture
 
-- `src/index.ts` is the root public barrel and package entrypoint.
-- `src/metro.cjs` is part of the package's public or composition surface.
-- `src/next.mjs` is part of the package's public or composition surface.
+- `src/index.ts` is the root public barrel that builds the package entrypoint.
+- `src/metro.ts` is part of the package's public or composition surface.
+- `src/next.ts` is part of the package's public or composition surface.
 - `src/table.ts` is part of the package's public or composition surface.
 - `src/visualization.echarts.ts` is part of the package's public or composition surface.
 - `src/visualization.model.builders.ts` is part of the package's public or composition surface.
@@ -35,15 +93,18 @@ Import the root entrypoint from `@contractspec/lib.presentation-runtime-core`, o
 
 ## Public Entry Points
 
-- Export `.` resolves through `./src/index.ts`.
-- Export `./table` resolves through `./src/table.ts`.
-- Export `./visualization` resolves through `./src/visualization.ts`.
-- Export `./visualization.echarts` resolves through `./src/visualization.echarts.ts`.
-- Export `./visualization.model` resolves through `./src/visualization.model.ts`.
-- Export `./visualization.model.builders` resolves through `./src/visualization.model.builders.ts`.
-- Export `./visualization.model.helpers` resolves through `./src/visualization.model.helpers.ts`.
-- Export `./visualization.types` resolves through `./src/visualization.types.ts`.
-- Export `./visualization.utils` resolves through `./src/visualization.utils.ts`.
+- Export `.` publishes through `./dist/index.js`; CommonJS `require` resolves to the generated Metro helper at `./dist/metro.cjs`.
+- Bundler helpers are part of the root entrypoint; no dedicated `./webpack` or `./turbopack` subpaths are published.
+- Export `./metro` builds from `./src/metro.ts` and publishes a generated CommonJS `dist/metro.cjs` require target for Metro config files.
+- Export `./next` builds from `./src/next.ts`.
+- Export `./table` builds from `./src/table.ts`.
+- Export `./visualization` builds from `./src/visualization.ts`.
+- Export `./visualization.echarts` builds from `./src/visualization.echarts.ts`.
+- Export `./visualization.model` builds from `./src/visualization.model.ts`.
+- Export `./visualization.model.builders` builds from `./src/visualization.model.builders.ts`.
+- Export `./visualization.model.helpers` builds from `./src/visualization.model.helpers.ts`.
+- Export `./visualization.types` builds from `./src/visualization.types.ts`.
+- Export `./visualization.utils` builds from `./src/visualization.utils.ts`.
 
 ## Local Commands
 

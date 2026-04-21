@@ -1,3 +1,3 @@
-import { LibrariesTestingPage } from '@contractspec/bundle.library';
+import { LibrariesTestingPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesTestingPage';
 
 export default LibrariesTestingPage;

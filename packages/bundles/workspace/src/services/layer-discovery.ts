@@ -133,7 +133,11 @@ export async function discoverLayers(
 			}
 
 			// Check for app-config files
-			if (file.includes('.app-config.') || file.includes('.blueprint.')) {
+			if (
+				file.includes('.app-config.') ||
+				file.includes('.blueprint.') ||
+				file.endsWith('/blueprint.ts')
+			) {
 				const specs = scanAllSpecsFromSource(code, file);
 				for (const spec of specs) {
 					if (spec.specType === 'app-config' && spec.key) {

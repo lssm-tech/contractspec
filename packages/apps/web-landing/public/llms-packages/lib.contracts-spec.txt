@@ -24,6 +24,7 @@ Use this package for:
 - Agent definition contracts (`defineAgent`, `AgentRegistry`, `AgentSpec`, `AgentToolConfig`).
 - Core registries (`OperationSpecRegistry`, `EventRegistry`, `FormRegistry`, `ResourceRegistry`).
 - Shared execution/runtime-neutral types (`HandlerCtx`, policy decision types, telemetry trigger types).
+- Typed success/failure/result contracts (`ContractResult`, `ContractSuccess`, `ContractProblem`, `ContractSpecError`) via `@contractspec/lib.contracts-spec/results`.
 - Contract installation helpers (`installOp`, `op`, `makeEmit`).
 
 Do not use this package for framework adapters:
@@ -47,11 +48,76 @@ bun add @contractspec/lib.contracts-spec @contractspec/lib.schema
 - `defineCommand` / `defineQuery`: typed operation specs with metadata, I/O schema, policy, transport hints, and side effects.
 - `defineAgent` + `AgentRegistry`: typed agent-definition contracts that runtime packages execute, export, or adapt.
 - `OperationSpecRegistry`: registers specs, binds handlers, and executes with validation/policy/event guards.
+- `ContractResult`: canonical success/failure envelope used by operation, workflow, job, API, MCP, GraphQL, and React runtimes while preserving raw-response compatibility for adapters.
 - `defineEvent` + `EventRegistry`: typed event contracts and lookup.
 - `defineResourceTemplate` + `ResourceRegistry`: URI-template-based resource contracts.
-- `FormRegistry`: contract-first form declarations consumed by UI runtimes, including readonly, autocomplete, address, phone, date, time, datetime, and grouped array authoring through `@contractspec/lib.contracts-spec/forms`.
+- `FormRegistry`: contract-first form declarations consumed by UI runtimes, including readonly, autocomplete, address, phone, date, time, datetime, grouped array authoring, semantic legends/descriptions, grid layout hints, and text/textarea input-group addons through `@contractspec/lib.contracts-spec/forms`.
 - `installOp`: one-call helper to register + bind operation handlers.
 - `makeEmit`: typed helper for declared event emission in handlers.
+
+## Typed Results
+
+`@contractspec/lib.contracts-spec/results` is the canonical success/failure
+surface for operations, workflows, jobs, API adapters, MCP tools, GraphQL
+resolvers, and React clients.
+
+Handlers can keep returning raw output for ordinary `OK` results. Use
+`contractOk`, `contractAccepted`, `contractQueued`, `contractNoContent`,
+`contractPartial`, and `contractFail` when an operation needs explicit status,
+headers, retry metadata, warnings, partial problems, or typed error args.
+
+```ts
+import {
+  contractAccepted,
+  createContractError,
+  defineResultCatalog,
+  failure,
+  standardErrors,
+  standardSuccess,
+  success,
+} from "@contractspec/lib.contracts-spec/results";
+
+const results = defineResultCatalog({
+  success: {
+    ...standardSuccess.pick("OK", "CREATED"),
+    QUEUED_FOR_REVIEW: success.queued<{ reviewId: string }>(),
+  },
+  errors: {
+    ...standardErrors.pick("UNAUTHENTICATED", "FORBIDDEN"),
+    INTENT_NOT_FOUND: failure.notFound<{ intentId: string }>({
+      description: "The referenced intent does not exist.",
+      gqlCode: "INTENT_NOT_FOUND",
+    }),
+  },
+});
+```
+
+`OperationSpecRegistry.executeResult(...)` returns a `ContractResult`.
+Legacy `execute(...)` remains compatible: it unwraps success data and throws
+`ContractSpecError` on failure. Custom success and failure codes should be
+declared in `spec.results` or `io.success`/`io.errors`; undeclared custom
+failure codes normalize to `INTERNAL_ERROR`.
+
+Adapter defaults:
+
+- REST/Fetch keeps raw success bodies by default and emits failures as
+  `application/problem+json`; set `resultEnvelope: true` for `{ ok, data }`
+  success envelopes.
+- Next.js can use the injected `NextResponse.json(...)` helper from the REST
+  runtime.
+- NestJS support is exposed as duck-typed exception filter/interceptor helpers
+  without adding `@nestjs/common` as a hard dependency.
+- GraphQL keeps field success payloads unchanged by default; enable
+  `resultExtensions` to collect success metadata, while failures use
+  `extensions.contractspec.problem`.
+- MCP tools return normal content for success and `isError: true` with a safe
+  problem payload for failures.
+- React runtime helpers normalize REST, GraphQL, MCP, workflow, job, and legacy
+  error shapes into a `ContractResult`.
+
+Migration note: prefer `ContractSpecError`, `createContractError`, and
+`contractFail` over `@contractspec/lib.error/AppError`. `@contractspec/lib.error`
+is kept as a compatibility bridge.
 
 ## Validation And Authoring Entry Points
 
@@ -127,7 +193,8 @@ Those settings are consumed by the shared setup layer used by the CLI, VS Code e
 
 ## Current Authoring Workflow
 
-- Use `defineTheme(...)` plus `contractspec create theme` for first-class theme scaffolding.
+- Use `defineTheme(...)` plus `contractspec create theme` for first-class theme scaffolding; keep `tokens` as the default/light-compatible bag and add `modes.dark.tokens` for dark-mode overlays.
+- Theme color tokens may carry `format` metadata such as `oklch`, with CSS color strings passed through to design-system bridges.
 - Route `app-config`, `feature`, and `theme` checks through the package-level validators above when building setup, editor, or CI automation.
 - Use `connect.adoption` and the broader authoring-target discovery flows when the CLI or editors should prefer existing workspace or ContractSpec surfaces before scaffolding new code.
 
@@ -226,7 +293,7 @@ See the live example in `/docs/examples/data-grid-showcase` and the browser sand
 
 <!-- CONTRACT_INVENTORY:START -->
 
-The package currently exposes **394 total exports** in `package.json`, including the root `.` barrel and **393 subpath exports**. This summary is kept here for high-context navigation and AI grounding.
+The package currently exposes **397 total exports** in `package.json`, including the root `.` barrel and **396 subpath exports**. This summary is kept here for high-context navigation and AI grounding.
 
 ### 1) Registry-level contract types (semantic model)
 

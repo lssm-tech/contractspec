@@ -12,6 +12,8 @@ export interface TestGeneratorOptions {
 	maxScenarios?: number;
 }
 
+type GenerateText = typeof generateText;
+
 const SYSTEM_PROMPT = `
 You are an expert software test engineer specializing in ContractSpec.
 Your goal is to generate comprehensive test scenarios for a given ContractSpec Operation.
@@ -35,7 +37,8 @@ Generate scenarios covering:
 export class TestGeneratorService {
 	constructor(
 		private readonly logger: LoggerAdapter,
-		private readonly defaultModel?: LanguageModel
+		private readonly defaultModel?: LanguageModel,
+		private readonly generateTextImpl: GenerateText = generateText
 	) {}
 
 	async generateTests(
@@ -62,7 +65,7 @@ Do not include markdown formatting or explanations, just the JSON.
 `.trim();
 
 		try {
-			const { text, usage } = await generateText({
+			const { text, usage } = await this.generateTextImpl({
 				model,
 				system: SYSTEM_PROMPT,
 				prompt,

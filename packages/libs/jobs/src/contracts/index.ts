@@ -23,6 +23,8 @@ export const JobModel = defineSchemaModel({
 		startedAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
 		completedAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
 		lastError: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+		lastProblem: { type: ScalarTypeEnum.JSONObject(), isOptional: true },
+		resultEnvelope: { type: ScalarTypeEnum.JSONObject(), isOptional: true },
 	},
 });
 

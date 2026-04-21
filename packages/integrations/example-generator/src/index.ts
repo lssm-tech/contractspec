@@ -5,6 +5,7 @@
 
 export { defaultConfig, mergeConfig, validateConfig } from './config.js';
 export { ExampleGeneratorPlugin } from './generator.js';
+export * from './integration';
 export type {
 	ConfigurationError,
 	ExampleGeneratorError,

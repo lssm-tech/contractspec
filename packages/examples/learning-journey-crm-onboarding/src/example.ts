@@ -1,31 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesLearningJourneyCrmOnboardingExample = defineExample({
 	meta: {
-		key: 'learning-journey-crm-onboarding',
+		key: 'examples.learning-journey-crm-onboarding',
 		version: '1.0.0',
-		title: 'Learning Journey — CRM First Win',
+		title: 'Learning Journey Crm Onboarding',
 		description:
-			'Onboarding track for CRM Pipeline driving users from empty CRM to first closed-won deal.',
+			'Learning journey track that onboards users to the CRM pipeline example.',
 		kind: 'template',
-		visibility: 'public',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['learning', 'crm', 'onboarding'],
-	},
-	docs: {
-		rootDocId: 'docs.learning-journey.crm-onboarding',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.learning-journey-crm-onboarding',
-		docs: './docs',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'learning-journey-crm-onboarding'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: { enabled: true, modes: ['playground', 'markdown'] },
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.learning-journey-crm-onboarding',
 	},
 });
 
-export default example;
+export default ExamplesLearningJourneyCrmOnboardingExample;
+export { ExamplesLearningJourneyCrmOnboardingExample };

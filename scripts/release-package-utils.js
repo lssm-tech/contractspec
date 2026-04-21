@@ -8,6 +8,7 @@ export const CLI_SMOKE_PACKAGE_NAMES = [
 	'@contractspec/app.cli-contractspec',
 ];
 const EXPLICIT_RELEASE_SELECTION_VALUES = new Set(['1', 'true']);
+const EXPLICIT_RELEASE_OPT_OUT_VALUES = new Set(['0', 'false']);
 const RELEASE_PREPARATION_DEPENDENCY_SECTIONS = [
 	'dependencies',
 	'optionalDependencies',
@@ -84,7 +85,22 @@ function hasExplicitPackageSelectionFlag(value) {
 	return EXPLICIT_RELEASE_SELECTION_VALUES.has(value.trim().toLowerCase());
 }
 
+function hasExplicitOptOutFlag(value) {
+	if (typeof value !== 'string') {
+		return false;
+	}
+
+	return EXPLICIT_RELEASE_OPT_OUT_VALUES.has(value.trim().toLowerCase());
+}
+
 export function getPackageNameSelection(options = {}) {
+	if (options.allPackages) {
+		return {
+			packageNames: [],
+			packageNamesSpecified: false,
+		};
+	}
+
 	if (Array.isArray(options.packageNames) && options.packageNames.length > 0) {
 		return {
 			packageNames: options.packageNames,
@@ -134,6 +150,29 @@ export function getPackageNameSelection(options = {}) {
 		packageNames: [],
 		packageNamesSpecified: false,
 	};
+}
+
+export function shouldIncludeMissingRegistryPackages(
+	options = {},
+	npmTag = 'latest'
+) {
+	if (typeof options.includeMissingPackages === 'boolean') {
+		return options.includeMissingPackages;
+	}
+
+	if (
+		Object.prototype.hasOwnProperty.call(
+			process.env,
+			'CONTRACTSPEC_RELEASE_INCLUDE_MISSING'
+		)
+	) {
+		const value = process.env.CONTRACTSPEC_RELEASE_INCLUDE_MISSING;
+		return (
+			hasExplicitPackageSelectionFlag(value) && !hasExplicitOptOutFlag(value)
+		);
+	}
+
+	return npmTag === 'latest';
 }
 
 export function getPreparationPackageNames(requestedPackageNames) {

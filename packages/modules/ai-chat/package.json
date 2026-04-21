@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/module.ai-chat",
-	"version": "4.3.20",
+	"version": "4.3.22",
 	"description": "AI chat interface module",
 	"keywords": [
 		"contractspec",
@@ -55,7 +55,7 @@
 		"@contractspec/tool.bun": "workspace:*"
 	},
 	"peerDependencies": {
-		"react": ">=19.2.4"
+		"react": "catalog:"
 	},
 	"exports": {
 		".": "./src/index.ts",

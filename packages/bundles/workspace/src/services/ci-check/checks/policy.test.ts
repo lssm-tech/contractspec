@@ -29,29 +29,94 @@ function createFs(files: Record<string, string>): FsAdapter {
 			mtime: new Date(),
 		}),
 		mkdir: async () => {},
-		glob: async ({ pattern }) => {
-			if (pattern === '**/*.{ts,tsx}') {
-				return [...normalized.keys()].filter((path) =>
-					/\.(ts|tsx)$/.test(path)
+		glob: async ({ pattern, patterns, cwd, ignore, absolute }) => {
+			const matcherInput = patterns ?? (pattern ? [pattern] : []);
+			const normalizedCwd = (cwd ?? '')
+				.replaceAll('\\', '/')
+				.replace(/\/$/, '');
+			const candidatePaths = [...normalized.keys()]
+				.filter((path) =>
+					normalizedCwd
+						? path === normalizedCwd || path.startsWith(`${normalizedCwd}/`)
+						: true
+				)
+				.map((path) =>
+					normalizedCwd && path.startsWith(`${normalizedCwd}/`)
+						? path.slice(normalizedCwd.length + 1)
+						: normalizedCwd === path
+							? ''
+							: path
 				);
-			}
 
-			return [...normalized.keys()].filter(
-				(path) =>
-					path.endsWith('.operation.ts') ||
-					path.endsWith('.event.ts') ||
-					path.endsWith('.presentation.ts') ||
-					path.endsWith('.feature.ts') ||
-					path.endsWith('.test-spec.ts')
-			);
+			return candidatePaths
+				.filter((candidatePath) => {
+					const matched = matcherInput.some((candidatePattern) =>
+						matchesGlob(candidatePath, candidatePattern)
+					);
+					if (!matched) {
+						return false;
+					}
+					if (
+						(ignore ?? []).some((candidatePattern) =>
+							matchesGlob(candidatePath, candidatePattern)
+						)
+					) {
+						return false;
+					}
+					return true;
+				})
+				.map((candidatePath) => {
+					if (absolute === false || !normalizedCwd) {
+						return candidatePath || normalizedCwd;
+					}
+					return normalizedCwd
+						? `${normalizedCwd}/${candidatePath}`
+						: candidatePath;
+				});
 		},
 		resolve: (...paths) => paths.join('/'),
 		dirname: (path) => path.split('/').slice(0, -1).join('/'),
 		basename: (path) => path.split('/').pop() ?? '',
-		join: (...paths) => paths.join('/'),
+		join: (...paths) => paths.filter(Boolean).join('/').replace(/\/+/g, '/'),
 		relative: (_from, to) => to,
 	};
 }
+
+function matchesGlob(path: string, glob: string): boolean {
+	const escaped = glob
+		.replace(/[.+^${}()|[\]\\]/g, '\\$&')
+		.replace(/\\\{([^}]+)\\\}/g, (_, group) => `(${group.replace(/,/g, '|')})`)
+		.replace(/\*\*/g, '::double-star::')
+		.replace(/\*/g, '[^/]*')
+		.replace(/::double-star::/g, '.*');
+	return new RegExp(`^${escaped}$`).test(path);
+}
+
+const BASE_CONFIG: CICheckOptions['config'] = {
+	aiProvider: 'claude',
+	agentMode: 'simple',
+	outputDir: './src',
+	conventions: {
+		models: 'models',
+		operations: 'contracts',
+		events: 'events',
+		presentations: 'presentations',
+		forms: 'forms',
+		capabilities: 'capabilities',
+		policies: 'policies',
+		tests: 'tests',
+		translations: 'translations',
+		groupByFeature: true,
+	},
+	defaultOwners: [],
+	defaultTags: [],
+	schemaFormat: 'contractspec',
+	ci: {
+		packageDeclarations: {
+			severity: 'off',
+		},
+	},
+};
 
 const logger = {
 	debug: () => {},
@@ -76,26 +141,7 @@ describe('runPolicyChecks', () => {
 		});
 
 		const options: CICheckOptions = {
-			config: {
-				aiProvider: 'claude',
-				agentMode: 'simple',
-				outputDir: './src',
-				conventions: {
-					models: 'models',
-					operations: 'contracts',
-					events: 'events',
-					presentations: 'presentations',
-					forms: 'forms',
-					capabilities: 'capabilities',
-					policies: 'policies',
-					tests: 'tests',
-					translations: 'translations',
-					groupByFeature: true,
-				},
-				defaultOwners: [],
-				defaultTags: [],
-				schemaFormat: 'contractspec',
-			},
+			config: BASE_CONFIG,
 		};
 
 		const issues = await runPolicyChecks({ fs, logger }, options);
@@ -113,26 +159,7 @@ describe('runPolicyChecks', () => {
 		});
 
 		const options: CICheckOptions = {
-			config: {
-				aiProvider: 'claude',
-				agentMode: 'simple',
-				outputDir: './src',
-				conventions: {
-					models: 'models',
-					operations: 'contracts',
-					events: 'events',
-					presentations: 'presentations',
-					forms: 'forms',
-					capabilities: 'capabilities',
-					policies: 'policies',
-					tests: 'tests',
-					translations: 'translations',
-					groupByFeature: true,
-				},
-				defaultOwners: [],
-				defaultTags: [],
-				schemaFormat: 'contractspec',
-			},
+			config: BASE_CONFIG,
 		};
 
 		const issues = await runPolicyChecks({ fs, logger }, options);
@@ -149,26 +176,7 @@ describe('runPolicyChecks', () => {
 		});
 
 		const options: CICheckOptions = {
-			config: {
-				aiProvider: 'claude',
-				agentMode: 'simple',
-				outputDir: './src',
-				conventions: {
-					models: 'models',
-					operations: 'contracts',
-					events: 'events',
-					presentations: 'presentations',
-					forms: 'forms',
-					capabilities: 'capabilities',
-					policies: 'policies',
-					tests: 'tests',
-					translations: 'translations',
-					groupByFeature: true,
-				},
-				defaultOwners: [],
-				defaultTags: [],
-				schemaFormat: 'contractspec',
-			},
+			config: BASE_CONFIG,
 		};
 
 		const issues = await runPolicyChecks({ fs, logger }, options);
@@ -185,26 +193,7 @@ describe('runPolicyChecks', () => {
 		});
 
 		const options: CICheckOptions = {
-			config: {
-				aiProvider: 'claude',
-				agentMode: 'simple',
-				outputDir: './src',
-				conventions: {
-					models: 'models',
-					operations: 'contracts',
-					events: 'events',
-					presentations: 'presentations',
-					forms: 'forms',
-					capabilities: 'capabilities',
-					policies: 'policies',
-					tests: 'tests',
-					translations: 'translations',
-					groupByFeature: true,
-				},
-				defaultOwners: [],
-				defaultTags: [],
-				schemaFormat: 'contractspec',
-			},
+			config: BASE_CONFIG,
 		};
 
 		const issues = await runPolicyChecks({ fs, logger }, options);
@@ -219,26 +208,7 @@ describe('runPolicyChecks', () => {
 		});
 
 		const options: CICheckOptions = {
-			config: {
-				aiProvider: 'claude',
-				agentMode: 'simple',
-				outputDir: './src',
-				conventions: {
-					models: 'models',
-					operations: 'contracts',
-					events: 'events',
-					presentations: 'presentations',
-					forms: 'forms',
-					capabilities: 'capabilities',
-					policies: 'policies',
-					tests: 'tests',
-					translations: 'translations',
-					groupByFeature: true,
-				},
-				defaultOwners: [],
-				defaultTags: [],
-				schemaFormat: 'contractspec',
-			},
+			config: BASE_CONFIG,
 		};
 
 		const issues = await runPolicyChecks({ fs, logger }, options);
@@ -255,30 +225,86 @@ describe('runPolicyChecks', () => {
 		});
 
 		const options: CICheckOptions = {
-			config: {
-				aiProvider: 'claude',
-				agentMode: 'simple',
-				outputDir: './src',
-				conventions: {
-					models: 'models',
-					operations: 'contracts',
-					events: 'events',
-					presentations: 'presentations',
-					forms: 'forms',
-					capabilities: 'capabilities',
-					policies: 'policies',
-					tests: 'tests',
-					translations: 'translations',
-					groupByFeature: true,
-				},
-				defaultOwners: [],
-				defaultTags: [],
-				schemaFormat: 'contractspec',
-			},
+			config: BASE_CONFIG,
 		};
 
 		const issues = await runPolicyChecks({ fs, logger }, options);
 
 		expect(issues).toHaveLength(0);
+	});
+
+	it('reports missing package declarations as policy errors', async () => {
+		const fs = createFs({
+			'package.json': JSON.stringify({
+				workspaces: {
+					packages: ['packages/libs/*'],
+				},
+			}),
+			'packages/libs/logger/package.json': JSON.stringify({
+				name: '@contractspec/lib.logger',
+				description: 'Logger library',
+			}),
+			'packages/libs/logger/src/index.ts': 'export {};\n',
+		});
+
+		const issues = await runPolicyChecks(
+			{ fs, logger },
+			{
+				workspaceRoot: '',
+				config: {
+					...BASE_CONFIG,
+					ci: {
+						packageDeclarations: {
+							severity: 'error',
+							requiredByKind: {
+								libs: 'feature',
+							},
+						},
+					},
+				},
+			}
+		);
+
+		expect(issues).toHaveLength(1);
+		expect(issues[0]?.ruleId).toBe('policy-package-declaration');
+		expect(issues[0]?.severity).toBe('error');
+	});
+
+	it('downgrades allowlisted package declaration gaps to warnings', async () => {
+		const fs = createFs({
+			'package.json': JSON.stringify({
+				workspaces: {
+					packages: ['packages/apps/*'],
+				},
+			}),
+			'packages/apps/cli-database/package.json': JSON.stringify({
+				name: '@contractspec/app.cli-database',
+				description: 'Database CLI',
+			}),
+			'packages/apps/cli-database/src/index.ts': 'export {};\n',
+		});
+
+		const issues = await runPolicyChecks(
+			{ fs, logger },
+			{
+				workspaceRoot: '',
+				config: {
+					...BASE_CONFIG,
+					ci: {
+						packageDeclarations: {
+							severity: 'error',
+							requiredByKind: {
+								apps: 'app-config',
+							},
+							allowMissing: ['packages/apps/cli-database'],
+						},
+					},
+				},
+			}
+		);
+
+		expect(issues).toHaveLength(1);
+		expect(issues[0]?.severity).toBe('warning');
+		expect(issues[0]?.context?.allowlisted).toBe(true);
 	});
 });

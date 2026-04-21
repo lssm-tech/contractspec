@@ -52,6 +52,46 @@ export function AccountHealthTable() {
   );
 }`;
 
+const THEME_TAILWIND_EXAMPLE = `import {
+  DesignSystemThemeProvider,
+  resolveThemeModeTokens,
+  themeSpecToCssVariables,
+  themeSpecToTailwindCss,
+  themeSpecToTailwindPreset,
+} from '@contractspec/lib.design-system';
+
+const tokens = resolveThemeModeTokens(themeSpec, 'light', {
+  targets: ['tenant:acme'],
+});
+
+export default themeSpecToTailwindPreset(tokens);
+
+const css = themeSpecToTailwindCss(
+  themeSpecToCssVariables(themeSpec, { targets: ['tenant:acme'] }),
+  { includeCustomVariant: true }
+);
+
+export function TenantSurface({ children }: { children: React.ReactNode }) {
+  return (
+    <DesignSystemThemeProvider
+      theme={themeSpec}
+      targets={['tenant:acme']}
+      mode="dark"
+      applyCssVariables
+    >
+      {children}
+    </DesignSystemThemeProvider>
+  );
+}`;
+
+const FOCUSED_SUBPATHS_EXAMPLE = `import { themeSpecToTailwindPreset } from '@contractspec/lib.design-system/theme';
+import { Select } from '@contractspec/lib.design-system/controls';
+import { FormDialog } from '@contractspec/lib.design-system/forms';
+import { HStack } from '@contractspec/lib.design-system/layout';
+
+// Root imports remain supported:
+import { Button, DataTable } from '@contractspec/lib.design-system';`;
+
 export function LibrariesDesignSystemPage() {
 	return (
 		<div className="space-y-8">
@@ -95,10 +135,34 @@ export function LibrariesDesignSystemPage() {
 						adaptive design
 					</li>
 					<li>
+						<strong>Theme Bridge</strong>: ThemeSpec to Tailwind variables,
+						presets, CSS text, and runtime light/dark mode
+					</li>
+					<li>
 						<strong>Legal Templates</strong>: Compliant templates for Terms,
 						Privacy, and GDPR
 					</li>
 				</ul>
+			</div>
+
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">ThemeSpec to Tailwind</h2>
+				<p className="text-muted-foreground">
+					The theme bridge keeps <code>ThemeSpec</code> as the source of truth
+					and exposes no-generation Tailwind helpers, optional CSS text
+					serialization, runtime CSS variables, light/dark modes, and OKLCH
+					color pass-through.
+				</p>
+				<CodeBlock language="tsx" code={THEME_TAILWIND_EXAMPLE} />
+			</div>
+
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Focused import surfaces</h2>
+				<p className="text-muted-foreground">
+					New code can use focused subpaths for theme, controls, forms, and
+					layout while existing root imports remain compatible.
+				</p>
+				<CodeBlock language="tsx" code={FOCUSED_SUBPATHS_EXAMPLE} />
 			</div>
 
 			<div className="space-y-4">
@@ -154,6 +218,21 @@ export function LibrariesDesignSystemPage() {
 						</ul>
 					</div>
 				</div>
+			</div>
+
+			<div className="card-subtle space-y-3 p-6">
+				<h2 className="font-bold text-2xl">Where this layer fits</h2>
+				<p className="text-muted-foreground">
+					Read{' '}
+					<Link
+						href="/docs/libraries/cross-platform-ui"
+						className="text-[color:var(--rust)] underline underline-offset-4"
+					>
+						Cross-platform UI
+					</Link>{' '}
+					for the package split between shared runtime controllers, leaf
+					platform primitives, and this composed design-system layer.
+				</p>
 			</div>
 
 			<div className="flex items-center gap-4 pt-4">

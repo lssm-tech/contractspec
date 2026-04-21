@@ -1,3 +1,4 @@
+export * from './analytics.feature';
 export * from './churn';
 export * from './cohort';
 export * from './funnel';

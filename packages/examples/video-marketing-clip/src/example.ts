@@ -1,32 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesVideoMarketingClipExample = defineExample({
 	meta: {
-		key: 'video-marketing-clip',
+		key: 'examples.video-marketing-clip',
 		version: '1.0.0',
-		title: 'Video Marketing Clips',
+		title: 'Video Marketing Clip',
 		description:
-			'Generate short-form marketing videos from content briefs using the deterministic video-gen pipeline.',
-		kind: 'script',
-		visibility: 'public',
+			'Generate short-form marketing videos from content briefs using the video-gen pipeline.',
+		kind: 'template',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['video', 'marketing', 'content-gen', 'social-clip'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.video-marketing-clip',
-		usageDocId: 'docs.examples.video-marketing-clip.usage',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.video-marketing-clip',
-		docs: './docs',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'video-marketing-clip'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: { enabled: true, modes: ['markdown'] },
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.video-marketing-clip',
 	},
 });
 
-export default example;
+export default ExamplesVideoMarketingClipExample;
+export { ExamplesVideoMarketingClipExample };

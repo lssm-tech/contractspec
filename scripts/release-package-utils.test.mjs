@@ -6,11 +6,13 @@ import {
 	discoverPublishablePackages,
 	getPackageNameSelection,
 	getPreparationPackageNames,
+	shouldIncludeMissingRegistryPackages,
 } from './release-package-utils.js';
 
 const tempDirs = [];
 
 afterEach(() => {
+	delete process.env.CONTRACTSPEC_RELEASE_INCLUDE_MISSING;
 	delete process.env.CONTRACTSPEC_RELEASE_PACKAGE_NAMES;
 	delete process.env.CONTRACTSPEC_RELEASE_PACKAGE_NAMES_SPECIFIED;
 	while (tempDirs.length > 0) {
@@ -318,5 +320,30 @@ describe('getPackageNameSelection', () => {
 			packageNames: [],
 			packageNamesSpecified: true,
 		});
+	});
+
+	it('lets --all override an explicit env selection', () => {
+		process.env.CONTRACTSPEC_RELEASE_PACKAGE_NAMES = 'contractspec';
+		process.env.CONTRACTSPEC_RELEASE_PACKAGE_NAMES_SPECIFIED = '1';
+
+		expect(getPackageNameSelection({ allPackages: true })).toEqual({
+			packageNames: [],
+			packageNamesSpecified: false,
+		});
+	});
+});
+
+describe('shouldIncludeMissingRegistryPackages', () => {
+	it('defaults on for stable releases and off for non-latest tags', () => {
+		expect(shouldIncludeMissingRegistryPackages({}, 'latest')).toBe(true);
+		expect(shouldIncludeMissingRegistryPackages({}, 'canary')).toBe(false);
+	});
+
+	it('allows env overrides', () => {
+		process.env.CONTRACTSPEC_RELEASE_INCLUDE_MISSING = '1';
+		expect(shouldIncludeMissingRegistryPackages({}, 'canary')).toBe(true);
+
+		process.env.CONTRACTSPEC_RELEASE_INCLUDE_MISSING = '0';
+		expect(shouldIncludeMissingRegistryPackages({}, 'latest')).toBe(false);
 	});
 });

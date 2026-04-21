@@ -53,6 +53,7 @@
 		"./JsonSchemaType": "./src/JsonSchemaType.ts",
 		"./ScalarFactoryCache": "./src/ScalarFactoryCache.ts",
 		"./ScalarTypeEnum": "./src/ScalarTypeEnum.ts",
+		"./schema.feature": "./src/schema.feature.ts",
 		"./SchemaModel": "./src/SchemaModel.ts",
 		"./SchemaModelType": "./src/SchemaModelType.ts",
 		"./ZodSchemaType": "./src/ZodSchemaType.ts"
@@ -125,6 +126,12 @@
 				"bun": "./dist/ScalarTypeEnum.js",
 				"node": "./dist/node/ScalarTypeEnum.js",
 				"default": "./dist/ScalarTypeEnum.js"
+			},
+			"./schema.feature": {
+				"types": "./dist/schema.feature.d.ts",
+				"bun": "./dist/schema.feature.js",
+				"node": "./dist/node/schema.feature.js",
+				"default": "./dist/schema.feature.js"
 			},
 			"./SchemaModel": {
 				"types": "./dist/SchemaModel.d.ts",

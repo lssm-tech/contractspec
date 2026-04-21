@@ -1,42 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesMarketplaceExample = defineExample({
 	meta: {
-		key: 'marketplace',
+		key: 'examples.marketplace',
 		version: '1.0.0',
-		title: 'Marketplace (2-sided)',
+		title: 'Marketplace',
 		description:
-			'Two-sided marketplace with stores, products, orders, payouts, and reviews (multi-actor flows).',
+			'Marketplace example with orders, payouts, and reviews for ContractSpec',
 		kind: 'template',
-		visibility: 'public',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['marketplace', 'orders', 'payouts', 'reviews'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.marketplace',
-		goalDocId: 'docs.examples.marketplace.goal',
-		usageDocId: 'docs.examples.marketplace.usage',
-		constraintsDocId: 'docs.examples.marketplace.constraints',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.marketplace',
-		feature: './feature',
-		contracts: './contracts',
-		presentations: './presentations',
-		handlers: './handlers',
-		docs: './docs',
-		ui: './ui',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'marketplace'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: {
-			enabled: true,
-			modes: ['playground', 'specs', 'builder', 'markdown', 'evolution'],
-		},
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.marketplace',
 	},
 });
 
-export default example;
+export default ExamplesMarketplaceExample;
+export { ExamplesMarketplaceExample };

@@ -99,6 +99,76 @@ describe('ThemeRegistry', () => {
 		expect(result.issues).toHaveLength(0);
 	});
 
+	it('accepts light and dark mode tokens with OKLCH color values', () => {
+		const result = validateThemeSpec({
+			...pastelTheme,
+			tokens: {},
+			modes: {
+				light: {
+					tokens: {
+						colors: {
+							primary: {
+								value: 'oklch(0.72 0.11 221.19)',
+								format: 'oklch',
+								usage: 'semantic',
+							},
+						},
+					},
+				},
+				dark: {
+					tokens: {
+						colors: {
+							primary: {
+								value: 'oklch(0.62 0.13 221.19)',
+								format: 'oklch',
+								usage: 'semantic',
+							},
+						},
+					},
+				},
+			},
+		});
+
+		expect(result.valid).toBe(true);
+		expect(result.issues).toHaveLength(0);
+	});
+
+	it('reports empty mode keys and warns on unknown color formats', () => {
+		const result = validateThemeSpec({
+			...pastelTheme,
+			modes: {
+				'': {
+					tokens: {
+						colors: {
+							primary: { value: '#2563eb', format: 'lab-ish' },
+						},
+					},
+				},
+				light: {
+					tokens: {
+						colors: {
+							accent: { value: '#38bdf8', format: 'lab-ish' },
+						},
+					},
+				},
+			},
+		});
+
+		expect(result.valid).toBe(false);
+		expect(result.issues).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({
+					path: 'modes',
+					level: 'error',
+				}),
+				expect.objectContaining({
+					path: 'modes.light.tokens.colors.accent.format',
+					level: 'warning',
+				}),
+			])
+		);
+	});
+
 	it('reports missing metadata and material configuration', () => {
 		const result = validateThemeSpec({
 			meta: {

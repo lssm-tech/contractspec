@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.image-gen",
-	"version": "1.7.20",
+	"version": "1.7.21",
 	"description": "AI-powered image generation for hero, social, thumbnail, OG, and illustration",
 	"keywords": [
 		"contractspec",
@@ -56,6 +56,7 @@
 		"./i18n/keys": "./src/i18n/keys.ts",
 		"./i18n/locale": "./src/i18n/locale.ts",
 		"./i18n/messages": "./src/i18n/messages.ts",
+		"./image-gen.feature": "./src/image-gen.feature.ts",
 		"./presets": "./src/presets/index.ts",
 		"./presets/marketing": "./src/presets/marketing.ts",
 		"./presets/social": "./src/presets/social.ts",
@@ -169,6 +170,13 @@
 				"bun": "./dist/i18n/messages.js",
 				"node": "./dist/node/i18n/messages.js",
 				"default": "./dist/i18n/messages.js"
+			},
+			"./image-gen.feature": {
+				"types": "./dist/image-gen.feature.d.ts",
+				"browser": "./dist/browser/image-gen.feature.js",
+				"bun": "./dist/image-gen.feature.js",
+				"node": "./dist/node/image-gen.feature.js",
+				"default": "./dist/image-gen.feature.js"
 			},
 			"./presets": {
 				"types": "./dist/presets/index.d.ts",

@@ -1,31 +1,27 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesLearningJourneyUiOnboardingExample = defineExample({
 	meta: {
-		key: 'learning-journey-ui-onboarding',
+		key: 'examples.learning-journey-ui-onboarding',
 		version: '1.0.0',
-		title: 'Learning Journey UI — Onboarding',
-		description:
-			'UI mini-app for onboarding patterns: checklists, code snippets, journey map.',
-		kind: 'ui',
-		visibility: 'public',
+		title: 'Learning Journey Ui Onboarding',
+		description: 'Developer onboarding UI with checklists and journey maps.',
+		kind: 'template',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['learning', 'ui', 'onboarding'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.learning-journey-ui-onboarding',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.learning-journey-ui-onboarding',
-		docs: './docs',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'learning-journey-ui-onboarding'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: { enabled: true, modes: ['playground', 'markdown'] },
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.learning-journey-ui-onboarding',
 	},
 });
 
-export default example;
+export default ExamplesLearningJourneyUiOnboardingExample;
+export { ExamplesLearningJourneyUiOnboardingExample };

@@ -1,0 +1,69 @@
+schemaVersion: "1"
+slug: presentation-runtime-bundler-split
+summary: Replace the old Next alias helper with explicit Webpack and Turbopack helpers, keep Metro stable, publish bundler helpers from dist artifacts, and refresh the public docs to teach the current Next.js bundler path.
+isBreaking: true
+packages:
+  - name: "@contractspec/lib.presentation-runtime-core"
+    releaseType: major
+affectedRuntimes:
+  - bun
+  - node
+  - nextjs
+  - expo
+affectedFrameworks:
+  - react
+  - react-native
+audiences:
+  - kind: maintainer
+    summary: Maintainers now configure shared rendering aliases with explicit Webpack and Turbopack helpers instead of the overloaded Next helper name, while Metro behavior stays unchanged and package exports point at generated dist artifacts.
+    affectedPackages:
+      - "@contractspec/lib.presentation-runtime-core"
+  - kind: integrator
+    summary: Integrators must rename `withPresentationNextAliases` calls to `withPresentationWebpackAliases` or move to `withPresentationTurbopackAliases`, depending on which Next.js bundler they use.
+    affectedPackages:
+      - "@contractspec/lib.presentation-runtime-core"
+  - kind: customer
+    summary: Public docs now teach Turbopack as the default Next.js path and Webpack as an explicit fallback, with root-imported helpers for Next and Metro examples backed by npm-packable dist files.
+    affectedPackages:
+      - "@contractspec/lib.presentation-runtime-core"
+deprecations: []
+migrationInstructions:
+  - id: rename-next-helper-imports
+    title: Replace the removed Next helper
+    summary: The old helper name has been removed in favor of bundler-specific names.
+    required: true
+    when: When a codebase imports or calls `withPresentationNextAliases`.
+    steps:
+      - Replace `withPresentationNextAliases` with `withPresentationTurbopackAliases` for default Next.js apps that use the `turbopack` config block.
+      - Replace `withPresentationNextAliases` with `withPresentationWebpackAliases` only in code that still configures `nextConfig.webpack`.
+      - Import all three helpers from the root `@contractspec/lib.presentation-runtime-core` entrypoint.
+  - id: update-next-config-shape
+    title: Move Turbopack setup to `nextConfig.turbopack`
+    summary: Turbopack aliasing is now configured by patching the full Next config object instead of mutating a webpack resolver config.
+    required: true
+    when: When adopting the new Turbopack helper.
+    steps:
+      - Wrap the full Next config object with `withPresentationTurbopackAliases(...)`.
+      - Keep any existing `turbopack.resolveAlias` entries; the helper merges them with the presentation aliases.
+      - Use `next dev --webpack` or `next build --webpack` only when a project intentionally stays on the webpack fallback path.
+upgradeSteps:
+  - id: verify-runtime-and-doc-surfaces
+    title: Re-run helper and docs verification
+    summary: Confirm the runtime helpers, generated docs, and website-facing docs now agree on the new names.
+    level: assisted
+    instructions:
+      - Run the focused helper tests, typecheck, and lint checks in `@contractspec/lib.presentation-runtime-core`.
+      - Re-run the bundle-library docs manifest test and typecheck.
+      - Regenerate the web-facing `/llms*` surface after the README changes.
+validation:
+  commands:
+    - "cd packages/libs/presentation-runtime-core && bun test && bun run typecheck && bun run lint:check"
+    - "cd packages/libs/presentation-runtime-core && bun run build && mkdir -p /tmp/contractspec-pack-check && npm pack --json --pack-destination /tmp/contractspec-pack-check"
+    - "cd packages/bundles/library && bun test src/components/docs/docsManifest.test.ts && bun run typecheck"
+    - "node scripts/biome.cjs check packages/bundles/library/src/components/docs/libraries/LibrariesCrossPlatformUIPage.tsx packages/bundles/library/src/components/docs/libraries/LibrariesCrossPlatformUIPage.content.ts"
+    - "cd packages/apps/web-landing && bun run llms:generate"
+  evidence:
+    - "`@contractspec/lib.presentation-runtime-core` now exports `withPresentationWebpackAliases` and `withPresentationTurbopackAliases`, while `withPresentationNextAliases` has been removed."
+    - "`src/metro.ts` and `src/next.ts` now build into published `dist` entrypoints, with `dist/metro.cjs` preserved for CommonJS Metro config loading."
+    - "The public docs and generated presentation-runtime reference now teach Turbopack as the default Next.js path, Webpack as the fallback path, and Metro from the root package import."
+    - "The cross-platform UI docs page now explains the renamed helpers without pointing readers at the removed Next helper or the source-file Metro import path."

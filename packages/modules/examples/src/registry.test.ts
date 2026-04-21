@@ -3,7 +3,12 @@ import fs from 'node:fs';
 import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { validateExamples } from '@contractspec/lib.contracts-spec/examples/validation';
-import { listExamples } from './registry';
+import {
+	getExample,
+	getExampleId,
+	listExamples,
+	searchExamples,
+} from './registry';
 
 const testDir = path.dirname(fileURLToPath(import.meta.url));
 
@@ -94,5 +99,22 @@ describe('@contractspec/module.examples registry', () => {
 		expect(exampleKeys.has('minimal')).toBe(true);
 		expect(exampleKeys.has('opencode-cli')).toBe(true);
 		expect(exampleKeys.has('visualization-showcase')).toBe(true);
+	});
+
+	test('should resolve canonical and public example ids to the same example', () => {
+		const example = getExample('crm-pipeline');
+		const canonicalExample = getExample('examples.crm-pipeline');
+
+		expect(example).toBeDefined();
+		expect(canonicalExample).toEqual(example);
+		expect(example && getExampleId(example)).toBe('crm-pipeline');
+	});
+
+	test('should search by canonical example ids for compatibility', () => {
+		const results = searchExamples('examples.crm-pipeline');
+
+		expect(results.some((example) => example.meta.key === 'crm-pipeline')).toBe(
+			true
+		);
 	});
 });

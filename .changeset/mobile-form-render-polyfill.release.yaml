@@ -1,0 +1,59 @@
+schemaVersion: "1"
+slug: mobile-form-render-polyfill
+summary: Keep design-system FormRender mobile-safe by preserving shared renderer imports for Metro aliases and hardening generated package artifacts.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.contracts-runtime-client-react"
+    releaseType: minor
+  - name: "@contractspec/lib.design-system"
+    releaseType: minor
+  - name: "@contractspec/tool.bun"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - nextjs
+  - expo
+affectedFrameworks:
+  - react
+  - react-native
+audiences:
+  - kind: maintainer
+    summary: Form rendering now supports host-provided layout slots and button-driven submission while design-system builds no-bundle artifacts that keep package imports visible to platform aliasing.
+    affectedPackages:
+      - "@contractspec/lib.contracts-runtime-client-react"
+      - "@contractspec/lib.design-system"
+      - "@contractspec/tool.bun"
+  - kind: integrator
+    summary: Expo apps can import `@contractspec/lib.design-system/renderers` and rely on `withPresentationMetroAliases` to remap shared ui-kit-web imports instead of using a separate native renderer.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+deprecations: []
+migrationInstructions:
+  - id: use-shared-renderers-subpath
+    title: Import FormRender from the shared renderers subpath on mobile
+    summary: Avoid broad root-barrel imports for mobile FormSpec rendering while keeping one shared design-system renderer.
+    required: false
+    when: When an Expo or React Native app renders ContractSpec forms.
+    steps:
+      - Import `formRenderer` from `@contractspec/lib.design-system/renderers`.
+      - Keep `withPresentationMetroAliases` enabled in the Expo Metro config.
+      - Do not introduce a native-only design-system FormRender path.
+upgradeSteps:
+  - id: verify-generated-design-system-artifacts
+    title: Rebuild and syntax-check design-system artifacts
+    summary: The generated package output should remain parseable and preserve imports for Metro aliasing.
+    level: assisted
+    instructions:
+      - Run `bun run --cwd packages/libs/design-system build`.
+      - Run `bun run --cwd packages/libs/design-system test:build-artifacts`.
+      - Run `bun run --cwd packages/apps/mobile-demo typecheck`.
+validation:
+  commands:
+    - "cd packages/tools/bun && bun test test/build.test.ts"
+    - "cd packages/libs/contracts-runtime-client-react && bun run typecheck && bun test src/form-render.impl.test.tsx && bun run lint:check"
+    - "cd packages/libs/design-system && bun run build && bun run test:build-artifacts && bun test src/renderers/form-contract.test.tsx && bun run typecheck && bun run lint:check"
+    - "cd packages/apps/mobile-demo && bun run typecheck"
+  evidence:
+    - "`createFormRenderer` accepts optional host layout slots and button submit mode without changing its default web form semantics."
+    - "`@contractspec/lib.design-system/renderers` is a published shared subpath and the generated renderer artifact preserves ui-kit-web imports for Metro alias remapping."
+    - "The generated design-system root, browser root, and renderers artifacts pass syntax and undefined-export checks."

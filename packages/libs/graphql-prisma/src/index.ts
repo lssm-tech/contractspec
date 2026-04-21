@@ -191,3 +191,4 @@ export function createLoggerTracing(logger: LoggerLike, opLabel = 'gql.field') {
 		},
 	} as PrismaBuilderOptions['tracing'];
 }
+export * from './graphql-prisma.feature';

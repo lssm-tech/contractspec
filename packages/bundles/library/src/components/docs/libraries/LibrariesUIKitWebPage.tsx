@@ -102,6 +102,20 @@ export function LibrariesUIKitWebPage() {
 				</ul>
 			</div>
 
+			<div className="card-subtle space-y-3 p-6">
+				<h2 className="font-bold text-2xl">Where this layer fits</h2>
+				<p className="text-muted-foreground">
+					Read{' '}
+					<Link
+						href="/docs/libraries/cross-platform-ui"
+						className="text-[color:var(--rust)] underline underline-offset-4"
+					>
+						Cross-platform UI
+					</Link>{' '}
+					for the shared runtime story behind the web and native render lanes.
+				</p>
+			</div>
+
 			<div className="flex items-center gap-4 pt-4">
 				<Link href="/docs/libraries/ui-kit" className="btn-ghost">
 					Previous: UI Kit

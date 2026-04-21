@@ -1,7 +1,7 @@
 'use client';
 
 import { WorkspaceProjectShellLayout } from '@contractspec/bundle.library/components/shell';
-import { TemplateId } from '@contractspec/lib.example-shared-ui';
+import type { TemplateId } from '@contractspec/lib.example-shared-ui';
 import {
 	listExamples,
 	listTemplates,
@@ -20,6 +20,10 @@ import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import type React from 'react';
 import { useEffect, useMemo, useState } from 'react';
 import { buildSandboxHref, resolveSandboxTemplateId } from './sandbox-config';
+import {
+	hasRichSandboxPreview,
+	SandboxFallbackPreview,
+} from './sandbox-preview';
 
 // Studio dependencies removed for public split
 // import {
@@ -226,6 +230,11 @@ export default function SandboxExperienceClient() {
 		() => new Set(templates.map((template) => template.id)),
 		[templates]
 	);
+	const templateById = useMemo(
+		() =>
+			new Map(templates.map((template) => [template.id, template] as const)),
+		[templates]
+	);
 	const templateOptions = useMemo(
 		() =>
 			[...templates].sort((left, right) => {
@@ -281,8 +290,9 @@ export default function SandboxExperienceClient() {
 
 	const displayName = useMemo(() => {
 		const example = exampleById.get(templateId);
-		return example?.meta.title ?? templateId;
-	}, [exampleById, templateId]);
+		const template = templateById.get(templateId);
+		return example?.meta.title ?? template?.name ?? templateId;
+	}, [exampleById, templateById, templateId]);
 
 	const playground = useMemo(() => {
 		switch (templateId) {
@@ -315,9 +325,15 @@ export default function SandboxExperienceClient() {
 			case 'policy-safe-knowledge-assistant':
 				return <PolicySafeKnowledgeAssistantDashboard />;
 			default:
-				return <MarkdownView templateId={templateId} />;
+				return (
+					<SandboxFallbackPreview
+						templateId={templateId}
+						example={exampleById.get(templateId)}
+						template={templateById.get(templateId)}
+					/>
+				);
 		}
-	}, [templateId]);
+	}, [exampleById, templateById, templateId]);
 
 	const main = useMemo(() => {
 		switch (mode) {
@@ -325,7 +341,11 @@ export default function SandboxExperienceClient() {
 				return (
 					<TemplateShell
 						title={displayName}
-						description="Local runtime (in-browser) preview."
+						description={
+							hasRichSandboxPreview(templateId)
+								? 'Local runtime (in-browser) preview.'
+								: 'Public template package with docs, source, and agent-facing context.'
+						}
 						// projectId="sandbox"
 						showSaveAction={false}
 					>

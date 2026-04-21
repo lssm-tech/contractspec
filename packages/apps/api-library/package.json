@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/app.api-library",
-	"version": "3.8.13",
+	"version": "3.8.15",
 	"private": true,
 	"scripts": {
 		"clean": "rm -rf dist api/dist",
@@ -36,5 +36,8 @@
 		"@contractspec/tool.typescript": "workspace:*",
 		"typescript": "catalog:"
 	},
-	"type": "module"
+	"type": "module",
+	"exports": {
+		".": "./src/index.ts"
+	}
 }

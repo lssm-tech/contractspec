@@ -1,3 +1,3 @@
-import { LibrariesProgressiveDeliveryPage } from '@contractspec/bundle.library';
+import { LibrariesProgressiveDeliveryPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesProgressiveDeliveryPage';
 
 export default LibrariesProgressiveDeliveryPage;

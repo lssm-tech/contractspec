@@ -36,6 +36,7 @@ export * from './llm/index';
 export * from './module-loader';
 export * as onboarding from './onboarding/index';
 export * from './openapi/index';
+export * as packageDeclarations from './package-declarations/index';
 export * from './package-scaffold';
 export * from './quickstart/index';
 export * from './regenerator';

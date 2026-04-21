@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/app.cli-contractspec",
-	"version": "6.0.0",
+	"version": "6.0.2",
 	"description": "CLI tool for creating, building, and validating contract specifications",
 	"type": "module",
 	"main": "./dist/index.js",
@@ -13,7 +13,8 @@
 			"bun": "./dist/bun/cli.js",
 			"node": "./dist/node/cli.js",
 			"default": "./dist/node/cli.js"
-		}
+		},
+		".": "./src/index.ts"
 	},
 	"scripts": {
 		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",

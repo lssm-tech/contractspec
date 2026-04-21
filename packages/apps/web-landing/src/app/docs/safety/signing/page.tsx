@@ -1,3 +1,3 @@
-import { SafetySigningPage } from '@contractspec/bundle.library';
+import { SafetySigningPage } from '@contractspec/bundle.library/components/docs/safety/SafetySigningPage';
 
 export default SafetySigningPage;

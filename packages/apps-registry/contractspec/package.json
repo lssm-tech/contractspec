@@ -1,12 +1,13 @@
 {
 	"name": "contractspec",
-	"version": "4.0.1",
+	"version": "4.0.3",
 	"description": "CLI tool for creating, building, and validating contract specifications",
 	"bin": {
 		"contractspec": "./bin/contractspec.mjs"
 	},
 	"dependencies": {
-		"@contractspec/app.cli-contractspec": "workspace:*"
+		"@contractspec/app.cli-contractspec": "workspace:*",
+		"@contractspec/lib.contracts-spec": "workspace:*"
 	},
 	"files": [
 		"bin",
@@ -35,5 +36,8 @@
 		"type": "git",
 		"url": "https://github.com/lssm-tech/contractspec.git",
 		"directory": "packages/apps-registry/contractspec"
+	},
+	"exports": {
+		".": "./src/index.ts"
 	}
 }

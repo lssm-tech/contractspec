@@ -55,14 +55,19 @@ export interface ExtendedWorkspaceInfo extends WorkspaceInfo {
 	packageConfigPath?: string;
 }
 
+export interface WorkspaceInfoDeps {
+	getWorkspaceInfo?: typeof getWorkspaceInfo;
+}
+
 /**
  * Get extended workspace information including config paths.
  */
 export async function getExtendedWorkspaceInfo(
 	fs: FsAdapter,
-	startDir?: string
+	startDir?: string,
+	deps: WorkspaceInfoDeps = {}
 ): Promise<ExtendedWorkspaceInfo> {
-	const baseInfo = getWorkspaceInfo(startDir);
+	const baseInfo = (deps.getWorkspaceInfo ?? getWorkspaceInfo)(startDir);
 
 	// Check for config files
 	const workspaceConfigPath = fs.join(

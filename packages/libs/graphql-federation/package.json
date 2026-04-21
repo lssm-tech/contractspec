@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.graphql-federation",
-	"version": "3.7.13",
+	"version": "3.7.14",
 	"description": "Pothos federation helpers and subgraph schema export utilities",
 	"keywords": [
 		"contractspec",
@@ -31,7 +31,8 @@
 		"@pothos/plugin-federation": "^4.0.0",
 		"@pothos/plugin-directives": "^4.2.3",
 		"graphql": "^16.13.2",
-		"@apollo/subgraph": "^2.13.3"
+		"@apollo/subgraph": "^2.13.3",
+		"@contractspec/lib.contracts-spec": "workspace:*"
 	},
 	"peerDependencies": {
 		"graphql": ">=16.13.2"
@@ -43,7 +44,8 @@
 	},
 	"type": "module",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./graphql-federation.feature": "./src/graphql-federation.feature.ts"
 	},
 	"publishConfig": {
 		"access": "public",
@@ -54,6 +56,13 @@
 				"bun": "./dist/index.js",
 				"node": "./dist/node/index.js",
 				"default": "./dist/index.js"
+			},
+			"./graphql-federation.feature": {
+				"types": "./dist/graphql-federation.feature.d.ts",
+				"browser": "./dist/browser/graphql-federation.feature.js",
+				"bun": "./dist/graphql-federation.feature.js",
+				"node": "./dist/node/graphql-federation.feature.js",
+				"default": "./dist/graphql-federation.feature.js"
 			}
 		},
 		"registry": "https://registry.npmjs.org/"

@@ -26,3 +26,4 @@ export function createBuilderVoiceTranscriptionInput(
 		sttProvider,
 	};
 }
+export * from './integration';

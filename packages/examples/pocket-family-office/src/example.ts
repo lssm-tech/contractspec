@@ -1,41 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesPocketFamilyOfficeExample = defineExample({
 	meta: {
-		key: 'pocket-family-office',
+		key: 'examples.pocket-family-office',
 		version: '1.0.0',
 		title: 'Pocket Family Office',
 		description:
-			'Personal finance automation with document ingestion, open banking, and AI summaries',
+			'Pocket Family Office example - personal finance automation with open banking',
 		kind: 'template',
-		visibility: 'public',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.finance'],
-		tags: [
-			'finance',
-			'open-banking',
-			'documents',
-			'automation',
-			'family-office',
-		],
-	},
-	docs: {
-		rootDocId: 'docs.examples.pocket-family-office',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.pocket-family-office',
-		feature: './feature',
-		docs: './docs',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'pocket-family-office'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: {
-			enabled: true,
-			modes: ['playground', 'specs', 'builder'],
-		},
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.pocket-family-office',
 	},
 });
 
-export default example;
+export default ExamplesPocketFamilyOfficeExample;
+export { ExamplesPocketFamilyOfficeExample };

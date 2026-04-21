@@ -1,34 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesHarnessLabExample = defineExample({
 	meta: {
-		key: 'harness-lab',
+		key: 'examples.harness-lab',
 		version: '1.0.0',
 		title: 'Harness Lab',
 		description:
-			'Focused harness example covering scenario contracts, suites, orchestration, and real runtime adapters.',
-		kind: 'library',
-		visibility: 'public',
+			'Focused harness example for ContractSpec scenarios, suites, orchestration, and runtime adapters.',
+		kind: 'template',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['harness', 'evaluation', 'playwright', 'sandbox', 'runtime'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.harness-lab',
-		usageDocId: 'docs.examples.harness-lab.usage',
-		referenceDocId: 'docs.examples.harness-lab.reference',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.harness-lab',
-		feature: './harness-lab.feature',
-		docs: './docs',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'harness-lab'],
 	},
 	surfaces: {
-		templates: false,
-		sandbox: { enabled: true, modes: ['specs', 'markdown'] },
+		templates: true,
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
 		studio: { enabled: false, installable: false },
 		mcp: { enabled: false },
 	},
+	entrypoints: {
+		packageName: '@contractspec/example.harness-lab',
+	},
 });
 
-export default example;
+export default ExamplesHarnessLabExample;
+export { ExamplesHarnessLabExample };

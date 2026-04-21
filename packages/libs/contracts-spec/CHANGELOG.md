@@ -1,5 +1,24 @@
 # @contractspec/lib.contracts-spec
 
+## 5.5.0
+
+### Minor Changes
+
+- Add FormSpec layout hints, semantic field rendering, and portable text/textarea input-group addons.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.contracts-runtime-client-react (minor), @contractspec/lib.design-system (minor), @contractspec/lib.ui-kit-web (patch), @contractspec/lib.ui-kit (patch)
+  - Migration: Existing forms continue to render without changes.; New multi-column forms should use `FormSpec.layout`, `group.layout`, and `field.layout.colSpan`.; New input addons should use `inputGroup.addons` on text and textarea fields.
+  - Deprecations: `FieldSpec.wrapper.orientation` remains supported but should be replaced by `FieldSpec.layout.orientation` in new specs.
+- Add ThemeSpec light/dark modes and a design-system Tailwind bridge for CSS variables, presets, CSS text, and OKLCH color pass-through.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.design-system (minor)
+- Add a canonical typed result system for ContractSpec success and failure propagation across operations, workflows, jobs, server adapters, MCP, GraphQL, and React clients.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.contracts-runtime-server-rest (minor), @contractspec/lib.contracts-runtime-server-graphql (minor), @contractspec/lib.contracts-runtime-server-mcp (minor), @contractspec/lib.contracts-runtime-client-react (minor), @contractspec/lib.jobs (minor), @contractspec/lib.error (patch)
+  - Migration: Replace new uses of `AppError` with `ContractSpecError` or `contractFail`; existing `AppError` consumers can convert to a compatible problem shape with `appErrorToProblem`.
+  - Deprecations: Prefer `ContractSpecError`, `createContractError`, and `contractFail` from `@contractspec/lib.contracts-spec/results`; `@contractspec/lib.error` remains as a compatibility bridge for existing `AppError` users.
+
+### Patch Changes
+
+- @contractspec/lib.schema@3.7.14
+
 ## 5.4.0
 
 ### Minor Changes

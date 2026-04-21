@@ -10,7 +10,7 @@ import { HStack, VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import { H1, Muted } from '@contractspec/lib.ui-kit-web/ui/typography';
 import {
 	buildExampleDocsHref,
-	listPublicExamples,
+	listDiscoverableExamples,
 } from '@contractspec/module.examples';
 
 interface ExampleItem extends Record<string, unknown> {
@@ -23,7 +23,7 @@ interface ExampleItem extends Record<string, unknown> {
 }
 
 export function DocsExamplesPage() {
-	const items: ExampleItem[] = listPublicExamples()
+	const items: ExampleItem[] = listDiscoverableExamples()
 		.map((example) => {
 			const title = example.meta.title ?? example.meta.key;
 			return {

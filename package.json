@@ -73,8 +73,8 @@
 		"meetup:examples:preflight": "bun scripts/run-meetup-examples-preflight.ts",
 		"repo:health": "bun packages/apps/cli-contractspec/src/cli.ts doctor --checks cli,config,workspace,layers && bun packages/apps/cli-contractspec/src/cli.ts ci --checks structure,integrity,deps,policy --verbose && bun packages/apps/cli-contractspec/src/cli.ts examples validate",
 		"security:advisories": "node scripts/check-security-advisories.js",
-		"release:version:canary": "node scripts/prepare-dependent-bumps.js && bun changeset version --snapshot canary --verbose && bun update",
-		"release:version": "node scripts/prepare-dependent-bumps.js && changeset version --verbose && bun update",
+		"release:version:canary": "node scripts/prepare-dependent-bumps.js && bun changeset version --snapshot canary && bun update",
+		"release:version": "node scripts/prepare-dependent-bumps.js && changeset version && bun update",
 		"release:build": "bun packages/apps/cli-contractspec/src/cli.ts release build",
 		"release:check": "bun packages/apps/cli-contractspec/src/cli.ts release check",
 		"release:check:strict": "bun packages/apps/cli-contractspec/src/cli.ts release check --strict --baseline main",
@@ -117,7 +117,7 @@
 		"cz-conventional-changelog": "^3.3.0",
 		"glob": "^13.0.6",
 		"globals": "^17.5.0",
-		"knip": "^6.4.1",
+		"knip": "^6.5.0",
 		"memoirist": "^0.4.0",
 		"next": "catalog:",
 		"patch-package": "^8.0.1",
@@ -140,26 +140,15 @@
 		]
 	},
 	"author": "Théo Boutron <tboutron@lssm.co>",
-	"packageManager": "bun@1.3.11",
+	"packageManager": "bun@1.3.13",
 	"prisma": {
 		"schema": "packages/libs/database/prisma/schema.prisma"
 	},
 	"overrides": {
-		"bl": "4.1.0",
-		"diff": "8.0.3",
-		"esbuild": "0.27.3",
 		"nativewind": "5.0.0-preview.2",
 		"expo": "^55",
-		"fast-xml-parser": "5.3.6",
-		"@hono/node-server": "1.19.11",
-		"hono": "4.12.8",
-		"lodash": "4.17.23",
-		"react-native": "0.83.2",
+		"react-native": "0.83.4",
 		"react-native-css": "3.0.4",
-		"semver": "7.7.4",
-		"serialize-javascript": "7.0.4",
-		"tar": "7.5.8",
-		"tmp": "0.2.5",
 		"lightningcss": "1.30.1"
 	},
 	"repository": {

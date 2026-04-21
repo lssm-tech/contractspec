@@ -9,3 +9,5 @@ export * from './ui';
 
 // Import docs to register doc blocks on load
 import './docs';
+
+export * from './example';

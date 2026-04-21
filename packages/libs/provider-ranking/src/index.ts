@@ -1,4 +1,5 @@
 export { InMemoryProviderRankingStore } from './in-memory-store';
+export * from './provider-ranking.feature';
 export type { ProviderRankingStore } from './store';
 export type {
 	BenchmarkDimension,

@@ -1,6 +1,7 @@
 export { MarkdownRenderer } from '@contractspec/lib.design-system';
 export * from './EvolutionDashboard';
 export * from './EvolutionSidebar';
+export * from './example-shared-ui.feature';
 export * from './hooks';
 export * from './LocalDataIndicator';
 export * from './lib/component-registry';

@@ -6,3 +6,5 @@ export * from './integration-stripe.feature';
 export * from './tenant';
 export * from './workflow';
 import './docs';
+
+export * from './example';

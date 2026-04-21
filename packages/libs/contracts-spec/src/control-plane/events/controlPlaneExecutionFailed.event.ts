@@ -15,6 +15,7 @@ export const ControlPlaneExecutionFailedPayload = new SchemaModel({
 		failedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
 		errorCode: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
 		errorMessage: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+		problem: { type: ScalarTypeEnum.JSONObject(), isOptional: true },
 	},
 });
 

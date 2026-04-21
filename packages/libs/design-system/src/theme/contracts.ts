@@ -13,6 +13,7 @@ import { defaultTokens, type ThemeTokens } from './tokens';
 
 export interface ThemeResolutionContext {
 	targets?: string[];
+	mode?: string;
 }
 
 function mergeTokenGroup<TGroup extends object, TValue extends string | number>(
@@ -68,10 +69,18 @@ export function resolveThemeSpecTokens(
 	baseTokens: ThemeTokens = defaultTokens
 ): ThemeTokens {
 	let resolved = mergeThemeTokens(baseTokens, spec.tokens);
+	const mode = context?.mode;
+
+	if (mode) {
+		resolved = mergeThemeTokens(resolved, spec.modes?.[mode]?.tokens);
+	}
 
 	for (const override of spec.overrides ?? []) {
 		if (overrideApplies(override, context)) {
 			resolved = mergeThemeTokens(resolved, override.tokens);
+			if (mode) {
+				resolved = mergeThemeTokens(resolved, override.modes?.[mode]?.tokens);
+			}
 		}
 	}
 
@@ -93,6 +102,43 @@ export function resolveThemeRefTokens(
 		: defaultTokens;
 
 	return resolveThemeSpecTokens(spec, context, inherited);
+}
+
+export function resolveThemeModeTokens(
+	spec: ThemeSpec,
+	mode: string,
+	context?: ThemeResolutionContext,
+	baseTokens?: ThemeTokens
+): ThemeTokens;
+export function resolveThemeModeTokens(
+	registry: ThemeRegistry,
+	ref: ThemeRef,
+	mode: string,
+	context?: ThemeResolutionContext
+): ThemeTokens;
+export function resolveThemeModeTokens(
+	registryOrSpec: ThemeRegistry | ThemeSpec,
+	refOrMode: ThemeRef | string,
+	modeOrContext?: string | ThemeResolutionContext,
+	contextOrBaseTokens?: ThemeResolutionContext | ThemeTokens
+): ThemeTokens {
+	if ('tokens' in registryOrSpec) {
+		const spec = registryOrSpec;
+		const mode = refOrMode as string;
+		const context = modeOrContext as ThemeResolutionContext | undefined;
+		const baseTokens = contextOrBaseTokens as ThemeTokens | undefined;
+		return resolveThemeSpecTokens(
+			spec,
+			{ ...context, mode },
+			baseTokens ?? defaultTokens
+		);
+	}
+
+	const registry = registryOrSpec;
+	const ref = refOrMode as ThemeRef;
+	const mode = modeOrContext as string;
+	const context = contextOrBaseTokens as ThemeResolutionContext | undefined;
+	return resolveThemeRefTokens(registry, ref, { ...context, mode });
 }
 
 export function resolvePlatformTheme(

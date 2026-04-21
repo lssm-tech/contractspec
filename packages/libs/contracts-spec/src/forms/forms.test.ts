@@ -4,6 +4,7 @@ import { z } from 'zod';
 import { OwnersEnum, StabilityEnum, TagsEnum } from '../ownership';
 import {
 	buildZodWithRelations,
+	defineFormSpec,
 	type FormSpec,
 	normalizeFormSpec,
 } from './forms';
@@ -125,6 +126,110 @@ describe('buildZodWithRelations', () => {
 		});
 
 		expect(normalized.fields[0]?.readOnly).toBe(true);
+	});
+
+	it('normalizes wrapper orientation into field layout orientation', () => {
+		const normalized = normalizeFormSpec({
+			meta: {
+				key: 'sigil.form.wrapper-layout',
+				version: '1.0.0',
+				title: 'Wrapper Layout Form',
+				description: 'Exercises layout normalization.',
+				domain: 'testing',
+				owners: [OwnersEnum.PlatformSigil],
+				tags: [TagsEnum.Auth],
+				stability: StabilityEnum.Experimental,
+			},
+			model: fromZod(z.object({ enabled: z.boolean() }), {
+				name: 'WrapperLayoutModel',
+			}),
+			fields: [
+				{
+					kind: 'switch',
+					name: 'enabled',
+					wrapper: { orientation: 'horizontal' },
+				},
+			],
+		});
+
+		expect(normalized.fields[0]?.layout?.orientation).toBe('horizontal');
+	});
+
+	it('accepts typed layout and input group configuration without changing paths', () => {
+		const spec = defineFormSpec({
+			meta: {
+				key: 'sigil.form.layout',
+				version: '1.0.0',
+				title: 'Layout Form',
+				description: 'Exercises rendering layout hints.',
+				domain: 'testing',
+				owners: [OwnersEnum.PlatformSigil],
+				tags: [TagsEnum.Auth],
+				stability: StabilityEnum.Experimental,
+			},
+			model: fromZod(
+				z.object({
+					query: z.string(),
+					notes: z.string().optional(),
+					nested: z.object({ code: z.string().optional() }),
+				}),
+				{ name: 'LayoutModel' }
+			),
+			layout: { columns: { base: 1, md: 2 }, gap: 'md' },
+			fields: [
+				{
+					kind: 'text',
+					name: 'query',
+					labelI18n: 'Query',
+					layout: { colSpan: 'full' },
+					inputGroup: {
+						addons: [
+							{
+								align: 'inline-start',
+								items: [
+									{ kind: 'icon', iconKey: 'search', labelI18n: 'Search' },
+									{ kind: 'text', textI18n: 'Find' },
+								],
+							},
+						],
+					},
+				},
+				{
+					kind: 'textarea',
+					name: 'notes',
+					labelI18n: 'Notes',
+					inputGroup: {
+						addons: [
+							{
+								align: 'block-end',
+								items: [{ kind: 'text', textI18n: 'Optional' }],
+							},
+						],
+					},
+				},
+				{
+					kind: 'group',
+					legendI18n: 'Nested',
+					layout: { columns: 2, gap: 'sm' },
+					fields: [{ kind: 'text', name: 'nested.code' }],
+				},
+			],
+			constraints: [
+				{
+					key: 'query-notes',
+					messageI18n: 'Required',
+					paths: ['query', 'notes', 'nested.code'],
+				},
+			],
+		});
+
+		expect(spec.layout?.columns).toEqual({ base: 1, md: 2 });
+		expect(spec.fields[0]?.kind).toBe('text');
+		expect(spec.constraints?.[0]?.paths).toEqual([
+			'query',
+			'notes',
+			'nested.code',
+		]);
 	});
 
 	it('supports group items inside arrays for indexed relation checks', () => {

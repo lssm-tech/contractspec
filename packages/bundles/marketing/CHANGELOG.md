@@ -1,5 +1,69 @@
 # @contractspec/bundle.marketing
 
+## 3.8.15
+
+### Patch Changes
+
+- Add a shared marketing content/navigation surface and convert the Expo demo into a native public-nav companion for the ContractSpec OSS-first story.
+  - Packages: @contractspec/bundle.marketing (patch)
+- Restore the public web-landing templates and examples surfaces so non-internal examples render in the templates catalog, docs routes, sitemap, and sandbox fallback previews.
+  - Packages: @contractspec/module.examples (minor), @contractspec/bundle.marketing (patch), @contractspec/bundle.library (patch), @contractspec/app.web-landing (patch)
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add focused design-system subpaths and harden ThemeSpec runtime, Tailwind bridge, form-control helpers, and form renderer internals without changing root-import compatibility.
+- Updated dependencies because of Add a ThemeSpec-aware and TranslationSpec-aware design-system form/control layer with stack primitives, exported control wrappers, and FormSpec renderer alignment.
+- Updated dependencies because of Add FormSpec layout hints, semantic field rendering, and portable text/textarea input-group addons.
+- Updated dependencies because of Keep design-system FormRender mobile-safe by preserving shared renderer imports for Metro aliases and hardening generated package artifacts.
+- Updated dependencies because of Restore the public web-landing templates and examples surfaces so non-internal examples render in the templates catalog, docs routes, sitemap, and sandbox fallback previews.
+- Updated dependencies because of Add ThemeSpec light/dark modes and a design-system Tailwind bridge for CSS variables, presets, CSS text, and OKLCH color pass-through.
+- Updated dependencies because of Add a canonical typed result system for ContractSpec success and failure propagation across operations, workflows, jobs, server adapters, MCP, GraphQL, and React clients.
+  - @contractspec/example.agent-console@3.8.14
+  - @contractspec/example.ai-chat-assistant@3.8.14
+  - @contractspec/example.analytics-dashboard@3.9.14
+  - @contractspec/example.crm-pipeline@3.7.22
+  - @contractspec/example.data-grid-showcase@3.8.14
+  - @contractspec/example.integration-hub@3.8.14
+  - @contractspec/example.marketplace@3.8.14
+  - @contractspec/example.saas-boilerplate@3.8.14
+  - @contractspec/example.visualization-showcase@3.9.14
+  - @contractspec/example.workflow-system@3.8.14
+  - @contractspec/lib.email@3.7.14
+  - @contractspec/lib.example-shared-ui@6.0.22
+  - @contractspec/lib.logger@3.7.14
+  - @contractspec/lib.runtime-sandbox@2.7.15
+  - @contractspec/lib.surface-runtime@0.5.21
+  - @contractspec/lib.ui-kit-core@3.8.1
+  - @contractspec/lib.ui-link@3.7.16
+  - @contractspec/lib.design-system@3.11.0
+  - @contractspec/lib.contracts-spec@5.5.0
+  - @contractspec/lib.contracts-runtime-client-react@3.10.0
+  - @contractspec/lib.ui-kit-web@3.10.3
+  - @contractspec/module.examples@3.10.0
+  - @contractspec/bundle.library@3.9.2
+
+## 3.8.14
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add a dedicated cross-platform UI docs page that explains how the React, React Native, runtime, primitive UI, and design-system layers stay compatible.
+  - @contractspec/example.agent-console@3.8.13
+  - @contractspec/example.ai-chat-assistant@3.8.13
+  - @contractspec/example.analytics-dashboard@3.9.13
+  - @contractspec/example.crm-pipeline@3.7.21
+  - @contractspec/example.data-grid-showcase@3.8.13
+  - @contractspec/example.integration-hub@3.8.13
+  - @contractspec/example.marketplace@3.8.13
+  - @contractspec/example.saas-boilerplate@3.8.13
+  - @contractspec/example.visualization-showcase@3.9.13
+  - @contractspec/example.workflow-system@3.8.13
+  - @contractspec/lib.contracts-runtime-client-react@3.9.2
+  - @contractspec/lib.design-system@3.10.1
+  - @contractspec/lib.example-shared-ui@6.0.21
+  - @contractspec/lib.ui-kit-web@3.10.2
+  - @contractspec/module.examples@3.9.1
+  - @contractspec/bundle.library@3.9.1
+
 ## 3.8.13
 
 ### Patch Changes

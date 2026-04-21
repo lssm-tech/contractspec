@@ -5,3 +5,5 @@ export * from './store';
 export * from './tracker';
 export * from './types';
 import './docs';
+
+export * from './personalization.feature';

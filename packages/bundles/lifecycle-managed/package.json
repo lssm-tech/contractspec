@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/bundle.lifecycle-managed",
-	"version": "3.7.20",
+	"version": "3.7.21",
 	"description": "Lifecycle management bundle with analytics and AI advisor",
 	"keywords": [
 		"contractspec",
@@ -37,7 +37,8 @@
 		"@contractspec/lib.lifecycle": "workspace:*",
 		"@contractspec/lib.observability": "workspace:*",
 		"@contractspec/module.lifecycle-advisor": "workspace:*",
-		"@contractspec/module.lifecycle-core": "workspace:*"
+		"@contractspec/module.lifecycle-core": "workspace:*",
+		"@contractspec/lib.surface-runtime": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",

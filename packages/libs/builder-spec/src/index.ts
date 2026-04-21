@@ -1,3 +1,4 @@
+export * from './builder-spec.feature';
 export * from './capabilities';
 export * from './commands';
 export * from './constants';

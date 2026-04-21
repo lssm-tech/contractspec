@@ -1,0 +1,93 @@
+schemaVersion: "1"
+slug: typed-result-system
+summary: Add a canonical typed result system for ContractSpec success and failure propagation across operations, workflows, jobs, server adapters, MCP, GraphQL, and React clients.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.contracts-spec"
+    releaseType: minor
+  - name: "@contractspec/lib.contracts-runtime-server-rest"
+    releaseType: minor
+  - name: "@contractspec/lib.contracts-runtime-server-graphql"
+    releaseType: minor
+  - name: "@contractspec/lib.contracts-runtime-server-mcp"
+    releaseType: minor
+  - name: "@contractspec/lib.contracts-runtime-client-react"
+    releaseType: minor
+  - name: "@contractspec/lib.jobs"
+    releaseType: minor
+  - name: "@contractspec/lib.error"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - node
+  - nextjs
+  - nestjs
+  - workflow-sdk
+affectedFrameworks:
+  - react
+  - graphql
+  - mcp
+  - nestjs
+audiences:
+  - kind: maintainer
+    summary: Maintainers can declare operation, workflow, and job result catalogs and have runtime registries enforce custom success and failure outcomes.
+    affectedPackages:
+      - "@contractspec/lib.contracts-spec"
+      - "@contractspec/lib.jobs"
+  - kind: integrator
+    summary: Integrators get consistent result mapping for REST, NextResponse, Nest-compatible filters/interceptors, GraphQL extensions, MCP tool errors, and React client parsing.
+    affectedPackages:
+      - "@contractspec/lib.contracts-runtime-server-rest"
+      - "@contractspec/lib.contracts-runtime-server-graphql"
+      - "@contractspec/lib.contracts-runtime-server-mcp"
+      - "@contractspec/lib.contracts-runtime-client-react"
+  - kind: customer
+    summary: Product surfaces can rely on consistent success metadata, retry hints, field issues, and Problem Details-style errors across API, job, workflow, and frontend boundaries.
+    affectedPackages:
+      - "@contractspec/lib.contracts-spec"
+      - "@contractspec/lib.jobs"
+      - "@contractspec/lib.contracts-runtime-client-react"
+deprecations:
+  - "Prefer `ContractSpecError`, `createContractError`, and `contractFail` from `@contractspec/lib.contracts-spec/results`; `@contractspec/lib.error` remains as a compatibility bridge for existing `AppError` users."
+migrationInstructions:
+  - id: migrate-lib-error-new-code
+    title: Prefer contracts-spec result primitives for new error handling
+    summary: Replace new uses of `AppError` with `ContractSpecError` or `contractFail`; existing `AppError` consumers can convert to a compatible problem shape with `appErrorToProblem`.
+    required: false
+    steps:
+      - Import new result helpers from `@contractspec/lib.contracts-spec/results`.
+      - Keep existing `AppError` consumers until they are touched for feature work.
+      - Use `appErrorToProblem` when a compatibility conversion is needed.
+upgradeSteps:
+  - id: declare-result-catalogs
+    title: Declare operation-specific success and failure outcomes
+    summary: Use `defineResultCatalog`, `standardSuccess`, `standardErrors`, `success`, and `failure` from `@contractspec/lib.contracts-spec/results` when an operation, workflow, or job needs custom codes.
+    level: assisted
+    instructions:
+      - Keep raw handler returns for ordinary `OK` responses.
+      - Use `contractAccepted`, `contractQueued`, `contractNoContent`, or `contractPartial` for non-default success outcomes.
+      - Throw `createContractError` or return `contractFail` for known failures with typed args.
+      - Declare custom success codes in `spec.results.success` or `io.success`, and custom failures in `spec.results.errors` or `io.errors`.
+  - id: adopt-runtime-result-mappers
+    title: Use canonical result mappers in adapters and clients
+    summary: Route transport boundaries through the new result helpers while preserving raw success compatibility by default.
+    level: assisted
+    instructions:
+      - Use `OperationSpecRegistry.executeResult` in adapters that need success metadata or typed failures.
+      - "Set REST `resultEnvelope: true` only when clients should receive `{ ok, data }` success envelopes."
+      - Enable GraphQL `resultExtensions` only when the server integration publishes collected success metadata.
+      - Use React runtime parser/hooks to normalize REST, GraphQL, MCP, workflow, and job responses into `ContractResult`.
+validation:
+  commands:
+    - "cd packages/libs/contracts-spec && bun run test && bun run typecheck && bun run lint:check"
+    - "cd packages/libs/contracts-runtime-server-rest && bun test && bun run typecheck && bun run lint:check"
+    - "cd packages/libs/contracts-runtime-server-graphql && bun test && bun run typecheck && bun run lint:check"
+    - "cd packages/libs/contracts-runtime-server-mcp && bun test && bun run typecheck && bun run lint:check"
+    - "cd packages/libs/contracts-runtime-client-react && bun test && bun run typecheck && bun run lint:check"
+    - "cd packages/libs/jobs && bun test && bun run typecheck && bun run lint:check"
+    - "cd packages/libs/error && bun run typecheck && bun run lint:check"
+  evidence:
+    - "`@contractspec/lib.contracts-spec/results` exports canonical `ContractResult`, `ContractSuccess`, `ContractProblem`, result catalogs, factories, and normalizers."
+    - "`OperationSpecRegistry.executeResult` preserves raw success compatibility while enforcing declared custom success and failure catalogs."
+    - "REST, NextResponse, Nest-compatible, GraphQL, MCP, React runtime, workflow, and jobs surfaces preserve canonical success/failure metadata across boundaries."
+    - "`@contractspec/lib.error` is deprecated in favor of the contracts-spec result primitives while keeping `AppError` compatibility."

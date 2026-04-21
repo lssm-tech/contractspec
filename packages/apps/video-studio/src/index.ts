@@ -6,3 +6,5 @@
 // ---------------------------------------------------------------------------
 
 import '@contractspec/lib.video-gen/remotion';
+
+export * from './blueprint';

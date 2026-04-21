@@ -1,39 +1,27 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesCrmPipelineExample = defineExample({
 	meta: {
-		key: 'crm-pipeline',
+		key: 'examples.crm-pipeline',
 		version: '1.0.0',
-		title: 'CRM Pipeline',
-		description:
-			'Sales CRM with contacts, companies, deals, pipelines, and tasks.',
+		title: 'Crm Pipeline',
+		description: 'CRM Pipeline - Contacts, Companies, Deals, Tasks',
 		kind: 'template',
-		visibility: 'public',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['crm', 'sales', 'pipeline', 'deals'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.crm-pipeline',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.crm-pipeline',
-		feature: './feature',
-		contracts: './contracts',
-		presentations: './presentations',
-		handlers: './handlers',
-		docs: './docs',
-		ui: './ui',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'crm-pipeline'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: {
-			enabled: true,
-			modes: ['playground', 'specs', 'builder', 'markdown', 'evolution'],
-		},
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.crm-pipeline',
 	},
 });
 
-export default example;
+export default ExamplesCrmPipelineExample;
+export { ExamplesCrmPipelineExample };

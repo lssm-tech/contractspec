@@ -1,10 +1,13 @@
 import type {
 	ComponentVariantSpec,
+	ThemeModeSpec,
 	ThemeOverride,
 	ThemeScope,
 	ThemeSpec,
 	ThemeTokens,
 } from './themes';
+
+const SUPPORTED_COLOR_FORMATS = new Set(['hex', 'rgb', 'hsl', 'oklch', 'css']);
 
 export type ThemeValidationLevel = 'error' | 'warning' | 'info';
 
@@ -37,6 +40,7 @@ export function validateThemeSpec(spec: ThemeSpec): ThemeValidationResult {
 	validateMaterialConfig(spec, issues);
 	validateTokens(spec.tokens, issues, 'tokens');
 	validateComponents(spec.components, issues, 'components');
+	validateModes(spec.modes, issues, 'modes');
 	validateOverrides(spec.overrides, issues);
 
 	return {
@@ -133,6 +137,7 @@ function validateMaterialConfig(
 	if (
 		hasMaterialTokens(spec.tokens) ||
 		hasMaterialComponents(spec.components) ||
+		hasMaterialModes(spec.modes) ||
 		hasMaterialOverrides(spec.overrides)
 	) {
 		return;
@@ -163,6 +168,67 @@ function validateTokens(
 				path: `${path}.${groupName}`,
 			});
 		}
+		validateTokenMetadata(group, groupName, issues, `${path}.${groupName}`);
+	}
+}
+
+function validateTokenMetadata(
+	group: unknown,
+	groupName: string,
+	issues: ThemeValidationIssue[],
+	path: string
+): void {
+	if (!group || typeof group !== 'object') {
+		return;
+	}
+
+	const tokens = group as Record<string, { format?: string } | undefined>;
+	for (const [tokenName, token] of Object.entries(tokens)) {
+		if (
+			groupName === 'colors' &&
+			token?.format &&
+			!SUPPORTED_COLOR_FORMATS.has(token.format)
+		) {
+			issues.push({
+				level: 'warning',
+				message: `Theme color token "${tokenName}" declares unknown format "${token.format}"`,
+				path: `${path}.${tokenName}.format`,
+			});
+		}
+	}
+}
+
+function validateModes(
+	modes: Record<string, ThemeModeSpec> | undefined,
+	issues: ThemeValidationIssue[],
+	path: string
+): void {
+	if (!modes) {
+		return;
+	}
+
+	for (const [modeName, mode] of Object.entries(modes)) {
+		const modePath = `${path}.${modeName}`;
+
+		if (!modeName.trim()) {
+			issues.push({
+				level: 'error',
+				message: 'Theme mode keys must be non-empty',
+				path,
+			});
+			continue;
+		}
+
+		if (!hasMaterialMode(mode)) {
+			issues.push({
+				level: 'warning',
+				message: `Theme mode "${modeName}" does not declare tokens or components`,
+				path: modePath,
+			});
+		}
+
+		validateTokens(mode.tokens, issues, `${modePath}.tokens`);
+		validateComponents(mode.components, issues, `${modePath}.components`);
 	}
 }
 
@@ -263,6 +329,7 @@ function validateOverrides(
 
 		validateTokens(override.tokens, issues, `${path}.tokens`);
 		validateComponents(override.components, issues, `${path}.components`);
+		validateModes(override.modes, issues, `${path}.modes`);
 	});
 }
 
@@ -282,8 +349,27 @@ function hasMaterialComponents(
 	return Boolean(components?.length);
 }
 
+function hasMaterialMode(mode: ThemeModeSpec | undefined): boolean {
+	return (
+		hasMaterialTokens(mode?.tokens) || hasMaterialComponents(mode?.components)
+	);
+}
+
+function hasMaterialModes(
+	modes: Record<string, ThemeModeSpec> | undefined
+): boolean {
+	return Boolean(Object.values(modes ?? {}).some(hasMaterialMode));
+}
+
 function hasMaterialOverrides(overrides: ThemeOverride[] | undefined): boolean {
-	return Boolean(overrides?.length);
+	return Boolean(
+		overrides?.some(
+			(override) =>
+				hasMaterialTokens(override.tokens) ||
+				hasMaterialComponents(override.components) ||
+				hasMaterialModes(override.modes)
+		)
+	);
 }
 
 function isSuspiciousOverrideTarget(

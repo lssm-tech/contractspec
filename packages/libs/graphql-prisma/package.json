@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.graphql-prisma",
-	"version": "3.7.14",
+	"version": "3.7.15",
 	"description": "Pothos + Prisma builder factory with injectable client/DMMF",
 	"keywords": [
 		"contractspec",
@@ -35,7 +35,8 @@
 		"@pothos/plugin-relay": "^4.7.0",
 		"@pothos/plugin-tracing": "^1.1.2",
 		"graphql": "^16.13.2",
-		"graphql-scalars": "^1.22.5"
+		"graphql-scalars": "^1.22.5",
+		"@contractspec/lib.contracts-spec": "workspace:*"
 	},
 	"peerDependencies": {
 		"graphql": ">=16.13.2"
@@ -47,7 +48,8 @@
 	},
 	"type": "module",
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./graphql-prisma.feature": "./src/graphql-prisma.feature.ts"
 	},
 	"publishConfig": {
 		"access": "public",
@@ -58,6 +60,13 @@
 				"bun": "./dist/index.js",
 				"node": "./dist/node/index.js",
 				"default": "./dist/index.js"
+			},
+			"./graphql-prisma.feature": {
+				"types": "./dist/graphql-prisma.feature.d.ts",
+				"browser": "./dist/browser/graphql-prisma.feature.js",
+				"bun": "./dist/graphql-prisma.feature.js",
+				"node": "./dist/node/graphql-prisma.feature.js",
+				"default": "./dist/graphql-prisma.feature.js"
 			}
 		},
 		"registry": "https://registry.npmjs.org/"

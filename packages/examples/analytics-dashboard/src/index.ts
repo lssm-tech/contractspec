@@ -7,6 +7,7 @@
 // Domain exports
 export * from './dashboard.feature';
 export * from './datasource/posthog-datasource';
+export * from './example';
 export * from './handlers/analytics.handlers';
 export * from './query';
 // Query engine exports

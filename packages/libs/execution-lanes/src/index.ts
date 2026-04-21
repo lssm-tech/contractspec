@@ -2,6 +2,7 @@ export * from './adapters';
 export * from './defaults';
 export * from './evidence/bundle';
 export * from './evidence/gate';
+export * from './execution-lanes.feature';
 export * from './interop';
 export * from './lanes/clarify/clarify';
 export * from './lanes/complete/completion-loop';

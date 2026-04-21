@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.contracts-integrations",
-	"version": "3.8.12",
+	"version": "3.8.13",
 	"description": "Integration contract definitions for external services",
 	"type": "module",
 	"types": "./dist/index.d.ts",
@@ -41,6 +41,7 @@
 	],
 	"exports": {
 		".": "./src/index.ts",
+		"./contracts-integrations.feature": "./src/contracts-integrations.feature.ts",
 		"./integrations": "./src/integrations/index.ts",
 		"./integrations/auth": "./src/integrations/auth.ts",
 		"./integrations/auth-helpers": "./src/integrations/auth-helpers.ts",
@@ -172,6 +173,12 @@
 				"bun": "./dist/index.js",
 				"node": "./dist/node/index.js",
 				"default": "./dist/index.js"
+			},
+			"./contracts-integrations.feature": {
+				"types": "./dist/contracts-integrations.feature.d.ts",
+				"bun": "./dist/contracts-integrations.feature.js",
+				"node": "./dist/node/contracts-integrations.feature.js",
+				"default": "./dist/contracts-integrations.feature.js"
 			},
 			"./integrations": {
 				"types": "./dist/integrations/index.d.ts",

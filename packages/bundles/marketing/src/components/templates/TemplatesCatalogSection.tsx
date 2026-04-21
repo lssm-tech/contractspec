@@ -5,6 +5,7 @@ import Link from 'next/link';
 import { TemplateCard } from './TemplateCard';
 import {
 	formatExampleKindLabel,
+	formatExampleVisibilityLabel,
 	formatStabilityLabel,
 	type LocalTemplateCatalogItem,
 } from './template-catalog';
@@ -136,6 +137,7 @@ export function TemplatesCatalogSection({
 									metaBadges={[
 										formatExampleKindLabel(template.kind),
 										formatStabilityLabel(template.stability),
+										formatExampleVisibilityLabel(template.visibility),
 									]}
 									tags={template.tags}
 									featureList={template.featureList}

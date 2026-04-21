@@ -1,4 +1,4 @@
-import { PrivacyTemplate } from '@contractspec/bundle.library';
+import { PrivacyTemplate } from '@contractspec/bundle.library/components/legal/PrivacyTemplate';
 
 import type { Metadata } from 'next';
 

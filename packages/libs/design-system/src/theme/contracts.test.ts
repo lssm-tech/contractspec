@@ -4,7 +4,17 @@ import {
 	ThemeRegistry,
 	type ThemeSpec,
 } from '@contractspec/lib.contracts-spec/themes';
-import { resolvePlatformTheme, resolveThemeRefTokens } from './contracts';
+import {
+	resolvePlatformTheme,
+	resolveThemeModeTokens,
+	resolveThemeRefTokens,
+} from './contracts';
+import {
+	themeSpecToCssVariables,
+	themeSpecToTailwindCss,
+	themeSpecToTailwindPreset,
+	themeSpecToTailwindTheme,
+} from './tailwind';
 
 const baseTheme: ThemeSpec = {
 	meta: {
@@ -21,6 +31,16 @@ const baseTheme: ThemeSpec = {
 		},
 		space: {
 			md: { value: 18 },
+		},
+	},
+	modes: {
+		dark: {
+			tokens: {
+				colors: {
+					background: { value: 'oklch(0.24 0.03 255)' },
+					primary: { value: 'oklch(0.72 0.11 221.19)' },
+				},
+			},
 		},
 	},
 };
@@ -46,6 +66,15 @@ const tenantTheme: ThemeSpec = {
 			tokens: {
 				colors: {
 					primary: { value: '#2563eb' },
+				},
+			},
+			modes: {
+				dark: {
+					tokens: {
+						colors: {
+							primary: { value: 'oklch(0.64 0.15 246)' },
+						},
+					},
 				},
 			},
 		},
@@ -96,5 +125,56 @@ describe('theme contract bridge', () => {
 		);
 
 		expect(resolved.colors.background).toBe('#ffffff');
+	});
+
+	it('resolves inherited dark mode tokens and scoped mode overrides', () => {
+		const registry = new ThemeRegistry([baseTheme, tenantTheme]);
+		const resolved = resolveThemeModeTokens(
+			registry,
+			makeThemeRef(tenantTheme),
+			'dark',
+			{ targets: ['tenant:acme'] }
+		);
+
+		expect(resolved.colors.background).toBe('oklch(0.24 0.03 255)');
+		expect(resolved.colors.primary).toBe('oklch(0.64 0.15 246)');
+	});
+
+	it('maps resolved tokens to Tailwind theme and preset fragments', () => {
+		const registry = new ThemeRegistry([baseTheme, tenantTheme]);
+		const resolved = resolveThemeModeTokens(
+			registry,
+			makeThemeRef(tenantTheme),
+			'light',
+			{ targets: ['tenant:acme'] }
+		);
+		const theme = themeSpecToTailwindTheme(resolved);
+		const preset = themeSpecToTailwindPreset(resolved);
+
+		expect(theme.colors.primary).toEqual({
+			DEFAULT: 'var(--ds-color-primary)',
+			foreground: 'var(--ds-color-primary-foreground)',
+		});
+		expect(theme.borderRadius.md).toBe('var(--ds-radius-md)');
+		expect(theme.spacing.md).toBe('var(--ds-space-md)');
+		expect(preset.theme.extend.colors.primary).toEqual(theme.colors.primary);
+	});
+
+	it('serializes ThemeSpec variables and preserves OKLCH values', () => {
+		const registry = new ThemeRegistry([baseTheme, tenantTheme]);
+		const variables = themeSpecToCssVariables(
+			registry,
+			makeThemeRef(tenantTheme),
+			{ targets: ['tenant:acme'] }
+		);
+		const css = themeSpecToTailwindCss(variables, {
+			includeCustomVariant: true,
+		});
+
+		expect(variables.light['--ds-color-primary']).toBe('#2563eb');
+		expect(variables.dark['--ds-color-primary']).toBe('oklch(0.64 0.15 246)');
+		expect(css).toContain('@custom-variant dark');
+		expect(css).toContain('--ds-color-primary: oklch(0.64 0.15 246);');
+		expect(css).toContain('--color-primary: var(--ds-color-primary);');
 	});
 });

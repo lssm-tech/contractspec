@@ -5,6 +5,7 @@
  */
 
 export * from './connection';
+export * from './example';
 export {
 	createIntegrationHandlers,
 	type IntegrationHandlers,
@@ -14,7 +15,6 @@ export * from './integration';
 // MCP example exports
 export * from './mcp-example';
 export * from './sync';
-
 // Sync engine exports
 export * from './sync-engine';
 export * from './ui';

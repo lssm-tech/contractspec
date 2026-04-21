@@ -31,3 +31,4 @@ export type * from './lib/Satisfies';
 export type * from './lib/StringKey';
 export type * from './lib/StringKeysOnly';
 export * from './staticShouldNotHappen';
+export * from './utils-typescript.feature';

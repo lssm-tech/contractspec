@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.video-gen",
-	"version": "2.7.20",
+	"version": "2.7.22",
 	"type": "module",
 	"main": "./dist/index.js",
 	"module": "./dist/index.js",
@@ -43,13 +43,12 @@
 		"@remotion/player": "^4.0.447",
 		"@remotion/renderer": "^4.0.447",
 		"@types/react": "^19.0.0",
-		"react": "^19.2.4",
-		"react-dom": "^19.2.4",
-		"tsdown": "^0.21.7"
+		"react": "catalog:",
+		"react-dom": "catalog:"
 	},
 	"peerDependencies": {
-		"react": "^19.2.4",
-		"react-dom": "^19.2.4",
+		"react": "catalog:",
+		"react-dom": "catalog:",
 		"@remotion/player": "^4.0.0"
 	},
 	"peerDependenciesMeta": {
@@ -104,7 +103,8 @@
 		"./renderers": "./src/renderers/index.ts",
 		"./renderers/config": "./src/renderers/config.ts",
 		"./renderers/local": "./src/renderers/local.ts",
-		"./types": "./src/types.ts"
+		"./types": "./src/types.ts",
+		"./video-gen.feature": "./src/video-gen.feature.ts"
 	},
 	"publishConfig": {
 		"access": "public",
@@ -402,6 +402,13 @@
 				"bun": "./dist/types.js",
 				"node": "./dist/node/types.js",
 				"default": "./dist/types.js"
+			},
+			"./video-gen.feature": {
+				"types": "./dist/video-gen.feature.d.ts",
+				"browser": "./dist/browser/video-gen.feature.js",
+				"bun": "./dist/video-gen.feature.js",
+				"node": "./dist/node/video-gen.feature.js",
+				"default": "./dist/video-gen.feature.js"
 			}
 		}
 	}

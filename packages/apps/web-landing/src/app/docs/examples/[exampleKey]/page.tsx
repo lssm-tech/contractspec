@@ -1,15 +1,15 @@
-import { ExampleShowcasePage } from '@contractspec/bundle.library';
+import { ExampleShowcasePage } from '@contractspec/bundle.library/components/docs/examples/ExampleShowcasePage';
 import {
 	buildExampleDocsHref,
-	getPublicExample,
+	getDiscoverableExample,
 	supportsInlineExamplePreview,
 } from '@contractspec/module.examples';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ExampleInlinePreviewSection } from '../ExampleInlinePreviewSection';
 import {
-	isPublicExampleKey,
-	listPublicExampleRouteParams,
+	isDiscoverableExampleKey,
+	listDiscoverableExampleRouteParams,
 } from '../example-doc-routes';
 
 interface PageProps {
@@ -19,7 +19,7 @@ interface PageProps {
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-	return listPublicExampleRouteParams();
+	return listDiscoverableExampleRouteParams();
 }
 
 export async function generateMetadata({
@@ -27,7 +27,7 @@ export async function generateMetadata({
 }: PageProps): Promise<Metadata> {
 	const { exampleKey } = await params;
 	const decodedKey = decodeURIComponent(exampleKey);
-	const example = getPublicExample(decodedKey);
+	const example = getDiscoverableExample(decodedKey);
 
 	if (!example) {
 		return {
@@ -61,7 +61,7 @@ export default async function ExampleDocsPage({ params }: PageProps) {
 	const { exampleKey } = await params;
 	const decodedKey = decodeURIComponent(exampleKey);
 
-	if (!isPublicExampleKey(decodedKey)) {
+	if (!isDiscoverableExampleKey(decodedKey)) {
 		notFound();
 	}
 

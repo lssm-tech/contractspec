@@ -5,6 +5,7 @@ export * from './email';
 export * from './embedding';
 export * from './health';
 export * from './impls';
+export * from './integration';
 export * from './llm';
 export * from './meeting-recorder';
 export * from './messaging';

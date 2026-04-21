@@ -42,14 +42,9 @@ export { DataViewDetail } from './components/data-view/DataViewDetail';
 export { DataViewList } from './components/data-view/DataViewList';
 export { DataViewRenderer } from './components/data-view/DataViewRenderer';
 export { DataViewTable } from './components/data-view/DataViewTable';
-export { ActionForm } from './components/forms/ActionForm';
-export { FormCardLayout } from './components/forms/FormCardLayout';
-// Forms
-export { FormDialog } from './components/forms/FormDialog';
-export { FormGrid, FormRow, FormSection } from './components/forms/FormLayout';
-export { FormOneByOneLayout } from './components/forms/FormOneByOneLayout';
-export { FormStepsLayout } from './components/forms/FormStepsLayout';
-export { ZodForm } from './components/forms/ZodForm';
+// Forms and layout
+export * from './components/forms';
+export * from './components/layout';
 export { DefinitionList } from './components/legal/atoms/DefinitionList';
 export { KeyValueList } from './components/legal/atoms/KeyValueList';
 export { LegalCallout } from './components/legal/atoms/LegalCallout';
@@ -210,6 +205,9 @@ export {
 	VisualizationRenderer,
 	type VisualizationRendererProps,
 } from './components/visualization/VisualizationRenderer';
+// Overlays re-exports (web default; native via Metro alias)
+// Overlays are used directly from ui-kit(s) in apps for now to avoid DTS bundling issues
+export * from './design-system.feature';
 // export {
 //   DropdownMenu,
 //   DropdownMenuPortal,
@@ -236,11 +234,5 @@ export { useResponsive } from './platform/useResponsive';
 // Platform adapter
 export * from './platform/withPlatformUI';
 export * from './renderers';
-export * from './theme/contracts';
-export { mapTokensForPlatform } from './theme/tokenBridge';
-export * from './theme/tokens';
-export * from './theme/variants';
+export * from './theme';
 export * from './types/navigation';
-
-// Overlays re-exports (web default; native via Metro alias)
-// Overlays are used directly from ui-kit(s) in apps for now to avoid DTS bundling issues

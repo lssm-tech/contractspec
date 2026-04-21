@@ -17,6 +17,7 @@ export {
 	generateWorkflowDevkitArtifacts,
 } from './compiler';
 export * from './helpers';
+export * from './integration';
 export { withContractSpecWorkflow } from './next';
 export { runWorkflowSpecWithWorkflowDevkit } from './runtime';
 export type * from './types';

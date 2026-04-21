@@ -1,32 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesAiSupportBotExample = defineExample({
 	meta: {
-		key: 'ai-support-bot',
+		key: 'examples.ai-support-bot',
 		version: '1.0.0',
-		title: 'AI Support Bot',
+		title: 'Ai Support Bot',
 		description:
-			'Classify and resolve a support ticket (with a drafted response) using the support-bot and knowledge libraries.',
-		kind: 'script',
-		visibility: 'public',
+			'AI support bot example: classify and resolve a support ticket using @contractspec/lib.support-bot.',
+		kind: 'template',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['support', 'ai', 'tickets', 'knowledge'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.ai-support-bot',
-		usageDocId: 'docs.examples.ai-support-bot.usage',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.ai-support-bot',
-		docs: './docs',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'ai-support-bot'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: { enabled: true, modes: ['markdown'] },
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.ai-support-bot',
 	},
 });
 
-export default example;
+export default ExamplesAiSupportBotExample;
+export { ExamplesAiSupportBotExample };

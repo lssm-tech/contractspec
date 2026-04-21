@@ -38,4 +38,5 @@ export async function createPGLiteAdapter(): Promise<
 	return new PGLiteDatabaseAdapter();
 }
 
+export * from './runtime-sandbox.feature';
 export * as web from './web';

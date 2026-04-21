@@ -1,20 +1,16 @@
 import { Textarea as NativeTextarea } from '@contractspec/lib.ui-kit/ui/textarea';
 import * as React from 'react';
-import { type KeyboardOptions, mapKeyboardToNative } from '../../lib/keyboard';
+import { mapKeyboardToNative } from '../../lib/keyboard';
+import {
+	type ControlThemeProps,
+	type TextFieldBaseProps,
+	useThemedTextField,
+} from '../primitives/control';
 
-interface BaseFieldProps {
+interface TextareaBaseProps extends TextFieldBaseProps {
 	value?: string;
 	defaultValue?: string;
 	onChange?: (text: string) => void;
-	onSubmit?: () => void;
-	onFocus?: () => void;
-	onBlur?: () => void;
-	placeholder?: string;
-	disabled?: boolean;
-	readOnly?: boolean;
-	maxLength?: number;
-	className?: string;
-	keyboard?: KeyboardOptions;
 }
 
 type NativeTextareaComponentProps = React.ComponentProps<typeof NativeTextarea>;
@@ -22,7 +18,8 @@ export type TextareaProps = Omit<
 	NativeTextareaComponentProps,
 	'onChangeText' | 'value' | 'defaultValue'
 > &
-	BaseFieldProps;
+	TextareaBaseProps &
+	ControlThemeProps;
 
 export function Textarea({
 	value,
@@ -37,16 +34,30 @@ export function Textarea({
 	maxLength,
 	className,
 	keyboard,
+	componentKey,
+	themeVariant,
+	placeholderI18n,
+	ariaLabelI18n,
 	...rest
 }: TextareaProps) {
 	const nativeKeyboard = mapKeyboardToNative(keyboard);
+	const field = useThemedTextField({
+		defaultComponentKey: 'Textarea',
+		componentKey,
+		themeVariant,
+		className,
+		placeholder,
+		placeholderI18n,
+		ariaLabelI18n,
+	});
 
 	return (
 		<NativeTextarea
+			{...(field.themed.props as NativeTextareaComponentProps)}
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			{...(rest as any)}
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
-			className={className as any}
+			className={field.themed.className as any}
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			value={value as any}
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -59,7 +70,8 @@ export function Textarea({
 			onFocus={onFocus as any}
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			onBlur={onBlur as any}
-			placeholder={placeholder}
+			placeholder={field.placeholder}
+			accessibilityLabel={field.ariaLabel}
 			editable={!disabled && !readOnly}
 			maxLength={maxLength}
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any

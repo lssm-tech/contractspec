@@ -24,13 +24,29 @@ import type {
 	ResourceRefDescriptor,
 	ResourceRegistry,
 } from '@contractspec/lib.contracts-spec/resources';
+import {
+	type ContractProblem,
+	ContractSpecError,
+	type ContractSuccess,
+	createContractError,
+	normalizeContractError,
+} from '@contractspec/lib.contracts-spec/results';
 import type { AnySchemaModel } from '@contractspec/lib.schema';
 import { isSchemaModel } from '@contractspec/lib.schema';
+
+export interface RegisterContractsOnBuilderOptions {
+	/**
+	 * When enabled, successful ContractResult metadata is appended to
+	 * `ctx.contractspecResultExtensions`. GraphQL field payloads remain unchanged.
+	 */
+	resultExtensions?: boolean;
+}
 
 export function registerContractsOnBuilder<T extends SchemaTypes>(
 	builder: PothosSchemaTypes.SchemaBuilder<T>,
 	reg: OperationSpecRegistry,
-	resources?: ResourceRegistry
+	resources?: ResourceRegistry,
+	options: RegisterContractsOnBuilderOptions = {}
 ) {
 	const { buildInputFieldArgs } = createInputTypeBuilder(builder);
 
@@ -150,51 +166,83 @@ export function registerContractsOnBuilder<T extends SchemaTypes>(
 				logger?: { getTraceId?: () => string };
 				session?: { activeOrganizationId?: string };
 				eventPublisher: EventPublisher;
+				contractspecResultExtensions?: unknown[];
 			}
 		) => {
-			if (spec.policy.auth !== 'anonymous' && !ctx.user)
-				throw new Error('Unauthorized');
-			const handlerCtx: HandlerCtx = {
-				traceId: ctx.logger?.getTraceId?.() ?? undefined,
-				userId: ctx.user?.id ?? null,
-				organizationId: ctx.session?.activeOrganizationId ?? null,
-				actor: ctx.user ? 'user' : 'anonymous',
-				channel: 'web',
-				eventPublisher: ctx.eventPublisher,
-			};
-			const parsedInput = spec.io.input?.getZod().parse(args.input ?? {});
-			const result: unknown = await reg.execute(
-				spec.meta.key,
-				spec.meta.version,
-				parsedInput,
-				handlerCtx
-			);
-			const out = spec.io.output as unknown;
-			if (
-				resources &&
-				(returnsResource || (out as { kind?: string })?.kind === 'resource_ref')
-			) {
-				const varName =
-					byIdField ?? (out as { varName?: string })?.varName ?? 'id';
-				const template =
-					returnsResource ?? (out as { uriTemplate?: string })?.uriTemplate;
-				const hydrated = await hydrateResourceIfNeeded(resources, result, {
-					template,
-					varName,
-					returns: parsed,
-				});
-				if (hydrated !== result) return hydrated as never;
-			}
-			if (graphQLTypeName) {
-				if (parsed.inner === 'Boolean' && !parsed.isList) {
-					return Boolean((result as { ok?: boolean })?.ok ?? result) as never;
+			try {
+				if (spec.policy.auth !== 'anonymous' && !ctx.user) {
+					throw createContractError('UNAUTHENTICATED', undefined, {
+						detail: 'Authentication is required.',
+						operation: {
+							key: spec.meta.key,
+							version: spec.meta.version,
+							kind: spec.meta.kind,
+						},
+					});
 				}
-				return result as unknown as never;
+				const handlerCtx: HandlerCtx = {
+					traceId: ctx.logger?.getTraceId?.() ?? undefined,
+					userId: ctx.user?.id ?? null,
+					organizationId: ctx.session?.activeOrganizationId ?? null,
+					actor: ctx.user ? 'user' : 'anonymous',
+					channel: 'web',
+					eventPublisher: ctx.eventPublisher,
+				};
+				const parsedInput = spec.io.input?.getZod().parse(args.input ?? {});
+				const contractResult = await reg.executeResult(
+					spec.meta.key,
+					spec.meta.version,
+					parsedInput,
+					handlerCtx
+				);
+				if (!contractResult.ok) {
+					throw new ContractSpecError(contractResult.problem);
+				}
+				if (options.resultExtensions) {
+					appendResultExtension(ctx, spec, contractResult);
+				}
+				const result = contractResult.data;
+				const out = spec.io.output as unknown;
+				if (
+					resources &&
+					(returnsResource ||
+						(out as { kind?: string })?.kind === 'resource_ref')
+				) {
+					const varName =
+						byIdField ?? (out as { varName?: string })?.varName ?? 'id';
+					const template =
+						returnsResource ?? (out as { uriTemplate?: string })?.uriTemplate;
+					const hydrated = await hydrateResourceIfNeeded(resources, result, {
+						template,
+						varName,
+						returns: parsed,
+					});
+					if (hydrated !== result) return hydrated as never;
+				}
+				if (graphQLTypeName) {
+					if (parsed.inner === 'Boolean' && !parsed.isList) {
+						return Boolean((result as { ok?: boolean })?.ok ?? result) as never;
+					}
+					return result as unknown as never;
+				}
+				const parsedOut: unknown = (spec.io.output as AnySchemaModel)
+					.getZod()
+					.parse(result);
+				return parsedOut as never;
+			} catch (error) {
+				const failure = normalizeContractError(error, {
+					operation: {
+						key: spec.meta.key,
+						version: spec.meta.version,
+						kind: spec.meta.kind,
+					},
+					declaredErrors: {
+						...(spec.results?.errors ?? {}),
+						...(spec.io.errors ?? {}),
+					},
+				});
+				throw toContractSpecGraphQLError(failure.problem);
 			}
-			const parsedOut: unknown = (spec.io.output as AnySchemaModel)
-				.getZod()
-				.parse(result);
-			return parsedOut as never;
 		};
 
 		const fieldSettingsFn: QueryFieldThunk<T> | MutationFieldThunk<T> = (
@@ -230,4 +278,53 @@ export function registerContractsOnBuilder<T extends SchemaTypes>(
 			);
 		}
 	}
+}
+
+export function toContractSpecGraphQLError(
+	problem: ContractProblem<string, Record<string, unknown>>
+): Error {
+	const error = new Error(problem.detail ?? problem.title) as Error & {
+		extensions?: Record<string, unknown>;
+	};
+	error.name = 'ContractSpecGraphQLError';
+	error.extensions = {
+		code: problem.gqlCode ?? problem.code,
+		http: { status: problem.status },
+		contractspec: { problem },
+	};
+	return error;
+}
+
+export function toContractSpecGraphQLSuccessExtension(
+	spec: AnyOperationSpec,
+	result: ContractSuccess<unknown, string>
+): Record<string, unknown> {
+	return {
+		operation: {
+			key: spec.meta.key,
+			version: spec.meta.version,
+			kind: spec.meta.kind,
+		},
+		result: {
+			code: result.code,
+			status: result.status,
+			state: result.state,
+			message: result.message,
+			traceId: result.traceId,
+			warnings: result.warnings,
+			partialProblems: result.partialProblems,
+			metadata: result.metadata,
+		},
+	};
+}
+
+function appendResultExtension(
+	ctx: { contractspecResultExtensions?: unknown[] },
+	spec: AnyOperationSpec,
+	result: ContractSuccess<unknown, string>
+) {
+	ctx.contractspecResultExtensions ??= [];
+	ctx.contractspecResultExtensions.push(
+		toContractSpecGraphQLSuccessExtension(spec, result)
+	);
 }

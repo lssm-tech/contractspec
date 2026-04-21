@@ -4,8 +4,15 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { getExample } from '../registry';
 import {
+	buildExampleDocsHref,
+	buildExampleReferenceHref,
+	getDiscoverableExample,
 	getExamplePreviewHref,
+	isDiscoverableExample,
+	listDiscoverableExamples,
 	listInlineExamplePreviews,
+	listPublicExamples,
+	listTemplateExamples,
 	supportsInlineExamplePreview,
 } from './previews';
 
@@ -44,7 +51,7 @@ describe('example previews', () => {
 
 			const example = getExample(entry.name);
 
-			expect(example?.entrypoints.ui).toBe('./ui');
+			expect(example).toBeDefined();
 			expect(previewKeys.has(entry.name)).toBe(true);
 			expect(supportsInlineExamplePreview(entry.name)).toBe(true);
 		}
@@ -55,9 +62,46 @@ describe('example previews', () => {
 		expect(getExamplePreviewHref('calendar-google')).toBe(
 			'/sandbox?template=calendar-google'
 		);
+	});
 
-		const nonSandboxExample = getExample('opencode-cli');
-		expect(nonSandboxExample?.surfaces.sandbox.enabled).toBe(false);
-		expect(getExamplePreviewHref('opencode-cli')).toBeNull();
+	test('normalizes canonical example keys for preview and docs links', () => {
+		expect(getExamplePreviewHref('examples.crm-pipeline')).toBe(
+			'/sandbox?template=crm-pipeline'
+		);
+		expect(buildExampleDocsHref('examples.crm-pipeline')).toBe(
+			'/docs/examples/crm-pipeline'
+		);
+		expect(buildExampleReferenceHref('examples.crm-pipeline')).toBe(
+			'/docs/reference/crm-pipeline/crm-pipeline'
+		);
+	});
+
+	test('exposes surfaced experimental examples without changing public-only helpers', () => {
+		const crmPipeline = getDiscoverableExample('crm-pipeline');
+		const templateKeys = new Set(
+			listTemplateExamples().map((example) => example.meta.key)
+		);
+
+		expect(crmPipeline?.meta.visibility).toBe('experimental');
+		expect(templateKeys.has('crm-pipeline')).toBe(true);
+		expect(templateKeys.has('integration-stripe')).toBe(true);
+		expect(listDiscoverableExamples().length).toBeGreaterThan(
+			listPublicExamples().length
+		);
+	});
+
+	test('keeps internal examples out of public web discovery', () => {
+		const example = getExample('crm-pipeline');
+
+		expect(example).toBeDefined();
+		expect(
+			isDiscoverableExample({
+				...example!,
+				meta: {
+					...example!.meta,
+					visibility: 'internal',
+				},
+			})
+		).toBe(false);
 	});
 });

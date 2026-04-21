@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/integration.builder-telegram",
-	"version": "0.2.2",
+	"version": "0.2.3",
 	"description": "Telegram Builder control-channel integration.",
 	"keywords": [
 		"contractspec",
@@ -38,7 +38,9 @@
 		"@contractspec/lib.builder-spec": "workspace:*",
 		"@contractspec/lib.builder-runtime": "workspace:*",
 		"@contractspec/lib.provider-spec": "workspace:*",
-		"@contractspec/integration.runtime": "workspace:*"
+		"@contractspec/integration.runtime": "workspace:*",
+		"@contractspec/lib.contracts-integrations": "workspace:*",
+		"@contractspec/lib.schema": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.bun": "workspace:*",

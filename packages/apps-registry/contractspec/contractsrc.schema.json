@@ -400,6 +400,107 @@
 						}
 					},
 					"additionalProperties": false
+				},
+				"packageDeclarations": {
+					"type": "object",
+					"properties": {
+						"severity": {
+							"default": "error",
+							"type": "string",
+							"enum": ["off", "warning", "error"]
+						},
+						"requiredByKind": {
+							"type": "object",
+							"properties": {
+								"libs": {
+									"default": "feature",
+									"type": "string",
+									"enum": [
+										"feature",
+										"integration",
+										"app-config",
+										"module-bundle",
+										"example"
+									]
+								},
+								"modules": {
+									"default": "feature",
+									"type": "string",
+									"enum": [
+										"feature",
+										"integration",
+										"app-config",
+										"module-bundle",
+										"example"
+									]
+								},
+								"integrations": {
+									"default": "integration",
+									"type": "string",
+									"enum": [
+										"feature",
+										"integration",
+										"app-config",
+										"module-bundle",
+										"example"
+									]
+								},
+								"bundles": {
+									"default": "module-bundle",
+									"type": "string",
+									"enum": [
+										"feature",
+										"integration",
+										"app-config",
+										"module-bundle",
+										"example"
+									]
+								},
+								"apps": {
+									"default": "app-config",
+									"type": "string",
+									"enum": [
+										"feature",
+										"integration",
+										"app-config",
+										"module-bundle",
+										"example"
+									]
+								},
+								"appsRegistry": {
+									"default": "app-config",
+									"type": "string",
+									"enum": [
+										"feature",
+										"integration",
+										"app-config",
+										"module-bundle",
+										"example"
+									]
+								},
+								"examples": {
+									"default": "example",
+									"type": "string",
+									"enum": [
+										"feature",
+										"integration",
+										"app-config",
+										"module-bundle",
+										"example"
+									]
+								}
+							},
+							"additionalProperties": false
+						},
+						"allowMissing": {
+							"default": [],
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						}
+					},
+					"additionalProperties": false
 				}
 			},
 			"additionalProperties": false

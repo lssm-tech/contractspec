@@ -19,6 +19,10 @@ export const DEFAULT_SPEC_PATTERNS = [
 	'**/*.knowledge.ts',
 	'**/*.policy.ts',
 	'**/*.test-spec.ts',
+	'**/blueprint.ts',
+	'**/integration.ts',
+	'**/example.ts',
+	'**/bundles/*Bundle.ts',
 	// Directory-based patterns (contracts/ and operations/ directories)
 	'**/contracts/*.ts',
 	'**/contracts/index.ts',

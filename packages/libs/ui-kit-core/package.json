@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.ui-kit-core",
-	"version": "3.8.0",
+	"version": "3.8.1",
 	"description": "Core UI primitives and utilities",
 	"keywords": [
 		"contractspec",
@@ -34,7 +34,8 @@
 		"react-dom": "catalog:",
 		"tailwind-merge": "^3.5.0",
 		"tailwindcss": "catalog:build",
-		"tailwindcss-animate": "^1.0.7"
+		"tailwindcss-animate": "^1.0.7",
+		"@contractspec/lib.contracts-spec": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",
@@ -52,6 +53,7 @@
 		"./interfaces/marketing": "./src/interfaces/marketing.ts",
 		"./interfaces/registry": "./src/interfaces/registry.ts",
 		"./interfaces/visualization": "./src/interfaces/visualization.ts",
+		"./ui-kit-core.feature": "./src/ui-kit-core.feature.ts",
 		"./utils": "./src/utils.ts"
 	},
 	"files": [
@@ -120,6 +122,12 @@
 				"browser": "./dist/browser/interfaces/visualization.js",
 				"bun": "./dist/interfaces/visualization.js",
 				"default": "./dist/interfaces/visualization.js"
+			},
+			"./ui-kit-core.feature": {
+				"types": "./dist/ui-kit-core.feature.d.ts",
+				"browser": "./dist/browser/ui-kit-core.feature.js",
+				"bun": "./dist/ui-kit-core.feature.js",
+				"default": "./dist/ui-kit-core.feature.js"
 			},
 			"./utils": {
 				"types": "./dist/utils.d.ts",

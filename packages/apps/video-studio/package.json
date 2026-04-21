@@ -1,11 +1,11 @@
 {
 	"name": "@contractspec/app.video-studio",
-	"version": "2.7.20",
+	"version": "2.7.22",
 	"private": true,
 	"type": "module",
 	"scripts": {
 		"dev": "bunx remotionb studio src/index.ts",
-		"build": "echo 'No build step needed for Remotion Studio'",
+		"build": "node -e \"const fs = require('node:fs'); fs.mkdirSync('dist', { recursive: true }); fs.writeFileSync('dist/.buildstamp', 'remotion-studio noop build\\n');\" && echo 'No build step needed for Remotion Studio'",
 		"render": "bunx remotionb render src/index.ts",
 		"render:all": "bunx remotionb render src/index.ts ApiOverview out/api-overview.mp4 && bunx remotionb render src/index.ts SocialClip out/social-clip.mp4 && bunx remotionb render src/index.ts SocialClipSquare out/social-clip-square.mp4 && bunx remotionb render src/index.ts SocialClipPortrait out/social-clip-portrait.mp4 && bunx remotionb render src/index.ts TerminalDemo out/terminal-demo.mp4",
 		"clean": "rimraf out .turbo"
@@ -17,12 +17,15 @@
 		"@contractspec/lib.design-system": "workspace:*",
 		"remotion": "^4.0.447",
 		"@remotion/cli": "^4.0.447",
-		"react": "^19.0.0",
-		"react-dom": "^19.0.0"
+		"react": "catalog:",
+		"react-dom": "catalog:"
 	},
 	"devDependencies": {
 		"@remotion/renderer": "^4.0.447",
 		"@types/react": "^19.0.0",
 		"typescript": "^5.9.3"
+	},
+	"exports": {
+		".": "./src/index.ts"
 	}
 }

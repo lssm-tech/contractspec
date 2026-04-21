@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.provider-runtime",
-	"version": "0.2.2",
+	"version": "0.2.3",
 	"description": "Builder provider-runtime helpers for routing, context prep, runtime targets, and receipt normalization.",
 	"keywords": [
 		"contractspec",
@@ -33,7 +33,8 @@
 	"dependencies": {
 		"@contractspec/lib.builder-spec": "workspace:*",
 		"@contractspec/lib.mobile-control": "workspace:*",
-		"@contractspec/lib.provider-spec": "workspace:*"
+		"@contractspec/lib.provider-spec": "workspace:*",
+		"@contractspec/lib.contracts-spec": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.bun": "workspace:*",
@@ -48,6 +49,7 @@
 		"./managed-builder-bootstrap": "./src/managed-builder-bootstrap.ts",
 		"./managed-builder-bootstrap.resources": "./src/managed-builder-bootstrap.resources.ts",
 		"./managed-builder-runtime-targets": "./src/managed-builder-runtime-targets.ts",
+		"./provider-runtime.feature": "./src/provider-runtime.feature.ts",
 		"./providers": "./src/providers.ts",
 		"./recommended-builder-setup": "./src/recommended-builder-setup.ts",
 		"./routing-policy": "./src/routing-policy.ts",
@@ -99,6 +101,12 @@
 				"bun": "./dist/managed-builder-runtime-targets.js",
 				"node": "./dist/node/managed-builder-runtime-targets.js",
 				"default": "./dist/managed-builder-runtime-targets.js"
+			},
+			"./provider-runtime.feature": {
+				"types": "./dist/provider-runtime.feature.d.ts",
+				"bun": "./dist/provider-runtime.feature.js",
+				"node": "./dist/node/provider-runtime.feature.js",
+				"default": "./dist/provider-runtime.feature.js"
 			},
 			"./providers": {
 				"types": "./dist/providers.d.ts",

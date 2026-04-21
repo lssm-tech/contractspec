@@ -1,6 +1,11 @@
 import { describe, expect, it } from 'bun:test';
-import { RichFieldsShowcaseForm } from '@contractspec/lib.contracts-spec/forms';
+import {
+	defineFormSpec,
+	RichFieldsShowcaseForm,
+} from '@contractspec/lib.contracts-spec/forms';
+import { fromZod } from '@contractspec/lib.schema';
 import { renderToStaticMarkup } from 'react-dom/server';
+import { z } from 'zod';
 import {
 	createFormRenderer,
 	type DriverSlots,
@@ -9,16 +14,56 @@ import {
 } from './form-render.impl';
 
 const mockDriver: DriverSlots = {
-	Field: ({ children }) => <div>{children}</div>,
+	Field: ({ children, layout: _layout, ...props }) => (
+		<div data-slot="field" {...props}>
+			{children}
+		</div>
+	),
+	FieldContent: ({ children, ...props }) => (
+		<div data-slot="field-content" {...props}>
+			{children}
+		</div>
+	),
 	FieldLabel: ({ children, htmlFor }) => (
 		<label htmlFor={htmlFor}>{children}</label>
 	),
-	FieldDescription: ({ children }) => <p>{children}</p>,
-	FieldError: ({ errors }) => (
-		<div>{errors.map((error) => error.message).join(',')}</div>
+	FieldDescription: ({ children, ...props }) => <p {...props}>{children}</p>,
+	FieldError: ({ errors, ...props }) => (
+		<div role="alert" {...props}>
+			{errors.map((error) => error.message).join(',')}
+		</div>
+	),
+	FieldGroup: ({ children, layout: _layout, ...props }) => (
+		<div data-slot="field-group" {...props}>
+			{children}
+		</div>
+	),
+	FieldSet: ({ children, ...props }) => (
+		<fieldset data-slot="field-set" {...props}>
+			{children}
+		</fieldset>
+	),
+	FieldLegend: ({ children, variant }) => (
+		<legend data-variant={variant}>{children}</legend>
 	),
 	Input: (props) => <input {...props} />,
 	Textarea: (props) => <textarea {...props} />,
+	InputGroup: ({ children }) => <div data-slot="input-group">{children}</div>,
+	InputGroupAddon: ({ children, align }) => (
+		<div data-slot="input-group-addon" data-align={align}>
+			{children}
+		</div>
+	),
+	InputGroupInput: (props) => (
+		<input data-slot="input-group-control" {...props} />
+	),
+	InputGroupTextarea: (props) => (
+		<textarea data-slot="input-group-control" {...props} />
+	),
+	InputGroupText: ({ children }) => <span>{children}</span>,
+	InputGroupIcon: ({ iconKey, label }) => (
+		<span data-icon={iconKey} aria-label={label} />
+	),
 	Select: ({ options, value, onChange }) => (
 		<select
 			value={value == null ? '' : String(value)}
@@ -31,15 +76,16 @@ const mockDriver: DriverSlots = {
 			))}
 		</select>
 	),
-	Checkbox: ({ checked, onCheckedChange }) => (
+	Checkbox: ({ checked, onCheckedChange, ...props }) => (
 		<input
+			{...props}
 			type="checkbox"
 			checked={checked}
 			onChange={(event) => onCheckedChange?.(event.currentTarget.checked)}
 		/>
 	),
-	RadioGroup: ({ options, onValueChange }) => (
-		<div>
+	RadioGroup: ({ options, onValueChange, ...props }) => (
+		<div {...props}>
 			{options.map((option) => (
 				<button
 					key={String(option.value)}
@@ -51,8 +97,9 @@ const mockDriver: DriverSlots = {
 			))}
 		</div>
 	),
-	Switch: ({ checked, onCheckedChange }) => (
+	Switch: ({ checked, onCheckedChange, ...props }) => (
 		<input
+			{...props}
 			type="checkbox"
 			checked={checked}
 			onChange={(event) => onCheckedChange?.(event.currentTarget.checked)}
@@ -85,6 +132,86 @@ const mockDriver: DriverSlots = {
 	),
 	Button: ({ children, ...props }) => <button {...props}>{children}</button>,
 };
+
+const LayoutForm = defineFormSpec({
+	meta: {
+		key: 'test.form.layout',
+		version: '1.0.0',
+		title: 'Layout Form',
+		description: 'Exercises renderer layout hints.',
+		domain: 'test',
+		owners: ['@team.test'],
+		tags: ['test'],
+		stability: 'experimental',
+	},
+	model: fromZod(
+		z.object({
+			query: z.string().optional(),
+			notes: z.string().optional(),
+			enabled: z.boolean().optional(),
+			firstName: z.string().optional(),
+			lastName: z.string().optional(),
+			age: z.string().optional(),
+		}),
+		{ name: 'LayoutFormModel' }
+	),
+	layout: { columns: { base: 1, md: 4 }, gap: 'sm' },
+	fields: [
+		{
+			kind: 'text',
+			name: 'query',
+			labelI18n: 'Search',
+			descriptionI18n: 'Search by name or email.',
+			layout: { colSpan: 'full' },
+			inputGroup: {
+				addons: [
+					{
+						align: 'inline-start',
+						items: [
+							{ kind: 'icon', iconKey: 'search', labelI18n: 'Search icon' },
+						],
+					},
+					{
+						align: 'inline-end',
+						items: [{ kind: 'text', textI18n: '⌘K' }],
+					},
+				],
+			},
+		},
+		{
+			kind: 'textarea',
+			name: 'notes',
+			labelI18n: 'Notes',
+			inputGroup: {
+				addons: [
+					{
+						align: 'block-end',
+						items: [{ kind: 'text', textI18n: 'Optional' }],
+					},
+				],
+			},
+		},
+		{
+			kind: 'switch',
+			name: 'enabled',
+			labelI18n: 'Enabled',
+			descriptionI18n: 'Allow this form to be submitted.',
+			layout: { orientation: 'horizontal', colSpan: 2 },
+		},
+		{
+			kind: 'group',
+			legendI18n: 'Profile',
+			descriptionI18n: 'Personal details.',
+			layout: { columns: 3, gap: 'md', colSpan: 'full' },
+			fields: [
+				{ kind: 'text', name: 'firstName', labelI18n: 'First name' },
+				{ kind: 'text', name: 'lastName', labelI18n: 'Last name' },
+				{ kind: 'text', name: 'age', labelI18n: 'Age' },
+			],
+		},
+	],
+	actions: [{ key: 'submit', labelI18n: 'Submit' }],
+});
 
 describe('contracts-runtime-client-react form renderer', () => {
 	it('filters autocomplete options across configured search keys', () => {
@@ -162,5 +289,139 @@ describe('contracts-runtime-client-react form renderer', () => {
 		expect(html).toContain('data-widget="date"');
 		expect(html).toContain('data-widget="time"');
 		expect(html).toContain('data-widget="datetime"');
+	});
+
+	it('renders layout hints, semantic groups, and input-group addons', () => {
+		const renderer = createFormRenderer({ driver: mockDriver });
+		const html = renderToStaticMarkup(renderer.render(LayoutForm));
+
+		expect(html).toContain('data-slot="field-group"');
+		expect(html).toContain('md:grid-cols-4');
+		expect(html).toContain('grid-cols-3');
+		expect(html).toContain('col-span-full');
+		expect(html).toContain('col-span-2');
+		expect(html).toContain('<fieldset');
+		expect(html).toContain('<legend data-variant="legend">Profile</legend>');
+		expect(html).toContain('data-slot="field-content"');
+		expect(html).toContain('data-slot="input-group"');
+		expect(html).toContain('data-align="inline-start"');
+		expect(html).toContain('data-align="inline-end"');
+		expect(html).toContain('data-align="block-end"');
+		expect(html.indexOf('data-slot="input-group-control"')).toBeLessThan(
+			html.indexOf('data-slot="input-group-addon"')
+		);
+		expect(html).toContain('aria-label="Search icon"');
+		expect(html).toContain('aria-describedby="query-description"');
+	});
+
+	it('renders invalid state and error ids when form errors are supplied', () => {
+		const renderer = createFormRenderer({
+			driver: mockDriver,
+			formOptions: {
+				errors: {
+					query: { type: 'manual', message: 'Required' },
+				},
+			},
+		});
+		const html = renderToStaticMarkup(renderer.render(LayoutForm));
+
+		expect(html).toContain('data-invalid="true"');
+		expect(html).toContain('aria-invalid="true"');
+		expect(html).toContain('query-error');
+		expect(html).toContain('Required');
+	});
+
+	it('keeps native form semantics as the default submit mode', () => {
+		const renderer = createFormRenderer({ driver: mockDriver });
+		const html = renderToStaticMarkup(renderer.render(RichFieldsShowcaseForm));
+
+		expect(html).toContain('<form');
+		expect(html).toContain('type="submit"');
+	});
+
+	it('can render through host-provided form and action slots', () => {
+		const renderer = createFormRenderer({
+			driver: {
+				...mockDriver,
+				FormRoot: ({ children }) => (
+					<section data-form-root="custom">{children}</section>
+				),
+				Actions: ({ children }) => (
+					<nav data-form-actions="custom">{children}</nav>
+				),
+			},
+			submitMode: 'button',
+		});
+
+		const html = renderToStaticMarkup(renderer.render(RichFieldsShowcaseForm));
+
+		expect(html).toContain('data-form-root="custom"');
+		expect(html).toContain('data-form-actions="custom"');
+		expect(html).not.toContain('<form');
+		expect(html).toContain('type="button"');
+	});
+
+	it('invokes submit override through button submit mode', async () => {
+		let capturedSubmit: (() => void) | undefined;
+		let submitted:
+			| { actionKey: string; values: Record<string, unknown> }
+			| undefined;
+		const renderer = createFormRenderer({
+			driver: {
+				...mockDriver,
+				Button: ({ children, onClick, type, ...props }) => {
+					if (type === 'button' && onClick) {
+						capturedSubmit = onClick;
+					}
+					return (
+						<button type={type} {...props}>
+							{children}
+						</button>
+					);
+				},
+			},
+			submitMode: 'button',
+			onSubmitOverride: (values, actionKey) => {
+				submitted = {
+					actionKey,
+					values: values as Record<string, unknown>,
+				};
+			},
+		});
+
+		renderToStaticMarkup(
+			renderer.render(RichFieldsShowcaseForm, {
+				defaultValues: {
+					recordId: 'rec_1',
+					status: 'draft',
+					reviewer: {
+						id: 'usr_1',
+						name: 'Alice Martin',
+						email: 'alice@example.com',
+					},
+					address: {
+						line1: '1 Main Street',
+						city: 'Paris',
+						countryCode: 'FR',
+					},
+					phone: {
+						countryCode: '+33',
+						nationalNumber: '612345678',
+						e164: '+33612345678',
+					},
+					startDate: new Date('2026-04-10T00:00:00.000Z'),
+					startTime: '09:30',
+					publishedAt: new Date('2026-04-10T09:30:00.000Z'),
+					contacts: [{ label: 'Support', value: 'support@example.com' }],
+				},
+			})
+		);
+
+		expect(capturedSubmit).toBeDefined();
+		capturedSubmit?.();
+		await new Promise((resolve) => setTimeout(resolve, 0));
+
+		expect(submitted?.actionKey).toBe('submit');
+		expect(submitted?.values.recordId).toBe('rec_1');
 	});
 });

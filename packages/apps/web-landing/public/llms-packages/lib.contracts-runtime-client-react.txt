@@ -21,7 +21,7 @@ or
 
 Import the root entrypoint from `@contractspec/lib.contracts-runtime-client-react`, or choose a documented subpath when you only need one part of the package surface.
 
-The form renderer supports the expanded FormSpec field set: readonly inputs, autocomplete, address, phone, date, time, datetime, groups, and repeated grouped arrays. Drivers are expected to provide dedicated slots for those rich widgets in addition to the base text/select/boolean controls.
+The form renderer supports the expanded FormSpec field set: readonly inputs, autocomplete, address, phone, date, time, datetime, semantic groups, repeated grouped arrays, grid layout hints, and text/textarea input groups. Drivers are expected to provide dedicated slots for rich widgets plus shadcn/Radix-style `Field*` and optional `InputGroup*` slots. When input-group slots are absent, text and textarea fields fall back to plain controls.
 
 ## Architecture
 

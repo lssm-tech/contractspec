@@ -1,5 +1,31 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 38.0.0
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add FormSpec layout hints, semantic field rendering, and portable text/textarea input-group addons.
+- Updated dependencies because of Replace the old Next alias helper with explicit Webpack and Turbopack helpers, keep Metro stable, publish bundler helpers from dist artifacts, and refresh the public docs to teach the current Next.js bundler path.
+- Updated dependencies because of Add ThemeSpec light/dark modes and a design-system Tailwind bridge for CSS variables, presets, CSS text, and OKLCH color pass-through.
+- Updated dependencies because of Add a canonical typed result system for ContractSpec success and failure propagation across operations, workflows, jobs, server adapters, MCP, GraphQL, and React clients.
+  - @contractspec/lib.presentation-runtime-react@38.0.0
+  - @contractspec/lib.contracts-spec@5.5.0
+  - @contractspec/lib.ui-kit@3.9.3
+  - @contractspec/lib.presentation-runtime-core@5.0.0
+
+## 37.0.0
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Replace the old Next alias helper with explicit Webpack and Turbopack helpers, keep Metro stable, and refresh the public docs to teach the current Next.js bundler path.
+  - @contractspec/lib.presentation-runtime-react@37.0.0
+  - @contractspec/lib.ui-kit@3.9.2
+  - @contractspec/lib.presentation-runtime-core@4.0.0
+
 ## 36.0.7
 
 ### Patch Changes

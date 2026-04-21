@@ -14,6 +14,7 @@ import { createIntegrationSpec } from './create-integration';
 import { createKnowledgeSpec } from './create-knowledge';
 import { createMigrationSpec } from './create-migration';
 import { createOperationSpec } from './create-operation';
+import { createPackageDeclarations } from './create-package-declarations';
 import {
 	createBuilderSpecPackage,
 	createModuleBundleSpec,
@@ -27,6 +28,11 @@ import type { CreateOptions } from './types';
 
 export async function createCommand(options: CreateOptions, config: Config) {
 	console.log(chalk.bold.blue('\n📝 Contract Spec Creator\n'));
+
+	if (options.packageDeclarations) {
+		await createPackageDeclarations(options, config);
+		return;
+	}
 
 	let specType = options.type;
 

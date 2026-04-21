@@ -1,5 +1,31 @@
 # @contractspec/lib.accessibility
 
+## 3.7.21
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Add focused design-system subpaths and harden ThemeSpec runtime, Tailwind bridge, form-control helpers, and form renderer internals without changing root-import compatibility.
+- Updated dependencies because of Add a ThemeSpec-aware and TranslationSpec-aware design-system form/control layer with stack primitives, exported control wrappers, and FormSpec renderer alignment.
+- Updated dependencies because of Add FormSpec layout hints, semantic field rendering, and portable text/textarea input-group addons.
+- Updated dependencies because of Keep design-system FormRender mobile-safe by preserving shared renderer imports for Metro aliases and hardening generated package artifacts.
+- Updated dependencies because of Add ThemeSpec light/dark modes and a design-system Tailwind bridge for CSS variables, presets, CSS text, and OKLCH color pass-through.
+- Updated dependencies because of Add a canonical typed result system for ContractSpec success and failure propagation across operations, workflows, jobs, server adapters, MCP, GraphQL, and React clients.
+  - @contractspec/lib.design-system@3.11.0
+  - @contractspec/lib.contracts-spec@5.5.0
+  - @contractspec/lib.ui-kit-web@3.10.3
+  - @contractspec/lib.ui-kit@3.9.3
+
+## 3.7.20
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/lib.design-system@3.10.1
+  - @contractspec/lib.ui-kit@3.9.2
+  - @contractspec/lib.ui-kit-web@3.10.2
+
 ## 3.7.19
 
 ### Patch Changes

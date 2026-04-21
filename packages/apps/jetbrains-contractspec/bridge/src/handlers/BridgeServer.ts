@@ -142,6 +142,52 @@ const validateAgainstOpenApiService =
 	bridgeWorkspace.validateAgainstOpenApiService;
 const watchSpecs = bridgeWorkspace.watchSpecs;
 
+export interface BridgeWorkspaceServices {
+	addToRegistry: typeof addToRegistry;
+	analyzeDeps: typeof analyzeDeps;
+	analyzeIntegrity: typeof analyzeIntegrity;
+	buildSpec: typeof buildSpec;
+	cleanArtifacts: typeof cleanArtifacts;
+	compareSpecs: typeof compareSpecs;
+	createNodeAdapters: typeof createNodeAdapters;
+	discoverSpecs: typeof discoverSpecs;
+	exportOpenApi: typeof exportOpenApi;
+	getWorkspaceInfo: typeof getWorkspaceInfo;
+	importFromOpenApiService: typeof importFromOpenApiService;
+	listFromRegistry: typeof listFromRegistry;
+	loadWorkspaceConfig: typeof loadWorkspaceConfig;
+	runDoctor: typeof runDoctor;
+	runSetup: typeof runSetup;
+	searchRegistry: typeof searchRegistry;
+	syncSpecs: typeof syncSpecs;
+	validateAgainstOpenApiService: typeof validateAgainstOpenApiService;
+	validateDiscoveredSpecs: typeof validateDiscoveredSpecs;
+	watchSpecs: typeof watchSpecs;
+}
+
+const defaultBridgeWorkspaceServices: BridgeWorkspaceServices = {
+	addToRegistry,
+	analyzeDeps,
+	analyzeIntegrity,
+	buildSpec,
+	cleanArtifacts,
+	compareSpecs,
+	createNodeAdapters,
+	discoverSpecs,
+	exportOpenApi,
+	getWorkspaceInfo,
+	importFromOpenApiService,
+	listFromRegistry,
+	loadWorkspaceConfig,
+	runDoctor,
+	runSetup,
+	searchRegistry,
+	syncSpecs,
+	validateAgainstOpenApiService,
+	validateDiscoveredSpecs,
+	watchSpecs,
+};
+
 interface BridgeUnsupportedResult {
 	supported: false;
 	error: string;
@@ -163,7 +209,7 @@ function normalizeWorkspaceRoot(value?: string | null): string | null {
 }
 
 function mapBridgeSpec(
-	spec: Awaited<ReturnType<typeof discoverSpecs>>[number]
+	spec: Awaited<ReturnType<BridgeWorkspaceServices['discoverSpecs']>>[number]
 ) {
 	return {
 		...spec,
@@ -173,16 +219,24 @@ function mapBridgeSpec(
 
 export class BridgeServer {
 	private connection: Connection;
-	private workspaceAdapters: ReturnType<typeof createNodeAdapters> | null =
-		null;
+	private readonly services: BridgeWorkspaceServices;
+	private workspaceAdapters: ReturnType<
+		BridgeWorkspaceServices['createNodeAdapters']
+	> | null = null;
 	private workspaceConfig: Awaited<
-		ReturnType<typeof loadWorkspaceConfig>
+		ReturnType<BridgeWorkspaceServices['loadWorkspaceConfig']>
 	> | null = null;
 	private workspaceRoot: string | null = null;
-	private activeWatcher: ReturnType<typeof watchSpecs> | null = null;
+	private activeWatcher: ReturnType<
+		BridgeWorkspaceServices['watchSpecs']
+	> | null = null;
 
-	constructor(connection: Connection) {
+	constructor(
+		connection: Connection,
+		services: Partial<BridgeWorkspaceServices> = {}
+	) {
 		this.connection = connection;
+		this.services = { ...defaultBridgeWorkspaceServices, ...services };
 		this.setupMethodHandlers();
 	}
 
@@ -195,7 +249,7 @@ export class BridgeServer {
 
 		if (workspaceRoot) {
 			// Initialize workspace adapters
-			this.workspaceAdapters = createNodeAdapters({
+			this.workspaceAdapters = this.services.createNodeAdapters({
 				cwd: workspaceRoot,
 				silent: true,
 			});
@@ -365,7 +419,7 @@ export class BridgeServer {
 		if (!this.workspaceAdapters) return;
 
 		try {
-			this.workspaceConfig = await loadWorkspaceConfig(
+			this.workspaceConfig = await this.services.loadWorkspaceConfig(
 				this.workspaceAdapters.fs
 			);
 		} catch (error) {
@@ -380,11 +434,11 @@ export class BridgeServer {
 		if (!this.workspaceAdapters)
 			throw new Error('Workspace adapters not initialized');
 
-		const specs = await discoverSpecs(this.workspaceAdapters, {
+		const specs = await this.services.discoverSpecs(this.workspaceAdapters, {
 			config: this.workspaceConfig ?? undefined,
 			paths: [params.filePath],
 		});
-		const results = await validateDiscoveredSpecs(specs);
+		const results = await this.services.validateDiscoveredSpecs(specs);
 		return {
 			results: results.map((result) => ({
 				...result,
@@ -399,11 +453,11 @@ export class BridgeServer {
 		if (!this.workspaceAdapters)
 			throw new Error('Workspace adapters not initialized');
 
-		const specs = await discoverSpecs(this.workspaceAdapters, {
+		const specs = await this.services.discoverSpecs(this.workspaceAdapters, {
 			config: this.workspaceConfig ?? undefined,
 			paths: params.filePaths,
 		});
-		const results = await validateDiscoveredSpecs(specs);
+		const results = await this.services.validateDiscoveredSpecs(specs);
 		return {
 			results: results.map((result) => ({
 				...result,
@@ -418,7 +472,7 @@ export class BridgeServer {
 
 		return {
 			specs: (
-				await discoverSpecs(this.workspaceAdapters, {
+				await this.services.discoverSpecs(this.workspaceAdapters, {
 					config: this.workspaceConfig ?? undefined,
 				})
 			).map(mapBridgeSpec),
@@ -431,25 +485,27 @@ export class BridgeServer {
 			throw new Error('Workspace not properly initialized');
 		}
 
-		return await buildSpec(
-			params.filePath,
-			this.workspaceAdapters as any,
-			this.workspaceConfig as any
-		).then((result) => {
-			const successful = result.results.filter((item) => item.success);
-			const failed = result.results.filter(
-				(item) => !item.success && !item.skipped
-			);
-			return {
-				success: failed.length === 0,
-				outputPath: successful[0]?.outputPath,
-				artifacts: successful.map((item) => item.outputPath),
-				errors: failed.map(
-					(item) => item.error ?? `${item.target} generation failed`
-				),
-				specPath: result.specPath,
-			};
-		});
+		return await this.services
+			.buildSpec(
+				params.filePath,
+				this.workspaceAdapters as any,
+				this.workspaceConfig as any
+			)
+			.then((result) => {
+				const successful = result.results.filter((item) => item.success);
+				const failed = result.results.filter(
+					(item) => !item.success && !item.skipped
+				);
+				return {
+					success: failed.length === 0,
+					outputPath: successful[0]?.outputPath,
+					artifacts: successful.map((item) => item.outputPath),
+					errors: failed.map(
+						(item) => item.error ?? `${item.target} generation failed`
+					),
+					specPath: result.specPath,
+				};
+			});
 	}
 
 	private async handleSyncSpecs(): Promise<any> {
@@ -457,7 +513,7 @@ export class BridgeServer {
 			throw new Error('Workspace not properly initialized');
 		}
 
-		const result = await syncSpecs(
+		const result = await this.services.syncSpecs(
 			this.workspaceAdapters as any,
 			this.workspaceConfig as any
 		);
@@ -487,7 +543,7 @@ export class BridgeServer {
 		}
 
 		if (!this.activeWatcher) {
-			this.activeWatcher = watchSpecs(
+			this.activeWatcher = this.services.watchSpecs(
 				{
 					watcher: this.workspaceAdapters.watcher,
 					fs: this.workspaceAdapters.fs,
@@ -512,7 +568,7 @@ export class BridgeServer {
 			throw new Error('Workspace not properly initialized');
 		}
 
-		const result = await cleanArtifacts(
+		const result = await this.services.cleanArtifacts(
 			this.workspaceAdapters as any,
 			{
 				// Bridge adapters are created by bundle.workspace; cast locally to
@@ -535,7 +591,9 @@ export class BridgeServer {
 		if (!this.workspaceAdapters)
 			throw new Error('Workspace adapters not initialized');
 
-		const result = await analyzeDeps({ fs: this.workspaceAdapters.fs });
+		const result = await this.services.analyzeDeps({
+			fs: this.workspaceAdapters.fs,
+		});
 
 		return {
 			dependencies: Object.fromEntries(
@@ -560,7 +618,7 @@ export class BridgeServer {
 		if (!this.workspaceAdapters)
 			throw new Error('Workspace adapters not initialized');
 
-		return await compareSpecs(
+		return await this.services.compareSpecs(
 			params.leftPath,
 			params.rightPath,
 			{
@@ -584,7 +642,7 @@ export class BridgeServer {
 		if (!this.workspaceAdapters)
 			throw new Error('Workspace adapters not initialized');
 
-		return await analyzeIntegrity(this.workspaceAdapters as any);
+		return await this.services.analyzeIntegrity(this.workspaceAdapters as any);
 	}
 
 	// OpenAPI handlers
@@ -594,7 +652,7 @@ export class BridgeServer {
 		if (!this.workspaceAdapters)
 			throw new Error('Workspace adapters not initialized');
 
-		return await exportOpenApi(
+		return await this.services.exportOpenApi(
 			{ registryPath: params.specPath },
 			{
 				fs: this.workspaceAdapters.fs,
@@ -610,7 +668,7 @@ export class BridgeServer {
 		if (!this.workspaceAdapters || !this.workspaceConfig)
 			throw new Error('Workspace adapters not initialized');
 
-		return await importFromOpenApiService(
+		return await this.services.importFromOpenApiService(
 			this.workspaceConfig,
 			{
 				source: params.openApiPath,
@@ -630,7 +688,7 @@ export class BridgeServer {
 		if (!this.workspaceAdapters)
 			throw new Error('Workspace adapters not initialized');
 
-		return await validateAgainstOpenApiService(
+		return await this.services.validateAgainstOpenApiService(
 			{
 				specPath: params.specPath,
 				openApiSource: params.openApiPath,
@@ -648,7 +706,7 @@ export class BridgeServer {
 			throw new Error('Workspace adapters not initialized');
 
 		return {
-			items: await listFromRegistry(
+			items: await this.services.listFromRegistry(
 				{},
 				{ logger: this.workspaceAdapters.logger }
 			),
@@ -660,7 +718,7 @@ export class BridgeServer {
 			throw new Error('Workspace adapters not initialized');
 
 		return {
-			items: await searchRegistry(
+			items: await this.services.searchRegistry(
 				params.query,
 				{},
 				{ logger: this.workspaceAdapters.logger }
@@ -675,7 +733,7 @@ export class BridgeServer {
 		if (!this.workspaceAdapters)
 			throw new Error('Workspace adapters not initialized');
 
-		await addToRegistry(
+		await this.services.addToRegistry(
 			params.specId,
 			{},
 			{ logger: this.workspaceAdapters.logger }
@@ -723,7 +781,7 @@ export class BridgeServer {
 		if (!this.workspaceAdapters)
 			throw new Error('Workspace adapters not initialized');
 
-		return await runSetup(this.workspaceAdapters.fs, {
+		return await this.services.runSetup(this.workspaceAdapters.fs, {
 			interactive: false,
 			targets: [],
 			workspaceRoot: this.workspaceRoot ?? process.cwd(),
@@ -748,7 +806,7 @@ export class BridgeServer {
 		if (!this.workspaceAdapters)
 			throw new Error('Workspace adapters not initialized');
 
-		return await runSetup(this.workspaceAdapters.fs, {
+		return await this.services.runSetup(this.workspaceAdapters.fs, {
 			interactive: false,
 			targets: [],
 			workspaceRoot: this.workspaceRoot ?? process.cwd(),
@@ -760,7 +818,7 @@ export class BridgeServer {
 		if (!this.workspaceAdapters)
 			throw new Error('Workspace adapters not initialized');
 
-		return await runDoctor(
+		return await this.services.runDoctor(
 			{
 				fs: this.workspaceAdapters.fs as any,
 				logger: this.workspaceAdapters.logger as any,
@@ -776,7 +834,7 @@ export class BridgeServer {
 		if (!this.workspaceAdapters)
 			throw new Error('Workspace adapters not initialized');
 
-		return getWorkspaceInfo(this.workspaceRoot ?? process.cwd());
+		return this.services.getWorkspaceInfo(this.workspaceRoot ?? process.cwd());
 	}
 
 	// LLM handlers

@@ -234,6 +234,7 @@ export function useListCoordinator<
 	} as const;
 }
 
+export * from './presentation-runtime-react.feature';
 export type {
 	ContractTableColumnDef,
 	ContractTableColumnRenderModel,

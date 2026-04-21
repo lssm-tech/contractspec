@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.builder-runtime",
-	"version": "0.2.2",
+	"version": "0.2.3",
 	"description": "Backend-neutral Builder runtime, ingestion, fusion, readiness, and replay services.",
 	"keywords": [
 		"contractspec",
@@ -39,7 +39,8 @@
 		"@contractspec/lib.provider-spec": "workspace:*",
 		"@contractspec/lib.provider-runtime": "workspace:*",
 		"@contractspec/lib.voice": "workspace:*",
-		"fflate": "^0.8.2"
+		"fflate": "^0.8.2",
+		"@contractspec/lib.contracts-spec": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.bun": "workspace:*",

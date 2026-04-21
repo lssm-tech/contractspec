@@ -1,5 +1,33 @@
 # @contractspec/lib.contracts-runtime-server-mcp
 
+## 3.8.0
+
+### Minor Changes
+
+- Add a canonical typed result system for ContractSpec success and failure propagation across operations, workflows, jobs, server adapters, MCP, GraphQL, and React clients.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.contracts-runtime-server-rest (minor), @contractspec/lib.contracts-runtime-server-graphql (minor), @contractspec/lib.contracts-runtime-server-mcp (minor), @contractspec/lib.contracts-runtime-client-react (minor), @contractspec/lib.jobs (minor), @contractspec/lib.error (patch)
+  - Migration: Replace new uses of `AppError` with `ContractSpecError` or `contractFail`; existing `AppError` consumers can convert to a compatible problem shape with `appErrorToProblem`.
+  - Deprecations: Prefer `ContractSpecError`, `createContractError`, and `contractFail` from `@contractspec/lib.contracts-spec/results`; `@contractspec/lib.error` remains as a compatibility bridge for existing `AppError` users.
+
+### Patch Changes
+
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add FormSpec layout hints, semantic field rendering, and portable text/textarea input-group addons.
+- Updated dependencies because of Replace the old Next alias helper with explicit Webpack and Turbopack helpers, keep Metro stable, publish bundler helpers from dist artifacts, and refresh the public docs to teach the current Next.js bundler path.
+- Updated dependencies because of Add ThemeSpec light/dark modes and a design-system Tailwind bridge for CSS variables, presets, CSS text, and OKLCH color pass-through.
+- Updated dependencies because of Add a canonical typed result system for ContractSpec success and failure propagation across operations, workflows, jobs, server adapters, MCP, GraphQL, and React clients.
+  - @contractspec/lib.logger@3.7.14
+  - @contractspec/lib.contracts-spec@5.5.0
+  - @contractspec/lib.presentation-runtime-core@5.0.0
+
+## 3.7.21
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Replace the old Next alias helper with explicit Webpack and Turbopack helpers, keep Metro stable, and refresh the public docs to teach the current Next.js bundler path.
+  - @contractspec/lib.presentation-runtime-core@4.0.0
+
 ## 3.7.20
 
 ### Patch Changes

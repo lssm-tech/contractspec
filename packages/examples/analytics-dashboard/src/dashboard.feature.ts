@@ -8,7 +8,7 @@
  * and presentations into an installable feature following FeatureModuleSpec.
  */
 
-import { defineFeature } from '@contractspec/lib.contracts-spec';
+import { defineFeature } from '@contractspec/lib.contracts-spec/features';
 import { AnalyticsVisualizationRefs } from './visualizations';
 
 // ============ Feature Definition ============

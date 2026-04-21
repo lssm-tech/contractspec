@@ -9,9 +9,12 @@ import type {
 	DateFieldSpec,
 	DateTimeFieldSpec,
 	FieldSpec,
+	FormLayoutSpec,
 	FormOption,
 	FormSpec,
 	FormValuesFor,
+	InputGroupAddonSpec,
+	InputGroupSpec,
 	OptionsSource,
 	PhoneFieldSpec,
 	PhoneFormValue,
@@ -39,9 +42,19 @@ import {
 } from 'react-hook-form';
 
 export interface DriverSlots {
+	FormRoot?: React.ComponentType<
+		React.PropsWithChildren<{
+			className?: string;
+			onSubmit?: React.FormEventHandler;
+		}>
+	>;
 	Field: React.ComponentType<
 		React.PropsWithChildren<{
+			className?: string;
+			orientation?: 'vertical' | 'horizontal' | 'responsive';
+			layout?: FieldSpec['layout'];
 			'data-invalid'?: boolean;
+			'data-disabled'?: boolean;
 			hidden?: boolean;
 			disabled?: boolean;
 		}>
@@ -49,21 +62,61 @@ export interface DriverSlots {
 	FieldLabel: React.ComponentType<
 		React.PropsWithChildren<{ htmlFor?: string }>
 	>;
-	FieldDescription: React.ComponentType<React.PropsWithChildren<object>>;
-	FieldError: React.ComponentType<{ errors: { message?: string }[] }>;
-	FieldGroup?: React.ComponentType<
+	FieldContent?: React.ComponentType<
 		React.PropsWithChildren<{ className?: string }>
+	>;
+	FieldDescription: React.ComponentType<
+		React.PropsWithChildren<{ id?: string }>
+	>;
+	FieldError: React.ComponentType<{
+		id?: string;
+		errors: { message?: string }[];
+	}>;
+	FieldGroup?: React.ComponentType<
+		React.PropsWithChildren<{ className?: string; layout?: FormLayoutSpec }>
 	>;
 	FieldSet?: React.ComponentType<
 		React.PropsWithChildren<{ className?: string }>
 	>;
 	FieldLegend?: React.ComponentType<
-		React.PropsWithChildren<{ variant?: 'label' | 'default' }>
+		React.PropsWithChildren<{ variant?: 'label' | 'legend' }>
+	>;
+	FieldSeparator?: React.ComponentType<
+		React.PropsWithChildren<{ className?: string }>
+	>;
+	FieldArray?: React.ComponentType<
+		React.PropsWithChildren<{ className?: string }>
+	>;
+	FieldArrayItem?: React.ComponentType<
+		React.PropsWithChildren<{ className?: string }>
+	>;
+	Actions?: React.ComponentType<
+		React.PropsWithChildren<{ className?: string }>
 	>;
 	Input: React.ComponentType<React.InputHTMLAttributes<HTMLInputElement>>;
 	Textarea: React.ComponentType<
 		React.TextareaHTMLAttributes<HTMLTextAreaElement>
 	>;
+	InputGroup?: React.ComponentType<
+		React.PropsWithChildren<{ className?: string }>
+	>;
+	InputGroupAddon?: React.ComponentType<
+		React.PropsWithChildren<{
+			align?: 'inline-start' | 'inline-end' | 'block-start' | 'block-end';
+			className?: string;
+		}>
+	>;
+	InputGroupInput?: React.ComponentType<
+		React.InputHTMLAttributes<HTMLInputElement>
+	>;
+	InputGroupTextarea?: React.ComponentType<
+		React.TextareaHTMLAttributes<HTMLTextAreaElement>
+	>;
+	InputGroupText?: React.ComponentType<React.PropsWithChildren<object>>;
+	InputGroupIcon?: React.ComponentType<{
+		iconKey: string;
+		label?: string;
+	}>;
 	Select: React.ComponentType<
 		{
 			id?: string;
@@ -72,6 +125,7 @@ export interface DriverSlots {
 			onChange?: (value: unknown) => void;
 			disabled?: boolean;
 			'aria-invalid'?: boolean;
+			'aria-describedby'?: string;
 			options: FormOption[];
 		} & Record<string, unknown>
 	>;
@@ -82,6 +136,8 @@ export interface DriverSlots {
 			checked?: boolean;
 			onCheckedChange?: (value: boolean) => void;
 			disabled?: boolean;
+			'aria-invalid'?: boolean;
+			'aria-describedby'?: string;
 		} & Record<string, unknown>
 	>;
 	RadioGroup: React.ComponentType<
@@ -91,6 +147,8 @@ export interface DriverSlots {
 			value?: unknown;
 			onValueChange?: (value: unknown) => void;
 			disabled?: boolean;
+			'aria-invalid'?: boolean;
+			'aria-describedby'?: string;
 			options: FormOption[];
 		} & Record<string, unknown>
 	>;
@@ -101,6 +159,8 @@ export interface DriverSlots {
 			checked?: boolean;
 			onCheckedChange?: (value: boolean) => void;
 			disabled?: boolean;
+			'aria-invalid'?: boolean;
+			'aria-describedby'?: string;
 		} & Record<string, unknown>
 	>;
 	Autocomplete: React.ComponentType<{
@@ -109,6 +169,7 @@ export interface DriverSlots {
 		disabled?: boolean;
 		readOnly?: boolean;
 		'aria-invalid'?: boolean;
+		'aria-describedby'?: string;
 		placeholder?: string;
 		multiple?: boolean;
 		query: string;
@@ -126,6 +187,7 @@ export interface DriverSlots {
 		disabled?: boolean;
 		readOnly?: boolean;
 		'aria-invalid'?: boolean;
+		'aria-describedby'?: string;
 		parts?: AddressFieldSpec['parts'];
 		countryOptions?: FormOption[];
 	}>;
@@ -137,6 +199,7 @@ export interface DriverSlots {
 		disabled?: boolean;
 		readOnly?: boolean;
 		'aria-invalid'?: boolean;
+		'aria-describedby'?: string;
 		parts?: PhoneFieldSpec['parts'];
 		countryOptions?: FormOption[];
 	}>;
@@ -147,6 +210,8 @@ export interface DriverSlots {
 		onChange?: (value: Date | null) => void;
 		disabled?: boolean;
 		readOnly?: boolean;
+		'aria-invalid'?: boolean;
+		'aria-describedby'?: string;
 		placeholder?: string;
 		minDate?: Date;
 		maxDate?: Date;
@@ -158,6 +223,8 @@ export interface DriverSlots {
 		onChange?: (value: Date | null) => void;
 		disabled?: boolean;
 		readOnly?: boolean;
+		'aria-invalid'?: boolean;
+		'aria-describedby'?: string;
 		placeholder?: string;
 		is24Hour?: boolean;
 	}>;
@@ -168,6 +235,8 @@ export interface DriverSlots {
 		onChange?: (value: Date | null) => void;
 		disabled?: boolean;
 		readOnly?: boolean;
+		'aria-invalid'?: boolean;
+		'aria-describedby'?: string;
 		datePlaceholder?: string;
 		timePlaceholder?: string;
 		minDate?: Date;
@@ -209,6 +278,7 @@ export interface CreateRendererOptions<TValues = Record<string, unknown>> {
 	resolvers?: ResolverMap<TValues>;
 	computations?: ComputationMap<TValues>;
 	unmountStrategy?: 'keep' | 'clear';
+	submitMode?: 'form' | 'button';
 }
 
 export interface RenderOptions<TValues = Record<string, unknown>> {
@@ -251,6 +321,133 @@ function extractIndices(path: string | undefined) {
 function fieldPath(parent: string | undefined, name?: string) {
 	if (!name) return parent ?? '';
 	return parent ? `${parent}.${name}` : name;
+}
+
+function joinClassNames(...values: Array<string | undefined | false>) {
+	return values.filter(Boolean).join(' ') || undefined;
+}
+
+const GRID_COLUMN_CLASSES = {
+	base: {
+		1: 'grid-cols-1',
+		2: 'grid-cols-2',
+		3: 'grid-cols-3',
+		4: 'grid-cols-4',
+	},
+	sm: {
+		1: 'sm:grid-cols-1',
+		2: 'sm:grid-cols-2',
+		3: 'sm:grid-cols-3',
+		4: 'sm:grid-cols-4',
+	},
+	md: {
+		1: 'md:grid-cols-1',
+		2: 'md:grid-cols-2',
+		3: 'md:grid-cols-3',
+		4: 'md:grid-cols-4',
+	},
+	lg: {
+		1: 'lg:grid-cols-1',
+		2: 'lg:grid-cols-2',
+		3: 'lg:grid-cols-3',
+		4: 'lg:grid-cols-4',
+	},
+} as const;
+
+const GRID_SPAN_CLASSES = {
+	base: {
+		1: 'col-span-1',
+		2: 'col-span-2',
+		3: 'col-span-3',
+		4: 'col-span-4',
+		full: 'col-span-full',
+	},
+	sm: {
+		1: 'sm:col-span-1',
+		2: 'sm:col-span-2',
+		3: 'sm:col-span-3',
+		4: 'sm:col-span-4',
+		full: 'sm:col-span-full',
+	},
+	md: {
+		1: 'md:col-span-1',
+		2: 'md:col-span-2',
+		3: 'md:col-span-3',
+		4: 'md:col-span-4',
+		full: 'md:col-span-full',
+	},
+	lg: {
+		1: 'lg:col-span-1',
+		2: 'lg:col-span-2',
+		3: 'lg:col-span-3',
+		4: 'lg:col-span-4',
+		full: 'lg:col-span-full',
+	},
+} as const;
+
+const GRID_GAP_CLASSES = {
+	sm: 'gap-3',
+	md: 'gap-4',
+	lg: 'gap-6',
+} as const;
+
+function formLayoutClassName(layout?: FormLayoutSpec) {
+	if (!layout?.columns) return undefined;
+	const columnClasses =
+		typeof layout.columns === 'number'
+			? GRID_COLUMN_CLASSES.base[layout.columns]
+			: joinClassNames(
+					layout.columns.base
+						? GRID_COLUMN_CLASSES.base[layout.columns.base]
+						: undefined,
+					layout.columns.sm
+						? GRID_COLUMN_CLASSES.sm[layout.columns.sm]
+						: undefined,
+					layout.columns.md
+						? GRID_COLUMN_CLASSES.md[layout.columns.md]
+						: undefined,
+					layout.columns.lg
+						? GRID_COLUMN_CLASSES.lg[layout.columns.lg]
+						: undefined
+				);
+
+	return joinClassNames(
+		'grid w-full',
+		columnClasses,
+		GRID_GAP_CLASSES[layout.gap ?? 'md']
+	);
+}
+
+function fieldLayoutClassName(layout?: FieldSpec['layout']) {
+	if (!layout?.colSpan) return undefined;
+	const colSpan = layout.colSpan;
+	if (typeof colSpan === 'number' || colSpan === 'full') {
+		return GRID_SPAN_CLASSES.base[colSpan];
+	}
+	return joinClassNames(
+		colSpan.base ? GRID_SPAN_CLASSES.base[colSpan.base] : undefined,
+		colSpan.sm ? GRID_SPAN_CLASSES.sm[colSpan.sm] : undefined,
+		colSpan.md ? GRID_SPAN_CLASSES.md[colSpan.md] : undefined,
+		colSpan.lg ? GRID_SPAN_CLASSES.lg[colSpan.lg] : undefined
+	);
+}
+
+function ariaDescribedBy(
+	descriptionId: string | undefined,
+	errorId: string | undefined,
+	invalid: boolean
+) {
+	return (
+		[descriptionId, invalid ? errorId : undefined].filter(Boolean).join(' ') ||
+		undefined
+	);
+}
+
+function DefaultFieldGroup({
+	children,
+	className,
+}: React.PropsWithChildren<{ className?: string; layout?: FormLayoutSpec }>) {
+	return <div className={className}>{children}</div>;
 }
 
 function makeDepsKey(values: unknown, deps: string[] | undefined) {
@@ -441,6 +638,64 @@ interface FieldRenderContext {
 	enabled: boolean;
 	readOnly: boolean;
 	visible: boolean;
+	descriptionId?: string;
+	errorId?: string;
+}
+
+interface CommonWrapProps {
+	className?: string;
+	orientation?: 'vertical' | 'horizontal' | 'responsive';
+	layout?: FieldSpec['layout'];
+	'data-invalid'?: boolean;
+	'data-disabled'?: boolean;
+	hidden?: boolean;
+	disabled?: boolean;
+}
+
+function renderInputGroupAddonItem(
+	driver: DriverSlots,
+	item: InputGroupAddonSpec['items'][number],
+	key: React.Key
+) {
+	if (item.kind === 'text') {
+		const InputGroupText = driver.InputGroupText ?? React.Fragment;
+		return <InputGroupText key={key}>{item.textI18n}</InputGroupText>;
+	}
+
+	if (driver.InputGroupIcon) {
+		return (
+			<driver.InputGroupIcon
+				key={key}
+				iconKey={item.iconKey}
+				label={item.labelI18n}
+			/>
+		);
+	}
+
+	if (item.labelI18n) {
+		const InputGroupText = driver.InputGroupText ?? React.Fragment;
+		return <InputGroupText key={key}>{item.labelI18n}</InputGroupText>;
+	}
+
+	return null;
+}
+
+function renderInputGroupAddons(
+	driver: DriverSlots,
+	inputGroup: InputGroupSpec | undefined
+) {
+	const InputGroupAddon = driver.InputGroupAddon;
+	if (!InputGroupAddon || !inputGroup?.addons?.length) return null;
+	return inputGroup.addons.map((addon, addonIndex) => (
+		<InputGroupAddon
+			key={`${addon.align ?? 'inline-start'}-${addonIndex}`}
+			align={addon.align}
+		>
+			{addon.items.map((item, itemIndex) =>
+				renderInputGroupAddonItem(driver, item, itemIndex)
+			)}
+		</InputGroupAddon>
+	));
 }
 
 function SelectFieldControl<TValues extends FieldValues>(props: {
@@ -451,11 +706,7 @@ function SelectFieldControl<TValues extends FieldValues>(props: {
 	ctx: FieldRenderContext;
 	labelNode: React.ReactNode;
 	descNode: React.ReactNode;
-	commonWrapProps: {
-		'data-invalid'?: boolean;
-		hidden?: boolean;
-		disabled?: boolean;
-	};
+	commonWrapProps: CommonWrapProps;
 	resolvers?: ResolverMap<TValues>;
 }) {
 	const options = useResolvedOptions(
@@ -472,13 +723,26 @@ function SelectFieldControl<TValues extends FieldValues>(props: {
 			control={props.form.control}
 			render={({ field, fieldState }) => {
 				const err = fieldState.error ? [fieldState.error] : [];
+				const describedBy = ariaDescribedBy(
+					props.ctx.descriptionId,
+					props.ctx.errorId,
+					fieldState.invalid
+				);
 				return (
-					<DriverField {...props.commonWrapProps}>
+					<DriverField
+						{...props.commonWrapProps}
+						data-invalid={
+							fieldState.invalid ||
+							props.commonWrapProps['data-invalid'] ||
+							undefined
+						}
+					>
 						{props.labelNode}
 						<props.driver.Select
 							id={props.ctx.id}
 							name={props.ctx.name}
 							aria-invalid={fieldState.invalid || undefined}
+							aria-describedby={describedBy}
 							disabled={!props.ctx.enabled || props.ctx.readOnly}
 							value={field.value}
 							onChange={(value) => {
@@ -489,7 +753,9 @@ function SelectFieldControl<TValues extends FieldValues>(props: {
 							{...(props.spec.uiProps as Record<string, unknown>)}
 						/>
 						{props.descNode}
-						{fieldState.invalid ? <DriverError errors={err} /> : null}
+						{fieldState.invalid ? (
+							<DriverError id={props.ctx.errorId} errors={err} />
+						) : null}
 					</DriverField>
 				);
 			}}
@@ -505,11 +771,7 @@ function RadioFieldControl<TValues extends FieldValues>(props: {
 	ctx: FieldRenderContext;
 	labelNode: React.ReactNode;
 	descNode: React.ReactNode;
-	commonWrapProps: {
-		'data-invalid'?: boolean;
-		hidden?: boolean;
-		disabled?: boolean;
-	};
+	commonWrapProps: CommonWrapProps;
 	resolvers?: ResolverMap<TValues>;
 }) {
 	const options = useResolvedOptions(
@@ -526,12 +788,26 @@ function RadioFieldControl<TValues extends FieldValues>(props: {
 			control={props.form.control}
 			render={({ field, fieldState }) => {
 				const err = fieldState.error ? [fieldState.error] : [];
+				const describedBy = ariaDescribedBy(
+					props.ctx.descriptionId,
+					props.ctx.errorId,
+					fieldState.invalid
+				);
 				return (
-					<DriverField {...props.commonWrapProps}>
+					<DriverField
+						{...props.commonWrapProps}
+						data-invalid={
+							fieldState.invalid ||
+							props.commonWrapProps['data-invalid'] ||
+							undefined
+						}
+					>
 						{props.labelNode}
 						<props.driver.RadioGroup
 							id={props.ctx.id}
 							name={props.ctx.name}
+							aria-invalid={fieldState.invalid || undefined}
+							aria-describedby={describedBy}
 							disabled={!props.ctx.enabled || props.ctx.readOnly}
 							value={field.value}
 							onValueChange={(value) => {
@@ -542,7 +818,9 @@ function RadioFieldControl<TValues extends FieldValues>(props: {
 							{...(props.spec.uiProps as Record<string, unknown>)}
 						/>
 						{props.descNode}
-						{fieldState.invalid ? <DriverError errors={err} /> : null}
+						{fieldState.invalid ? (
+							<DriverError id={props.ctx.errorId} errors={err} />
+						) : null}
 					</DriverField>
 				);
 			}}
@@ -558,11 +836,7 @@ function AutocompleteFieldControl<TValues extends FieldValues>(props: {
 	ctx: FieldRenderContext;
 	labelNode: React.ReactNode;
 	descNode: React.ReactNode;
-	commonWrapProps: {
-		'data-invalid'?: boolean;
-		hidden?: boolean;
-		disabled?: boolean;
-	};
+	commonWrapProps: CommonWrapProps;
 	resolvers?: ResolverMap<TValues>;
 }) {
 	const [query, setQuery] = React.useState('');
@@ -632,6 +906,11 @@ function AutocompleteFieldControl<TValues extends FieldValues>(props: {
 			control={props.form.control}
 			render={({ field, fieldState }) => {
 				const err = fieldState.error ? [fieldState.error] : [];
+				const describedBy = ariaDescribedBy(
+					props.ctx.descriptionId,
+					props.ctx.errorId,
+					fieldState.invalid
+				);
 				const selectedOptions = selectedAutocompleteOptions(
 					options,
 					field.value,
@@ -662,7 +941,14 @@ function AutocompleteFieldControl<TValues extends FieldValues>(props: {
 				};
 
 				return (
-					<DriverField {...props.commonWrapProps}>
+					<DriverField
+						{...props.commonWrapProps}
+						data-invalid={
+							fieldState.invalid ||
+							props.commonWrapProps['data-invalid'] ||
+							undefined
+						}
+					>
 						{props.labelNode}
 						<props.driver.Autocomplete
 							id={props.ctx.id}
@@ -670,6 +956,7 @@ function AutocompleteFieldControl<TValues extends FieldValues>(props: {
 							disabled={!props.ctx.enabled}
 							readOnly={props.ctx.readOnly}
 							aria-invalid={fieldState.invalid || undefined}
+							aria-describedby={describedBy}
 							placeholder={props.spec.placeholderI18n}
 							multiple={props.spec.multiple}
 							query={query}
@@ -680,7 +967,9 @@ function AutocompleteFieldControl<TValues extends FieldValues>(props: {
 							onRemoveOption={removeOption}
 						/>
 						{props.descNode}
-						{fieldState.invalid ? <DriverError errors={err} /> : null}
+						{fieldState.invalid ? (
+							<DriverError id={props.ctx.errorId} errors={err} />
+						) : null}
 					</DriverField>
 				);
 			}}
@@ -696,11 +985,7 @@ function AddressFieldControl<TValues extends FieldValues>(props: {
 	ctx: FieldRenderContext;
 	labelNode: React.ReactNode;
 	descNode: React.ReactNode;
-	commonWrapProps: {
-		'data-invalid'?: boolean;
-		hidden?: boolean;
-		disabled?: boolean;
-	};
+	commonWrapProps: CommonWrapProps;
 	resolvers?: ResolverMap<TValues>;
 }) {
 	const countryOptions = useResolvedOptions(
@@ -717,8 +1002,20 @@ function AddressFieldControl<TValues extends FieldValues>(props: {
 			control={props.form.control}
 			render={({ field, fieldState }) => {
 				const err = fieldState.error ? [fieldState.error] : [];
+				const describedBy = ariaDescribedBy(
+					props.ctx.descriptionId,
+					props.ctx.errorId,
+					fieldState.invalid
+				);
 				return (
-					<DriverField {...props.commonWrapProps}>
+					<DriverField
+						{...props.commonWrapProps}
+						data-invalid={
+							fieldState.invalid ||
+							props.commonWrapProps['data-invalid'] ||
+							undefined
+						}
+					>
 						{props.labelNode}
 						<props.driver.AddressField
 							id={props.ctx.id}
@@ -733,11 +1030,14 @@ function AddressFieldControl<TValues extends FieldValues>(props: {
 							disabled={!props.ctx.enabled}
 							readOnly={props.ctx.readOnly}
 							aria-invalid={fieldState.invalid || undefined}
+							aria-describedby={describedBy}
 							parts={props.spec.parts}
 							countryOptions={countryOptions}
 						/>
 						{props.descNode}
-						{fieldState.invalid ? <DriverError errors={err} /> : null}
+						{fieldState.invalid ? (
+							<DriverError id={props.ctx.errorId} errors={err} />
+						) : null}
 					</DriverField>
 				);
 			}}
@@ -753,11 +1053,7 @@ function PhoneFieldControl<TValues extends FieldValues>(props: {
 	ctx: FieldRenderContext;
 	labelNode: React.ReactNode;
 	descNode: React.ReactNode;
-	commonWrapProps: {
-		'data-invalid'?: boolean;
-		hidden?: boolean;
-		disabled?: boolean;
-	};
+	commonWrapProps: CommonWrapProps;
 	resolvers?: ResolverMap<TValues>;
 }) {
 	const countryOptions = useResolvedOptions(
@@ -774,8 +1070,20 @@ function PhoneFieldControl<TValues extends FieldValues>(props: {
 			control={props.form.control}
 			render={({ field, fieldState }) => {
 				const err = fieldState.error ? [fieldState.error] : [];
+				const describedBy = ariaDescribedBy(
+					props.ctx.descriptionId,
+					props.ctx.errorId,
+					fieldState.invalid
+				);
 				return (
-					<DriverField {...props.commonWrapProps}>
+					<DriverField
+						{...props.commonWrapProps}
+						data-invalid={
+							fieldState.invalid ||
+							props.commonWrapProps['data-invalid'] ||
+							undefined
+						}
+					>
 						{props.labelNode}
 						<props.driver.PhoneField
 							id={props.ctx.id}
@@ -790,11 +1098,14 @@ function PhoneFieldControl<TValues extends FieldValues>(props: {
 							disabled={!props.ctx.enabled}
 							readOnly={props.ctx.readOnly}
 							aria-invalid={fieldState.invalid || undefined}
+							aria-describedby={describedBy}
 							parts={props.spec.parts}
 							countryOptions={countryOptions}
 						/>
 						{props.descNode}
-						{fieldState.invalid ? <DriverError errors={err} /> : null}
+						{fieldState.invalid ? (
+							<DriverError id={props.ctx.errorId} errors={err} />
+						) : null}
 					</DriverField>
 				);
 			}}
@@ -809,11 +1120,7 @@ function DateFieldControl<TValues extends FieldValues>(props: {
 	ctx: FieldRenderContext;
 	labelNode: React.ReactNode;
 	descNode: React.ReactNode;
-	commonWrapProps: {
-		'data-invalid'?: boolean;
-		hidden?: boolean;
-		disabled?: boolean;
-	};
+	commonWrapProps: CommonWrapProps;
 }) {
 	const DriverField = props.driver.Field;
 	const DriverError = props.driver.FieldError;
@@ -824,8 +1131,20 @@ function DateFieldControl<TValues extends FieldValues>(props: {
 			control={props.form.control}
 			render={({ field, fieldState }) => {
 				const err = fieldState.error ? [fieldState.error] : [];
+				const describedBy = ariaDescribedBy(
+					props.ctx.descriptionId,
+					props.ctx.errorId,
+					fieldState.invalid
+				);
 				return (
-					<DriverField {...props.commonWrapProps}>
+					<DriverField
+						{...props.commonWrapProps}
+						data-invalid={
+							fieldState.invalid ||
+							props.commonWrapProps['data-invalid'] ||
+							undefined
+						}
+					>
 						{props.labelNode}
 						<props.driver.DateField
 							id={props.ctx.id}
@@ -837,12 +1156,16 @@ function DateFieldControl<TValues extends FieldValues>(props: {
 							}}
 							disabled={!props.ctx.enabled}
 							readOnly={props.ctx.readOnly}
+							aria-invalid={fieldState.invalid || undefined}
+							aria-describedby={describedBy}
 							placeholder={props.spec.placeholderI18n}
 							minDate={props.spec.minDate}
 							maxDate={props.spec.maxDate}
 						/>
 						{props.descNode}
-						{fieldState.invalid ? <DriverError errors={err} /> : null}
+						{fieldState.invalid ? (
+							<DriverError id={props.ctx.errorId} errors={err} />
+						) : null}
 					</DriverField>
 				);
 			}}
@@ -857,11 +1180,7 @@ function TimeFieldControl<TValues extends FieldValues>(props: {
 	ctx: FieldRenderContext;
 	labelNode: React.ReactNode;
 	descNode: React.ReactNode;
-	commonWrapProps: {
-		'data-invalid'?: boolean;
-		hidden?: boolean;
-		disabled?: boolean;
-	};
+	commonWrapProps: CommonWrapProps;
 }) {
 	const DriverField = props.driver.Field;
 	const DriverError = props.driver.FieldError;
@@ -872,8 +1191,20 @@ function TimeFieldControl<TValues extends FieldValues>(props: {
 			control={props.form.control}
 			render={({ field, fieldState }) => {
 				const err = fieldState.error ? [fieldState.error] : [];
+				const describedBy = ariaDescribedBy(
+					props.ctx.descriptionId,
+					props.ctx.errorId,
+					fieldState.invalid
+				);
 				return (
-					<DriverField {...props.commonWrapProps}>
+					<DriverField
+						{...props.commonWrapProps}
+						data-invalid={
+							fieldState.invalid ||
+							props.commonWrapProps['data-invalid'] ||
+							undefined
+						}
+					>
 						{props.labelNode}
 						<props.driver.TimeField
 							id={props.ctx.id}
@@ -885,11 +1216,15 @@ function TimeFieldControl<TValues extends FieldValues>(props: {
 							}}
 							disabled={!props.ctx.enabled}
 							readOnly={props.ctx.readOnly}
+							aria-invalid={fieldState.invalid || undefined}
+							aria-describedby={describedBy}
 							placeholder={props.spec.placeholderI18n}
 							is24Hour={props.spec.is24Hour}
 						/>
 						{props.descNode}
-						{fieldState.invalid ? <DriverError errors={err} /> : null}
+						{fieldState.invalid ? (
+							<DriverError id={props.ctx.errorId} errors={err} />
+						) : null}
 					</DriverField>
 				);
 			}}
@@ -904,11 +1239,7 @@ function DateTimeFieldControl<TValues extends FieldValues>(props: {
 	ctx: FieldRenderContext;
 	labelNode: React.ReactNode;
 	descNode: React.ReactNode;
-	commonWrapProps: {
-		'data-invalid'?: boolean;
-		hidden?: boolean;
-		disabled?: boolean;
-	};
+	commonWrapProps: CommonWrapProps;
 }) {
 	const DriverField = props.driver.Field;
 	const DriverError = props.driver.FieldError;
@@ -919,8 +1250,20 @@ function DateTimeFieldControl<TValues extends FieldValues>(props: {
 			control={props.form.control}
 			render={({ field, fieldState }) => {
 				const err = fieldState.error ? [fieldState.error] : [];
+				const describedBy = ariaDescribedBy(
+					props.ctx.descriptionId,
+					props.ctx.errorId,
+					fieldState.invalid
+				);
 				return (
-					<DriverField {...props.commonWrapProps}>
+					<DriverField
+						{...props.commonWrapProps}
+						data-invalid={
+							fieldState.invalid ||
+							props.commonWrapProps['data-invalid'] ||
+							undefined
+						}
+					>
 						{props.labelNode}
 						<props.driver.DateTimeField
 							id={props.ctx.id}
@@ -932,6 +1275,8 @@ function DateTimeFieldControl<TValues extends FieldValues>(props: {
 							}}
 							disabled={!props.ctx.enabled}
 							readOnly={props.ctx.readOnly}
+							aria-invalid={fieldState.invalid || undefined}
+							aria-describedby={describedBy}
 							datePlaceholder={props.spec.placeholderI18n}
 							timePlaceholder={props.spec.placeholderI18n}
 							minDate={props.spec.minDate}
@@ -939,7 +1284,9 @@ function DateTimeFieldControl<TValues extends FieldValues>(props: {
 							is24Hour={props.spec.is24Hour}
 						/>
 						{props.descNode}
-						{fieldState.invalid ? <DriverError errors={err} /> : null}
+						{fieldState.invalid ? (
+							<DriverError id={props.ctx.errorId} errors={err} />
+						) : null}
 					</DriverField>
 				);
 			}}
@@ -952,9 +1299,16 @@ function ArrayFieldRenderer<TValues extends FieldValues>(props: {
 	form: UseFormReturn<TValues>;
 	spec: ArrayFieldSpec;
 	parent?: string;
-	renderField: (field: FieldSpec, parent?: string) => React.ReactElement | null;
+	renderField: (
+		field: FieldSpec,
+		parent?: string,
+		parentLayout?: FormLayoutSpec,
+		fallbackId?: string
+	) => React.ReactElement | null;
 }) {
 	const name = fieldPath(props.parent, props.spec.name);
+	const FieldArray = props.driver.FieldArray ?? 'div';
+	const FieldArrayItem = props.driver.FieldArrayItem ?? 'div';
 	const { fields, append, remove } = useFieldArray({
 		control: props.form.control,
 		name: name as never,
@@ -966,14 +1320,14 @@ function ArrayFieldRenderer<TValues extends FieldValues>(props: {
 			: fields.length > props.spec.min) && index >= 0;
 
 	return (
-		<div key={name}>
+		<FieldArray key={name} className={fieldLayoutClassName(props.spec.layout)}>
 			{props.spec.labelI18n ? (
 				<props.driver.FieldLabel>
 					{props.spec.labelI18n}
 				</props.driver.FieldLabel>
 			) : null}
 			{fields.map((row, index) => (
-				<div key={row.id ?? index}>
+				<FieldArrayItem key={row.id ?? index}>
 					{props.renderField(props.spec.of, `${name}.${index}`)}
 					{canRemove(index) ? (
 						<props.driver.Button
@@ -985,7 +1339,7 @@ function ArrayFieldRenderer<TValues extends FieldValues>(props: {
 							Remove
 						</props.driver.Button>
 					) : null}
-				</div>
+				</FieldArrayItem>
 			))}
 			{canAdd ? (
 				<props.driver.Button
@@ -997,7 +1351,7 @@ function ArrayFieldRenderer<TValues extends FieldValues>(props: {
 					Add
 				</props.driver.Button>
 			) : null}
-		</div>
+		</FieldArray>
 	);
 }
 
@@ -1028,30 +1382,50 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
 
 		const renderField = (
 			field: FieldSpec,
-			parent?: string
+			parent?: string,
+			parentLayout?: FormLayoutSpec,
+			fallbackId?: string
 		): React.ReactElement | null => {
 			const DriverField = props.merged.driver.Field;
 			const DriverLabel = props.merged.driver.FieldLabel;
 			const DriverDesc = props.merged.driver.FieldDescription;
 			const DriverError = props.merged.driver.FieldError;
+			const DriverFieldGroup =
+				props.merged.driver.FieldGroup ?? DefaultFieldGroup;
+			const DriverFieldSet = props.merged.driver.FieldSet ?? 'div';
+			const DriverLegend = props.merged.driver.FieldLegend;
 			const name = fieldPath(parent, field.name);
 			const indices = extractIndices(parent);
 			const visible = evalPredicate(values, field.visibleWhen, indices);
 			const enabled = evalPredicate(values, field.enabledWhen, indices);
 			const readOnly = isFieldReadOnly(field);
 			const invalid = Boolean(form.getFieldState(name as never)?.invalid);
+			const idBase =
+				name.replace(/\./g, '-') ||
+				fallbackId ||
+				parent?.replace(/\./g, '-') ||
+				'form-field';
 
 			if (!visible) return null;
 
 			const ctx: FieldRenderContext = {
 				name,
-				id: name.replace(/\./g, '-'),
+				id: idBase,
 				enabled,
 				readOnly,
 				visible,
+				descriptionId: field.descriptionI18n
+					? `${idBase}-description`
+					: undefined,
+				errorId: `${idBase}-error`,
 			};
-			const commonWrapProps = {
-				'data-invalid': invalid,
+			const commonWrapProps: CommonWrapProps = {
+				className: fieldLayoutClassName(field.layout),
+				orientation:
+					field.layout?.orientation ?? parentLayout?.fieldOrientation,
+				layout: field.layout,
+				'data-invalid': invalid || undefined,
+				'data-disabled': !enabled || readOnly || undefined,
 				hidden: !visible,
 				disabled: !enabled || readOnly,
 			};
@@ -1059,20 +1433,33 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
 				<DriverLabel htmlFor={ctx.id}>{field.labelI18n}</DriverLabel>
 			) : null;
 			const descNode = field.descriptionI18n ? (
-				<DriverDesc>{field.descriptionI18n}</DriverDesc>
+				<DriverDesc id={ctx.descriptionId}>{field.descriptionI18n}</DriverDesc>
 			) : null;
 
 			if (field.kind === 'group') {
+				const legendNode = field.legendI18n ?? field.labelI18n;
 				return (
-					<DriverField {...commonWrapProps}>
-						{labelNode}
-						{field.fields.map((child, index) => (
-							<React.Fragment key={`${name}-${index}`}>
-								{renderField(child, name)}
-							</React.Fragment>
-						))}
+					<DriverFieldSet
+						key={name || `${idBase}-group`}
+						className={fieldLayoutClassName(field.layout)}
+					>
+						{legendNode && DriverLegend ? (
+							<DriverLegend variant="legend">{legendNode}</DriverLegend>
+						) : legendNode ? (
+							<DriverLabel>{legendNode}</DriverLabel>
+						) : null}
 						{descNode}
-					</DriverField>
+						<DriverFieldGroup
+							layout={field.layout}
+							className={formLayoutClassName(field.layout)}
+						>
+							{field.fields.map((child, index) => (
+								<React.Fragment key={`${name}-${index}`}>
+									{renderField(child, name, field.layout, `${idBase}-${index}`)}
+								</React.Fragment>
+							))}
+						</DriverFieldGroup>
+					</DriverFieldSet>
 				);
 			}
 
@@ -1226,90 +1613,187 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
 					control={form.control}
 					render={({ field: rhfField, fieldState }) => {
 						const err = fieldState.error ? [fieldState.error] : [];
+						const describedBy = ariaDescribedBy(
+							ctx.descriptionId,
+							ctx.errorId,
+							fieldState.invalid
+						);
+						const wrapProps = {
+							...commonWrapProps,
+							'data-invalid':
+								fieldState.invalid ||
+								commonWrapProps['data-invalid'] ||
+								undefined,
+						};
+						const errorNode = fieldState.invalid ? (
+							<DriverError id={ctx.errorId} errors={err} />
+						) : null;
 						if (field.kind === 'text') {
 							const textField = field as TextFieldSpec;
+							const inputProps = {
+								id: ctx.id,
+								'aria-invalid': fieldState.invalid || undefined,
+								'aria-describedby': describedBy,
+								placeholder: field.placeholderI18n,
+								autoComplete: textField.autoComplete,
+								inputMode: textField.inputMode,
+								maxLength: textField.maxLength,
+								minLength: textField.minLength,
+								disabled: !ctx.enabled,
+								readOnly: ctx.readOnly,
+								...rhfField,
+								...(field.uiProps as Record<string, unknown>),
+							};
+							const canRenderInputGroup =
+								textField.inputGroup?.addons?.length &&
+								props.merged.driver.InputGroup &&
+								props.merged.driver.InputGroupAddon &&
+								props.merged.driver.InputGroupInput;
+							const InputGroup = props.merged.driver.InputGroup;
+							const InputGroupInput = props.merged.driver.InputGroupInput;
 							return (
-								<DriverField {...commonWrapProps}>
+								<DriverField {...wrapProps}>
 									{labelNode}
-									<props.merged.driver.Input
-										id={ctx.id}
-										aria-invalid={fieldState.invalid || undefined}
-										placeholder={field.placeholderI18n}
-										autoComplete={textField.autoComplete}
-										inputMode={textField.inputMode}
-										maxLength={textField.maxLength}
-										minLength={textField.minLength}
-										disabled={!ctx.enabled}
-										readOnly={ctx.readOnly}
-										{...rhfField}
-										{...(field.uiProps as Record<string, unknown>)}
-									/>
+									{canRenderInputGroup && InputGroup && InputGroupInput ? (
+										<InputGroup>
+											<InputGroupInput {...inputProps} />
+											{renderInputGroupAddons(
+												props.merged.driver,
+												textField.inputGroup
+											)}
+										</InputGroup>
+									) : (
+										<props.merged.driver.Input {...inputProps} />
+									)}
 									{descNode}
-									{fieldState.invalid ? <DriverError errors={err} /> : null}
+									{errorNode}
 								</DriverField>
 							);
 						}
 
 						if (field.kind === 'textarea') {
 							const textareaField = field as TextareaFieldSpec;
+							const textareaProps = {
+								id: ctx.id,
+								'aria-invalid': fieldState.invalid || undefined,
+								'aria-describedby': describedBy,
+								placeholder: field.placeholderI18n,
+								rows: textareaField.rows,
+								maxLength: textareaField.maxLength,
+								disabled: !ctx.enabled,
+								readOnly: ctx.readOnly,
+								...rhfField,
+								...(field.uiProps as Record<string, unknown>),
+							};
+							const canRenderInputGroup =
+								textareaField.inputGroup?.addons?.length &&
+								props.merged.driver.InputGroup &&
+								props.merged.driver.InputGroupAddon &&
+								props.merged.driver.InputGroupTextarea;
+							const InputGroup = props.merged.driver.InputGroup;
+							const InputGroupTextarea = props.merged.driver.InputGroupTextarea;
 							return (
-								<DriverField {...commonWrapProps}>
+								<DriverField {...wrapProps}>
 									{labelNode}
-									<props.merged.driver.Textarea
-										id={ctx.id}
-										aria-invalid={fieldState.invalid || undefined}
-										placeholder={field.placeholderI18n}
-										rows={textareaField.rows}
-										maxLength={textareaField.maxLength}
-										disabled={!ctx.enabled}
-										readOnly={ctx.readOnly}
-										{...rhfField}
-										{...(field.uiProps as Record<string, unknown>)}
-									/>
+									{canRenderInputGroup && InputGroup && InputGroupTextarea ? (
+										<InputGroup>
+											<InputGroupTextarea {...textareaProps} />
+											{renderInputGroupAddons(
+												props.merged.driver,
+												textareaField.inputGroup
+											)}
+										</InputGroup>
+									) : (
+										<props.merged.driver.Textarea {...textareaProps} />
+									)}
 									{descNode}
-									{fieldState.invalid ? <DriverError errors={err} /> : null}
+									{errorNode}
 								</DriverField>
 							);
 						}
 
 						if (field.kind === 'checkbox') {
+							const checkbox = (
+								<props.merged.driver.Checkbox
+									id={ctx.id}
+									name={ctx.name}
+									aria-invalid={fieldState.invalid || undefined}
+									aria-describedby={describedBy}
+									disabled={!ctx.enabled || ctx.readOnly}
+									checked={Boolean(rhfField.value)}
+									onCheckedChange={(value) => {
+										if (ctx.readOnly) return;
+										rhfField.onChange(value);
+									}}
+									{...(field.uiProps as Record<string, unknown>)}
+								/>
+							);
+							const FieldContent = props.merged.driver.FieldContent;
+							const inline =
+								commonWrapProps.orientation === 'horizontal' ||
+								commonWrapProps.orientation === 'responsive';
 							return (
-								<DriverField {...commonWrapProps}>
-									{labelNode}
-									<props.merged.driver.Checkbox
-										id={ctx.id}
-										name={ctx.name}
-										disabled={!ctx.enabled || ctx.readOnly}
-										checked={Boolean(rhfField.value)}
-										onCheckedChange={(value) => {
-											if (ctx.readOnly) return;
-											rhfField.onChange(value);
-										}}
-										{...(field.uiProps as Record<string, unknown>)}
-									/>
-									{descNode}
-									{fieldState.invalid ? <DriverError errors={err} /> : null}
+								<DriverField {...wrapProps}>
+									{inline && FieldContent ? (
+										<>
+											{checkbox}
+											<FieldContent>
+												{labelNode}
+												{descNode}
+												{errorNode}
+											</FieldContent>
+										</>
+									) : (
+										<>
+											{labelNode}
+											{checkbox}
+											{descNode}
+											{errorNode}
+										</>
+									)}
 								</DriverField>
 							);
 						}
 
 						if (field.kind === 'switch') {
+							const control = (
+								<props.merged.driver.Switch
+									id={ctx.id}
+									name={ctx.name}
+									aria-invalid={fieldState.invalid || undefined}
+									aria-describedby={describedBy}
+									disabled={!ctx.enabled || ctx.readOnly}
+									checked={Boolean(rhfField.value)}
+									onCheckedChange={(value) => {
+										if (ctx.readOnly) return;
+										rhfField.onChange(value);
+									}}
+									{...(field.uiProps as Record<string, unknown>)}
+								/>
+							);
+							const FieldContent = props.merged.driver.FieldContent;
+							const inline =
+								commonWrapProps.orientation === 'horizontal' ||
+								commonWrapProps.orientation === 'responsive';
 							return (
-								<DriverField {...commonWrapProps}>
-									{labelNode}
-									<props.merged.driver.Switch
-										id={ctx.id}
-										name={ctx.name}
-										disabled={!ctx.enabled || ctx.readOnly}
-										checked={Boolean(rhfField.value)}
-										onCheckedChange={(value) => {
-											if (ctx.readOnly) return;
-											rhfField.onChange(value);
-										}}
-										{...(field.uiProps as Record<string, unknown>)}
-									/>
-									{descNode}
-									{fieldState.invalid ? <DriverError errors={err} /> : null}
+								<DriverField {...wrapProps}>
+									{inline && FieldContent ? (
+										<>
+											{control}
+											<FieldContent>
+												{labelNode}
+												{descNode}
+												{errorNode}
+											</FieldContent>
+										</>
+									) : (
+										<>
+											{labelNode}
+											{control}
+											{descNode}
+											{errorNode}
+										</>
+									)}
 								</DriverField>
 							);
 						}
@@ -1326,22 +1810,51 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
 				return props.merged.onSubmitOverride(data, actionKey);
 			}
 		};
+		const FormRoot = props.merged.driver.FormRoot ?? 'form';
+		const Actions = props.merged.driver.Actions ?? 'div';
+		const FieldGroup = props.merged.driver.FieldGroup ?? DefaultFieldGroup;
+		const submitMode = props.merged.submitMode ?? 'form';
+		const submit = form.handleSubmit(onSubmit);
+		const submitButtonProps =
+			submitMode === 'button'
+				? ({
+						type: 'button',
+						onClick: () => {
+							void submit();
+						},
+					} as const)
+				: ({ type: 'submit' } as const);
 
 		return (
-			<form onSubmit={form.handleSubmit(onSubmit)}>
-				{normalizedSpec.fields.map((field, index) => (
-					<React.Fragment key={index}>{renderField(field)}</React.Fragment>
-				))}
+			<FormRoot onSubmit={submitMode === 'form' ? submit : undefined}>
+				<FieldGroup
+					layout={normalizedSpec.layout}
+					className={formLayoutClassName(normalizedSpec.layout)}
+				>
+					{normalizedSpec.fields.map((field, index) => (
+						<React.Fragment key={index}>
+							{renderField(
+								field,
+								undefined,
+								normalizedSpec.layout,
+								`field-${index}`
+							)}
+						</React.Fragment>
+					))}
+				</FieldGroup>
 				{normalizedSpec.actions?.length ? (
-					<div>
+					<Actions>
 						{normalizedSpec.actions.map((action) => (
-							<props.merged.driver.Button key={action.key} type="submit">
+							<props.merged.driver.Button
+								key={action.key}
+								{...submitButtonProps}
+							>
 								{action.labelI18n}
 							</props.merged.driver.Button>
 						))}
-					</div>
+					</Actions>
 				) : null}
-			</form>
+			</FormRoot>
 		);
 	}
 

@@ -5,12 +5,12 @@
  */
 
 export * from './approval';
+export * from './example';
 export * from './handlers/workflow.handlers';
 export * from './instance';
 export * from './presentations';
 // Shared exports
 export * from './shared';
-
 // State machine exports
 // State machine exports
 export * from './state-machine';

@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.voice",
-	"version": "1.7.20",
+	"version": "1.7.21",
 	"description": "Voice capabilities: TTS, STT, and conversational AI",
 	"keywords": [
 		"contractspec",
@@ -86,7 +86,8 @@
 		"./tts/segment-synthesizer": "./src/tts/segment-synthesizer.ts",
 		"./tts/types": "./src/tts/types.ts",
 		"./tts/voice-synthesizer": "./src/tts/voice-synthesizer.ts",
-		"./types": "./src/types.ts"
+		"./types": "./src/types.ts",
+		"./voice.feature": "./src/voice.feature.ts"
 	},
 	"publishConfig": {
 		"access": "public",
@@ -391,6 +392,13 @@
 				"bun": "./dist/types.js",
 				"node": "./dist/node/types.js",
 				"default": "./dist/types.js"
+			},
+			"./voice.feature": {
+				"types": "./dist/voice.feature.d.ts",
+				"browser": "./dist/browser/voice.feature.js",
+				"bun": "./dist/voice.feature.js",
+				"node": "./dist/node/voice.feature.js",
+				"default": "./dist/voice.feature.js"
 			}
 		},
 		"registry": "https://registry.npmjs.org/"

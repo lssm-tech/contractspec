@@ -1,41 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesWealthSnapshotExample = defineExample({
 	meta: {
-		key: 'wealth-snapshot',
+		key: 'examples.wealth-snapshot',
 		version: '1.0.0',
 		title: 'Wealth Snapshot',
 		description:
-			'Simple wealth overview with accounts, assets, liabilities, goals, and net-worth snapshots.',
+			'Wealth Snapshot mini-app for accounts, assets, liabilities, and goals',
 		kind: 'template',
-		visibility: 'public',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['finance', 'net-worth', 'goals'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.wealth-snapshot',
-		goalDocId: 'docs.examples.wealth-snapshot.goal',
-		usageDocId: 'docs.examples.wealth-snapshot.usage',
-		constraintsDocId: 'docs.examples.wealth-snapshot.constraints',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.wealth-snapshot',
-		feature: './feature',
-		contracts: './contracts',
-		presentations: './presentations',
-		handlers: './handlers',
-		docs: './docs',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'wealth-snapshot'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: {
-			enabled: true,
-			modes: ['playground', 'specs', 'builder', 'markdown', 'evolution'],
-		},
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.wealth-snapshot',
 	},
 });
 
-export default example;
+export default ExamplesWealthSnapshotExample;
+export { ExamplesWealthSnapshotExample };

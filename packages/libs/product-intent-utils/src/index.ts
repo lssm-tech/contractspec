@@ -1,4 +1,5 @@
 export * from './impact-engine';
+export * from './product-intent-utils.feature';
 export * from './project-management-sync';
 export * from './prompts';
 export * from './ticket-pipeline';

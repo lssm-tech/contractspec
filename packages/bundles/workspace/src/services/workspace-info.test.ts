@@ -1,4 +1,4 @@
-import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test';
+import { beforeEach, describe, expect, it, mock } from 'bun:test';
 import type { FsAdapter } from '../ports/fs';
 import {
 	findAllConfigFiles,
@@ -28,20 +28,14 @@ describe('Workspace Info Service', () => {
 			packageManager: 'bun',
 			isMonorepo: true,
 		});
-
-		mock.module('../adapters/workspace', () => ({
-			getWorkspaceInfo: mockGetWorkspaceInfo,
-		}));
-	});
-
-	afterEach(() => {
-		mock.restore();
 	});
 
 	describe('getExtendedWorkspaceInfo', () => {
 		it('should return base info', async () => {
 			const info = await getExtendedWorkspaceInfo(
-				mockFs as unknown as FsAdapter
+				mockFs as unknown as FsAdapter,
+				undefined,
+				{ getWorkspaceInfo: mockGetWorkspaceInfo }
 			);
 			expect(info.workspaceRoot).toBe('/root');
 			expect(mockGetWorkspaceInfo).toHaveBeenCalled();
@@ -56,7 +50,9 @@ describe('Workspace Info Service', () => {
 			);
 
 			const info = await getExtendedWorkspaceInfo(
-				mockFs as unknown as FsAdapter
+				mockFs as unknown as FsAdapter,
+				undefined,
+				{ getWorkspaceInfo: mockGetWorkspaceInfo }
 			);
 
 			expect(info.workspaceConfigPath).toBeDefined();

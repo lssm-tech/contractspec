@@ -1,41 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesAgentConsoleExample = defineExample({
 	meta: {
 		key: 'agent-console',
 		version: '1.0.0',
 		title: 'Agent Console',
 		description:
-			'AI agent ops console: tools, agents, runs, logs, and metrics (spec-first, regenerable).',
+			'Agent Console example - AI agent orchestration with tools, runs, and logs',
 		kind: 'template',
 		visibility: 'public',
-		stability: 'beta',
-		owners: ['@platform.core'],
-		tags: ['ai', 'agents', 'tools', 'orchestration'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.agent-console.reference',
-		goalDocId: 'docs.examples.agent-console.goal',
-		usageDocId: 'docs.examples.agent-console.usage',
-		constraintsDocId: 'docs.examples.agent-console.constraints',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.agent-console',
-		feature: './agent.feature',
-		presentations: './presentations',
-		handlers: './handlers',
-		docs: './docs',
-		ui: './ui',
+		stability: 'experimental',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'agent-console', 'agents', 'autonomous'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: {
-			enabled: true,
-			modes: ['playground', 'specs', 'builder', 'markdown', 'evolution'],
-		},
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.agent-console',
 	},
 });
 
-export default example;
+export default ExamplesAgentConsoleExample;
+export { ExamplesAgentConsoleExample };

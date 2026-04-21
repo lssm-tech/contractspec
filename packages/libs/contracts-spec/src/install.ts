@@ -4,6 +4,7 @@ import type { EventSpec } from './events';
 import type { AnyOperationSpec, EmitDecl, OperationSpec } from './operations/';
 import { OperationSpecRegistry } from './operations/registry';
 import type { ResourceRefDescriptor } from './resources';
+import type { ContractSuccess } from './results';
 import type { HandlerCtx } from './types';
 
 /** Infer input/output types from a OperationSpec */
@@ -37,10 +38,22 @@ export type RuntimeSpecOutput<Spec extends AnyOperationSpec> =
 		: ResourceRefOut<OperationSpecOutput<Spec>>;
 
 /** Handler signature derived from the Spec */
-export type HandlerForOperationSpec<Spec extends AnyOperationSpec> = (
+export type HandlerForOperationSpec<
+	Spec extends AnyOperationSpec,
+	AllowContractResult extends boolean = false,
+> = (
 	args: ZodOperationSpecInput<Spec>,
 	ctx: HandlerCtx
-) => Promise<RuntimeSpecOutput<Spec>>;
+) => Promise<
+	AllowContractResult extends true
+		? RuntimeSpecOutput<Spec> | ContractSuccess<unknown, string>
+		: RuntimeSpecOutput<Spec>
+>;
+
+export type HandlerForOperationSpecWithResult<Spec extends AnyOperationSpec> = (
+	args: ZodOperationSpecInput<Spec>,
+	ctx: HandlerCtx
+) => Promise<RuntimeSpecOutput<Spec> | ContractSuccess<unknown, string>>;
 
 /** Typed event param from Spec.sideEffects.emits */
 export type EventParam<
@@ -117,7 +130,7 @@ export function makeEmit<S extends AnyOperationSpec>(
 export function installOp<S extends AnyOperationSpec>(
 	reg: OperationSpecRegistry,
 	spec: S,
-	handler: HandlerForOperationSpec<S>
+	handler: HandlerForOperationSpecWithResult<S>
 ): OperationSpecRegistry {
 	return reg.register(spec).bind(spec, handler);
 }
@@ -129,7 +142,7 @@ export function installOp<S extends AnyOperationSpec>(
  */
 export function op<S extends AnyOperationSpec>(
 	spec: S,
-	handler: HandlerForOperationSpec<AnyOperationSpec>
+	handler: HandlerForOperationSpecWithResult<AnyOperationSpec>
 ) {
 	return {
 		spec,

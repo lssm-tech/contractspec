@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/app.cli-databases",
-	"version": "3.7.13",
+	"version": "3.7.14",
 	"type": "module",
 	"bin": {
 		"databases": "dist/cli.js"
@@ -17,7 +17,8 @@
 	},
 	"dependencies": {
 		"minimist": "^1.2.8",
-		"execa": "^9.6.1"
+		"execa": "^9.6.1",
+		"@contractspec/lib.contracts-spec": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",
@@ -31,6 +32,7 @@
 	],
 	"exports": {
 		".": "./dist/index.mjs",
+		"./blueprint": "./dist/blueprint.mjs",
 		"./cli": "./dist/cli.mjs",
 		"./profile": "./dist/profile.mjs",
 		"./*": "./*"

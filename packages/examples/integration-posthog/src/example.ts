@@ -1,32 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesIntegrationPosthogExample = defineExample({
 	meta: {
-		key: 'integration-posthog',
+		key: 'examples.integration-posthog',
 		version: '1.0.0',
-		title: 'Integration — PostHog Analytics',
+		title: 'Integration Posthog',
 		description:
-			'Capture events, run HogQL, and manage PostHog assets via AnalyticsProvider.',
-		kind: 'integration',
-		visibility: 'public',
+			'PostHog analytics integration example: capture events, run HogQL, and manage feature flags.',
+		kind: 'template',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.integrations'],
-		tags: ['posthog', 'analytics', 'hogql', 'integration'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.integration-posthog',
-		usageDocId: 'docs.examples.integration-posthog.usage',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.integration-posthog',
-		docs: './docs',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'integration-posthog'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: { enabled: true, modes: ['markdown', 'specs'] },
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.integration-posthog',
 	},
 });
 
-export default example;
+export default ExamplesIntegrationPosthogExample;
+export { ExamplesIntegrationPosthogExample };

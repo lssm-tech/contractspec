@@ -1,9 +1,15 @@
 import {
+	ChangeMessageVisibilityCommand,
 	DeleteMessageCommand,
 	ReceiveMessageCommand,
 	SendMessageCommand,
 	SQSClient,
 } from '@aws-sdk/client-sqs';
+import {
+	isContractSuccess,
+	normalizeContractError,
+	problemToSafeMessage,
+} from '@contractspec/lib.contracts-spec/results';
 import type { Logger } from '@contractspec/lib.logger';
 import { randomUUID } from 'crypto';
 import type { EnqueueOptions, Job, JobHandler, JobQueue } from './types';
@@ -225,23 +231,44 @@ export class ScalewaySqsJobQueue implements JobQueue {
 					job.updatedAt = new Date();
 
 					try {
-						await handler(job);
+						const result = await handler(job);
+						if (isContractSuccess(result)) {
+							job.resultEnvelope = result;
+							job.result = result.data;
+						} else {
+							job.result = result;
+						}
 						job.status = 'completed';
 						job.updatedAt = new Date();
 						await this.deleteMessage(msg.ReceiptHandle);
 					} catch (err) {
+						const failure = normalizeContractError(err, {
+							source: { service: 'jobs', jobId: job.id },
+						});
 						job.status = 'failed';
-						job.lastError =
-							err instanceof Error ? err.message : 'Unknown job error';
+						job.lastProblem = failure.problem;
+						job.lastError = problemToSafeMessage(failure.problem);
 						job.updatedAt = new Date();
 
 						this.logger?.error?.('jobs.queue.scaleway_sqs.job_failed', {
 							jobType: job.type,
 							jobId: job.id,
-							error: err instanceof Error ? err.message : String(err),
+							error: job.lastError,
+							problem: failure.problem,
 						});
-						// Do NOT delete message on failure:
-						// - SQS/Scaleway will redeliver until MaxReceiveCount, then DLQ takes over.
+						if (!failure.problem.retryable) {
+							await this.deleteMessage(msg.ReceiptHandle);
+						} else {
+							const retryAfter = retryAfterSeconds(failure.problem.retryAfter);
+							if (retryAfter != null) {
+								await this.changeMessageVisibility(
+									msg.ReceiptHandle,
+									retryAfter
+								);
+							}
+							// Retryable failures are left visible after the queue timeout:
+							// SQS/Scaleway redelivers until MaxReceiveCount, then DLQ takes over.
+						}
 					}
 				}
 			} catch (err) {
@@ -272,7 +299,38 @@ export class ScalewaySqsJobQueue implements JobQueue {
 		}
 	}
 
+	private async changeMessageVisibility(
+		receiptHandle: string,
+		visibilityTimeoutSeconds: number
+	): Promise<void> {
+		try {
+			await this.sqs.send(
+				new ChangeMessageVisibilityCommand({
+					QueueUrl: this.queueUrl,
+					ReceiptHandle: receiptHandle,
+					VisibilityTimeout: visibilityTimeoutSeconds,
+				})
+			);
+		} catch (err) {
+			this.logger?.warn?.('jobs.queue.scaleway_sqs.change_visibility_failed', {
+				error: err instanceof Error ? err.message : String(err),
+			});
+		}
+	}
+
 	private async sleep(ms: number): Promise<void> {
 		await new Promise((resolve) => setTimeout(resolve, ms));
 	}
+}
+
+function retryAfterSeconds(
+	retryAfter: number | Date | undefined
+): number | undefined {
+	if (retryAfter instanceof Date) {
+		return Math.max(0, Math.ceil((retryAfter.getTime() - Date.now()) / 1000));
+	}
+	if (typeof retryAfter === 'number') {
+		return Math.max(0, Math.ceil(retryAfter / 1000));
+	}
+	return undefined;
 }

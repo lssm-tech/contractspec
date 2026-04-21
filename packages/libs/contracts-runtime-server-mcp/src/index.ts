@@ -1,3 +1,4 @@
+export * from './contracts-runtime-server-mcp.feature';
 export * from './mcp/createMcpServer';
 export * from './mcp/mcpTypes';
 export * from './mcp/registerPresentations';

@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/module.mobile-review",
-	"version": "0.2.2",
+	"version": "0.2.4",
 	"description": "Reusable mobile-first Builder review surfaces.",
 	"keywords": [
 		"contractspec",
@@ -34,7 +34,8 @@
 		"@contractspec/lib.builder-spec": "workspace:*",
 		"@contractspec/lib.ui-kit-web": "workspace:*",
 		"@contractspec/module.builder-workbench": "workspace:*",
-		"react": "catalog:"
+		"react": "catalog:",
+		"@contractspec/lib.contracts-spec": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.bun": "workspace:*",
@@ -43,10 +44,12 @@
 		"typescript": "catalog:"
 	},
 	"peerDependencies": {
-		"react": ">=19.2.4"
+		"react": "catalog:"
 	},
 	"exports": {
-		".": "./src/index.tsx"
+		".": "./src/index.ts",
+		"./mobile-review-surface": "./src/mobile-review-surface.tsx",
+		"./mobile-review.feature": "./src/mobile-review.feature.ts"
 	},
 	"publishConfig": {
 		"access": "public",
@@ -58,6 +61,20 @@
 				"bun": "./dist/index.js",
 				"node": "./dist/node/index.js",
 				"default": "./dist/index.js"
+			},
+			"./mobile-review-surface": {
+				"types": "./dist/mobile-review-surface.d.ts",
+				"browser": "./dist/browser/mobile-review-surface.js",
+				"bun": "./dist/mobile-review-surface.js",
+				"node": "./dist/node/mobile-review-surface.js",
+				"default": "./dist/mobile-review-surface.js"
+			},
+			"./mobile-review.feature": {
+				"types": "./dist/mobile-review.feature.d.ts",
+				"browser": "./dist/browser/mobile-review.feature.js",
+				"bun": "./dist/mobile-review.feature.js",
+				"node": "./dist/node/mobile-review.feature.js",
+				"default": "./dist/mobile-review.feature.js"
 			}
 		}
 	},

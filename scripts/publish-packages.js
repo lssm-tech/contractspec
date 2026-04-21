@@ -12,6 +12,7 @@ import {
 	discoverPublishablePackages,
 	getPackageNameSelection,
 	getPreparationPackageNames,
+	shouldIncludeMissingRegistryPackages,
 } from './release-package-utils.js';
 
 const repoRoot = process.cwd();
@@ -35,12 +36,28 @@ function parseArgs(argv) {
 		manifestPath: undefined,
 		packageNames: [],
 		packageNamesSpecified: false,
+		allPackages: false,
+		includeMissingPackages: undefined,
 	};
 
 	for (let index = 0; index < argv.length; index += 1) {
 		const arg = argv[index];
 		if (arg === '--dry-run') {
 			options.dryRun = true;
+			continue;
+		}
+		if (arg === '--all') {
+			options.allPackages = true;
+			options.packageNames = [];
+			options.packageNamesSpecified = false;
+			continue;
+		}
+		if (arg === '--include-missing') {
+			options.includeMissingPackages = true;
+			continue;
+		}
+		if (arg === '--no-include-missing') {
+			options.includeMissingPackages = false;
 			continue;
 		}
 		if (arg === '--tag' && argv[index + 1]) {
@@ -451,6 +468,53 @@ function publishPreparedPackage(preparedPackage, context) {
 
 export { publishPreparedPackage };
 
+export function resolveRequestedPackageNames({
+	selectedPackageNames,
+	packageNamesSpecified,
+	packagesByName,
+	npmTag = 'latest',
+	npmEnv = process.env,
+	includeMissingPackages,
+	npmViewVersionExists: checkVersionExists = npmViewVersionExists,
+	log = console.log,
+}) {
+	const requestedPackageNames = packageNamesSpecified
+		? selectedPackageNames
+		: Array.from(packagesByName.keys());
+
+	if (
+		!shouldIncludeMissingRegistryPackages({ includeMissingPackages }, npmTag)
+	) {
+		return requestedPackageNames;
+	}
+
+	const requestedPackageSet = new Set(requestedPackageNames);
+	const missingPackageNames = [];
+
+	for (const descriptor of packagesByName.values()) {
+		if (requestedPackageSet.has(descriptor.name)) {
+			continue;
+		}
+
+		const versionExists = checkVersionExists(
+			descriptor.name,
+			descriptor.version,
+			npmEnv
+		);
+		if (!versionExists) {
+			missingPackageNames.push(descriptor.name);
+		}
+	}
+
+	if (missingPackageNames.length > 0) {
+		log(
+			`[publish] Including ${missingPackageNames.length} package(s) missing from npm: ${missingPackageNames.join(', ')}`
+		);
+	}
+
+	return [...requestedPackageNames, ...missingPackageNames];
+}
+
 function shouldRunCliSmoke(preparedPackages) {
 	const names = new Set(preparedPackages.map((pkg) => pkg.name));
 	return (
@@ -485,7 +549,11 @@ export async function publishPackages(options = {}) {
 			: parseBoolean(process.env.DRY_RUN);
 	const { packageNames: selectedPackageNames, packageNamesSpecified } =
 		getPackageNameSelection(options);
-	if (packageNamesSpecified && selectedPackageNames.length === 0) {
+	if (
+		packageNamesSpecified &&
+		selectedPackageNames.length === 0 &&
+		!shouldIncludeMissingRegistryPackages(options, npmTag)
+	) {
 		console.log(
 			'[publish] Skip npm publish: no package targets were resolved.'
 		);
@@ -493,14 +561,6 @@ export async function publishPackages(options = {}) {
 	}
 	const packagesByName = new Map(
 		discoverPublishablePackages(repoRoot).map((pkg) => [pkg.name, pkg])
-	);
-	const requestedPackageNames = packageNamesSpecified
-		? selectedPackageNames
-		: Array.from(packagesByName.keys());
-	const requestedPackageSet = new Set(requestedPackageNames);
-	const preparationPackageNames = getPreparationPackageNames(
-		requestedPackageNames,
-		packagesByName
 	);
 	const releaseRoot = path.resolve(
 		options.releaseDir ??
@@ -519,6 +579,19 @@ export async function publishPackages(options = {}) {
 			path.join(releaseRoot, 'release-smoke.json')
 	);
 	const npmEnv = createNpmEnvironment(npmCacheDir);
+	const requestedPackageNames = resolveRequestedPackageNames({
+		selectedPackageNames,
+		packageNamesSpecified,
+		packagesByName,
+		npmTag,
+		npmEnv,
+		includeMissingPackages: options.includeMissingPackages,
+	});
+	const requestedPackageSet = new Set(requestedPackageNames);
+	const preparationPackageNames = getPreparationPackageNames(
+		requestedPackageNames,
+		packagesByName
+	);
 
 	ensureDir(tarballDir);
 	ensureDir(npmCacheDir);

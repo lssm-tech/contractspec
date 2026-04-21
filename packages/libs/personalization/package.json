@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.personalization",
-	"version": "6.0.20",
+	"version": "6.0.21",
 	"description": "Behavior tracking, analysis, and adaptation helpers for ContractSpec personalization.",
 	"keywords": [
 		"contractspec",
@@ -61,6 +61,7 @@
 		"./docs/behavior-tracking.docblock": "./src/docs/behavior-tracking.docblock.ts",
 		"./docs/overlay-engine.docblock": "./src/docs/overlay-engine.docblock.ts",
 		"./docs/workflow-composition.docblock": "./src/docs/workflow-composition.docblock.ts",
+		"./personalization.feature": "./src/personalization.feature.ts",
 		"./preference-dimensions": "./src/preference-dimensions.ts",
 		"./store": "./src/store.ts",
 		"./tracker": "./src/tracker.ts",
@@ -117,6 +118,13 @@
 				"bun": "./dist/docs/workflow-composition.docblock.js",
 				"node": "./dist/node/docs/workflow-composition.docblock.js",
 				"default": "./dist/docs/workflow-composition.docblock.js"
+			},
+			"./personalization.feature": {
+				"types": "./dist/personalization.feature.d.ts",
+				"browser": "./dist/browser/personalization.feature.js",
+				"bun": "./dist/personalization.feature.js",
+				"node": "./dist/node/personalization.feature.js",
+				"default": "./dist/personalization.feature.js"
 			},
 			"./preference-dimensions": {
 				"types": "./dist/preference-dimensions.d.ts",

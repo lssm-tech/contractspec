@@ -2,6 +2,7 @@ export * from './comparison-run';
 export * from './execution-context';
 export * from './execution-output';
 export * from './managed-builder-bootstrap';
+export * from './provider-runtime.feature';
 export * from './providers';
 export * from './recommended-builder-setup';
 export * from './routing-policy';

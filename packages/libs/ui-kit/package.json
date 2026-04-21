@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.ui-kit",
-	"version": "3.9.1",
+	"version": "3.9.3",
 	"description": "Cross-platform UI components for React Native and web",
 	"keywords": [
 		"contractspec",
@@ -92,10 +92,10 @@
 		"react-dom": "catalog:",
 		"react-hook-form": "^7.72.1",
 		"react-native-gesture-handler": "^2.29.1",
-		"react-native": "0.84.1",
+		"react-native": "0.83.4",
 		"react-native-device-info": "^14.1.1",
 		"react-native-localize": "^3.7.0",
-		"react-native-reanimated": "4.2.1",
+		"react-native-reanimated": "4.3.0",
 		"react-native-safe-area-context": "5.6.2",
 		"react-native-screens": "4.23.0",
 		"@wuba/react-native-echarts": "^3.0.1",
@@ -105,7 +105,8 @@
 		"tailwind-merge": "^3.5.0",
 		"tailwindcss": "catalog:build",
 		"tailwindcss-animate": "^1.0.7",
-		"zod": "^4.3.5"
+		"zod": "^4.3.5",
+		"@contractspec/lib.contracts-spec": "workspace:*"
 	},
 	"devDependencies": {
 		"@babel/core": "^7.28.6",

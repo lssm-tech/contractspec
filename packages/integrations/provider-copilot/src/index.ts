@@ -24,3 +24,4 @@ export function createCopilotProviderPayload() {
 		},
 	} as const;
 }
+export * from './integration';

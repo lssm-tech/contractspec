@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.utils-typescript",
-	"version": "3.7.13",
+	"version": "3.7.14",
 	"description": "TypeScript utility types and helpers",
 	"keywords": [
 		"contractspec",
@@ -296,5 +296,8 @@
 		"url": "https://github.com/lssm-tech/contractspec.git",
 		"directory": "packages/libs/utils-typescript"
 	},
-	"homepage": "https://contractspec.io"
+	"homepage": "https://contractspec.io",
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*"
+	}
 }

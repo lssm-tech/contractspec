@@ -13,3 +13,5 @@ export * from './operations';
 export * from './presentations';
 
 import './docs';
+
+export * from './example';

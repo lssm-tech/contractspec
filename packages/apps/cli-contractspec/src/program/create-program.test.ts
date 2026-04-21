@@ -1,51 +1,72 @@
 import { describe, expect, it } from 'bun:test';
-import { createProgram } from './create-program';
+import { spawnSync } from 'node:child_process';
+import { resolve } from 'node:path';
+
+const CLI_ENTRY = resolve(import.meta.dir, '../cli.ts');
 
 describe('createProgram', () => {
 	it('drops apply from the public root surface', () => {
-		const program = createProgram();
-		expect(program.commands.map((command) => command.name())).not.toContain(
-			'apply'
-		);
-	});
+		const help = runCliHelp(['--help']);
+
+		expect(help).not.toMatch(/^\s*apply\s+/m);
+	}, 15_000);
 
 	it('exposes the expanded create target list and agent summary', () => {
-		const program = createProgram();
-		const createCommand = program.commands.find(
-			(command) => command.name() === 'create'
-		);
-		const agentCommand = program.commands.find(
-			(command) => command.name() === 'agent'
-		);
-		const onboard = program.commands.find(
-			(command) => command.name() === 'onboard'
-		);
+		const rootHelp = runCliHelp(['--help']);
+		const createHelp = runCliHelp(['create', '--help']);
 
-		expect(createCommand?.helpInformation()).toContain('module-bundle');
-		expect(createCommand?.helpInformation()).toContain('builder-spec');
-		expect(createCommand?.helpInformation()).toContain('provider-spec');
-		expect(agentCommand?.description()).toBe(
-			'Export agent specs to external agent runtimes'
+		expect(createHelp).toContain('module-bundle');
+		expect(createHelp).toContain('builder-spec');
+		expect(createHelp).toContain('provider-spec');
+		expect(rootHelp).toMatch(
+			/^\s*agent\s+Export agent specs to external agent runtimes$/m
 		);
-		expect(onboard?.description()).toContain('repo-local onboarding');
-	});
+		expect(rootHelp).toMatch(/^\s*onboard .*repo-local onboarding/m);
+	}, 15_000);
 
 	it('updates build/generate/validate help to the new authoring model', () => {
-		const program = createProgram();
-		const buildCommand = program.commands.find(
-			(command) => command.name() === 'build'
-		);
-		const generateCommand = program.commands.find(
-			(command) => command.name() === 'generate'
-		);
-		const validateCommand = program.commands.find(
-			(command) => command.name() === 'validate'
-		);
+		const rootHelp = runCliHelp(['--help']);
 
-		expect(buildCommand?.description()).toContain(
-			'Materialize runtime artifacts'
+		expect(rootHelp).toMatch(
+			/^\s*build .*Materialize runtime artifacts.*authored target$/m
 		);
-		expect(generateCommand?.description()).toContain('derived artifacts');
-		expect(validateCommand?.description()).toContain('package scaffolds');
-	});
+		expect(rootHelp).toMatch(/^\s*generate .*derived artifacts/m);
+		expect(rootHelp).toMatch(/^\s*validate .*package scaffolds/m);
+	}, 15_000);
 });
+
+function runCliHelp(args: string[]): string {
+	const result = spawnSync('bun', ['--no-env-file', CLI_ENTRY, ...args], {
+		encoding: 'utf8',
+		env: createSubprocessEnv(),
+	});
+
+	expect(result.status).toBe(0);
+	return stripAnsi(result.stdout);
+}
+
+function stripAnsi(text: string): string {
+	return text.replace(/\x1B\[[0-9;]*m/g, '');
+}
+
+function createSubprocessEnv(
+	extraEnv: Record<string, string> = {}
+): Record<string, string> {
+	const env: Record<string, string> = {};
+	for (const key of [
+		'BUN_INSTALL',
+		'HOME',
+		'PATH',
+		'SHELL',
+		'TEMP',
+		'TMP',
+		'TMPDIR',
+		'USER',
+	] as const) {
+		const value = process.env[key];
+		if (value) {
+			env[key] = value;
+		}
+	}
+	return { ...env, FORCE_COLOR: '0', NO_COLOR: '1', ...extraEnv };
+}

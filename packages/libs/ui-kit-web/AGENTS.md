@@ -30,6 +30,8 @@ Important source-accuracy note: the root entry is not the meaningful consumer su
 - `./ui/link` remains Next-based.
 - Route-announcer, live-region, and focus-on-route-change behavior must stay usable.
 - Optional map-related peers should not become hard runtime assumptions without documentation and deliberate compatibility review.
+- This package is the web primitive lane in `/docs/libraries/cross-platform-ui`; do not introduce native-only assumptions here.
+- Keep `VStack`, `HStack`, and `Box` compatible with the documented shared subset. Changes to `gap`, `align`, `justify`, `wrap`, or web-only `as` behavior require updating the cross-platform UI docs and customer markdown kit.
 
 ## Editing guidance by area
 

@@ -1,3 +1,4 @@
+export * from './builder-runtime.feature';
 export * from './fusion';
 export * from './ingestion';
 export * from './planning';

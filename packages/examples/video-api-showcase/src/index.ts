@@ -4,3 +4,5 @@ export * from './sample-specs';
 export * from './video-api-showcase.feature';
 
 import './docs';
+
+export * from './example';

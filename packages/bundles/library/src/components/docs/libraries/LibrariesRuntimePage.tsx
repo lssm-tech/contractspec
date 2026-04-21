@@ -136,6 +136,21 @@ export function OnboardingPage() {
 				</ol>
 			</div>
 
+			<div className="card-subtle space-y-3 p-6">
+				<h2 className="font-bold text-2xl">Related reading</h2>
+				<p className="text-muted-foreground">
+					For the full React and React Native layering story across runtime,
+					primitives, and composed components, read{' '}
+					<Link
+						href="/docs/libraries/cross-platform-ui"
+						className="text-[color:var(--rust)] underline underline-offset-4"
+					>
+						Cross-platform UI
+					</Link>
+					.
+				</p>
+			</div>
+
 			<div className="flex items-center gap-4 pt-4">
 				<Link href="/docs/libraries/data-backend" className="btn-ghost">
 					Previous: Data & Backend

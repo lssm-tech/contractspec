@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/integration.example-generator",
-	"version": "41.0.0",
+	"version": "42.0.0",
 	"description": "Example plugin: Markdown documentation generator for ContractSpec specs",
 	"keywords": [
 		"contractspec",
@@ -17,6 +17,7 @@
 		".": "./src/index.ts",
 		"./config": "./src/config.ts",
 		"./generator": "./src/generator.ts",
+		"./integration": "./src/integration.ts",
 		"./types": "./src/types.ts"
 	},
 	"files": [
@@ -44,7 +45,8 @@
 	"dependencies": {
 		"@contractspec/lib.contracts-spec": "workspace:*",
 		"@contractspec/lib.schema": "workspace:*",
-		"zod": "catalog:"
+		"zod": "catalog:",
+		"@contractspec/lib.contracts-integrations": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",
@@ -54,7 +56,7 @@
 		"@contractspec/tool.bun": "workspace:*"
 	},
 	"peerDependencies": {
-		"@contractspec/lib.contracts-spec": "^5.4.0",
+		"@contractspec/lib.contracts-spec": "^5.5.0",
 		"@contractspec/lib.schema": "^3.7.14"
 	},
 	"publishConfig": {
@@ -78,6 +80,12 @@
 				"bun": "./dist/generator.js",
 				"node": "./dist/node/generator.js",
 				"default": "./dist/generator.js"
+			},
+			"./integration": {
+				"types": "./dist/integration.d.ts",
+				"bun": "./dist/integration.js",
+				"node": "./dist/node/integration.js",
+				"default": "./dist/integration.js"
 			},
 			"./types": {
 				"types": "./dist/types.d.ts",

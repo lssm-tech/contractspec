@@ -1,32 +1,28 @@
 import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesProductIntentExample = defineExample({
 	meta: {
-		key: 'product-intent',
+		key: 'examples.product-intent',
 		version: '1.0.0',
-		title: 'Product Intent Discovery',
+		title: 'Product Intent',
 		description:
-			'Evidence ingestion and product-intent workflow for PM discovery.',
-		kind: 'script',
-		visibility: 'public',
+			'Product intent example: evidence ingestion and prompt-ready outputs.',
+		kind: 'template',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['product-intent', 'discovery', 'pm', 'evidence', 'llm'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.product-intent',
-		usageDocId: 'docs.examples.product-intent.usage',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.product-intent',
-		docs: './docs',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'product-intent'],
 	},
 	surfaces: {
-		templates: false,
-		sandbox: { enabled: false, modes: [] },
+		templates: true,
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
 		studio: { enabled: false, installable: false },
 		mcp: { enabled: false },
 	},
+	entrypoints: {
+		packageName: '@contractspec/example.product-intent',
+	},
 });
 
-export default example;
+export default ExamplesProductIntentExample;
+export { ExamplesProductIntentExample };

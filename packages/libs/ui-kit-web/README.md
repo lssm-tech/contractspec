@@ -128,6 +128,7 @@ recovery, keep this primitive lean and layer
 - `./ui/textarea`
 - `./ui/select`
 - `./ui/native-select`
+- `./ui/field`
 - `./ui/form`
 - `./ui/combobox`
 - `./ui/input-group`
@@ -181,6 +182,7 @@ The package publishes a root entry, but the meaningful consumer surface is `./ui
 Consumers should import grouped subpaths directly. The public surface is best understood by category:
 
 - controls and forms
+- shadcn/Radix-style `Field` and `InputGroup` primitives for accessible labels, descriptions, errors, legends, addons, and grouped controls
 - overlays and menus
 - layout and navigation
 - accessibility helpers

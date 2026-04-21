@@ -1,32 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesLifecycleCliExample = defineExample({
 	meta: {
-		key: 'lifecycle-cli',
+		key: 'examples.lifecycle-cli',
 		version: '1.0.0',
-		title: 'Lifecycle CLI',
+		title: 'Lifecycle Cli',
 		description:
-			'Tiny script showing how to run the lifecycle managed service from a CLI (no HTTP server required).',
-		kind: 'script',
-		visibility: 'public',
+			'Lifecycle CLI demo (example): run lifecycle assessment without an HTTP server.',
+		kind: 'template',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['lifecycle', 'cli', 'demo'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.lifecycle-cli',
-		usageDocId: 'docs.examples.lifecycle-cli.usage',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.lifecycle-cli',
-		docs: './docs',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'lifecycle-cli'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: { enabled: true, modes: ['markdown'] },
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.lifecycle-cli',
 	},
 });
 
-export default example;
+export default ExamplesLifecycleCliExample;
+export { ExamplesLifecycleCliExample };

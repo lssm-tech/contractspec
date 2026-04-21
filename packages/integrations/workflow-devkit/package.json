@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/integration.workflow-devkit",
-	"version": "0.1.6",
+	"version": "0.1.7",
 	"description": "Workflow DevKit compiler and runtime bridges for ContractSpec workflows",
 	"keywords": [
 		"contractspec",
@@ -18,6 +18,7 @@
 		"./chat-routes": "./src/chat-routes.ts",
 		"./compiler": "./src/compiler.ts",
 		"./helpers": "./src/helpers.ts",
+		"./integration": "./src/integration.ts",
 		"./next": "./src/next.ts",
 		"./runtime": "./src/runtime.ts",
 		"./types": "./src/types.ts"
@@ -46,7 +47,9 @@
 		"@contractspec/lib.contracts-spec": "workspace:*",
 		"@workflow/ai": "^4.1.0",
 		"ai": "catalog:ai",
-		"workflow": "^4.2.0"
+		"workflow": "^4.2.0",
+		"@contractspec/lib.contracts-integrations": "workspace:*",
+		"@contractspec/lib.schema": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.bun": "workspace:*",
@@ -91,6 +94,13 @@
 				"bun": "./dist/helpers.js",
 				"node": "./dist/node/helpers.js",
 				"default": "./dist/helpers.js"
+			},
+			"./integration": {
+				"types": "./dist/integration.d.ts",
+				"browser": "./dist/browser/integration.js",
+				"bun": "./dist/integration.js",
+				"node": "./dist/node/integration.js",
+				"default": "./dist/integration.js"
 			},
 			"./next": {
 				"types": "./dist/next.d.ts",

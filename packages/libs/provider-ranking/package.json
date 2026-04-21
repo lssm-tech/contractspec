@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.provider-ranking",
-	"version": "0.7.13",
+	"version": "0.7.14",
 	"description": "AI provider ranking: benchmark ingestion, scoring, and model comparison",
 	"keywords": [
 		"contractspec",
@@ -30,7 +30,9 @@
 		"prebuild": "contractspec-bun-build prebuild",
 		"typecheck": "tsc --noEmit"
 	},
-	"dependencies": {},
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*"
+	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",
 		"@contractspec/tool.bun": "workspace:*",
@@ -50,6 +52,7 @@
 		"./ingesters/registry": "./src/ingesters/registry.ts",
 		"./ingesters/swe-bench": "./src/ingesters/swe-bench.ts",
 		"./ingesters/types": "./src/ingesters/types.ts",
+		"./provider-ranking.feature": "./src/provider-ranking.feature.ts",
 		"./scoring": "./src/scoring/index.ts",
 		"./scoring/composite-scorer": "./src/scoring/composite-scorer.ts",
 		"./scoring/dimension-weights": "./src/scoring/dimension-weights.ts",
@@ -150,6 +153,13 @@
 				"bun": "./dist/ingesters/types.js",
 				"node": "./dist/node/ingesters/types.js",
 				"default": "./dist/ingesters/types.js"
+			},
+			"./provider-ranking.feature": {
+				"types": "./dist/provider-ranking.feature.d.ts",
+				"browser": "./dist/browser/provider-ranking.feature.js",
+				"bun": "./dist/provider-ranking.feature.js",
+				"node": "./dist/node/provider-ranking.feature.js",
+				"default": "./dist/provider-ranking.feature.js"
 			},
 			"./scoring": {
 				"types": "./dist/scoring/index.d.ts",

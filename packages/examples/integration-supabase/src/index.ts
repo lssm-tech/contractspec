@@ -5,3 +5,5 @@ export * from './integration-supabase.feature';
 export * from './runtime.sample';
 export * from './tenant';
 import './docs';
+
+export * from './example';

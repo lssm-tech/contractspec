@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.harness",
-	"version": "0.2.13",
+	"version": "0.2.14",
 	"description": "Harness orchestration, policy, evidence, and evaluation runtime.",
 	"type": "module",
 	"types": "./dist/index.d.ts",
@@ -35,6 +35,7 @@
 		".": "./src/index.ts",
 		"./assertions/engine": "./src/assertions/engine.ts",
 		"./evidence/normalizer": "./src/evidence/normalizer.ts",
+		"./harness.feature": "./src/harness.feature.ts",
 		"./orchestration/evaluation-runner": "./src/orchestration/evaluation-runner.ts",
 		"./orchestration/runner": "./src/orchestration/runner.ts",
 		"./policy/classifier": "./src/policy/classifier.ts",
@@ -62,6 +63,12 @@
 				"bun": "./dist/evidence/normalizer.js",
 				"node": "./dist/node/evidence/normalizer.js",
 				"default": "./dist/evidence/normalizer.js"
+			},
+			"./harness.feature": {
+				"types": "./dist/harness.feature.d.ts",
+				"bun": "./dist/harness.feature.js",
+				"node": "./dist/node/harness.feature.js",
+				"default": "./dist/harness.feature.js"
 			},
 			"./orchestration/evaluation-runner": {
 				"types": "./dist/orchestration/evaluation-runner.d.ts",

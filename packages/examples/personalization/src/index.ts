@@ -6,3 +6,5 @@ export * from './personalization.feature';
 export * from './personalization.theme';
 export * from './workflow-extension';
 import './docs';
+
+export * from './example';

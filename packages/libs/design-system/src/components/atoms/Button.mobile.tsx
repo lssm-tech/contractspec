@@ -5,6 +5,12 @@ import {
 import { HStack } from '@contractspec/lib.ui-kit/ui/stack';
 import { Text } from '@contractspec/lib.ui-kit/ui/text';
 import { ActivityIndicator, type PressableProps } from 'react-native';
+import {
+	type ThemedPrimitiveProps,
+	useThemedPrimitive,
+	useTranslatedNode,
+	useTranslatedText,
+} from '../primitives/themed';
 
 type SpinnerPlacement = 'start' | 'end';
 
@@ -13,7 +19,7 @@ export type ButtonProps = NativeButtonProps &
 		loading?: boolean;
 		loadingText?: string;
 		spinnerPlacement?: SpinnerPlacement;
-	};
+	} & ThemedPrimitiveProps;
 
 export function Button({
 	children,
@@ -21,8 +27,21 @@ export function Button({
 	loadingText,
 	spinnerPlacement = 'start',
 	disabled,
+	className,
+	componentKey,
+	themeVariant,
+	labelI18n,
+	ariaLabelI18n,
 	...props
 }: ButtonProps) {
+	const themed = useThemedPrimitive({
+		defaultComponentKey: 'Button',
+		componentKey,
+		themeVariant,
+		className,
+	});
+	const translateNode = useTranslatedNode();
+	const translate = useTranslatedText();
 	const isDisabled = Boolean(disabled || loading);
 
 	const content = loading ? (
@@ -42,11 +61,17 @@ export function Button({
 			) : null}
 		</HStack>
 	) : (
-		children
+		translateNode(labelI18n ?? children)
 	);
 
 	return (
-		<NativeButton disabled={isDisabled} {...props}>
+		<NativeButton
+			{...(themed.props as NativeButtonProps)}
+			disabled={isDisabled}
+			className={themed.className}
+			accessibilityLabel={translate(ariaLabelI18n)}
+			{...props}
+		>
 			{/* eslint-disable-next-line @typescript-eslint/no-explicit-any */}
 			{content as any}
 		</NativeButton>

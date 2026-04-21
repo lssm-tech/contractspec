@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.contracts-runtime-server-mcp",
-	"version": "3.7.20",
+	"version": "3.8.0",
 	"description": "MCP server runtime adapters for ContractSpec contracts",
 	"type": "module",
 	"types": "./dist/index.d.ts",
@@ -41,6 +41,7 @@
 	],
 	"exports": {
 		".": "./src/index.ts",
+		"./contracts-runtime-server-mcp.feature": "./src/contracts-runtime-server-mcp.feature.ts",
 		"./mcp/createMcpServer": "./src/mcp/createMcpServer.ts",
 		"./mcp/mcpTypes": "./src/mcp/mcpTypes.ts",
 		"./mcp/registerPresentations": "./src/mcp/registerPresentations.ts",
@@ -58,6 +59,12 @@
 				"bun": "./dist/index.js",
 				"node": "./dist/node/index.js",
 				"default": "./dist/index.js"
+			},
+			"./contracts-runtime-server-mcp.feature": {
+				"types": "./dist/contracts-runtime-server-mcp.feature.d.ts",
+				"bun": "./dist/contracts-runtime-server-mcp.feature.js",
+				"node": "./dist/node/contracts-runtime-server-mcp.feature.js",
+				"default": "./dist/contracts-runtime-server-mcp.feature.js"
 			},
 			"./mcp/createMcpServer": {
 				"types": "./dist/mcp/createMcpServer.d.ts",

@@ -10,7 +10,10 @@ import {
 import os from 'node:os';
 import path from 'node:path';
 import { runTranspile, runTypes } from '../lib/build.mjs';
-import { selectEntriesForTarget } from '../lib/config.mjs';
+import {
+	normalizeBuildConfig,
+	selectEntriesForTarget,
+} from '../lib/config.mjs';
 
 const tempDirs: string[] = [];
 
@@ -79,6 +82,22 @@ describe('selectEntriesForTarget', () => {
 		expect(selectEntriesForTarget(entries, 'native')).toEqual([
 			'src/foo.native.ts',
 		]);
+	});
+});
+
+describe('normalizeBuildConfig', () => {
+	test('allows packages to opt out of generated export-map rewrites', async () => {
+		const cwd = await createTempDir();
+		await mkdir(path.join(cwd, 'src'), { recursive: true });
+		await writeFile(path.join(cwd, 'src', 'index.ts'), 'export const x = 1;\n');
+
+		const config = await normalizeBuildConfig(cwd, {
+			exports: {
+				all: false,
+			},
+		});
+
+		expect(config.rewriteExports).toBe(false);
 	});
 });
 

@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.bus",
-	"version": "3.7.20",
+	"version": "3.7.21",
 	"description": "Event bus and messaging primitives",
 	"keywords": [
 		"contractspec",
@@ -48,6 +48,7 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./auditableBus": "./src/auditableBus.ts",
+		"./bus.feature": "./src/bus.feature.ts",
 		"./eventBus": "./src/eventBus.ts",
 		"./filtering": "./src/filtering.ts",
 		"./inMemoryBus": "./src/inMemoryBus.ts",
@@ -70,6 +71,13 @@
 				"bun": "./dist/auditableBus.js",
 				"node": "./dist/node/auditableBus.js",
 				"default": "./dist/auditableBus.js"
+			},
+			"./bus.feature": {
+				"types": "./dist/bus.feature.d.ts",
+				"browser": "./dist/browser/bus.feature.js",
+				"bun": "./dist/bus.feature.js",
+				"node": "./dist/node/bus.feature.js",
+				"default": "./dist/bus.feature.js"
 			},
 			"./eventBus": {
 				"types": "./dist/eventBus.d.ts",

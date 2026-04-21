@@ -1,32 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesEmailGmailExample = defineExample({
 	meta: {
-		key: 'email-gmail',
+		key: 'examples.email-gmail',
 		version: '1.0.0',
-		title: 'Gmail Inbound and Outbound',
+		title: 'Email Gmail',
 		description:
-			'List Gmail threads/messages and send outbound email using the Gmail providers.',
-		kind: 'integration',
-		visibility: 'public',
+			'Gmail integration example: inbound threads and outbound messages.',
+		kind: 'template',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.integrations'],
-		tags: ['email', 'gmail', 'inbound', 'outbound', 'integrations'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.email-gmail',
-		usageDocId: 'docs.examples.email-gmail.usage',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.email-gmail',
-		docs: './docs',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'email-gmail'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: { enabled: true, modes: ['markdown', 'specs'] },
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.email-gmail',
 	},
 });
 
-export default example;
+export default ExamplesEmailGmailExample;
+export { ExamplesEmailGmailExample };

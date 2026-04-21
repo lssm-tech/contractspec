@@ -49,6 +49,12 @@ const libraryGroups = [
 				href: '/docs/libraries/design-system',
 			},
 			{
+				title: 'Cross-platform UI',
+				description:
+					'See how the presentation runtimes, ui-kit-web, ui-kit, and design-system stay compatible across React and React Native.',
+				href: '/docs/libraries/cross-platform-ui',
+			},
+			{
 				title: '@contractspec/lib.data-views',
 				description:
 					'Generate and render list/detail style surfaces that stay aligned with data contracts.',

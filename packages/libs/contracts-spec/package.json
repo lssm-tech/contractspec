@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.contracts-spec",
-	"version": "5.4.0",
+	"version": "5.5.0",
 	"description": "Spec definitions and registries for ContractSpec",
 	"keywords": [
 		"contractspec",
@@ -131,6 +131,7 @@
 		"./contract-registry": "./src/contract-registry/index.ts",
 		"./contract-registry/schemas": "./src/contract-registry/schemas.ts",
 		"./contract-registry/types": "./src/contract-registry/types.ts",
+		"./contracts-spec.feature": "./src/contracts-spec.feature.ts",
 		"./control-plane": "./src/control-plane/index.ts",
 		"./control-plane/capabilities": "./src/control-plane/capabilities/index.ts",
 		"./control-plane/capabilities/controlPlaneApproval.capability": "./src/control-plane/capabilities/controlPlaneApproval.capability.ts",
@@ -393,6 +394,7 @@
 		"./registry-utils": "./src/registry-utils.ts",
 		"./release": "./src/release/index.ts",
 		"./resources": "./src/resources.ts",
+		"./results": "./src/results/index.ts",
 		"./schema-to-markdown": "./src/schema-to-markdown.ts",
 		"./serialization": "./src/serialization/index.ts",
 		"./serialization/serializers": "./src/serialization/serializers.ts",
@@ -440,6 +442,7 @@
 		"./workflow/validation": "./src/workflow/validation.ts",
 		"./workflow/validation-workflow-devkit": "./src/workflow/validation-workflow-devkit.ts",
 		"./workflow/workflow-devkit": "./src/workflow/workflow-devkit.ts",
+		"./workflow/workflow-sdk": "./src/workflow/workflow-sdk.ts",
 		"./workspace-config": "./src/workspace-config/index.ts",
 		"./workspace-config/contractsrc-schema": "./src/workspace-config/contractsrc-schema.ts",
 		"./workspace-config/contractsrc-types": "./src/workspace-config/contractsrc-types.ts"
@@ -939,6 +942,12 @@
 				"bun": "./dist/contract-registry/types.js",
 				"node": "./dist/node/contract-registry/types.js",
 				"default": "./dist/contract-registry/types.js"
+			},
+			"./contracts-spec.feature": {
+				"types": "./dist/contracts-spec.feature.d.ts",
+				"bun": "./dist/contracts-spec.feature.js",
+				"node": "./dist/node/contracts-spec.feature.js",
+				"default": "./dist/contracts-spec.feature.js"
 			},
 			"./control-plane": {
 				"types": "./dist/control-plane/index.d.ts",
@@ -2512,6 +2521,12 @@
 				"node": "./dist/node/resources.js",
 				"default": "./dist/resources.js"
 			},
+			"./results": {
+				"types": "./dist/results/index.d.ts",
+				"bun": "./dist/results/index.js",
+				"node": "./dist/node/results/index.js",
+				"default": "./dist/results/index.js"
+			},
 			"./schema-to-markdown": {
 				"types": "./dist/schema-to-markdown.d.ts",
 				"bun": "./dist/schema-to-markdown.js",
@@ -2793,6 +2808,12 @@
 				"bun": "./dist/workflow/workflow-devkit.js",
 				"node": "./dist/node/workflow/workflow-devkit.js",
 				"default": "./dist/workflow/workflow-devkit.js"
+			},
+			"./workflow/workflow-sdk": {
+				"types": "./dist/workflow/workflow-sdk.d.ts",
+				"bun": "./dist/workflow/workflow-sdk.js",
+				"node": "./dist/node/workflow/workflow-sdk.js",
+				"default": "./dist/workflow/workflow-sdk.js"
 			},
 			"./workspace-config": {
 				"types": "./dist/workspace-config/index.d.ts",

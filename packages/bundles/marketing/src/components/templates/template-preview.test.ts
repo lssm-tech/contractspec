@@ -27,7 +27,7 @@ describe('template preview actions', () => {
 		});
 	});
 
-	test('keeps non-template public examples out of the templates catalog', () => {
+	test('keeps non-template discoverable examples out of the templates catalog', () => {
 		const templateIds = new Set(
 			buildLocalTemplateCatalog().map((template) => template.id)
 		);

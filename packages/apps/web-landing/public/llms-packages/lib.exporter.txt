@@ -2,12 +2,15 @@
 
 Website: https://contractspec.io
 
-**Generic CSV and XML exporters usable across web and mobile.**
+**Compatibility exporter shim backed by the SchemaModel-first data exchange core.**
 
 ## What It Provides
 
 - **Layer**: lib.
 - **Consumers**: bundles.
+- Legacy `toCsvGeneric(...)` and `toXmlGeneric(...)` wrappers preserved for compatibility.
+- New `toJsonGeneric(...)` wrapper for the same legacy payload shape.
+- Internally delegates to `@contractspec/lib.data-exchange-core`.
 - Related ContractSpec packages include `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 - Related ContractSpec packages include `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
@@ -52,5 +55,6 @@ Import the root entrypoint from `@contractspec/lib.exporter`, or choose a docume
 
 ## Notes
 
+- This package is now a compatibility surface; prefer `@contractspec/lib.data-exchange-core` for new work.
 - Export format must stay consistent for downstream consumers; column order and encoding are part of the contract.
 - Do not introduce platform-specific APIs (Node-only or browser-only) without a universal fallback.

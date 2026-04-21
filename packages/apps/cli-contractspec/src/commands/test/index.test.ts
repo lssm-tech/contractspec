@@ -1,21 +1,8 @@
-import {
-	afterAll,
-	afterEach,
-	beforeEach,
-	describe,
-	expect,
-	it,
-	mock,
-} from 'bun:test';
+import { afterEach, beforeEach, describe, expect, it, mock } from 'bun:test';
 import { mkdir, mkdtemp, rm, writeFile } from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
-const BUNDLE_WORKSPACE_MODULE = new URL(
-	'../../../../../bundles/workspace/src/index.ts',
-	import.meta.url
-).pathname;
-const actualBundleWorkspace = await import(BUNDLE_WORKSPACE_MODULE);
 const AI_PROVIDERS_MODULE = new URL('../../ai/providers.ts', import.meta.url)
 	.pathname;
 const actualAiProviders = await import(AI_PROVIDERS_MODULE);
@@ -50,20 +37,6 @@ const TestGeneratorServiceMock = mock(function (_logger, _model) {
 	};
 });
 
-function installTestCommandMocks() {
-	mock.module('../../ai/providers', () => ({
-		getAIProvider: getAIProviderMock,
-		validateProvider: validateProviderMock,
-	}));
-	mock.module('@contractspec/bundle.workspace', () => ({
-		...actualBundleWorkspace,
-		loadAuthoredModuleExports: loadAuthoredModuleExportsMock,
-		listTests: mock(async () => []),
-		runTestSpecs: mock(async () => ({ passed: true, results: [] })),
-		TestGeneratorService: TestGeneratorServiceMock,
-	}));
-}
-
 function loadTestCommandModule() {
 	return import(`./index?test=${Date.now()}-${Math.random()}`);
 }
@@ -76,8 +49,6 @@ describe('test --generate', () => {
 
 	beforeEach(() => {
 		tempDir = '';
-		mock.restore();
-		installTestCommandMocks();
 	});
 
 	beforeEach(async () => {
@@ -109,9 +80,7 @@ describe('test --generate', () => {
 		if (tempDir) {
 			void rm(tempDir, { recursive: true, force: true });
 		}
-		mock.restore();
 		mock.module('../../ai/providers', () => actualAiProviders);
-		mock.module('@contractspec/bundle.workspace', () => actualBundleWorkspace);
 	});
 
 	it('uses the configured workspace provider instead of hardcoded OpenAI', async () => {
@@ -125,7 +94,16 @@ describe('test --generate', () => {
 		await testCommand(
 			'contracts/sample.ts',
 			{ generate: true, json: true },
-			config
+			config,
+			{
+				getAIProvider: getAIProviderMock,
+				validateProvider: validateProviderMock,
+				loadAuthoredModuleExports: loadAuthoredModuleExportsMock,
+				listTests: mock(async () => []),
+				runTestSpecs: mock(async () => ({ passed: true, results: [] })),
+				TestGeneratorService: TestGeneratorServiceMock as never,
+				log: mock(() => {}),
+			}
 		);
 
 		expect(validateProviderMock).toHaveBeenCalledWith(config);
@@ -140,8 +118,4 @@ describe('test --generate', () => {
 		);
 		expect(generatorGenerateMock).toHaveBeenCalledTimes(1);
 	});
-});
-
-afterAll(() => {
-	mock.restore();
 });

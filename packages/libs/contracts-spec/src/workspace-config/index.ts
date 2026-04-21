@@ -77,6 +77,14 @@ export {
 	OpenApiExportConfigSchema,
 	type OpenApiSourceConfig,
 	OpenApiSourceConfigSchema,
+	type PackageDeclarationConfig,
+	PackageDeclarationConfigSchema,
+	type PackageDeclarationRequiredByKind,
+	PackageDeclarationRequiredByKindSchema,
+	type PackageDeclarationRollout,
+	PackageDeclarationRolloutSchema,
+	type PackageDeclarationTarget,
+	PackageDeclarationTargetSchema,
 	type ReleaseConfig,
 	ReleaseConfigSchema,
 	type ResolvedContractsrcConfig,
@@ -132,6 +140,30 @@ export interface ContractsrcConfig {
 \`\`\`
 
 Defined in \`@contractspec/lib.contracts-spec/workspace-config\`.
+
+### CI Package Declaration Coverage
+
+The \`ci.packageDeclarations\` section lets workspaces stage package-level contract declaration enforcement across the monorepo.
+
+\`\`\`ts
+export interface ContractsrcConfig {
+  ci?: {
+    packageDeclarations?: {
+      severity?: 'off' | 'warning' | 'error';
+      requiredByKind?: {
+        libs?: 'feature';
+        modules?: 'feature';
+        integrations?: 'integration';
+        bundles?: 'module-bundle';
+        apps?: 'app-config';
+        appsRegistry?: 'app-config';
+        examples?: 'example';
+      };
+      allowMissing?: string[];
+    };
+  };
+}
+\`\`\`
 
 ### Connect
 

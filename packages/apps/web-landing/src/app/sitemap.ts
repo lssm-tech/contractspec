@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 import { getChangelogVersions } from '@/lib/changelog';
-import { listPublicExampleDocsRoutes } from './docs/examples/example-doc-routes';
+import { listDiscoverableExampleDocsRoutes } from './docs/examples/example-doc-routes';
 
 const BASE_URL =
 	process.env.NEXT_PUBLIC_APP_URL || 'https://www.contractspec.io';
@@ -29,7 +29,7 @@ const DOCS_ROUTES = [
 	'/docs',
 	'/docs/manifesto',
 	'/docs/examples',
-	...listPublicExampleDocsRoutes(),
+	...listDiscoverableExampleDocsRoutes(),
 	// Getting Started
 	'/docs/getting-started/installation',
 	'/docs/getting-started/hello-world',
@@ -75,6 +75,7 @@ const DOCS_ROUTES = [
 	'/docs/libraries',
 	'/docs/libraries/contracts',
 	'/docs/libraries/ai-agent',
+	'/docs/libraries/cross-platform-ui',
 	'/docs/libraries/design-system',
 	'/docs/libraries/evolution',
 	'/docs/libraries/observability',

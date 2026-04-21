@@ -104,6 +104,61 @@ export interface CompositePartConfig<TKeys extends string> {
 	placeholdersI18n?: Partial<Record<TKeys, string>>;
 }
 
+export type FieldOrientation = 'horizontal' | 'vertical' | 'responsive';
+
+export type ResponsiveColumns =
+	| 1
+	| 2
+	| 3
+	| 4
+	| {
+			base?: 1 | 2 | 3 | 4;
+			sm?: 1 | 2 | 3 | 4;
+			md?: 1 | 2 | 3 | 4;
+			lg?: 1 | 2 | 3 | 4;
+	  };
+
+export type ResponsiveSpanValue = 1 | 2 | 3 | 4 | 'full';
+
+export type ResponsiveSpan =
+	| ResponsiveSpanValue
+	| {
+			base?: ResponsiveSpanValue;
+			sm?: ResponsiveSpanValue;
+			md?: ResponsiveSpanValue;
+			lg?: ResponsiveSpanValue;
+	  };
+
+export interface FormLayoutSpec {
+	columns?: ResponsiveColumns;
+	gap?: 'sm' | 'md' | 'lg';
+	fieldOrientation?: FieldOrientation;
+}
+
+export interface FieldLayoutSpec {
+	colSpan?: ResponsiveSpan;
+	orientation?: FieldOrientation;
+}
+
+export type InputGroupAddonAlign =
+	| 'inline-start'
+	| 'inline-end'
+	| 'block-start'
+	| 'block-end';
+
+export type InputGroupAddonItem =
+	| { kind: 'text'; textI18n: string }
+	| { kind: 'icon'; iconKey: string; labelI18n?: string };
+
+export interface InputGroupAddonSpec {
+	align?: InputGroupAddonAlign;
+	items: InputGroupAddonItem[];
+}
+
+export interface InputGroupSpec {
+	addons?: InputGroupAddonSpec[];
+}
+
 export interface BaseFieldSpec {
 	/** Field kind discriminator. */
 	kind:
@@ -134,6 +189,8 @@ export interface BaseFieldSpec {
 	/** UI hints */
 	uiKey?: string;
 	uiProps?: Record<string, unknown>;
+	layout?: FieldLayoutSpec;
+	/** @deprecated Use `layout.orientation`. */
 	wrapper?: { orientation?: 'horizontal' | 'vertical' };
 	readOnly?: boolean;
 	/** HTML/Native autofill token (supports custom tokens) */
@@ -158,6 +215,7 @@ export interface BaseFieldSpec {
 export interface TextFieldSpec extends BaseFieldSpec {
 	kind: 'text';
 	name: string;
+	inputGroup?: InputGroupSpec;
 	inputMode?:
 		| 'text'
 		| 'email'
@@ -174,6 +232,7 @@ export interface TextFieldSpec extends BaseFieldSpec {
 export interface TextareaFieldSpec extends BaseFieldSpec {
 	kind: 'textarea';
 	name: string;
+	inputGroup?: InputGroupSpec;
 	rows?: number;
 	maxLength?: number;
 	minLength?: number;
@@ -248,6 +307,8 @@ export interface GroupFieldSpec extends BaseFieldSpec {
 	kind: 'group';
 	/** Optional legend/label at group level */
 	labelI18n?: string;
+	legendI18n?: string;
+	layout?: FieldLayoutSpec & FormLayoutSpec;
 	fields: FieldSpec[];
 }
 
@@ -299,6 +360,7 @@ export interface FormSpec<M extends AnySchemaModel = AnySchemaModel> {
 	model: M;
 	/** Flat list or tree using groups/arrays */
 	fields: FieldSpec[];
+	layout?: FormLayoutSpec;
 	policy?: { flags?: string[]; pii?: string[] };
 	actions?: FormAction[];
 	renderHints?: { ui: 'shadcn' | 'custom'; form: 'react-hook-form' };
@@ -312,13 +374,22 @@ export function isFieldReadOnly(
 }
 
 export function normalizeFieldSpec<T extends FieldSpec>(field: T): T {
+	const normalizedLayout =
+		field.layout ??
+		(field.wrapper?.orientation
+			? ({ orientation: field.wrapper.orientation } satisfies FieldLayoutSpec)
+			: undefined);
 	const normalizedBase =
 		field.readOnly == null && field.computeFrom?.readOnly != null
 			? ({
 					...field,
+					layout: normalizedLayout,
 					readOnly: field.computeFrom.readOnly,
 				} as T)
-			: field;
+			: ({
+					...field,
+					layout: normalizedLayout,
+				} as T);
 	if (normalizedBase.kind === 'group') {
 		return {
 			...normalizedBase,
@@ -731,12 +802,16 @@ type EnhanceField<Field extends AnyFieldLike, P extends string> = Field & {
 	visibleWhen?: TypedPredicate<P>;
 	enabledWhen?: TypedPredicate<P>;
 	requiredWhen?: TypedPredicate<P>;
+	layout?: FieldLayoutSpec;
 	readOnly?: boolean;
 } & (Field extends { kind: 'select' }
 		? { options: TypedOptionsSource<P> | readonly FormOption[] }
 		: unknown) &
 	(Field extends { kind: 'radio' }
 		? { options: TypedOptionsSource<P> | readonly FormOption[] }
+		: unknown) &
+	(Field extends { kind: 'text' } | { kind: 'textarea' }
+		? { inputGroup?: InputGroupSpec }
 		: unknown) &
 	(Field extends { kind: 'autocomplete' }
 		? { source: TypedAutocompleteSource<P> }
@@ -745,7 +820,11 @@ type EnhanceField<Field extends AnyFieldLike, P extends string> = Field & {
 		kind: 'group';
 		fields: infer G extends readonly AnyFieldLike[];
 	}
-		? { fields: EnhanceFields<G, P> }
+		? {
+				fields: EnhanceFields<G, P>;
+				layout?: FieldLayoutSpec & FormLayoutSpec;
+				legendI18n?: string;
+			}
 		: unknown) &
 	(Field extends { kind: 'array'; of: infer O extends AnyFieldLike }
 		? { of: EnhanceField<O, P> }
@@ -770,6 +849,7 @@ export function defineFormSpec<
 	meta: FormSpec<M>['meta'];
 	model: M;
 	fields: EnhanceFields<F, PathOfFields<F>>;
+	layout?: FormSpec<M>['layout'];
 	policy?: FormSpec<M>['policy'];
 	actions?: FormSpec<M>['actions'];
 	renderHints?: FormSpec<M>['renderHints'];
@@ -793,6 +873,60 @@ export const tech_contracts_forms_DocBlocks: DocBlock[] = [
 		visibility: 'public',
 		route: '/docs/tech/contracts/forms',
 		tags: ['tech', 'contracts', 'forms'],
-		body: '# Contracts: FormSpec\n\nThis document defines the canonical contracts for declarative forms.\n\n## Overview\n\n- `FormSpec` (in `@contractspec/lib.contracts-spec/forms`) declares:\n  - `meta` (extends `OwnerShipMeta`) + `key`/`version` for stability.\n  - `model` (`@contractspec/lib.schema` `SchemaModel`) as the single source of truth.\n  - `fields` built from `FieldSpec` kinds: `text`, `textarea`, `select`, `checkbox`, `radio`, `switch`, `autocomplete`, `address`, `phone`, `date`, `time`, `datetime`, `group`, `array`.\n  - field-level `readOnly` support that preserves submitted values.\n  - Optional `actions`, `policy.flags`, `constraints` and `renderHints`.\n- Relations DSL provides `visibleWhen`, `enabledWhen`, `requiredWhen` based on predicates.\n- `buildZodWithRelations(spec)` augments the base zod with conditional rules and constraints.\n- React adapter renders with React Hook Form + driver API for UI components (shadcn driver provided).\n\n## Rich field contracts\n\n- `autocomplete` supports local or resolver-backed search and configurable submit-value mapping.\n- `address` uses the canonical `AddressFormValue` object shape.\n- `phone` uses the canonical `PhoneFormValue` object shape.\n- `date`, `time`, and `datetime` map directly to the corresponding schema scalar intent.\n- `array` remains the canonical dynamic-field primitive and can now repeat grouped item layouts.\n\n## Driver API (UI-agnostic)\n\nHost apps supply a driver mapping slots \u2192 components:\n\n- Required: `Field`, `FieldLabel`, `FieldDescription`, `FieldError`, `Input`, `Textarea`, `Select`, `Checkbox`, `RadioGroup`, `Switch`, `Autocomplete`, `AddressField`, `PhoneField`, `DateField`, `TimeField`, `DateTimeField`, `Button`.\n- Optional: `FieldGroup`, `FieldSet`, `FieldLegend` and input group helpers.\n\nUse `createFormRenderer({ driver })` to obtain a `render(spec)` function.\n\n## Arrays and Groups\n\n- `array` items are rendered with `useFieldArray`, honoring `min`/`max` and add/remove controls.\n- `array.of` can repeat grouped multi-field rows.\n- `group` composes nested fields and provides optional legend/description.\n\n## Feature Flags\n\n- Declare `policy.flags` on forms to signal gating. Gate usage at host boundary; avoid scattering flags across individual fields.\n\n## Example\n\nUse the exported `RichFieldsShowcaseForm` as the canonical reference for readonly, autocomplete, address, phone, and temporal field authoring.\n',
+		body: `# Contracts: FormSpec
+
+This document defines the canonical contracts for declarative forms.
+
+## Overview
+
+- \`FormSpec\` (in \`@contractspec/lib.contracts-spec/forms\`) declares:
+  - \`meta\` (extends \`OwnerShipMeta\`) + \`key\`/\`version\` for stability.
+  - \`model\` (\`@contractspec/lib.schema\` \`SchemaModel\`) as the single source of truth.
+  - \`fields\` built from \`FieldSpec\` kinds: \`text\`, \`textarea\`, \`select\`, \`checkbox\`, \`radio\`, \`switch\`, \`autocomplete\`, \`address\`, \`phone\`, \`date\`, \`time\`, \`datetime\`, \`group\`, \`array\`.
+  - field-level \`readOnly\` support that preserves submitted values.
+  - Optional \`layout\`, \`actions\`, \`policy.flags\`, \`constraints\` and \`renderHints\`.
+- Relations DSL provides \`visibleWhen\`, \`enabledWhen\`, \`requiredWhen\` based on predicates.
+- \`buildZodWithRelations(spec)\` augments the base zod with conditional rules and constraints.
+- React adapter renders with React Hook Form + driver API for UI components.
+
+## Rich field contracts
+
+- \`autocomplete\` supports local or resolver-backed search and configurable submit-value mapping.
+- \`address\` uses the canonical \`AddressFormValue\` object shape.
+- \`phone\` uses the canonical \`PhoneFormValue\` object shape.
+- \`date\`, \`time\`, and \`datetime\` map directly to the corresponding schema scalar intent.
+- \`array\` remains the canonical dynamic-field primitive and can repeat grouped item layouts.
+- \`text\` and \`textarea\` can declare portable \`inputGroup\` addons for text and host-resolved icons.
+
+## Layout and Groups
+
+- \`FormSpec.layout\` and \`group.layout\` can declare 1-4 responsive columns, gap size, and default field orientation.
+- \`field.layout.colSpan\` lets fields span one or more grid columns or the full row.
+- \`wrapper.orientation\` remains a compatibility alias for \`layout.orientation\`.
+- \`group.legendI18n\` renders as the semantic legend, falling back to \`labelI18n\`.
+
+## Driver API (UI-agnostic)
+
+Host apps supply a driver mapping slots to components:
+
+- Required: \`Field\`, \`FieldLabel\`, \`FieldDescription\`, \`FieldError\`, \`Input\`, \`Textarea\`, \`Select\`, \`Checkbox\`, \`RadioGroup\`, \`Switch\`, \`Autocomplete\`, \`AddressField\`, \`PhoneField\`, \`DateField\`, \`TimeField\`, \`DateTimeField\`, \`Button\`.
+- Optional: \`FieldContent\`, \`FieldGroup\`, \`FieldSet\`, \`FieldLegend\`, \`FieldSeparator\`, \`InputGroup\`, \`InputGroupAddon\`, \`InputGroupInput\`, \`InputGroupTextarea\`, \`InputGroupText\`, and \`InputGroupIcon\`.
+
+Use \`createFormRenderer({ driver })\` to obtain a \`render(spec)\` function.
+
+## Arrays and Groups
+
+- \`array\` items are rendered with \`useFieldArray\`, honoring \`min\`/\`max\` and add/remove controls.
+- \`array.of\` can repeat grouped multi-field rows.
+- \`group\` composes nested fields and provides optional legend/description/layout.
+
+## Feature Flags
+
+- Declare \`policy.flags\` on forms to signal gating. Gate usage at host boundary; avoid scattering flags across individual fields.
+
+## Example
+
+Use the exported \`RichFieldsShowcaseForm\` as the canonical reference for readonly, autocomplete, address, phone, temporal, layout, and input-group field authoring.
+`,
 	},
 ];

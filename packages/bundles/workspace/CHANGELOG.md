@@ -1,5 +1,26 @@
 # @contractspec/bundle.workspace
 
+## 4.5.1
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add FormSpec layout hints, semantic field rendering, and portable text/textarea input-group addons.
+- Updated dependencies because of Add ThemeSpec light/dark modes and a design-system Tailwind bridge for CSS variables, presets, CSS text, and OKLCH color pass-through.
+- Updated dependencies because of Add a canonical typed result system for ContractSpec success and failure propagation across operations, workflows, jobs, server adapters, MCP, GraphQL, and React clients.
+  - @contractspec/integration.runtime@3.9.3
+  - @contractspec/lib.ai-agent@8.0.9
+  - @contractspec/lib.ai-providers@3.7.14
+  - @contractspec/lib.contracts-integrations@3.8.13
+  - @contractspec/lib.contracts-transformers@3.7.21
+  - @contractspec/lib.source-extractors@2.7.21
+  - @contractspec/lib.surface-runtime@0.5.21
+  - @contractspec/lib.utils-typescript@3.7.14
+  - @contractspec/module.workspace@4.3.1
+  - @contractspec/lib.contracts-spec@5.5.0
+  - @contractspec/biome-config@3.8.8
+
 ## 4.5.0
 
 ### Minor Changes

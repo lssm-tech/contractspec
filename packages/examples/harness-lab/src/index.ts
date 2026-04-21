@@ -4,3 +4,5 @@ export * from './runtime';
 export * from './scenarios';
 export * from './suite';
 import './docs';
+
+export * from './example';

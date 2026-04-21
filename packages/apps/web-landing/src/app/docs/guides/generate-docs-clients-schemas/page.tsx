@@ -1,4 +1,4 @@
-import { GuideGenerateDocsClientsSchemasPage } from '@contractspec/bundle.library';
+import { GuideGenerateDocsClientsSchemasPage } from '@contractspec/bundle.library/components/docs/guides/GuideGenerateDocsClientsSchemasPage';
 import { docsPageMetadata } from '@/app/docs/docsMetadata';
 
 export const metadata = docsPageMetadata(

@@ -1,31 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesLearningPatternsExample = defineExample({
 	meta: {
-		key: 'learning-patterns',
+		key: 'examples.learning-patterns',
 		version: '1.0.0',
 		title: 'Learning Patterns',
 		description:
-			'Domain-agnostic learning archetypes implemented as Learning Journey tracks.',
-		kind: 'library',
-		visibility: 'public',
+			'Example: drills + ambient coach + quests learning patterns, powered by Learning Journey (event-driven, deterministic).',
+		kind: 'template',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['learning', 'journey', 'patterns'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.learning-patterns',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.learning-patterns',
-		docs: './docs',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'learning-patterns'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: { enabled: true, modes: ['markdown', 'specs'] },
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.learning-patterns',
 	},
 });
 
-export default example;
+export default ExamplesLearningPatternsExample;
+export { ExamplesLearningPatternsExample };

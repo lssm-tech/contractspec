@@ -1,5 +1,13 @@
 # @contractspec/tool.bun
 
+## 3.7.15
+
+### Patch Changes
+
+- Keep design-system FormRender mobile-safe by preserving shared renderer imports for Metro aliases and hardening generated package artifacts.
+  - Packages: @contractspec/lib.contracts-runtime-client-react (minor), @contractspec/lib.design-system (minor), @contractspec/tool.bun (patch)
+  - Migration: Avoid broad root-barrel imports for mobile FormSpec rendering while keeping one shared design-system renderer.
+
 ## 3.7.14
 
 ### Patch Changes

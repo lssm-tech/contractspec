@@ -1,5 +1,33 @@
 # Changelog
 
+## 3.10.2
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add FormSpec layout hints, semantic field rendering, and portable text/textarea input-group addons.
+- Updated dependencies because of Restore the public web-landing templates and examples surfaces so non-internal examples render in the templates catalog, docs routes, sitemap, and sandbox fallback previews.
+- Updated dependencies because of Add ThemeSpec light/dark modes and a design-system Tailwind bridge for CSS variables, presets, CSS text, and OKLCH color pass-through.
+- Updated dependencies because of Add a canonical typed result system for ContractSpec success and failure propagation across operations, workflows, jobs, server adapters, MCP, GraphQL, and React clients.
+  - @contractspec/bundle.workspace@4.5.1
+  - @contractspec/lib.ai-agent@8.0.9
+  - @contractspec/lib.ai-providers@3.7.14
+  - @contractspec/lib.contracts-transformers@3.7.21
+  - @contractspec/module.ai-chat@4.3.22
+  - @contractspec/module.workspace@4.3.1
+  - @contractspec/lib.contracts-spec@5.5.0
+  - @contractspec/module.examples@3.10.0
+
+## 3.10.1
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/module.ai-chat@4.3.21
+  - @contractspec/module.examples@3.9.1
+
 ## 3.10.0
 
 ### Minor Changes

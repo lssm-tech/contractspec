@@ -5,6 +5,7 @@
 ## What It Provides
 
 - Marketing page bodies consumed by `@contractspec/app.web-landing`
+- Platform-neutral landing story data consumed by web and Expo shells
 - Scenario/template browsing surfaces used on `/templates`
 - Support and program pages such as contact, contribute, cofounder, and design-partner
 - Email/contact helpers and marketing-adjacent utilities
@@ -12,6 +13,7 @@
 ## Architecture
 
 - `src/components/marketing/` owns the public marketing narratives, section composition, and page-level stories.
+- `src/content/` owns React-free story data shared by web and mobile shells.
 - `src/components/templates/` owns template browsing, preview, and template-to-CLI/Studio flows.
 - `src/libs/email/` owns contact/newsletter/waitlist actions and helpers used by marketing surfaces.
 - `src/index.ts` is the root public entrypoint.
@@ -23,6 +25,7 @@ The important boundary:
 ## Public Entry Points
 
 - Root export `.` through `src/index.ts`
+- `./content` for platform-neutral landing story data and CTA helpers
 - `./components/marketing/*` for landing, product, pricing, contact, contribute, cofounder, and design-partner surfaces
 - `./components/templates/*` for templates browsing and preview surfaces
 - `./libs/email/*` for marketing contact/newsletter/waitlist helpers

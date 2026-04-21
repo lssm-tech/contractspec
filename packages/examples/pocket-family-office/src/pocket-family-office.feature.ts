@@ -9,7 +9,7 @@
  * management, open banking integration, and automated summaries.
  */
 import type { DocBlock } from '@contractspec/lib.contracts-spec';
-import { defineFeature } from '@contractspec/lib.contracts-spec';
+import { defineFeature } from '@contractspec/lib.contracts-spec/features';
 export const PocketFamilyOfficeFeature = defineFeature({
 	meta: {
 		key: 'pocket-family-office',

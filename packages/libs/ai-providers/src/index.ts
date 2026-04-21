@@ -4,6 +4,7 @@
  * Unified AI provider abstraction for ContractSpec applications.
  */
 
+export * from './ai-providers.feature';
 // Provider factory
 export * from './factory';
 // Legacy compatibility
@@ -11,7 +12,6 @@ export {
 	getAIProvider,
 	validateProvider as validateLegacyProvider,
 } from './legacy';
-
 // Model definitions
 export * from './models';
 export type { ModelSelectorOptions } from './selector';

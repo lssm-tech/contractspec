@@ -4,6 +4,7 @@ export { LibrariesAnalyticsPage } from './LibrariesAnalyticsPage';
 export { LibrariesContentGenPage } from './LibrariesContentGenPage';
 export { LibrariesContractsPage } from './LibrariesContractsPage';
 export { LibrariesCostTrackingPage } from './LibrariesCostTrackingPage';
+export { LibrariesCrossPlatformUIPage } from './LibrariesCrossPlatformUIPage';
 export { LibrariesDataBackendPage } from './LibrariesDataBackendPage';
 export { LibrariesDataViewsPage } from './LibrariesDataViewsPage';
 export { LibrariesDesignSystemPage } from './LibrariesDesignSystemPage';

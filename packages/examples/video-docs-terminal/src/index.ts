@@ -5,3 +5,5 @@ export * from './sample-tutorials';
 export * from './video-docs-terminal.feature';
 
 import './docs';
+
+export * from './example';

@@ -4,6 +4,7 @@ import type { ExperimentRef } from '../experiments/spec';
 import type { FormRef, OpRef } from '../features';
 import type { OwnerShipMeta } from '../ownership';
 import { SpecContractRegistry } from '../registry';
+import type { ResultCatalog } from '../results';
 import type {
 	WorkflowDevkitRuntimeConfig,
 	WorkflowStepRuntimeConfig,
@@ -172,6 +173,8 @@ export type WorkflowMeta = OwnerShipMeta;
 export interface WorkflowSpec {
 	meta: WorkflowMeta;
 	definition: WorkflowDefinition;
+	/** Optional typed result catalog for workflow-level success/failure outcomes. */
+	results?: ResultCatalog;
 	/** Optional runtime config for adapter-first workflow orchestration. */
 	runtime?: WorkflowRuntimeConfig;
 	/** Optional metadata merged by workflow composition overlays. */

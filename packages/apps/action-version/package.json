@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/action.version",
-	"version": "3.0.0",
+	"version": "3.0.1",
 	"description": "GitHub Action for ContractSpec version management",
 	"main": "action.yml",
 	"keywords": [
@@ -20,5 +20,11 @@
 		"type": "git",
 		"url": "https://github.com/lssm-tech/contractspec.git",
 		"directory": "packages/apps/action-version"
+	},
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*"
+	},
+	"exports": {
+		".": "./src/index.ts"
 	}
 }

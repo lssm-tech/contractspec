@@ -2,29 +2,23 @@ import {
 	Input as WebInput,
 	type InputProps as WebInputProps,
 } from '@contractspec/lib.ui-kit-web/ui/input';
-import { type KeyboardOptions, mapKeyboardToWeb } from '../../lib/keyboard';
+import { mapKeyboardToWeb } from '../../lib/keyboard';
+import {
+	type ControlThemeProps,
+	type TextFieldBaseProps,
+	useThemedTextField,
+} from '../primitives/control';
 
-interface BaseFieldProps {
-	// value?: string | number;
-	// defaultValue?: string | number;
-	// onChange?: (text: string) => void;
-	onSubmit?: () => void;
-	onFocus?: () => void;
-	// onBlur?: () => void;
-	placeholder?: string;
-	disabled?: boolean;
-	readOnly?: boolean;
-	maxLength?: number;
+interface InputBaseProps extends TextFieldBaseProps {
 	name?: string;
-	className?: string;
-	keyboard?: KeyboardOptions;
 }
 
 export type InputProps = Omit<
 	WebInputProps,
 	'input' // | 'onChange' | 'value' | 'defaultValue'
 > &
-	BaseFieldProps;
+	InputBaseProps &
+	ControlThemeProps;
 
 export function Input({
 	value,
@@ -40,14 +34,30 @@ export function Input({
 	name,
 	className,
 	keyboard,
+	componentKey,
+	themeVariant,
+	placeholderI18n,
+	ariaLabelI18n,
 	...rest
 }: InputProps) {
 	const webKeyboard = mapKeyboardToWeb(keyboard);
+	const field = useThemedTextField({
+		defaultComponentKey: 'Input',
+		componentKey,
+		themeVariant,
+		className,
+		style: rest.style,
+		placeholder,
+		placeholderI18n,
+		ariaLabelI18n,
+	});
 
 	return (
 		<WebInput
+			{...(field.themed.props as Partial<WebInputProps>)}
 			{...rest}
-			className={className}
+			className={field.themed.className}
+			style={field.themed.style}
 			value={value}
 			defaultValue={defaultValue}
 			// onChange={onChange ? (e) => onChange?.(e.target.value) : undefined}
@@ -55,7 +65,8 @@ export function Input({
 			onChange={onChange}
 			onFocus={onFocus}
 			onBlur={onBlur}
-			placeholder={placeholder}
+			placeholder={field.placeholder}
+			aria-label={field.ariaLabel}
 			disabled={disabled}
 			readOnly={readOnly}
 			maxLength={maxLength}

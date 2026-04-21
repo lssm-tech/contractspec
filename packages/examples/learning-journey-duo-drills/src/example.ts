@@ -1,31 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesLearningJourneyDuoDrillsExample = defineExample({
 	meta: {
-		key: 'learning-journey-duo-drills',
+		key: 'examples.learning-journey-duo-drills',
 		version: '1.0.0',
-		title: 'Learning Journey — Duo Drills',
+		title: 'Learning Journey Duo Drills',
 		description:
-			'Short drill/SRS example with XP and streak hooks for language, finance, or ContractSpec concept drills.',
+			'Drill-based learning journey example with SRS, XP, and streak hooks.',
 		kind: 'template',
-		visibility: 'public',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['learning', 'drills', 'srs', 'xp'],
-	},
-	docs: {
-		rootDocId: 'docs.learning-journey.duo-drills',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.learning-journey-duo-drills',
-		docs: './docs',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'learning-journey-duo-drills'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: { enabled: true, modes: ['playground', 'markdown'] },
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.learning-journey-duo-drills',
 	},
 });
 
-export default example;
+export default ExamplesLearningJourneyDuoDrillsExample;
+export { ExamplesLearningJourneyDuoDrillsExample };

@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.analytics",
-	"version": "3.7.20",
+	"version": "3.7.21",
 	"description": "Product analytics and growth metrics",
 	"keywords": [
 		"contractspec",
@@ -44,6 +44,7 @@
 	},
 	"exports": {
 		".": "./src/index.ts",
+		"./analytics.feature": "./src/analytics.feature.ts",
 		"./churn": "./src/churn/index.ts",
 		"./churn/predictor": "./src/churn/predictor.ts",
 		"./cohort": "./src/cohort/index.ts",
@@ -69,6 +70,13 @@
 				"bun": "./dist/index.js",
 				"node": "./dist/node/index.js",
 				"default": "./dist/index.js"
+			},
+			"./analytics.feature": {
+				"types": "./dist/analytics.feature.d.ts",
+				"browser": "./dist/browser/analytics.feature.js",
+				"bun": "./dist/analytics.feature.js",
+				"node": "./dist/node/analytics.feature.js",
+				"default": "./dist/analytics.feature.js"
 			},
 			"./churn": {
 				"types": "./dist/churn/index.d.ts",

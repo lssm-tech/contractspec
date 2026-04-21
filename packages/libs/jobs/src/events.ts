@@ -36,6 +36,7 @@ const JobCompletedPayload = defineSchemaModel({
 		attempt: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
 		durationMs: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
 		completedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
+		result: { type: ScalarTypeEnum.JSONObject(), isOptional: true },
 	},
 });
 
@@ -47,6 +48,7 @@ const JobFailedPayload = defineSchemaModel({
 		type: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
 		attempt: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
 		error: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+		problem: { type: ScalarTypeEnum.JSONObject(), isOptional: true },
 		willRetry: { type: ScalarTypeEnum.Boolean(), isOptional: false },
 		failedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
 	},
@@ -72,6 +74,7 @@ const JobDeadLetteredPayload = defineSchemaModel({
 		type: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
 		attempts: { type: ScalarTypeEnum.Int_unsecure(), isOptional: false },
 		lastError: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+		problem: { type: ScalarTypeEnum.JSONObject(), isOptional: true },
 		deadLetteredAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
 	},
 });

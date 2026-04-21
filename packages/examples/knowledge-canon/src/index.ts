@@ -6,3 +6,5 @@ export * from './product-canon.space';
 export * from './source.sample';
 export * from './tenant';
 import './docs';
+
+export * from './example';

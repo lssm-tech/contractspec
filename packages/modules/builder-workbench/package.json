@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/module.builder-workbench",
-	"version": "0.2.2",
+	"version": "0.2.4",
 	"description": "Reusable Builder workbench UI module.",
 	"keywords": [
 		"contractspec",
@@ -36,7 +36,8 @@
 		"@contractspec/lib.provider-spec": "workspace:*",
 		"@contractspec/lib.ui-kit-web": "workspace:*",
 		"@contractspec/module.ai-chat": "workspace:*",
-		"react": "catalog:"
+		"react": "catalog:",
+		"@contractspec/lib.contracts-spec": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.bun": "workspace:*",
@@ -45,7 +46,7 @@
 		"typescript": "catalog:"
 	},
 	"peerDependencies": {
-		"react": ">=19.2.4"
+		"react": "catalog:"
 	},
 	"exports": {
 		".": "./src/index.ts",

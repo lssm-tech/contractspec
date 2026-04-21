@@ -1,32 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesMeetingRecorderProvidersExample = defineExample({
 	meta: {
-		key: 'meeting-recorder-providers',
+		key: 'examples.meeting-recorder-providers',
 		version: '1.0.0',
 		title: 'Meeting Recorder Providers',
 		description:
-			'Multi-provider meeting recorder integration example with list, transcript, and webhook handling.',
-		kind: 'integration',
-		visibility: 'public',
+			'Meeting recorder provider example: list meetings, transcripts, and webhooks.',
+		kind: 'template',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.integrations'],
-		tags: ['meeting-recorder', 'transcripts', 'webhooks', 'integrations'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.meeting-recorder-providers',
-		usageDocId: 'docs.examples.meeting-recorder-providers.usage',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.meeting-recorder-providers',
-		docs: './docs',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'meeting-recorder-providers'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: { enabled: true, modes: ['markdown', 'specs'] },
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.meeting-recorder-providers',
 	},
 });
 
-export default example;
+export default ExamplesMeetingRecorderProvidersExample;
+export { ExamplesMeetingRecorderProvidersExample };

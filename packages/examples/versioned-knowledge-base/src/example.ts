@@ -1,34 +1,28 @@
-import { defineExample } from '@contractspec/lib.contracts-spec';
+import { defineExample } from '@contractspec/lib.contracts-spec/examples';
 
-const example = defineExample({
+const ExamplesVersionedKnowledgeBaseExample = defineExample({
 	meta: {
-		key: 'versioned-knowledge-base',
+		key: 'examples.versioned-knowledge-base',
 		version: '1.0.0',
 		title: 'Versioned Knowledge Base',
 		description:
-			'Curated KB with immutable sources, reviewable rule versions, and published snapshots.',
-		kind: 'knowledge',
-		visibility: 'public',
+			'Example: curated, versioned knowledge base with immutable sources, rule versions, and published snapshots.',
+		kind: 'template',
+		visibility: 'experimental',
 		stability: 'experimental',
-		owners: ['@platform.core'],
-		tags: ['knowledge', 'versioning', 'snapshots'],
-	},
-	docs: {
-		rootDocId: 'docs.examples.versioned-knowledge-base',
-	},
-	entrypoints: {
-		packageName: '@contractspec/example.versioned-knowledge-base',
-		feature: './feature',
-		contracts: './contracts',
-		handlers: './handlers',
-		docs: './docs',
+		owners: ['@contractspec-core'],
+		tags: ['package', 'examples', 'versioned-knowledge-base'],
 	},
 	surfaces: {
 		templates: true,
-		sandbox: { enabled: true, modes: ['markdown', 'specs', 'builder'] },
-		studio: { enabled: true, installable: true },
-		mcp: { enabled: true },
+		sandbox: { enabled: true, modes: ['playground', 'specs'] },
+		studio: { enabled: false, installable: false },
+		mcp: { enabled: false },
+	},
+	entrypoints: {
+		packageName: '@contractspec/example.versioned-knowledge-base',
 	},
 });
 
-export default example;
+export default ExamplesVersionedKnowledgeBaseExample;
+export { ExamplesVersionedKnowledgeBaseExample };

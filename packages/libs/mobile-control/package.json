@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.mobile-control",
-	"version": "0.2.2",
+	"version": "0.2.3",
 	"description": "Builder mobile-control primitives for review cards, parity, and deep-link-safe actions.",
 	"keywords": [
 		"contractspec",
@@ -32,7 +32,8 @@
 	},
 	"dependencies": {
 		"@contractspec/lib.builder-spec": "workspace:*",
-		"@contractspec/lib.provider-spec": "workspace:*"
+		"@contractspec/lib.provider-spec": "workspace:*",
+		"@contractspec/lib.contracts-spec": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.bun": "workspace:*",
@@ -40,7 +41,8 @@
 		"typescript": "catalog:"
 	},
 	"exports": {
-		".": "./src/index.ts"
+		".": "./src/index.ts",
+		"./mobile-control.feature": "./src/mobile-control.feature.ts"
 	},
 	"publishConfig": {
 		"access": "public",
@@ -52,6 +54,13 @@
 				"bun": "./dist/index.js",
 				"node": "./dist/node/index.js",
 				"default": "./dist/index.js"
+			},
+			"./mobile-control.feature": {
+				"types": "./dist/mobile-control.feature.d.ts",
+				"browser": "./dist/browser/mobile-control.feature.js",
+				"bun": "./dist/mobile-control.feature.js",
+				"node": "./dist/node/mobile-control.feature.js",
+				"default": "./dist/mobile-control.feature.js"
 			}
 		}
 	},

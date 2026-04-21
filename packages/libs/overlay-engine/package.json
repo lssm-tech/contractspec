@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.overlay-engine",
-	"version": "3.7.20",
+	"version": "3.7.21",
 	"description": "Runtime overlay engine for ContractSpec personalization and adaptive UI rendering.",
 	"keywords": [
 		"contractspec",
@@ -36,7 +36,7 @@
 		"fast-json-stable-stringify": "^2.1.0"
 	},
 	"peerDependencies": {
-		"react": "^19.0.0"
+		"react": "catalog:"
 	},
 	"peerDependenciesMeta": {
 		"react": {
@@ -51,6 +51,7 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./merger": "./src/merger.ts",
+		"./overlay-engine.feature": "./src/overlay-engine.feature.ts",
 		"./react": "./src/react.ts",
 		"./registry": "./src/registry.ts",
 		"./runtime": "./src/runtime.ts",
@@ -73,6 +74,12 @@
 				"bun": "./dist/merger.js",
 				"node": "./dist/node/merger.js",
 				"default": "./dist/merger.js"
+			},
+			"./overlay-engine.feature": {
+				"types": "./dist/overlay-engine.feature.d.ts",
+				"bun": "./dist/overlay-engine.feature.js",
+				"node": "./dist/node/overlay-engine.feature.js",
+				"default": "./dist/overlay-engine.feature.js"
 			},
 			"./react": {
 				"types": "./dist/react.d.ts",

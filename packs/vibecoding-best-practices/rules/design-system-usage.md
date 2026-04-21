@@ -28,6 +28,15 @@ Priority order:
 2. If the required block/section is missing, add it inside `packages/libs/design-system` and export it there.
 3. Only when DS truly lacks a primitive, use `@contractspec/lib.ui-kit-web` equivalents. Do not mix ui-kit and DS in the same component unless bridging to add the DS primitive.
 
+Cross-surface rendering policy:
+
+- Treat `/docs/libraries/cross-platform-ui` as the canonical React + React Native compatibility guide.
+- Use root-imported runtime helpers: `withPresentationTurbopackAliases` for default Next.js, `withPresentationWebpackAliases` only for explicit webpack fallback, and `withPresentationMetroAliases` for Expo/Metro.
+- Do not use removed `withPresentationNextAliases`.
+- Prefer `@contractspec/lib.design-system` for shared product surfaces; use `@contractspec/lib.ui-kit-web` only for web-specific primitives and `@contractspec/lib.ui-kit` only for native-specific primitives.
+- Keep shared layout code inside the common `VStack` / `HStack` / `Box` subset and set `gap`, `align`, `justify`, and `wrap` explicitly.
+- When changing alias helpers, stack primitives, table/data-view renderers, or `.mobile.tsx`/web component pairs, update the cross-platform UI docs and customer markdown kit in the same change.
+
 Layout & structure:
 
 - Prefer `HStack`/`VStack`/`Stack`/`Box`/`Grid` primitives over `div`/`section`/`main`/`header`/`footer` within app or bundle code.

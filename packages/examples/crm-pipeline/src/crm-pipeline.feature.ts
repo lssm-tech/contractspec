@@ -3,7 +3,7 @@
  *
  * Defines the feature module for CRM and sales pipeline capabilities.
  */
-import { defineFeature } from '@contractspec/lib.contracts-spec';
+import { defineFeature } from '@contractspec/lib.contracts-spec/features';
 
 /**
  * CRM Pipeline feature module that bundles deal management,

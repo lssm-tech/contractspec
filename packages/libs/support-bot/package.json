@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.support-bot",
-	"version": "4.0.0",
+	"version": "4.0.1",
 	"description": "AI support bot framework with RAG and ticket management",
 	"keywords": [
 		"contractspec",
@@ -61,6 +61,7 @@
 		"./rag": "./src/rag/index.ts",
 		"./rag/ticket-resolver": "./src/rag/ticket-resolver.ts",
 		"./spec": "./src/spec.ts",
+		"./support-bot.feature": "./src/support-bot.feature.ts",
 		"./tickets": "./src/tickets/index.ts",
 		"./tickets/classifier": "./src/tickets/classifier.ts",
 		"./types": "./src/types.ts"
@@ -179,6 +180,13 @@
 				"bun": "./dist/spec.js",
 				"node": "./dist/node/spec.js",
 				"default": "./dist/spec.js"
+			},
+			"./support-bot.feature": {
+				"types": "./dist/support-bot.feature.d.ts",
+				"browser": "./dist/browser/support-bot.feature.js",
+				"bun": "./dist/support-bot.feature.js",
+				"node": "./dist/node/support-bot.feature.js",
+				"default": "./dist/support-bot.feature.js"
 			},
 			"./tickets": {
 				"types": "./dist/tickets/index.d.ts",

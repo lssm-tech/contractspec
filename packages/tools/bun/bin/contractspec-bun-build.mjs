@@ -49,12 +49,14 @@ async function main() {
 	};
 
 	if (command === 'prebuild') {
-		await rewritePackageExports(
-			packageJsonPath,
-			entries,
-			normalizedConfig.targets,
-			targetRoots
-		);
+		if (normalizedConfig.rewriteExports) {
+			await rewritePackageExports(
+				packageJsonPath,
+				entries,
+				normalizedConfig.targets,
+				targetRoots
+			);
+		}
 		return;
 	}
 
@@ -93,12 +95,14 @@ async function main() {
 	}
 
 	if (command === 'build') {
-		await rewritePackageExports(
-			packageJsonPath,
-			entries,
-			normalizedConfig.targets,
-			targetRoots
-		);
+		if (normalizedConfig.rewriteExports) {
+			await rewritePackageExports(
+				packageJsonPath,
+				entries,
+				normalizedConfig.targets,
+				targetRoots
+			);
+		}
 		await runTranspile({
 			cwd,
 			entries,

@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/app.cursor-marketplace",
-	"version": "1.7.14",
+	"version": "1.7.15",
 	"private": true,
 	"type": "module",
 	"description": "Cursor marketplace catalog for ContractSpec product and core libraries",
@@ -13,5 +13,11 @@
 		"url": "https://github.com/lssm-tech/contractspec.git",
 		"directory": "packages/apps-registry/cursor-marketplace"
 	},
-	"homepage": "https://contractspec.io"
+	"homepage": "https://contractspec.io",
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*"
+	},
+	"exports": {
+		".": "./src/index.ts"
+	}
 }

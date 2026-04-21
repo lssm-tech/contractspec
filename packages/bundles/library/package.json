@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/bundle.library",
-	"version": "3.9.0",
+	"version": "3.9.2",
 	"type": "module",
 	"scripts": {
 		"clean": "rm -rf dist",
@@ -146,6 +146,8 @@
 		"./components/docs/libraries/LibrariesContentGenPage": "./src/components/docs/libraries/LibrariesContentGenPage.tsx",
 		"./components/docs/libraries/LibrariesContractsPage": "./src/components/docs/libraries/LibrariesContractsPage.tsx",
 		"./components/docs/libraries/LibrariesCostTrackingPage": "./src/components/docs/libraries/LibrariesCostTrackingPage.tsx",
+		"./components/docs/libraries/LibrariesCrossPlatformUIPage": "./src/components/docs/libraries/LibrariesCrossPlatformUIPage.tsx",
+		"./components/docs/libraries/LibrariesCrossPlatformUIPage.content": "./src/components/docs/libraries/LibrariesCrossPlatformUIPage.content.ts",
 		"./components/docs/libraries/LibrariesDataBackendPage": "./src/components/docs/libraries/LibrariesDataBackendPage.tsx",
 		"./components/docs/libraries/LibrariesDataViewsPage": "./src/components/docs/libraries/LibrariesDataViewsPage.tsx",
 		"./components/docs/libraries/LibrariesDesignSystemPage": "./src/components/docs/libraries/LibrariesDesignSystemPage.tsx",
@@ -385,7 +387,7 @@
 		"@types/react": "~19.2.14",
 		"@contractspec/tool.typescript": "workspace:*",
 		"typescript": "catalog:",
-		"@types/bun": "~1.3.11",
+		"@types/bun": "^1.3.12",
 		"@contractspec/tool.bun": "workspace:*"
 	},
 	"repository": {
@@ -1164,6 +1166,18 @@
 				"bun": "./dist/components/docs/libraries/LibrariesCostTrackingPage.js",
 				"node": "./dist/node/components/docs/libraries/LibrariesCostTrackingPage.js",
 				"default": "./dist/components/docs/libraries/LibrariesCostTrackingPage.js"
+			},
+			"./components/docs/libraries/LibrariesCrossPlatformUIPage": {
+				"types": "./dist/components/docs/libraries/LibrariesCrossPlatformUIPage.d.ts",
+				"bun": "./dist/components/docs/libraries/LibrariesCrossPlatformUIPage.js",
+				"node": "./dist/node/components/docs/libraries/LibrariesCrossPlatformUIPage.js",
+				"default": "./dist/components/docs/libraries/LibrariesCrossPlatformUIPage.js"
+			},
+			"./components/docs/libraries/LibrariesCrossPlatformUIPage.content": {
+				"types": "./dist/components/docs/libraries/LibrariesCrossPlatformUIPage.content.d.ts",
+				"bun": "./dist/components/docs/libraries/LibrariesCrossPlatformUIPage.content.js",
+				"node": "./dist/node/components/docs/libraries/LibrariesCrossPlatformUIPage.content.js",
+				"default": "./dist/components/docs/libraries/LibrariesCrossPlatformUIPage.content.js"
 			},
 			"./components/docs/libraries/LibrariesDataBackendPage": {
 				"types": "./dist/components/docs/libraries/LibrariesDataBackendPage.d.ts",

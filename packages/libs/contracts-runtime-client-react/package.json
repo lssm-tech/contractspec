@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.contracts-runtime-client-react",
-	"version": "3.9.1",
+	"version": "3.10.0",
 	"description": "React runtime adapters for ContractSpec contracts",
 	"type": "module",
 	"types": "./dist/index.d.ts",
@@ -25,8 +25,8 @@
 	},
 	"peerDependencies": {
 		"@hookform/resolvers": "^5.2.2",
-		"react": "^19.2.4",
-		"react-dom": "^19.2.4",
+		"react": "catalog:",
+		"react-dom": "catalog:",
 		"react-hook-form": "^7.72.0"
 	},
 	"dependencies": {
@@ -45,6 +45,8 @@
 	],
 	"exports": {
 		".": "./src/index.ts",
+		"./contract-result-client": "./src/contract-result-client.tsx",
+		"./contracts-runtime-client-react.feature": "./src/contracts-runtime-client-react.feature.ts",
 		"./drivers/rn-reusables": "./src/drivers/rn-reusables.ts",
 		"./drivers/shadcn": "./src/drivers/shadcn.ts",
 		"./feature-render": "./src/feature-render.ts",
@@ -62,6 +64,20 @@
 				"bun": "./dist/index.js",
 				"node": "./dist/node/index.js",
 				"default": "./dist/index.js"
+			},
+			"./contract-result-client": {
+				"types": "./dist/contract-result-client.d.ts",
+				"browser": "./dist/browser/contract-result-client.js",
+				"bun": "./dist/contract-result-client.js",
+				"node": "./dist/node/contract-result-client.js",
+				"default": "./dist/contract-result-client.js"
+			},
+			"./contracts-runtime-client-react.feature": {
+				"types": "./dist/contracts-runtime-client-react.feature.d.ts",
+				"browser": "./dist/browser/contracts-runtime-client-react.feature.js",
+				"bun": "./dist/contracts-runtime-client-react.feature.js",
+				"node": "./dist/node/contracts-runtime-client-react.feature.js",
+				"default": "./dist/contracts-runtime-client-react.feature.js"
 			},
 			"./drivers/rn-reusables": {
 				"types": "./dist/drivers/rn-reusables.d.ts",

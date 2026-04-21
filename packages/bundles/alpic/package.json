@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/bundle.alpic",
-	"version": "3.7.19",
+	"version": "3.7.20",
 	"description": "Alpic MCP server and ChatGPT App hosting bundle",
 	"keywords": [
 		"contractspec",
@@ -32,7 +32,8 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@contractspec/module.alpic": "workspace:*"
+		"@contractspec/module.alpic": "workspace:*",
+		"@contractspec/lib.surface-runtime": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",

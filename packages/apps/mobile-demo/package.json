@@ -1,13 +1,14 @@
 {
 	"name": "@contractspec/app.expo-demo",
-	"version": "1.1.20",
+	"version": "1.1.22",
 	"private": true,
-	"description": "Minimal Expo React Native app - Task List demo for ContractSpec mobile runtime",
+	"description": "Expo landing companion for the shared ContractSpec OSS-first product story",
+	"main": "index.js",
 	"scripts": {
 		"dev": "expo start",
 		"start": "expo start",
-		"android": "expo start --android",
-		"ios": "expo start --ios",
+		"android": "expo run:android",
+		"ios": "expo run:ios",
 		"lint": "bun run lint:fix",
 		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
 		"lint:check": "node ../../../scripts/biome.cjs check .",
@@ -15,14 +16,13 @@
 		"test": "bun test"
 	},
 	"dependencies": {
+		"@contractspec/bundle.marketing": "workspace:*",
 		"@contractspec/lib.contracts-spec": "workspace:*",
 		"@contractspec/lib.presentation-runtime-core": "workspace:*",
 		"@contractspec/lib.presentation-runtime-react-native": "workspace:*",
 		"@contractspec/lib.schema": "workspace:*",
 		"@contractspec/lib.ui-kit": "workspace:*",
 		"@contractspec/lib.ui-kit-core": "workspace:*",
-		"@react-native-async-storage/async-storage": "^2.1.2",
-		"burnt": "^0.13.0",
 		"expo": "^55.0.13",
 		"expo-router": "~55.0.11",
 		"expo-status-bar": "~55.0.5",
@@ -30,8 +30,8 @@
 		"expo-updates": "~55.0.20",
 		"lucide-react-native": "^1.8.0",
 		"nativewind": "4.2.1",
-		"react": "19.2.0",
-		"react-native": "0.85.0",
+		"react": "catalog:",
+		"react-native": "0.83.4",
 		"react-native-safe-area-context": "~5.6.2",
 		"react-native-screens": "~4.23.0"
 	},
@@ -41,5 +41,8 @@
 		"@types/react": "^19.2.14",
 		"tailwindcss": "catalog:build",
 		"typescript": "catalog:"
+	},
+	"exports": {
+		".": "./src/index.ts"
 	}
 }

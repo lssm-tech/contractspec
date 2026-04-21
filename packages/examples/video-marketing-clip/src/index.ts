@@ -4,3 +4,5 @@ export * from './generate-clip';
 export * from './video-marketing-clip.feature';
 
 import './docs';
+
+export * from './example';

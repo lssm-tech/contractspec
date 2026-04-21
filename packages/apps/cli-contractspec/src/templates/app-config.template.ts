@@ -18,9 +18,9 @@ export function generateAppBlueprintSpec(data: AppBlueprintSpecData): string {
 		? `  notes: '${escapeString(data.notes)}',\n`
 		: '';
 
-	return `import type { AppBlueprintSpec } from '@contractspec/lib.contracts-spec/app-config';
+	return `import { defineAppConfig } from '@contractspec/lib.contracts-spec/app-config/spec';
 
-export const ${exportName}: AppBlueprintSpec = {
+export const ${exportName} = defineAppConfig({
   meta: {
     key: '${escapeString(data.key)}',
     version: '${data.version}',
@@ -32,7 +32,7 @@ export const ${exportName}: AppBlueprintSpec = {
     stability: '${data.stability}',
     appId: '${escapeString(data.appId)}',
   },
-${capabilitiesSection}${featuresSection}${dataViewsSection}${workflowsSection}${policiesSection}${themeSection}${telemetrySection}${experimentsSection}${flagsSection}${routesSection}${notesSection}};\n`;
+${capabilitiesSection}${featuresSection}${dataViewsSection}${workflowsSection}${policiesSection}${themeSection}${telemetrySection}${experimentsSection}${flagsSection}${routesSection}${notesSection}});\n`;
 }
 
 function buildCapabilitiesSection(data: AppBlueprintSpecData): string {

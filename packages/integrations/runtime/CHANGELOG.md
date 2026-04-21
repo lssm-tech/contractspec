@@ -1,5 +1,24 @@
 # @contractspec/integration.runtime
 
+## 3.9.3
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add FormSpec layout hints, semantic field rendering, and portable text/textarea input-group addons.
+- Updated dependencies because of Add ThemeSpec light/dark modes and a design-system Tailwind bridge for CSS variables, presets, CSS text, and OKLCH color pass-through.
+- Updated dependencies because of Add a canonical typed result system for ContractSpec success and failure propagation across operations, workflows, jobs, server adapters, MCP, GraphQL, and React clients.
+  - @contractspec/lib.builder-runtime@0.2.3
+  - @contractspec/lib.builder-spec@0.2.3
+  - @contractspec/lib.contracts-integrations@3.8.13
+  - @contractspec/lib.execution-lanes@0.1.4
+  - @contractspec/lib.logger@3.7.14
+  - @contractspec/lib.provider-spec@0.2.1
+  - @contractspec/lib.contracts-spec@5.5.0
+  - @contractspec/lib.jobs@3.8.0
+  - @contractspec/lib.schema@3.7.14
+
 ## 3.9.2
 
 ### Patch Changes

@@ -1,4 +1,4 @@
-import { defineFeature } from '@contractspec/lib.contracts-spec';
+import { defineFeature } from '@contractspec/lib.contracts-spec/features';
 
 export const VersionedKnowledgeBaseFeature = defineFeature({
 	meta: {

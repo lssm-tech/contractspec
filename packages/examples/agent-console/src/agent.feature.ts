@@ -4,7 +4,7 @@
  * Defines the feature module for agent orchestration capabilities.
  */
 import type { FeatureModuleSpec } from '@contractspec/lib.contracts-spec';
-import { defineFeature } from '@contractspec/lib.contracts-spec';
+import { defineFeature } from '@contractspec/lib.contracts-spec/features';
 import { AgentVisualizationRefs } from './visualizations';
 
 /**

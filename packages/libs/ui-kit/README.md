@@ -32,6 +32,11 @@ Use this package for Expo and React Native surfaces. Do not use it as the design
 - `./ui/form`
 - `./ui/field`
 
+Native contract-driven forms consume the shared `Field` semantics through the
+design-system renderer; web-only input-addon composition remains in
+`@contractspec/lib.ui-kit-web/ui/input-group` and the design-system platform
+facade.
+
 ### Overlays and menus
 
 - `./ui/dialog`

@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.observability",
-	"version": "3.7.20",
+	"version": "3.7.21",
 	"description": "OpenTelemetry-based observability primitives",
 	"keywords": [
 		"contractspec",
@@ -49,6 +49,7 @@
 		"./intent/detector": "./src/intent/detector.ts",
 		"./logging": "./src/logging/index.ts",
 		"./metrics": "./src/metrics/index.ts",
+		"./observability.feature": "./src/observability.feature.ts",
 		"./pipeline/evolution-pipeline": "./src/pipeline/evolution-pipeline.ts",
 		"./pipeline/lifecycle-pipeline": "./src/pipeline/lifecycle-pipeline.ts",
 		"./telemetry/model-selection-telemetry": "./src/telemetry/model-selection-telemetry.ts",
@@ -115,6 +116,12 @@
 				"bun": "./dist/metrics/index.js",
 				"node": "./dist/node/metrics/index.js",
 				"default": "./dist/metrics/index.js"
+			},
+			"./observability.feature": {
+				"types": "./dist/observability.feature.d.ts",
+				"bun": "./dist/observability.feature.js",
+				"node": "./dist/node/observability.feature.js",
+				"default": "./dist/observability.feature.js"
 			},
 			"./pipeline/evolution-pipeline": {
 				"types": "./dist/pipeline/evolution-pipeline.d.ts",

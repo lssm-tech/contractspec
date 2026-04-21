@@ -27,14 +27,27 @@ export function registerMcpTools(
 				inputSchema: spec.io.input?.getZod(),
 			},
 			async (args: unknown): Promise<CallToolResult> => {
-				const result = await ops.execute(
+				const result = await ops.executeResult(
 					spec.meta.key,
 					spec.meta.version,
 					args ?? {},
 					ctx.toolCtx()
 				);
+				if (!result.ok) {
+					return {
+						isError: true,
+						content: [
+							{
+								type: 'text',
+								text: JSON.stringify(result.problem, null, 4),
+							},
+						],
+					};
+				}
 				return {
-					content: [{ type: 'text', text: JSON.stringify(result, null, 4) }],
+					content: [
+						{ type: 'text', text: JSON.stringify(result.data, null, 4) },
+					],
 				};
 			}
 		);

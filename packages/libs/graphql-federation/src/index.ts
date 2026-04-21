@@ -24,3 +24,4 @@ export function withEntityObject<T extends SchemaTypes>(
 	});
 	return ref;
 }
+export * from './graphql-federation.feature';

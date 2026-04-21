@@ -1,0 +1,63 @@
+schemaVersion: "1"
+slug: restore-web-landing-examples
+summary: Restore the public web-landing templates and examples surfaces so non-internal examples render in the templates catalog, docs routes, sitemap, and sandbox fallback previews.
+isBreaking: false
+packages:
+  - name: "@contractspec/module.examples"
+    releaseType: minor
+  - name: "@contractspec/bundle.marketing"
+    releaseType: patch
+  - name: "@contractspec/bundle.library"
+    releaseType: patch
+  - name: "@contractspec/app.web-landing"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - nextjs
+affectedFrameworks:
+  - react
+audiences:
+  - kind: maintainer
+    summary: Example discovery now has explicit non-internal registry helpers, and web-landing consumes those helpers for templates, docs route generation, sitemap entries, and sandbox fallback behavior.
+    affectedPackages:
+      - "@contractspec/module.examples"
+      - "@contractspec/bundle.marketing"
+      - "@contractspec/bundle.library"
+      - "@contractspec/app.web-landing"
+  - kind: integrator
+    summary: Integrators can use the new `@contractspec/module.examples` helpers to list discoverable examples and template examples without reimplementing visibility and surface filtering.
+    affectedPackages:
+      - "@contractspec/module.examples"
+  - kind: customer
+    summary: The public website now shows the full non-internal template catalog, generates example docs for experimental examples, and keeps sandbox template pages useful even when a bespoke interactive preview is unavailable.
+    affectedPackages:
+      - "@contractspec/app.web-landing"
+      - "@contractspec/bundle.marketing"
+      - "@contractspec/bundle.library"
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: use-discoverable-example-helpers
+    title: Prefer explicit example discovery helpers
+    summary: Consumers that need public web-facing example lists should use the new helpers instead of filtering `listExamples()` manually.
+    level: assisted
+    instructions:
+      - Use `listDiscoverableExamples()` for docs and sitemap surfaces that should include non-internal examples with usable public surfaces.
+      - Use `listTemplateExamples()` for template catalogs.
+      - "Keep `listPublicExamples()` only when the narrower `visibility: public` subset is required."
+validation:
+  commands:
+    - "bun test packages/modules/examples/src/runtime/previews.test.ts packages/bundles/marketing/src/components/templates/template-catalog.test.ts packages/bundles/marketing/src/components/templates/template-preview.test.ts packages/bundles/library/src/components/docs/examples/exampleShowcaseData.test.ts packages/apps/web-landing/src/app/docs/examples/example-doc-routes.test.ts packages/apps/web-landing/src/app/(sandbox)/sandbox/sandbox-preview.test.tsx packages/apps/web-landing/next.config.test.ts"
+    - "bun test packages/bundles/marketing/src/components/templates/template-preview.test.ts"
+    - "cd packages/modules/examples && bun run typecheck"
+    - "cd packages/bundles/marketing && bun run typecheck && bun run lint:check"
+    - "cd packages/bundles/library && bun run typecheck && bun run lint:check"
+    - "cd packages/apps/web-landing && bun run build:types && bun run lint:check && bun --bun next build"
+    - "node scripts/biome.cjs check packages/modules/examples/src/runtime/previews.ts packages/modules/examples/src/runtime/previews.test.ts"
+  evidence:
+    - "`@contractspec/module.examples` now exports `isDiscoverableExample`, `listDiscoverableExamples`, `getDiscoverableExample`, and `listTemplateExamples` while preserving `listPublicExamples` semantics."
+    - "`@contractspec/bundle.marketing` builds the local template catalog from non-internal template examples and labels public versus experimental visibility on template cards."
+    - "`@contractspec/bundle.library` and `@contractspec/app.web-landing` now generate docs/example routes from the discoverable example surface instead of the public-only subset."
+    - "`@contractspec/app.web-landing` now renders fallback sandbox content with package, docs, LLMS, and source links for templates without rich interactive previews."
+    - "The production Next build generated 54 discoverable example docs pages and prerendered `/templates` with 52 curated scenarios, including `crm-pipeline` and `integration-stripe`."
+    - "Full `packages/modules/examples` lint still reports pre-existing generated-file formatting issues in `src/builtins.ts` and `src/runtime/previews.generated.ts`; targeted Biome checks for the changed registry files pass."

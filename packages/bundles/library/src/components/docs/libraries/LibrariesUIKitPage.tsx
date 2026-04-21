@@ -138,6 +138,21 @@ export function LibrariesUIKitPage() {
 				</div>
 			</div>
 
+			<div className="card-subtle space-y-3 p-6">
+				<h2 className="font-bold text-2xl">Where this layer fits</h2>
+				<p className="text-muted-foreground">
+					Read{' '}
+					<Link
+						href="/docs/libraries/cross-platform-ui"
+						className="text-[color:var(--rust)] underline underline-offset-4"
+					>
+						Cross-platform UI
+					</Link>{' '}
+					for the full React and React Native compatibility model around this
+					native-first primitive lane.
+				</p>
+			</div>
+
 			<div className="flex items-center gap-4 pt-4">
 				<Link href="/docs/libraries/schema" className="btn-ghost">
 					Previous: Schema

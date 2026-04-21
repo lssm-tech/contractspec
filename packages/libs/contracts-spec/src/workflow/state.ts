@@ -1,3 +1,4 @@
+import type { ContractProblem, ContractSuccess } from '../results';
 import type { WorkflowStatus } from './spec';
 
 export type WorkflowWaitReason =
@@ -15,7 +16,9 @@ export interface StepExecution {
 	status: 'pending' | 'running' | 'waiting' | 'completed' | 'failed';
 	input?: unknown;
 	output?: unknown;
+	result?: ContractSuccess<unknown, string>;
 	error?: string;
+	problem?: ContractProblem<string, Record<string, unknown>>;
 }
 
 export interface WorkflowWaitState {
@@ -35,6 +38,8 @@ export interface WorkflowState<
 	workflowVersion: string;
 	currentStep: string;
 	data: Data;
+	result?: ContractSuccess<unknown, string>;
+	problem?: ContractProblem<string, Record<string, unknown>>;
 	retryCounts?: Record<string, number>;
 	history: StepExecution[];
 	status: WorkflowStatus;

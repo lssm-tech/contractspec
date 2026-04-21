@@ -1,3 +1,4 @@
+export * from './lifecycle.feature';
 export * from './types/axes';
 export * from './types/milestones';
 export * from './types/signals';

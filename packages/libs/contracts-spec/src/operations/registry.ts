@@ -9,9 +9,22 @@
 
 import type { AnySchemaModel } from '@contractspec/lib.schema';
 import { eventKey } from '../events';
-import type { HandlerForOperationSpec } from '../install';
+import type { HandlerForOperationSpecWithResult } from '../install';
 import { SpecContractRegistry } from '../registry';
 import type { ResourceRefDescriptor } from '../resources';
+import {
+	type ContractResult,
+	ContractSpecError,
+	type ContractSuccess,
+	type ContractSuccessSpec,
+	contractFail,
+	contractOk,
+	isContractFailure,
+	isContractSuccess,
+	isStandardSuccessCode,
+	normalizeContractError,
+	STANDARD_SUCCESS_SPECS,
+} from '../results';
 import type { HandlerCtx } from '../types';
 import {
 	type AnyOperationSpec,
@@ -55,7 +68,7 @@ export class OperationSpecRegistry extends SpecContractRegistry<
 		O extends AnySchemaModel | ResourceRefDescriptor<boolean>,
 	>(
 		spec: OperationSpec<I, O>,
-		handler: HandlerForOperationSpec<OperationSpec<I, O>>
+		handler: HandlerForOperationSpecWithResult<OperationSpec<I, O>>
 	): this {
 		const key: OperationKey = opKey(spec.meta.key, spec.meta.version);
 
@@ -100,6 +113,66 @@ export class OperationSpecRegistry extends SpecContractRegistry<
 	 * @param ctx - The runtime context (actor, tenant, etc.).
 	 */
 	async execute(
+		key: string,
+		version: string | undefined,
+		rawInput: unknown,
+		ctx: HandlerCtx
+	): Promise<unknown> {
+		const result = await this.executeResult(key, version, rawInput, ctx);
+		if (!result.ok) {
+			throw new ContractSpecError(result.problem);
+		}
+		return result.data;
+	}
+
+	/**
+	 * Execute an operation and return a canonical ContractResult envelope.
+	 *
+	 * Existing adapters may keep using execute() for raw data compatibility.
+	 * New adapters should use this method to preserve success metadata and
+	 * typed failures across transport boundaries.
+	 */
+	async executeResult(
+		key: string,
+		version: string | undefined,
+		rawInput: unknown,
+		ctx: HandlerCtx
+	): Promise<ContractResult<unknown, string, string>> {
+		const baseSpec = this.get(key, version);
+		try {
+			const rawResult = await this.executeRaw(key, version, rawInput, ctx);
+			if (isContractSuccess(rawResult)) {
+				return {
+					...rawResult,
+					traceId: rawResult.traceId ?? ctx.traceId,
+					source: rawResult.source ?? { channel: ctx.channel },
+				};
+			}
+			return contractOk(rawResult, {
+				traceId: ctx.traceId,
+				source: { channel: ctx.channel },
+			});
+		} catch (error) {
+			const activeSpec = this.get(key, version) ?? baseSpec;
+			return normalizeContractError(error, {
+				traceId: ctx.traceId,
+				operation: activeSpec
+					? {
+							key: activeSpec.meta.key,
+							version: activeSpec.meta.version,
+							kind: activeSpec.meta.kind,
+						}
+					: undefined,
+				source: { channel: ctx.channel },
+				declaredErrors: {
+					...(activeSpec?.results?.errors ?? {}),
+					...(activeSpec?.io.errors ?? {}),
+				},
+			});
+		}
+	}
+
+	private async executeRaw(
 		key: string,
 		version: string | undefined,
 		rawInput: unknown,
@@ -250,6 +323,9 @@ export class OperationSpecRegistry extends SpecContractRegistry<
 				...ctx,
 				__emitGuard__: emitGuard,
 			});
+			if (isContractFailure(result)) {
+				throw new ContractSpecError(result.problem);
+			}
 		} catch (error) {
 			if (spec.telemetry?.failure) {
 				await trackTelemetry(spec.telemetry.failure, {
@@ -272,12 +348,110 @@ export class OperationSpecRegistry extends SpecContractRegistry<
 			| AnySchemaModel
 			| ResourceRefDescriptor<boolean>;
 		if ((outputModel as AnySchemaModel)?.getZod) {
+			if (isContractSuccess(result)) {
+				const normalizedResult = normalizeSuccessEnvelope(
+					spec,
+					result,
+					outputModel
+				);
+				if (
+					normalizedResult.status === 204 ||
+					normalizedResult.state === 'empty'
+				) {
+					return normalizedResult;
+				}
+				const parsedOutput = (outputModel as AnySchemaModel)
+					.getZod()
+					.parse(normalizedResult.data);
+				return { ...normalizedResult, data: parsedOutput };
+			}
 			const parsedOutput = (outputModel as AnySchemaModel)
 				.getZod()
 				.parse(result);
 			return parsedOutput;
 		}
 		// ResourceRefDescriptor path: adapter may hydrate entity; leave as-is
+		if (isContractSuccess(result)) {
+			return normalizeSuccessEnvelope(spec, result, outputModel);
+		}
 		return result;
 	}
+}
+
+function normalizeSuccessEnvelope(
+	spec: AnyOperationSpec,
+	result: ContractSuccess<unknown, string>,
+	outputModel: AnySchemaModel | ResourceRefDescriptor<boolean>
+): ContractSuccess<unknown, string> {
+	const declared = getDeclaredSuccess(spec, result.code);
+	const standard = isStandardSuccessCode(result.code)
+		? STANDARD_SUCCESS_SPECS[result.code]
+		: undefined;
+	if (!declared && !standard) {
+		throw new ContractSpecError(
+			contractFail(
+				'INTERNAL_ERROR',
+				{ code: result.code },
+				{
+					detail: `Undeclared contract success: ${result.code}`,
+				}
+			).problem
+		);
+	}
+
+	if (
+		result.code === 'NO_CONTENT' &&
+		!declared &&
+		!outputAllowsUndefined(outputModel)
+	) {
+		throw new ContractSpecError(
+			contractFail(
+				'INTERNAL_ERROR',
+				{ code: result.code },
+				{
+					detail:
+						'NO_CONTENT success must be declared or use an output schema that accepts undefined.',
+				}
+			).problem
+		);
+	}
+
+	if (result.code === 'NO_CONTENT' && result.data !== undefined) {
+		throw new ContractSpecError(
+			contractFail(
+				'INTERNAL_ERROR',
+				{ code: result.code },
+				{
+					detail: 'NO_CONTENT success cannot include response data.',
+				}
+			).problem
+		);
+	}
+
+	const specForCode = declared ?? standard;
+	return {
+		...result,
+		status: specForCode?.status ?? result.status,
+		state: specForCode?.state ?? result.state,
+		headers: {
+			...(specForCode?.headers ?? {}),
+			...(result.headers ?? {}),
+		},
+	};
+}
+
+function getDeclaredSuccess(
+	spec: AnyOperationSpec,
+	code: string
+): ContractSuccessSpec | undefined {
+	return spec.results?.success?.[code] ?? spec.io.success?.[code];
+}
+
+function outputAllowsUndefined(
+	outputModel: AnySchemaModel | ResourceRefDescriptor<boolean>
+): boolean {
+	if (!('getZod' in outputModel) || typeof outputModel.getZod !== 'function') {
+		return true;
+	}
+	return outputModel.getZod().safeParse(undefined).success;
 }

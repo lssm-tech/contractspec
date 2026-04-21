@@ -12,3 +12,5 @@ export * from './operations';
 export * from './versioned-knowledge-base.feature';
 
 import './docs';
+
+export * from './example';

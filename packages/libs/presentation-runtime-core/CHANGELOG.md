@@ -1,5 +1,28 @@
 # @contractspec/lib.presentation-runtime-core
 
+## 5.0.0
+
+### Major Changes
+
+- Replace the old Next alias helper with explicit Webpack and Turbopack helpers, keep Metro stable, publish bundler helpers from dist artifacts, and refresh the public docs to teach the current Next.js bundler path.
+  - Packages: @contractspec/lib.presentation-runtime-core (major)
+  - Migration: The old helper name has been removed in favor of bundler-specific names.; Turbopack aliasing is now configured by patching the full Next config object instead of mutating a webpack resolver config.
+
+### Patch Changes
+
+- Updated dependencies because of Add FormSpec layout hints, semantic field rendering, and portable text/textarea input-group addons.
+- Updated dependencies because of Add ThemeSpec light/dark modes and a design-system Tailwind bridge for CSS variables, presets, CSS text, and OKLCH color pass-through.
+- Updated dependencies because of Add a canonical typed result system for ContractSpec success and failure propagation across operations, workflows, jobs, server adapters, MCP, GraphQL, and React clients.
+  - @contractspec/lib.contracts-spec@5.5.0
+
+## 4.0.0
+
+### Major Changes
+
+- Replace the old Next alias helper with explicit Webpack and Turbopack helpers, keep Metro stable, and refresh the public docs to teach the current Next.js bundler path.
+  - Packages: @contractspec/lib.presentation-runtime-core (major)
+  - Migration: The old helper name has been removed in favor of bundler-specific names.; Turbopack aliasing is now configured by patching the full Next config object instead of mutating a webpack resolver config.
+
 ## 3.9.8
 
 ### Patch Changes

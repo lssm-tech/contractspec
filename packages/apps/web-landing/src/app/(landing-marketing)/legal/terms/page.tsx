@@ -1,4 +1,4 @@
-import { TermsTemplate } from '@contractspec/bundle.library';
+import { TermsTemplate } from '@contractspec/bundle.library/components/legal/TermsTemplate';
 
 import type { Metadata } from 'next';
 

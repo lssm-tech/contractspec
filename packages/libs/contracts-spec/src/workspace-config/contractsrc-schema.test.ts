@@ -233,6 +233,33 @@ describe('ContractsrcSchema with testing', () => {
 		}
 	});
 
+	it('should allow staged package declaration policy config', () => {
+		const result = ContractsrcSchema.safeParse({
+			ci: {
+				packageDeclarations: {
+					severity: 'warning',
+					requiredByKind: {
+						libs: 'feature',
+						bundles: 'module-bundle',
+						appsRegistry: 'app-config',
+					},
+					allowMissing: ['packages/apps/cli-database'],
+				},
+			},
+		});
+
+		expect(result.success).toBe(true);
+		if (result.success) {
+			expect(result.data.ci?.packageDeclarations?.severity).toBe('warning');
+			expect(result.data.ci?.packageDeclarations?.requiredByKind?.bundles).toBe(
+				'module-bundle'
+			);
+			expect(result.data.ci?.packageDeclarations?.allowMissing).toEqual([
+				'packages/apps/cli-database',
+			]);
+		}
+	});
+
 	it('should reject invalid connect adapter modes', () => {
 		const result = ContractsrcSchema.safeParse({
 			connect: {

@@ -13,6 +13,7 @@ export const HarnessRunFailedPayload = new SchemaModel({
 		runId: { type: ScalarTypeEnum.ID(), isOptional: false },
 		failedAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
 		reason: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
+		problem: { type: ScalarTypeEnum.JSONObject(), isOptional: true },
 	},
 });
 

@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/module.provider-ranking",
-	"version": "0.7.19",
+	"version": "0.7.20",
 	"description": "AI provider ranking module with persistence and pipeline orchestration",
 	"keywords": [
 		"contractspec",
@@ -28,7 +28,8 @@
 	"dependencies": {
 		"@contractspec/lib.provider-ranking": "workspace:*",
 		"@contractspec/lib.schema": "workspace:*",
-		"@contractspec/lib.contracts-integrations": "workspace:*"
+		"@contractspec/lib.contracts-integrations": "workspace:*",
+		"@contractspec/lib.contracts-spec": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",
@@ -41,6 +42,7 @@
 		"./pipeline": "./src/pipeline/index.ts",
 		"./pipeline/ingestion-pipeline": "./src/pipeline/ingestion-pipeline.ts",
 		"./pipeline/ranking-pipeline": "./src/pipeline/ranking-pipeline.ts",
+		"./provider-ranking.feature": "./src/provider-ranking.feature.ts",
 		"./storage": "./src/storage/index.ts"
 	},
 	"files": [
@@ -84,6 +86,13 @@
 				"bun": "./dist/pipeline/ranking-pipeline.js",
 				"node": "./dist/node/pipeline/ranking-pipeline.js",
 				"default": "./dist/pipeline/ranking-pipeline.js"
+			},
+			"./provider-ranking.feature": {
+				"types": "./dist/provider-ranking.feature.d.ts",
+				"browser": "./dist/browser/provider-ranking.feature.js",
+				"bun": "./dist/provider-ranking.feature.js",
+				"node": "./dist/node/provider-ranking.feature.js",
+				"default": "./dist/provider-ranking.feature.js"
 			},
 			"./storage": {
 				"types": "./dist/storage/index.d.ts",

@@ -9,3 +9,5 @@ export * from './learning-patterns.feature';
 export * from './tracks';
 
 import './docs';
+
+export * from './example';

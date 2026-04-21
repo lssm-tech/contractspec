@@ -15,11 +15,12 @@ function stripAnsi(text: string) {
 describe('contractspec root help', () => {
 	it('renders grouped command categories and a non-empty agent summary', () => {
 		const result = spawnSync(
-			process.execPath,
-			['packages/apps/cli-contractspec/src/cli.ts', '--help'],
+			'bun',
+			['--no-env-file', 'packages/apps/cli-contractspec/src/cli.ts', '--help'],
 			{
 				cwd: repoRoot,
 				encoding: 'utf8',
+				env: createSubprocessEnv(),
 			}
 		);
 
@@ -41,3 +42,25 @@ describe('contractspec root help', () => {
 		);
 	});
 });
+
+function createSubprocessEnv(
+	extraEnv: Record<string, string> = {}
+): Record<string, string> {
+	const env: Record<string, string> = {};
+	for (const key of [
+		'BUN_INSTALL',
+		'HOME',
+		'PATH',
+		'SHELL',
+		'TEMP',
+		'TMP',
+		'TMPDIR',
+		'USER',
+	] as const) {
+		const value = process.env[key];
+		if (value) {
+			env[key] = value;
+		}
+	}
+	return { ...env, FORCE_COLOR: '0', NO_COLOR: '1', ...extraEnv };
+}

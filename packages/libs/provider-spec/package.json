@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.provider-spec",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"description": "Provider routing and runtime-target contracts for ContractSpec Builder.",
 	"keywords": [
 		"contractspec",
@@ -30,7 +30,9 @@
 		"prebuild": "contractspec-bun-build prebuild",
 		"typecheck": "tsc --noEmit"
 	},
-	"dependencies": {},
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*"
+	},
 	"devDependencies": {
 		"@contractspec/tool.bun": "workspace:*",
 		"@contractspec/tool.typescript": "workspace:*",

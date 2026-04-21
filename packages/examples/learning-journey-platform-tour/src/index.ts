@@ -1,4 +1,5 @@
 export * from './docs';
+export * from './example';
 export { default as example } from './example';
 export * from './handlers/demo.handlers';
 export * from './learning-journey-platform-tour.feature';

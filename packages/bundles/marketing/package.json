@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/bundle.marketing",
-	"version": "3.8.13",
+	"version": "3.8.15",
 	"type": "module",
 	"scripts": {
 		"clean": "rm -rf dist",
@@ -31,6 +31,7 @@
 		"./components/marketing/ContactClient": "./src/components/marketing/ContactClient.tsx",
 		"./components/marketing/ContributePage": "./src/components/marketing/ContributePage.tsx",
 		"./components/marketing/DesignPartnerPage": "./src/components/marketing/DesignPartnerPage.tsx",
+		"./components/marketing/landing-icons": "./src/components/marketing/landing-icons.ts",
 		"./components/marketing/LandingPage": "./src/components/marketing/LandingPage.tsx",
 		"./components/marketing/pricing-thinking-modal": "./src/components/marketing/pricing-thinking-modal.tsx",
 		"./components/marketing/PricingClient": "./src/components/marketing/PricingClient.tsx",
@@ -66,6 +67,15 @@
 		"./components/templates/TemplatesPage": "./src/components/templates/TemplatesPage.tsx",
 		"./components/templates/TemplatesPreviewModal": "./src/components/templates/TemplatesPreviewModal.tsx",
 		"./components/templates/useTemplateBrowseState": "./src/components/templates/useTemplateBrowseState.ts",
+		"./content": "./src/content/index.ts",
+		"./content/landing-content": "./src/content/landing-content.ts",
+		"./content/landing-content.types": "./src/content/landing-content.types.ts",
+		"./content/landing-ctas": "./src/content/landing-ctas.ts",
+		"./content/landing-marketing-pages": "./src/content/landing-marketing-pages.ts",
+		"./content/landing-navigation": "./src/content/landing-navigation.ts",
+		"./content/landing-pages": "./src/content/landing-pages.ts",
+		"./content/landing-reference-pages": "./src/content/landing-reference-pages.ts",
+		"./content/landing-shared-ctas": "./src/content/landing-shared-ctas.ts",
 		"./libs/email/client": "./src/libs/email/client.ts",
 		"./libs/email/contact": "./src/libs/email/contact.ts",
 		"./libs/email/newsletter": "./src/libs/email/newsletter.ts",
@@ -192,6 +202,13 @@
 				"bun": "./dist/components/marketing/DesignPartnerPage.js",
 				"node": "./dist/node/components/marketing/DesignPartnerPage.js",
 				"default": "./dist/components/marketing/DesignPartnerPage.js"
+			},
+			"./components/marketing/landing-icons": {
+				"types": "./dist/components/marketing/landing-icons.d.ts",
+				"browser": "./dist/browser/components/marketing/landing-icons.js",
+				"bun": "./dist/components/marketing/landing-icons.js",
+				"node": "./dist/node/components/marketing/landing-icons.js",
+				"default": "./dist/components/marketing/landing-icons.js"
 			},
 			"./components/marketing/LandingPage": {
 				"types": "./dist/components/marketing/LandingPage.d.ts",
@@ -437,6 +454,69 @@
 				"bun": "./dist/components/templates/useTemplateBrowseState.js",
 				"node": "./dist/node/components/templates/useTemplateBrowseState.js",
 				"default": "./dist/components/templates/useTemplateBrowseState.js"
+			},
+			"./content": {
+				"types": "./dist/content/index.d.ts",
+				"browser": "./dist/browser/content/index.js",
+				"bun": "./dist/content/index.js",
+				"node": "./dist/node/content/index.js",
+				"default": "./dist/content/index.js"
+			},
+			"./content/landing-content": {
+				"types": "./dist/content/landing-content.d.ts",
+				"browser": "./dist/browser/content/landing-content.js",
+				"bun": "./dist/content/landing-content.js",
+				"node": "./dist/node/content/landing-content.js",
+				"default": "./dist/content/landing-content.js"
+			},
+			"./content/landing-content.types": {
+				"types": "./dist/content/landing-content.types.d.ts",
+				"browser": "./dist/browser/content/landing-content.types.js",
+				"bun": "./dist/content/landing-content.types.js",
+				"node": "./dist/node/content/landing-content.types.js",
+				"default": "./dist/content/landing-content.types.js"
+			},
+			"./content/landing-ctas": {
+				"types": "./dist/content/landing-ctas.d.ts",
+				"browser": "./dist/browser/content/landing-ctas.js",
+				"bun": "./dist/content/landing-ctas.js",
+				"node": "./dist/node/content/landing-ctas.js",
+				"default": "./dist/content/landing-ctas.js"
+			},
+			"./content/landing-marketing-pages": {
+				"types": "./dist/content/landing-marketing-pages.d.ts",
+				"browser": "./dist/browser/content/landing-marketing-pages.js",
+				"bun": "./dist/content/landing-marketing-pages.js",
+				"node": "./dist/node/content/landing-marketing-pages.js",
+				"default": "./dist/content/landing-marketing-pages.js"
+			},
+			"./content/landing-navigation": {
+				"types": "./dist/content/landing-navigation.d.ts",
+				"browser": "./dist/browser/content/landing-navigation.js",
+				"bun": "./dist/content/landing-navigation.js",
+				"node": "./dist/node/content/landing-navigation.js",
+				"default": "./dist/content/landing-navigation.js"
+			},
+			"./content/landing-pages": {
+				"types": "./dist/content/landing-pages.d.ts",
+				"browser": "./dist/browser/content/landing-pages.js",
+				"bun": "./dist/content/landing-pages.js",
+				"node": "./dist/node/content/landing-pages.js",
+				"default": "./dist/content/landing-pages.js"
+			},
+			"./content/landing-reference-pages": {
+				"types": "./dist/content/landing-reference-pages.d.ts",
+				"browser": "./dist/browser/content/landing-reference-pages.js",
+				"bun": "./dist/content/landing-reference-pages.js",
+				"node": "./dist/node/content/landing-reference-pages.js",
+				"default": "./dist/content/landing-reference-pages.js"
+			},
+			"./content/landing-shared-ctas": {
+				"types": "./dist/content/landing-shared-ctas.d.ts",
+				"browser": "./dist/browser/content/landing-shared-ctas.js",
+				"bun": "./dist/content/landing-shared-ctas.js",
+				"node": "./dist/node/content/landing-shared-ctas.js",
+				"default": "./dist/content/landing-shared-ctas.js"
 			},
 			"./libs/email/client": {
 				"types": "./dist/libs/email/client.d.ts",
