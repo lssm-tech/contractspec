@@ -1,5 +1,9 @@
 import { describe, expect, test } from 'bun:test';
-import { listExamples, listTemplates } from '@contractspec/module.examples';
+import {
+	listExamples,
+	listTemplateExamples,
+	listTemplates,
+} from '@contractspec/module.examples';
 import {
 	buildLocalTemplateCatalog,
 	matchesTemplateFilters,
@@ -16,18 +20,45 @@ import {
 } from './template-tag-visibility';
 
 describe('template catalog', () => {
-	test('includes every public example exposed as a template', () => {
-		const catalog = buildLocalTemplateCatalog(listExamples(), listTemplates());
+	test('includes every non-internal example exposed as a template', () => {
+		const catalog = buildLocalTemplateCatalog(
+			listTemplateExamples(),
+			listTemplates()
+		);
 		const actualIds = [...catalog].map((template) => template.id).sort();
-		const expectedIds = listExamples()
-			.filter(
-				(example) =>
-					example.meta.visibility === 'public' && example.surfaces.templates
-			)
+		const expectedIds = listTemplateExamples()
 			.map((example) => example.meta.key)
 			.sort();
 
 		expect(actualIds).toEqual(expectedIds);
+		expect(actualIds.length).toBeGreaterThan(40);
+		expect(actualIds).toContain('crm-pipeline');
+		expect(actualIds).toContain('integration-stripe');
+		expect(actualIds).not.toContain('data-grid-showcase');
+	});
+
+	test('keeps internal examples out of the local template catalog', () => {
+		const [example] = listTemplateExamples();
+
+		expect(example).toBeDefined();
+
+		const catalog = buildLocalTemplateCatalog(
+			[
+				...listTemplateExamples(),
+				{
+					...example!,
+					meta: {
+						...example!.meta,
+						key: 'internal-template',
+						visibility: 'internal',
+					},
+				},
+			],
+			listTemplates()
+		);
+		const actualIds = new Set(catalog.map((template) => template.id));
+
+		expect(actualIds.has('internal-template')).toBe(false);
 	});
 
 	test('drops legacy conceptual cards and applies curated new badges', () => {

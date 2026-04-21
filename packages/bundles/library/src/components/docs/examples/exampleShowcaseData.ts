@@ -1,8 +1,8 @@
 import {
 	buildExampleDocsHref,
 	buildExampleReferenceHref,
+	getDiscoverableExample,
 	getExamplePreviewHref,
-	getPublicExample,
 } from '@contractspec/module.examples';
 
 export interface ExampleShowcaseData {
@@ -37,7 +37,7 @@ const REFERENCE_HREF_OVERRIDES: Record<string, string> = {
 export function getExampleShowcaseData(
 	key: string
 ): ExampleShowcaseData | undefined {
-	const example = getPublicExample(key);
+	const example = getDiscoverableExample(key);
 
 	if (!example) {
 		return undefined;

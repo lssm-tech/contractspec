@@ -6,8 +6,13 @@ import { getExample } from '../registry';
 import {
 	buildExampleDocsHref,
 	buildExampleReferenceHref,
+	getDiscoverableExample,
 	getExamplePreviewHref,
+	isDiscoverableExample,
+	listDiscoverableExamples,
 	listInlineExamplePreviews,
+	listPublicExamples,
+	listTemplateExamples,
 	supportsInlineExamplePreview,
 } from './previews';
 
@@ -69,5 +74,34 @@ describe('example previews', () => {
 		expect(buildExampleReferenceHref('examples.crm-pipeline')).toBe(
 			'/docs/reference/crm-pipeline/crm-pipeline'
 		);
+	});
+
+	test('exposes surfaced experimental examples without changing public-only helpers', () => {
+		const crmPipeline = getDiscoverableExample('crm-pipeline');
+		const templateKeys = new Set(
+			listTemplateExamples().map((example) => example.meta.key)
+		);
+
+		expect(crmPipeline?.meta.visibility).toBe('experimental');
+		expect(templateKeys.has('crm-pipeline')).toBe(true);
+		expect(templateKeys.has('integration-stripe')).toBe(true);
+		expect(listDiscoverableExamples().length).toBeGreaterThan(
+			listPublicExamples().length
+		);
+	});
+
+	test('keeps internal examples out of public web discovery', () => {
+		const example = getExample('crm-pipeline');
+
+		expect(example).toBeDefined();
+		expect(
+			isDiscoverableExample({
+				...example!,
+				meta: {
+					...example!.meta,
+					visibility: 'internal',
+				},
+			})
+		).toBe(false);
 	});
 });

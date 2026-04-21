@@ -14,6 +14,22 @@ const PUBLIC_EXAMPLES = listExamples().filter(
 	(example) => example.meta.visibility === 'public'
 );
 
+export function isDiscoverableExample(example: ExampleSpec): boolean {
+	return (
+		example.meta.visibility !== 'internal' &&
+		(example.surfaces.templates ||
+			example.surfaces.sandbox.enabled ||
+			Boolean(example.docs))
+	);
+}
+
+const DISCOVERABLE_EXAMPLES = listExamples().filter(isDiscoverableExample);
+
+const TEMPLATE_EXAMPLES = listExamples().filter(
+	(example) =>
+		example.meta.visibility !== 'internal' && example.surfaces.templates
+);
+
 const INLINE_EXAMPLE_PREVIEWS = INLINE_EXAMPLE_PREVIEW_REGISTRY.flatMap(
 	(registration): InlineExamplePreviewDefinition[] => {
 		const example = getExample(registration.key);
@@ -43,6 +59,21 @@ export function listPublicExamples(): readonly ExampleSpec[] {
 export function getPublicExample(exampleKey: string): ExampleSpec | undefined {
 	const example = getExample(exampleKey);
 	return example?.meta.visibility === 'public' ? example : undefined;
+}
+
+export function listDiscoverableExamples(): readonly ExampleSpec[] {
+	return DISCOVERABLE_EXAMPLES;
+}
+
+export function getDiscoverableExample(
+	exampleKey: string
+): ExampleSpec | undefined {
+	const example = getExample(exampleKey);
+	return example && isDiscoverableExample(example) ? example : undefined;
+}
+
+export function listTemplateExamples(): readonly ExampleSpec[] {
+	return TEMPLATE_EXAMPLES;
 }
 
 export function listInlineExamplePreviews(): readonly InlineExamplePreviewDefinition[] {

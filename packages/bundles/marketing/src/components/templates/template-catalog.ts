@@ -2,13 +2,17 @@ import type {
 	ExampleKind,
 	ExampleSandboxMode,
 	ExampleSpec,
+	ExampleVisibility,
 } from '@contractspec/lib.contracts-spec/examples/types';
 import type { Stability } from '@contractspec/lib.contracts-spec/ownership';
 import type {
 	TemplateDefinition,
 	TemplateId,
 } from '@contractspec/lib.example-shared-ui';
-import { listExamples, listTemplates } from '@contractspec/module.examples';
+import {
+	listTemplateExamples,
+	listTemplates,
+} from '@contractspec/module.examples';
 import { isNewTemplateId, NEW_TEMPLATE_IDS } from './template-new';
 
 export interface LocalTemplateCatalogItem {
@@ -18,6 +22,7 @@ export interface LocalTemplateCatalogItem {
 	tags: string[];
 	kind: ExampleKind;
 	stability: Stability;
+	visibility: ExampleVisibility;
 	previewUrl: string;
 	featureList: string[];
 	sandboxModes: readonly ExampleSandboxMode[];
@@ -37,7 +42,7 @@ const NEW_TEMPLATE_INDEX = new Map<string, number>(
 );
 
 export function buildLocalTemplateCatalog(
-	examples: readonly ExampleSpec[] = listExamples(),
+	examples: readonly ExampleSpec[] = listTemplateExamples(),
 	templates: readonly TemplateDefinition[] = listTemplates()
 ): LocalTemplateCatalogItem[] {
 	const templatesById = new Map(
@@ -47,7 +52,7 @@ export function buildLocalTemplateCatalog(
 	return examples
 		.filter(
 			(example) =>
-				example.meta.visibility === 'public' && example.surfaces.templates
+				example.meta.visibility !== 'internal' && example.surfaces.templates
 		)
 		.map((example) => {
 			const template = templatesById.get(example.meta.key);
@@ -62,6 +67,7 @@ export function buildLocalTemplateCatalog(
 				tags,
 				kind: example.meta.kind,
 				stability: example.meta.stability,
+				visibility: example.meta.visibility,
 				previewUrl:
 					template?.preview?.demoUrl ??
 					`/sandbox?template=${encodeURIComponent(example.meta.key)}`,
@@ -114,6 +120,15 @@ export function formatExampleKindLabel(kind: ExampleKind): string {
 
 export function formatStabilityLabel(stability: Stability): string {
 	return stability
+		.split('_')
+		.map((part) => part.charAt(0).toUpperCase() + part.slice(1))
+		.join(' ');
+}
+
+export function formatExampleVisibilityLabel(
+	visibility: ExampleVisibility
+): string {
+	return visibility
 		.split('_')
 		.map((part) => part.charAt(0).toUpperCase() + part.slice(1))
 		.join(' ');

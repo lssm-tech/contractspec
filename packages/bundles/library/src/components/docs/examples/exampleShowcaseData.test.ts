@@ -1,10 +1,10 @@
 import { describe, expect, test } from 'bun:test';
-import { listPublicExamples } from '@contractspec/module.examples';
+import { listDiscoverableExamples } from '@contractspec/module.examples';
 import { getExampleShowcaseData } from './exampleShowcaseData';
 
 describe('example showcase data', () => {
-	test('builds showcase data for every public example', () => {
-		for (const example of listPublicExamples()) {
+	test('builds showcase data for every discoverable example', () => {
+		for (const example of listDiscoverableExamples()) {
 			expect(getExampleShowcaseData(example.meta.key)).toBeDefined();
 		}
 	});

@@ -1,24 +1,28 @@
 import {
 	buildExampleDocsHref,
-	listPublicExamples,
+	listDiscoverableExamples,
 } from '@contractspec/module.examples';
 
-const PUBLIC_EXAMPLE_KEYS = listPublicExamples().map(
+const DISCOVERABLE_EXAMPLE_KEYS = listDiscoverableExamples().map(
 	(example) => example.meta.key
 );
 
-const PUBLIC_EXAMPLE_KEY_SET = new Set(PUBLIC_EXAMPLE_KEYS);
+const DISCOVERABLE_EXAMPLE_KEY_SET = new Set(DISCOVERABLE_EXAMPLE_KEYS);
 
-export function listPublicExampleRouteParams(): { exampleKey: string }[] {
-	return PUBLIC_EXAMPLE_KEYS.map((exampleKey) => ({ exampleKey }));
+export function listDiscoverableExampleRouteParams(): { exampleKey: string }[] {
+	return DISCOVERABLE_EXAMPLE_KEYS.map((exampleKey) => ({ exampleKey }));
 }
 
-export function listPublicExampleDocsRoutes(): string[] {
-	return PUBLIC_EXAMPLE_KEYS.map((exampleKey) =>
+export function listDiscoverableExampleDocsRoutes(): string[] {
+	return DISCOVERABLE_EXAMPLE_KEYS.map((exampleKey) =>
 		buildExampleDocsHref(exampleKey)
 	);
 }
 
-export function isPublicExampleKey(exampleKey: string): boolean {
-	return PUBLIC_EXAMPLE_KEY_SET.has(exampleKey);
+export function isDiscoverableExampleKey(exampleKey: string): boolean {
+	return DISCOVERABLE_EXAMPLE_KEY_SET.has(exampleKey);
 }
+
+export const listPublicExampleRouteParams = listDiscoverableExampleRouteParams;
+export const listPublicExampleDocsRoutes = listDiscoverableExampleDocsRoutes;
+export const isPublicExampleKey = isDiscoverableExampleKey;
