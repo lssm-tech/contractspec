@@ -1,8 +1,8 @@
 import {
-	DocsReferencePage,
 	getGeneratedDocById,
 	listGeneratedDocs,
-} from '@contractspec/bundle.library';
+} from '@contractspec/bundle.library/components/docs/generated';
+import { DocsReferencePage } from '@contractspec/bundle.library/components/docs/reference/DocsReferencePage';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 

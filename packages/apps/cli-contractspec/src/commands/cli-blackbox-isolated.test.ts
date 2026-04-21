@@ -16,26 +16,22 @@ const BLACKBOX_TESTS = [
 ] as const;
 
 describe('CLI black-box suites', () => {
-	it(
-		'runs subprocess-heavy CLI checks in an isolated Bun process',
-		() => {
-			const result = spawnSync(
-				'bun',
-				['--no-env-file', 'test', ...BLACKBOX_TESTS],
-				{
-					cwd: repoRoot,
-					encoding: 'utf8',
-					env: createSubprocessEnv(),
-				}
-			);
+	it('runs subprocess-heavy CLI checks in an isolated Bun process', () => {
+		const result = spawnSync(
+			'bun',
+			['--no-env-file', 'test', ...BLACKBOX_TESTS],
+			{
+				cwd: repoRoot,
+				encoding: 'utf8',
+				env: createSubprocessEnv(),
+			}
+		);
 
-			expect(
-				result.status,
-				[result.stdout, result.stderr].filter(Boolean).join('\n')
-			).toBe(0);
-		},
-		90_000
-	);
+		expect(
+			result.status,
+			[result.stdout, result.stderr].filter(Boolean).join('\n')
+		).toBe(0);
+	}, 90_000);
 });
 
 function createSubprocessEnv(): Record<string, string> {

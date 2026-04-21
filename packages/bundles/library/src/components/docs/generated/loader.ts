@@ -1,10 +1,14 @@
 import { readFile } from 'node:fs/promises';
-import { dirname, join } from 'node:path';
+import * as path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import type { DocsIndexEntry, DocsIndexManifest } from './docs-index.generated';
 import { DOCS_INDEX_MANIFEST } from './docs-index.generated';
 
-const baseDir = dirname(fileURLToPath(import.meta.url));
+const baseDir = path.dirname(fileURLToPath(import.meta.url));
+const generatedDocsContentRoot = path.join(
+	baseDir,
+	'../../../../../../../generated/docs'
+);
 let manifestPromise: Promise<DocsIndexManifest> | null = null;
 let docsPromise: Promise<DocsIndexEntry[]> | null = null;
 const chunkCache = new Map<string, Promise<DocsIndexEntry[]>>();
@@ -21,7 +25,7 @@ function chunkKeyForId(id: string): string {
 async function loadManifest(): Promise<DocsIndexManifest> {
 	if (!manifestPromise) {
 		manifestPromise = readFile(
-			join(baseDir, /* turbopackIgnore: true */ DOCS_INDEX_MANIFEST),
+			path.join(/*turbopackIgnore: true*/ baseDir, DOCS_INDEX_MANIFEST),
 			'utf8'
 		).then((content) => JSON.parse(content) as DocsIndexManifest);
 	}
@@ -30,7 +34,10 @@ async function loadManifest(): Promise<DocsIndexManifest> {
 
 function resolveContentRoot(manifest: DocsIndexManifest): string {
 	const root = manifest.contentRoot ?? '.';
-	return join(baseDir, /* turbopackIgnore: true */ root);
+	if (root === '../../../../../../../generated/docs') {
+		return generatedDocsContentRoot;
+	}
+	return path.join(/*turbopackIgnore: true*/ baseDir, root);
 }
 
 async function loadChunk(fileName: string): Promise<DocsIndexEntry[]> {
@@ -38,7 +45,7 @@ async function loadChunk(fileName: string): Promise<DocsIndexEntry[]> {
 	if (cached) return cached;
 
 	const load = readFile(
-		join(baseDir, /* turbopackIgnore: true */ fileName),
+		path.join(/*turbopackIgnore: true*/ baseDir, fileName),
 		'utf8'
 	).then((content) => JSON.parse(content) as DocsIndexEntry[]);
 	chunkCache.set(fileName, load);
@@ -76,9 +83,9 @@ export async function getGeneratedDocById(id: string): Promise<{
 	const entry = entries.find((doc) => doc.id === id);
 	if (!entry || !entry.contentPath) return null;
 
-	const contentPath = join(
-		resolveContentRoot(manifest),
-		/* turbopackIgnore: true */ entry.contentPath
+	const contentPath = path.join(
+		/*turbopackIgnore: true*/ resolveContentRoot(manifest),
+		entry.contentPath
 	);
 	try {
 		const content = await readFile(contentPath, 'utf8');

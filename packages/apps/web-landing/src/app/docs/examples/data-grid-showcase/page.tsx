@@ -1,4 +1,4 @@
-import { ExampleShowcasePage } from '@contractspec/bundle.library';
+import { ExampleShowcasePage } from '@contractspec/bundle.library/components/docs/examples/ExampleShowcasePage';
 import type { Metadata } from 'next';
 import { DataGridShowcaseDocsClient } from './DataGridShowcaseDocsClient';
 

@@ -1,3 +1,3 @@
-import { DocsExamplesPage } from '@contractspec/bundle.library';
+import { DocsExamplesPage } from '@contractspec/bundle.library/components/docs/examples/DocsExamplesPage';
 
 export default DocsExamplesPage;

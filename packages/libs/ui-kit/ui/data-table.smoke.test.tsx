@@ -359,21 +359,23 @@ describe('ui-kit data-table smoke', () => {
 		const { container, root } = await renderTable();
 		const gesture = container.querySelector('[data-gesture="true"]');
 
-		expect(() => {
-			gesture?.dispatchEvent(
-				new window.MouseEvent('mousemove', {
-					bubbles: true,
-					cancelable: true,
-					clientX: 48,
-				})
-			);
-			gesture?.dispatchEvent(
-				new window.MouseEvent('mouseleave', {
-					bubbles: true,
-					cancelable: true,
-				})
-			);
-		}).not.toThrow();
+		await act(async () => {
+			expect(() => {
+				gesture?.dispatchEvent(
+					new window.MouseEvent('mousemove', {
+						bubbles: true,
+						cancelable: true,
+						clientX: 48,
+					})
+				);
+				gesture?.dispatchEvent(
+					new window.MouseEvent('mouseleave', {
+						bubbles: true,
+						cancelable: true,
+					})
+				);
+			}).not.toThrow();
+		});
 
 		act(() => {
 			root.unmount();

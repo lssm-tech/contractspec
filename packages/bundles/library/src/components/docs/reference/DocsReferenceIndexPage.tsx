@@ -1,4 +1,4 @@
-import { listGeneratedDocs } from '../generated/loader';
+import { listGeneratedDocs } from '../generated';
 import { DocsReferenceIndexClient } from './DocsReferenceIndexClient';
 
 export async function DocsReferenceIndexPage() {

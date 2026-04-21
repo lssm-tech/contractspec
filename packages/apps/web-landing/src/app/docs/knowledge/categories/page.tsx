@@ -1,3 +1,3 @@
-import { KnowledgeCategoriesPage } from '@contractspec/bundle.library';
+import { KnowledgeCategoriesPage } from '@contractspec/bundle.library/components/docs/knowledge/KnowledgeCategoriesPage';
 
 export default KnowledgeCategoriesPage;

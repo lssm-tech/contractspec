@@ -2,7 +2,7 @@
 
 > Aggregated content from all packages. For summary, see /llms
 
-Generated: 2026-04-21T00:15:11.953Z
+Generated: 2026-04-21T06:41:03.405Z
 Packages: 189
 
 ---
@@ -519,6 +519,11 @@ Use this package for Expo and React Native surfaces. Do not use it as the design
 - `./ui/select`
 - `./ui/form`
 - `./ui/field`
+
+Native contract-driven forms consume the shared `Field` semantics through the
+design-system renderer; web-only input-addon composition remains in
+`@contractspec/lib.ui-kit-web/ui/input-group` and the design-system platform
+facade.
 
 ### Overlays and menus
 
@@ -1904,7 +1909,7 @@ or
 
 Import the root entrypoint from `@contractspec/lib.contracts-runtime-client-react`, or choose a documented subpath when you only need one part of the package surface.
 
-The form renderer supports the expanded FormSpec field set: readonly inputs, autocomplete, address, phone, date, time, datetime, groups, and repeated grouped arrays. Drivers are expected to provide dedicated slots for those rich widgets in addition to the base text/select/boolean controls.
+The form renderer supports the expanded FormSpec field set: readonly inputs, autocomplete, address, phone, date, time, datetime, semantic groups, repeated grouped arrays, grid layout hints, and text/textarea input groups. Drivers are expected to provide dedicated slots for rich widgets plus shadcn/Radix-style `Field*` and optional `InputGroup*` slots. When input-group slots are absent, text and textarea fields fall back to plain controls.
 
 ## Architecture
 
@@ -2483,7 +2488,7 @@ bun add @contractspec/lib.contracts-spec @contractspec/lib.schema
 - `ContractResult`: canonical success/failure envelope used by operation, workflow, job, API, MCP, GraphQL, and React runtimes while preserving raw-response compatibility for adapters.
 - `defineEvent` + `EventRegistry`: typed event contracts and lookup.
 - `defineResourceTemplate` + `ResourceRegistry`: URI-template-based resource contracts.
-- `FormRegistry`: contract-first form declarations consumed by UI runtimes, including readonly, autocomplete, address, phone, date, time, datetime, and grouped array authoring through `@contractspec/lib.contracts-spec/forms`.
+- `FormRegistry`: contract-first form declarations consumed by UI runtimes, including readonly, autocomplete, address, phone, date, time, datetime, grouped array authoring, semantic legends/descriptions, grid layout hints, and text/textarea input-group addons through `@contractspec/lib.contracts-spec/forms`.
 - `installOp`: one-call helper to register + bind operation handlers.
 - `makeEmit`: typed helper for declared event emission in handlers.
 
@@ -5550,6 +5555,11 @@ surfaces: `Button`, `Input`, `Textarea`, `Select`, `NativeSelect`,
 `TimePicker`, `DateTimePicker`, `DateRangePicker`, `Field*`, `InputGroup`,
 `InputOTP`, `LoadingButton`, plus `Box`, `HStack`, and `VStack`.
 
+`Field*` includes semantic `FieldSet`, `FieldLegend`, `FieldGroup`,
+`FieldContent`, `FieldLabel`, `FieldDescription`, `FieldError`, and
+`FieldSeparator` wrappers so contract-driven forms can preserve accessible
+legend, description, invalid, and grouped-control structure.
+
 ### Render forms on mobile through the shared renderer
 
 Use the focused shared renderer subpath when rendering `FormSpec` contracts in
@@ -5665,7 +5675,7 @@ hidden-column recovery without widening the primitive table API.
 ### Renderers and hooks
 
 - renderer exports from `./renderers`
-- form-contract renderer support, including readonly, autocomplete, address, phone, date, time, and datetime FormSpec fields
+- form-contract renderer support, including readonly, autocomplete, address, phone, date, time, datetime, semantic FormSpec groups, grid layout hints, and text/textarea input groups
 - translation-aware rendering through `DesignSystemTranslationProvider` and `createTranslationResolver`
 - theme-aware form controls and stack primitives that consume ThemeSpec component variant props
 - hooks such as `useListUrlState`
@@ -5873,6 +5883,7 @@ recovery, keep this primitive lean and layer
 - `./ui/textarea`
 - `./ui/select`
 - `./ui/native-select`
+- `./ui/field`
 - `./ui/form`
 - `./ui/combobox`
 - `./ui/input-group`
@@ -5926,6 +5937,7 @@ The package publishes a root entry, but the meaningful consumer surface is `./ui
 Consumers should import grouped subpaths directly. The public surface is best understood by category:
 
 - controls and forms
+- shadcn/Radix-style `Field` and `InputGroup` primitives for accessible labels, descriptions, errors, legends, addons, and grouped controls
 - overlays and menus
 - layout and navigation
 - accessibility helpers
