@@ -4,6 +4,7 @@ export interface MetroAliasOptions {
 	uiKitNative?: string;
 	presentationReact?: string;
 	presentationNative?: string;
+	tslibEsm?: string;
 }
 
 export type MetroResolveResult = unknown;
@@ -51,6 +52,7 @@ export function withPresentationMetroAliases<T extends MetroConfigLike>(
 	const presentationNative =
 		opts.presentationNative ??
 		'@contractspec/lib.presentation-runtime-react-native';
+	const tslibEsm = opts.tslibEsm ?? 'tslib/tslib.es6.js';
 	const resolver = config.resolver ?? {};
 
 	resolver.unstable_enablePackageExports = true;
@@ -81,6 +83,10 @@ export function withPresentationMetroAliases<T extends MetroConfigLike>(
 
 			if (moduleName === presentationReact) {
 				return resolveRequest(ctx, presentationNative, platform);
+			}
+
+			if (moduleName === 'tslib') {
+				return resolveRequest(ctx, tslibEsm, platform);
 			}
 		}
 

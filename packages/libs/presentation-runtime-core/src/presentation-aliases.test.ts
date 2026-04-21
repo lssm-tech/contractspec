@@ -149,11 +149,13 @@ describe('presentation alias helpers', () => {
 			'@contractspec/lib.presentation-runtime-react',
 			'native'
 		);
+		config.resolver.resolveRequest({}, 'tslib', 'ios');
 		config.resolver.resolveRequest(
 			{},
 			'@contractspec/lib.ui-kit-web/ui/stack',
 			'web'
 		);
+		config.resolver.resolveRequest({}, 'tslib', 'web');
 
 		expect(calls).toEqual([
 			{
@@ -165,7 +167,15 @@ describe('presentation alias helpers', () => {
 				platform: 'native',
 			},
 			{
+				moduleName: 'tslib/tslib.es6.js',
+				platform: 'ios',
+			},
+			{
 				moduleName: '@contractspec/lib.ui-kit-web/ui/stack',
+				platform: 'web',
+			},
+			{
+				moduleName: 'tslib',
 				platform: 'web',
 			},
 		]);

@@ -1,0 +1,53 @@
+schemaVersion: "1"
+slug: mobile-native-chart-gesture-runtime
+summary: Stabilize Expo mobile chart rendering by avoiding CommonJS tslib helper resolution and completing native gesture-handler setup.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.presentation-runtime-core"
+    releaseType: patch
+  - name: "@contractspec/app.expo-demo"
+    releaseType: patch
+affectedRuntimes:
+  - expo
+  - native
+affectedFrameworks:
+  - react-native
+audiences:
+  - kind: maintainer
+    summary: The Metro alias helper now maps native `tslib` imports to the ESM helper build, and the Expo demo initializes gesture handling at the entrypoint and root layout.
+    affectedPackages:
+      - "@contractspec/lib.presentation-runtime-core"
+      - "@contractspec/app.expo-demo"
+  - kind: integrator
+    summary: Expo apps using the ContractSpec Metro alias helper avoid Hermes `__extends` crashes in ECharts/ZRender paths while gesture-backed native chart interactions have the required root provider.
+    affectedPackages:
+      - "@contractspec/lib.presentation-runtime-core"
+migrationInstructions:
+  - id: clear-metro-after-native-runtime-aliases
+    title: Restart Metro with a clean cache
+    summary: Native Metro resolver changes and gesture-handler entry setup require a clean dev-server restart.
+    required: true
+    when: After upgrading an Expo app that uses `withPresentationMetroAliases`.
+    steps:
+      - Run `expo start --clear` from the Expo app workspace.
+      - Rebuild the dev client only if `react-native-gesture-handler` was not already compiled into the installed native binary.
+upgradeSteps:
+  - id: verify-mobile-native-bundle
+    title: Verify the Expo iOS bundle
+    summary: Confirm mobile routing, gesture setup, and native chart import paths still bundle under Metro.
+    level: assisted
+    instructions:
+      - Run the focused presentation-runtime Metro alias test and typecheck.
+      - Run the mobile demo typecheck and test suite.
+      - Run an iOS export with a cleared Metro cache.
+validation:
+  commands:
+    - "cd packages/libs/presentation-runtime-core && bun test src/presentation-aliases.test.ts && bun run typecheck"
+    - "cd packages/apps/mobile-demo && bun run typecheck && bun run test"
+    - "cd packages/apps/mobile-demo && ../../../node_modules/.bin/expo export --clear --platform ios --output-dir /tmp/contractspec-mobile-demo-export"
+  evidence:
+    - "`withPresentationMetroAliases` now maps native `tslib` imports to `tslib/tslib.es6.js` while preserving web resolution."
+    - "`@contractspec/app.expo-demo` imports `react-native-gesture-handler` before Expo Router entry and wraps the root layout in `GestureHandlerRootView`."
+    - "The iOS export completes successfully with the native chart and gesture-handler paths in the bundle."
+knownGaps:
+  - "Metro still warns that older nested `tslib` copies do not list `./tslib.es6.js` in package exports, then falls back to file-based resolution."
