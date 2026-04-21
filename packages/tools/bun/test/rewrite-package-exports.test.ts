@@ -73,4 +73,49 @@ describe('rewritePackageExports', () => {
 			default: './dist/index.js',
 		});
 	});
+
+	test('writes style exports while preserving publish config fields', async () => {
+		const directory = await mkdtemp(
+			join(tmpdir(), 'contractspec-bun-style-exports-')
+		);
+		tempDirs.push(directory);
+		const packageJsonPath = join(directory, 'package.json');
+		await writeFile(
+			packageJsonPath,
+			JSON.stringify(
+				{
+					name: '@contractspec/test.style-exports',
+					publishConfig: {
+						registry: 'https://registry.npmjs.org/',
+						access: 'public',
+					},
+				},
+				null,
+				2
+			) + '\n'
+		);
+
+		await rewritePackageExports(
+			packageJsonPath,
+			['src/index.ts'],
+			TARGETS,
+			TARGET_ROOTS,
+			['styles/globals.css']
+		);
+
+		const packageJson = JSON.parse(await readFile(packageJsonPath, 'utf8'));
+
+		expect(packageJson.exports['./styles/globals.css']).toEqual({
+			style: './styles/globals.css',
+			default: './styles/globals.css',
+		});
+		expect(packageJson.publishConfig.exports['./styles/globals.css']).toEqual({
+			style: './dist/styles/globals.css',
+			default: './dist/styles/globals.css',
+		});
+		expect(packageJson.publishConfig.registry).toBe(
+			'https://registry.npmjs.org/'
+		);
+		expect(packageJson.publishConfig.access).toBe('public');
+	});
 });

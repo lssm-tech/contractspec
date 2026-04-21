@@ -37,6 +37,7 @@ async function main() {
 	const normalizedConfig = await normalizeBuildConfig(cwd, config);
 	const noBundle = normalizedConfig.noBundle || noBundleCli;
 	const entries = await resolveEntries(cwd, normalizedConfig.entry);
+	const styleEntries = await resolveEntries(cwd, normalizedConfig.styleEntry);
 	const targetRoots = {
 		bun: inferBuildRoot(selectEntriesForTarget(entries, 'bun')),
 		node: normalizedConfig.targets.node
@@ -54,7 +55,8 @@ async function main() {
 				packageJsonPath,
 				entries,
 				normalizedConfig.targets,
-				targetRoots
+				targetRoots,
+				styleEntries
 			);
 		}
 		return;
@@ -64,6 +66,7 @@ async function main() {
 		await runTranspile({
 			cwd,
 			entries,
+			styleEntries,
 			external: normalizedConfig.external,
 			targets: normalizedConfig.targets,
 			targetRoots,
@@ -100,12 +103,14 @@ async function main() {
 				packageJsonPath,
 				entries,
 				normalizedConfig.targets,
-				targetRoots
+				targetRoots,
+				styleEntries
 			);
 		}
 		await runTranspile({
 			cwd,
 			entries,
+			styleEntries,
 			external: normalizedConfig.external,
 			targets: normalizedConfig.targets,
 			targetRoots,

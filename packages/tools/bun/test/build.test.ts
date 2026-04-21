@@ -99,6 +99,19 @@ describe('normalizeBuildConfig', () => {
 
 		expect(config.rewriteExports).toBe(false);
 	});
+
+	test('keeps style entries separate from code entries', async () => {
+		const cwd = await createTempDir();
+		await mkdir(path.join(cwd, 'src'), { recursive: true });
+		await writeFile(path.join(cwd, 'src', 'index.ts'), 'export const x = 1;\n');
+
+		const config = await normalizeBuildConfig(cwd, {
+			styleEntry: ['styles/**/*.css'],
+		});
+
+		expect(config.entry).toContain('src/**/*.ts');
+		expect(config.styleEntry).toEqual(['styles/**/*.css']);
+	});
 });
 
 describe('runTranspile', () => {
@@ -149,6 +162,79 @@ describe('runTranspile', () => {
 		expect(
 			await exists(path.join(cwd, 'dist', 'native', 'view.native.js'))
 		).toBe(true);
+	});
+
+	test('emits style files without changing js output roots', async () => {
+		const cwd = await createTempDir();
+		await mkdir(path.join(cwd, 'src'), { recursive: true });
+		await mkdir(path.join(cwd, 'styles'), { recursive: true });
+		await writeFile(path.join(cwd, 'src', 'index.ts'), 'export const x = 1;\n');
+		await writeFile(
+			path.join(cwd, 'styles', 'globals.css'),
+			'body { color: red; }\n'
+		);
+
+		await runTranspile({
+			cwd,
+			entries: ['src/index.ts'],
+			styleEntries: ['styles/globals.css'],
+			external: [],
+			targets: {
+				node: false,
+				browser: false,
+			},
+			targetRoots: {
+				bun: 'src',
+				node: '.',
+				browser: '.',
+				native: '.',
+			},
+			noBundle: true,
+		});
+
+		expect(await exists(path.join(cwd, 'dist', 'index.js'))).toBe(true);
+		expect(await exists(path.join(cwd, 'dist', 'src', 'index.js'))).toBe(false);
+		expect(await exists(path.join(cwd, 'dist', 'styles', 'globals.css'))).toBe(
+			true
+		);
+
+		const builtStyle = await readFile(
+			path.join(cwd, 'dist', 'styles', 'globals.css'),
+			'utf8'
+		);
+		expect(builtStyle).toContain('color:red');
+	});
+
+	test('emits root src style files at the dist root', async () => {
+		const cwd = await createTempDir();
+		await mkdir(path.join(cwd, 'src'), { recursive: true });
+		await writeFile(
+			path.join(cwd, 'src', 'styles.css'),
+			'body { margin: 0; }\n'
+		);
+
+		await runTranspile({
+			cwd,
+			entries: [],
+			styleEntries: ['src/styles.css'],
+			external: [],
+			targets: {
+				node: false,
+				browser: false,
+			},
+			targetRoots: {
+				bun: '.',
+				node: '.',
+				browser: '.',
+				native: '.',
+			},
+			noBundle: true,
+		});
+
+		expect(await exists(path.join(cwd, 'dist', 'styles.css'))).toBe(true);
+		expect(await exists(path.join(cwd, 'dist', 'src', 'styles.css'))).toBe(
+			false
+		);
 	});
 });
 

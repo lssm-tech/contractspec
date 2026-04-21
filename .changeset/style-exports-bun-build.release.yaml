@@ -1,0 +1,32 @@
+schemaVersion: "1"
+slug: style-exports-bun-build
+summary: Teach contractspec-bun-build to publish public CSS style files as direct style conditional subpath exports.
+isBreaking: false
+packages:
+  - name: "@contractspec/tool.bun"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - browser
+affectedFrameworks:
+  - nextjs
+audiences:
+  - kind: integrator
+    summary: Packages built with contractspec-bun-build can expose public CSS files such as `styles/globals.css` through package exports under the `style` condition.
+    affectedPackages:
+      - "@contractspec/tool.bun"
+  - kind: maintainer
+    summary: The build tool now scans style entries separately from TypeScript entries so CSS exports do not alter JavaScript output roots.
+    affectedPackages:
+      - "@contractspec/tool.bun"
+migrationInstructions:
+  - id: rerun-prebuild-for-style-packages
+    title: Regenerate exports for packages with public CSS
+    summary: Run `contractspec-bun-build prebuild` in packages that should publish direct CSS subpath exports.
+  - id: import-public-style-subpaths
+    title: Import public CSS through exported subpaths
+    summary: Import package styles from direct subpaths such as `@scope/package/styles/globals.css` after the package has regenerated exports and rebuilt artifacts.
+verification:
+  - cd packages/tools/bun && bun test
+knownGaps:
+  - Existing package manifests are not rewritten until each package reruns `contractspec-bun-build prebuild`.

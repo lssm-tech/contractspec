@@ -42,6 +42,11 @@ function entryToOutputPath(entry, root) {
 	return outPath.replaceAll('\\', '/');
 }
 
+function styleEntryToOutputPath(entry) {
+	const normalized = entry.replaceAll('\\', '/');
+	return normalized.startsWith('src/') ? normalized.slice(4) : normalized;
+}
+
 /**
  * Transpile with noBundle using bun build --outfile per entry.
  * Workaround for Bun bug: --no-bundle --outdir causes ENOENT (bun#5206).
@@ -106,6 +111,35 @@ async function runTranspileNoBundle({
 			stderr: 'inherit',
 			stdin: 'inherit',
 		});
+		const exitCode = await subprocess.exited;
+		if (exitCode !== 0) {
+			process.exit(exitCode);
+		}
+	}
+}
+
+async function runTranspileStyles({ cwd, styleEntries }) {
+	for (const styleEntry of styleEntries) {
+		const outfile = path.join(cwd, 'dist', styleEntryToOutputPath(styleEntry));
+		const subprocess = Bun.spawn(
+			[
+				BUN_EXECUTABLE,
+				'build',
+				styleEntry,
+				'--target',
+				'browser',
+				'--outfile',
+				outfile,
+				'--production',
+			],
+			{
+				cwd,
+				env: { ...process.env, NODE_ENV: 'production' },
+				stdout: 'inherit',
+				stderr: 'inherit',
+				stdin: 'inherit',
+			}
+		);
 		const exitCode = await subprocess.exited;
 		if (exitCode !== 0) {
 			process.exit(exitCode);
@@ -495,11 +529,20 @@ async function resolveDependencyPathMappings(cwd) {
 export async function runTranspile({
 	cwd,
 	entries,
+	styleEntries = [],
 	external,
 	targets,
 	targetRoots,
 	noBundle,
 }) {
+	const selectedStyleEntries = styleEntries.filter(
+		(entry) => typeof entry === 'string' && entry.endsWith('.css')
+	);
+	const bunEntries = selectEntriesForTarget(entries, 'bun');
+	if (selectedStyleEntries.length > 0 && bunEntries.length === 0) {
+		await rm(getOutputDir(cwd, 'bun'), { recursive: true, force: true });
+	}
+
 	const requestedTargets = [
 		'bun',
 		targets.node ? 'node' : null,
@@ -508,7 +551,8 @@ export async function runTranspile({
 	].filter(Boolean);
 
 	for (const target of requestedTargets) {
-		const selectedEntries = selectEntriesForTarget(entries, target);
+		const selectedEntries =
+			target === 'bun' ? bunEntries : selectEntriesForTarget(entries, target);
 
 		if (selectedEntries.length === 0) {
 			continue;
@@ -556,6 +600,13 @@ export async function runTranspile({
 		if (exitCode !== 0) {
 			process.exit(exitCode);
 		}
+	}
+
+	if (selectedStyleEntries.length > 0) {
+		console.log(
+			`[contractspec-bun-build] transpile target=style entries=${selectedStyleEntries.length}`
+		);
+		await runTranspileStyles({ cwd, styleEntries: selectedStyleEntries });
 	}
 }
 

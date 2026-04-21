@@ -25,6 +25,28 @@ npx contractspec-bun-build --help
 bunx contractspec-bun-build --help
 ```
 
+## Style Exports
+
+`contractspec-bun-build` scans public CSS style entries separately from TypeScript entries so style files do not affect JavaScript output roots.
+
+Default style entries:
+
+- `styles/**/*.css`
+- `src/*.css`
+- `!**/*.module.css`
+
+Packages can override or disable style entries from their build config:
+
+```js
+export default {
+	styleEntry: ['styles/**/*.css'],
+	// or: styles: { entry: ['styles/**/*.css'] },
+	// or: styleEntry: false,
+};
+```
+
+Style entries are exported under the `style` and `default` conditions, for example `./styles/globals.css`.
+
 ## Public Entry Points
 
 - `contractspec-bun-build` -> `./bin/contractspec-bun-build.mjs`
@@ -38,6 +60,7 @@ bunx contractspec-bun-build --help
 
 ## Recent Updates
 
+- Add direct CSS style subpath exports for public style files
 - Replace eslint+prettier by biomejs to optimize speed
 - Add multi platform support to bun build
 - Use-client within lib surface-runtime

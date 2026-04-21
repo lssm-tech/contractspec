@@ -18,6 +18,12 @@ const DEFAULT_ENTRY = [
 	'!cypress/**',
 ];
 
+const DEFAULT_STYLE_ENTRY = [
+	'styles/**/*.css',
+	'src/*.css',
+	'!**/*.module.css',
+];
+
 const NODE_BUILTIN_IMPORT =
 	/from\s+["']node:[^"']+["']|require\(["']node:[^"']+["']\)|from\s+["'](?:fs|path|crypto|stream|os|url|util|http|https|zlib|events|child_process|net|tls|worker_threads)(?:\/[^"']*)?["']/;
 
@@ -103,6 +109,30 @@ function inferTargetsFromKind(kind) {
 	return { node: true, browser: true };
 }
 
+function normalizeEntryPatterns(configEntry, defaultEntry) {
+	if (Array.isArray(configEntry)) {
+		return configEntry;
+	}
+
+	if (configEntry === false) {
+		return [];
+	}
+
+	return defaultEntry;
+}
+
+function normalizeStyleEntry(config) {
+	if (Object.hasOwn(config, 'styleEntry')) {
+		return normalizeEntryPatterns(config.styleEntry, DEFAULT_STYLE_ENTRY);
+	}
+
+	if (config.styles && Object.hasOwn(config.styles, 'entry')) {
+		return normalizeEntryPatterns(config.styles.entry, DEFAULT_STYLE_ENTRY);
+	}
+
+	return DEFAULT_STYLE_ENTRY;
+}
+
 async function hasNodeOnlySignals(cwd) {
 	const srcRoot = path.join(cwd, 'src');
 	const sourceFiles = await glob('src/**/*.{ts,tsx,js,jsx,mjs,cjs}', {
@@ -168,6 +198,7 @@ export async function normalizeBuildConfig(cwd, config) {
 			Array.isArray(config.entry) && config.entry.length > 0
 				? config.entry
 				: DEFAULT_ENTRY,
+		styleEntry: normalizeStyleEntry(config),
 		noBundle: config.noBundle === true,
 	};
 }

@@ -34,6 +34,38 @@ describe('buildExportMaps', () => {
 		});
 	});
 
+	test('adds style conditional exports for css entries', () => {
+		const { devExports, publishExports } = buildExportMaps(
+			['src/index.ts'],
+			TARGETS,
+			TARGET_ROOTS,
+			['styles/globals.css', 'src/styles.css']
+		);
+
+		expect(devExports['./styles/globals.css']).toEqual({
+			style: './styles/globals.css',
+			default: './styles/globals.css',
+		});
+		expect(devExports['./styles.css']).toEqual({
+			style: './src/styles.css',
+			default: './src/styles.css',
+		});
+		expect(publishExports['./styles/globals.css']).toEqual({
+			style: './dist/styles/globals.css',
+			default: './dist/styles/globals.css',
+		});
+		expect(publishExports['./styles.css']).toEqual({
+			style: './dist/styles.css',
+			default: './dist/styles.css',
+		});
+		expect(publishExports['./styles/globals.css']).not.toHaveProperty('types');
+		expect(publishExports['./styles/globals.css']).not.toHaveProperty('bun');
+		expect(publishExports['./styles/globals.css']).not.toHaveProperty('node');
+		expect(publishExports['./styles/globals.css']).not.toHaveProperty(
+			'browser'
+		);
+	});
+
 	test('builds canonical and exact exports for web-only entries', () => {
 		const { devExports, publishExports } = buildExportMaps(
 			['src/foo.web.ts'],

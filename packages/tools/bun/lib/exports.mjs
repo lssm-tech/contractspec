@@ -10,6 +10,8 @@ const CONDITION_KEYS = [
 	'default',
 ];
 
+const STYLE_CONDITION_KEYS = ['style', 'default'];
+
 function removeExtension(relativePath) {
 	return relativePath.replace(/\.[^/.]+$/, '');
 }
@@ -97,6 +99,22 @@ function toSourcePath(sourceRelativePath) {
 	return `./${sourceRelativePath}`;
 }
 
+function normalizeStyleExportPath(relativePath) {
+	if (relativePath.startsWith('src/')) {
+		return relativePath.slice(4);
+	}
+
+	return relativePath;
+}
+
+function toStyleExportKey(relativePath) {
+	return `./${normalizeStyleExportPath(relativePath)}`;
+}
+
+function toStyleOutputPath(relativePath) {
+	return `./dist/${normalizeStyleExportPath(relativePath)}`;
+}
+
 function pickTypesVariant(variants) {
 	return (
 		variants.base ??
@@ -154,6 +172,19 @@ function createConditionMap(values) {
 	}
 
 	return Object.keys(entry).length > 0 ? entry : null;
+}
+
+function createStyleConditionMap(values) {
+	const entry = {};
+
+	for (const key of STYLE_CONDITION_KEYS) {
+		const value = values[key];
+		if (typeof value === 'string' && value.length > 0) {
+			entry[key] = value;
+		}
+	}
+
+	return entry;
 }
 
 function hasNonBaseVariant(variants) {
@@ -231,7 +262,33 @@ function sortExportMap(exportMap) {
 	return sorted;
 }
 
-export function buildExportMaps(entries, targets, targetRoots) {
+function addStyleExports(devExports, publishExports, styleEntries) {
+	for (const styleEntry of styleEntries) {
+		if (typeof styleEntry !== 'string' || !styleEntry.endsWith('.css')) {
+			continue;
+		}
+
+		const exportKey = toStyleExportKey(styleEntry);
+		const sourcePath = toSourcePath(styleEntry);
+		const outputPath = toStyleOutputPath(styleEntry);
+
+		devExports[exportKey] = createStyleConditionMap({
+			style: sourcePath,
+			default: sourcePath,
+		});
+		publishExports[exportKey] = createStyleConditionMap({
+			style: outputPath,
+			default: outputPath,
+		});
+	}
+}
+
+export function buildExportMaps(
+	entries,
+	targets,
+	targetRoots,
+	styleEntries = []
+) {
 	const descriptors = new Map();
 
 	for (const entry of entries) {
@@ -295,6 +352,8 @@ export function buildExportMaps(entries, targets, targetRoots) {
 		}
 	}
 
+	addStyleExports(devExports, publishExports, styleEntries);
+
 	return {
 		devExports: sortExportMap(devExports),
 		publishExports: sortExportMap(publishExports),
@@ -305,14 +364,16 @@ export async function rewritePackageExports(
 	packageJsonPath,
 	entries,
 	targets,
-	targetRoots
+	targetRoots,
+	styleEntries = []
 ) {
 	const packageJsonContent = await readFile(packageJsonPath, 'utf8');
 	const packageJson = JSON.parse(packageJsonContent);
 	const { devExports, publishExports } = buildExportMaps(
 		entries,
 		targets,
-		targetRoots
+		targetRoots,
+		styleEntries
 	);
 
 	packageJson.exports = devExports;
