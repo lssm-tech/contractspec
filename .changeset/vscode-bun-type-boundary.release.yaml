@@ -1,0 +1,45 @@
+schemaVersion: "1"
+slug: vscode-bun-type-boundary
+summary: Keep the VS Code extension production typecheck focused on runtime sources while allowing Bun-typed workspace imports to resolve.
+isBreaking: false
+packages:
+  - name: "vscode-contractspec"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - node
+  - vscode
+affectedFrameworks:
+  - vscode
+audiences:
+  - kind: maintainer
+    summary: The extension build now excludes Bun test files from the production typecheck and includes Bun ambient types for workspace source imports that expose Bun adapters.
+    affectedPackages:
+      - "vscode-contractspec"
+  - kind: integrator
+    summary: VS Code extension packaging no longer fails when workspace source imports reference Bun globals through shared ContractSpec packages.
+    affectedPackages:
+      - "vscode-contractspec"
+  - kind: customer
+    summary: This patch restores extension build reliability without changing runtime extension behavior.
+    affectedPackages:
+      - "vscode-contractspec"
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: rebuild-vscode-extension
+    title: Rebuild the VS Code extension package
+    summary: Re-run the extension build so the corrected TypeScript boundary is applied before packaging.
+    level: manual
+    instructions:
+      - Run `bun run --cwd packages/apps/vscode-contractspec build`.
+      - Package or publish the extension from the rebuilt output.
+validation:
+  commands:
+    - bun run --cwd packages/apps/vscode-contractspec build:types
+    - bun run --cwd packages/apps/vscode-contractspec build
+    - cd packages/apps/vscode-contractspec && node ../../../scripts/biome.cjs check tsconfig.json
+  evidence:
+    - The extension typecheck excludes `src/**/*.test.ts`, so Bun test imports are not part of the production build program.
+    - The extension typecheck includes Bun ambient types, so transitive workspace source files that reference Bun globals resolve cleanly.
+    - The VS Code extension bundle completed successfully after the TypeScript boundary fix.
