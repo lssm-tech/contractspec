@@ -26,18 +26,18 @@ audiences:
       - "@contractspec/bundle.marketing"
       - "@contractspec/bundle.library"
   - kind: operator
-    summary: CLI installs avoid the full example dependency set and can fetch a selected example source on demand with `contractspec examples download <key>`.
+    summary: "CLI installs avoid the full example dependency set and can fetch a selected example source on demand with `contractspec examples download <key>`."
     affectedPackages:
       - "@contractspec/app.cli-contractspec"
 migrationInstructions:
   - id: use-runtime-entrypoint-for-rich-examples
     title: Import rich example runtime helpers from the runtime subpath
-    summary: Replace runtime imports such as `TemplateRuntimeProvider`, `listTemplates`, and inline preview loaders from `@contractspec/module.examples` with `@contractspec/module.examples/runtime`.
+    summary: "Replace runtime imports such as `TemplateRuntimeProvider`, `listTemplates`, and inline preview loaders from `@contractspec/module.examples` with `@contractspec/module.examples/runtime`."
     affectedPackages:
       - "@contractspec/module.examples"
   - id: keep-catalog-consumers-on-catalog-entrypoint
     title: Use catalog imports for metadata-only example discovery
-    summary: Import `listExamples`, `getExample`, `searchExamples`, route helpers, and source metadata from `@contractspec/module.examples/catalog` when runnable example code is not needed.
+    summary: "Import `listExamples`, `getExample`, `searchExamples`, route helpers, and source metadata from `@contractspec/module.examples/catalog` when runnable example code is not needed."
     affectedPackages:
       - "@contractspec/module.examples"
 verification:
