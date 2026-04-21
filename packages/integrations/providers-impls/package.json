@@ -35,6 +35,14 @@
 		"@contractspec/lib.contracts-spec": "workspace:*",
 		"@contractspec/lib.contracts-integrations": "workspace:*",
 		"@contractspec/integration.runtime": "workspace:*",
+		"zod": "catalog:",
+		"@contractspec/lib.schema": "workspace:*"
+	},
+	"devDependencies": {
+		"@types/bun": "^1.3.12",
+		"@contractspec/tool.typescript": "workspace:*",
+		"typescript": "catalog:",
+		"@contractspec/tool.bun": "workspace:*",
 		"@elevenlabs/elevenlabs-js": "^2.42.0",
 		"@fal-ai/client": "^1.9.5",
 		"@google-cloud/storage": "^7.19.0",
@@ -51,15 +59,7 @@
 		"postmark": "^4.0.7",
 		"stripe": "^22.0.1",
 		"twilio": "^5.13.1",
-		"@composio/core": "0.6.10",
-		"zod": "catalog:",
-		"@contractspec/lib.schema": "workspace:*"
-	},
-	"devDependencies": {
-		"@types/bun": "^1.3.12",
-		"@contractspec/tool.typescript": "workspace:*",
-		"typescript": "catalog:",
-		"@contractspec/tool.bun": "workspace:*"
+		"@composio/core": "0.6.10"
 	},
 	"exports": {
 		".": "./src/index.ts",
@@ -621,5 +621,77 @@
 		"url": "https://github.com/lssm-tech/contractspec.git",
 		"directory": "packages/integrations/providers-impls"
 	},
-	"homepage": "https://contractspec.io"
+	"homepage": "https://contractspec.io",
+	"peerDependencies": {
+		"@elevenlabs/elevenlabs-js": "^2.42.0",
+		"@fal-ai/client": "^1.9.5",
+		"@google-cloud/storage": "^7.19.0",
+		"@linear/sdk": "^80.1.0",
+		"@mistralai/mistralai": "^2.2.0",
+		"@notionhq/client": "^5.17.0",
+		"posthog-node": "^5.29.2",
+		"@qdrant/js-client-rest": "^1.17.0",
+		"@confiture-ai/gradium-sdk-js": "^0.1.1",
+		"drizzle-orm": "^0.45.2",
+		"fathom-typescript": "^0.0.37",
+		"googleapis": "^171.4.0",
+		"postgres": "^3.4.9",
+		"postmark": "^4.0.7",
+		"stripe": "^22.0.1",
+		"twilio": "^5.13.1",
+		"@composio/core": "0.6.10"
+	},
+	"peerDependenciesMeta": {
+		"@elevenlabs/elevenlabs-js": {
+			"optional": true
+		},
+		"@fal-ai/client": {
+			"optional": true
+		},
+		"@google-cloud/storage": {
+			"optional": true
+		},
+		"@linear/sdk": {
+			"optional": true
+		},
+		"@mistralai/mistralai": {
+			"optional": true
+		},
+		"@notionhq/client": {
+			"optional": true
+		},
+		"posthog-node": {
+			"optional": true
+		},
+		"@qdrant/js-client-rest": {
+			"optional": true
+		},
+		"@confiture-ai/gradium-sdk-js": {
+			"optional": true
+		},
+		"drizzle-orm": {
+			"optional": true
+		},
+		"fathom-typescript": {
+			"optional": true
+		},
+		"googleapis": {
+			"optional": true
+		},
+		"postgres": {
+			"optional": true
+		},
+		"postmark": {
+			"optional": true
+		},
+		"stripe": {
+			"optional": true
+		},
+		"twilio": {
+			"optional": true
+		},
+		"@composio/core": {
+			"optional": true
+		}
+	}
 }

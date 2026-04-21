@@ -72,6 +72,7 @@
 		"meetup:messaging-agent-actions:preflight": "bun run --cwd packages/examples/messaging-agent-actions preflight",
 		"meetup:examples:preflight": "bun scripts/run-meetup-examples-preflight.ts",
 		"repo:health": "bun packages/apps/cli-contractspec/src/cli.ts doctor --checks cli,config,workspace,layers && bun packages/apps/cli-contractspec/src/cli.ts ci --checks structure,integrity,deps,policy --verbose && bun packages/apps/cli-contractspec/src/cli.ts examples validate",
+		"deps:audit": "node scripts/audit-dependencies.mjs",
 		"security:advisories": "node scripts/check-security-advisories.js",
 		"release:version:canary": "node scripts/prepare-dependent-bumps.js && bun changeset version --snapshot canary && bun update",
 		"release:version": "node scripts/prepare-dependent-bumps.js && changeset version && bun update",

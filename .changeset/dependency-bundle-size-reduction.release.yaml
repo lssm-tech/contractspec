@@ -1,0 +1,84 @@
+schemaVersion: "1"
+slug: dependency-bundle-size-reduction
+summary: Reduce published install and bundle size by optionalizing heavy runtime families and adding a repo dependency audit.
+isBreaking: true
+packages:
+  - name: "@contractspec/lib.ui-kit"
+    releaseType: major
+  - name: "@contractspec/integration.providers-impls"
+    releaseType: major
+  - name: "@contractspec/lib.runtime-sandbox"
+    releaseType: major
+  - name: "@contractspec/lib.example-shared-ui"
+    releaseType: major
+  - name: "@contractspec/lib.video-gen"
+    releaseType: major
+  - name: "@contractspec/lib.ui-kit-web"
+    releaseType: minor
+  - name: "@contractspec/app.cli-contractspec"
+    releaseType: minor
+  - name: "@contractspec/app.api-library"
+    releaseType: patch
+  - name: "@contractspec/app.registry-packs"
+    releaseType: patch
+  - name: "vscode-contractspec"
+    releaseType: patch
+  - name: "@contractspec/example.project-management-sync"
+    releaseType: patch
+  - name: "@contractspec/example.voice-providers"
+    releaseType: patch
+  - name: "@contractspec/example.meeting-recorder-providers"
+    releaseType: patch
+  - name: "@contractspec/example.integration-posthog"
+    releaseType: patch
+  - name: "contractspec"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - node
+  - browser
+  - native
+affectedFrameworks:
+  - react
+  - nextjs
+  - expo
+audiences:
+  - kind: integrator
+    summary: Library consumers no longer install large optional UI, provider, sandbox, and video runtime stacks unless they use the matching subpaths/features.
+    affectedPackages:
+      - "@contractspec/lib.ui-kit"
+      - "@contractspec/lib.ui-kit-web"
+      - "@contractspec/integration.providers-impls"
+      - "@contractspec/lib.runtime-sandbox"
+      - "@contractspec/lib.example-shared-ui"
+      - "@contractspec/lib.video-gen"
+  - kind: maintainer
+    summary: The repo now includes `bun run deps:audit` to report dependency sections, duplicate declarations, missing runtime import signals, heavy dependency families, and largest dist outputs.
+    affectedPackages:
+      - "contractspec"
+migrationInstructions:
+  - id: install-optional-runtime-peers
+    title: Install optional runtime peers for used feature subpaths
+    summary: Consumers using native UI, provider implementations, sandbox database/runtime, example runtime UI, or Remotion video subpaths should add the corresponding optional peer packages directly to their app/package dependencies.
+  - id: prefer-provider-subpaths
+    title: Import provider implementations from explicit subpaths
+    summary: Replace broad `@contractspec/integration.providers-impls/impls` imports with provider-specific subpaths such as `@contractspec/integration.providers-impls/impls/linear`.
+  - id: use-dependency-audit
+    title: Track dependency and bundle-size drift
+    summary: Run `bun run deps:audit --json` before and after dependency changes to compare runtime edges, heavy dependency families, and package dist sizes.
+verification:
+  - bun run deps:audit --json
+  - cd packages/libs/ui-kit && bun run typecheck && bun run lint:check
+  - cd packages/libs/ui-kit-web && bun run typecheck && bun run lint:check
+  - cd packages/integrations/providers-impls && bun run typecheck && bun run lint:check
+  - cd packages/libs/runtime-sandbox && bun run typecheck && bun run lint:check
+  - cd packages/libs/example-shared-ui && bun run typecheck && bun run lint:check
+  - cd packages/libs/video-gen && bun run typecheck && bun run lint:check
+  - cd packages/apps/cli-contractspec && bun run typecheck && bun run build:node
+  - cd packages/apps/api-library && bun run build:types && bun run build:bundle && bun run lint:check
+  - cd packages/apps/registry-packs && bun run build && bun run lint:check
+  - cd packages/apps/vscode-contractspec && bun run build:bundle
+  - bun install --lockfile-only
+knownGaps:
+  - Full `bun run knip` still reports broad pre-existing repository unused-file/export noise; use the new dependency audit for this package dependency lane.
+  - `packages/libs/ui-kit-web` Jest test command still fails on existing TypeScript import parsing in `ui/data-table.test.tsx`; package typecheck and lint pass.

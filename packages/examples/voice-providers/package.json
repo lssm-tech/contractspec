@@ -34,7 +34,9 @@
 	"dependencies": {
 		"@contractspec/integration.providers-impls": "workspace:*",
 		"@contractspec/lib.contracts-spec": "workspace:*",
-		"@contractspec/lib.contracts-integrations": "workspace:*"
+		"@contractspec/lib.contracts-integrations": "workspace:*",
+		"@fal-ai/client": "^1.9.5",
+		"@confiture-ai/gradium-sdk-js": "^0.1.1"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",

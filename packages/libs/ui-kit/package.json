@@ -30,10 +30,22 @@
 	"dependencies": {
 		"@contractspec/lib.presentation-runtime-core": "workspace:*",
 		"@contractspec/lib.ui-kit-core": "workspace:*",
+		"@react-navigation/native": "^7.1.26",
+		"class-variance-authority": "^0.7.0",
+		"clsx": "^2.1.0",
+		"react-use": "^17.6.0",
+		"tailwind-merge": "^3.5.0",
+		"@contractspec/lib.contracts-spec": "workspace:*"
+	},
+	"devDependencies": {
+		"@babel/core": "^7.28.6",
+		"@contractspec/tool.typescript": "workspace:*",
+		"react-native-css": "^3.0.4",
+		"typescript": "catalog:",
+		"@contractspec/tool.bun": "workspace:*",
 		"@hookform/resolvers": "^5.2.2",
 		"@react-native-async-storage/async-storage": "^2.1.2",
 		"@react-native-community/datetimepicker": "^8.6.0",
-		"@react-navigation/native": "^7.1.26",
 		"@rn-primitives/accordion": "^1.4.0",
 		"@rn-primitives/alert-dialog": "^1.4.0",
 		"@rn-primitives/aspect-ratio": "^1.4.0",
@@ -64,8 +76,6 @@
 		"@rn-primitives/toolbar": "^1.4.0",
 		"@rn-primitives/tooltip": "~1.4.0",
 		"burnt": "^0.13.0",
-		"class-variance-authority": "^0.7.0",
-		"clsx": "^2.1.0",
 		"echarts": "^6.0.0",
 		"expo": "^55.0.13",
 		"expo-application": "~55.0.14",
@@ -101,19 +111,9 @@
 		"@wuba/react-native-echarts": "^3.0.1",
 		"react-native-svg": "15.15.3",
 		"react-native-web": "~0.21.2",
-		"react-use": "^17.6.0",
-		"tailwind-merge": "^3.5.0",
 		"tailwindcss": "catalog:build",
 		"tailwindcss-animate": "^1.0.7",
-		"zod": "^4.3.5",
-		"@contractspec/lib.contracts-spec": "workspace:*"
-	},
-	"devDependencies": {
-		"@babel/core": "^7.28.6",
-		"@contractspec/tool.typescript": "workspace:*",
-		"react-native-css": "^3.0.4",
-		"typescript": "catalog:",
-		"@contractspec/tool.bun": "workspace:*"
+		"zod": "^4.3.5"
 	},
 	"exports": {
 		".": "./index.ts",
@@ -882,5 +882,293 @@
 		"url": "https://github.com/lssm-tech/contractspec.git",
 		"directory": "packages/libs/ui-kit"
 	},
-	"homepage": "https://contractspec.io"
+	"homepage": "https://contractspec.io",
+	"peerDependencies": {
+		"@hookform/resolvers": "^5.2.2",
+		"@react-native-async-storage/async-storage": "^2.1.2",
+		"@react-native-community/datetimepicker": "^8.6.0",
+		"@rn-primitives/accordion": "^1.4.0",
+		"@rn-primitives/alert-dialog": "^1.4.0",
+		"@rn-primitives/aspect-ratio": "^1.4.0",
+		"@rn-primitives/avatar": "~1.4.0",
+		"@rn-primitives/checkbox": "^1.4.0",
+		"@rn-primitives/collapsible": "^1.4.0",
+		"@rn-primitives/context-menu": "^1.4.0",
+		"@rn-primitives/dialog": "^1.4.0",
+		"@rn-primitives/dropdown-menu": "^1.4.0",
+		"@rn-primitives/hover-card": "^1.4.0",
+		"@rn-primitives/label": "^1.4.0",
+		"@rn-primitives/menubar": "^1.4.0",
+		"@rn-primitives/navigation-menu": "^1.4.0",
+		"@rn-primitives/popover": "^1.4.0",
+		"@rn-primitives/portal": "~1.4.0",
+		"@rn-primitives/progress": "~1.4.0",
+		"@rn-primitives/radio-group": "^1.4.0",
+		"@rn-primitives/select": "^1.4.0",
+		"@rn-primitives/separator": "^1.4.0",
+		"@rn-primitives/slider": "^1.4.0",
+		"@rn-primitives/slot": "~1.4.0",
+		"@rn-primitives/switch": "^1.4.0",
+		"@rn-primitives/table": "^1.4.0",
+		"@rn-primitives/tabs": "^1.4.0",
+		"@rn-primitives/toast": "^1.4.0",
+		"@rn-primitives/toggle": "^1.4.0",
+		"@rn-primitives/toggle-group": "^1.4.0",
+		"@rn-primitives/toolbar": "^1.4.0",
+		"@rn-primitives/tooltip": "~1.4.0",
+		"burnt": "^0.13.0",
+		"echarts": "^6.0.0",
+		"expo": "^55.0.13",
+		"expo-application": "~55.0.14",
+		"expo-build-properties": "~55.0.13",
+		"expo-constants": "^55.0.13",
+		"expo-dev-client": "~55.0.24",
+		"expo-device": "~55.0.14",
+		"expo-file-system": "~55.0.16",
+		"expo-linear-gradient": "~55.0.13",
+		"expo-linking": "^55.0.12",
+		"expo-localization": "~55.0.13",
+		"expo-navigation-bar": "~55.0.12",
+		"expo-router": "~55.0.11",
+		"expo-secure-store": "^55.0.13",
+		"expo-splash-screen": "~55.0.17",
+		"expo-status-bar": "~55.0.5",
+		"expo-system-ui": "~55.0.15",
+		"expo-updates": "~55.0.20",
+		"expo-web-browser": "^55.0.14",
+		"lucide-react": "^1.8.0",
+		"lucide-react-native": "^1.8.0",
+		"nativewind": "4.2.1",
+		"react": "catalog:",
+		"react-dom": "catalog:",
+		"react-hook-form": "^7.72.1",
+		"react-native-gesture-handler": "^2.29.1",
+		"react-native": "0.83.4",
+		"react-native-device-info": "^14.1.1",
+		"react-native-localize": "^3.7.0",
+		"react-native-reanimated": "4.3.0",
+		"react-native-safe-area-context": "5.6.2",
+		"react-native-screens": "4.23.0",
+		"@wuba/react-native-echarts": "^3.0.1",
+		"react-native-svg": "15.15.3",
+		"react-native-web": "~0.21.2",
+		"tailwindcss": "catalog:build",
+		"tailwindcss-animate": "^1.0.7",
+		"zod": "^4.3.5"
+	},
+	"peerDependenciesMeta": {
+		"@hookform/resolvers": {
+			"optional": true
+		},
+		"@react-native-async-storage/async-storage": {
+			"optional": true
+		},
+		"@react-native-community/datetimepicker": {
+			"optional": true
+		},
+		"@rn-primitives/accordion": {
+			"optional": true
+		},
+		"@rn-primitives/alert-dialog": {
+			"optional": true
+		},
+		"@rn-primitives/aspect-ratio": {
+			"optional": true
+		},
+		"@rn-primitives/avatar": {
+			"optional": true
+		},
+		"@rn-primitives/checkbox": {
+			"optional": true
+		},
+		"@rn-primitives/collapsible": {
+			"optional": true
+		},
+		"@rn-primitives/context-menu": {
+			"optional": true
+		},
+		"@rn-primitives/dialog": {
+			"optional": true
+		},
+		"@rn-primitives/dropdown-menu": {
+			"optional": true
+		},
+		"@rn-primitives/hover-card": {
+			"optional": true
+		},
+		"@rn-primitives/label": {
+			"optional": true
+		},
+		"@rn-primitives/menubar": {
+			"optional": true
+		},
+		"@rn-primitives/navigation-menu": {
+			"optional": true
+		},
+		"@rn-primitives/popover": {
+			"optional": true
+		},
+		"@rn-primitives/portal": {
+			"optional": true
+		},
+		"@rn-primitives/progress": {
+			"optional": true
+		},
+		"@rn-primitives/radio-group": {
+			"optional": true
+		},
+		"@rn-primitives/select": {
+			"optional": true
+		},
+		"@rn-primitives/separator": {
+			"optional": true
+		},
+		"@rn-primitives/slider": {
+			"optional": true
+		},
+		"@rn-primitives/slot": {
+			"optional": true
+		},
+		"@rn-primitives/switch": {
+			"optional": true
+		},
+		"@rn-primitives/table": {
+			"optional": true
+		},
+		"@rn-primitives/tabs": {
+			"optional": true
+		},
+		"@rn-primitives/toast": {
+			"optional": true
+		},
+		"@rn-primitives/toggle": {
+			"optional": true
+		},
+		"@rn-primitives/toggle-group": {
+			"optional": true
+		},
+		"@rn-primitives/toolbar": {
+			"optional": true
+		},
+		"@rn-primitives/tooltip": {
+			"optional": true
+		},
+		"burnt": {
+			"optional": true
+		},
+		"echarts": {
+			"optional": true
+		},
+		"expo": {
+			"optional": true
+		},
+		"expo-application": {
+			"optional": true
+		},
+		"expo-build-properties": {
+			"optional": true
+		},
+		"expo-constants": {
+			"optional": true
+		},
+		"expo-dev-client": {
+			"optional": true
+		},
+		"expo-device": {
+			"optional": true
+		},
+		"expo-file-system": {
+			"optional": true
+		},
+		"expo-linear-gradient": {
+			"optional": true
+		},
+		"expo-linking": {
+			"optional": true
+		},
+		"expo-localization": {
+			"optional": true
+		},
+		"expo-navigation-bar": {
+			"optional": true
+		},
+		"expo-router": {
+			"optional": true
+		},
+		"expo-secure-store": {
+			"optional": true
+		},
+		"expo-splash-screen": {
+			"optional": true
+		},
+		"expo-status-bar": {
+			"optional": true
+		},
+		"expo-system-ui": {
+			"optional": true
+		},
+		"expo-updates": {
+			"optional": true
+		},
+		"expo-web-browser": {
+			"optional": true
+		},
+		"lucide-react": {
+			"optional": true
+		},
+		"lucide-react-native": {
+			"optional": true
+		},
+		"nativewind": {
+			"optional": true
+		},
+		"react": {
+			"optional": true
+		},
+		"react-dom": {
+			"optional": true
+		},
+		"react-hook-form": {
+			"optional": true
+		},
+		"react-native-gesture-handler": {
+			"optional": true
+		},
+		"react-native": {
+			"optional": true
+		},
+		"react-native-device-info": {
+			"optional": true
+		},
+		"react-native-localize": {
+			"optional": true
+		},
+		"react-native-reanimated": {
+			"optional": true
+		},
+		"react-native-safe-area-context": {
+			"optional": true
+		},
+		"react-native-screens": {
+			"optional": true
+		},
+		"@wuba/react-native-echarts": {
+			"optional": true
+		},
+		"react-native-svg": {
+			"optional": true
+		},
+		"react-native-web": {
+			"optional": true
+		},
+		"tailwindcss": {
+			"optional": true
+		},
+		"tailwindcss-animate": {
+			"optional": true
+		},
+		"zod": {
+			"optional": true
+		}
+	}
 }

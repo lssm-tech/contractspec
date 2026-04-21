@@ -20,14 +20,14 @@
 		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
 		"publish:pkg:canary": "bun publish:pkg --tag canary",
 		"build": "bun run prebuild && bun run build:types && bun run build:all",
-		"build:bun": "bun build --outdir ./dist/bun/ --target bun --minify --external playwright --external playwright-core --external electron --external chromium-bidi --external 'chromium-bidi/*' ./src/cli.ts",
-		"build:node": "bun build --outdir ./dist/node/ --target node --minify --external playwright --external playwright-core --external electron --external chromium-bidi --external 'chromium-bidi/*' ./src/cli.ts",
+		"build:bun": "bun build --outdir ./dist/bun/ --target bun --minify --external playwright --external playwright-core --external electron --external chromium-bidi --external 'chromium-bidi/*' ./src/cli.ts --external '@electric-sql/pglite' --external '@apollo/client' --external '@apollo/client/*' --external '@graphql-tools/schema' --external 'graphql' --external 'drizzle-orm' --external 'drizzle-orm/*'",
+		"build:node": "bun build --outdir ./dist/node/ --target node --minify --external playwright --external playwright-core --external electron --external chromium-bidi --external 'chromium-bidi/*' ./src/cli.ts --external '@electric-sql/pglite' --external '@apollo/client' --external '@apollo/client/*' --external '@graphql-tools/schema' --external 'graphql' --external 'drizzle-orm' --external 'drizzle-orm/*'",
 		"build:all": "bun run build:bun && bun run build:node",
 		"build:types": "tsc --noEmit",
 		"prebuild": "bun ../../../scripts/generate-contractsrc-schema.ts",
 		"typecheck": "tsc --noEmit",
-		"dev": "bun build ./src/cli.ts --outfile ./dist/cli.js --target node --watch --external playwright --external playwright-core --external electron --external chromium-bidi --external 'chromium-bidi/*'",
-		"dev:bun": "bun build ./src/cli.ts --outfile ./dist/cli.bun.js --target bun --watch --external playwright --external playwright-core --external electron --external chromium-bidi --external 'chromium-bidi/*'",
+		"dev": "bun build ./src/cli.ts --outfile ./dist/cli.js --target node --watch --external playwright --external playwright-core --external electron --external chromium-bidi --external 'chromium-bidi/*' --external '@electric-sql/pglite' --external '@apollo/client' --external '@apollo/client/*' --external '@graphql-tools/schema' --external 'graphql' --external 'drizzle-orm' --external 'drizzle-orm/*'",
+		"dev:bun": "bun build ./src/cli.ts --outfile ./dist/cli.bun.js --target bun --watch --external playwright --external playwright-core --external electron --external chromium-bidi --external 'chromium-bidi/*' --external '@electric-sql/pglite' --external '@apollo/client' --external '@apollo/client/*' --external '@graphql-tools/schema' --external 'graphql' --external 'drizzle-orm' --external 'drizzle-orm/*'",
 		"clean": "rimraf dist",
 		"lint": "bun run lint:fix",
 		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
@@ -62,7 +62,6 @@
 		"ollama-ai-provider": "catalog:ai",
 		"ora": "^9.3.0",
 		"pg": "^8.16.3",
-		"typescript": "catalog:",
 		"zod": "catalog:",
 		"@contractspec/lib.contracts-integrations": "workspace:*"
 	},
@@ -72,7 +71,8 @@
 		"@types/js-yaml": "^4.0.9",
 		"@types/node": "^25.6.0",
 		"@types/sarif": "^2.1.7",
-		"rimraf": "catalog:build"
+		"rimraf": "catalog:build",
+		"typescript": "catalog:"
 	},
 	"keywords": [
 		"cli",

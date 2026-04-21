@@ -881,7 +881,7 @@
 	"scripts": {
 		"vscode:prepublish": "bun run build",
 		"build": "bun run build:types && bun run build:bundle",
-		"build:bundle": "bun build src/extension.ts --outdir=dist --target=node --format=cjs --external=vscode --minify",
+		"build:bundle": "bun build src/extension.ts --outdir=dist --target=node --format=cjs --external=vscode --minify --external '@swc/wasm' --external '@electric-sql/pglite' --external '@apollo/client' --external 'graphql' --external 'drizzle-orm' --external 'drizzle-orm/*'",
 		"build:types": "tsc --noEmit",
 		"dev": "bun build src/extension.ts --outdir=dist --target=node --format=cjs --external=vscode --sourcemap=external --watch",
 		"lint": "bun run lint:fix",

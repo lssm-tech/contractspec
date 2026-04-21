@@ -31,8 +31,7 @@
 		"@contractspec/lib.voice": "workspace:*",
 		"@contractspec/lib.content-gen": "workspace:*",
 		"@contractspec/lib.design-system": "workspace:*",
-		"@contractspec/lib.image-gen": "workspace:*",
-		"remotion": "^4.0.447"
+		"@contractspec/lib.image-gen": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",
@@ -44,12 +43,14 @@
 		"@remotion/renderer": "^4.0.447",
 		"@types/react": "^19.0.0",
 		"react": "catalog:",
-		"react-dom": "catalog:"
+		"react-dom": "catalog:",
+		"remotion": "^4.0.447"
 	},
 	"peerDependencies": {
 		"react": "catalog:",
 		"react-dom": "catalog:",
-		"@remotion/player": "^4.0.0"
+		"@remotion/player": "^4.0.0",
+		"remotion": "^4.0.447"
 	},
 	"peerDependenciesMeta": {
 		"@remotion/player": {

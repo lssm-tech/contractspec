@@ -9,7 +9,7 @@
 		"lint:check": "node ../../../scripts/biome.cjs check .",
 		"dev": "bun run --watch src/index.ts",
 		"build": "bun run prebuild && bun run build:types && bun run build:bundle",
-		"build:bundle": "bun build --target node --packages bundle --outfile dist/index.js src/index.ts && mkdir -p api/dist && cp dist/index.js api/dist/index.js",
+		"build:bundle": "bun build --target node --packages bundle --external '@mistralai/mistralai' --external '@google-cloud/storage' --external '@linear/sdk' --external '@notionhq/client' --external '@qdrant/js-client-rest' --external '@elevenlabs/elevenlabs-js' --external '@fal-ai/client' --external '@composio/core' --external 'googleapis' --external 'stripe' --external 'twilio' --external 'posthog-node' --external 'postmark' --external 'fathom-typescript' --external '@electric-sql/pglite' --external 'drizzle-orm' --external 'drizzle-orm/*' --outfile dist/index.js src/index.ts && mkdir -p api/dist && cp dist/index.js api/dist/index.js",
 		"build:types": "tsc -p ./tsconfig.json --noEmit",
 		"prebuild": "bun ../../../scripts/generate-contractsrc-schema.ts",
 		"typecheck": "bun run build:types",
@@ -30,7 +30,8 @@
 		"@contractspec/lib.contracts-spec": "workspace:*",
 		"elysia": "^1.4.28",
 		"pg": "^8.20.0",
-		"zod": "^4.3.5"
+		"zod": "^4.3.5",
+		"twilio": "^5.13.1"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",

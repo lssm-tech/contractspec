@@ -1,8 +1,6 @@
-import {
-	JiraProjectManagementProvider,
-	LinearProjectManagementProvider,
-	NotionProjectManagementProvider,
-} from '@contractspec/integration.providers-impls/impls';
+import { JiraProjectManagementProvider } from '@contractspec/integration.providers-impls/impls/jira';
+import { LinearProjectManagementProvider } from '@contractspec/integration.providers-impls/impls/linear';
+import { NotionProjectManagementProvider } from '@contractspec/integration.providers-impls/impls/notion';
 import type {
 	ProjectManagementProvider,
 	ProjectManagementWorkItem,
