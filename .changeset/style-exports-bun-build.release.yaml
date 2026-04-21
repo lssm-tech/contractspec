@@ -26,7 +26,11 @@ migrationInstructions:
   - id: import-public-style-subpaths
     title: Import public CSS through exported subpaths
     summary: Import package styles from direct subpaths such as `@scope/package/styles/globals.css` after the package has regenerated exports and rebuilt artifacts.
-verification:
-  - cd packages/tools/bun && bun test
+validation:
+  commands:
+    - cd packages/tools/bun && bun test
+  evidence:
+    - "`@contractspec/tool.bun` test coverage exercises direct CSS style subpath export discovery and emission."
+    - "Style entry scanning remains isolated from TypeScript entry roots so generated JavaScript output is unchanged."
 knownGaps:
   - Existing package manifests are not rewritten until each package reruns `contractspec-bun-build prebuild`.

@@ -40,9 +40,14 @@ migrationInstructions:
     summary: "Import `listExamples`, `getExample`, `searchExamples`, route helpers, and source metadata from `@contractspec/module.examples/catalog` when runnable example code is not needed."
     affectedPackages:
       - "@contractspec/module.examples"
-verification:
-  - bun test packages/modules/examples/src/registry.test.ts packages/modules/examples/src/runtime/previews.test.ts
-  - bun test packages/apps/cli-contractspec/src/commands/examples/index.test.ts packages/apps/cli-contractspec/src/commands/examples/download.test.ts packages/apps/cli-contractspec/src/commands/onboard/index.test.ts
-  - cd packages/modules/examples && bun run typecheck && bun run lint:check
-  - cd packages/apps/cli-contractspec && bun run typecheck && bun run build:node
+validation:
+  commands:
+    - bun test packages/modules/examples/src/registry.test.ts packages/modules/examples/src/runtime/previews.test.ts
+    - bun test packages/apps/cli-contractspec/src/commands/examples/index.test.ts packages/apps/cli-contractspec/src/commands/examples/download.test.ts packages/apps/cli-contractspec/src/commands/onboard/index.test.ts
+    - cd packages/modules/examples && bun run typecheck && bun run lint:check
+    - cd packages/apps/cli-contractspec && bun run typecheck && bun run build:node
+  evidence:
+    - "`@contractspec/module.examples` registry and preview tests cover the catalog/runtime split."
+    - "CLI examples, download, and onboard command tests cover the lightweight install and on-demand source-fetch workflows."
+    - "Examples module typecheck/lint plus CLI typecheck/build keep the public subpaths and command surface packageable."
 knownGaps: []
