@@ -13,7 +13,7 @@ affectedFrameworks:
   - tailwindcss
 audiences:
   - kind: integrator
-    summary: Packages with CSS directives that Bun does not understand can set `styleMode: "copy"` to publish the raw stylesheet unchanged.
+    summary: "Packages with CSS directives that Bun does not understand can set `styleMode: \"copy\"` to publish the raw stylesheet unchanged."
     affectedPackages:
       - "@contractspec/tool.bun"
   - kind: maintainer
@@ -23,7 +23,7 @@ audiences:
 migrationInstructions:
   - id: preserve-css-directives
     title: Copy CSS entries when another tool owns directive processing
-    summary: Add `styleMode: "copy"` or `styles: { mode: "copy" }` in packages whose exported CSS includes directives such as `@source`, `@custom-variant`, `@theme`, or `@tailwind`.
+    summary: "Add `styleMode: \"copy\"` or `styles: { mode: \"copy\" }` in packages whose exported CSS includes directives such as `@source`, `@custom-variant`, `@theme`, or `@tailwind`."
 validation:
   commands:
     - cd packages/tools/bun && bun test
