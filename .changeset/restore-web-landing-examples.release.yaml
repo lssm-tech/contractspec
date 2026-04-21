@@ -44,7 +44,7 @@ upgradeSteps:
     instructions:
       - Use `listDiscoverableExamples()` for docs and sitemap surfaces that should include non-internal examples with usable public surfaces.
       - Use `listTemplateExamples()` for template catalogs.
-      - Keep `listPublicExamples()` only when the narrower `visibility: public` subset is required.
+      - "Keep `listPublicExamples()` only when the narrower `visibility: public` subset is required."
 validation:
   commands:
     - "bun test packages/modules/examples/src/runtime/previews.test.ts packages/bundles/marketing/src/components/templates/template-catalog.test.ts packages/bundles/marketing/src/components/templates/template-preview.test.ts packages/bundles/library/src/components/docs/examples/exampleShowcaseData.test.ts packages/apps/web-landing/src/app/docs/examples/example-doc-routes.test.ts packages/apps/web-landing/src/app/(sandbox)/sandbox/sandbox-preview.test.tsx packages/apps/web-landing/next.config.test.ts"
