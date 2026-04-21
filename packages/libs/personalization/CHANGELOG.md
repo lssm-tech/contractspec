@@ -1,5 +1,19 @@
 # @contractspec/lib.personalization
 
+## 6.0.22
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Stabilize Turborepo build caching by making generated artifacts deterministic, modeling web LLM generation explicitly, and avoiding no-op build-tool rewrites.
+  - @contractspec/lib.bus@3.7.22
+  - @contractspec/lib.knowledge@3.7.22
+  - @contractspec/lib.overlay-engine@3.7.22
+  - @contractspec/lib.surface-runtime@0.5.22
+  - @contractspec/lib.contracts-spec@5.5.1
+  - @contractspec/lib.schema@3.7.14
+
 ## 6.0.21
 
 ### Patch Changes

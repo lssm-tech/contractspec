@@ -1,5 +1,38 @@
 # @contractspec/bundle.library
 
+## 3.9.4
+
+### Patch Changes
+
+- Stabilize Turborepo build caching by making generated artifacts deterministic, modeling web LLM generation explicitly, and avoiding no-op build-tool rewrites.
+  - Packages: contractspec (patch), @contractspec/app.web-landing (patch), @contractspec/bundle.library (patch), @contractspec/lib.contracts-spec (patch), @contractspec/tool.bun (patch), @contractspec/tool.docs-generator (patch), @contractspec/biome-config (patch)
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Stabilize Turborepo build caching by making generated artifacts deterministic, modeling web LLM generation explicitly, and avoiding no-op build-tool rewrites.
+- Updated dependencies because of Centralize repeated dependency specs through Bun catalogs and align React Hook Form/Zod resolver types after dependency upgrades.
+  - @contractspec/bundle.workspace@4.5.2
+  - @contractspec/example.data-grid-showcase@3.8.16
+  - @contractspec/lib.ai-providers@3.7.15
+  - @contractspec/lib.content-gen@3.7.22
+  - @contractspec/lib.contracts-integrations@3.8.14
+  - @contractspec/lib.contracts-library@3.7.22
+  - @contractspec/lib.contracts-runtime-server-graphql@3.8.1
+  - @contractspec/lib.contracts-runtime-server-mcp@3.8.2
+  - @contractspec/lib.contracts-runtime-server-rest@3.8.1
+  - @contractspec/lib.example-shared-ui@7.0.1
+  - @contractspec/lib.knowledge@3.7.22
+  - @contractspec/lib.logger@3.7.15
+  - @contractspec/lib.provider-ranking@0.7.15
+  - @contractspec/lib.runtime-sandbox@3.0.1
+  - @contractspec/lib.surface-runtime@0.5.22
+  - @contractspec/lib.ui-link@3.7.17
+  - @contractspec/module.context-storage@0.7.21
+  - @contractspec/module.examples@4.0.1
+  - @contractspec/lib.contracts-spec@5.5.1
+  - @contractspec/lib.contracts-runtime-client-react@3.10.2
+  - @contractspec/lib.design-system@3.11.2
+  - @contractspec/lib.ui-kit-web@3.11.1
+  - @contractspec/lib.schema@3.7.14
+
 ## 3.9.3
 
 ### Patch Changes

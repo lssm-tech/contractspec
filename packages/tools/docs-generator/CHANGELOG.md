@@ -1,5 +1,14 @@
 # @contractspec/tool.docs-generator
 
+## 3.7.21
+
+### Patch Changes
+
+- Stabilize Turborepo build caching by making generated artifacts deterministic, modeling web LLM generation explicitly, and avoiding no-op build-tool rewrites.
+  - Packages: contractspec (patch), @contractspec/app.web-landing (patch), @contractspec/bundle.library (patch), @contractspec/lib.contracts-spec (patch), @contractspec/tool.bun (patch), @contractspec/tool.docs-generator (patch), @contractspec/biome-config (patch)
+- Updated dependencies because of Stabilize Turborepo build caching by making generated artifacts deterministic, modeling web LLM generation explicitly, and avoiding no-op build-tool rewrites.
+  - @contractspec/lib.contracts-spec@5.5.1
+
 ## 3.7.20
 
 ### Patch Changes

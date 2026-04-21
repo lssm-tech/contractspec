@@ -1,5 +1,18 @@
 # @contractspec/example.wealth-snapshot
 
+## 3.7.22
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Stabilize Turborepo build caching by making generated artifacts deterministic, modeling web LLM generation explicitly, and avoiding no-op build-tool rewrites.
+  - @contractspec/lib.identity-rbac@3.7.22
+  - @contractspec/module.audit-trail@3.7.22
+  - @contractspec/module.notifications@3.7.21
+  - @contractspec/lib.contracts-spec@5.5.1
+  - @contractspec/lib.schema@3.7.14
+
 ## 3.7.21
 
 ### Patch Changes

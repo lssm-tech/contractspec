@@ -1,5 +1,15 @@
 # @contractspec/lib.knowledge
 
+## 3.7.22
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Stabilize Turborepo build caching by making generated artifacts deterministic, modeling web LLM generation explicitly, and avoiding no-op build-tool rewrites.
+  - @contractspec/lib.contracts-integrations@3.8.14
+  - @contractspec/lib.contracts-spec@5.5.1
+
 ## 3.7.21
 
 ### Patch Changes

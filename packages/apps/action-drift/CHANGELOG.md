@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.7.22
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Stabilize Turborepo build caching by making generated artifacts deterministic, modeling web LLM generation explicitly, and avoiding no-op build-tool rewrites.
+  - @contractspec/bundle.workspace@4.5.2
+  - @contractspec/lib.contracts-spec@5.5.1
+
 ## 2.7.21
 
 ### Patch Changes

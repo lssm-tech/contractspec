@@ -1,5 +1,19 @@
 # @contractspec/module.examples
 
+## 4.0.1
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Stabilize Turborepo build caching by making generated artifacts deterministic, modeling web LLM generation explicitly, and avoiding no-op build-tool rewrites.
+- Updated dependencies because of Centralize repeated dependency specs through Bun catalogs and align React Hook Form/Zod resolver types after dependency upgrades.
+  - @contractspec/lib.example-shared-ui@7.0.1
+  - @contractspec/lib.presentation-runtime-core@5.0.2
+  - @contractspec/lib.runtime-sandbox@3.0.1
+  - @contractspec/lib.contracts-spec@5.5.1
+  - @contractspec/lib.contracts-runtime-client-react@3.10.2
+
 ## 4.0.0
 
 ### Major Changes

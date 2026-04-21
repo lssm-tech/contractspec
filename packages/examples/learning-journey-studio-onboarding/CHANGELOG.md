@@ -1,5 +1,16 @@
 # @contractspec/example.learning-journey-studio-onboarding
 
+## 4.0.2
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Stabilize Turborepo build caching by making generated artifacts deterministic, modeling web LLM generation explicitly, and avoiding no-op build-tool rewrites.
+  - @contractspec/module.learning-journey@4.0.2
+  - @contractspec/lib.contracts-spec@5.5.1
+  - @contractspec/lib.schema@3.7.14
+
 ## 4.0.1
 
 ### Patch Changes

@@ -1,5 +1,40 @@
 # @contractspec/bundle.marketing
 
+## 3.8.17
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Stabilize Turborepo build caching by making generated artifacts deterministic, modeling web LLM generation explicitly, and avoiding no-op build-tool rewrites.
+- Updated dependencies because of Centralize repeated dependency specs through Bun catalogs and align React Hook Form/Zod resolver types after dependency upgrades.
+  - @contractspec/example.agent-console@3.8.16
+  - @contractspec/example.ai-chat-assistant@3.8.16
+  - @contractspec/example.analytics-dashboard@3.9.16
+  - @contractspec/example.crm-pipeline@3.7.24
+  - @contractspec/example.data-grid-showcase@3.8.16
+  - @contractspec/example.in-app-docs@3.7.24
+  - @contractspec/example.integration-hub@3.8.16
+  - @contractspec/example.learning-journey-registry@4.0.4
+  - @contractspec/example.marketplace@3.8.16
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.24
+  - @contractspec/example.saas-boilerplate@3.8.16
+  - @contractspec/example.visualization-showcase@3.9.16
+  - @contractspec/example.workflow-system@3.8.16
+  - @contractspec/lib.email@3.7.15
+  - @contractspec/lib.example-shared-ui@7.0.1
+  - @contractspec/lib.logger@3.7.15
+  - @contractspec/lib.runtime-sandbox@3.0.1
+  - @contractspec/lib.surface-runtime@0.5.22
+  - @contractspec/lib.ui-kit-core@3.8.2
+  - @contractspec/lib.ui-link@3.7.17
+  - @contractspec/module.examples@4.0.1
+  - @contractspec/bundle.library@3.9.4
+  - @contractspec/lib.contracts-spec@5.5.1
+  - @contractspec/lib.contracts-runtime-client-react@3.10.2
+  - @contractspec/lib.design-system@3.11.2
+  - @contractspec/lib.ui-kit-web@3.11.1
+
 ## 3.8.16
 
 ### Patch Changes

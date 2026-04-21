@@ -1,5 +1,18 @@
 # @contractspec/module.context-storage
 
+## 0.7.21
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Stabilize Turborepo build caching by making generated artifacts deterministic, modeling web LLM generation explicitly, and avoiding no-op build-tool rewrites.
+  - @contractspec/lib.context-storage@0.7.15
+  - @contractspec/lib.contracts-integrations@3.8.14
+  - @contractspec/lib.knowledge@3.7.22
+  - @contractspec/lib.contracts-spec@5.5.1
+  - @contractspec/lib.schema@3.7.14
+
 ## 0.7.20
 
 ### Patch Changes

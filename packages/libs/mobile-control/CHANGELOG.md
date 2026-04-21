@@ -1,5 +1,16 @@
 # @contractspec/lib.mobile-control
 
+## 0.2.4
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Stabilize Turborepo build caching by making generated artifacts deterministic, modeling web LLM generation explicitly, and avoiding no-op build-tool rewrites.
+  - @contractspec/lib.builder-spec@0.2.4
+  - @contractspec/lib.provider-spec@0.2.2
+  - @contractspec/lib.contracts-spec@5.5.1
+
 ## 0.2.3
 
 ### Patch Changes

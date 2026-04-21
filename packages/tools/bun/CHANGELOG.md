@@ -1,5 +1,15 @@
 # @contractspec/tool.bun
 
+## 3.7.17
+
+### Patch Changes
+
+- Stabilize Turborepo build caching by making generated artifacts deterministic, modeling web LLM generation explicitly, and avoiding no-op build-tool rewrites.
+  - Packages: contractspec (patch), @contractspec/app.web-landing (patch), @contractspec/bundle.library (patch), @contractspec/lib.contracts-spec (patch), @contractspec/tool.bun (patch), @contractspec/tool.docs-generator (patch), @contractspec/biome-config (patch)
+- Add a copy mode for public CSS style entries so packages can preserve Tailwind and other framework directives.
+  - Packages: @contractspec/tool.bun (patch)
+  - Migration: Add `styleMode: "copy"` or `styles: { mode: "copy" }` in packages whose exported CSS includes directives such as `@source`, `@custom-variant`, `@theme`, or `@tailwind`.
+
 ## 3.7.16
 
 ### Patch Changes

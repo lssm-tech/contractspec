@@ -1,5 +1,12 @@
 # @contractspec/biome-config
 
+## 3.8.9
+
+### Patch Changes
+
+- Stabilize Turborepo build caching by making generated artifacts deterministic, modeling web LLM generation explicitly, and avoiding no-op build-tool rewrites.
+  - Packages: contractspec (patch), @contractspec/app.web-landing (patch), @contractspec/bundle.library (patch), @contractspec/lib.contracts-spec (patch), @contractspec/tool.bun (patch), @contractspec/tool.docs-generator (patch), @contractspec/biome-config (patch)
+
 ## 3.8.8
 
 ### Patch Changes

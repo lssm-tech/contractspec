@@ -1,5 +1,19 @@
 # @contractspec/example.data-grid-showcase
 
+## 3.8.16
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Stabilize Turborepo build caching by making generated artifacts deterministic, modeling web LLM generation explicitly, and avoiding no-op build-tool rewrites.
+- Updated dependencies because of Centralize repeated dependency specs through Bun catalogs and align React Hook Form/Zod resolver types after dependency upgrades.
+  - @contractspec/lib.presentation-runtime-react@38.0.2
+  - @contractspec/lib.contracts-spec@5.5.1
+  - @contractspec/lib.design-system@3.11.2
+  - @contractspec/lib.ui-kit-web@3.11.1
+  - @contractspec/lib.schema@3.7.14
+
 ## 3.8.15
 
 ### Patch Changes

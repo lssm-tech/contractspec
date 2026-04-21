@@ -1,5 +1,18 @@
 # @contractspec/example.personalization
 
+## 3.7.22
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Stabilize Turborepo build caching by making generated artifacts deterministic, modeling web LLM generation explicitly, and avoiding no-op build-tool rewrites.
+  - @contractspec/lib.logger@3.7.15
+  - @contractspec/lib.overlay-engine@3.7.22
+  - @contractspec/lib.personalization@6.0.22
+  - @contractspec/lib.workflow-composer@3.7.22
+  - @contractspec/lib.contracts-spec@5.5.1
+
 ## 3.7.21
 
 ### Patch Changes

@@ -1,5 +1,21 @@
 # Changelog
 
+## 3.10.5
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Stabilize Turborepo build caching by making generated artifacts deterministic, modeling web LLM generation explicitly, and avoiding no-op build-tool rewrites.
+  - @contractspec/bundle.workspace@4.5.2
+  - @contractspec/lib.ai-agent@8.0.10
+  - @contractspec/lib.ai-providers@3.7.15
+  - @contractspec/lib.contracts-transformers@3.7.22
+  - @contractspec/module.ai-chat@4.3.24
+  - @contractspec/module.examples@4.0.1
+  - @contractspec/module.workspace@4.3.2
+  - @contractspec/lib.contracts-spec@5.5.1
+
 ## 3.10.4
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 38.0.2
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Stabilize Turborepo build caching by making generated artifacts deterministic, modeling web LLM generation explicitly, and avoiding no-op build-tool rewrites.
+  - @contractspec/lib.presentation-runtime-core@5.0.2
+  - @contractspec/lib.presentation-runtime-react@38.0.2
+  - @contractspec/lib.ui-kit@4.0.1
+  - @contractspec/lib.contracts-spec@5.5.1
+
 ## 38.0.1
 
 ### Patch Changes

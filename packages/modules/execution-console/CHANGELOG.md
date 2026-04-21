@@ -1,5 +1,17 @@
 # @contractspec/module.execution-console
 
+## 0.1.7
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Stabilize Turborepo build caching by making generated artifacts deterministic, modeling web LLM generation explicitly, and avoiding no-op build-tool rewrites.
+- Updated dependencies because of Centralize repeated dependency specs through Bun catalogs and align React Hook Form/Zod resolver types after dependency upgrades.
+  - @contractspec/lib.execution-lanes@0.1.5
+  - @contractspec/lib.contracts-spec@5.5.1
+  - @contractspec/lib.ui-kit-web@3.11.1
+
 ## 0.1.6
 
 ### Patch Changes

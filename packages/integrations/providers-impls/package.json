@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/integration.providers-impls",
-	"version": "4.0.0",
+	"version": "4.0.1",
 	"description": "Integration provider implementations for email, payments, storage, and more",
 	"keywords": [
 		"contractspec",

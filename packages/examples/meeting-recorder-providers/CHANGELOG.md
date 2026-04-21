@@ -1,5 +1,16 @@
 # @contractspec/example.meeting-recorder-providers
 
+## 3.7.23
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Stabilize Turborepo build caching by making generated artifacts deterministic, modeling web LLM generation explicitly, and avoiding no-op build-tool rewrites.
+  - @contractspec/integration.providers-impls@4.0.1
+  - @contractspec/lib.contracts-integrations@3.8.14
+  - @contractspec/lib.contracts-spec@5.5.1
+
 ## 3.7.22
 
 ### Patch Changes

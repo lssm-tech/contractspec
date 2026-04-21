@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.provider-spec",
-	"version": "0.2.1",
+	"version": "0.2.2",
 	"description": "Provider routing and runtime-target contracts for ContractSpec Builder.",
 	"keywords": [
 		"contractspec",

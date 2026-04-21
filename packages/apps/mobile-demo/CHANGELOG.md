@@ -1,5 +1,39 @@
 # @contractspec/app.expo-demo
 
+## 1.1.25
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Stabilize Turborepo build caching by making generated artifacts deterministic, modeling web LLM generation explicitly, and avoiding no-op build-tool rewrites.
+  - @contractspec/bundle.marketing@3.8.17
+  - @contractspec/example.agent-console@3.8.16
+  - @contractspec/example.ai-chat-assistant@3.8.16
+  - @contractspec/example.analytics-dashboard@3.9.16
+  - @contractspec/example.crm-pipeline@3.7.24
+  - @contractspec/example.data-grid-showcase@3.8.16
+  - @contractspec/example.in-app-docs@3.7.24
+  - @contractspec/example.integration-hub@3.8.16
+  - @contractspec/example.learning-journey-registry@4.0.4
+  - @contractspec/example.marketplace@3.8.16
+  - @contractspec/example.meeting-recorder-providers@3.7.23
+  - @contractspec/example.pocket-family-office@3.7.22
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.24
+  - @contractspec/example.saas-boilerplate@3.8.16
+  - @contractspec/example.video-api-showcase@3.7.24
+  - @contractspec/example.video-docs-terminal@3.7.24
+  - @contractspec/example.visualization-showcase@3.9.16
+  - @contractspec/example.voice-providers@3.7.23
+  - @contractspec/example.workflow-system@3.8.16
+  - @contractspec/lib.presentation-runtime-core@5.0.2
+  - @contractspec/lib.presentation-runtime-react-native@38.0.2
+  - @contractspec/lib.ui-kit@4.0.1
+  - @contractspec/lib.ui-kit-core@3.8.2
+  - @contractspec/module.examples@4.0.1
+  - @contractspec/lib.contracts-spec@5.5.1
+  - @contractspec/lib.schema@3.7.14
+
 ## 1.1.24
 
 ### Patch Changes

@@ -1,5 +1,24 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 3.7.24
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Stabilize Turborepo build caching by making generated artifacts deterministic, modeling web LLM generation explicitly, and avoiding no-op build-tool rewrites.
+- Updated dependencies because of Centralize repeated dependency specs through Bun catalogs and align React Hook Form/Zod resolver types after dependency upgrades.
+  - @contractspec/example.kb-update-pipeline@3.7.22
+  - @contractspec/example.learning-patterns@4.0.2
+  - @contractspec/example.locale-jurisdiction-gate@3.7.22
+  - @contractspec/example.versioned-knowledge-base@3.7.22
+  - @contractspec/lib.example-shared-ui@7.0.1
+  - @contractspec/lib.runtime-sandbox@3.0.1
+  - @contractspec/module.learning-journey@4.0.2
+  - @contractspec/lib.contracts-spec@5.5.1
+  - @contractspec/lib.design-system@3.11.2
+  - @contractspec/lib.ui-kit-web@3.11.1
+
 ## 3.7.23
 
 ### Patch Changes

@@ -1,5 +1,19 @@
 # @contractspec/app.provider-ranking-mcp
 
+## 1.6.24
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Stabilize Turborepo build caching by making generated artifacts deterministic, modeling web LLM generation explicitly, and avoiding no-op build-tool rewrites.
+  - @contractspec/lib.ai-providers@3.7.15
+  - @contractspec/lib.contracts-runtime-server-mcp@3.8.2
+  - @contractspec/lib.logger@3.7.15
+  - @contractspec/lib.provider-ranking@0.7.15
+  - @contractspec/module.provider-ranking@0.7.21
+  - @contractspec/lib.contracts-spec@5.5.1
+
 ## 1.6.23
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @contractspec/app.alpic-mcp
 
+## 3.7.21
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Stabilize Turborepo build caching by making generated artifacts deterministic, modeling web LLM generation explicitly, and avoiding no-op build-tool rewrites.
+  - @contractspec/bundle.alpic@3.7.21
+  - @contractspec/lib.logger@3.7.15
+  - @contractspec/lib.contracts-spec@5.5.1
+
 ## 3.7.20
 
 ### Patch Changes

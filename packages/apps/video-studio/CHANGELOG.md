@@ -1,5 +1,18 @@
 # @contractspec/app.video-studio
 
+## 2.7.24
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Stabilize Turborepo build caching by making generated artifacts deterministic, modeling web LLM generation explicitly, and avoiding no-op build-tool rewrites.
+- Updated dependencies because of Centralize repeated dependency specs through Bun catalogs and align React Hook Form/Zod resolver types after dependency upgrades.
+  - @contractspec/lib.content-gen@3.7.22
+  - @contractspec/lib.video-gen@3.0.1
+  - @contractspec/lib.contracts-spec@5.5.1
+  - @contractspec/lib.design-system@3.11.2
+
 ## 2.7.23
 
 ### Patch Changes

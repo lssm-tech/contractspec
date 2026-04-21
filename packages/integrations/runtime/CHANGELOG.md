@@ -1,5 +1,22 @@
 # @contractspec/integration.runtime
 
+## 3.9.4
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Stabilize Turborepo build caching by making generated artifacts deterministic, modeling web LLM generation explicitly, and avoiding no-op build-tool rewrites.
+  - @contractspec/lib.builder-runtime@0.2.4
+  - @contractspec/lib.builder-spec@0.2.4
+  - @contractspec/lib.contracts-integrations@3.8.14
+  - @contractspec/lib.execution-lanes@0.1.5
+  - @contractspec/lib.jobs@3.8.1
+  - @contractspec/lib.logger@3.7.15
+  - @contractspec/lib.provider-spec@0.2.2
+  - @contractspec/lib.contracts-spec@5.5.1
+  - @contractspec/lib.schema@3.7.14
+
 ## 3.9.3
 
 ### Patch Changes

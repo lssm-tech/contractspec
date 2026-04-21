@@ -1,5 +1,20 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 3.7.22
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Stabilize Turborepo build caching by making generated artifacts deterministic, modeling web LLM generation explicitly, and avoiding no-op build-tool rewrites.
+  - @contractspec/lib.analytics@3.7.22
+  - @contractspec/lib.lifecycle@3.7.22
+  - @contractspec/lib.observability@3.7.22
+  - @contractspec/lib.surface-runtime@0.5.22
+  - @contractspec/module.lifecycle-advisor@3.7.21
+  - @contractspec/module.lifecycle-core@3.7.21
+  - @contractspec/lib.contracts-spec@5.5.1
+
 ## 3.7.21
 
 ### Patch Changes

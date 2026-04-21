@@ -1,5 +1,19 @@
 # @contractspec/lib.example-shared-ui
 
+## 7.0.1
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Stabilize Turborepo build caching by making generated artifacts deterministic, modeling web LLM generation explicitly, and avoiding no-op build-tool rewrites.
+- Updated dependencies because of Centralize repeated dependency specs through Bun catalogs and align React Hook Form/Zod resolver types after dependency upgrades.
+  - @contractspec/lib.presentation-runtime-core@5.0.2
+  - @contractspec/lib.surface-runtime@0.5.22
+  - @contractspec/lib.contracts-spec@5.5.1
+  - @contractspec/lib.design-system@3.11.2
+  - @contractspec/lib.ui-kit-web@3.11.1
+
 ## 7.0.0
 
 ### Major Changes
