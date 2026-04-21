@@ -10,7 +10,7 @@ export type LandingIconKey =
 	| 'sparkles'
 	| 'workflow';
 
-export type LandingCtaKind = 'internal' | 'external';
+export type LandingCtaKind = 'native' | 'internal' | 'external';
 
 export type LandingCtaVariant = 'primary' | 'ghost';
 
@@ -20,6 +20,7 @@ export interface LandingCta {
 	href: string;
 	kind: LandingCtaKind;
 	variant: LandingCtaVariant;
+	webHref?: string;
 }
 
 export interface LandingProofStat {
@@ -85,4 +86,60 @@ export interface LandingStoryContent {
 		description: string;
 		ctas: LandingCta[];
 	};
+}
+
+export type LandingPageKey =
+	| 'home'
+	| 'product'
+	| 'templates'
+	| 'pricing'
+	| 'docs'
+	| 'changelog';
+
+export interface LandingNavigationItem {
+	id: string;
+	label: string;
+	href: string;
+	kind: LandingCtaKind;
+	pageKey?: LandingPageKey;
+	webHref?: string;
+}
+
+export interface LandingPageStat {
+	value: string;
+	label: string;
+}
+
+export interface LandingPageSection {
+	id: string;
+	kicker: string;
+	title: string;
+	description?: string;
+	items: LandingContentCard[];
+}
+
+export interface LandingPageContent {
+	key: LandingPageKey;
+	path: string;
+	title: string;
+	kicker: string;
+	description: string;
+	heroCtas: LandingCta[];
+	stats?: LandingPageStat[];
+	sections: LandingPageSection[];
+	finalCta?: {
+		kicker: string;
+		title: string;
+		description: string;
+		ctas: LandingCta[];
+	};
+}
+
+export interface LandingResolvedCta {
+	id: string;
+	label: string;
+	href: string;
+	kind: LandingCtaKind;
+	url: string;
+	route?: string;
 }

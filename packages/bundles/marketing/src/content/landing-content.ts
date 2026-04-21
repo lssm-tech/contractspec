@@ -31,7 +31,7 @@ export const contractspecLandingStory: LandingStoryContent = {
 				id: 'see-architecture',
 				label: 'See the architecture',
 				href: '/product',
-				kind: 'internal',
+				kind: 'native',
 				variant: 'ghost',
 			},
 		],
@@ -192,7 +192,7 @@ export const contractspecLandingStory: LandingStoryContent = {
 				id: 'see-packaging',
 				label: 'See packaging',
 				href: '/pricing',
-				kind: 'internal',
+				kind: 'native',
 				variant: 'ghost',
 			},
 		],
@@ -201,7 +201,10 @@ export const contractspecLandingStory: LandingStoryContent = {
 
 export function resolveContractspecLandingCtaUrl(cta: LandingCta): string {
 	if (cta.kind === 'external') return cta.href;
-	return new URL(cta.href, CONTRACTSPEC_SITE_BASE_URL).toString();
+	return new URL(
+		cta.webHref ?? cta.href,
+		CONTRACTSPEC_SITE_BASE_URL
+	).toString();
 }
 
 export function findContractspecLandingCta(id: string): LandingCta | null {

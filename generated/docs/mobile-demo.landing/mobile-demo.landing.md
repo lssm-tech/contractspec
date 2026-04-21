@@ -2,7 +2,7 @@
 
 # mobile-demo.landing
 
-Expo landing companion for the shared ContractSpec OSS-first product story.
+Expo Router companion for the shared ContractSpec OSS-first product story and public navigation.
 
 ## Metadata
 
@@ -13,9 +13,11 @@ Expo landing companion for the shared ContractSpec OSS-first product story.
 - **Tags**: mobile, expo, landing, marketing
 - **File**: `packages/apps/mobile-demo/src/contracts/mobile-landing.feature.ts`
 
-## Operations (2)
+## Operations (4)
 
 - `mobileLanding.story.get` (v1.0.0)
+- `mobileLanding.navigation.list` (v1.0.0)
+- `mobileLanding.page.get` (v1.0.0)
 - `mobileLanding.cta.resolve` (v1.0.0)
 
 ## Source Definition
@@ -29,7 +31,7 @@ export const MobileLandingFeature = defineFeature({
 		version: '1.0.0',
 		title: 'Mobile Landing Companion',
 		description:
-			'Expo landing companion for the shared ContractSpec OSS-first product story.',
+			'Expo Router companion for the shared ContractSpec OSS-first product story and public navigation.',
 		domain: 'mobile-demo',
 		owners: ['@platform.core'],
 		tags: ['mobile', 'expo', 'landing', 'marketing'],
@@ -38,6 +40,8 @@ export const MobileLandingFeature = defineFeature({
 
 	operations: [
 		{ key: 'mobileLanding.story.get', version: '1.0.0' },
+		{ key: 'mobileLanding.navigation.list', version: '1.0.0' },
+		{ key: 'mobileLanding.page.get', version: '1.0.0' },
 		{ key: 'mobileLanding.cta.resolve', version: '1.0.0' },
 	],
 });

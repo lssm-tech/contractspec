@@ -70,6 +70,12 @@
 		"./content": "./src/content/index.ts",
 		"./content/landing-content": "./src/content/landing-content.ts",
 		"./content/landing-content.types": "./src/content/landing-content.types.ts",
+		"./content/landing-ctas": "./src/content/landing-ctas.ts",
+		"./content/landing-marketing-pages": "./src/content/landing-marketing-pages.ts",
+		"./content/landing-navigation": "./src/content/landing-navigation.ts",
+		"./content/landing-pages": "./src/content/landing-pages.ts",
+		"./content/landing-reference-pages": "./src/content/landing-reference-pages.ts",
+		"./content/landing-shared-ctas": "./src/content/landing-shared-ctas.ts",
 		"./libs/email/client": "./src/libs/email/client.ts",
 		"./libs/email/contact": "./src/libs/email/contact.ts",
 		"./libs/email/newsletter": "./src/libs/email/newsletter.ts",
@@ -469,6 +475,48 @@
 				"bun": "./dist/content/landing-content.types.js",
 				"node": "./dist/node/content/landing-content.types.js",
 				"default": "./dist/content/landing-content.types.js"
+			},
+			"./content/landing-ctas": {
+				"types": "./dist/content/landing-ctas.d.ts",
+				"browser": "./dist/browser/content/landing-ctas.js",
+				"bun": "./dist/content/landing-ctas.js",
+				"node": "./dist/node/content/landing-ctas.js",
+				"default": "./dist/content/landing-ctas.js"
+			},
+			"./content/landing-marketing-pages": {
+				"types": "./dist/content/landing-marketing-pages.d.ts",
+				"browser": "./dist/browser/content/landing-marketing-pages.js",
+				"bun": "./dist/content/landing-marketing-pages.js",
+				"node": "./dist/node/content/landing-marketing-pages.js",
+				"default": "./dist/content/landing-marketing-pages.js"
+			},
+			"./content/landing-navigation": {
+				"types": "./dist/content/landing-navigation.d.ts",
+				"browser": "./dist/browser/content/landing-navigation.js",
+				"bun": "./dist/content/landing-navigation.js",
+				"node": "./dist/node/content/landing-navigation.js",
+				"default": "./dist/content/landing-navigation.js"
+			},
+			"./content/landing-pages": {
+				"types": "./dist/content/landing-pages.d.ts",
+				"browser": "./dist/browser/content/landing-pages.js",
+				"bun": "./dist/content/landing-pages.js",
+				"node": "./dist/node/content/landing-pages.js",
+				"default": "./dist/content/landing-pages.js"
+			},
+			"./content/landing-reference-pages": {
+				"types": "./dist/content/landing-reference-pages.d.ts",
+				"browser": "./dist/browser/content/landing-reference-pages.js",
+				"bun": "./dist/content/landing-reference-pages.js",
+				"node": "./dist/node/content/landing-reference-pages.js",
+				"default": "./dist/content/landing-reference-pages.js"
+			},
+			"./content/landing-shared-ctas": {
+				"types": "./dist/content/landing-shared-ctas.d.ts",
+				"browser": "./dist/browser/content/landing-shared-ctas.js",
+				"bun": "./dist/content/landing-shared-ctas.js",
+				"node": "./dist/node/content/landing-shared-ctas.js",
+				"default": "./dist/content/landing-shared-ctas.js"
 			},
 			"./libs/email/client": {
 				"types": "./dist/libs/email/client.d.ts",

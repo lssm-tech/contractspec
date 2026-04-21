@@ -1,13 +1,13 @@
 # @contractspec/app.expo-demo
 
-**Expo landing companion for the shared ContractSpec OSS-first product story.**
+**Expo Router companion for the shared ContractSpec OSS-first product story and public navigation.**
 
 ## What This Demonstrates
 
-- Shares platform-neutral landing content from `@contractspec/bundle.marketing/content`.
+- Shares platform-neutral landing, navigation, and page content from `@contractspec/bundle.marketing/content`.
 - Presents the same positioning as `@contractspec/app.web-landing`: open spec system first, Studio as the optional operating layer.
-- Uses a mobile-native Expo screen with ContractSpec registry-backed story loading and CTA resolution.
-- `src/contracts/` defines landing companion query and CTA command specs.
+- Uses native Expo Router screens for Home, Product, Templates, Pricing, Docs, and Changelog.
+- `src/contracts/` defines landing companion story, navigation, page, and CTA specs.
 - `src/handlers/` registers demo handlers against the operation registry.
 - `src/components/landing/` and `src/screens/` contain the React Native composition.
 
@@ -28,17 +28,17 @@ bun run dev
 
 ## Architecture
 
-- `app/` contains the Expo Router entrypoint.
-- `src/contracts/` defines `mobile-demo.landing` and operations for story loading plus CTA resolution.
+- `src/app/` contains the Expo Router routes.
+- `src/contracts/` defines `mobile-demo.landing` and operations for story, navigation, page loading, and CTA resolution.
 - `src/handlers/` adapts shared marketing content into ContractSpec operation results.
-- `src/components/landing/` renders the mobile-native companion UI.
+- `src/components/landing/` renders reusable mobile-native shell, section, card, page, and CTA components.
 - `src/screens/` owns screen-level loading, error, and CTA opening behavior.
 
 ## Public Entry Points
 
 - Deployable Expo app with no published library exports.
-- Primary runtime surfaces are the Expo route in `app/` and the registered operations in `src/handlers/`.
-- Shared story data comes from the public `@contractspec/bundle.marketing/content` subpath.
+- Primary runtime surfaces are the Expo routes in `src/app/` and the registered operations in `src/handlers/`.
+- Shared story, navigation, and page data comes from the public `@contractspec/bundle.marketing/content` subpath.
 
 ## Local Commands
 

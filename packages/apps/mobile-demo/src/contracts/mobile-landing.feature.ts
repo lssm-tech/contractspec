@@ -15,6 +15,8 @@ export const MobileLandingFeature = defineFeature({
 
 	operations: [
 		{ key: 'mobileLanding.story.get', version: '1.0.0' },
+		{ key: 'mobileLanding.navigation.list', version: '1.0.0' },
+		{ key: 'mobileLanding.page.get', version: '1.0.0' },
 		{ key: 'mobileLanding.cta.resolve', version: '1.0.0' },
 	],
 });

@@ -40,9 +40,26 @@ audiences:
 deprecations:
   - "`FieldSpec.wrapper.orientation` remains supported but should be replaced by `FieldSpec.layout.orientation` in new specs."
 migrationInstructions:
-  - Existing forms continue to render without changes.
-  - New multi-column forms should use `FormSpec.layout`, `group.layout`, and `field.layout.colSpan`.
-  - New input addons should use `inputGroup.addons` on text and textarea fields.
+  - id: existing-forms-compatible
+    title: Keep existing forms as-is
+    summary: Existing forms continue to render without changes.
+    required: false
+    steps:
+      - No migration is required for forms that do not use the new layout or addon fields.
+  - id: adopt-layout-hints
+    title: Use FormSpec layout hints for dense forms
+    summary: New multi-column forms should use `FormSpec.layout`, `group.layout`, and `field.layout.colSpan`.
+    required: false
+    steps:
+      - Add `layout.columns` at form or group level.
+      - Use `field.layout.colSpan` for fields that should expand across columns.
+  - id: adopt-input-addons
+    title: Use input-group addons for text fields
+    summary: New input addons should use `inputGroup.addons` on text and textarea fields.
+    required: false
+    steps:
+      - Add `inputGroup.addons` to text or textarea field specs.
+      - Resolve icon keys in the host driver through the `InputGroupIcon` slot.
 upgradeSteps:
   - id: adopt-layout-hints
     title: Use FormSpec layout hints for dense forms

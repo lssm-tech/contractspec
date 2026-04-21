@@ -1,40 +1,42 @@
 import type {
 	LandingCta,
 	LandingNavigationItem,
-	LandingStoryContent,
+	LandingPageContent,
+	LandingPageKey,
 } from '@contractspec/bundle.marketing/content';
 import { Button } from '@contractspec/lib.ui-kit/ui/button';
 import { Text } from '@contractspec/lib.ui-kit/ui/text';
 import { useRouter } from 'expo-router';
 import { useCallback, useEffect, useState } from 'react';
 import { ActivityIndicator, Linking, View } from 'react-native';
+import { LandingPageView } from '@/components/landing/LandingPageView';
 import { LandingScreenShell } from '@/components/landing/LandingScreenShell';
-import { LandingStoryView } from '@/components/landing/LandingStoryView';
 import {
 	type LandingCtaResolveResult,
 	type LandingNavigationResult,
+	type LandingPageResult,
 	mobileLandingRegistry,
 } from '@/handlers';
 
 const ctx = { actor: 'anonymous' as const, channel: 'mobile' as const };
 
-export function LandingCompanionScreen() {
+export function LandingRouteScreen(props: { pageKey: LandingPageKey }) {
 	const router = useRouter();
-	const [story, setStory] = useState<LandingStoryContent | null>(null);
+	const [page, setPage] = useState<LandingPageContent | null>(null);
 	const [navigation, setNavigation] = useState<LandingNavigationItem[]>([]);
 	const [busyCtaId, setBusyCtaId] = useState<string | null>(null);
 	const [error, setError] = useState<string | null>(null);
 
-	const loadStory = useCallback(async () => {
+	const loadPage = useCallback(async () => {
 		setError(null);
 		try {
-			const [storyResult, navResult] = await Promise.all([
+			const [pageResult, navResult] = await Promise.all([
 				mobileLandingRegistry.execute(
-					'mobileLanding.story.get',
+					'mobileLanding.page.get',
 					'1.0.0',
-					{},
+					{ key: props.pageKey },
 					ctx
-				) as Promise<{ story: LandingStoryContent }>,
+				) as Promise<LandingPageResult>,
 				mobileLandingRegistry.execute(
 					'mobileLanding.navigation.list',
 					'1.0.0',
@@ -42,18 +44,18 @@ export function LandingCompanionScreen() {
 					ctx
 				) as Promise<LandingNavigationResult>,
 			]);
-			setStory(storyResult.story);
+			setPage(pageResult.page as unknown as LandingPageContent);
 			setNavigation(
 				(navResult.navigation.items ?? []) as LandingNavigationItem[]
 			);
 		} catch (err) {
-			setError(err instanceof Error ? err.message : 'Failed to load story');
+			setError(err instanceof Error ? err.message : 'Failed to load page');
 		}
-	}, []);
+	}, [props.pageKey]);
 
 	useEffect(() => {
-		void loadStory();
-	}, [loadStory]);
+		void loadPage();
+	}, [loadPage]);
 
 	const openCta = useCallback(
 		async (cta: LandingCta | { id: string }) => {
@@ -80,20 +82,20 @@ export function LandingCompanionScreen() {
 		[router]
 	);
 
-	if (!story && !error) {
+	if (!page && !error) {
 		return (
 			<View className="flex-1 items-center justify-center bg-background p-6">
-				<ActivityIndicator accessibilityLabel="Loading ContractSpec story" />
+				<ActivityIndicator accessibilityLabel="Loading ContractSpec page" />
 				<Text className="mt-4 text-muted-foreground">Loading...</Text>
 			</View>
 		);
 	}
 
-	if (!story) {
+	if (!page) {
 		return (
 			<View className="flex-1 items-center justify-center bg-background p-6">
 				<Text className="mb-4 text-center text-destructive">{error}</Text>
-				<Button onPress={() => void loadStory()}>
+				<Button onPress={() => void loadPage()}>
 					<Text>Retry</Text>
 				</Button>
 			</View>
@@ -102,7 +104,7 @@ export function LandingCompanionScreen() {
 
 	return (
 		<LandingScreenShell
-			currentPageKey="home"
+			currentPageKey={props.pageKey}
 			navigation={navigation}
 			onOpenExternalNav={(item) => void openCta({ id: item.id })}
 		>
@@ -111,11 +113,7 @@ export function LandingCompanionScreen() {
 					<Text className="text-destructive text-sm">{error}</Text>
 				</View>
 			) : null}
-			<LandingStoryView
-				story={story}
-				busyCtaId={busyCtaId}
-				onPressCta={openCta}
-			/>
+			<LandingPageView page={page} busyCtaId={busyCtaId} onPressCta={openCta} />
 		</LandingScreenShell>
 	);
 }

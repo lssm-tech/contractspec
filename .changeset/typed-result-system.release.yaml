@@ -48,11 +48,16 @@ audiences:
       - "@contractspec/lib.jobs"
       - "@contractspec/lib.contracts-runtime-client-react"
 deprecations:
-  - package: "@contractspec/lib.error"
-    summary: Prefer `ContractSpecError`, `createContractError`, and `contractFail` from `@contractspec/lib.contracts-spec/results`; `@contractspec/lib.error` remains as a compatibility bridge for existing `AppError` users.
+  - "Prefer `ContractSpecError`, `createContractError`, and `contractFail` from `@contractspec/lib.contracts-spec/results`; `@contractspec/lib.error` remains as a compatibility bridge for existing `AppError` users."
 migrationInstructions:
-  - package: "@contractspec/lib.error"
+  - id: migrate-lib-error-new-code
+    title: Prefer contracts-spec result primitives for new error handling
     summary: Replace new uses of `AppError` with `ContractSpecError` or `contractFail`; existing `AppError` consumers can convert to a compatible problem shape with `appErrorToProblem`.
+    required: false
+    steps:
+      - Import new result helpers from `@contractspec/lib.contracts-spec/results`.
+      - Keep existing `AppError` consumers until they are touched for feature work.
+      - Use `appErrorToProblem` when a compatibility conversion is needed.
 upgradeSteps:
   - id: declare-result-catalogs
     title: Declare operation-specific success and failure outcomes
@@ -69,7 +74,7 @@ upgradeSteps:
     level: assisted
     instructions:
       - Use `OperationSpecRegistry.executeResult` in adapters that need success metadata or typed failures.
-      - Set REST `resultEnvelope: true` only when clients should receive `{ ok, data }` success envelopes.
+      - "Set REST `resultEnvelope: true` only when clients should receive `{ ok, data }` success envelopes."
       - Enable GraphQL `resultExtensions` only when the server integration publishes collected success metadata.
       - Use React runtime parser/hooks to normalize REST, GraphQL, MCP, workflow, and job responses into `ContractResult`.
 validation:

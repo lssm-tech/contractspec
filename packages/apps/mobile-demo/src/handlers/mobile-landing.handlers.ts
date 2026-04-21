@@ -1,13 +1,19 @@
 import {
 	contractspecLandingStory,
-	findContractspecLandingCta,
-	resolveContractspecLandingCtaUrl,
+	findContractspecLandingCtaById,
+	findContractspecLandingPage,
+	type LandingNavigationItem,
+	type LandingPageContent,
+	listContractspecLandingNavigation,
+	resolveContractspecLandingCta,
 } from '@contractspec/bundle.marketing/content';
 import { installOp } from '@contractspec/lib.contracts-spec/install';
 import { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations/registry';
 import type { HandlerCtx } from '@contractspec/lib.contracts-spec/types';
 import {
 	MobileLandingCtaResolveCommand,
+	MobileLandingNavigationListQuery,
+	MobileLandingPageGetQuery,
 	MobileLandingStoryGetQuery,
 } from '../contracts';
 
@@ -15,11 +21,21 @@ export interface LandingStoryResult {
 	story: Record<string, unknown>;
 }
 
+export interface LandingNavigationResult {
+	navigation: { items: LandingNavigationItem[] };
+}
+
+export interface LandingPageResult {
+	page: LandingPageContent;
+}
+
 export interface LandingCtaResolveResult {
 	id: string;
 	label: string;
+	href: string;
 	url: string;
-	kind: 'internal' | 'external';
+	kind: 'native' | 'internal' | 'external';
+	route?: string;
 }
 
 export function createMobileLandingRegistry(): OperationSpecRegistry {
@@ -37,18 +53,42 @@ export function createMobileLandingRegistry(): OperationSpecRegistry {
 
 	installOp(
 		reg,
+		MobileLandingNavigationListQuery,
+		async (_input, _ctx: HandlerCtx) => {
+			return {
+				navigation: listContractspecLandingNavigation() as unknown as Record<
+					string,
+					unknown
+				>,
+			};
+		}
+	);
+
+	installOp(
+		reg,
+		MobileLandingPageGetQuery,
+		async (input: { key: string }, _ctx: HandlerCtx) => {
+			const page = findContractspecLandingPage(input.key);
+			if (!page) {
+				throw new Error(`Unknown landing page: ${input.key}`);
+			}
+			return {
+				page: page as unknown as Record<string, unknown>,
+			};
+		}
+	);
+
+	installOp(
+		reg,
 		MobileLandingCtaResolveCommand,
 		async (input: { id: string }, _ctx: HandlerCtx) => {
-			const cta = findContractspecLandingCta(input.id);
+			const cta = findContractspecLandingCtaById(input.id);
 			if (!cta) {
 				throw new Error(`Unknown landing CTA: ${input.id}`);
 			}
-			return {
-				id: cta.id,
-				label: cta.label,
-				url: resolveContractspecLandingCtaUrl(cta),
-				kind: cta.kind,
-			} satisfies LandingCtaResolveResult;
+			return resolveContractspecLandingCta(
+				cta
+			) satisfies LandingCtaResolveResult;
 		}
 	);
 

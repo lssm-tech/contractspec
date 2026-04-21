@@ -1,6 +1,6 @@
 schemaVersion: "1"
 slug: mobile-expo-landing-companion
-summary: Add a shared marketing content surface and convert the Expo demo into a native landing companion for the ContractSpec OSS-first story.
+summary: Add a shared marketing content/navigation surface and convert the Expo demo into a native public-nav companion for the ContractSpec OSS-first story.
 isBreaking: false
 packages:
   - name: "@contractspec/bundle.marketing"
@@ -14,15 +14,15 @@ affectedFrameworks:
   - react-native
 audiences:
   - kind: maintainer
-    summary: Marketing now exposes React-free landing story data through `@contractspec/bundle.marketing/content`, and the Expo demo consumes that content through mobile-native components and ContractSpec handlers.
+    summary: Marketing now exposes React-free landing story, page, navigation, and CTA data through `@contractspec/bundle.marketing/content`, and the Expo demo consumes that content through mobile-native components and ContractSpec handlers.
     affectedPackages:
       - "@contractspec/bundle.marketing"
   - kind: integrator
-    summary: Integrators can import shared ContractSpec landing copy and CTA metadata from `@contractspec/bundle.marketing/content` without pulling web-only React components into native shells.
+    summary: Integrators can import shared ContractSpec landing copy, public navigation, page content, and CTA metadata from `@contractspec/bundle.marketing/content` without pulling web-only React components into native shells.
     affectedPackages:
       - "@contractspec/bundle.marketing"
   - kind: customer
-    summary: The Expo demo now presents the same OSS-first ContractSpec story as the website instead of the previous task-list demo.
+    summary: The Expo demo now presents native Home, Product, Templates, Pricing, Docs, and Changelog companion routes instead of the previous task-list demo.
     affectedPackages:
       - "@contractspec/bundle.marketing"
 deprecations: []
@@ -30,10 +30,10 @@ migrationInstructions: []
 upgradeSteps:
   - id: use-shared-landing-content
     title: Prefer the platform-neutral content export for native or non-web shells
-    summary: Use `@contractspec/bundle.marketing/content` when a shell needs landing story data without importing web components.
+    summary: Use `@contractspec/bundle.marketing/content` when a shell needs landing story, navigation, or public page data without importing web components.
     level: assisted
     instructions:
-      - Import `contractspecLandingStory` from `@contractspec/bundle.marketing/content`.
+      - Import `contractspecLandingStory`, `contractspecPublicNavigation`, or `contractspecLandingPages` from `@contractspec/bundle.marketing/content`.
       - Map the exported `iconKey` strings to platform-specific icon components.
       - Resolve CTA targets with `resolveContractspecLandingCtaUrl` when opening links outside the web app.
 validation:
@@ -44,6 +44,6 @@ validation:
     - "cd packages/apps/mobile-demo && ../../../node_modules/.bin/expo export --clear --platform ios --output-dir /tmp/contractspec-mobile-demo-export"
     - "cd packages/apps/web-landing && bun run build:types && bun run llms:generate"
   evidence:
-    - "`@contractspec/bundle.marketing/content` exports typed, React-free landing story data and CTA helpers."
-    - "`@contractspec/app.expo-demo` now uses Expo Router, native UI components, and ContractSpec handlers to render the shared landing companion story."
+    - "`@contractspec/bundle.marketing/content` exports typed, React-free landing story, page, navigation, and CTA helpers."
+    - "`@contractspec/app.expo-demo` now uses Expo Router, native UI components, and ContractSpec handlers to render the shared public-nav companion routes."
     - "The Expo iOS export succeeds after avoiding the invalid NativeWind JSX runtime override and Node-only contracts-spec root import."

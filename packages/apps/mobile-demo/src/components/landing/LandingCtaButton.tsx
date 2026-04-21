@@ -9,6 +9,10 @@ export function LandingCtaButton(props: {
 	onPress: (cta: LandingCta) => void;
 }) {
 	const isPrimary = props.cta.variant === 'primary';
+	const hint =
+		props.cta.kind === 'native'
+			? 'Opens this ContractSpec section in the app'
+			: 'Opens this ContractSpec link in the browser';
 
 	return (
 		<Pressable
@@ -19,7 +23,7 @@ export function LandingCtaButton(props: {
 			} ${props.disabled ? 'opacity-60' : ''}`}
 			accessibilityRole="button"
 			accessibilityLabel={props.cta.label}
-			accessibilityHint="Opens this ContractSpec link in the browser"
+			accessibilityHint={hint}
 		>
 			<Text
 				className={`font-semibold text-sm ${

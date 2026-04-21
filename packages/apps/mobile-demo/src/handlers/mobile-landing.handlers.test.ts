@@ -24,8 +24,51 @@ describe('mobile-landing.handlers', () => {
 		expect(result).toEqual({
 			id: 'start-oss',
 			label: 'Start with OSS',
+			href: '/install',
 			url: 'https://www.contractspec.io/install',
 			kind: 'internal',
+		});
+	});
+
+	it('lists native public navigation routes', async () => {
+		const result = (await mobileLandingRegistry.execute(
+			'mobileLanding.navigation.list',
+			'1.0.0',
+			{},
+			{}
+		)) as { navigation: { items: Array<{ pageKey?: string }> } };
+
+		expect(
+			result.navigation.items.map((item) => item.pageKey).filter(Boolean)
+		).toEqual(['home', 'product', 'templates', 'pricing', 'docs', 'changelog']);
+	});
+
+	it('returns route page content by key', async () => {
+		const result = (await mobileLandingRegistry.execute(
+			'mobileLanding.page.get',
+			'1.0.0',
+			{ key: 'product' },
+			{}
+		)) as { page: { key: string; path: string } };
+
+		expect(result.page).toMatchObject({ key: 'product', path: '/product' });
+	});
+
+	it('resolves native CTA ids to native routes plus web fallback URLs', async () => {
+		const result = await mobileLandingRegistry.execute(
+			'mobileLanding.cta.resolve',
+			'1.0.0',
+			{ id: 'nav-product' },
+			{}
+		);
+
+		expect(result).toEqual({
+			id: 'nav-product',
+			label: 'Product',
+			href: '/product',
+			url: 'https://www.contractspec.io/product',
+			kind: 'native',
+			route: '/product',
 		});
 	});
 

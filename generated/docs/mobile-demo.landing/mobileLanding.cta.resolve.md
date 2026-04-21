@@ -2,7 +2,7 @@
 
 # mobileLanding.cta.resolve
 
-Resolve a landing companion CTA id to a mobile-safe URL.
+Resolve a landing companion CTA id to a native route or URL.
 
 ## Metadata
 
@@ -15,11 +15,11 @@ Resolve a landing companion CTA id to a mobile-safe URL.
 
 ## Goal
 
-Open ContractSpec web and Studio links from the native Expo app.
+Open native pages, ContractSpec web links, and Studio links from Expo.
 
 ## Context
 
-Used by LandingCompanionScreen CTA buttons.
+Used by Expo Router companion CTA buttons.
 
 ## IO
 
@@ -33,9 +33,9 @@ export const MobileLandingCtaResolveCommand = defineCommand({
 	meta: {
 		key: 'mobileLanding.cta.resolve',
 		version: '1.0.0',
-		description: 'Resolve a landing companion CTA id to a mobile-safe URL.',
-		goal: 'Open ContractSpec web and Studio links from the native Expo app.',
-		context: 'Used by LandingCompanionScreen CTA buttons.',
+		description: 'Resolve a landing companion CTA id to a native route or URL.',
+		goal: 'Open native pages, ContractSpec web links, and Studio links from Expo.',
+		context: 'Used by Expo Router companion CTA buttons.',
 		owners: ['@platform.core'],
 		tags: ['mobile', 'expo', 'landing', 'cta'],
 		stability: 'experimental',
