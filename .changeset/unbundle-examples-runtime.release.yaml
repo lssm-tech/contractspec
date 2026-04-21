@@ -20,7 +20,7 @@ affectedFrameworks:
   - nextjs
 audiences:
   - kind: integrator
-    summary: `@contractspec/module.examples` root imports now expose catalog metadata only; rich runtime helpers moved to `@contractspec/module.examples/runtime`.
+    summary: "`@contractspec/module.examples` root imports now expose catalog metadata only; rich runtime helpers moved to `@contractspec/module.examples/runtime`."
     affectedPackages:
       - "@contractspec/module.examples"
       - "@contractspec/bundle.marketing"
