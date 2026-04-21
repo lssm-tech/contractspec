@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/app.alpic-mcp",
-	"version": "3.7.19",
+	"version": "3.7.20",
 	"type": "module",
 	"scripts": {
 		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",

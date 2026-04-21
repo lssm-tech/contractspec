@@ -1,5 +1,25 @@
 # @contractspec/lib.video-gen
 
+## 2.7.22
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add focused design-system subpaths and harden ThemeSpec runtime, Tailwind bridge, form-control helpers, and form renderer internals without changing root-import compatibility.
+- Updated dependencies because of Add a ThemeSpec-aware and TranslationSpec-aware design-system form/control layer with stack primitives, exported control wrappers, and FormSpec renderer alignment.
+- Updated dependencies because of Add FormSpec layout hints, semantic field rendering, and portable text/textarea input-group addons.
+- Updated dependencies because of Keep design-system FormRender mobile-safe by preserving shared renderer imports for Metro aliases and hardening generated package artifacts.
+- Updated dependencies because of Add ThemeSpec light/dark modes and a design-system Tailwind bridge for CSS variables, presets, CSS text, and OKLCH color pass-through.
+- Updated dependencies because of Add a canonical typed result system for ContractSpec success and failure propagation across operations, workflows, jobs, server adapters, MCP, GraphQL, and React clients.
+  - @contractspec/lib.ai-providers@3.7.14
+  - @contractspec/lib.content-gen@3.7.21
+  - @contractspec/lib.contracts-integrations@3.8.13
+  - @contractspec/lib.image-gen@1.7.21
+  - @contractspec/lib.voice@1.7.21
+  - @contractspec/lib.design-system@3.11.0
+  - @contractspec/lib.contracts-spec@5.5.0
+
 ## 2.7.21
 
 ### Patch Changes

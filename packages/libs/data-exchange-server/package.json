@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.data-exchange-server",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"description": "Server-side adapters and execution services for SchemaModel-first data interchange",
 	"keywords": [
 		"contractspec",

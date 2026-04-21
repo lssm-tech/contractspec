@@ -1,5 +1,25 @@
 # @contractspec/app.expo-demo
 
+## 1.1.22
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add FormSpec layout hints, semantic field rendering, and portable text/textarea input-group addons.
+- Updated dependencies because of Add a shared marketing content/navigation surface and convert the Expo demo into a native public-nav companion for the ContractSpec OSS-first story.
+- Updated dependencies because of Replace the old Next alias helper with explicit Webpack and Turbopack helpers, keep Metro stable, publish bundler helpers from dist artifacts, and refresh the public docs to teach the current Next.js bundler path.
+- Updated dependencies because of Restore the public web-landing templates and examples surfaces so non-internal examples render in the templates catalog, docs routes, sitemap, and sandbox fallback previews.
+- Updated dependencies because of Add ThemeSpec light/dark modes and a design-system Tailwind bridge for CSS variables, presets, CSS text, and OKLCH color pass-through.
+- Updated dependencies because of Add a canonical typed result system for ContractSpec success and failure propagation across operations, workflows, jobs, server adapters, MCP, GraphQL, and React clients.
+  - @contractspec/lib.presentation-runtime-react-native@38.0.0
+  - @contractspec/lib.ui-kit-core@3.8.1
+  - @contractspec/lib.contracts-spec@5.5.0
+  - @contractspec/lib.ui-kit@3.9.3
+  - @contractspec/bundle.marketing@3.8.15
+  - @contractspec/lib.presentation-runtime-core@5.0.0
+  - @contractspec/lib.schema@3.7.14
+
 ## 1.1.21
 
 ### Patch Changes

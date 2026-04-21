@@ -1,5 +1,17 @@
 # @contractspec/example.learning-journey-quest-challenges
 
+## 4.0.1
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add FormSpec layout hints, semantic field rendering, and portable text/textarea input-group addons.
+- Updated dependencies because of Add ThemeSpec light/dark modes and a design-system Tailwind bridge for CSS variables, presets, CSS text, and OKLCH color pass-through.
+- Updated dependencies because of Add a canonical typed result system for ContractSpec success and failure propagation across operations, workflows, jobs, server adapters, MCP, GraphQL, and React clients.
+  - @contractspec/module.learning-journey@4.0.1
+  - @contractspec/lib.contracts-spec@5.5.0
+
 ## 4.0.0
 
 ### Major Changes

@@ -1,5 +1,15 @@
 # @contractspec/integration.provider.claude-code
 
+## 0.2.2
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/lib.contracts-integrations@3.8.13
+  - @contractspec/lib.provider-spec@0.2.1
+  - @contractspec/lib.schema@3.7.14
+
 ## 0.2.1
 
 ### Patch Changes

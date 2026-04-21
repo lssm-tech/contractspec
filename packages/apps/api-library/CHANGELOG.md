@@ -1,5 +1,27 @@
 # @contractspec/app.api-library
 
+## 3.8.15
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add FormSpec layout hints, semantic field rendering, and portable text/textarea input-group addons.
+- Updated dependencies because of Add a shared marketing content/navigation surface and convert the Expo demo into a native public-nav companion for the ContractSpec OSS-first story.
+- Updated dependencies because of Restore the public web-landing templates and examples surfaces so non-internal examples render in the templates catalog, docs routes, sitemap, and sandbox fallback previews.
+- Updated dependencies because of Add ThemeSpec light/dark modes and a design-system Tailwind bridge for CSS variables, presets, CSS text, and OKLCH color pass-through.
+- Updated dependencies because of Add a canonical typed result system for ContractSpec success and failure propagation across operations, workflows, jobs, server adapters, MCP, GraphQL, and React clients.
+  - @contractspec/bundle.workspace@4.5.1
+  - @contractspec/integration.builder-telegram@0.2.3
+  - @contractspec/integration.builder-whatsapp@0.2.3
+  - @contractspec/integration.provider.codex@0.2.2
+  - @contractspec/integration.providers-impls@3.8.13
+  - @contractspec/integration.runtime@3.9.3
+  - @contractspec/integration.runtime.managed@0.2.3
+  - @contractspec/lib.contracts-spec@5.5.0
+  - @contractspec/bundle.marketing@3.8.15
+  - @contractspec/bundle.library@3.9.2
+
 ## 3.8.14
 
 ### Patch Changes

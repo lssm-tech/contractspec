@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.builder-spec",
-	"version": "0.2.2",
+	"version": "0.2.3",
 	"description": "Builder control-plane contracts, capabilities, and validation for ContractSpec.",
 	"keywords": [
 		"contractspec",

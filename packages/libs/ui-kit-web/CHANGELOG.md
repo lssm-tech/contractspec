@@ -1,5 +1,22 @@
 # @contractspec/lib.ui-kit-web
 
+## 3.10.3
+
+### Patch Changes
+
+- Add FormSpec layout hints, semantic field rendering, and portable text/textarea input-group addons.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.contracts-runtime-client-react (minor), @contractspec/lib.design-system (minor), @contractspec/lib.ui-kit-web (patch), @contractspec/lib.ui-kit (patch)
+  - Migration: Existing forms continue to render without changes.; New multi-column forms should use `FormSpec.layout`, `group.layout`, and `field.layout.colSpan`.; New input addons should use `inputGroup.addons` on text and textarea fields.
+  - Deprecations: `FieldSpec.wrapper.orientation` remains supported but should be replaced by `FieldSpec.layout.orientation` in new specs.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add FormSpec layout hints, semantic field rendering, and portable text/textarea input-group addons.
+- Updated dependencies because of Replace the old Next alias helper with explicit Webpack and Turbopack helpers, keep Metro stable, publish bundler helpers from dist artifacts, and refresh the public docs to teach the current Next.js bundler path.
+- Updated dependencies because of Add ThemeSpec light/dark modes and a design-system Tailwind bridge for CSS variables, presets, CSS text, and OKLCH color pass-through.
+- Updated dependencies because of Add a canonical typed result system for ContractSpec success and failure propagation across operations, workflows, jobs, server adapters, MCP, GraphQL, and React clients.
+  - @contractspec/lib.ui-kit-core@3.8.1
+  - @contractspec/lib.contracts-spec@5.5.0
+  - @contractspec/lib.presentation-runtime-core@5.0.0
+
 ## 3.10.2
 
 ### Patch Changes

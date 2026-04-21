@@ -1,5 +1,37 @@
 # @contractspec/lib.design-system
 
+## 3.11.0
+
+### Minor Changes
+
+- Add focused design-system subpaths and harden ThemeSpec runtime, Tailwind bridge, form-control helpers, and form renderer internals without changing root-import compatibility.
+  - Packages: @contractspec/lib.design-system (minor)
+- Add a ThemeSpec-aware and TranslationSpec-aware design-system form/control layer with stack primitives, exported control wrappers, and FormSpec renderer alignment.
+  - Packages: @contractspec/lib.design-system (minor)
+- Add FormSpec layout hints, semantic field rendering, and portable text/textarea input-group addons.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.contracts-runtime-client-react (minor), @contractspec/lib.design-system (minor), @contractspec/lib.ui-kit-web (patch), @contractspec/lib.ui-kit (patch)
+  - Migration: Existing forms continue to render without changes.; New multi-column forms should use `FormSpec.layout`, `group.layout`, and `field.layout.colSpan`.; New input addons should use `inputGroup.addons` on text and textarea fields.
+  - Deprecations: `FieldSpec.wrapper.orientation` remains supported but should be replaced by `FieldSpec.layout.orientation` in new specs.
+- Keep design-system FormRender mobile-safe by preserving shared renderer imports for Metro aliases and hardening generated package artifacts.
+  - Packages: @contractspec/lib.contracts-runtime-client-react (minor), @contractspec/lib.design-system (minor), @contractspec/tool.bun (patch)
+  - Migration: Avoid broad root-barrel imports for mobile FormSpec rendering while keeping one shared design-system renderer.
+- Add ThemeSpec light/dark modes and a design-system Tailwind bridge for CSS variables, presets, CSS text, and OKLCH color pass-through.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.design-system (minor)
+
+### Patch Changes
+
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add FormSpec layout hints, semantic field rendering, and portable text/textarea input-group addons.
+- Updated dependencies because of Keep design-system FormRender mobile-safe by preserving shared renderer imports for Metro aliases and hardening generated package artifacts.
+- Updated dependencies because of Add ThemeSpec light/dark modes and a design-system Tailwind bridge for CSS variables, presets, CSS text, and OKLCH color pass-through.
+- Updated dependencies because of Add a canonical typed result system for ContractSpec success and failure propagation across operations, workflows, jobs, server adapters, MCP, GraphQL, and React clients.
+  - @contractspec/lib.ai-agent@8.0.9
+  - @contractspec/lib.presentation-runtime-react@38.0.0
+  - @contractspec/lib.contracts-spec@5.5.0
+  - @contractspec/lib.contracts-runtime-client-react@3.10.0
+  - @contractspec/lib.ui-kit-web@3.10.3
+  - @contractspec/lib.ui-kit@3.9.3
+
 ## 3.10.1
 
 ### Patch Changes
