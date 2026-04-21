@@ -5,9 +5,10 @@ import {
 	getExample,
 	listExamples,
 	searchExamples,
-} from '@contractspec/module.examples';
+} from '@contractspec/module.examples/catalog';
 import chalk from 'chalk';
 import { Command } from 'commander';
+import { downloadExampleSource } from './download';
 import {
 	validateGeneratedRegistry,
 	validateWorkspaceExamplesFolder,
@@ -98,6 +99,35 @@ export const examplesCommand = new Command('examples')
 				console.log(
 					chalk.green(`✅ Initialized ${example.meta.key} at ${outDir}`)
 				);
+			})
+	)
+	.addCommand(
+		new Command('download')
+			.description('Download the full source for an example via git')
+			.argument('<key>', 'Example key')
+			.option(
+				'-o, --out-dir <dir>',
+				'Output directory (default: ./.contractspec/examples/<key>/source)'
+			)
+			.action(async (key: string, options) => {
+				try {
+					const result = await downloadExampleSource({
+						key,
+						outDir: options.outDir ? String(options.outDir) : undefined,
+					});
+					console.log(
+						chalk.green(
+							`✅ Downloaded ${result.key} source to ${result.outDir}`
+						)
+					);
+				} catch (error) {
+					console.error(
+						chalk.red(
+							`❌ ${error instanceof Error ? error.message : String(error)}`
+						)
+					);
+					process.exitCode = 1;
+				}
 			})
 	)
 	.addCommand(

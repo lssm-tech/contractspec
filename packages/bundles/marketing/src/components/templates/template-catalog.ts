@@ -9,10 +9,8 @@ import type {
 	TemplateDefinition,
 	TemplateId,
 } from '@contractspec/lib.example-shared-ui';
-import {
-	listTemplateExamples,
-	listTemplates,
-} from '@contractspec/module.examples';
+import { listTemplateExamples } from '@contractspec/module.examples/catalog';
+import { listTemplates } from '@contractspec/module.examples/runtime';
 import { isNewTemplateId, NEW_TEMPLATE_IDS } from './template-new';
 
 export interface LocalTemplateCatalogItem {

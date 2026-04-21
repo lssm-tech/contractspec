@@ -1,11 +1,11 @@
 'use client';
 
 import { LoadingSpinner } from '@contractspec/lib.ui-kit-web/ui/atoms/LoadingSpinner';
+import { getExample } from '@contractspec/module.examples/catalog';
 import {
-	getExample,
 	getInlineExamplePreview,
 	listInlineExamplePreviews,
-} from '@contractspec/module.examples';
+} from '@contractspec/module.examples/runtime';
 import dynamic from 'next/dynamic';
 import type { ComponentType } from 'react';
 

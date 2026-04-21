@@ -12,7 +12,7 @@ import {
 	onboarding,
 	renderManagedMarkdownBlock,
 } from '@contractspec/bundle.workspace';
-import { getExample } from '@contractspec/module.examples';
+import { getExample } from '@contractspec/module.examples/catalog';
 import { confirm } from '@inquirer/prompts';
 import chalk from 'chalk';
 import { Command } from 'commander';

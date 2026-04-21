@@ -11,7 +11,7 @@ import { H1, Muted } from '@contractspec/lib.ui-kit-web/ui/typography';
 import {
 	buildExampleDocsHref,
 	listDiscoverableExamples,
-} from '@contractspec/module.examples';
+} from '@contractspec/module.examples/catalog';
 
 interface ExampleItem extends Record<string, unknown> {
 	id: string;

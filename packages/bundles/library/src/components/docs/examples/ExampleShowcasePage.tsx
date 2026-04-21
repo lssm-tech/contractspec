@@ -1,6 +1,6 @@
 import { ButtonLink, CodeBlock } from '@contractspec/lib.design-system';
 import Link from '@contractspec/lib.ui-link';
-import { getExample } from '@contractspec/module.examples';
+import { getExample } from '@contractspec/module.examples/catalog';
 import { FileCode2, Play, TerminalSquare } from 'lucide-react';
 import { getExampleShowcaseData } from './exampleShowcaseData';
 

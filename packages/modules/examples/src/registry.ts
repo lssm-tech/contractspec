@@ -1,6 +1,17 @@
 import { ExampleRegistry } from '@contractspec/lib.contracts-spec/examples/registry';
 import type { ExampleSpec } from '@contractspec/lib.contracts-spec/examples/types';
-import { EXAMPLE_REGISTRY as BUILTIN_EXAMPLES } from './builtins';
+import {
+	EXAMPLE_SOURCE_REGISTRY as BUILTIN_EXAMPLE_SOURCES,
+	EXAMPLE_REGISTRY as BUILTIN_EXAMPLES,
+} from './builtins';
+
+export interface ExampleSource {
+	key: string;
+	packageName: string;
+	repositoryUrl: string;
+	directory: string;
+	defaultRef: string;
+}
 
 const EXAMPLE_KEY_PREFIX = 'examples.';
 
@@ -31,6 +42,7 @@ export { ExampleRegistry } from '@contractspec/lib.contracts-spec/examples/regis
 // Create a global registry instance populated with builtins
 const globalRegistry = new ExampleRegistry();
 const exampleByKey = new Map<string, ExampleSpec>();
+const sourceByKey = new Map<string, ExampleSource>();
 
 // Register all builtin examples
 for (const example of BUILTIN_EXAMPLES) {
@@ -38,6 +50,12 @@ for (const example of BUILTIN_EXAMPLES) {
 	globalRegistry.register(normalizedExample);
 	exampleByKey.set(normalizedExample.meta.key, normalizedExample);
 	exampleByKey.set(example.meta.key, normalizedExample);
+}
+
+for (const source of BUILTIN_EXAMPLE_SOURCES) {
+	sourceByKey.set(source.key, source);
+	sourceByKey.set(`${EXAMPLE_KEY_PREFIX}${source.key}`, source);
+	sourceByKey.set(source.packageName, source);
 }
 
 /**
@@ -67,6 +85,13 @@ export function getExampleId(exampleOrKey: ExampleSpec | string): string {
  */
 export function getExample(key: string): ExampleSpec | undefined {
 	return exampleByKey.get(key);
+}
+
+/**
+ * Get source information for downloading or linking an example package.
+ */
+export function getExampleSource(key: string): ExampleSource | undefined {
+	return sourceByKey.get(key);
 }
 
 /**

@@ -1,7 +1,7 @@
 import {
 	buildExampleDocsHref,
 	listDiscoverableExamples,
-} from '@contractspec/module.examples';
+} from '@contractspec/module.examples/catalog';
 
 const DISCOVERABLE_EXAMPLE_KEYS = listDiscoverableExamples().map(
 	(example) => example.meta.key

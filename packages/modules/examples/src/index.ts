@@ -1,15 +1,8 @@
 /**
  * @contractspec/module.examples
  *
- * Pure types + registries for ContractSpec examples.
+ * Catalog-only metadata and discovery helpers for ContractSpec examples.
+ * Runtime helpers live under @contractspec/module.examples/runtime.
  */
 
-export * from './examples.feature';
-// Core registry
-export * from './registry';
-export * from './runtime/context';
-// Runtime environment (engine, context, installer)
-export * from './runtime/engine';
-export * from './runtime/installer';
-export * from './runtime/previews';
-export * from './runtime/registry';
+export * from './catalog';

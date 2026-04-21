@@ -3,7 +3,7 @@ import type {
 	TemplateDefinition,
 	TemplateId,
 } from '@contractspec/lib.example-shared-ui';
-import { buildExampleDocsHref } from '@contractspec/module.examples';
+import { buildExampleDocsHref } from '@contractspec/module.examples/catalog';
 import Link from 'next/link';
 
 const RICH_SANDBOX_TEMPLATE_IDS = new Set<string>([

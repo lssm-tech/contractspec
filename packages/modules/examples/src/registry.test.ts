@@ -6,6 +6,7 @@ import { validateExamples } from '@contractspec/lib.contracts-spec/examples/vali
 import {
 	getExample,
 	getExampleId,
+	getExampleSource,
 	listExamples,
 	searchExamples,
 } from './registry';
@@ -87,6 +88,30 @@ describe('@contractspec/module.examples registry', () => {
 		).toBe(false);
 	});
 
+	test('package manifest should not depend on example packages', () => {
+		const manifest = readModuleExamplesManifest();
+		const dependencyNames = Object.keys(manifest.dependencies ?? {});
+
+		expect(
+			dependencyNames.filter((dependencyName) =>
+				dependencyName.startsWith('@contractspec/example.')
+			)
+		).toEqual([]);
+	});
+
+	test('generated catalog should not statically import example packages', () => {
+		const builtins = fs.readFileSync(
+			path.resolve(testDir, 'builtins.ts'),
+			'utf8'
+		);
+
+		expect(
+			/from ['"]@contractspec\/example\.|import\(['"]@contractspec\/example\./.test(
+				builtins
+			)
+		).toBe(false);
+	});
+
 	test('should include the maintained meetup registry examples', () => {
 		const exampleKeys = new Set(
 			[...listExamples()].map((example) => example.meta.key)
@@ -108,6 +133,21 @@ describe('@contractspec/module.examples registry', () => {
 		expect(example).toBeDefined();
 		expect(canonicalExample).toEqual(example);
 		expect(example && getExampleId(example)).toBe('crm-pipeline');
+	});
+
+	test('should expose git source metadata without changing ExampleSpec', () => {
+		const source = getExampleSource('crm-pipeline');
+
+		expect(source).toEqual({
+			key: 'crm-pipeline',
+			packageName: '@contractspec/example.crm-pipeline',
+			repositoryUrl: 'https://github.com/lssm-tech/contractspec.git',
+			directory: 'packages/examples/crm-pipeline',
+			defaultRef: 'main',
+		});
+		expect(getExampleSource('@contractspec/example.crm-pipeline')).toEqual(
+			source
+		);
 	});
 
 	test('should search by canonical example ids for compatibility', () => {

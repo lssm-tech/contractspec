@@ -3,7 +3,7 @@ import {
 	buildExampleDocsHref,
 	getDiscoverableExample,
 	supportsInlineExamplePreview,
-} from '@contractspec/module.examples';
+} from '@contractspec/module.examples/catalog';
 import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import { ExampleInlinePreviewSection } from '../ExampleInlinePreviewSection';

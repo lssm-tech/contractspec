@@ -2,11 +2,11 @@
 
 import { WorkspaceProjectShellLayout } from '@contractspec/bundle.library/components/shell';
 import type { TemplateId } from '@contractspec/lib.example-shared-ui';
+import { listExamples } from '@contractspec/module.examples/catalog';
 import {
-	listExamples,
 	listTemplates,
 	TemplateRuntimeProvider,
-} from '@contractspec/module.examples';
+} from '@contractspec/module.examples/runtime';
 import {
 	FileText,
 	GraduationCap,

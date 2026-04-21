@@ -3,7 +3,7 @@ import {
 	buildExampleReferenceHref,
 	getDiscoverableExample,
 	getExamplePreviewHref,
-} from '@contractspec/module.examples';
+} from '@contractspec/module.examples/catalog';
 
 export interface ExampleShowcaseData {
 	key: string;

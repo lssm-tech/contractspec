@@ -2,8 +2,8 @@ import { describe, expect, test } from 'bun:test';
 import {
 	listExamples,
 	listTemplateExamples,
-	listTemplates,
-} from '@contractspec/module.examples';
+} from '@contractspec/module.examples/catalog';
+import { listTemplates } from '@contractspec/module.examples/runtime';
 import {
 	buildLocalTemplateCatalog,
 	matchesTemplateFilters,

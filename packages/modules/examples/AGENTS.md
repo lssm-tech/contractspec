@@ -2,32 +2,35 @@
 
 Scope: `packages/modules/examples/*`
 
-Example contract specifications collection.
+Catalog-first ContractSpec example metadata, with optional runtime helpers for rich example surfaces.
 
 ## Quick Context
 
 - Layer: `module`.
 - Package visibility: published package.
-- Primary consumers are bundles and apps that compose domain-specific features.
+- Primary consumers are CLIs, editor bridges, bundles, and apps that discover or render example surfaces.
 - Related packages: `@contractspec/example.agent-console`, `@contractspec/example.ai-chat-assistant`, `@contractspec/example.ai-support-bot`, `@contractspec/example.analytics-dashboard`, `@contractspec/example.calendar-google`, `@contractspec/example.content-generation`, ...
 
 ## Architecture
 
-- `src/builtins.ts` is part of the package's public or composition surface.
+- `src/builtins.ts` is a generated literal catalog and must not statically import `@contractspec/example.*` packages.
+- `src/catalog.ts` is the metadata-only public surface.
 - `src/index.ts` is the root public barrel and package entrypoint.
 - `src/registry.test.ts` is part of the package's public or composition surface.
 - `src/registry.ts` is part of the package's public or composition surface.
-- `src/runtime` is part of the package's public or composition surface.
+- `src/runtime` is the optional rich runtime surface for consumers that intentionally install example packages.
 
 ## Public Surface
 
-- Export `.` resolves through `./src/index.ts`.
+- Export `.` resolves through `./src/index.ts` and is catalog-only.
+- Export `./catalog` resolves through `./src/catalog.ts`.
+- Export `./runtime` resolves through `./src/runtime/index.ts`.
 
 ## Guardrails
 
-- This module is a thin aggregator -- business logic belongs in individual example packages under `packages/examples/`.
-- Adding a new example requires both creating the example package and wiring it as a dependency here.
-- Depends on ~30 example workspace packages; keep the dependency list in sync with `packages/examples/`.
+- This module is a thin catalog/runtime bridge -- business logic belongs in individual example packages under `packages/examples/`.
+- Adding a new example requires creating the example package and regenerating the catalog with `bun run generate:registry`; do not add it as a direct dependency here.
+- Root/catalog imports must remain metadata-only. Rich runtime consumers should import `@contractspec/module.examples/runtime` and own any required `@contractspec/example.*` dependencies directly.
 - Changes here can affect downstream packages such as `@contractspec/example.agent-console`, `@contractspec/example.ai-chat-assistant`, `@contractspec/example.ai-support-bot`, `@contractspec/example.analytics-dashboard`, `@contractspec/example.calendar-google`, `@contractspec/example.content-generation`, ....
 
 ## Local Commands

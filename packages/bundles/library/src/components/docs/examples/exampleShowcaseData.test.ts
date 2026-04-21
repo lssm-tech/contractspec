@@ -1,5 +1,5 @@
 import { describe, expect, test } from 'bun:test';
-import { listDiscoverableExamples } from '@contractspec/module.examples';
+import { listDiscoverableExamples } from '@contractspec/module.examples/catalog';
 import { getExampleShowcaseData } from './exampleShowcaseData';
 
 describe('example showcase data', () => {

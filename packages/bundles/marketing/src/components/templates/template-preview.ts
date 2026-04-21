@@ -2,7 +2,7 @@ import type {
 	RegistryTemplate,
 	TemplateId,
 } from '@contractspec/lib.example-shared-ui';
-import { supportsInlineExamplePreview } from '@contractspec/module.examples';
+import { supportsInlineExamplePreview } from '@contractspec/module.examples/catalog';
 import type { LocalTemplateCatalogItem } from './template-catalog';
 
 export type TemplatePreviewAction =

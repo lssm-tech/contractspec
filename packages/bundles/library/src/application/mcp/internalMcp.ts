@@ -12,7 +12,7 @@ import {
 	getExample,
 	listExamples,
 	searchExamples,
-} from '@contractspec/module.examples';
+} from '@contractspec/module.examples/catalog';
 import z from 'zod';
 import { appLogger } from '../../infrastructure/elysia/logger';
 import { createMcpElysiaHandler } from './common';

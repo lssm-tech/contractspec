@@ -45,6 +45,7 @@
 		"@contractspec/example.marketplace": "workspace:*",
 		"@contractspec/example.integration-hub": "workspace:*",
 		"@contractspec/example.in-app-docs": "workspace:*",
+		"@contractspec/example.learning-journey-registry": "workspace:*",
 		"@contractspec/example.analytics-dashboard": "workspace:*",
 		"@contractspec/example.visualization-showcase": "workspace:*",
 		"@contractspec/example.policy-safe-knowledge-assistant": "workspace:*",

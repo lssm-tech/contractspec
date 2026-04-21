@@ -11,69 +11,152 @@ export const INLINE_EXAMPLE_PREVIEW_REGISTRY: readonly GeneratedInlineExamplePre
 		{
 			key: 'agent-console',
 			exportName: 'ExecutionConsoleHost',
-			loadModule: () => import('@contractspec/example.agent-console/ui'),
+			loadModule: () =>
+				import('@contractspec/example.agent-console/ui').catch((error) => {
+					throw new Error(
+						'Example package @contractspec/example.agent-console is not installed. Run `contractspec examples download agent-console` or install the package before requesting its runtime preview.',
+						{ cause: error }
+					);
+				}),
 		},
 		{
 			key: 'ai-chat-assistant',
 			exportName: 'AiChatAssistantDashboard',
-			loadModule: () => import('@contractspec/example.ai-chat-assistant/ui'),
+			loadModule: () =>
+				import('@contractspec/example.ai-chat-assistant/ui').catch((error) => {
+					throw new Error(
+						'Example package @contractspec/example.ai-chat-assistant is not installed. Run `contractspec examples download ai-chat-assistant` or install the package before requesting its runtime preview.',
+						{ cause: error }
+					);
+				}),
 		},
 		{
 			key: 'analytics-dashboard',
 			exportName: 'AnalyticsDashboard',
-			loadModule: () => import('@contractspec/example.analytics-dashboard/ui'),
+			loadModule: () =>
+				import('@contractspec/example.analytics-dashboard/ui').catch(
+					(error) => {
+						throw new Error(
+							'Example package @contractspec/example.analytics-dashboard is not installed. Run `contractspec examples download analytics-dashboard` or install the package before requesting its runtime preview.',
+							{ cause: error }
+						);
+					}
+				),
 		},
 		{
 			key: 'crm-pipeline',
 			exportName: 'CrmDashboard',
-			loadModule: () => import('@contractspec/example.crm-pipeline/ui'),
+			loadModule: () =>
+				import('@contractspec/example.crm-pipeline/ui').catch((error) => {
+					throw new Error(
+						'Example package @contractspec/example.crm-pipeline is not installed. Run `contractspec examples download crm-pipeline` or install the package before requesting its runtime preview.',
+						{ cause: error }
+					);
+				}),
 		},
 		{
 			key: 'data-grid-showcase',
 			exportName: 'DataGridShowcase',
-			loadModule: () => import('@contractspec/example.data-grid-showcase/ui'),
+			loadModule: () =>
+				import('@contractspec/example.data-grid-showcase/ui').catch((error) => {
+					throw new Error(
+						'Example package @contractspec/example.data-grid-showcase is not installed. Run `contractspec examples download data-grid-showcase` or install the package before requesting its runtime preview.',
+						{ cause: error }
+					);
+				}),
 		},
 		{
 			key: 'in-app-docs',
 			exportName: 'InAppDocsViewer',
-			loadModule: () => import('@contractspec/example.in-app-docs/ui'),
+			loadModule: () =>
+				import('@contractspec/example.in-app-docs/ui').catch((error) => {
+					throw new Error(
+						'Example package @contractspec/example.in-app-docs is not installed. Run `contractspec examples download in-app-docs` or install the package before requesting its runtime preview.',
+						{ cause: error }
+					);
+				}),
 		},
 		{
 			key: 'integration-hub',
 			exportName: 'IntegrationDashboard',
-			loadModule: () => import('@contractspec/example.integration-hub/ui'),
+			loadModule: () =>
+				import('@contractspec/example.integration-hub/ui').catch((error) => {
+					throw new Error(
+						'Example package @contractspec/example.integration-hub is not installed. Run `contractspec examples download integration-hub` or install the package before requesting its runtime preview.',
+						{ cause: error }
+					);
+				}),
 		},
 		{
 			key: 'learning-journey-registry',
 			exportName: 'LearningMiniApp',
 			loadModule: () =>
-				import('@contractspec/example.learning-journey-registry/ui'),
+				import('@contractspec/example.learning-journey-registry/ui').catch(
+					(error) => {
+						throw new Error(
+							'Example package @contractspec/example.learning-journey-registry is not installed. Run `contractspec examples download learning-journey-registry` or install the package before requesting its runtime preview.',
+							{ cause: error }
+						);
+					}
+				),
 		},
 		{
 			key: 'marketplace',
 			exportName: 'MarketplaceDashboard',
-			loadModule: () => import('@contractspec/example.marketplace/ui'),
+			loadModule: () =>
+				import('@contractspec/example.marketplace/ui').catch((error) => {
+					throw new Error(
+						'Example package @contractspec/example.marketplace is not installed. Run `contractspec examples download marketplace` or install the package before requesting its runtime preview.',
+						{ cause: error }
+					);
+				}),
 		},
 		{
 			key: 'policy-safe-knowledge-assistant',
 			exportName: 'PolicySafeKnowledgeAssistantDashboard',
 			loadModule: () =>
-				import('@contractspec/example.policy-safe-knowledge-assistant/ui'),
+				import(
+					'@contractspec/example.policy-safe-knowledge-assistant/ui'
+				).catch((error) => {
+					throw new Error(
+						'Example package @contractspec/example.policy-safe-knowledge-assistant is not installed. Run `contractspec examples download policy-safe-knowledge-assistant` or install the package before requesting its runtime preview.',
+						{ cause: error }
+					);
+				}),
 		},
 		{
 			key: 'saas-boilerplate',
 			exportName: 'SaasDashboard',
-			loadModule: () => import('@contractspec/example.saas-boilerplate/ui'),
+			loadModule: () =>
+				import('@contractspec/example.saas-boilerplate/ui').catch((error) => {
+					throw new Error(
+						'Example package @contractspec/example.saas-boilerplate is not installed. Run `contractspec examples download saas-boilerplate` or install the package before requesting its runtime preview.',
+						{ cause: error }
+					);
+				}),
 		},
 		{
 			key: 'visualization-showcase',
 			exportName: 'VisualizationShowcase',
 			loadModule: () =>
-				import('@contractspec/example.visualization-showcase/ui'),
+				import('@contractspec/example.visualization-showcase/ui').catch(
+					(error) => {
+						throw new Error(
+							'Example package @contractspec/example.visualization-showcase is not installed. Run `contractspec examples download visualization-showcase` or install the package before requesting its runtime preview.',
+							{ cause: error }
+						);
+					}
+				),
 		},
 		{
 			key: 'workflow-system',
 			exportName: 'WorkflowDashboard',
-			loadModule: () => import('@contractspec/example.workflow-system/ui'),
+			loadModule: () =>
+				import('@contractspec/example.workflow-system/ui').catch((error) => {
+					throw new Error(
+						'Example package @contractspec/example.workflow-system is not installed. Run `contractspec examples download workflow-system` or install the package before requesting its runtime preview.',
+						{ cause: error }
+					);
+				}),
 		},
 	];

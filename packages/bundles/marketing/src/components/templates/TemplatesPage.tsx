@@ -13,7 +13,7 @@ import {
 } from '@contractspec/lib.design-system';
 import type { TemplateDefinition } from '@contractspec/lib.example-shared-ui';
 import { HStack, VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
-import { listTemplates } from '@contractspec/module.examples';
+import { listTemplates } from '@contractspec/module.examples/runtime';
 import { useMemo, useState } from 'react';
 
 function matchesQuery(t: TemplateDefinition, query: string): boolean {

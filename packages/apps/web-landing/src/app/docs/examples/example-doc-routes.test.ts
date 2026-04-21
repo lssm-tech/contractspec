@@ -3,7 +3,7 @@ import {
 	buildExampleDocsHref,
 	getExample,
 	listDiscoverableExamples,
-} from '@contractspec/module.examples';
+} from '@contractspec/module.examples/catalog';
 import {
 	isDiscoverableExampleKey,
 	listDiscoverableExampleDocsRoutes,

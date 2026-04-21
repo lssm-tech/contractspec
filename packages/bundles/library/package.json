@@ -346,6 +346,7 @@
 		"@contractspec/bundle.workspace": "workspace:*",
 		"@apollo/client": "^4.1.7",
 		"@modelcontextprotocol/sdk": "catalog:ai",
+		"@contractspec/example.data-grid-showcase": "workspace:*",
 		"@contractspec/lib.ai-providers": "workspace:*",
 		"@contractspec/lib.contracts-spec": "workspace:*",
 		"@contractspec/lib.contracts-library": "workspace:*",

@@ -6,7 +6,7 @@ import {
 	getExample,
 	listExamples,
 	searchExamples,
-} from '@contractspec/module.examples';
+} from '@contractspec/module.examples/catalog';
 import * as vscode from 'vscode';
 
 interface ExampleSummary {

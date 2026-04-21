@@ -1,8 +1,6 @@
 import { describe, expect, test } from 'bun:test';
-import {
-	getDiscoverableExample,
-	getTemplate,
-} from '@contractspec/module.examples';
+import { getDiscoverableExample } from '@contractspec/module.examples/catalog';
+import { getTemplate } from '@contractspec/module.examples/runtime';
 import { renderToStaticMarkup } from 'react-dom/server';
 import {
 	hasRichSandboxPreview,

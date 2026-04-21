@@ -3,7 +3,7 @@
 import type { TemplateId } from '@contractspec/lib.example-shared-ui';
 import { Dialog, DialogContent } from '@contractspec/lib.ui-kit-web/ui/dialog';
 import { ScrollArea } from '@contractspec/lib.ui-kit-web/ui/scroll-area';
-import { TemplateRuntimeProvider } from '@contractspec/module.examples';
+import { TemplateRuntimeProvider } from '@contractspec/module.examples/runtime';
 import { TemplatePreviewContent } from './TemplatePreviewContent';
 import { supportsInlineTemplatePreview } from './template-preview';
 

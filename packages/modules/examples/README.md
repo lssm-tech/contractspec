@@ -2,12 +2,12 @@
 
 Website: https://contractspec.io
 
-**Example contract specifications collection.**
+**Catalog-first ContractSpec example metadata, with optional runtime helpers for rich example surfaces.**
 
 ## What It Provides
 
 - **Layer**: module.
-- **Consumers**: apps (web-landing, docs), bundles (contractspec-studio).
+- **Consumers**: CLIs, editor bridges, apps, docs, and rich sandbox/template surfaces.
 - Related ContractSpec packages include `@contractspec/example.agent-console`, `@contractspec/example.ai-chat-assistant`, `@contractspec/example.ai-support-bot`, `@contractspec/example.analytics-dashboard`, `@contractspec/example.calendar-google`, `@contractspec/example.content-generation`, ...
 - `agent-console` is the default autonomous-agent showcase surfaced through `/sandbox`.
 - `data-grid-showcase` is the canonical ContractSpec table showcase surfaced through `/sandbox?template=data-grid-showcase` and `/docs/examples/data-grid-showcase`.
@@ -22,19 +22,36 @@ or
 
 ## Usage
 
-Import the root entrypoint from `@contractspec/module.examples`, or choose a documented subpath when you only need one part of the package surface.
+Use the root entrypoint or `@contractspec/module.examples/catalog` for metadata-only discovery. Use `@contractspec/module.examples/runtime` only when rendering rich template previews or sandbox runtime surfaces.
+
+```ts
+import { getExample, listExamples } from '@contractspec/module.examples/catalog';
+```
+
+```ts
+import { TemplateRuntimeProvider, listTemplates } from '@contractspec/module.examples/runtime';
+```
+
+The catalog contains source metadata for each example. CLI users can fetch a full example only when needed:
+
+```sh
+contractspec examples download minimal --out-dir ./examples/minimal
+```
 
 ## Architecture
 
-- `src/builtins.ts` is part of the package's public or composition surface.
+- `src/builtins.ts` is a generated literal catalog and must not statically import `@contractspec/example.*` packages.
+- `src/catalog.ts` is the metadata-only public surface.
 - `src/index.ts` is the root public barrel and package entrypoint.
 - `src/registry.test.ts` is part of the package's public or composition surface.
 - `src/registry.ts` is part of the package's public or composition surface.
-- `src/runtime` is part of the package's public or composition surface.
+- `src/runtime` is the optional rich runtime surface for consumers that intentionally install example packages.
 
 ## Public Entry Points
 
-- Export `.` resolves through `./src/index.ts`.
+- Export `.` resolves through `./src/index.ts` and is catalog-only.
+- Export `./catalog` resolves through `./src/catalog.ts`.
+- Export `./runtime` resolves through `./src/runtime/index.ts`.
 
 ## Local Commands
 
@@ -62,8 +79,8 @@ Import the root entrypoint from `@contractspec/module.examples`, or choose a doc
 
 ## Notes
 
-- This module is a thin aggregator -- business logic belongs in individual example packages under `packages/examples/`.
-- Adding a new example requires both creating the example package and wiring it as a dependency here.
-- Depends on ~30 example workspace packages; keep the dependency list in sync with `packages/examples/`.
+- This module is a thin catalog/runtime bridge -- business logic belongs in individual example packages under `packages/examples/`.
+- Adding a new example requires creating the example package and regenerating the catalog with `bun run generate:registry`; do not add it as a direct dependency here.
+- Root/catalog imports must remain metadata-only. Rich runtime consumers should import `@contractspec/module.examples/runtime` and own any required `@contractspec/example.*` dependencies directly.
 - The meetup-ready autonomous-agent path is the deterministic `agent-console` sandbox plus its replay proof lane.
 - The shared ContractSpec table stack is demonstrated directly by `data-grid-showcase` and reused in `analytics-dashboard`, `crm-pipeline`, `integration-hub`, and `agent-console`.
