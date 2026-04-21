@@ -1,5 +1,24 @@
 # @contractspec/module.ai-chat
 
+## 4.3.23
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Reduce published install and bundle size by optionalizing heavy runtime families and adding a repo dependency audit.
+  - @contractspec/lib.design-system@3.11.1
+  - @contractspec/lib.ui-kit-web@3.11.0
+  - @contractspec/integration.workflow-devkit@0.1.7
+  - @contractspec/lib.ai-agent@8.0.9
+  - @contractspec/lib.ai-providers@3.7.14
+  - @contractspec/lib.contracts-spec@5.5.0
+  - @contractspec/lib.cost-tracking@3.7.14
+  - @contractspec/lib.metering@3.7.21
+  - @contractspec/lib.schema@3.7.14
+  - @contractspec/lib.surface-runtime@0.5.21
+  - @contractspec/lib.workflow-composer@3.7.21
+
 ## 4.3.22
 
 ### Patch Changes

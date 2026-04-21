@@ -1,5 +1,47 @@
 # @contractspec/app.expo-demo
 
+## 1.1.24
+
+### Patch Changes
+
+- Stabilize Expo mobile chart rendering by avoiding CommonJS tslib helper resolution and completing native gesture-handler setup.
+  - Packages: @contractspec/lib.presentation-runtime-core (patch), @contractspec/app.expo-demo (patch)
+  - Migration: Native Metro resolver changes and gesture-handler entry setup require a clean dev-server restart.
+- Promote the Expo demo Examples surface to first-class navigation and reuse shared preview components so mobile and web example previews stay aligned.
+  - Packages: @contractspec/app.expo-demo (patch), @contractspec/app.web-landing (patch), @contractspec/bundle.library (patch), @contractspec/bundle.marketing (patch), @contractspec/example.agent-console (patch), @contractspec/module.examples (minor)
+  - Migration: Rich example previews should reuse cross-platform components through the UI kit alias layer before falling back to app-local native summaries.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Reduce published install and bundle size by optionalizing heavy runtime families and adding a repo dependency audit.
+- Updated dependencies because of Stabilize Expo mobile chart rendering by avoiding CommonJS tslib helper resolution and completing native gesture-handler setup.
+- Updated dependencies because of Promote the Expo demo Examples surface to first-class navigation and reuse shared preview components so mobile and web example previews stay aligned.
+- Updated dependencies because of Split example discovery from rich runtime packages so lightweight consumers no longer install every ContractSpec example.
+  - @contractspec/example.ai-chat-assistant@3.8.15
+  - @contractspec/example.analytics-dashboard@3.9.15
+  - @contractspec/example.crm-pipeline@3.7.23
+  - @contractspec/example.data-grid-showcase@3.8.15
+  - @contractspec/example.in-app-docs@3.7.23
+  - @contractspec/example.integration-hub@3.8.15
+  - @contractspec/example.learning-journey-registry@4.0.3
+  - @contractspec/example.marketplace@3.8.15
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.23
+  - @contractspec/example.saas-boilerplate@3.8.15
+  - @contractspec/example.video-api-showcase@3.7.23
+  - @contractspec/example.video-docs-terminal@3.7.23
+  - @contractspec/example.visualization-showcase@3.9.15
+  - @contractspec/example.workflow-system@3.8.15
+  - @contractspec/lib.presentation-runtime-react-native@38.0.1
+  - @contractspec/lib.ui-kit@4.0.0
+  - @contractspec/example.voice-providers@3.7.22
+  - @contractspec/example.meeting-recorder-providers@3.7.22
+  - @contractspec/lib.presentation-runtime-core@5.0.1
+  - @contractspec/bundle.marketing@3.8.16
+  - @contractspec/example.agent-console@3.8.15
+  - @contractspec/module.examples@4.0.0
+  - @contractspec/example.pocket-family-office@3.7.21
+  - @contractspec/lib.contracts-spec@5.5.0
+  - @contractspec/lib.schema@3.7.14
+  - @contractspec/lib.ui-kit-core@3.8.1
+
 ## 1.1.22
 
 ### Patch Changes

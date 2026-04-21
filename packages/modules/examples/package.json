@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/module.examples",
-	"version": "3.10.0",
+	"version": "4.0.0",
 	"description": "Example contract specifications collection",
 	"keywords": [
 		"contractspec",

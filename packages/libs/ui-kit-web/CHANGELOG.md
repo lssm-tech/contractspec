@@ -1,5 +1,20 @@
 # @contractspec/lib.ui-kit-web
 
+## 3.11.0
+
+### Minor Changes
+
+- Reduce published install and bundle size by optionalizing heavy runtime families and adding a repo dependency audit.
+  - Packages: @contractspec/lib.ui-kit (major), @contractspec/integration.providers-impls (major), @contractspec/lib.runtime-sandbox (major), @contractspec/lib.example-shared-ui (major), @contractspec/lib.video-gen (major), @contractspec/lib.ui-kit-web (minor), @contractspec/app.cli-contractspec (minor), @contractspec/app.api-library (patch), @contractspec/app.registry-packs (patch), vscode-contractspec (patch), @contractspec/example.project-management-sync (patch), @contractspec/example.voice-providers (patch), @contractspec/example.meeting-recorder-providers (patch), @contractspec/example.integration-posthog (patch), contractspec (patch)
+  - Migration: Consumers using native UI, provider implementations, sandbox database/runtime, example runtime UI, or Remotion video subpaths should add the corresponding optional peer packages directly to their app/package dependencies.; Replace broad `@contractspec/integration.providers-impls/impls` imports with provider-specific subpaths such as `@contractspec/integration.providers-impls/impls/linear`.; Run `bun run deps:audit --json` before and after dependency changes to compare runtime edges, heavy dependency families, and package dist sizes.
+
+### Patch Changes
+
+- Updated dependencies because of Stabilize Expo mobile chart rendering by avoiding CommonJS tslib helper resolution and completing native gesture-handler setup.
+  - @contractspec/lib.presentation-runtime-core@5.0.1
+  - @contractspec/lib.contracts-spec@5.5.0
+  - @contractspec/lib.ui-kit-core@3.8.1
+
 ## 3.10.3
 
 ### Patch Changes

@@ -1,5 +1,24 @@
 # Changelog
 
+## 3.10.3
+
+### Patch Changes
+
+- Reduce published install and bundle size by optionalizing heavy runtime families and adding a repo dependency audit.
+  - Packages: @contractspec/lib.ui-kit (major), @contractspec/integration.providers-impls (major), @contractspec/lib.runtime-sandbox (major), @contractspec/lib.example-shared-ui (major), @contractspec/lib.video-gen (major), @contractspec/lib.ui-kit-web (minor), @contractspec/app.cli-contractspec (minor), @contractspec/app.api-library (patch), @contractspec/app.registry-packs (patch), vscode-contractspec (patch), @contractspec/example.project-management-sync (patch), @contractspec/example.voice-providers (patch), @contractspec/example.meeting-recorder-providers (patch), @contractspec/example.integration-posthog (patch), contractspec (patch)
+  - Migration: Consumers using native UI, provider implementations, sandbox database/runtime, example runtime UI, or Remotion video subpaths should add the corresponding optional peer packages directly to their app/package dependencies.; Replace broad `@contractspec/integration.providers-impls/impls` imports with provider-specific subpaths such as `@contractspec/integration.providers-impls/impls/linear`.; Run `bun run deps:audit --json` before and after dependency changes to compare runtime edges, heavy dependency families, and package dist sizes.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Promote the Expo demo Examples surface to first-class navigation and reuse shared preview components so mobile and web example previews stay aligned.
+- Updated dependencies because of Split example discovery from rich runtime packages so lightweight consumers no longer install every ContractSpec example.
+  - @contractspec/module.ai-chat@4.3.23
+  - @contractspec/module.examples@4.0.0
+  - @contractspec/bundle.workspace@4.5.1
+  - @contractspec/lib.ai-agent@8.0.9
+  - @contractspec/lib.ai-providers@3.7.14
+  - @contractspec/lib.contracts-spec@5.5.0
+  - @contractspec/lib.contracts-transformers@3.7.21
+  - @contractspec/module.workspace@4.3.1
+
 ## 3.10.2
 
 ### Patch Changes

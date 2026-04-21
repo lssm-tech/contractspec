@@ -1,5 +1,23 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 3.7.23
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Reduce published install and bundle size by optionalizing heavy runtime families and adding a repo dependency audit.
+  - @contractspec/lib.design-system@3.11.1
+  - @contractspec/lib.runtime-sandbox@3.0.0
+  - @contractspec/lib.example-shared-ui@7.0.0
+  - @contractspec/lib.ui-kit-web@3.11.0
+  - @contractspec/example.kb-update-pipeline@3.7.21
+  - @contractspec/example.learning-patterns@4.0.1
+  - @contractspec/example.locale-jurisdiction-gate@3.7.21
+  - @contractspec/example.versioned-knowledge-base@3.7.21
+  - @contractspec/lib.contracts-spec@5.5.0
+  - @contractspec/module.learning-journey@4.0.1
+
 ## 3.7.22
 
 ### Patch Changes

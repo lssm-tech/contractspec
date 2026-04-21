@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/module.mobile-review",
-	"version": "0.2.4",
+	"version": "0.2.5",
 	"description": "Reusable mobile-first Builder review surfaces.",
 	"keywords": [
 		"contractspec",

@@ -1,5 +1,46 @@
 # @contractspec/bundle.marketing
 
+## 3.8.16
+
+### Patch Changes
+
+- Promote the Expo demo Examples surface to first-class navigation and reuse shared preview components so mobile and web example previews stay aligned.
+  - Packages: @contractspec/app.expo-demo (patch), @contractspec/app.web-landing (patch), @contractspec/bundle.library (patch), @contractspec/bundle.marketing (patch), @contractspec/example.agent-console (patch), @contractspec/module.examples (minor)
+  - Migration: Rich example previews should reuse cross-platform components through the UI kit alias layer before falling back to app-local native summaries.
+- Split example discovery from rich runtime packages so lightweight consumers no longer install every ContractSpec example.
+  - Packages: @contractspec/module.examples (major), @contractspec/app.cli-contractspec (minor), @contractspec/bundle.marketing (patch), @contractspec/bundle.library (patch)
+  - Migration: Replace runtime imports such as `TemplateRuntimeProvider`, `listTemplates`, and inline preview loaders from `@contractspec/module.examples` with `@contractspec/module.examples/runtime`.; Import `listExamples`, `getExample`, `searchExamples`, route helpers, and source metadata from `@contractspec/module.examples/catalog` when runnable example code is not needed.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Reduce published install and bundle size by optionalizing heavy runtime families and adding a repo dependency audit.
+- Updated dependencies because of Promote the Expo demo Examples surface to first-class navigation and reuse shared preview components so mobile and web example previews stay aligned.
+- Updated dependencies because of Split example discovery from rich runtime packages so lightweight consumers no longer install every ContractSpec example.
+  - @contractspec/example.ai-chat-assistant@3.8.15
+  - @contractspec/example.analytics-dashboard@3.9.15
+  - @contractspec/example.crm-pipeline@3.7.23
+  - @contractspec/example.data-grid-showcase@3.8.15
+  - @contractspec/example.in-app-docs@3.7.23
+  - @contractspec/example.integration-hub@3.8.15
+  - @contractspec/example.learning-journey-registry@4.0.3
+  - @contractspec/example.marketplace@3.8.15
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.23
+  - @contractspec/example.saas-boilerplate@3.8.15
+  - @contractspec/example.visualization-showcase@3.9.15
+  - @contractspec/example.workflow-system@3.8.15
+  - @contractspec/lib.contracts-runtime-client-react@3.10.1
+  - @contractspec/lib.design-system@3.11.1
+  - @contractspec/lib.runtime-sandbox@3.0.0
+  - @contractspec/lib.example-shared-ui@7.0.0
+  - @contractspec/lib.ui-kit-web@3.11.0
+  - @contractspec/bundle.library@3.9.3
+  - @contractspec/example.agent-console@3.8.15
+  - @contractspec/module.examples@4.0.0
+  - @contractspec/lib.contracts-spec@5.5.0
+  - @contractspec/lib.email@3.7.14
+  - @contractspec/lib.logger@3.7.14
+  - @contractspec/lib.surface-runtime@0.5.21
+  - @contractspec/lib.ui-kit-core@3.8.1
+  - @contractspec/lib.ui-link@3.7.16
+
 ## 3.8.15
 
 ### Patch Changes

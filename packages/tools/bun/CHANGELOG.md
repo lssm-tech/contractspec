@@ -1,5 +1,13 @@
 # @contractspec/tool.bun
 
+## 3.7.16
+
+### Patch Changes
+
+- Teach contractspec-bun-build to publish public CSS style files as direct style conditional subpath exports.
+  - Packages: @contractspec/tool.bun (patch)
+  - Migration: Run `contractspec-bun-build prebuild` in packages that should publish direct CSS subpath exports.; Import package styles from direct subpaths such as `@scope/package/styles/globals.css` after the package has regenerated exports and rebuilt artifacts.
+
 ## 3.7.15
 
 ### Patch Changes

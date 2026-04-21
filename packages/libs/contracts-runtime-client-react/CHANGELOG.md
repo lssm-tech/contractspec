@@ -1,5 +1,15 @@
 # @contractspec/lib.contracts-runtime-client-react
 
+## 3.10.1
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Stabilize Expo mobile chart rendering by avoiding CommonJS tslib helper resolution and completing native gesture-handler setup.
+  - @contractspec/lib.presentation-runtime-core@5.0.1
+  - @contractspec/lib.contracts-spec@5.5.0
+  - @contractspec/lib.schema@3.7.14
+
 ## 3.10.0
 
 ### Minor Changes

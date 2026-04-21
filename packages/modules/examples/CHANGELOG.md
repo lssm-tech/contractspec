@@ -1,5 +1,30 @@
 # @contractspec/module.examples
 
+## 4.0.0
+
+### Major Changes
+
+- Split example discovery from rich runtime packages so lightweight consumers no longer install every ContractSpec example.
+  - Packages: @contractspec/module.examples (major), @contractspec/app.cli-contractspec (minor), @contractspec/bundle.marketing (patch), @contractspec/bundle.library (patch)
+  - Migration: Replace runtime imports such as `TemplateRuntimeProvider`, `listTemplates`, and inline preview loaders from `@contractspec/module.examples` with `@contractspec/module.examples/runtime`.; Import `listExamples`, `getExample`, `searchExamples`, route helpers, and source metadata from `@contractspec/module.examples/catalog` when runnable example code is not needed.
+
+### Minor Changes
+
+- Promote the Expo demo Examples surface to first-class navigation and reuse shared preview components so mobile and web example previews stay aligned.
+  - Packages: @contractspec/app.expo-demo (patch), @contractspec/app.web-landing (patch), @contractspec/bundle.library (patch), @contractspec/bundle.marketing (patch), @contractspec/example.agent-console (patch), @contractspec/module.examples (minor)
+  - Migration: Rich example previews should reuse cross-platform components through the UI kit alias layer before falling back to app-local native summaries.
+
+### Patch Changes
+
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Reduce published install and bundle size by optionalizing heavy runtime families and adding a repo dependency audit.
+- Updated dependencies because of Stabilize Expo mobile chart rendering by avoiding CommonJS tslib helper resolution and completing native gesture-handler setup.
+  - @contractspec/lib.contracts-runtime-client-react@3.10.1
+  - @contractspec/lib.runtime-sandbox@3.0.0
+  - @contractspec/lib.example-shared-ui@7.0.0
+  - @contractspec/lib.presentation-runtime-core@5.0.1
+  - @contractspec/lib.contracts-spec@5.5.0
+
 ## 3.10.0
 
 ### Minor Changes

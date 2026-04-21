@@ -1,5 +1,18 @@
 # @contractspec/example.product-intent
 
+## 3.7.22
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Reduce published install and bundle size by optionalizing heavy runtime families and adding a repo dependency audit.
+  - @contractspec/integration.providers-impls@4.0.0
+  - @contractspec/lib.ai-agent@8.0.9
+  - @contractspec/lib.analytics@3.7.21
+  - @contractspec/lib.contracts-integrations@3.8.13
+  - @contractspec/lib.contracts-spec@5.5.0
+  - @contractspec/lib.product-intent-utils@3.7.21
+
 ## 3.7.21
 
 ### Patch Changes

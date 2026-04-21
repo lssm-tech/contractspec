@@ -1,5 +1,17 @@
 # @contractspec/lib.data-exchange-client
 
+## 0.2.2
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Reduce published install and bundle size by optionalizing heavy runtime families and adding a repo dependency audit.
+  - @contractspec/lib.presentation-runtime-react@38.0.1
+  - @contractspec/lib.ui-kit-web@3.11.0
+  - @contractspec/lib.contracts-spec@5.5.0
+  - @contractspec/lib.data-exchange-core@0.2.1
+
 ## 0.2.1
 
 ### Patch Changes

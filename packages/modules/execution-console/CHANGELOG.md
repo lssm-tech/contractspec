@@ -1,5 +1,15 @@
 # @contractspec/module.execution-console
 
+## 0.1.6
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Reduce published install and bundle size by optionalizing heavy runtime families and adding a repo dependency audit.
+  - @contractspec/lib.ui-kit-web@3.11.0
+  - @contractspec/lib.contracts-spec@5.5.0
+  - @contractspec/lib.execution-lanes@0.1.4
+
 ## 0.1.5
 
 ### Patch Changes

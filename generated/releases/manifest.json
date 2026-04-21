@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-21T06:55:52.446Z",
+  "generatedAt": "2026-04-21T15:09:27.909Z",
   "releases": [
     {
       "slug": "adoption-engine-and-authoring-targets",
@@ -26,17 +26,17 @@
         {
           "name": "@contractspec/bundle.library",
           "releaseType": "minor",
-          "version": "3.9.2"
+          "version": "3.9.3"
         },
         {
           "name": "@contractspec/app.cli-contractspec",
           "releaseType": "minor",
-          "version": "6.0.2"
+          "version": "6.1.0"
         },
         {
           "name": "vscode-contractspec",
           "releaseType": "minor",
-          "version": "3.10.2"
+          "version": "3.10.3"
         },
         {
           "name": "contractspec",
@@ -190,7 +190,7 @@
         {
           "name": "@contractspec/app.cli-contractspec",
           "releaseType": "patch",
-          "version": "6.0.2"
+          "version": "6.1.0"
         }
       ],
       "affectedRuntimes": [
@@ -275,12 +275,12 @@
         {
           "name": "@contractspec/module.builder-workbench",
           "releaseType": "minor",
-          "version": "0.2.4"
+          "version": "0.2.5"
         },
         {
           "name": "@contractspec/module.mobile-review",
           "releaseType": "minor",
-          "version": "0.2.4"
+          "version": "0.2.5"
         },
         {
           "name": "@contractspec/integration.runtime.local",
@@ -295,12 +295,12 @@
         {
           "name": "@contractspec/app.cli-contractspec",
           "releaseType": "minor",
-          "version": "6.0.2"
+          "version": "6.1.0"
         },
         {
           "name": "@contractspec/bundle.library",
           "releaseType": "patch",
-          "version": "3.9.2"
+          "version": "3.9.3"
         }
       ],
       "affectedRuntimes": [
@@ -416,12 +416,12 @@
         {
           "name": "@contractspec/module.builder-workbench",
           "releaseType": "minor",
-          "version": "0.2.4"
+          "version": "0.2.5"
         },
         {
           "name": "@contractspec/module.mobile-review",
           "releaseType": "minor",
-          "version": "0.2.4"
+          "version": "0.2.5"
         },
         {
           "name": "@contractspec/integration.runtime",
@@ -589,7 +589,7 @@
         {
           "name": "@contractspec/app.cli-contractspec",
           "releaseType": "major",
-          "version": "6.0.2"
+          "version": "6.1.0"
         },
         {
           "name": "@contractspec/action.version",
@@ -704,7 +704,7 @@
     },
     {
       "slug": "cli-onboard-guided-adoption",
-      "version": "6.0.2",
+      "version": "6.1.0",
       "summary": "Add a CLI-first onboarding workflow that reuses Connect adoption guidance, models guided onboarding through the surface runtime, generates managed AGENTS/USAGE guides, and exposes the same onboarding tracks through the CLI MCP surface and docs entrypoints.",
       "date": "2026-04-19",
       "isBreaking": false,
@@ -712,7 +712,7 @@
         {
           "name": "@contractspec/app.cli-contractspec",
           "releaseType": "minor",
-          "version": "6.0.2"
+          "version": "6.1.0"
         },
         {
           "name": "@contractspec/bundle.workspace",
@@ -722,7 +722,7 @@
         {
           "name": "@contractspec/bundle.library",
           "releaseType": "minor",
-          "version": "3.9.2"
+          "version": "3.9.3"
         }
       ],
       "affectedRuntimes": [
@@ -843,12 +843,12 @@
         {
           "name": "@contractspec/app.cli-contractspec",
           "releaseType": "minor",
-          "version": "6.0.2"
+          "version": "6.1.0"
         },
         {
           "name": "@contractspec/bundle.library",
           "releaseType": "patch",
-          "version": "3.9.2"
+          "version": "3.9.3"
         },
         {
           "name": "agentpacks",
@@ -962,7 +962,7 @@
         {
           "name": "@contractspec/app.cli-contractspec",
           "releaseType": "minor",
-          "version": "6.0.2"
+          "version": "6.1.0"
         }
       ],
       "affectedRuntimes": [
@@ -1069,7 +1069,7 @@
     },
     {
       "slug": "cross-platform-ui-docs",
-      "version": "3.9.2",
+      "version": "3.9.3",
       "summary": "Add a dedicated cross-platform UI docs page and AGENTS/rules guidance that explain how the React, React Native, runtime, primitive UI, and design-system layers stay compatible.",
       "date": "2026-04-20",
       "isBreaking": false,
@@ -1077,7 +1077,7 @@
         {
           "name": "@contractspec/bundle.library",
           "releaseType": "patch",
-          "version": "3.9.2"
+          "version": "3.9.3"
         }
       ],
       "affectedRuntimes": [
@@ -1149,7 +1149,7 @@
         {
           "name": "@contractspec/lib.data-exchange-client",
           "releaseType": "minor",
-          "version": "0.2.1"
+          "version": "0.2.2"
         },
         {
           "name": "@contractspec/lib.exporter",
@@ -1254,7 +1254,7 @@
     },
     {
       "slug": "data-table-ux-stability-upgrade",
-      "version": "3.11.0",
+      "version": "3.11.1",
       "summary": "Harden the shared data-table stack and add a first-class composed toolbar for search, filter chips, selection summary, and hidden-column recovery.",
       "date": "2026-04-19",
       "isBreaking": false,
@@ -1262,32 +1262,32 @@
         {
           "name": "@contractspec/lib.design-system",
           "releaseType": "minor",
-          "version": "3.11.0"
+          "version": "3.11.1"
         },
         {
           "name": "@contractspec/lib.presentation-runtime-react",
           "releaseType": "patch",
-          "version": "38.0.0"
+          "version": "38.0.1"
         },
         {
           "name": "@contractspec/lib.ui-kit-web",
           "releaseType": "patch",
-          "version": "3.10.3"
+          "version": "3.11.0"
         },
         {
           "name": "@contractspec/lib.ui-kit",
           "releaseType": "patch",
-          "version": "3.9.3"
+          "version": "4.0.0"
         },
         {
           "name": "@contractspec/example.crm-pipeline",
           "releaseType": "patch",
-          "version": "3.7.22"
+          "version": "3.7.23"
         },
         {
           "name": "@contractspec/example.data-grid-showcase",
           "releaseType": "patch",
-          "version": "3.8.14"
+          "version": "3.8.15"
         }
       ],
       "affectedRuntimes": [
@@ -1387,8 +1387,169 @@
       }
     },
     {
+      "slug": "dependency-bundle-size-reduction",
+      "version": "4.0.0",
+      "summary": "Reduce published install and bundle size by optionalizing heavy runtime families and adding a repo dependency audit.",
+      "date": "2026-04-21",
+      "isBreaking": true,
+      "packages": [
+        {
+          "name": "@contractspec/lib.ui-kit",
+          "releaseType": "major",
+          "version": "4.0.0"
+        },
+        {
+          "name": "@contractspec/integration.providers-impls",
+          "releaseType": "major",
+          "version": "4.0.0"
+        },
+        {
+          "name": "@contractspec/lib.runtime-sandbox",
+          "releaseType": "major",
+          "version": "3.0.0"
+        },
+        {
+          "name": "@contractspec/lib.example-shared-ui",
+          "releaseType": "major",
+          "version": "7.0.0"
+        },
+        {
+          "name": "@contractspec/lib.video-gen",
+          "releaseType": "major",
+          "version": "3.0.0"
+        },
+        {
+          "name": "@contractspec/lib.ui-kit-web",
+          "releaseType": "minor",
+          "version": "3.11.0"
+        },
+        {
+          "name": "@contractspec/app.cli-contractspec",
+          "releaseType": "minor",
+          "version": "6.1.0"
+        },
+        {
+          "name": "@contractspec/app.api-library",
+          "releaseType": "patch"
+        },
+        {
+          "name": "@contractspec/app.registry-packs",
+          "releaseType": "patch",
+          "version": "1.7.15"
+        },
+        {
+          "name": "vscode-contractspec",
+          "releaseType": "patch",
+          "version": "3.10.3"
+        },
+        {
+          "name": "@contractspec/example.project-management-sync",
+          "releaseType": "patch",
+          "version": "3.7.22"
+        },
+        {
+          "name": "@contractspec/example.voice-providers",
+          "releaseType": "patch",
+          "version": "3.7.22"
+        },
+        {
+          "name": "@contractspec/example.meeting-recorder-providers",
+          "releaseType": "patch",
+          "version": "3.7.22"
+        },
+        {
+          "name": "@contractspec/example.integration-posthog",
+          "releaseType": "patch",
+          "version": "3.7.22"
+        },
+        {
+          "name": "contractspec",
+          "releaseType": "patch",
+          "version": "1.46.2"
+        }
+      ],
+      "affectedRuntimes": [
+        "bun",
+        "node",
+        "browser",
+        "native"
+      ],
+      "affectedFrameworks": [
+        "react",
+        "nextjs",
+        "expo"
+      ],
+      "audiences": [
+        {
+          "kind": "integrator",
+          "summary": "Library consumers no longer install large optional UI, provider, sandbox, and video runtime stacks unless they use the matching subpaths/features.",
+          "affectedPackages": [
+            "@contractspec/lib.ui-kit",
+            "@contractspec/lib.ui-kit-web",
+            "@contractspec/integration.providers-impls",
+            "@contractspec/lib.runtime-sandbox",
+            "@contractspec/lib.example-shared-ui",
+            "@contractspec/lib.video-gen"
+          ]
+        },
+        {
+          "kind": "maintainer",
+          "summary": "The repo now includes `bun run deps:audit` to report dependency sections, duplicate declarations, missing runtime import signals, heavy dependency families, and largest dist outputs.",
+          "affectedPackages": [
+            "contractspec"
+          ]
+        }
+      ],
+      "deprecations": [],
+      "migrationInstructions": [
+        {
+          "id": "install-optional-runtime-peers",
+          "title": "Install optional runtime peers for used feature subpaths",
+          "summary": "Consumers using native UI, provider implementations, sandbox database/runtime, example runtime UI, or Remotion video subpaths should add the corresponding optional peer packages directly to their app/package dependencies.",
+          "required": true,
+          "steps": []
+        },
+        {
+          "id": "prefer-provider-subpaths",
+          "title": "Import provider implementations from explicit subpaths",
+          "summary": "Replace broad `@contractspec/integration.providers-impls/impls` imports with provider-specific subpaths such as `@contractspec/integration.providers-impls/impls/linear`.",
+          "required": true,
+          "steps": []
+        },
+        {
+          "id": "use-dependency-audit",
+          "title": "Track dependency and bundle-size drift",
+          "summary": "Run `bun run deps:audit --json` before and after dependency changes to compare runtime edges, heavy dependency families, and package dist sizes.",
+          "required": true,
+          "steps": []
+        }
+      ],
+      "upgradeSteps": [],
+      "validation": {
+        "commands": [
+          "bun run deps:audit --json",
+          "cd packages/libs/ui-kit && bun run typecheck && bun run lint:check",
+          "cd packages/libs/ui-kit-web && bun run typecheck && bun run lint:check",
+          "cd packages/integrations/providers-impls && bun run typecheck && bun run lint:check",
+          "cd packages/libs/runtime-sandbox && bun run typecheck && bun run lint:check",
+          "cd packages/libs/example-shared-ui && bun run typecheck && bun run lint:check",
+          "cd packages/libs/video-gen && bun run typecheck && bun run lint:check",
+          "cd packages/apps/cli-contractspec && bun run typecheck && bun run build:node",
+          "cd packages/apps/api-library && bun run build:types && bun run build:bundle && bun run lint:check",
+          "cd packages/apps/registry-packs && bun run build && bun run lint:check",
+          "cd packages/apps/vscode-contractspec && bun run build:bundle",
+          "bun install --lockfile-only"
+        ],
+        "evidence": [
+          "`bun run deps:audit --json` records the dependency and dist-size signals that motivated this release lane.",
+          "Affected UI, provider, sandbox, example-runtime, video, CLI, API, registry, and VS Code packages retain focused typecheck, lint, and build coverage.",
+          "The lockfile-only install check verifies optional peer and dependency graph changes remain resolvable."
+        ]
+      }
+    },
+    {
       "slug": "design-system-core-hardening",
-      "version": "3.11.0",
+      "version": "3.11.1",
       "summary": "Add focused design-system subpaths and harden ThemeSpec runtime, Tailwind bridge, form-control helpers, and form renderer internals without changing root-import compatibility.",
       "date": "2026-04-21",
       "isBreaking": false,
@@ -1396,7 +1557,7 @@
         {
           "name": "@contractspec/lib.design-system",
           "releaseType": "minor",
-          "version": "3.11.0"
+          "version": "3.11.1"
         }
       ],
       "affectedRuntimes": [
@@ -1464,7 +1625,7 @@
     },
     {
       "slug": "design-system-themed-controls",
-      "version": "3.11.0",
+      "version": "3.11.1",
       "summary": "Add a ThemeSpec-aware and TranslationSpec-aware design-system form/control layer with stack primitives, exported control wrappers, and FormSpec renderer alignment.",
       "date": "2026-04-20",
       "isBreaking": false,
@@ -1472,7 +1633,7 @@
         {
           "name": "@contractspec/lib.design-system",
           "releaseType": "minor",
-          "version": "3.11.0"
+          "version": "3.11.1"
         }
       ],
       "affectedRuntimes": [
@@ -1555,7 +1716,7 @@
         {
           "name": "@contractspec/bundle.library",
           "releaseType": "patch",
-          "version": "3.9.2"
+          "version": "3.9.3"
         },
         {
           "name": "@contractspec/app.web-landing",
@@ -1632,7 +1793,7 @@
     },
     {
       "slug": "docs-learning-path-spec-packs",
-      "version": "3.9.2",
+      "version": "3.9.3",
       "summary": "Expand the spec-pack docs into a fuller learning path across the public docs site.",
       "date": "2026-04-10",
       "isBreaking": false,
@@ -1640,7 +1801,7 @@
         {
           "name": "@contractspec/bundle.library",
           "releaseType": "patch",
-          "version": "3.9.2"
+          "version": "3.9.3"
         },
         {
           "name": "@contractspec/app.web-landing",
@@ -1778,22 +1939,22 @@
         {
           "name": "@contractspec/lib.contracts-runtime-client-react",
           "releaseType": "minor",
-          "version": "3.10.0"
+          "version": "3.10.1"
         },
         {
           "name": "@contractspec/lib.design-system",
           "releaseType": "minor",
-          "version": "3.11.0"
+          "version": "3.11.1"
         },
         {
           "name": "@contractspec/lib.ui-kit-web",
           "releaseType": "patch",
-          "version": "3.10.3"
+          "version": "3.11.0"
         },
         {
           "name": "@contractspec/lib.ui-kit",
           "releaseType": "patch",
-          "version": "3.9.3"
+          "version": "4.0.0"
         }
       ],
       "affectedRuntimes": [
@@ -1907,7 +2068,7 @@
     },
     {
       "slug": "fresh-toes-build",
-      "version": "3.7.15",
+      "version": "3.7.16",
       "summary": "Pass Bun transpile paths through production JSX mode so published browser bundles stop emitting the dev runtime.",
       "date": "2026-04-10",
       "isBreaking": false,
@@ -1915,37 +2076,37 @@
         {
           "name": "@contractspec/tool.bun",
           "releaseType": "patch",
-          "version": "3.7.15"
+          "version": "3.7.16"
         },
         {
           "name": "@contractspec/bundle.marketing",
           "releaseType": "patch",
-          "version": "3.8.15"
+          "version": "3.8.16"
         },
         {
           "name": "@contractspec/lib.accessibility",
           "releaseType": "patch",
-          "version": "3.7.21"
+          "version": "3.7.22"
         },
         {
           "name": "@contractspec/lib.contracts-runtime-client-react",
           "releaseType": "patch",
-          "version": "3.10.0"
+          "version": "3.10.1"
         },
         {
           "name": "@contractspec/lib.design-system",
           "releaseType": "patch",
-          "version": "3.11.0"
+          "version": "3.11.1"
         },
         {
           "name": "@contractspec/lib.example-shared-ui",
           "releaseType": "patch",
-          "version": "6.0.22"
+          "version": "7.0.0"
         },
         {
           "name": "@contractspec/lib.presentation-runtime-react",
           "releaseType": "patch",
-          "version": "38.0.0"
+          "version": "38.0.1"
         },
         {
           "name": "@contractspec/lib.surface-runtime",
@@ -1955,12 +2116,12 @@
         {
           "name": "@contractspec/lib.ui-kit",
           "releaseType": "patch",
-          "version": "3.9.3"
+          "version": "4.0.0"
         },
         {
           "name": "@contractspec/lib.ui-kit-web",
           "releaseType": "patch",
-          "version": "3.10.3"
+          "version": "3.11.0"
         },
         {
           "name": "@contractspec/lib.ui-link",
@@ -1970,27 +2131,27 @@
         {
           "name": "@contractspec/lib.video-gen",
           "releaseType": "patch",
-          "version": "2.7.22"
+          "version": "3.0.0"
         },
         {
           "name": "@contractspec/module.builder-workbench",
           "releaseType": "patch",
-          "version": "0.2.4"
+          "version": "0.2.5"
         },
         {
           "name": "@contractspec/module.examples",
           "releaseType": "patch",
-          "version": "3.10.0"
+          "version": "4.0.0"
         },
         {
           "name": "@contractspec/module.execution-console",
           "releaseType": "patch",
-          "version": "0.1.5"
+          "version": "0.1.6"
         },
         {
           "name": "@contractspec/module.mobile-review",
           "releaseType": "patch",
-          "version": "0.2.4"
+          "version": "0.2.5"
         }
       ],
       "affectedRuntimes": [
@@ -2097,7 +2258,7 @@
         {
           "name": "@contractspec/app.cli-contractspec",
           "releaseType": "major",
-          "version": "6.0.2"
+          "version": "6.1.0"
         },
         {
           "name": "@contractspec/bundle.workspace",
@@ -2117,12 +2278,12 @@
         {
           "name": "@contractspec/lib.contracts-runtime-client-react",
           "releaseType": "minor",
-          "version": "3.10.0"
+          "version": "3.10.1"
         },
         {
           "name": "@contractspec/lib.design-system",
           "releaseType": "minor",
-          "version": "3.11.0"
+          "version": "3.11.1"
         },
         {
           "name": "@contractspec/lib.ui-kit-core",
@@ -2132,17 +2293,17 @@
         {
           "name": "@contractspec/lib.ui-kit-web",
           "releaseType": "minor",
-          "version": "3.10.3"
+          "version": "3.11.0"
         },
         {
           "name": "@contractspec/lib.ui-kit",
           "releaseType": "minor",
-          "version": "3.9.3"
+          "version": "4.0.0"
         },
         {
           "name": "vscode-contractspec",
           "releaseType": "minor",
-          "version": "3.10.2"
+          "version": "3.10.3"
         }
       ],
       "affectedRuntimes": [
@@ -2371,7 +2532,7 @@
     },
     {
       "slug": "mobile-expo-landing-companion",
-      "version": "3.8.15",
+      "version": "3.8.16",
       "summary": "Add a shared marketing content/navigation surface and convert the Expo demo into a native public-nav companion for the ContractSpec OSS-first story.",
       "date": "2026-04-21",
       "isBreaking": false,
@@ -2379,7 +2540,7 @@
         {
           "name": "@contractspec/bundle.marketing",
           "releaseType": "patch",
-          "version": "3.8.15"
+          "version": "3.8.16"
         }
       ],
       "affectedRuntimes": [
@@ -2446,7 +2607,7 @@
     },
     {
       "slug": "mobile-form-render-polyfill",
-      "version": "3.10.0",
+      "version": "3.10.1",
       "summary": "Keep design-system FormRender mobile-safe by preserving shared renderer imports for Metro aliases and hardening generated package artifacts.",
       "date": "2026-04-20",
       "isBreaking": false,
@@ -2454,17 +2615,17 @@
         {
           "name": "@contractspec/lib.contracts-runtime-client-react",
           "releaseType": "minor",
-          "version": "3.10.0"
+          "version": "3.10.1"
         },
         {
           "name": "@contractspec/lib.design-system",
           "releaseType": "minor",
-          "version": "3.11.0"
+          "version": "3.11.1"
         },
         {
           "name": "@contractspec/tool.bun",
           "releaseType": "patch",
-          "version": "3.7.15"
+          "version": "3.7.16"
         }
       ],
       "affectedRuntimes": [
@@ -2537,6 +2698,204 @@
       }
     },
     {
+      "slug": "mobile-native-chart-gesture-runtime",
+      "version": "5.0.1",
+      "summary": "Stabilize Expo mobile chart rendering by avoiding CommonJS tslib helper resolution and completing native gesture-handler setup.",
+      "date": "2026-04-21",
+      "isBreaking": false,
+      "packages": [
+        {
+          "name": "@contractspec/lib.presentation-runtime-core",
+          "releaseType": "patch",
+          "version": "5.0.1"
+        },
+        {
+          "name": "@contractspec/app.expo-demo",
+          "releaseType": "patch"
+        }
+      ],
+      "affectedRuntimes": [
+        "expo",
+        "native"
+      ],
+      "affectedFrameworks": [
+        "react-native"
+      ],
+      "audiences": [
+        {
+          "kind": "maintainer",
+          "summary": "The Metro alias helper now maps native `tslib` imports to the ESM helper build, and the Expo demo initializes gesture handling at the entrypoint and root layout.",
+          "affectedPackages": [
+            "@contractspec/lib.presentation-runtime-core",
+            "@contractspec/app.expo-demo"
+          ]
+        },
+        {
+          "kind": "integrator",
+          "summary": "Expo apps using the ContractSpec Metro alias helper avoid Hermes `__extends` crashes in ECharts/ZRender paths while gesture-backed native chart interactions have the required root provider.",
+          "affectedPackages": [
+            "@contractspec/lib.presentation-runtime-core"
+          ]
+        }
+      ],
+      "deprecations": [],
+      "migrationInstructions": [
+        {
+          "id": "clear-metro-after-native-runtime-aliases",
+          "title": "Restart Metro with a clean cache",
+          "summary": "Native Metro resolver changes and gesture-handler entry setup require a clean dev-server restart.",
+          "required": true,
+          "when": "After upgrading an Expo app that uses `withPresentationMetroAliases`.",
+          "steps": [
+            "Run `expo start --clear` from the Expo app workspace.",
+            "Rebuild the dev client only if `react-native-gesture-handler` was not already compiled into the installed native binary."
+          ]
+        }
+      ],
+      "upgradeSteps": [
+        {
+          "id": "verify-mobile-native-bundle",
+          "title": "Verify the Expo iOS bundle",
+          "summary": "Confirm mobile routing, gesture setup, and native chart import paths still bundle under Metro.",
+          "level": "assisted",
+          "instructions": [
+            "Run the focused presentation-runtime Metro alias test and typecheck.",
+            "Run the mobile demo typecheck and test suite.",
+            "Run an iOS export with a cleared Metro cache."
+          ]
+        }
+      ],
+      "validation": {
+        "commands": [
+          "cd packages/libs/presentation-runtime-core && bun test src/presentation-aliases.test.ts && bun run typecheck",
+          "cd packages/apps/mobile-demo && bun run typecheck && bun run test",
+          "cd packages/apps/mobile-demo && ../../../node_modules/.bin/expo export --clear --platform ios --output-dir /tmp/contractspec-mobile-demo-export"
+        ],
+        "evidence": [
+          "`withPresentationMetroAliases` now maps native `tslib` imports to `tslib/tslib.es6.js` while preserving web resolution.",
+          "`@contractspec/app.expo-demo` imports `react-native-gesture-handler` before Expo Router entry and wraps the root layout in `GestureHandlerRootView`.",
+          "The iOS export completes successfully with the native chart and gesture-handler paths in the bundle."
+        ]
+      }
+    },
+    {
+      "slug": "mobile-web-example-parity",
+      "version": "3.9.3",
+      "summary": "Promote the Expo demo Examples surface to first-class navigation and reuse shared preview components so mobile and web example previews stay aligned.",
+      "date": "2026-04-21",
+      "isBreaking": false,
+      "packages": [
+        {
+          "name": "@contractspec/app.expo-demo",
+          "releaseType": "patch"
+        },
+        {
+          "name": "@contractspec/app.web-landing",
+          "releaseType": "patch"
+        },
+        {
+          "name": "@contractspec/bundle.library",
+          "releaseType": "patch",
+          "version": "3.9.3"
+        },
+        {
+          "name": "@contractspec/bundle.marketing",
+          "releaseType": "patch",
+          "version": "3.8.16"
+        },
+        {
+          "name": "@contractspec/example.agent-console",
+          "releaseType": "patch",
+          "version": "3.8.15"
+        },
+        {
+          "name": "@contractspec/module.examples",
+          "releaseType": "minor",
+          "version": "4.0.0"
+        }
+      ],
+      "affectedRuntimes": [
+        "bun",
+        "nextjs",
+        "expo"
+      ],
+      "affectedFrameworks": [
+        "react",
+        "react-native"
+      ],
+      "audiences": [
+        {
+          "kind": "maintainer",
+          "summary": "Example preview routing now uses shared catalog helpers and a reusable Agent Console preview component instead of platform-specific allowlists or bespoke mobile summaries.",
+          "affectedPackages": [
+            "@contractspec/module.examples",
+            "@contractspec/example.agent-console",
+            "@contractspec/app.expo-demo",
+            "@contractspec/app.web-landing"
+          ]
+        },
+        {
+          "kind": "integrator",
+          "summary": "Consumers can use the example preview surface metadata to provide docs, sandbox, source, LLMS, and native preview actions from one catalog.",
+          "affectedPackages": [
+            "@contractspec/module.examples",
+            "@contractspec/bundle.library",
+            "@contractspec/bundle.marketing"
+          ]
+        },
+        {
+          "kind": "customer",
+          "summary": "The mobile demo now shows Examples as a normal product surface and renders Agent Console with the same shared preview structure used by web.",
+          "affectedPackages": [
+            "@contractspec/app.expo-demo",
+            "@contractspec/example.agent-console"
+          ]
+        }
+      ],
+      "deprecations": [],
+      "migrationInstructions": [
+        {
+          "id": "prefer-shared-preview-components",
+          "title": "Prefer shared preview components for web/mobile example parity",
+          "summary": "Rich example previews should reuse cross-platform components through the UI kit alias layer before falling back to app-local native summaries.",
+          "required": false,
+          "when": "When adding a rich mobile preview for an example package that already has a reusable React preview surface.",
+          "steps": [
+            "Export a focused preview subpath that does not pull web-only modules into Expo.",
+            "Import UI primitives through the shared UI kit boundary so Metro can map web imports to native components.",
+            "Keep mobile generic fallbacks only for examples without stable shared data or reusable components."
+          ]
+        }
+      ],
+      "upgradeSteps": [
+        {
+          "id": "verify-example-parity-surfaces",
+          "title": "Verify web and mobile example preview parity",
+          "summary": "Re-run catalog, web preview, mobile preview, and Expo export checks after changing example preview wiring.",
+          "level": "assisted",
+          "instructions": [
+            "Run the module examples runtime preview tests.",
+            "Run mobile example registry and landing handler tests.",
+            "Run Agent Console preview smoke tests.",
+            "Run an Expo export smoke check for the mobile demo."
+          ]
+        }
+      ],
+      "validation": {
+        "commands": [
+          "bun test packages/modules/examples/src/runtime/previews.test.ts packages/apps/web-landing/src/app/docs/examples/example-doc-routes.test.ts packages/apps/web-landing/src/app/(sandbox)/sandbox/sandbox-preview.test.tsx",
+          "cd packages/apps/mobile-demo && bun run test && bun run typecheck && bun run lint:check",
+          "cd packages/examples/agent-console && bun test src/ui/ExecutionConsoleHost.test.tsx src/ui/AgentDashboard.sandbox.test.tsx && bun run typecheck && bun run lint:check",
+          "cd packages/apps/mobile-demo && ../../../node_modules/.bin/expo export --clear --platform ios --output-dir /tmp/contractspec-mobile-demo-export"
+        ],
+        "evidence": [
+          "`@contractspec/app.expo-demo` now has a first-class `/examples` route backed by the same discoverable example catalog as web docs and sandbox surfaces.",
+          "`@contractspec/example.agent-console` exposes `./ui/AgentConsolePreview` so web and mobile render the same preview source through UI kit aliasing.",
+          "`@contractspec/module.examples` continues to provide the canonical preview surface metadata for docs, sandbox, source, LLMS, inline-preview, and mobile preview actions."
+        ]
+      }
+    },
+    {
       "slug": "notifications-template-locale-hardening",
       "version": "3.7.20",
       "summary": "Normalize notification template locale resolution and merge partial locale channel overrides without dropping base channel content.",
@@ -2600,7 +2959,7 @@
     },
     {
       "slug": "presentation-runtime-bundler-split",
-      "version": "5.0.0",
+      "version": "5.0.1",
       "summary": "Replace the old Next alias helper with explicit Webpack and Turbopack helpers, keep Metro stable, publish bundler helpers from dist artifacts, and refresh the public docs to teach the current Next.js bundler path.",
       "date": "2026-04-20",
       "isBreaking": true,
@@ -2608,7 +2967,7 @@
         {
           "name": "@contractspec/lib.presentation-runtime-core",
           "releaseType": "major",
-          "version": "5.0.0"
+          "version": "5.0.1"
         }
       ],
       "affectedRuntimes": [
@@ -2715,7 +3074,7 @@
         {
           "name": "@contractspec/module.examples",
           "releaseType": "patch",
-          "version": "3.10.0"
+          "version": "4.0.0"
         },
         {
           "name": "@contractspec/example.learning-journey-ambient-coach",
@@ -2725,7 +3084,7 @@
         {
           "name": "@contractspec/example.learning-journey-crm-onboarding",
           "releaseType": "major",
-          "version": "4.0.2"
+          "version": "4.0.3"
         },
         {
           "name": "@contractspec/example.learning-journey-duo-drills",
@@ -2745,7 +3104,7 @@
         {
           "name": "@contractspec/example.learning-journey-registry",
           "releaseType": "major",
-          "version": "4.0.2"
+          "version": "4.0.3"
         },
         {
           "name": "@contractspec/example.learning-journey-studio-onboarding",
@@ -2755,22 +3114,22 @@
         {
           "name": "@contractspec/example.learning-journey-ui-coaching",
           "releaseType": "major",
-          "version": "4.0.2"
+          "version": "4.0.3"
         },
         {
           "name": "@contractspec/example.learning-journey-ui-gamified",
           "releaseType": "major",
-          "version": "4.0.2"
+          "version": "4.0.3"
         },
         {
           "name": "@contractspec/example.learning-journey-ui-onboarding",
           "releaseType": "major",
-          "version": "4.0.2"
+          "version": "4.0.3"
         },
         {
           "name": "@contractspec/example.learning-journey-ui-shared",
           "releaseType": "major",
-          "version": "4.0.2"
+          "version": "4.0.3"
         },
         {
           "name": "@contractspec/example.learning-patterns",
@@ -3041,7 +3400,7 @@
     },
     {
       "slug": "restore-web-landing-examples",
-      "version": "3.10.0",
+      "version": "4.0.0",
       "summary": "Restore the public web-landing templates and examples surfaces so non-internal examples render in the templates catalog, docs routes, sitemap, and sandbox fallback previews.",
       "date": "2026-04-21",
       "isBreaking": false,
@@ -3049,17 +3408,17 @@
         {
           "name": "@contractspec/module.examples",
           "releaseType": "minor",
-          "version": "3.10.0"
+          "version": "4.0.0"
         },
         {
           "name": "@contractspec/bundle.marketing",
           "releaseType": "patch",
-          "version": "3.8.15"
+          "version": "3.8.16"
         },
         {
           "name": "@contractspec/bundle.library",
           "releaseType": "patch",
-          "version": "3.9.2"
+          "version": "3.9.3"
         },
         {
           "name": "@contractspec/app.web-landing",
@@ -3133,6 +3492,70 @@
           "`@contractspec/app.web-landing` now renders fallback sandbox content with package, docs, LLMS, and source links for templates without rich interactive previews.",
           "The production Next build generated 54 discoverable example docs pages and prerendered `/templates` with 52 curated scenarios, including `crm-pipeline` and `integration-stripe`.",
           "Full `packages/modules/examples` lint still reports pre-existing generated-file formatting issues in `src/builtins.ts` and `src/runtime/previews.generated.ts`; targeted Biome checks for the changed registry files pass."
+        ]
+      }
+    },
+    {
+      "slug": "style-exports-bun-build",
+      "version": "3.7.16",
+      "summary": "Teach contractspec-bun-build to publish public CSS style files as direct style conditional subpath exports.",
+      "date": "2026-04-21",
+      "isBreaking": false,
+      "packages": [
+        {
+          "name": "@contractspec/tool.bun",
+          "releaseType": "patch",
+          "version": "3.7.16"
+        }
+      ],
+      "affectedRuntimes": [
+        "bun",
+        "browser"
+      ],
+      "affectedFrameworks": [
+        "nextjs"
+      ],
+      "audiences": [
+        {
+          "kind": "integrator",
+          "summary": "Packages built with contractspec-bun-build can expose public CSS files such as `styles/globals.css` through package exports under the `style` condition.",
+          "affectedPackages": [
+            "@contractspec/tool.bun"
+          ]
+        },
+        {
+          "kind": "maintainer",
+          "summary": "The build tool now scans style entries separately from TypeScript entries so CSS exports do not alter JavaScript output roots.",
+          "affectedPackages": [
+            "@contractspec/tool.bun"
+          ]
+        }
+      ],
+      "deprecations": [],
+      "migrationInstructions": [
+        {
+          "id": "rerun-prebuild-for-style-packages",
+          "title": "Regenerate exports for packages with public CSS",
+          "summary": "Run `contractspec-bun-build prebuild` in packages that should publish direct CSS subpath exports.",
+          "required": true,
+          "steps": []
+        },
+        {
+          "id": "import-public-style-subpaths",
+          "title": "Import public CSS through exported subpaths",
+          "summary": "Import package styles from direct subpaths such as `@scope/package/styles/globals.css` after the package has regenerated exports and rebuilt artifacts.",
+          "required": true,
+          "steps": []
+        }
+      ],
+      "upgradeSteps": [],
+      "validation": {
+        "commands": [
+          "cd packages/tools/bun && bun test"
+        ],
+        "evidence": [
+          "`@contractspec/tool.bun` test coverage exercises direct CSS style subpath export discovery and emission.",
+          "Style entry scanning remains isolated from TypeScript entry roots so generated JavaScript output is unchanged."
         ]
       }
     },
@@ -3214,7 +3637,7 @@
         {
           "name": "@contractspec/lib.design-system",
           "releaseType": "minor",
-          "version": "3.11.0"
+          "version": "3.11.1"
         }
       ],
       "affectedRuntimes": [
@@ -3304,12 +3727,12 @@
         {
           "name": "@contractspec/lib.contracts-runtime-server-mcp",
           "releaseType": "minor",
-          "version": "3.8.0"
+          "version": "3.8.1"
         },
         {
           "name": "@contractspec/lib.contracts-runtime-client-react",
           "releaseType": "minor",
-          "version": "3.10.0"
+          "version": "3.10.1"
         },
         {
           "name": "@contractspec/lib.jobs",
@@ -3425,80 +3848,171 @@
       }
     },
     {
+      "slug": "unbundle-examples-runtime",
+      "version": "4.0.0",
+      "summary": "Split example discovery from rich runtime packages so lightweight consumers no longer install every ContractSpec example.",
+      "date": "2026-04-21",
+      "isBreaking": true,
+      "packages": [
+        {
+          "name": "@contractspec/module.examples",
+          "releaseType": "major",
+          "version": "4.0.0"
+        },
+        {
+          "name": "@contractspec/app.cli-contractspec",
+          "releaseType": "minor",
+          "version": "6.1.0"
+        },
+        {
+          "name": "@contractspec/bundle.marketing",
+          "releaseType": "patch",
+          "version": "3.8.16"
+        },
+        {
+          "name": "@contractspec/bundle.library",
+          "releaseType": "patch",
+          "version": "3.9.3"
+        }
+      ],
+      "affectedRuntimes": [
+        "bun",
+        "node",
+        "browser"
+      ],
+      "affectedFrameworks": [
+        "react",
+        "nextjs"
+      ],
+      "audiences": [
+        {
+          "kind": "integrator",
+          "summary": "`@contractspec/module.examples` root imports now expose catalog metadata only; rich runtime helpers moved to `@contractspec/module.examples/runtime`.",
+          "affectedPackages": [
+            "@contractspec/module.examples",
+            "@contractspec/bundle.marketing",
+            "@contractspec/bundle.library"
+          ]
+        },
+        {
+          "kind": "integrator",
+          "summary": "CLI installs avoid the full example dependency set and can fetch a selected example source on demand with `contractspec examples download <key>`.",
+          "affectedPackages": [
+            "@contractspec/app.cli-contractspec"
+          ]
+        }
+      ],
+      "deprecations": [],
+      "migrationInstructions": [
+        {
+          "id": "use-runtime-entrypoint-for-rich-examples",
+          "title": "Import rich example runtime helpers from the runtime subpath",
+          "summary": "Replace runtime imports such as `TemplateRuntimeProvider`, `listTemplates`, and inline preview loaders from `@contractspec/module.examples` with `@contractspec/module.examples/runtime`.",
+          "required": true,
+          "steps": []
+        },
+        {
+          "id": "keep-catalog-consumers-on-catalog-entrypoint",
+          "title": "Use catalog imports for metadata-only example discovery",
+          "summary": "Import `listExamples`, `getExample`, `searchExamples`, route helpers, and source metadata from `@contractspec/module.examples/catalog` when runnable example code is not needed.",
+          "required": true,
+          "steps": []
+        }
+      ],
+      "upgradeSteps": [],
+      "validation": {
+        "commands": [
+          "bun test packages/modules/examples/src/registry.test.ts packages/modules/examples/src/runtime/previews.test.ts",
+          "bun test packages/apps/cli-contractspec/src/commands/examples/index.test.ts packages/apps/cli-contractspec/src/commands/examples/download.test.ts packages/apps/cli-contractspec/src/commands/onboard/index.test.ts",
+          "cd packages/modules/examples && bun run typecheck && bun run lint:check",
+          "cd packages/apps/cli-contractspec && bun run typecheck && bun run build:node"
+        ],
+        "evidence": [
+          "`@contractspec/module.examples` registry and preview tests cover the catalog/runtime split.",
+          "CLI examples, download, and onboard command tests cover the lightweight install and on-demand source-fetch workflows.",
+          "Examples module typecheck/lint plus CLI typecheck/build keep the public subpaths and command surface packageable."
+        ]
+      }
+    },
+    {
       "slug": "unify-example-previews",
-      "version": "3.10.0",
-      "summary": "Unify example preview metadata so templates and docs derive inline preview support from shared example registry data instead of hand-maintained lists.",
-      "date": "2026-04-19",
+      "version": "4.0.0",
+      "summary": "Unify example preview metadata so templates, docs, sandbox, and mobile preview routes derive preview support from shared example registry data instead of hand-maintained lists.",
+      "date": "2026-04-21",
       "isBreaking": false,
       "packages": [
         {
           "name": "@contractspec/module.examples",
           "releaseType": "minor",
-          "version": "3.10.0"
+          "version": "4.0.0"
         },
         {
           "name": "@contractspec/bundle.marketing",
           "releaseType": "patch",
-          "version": "3.8.15"
+          "version": "3.8.16"
         },
         {
           "name": "@contractspec/bundle.library",
           "releaseType": "patch",
-          "version": "3.9.2"
+          "version": "3.9.3"
         },
         {
           "name": "@contractspec/app.web-landing",
           "releaseType": "patch"
         },
         {
+          "name": "@contractspec/app.expo-demo",
+          "releaseType": "patch"
+        },
+        {
           "name": "@contractspec/example.agent-console",
           "releaseType": "patch",
-          "version": "3.8.14"
+          "version": "3.8.15"
         },
         {
           "name": "@contractspec/example.ai-chat-assistant",
           "releaseType": "patch",
-          "version": "3.8.14"
+          "version": "3.8.15"
         },
         {
           "name": "@contractspec/example.analytics-dashboard",
           "releaseType": "patch",
-          "version": "3.9.14"
+          "version": "3.9.15"
         },
         {
           "name": "@contractspec/example.crm-pipeline",
           "releaseType": "patch",
-          "version": "3.7.22"
+          "version": "3.7.23"
         },
         {
           "name": "@contractspec/example.integration-hub",
           "releaseType": "patch",
-          "version": "3.8.14"
+          "version": "3.8.15"
         },
         {
           "name": "@contractspec/example.learning-journey-registry",
           "releaseType": "patch",
-          "version": "4.0.2"
+          "version": "4.0.3"
         },
         {
           "name": "@contractspec/example.marketplace",
           "releaseType": "patch",
-          "version": "3.8.14"
+          "version": "3.8.15"
         },
         {
           "name": "@contractspec/example.policy-safe-knowledge-assistant",
           "releaseType": "patch",
-          "version": "3.7.22"
+          "version": "3.7.23"
         },
         {
           "name": "@contractspec/example.saas-boilerplate",
           "releaseType": "patch",
-          "version": "3.8.14"
+          "version": "3.8.15"
         },
         {
           "name": "@contractspec/example.workflow-system",
           "releaseType": "patch",
-          "version": "3.8.14"
+          "version": "3.8.15"
         }
       ],
       "affectedRuntimes": [
@@ -3507,17 +4021,19 @@
         "nextjs"
       ],
       "affectedFrameworks": [
-        "react"
+        "react",
+        "react-native"
       ],
       "audiences": [
         {
           "kind": "maintainer",
-          "summary": "Preview wiring now comes from a generated example preview registry, and UI-backed example packages must expose `entrypoints.ui` in their exported `ExampleSpec`.",
+          "summary": "Preview wiring now comes from shared example preview surface helpers, and UI-backed example packages must expose `entrypoints.ui` in their exported `ExampleSpec`.",
           "affectedPackages": [
             "@contractspec/module.examples",
             "@contractspec/bundle.marketing",
             "@contractspec/bundle.library",
             "@contractspec/app.web-landing",
+            "@contractspec/app.expo-demo",
             "@contractspec/example.agent-console",
             "@contractspec/example.ai-chat-assistant",
             "@contractspec/example.analytics-dashboard",
@@ -3532,7 +4048,7 @@
         },
         {
           "kind": "integrator",
-          "summary": "Integrators consuming public example metadata can now detect inline-preview capability through `@contractspec/module.examples`, and every public example now has a first-party `/docs/examples/<key>` route in web-landing.",
+          "summary": "Integrators consuming public example metadata can now detect inline-preview capability and fallback preview links through `@contractspec/module.examples`, and every public example now has a first-party `/docs/examples/<key>` route in web-landing.",
           "affectedPackages": [
             "@contractspec/module.examples",
             "@contractspec/bundle.library",
@@ -3541,10 +4057,11 @@
         },
         {
           "kind": "customer",
-          "summary": "The public site now provides richer template previews and full docs-example coverage, with inline embeds for UI-backed examples and fallback sandbox/reference actions elsewhere.",
+          "summary": "The public site now provides richer template previews and full docs-example coverage, while the mobile demo exposes every discoverable example through in-app native previews with richer panels for exported sample-data examples.",
           "affectedPackages": [
             "@contractspec/bundle.marketing",
-            "@contractspec/app.web-landing"
+            "@contractspec/app.web-landing",
+            "@contractspec/app.expo-demo"
           ]
         }
       ],
@@ -3572,22 +4089,25 @@
           "instructions": [
             "Run `bun scripts/generate-example-registry.ts --write`.",
             "Re-run preview tests in `packages/modules/examples`, `packages/bundles/marketing`, and `packages/bundles/library`.",
-            "Verify `/templates` and `/docs/examples/<key>` render the expected inline or fallback preview action."
+            "Verify `/templates`, `/docs/examples/<key>`, `/sandbox?template=<key>`, mobile `/examples`, compatibility `/examples-preview`, and mobile `example-preview?exampleKey=<key>` render the expected inline, fallback, or native preview action."
           ]
         }
       ],
       "validation": {
         "commands": [
-          "bun test packages/modules/examples/src/runtime/previews.test.ts packages/bundles/marketing/src/components/templates/template-preview.test.ts packages/bundles/library/src/components/docs/examples/exampleShowcaseData.test.ts packages/apps/web-landing/src/app/docs/examples/example-doc-routes.test.ts",
+          "bun test packages/modules/examples/src/runtime/previews.test.ts packages/bundles/marketing/src/content/landing-content.test.ts packages/bundles/marketing/src/components/templates/template-preview.test.ts packages/bundles/library/src/components/docs/examples/exampleShowcaseData.test.ts packages/apps/web-landing/src/app/docs/examples/example-doc-routes.test.ts packages/apps/web-landing/src/app/docs/examples/ExampleInlinePreviewSection.test.tsx packages/apps/web-landing/src/app/(sandbox)/sandbox/sandbox-preview.test.tsx packages/apps/mobile-demo/src/handlers/mobile-landing.handlers.test.ts packages/apps/mobile-demo/src/examples/native-preview-registry.test.ts",
           "cd packages/modules/examples && bun run typecheck && bun run lint:check",
           "cd packages/bundles/marketing && bun run typecheck && bun run lint:check",
           "cd packages/bundles/library && bun run typecheck && bun run lint:check",
-          "cd packages/apps/web-landing && bun run build:types && bun run lint:check"
+          "cd packages/apps/web-landing && bun run build:types && bun run lint:check",
+          "cd packages/apps/mobile-demo && bun run typecheck && bun run lint:check"
         ],
         "evidence": [
           "`@contractspec/module.examples` now exports a generated inline preview registry plus helpers for public example docs and sandbox fallback URLs.",
           "`@contractspec/bundle.marketing` no longer maintains its own inline preview allowlist; it consumes the shared registry for `/templates`.",
-          "`@contractspec/app.web-landing` now derives `/docs/examples/*` routes and sitemap entries from the public example registry instead of a curated hardcoded subset."
+          "`@contractspec/app.web-landing` now derives `/docs/examples/*` routes and sitemap entries from the public example registry instead of a curated hardcoded subset.",
+          "`@contractspec/example.agent-console` now exposes a shared `AgentConsolePreview` component that web and mobile render through the UI kit alias layer.",
+          "`@contractspec/app.expo-demo` exposes the same discoverable example catalog through first-class mobile Examples navigation, keeps `/examples-preview` as a compatibility alias, renders every example in-app, and uses the shared Agent Console preview instead of a separate mobile-only summary panel."
         ]
       }
     },
@@ -3611,7 +4131,7 @@
         {
           "name": "@contractspec/app.cli-contractspec",
           "releaseType": "minor",
-          "version": "6.0.2"
+          "version": "6.1.0"
         },
         {
           "name": "@contractspec/app.web-landing",

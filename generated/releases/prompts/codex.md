@@ -2,35 +2,42 @@ Apply the ContractSpec upgrade plan in this workspace using codex.
 
 Target packages:
 @contractspec/action.version: unknown -> 3.0.1
-@contractspec/app.cli-contractspec: unknown -> 6.0.2
+@contractspec/app.api-library: unknown -> latest
+@contractspec/app.cli-contractspec: unknown -> 6.1.0
 @contractspec/app.cursor-marketplace: unknown -> latest
+@contractspec/app.expo-demo: unknown -> latest
+@contractspec/app.registry-packs: unknown -> 1.7.15
 @contractspec/app.web-landing: unknown -> latest
 @contractspec/biome-config: unknown -> 3.8.8
-@contractspec/bundle.library: unknown -> 3.9.2
-@contractspec/bundle.marketing: unknown -> 3.8.15
+@contractspec/bundle.library: unknown -> 3.9.3
+@contractspec/bundle.marketing: unknown -> 3.8.16
 @contractspec/bundle.workspace: unknown -> 4.5.1
-@contractspec/example.agent-console: unknown -> 3.8.14
-@contractspec/example.ai-chat-assistant: unknown -> 3.8.14
-@contractspec/example.analytics-dashboard: unknown -> 3.9.14
-@contractspec/example.crm-pipeline: unknown -> 3.7.22
-@contractspec/example.data-grid-showcase: unknown -> 3.8.14
-@contractspec/example.integration-hub: unknown -> 3.8.14
+@contractspec/example.agent-console: unknown -> 3.8.15
+@contractspec/example.ai-chat-assistant: unknown -> 3.8.15
+@contractspec/example.analytics-dashboard: unknown -> 3.9.15
+@contractspec/example.crm-pipeline: unknown -> 3.7.23
+@contractspec/example.data-grid-showcase: unknown -> 3.8.15
+@contractspec/example.integration-hub: unknown -> 3.8.15
+@contractspec/example.integration-posthog: unknown -> 3.7.22
 @contractspec/example.learning-journey-ambient-coach: unknown -> 4.0.1
-@contractspec/example.learning-journey-crm-onboarding: unknown -> 4.0.2
+@contractspec/example.learning-journey-crm-onboarding: unknown -> 4.0.3
 @contractspec/example.learning-journey-duo-drills: unknown -> 4.0.1
 @contractspec/example.learning-journey-platform-tour: unknown -> 4.0.1
 @contractspec/example.learning-journey-quest-challenges: unknown -> 4.0.1
-@contractspec/example.learning-journey-registry: unknown -> 4.0.2
+@contractspec/example.learning-journey-registry: unknown -> 4.0.3
 @contractspec/example.learning-journey-studio-onboarding: unknown -> 4.0.1
-@contractspec/example.learning-journey-ui-coaching: unknown -> 4.0.2
-@contractspec/example.learning-journey-ui-gamified: unknown -> 4.0.2
-@contractspec/example.learning-journey-ui-onboarding: unknown -> 4.0.2
-@contractspec/example.learning-journey-ui-shared: unknown -> 4.0.2
+@contractspec/example.learning-journey-ui-coaching: unknown -> 4.0.3
+@contractspec/example.learning-journey-ui-gamified: unknown -> 4.0.3
+@contractspec/example.learning-journey-ui-onboarding: unknown -> 4.0.3
+@contractspec/example.learning-journey-ui-shared: unknown -> 4.0.3
 @contractspec/example.learning-patterns: unknown -> 4.0.1
-@contractspec/example.marketplace: unknown -> 3.8.14
-@contractspec/example.policy-safe-knowledge-assistant: unknown -> 3.7.22
-@contractspec/example.saas-boilerplate: unknown -> 3.8.14
-@contractspec/example.workflow-system: unknown -> 3.8.14
+@contractspec/example.marketplace: unknown -> 3.8.15
+@contractspec/example.meeting-recorder-providers: unknown -> 3.7.22
+@contractspec/example.policy-safe-knowledge-assistant: unknown -> 3.7.23
+@contractspec/example.project-management-sync: unknown -> 3.7.22
+@contractspec/example.saas-boilerplate: unknown -> 3.8.15
+@contractspec/example.voice-providers: unknown -> 3.7.22
+@contractspec/example.workflow-system: unknown -> 3.8.15
 @contractspec/integration.builder-telegram: unknown -> 0.2.3
 @contractspec/integration.builder-voice: unknown -> 0.2.3
 @contractspec/integration.builder-whatsapp: unknown -> 0.2.3
@@ -40,50 +47,52 @@ Target packages:
 @contractspec/integration.provider.gemini: unknown -> 0.2.2
 @contractspec/integration.provider.local-model: unknown -> 0.2.2
 @contractspec/integration.provider.stt: unknown -> 0.2.2
+@contractspec/integration.providers-impls: unknown -> 4.0.0
 @contractspec/integration.runtime: unknown -> 3.9.3
 @contractspec/integration.runtime.hybrid: unknown -> 0.2.3
 @contractspec/integration.runtime.local: unknown -> 0.2.3
 @contractspec/integration.runtime.managed: unknown -> 0.2.3
-@contractspec/lib.accessibility: unknown -> 3.7.21
+@contractspec/lib.accessibility: unknown -> 3.7.22
 @contractspec/lib.builder-runtime: unknown -> 0.2.3
 @contractspec/lib.builder-spec: unknown -> 0.2.3
-@contractspec/lib.contracts-runtime-client-react: unknown -> 3.10.0
+@contractspec/lib.contracts-runtime-client-react: unknown -> 3.10.1
 @contractspec/lib.contracts-runtime-server-graphql: unknown -> 3.8.0
-@contractspec/lib.contracts-runtime-server-mcp: unknown -> 3.8.0
+@contractspec/lib.contracts-runtime-server-mcp: unknown -> 3.8.1
 @contractspec/lib.contracts-runtime-server-rest: unknown -> 3.8.0
 @contractspec/lib.contracts-spec: unknown -> 5.5.0
-@contractspec/lib.data-exchange-client: unknown -> 0.2.1
+@contractspec/lib.data-exchange-client: unknown -> 0.2.2
 @contractspec/lib.data-exchange-core: unknown -> 0.2.1
 @contractspec/lib.data-exchange-server: unknown -> 0.2.1
-@contractspec/lib.design-system: unknown -> 3.11.0
+@contractspec/lib.design-system: unknown -> 3.11.1
 @contractspec/lib.error: unknown -> 3.7.14
-@contractspec/lib.example-shared-ui: unknown -> 6.0.22
+@contractspec/lib.example-shared-ui: unknown -> 7.0.0
 @contractspec/lib.exporter: unknown -> latest
 @contractspec/lib.jobs: unknown -> 3.8.0
 @contractspec/lib.knowledge: unknown -> 3.7.21
 @contractspec/lib.mobile-control: unknown -> 0.2.3
-@contractspec/lib.presentation-runtime-core: unknown -> 5.0.0
-@contractspec/lib.presentation-runtime-react: unknown -> 38.0.0
+@contractspec/lib.presentation-runtime-core: unknown -> 5.0.1
+@contractspec/lib.presentation-runtime-react: unknown -> 38.0.1
 @contractspec/lib.provider-runtime: unknown -> 0.2.3
 @contractspec/lib.provider-spec: unknown -> 0.2.1
+@contractspec/lib.runtime-sandbox: unknown -> 3.0.0
 @contractspec/lib.support-bot: unknown -> 4.0.1
 @contractspec/lib.surface-runtime: unknown -> 0.5.21
-@contractspec/lib.ui-kit: unknown -> 3.9.3
+@contractspec/lib.ui-kit: unknown -> 4.0.0
 @contractspec/lib.ui-kit-core: unknown -> 3.8.1
-@contractspec/lib.ui-kit-web: unknown -> 3.10.3
+@contractspec/lib.ui-kit-web: unknown -> 3.11.0
 @contractspec/lib.ui-link: unknown -> 3.7.16
-@contractspec/lib.video-gen: unknown -> 2.7.22
-@contractspec/module.builder-workbench: unknown -> 0.2.4
-@contractspec/module.examples: unknown -> 3.10.0
-@contractspec/module.execution-console: unknown -> 0.1.5
+@contractspec/lib.video-gen: unknown -> 3.0.0
+@contractspec/module.builder-workbench: unknown -> 0.2.5
+@contractspec/module.examples: unknown -> 4.0.0
+@contractspec/module.execution-console: unknown -> 0.1.6
 @contractspec/module.learning-journey: unknown -> 4.0.1
-@contractspec/module.mobile-review: unknown -> 0.2.4
+@contractspec/module.mobile-review: unknown -> 0.2.5
 @contractspec/module.notifications: unknown -> 3.7.20
 @contractspec/module.workspace: unknown -> 4.3.1
-@contractspec/tool.bun: unknown -> 3.7.15
+@contractspec/tool.bun: unknown -> 3.7.16
 agentpacks: unknown -> 1.8.0
 contractspec: unknown -> 1.46.2
-vscode-contractspec: unknown -> 3.10.2
+vscode-contractspec: unknown -> 3.10.3
 
 Required steps:
 - [manual] Use FormSpec layout hints for dense forms: Replace renderer-specific row wrappers with portable column and colspan metadata.
@@ -103,15 +112,28 @@ Required steps:
   - Set REST `resultEnvelope: true` only when clients should receive `{ ok, data }` success envelopes.
   - Enable GraphQL `resultExtensions` only when the server integration publishes collected success metadata.
   - Use React runtime parser/hooks to normalize REST, GraphQL, MCP, workflow, and job responses into `ContractResult`.
+- [assisted] Verify the Expo iOS bundle: Confirm mobile routing, gesture setup, and native chart import paths still bundle under Metro.
+  - Run the focused presentation-runtime Metro alias test and typecheck.
+  - Run the mobile demo typecheck and test suite.
+  - Run an iOS export with a cleared Metro cache.
+- [assisted] Prefer explicit example discovery helpers: Consumers that need public web-facing example lists should use the new helpers instead of filtering `listExamples()` manually.
+  - Use `listDiscoverableExamples()` for docs and sitemap surfaces that should include non-internal examples with usable public surfaces.
+  - Use `listTemplateExamples()` for template catalogs.
+  - Keep `listPublicExamples()` only when the narrower `visibility: public` subset is required.
+- [assisted] Regenerate preview metadata after adding UI-backed examples: Keep the generated preview registry aligned with the workspace examples.
+  - Run `bun scripts/generate-example-registry.ts --write`.
+  - Re-run preview tests in `packages/modules/examples`, `packages/bundles/marketing`, and `packages/bundles/library`.
+  - Verify `/templates`, `/docs/examples/<key>`, `/sandbox?template=<key>`, mobile `/examples`, compatibility `/examples-preview`, and mobile `example-preview?exampleKey=<key>` render the expected inline, fallback, or native preview action.
 - [assisted] Prefer focused subpaths for new imports: Existing root imports stay supported, but new code can import from focused design-system surfaces.
   - Use `@contractspec/lib.design-system/theme` for ThemeSpec runtime and Tailwind helpers.
   - Use `@contractspec/lib.design-system/controls` for themed and translated controls.
   - Use `@contractspec/lib.design-system/forms` for form layouts, controls, and `ZodForm`.
   - Use `@contractspec/lib.design-system/layout` for stack primitives.
-- [assisted] Prefer explicit example discovery helpers: Consumers that need public web-facing example lists should use the new helpers instead of filtering `listExamples()` manually.
-  - Use `listDiscoverableExamples()` for docs and sitemap surfaces that should include non-internal examples with usable public surfaces.
-  - Use `listTemplateExamples()` for template catalogs.
-  - Keep `listPublicExamples()` only when the narrower `visibility: public` subset is required.
+- [assisted] Verify web and mobile example preview parity: Re-run catalog, web preview, mobile preview, and Expo export checks after changing example preview wiring.
+  - Run the module examples runtime preview tests.
+  - Run mobile example registry and landing handler tests.
+  - Run Agent Console preview smoke tests.
+  - Run an Expo export smoke check for the mobile demo.
 - [assisted] Prefer the platform-neutral content export for native or non-web shells: Use `@contractspec/bundle.marketing/content` when a shell needs landing story, navigation, or public page data without importing web components.
   - Import `contractspecLandingStory`, `contractspecPublicNavigation`, or `contractspecLandingPages` from `@contractspec/bundle.marketing/content`.
   - Map the exported `iconKey` strings to platform-specific icon components.
@@ -165,10 +187,6 @@ Required steps:
   - Run the focused table test suites in `presentation-runtime-react`, `ui-kit-web`, `ui-kit`, `design-system`, `example.crm-pipeline`, and `example.data-grid-showcase`.
   - Re-run package typechecks and lint checks for the touched libraries and examples.
   - Spot-check server-paginated and client-side examples to confirm search, chips, loading, empty states, and column recovery behave as expected.
-- [assisted] Regenerate preview metadata after adding UI-backed examples: Keep the generated preview registry aligned with the workspace examples.
-  - Run `bun scripts/generate-example-registry.ts --write`.
-  - Re-run preview tests in `packages/modules/examples`, `packages/bundles/marketing`, and `packages/bundles/library`.
-  - Verify `/templates` and `/docs/examples/<key>` render the expected inline or fallback preview action.
 - [manual] Verify indexed knowledge payloads expose canonical text: Check that vector payloads now include `payload.text` and that retrieval/query flows surface readable snippets without custom metadata shims.
   - Re-run the ingestion flow that feeds your knowledge index.
   - Inspect the stored vector payloads or downstream references for canonical `payload.text` content.

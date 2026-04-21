@@ -1,5 +1,25 @@
 # @contractspec/example.agent-console
 
+## 3.8.15
+
+### Patch Changes
+
+- Promote the Expo demo Examples surface to first-class navigation and reuse shared preview components so mobile and web example previews stay aligned.
+  - Packages: @contractspec/app.expo-demo (patch), @contractspec/app.web-landing (patch), @contractspec/bundle.library (patch), @contractspec/bundle.marketing (patch), @contractspec/example.agent-console (patch), @contractspec/module.examples (minor)
+  - Migration: Rich example previews should reuse cross-platform components through the UI kit alias layer before falling back to app-local native summaries.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Reduce published install and bundle size by optionalizing heavy runtime families and adding a repo dependency audit.
+- Updated dependencies because of Stabilize Expo mobile chart rendering by avoiding CommonJS tslib helper resolution and completing native gesture-handler setup.
+  - @contractspec/lib.design-system@3.11.1
+  - @contractspec/lib.presentation-runtime-react@38.0.1
+  - @contractspec/module.execution-console@0.1.6
+  - @contractspec/lib.runtime-sandbox@3.0.0
+  - @contractspec/lib.example-shared-ui@7.0.0
+  - @contractspec/lib.ui-kit-web@3.11.0
+  - @contractspec/lib.presentation-runtime-core@5.0.1
+  - @contractspec/lib.contracts-spec@5.5.0
+  - @contractspec/lib.schema@3.7.14
+
 ## 3.8.14
 
 ### Patch Changes

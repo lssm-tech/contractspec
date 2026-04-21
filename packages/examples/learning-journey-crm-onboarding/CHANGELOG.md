@@ -1,5 +1,16 @@
 # @contractspec/example.learning-journey-crm-onboarding
 
+## 4.0.3
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/example.crm-pipeline@3.7.23
+  - @contractspec/lib.contracts-spec@5.5.0
+  - @contractspec/lib.schema@3.7.14
+  - @contractspec/module.learning-journey@4.0.1
+
 ## 4.0.2
 
 ### Patch Changes

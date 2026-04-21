@@ -1,5 +1,18 @@
 # @contractspec/example.data-grid-showcase
 
+## 3.8.15
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Reduce published install and bundle size by optionalizing heavy runtime families and adding a repo dependency audit.
+  - @contractspec/lib.design-system@3.11.1
+  - @contractspec/lib.presentation-runtime-react@38.0.1
+  - @contractspec/lib.ui-kit-web@3.11.0
+  - @contractspec/lib.contracts-spec@5.5.0
+  - @contractspec/lib.schema@3.7.14
+
 ## 3.8.14
 
 ### Patch Changes

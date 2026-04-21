@@ -1,5 +1,16 @@
 # @contractspec/example.integration-supabase
 
+## 3.7.22
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Reduce published install and bundle size by optionalizing heavy runtime families and adding a repo dependency audit.
+  - @contractspec/integration.providers-impls@4.0.0
+  - @contractspec/integration.runtime@3.9.3
+  - @contractspec/lib.contracts-integrations@3.8.13
+  - @contractspec/lib.contracts-spec@5.5.0
+
 ## 3.7.21
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @contractspec/example.openbanking-powens
 
+## 3.7.22
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Reduce published install and bundle size by optionalizing heavy runtime families and adding a repo dependency audit.
+  - @contractspec/integration.providers-impls@4.0.0
+  - @contractspec/lib.contracts-spec@5.5.0
+
 ## 3.7.21
 
 ### Patch Changes

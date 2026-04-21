@@ -1,5 +1,16 @@
 # Changelog
 
+## 3.9.15
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Stabilize Expo mobile chart rendering by avoiding CommonJS tslib helper resolution and completing native gesture-handler setup.
+  - @contractspec/lib.design-system@3.11.1
+  - @contractspec/lib.presentation-runtime-core@5.0.1
+  - @contractspec/lib.contracts-spec@5.5.0
+
 ## 3.9.14
 
 ### Patch Changes

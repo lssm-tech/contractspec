@@ -1,5 +1,26 @@
 # @contractspec/app.api-library
 
+## 3.8.16
+
+### Patch Changes
+
+- Reduce published install and bundle size by optionalizing heavy runtime families and adding a repo dependency audit.
+  - Packages: @contractspec/lib.ui-kit (major), @contractspec/integration.providers-impls (major), @contractspec/lib.runtime-sandbox (major), @contractspec/lib.example-shared-ui (major), @contractspec/lib.video-gen (major), @contractspec/lib.ui-kit-web (minor), @contractspec/app.cli-contractspec (minor), @contractspec/app.api-library (patch), @contractspec/app.registry-packs (patch), vscode-contractspec (patch), @contractspec/example.project-management-sync (patch), @contractspec/example.voice-providers (patch), @contractspec/example.meeting-recorder-providers (patch), @contractspec/example.integration-posthog (patch), contractspec (patch)
+  - Migration: Consumers using native UI, provider implementations, sandbox database/runtime, example runtime UI, or Remotion video subpaths should add the corresponding optional peer packages directly to their app/package dependencies.; Replace broad `@contractspec/integration.providers-impls/impls` imports with provider-specific subpaths such as `@contractspec/integration.providers-impls/impls/linear`.; Run `bun run deps:audit --json` before and after dependency changes to compare runtime edges, heavy dependency families, and package dist sizes.
+- Updated dependencies because of Reduce published install and bundle size by optionalizing heavy runtime families and adding a repo dependency audit.
+- Updated dependencies because of Promote the Expo demo Examples surface to first-class navigation and reuse shared preview components so mobile and web example previews stay aligned.
+- Updated dependencies because of Split example discovery from rich runtime packages so lightweight consumers no longer install every ContractSpec example.
+  - @contractspec/integration.providers-impls@4.0.0
+  - @contractspec/bundle.library@3.9.3
+  - @contractspec/bundle.marketing@3.8.16
+  - @contractspec/bundle.workspace@4.5.1
+  - @contractspec/integration.builder-telegram@0.2.3
+  - @contractspec/integration.builder-whatsapp@0.2.3
+  - @contractspec/integration.provider.codex@0.2.2
+  - @contractspec/integration.runtime@3.9.3
+  - @contractspec/integration.runtime.managed@0.2.3
+  - @contractspec/lib.contracts-spec@5.5.0
+
 ## 3.8.15
 
 ### Patch Changes

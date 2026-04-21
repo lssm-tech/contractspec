@@ -1,5 +1,21 @@
 # @contractspec/example.analytics-dashboard
 
+## 3.9.15
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Reduce published install and bundle size by optionalizing heavy runtime families and adding a repo dependency audit.
+- Updated dependencies because of Stabilize Expo mobile chart rendering by avoiding CommonJS tslib helper resolution and completing native gesture-handler setup.
+  - @contractspec/lib.design-system@3.11.1
+  - @contractspec/lib.runtime-sandbox@3.0.0
+  - @contractspec/lib.example-shared-ui@7.0.0
+  - @contractspec/lib.presentation-runtime-core@5.0.1
+  - @contractspec/lib.contracts-integrations@3.8.13
+  - @contractspec/lib.contracts-spec@5.5.0
+  - @contractspec/lib.schema@3.7.14
+
 ## 3.9.14
 
 ### Patch Changes

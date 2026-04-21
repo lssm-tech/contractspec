@@ -1,5 +1,17 @@
 # @contractspec/lib.accessibility
 
+## 3.7.22
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Reduce published install and bundle size by optionalizing heavy runtime families and adding a repo dependency audit.
+  - @contractspec/lib.design-system@3.11.1
+  - @contractspec/lib.ui-kit@4.0.0
+  - @contractspec/lib.ui-kit-web@3.11.0
+  - @contractspec/lib.contracts-spec@5.5.0
+
 ## 3.7.21
 
 ### Patch Changes

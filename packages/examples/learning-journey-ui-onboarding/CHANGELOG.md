@@ -1,5 +1,21 @@
 # @contractspec/example.learning-journey-ui-onboarding
 
+## 4.0.3
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Reduce published install and bundle size by optionalizing heavy runtime families and adding a repo dependency audit.
+  - @contractspec/example.learning-journey-ui-shared@4.0.3
+  - @contractspec/lib.design-system@3.11.1
+  - @contractspec/lib.ui-kit-web@3.11.0
+  - @contractspec/example.learning-journey-platform-tour@4.0.1
+  - @contractspec/example.learning-journey-studio-onboarding@4.0.1
+  - @contractspec/lib.contracts-spec@5.5.0
+  - @contractspec/lib.ui-kit-core@3.8.1
+  - @contractspec/module.learning-journey@4.0.1
+
 ## 4.0.2
 
 ### Patch Changes

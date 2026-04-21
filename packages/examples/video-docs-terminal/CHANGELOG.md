@@ -1,5 +1,16 @@
 # @contractspec/example.video-docs-terminal
 
+## 3.7.23
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Reduce published install and bundle size by optionalizing heavy runtime families and adding a repo dependency audit.
+  - @contractspec/lib.video-gen@3.0.0
+  - @contractspec/lib.content-gen@3.7.21
+  - @contractspec/lib.contracts-integrations@3.8.13
+  - @contractspec/lib.contracts-spec@5.5.0
+
 ## 3.7.22
 
 ### Patch Changes

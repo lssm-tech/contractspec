@@ -1,5 +1,37 @@
 # Changelog
 
+## 6.1.0
+
+### Minor Changes
+
+- Reduce published install and bundle size by optionalizing heavy runtime families and adding a repo dependency audit.
+  - Packages: @contractspec/lib.ui-kit (major), @contractspec/integration.providers-impls (major), @contractspec/lib.runtime-sandbox (major), @contractspec/lib.example-shared-ui (major), @contractspec/lib.video-gen (major), @contractspec/lib.ui-kit-web (minor), @contractspec/app.cli-contractspec (minor), @contractspec/app.api-library (patch), @contractspec/app.registry-packs (patch), vscode-contractspec (patch), @contractspec/example.project-management-sync (patch), @contractspec/example.voice-providers (patch), @contractspec/example.meeting-recorder-providers (patch), @contractspec/example.integration-posthog (patch), contractspec (patch)
+  - Migration: Consumers using native UI, provider implementations, sandbox database/runtime, example runtime UI, or Remotion video subpaths should add the corresponding optional peer packages directly to their app/package dependencies.; Replace broad `@contractspec/integration.providers-impls/impls` imports with provider-specific subpaths such as `@contractspec/integration.providers-impls/impls/linear`.; Run `bun run deps:audit --json` before and after dependency changes to compare runtime edges, heavy dependency families, and package dist sizes.
+- Split example discovery from rich runtime packages so lightweight consumers no longer install every ContractSpec example.
+  - Packages: @contractspec/module.examples (major), @contractspec/app.cli-contractspec (minor), @contractspec/bundle.marketing (patch), @contractspec/bundle.library (patch)
+  - Migration: Replace runtime imports such as `TemplateRuntimeProvider`, `listTemplates`, and inline preview loaders from `@contractspec/module.examples` with `@contractspec/module.examples/runtime`.; Import `listExamples`, `getExample`, `searchExamples`, route helpers, and source metadata from `@contractspec/module.examples/catalog` when runnable example code is not needed.
+
+### Patch Changes
+
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Promote the Expo demo Examples surface to first-class navigation and reuse shared preview components so mobile and web example previews stay aligned.
+- Updated dependencies because of Split example discovery from rich runtime packages so lightweight consumers no longer install every ContractSpec example.
+  - @contractspec/module.ai-chat@4.3.23
+  - @contractspec/module.examples@4.0.0
+  - @contractspec/bundle.workspace@4.5.1
+  - @contractspec/integration.harness-runtime@0.2.14
+  - @contractspec/integration.runtime@3.9.3
+  - @contractspec/lib.ai-agent@8.0.9
+  - @contractspec/lib.ai-providers@3.7.14
+  - @contractspec/lib.contracts-integrations@3.8.13
+  - @contractspec/lib.contracts-spec@5.5.0
+  - @contractspec/lib.contracts-transformers@3.7.21
+  - @contractspec/lib.harness@0.2.14
+  - @contractspec/lib.plugins@3.7.21
+  - @contractspec/lib.schema@3.7.14
+  - @contractspec/lib.testing@3.7.21
+  - @contractspec/module.workspace@4.3.1
+
 ## 6.0.2
 
 ### Patch Changes

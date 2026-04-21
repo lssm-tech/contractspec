@@ -1,5 +1,14 @@
 # @contractspec/lib.presentation-runtime-core
 
+## 5.0.1
+
+### Patch Changes
+
+- Stabilize Expo mobile chart rendering by avoiding CommonJS tslib helper resolution and completing native gesture-handler setup.
+  - Packages: @contractspec/lib.presentation-runtime-core (patch), @contractspec/app.expo-demo (patch)
+  - Migration: Native Metro resolver changes and gesture-handler entry setup require a clean dev-server restart.
+  - @contractspec/lib.contracts-spec@5.5.0
+
 ## 5.0.0
 
 ### Major Changes

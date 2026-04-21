@@ -1,5 +1,17 @@
 # @contractspec/module.mobile-review
 
+## 0.2.5
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Reduce published install and bundle size by optionalizing heavy runtime families and adding a repo dependency audit.
+  - @contractspec/module.builder-workbench@0.2.5
+  - @contractspec/lib.ui-kit-web@3.11.0
+  - @contractspec/lib.builder-spec@0.2.3
+  - @contractspec/lib.contracts-spec@5.5.0
+
 ## 0.2.4
 
 ### Patch Changes

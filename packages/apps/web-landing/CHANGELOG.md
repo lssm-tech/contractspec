@@ -1,5 +1,55 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 3.8.16
+
+### Patch Changes
+
+- Promote the Expo demo Examples surface to first-class navigation and reuse shared preview components so mobile and web example previews stay aligned.
+  - Packages: @contractspec/app.expo-demo (patch), @contractspec/app.web-landing (patch), @contractspec/bundle.library (patch), @contractspec/bundle.marketing (patch), @contractspec/example.agent-console (patch), @contractspec/module.examples (minor)
+  - Migration: Rich example previews should reuse cross-platform components through the UI kit alias layer before falling back to app-local native summaries.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Reduce published install and bundle size by optionalizing heavy runtime families and adding a repo dependency audit.
+- Updated dependencies because of Promote the Expo demo Examples surface to first-class navigation and reuse shared preview components so mobile and web example previews stay aligned.
+- Updated dependencies because of Split example discovery from rich runtime packages so lightweight consumers no longer install every ContractSpec example.
+  - @contractspec/example.ai-chat-assistant@3.8.15
+  - @contractspec/example.analytics-dashboard@3.9.15
+  - @contractspec/example.crm-pipeline@3.7.23
+  - @contractspec/example.data-grid-showcase@3.8.15
+  - @contractspec/example.in-app-docs@3.7.23
+  - @contractspec/example.integration-hub@3.8.15
+  - @contractspec/example.learning-journey-registry@4.0.3
+  - @contractspec/example.marketplace@3.8.15
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.23
+  - @contractspec/example.saas-boilerplate@3.8.15
+  - @contractspec/example.visualization-showcase@3.9.15
+  - @contractspec/example.workflow-system@3.8.15
+  - @contractspec/lib.design-system@3.11.1
+  - @contractspec/module.ai-chat@4.3.23
+  - @contractspec/module.builder-workbench@0.2.5
+  - @contractspec/lib.ui-kit@4.0.0
+  - @contractspec/lib.example-shared-ui@7.0.0
+  - @contractspec/lib.ui-kit-web@3.11.0
+  - @contractspec/bundle.library@3.9.3
+  - @contractspec/bundle.marketing@3.8.16
+  - @contractspec/example.agent-console@3.8.15
+  - @contractspec/module.examples@4.0.0
+  - @contractspec/integration.provider.claude-code@0.2.2
+  - @contractspec/integration.provider.codex@0.2.2
+  - @contractspec/integration.provider.copilot@0.2.2
+  - @contractspec/integration.provider.gemini@0.2.2
+  - @contractspec/integration.provider.local-model@0.2.2
+  - @contractspec/integration.provider.stt@0.2.2
+  - @contractspec/integration.runtime.hybrid@0.2.3
+  - @contractspec/integration.runtime.local@0.2.3
+  - @contractspec/integration.runtime.managed@0.2.3
+  - @contractspec/lib.ai-providers@3.7.14
+  - @contractspec/lib.builder-spec@0.2.3
+  - @contractspec/lib.contracts-spec@5.5.0
+  - @contractspec/lib.progressive-delivery@34.0.20
+  - @contractspec/lib.surface-runtime@0.5.21
+  - @contractspec/lib.ui-kit-core@3.8.1
+  - @contractspec/lib.ui-link@3.7.16
+
 ## 3.8.15
 
 ### Patch Changes
