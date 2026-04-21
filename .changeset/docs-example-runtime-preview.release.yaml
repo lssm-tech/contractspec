@@ -1,0 +1,34 @@
+schemaVersion: "1"
+slug: docs-example-runtime-preview
+summary: Wrap UI-backed docs example previews in the template runtime provider so public example pages prerender with the same runtime boundary as sandbox and template previews.
+isBreaking: false
+packages:
+  - name: "@contractspec/app.web-landing"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - nextjs
+affectedFrameworks:
+  - react
+audiences:
+  - kind: maintainer
+    summary: The `/docs/examples/<key>` inline preview section now initializes `TemplateRuntimeProvider` for examples with inline runtime UI while preserving lightweight fallback previews for non-UI examples.
+    affectedPackages:
+      - "@contractspec/app.web-landing"
+  - kind: customer
+    summary: Public docs pages for UI-backed examples, including `analytics-dashboard`, now prerender successfully instead of failing on missing template runtime context.
+    affectedPackages:
+      - "@contractspec/app.web-landing"
+deprecations: []
+migrationInstructions: []
+upgradeSteps: []
+validation:
+  commands:
+    - bun test packages/apps/web-landing/src/app/docs/examples/ExampleInlinePreviewSection.test.tsx
+    - bun run --cwd packages/apps/web-landing lint:check
+    - cd packages/apps/web-landing && bun --bun next build
+    - bun run --cwd packages/apps/web-landing build:types
+  evidence:
+    - "`ExampleInlinePreviewSection` now wraps `ExampleWebPreview` in `TemplateRuntimeProvider` only when the shared preview surface reports inline preview support."
+    - "The regression test covers `analytics-dashboard`, the failing docs example page, and verifies the runtime initialization fallback renders during static markup generation."
+    - "The production Next build generated all 1,369 static pages without the previous `/docs/examples/analytics-dashboard` prerender error."

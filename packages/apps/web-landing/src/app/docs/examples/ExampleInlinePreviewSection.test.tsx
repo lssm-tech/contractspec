@@ -13,4 +13,13 @@ describe('ExampleInlinePreviewSection', () => {
 		expect(html).toContain('/docs/examples/opencode-cli');
 		expect(html).toContain('/sandbox?template=opencode-cli');
 	});
+
+	test('wraps inline runtime examples with the runtime provider', () => {
+		const html = renderToStaticMarkup(
+			<ExampleInlinePreviewSection exampleKey="analytics-dashboard" />
+		);
+
+		expect(html).toContain('Analytics Dashboard preview');
+		expect(html).toContain('Initializing runtime environment...');
+	});
 });
