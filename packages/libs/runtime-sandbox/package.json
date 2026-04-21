@@ -24,9 +24,9 @@
 	"peerDependencies": {
 		"@electric-sql/pglite": "^0.3.14",
 		"drizzle-orm": "^0.45.1",
-		"@apollo/client": "^4.1.7",
+		"@apollo/client": "catalog:graphql",
 		"@graphql-tools/schema": "^10.0.32",
-		"graphql": "^16.13.2"
+		"graphql": "catalog:graphql"
 	},
 	"peerDependenciesMeta": {
 		"@electric-sql/pglite": {
@@ -48,13 +48,13 @@
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",
 		"typescript": "catalog:",
-		"@electric-sql/pglite": "^0.4.4",
-		"drizzle-orm": "^0.45.2",
-		"@types/bun": "^1.3.12",
+		"@electric-sql/pglite": "catalog:data",
+		"drizzle-orm": "catalog:data",
+		"@types/bun": "catalog:types",
 		"@contractspec/tool.bun": "workspace:*",
-		"@apollo/client": "^4.1.7",
+		"@apollo/client": "catalog:graphql",
 		"@graphql-tools/schema": "^10.0.32",
-		"graphql": "^16.13.2"
+		"graphql": "catalog:graphql"
 	},
 	"types": "./dist/index.d.ts",
 	"exports": {

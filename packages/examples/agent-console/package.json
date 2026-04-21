@@ -118,9 +118,9 @@
 		"@contractspec/lib.harness": "workspace:*",
 		"@contractspec/tool.bun": "workspace:*",
 		"@contractspec/tool.typescript": "workspace:*",
-		"@types/react": "^19.2.14",
-		"@types/react-dom": "^19.2.2",
-		"happy-dom": "^20.8.9",
+		"@types/react": "catalog:types",
+		"@types/react-dom": "catalog:types",
+		"happy-dom": "catalog:testing",
 		"typescript": "catalog:"
 	},
 	"publishConfig": {

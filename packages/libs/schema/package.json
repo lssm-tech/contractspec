@@ -33,7 +33,7 @@
 	},
 	"dependencies": {
 		"zod": "catalog:",
-		"graphql": "^16.13.2"
+		"graphql": "catalog:graphql"
 	},
 	"files": [
 		"dist",

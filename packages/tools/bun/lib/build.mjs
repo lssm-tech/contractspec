@@ -1,7 +1,15 @@
 /* global Bun */
 
 import { existsSync } from 'node:fs';
-import { readFile, rm, stat, unlink, writeFile } from 'node:fs/promises';
+import {
+	copyFile,
+	mkdir,
+	readFile,
+	rm,
+	stat,
+	unlink,
+	writeFile,
+} from 'node:fs/promises';
 import path from 'node:path';
 import { glob } from 'glob';
 import { selectEntriesForTarget } from './config.mjs';
@@ -144,6 +152,14 @@ async function runTranspileStyles({ cwd, styleEntries }) {
 		if (exitCode !== 0) {
 			process.exit(exitCode);
 		}
+	}
+}
+
+async function copyTranspileStyles({ cwd, styleEntries }) {
+	for (const styleEntry of styleEntries) {
+		const outfile = path.join(cwd, 'dist', styleEntryToOutputPath(styleEntry));
+		await mkdir(path.dirname(outfile), { recursive: true });
+		await copyFile(path.join(cwd, styleEntry), outfile);
 	}
 }
 
@@ -530,6 +546,7 @@ export async function runTranspile({
 	cwd,
 	entries,
 	styleEntries = [],
+	styleMode = 'build',
 	external,
 	targets,
 	targetRoots,
@@ -603,9 +620,15 @@ export async function runTranspile({
 	}
 
 	if (selectedStyleEntries.length > 0) {
+		const selectedStyleMode = styleMode === 'copy' ? 'copy' : 'build';
 		console.log(
-			`[contractspec-bun-build] transpile target=style entries=${selectedStyleEntries.length}`
+			`[contractspec-bun-build] transpile target=style entries=${selectedStyleEntries.length} mode=${selectedStyleMode}`
 		);
+		if (selectedStyleMode === 'copy') {
+			await copyTranspileStyles({ cwd, styleEntries: selectedStyleEntries });
+			return;
+		}
+
 		await runTranspileStyles({ cwd, styleEntries: selectedStyleEntries });
 	}
 }
@@ -696,17 +719,21 @@ export async function runTypes({
 		`${JSON.stringify(tempConfig, null, 2)}\n`,
 		'utf8'
 	);
-	const subprocess = Bun.spawn(
-		[BUN_EXECUTABLE, 'x', 'tsc', '--project', tempTsConfigPath],
-		{
-			cwd,
-			stdout: 'inherit',
-			stderr: 'inherit',
-			stdin: 'inherit',
-		}
-	);
-	const exitCode = await subprocess.exited;
-	await unlink(tempTsConfigPath).catch(() => undefined);
+	let exitCode = 1;
+	try {
+		const subprocess = Bun.spawn(
+			[BUN_EXECUTABLE, 'x', 'tsc', '--project', tempTsConfigPath],
+			{
+				cwd,
+				stdout: 'inherit',
+				stderr: 'inherit',
+				stdin: 'inherit',
+			}
+		);
+		exitCode = await subprocess.exited;
+	} finally {
+		await unlink(tempTsConfigPath).catch(() => undefined);
+	}
 
 	if (exitCode !== 0) {
 		process.exit(exitCode);

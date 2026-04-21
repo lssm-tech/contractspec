@@ -95,4 +95,30 @@ describe('buildPackageDocManifest', () => {
 			})
 		).toThrow(/Missing DocBlock reference docs.missing/);
 	});
+
+	it('uses supplied generatedAt metadata for reproducible generated manifests', () => {
+		const dir = fs.mkdtempSync(
+			path.join(os.tmpdir(), 'docblock-generated-at-')
+		);
+		tmpDirs.push(dir);
+		fs.writeFileSync(
+			path.join(dir, 'spec.ts'),
+			`
+				export const ExampleDocBlock = {
+					id: "docs.example",
+					title: "Example",
+					body: "# Example"
+				};
+			`,
+			'utf8'
+		);
+
+		const manifest = buildPackageDocManifest({
+			packageName: 'pkg',
+			srcRoot: dir,
+			generatedAt: '2026-01-01T00:00:00.000Z',
+		});
+
+		expect(manifest.generatedAt).toBe('2026-01-01T00:00:00.000Z');
+	});
 });

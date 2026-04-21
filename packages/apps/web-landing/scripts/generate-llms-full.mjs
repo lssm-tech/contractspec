@@ -66,19 +66,55 @@ function getPackageSlug(pkgName) {
 	return /^[a-z0-9][a-z0-9._-]*$/i.test(pkgName) ? pkgName : null;
 }
 
+function readTextIfExists(filePath) {
+	if (!fs.existsSync(filePath)) return null;
+	return fs.readFileSync(filePath, 'utf8');
+}
+
+function writeFileIfChanged(filePath, content) {
+	const current = readTextIfExists(filePath);
+	if (current === content) return false;
+	fs.mkdirSync(path.dirname(filePath), { recursive: true });
+	fs.writeFileSync(filePath, content, 'utf8');
+	return true;
+}
+
+function removeStalePackageGuides(packageGuidesDir, expectedFiles) {
+	if (!fs.existsSync(packageGuidesDir)) return 0;
+
+	let removed = 0;
+	for (const entry of fs.readdirSync(packageGuidesDir, {
+		withFileTypes: true,
+	})) {
+		const fullPath = path.join(packageGuidesDir, entry.name);
+		if (entry.isDirectory()) {
+			fs.rmSync(fullPath, { recursive: true, force: true });
+			removed += 1;
+			continue;
+		}
+		if (!expectedFiles.has(fullPath)) {
+			fs.rmSync(fullPath, { force: true });
+			removed += 1;
+		}
+	}
+	return removed;
+}
+
 function generate() {
 	const packages = findPackages();
 	const output = [];
 	const packageGuidesDir = path.join(webLandingRoot, 'public', 'llms-packages');
+	const outPath = path.join(webLandingRoot, 'public', 'llms-full.txt');
+	const expectedGuideFiles = new Set();
+	let changedGuides = 0;
 
-	fs.rmSync(packageGuidesDir, { recursive: true, force: true });
 	fs.mkdirSync(packageGuidesDir, { recursive: true });
 
 	output.push('# ContractSpec — LLM Guide (Full)');
 	output.push('');
 	output.push('> Aggregated content from all packages. For summary, see /llms');
 	output.push('');
-	output.push(`Generated: ${new Date().toISOString()}`);
+	output.push('Generated: stable');
 	output.push(`Packages: ${packages.length}`);
 	output.push('');
 	output.push('---');
@@ -111,11 +147,11 @@ function generate() {
 		if (fs.existsSync(readmePath)) {
 			const readme = fs.readFileSync(readmePath, 'utf8');
 			output.push(readme);
-			fs.writeFileSync(
-				path.join(packageGuidesDir, `${slug}.txt`),
-				readme,
-				'utf8'
-			);
+			const guidePath = path.join(packageGuidesDir, `${slug}.txt`);
+			expectedGuideFiles.add(guidePath);
+			if (writeFileIfChanged(guidePath, readme)) {
+				changedGuides += 1;
+			}
 		} else {
 			output.push('(No README.md)');
 		}
@@ -125,10 +161,17 @@ function generate() {
 		output.push('');
 	}
 
-	const outPath = path.join(webLandingRoot, 'public', 'llms-full.txt');
-	fs.writeFileSync(outPath, output.join('\n'), 'utf8');
-	console.log(`Wrote ${outPath} (${packages.length} packages)`);
-	console.log(`Wrote ${packageGuidesDir} (${packages.length} guides)`);
+	const removedGuides = removeStalePackageGuides(
+		packageGuidesDir,
+		expectedGuideFiles
+	);
+	const changedFullGuide = writeFileIfChanged(outPath, output.join('\n'));
+	console.log(
+		`${changedFullGuide ? 'Updated' : 'Unchanged'} ${outPath} (${packages.length} packages)`
+	);
+	console.log(
+		`${changedGuides} updated, ${removedGuides} removed in ${packageGuidesDir} (${expectedGuideFiles.size} guides)`
+	);
 }
 
 generate();

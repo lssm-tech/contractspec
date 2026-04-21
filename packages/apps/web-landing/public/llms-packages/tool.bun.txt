@@ -45,6 +45,16 @@ export default {
 };
 ```
 
+By default, style entries are processed with `bun build`. Packages that need to preserve CSS directives for another processor, such as Tailwind `@source`, `@custom-variant`, `@theme`, or `@tailwind`, can copy style files unchanged:
+
+```js
+export default {
+	styleEntry: ['src/styles/**/*.css'],
+	styleMode: 'copy',
+	// or: styles: { entry: ['src/styles/**/*.css'], mode: 'copy' },
+};
+```
+
 Style entries are exported under the `style` and `default` conditions, for example `./styles/globals.css`.
 
 ## Public Entry Points
@@ -60,6 +70,7 @@ Style entries are exported under the `style` and `default` conditions, for examp
 
 ## Recent Updates
 
+- Add copy mode for public CSS style files that must preserve framework directives
 - Add direct CSS style subpath exports for public style files
 - Replace eslint+prettier by biomejs to optimize speed
 - Add multi platform support to bun build

@@ -44,13 +44,13 @@
 		"@types/react": "^19.0.0",
 		"react": "catalog:",
 		"react-dom": "catalog:",
-		"remotion": "^4.0.447"
+		"remotion": "catalog:media"
 	},
 	"peerDependencies": {
 		"react": "catalog:",
 		"react-dom": "catalog:",
 		"@remotion/player": "^4.0.0",
-		"remotion": "^4.0.447"
+		"remotion": "catalog:media"
 	},
 	"peerDependenciesMeta": {
 		"@remotion/player": {

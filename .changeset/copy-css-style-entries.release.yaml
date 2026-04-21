@@ -1,0 +1,33 @@
+schemaVersion: "1"
+slug: copy-css-style-entries
+summary: Add a copy mode for public CSS style entries so packages can preserve Tailwind and other framework directives.
+isBreaking: false
+packages:
+  - name: "@contractspec/tool.bun"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - browser
+affectedFrameworks:
+  - nextjs
+  - tailwindcss
+audiences:
+  - kind: integrator
+    summary: Packages with CSS directives that Bun does not understand can set `styleMode: "copy"` to publish the raw stylesheet unchanged.
+    affectedPackages:
+      - "@contractspec/tool.bun"
+  - kind: maintainer
+    summary: Style entry processing now has explicit build and copy modes while keeping `build` as the default for compatibility.
+    affectedPackages:
+      - "@contractspec/tool.bun"
+migrationInstructions:
+  - id: preserve-css-directives
+    title: Copy CSS entries when another tool owns directive processing
+    summary: Add `styleMode: "copy"` or `styles: { mode: "copy" }` in packages whose exported CSS includes directives such as `@source`, `@custom-variant`, `@theme`, or `@tailwind`.
+validation:
+  commands:
+    - cd packages/tools/bun && bun test
+  evidence:
+    - "`@contractspec/tool.bun` tests verify copy mode preserves unsupported CSS directives exactly."
+knownGaps:
+  - Copy mode does not resolve CSS imports or transform syntax; use the default build mode when packages need Bun CSS processing.

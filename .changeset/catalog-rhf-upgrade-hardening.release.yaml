@@ -1,0 +1,46 @@
+schemaVersion: "1"
+slug: catalog-rhf-upgrade-hardening
+summary: Centralize repeated dependency specs through Bun catalogs and align React Hook Form/Zod resolver types after dependency upgrades.
+isBreaking: false
+packages:
+  - name: "contractspec"
+    releaseType: patch
+  - name: "@contractspec/lib.contracts-runtime-client-react"
+    releaseType: patch
+  - name: "@contractspec/lib.design-system"
+    releaseType: patch
+  - name: "@contractspec/lib.ui-kit-web"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - browser
+  - node
+affectedFrameworks:
+  - react
+  - zod
+audiences:
+  - kind: maintainer
+    summary: Shared dependency families now resolve from named Bun catalogs, reducing repeated version drift across workspace manifests.
+    affectedPackages:
+      - "contractspec"
+  - kind: integrator
+    summary: Form wrappers keep their existing runtime behavior while remaining compatible with newer React Hook Form resolver generics.
+    affectedPackages:
+      - "@contractspec/lib.contracts-runtime-client-react"
+      - "@contractspec/lib.design-system"
+      - "@contractspec/lib.ui-kit-web"
+migrationInstructions: []
+validation:
+  commands:
+    - bun install --lockfile-only
+    - bun install --frozen-lockfile --ignore-scripts
+    - node scripts/biome.cjs check packages/libs/design-system/src/components/forms/ZodForm.tsx packages/libs/ui-kit-web/ui/form.tsx
+    - cd packages/libs/contracts-runtime-client-react && bun run typecheck && bun run build
+    - cd packages/libs/ui-kit-web && bun run build
+    - cd packages/libs/design-system && bun run typecheck && bun run build
+  evidence:
+    - "Catalog references were validated across all workspace manifests after converting repeated exact dependency specs."
+    - "`@contractspec/lib.contracts-runtime-client-react` now pins the RHF form input/output generics around its Zod resolver boundary."
+    - "`@contractspec/lib.design-system` now sources RHF helper types from the same `@contractspec/lib.ui-kit-web/ui/form` barrel as `useForm`, avoiding duplicate-package type mismatches."
+knownGaps:
+  - "Broader peer ranges and intentionally older compatibility floors remain uncataloged where converting them would change compatibility semantics."

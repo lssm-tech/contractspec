@@ -17,7 +17,7 @@
 			"env": ["NPM_CONFIG_TOKEN", "VSCE_PAT", "OVSX_PAT"]
 		},
 		"prebuild": {
-			"cache": true,
+			"cache": false,
 			"dependsOn": ["^prebuild"],
 			"outputLogs": "new-only",
 			"inputs": [
@@ -31,7 +31,10 @@
 				"bun.config.js",
 				"bun.config.mjs",
 				"bun.config.ts",
-				"bun.config.cjs"
+				"bun.config.cjs",
+				"!.tsconfig.contractspec-types*.json",
+				"!generated/**",
+				"!src/generated/**"
 			],
 			"outputs": []
 		},
@@ -52,16 +55,17 @@
 				"bun.config.ts",
 				"bun.config.cjs",
 				"src/**",
-				"!src/generated/**",
-				"public/**"
+				"public/**",
+				"!.tsconfig.contractspec-types*.json",
+				"!generated/**",
+				"!src/generated/**"
 			],
 			"outputs": [
 				"dist/**",
 				"generated/**",
 				".next/**",
 				"!.next/cache/**",
-				"src/generated/**",
-				"src/handlers/**"
+				"src/generated/**"
 			]
 		},
 		"build:bundle": {
@@ -81,16 +85,17 @@
 				"bun.config.ts",
 				"bun.config.cjs",
 				"src/**",
-				"!src/generated/**",
-				"public/**"
+				"public/**",
+				"!.tsconfig.contractspec-types*.json",
+				"!generated/**",
+				"!src/generated/**"
 			],
 			"outputs": [
 				"dist/**",
 				"generated/**",
 				".next/**",
 				"!.next/cache/**",
-				"src/generated/**",
-				"src/handlers/**"
+				"src/generated/**"
 			]
 		},
 		"build:types": {
@@ -111,7 +116,10 @@
 				"bun.config.js",
 				"bun.config.mjs",
 				"bun.config.ts",
-				"bun.config.cjs"
+				"bun.config.cjs",
+				"!.tsconfig.contractspec-types*.json",
+				"!generated/**",
+				"!src/generated/**"
 			],
 			"outputs": ["dist/**/*.d.ts", "dist/**/*.d.ts.map"]
 		},
@@ -124,7 +132,10 @@
 				"src/**",
 				"package.json",
 				"tsconfig.json",
-				"tsconfig.build.json"
+				"tsconfig.build.json",
+				"!.tsconfig.contractspec-types*.json",
+				"!generated/**",
+				"!src/generated/**"
 			]
 		},
 		"dev": {
@@ -132,6 +143,10 @@
 			"persistent": true
 		},
 		"docs:generate": {
+			"cache": false,
+			"outputLogs": "new-only"
+		},
+		"llms:generate": {
 			"outputLogs": "new-only"
 		},
 		"lint": {

@@ -15,7 +15,7 @@
 		"@contractspec/lib.contracts-spec": "workspace:*",
 		"@contractspec/lib.content-gen": "workspace:*",
 		"@contractspec/lib.design-system": "workspace:*",
-		"remotion": "^4.0.447",
+		"remotion": "catalog:media",
 		"@remotion/cli": "^4.0.447",
 		"react": "catalog:",
 		"react-dom": "catalog:"
@@ -23,7 +23,7 @@
 	"devDependencies": {
 		"@remotion/renderer": "^4.0.447",
 		"@types/react": "^19.0.0",
-		"typescript": "^5.9.3"
+		"typescript": "catalog:"
 	},
 	"exports": {
 		".": "./src/index.ts"

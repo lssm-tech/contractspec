@@ -12,6 +12,7 @@ import path from 'node:path';
 import { runTranspile, runTypes } from '../lib/build.mjs';
 import {
 	normalizeBuildConfig,
+	resolveEntries,
 	selectEntriesForTarget,
 } from '../lib/config.mjs';
 
@@ -104,13 +105,40 @@ describe('normalizeBuildConfig', () => {
 		const cwd = await createTempDir();
 		await mkdir(path.join(cwd, 'src'), { recursive: true });
 		await writeFile(path.join(cwd, 'src', 'index.ts'), 'export const x = 1;\n');
+		await writeFile(path.join(cwd, 'src', 'styles.css'), 'body {}\n');
 
 		const config = await normalizeBuildConfig(cwd, {
 			styleEntry: ['styles/**/*.css'],
 		});
+		const disabledConfig = await normalizeBuildConfig(cwd, {
+			styleEntry: false,
+		});
 
 		expect(config.entry).toContain('src/**/*.ts');
 		expect(config.styleEntry).toEqual(['styles/**/*.css']);
+		expect(await resolveEntries(cwd, disabledConfig.styleEntry)).toEqual([]);
+	});
+
+	test('allows style processing mode to be configured', async () => {
+		const cwd = await createTempDir();
+		await mkdir(path.join(cwd, 'src'), { recursive: true });
+		await writeFile(path.join(cwd, 'src', 'index.ts'), 'export const x = 1;\n');
+
+		const topLevelConfig = await normalizeBuildConfig(cwd, {
+			styleMode: 'copy',
+		});
+		const nestedConfig = await normalizeBuildConfig(cwd, {
+			styles: {
+				mode: 'copy',
+			},
+		});
+		const invalidConfig = await normalizeBuildConfig(cwd, {
+			styleMode: 'inline',
+		});
+
+		expect(topLevelConfig.styleMode).toBe('copy');
+		expect(nestedConfig.styleMode).toBe('copy');
+		expect(invalidConfig.styleMode).toBe('build');
 	});
 });
 
@@ -235,6 +263,47 @@ describe('runTranspile', () => {
 		expect(await exists(path.join(cwd, 'dist', 'src', 'styles.css'))).toBe(
 			false
 		);
+	});
+
+	test('copies style files without compiling directives when style mode is copy', async () => {
+		const cwd = await createTempDir();
+		await mkdir(path.join(cwd, 'styles'), { recursive: true });
+		const styleSource = [
+			'@source "../src/**/*.{ts,tsx}";',
+			'@custom-variant dark (&:is(.dark *));',
+			'@theme {',
+			'\t--color-brand: #ff00ff;',
+			'}',
+			'@tailwind utilities;',
+			'',
+		].join('\n');
+		await writeFile(path.join(cwd, 'styles', 'globals.css'), styleSource);
+
+		await runTranspile({
+			cwd,
+			entries: [],
+			styleEntries: ['styles/globals.css'],
+			styleMode: 'copy',
+			external: [],
+			targets: {
+				node: false,
+				browser: false,
+			},
+			targetRoots: {
+				bun: '.',
+				node: '.',
+				browser: '.',
+				native: '.',
+			},
+			noBundle: true,
+		});
+
+		const copiedStyle = await readFile(
+			path.join(cwd, 'dist', 'styles', 'globals.css'),
+			'utf8'
+		);
+
+		expect(copiedStyle).toBe(styleSource);
 	});
 });
 

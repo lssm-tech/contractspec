@@ -32,12 +32,12 @@
 	"dependencies": {
 		"@contractspec/lib.schema": "workspace:*",
 		"@contractspec/lib.contracts-spec": "workspace:*",
-		"compare-versions": "^6.1.1"
+		"compare-versions": "catalog:data"
 	},
 	"peerDependencies": {
-		"elysia": "^1.4.28",
-		"express": "^5.2.1",
-		"next": "16.2.3"
+		"elysia": "catalog:server",
+		"express": "catalog:server",
+		"next": "catalog:"
 	},
 	"type": "module",
 	"types": "./dist/index.d.ts",

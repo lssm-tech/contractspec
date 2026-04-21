@@ -36,10 +36,13 @@ import React from 'react';
 import {
 	Controller,
 	type FieldValues,
+	type Resolver,
 	type UseFormReturn,
 	useFieldArray,
 	useForm,
 } from 'react-hook-form';
+
+type FormFieldValues<M extends AnySchemaModel> = FormValuesFor<M> & FieldValues;
 
 export interface DriverSlots {
 	FormRoot?: React.ComponentType<
@@ -1373,9 +1376,11 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
 			() => buildZodWithRelations(normalizedSpec),
 			[normalizedSpec]
 		);
-		const form = useForm<FormValuesFor<M> & FieldValues>({
+		type Values = FormFieldValues<M>;
+		const resolver = zodResolver(baseZod) as Resolver<Values, any, Values>;
+		const form = useForm<Values, any, Values>({
 			...props.merged.formOptions,
-			resolver: zodResolver(baseZod),
+			resolver,
 			defaultValues: props.options?.defaultValues as never,
 		});
 		const values = form.watch();
@@ -1804,7 +1809,7 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
 			);
 		};
 
-		const onSubmit = async (data: FormValuesFor<M>) => {
+		const onSubmit = async (data: Values) => {
 			const actionKey = normalizedSpec.actions?.[0]?.key ?? 'submit';
 			if (props.merged.onSubmitOverride) {
 				return props.merged.onSubmitOverride(data, actionKey);

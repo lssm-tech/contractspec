@@ -1,5 +1,6 @@
 import { spawnSync } from 'node:child_process';
 import fs from 'node:fs';
+import os from 'node:os';
 import path from 'node:path';
 import { buildPackageDocManifest } from '../src/docs/manifest-builder';
 
@@ -84,23 +85,42 @@ function renderManifest(
 	].join('\n');
 }
 
+function formatManifest(content: string): string {
+	const tempDir = fs.mkdtempSync(path.join(os.tmpdir(), 'docblocks-manifest-'));
+	const tempFile = path.join(tempDir, 'docblocks.manifest.generated.ts');
+
+	try {
+		fs.writeFileSync(tempFile, content, 'utf8');
+		const formatResult = spawnSync(
+			process.execPath,
+			[biomeLauncher, 'check', '--write', tempFile],
+			{
+				cwd: workspaceRoot,
+				stdio: 'ignore',
+			}
+		);
+		if (formatResult.status !== 0) {
+			throw new Error(`Failed to format generated DocBlock manifest.`);
+		}
+		return fs.readFileSync(tempFile, 'utf8');
+	} finally {
+		fs.rmSync(tempDir, { recursive: true, force: true });
+	}
+}
+
 async function main(): Promise<void> {
 	const manifest = buildPackageDocManifest({
 		packageName,
 		srcRoot,
+		generatedAt: new Date(0).toISOString(),
 	});
 
-	fs.writeFileSync(outFile, renderManifest(manifest), 'utf8');
-	const formatResult = spawnSync(
-		process.execPath,
-		[biomeLauncher, 'check', '--write', outFile],
-		{
-			cwd: workspaceRoot,
-			stdio: 'inherit',
-		}
-	);
-	if (formatResult.status !== 0) {
-		throw new Error(`Failed to format ${outFile} with biome.`);
+	const renderedManifest = formatManifest(renderManifest(manifest));
+	const existingManifest = fs.existsSync(outFile)
+		? fs.readFileSync(outFile, 'utf8')
+		: null;
+	if (existingManifest !== renderedManifest) {
+		fs.writeFileSync(outFile, renderedManifest, 'utf8');
 	}
 	console.log(
 		`docs:manifest wrote ${path.relative(pkgRoot, outFile)} with ${manifest.blocks.length} DocBlocks`

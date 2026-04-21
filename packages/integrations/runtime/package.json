@@ -44,7 +44,7 @@
 		"@contractspec/lib.schema": "workspace:*"
 	},
 	"optionalDependencies": {
-		"pg": "^8.20.0"
+		"pg": "catalog:server"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",

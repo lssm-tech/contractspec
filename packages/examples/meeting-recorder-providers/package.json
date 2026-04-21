@@ -35,7 +35,7 @@
 		"@contractspec/integration.providers-impls": "workspace:*",
 		"@contractspec/lib.contracts-spec": "workspace:*",
 		"@contractspec/lib.contracts-integrations": "workspace:*",
-		"fathom-typescript": "^0.0.37"
+		"fathom-typescript": "catalog:integrations"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",

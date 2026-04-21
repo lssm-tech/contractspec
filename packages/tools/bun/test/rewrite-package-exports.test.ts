@@ -1,5 +1,12 @@
 import { afterEach, describe, expect, test } from 'bun:test';
-import { mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
+import {
+	chmod,
+	mkdtemp,
+	readFile,
+	rm,
+	stat,
+	writeFile,
+} from 'node:fs/promises';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { rewritePackageExports } from '../lib/exports.mjs';
@@ -117,5 +124,51 @@ describe('rewritePackageExports', () => {
 			'https://registry.npmjs.org/'
 		);
 		expect(packageJson.publishConfig.access).toBe('public');
+	});
+
+	test('does not rewrite package.json when generated exports are unchanged', async () => {
+		const directory = await mkdtemp(
+			join(tmpdir(), 'contractspec-bun-idempotent-')
+		);
+		tempDirs.push(directory);
+		const packageJsonPath = join(directory, 'package.json');
+		await writeFile(
+			packageJsonPath,
+			JSON.stringify(
+				{
+					name: '@contractspec/test.idempotent',
+					publishConfig: {
+						access: 'public',
+					},
+				},
+				null,
+				2
+			) + '\n'
+		);
+
+		await rewritePackageExports(
+			packageJsonPath,
+			['src/index.ts'],
+			TARGETS,
+			TARGET_ROOTS
+		);
+		const firstContent = await readFile(packageJsonPath, 'utf8');
+		const firstStats = await stat(packageJsonPath);
+
+		await chmod(packageJsonPath, 0o444);
+		try {
+			await rewritePackageExports(
+				packageJsonPath,
+				['src/index.ts'],
+				TARGETS,
+				TARGET_ROOTS
+			);
+		} finally {
+			await chmod(packageJsonPath, 0o644);
+		}
+		const secondStats = await stat(packageJsonPath);
+
+		expect(await readFile(packageJsonPath, 'utf8')).toBe(firstContent);
+		expect(secondStats.mtimeMs).toBe(firstStats.mtimeMs);
 	});
 });

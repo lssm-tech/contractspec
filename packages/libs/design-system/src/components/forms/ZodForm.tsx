@@ -1,13 +1,14 @@
 'use client';
 
 import {
+	type FieldValues,
 	Form,
+	type Resolver,
 	type UseFormReturn,
 	useForm,
 	zodResolver,
 } from '@contractspec/lib.ui-kit-web/ui/form';
 import * as React from 'react';
-import type { FieldValues } from 'react-hook-form';
 import * as z from 'zod';
 
 // import { useForm, type UseFormReturn } from 'react-hook-form';
@@ -39,7 +40,11 @@ export function ZodForm<
 	// eslint-disable-next-line @typescript-eslint/no-explicit-any
 	const form = useForm<TFieldValues, any, TOutput>({
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		resolver: zodResolver(schema as any),
+		resolver: zodResolver(schema as any) as Resolver<
+			TFieldValues,
+			any,
+			TOutput
+		>,
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		defaultValues: defaultValues as any,
 	});

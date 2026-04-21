@@ -52,14 +52,14 @@
 		"micromatch": "^4.0.8",
 		"ollama-ai-provider": "catalog:ai",
 		"ora": "^9.3.0",
-		"ts-morph": "^27.0.2",
+		"ts-morph": "^28.0.0",
 		"zod": "catalog:"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",
-		"@types/bun": "^1.3.12",
+		"@types/bun": "catalog:types",
 		"@types/micromatch": "^4.0.10",
-		"@types/node": "^25.6.0",
+		"@types/node": "catalog:types",
 		"typescript": "catalog:",
 		"@contractspec/tool.bun": "workspace:*"
 	},

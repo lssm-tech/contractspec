@@ -72,10 +72,9 @@ export async function loadUserConfig(cwd) {
 }
 
 export async function resolveEntries(cwd, configEntry) {
-	const entryPatterns =
-		Array.isArray(configEntry) && configEntry.length > 0
-			? configEntry
-			: DEFAULT_ENTRY;
+	const entryPatterns = Array.isArray(configEntry)
+		? configEntry
+		: DEFAULT_ENTRY;
 	const includes = entryPatterns.filter((pattern) => !pattern.startsWith('!'));
 	const excludes = entryPatterns
 		.filter((pattern) => pattern.startsWith('!'))
@@ -131,6 +130,21 @@ function normalizeStyleEntry(config) {
 	}
 
 	return DEFAULT_STYLE_ENTRY;
+}
+
+function normalizeStyleMode(config) {
+	const mode =
+		typeof config.styleMode === 'string'
+			? config.styleMode
+			: typeof config.styles?.mode === 'string'
+				? config.styles.mode
+				: 'build';
+
+	if (mode === 'copy' || mode === 'build') {
+		return mode;
+	}
+
+	return 'build';
 }
 
 async function hasNodeOnlySignals(cwd) {
@@ -199,6 +213,7 @@ export async function normalizeBuildConfig(cwd, config) {
 				? config.entry
 				: DEFAULT_ENTRY,
 		styleEntry: normalizeStyleEntry(config),
+		styleMode: normalizeStyleMode(config),
 		noBundle: config.noBundle === true,
 	};
 }

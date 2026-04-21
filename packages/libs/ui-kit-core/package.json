@@ -32,9 +32,9 @@
 		"clsx": "^2.1.0",
 		"react": "catalog:",
 		"react-dom": "catalog:",
-		"tailwind-merge": "^3.5.0",
+		"tailwind-merge": "catalog:ui",
 		"tailwindcss": "catalog:build",
-		"tailwindcss-animate": "^1.0.7",
+		"tailwindcss-animate": "catalog:ui",
 		"@contractspec/lib.contracts-spec": "workspace:*"
 	},
 	"devDependencies": {

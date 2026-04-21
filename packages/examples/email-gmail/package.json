@@ -33,7 +33,7 @@
 	"dependencies": {
 		"@contractspec/integration.providers-impls": "workspace:*",
 		"@contractspec/lib.contracts-spec": "workspace:*",
-		"googleapis": "^171.4.0"
+		"googleapis": "catalog:integrations"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",

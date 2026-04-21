@@ -31,7 +31,7 @@
 	"dependencies": {
 		"@contractspec/integration.providers-impls": "workspace:*",
 		"@contractspec/lib.contracts-spec": "workspace:*",
-		"posthog-node": "^5.29.2"
+		"posthog-node": "catalog:integrations"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",

@@ -28,10 +28,10 @@
 		"@contractspec/integration.runtime": "workspace:*",
 		"@contractspec/integration.runtime.managed": "workspace:*",
 		"@contractspec/lib.contracts-spec": "workspace:*",
-		"elysia": "^1.4.28",
-		"pg": "^8.20.0",
-		"zod": "^4.3.5",
-		"twilio": "^5.13.1"
+		"elysia": "catalog:server",
+		"pg": "catalog:server",
+		"zod": "catalog:",
+		"twilio": "^6.0.0"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",

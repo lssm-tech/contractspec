@@ -346,8 +346,13 @@ function toSourceModule(srcRoot: string, filePath: string): string {
 export function buildPackageDocManifest(options: {
 	packageName: string;
 	srcRoot: string;
+	generatedAt?: string;
 }): PackageDocManifest {
-	const { packageName, srcRoot } = options;
+	const {
+		packageName,
+		srcRoot,
+		generatedAt = new Date().toISOString(),
+	} = options;
 	const allSourceFiles = listSourceFiles(srcRoot);
 
 	for (const filePath of allSourceFiles) {
@@ -414,7 +419,7 @@ export function buildPackageDocManifest(options: {
 
 	return {
 		packageName,
-		generatedAt: new Date().toISOString(),
+		generatedAt,
 		blocks: entries,
 	};
 }

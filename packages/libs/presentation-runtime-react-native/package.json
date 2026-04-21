@@ -30,8 +30,8 @@
 	"peerDependencies": {
 		"react": "catalog:",
 		"react-native": "*",
-		"react-hook-form": "^7.72.0",
-		"zod": "^4.3.5",
+		"react-hook-form": "catalog:ui",
+		"zod": "catalog:",
 		"@contractspec/lib.presentation-runtime-core": "workspace:*"
 	},
 	"dependencies": {
@@ -96,7 +96,7 @@
 	},
 	"homepage": "https://contractspec.io",
 	"devDependencies": {
-		"react-native-css": "^3.0.4",
+		"react-native-css": "catalog:native",
 		"@contractspec/tool.bun": "workspace:*"
 	}
 }

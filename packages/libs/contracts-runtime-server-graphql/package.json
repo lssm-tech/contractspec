@@ -27,15 +27,15 @@
 		"@contractspec/lib.contracts-runtime-server-rest": "workspace:*",
 		"@contractspec/lib.contracts-spec": "workspace:*",
 		"@contractspec/lib.schema": "workspace:*",
-		"@pothos/plugin-complexity": "^4.1.2",
-		"@pothos/plugin-dataloader": "^4.4.2",
+		"@pothos/plugin-complexity": "catalog:graphql",
+		"@pothos/plugin-dataloader": "catalog:graphql",
 		"@pothos/plugin-prisma": "^4.14.3",
-		"@pothos/plugin-relay": "^4.7.0",
-		"@pothos/plugin-tracing": "^1.1.2"
+		"@pothos/plugin-relay": "catalog:graphql",
+		"@pothos/plugin-tracing": "catalog:graphql"
 	},
 	"peerDependencies": {
-		"@pothos/core": "^4.9.1",
-		"@pothos/plugin-relay": "^4.7.0"
+		"@pothos/core": "catalog:graphql",
+		"@pothos/plugin-relay": "catalog:graphql"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",

@@ -41,7 +41,7 @@
 	"devDependencies": {
 		"react": "catalog:",
 		"react-dom": "catalog:",
-		"react-native": "0.83.4",
+		"react-native": "catalog:native",
 		"@contractspec/tool.typescript": "workspace:*",
 		"typescript": "catalog:",
 		"@contractspec/tool.bun": "workspace:*"

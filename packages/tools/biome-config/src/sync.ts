@@ -1,4 +1,4 @@
-import { mkdir, writeFile } from 'node:fs/promises';
+import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { generateArtifactsForAudience } from './generate';
@@ -10,6 +10,14 @@ async function writeGeneratedFile(
 	content: string
 ): Promise<void> {
 	await mkdir(dirname(path), { recursive: true });
+	try {
+		const current = await readFile(path, 'utf8');
+		if (current === content) {
+			return;
+		}
+	} catch {
+		// Missing or unreadable files are written below.
+	}
 	await writeFile(path, content, 'utf8');
 }
 

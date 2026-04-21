@@ -28,10 +28,10 @@
 		"@contractspec/lib.schema": "workspace:*"
 	},
 	"peerDependencies": {
-		"@pothos/core": "^4.9.1",
-		"elysia": "^1.4.28",
-		"express": "^5.2.1",
-		"next": "16.2.3"
+		"@pothos/core": "catalog:graphql",
+		"elysia": "catalog:server",
+		"express": "catalog:server",
+		"next": "catalog:"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",

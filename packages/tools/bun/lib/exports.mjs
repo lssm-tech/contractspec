@@ -386,9 +386,8 @@ export async function rewritePackageExports(
 		packageJson.types = publishExports['.']?.types;
 	}
 
-	await writeFile(
-		packageJsonPath,
-		`${JSON.stringify(packageJson, null, '\t')}\n`,
-		'utf8'
-	);
+	const nextPackageJsonContent = `${JSON.stringify(packageJson, null, '\t')}\n`;
+	if (nextPackageJsonContent !== packageJsonContent) {
+		await writeFile(packageJsonPath, nextPackageJsonContent, 'utf8');
+	}
 }

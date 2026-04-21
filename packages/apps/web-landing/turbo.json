@@ -1,0 +1,37 @@
+{
+	"$schema": "https://turbo.build/schema.json",
+	"extends": ["//"],
+	"tasks": {
+		"llms:generate": {
+			"cache": true,
+			"outputLogs": "new-only",
+			"inputs": [
+				"$TURBO_ROOT$/package.json",
+				"$TURBO_ROOT$/packages/*/*/package.json",
+				"$TURBO_ROOT$/packages/*/*/README.md",
+				"$TURBO_ROOT$/packages/*/*/*/package.json",
+				"$TURBO_ROOT$/packages/*/*/*/README.md",
+				"scripts/generate-llms-full.mjs"
+			],
+			"outputs": ["public/llms-full.txt", "public/llms-packages/**"]
+		},
+		"build": {
+			"cache": true,
+			"dependsOn": ["llms:generate", "^build"],
+			"outputLogs": "new-only",
+			"inputs": [
+				"$TURBO_DEFAULT$",
+				".env*",
+				"package.json",
+				"next.config.mjs",
+				"postcss.config.mjs",
+				"components.json",
+				"src/**",
+				"public/**",
+				"scripts/**",
+				"!.tsconfig.contractspec-types*.json"
+			],
+			"outputs": [".next/**", "!.next/cache/**", "dist/**"]
+		}
+	}
+}

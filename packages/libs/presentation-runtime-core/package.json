@@ -33,7 +33,7 @@
 	},
 	"dependencies": {
 		"@contractspec/lib.contracts-spec": "workspace:*",
-		"echarts": "^6.0.0",
+		"echarts": "catalog:ui",
 		"turndown": "^7.2.4"
 	},
 	"devDependencies": {

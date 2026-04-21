@@ -264,9 +264,9 @@
 	},
 	"peerDependencies": {
 		"@contractspec/lib.surface-runtime": "workspace:*",
-		"@apollo/client": "^4.1.7",
-		"framer-motion": "^12.38.0",
-		"lucide-react": "^1.8.0",
+		"@apollo/client": "catalog:graphql",
+		"framer-motion": "catalog:ui",
+		"lucide-react": "catalog:ui",
 		"react-dom": "catalog:"
 	},
 	"peerDependenciesMeta": {
@@ -299,13 +299,13 @@
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",
-		"@types/react": "^19.2.14",
-		"@types/react-dom": "^19.2.2",
+		"@types/react": "catalog:types",
+		"@types/react-dom": "catalog:types",
 		"typescript": "catalog:",
 		"@contractspec/tool.bun": "workspace:*",
-		"@apollo/client": "^4.1.7",
-		"framer-motion": "^12.38.0",
-		"lucide-react": "^1.8.0",
+		"@apollo/client": "catalog:graphql",
+		"framer-motion": "catalog:ui",
+		"lucide-react": "catalog:ui",
 		"react-dom": "catalog:"
 	},
 	"types": "./dist/index.d.ts"

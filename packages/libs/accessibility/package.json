@@ -32,13 +32,13 @@
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",
-		"react-native-css": "^3.0.4",
+		"react-native-css": "catalog:native",
 		"typescript": "catalog:",
 		"@contractspec/tool.bun": "workspace:*"
 	},
 	"peerDependencies": {
 		"react": "catalog:",
-		"next": "16.2.3"
+		"next": "catalog:"
 	},
 	"type": "module",
 	"types": "./dist/index.d.ts",

@@ -71,8 +71,8 @@
 	},
 	"types": "./dist/index.d.ts",
 	"dependencies": {
-		"@scaleway/sdk": "^3.4.4",
-		"@scaleway/sdk-client": "^2.2.2",
+		"@scaleway/sdk": "catalog:integrations",
+		"@scaleway/sdk-client": "catalog:integrations",
 		"@contractspec/lib.logger": "workspace:*",
 		"@contractspec/lib.contracts-spec": "workspace:*"
 	},

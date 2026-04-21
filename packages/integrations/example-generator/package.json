@@ -51,8 +51,8 @@
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",
 		"typescript": "catalog:",
-		"@types/node": "^25.6.0",
-		"rimraf": "^6.1.3",
+		"@types/node": "catalog:types",
+		"rimraf": "catalog:build",
 		"@contractspec/tool.bun": "workspace:*"
 	},
 	"peerDependencies": {

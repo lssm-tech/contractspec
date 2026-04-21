@@ -23,6 +23,30 @@ export interface ContractsrcConfig {
 
 Defined in `@contractspec/lib.contracts-spec/workspace-config`.
 
+### CI Package Declaration Coverage
+
+The `ci.packageDeclarations` section lets workspaces stage package-level contract declaration enforcement across the monorepo.
+
+```ts
+export interface ContractsrcConfig {
+  ci?: {
+    packageDeclarations?: {
+      severity?: 'off' | 'warning' | 'error';
+      requiredByKind?: {
+        libs?: 'feature';
+        modules?: 'feature';
+        integrations?: 'integration';
+        bundles?: 'module-bundle';
+        apps?: 'app-config';
+        appsRegistry?: 'app-config';
+        examples?: 'example';
+      };
+      allowMissing?: string[];
+    };
+  };
+}
+```
+
 ### Connect
 
 The `connect` section configures ContractSpec Connect as a codebase-aligned adapter layer inside the existing CLI and runtime stack.

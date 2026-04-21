@@ -16,7 +16,13 @@ import { Label } from './label';
 import { cn } from './utils';
 
 export { zodResolver } from '@hookform/resolvers/zod';
-export { type UseFormReturn, useFieldArray, useForm } from 'react-hook-form';
+export {
+	type FieldValues,
+	type Resolver,
+	type UseFormReturn,
+	useFieldArray,
+	useForm,
+} from 'react-hook-form';
 
 const Form = FormProvider;
 

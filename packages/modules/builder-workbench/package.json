@@ -42,7 +42,7 @@
 	"devDependencies": {
 		"@contractspec/tool.bun": "workspace:*",
 		"@contractspec/tool.typescript": "workspace:*",
-		"@types/react": "^19.2.14",
+		"@types/react": "catalog:types",
 		"typescript": "catalog:"
 	},
 	"peerDependencies": {

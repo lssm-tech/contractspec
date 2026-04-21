@@ -17,6 +17,7 @@ export interface ThemeSpec {
   tokens: ThemeTokens;
   components?: ComponentVariantSpec[];
   overrides?: ThemeOverride[];
+  modes?: Record<string, ThemeModeSpec>; // use keys like "light" and "dark"
 }
 ```
 
@@ -55,13 +56,38 @@ export const PastelTheme = defineTheme({
   },
   tokens: {
     colors: {
-      background: { value: '#fdf2f8' },
+      background: { value: '#fdf2f8', format: 'hex', usage: 'semantic' },
+      primary: {
+        value: 'oklch(0.72 0.11 221.19)',
+        format: 'oklch',
+        usage: 'semantic',
+      },
+    },
+  },
+  modes: {
+    dark: {
+      tokens: {
+        colors: {
+          background: {
+            value: 'oklch(0.24 0.03 255)',
+            format: 'oklch',
+            usage: 'semantic',
+          },
+          primary: {
+            value: 'oklch(0.64 0.15 246)',
+            format: 'oklch',
+            usage: 'semantic',
+          },
+        },
+      },
     },
   },
 });
 ```
 
-Use `validateThemeSpec()` or `assertThemeSpecValid()` in CI and setup flows to catch duplicate overrides, empty targets, self-referential inheritance, and missing ownership metadata before publish time.
+`tokens` stays the default/light-compatible token bag. Use `modes.dark.tokens` to overlay dark-mode values and preserve full CSS color strings such as OKLCH.
+
+Use `validateThemeSpec()` or `assertThemeSpecValid()` in CI and setup flows to catch duplicate overrides, empty targets, self-referential inheritance, invalid mode keys, and missing ownership metadata before publish time.
 
 ## Registry Usage
 
@@ -84,8 +110,8 @@ The registry guarantees `key + version` uniqueness and exposes `list()` for disc
 The design system consumes specs through adapters you provide:
 
 1. Resolve the base theme plus applicable overrides.
-2. Merge token maps using `ThemeTokens`.
-3. Feed the result into `mapTokensForPlatform` in `@contractspec/lib.design-system`.
+2. Merge default tokens plus the selected light/dark mode token map using `ThemeTokens`.
+3. Feed the result into `mapTokensForPlatform` or the Tailwind bridge in `@contractspec/lib.design-system`.
 
 ```ts
 function resolveTokens(

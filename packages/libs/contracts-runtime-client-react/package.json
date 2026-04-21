@@ -24,10 +24,10 @@
 		"directory": "packages/libs/contract-runtime-client-react"
 	},
 	"peerDependencies": {
-		"@hookform/resolvers": "^5.2.2",
+		"@hookform/resolvers": "catalog:ui",
 		"react": "catalog:",
 		"react-dom": "catalog:",
-		"react-hook-form": "^7.72.0"
+		"react-hook-form": "catalog:ui"
 	},
 	"dependencies": {
 		"@contractspec/lib.contracts-spec": "workspace:*",

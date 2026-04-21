@@ -172,7 +172,8 @@ export async function generateDocs(
 		}
 	}
 
-	const generatedAt = new Date().toISOString();
+	const manifestPath = join(outputDir, 'docs-index.manifest.json');
+	const generatedAt = new Date(0).toISOString();
 	const chunkMap = new Map<string, DocsIndexEntry[]>();
 	for (const entry of entries) {
 		const key = chunkKeyForId(entry.id);
@@ -207,10 +208,7 @@ export async function generateDocs(
 		chunks,
 	};
 
-	await writeText(
-		join(outputDir, 'docs-index.manifest.json'),
-		JSON.stringify(manifest, null, 2)
-	);
+	await writeText(manifestPath, `${JSON.stringify(manifest, null, '\t')}\n`);
 
 	const indexTypes = buildIndexTypesFile();
 	await writeText(join(outputDir, 'docs-index.generated.ts'), indexTypes);

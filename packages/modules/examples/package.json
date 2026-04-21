@@ -32,7 +32,7 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@apollo/client": "^4.1.7",
+		"@apollo/client": "catalog:graphql",
 		"@contractspec/lib.contracts-spec": "workspace:*",
 		"@contractspec/lib.example-shared-ui": "workspace:*",
 		"@contractspec/lib.runtime-sandbox": "workspace:*",

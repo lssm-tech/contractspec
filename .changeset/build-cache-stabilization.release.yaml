@@ -1,0 +1,64 @@
+schemaVersion: "1"
+slug: build-cache-stabilization
+summary: Stabilize Turborepo build caching by making generated artifacts deterministic, modeling web LLM generation explicitly, and avoiding no-op build-tool rewrites.
+isBreaking: false
+packages:
+  - name: "contractspec"
+    releaseType: patch
+  - name: "@contractspec/app.web-landing"
+    releaseType: patch
+  - name: "@contractspec/bundle.library"
+    releaseType: patch
+  - name: "@contractspec/lib.contracts-spec"
+    releaseType: patch
+  - name: "@contractspec/tool.bun"
+    releaseType: patch
+  - name: "@contractspec/tool.docs-generator"
+    releaseType: patch
+  - name: "@contractspec/biome-config"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - node
+  - turbo
+affectedFrameworks:
+  - turborepo
+  - nextjs
+  - biome
+audiences:
+  - kind: maintainer
+    summary: Repeated local builds now hit Turbo cache after an initial run because generated timestamps, temporary TypeScript configs, generated roots, and source handlers no longer poison task hashes.
+    affectedPackages:
+      - "contractspec"
+      - "@contractspec/tool.bun"
+      - "@contractspec/tool.docs-generator"
+      - "@contractspec/biome-config"
+  - kind: integrator
+    summary: Web LLM guide generation is now a modeled Turbo task and generated docs metadata is stable, making downstream build behavior easier to reason about in local and CI workspaces.
+    affectedPackages:
+      - "@contractspec/app.web-landing"
+      - "@contractspec/bundle.library"
+      - "@contractspec/lib.contracts-spec"
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: rely-on-turbo-llms-generation
+    title: Let Turbo run web LLM guide generation
+    summary: The web landing build now depends on the package-local `llms:generate` task instead of calling the generator inline.
+    level: manual
+    instructions:
+      - Continue running `turbo run build --filter=@contractspec/app.web-landing` for full web builds.
+      - Run `turbo run llms:generate --filter=@contractspec/app.web-landing` when only the LLM guide artifacts need to be refreshed.
+validation:
+  commands:
+    - "bun test packages/tools/bun/test"
+    - "bun test packages/libs/contracts-spec/src/docs/manifest-builder.test.ts"
+    - "bun test packages/tools/docs-generator/src/generate.test.ts"
+    - "bun ./node_modules/turbo/bin/turbo run build --filter=@contractspec/example.voice-providers"
+    - "bun ./node_modules/turbo/bin/turbo run build --filter=@contractspec/app.web-landing"
+  evidence:
+    - "`@contractspec/example.voice-providers` repeated build finished with 21 cached tasks out of 21."
+    - "`@contractspec/app.web-landing` repeated build finished with 101 cached tasks out of 101 after cache refresh."
+    - "Turbo dry-runs confirm temporary type configs and generated roots are absent from build inputs, `src/handlers/**` is absent from outputs, and the web build depends on `llms:generate`."
+knownGaps:
+  - The Vercel remote cache rejected one large web build artifact with HTTP 413, so this change proves local cache stability but does not resize remote artifacts.

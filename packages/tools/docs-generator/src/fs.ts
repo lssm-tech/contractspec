@@ -11,6 +11,14 @@ export async function readText(path: string): Promise<string> {
 
 export async function writeText(path: string, content: string): Promise<void> {
 	await ensureDir(dirname(path));
+	try {
+		const current = await readFile(path, 'utf8');
+		if (current === content) {
+			return;
+		}
+	} catch {
+		// Missing or unreadable files are written below.
+	}
 	await writeFile(path, content, 'utf8');
 }
 
