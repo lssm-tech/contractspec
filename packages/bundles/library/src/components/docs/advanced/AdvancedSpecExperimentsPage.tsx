@@ -1,17 +1,25 @@
+import {
+	Code,
+	H1,
+	H2,
+	H3,
+	P,
+} from '@contractspec/lib.design-system/components/typography';
+
 export function AdvancedSpecExperimentsPage() {
 	return (
 		<div className="space-y-8">
 			<div className="space-y-4">
-				<h1 className="font-bold text-4xl">Spec Experiments</h1>
-				<p className="text-lg text-muted-foreground">
+				<H1 className="font-bold text-4xl">Spec Experiments</H1>
+				<P className="text-lg text-muted-foreground">
 					Run controlled experiments on ContractSpec operations, gradually shift
 					traffic, and roll back automatically when guardrails trip.
-				</p>
+				</P>
 			</div>
 
 			<div className="space-y-3">
-				<h2 className="font-bold text-2xl">Define control + variants</h2>
-				<pre className="rounded-lg border bg-muted p-4 text-sm">
+				<H2 className="font-bold text-2xl">Define control + variants</H2>
+				<Code className="rounded-lg border bg-muted p-4 text-sm">
 					{`import { SpecExperimentRegistry } from '@contractspec/lib.growth/spec-experiments';
 
 const registry = new SpecExperimentRegistry().register({
@@ -33,24 +41,24 @@ const registry = new SpecExperimentRegistry().register({
   rolloutStages: [0.01, 0.1, 0.5, 1],
   guardrails: { errorRateThreshold: 0.02, latencyP99ThresholdMs: 500 },
 });`}
-				</pre>
+				</Code>
 			</div>
 
 			<div className="space-y-3">
-				<h2 className="font-bold text-2xl">Attach to runtime</h2>
-				<pre className="rounded-lg border bg-muted p-4 text-sm">
+				<H2 className="font-bold text-2xl">Attach to runtime</H2>
+				<Code className="rounded-lg border bg-muted p-4 text-sm">
 					{`import { createSpecVariantResolver } from '@contractspec/lib.growth/spec-experiments';
 
 adapterContext.specVariantResolver = createSpecVariantResolver({
   adapter,
   resolveUserId: (ctx) => ctx.userId ?? ctx.organizationId ?? 'anon',
 });`}
-				</pre>
+				</Code>
 			</div>
 
 			<div className="space-y-3">
-				<h2 className="font-bold text-2xl">Track outcomes + auto-rollback</h2>
-				<pre className="rounded-lg border bg-muted p-4 text-sm">
+				<H2 className="font-bold text-2xl">Track outcomes + auto-rollback</H2>
+				<Code className="rounded-lg border bg-muted p-4 text-sm">
 					{`import {
   SpecExperimentAnalyzer,
   SpecExperimentController,
@@ -62,7 +70,7 @@ const controller = new SpecExperimentController({
   analyzer,
   onRollback: (target, evaluation) => notifyOps(target, evaluation.reasons),
 });`}
-				</pre>
+				</Code>
 			</div>
 
 			<div className="grid gap-4 md:grid-cols-2">
@@ -79,8 +87,8 @@ const controller = new SpecExperimentController({
 					},
 				].map((card) => (
 					<div key={card.title} className="card-subtle space-y-2 p-4">
-						<h3 className="font-semibold text-lg">{card.title}</h3>
-						<p className="text-muted-foreground text-sm">{card.description}</p>
+						<H3 className="font-semibold text-lg">{card.title}</H3>
+						<P className="text-muted-foreground text-sm">{card.description}</P>
 					</div>
 				))}
 			</div>

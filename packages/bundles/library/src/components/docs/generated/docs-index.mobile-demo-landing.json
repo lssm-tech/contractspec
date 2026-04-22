@@ -1,42 +1,42 @@
 [
-  {
-    "id": "mobile-demo.landing/mobile-demo.landing",
-    "title": "mobile-demo.landing",
-    "summary": "Expo Router companion for the shared ContractSpec OSS-first product story and public navigation.\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.core\n- **Tags**: mobile, expo, landing, marketing",
-    "route": "/docs/reference/mobile-demo.landing/mobile-demo.landing",
-    "source": "generated",
-    "contentPath": "mobile-demo.landing/mobile-demo.landing.md"
-  },
-  {
-    "id": "mobile-demo.landing/mobileLanding.cta.resolve",
-    "title": "mobileLanding.cta.resolve",
-    "summary": "Resolve a landing companion CTA id to a native route or URL.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.core\n- **Tags**: mobile, expo, landing, cta",
-    "route": "/docs/reference/mobile-demo.landing/mobileLanding.cta.resolve",
-    "source": "generated",
-    "contentPath": "mobile-demo.landing/mobileLanding.cta.resolve.md"
-  },
-  {
-    "id": "mobile-demo.landing/mobileLanding.navigation.list",
-    "title": "mobileLanding.navigation.list",
-    "summary": "List native navigation items for the Expo landing companion.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.core\n- **Tags**: mobile, expo, landing, navigation",
-    "route": "/docs/reference/mobile-demo.landing/mobileLanding.navigation.list",
-    "source": "generated",
-    "contentPath": "mobile-demo.landing/mobileLanding.navigation.list.md"
-  },
-  {
-    "id": "mobile-demo.landing/mobileLanding.page.get",
-    "title": "mobileLanding.page.get",
-    "summary": "Get content for a native landing companion route.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.core\n- **Tags**: mobile, expo, landing, page\n- **File**: `packages/apps/mobile-demo/src/contracts/mobile-landing.contract.ts`",
-    "route": "/docs/reference/mobile-demo.landing/mobileLanding.page.get",
-    "source": "generated",
-    "contentPath": "mobile-demo.landing/mobileLanding.page.get.md"
-  },
-  {
-    "id": "mobile-demo.landing/mobileLanding.story.get",
-    "title": "mobileLanding.story.get",
-    "summary": "Get the shared ContractSpec landing story for Expo.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.core\n- **Tags**: mobile, expo, landing, marketing",
-    "route": "/docs/reference/mobile-demo.landing/mobileLanding.story.get",
-    "source": "generated",
-    "contentPath": "mobile-demo.landing/mobileLanding.story.get.md"
-  }
+	{
+		"id": "mobile-demo.landing/mobile-demo.landing",
+		"title": "mobile-demo.landing",
+		"summary": "Expo Router companion for the shared ContractSpec OSS-first product story and public navigation.\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.core\n- **Tags**: mobile, expo, landing, marketing",
+		"route": "/docs/reference/mobile-demo.landing/mobile-demo.landing",
+		"source": "generated",
+		"contentPath": "mobile-demo.landing/mobile-demo.landing.md"
+	},
+	{
+		"id": "mobile-demo.landing/mobileLanding.cta.resolve",
+		"title": "mobileLanding.cta.resolve",
+		"summary": "Resolve a landing companion CTA id to a native route or URL.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.core\n- **Tags**: mobile, expo, landing, cta",
+		"route": "/docs/reference/mobile-demo.landing/mobileLanding.cta.resolve",
+		"source": "generated",
+		"contentPath": "mobile-demo.landing/mobileLanding.cta.resolve.md"
+	},
+	{
+		"id": "mobile-demo.landing/mobileLanding.navigation.list",
+		"title": "mobileLanding.navigation.list",
+		"summary": "List native navigation items for the Expo landing companion.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.core\n- **Tags**: mobile, expo, landing, navigation",
+		"route": "/docs/reference/mobile-demo.landing/mobileLanding.navigation.list",
+		"source": "generated",
+		"contentPath": "mobile-demo.landing/mobileLanding.navigation.list.md"
+	},
+	{
+		"id": "mobile-demo.landing/mobileLanding.page.get",
+		"title": "mobileLanding.page.get",
+		"summary": "Get content for a native landing companion route.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.core\n- **Tags**: mobile, expo, landing, page\n- **File**: `packages/apps/mobile-demo/src/contracts/mobile-landing.contract.ts`",
+		"route": "/docs/reference/mobile-demo.landing/mobileLanding.page.get",
+		"source": "generated",
+		"contentPath": "mobile-demo.landing/mobileLanding.page.get.md"
+	},
+	{
+		"id": "mobile-demo.landing/mobileLanding.story.get",
+		"title": "mobileLanding.story.get",
+		"summary": "Get the shared ContractSpec landing story for Expo.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.core\n- **Tags**: mobile, expo, landing, marketing",
+		"route": "/docs/reference/mobile-demo.landing/mobileLanding.story.get",
+		"source": "generated",
+		"contentPath": "mobile-demo.landing/mobileLanding.story.get.md"
+	}
 ]

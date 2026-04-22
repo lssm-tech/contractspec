@@ -1,330 +1,330 @@
 [
-  {
-    "id": "platform.integrations/ai-image.fal",
-    "title": "ai-image.fal",
-    "summary": "Fal integration for AI image generation using Flux and Stable Diffusion models.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: image, generation, flux, stable-diffusion",
-    "route": "/docs/reference/platform.integrations/ai-image.fal",
-    "source": "generated",
-    "contentPath": "platform.integrations/ai-image.fal.md"
-  },
-  {
-    "id": "platform.integrations/ai-image.openai",
-    "title": "ai-image.openai",
-    "summary": "OpenAI integration for AI image generation using DALL-E and gpt-image models.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: image, generation, dall-e, gpt-image",
-    "route": "/docs/reference/platform.integrations/ai-image.openai",
-    "source": "generated",
-    "contentPath": "platform.integrations/ai-image.openai.md"
-  },
-  {
-    "id": "platform.integrations/ai-llm.mistral",
-    "title": "ai-llm.mistral",
-    "summary": "Mistral integration providing chat completions and embedding generation.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: ai, llm, embeddings\n- **File**: `packages/libs/contracts-integrations/src/integrations/providers/mistral.ts`",
-    "route": "/docs/reference/platform.integrations/ai-llm.mistral",
-    "source": "generated",
-    "contentPath": "platform.integrations/ai-llm.mistral.md"
-  },
-  {
-    "id": "platform.integrations/ai-voice-conv.mistral",
-    "title": "ai-voice-conv.mistral",
-    "summary": "Mistral conversational voice integration using conversation sessions and speech models for bidirectional interactions.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: voice, conversational, mistral, agents, sessions",
-    "route": "/docs/reference/platform.integrations/ai-voice-conv.mistral",
-    "source": "generated",
-    "contentPath": "platform.integrations/ai-voice-conv.mistral.md"
-  },
-  {
-    "id": "platform.integrations/ai-voice-conv.openai",
-    "title": "ai-voice-conv.openai",
-    "summary": "OpenAI Realtime API integration for bidirectional conversational voice with GPT models.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: voice, conversational, realtime, openai",
-    "route": "/docs/reference/platform.integrations/ai-voice-conv.openai",
-    "source": "generated",
-    "contentPath": "platform.integrations/ai-voice-conv.openai.md"
-  },
-  {
-    "id": "platform.integrations/ai-voice-stt.deepgram",
-    "title": "ai-voice-stt.deepgram",
-    "summary": "Deepgram integration for real-time and batch speech-to-text transcription with speaker diarization.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: voice, stt, transcription, diarization",
-    "route": "/docs/reference/platform.integrations/ai-voice-stt.deepgram",
-    "source": "generated",
-    "contentPath": "platform.integrations/ai-voice-stt.deepgram.md"
-  },
-  {
-    "id": "platform.integrations/ai-voice-stt.mistral",
-    "title": "ai-voice-stt.mistral",
-    "summary": "Mistral audio transcription integration for batch and streaming speech-to-text use cases.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: voice, stt, transcription, mistral, voxtral",
-    "route": "/docs/reference/platform.integrations/ai-voice-stt.mistral",
-    "source": "generated",
-    "contentPath": "platform.integrations/ai-voice-stt.mistral.md"
-  },
-  {
-    "id": "platform.integrations/ai-voice.elevenlabs",
-    "title": "ai-voice.elevenlabs",
-    "summary": "ElevenLabs integration for neural voice synthesis and voice catalog access.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: voice, tts, stt\n- **File**: `packages/libs/contracts-integrations/src/integrations/providers/elevenlabs.ts`",
-    "route": "/docs/reference/platform.integrations/ai-voice.elevenlabs",
-    "source": "generated",
-    "contentPath": "platform.integrations/ai-voice.elevenlabs.md"
-  },
-  {
-    "id": "platform.integrations/ai-voice.fal",
-    "title": "ai-voice.fal",
-    "summary": "Fal integration for voice synthesis using Chatterbox text-to-speech models.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: voice, tts, chatterbox\n- **File**: `packages/libs/contracts-integrations/src/integrations/providers/fal.ts`",
-    "route": "/docs/reference/platform.integrations/ai-voice.fal",
-    "source": "generated",
-    "contentPath": "platform.integrations/ai-voice.fal.md"
-  },
-  {
-    "id": "platform.integrations/ai-voice.gradium",
-    "title": "ai-voice.gradium",
-    "summary": "Gradium integration for low-latency voice synthesis and voice catalog access.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: voice, tts, realtime\n- **File**: `packages/libs/contracts-integrations/src/integrations/providers/gradium.ts`",
-    "route": "/docs/reference/platform.integrations/ai-voice.gradium",
-    "source": "generated",
-    "contentPath": "platform.integrations/ai-voice.gradium.md"
-  },
-  {
-    "id": "platform.integrations/analytics.posthog",
-    "title": "analytics.posthog",
-    "summary": "PostHog integration for product analytics, feature flags, HogQL queries, and LLM analytics with evaluations.\n- **Type**: integration (integration)\n- **Version**: 1.1.0\n- **Owners**: @platform.integrations",
-    "route": "/docs/reference/platform.integrations/analytics.posthog",
-    "source": "generated",
-    "contentPath": "platform.integrations/analytics.posthog.md"
-  },
-  {
-    "id": "platform.integrations/calendar.google",
-    "title": "calendar.google",
-    "summary": "Google Calendar integration for event creation, updates, and scheduling automations.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.messaging\n- **Tags**: calendar, google",
-    "route": "/docs/reference/platform.integrations/calendar.google",
-    "source": "generated",
-    "contentPath": "platform.integrations/calendar.google.md"
-  },
-  {
-    "id": "platform.integrations/database.supabase",
-    "title": "database.supabase",
-    "summary": "Supabase Postgres integration for SQL query execution and transactional workloads.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.infrastructure\n- **Tags**: database, postgres, supabase",
-    "route": "/docs/reference/platform.integrations/database.supabase",
-    "source": "generated",
-    "contentPath": "platform.integrations/database.supabase.md"
-  },
-  {
-    "id": "platform.integrations/email.gmail",
-    "title": "email.gmail",
-    "summary": "Gmail integration supporting inbound thread ingestion and outbound transactional email.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.messaging\n- **Tags**: email, gmail\n- **File**: `packages/libs/contracts-integrations/src/integrations/providers/gmail.ts`",
-    "route": "/docs/reference/platform.integrations/email.gmail",
-    "source": "generated",
-    "contentPath": "platform.integrations/email.gmail.md"
-  },
-  {
-    "id": "platform.integrations/email.postmark",
-    "title": "email.postmark",
-    "summary": "Postmark integration for transactional email delivery.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.messaging\n- **Tags**: email, transactional\n- **File**: `packages/libs/contracts-integrations/src/integrations/providers/postmark.ts`",
-    "route": "/docs/reference/platform.integrations/email.postmark",
-    "source": "generated",
-    "contentPath": "platform.integrations/email.postmark.md"
-  },
-  {
-    "id": "platform.integrations/fallback.composio",
-    "title": "fallback.composio",
-    "summary": "Composio integration platform providing 850+ toolkits as a universal fallback for unsupported provider keys.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.integrations\n- **Tags**: composio, fallback, mcp, universal",
-    "route": "/docs/reference/platform.integrations/fallback.composio",
-    "source": "generated",
-    "contentPath": "platform.integrations/fallback.composio.md"
-  },
-  {
-    "id": "platform.integrations/integrations",
-    "title": "integrations",
-    "summary": "Core integrations capability for third-party connections\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: @platform.core\n- **Tags**: integrations, platform\n- **File**: `packages/libs/contracts-integrations/src/integrations/integrations.capability.ts`",
-    "route": "/docs/reference/platform.integrations/integrations",
-    "source": "generated",
-    "contentPath": "platform.integrations/integrations.md"
-  },
-  {
-    "id": "platform.integrations/integrations.connection.create",
-    "title": "integrations.connection.create",
-    "summary": "Create a new integration connection for a tenant.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: integration, connections",
-    "route": "/docs/reference/platform.integrations/integrations.connection.create",
-    "source": "generated",
-    "contentPath": "platform.integrations/integrations.connection.create.md"
-  },
-  {
-    "id": "platform.integrations/integrations.connection.delete",
-    "title": "integrations.connection.delete",
-    "summary": "Delete an integration connection for a tenant.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: integration, connections\n- **File**: `packages/libs/contracts-integrations/src/integrations/operations.ts`",
-    "route": "/docs/reference/platform.integrations/integrations.connection.delete",
-    "source": "generated",
-    "contentPath": "platform.integrations/integrations.connection.delete.md"
-  },
-  {
-    "id": "platform.integrations/integrations.connection.list",
-    "title": "integrations.connection.list",
-    "summary": "List integration connections for a tenant.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: integration, connections\n- **File**: `packages/libs/contracts-integrations/src/integrations/operations.ts`",
-    "route": "/docs/reference/platform.integrations/integrations.connection.list",
-    "source": "generated",
-    "contentPath": "platform.integrations/integrations.connection.list.md"
-  },
-  {
-    "id": "platform.integrations/integrations.connection.test",
-    "title": "integrations.connection.test",
-    "summary": "Run a health check against a configured integration connection.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: integration, connections",
-    "route": "/docs/reference/platform.integrations/integrations.connection.test",
-    "source": "generated",
-    "contentPath": "platform.integrations/integrations.connection.test.md"
-  },
-  {
-    "id": "platform.integrations/integrations.connection.update",
-    "title": "integrations.connection.update",
-    "summary": "Update metadata or credentials for an integration connection.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: integration, connections",
-    "route": "/docs/reference/platform.integrations/integrations.connection.update",
-    "source": "generated",
-    "contentPath": "platform.integrations/integrations.connection.update.md"
-  },
-  {
-    "id": "platform.integrations/meeting-recorder.fathom",
-    "title": "meeting-recorder.fathom",
-    "summary": "Fathom External API for meetings, transcripts, and webhook events.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.integrations\n- **Tags**: meeting-recorder, fathom, transcripts",
-    "route": "/docs/reference/platform.integrations/meeting-recorder.fathom",
-    "source": "generated",
-    "contentPath": "platform.integrations/meeting-recorder.fathom.md"
-  },
-  {
-    "id": "platform.integrations/meeting-recorder.fireflies",
-    "title": "meeting-recorder.fireflies",
-    "summary": "Fireflies GraphQL API for meeting transcripts, metadata, and webhook events.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.integrations\n- **Tags**: meeting-recorder, fireflies, transcripts",
-    "route": "/docs/reference/platform.integrations/meeting-recorder.fireflies",
-    "source": "generated",
-    "contentPath": "platform.integrations/meeting-recorder.fireflies.md"
-  },
-  {
-    "id": "platform.integrations/meeting-recorder.granola",
-    "title": "meeting-recorder.granola",
-    "summary": "Granola meeting notes and transcripts via Enterprise API or MCP transport.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.integrations\n- **Tags**: meeting-recorder, granola, transcripts",
-    "route": "/docs/reference/platform.integrations/meeting-recorder.granola",
-    "source": "generated",
-    "contentPath": "platform.integrations/meeting-recorder.granola.md"
-  },
-  {
-    "id": "platform.integrations/meeting-recorder.tldv",
-    "title": "meeting-recorder.tldv",
-    "summary": "tl;dv Public API for meeting recordings, transcripts, and webhook events.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.integrations\n- **Tags**: meeting-recorder, tldv, transcripts",
-    "route": "/docs/reference/platform.integrations/meeting-recorder.tldv",
-    "source": "generated",
-    "contentPath": "platform.integrations/meeting-recorder.tldv.md"
-  },
-  {
-    "id": "platform.integrations/messaging.github",
-    "title": "messaging.github",
-    "summary": "GitHub integration for issue and pull request comment workflows backed by webhook events.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.messaging\n- **Tags**: messaging, github, pull-requests",
-    "route": "/docs/reference/platform.integrations/messaging.github",
-    "source": "generated",
-    "contentPath": "platform.integrations/messaging.github.md"
-  },
-  {
-    "id": "platform.integrations/messaging.slack",
-    "title": "messaging.slack",
-    "summary": "Slack integration for inbound events, threaded responses, and interactive messaging workflows.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.messaging\n- **Tags**: messaging, slack",
-    "route": "/docs/reference/platform.integrations/messaging.slack",
-    "source": "generated",
-    "contentPath": "platform.integrations/messaging.slack.md"
-  },
-  {
-    "id": "platform.integrations/messaging.telegram",
-    "title": "messaging.telegram",
-    "summary": "Telegram messaging integration for inbound webhook updates, threaded topic messages, and outbound bot replies.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.messaging\n- **Tags**: messaging, telegram",
-    "route": "/docs/reference/platform.integrations/messaging.telegram",
-    "source": "generated",
-    "contentPath": "platform.integrations/messaging.telegram.md"
-  },
-  {
-    "id": "platform.integrations/messaging.whatsapp.meta",
-    "title": "messaging.whatsapp.meta",
-    "summary": "Meta WhatsApp Cloud API integration for inbound message processing and outbound replies.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.messaging\n- **Tags**: messaging, whatsapp, meta",
-    "route": "/docs/reference/platform.integrations/messaging.whatsapp.meta",
-    "source": "generated",
-    "contentPath": "platform.integrations/messaging.whatsapp.meta.md"
-  },
-  {
-    "id": "platform.integrations/messaging.whatsapp.twilio",
-    "title": "messaging.whatsapp.twilio",
-    "summary": "Twilio-powered WhatsApp integration for inbound webhooks and outbound conversational messaging.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.messaging\n- **Tags**: messaging, whatsapp, twilio",
-    "route": "/docs/reference/platform.integrations/messaging.whatsapp.twilio",
-    "source": "generated",
-    "contentPath": "platform.integrations/messaging.whatsapp.twilio.md"
-  },
-  {
-    "id": "platform.integrations/openbanking.powens",
-    "title": "openbanking.powens",
-    "summary": "Read-only Open Banking integration powered by Powens, exposing accounts, transactions, and balances.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.finance\n- **Tags**: open-banking, powens, finance",
-    "route": "/docs/reference/platform.integrations/openbanking.powens",
-    "source": "generated",
-    "contentPath": "platform.integrations/openbanking.powens.md"
-  },
-  {
-    "id": "platform.integrations/payments.stripe",
-    "title": "payments.stripe",
-    "summary": "Stripe integration for payment processing, charges, and payouts.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.payments\n- **Tags**: payments, psp\n- **File**: `packages/libs/contracts-integrations/src/integrations/providers/stripe.ts`",
-    "route": "/docs/reference/platform.integrations/payments.stripe",
-    "source": "generated",
-    "contentPath": "platform.integrations/payments.stripe.md"
-  },
-  {
-    "id": "platform.integrations/platform.integrations",
-    "title": "platform.integrations",
-    "summary": "Manage integration connections to external providers (e.g., Stripe, Qdrant)\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: integrations, connections, platform",
-    "route": "/docs/reference/platform.integrations/platform.integrations",
-    "source": "generated",
-    "contentPath": "platform.integrations/platform.integrations.md"
-  },
-  {
-    "id": "platform.integrations/project-management.jira",
-    "title": "project-management.jira",
-    "summary": "Jira Cloud integration for creating and tracking work items.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: @platform.integrations\n- **Tags**: project-management, jira\n- **File**: `packages/libs/contracts-integrations/src/integrations/providers/jira.ts`",
-    "route": "/docs/reference/platform.integrations/project-management.jira",
-    "source": "generated",
-    "contentPath": "platform.integrations/project-management.jira.md"
-  },
-  {
-    "id": "platform.integrations/project-management.linear",
-    "title": "project-management.linear",
-    "summary": "Linear integration for issue tracking and project management workflows.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: @platform.integrations\n- **Tags**: project-management, linear",
-    "route": "/docs/reference/platform.integrations/project-management.linear",
-    "source": "generated",
-    "contentPath": "platform.integrations/project-management.linear.md"
-  },
-  {
-    "id": "platform.integrations/project-management.notion",
-    "title": "project-management.notion",
-    "summary": "Notion integration for creating shared project summaries and task entries.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: @platform.integrations\n- **Tags**: project-management, notion",
-    "route": "/docs/reference/platform.integrations/project-management.notion",
-    "source": "generated",
-    "contentPath": "platform.integrations/project-management.notion.md"
-  },
-  {
-    "id": "platform.integrations/sms.twilio",
-    "title": "sms.twilio",
-    "summary": "Twilio SMS integration for transactional and notification messaging.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.messaging\n- **Tags**: sms, messaging\n- **File**: `packages/libs/contracts-integrations/src/integrations/providers/twilio-sms.ts`",
-    "route": "/docs/reference/platform.integrations/sms.twilio",
-    "source": "generated",
-    "contentPath": "platform.integrations/sms.twilio.md"
-  },
-  {
-    "id": "platform.integrations/storage.gcs",
-    "title": "storage.gcs",
-    "summary": "Google Cloud Storage integration for object storage and retrieval.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.infrastructure\n- **Tags**: storage, gcs, google-cloud\n- **File**: `packages/libs/contracts-integrations/src/integrations/providers/gcs-storage.ts`",
-    "route": "/docs/reference/platform.integrations/storage.gcs",
-    "source": "generated",
-    "contentPath": "platform.integrations/storage.gcs.md"
-  },
-  {
-    "id": "platform.integrations/vectordb.qdrant",
-    "title": "vectordb.qdrant",
-    "summary": "Qdrant integration for vector search and embeddings storage.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: vector-db, search\n- **File**: `packages/libs/contracts-integrations/src/integrations/providers/qdrant.ts`",
-    "route": "/docs/reference/platform.integrations/vectordb.qdrant",
-    "source": "generated",
-    "contentPath": "platform.integrations/vectordb.qdrant.md"
-  },
-  {
-    "id": "platform.integrations/vectordb.supabase",
-    "title": "vectordb.supabase",
-    "summary": "Supabase integration for embedding storage and vector similarity search using pgvector.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: vector-db, supabase, pgvector",
-    "route": "/docs/reference/platform.integrations/vectordb.supabase",
-    "source": "generated",
-    "contentPath": "platform.integrations/vectordb.supabase.md"
-  }
+	{
+		"id": "platform.integrations/ai-image.fal",
+		"title": "ai-image.fal",
+		"summary": "Fal integration for AI image generation using Flux and Stable Diffusion models.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: image, generation, flux, stable-diffusion",
+		"route": "/docs/reference/platform.integrations/ai-image.fal",
+		"source": "generated",
+		"contentPath": "platform.integrations/ai-image.fal.md"
+	},
+	{
+		"id": "platform.integrations/ai-image.openai",
+		"title": "ai-image.openai",
+		"summary": "OpenAI integration for AI image generation using DALL-E and gpt-image models.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: image, generation, dall-e, gpt-image",
+		"route": "/docs/reference/platform.integrations/ai-image.openai",
+		"source": "generated",
+		"contentPath": "platform.integrations/ai-image.openai.md"
+	},
+	{
+		"id": "platform.integrations/ai-llm.mistral",
+		"title": "ai-llm.mistral",
+		"summary": "Mistral integration providing chat completions and embedding generation.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: ai, llm, embeddings\n- **File**: `packages/libs/contracts-integrations/src/integrations/providers/mistral.ts`",
+		"route": "/docs/reference/platform.integrations/ai-llm.mistral",
+		"source": "generated",
+		"contentPath": "platform.integrations/ai-llm.mistral.md"
+	},
+	{
+		"id": "platform.integrations/ai-voice-conv.mistral",
+		"title": "ai-voice-conv.mistral",
+		"summary": "Mistral conversational voice integration using conversation sessions and speech models for bidirectional interactions.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: voice, conversational, mistral, agents, sessions",
+		"route": "/docs/reference/platform.integrations/ai-voice-conv.mistral",
+		"source": "generated",
+		"contentPath": "platform.integrations/ai-voice-conv.mistral.md"
+	},
+	{
+		"id": "platform.integrations/ai-voice-conv.openai",
+		"title": "ai-voice-conv.openai",
+		"summary": "OpenAI Realtime API integration for bidirectional conversational voice with GPT models.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: voice, conversational, realtime, openai",
+		"route": "/docs/reference/platform.integrations/ai-voice-conv.openai",
+		"source": "generated",
+		"contentPath": "platform.integrations/ai-voice-conv.openai.md"
+	},
+	{
+		"id": "platform.integrations/ai-voice-stt.deepgram",
+		"title": "ai-voice-stt.deepgram",
+		"summary": "Deepgram integration for real-time and batch speech-to-text transcription with speaker diarization.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: voice, stt, transcription, diarization",
+		"route": "/docs/reference/platform.integrations/ai-voice-stt.deepgram",
+		"source": "generated",
+		"contentPath": "platform.integrations/ai-voice-stt.deepgram.md"
+	},
+	{
+		"id": "platform.integrations/ai-voice-stt.mistral",
+		"title": "ai-voice-stt.mistral",
+		"summary": "Mistral audio transcription integration for batch and streaming speech-to-text use cases.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: voice, stt, transcription, mistral, voxtral",
+		"route": "/docs/reference/platform.integrations/ai-voice-stt.mistral",
+		"source": "generated",
+		"contentPath": "platform.integrations/ai-voice-stt.mistral.md"
+	},
+	{
+		"id": "platform.integrations/ai-voice.elevenlabs",
+		"title": "ai-voice.elevenlabs",
+		"summary": "ElevenLabs integration for neural voice synthesis and voice catalog access.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: voice, tts, stt\n- **File**: `packages/libs/contracts-integrations/src/integrations/providers/elevenlabs.ts`",
+		"route": "/docs/reference/platform.integrations/ai-voice.elevenlabs",
+		"source": "generated",
+		"contentPath": "platform.integrations/ai-voice.elevenlabs.md"
+	},
+	{
+		"id": "platform.integrations/ai-voice.fal",
+		"title": "ai-voice.fal",
+		"summary": "Fal integration for voice synthesis using Chatterbox text-to-speech models.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: voice, tts, chatterbox\n- **File**: `packages/libs/contracts-integrations/src/integrations/providers/fal.ts`",
+		"route": "/docs/reference/platform.integrations/ai-voice.fal",
+		"source": "generated",
+		"contentPath": "platform.integrations/ai-voice.fal.md"
+	},
+	{
+		"id": "platform.integrations/ai-voice.gradium",
+		"title": "ai-voice.gradium",
+		"summary": "Gradium integration for low-latency voice synthesis and voice catalog access.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: voice, tts, realtime\n- **File**: `packages/libs/contracts-integrations/src/integrations/providers/gradium.ts`",
+		"route": "/docs/reference/platform.integrations/ai-voice.gradium",
+		"source": "generated",
+		"contentPath": "platform.integrations/ai-voice.gradium.md"
+	},
+	{
+		"id": "platform.integrations/analytics.posthog",
+		"title": "analytics.posthog",
+		"summary": "PostHog integration for product analytics, feature flags, HogQL queries, and LLM analytics with evaluations.\n- **Type**: integration (integration)\n- **Version**: 1.1.0\n- **Owners**: @platform.integrations",
+		"route": "/docs/reference/platform.integrations/analytics.posthog",
+		"source": "generated",
+		"contentPath": "platform.integrations/analytics.posthog.md"
+	},
+	{
+		"id": "platform.integrations/calendar.google",
+		"title": "calendar.google",
+		"summary": "Google Calendar integration for event creation, updates, and scheduling automations.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.messaging\n- **Tags**: calendar, google",
+		"route": "/docs/reference/platform.integrations/calendar.google",
+		"source": "generated",
+		"contentPath": "platform.integrations/calendar.google.md"
+	},
+	{
+		"id": "platform.integrations/database.supabase",
+		"title": "database.supabase",
+		"summary": "Supabase Postgres integration for SQL query execution and transactional workloads.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.infrastructure\n- **Tags**: database, postgres, supabase",
+		"route": "/docs/reference/platform.integrations/database.supabase",
+		"source": "generated",
+		"contentPath": "platform.integrations/database.supabase.md"
+	},
+	{
+		"id": "platform.integrations/email.gmail",
+		"title": "email.gmail",
+		"summary": "Gmail integration supporting inbound thread ingestion and outbound transactional email.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.messaging\n- **Tags**: email, gmail\n- **File**: `packages/libs/contracts-integrations/src/integrations/providers/gmail.ts`",
+		"route": "/docs/reference/platform.integrations/email.gmail",
+		"source": "generated",
+		"contentPath": "platform.integrations/email.gmail.md"
+	},
+	{
+		"id": "platform.integrations/email.postmark",
+		"title": "email.postmark",
+		"summary": "Postmark integration for transactional email delivery.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.messaging\n- **Tags**: email, transactional\n- **File**: `packages/libs/contracts-integrations/src/integrations/providers/postmark.ts`",
+		"route": "/docs/reference/platform.integrations/email.postmark",
+		"source": "generated",
+		"contentPath": "platform.integrations/email.postmark.md"
+	},
+	{
+		"id": "platform.integrations/fallback.composio",
+		"title": "fallback.composio",
+		"summary": "Composio integration platform providing 850+ toolkits as a universal fallback for unsupported provider keys.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.integrations\n- **Tags**: composio, fallback, mcp, universal",
+		"route": "/docs/reference/platform.integrations/fallback.composio",
+		"source": "generated",
+		"contentPath": "platform.integrations/fallback.composio.md"
+	},
+	{
+		"id": "platform.integrations/integrations",
+		"title": "integrations",
+		"summary": "Core integrations capability for third-party connections\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Owners**: @platform.core\n- **Tags**: integrations, platform\n- **File**: `packages/libs/contracts-integrations/src/integrations/integrations.capability.ts`",
+		"route": "/docs/reference/platform.integrations/integrations",
+		"source": "generated",
+		"contentPath": "platform.integrations/integrations.md"
+	},
+	{
+		"id": "platform.integrations/integrations.connection.create",
+		"title": "integrations.connection.create",
+		"summary": "Create a new integration connection for a tenant.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: integration, connections",
+		"route": "/docs/reference/platform.integrations/integrations.connection.create",
+		"source": "generated",
+		"contentPath": "platform.integrations/integrations.connection.create.md"
+	},
+	{
+		"id": "platform.integrations/integrations.connection.delete",
+		"title": "integrations.connection.delete",
+		"summary": "Delete an integration connection for a tenant.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: integration, connections\n- **File**: `packages/libs/contracts-integrations/src/integrations/operations.ts`",
+		"route": "/docs/reference/platform.integrations/integrations.connection.delete",
+		"source": "generated",
+		"contentPath": "platform.integrations/integrations.connection.delete.md"
+	},
+	{
+		"id": "platform.integrations/integrations.connection.list",
+		"title": "integrations.connection.list",
+		"summary": "List integration connections for a tenant.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: integration, connections\n- **File**: `packages/libs/contracts-integrations/src/integrations/operations.ts`",
+		"route": "/docs/reference/platform.integrations/integrations.connection.list",
+		"source": "generated",
+		"contentPath": "platform.integrations/integrations.connection.list.md"
+	},
+	{
+		"id": "platform.integrations/integrations.connection.test",
+		"title": "integrations.connection.test",
+		"summary": "Run a health check against a configured integration connection.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: integration, connections",
+		"route": "/docs/reference/platform.integrations/integrations.connection.test",
+		"source": "generated",
+		"contentPath": "platform.integrations/integrations.connection.test.md"
+	},
+	{
+		"id": "platform.integrations/integrations.connection.update",
+		"title": "integrations.connection.update",
+		"summary": "Update metadata or credentials for an integration connection.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: integration, connections",
+		"route": "/docs/reference/platform.integrations/integrations.connection.update",
+		"source": "generated",
+		"contentPath": "platform.integrations/integrations.connection.update.md"
+	},
+	{
+		"id": "platform.integrations/meeting-recorder.fathom",
+		"title": "meeting-recorder.fathom",
+		"summary": "Fathom External API for meetings, transcripts, and webhook events.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.integrations\n- **Tags**: meeting-recorder, fathom, transcripts",
+		"route": "/docs/reference/platform.integrations/meeting-recorder.fathom",
+		"source": "generated",
+		"contentPath": "platform.integrations/meeting-recorder.fathom.md"
+	},
+	{
+		"id": "platform.integrations/meeting-recorder.fireflies",
+		"title": "meeting-recorder.fireflies",
+		"summary": "Fireflies GraphQL API for meeting transcripts, metadata, and webhook events.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.integrations\n- **Tags**: meeting-recorder, fireflies, transcripts",
+		"route": "/docs/reference/platform.integrations/meeting-recorder.fireflies",
+		"source": "generated",
+		"contentPath": "platform.integrations/meeting-recorder.fireflies.md"
+	},
+	{
+		"id": "platform.integrations/meeting-recorder.granola",
+		"title": "meeting-recorder.granola",
+		"summary": "Granola meeting notes and transcripts via Enterprise API or MCP transport.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.integrations\n- **Tags**: meeting-recorder, granola, transcripts",
+		"route": "/docs/reference/platform.integrations/meeting-recorder.granola",
+		"source": "generated",
+		"contentPath": "platform.integrations/meeting-recorder.granola.md"
+	},
+	{
+		"id": "platform.integrations/meeting-recorder.tldv",
+		"title": "meeting-recorder.tldv",
+		"summary": "tl;dv Public API for meeting recordings, transcripts, and webhook events.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.integrations\n- **Tags**: meeting-recorder, tldv, transcripts",
+		"route": "/docs/reference/platform.integrations/meeting-recorder.tldv",
+		"source": "generated",
+		"contentPath": "platform.integrations/meeting-recorder.tldv.md"
+	},
+	{
+		"id": "platform.integrations/messaging.github",
+		"title": "messaging.github",
+		"summary": "GitHub integration for issue and pull request comment workflows backed by webhook events.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.messaging\n- **Tags**: messaging, github, pull-requests",
+		"route": "/docs/reference/platform.integrations/messaging.github",
+		"source": "generated",
+		"contentPath": "platform.integrations/messaging.github.md"
+	},
+	{
+		"id": "platform.integrations/messaging.slack",
+		"title": "messaging.slack",
+		"summary": "Slack integration for inbound events, threaded responses, and interactive messaging workflows.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.messaging\n- **Tags**: messaging, slack",
+		"route": "/docs/reference/platform.integrations/messaging.slack",
+		"source": "generated",
+		"contentPath": "platform.integrations/messaging.slack.md"
+	},
+	{
+		"id": "platform.integrations/messaging.telegram",
+		"title": "messaging.telegram",
+		"summary": "Telegram messaging integration for inbound webhook updates, threaded topic messages, and outbound bot replies.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.messaging\n- **Tags**: messaging, telegram",
+		"route": "/docs/reference/platform.integrations/messaging.telegram",
+		"source": "generated",
+		"contentPath": "platform.integrations/messaging.telegram.md"
+	},
+	{
+		"id": "platform.integrations/messaging.whatsapp.meta",
+		"title": "messaging.whatsapp.meta",
+		"summary": "Meta WhatsApp Cloud API integration for inbound message processing and outbound replies.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.messaging\n- **Tags**: messaging, whatsapp, meta",
+		"route": "/docs/reference/platform.integrations/messaging.whatsapp.meta",
+		"source": "generated",
+		"contentPath": "platform.integrations/messaging.whatsapp.meta.md"
+	},
+	{
+		"id": "platform.integrations/messaging.whatsapp.twilio",
+		"title": "messaging.whatsapp.twilio",
+		"summary": "Twilio-powered WhatsApp integration for inbound webhooks and outbound conversational messaging.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.messaging\n- **Tags**: messaging, whatsapp, twilio",
+		"route": "/docs/reference/platform.integrations/messaging.whatsapp.twilio",
+		"source": "generated",
+		"contentPath": "platform.integrations/messaging.whatsapp.twilio.md"
+	},
+	{
+		"id": "platform.integrations/openbanking.powens",
+		"title": "openbanking.powens",
+		"summary": "Read-only Open Banking integration powered by Powens, exposing accounts, transactions, and balances.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.finance\n- **Tags**: open-banking, powens, finance",
+		"route": "/docs/reference/platform.integrations/openbanking.powens",
+		"source": "generated",
+		"contentPath": "platform.integrations/openbanking.powens.md"
+	},
+	{
+		"id": "platform.integrations/payments.stripe",
+		"title": "payments.stripe",
+		"summary": "Stripe integration for payment processing, charges, and payouts.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.payments\n- **Tags**: payments, psp\n- **File**: `packages/libs/contracts-integrations/src/integrations/providers/stripe.ts`",
+		"route": "/docs/reference/platform.integrations/payments.stripe",
+		"source": "generated",
+		"contentPath": "platform.integrations/payments.stripe.md"
+	},
+	{
+		"id": "platform.integrations/platform.integrations",
+		"title": "platform.integrations",
+		"summary": "Manage integration connections to external providers (e.g., Stripe, Qdrant)\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @platform.integrations\n- **Tags**: integrations, connections, platform",
+		"route": "/docs/reference/platform.integrations/platform.integrations",
+		"source": "generated",
+		"contentPath": "platform.integrations/platform.integrations.md"
+	},
+	{
+		"id": "platform.integrations/project-management.jira",
+		"title": "project-management.jira",
+		"summary": "Jira Cloud integration for creating and tracking work items.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: @platform.integrations\n- **Tags**: project-management, jira\n- **File**: `packages/libs/contracts-integrations/src/integrations/providers/jira.ts`",
+		"route": "/docs/reference/platform.integrations/project-management.jira",
+		"source": "generated",
+		"contentPath": "platform.integrations/project-management.jira.md"
+	},
+	{
+		"id": "platform.integrations/project-management.linear",
+		"title": "project-management.linear",
+		"summary": "Linear integration for issue tracking and project management workflows.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: @platform.integrations\n- **Tags**: project-management, linear",
+		"route": "/docs/reference/platform.integrations/project-management.linear",
+		"source": "generated",
+		"contentPath": "platform.integrations/project-management.linear.md"
+	},
+	{
+		"id": "platform.integrations/project-management.notion",
+		"title": "project-management.notion",
+		"summary": "Notion integration for creating shared project summaries and task entries.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: @platform.integrations\n- **Tags**: project-management, notion",
+		"route": "/docs/reference/platform.integrations/project-management.notion",
+		"source": "generated",
+		"contentPath": "platform.integrations/project-management.notion.md"
+	},
+	{
+		"id": "platform.integrations/sms.twilio",
+		"title": "sms.twilio",
+		"summary": "Twilio SMS integration for transactional and notification messaging.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.messaging\n- **Tags**: sms, messaging\n- **File**: `packages/libs/contracts-integrations/src/integrations/providers/twilio-sms.ts`",
+		"route": "/docs/reference/platform.integrations/sms.twilio",
+		"source": "generated",
+		"contentPath": "platform.integrations/sms.twilio.md"
+	},
+	{
+		"id": "platform.integrations/storage.gcs",
+		"title": "storage.gcs",
+		"summary": "Google Cloud Storage integration for object storage and retrieval.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.infrastructure\n- **Tags**: storage, gcs, google-cloud\n- **File**: `packages/libs/contracts-integrations/src/integrations/providers/gcs-storage.ts`",
+		"route": "/docs/reference/platform.integrations/storage.gcs",
+		"source": "generated",
+		"contentPath": "platform.integrations/storage.gcs.md"
+	},
+	{
+		"id": "platform.integrations/vectordb.qdrant",
+		"title": "vectordb.qdrant",
+		"summary": "Qdrant integration for vector search and embeddings storage.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: vector-db, search\n- **File**: `packages/libs/contracts-integrations/src/integrations/providers/qdrant.ts`",
+		"route": "/docs/reference/platform.integrations/vectordb.qdrant",
+		"source": "generated",
+		"contentPath": "platform.integrations/vectordb.qdrant.md"
+	},
+	{
+		"id": "platform.integrations/vectordb.supabase",
+		"title": "vectordb.supabase",
+		"summary": "Supabase integration for embedding storage and vector similarity search using pgvector.\n- **Type**: integration (integration)\n- **Version**: 1.0.0\n- **Owners**: platform.ai\n- **Tags**: vector-db, supabase, pgvector",
+		"route": "/docs/reference/platform.integrations/vectordb.supabase",
+		"source": "generated",
+		"contentPath": "platform.integrations/vectordb.supabase.md"
+	}
 ]

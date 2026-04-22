@@ -1,11 +1,17 @@
 'use client';
 
+// import {
+// 	Tabs,
+// 	TabsContent,
+// 	TabsList,
+// 	TabsTrigger,
+// } from '@contractspec/lib.design-system';
 import {
 	Tabs,
 	TabsContent,
 	TabsList,
 	TabsTrigger,
-} from '@contractspec/lib.design-system';
+} from '@contractspec/lib.design-system/components/molecules/Tabs.mobile';
 import { createVisualizationModel } from '@contractspec/lib.presentation-runtime-core';
 import { Button } from '@contractspec/lib.ui-kit-web/ui/button';
 import {

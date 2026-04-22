@@ -5,7 +5,7 @@ export default defineConfig({
 	noBundle: true,
 	exports: {
 		devExports: true,
-		rewrite: false,
+		rewrite: true,
 	},
 	entry: [
 		'src/**/*.ts',
