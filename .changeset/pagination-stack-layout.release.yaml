@@ -1,0 +1,45 @@
+schemaVersion: "1"
+slug: pagination-stack-layout
+summary: Use shared stack layout primitives in the web pagination component while preserving semantic pagination markup.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.ui-kit-web"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - browser
+  - nextjs
+affectedFrameworks:
+  - react
+audiences:
+  - kind: maintainer
+    summary: The pagination primitive now consumes the shared `HStack` API and `hStackVariants` instead of hand-rolled flex classes.
+    affectedPackages:
+      - "@contractspec/lib.ui-kit-web"
+  - kind: integrator
+    summary: Existing imports and rendered pagination semantics stay compatible while layout classes align with the shared stack system.
+    affectedPackages:
+      - "@contractspec/lib.ui-kit-web"
+  - kind: customer
+    summary: Pagination controls keep the same accessible labels and navigation behavior with no required migration.
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: verify-custom-pagination-classnames
+    title: Verify custom pagination class overrides
+    summary: Consumers that override pagination class names should confirm their overrides still combine correctly with shared stack defaults.
+    level: optional
+    instructions:
+      - Reopen pagination surfaces that pass custom `className` values to `Pagination`, `PaginationContent`, or `PaginationEllipsis`.
+      - Confirm the controls still align horizontally and preserve expected spacing.
+validation:
+  commands:
+    - "cd packages/libs/ui-kit-web && bun run lint:check"
+    - "cd packages/libs/ui-kit-web && bun run typecheck"
+    - "cd packages/libs/ui-kit-web && bun run build"
+  evidence:
+    - "`Pagination` now renders through `HStack` with `as=\"nav\"`, `justify=\"center\"`, and `wrap=\"nowrap\"`."
+    - "`PaginationContent` and `PaginationEllipsis` now share `hStackVariants` while keeping their semantic `ul` and `span` elements."
+    - "Package lint, typecheck, and build passed after the pagination update."
+knownGaps:
+  - "`cd packages/libs/ui-kit-web && bun run test` remains blocked by an existing Jest/Babel parser issue for `import { ..., type ... }` in unrelated `ui/data-table.test.tsx` and `ui/input-password.test.tsx` files."

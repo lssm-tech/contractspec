@@ -2,16 +2,20 @@ import { cn } from '@contractspec/lib.ui-kit-core/utils';
 import { ChevronLeft, ChevronRight, MoreHorizontal } from 'lucide-react';
 import * as React from 'react';
 import { type ButtonProps, buttonVariants } from './button';
+import { HStack, hStackVariants } from './stack';
 
 function Pagination({
 	className,
 	...props
 }: React.ComponentPropsWithoutRef<'nav'>) {
 	return (
-		<nav
+		<HStack
+			as="nav"
 			role="navigation"
 			aria-label="pagination"
-			className={cn('mx-auto flex w-full justify-center', className)}
+			justify="center"
+			wrap="nowrap"
+			className={cn('mx-auto w-full', className)}
 			{...props}
 		/>
 	);
@@ -27,7 +31,10 @@ function PaginationContent({
 	return (
 		<ul
 			ref={ref}
-			className={cn('flex flex-row items-center gap-1', className)}
+			className={cn(
+				hStackVariants({ align: 'center', gap: 'xs', wrap: 'nowrap' }),
+				className
+			)}
 			{...props}
 		/>
 	);
@@ -110,7 +117,16 @@ function PaginationEllipsis({
 	return (
 		<span
 			aria-hidden
-			className={cn('flex h-9 w-9 items-center justify-center', className)}
+			className={cn(
+				hStackVariants({
+					align: 'center',
+					gap: 'none',
+					justify: 'center',
+					wrap: 'nowrap',
+				}),
+				'h-9 w-9',
+				className
+			)}
 			{...props}
 		>
 			<MoreHorizontal className="h-4 w-4" />
