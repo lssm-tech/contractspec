@@ -50,6 +50,7 @@
 		"./ui": "./src/ui/index.ts",
 		"./ui/AgentConsolePreview": "./src/ui/AgentConsolePreview.tsx",
 		"./ui/AgentConsolePreview.data": "./src/ui/AgentConsolePreview.data.ts",
+		"./ui/AgentConsolePreviewCards": "./src/ui/AgentConsolePreviewCards.tsx",
 		"./ui/AgentConsolePreviewPanels": "./src/ui/AgentConsolePreviewPanels.tsx",
 		"./ui/AgentConsolePreviewTable": "./src/ui/AgentConsolePreviewTable.tsx",
 		"./ui/AgentDashboard": "./src/ui/AgentDashboard.tsx",
@@ -439,6 +440,13 @@
 				"bun": "./dist/ui/AgentConsolePreview.data.js",
 				"node": "./dist/node/ui/AgentConsolePreview.data.js",
 				"default": "./dist/ui/AgentConsolePreview.data.js"
+			},
+			"./ui/AgentConsolePreviewCards": {
+				"types": "./dist/ui/AgentConsolePreviewCards.d.ts",
+				"browser": "./dist/browser/ui/AgentConsolePreviewCards.js",
+				"bun": "./dist/ui/AgentConsolePreviewCards.js",
+				"node": "./dist/node/ui/AgentConsolePreviewCards.js",
+				"default": "./dist/ui/AgentConsolePreviewCards.js"
 			},
 			"./ui/AgentConsolePreviewPanels": {
 				"types": "./dist/ui/AgentConsolePreviewPanels.d.ts",

@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button } from '../../../index';
+import { Button } from '../../atoms/Button';
 import { ContactFields } from '../molecules/ContactFields';
 import { LegalPageLayout } from '../organisms/LegalPageLayout';
 

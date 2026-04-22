@@ -166,9 +166,10 @@
 		"./ui/icons/MoonStar": "./ui/icons/MoonStar.tsx",
 		"./ui/icons/Sun": "./ui/icons/Sun.tsx",
 		"./ui/icons/X": "./ui/icons/X.tsx",
+		"./ui/input": "./ui/input.tsx",
 		"./ui/input-group": "./ui/input-group.tsx",
 		"./ui/input-otp": "./ui/input-otp.tsx",
-		"./ui/input": "./ui/input.tsx",
+		"./ui/input-password": "./ui/input-password.tsx",
 		"./ui/label": "./ui/label.tsx",
 		"./ui/link": "./ui/link.tsx",
 		"./ui/list": "./ui/list.tsx",
@@ -194,7 +195,6 @@
 		"./ui/organisms/ListPage/ListPage": "./ui/organisms/ListPage/ListPage.tsx",
 		"./ui/organisms/ListPage/types": "./ui/organisms/ListPage/types.ts",
 		"./ui/page-header": "./ui/page-header.tsx",
-		"./ui/input-password": "./ui/input-password.tsx",
 		"./ui/password-strength": "./ui/password-strength.tsx",
 		"./ui/popover": "./ui/popover.tsx",
 		"./ui/portal": "./ui/portal.tsx",
@@ -542,6 +542,12 @@
 				"bun": "./dist/ui/icons/X.js",
 				"default": "./dist/ui/icons/X.js"
 			},
+			"./ui/input": {
+				"types": "./dist/ui/input.d.ts",
+				"browser": "./dist/browser/ui/input.js",
+				"bun": "./dist/ui/input.js",
+				"default": "./dist/ui/input.js"
+			},
 			"./ui/input-group": {
 				"types": "./dist/ui/input-group.d.ts",
 				"browser": "./dist/browser/ui/input-group.js",
@@ -554,11 +560,11 @@
 				"bun": "./dist/ui/input-otp.js",
 				"default": "./dist/ui/input-otp.js"
 			},
-			"./ui/input": {
-				"types": "./dist/ui/input.d.ts",
-				"browser": "./dist/browser/ui/input.js",
-				"bun": "./dist/ui/input.js",
-				"default": "./dist/ui/input.js"
+			"./ui/input-password": {
+				"types": "./dist/ui/input-password.d.ts",
+				"browser": "./dist/browser/ui/input-password.js",
+				"bun": "./dist/ui/input-password.js",
+				"default": "./dist/ui/input-password.js"
 			},
 			"./ui/label": {
 				"types": "./dist/ui/label.d.ts",
@@ -709,12 +715,6 @@
 				"browser": "./dist/browser/ui/page-header.js",
 				"bun": "./dist/ui/page-header.js",
 				"default": "./dist/ui/page-header.js"
-			},
-			"./ui/input-password": {
-				"types": "./dist/ui/input-password.d.ts",
-				"browser": "./dist/browser/ui/input-password.js",
-				"bun": "./dist/ui/input-password.js",
-				"default": "./dist/ui/input-password.js"
 			},
 			"./ui/password-strength": {
 				"types": "./dist/ui/password-strength.d.ts",

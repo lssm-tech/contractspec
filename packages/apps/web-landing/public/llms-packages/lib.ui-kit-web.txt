@@ -125,11 +125,16 @@ recovery, keep this primitive lean and layer
 - `./ui/button`
 - `./ui/button-group`
 - `./ui/input`
+- `./ui/input-password`
 - `./ui/textarea`
 - `./ui/select`
 - `./ui/native-select`
 - `./ui/field`
 - `./ui/form`
+
+`./ui/input-password` composes the shared input group, masked input, and
+right-side visibility toggle while preserving `current-password` and
+`new-password` autocomplete hints for password managers.
 - `./ui/combobox`
 - `./ui/input-group`
 - `./ui/input-otp`

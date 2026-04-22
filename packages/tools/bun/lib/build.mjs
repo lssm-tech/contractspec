@@ -12,7 +12,7 @@ import {
 } from 'node:fs/promises';
 import path from 'node:path';
 import { glob } from 'glob';
-import { selectEntriesForTarget } from './config.mjs';
+import { hasNativeFamilyEntries, selectEntriesForTarget } from './config.mjs';
 
 const BUN_EXECUTABLE = process.execPath || 'bun';
 
@@ -564,7 +564,7 @@ export async function runTranspile({
 		'bun',
 		targets.node ? 'node' : null,
 		targets.browser ? 'browser' : null,
-		selectEntriesForTarget(entries, 'native').length > 0 ? 'native' : null,
+		hasNativeFamilyEntries(entries) ? 'native' : null,
 	].filter(Boolean);
 
 	for (const target of requestedTargets) {
@@ -647,7 +647,7 @@ export async function runDev({
 				'bun',
 				targets.node ? 'node' : null,
 				targets.browser ? 'browser' : null,
-				selectEntriesForTarget(entries, 'native').length > 0 ? 'native' : null,
+				hasNativeFamilyEntries(entries) ? 'native' : null,
 			]
 		: ['bun'];
 	const selectedTargets = requestedTargets.filter(Boolean);

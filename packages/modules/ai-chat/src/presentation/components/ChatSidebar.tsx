@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@contractspec/lib.design-system';
+import { Button } from '@contractspec/lib.design-system/components/atoms/Button';
 import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 import { MessageSquare, Plus, Trash2 } from 'lucide-react';
 import * as React from 'react';

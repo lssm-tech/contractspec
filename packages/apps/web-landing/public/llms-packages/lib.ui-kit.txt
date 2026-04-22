@@ -27,6 +27,7 @@ Use this package for Expo and React Native surfaces. Do not use it as the design
 ### Forms and inputs
 
 - `./ui/input`
+- `./ui/input-password`
 - `./ui/textarea`
 - `./ui/select`
 - `./ui/form`
@@ -36,6 +37,9 @@ Native contract-driven forms consume the shared `Field` semantics through the
 design-system renderer; web-only input-addon composition remains in
 `@contractspec/lib.ui-kit-web/ui/input-group` and the design-system platform
 facade.
+
+`./ui/input-password` provides the native masked password primitive with
+current/new password autocomplete hints and a right-side visibility toggle.
 
 ### Overlays and menus
 

@@ -515,6 +515,7 @@ Use this package for Expo and React Native surfaces. Do not use it as the design
 ### Forms and inputs
 
 - `./ui/input`
+- `./ui/input-password`
 - `./ui/textarea`
 - `./ui/select`
 - `./ui/form`
@@ -524,6 +525,9 @@ Native contract-driven forms consume the shared `Field` semantics through the
 design-system renderer; web-only input-addon composition remains in
 `@contractspec/lib.ui-kit-web/ui/input-group` and the design-system platform
 facade.
+
+`./ui/input-password` provides the native masked password primitive with
+current/new password autocomplete hints and a right-side visibility toggle.
 
 ### Overlays and menus
 
@@ -2488,7 +2492,7 @@ bun add @contractspec/lib.contracts-spec @contractspec/lib.schema
 - `ContractResult`: canonical success/failure envelope used by operation, workflow, job, API, MCP, GraphQL, and React runtimes while preserving raw-response compatibility for adapters.
 - `defineEvent` + `EventRegistry`: typed event contracts and lookup.
 - `defineResourceTemplate` + `ResourceRegistry`: URI-template-based resource contracts.
-- `FormRegistry`: contract-first form declarations consumed by UI runtimes, including readonly, autocomplete, address, phone, date, time, datetime, grouped array authoring, semantic legends/descriptions, grid layout hints, and text/textarea input-group addons through `@contractspec/lib.contracts-spec/forms`.
+- `FormRegistry`: contract-first form declarations consumed by UI runtimes, including readonly, password, autocomplete, address, phone, date, time, datetime, grouped array authoring, semantic legends/descriptions, grid layout hints, and text/textarea input-group addons through `@contractspec/lib.contracts-spec/forms`.
 - `installOp`: one-call helper to register + bind operation handlers.
 - `makeEmit`: typed helper for declared event emission in handlers.
 
@@ -5327,6 +5331,12 @@ const config = getDefaultConfig(projectRoot);
 module.exports = withPresentationMetroAliases(config);
 ```
 
+The helpers also keep shared UI imports platform-correct:
+
+- Metro rewrites `@contractspec/lib.ui-kit-web/ui/*` to `@contractspec/lib.ui-kit/ui/*`, `@contractspec/lib.presentation-runtime-react` to `@contractspec/lib.presentation-runtime-react-native`, and `lucide-react` to `lucide-react-native` for native platforms.
+- Metro also enables package exports and merges platform export conditions so `ios`, `android`, `react-native`, and `browser` package conditions can resolve platform-specific build-tool outputs.
+- Next.js Turbopack/Webpack rewrites the native package names back to the web packages, including `lucide-react-native` to `lucide-react`.
+
 ## Architecture
 
 - `src/index.ts` is the root public barrel that builds the package entrypoint.
@@ -5675,7 +5685,7 @@ hidden-column recovery without widening the primitive table API.
 ### Renderers and hooks
 
 - renderer exports from `./renderers`
-- form-contract renderer support, including readonly, autocomplete, address, phone, date, time, datetime, semantic FormSpec groups, grid layout hints, and text/textarea input groups
+- form-contract renderer support, including readonly, password, autocomplete, address, phone, date, time, datetime, semantic FormSpec groups, grid layout hints, and text/textarea input groups
 - translation-aware rendering through `DesignSystemTranslationProvider` and `createTranslationResolver`
 - theme-aware form controls and stack primitives that consume ThemeSpec component variant props
 - hooks such as `useListUrlState`
@@ -5880,11 +5890,16 @@ recovery, keep this primitive lean and layer
 - `./ui/button`
 - `./ui/button-group`
 - `./ui/input`
+- `./ui/input-password`
 - `./ui/textarea`
 - `./ui/select`
 - `./ui/native-select`
 - `./ui/field`
 - `./ui/form`
+
+`./ui/input-password` composes the shared input group, masked input, and
+right-side visibility toggle while preserving `current-password` and
+`new-password` autocomplete hints for password managers.
 - `./ui/combobox`
 - `./ui/input-group`
 - `./ui/input-otp`
@@ -14157,6 +14172,7 @@ Website: https://contractspec.io
 - Acts as the source of truth for repository and consumer Biome policy artifacts.
 - Publishes generated presets, Grit plugins, and AI summaries alongside the typed manifest and generation helpers.
 - Requires artifact synchronization whenever the typed policy manifest changes so committed outputs stay aligned.
+- Enforces React and React Native compatible JSX in shared presentation packages by preferring layout primitives (`HStack`, `VStack`, `Box`) over raw `<div>` and requiring visible text to sit inside `Text` or approved typography components. Repository app packages are excluded by default and can be opted in with the policy allowlist.
 - Related ContractSpec packages include `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
 ## Installation
@@ -14171,10 +14187,27 @@ or
 
 Import the root entrypoint from `@contractspec/biome-config`, or choose a documented subpath when you only need one part of the package surface.
 
+### JSX Primitive Fixer
+
+The Biome Grit plugins emit diagnostics only. To apply conservative native HTML replacement fixes, run:
+
+`bun run jsx:fix-primitives`
+
+or from this package:
+
+`bun run fix:jsx-primitives`
+
+By default the fixer scans `packages/bundles`, `packages/examples`, and `packages/modules`. It skips `packages/apps` unless an app is explicitly allowlisted:
+
+`bun run jsx:fix-primitives -- --allow-app web-landing`
+
+Use `--check` for a dry run. The fixer rewrites deterministic layout, list, and typography cases only; mixed JSX text and ambiguous form/action primitives remain diagnostic-only.
+
 ## Architecture
 
 - `src/policies.ts` defines the typed policy manifest.
 - `src/generate.ts` and `src/sync.ts` generate and synchronize derived artifacts.
+- `src/fix-jsx-primitives.ts` provides the conservative companion codemod for deterministic JSX primitive replacements.
 - `src/types.ts` and `src/index.ts` expose the public API for generation and policy consumption.
 - `presets/`, `plugins/`, and `ai/` contain committed generated artifacts consumed by downstream tools.
 
@@ -14191,6 +14224,7 @@ Import the root entrypoint from `@contractspec/biome-config`, or choose a docume
 - `bun run lint` — bun run lint:fix
 - `bun run lint:check` — biome check .
 - `bun run lint:fix` — biome check --write --unsafe --only=nursery/useSortedClasses . && biome check --write .
+- `bun run fix:jsx-primitives` — apply conservative JSX primitive replacements.
 - `bun run typecheck` — tsc --noEmit
 - `bun run sync:artifacts` — bun src/sync.ts
 - `bun run publish:pkg` — bun publish --tolerate-republish --ignore-scripts --verbose
@@ -14202,6 +14236,8 @@ Import the root entrypoint from `@contractspec/biome-config`, or choose a docume
 
 ## Recent Updates
 
+- Add cross-platform JSX layout and text guardrails for React and React Native compatibility.
+- Add a conservative JSX primitive fixer command for deterministic native HTML replacements.
 - Replace eslint+prettier by biomejs to optimize speed.
 
 ## Notes
@@ -14445,6 +14481,25 @@ npx contractspec-bun-build --help
 bunx contractspec-bun-build --help
 ```
 
+## Typed Config
+
+The root package export includes TypeScript declarations for config presets:
+
+```ts
+import {
+	defineConfig,
+	moduleLibrary,
+	type BuildConfig,
+} from "@contractspec/tool.bun";
+
+const config: BuildConfig = {
+	...moduleLibrary,
+	styleMode: "copy",
+};
+
+export default defineConfig(() => config);
+```
+
 ## Style Exports
 
 `contractspec-bun-build` scans public CSS style entries separately from TypeScript entries so style files do not affect JavaScript output roots.
@@ -14476,6 +14531,19 @@ export default {
 ```
 
 Style entries are exported under the `style` and `default` conditions, for example `./styles/globals.css`.
+
+## Platform Variants
+
+`contractspec-bun-build` recognizes platform suffixes in public TypeScript entries and emits conditional exports plus matching build outputs:
+
+| Source suffix | Export condition | Build output |
+| --- | --- | --- |
+| `.web` | `browser` | `dist/browser/*` plus the Bun default when no base entry exists |
+| `.native` | `react-native` | `dist/native/*` |
+| `.ios` | `ios` | `dist/native/*` |
+| `.android` | `android` | `dist/native/*` |
+
+Exact subpaths such as `./foo.web`, `./foo.native`, `./foo.ios`, and `./foo.android` are exported alongside canonical subpaths such as `./foo`.
 
 ## Public Entry Points
 

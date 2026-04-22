@@ -1,0 +1,55 @@
+schemaVersion: "1"
+slug: native-publish-closure
+summary: Harden published cross-platform UI packages around precise public subpath imports and closed native dist graphs.
+isBreaking: false
+packages:
+  - name: "@contractspec/tool.bun"
+    releaseType: patch
+  - name: "@contractspec/lib.design-system"
+    releaseType: patch
+  - name: "@contractspec/module.ai-chat"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - expo
+  - native
+  - browser
+affectedFrameworks:
+  - metro
+  - react-native
+  - react
+audiences:
+  - kind: maintainer
+    summary: Native builds now include generic shared entries in dist/native so native public exports have a resolvable helper closure.
+    affectedPackages:
+      - "@contractspec/tool.bun"
+      - "@contractspec/lib.design-system"
+  - kind: integrator
+    summary: Cross-package UI imports should use precise public subpaths instead of root design-system imports when published packages may be consumed through platform conditions.
+    affectedPackages:
+      - "@contractspec/module.ai-chat"
+      - "@contractspec/lib.design-system"
+migrationInstructions:
+  - id: prefer-precise-ui-subpaths
+    title: Prefer precise design-system subpaths for published UI packages
+    summary: Replace root design-system imports in published UI modules with exact public component subpaths.
+upgradeSteps:
+  - id: rebuild-native-publish-artifacts
+    title: Rebuild packages with native-family entries
+    summary: Run contractspec-bun-build prebuild and build so dist/native includes shared generic helper files.
+    level: required
+    instructions:
+      - Rebuild packages that publish .native, .ios, or .android source variants.
+      - Restart Metro after upgrading packages with changed native publish artifacts.
+validation:
+  commands:
+    - "bun test packages/tools/bun/test/exports.test.ts packages/tools/bun/test/build.test.ts"
+    - "cd packages/libs/design-system && bun test src/publish-exports.test.ts && bun run typecheck && bun run lint:check"
+    - "cd packages/modules/ai-chat && bun run build && bun run typecheck && bun run test"
+    - "bun test packages/apps/mobile-demo/metro.config.test.ts"
+  evidence:
+    - "Build tests verify generic entries are emitted under dist/native only when native-family entries exist."
+    - "Design-system publish tests verify representative browser/native subpaths and a closed dist/native relative import graph."
+    - "AI chat policy tests reject root design-system imports and assert presentation exports stay browser/default only."
+knownGaps:
+  - "Full ai-chat lint still reports existing raw JSX element violations unrelated to the precise import migration."

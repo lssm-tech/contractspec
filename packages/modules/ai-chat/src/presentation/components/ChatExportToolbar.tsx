@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@contractspec/lib.design-system';
+import { Button } from '@contractspec/lib.design-system/components/atoms/Button';
 import {
 	DropdownMenu,
 	DropdownMenuContent,

@@ -25,6 +25,25 @@ npx contractspec-bun-build --help
 bunx contractspec-bun-build --help
 ```
 
+## Typed Config
+
+The root package export includes TypeScript declarations for config presets:
+
+```ts
+import {
+	defineConfig,
+	moduleLibrary,
+	type BuildConfig,
+} from "@contractspec/tool.bun";
+
+const config: BuildConfig = {
+	...moduleLibrary,
+	styleMode: "copy",
+};
+
+export default defineConfig(() => config);
+```
+
 ## Style Exports
 
 `contractspec-bun-build` scans public CSS style entries separately from TypeScript entries so style files do not affect JavaScript output roots.
@@ -56,6 +75,19 @@ export default {
 ```
 
 Style entries are exported under the `style` and `default` conditions, for example `./styles/globals.css`.
+
+## Platform Variants
+
+`contractspec-bun-build` recognizes platform suffixes in public TypeScript entries and emits conditional exports plus matching build outputs:
+
+| Source suffix | Export condition | Build output |
+| --- | --- | --- |
+| `.web` | `browser` | `dist/browser/*` plus the Bun default when no base entry exists |
+| `.native` | `react-native` | `dist/native/*` |
+| `.ios` | `ios` | `dist/native/*` |
+| `.android` | `android` | `dist/native/*` |
+
+Exact subpaths such as `./foo.web`, `./foo.native`, `./foo.ios`, and `./foo.android` are exported alongside canonical subpaths such as `./foo`.
 
 ## Public Entry Points
 

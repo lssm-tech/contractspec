@@ -1,6 +1,7 @@
 'use client';
 
-import { Button, Textarea } from '@contractspec/lib.design-system';
+import { Button } from '@contractspec/lib.design-system/components/atoms/Button';
+import { Textarea } from '@contractspec/lib.design-system/components/atoms/Textarea';
 import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 import {
 	Code,

@@ -1,6 +1,6 @@
 'use client';
 
-import { Button } from '@contractspec/lib.design-system';
+import { Button } from '@contractspec/lib.design-system/components/atoms/Button';
 import { Avatar, AvatarFallback } from '@contractspec/lib.ui-kit-web/ui/avatar';
 import { Checkbox } from '@contractspec/lib.ui-kit-web/ui/checkbox';
 import { Skeleton } from '@contractspec/lib.ui-kit-web/ui/skeleton';

@@ -222,7 +222,7 @@
     },
     "packages/apps/mobile-demo": {
       "name": "@contractspec/app.expo-demo",
-      "version": "1.1.25",
+      "version": "1.1.26",
       "dependencies": {
         "@contractspec/bundle.marketing": "workspace:*",
         "@contractspec/example.agent-console": "workspace:*",
@@ -3044,7 +3044,6 @@
         "react-native": "catalog:native",
         "react-native-css": "catalog:native",
         "react-native-device-info": "^14.1.1",
-        "react-native-gesture-handler": "^2.29.1",
         "react-native-localize": "^3.7.0",
         "react-native-reanimated": "catalog:native",
         "react-native-safe-area-context": "5.6.2",
@@ -3470,6 +3469,7 @@
         "@contractspec/lib.builder-runtime": "workspace:*",
         "@contractspec/lib.builder-spec": "workspace:*",
         "@contractspec/lib.contracts-spec": "workspace:*",
+        "@contractspec/lib.design-system": "workspace:*",
         "@contractspec/lib.provider-spec": "workspace:*",
         "@contractspec/lib.ui-kit-web": "workspace:*",
         "@contractspec/module.ai-chat": "workspace:*",
@@ -3524,6 +3524,7 @@
       "version": "0.1.7",
       "dependencies": {
         "@contractspec/lib.contracts-spec": "workspace:*",
+        "@contractspec/lib.design-system": "workspace:*",
         "@contractspec/lib.execution-lanes": "workspace:*",
         "@contractspec/lib.ui-kit-web": "workspace:*",
         "react": "catalog:",

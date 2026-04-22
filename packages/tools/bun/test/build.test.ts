@@ -11,6 +11,7 @@ import os from 'node:os';
 import path from 'node:path';
 import { runTranspile, runTypes } from '../lib/build.mjs';
 import {
+	hasNativeFamilyEntries,
 	normalizeBuildConfig,
 	resolveEntries,
 	selectEntriesForTarget,
@@ -81,12 +82,18 @@ describe('selectEntriesForTarget', () => {
 		]);
 	});
 
-	test('includes only native files for native builds', () => {
+	test('includes generic closure and native files for native builds', () => {
 		expect(selectEntriesForTarget(entries, 'native')).toEqual([
+			'src/index.ts',
 			'src/foo.native.ts',
 			'src/foo.ios.ts',
 			'src/foo.android.ts',
 		]);
+	});
+
+	test('detects native family entries separately from selected closure entries', () => {
+		expect(hasNativeFamilyEntries(['src/index.ts'])).toBe(false);
+		expect(hasNativeFamilyEntries(entries)).toBe(true);
 	});
 });
 
@@ -147,7 +154,7 @@ describe('normalizeBuildConfig', () => {
 });
 
 describe('runTranspile', () => {
-	test('emits native files only under dist/native', async () => {
+	test('emits generic closure and native files under dist/native', async () => {
 		const cwd = await createTempDir();
 		const srcDir = path.join(cwd, 'src');
 		await mkdir(srcDir, { recursive: true });
@@ -222,6 +229,9 @@ describe('runTranspile', () => {
 		expect(
 			await exists(path.join(cwd, 'dist', 'native', 'view.native.js'))
 		).toBe(true);
+		expect(await exists(path.join(cwd, 'dist', 'native', 'index.js'))).toBe(
+			true
+		);
 		expect(await exists(path.join(cwd, 'dist', 'native', 'view.ios.js'))).toBe(
 			true
 		);

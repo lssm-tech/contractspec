@@ -2,6 +2,7 @@ import { defineConfig, moduleLibrary } from '@contractspec/tool.bun';
 
 export default defineConfig(() => ({
 	...moduleLibrary,
+	kind: 'backend-both',
 	entry: [
 		'src/index.ts',
 		'src/core/index.ts',

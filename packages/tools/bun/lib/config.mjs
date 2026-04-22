@@ -218,32 +218,42 @@ export async function normalizeBuildConfig(cwd, config) {
 	};
 }
 
-export function selectEntriesForTarget(entries, target) {
-	const isNativeFamilyEntry = (entry) =>
+export function isNativeFamilyEntry(entry) {
+	return (
 		entry.includes('.native.') ||
 		entry.includes('.ios.') ||
-		entry.includes('.android.');
+		entry.includes('.android.')
+	);
+}
+
+export function hasNativeFamilyEntries(entries) {
+	return entries.some((entry) => isNativeFamilyEntry(entry));
+}
+
+export function selectEntriesForTarget(entries, target) {
+	const isWebFamilyEntry = (entry) =>
+		entry.includes('.browser.') || entry.includes('.web.');
+	const isServerFamilyEntry = (entry) =>
+		entry.includes('.node.') || entry.includes('.bun.');
 
 	if (target === 'node') {
 		return entries.filter(
 			(entry) =>
-				!entry.includes('.browser.') &&
-				!entry.includes('.web.') &&
-				!isNativeFamilyEntry(entry)
+				!isWebFamilyEntry(entry) && !isNativeFamilyEntry(entry)
 		);
 	}
 
 	if (target === 'browser') {
 		return entries.filter(
 			(entry) =>
-				!entry.includes('.node.') &&
-				!entry.includes('.bun.') &&
-				!isNativeFamilyEntry(entry)
+				!isServerFamilyEntry(entry) && !isNativeFamilyEntry(entry)
 		);
 	}
 
 	if (target === 'native') {
-		return entries.filter((entry) => isNativeFamilyEntry(entry));
+		return entries.filter(
+			(entry) => !isWebFamilyEntry(entry) && !isServerFamilyEntry(entry)
+		);
 	}
 
 	return entries.filter((entry) => !isNativeFamilyEntry(entry));

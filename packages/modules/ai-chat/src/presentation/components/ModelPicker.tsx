@@ -6,7 +6,7 @@ import {
 	type ProviderMode,
 	type ProviderName,
 } from '@contractspec/lib.ai-providers';
-import { Button } from '@contractspec/lib.design-system';
+import { Button } from '@contractspec/lib.design-system/components/atoms/Button';
 import { Badge } from '@contractspec/lib.ui-kit-web/ui/badge';
 import { Label } from '@contractspec/lib.ui-kit-web/ui/label';
 import {
