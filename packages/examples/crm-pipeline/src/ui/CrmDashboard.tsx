@@ -6,13 +6,11 @@ import {
 	LoaderBlock,
 	StatCard,
 	StatCardGroup,
-} from '@contractspec/lib.design-system';
-import {
 	Tabs,
 	TabsContent,
 	TabsList,
 	TabsTrigger,
-} from '@contractspec/lib.ui-kit-web/ui/tabs';
+} from '@contractspec/lib.design-system';
 /**
  * CRM Dashboard
  *

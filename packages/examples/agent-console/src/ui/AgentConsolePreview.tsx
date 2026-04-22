@@ -1,5 +1,11 @@
 'use client';
 
+import {
+	Tabs,
+	TabsContent,
+	TabsList,
+	TabsTrigger,
+} from '@contractspec/lib.design-system';
 import { createVisualizationModel } from '@contractspec/lib.presentation-runtime-core';
 import { Button } from '@contractspec/lib.ui-kit-web/ui/button';
 import {
@@ -12,7 +18,7 @@ import {
 import { HStack, VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import { Text } from '@contractspec/lib.ui-kit-web/ui/text';
 import { Visualization } from '@contractspec/lib.ui-kit-web/ui/visualization';
-import { useMemo, useState } from 'react';
+import { useMemo } from 'react';
 import { MOCK_AGENTS } from '../shared/mock-agents';
 import { MOCK_RUNS } from '../shared/mock-runs';
 import { MOCK_TOOLS } from '../shared/mock-tools';
@@ -21,7 +27,6 @@ import {
 	AGENT_CONSOLE_PREVIEW_TABS,
 	type AgentConsolePreviewAgent,
 	type AgentConsolePreviewRun,
-	type AgentConsolePreviewTab,
 	type AgentConsolePreviewTool,
 	createAgentConsolePreviewMetrics,
 	getAgentConsolePressProps,
@@ -47,7 +52,6 @@ export function AgentConsolePreview({
 	showHeaderAction = true,
 	tools = MOCK_TOOLS,
 }: AgentConsolePreviewProps) {
-	const [activeTab, setActiveTab] = useState<AgentConsolePreviewTab>('runs');
 	const metrics = useMemo(() => createAgentConsolePreviewMetrics(runs), [runs]);
 	const visualizationItems = useMemo(
 		() => createAgentVisualizationItems(runs),
@@ -93,32 +97,34 @@ export function AgentConsolePreview({
 				</VStack>
 			</VStack>
 
-			<HStack className="rounded-lg bg-muted p-1" gap="xs">
-				{AGENT_CONSOLE_PREVIEW_TABS.map((tab) => (
-					<Button
-						key={tab.id}
-						size="sm"
-						variant={activeTab === tab.id ? 'secondary' : 'ghost'}
-						className="flex-1"
-						{...getAgentConsolePressProps(() => setActiveTab(tab.id))}
-					>
-						<Text>
-							{tab.icon} {tab.label}
-						</Text>
-					</Button>
-				))}
-			</HStack>
+			<Tabs defaultValue="runs" className="w-full gap-4">
+				<TabsList className="h-auto w-full flex-wrap">
+					{AGENT_CONSOLE_PREVIEW_TABS.map((tab) => (
+						<TabsTrigger
+							key={tab.id}
+							value={tab.id}
+							className="min-h-8 min-w-24 flex-1"
+						>
+							<Text>
+								{tab.icon} {tab.label}
+							</Text>
+						</TabsTrigger>
+					))}
+				</TabsList>
 
-			{activeTab === 'runs' ? (
-				<AgentConsoleRunHistoryTable runs={runs} />
-			) : null}
-			{activeTab === 'agents' ? (
-				<AgentConsoleAgentCards agents={agents} />
-			) : null}
-			{activeTab === 'tools' ? <AgentConsoleToolCards tools={tools} /> : null}
-			{activeTab === 'metrics' ? (
-				<AgentConsoleMetricsPanel metrics={metrics} />
-			) : null}
+				<TabsContent value="runs">
+					<AgentConsoleRunHistoryTable runs={runs} />
+				</TabsContent>
+				<TabsContent value="agents">
+					<AgentConsoleAgentCards agents={agents} />
+				</TabsContent>
+				<TabsContent value="tools">
+					<AgentConsoleToolCards tools={tools} />
+				</TabsContent>
+				<TabsContent value="metrics">
+					<AgentConsoleMetricsPanel metrics={metrics} />
+				</TabsContent>
+			</Tabs>
 		</VStack>
 	);
 }

@@ -1,0 +1,45 @@
+schemaVersion: "1"
+slug: native-data-table-reanimated-resize
+summary: Replace the native UI-kit data table resize handle's gesture-handler dependency with a Reanimated responder boundary.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.ui-kit"
+    releaseType: patch
+affectedRuntimes:
+  - expo
+  - react-native
+affectedFrameworks:
+  - react-native
+audiences:
+  - kind: maintainer
+    summary: The data table resize handle now uses Reanimated and native responder events instead of importing `react-native-gesture-handler`.
+    affectedPackages:
+      - "@contractspec/lib.ui-kit"
+  - kind: integrator
+    summary: Native UI-kit consumers can render data tables without pulling in `react-native-gesture-handler` solely for column resizing.
+    affectedPackages:
+      - "@contractspec/lib.ui-kit"
+  - kind: customer
+    summary: Native data table resizing keeps the same visible behavior while reducing gesture runtime coupling.
+deprecations:
+  - "Do not import `react-native-gesture-handler` for the native UI-kit data table resize handle; use the Reanimated-backed implementation."
+migrationInstructions: []
+upgradeSteps:
+  - id: revalidate-native-data-table-resize
+    title: Revalidate native data table resizing
+    summary: Confirm table column resize handles still update widths in Expo or React Native surfaces after upgrading.
+    level: assisted
+    instructions:
+      - Run the native UI-kit data table smoke test.
+      - Run ui-kit lint and typecheck.
+      - Re-open any Expo screen that exposes resizable native data table columns.
+validation:
+  commands:
+    - bun test packages/libs/ui-kit/ui/data-table.smoke.test.tsx
+    - cd packages/libs/ui-kit && bun run lint:check
+    - cd packages/libs/ui-kit && bun run typecheck
+  evidence:
+    - "`ui/data-table.tsx` imports `react-native-reanimated` instead of `react-native-gesture-handler`."
+    - "The smoke test mocks Reanimated and covers resize cleanup through responder events."
+    - "`@contractspec/lib.ui-kit` no longer declares `react-native-gesture-handler` for this data table path."
+knownGaps: []

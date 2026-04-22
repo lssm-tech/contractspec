@@ -34,6 +34,7 @@
 		"@contractspec/lib.builder-spec": "workspace:*",
 		"@contractspec/lib.builder-runtime": "workspace:*",
 		"@contractspec/lib.provider-spec": "workspace:*",
+		"@contractspec/lib.design-system": "workspace:*",
 		"@contractspec/lib.ui-kit-web": "workspace:*",
 		"@contractspec/module.ai-chat": "workspace:*",
 		"react": "catalog:",

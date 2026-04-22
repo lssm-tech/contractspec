@@ -1,13 +1,13 @@
 'use client';
 
 import type { BuilderWorkspaceSnapshot } from '@contractspec/lib.builder-spec';
-import { VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import {
 	Tabs,
 	TabsContent,
 	TabsList,
 	TabsTrigger,
-} from '@contractspec/lib.ui-kit-web/ui/tabs';
+} from '@contractspec/lib.design-system';
+import { VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import { summarizeBuilderWorkbench } from '../../core';
 import { BlueprintEditorPanel } from './BlueprintEditorPanel';
 import { FusionDecisionPanel } from './FusionDecisionPanel';

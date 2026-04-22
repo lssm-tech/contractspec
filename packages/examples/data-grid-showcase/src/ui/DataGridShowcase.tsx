@@ -1,12 +1,12 @@
 'use client';
 
-import { VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import {
 	Tabs,
 	TabsContent,
 	TabsList,
 	TabsTrigger,
-} from '@contractspec/lib.ui-kit-web/ui/tabs';
+} from '@contractspec/lib.design-system';
+import { VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import { H2, Lead, Small } from '@contractspec/lib.ui-kit-web/ui/typography';
 import * as React from 'react';
 import {

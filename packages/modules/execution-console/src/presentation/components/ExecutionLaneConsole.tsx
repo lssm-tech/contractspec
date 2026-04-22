@@ -1,3 +1,9 @@
+import {
+	Tabs,
+	TabsContent,
+	TabsList,
+	TabsTrigger,
+} from '@contractspec/lib.design-system';
 import type {
 	CompletionStatusView,
 	LaneRuntimeSnapshot,
@@ -6,12 +12,6 @@ import type {
 } from '@contractspec/lib.execution-lanes';
 import { Button } from '@contractspec/lib.ui-kit-web/ui/button';
 import { HStack, VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
-import {
-	Tabs,
-	TabsContent,
-	TabsList,
-	TabsTrigger,
-} from '@contractspec/lib.ui-kit-web/ui/tabs';
 import { buildExecutionLaneTimeline } from '../../core';
 import { useExecutionLaneConsoleState } from '../hooks';
 import { CompletionStatusPanel } from './CompletionStatusPanel';

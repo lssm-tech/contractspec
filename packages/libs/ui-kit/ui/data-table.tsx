@@ -6,8 +6,8 @@ import type {
 import type { SharedDataTableProps } from '@contractspec/lib.ui-kit-core/interfaces';
 import { ChevronDown, ChevronRight, Columns3 } from 'lucide-react-native';
 import * as React from 'react';
-import { ScrollView, View } from 'react-native';
-import { PanGestureHandler } from 'react-native-gesture-handler';
+import { type GestureResponderEvent, ScrollView, View } from 'react-native';
+import Animated from 'react-native-reanimated';
 import { Pagination } from './atoms/Pagination';
 import { Button } from './button';
 import { Checkbox } from './checkbox';
@@ -259,30 +259,39 @@ function ResizeHandle({
 }: {
 	column: ContractTableColumnRenderModel<React.ReactNode>;
 }) {
-	const lastTranslation = React.useRef(0);
+	const lastPointerX = React.useRef<number | null>(null);
+	const resetPointer = React.useCallback(() => {
+		lastPointerX.current = null;
+	}, []);
+	const handlePointerMove = React.useCallback(
+		(event: GestureResponderEvent) => {
+			const nextPointerX = event.nativeEvent.pageX;
+			const previousPointerX = lastPointerX.current;
+			lastPointerX.current = nextPointerX;
+			if (previousPointerX === null) return;
+
+			const delta = nextPointerX - previousPointerX;
+			if (!Number.isFinite(delta) || delta === 0) return;
+			column.resizeBy?.(delta);
+		},
+		[column]
+	);
 
 	return (
-		<PanGestureHandler
-			onGestureEvent={(event) => {
-				const delta = event.nativeEvent.translationX - lastTranslation.current;
-				lastTranslation.current = event.nativeEvent.translationX;
-				if (!Number.isFinite(delta) || delta === 0) return;
-				column.resizeBy?.(delta);
+		<Animated.View
+			testID="resize-handle"
+			onStartShouldSetResponder={() => true}
+			onMoveShouldSetResponder={() => true}
+			onResponderGrant={(event) => {
+				lastPointerX.current = event.nativeEvent.pageX;
 			}}
-			onEnded={() => {
-				lastTranslation.current = 0;
-			}}
-			onCancelled={() => {
-				lastTranslation.current = 0;
-			}}
-			onFailed={() => {
-				lastTranslation.current = 0;
-			}}
+			onResponderMove={handlePointerMove}
+			onResponderRelease={resetPointer}
+			onResponderTerminate={resetPointer}
+			className="justify-center px-1"
 		>
-			<View className="justify-center px-1">
-				<Text className="text-muted-foreground text-xs">||</Text>
-			</View>
-		</PanGestureHandler>
+			<Text className="text-muted-foreground text-xs">||</Text>
+		</Animated.View>
 	);
 }
 

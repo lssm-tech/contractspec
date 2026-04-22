@@ -101,7 +101,6 @@
 		"react": "catalog:",
 		"react-dom": "catalog:",
 		"react-hook-form": "catalog:ui",
-		"react-native-gesture-handler": "^2.29.1",
 		"react-native": "catalog:native",
 		"react-native-device-info": "^14.1.1",
 		"react-native-localize": "^3.7.0",

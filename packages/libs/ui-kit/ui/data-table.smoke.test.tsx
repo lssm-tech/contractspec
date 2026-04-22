@@ -20,31 +20,46 @@ mock.module('react-native', () => ({
 		showsHorizontalScrollIndicator?: boolean;
 	}) => <div {...props}>{children}</div>,
 }));
-mock.module('react-native-gesture-handler', () => ({
-	PanGestureHandler: ({
-		children,
-		onGestureEvent,
-		onEnded,
-		onCancelled,
-	}: {
-		children: React.ReactNode;
-		onGestureEvent?: (event: { nativeEvent: { translationX: number } }) => void;
-		onEnded?: () => void;
-		onCancelled?: () => void;
-	}) => (
-		<div
-			data-gesture="true"
-			role="button"
-			tabIndex={-1}
-			onMouseMove={(event) =>
-				onGestureEvent?.({ nativeEvent: { translationX: event.clientX } })
-			}
-			onMouseUp={() => onEnded?.()}
-			onMouseLeave={() => onCancelled?.()}
-		>
-			{children}
-		</div>
-	),
+mock.module('react-native-reanimated', () => ({
+	default: {
+		View: ({
+			children,
+			onResponderGrant,
+			onResponderMove,
+			onResponderRelease,
+			onResponderTerminate,
+			onStartShouldSetResponder: _onStartShouldSetResponder,
+			onMoveShouldSetResponder: _onMoveShouldSetResponder,
+			testID,
+			...props
+		}: {
+			children: React.ReactNode;
+			onResponderGrant?: (event: { nativeEvent: { pageX: number } }) => void;
+			onResponderMove?: (event: { nativeEvent: { pageX: number } }) => void;
+			onResponderRelease?: () => void;
+			onResponderTerminate?: () => void;
+			onStartShouldSetResponder?: () => boolean;
+			onMoveShouldSetResponder?: () => boolean;
+			testID?: string;
+		}) => (
+			<div
+				data-testid={testID}
+				role="button"
+				tabIndex={-1}
+				onMouseDown={(event) =>
+					onResponderGrant?.({ nativeEvent: { pageX: event.clientX } })
+				}
+				onMouseMove={(event) =>
+					onResponderMove?.({ nativeEvent: { pageX: event.clientX } })
+				}
+				onMouseUp={() => onResponderRelease?.()}
+				onMouseLeave={() => onResponderTerminate?.()}
+				{...props}
+			>
+				{children}
+			</div>
+		),
+	},
 }));
 mock.module('lucide-react-native', () => ({
 	ChevronDown: () => <span>ChevronDown</span>,
@@ -357,10 +372,17 @@ describe('ui-kit data-table smoke', () => {
 
 	test('resize gesture cleanup does not throw', async () => {
 		const { container, root } = await renderTable();
-		const gesture = container.querySelector('[data-gesture="true"]');
+		const gesture = container.querySelector('[data-testid="resize-handle"]');
 
 		await act(async () => {
 			expect(() => {
+				gesture?.dispatchEvent(
+					new window.MouseEvent('mousedown', {
+						bubbles: true,
+						cancelable: true,
+						clientX: 32,
+					})
+				);
 				gesture?.dispatchEvent(
 					new window.MouseEvent('mousemove', {
 						bubbles: true,

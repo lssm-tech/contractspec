@@ -31,6 +31,7 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
+		"@contractspec/lib.design-system": "workspace:*",
 		"@contractspec/lib.execution-lanes": "workspace:*",
 		"@contractspec/lib.ui-kit-web": "workspace:*",
 		"react": "catalog:",

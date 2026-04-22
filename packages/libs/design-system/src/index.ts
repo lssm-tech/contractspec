@@ -68,6 +68,12 @@ export { PrivacyTemplate } from './components/legal/templates/PrivacyTemplate';
 export { SalesTermsTemplate } from './components/legal/templates/SalesTermsTemplate';
 export { TermsTemplate } from './components/legal/templates/TermsTemplate';
 export {
+	List,
+	ListItem,
+	type ListItemProps,
+	type ListProps,
+} from './components/list';
+export {
 	MarketingCard,
 	MarketingCardContent,
 	MarketingCardDescription,
@@ -144,6 +150,16 @@ export { SkeletonCircle } from './components/molecules/SkeletonCircle';
 export { SkeletonList } from './components/molecules/SkeletonList';
 export { StatCard, StatCardGroup } from './components/molecules/StatCard';
 export { StatusChip } from './components/molecules/StatusChip';
+export {
+	Tabs,
+	TabsContent,
+	type TabsContentProps,
+	TabsList,
+	type TabsListProps,
+	type TabsProps,
+	TabsTrigger,
+	type TabsTriggerProps,
+} from './components/molecules/Tabs';
 export { AcademyLayout } from './components/organisms/AcademyLayout';
 export { AppHeader } from './components/organisms/AppHeader';
 export { AppLayout } from './components/organisms/AppLayout';
@@ -185,6 +201,20 @@ export {
 	usePackageManager,
 } from './components/providers/PackageManagerProvider';
 export { ListPageTemplate } from './components/templates/lists/ListPageTemplate';
+export {
+	BlockQuote,
+	Code,
+	H1,
+	H2,
+	H3,
+	H4,
+	Large,
+	Lead,
+	Muted,
+	P,
+	Small,
+	Text,
+} from './components/typography';
 export {
 	ComparisonView,
 	type ComparisonViewProps,

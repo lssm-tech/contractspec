@@ -1,0 +1,75 @@
+schemaVersion: "1"
+slug: unified-design-system-tabs
+summary: Add a unified design-system Tabs primitive and migrate local tab consumers away from ui-kit leaf imports.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.design-system"
+    releaseType: minor
+  - name: "@contractspec/example.agent-console"
+    releaseType: patch
+  - name: "@contractspec/example.crm-pipeline"
+    releaseType: patch
+  - name: "@contractspec/example.data-grid-showcase"
+    releaseType: patch
+  - name: "@contractspec/module.builder-workbench"
+    releaseType: patch
+  - name: "@contractspec/module.execution-console"
+    releaseType: patch
+affectedRuntimes:
+  - browser
+  - expo
+affectedFrameworks:
+  - react
+  - react-native
+audiences:
+  - kind: maintainer
+    summary: Maintainers can expose tabbed product surfaces through the design-system root instead of choosing between web and native UI-kit tab APIs.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+  - kind: integrator
+    summary: Integrators can use one `Tabs` API with optional `value`, `defaultValue`, and `onValueChange` props across web and native surfaces.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+      - "@contractspec/module.builder-workbench"
+      - "@contractspec/module.execution-console"
+  - kind: customer
+    summary: Example dashboards and execution consoles keep their existing tabbed UX while using the cross-platform design-system primitive.
+    affectedPackages:
+      - "@contractspec/example.agent-console"
+      - "@contractspec/example.crm-pipeline"
+      - "@contractspec/example.data-grid-showcase"
+deprecations: []
+migrationInstructions:
+  - id: prefer-design-system-tabs
+    title: Prefer design-system Tabs for shared product surfaces
+    summary: Consumers should import tabs from `@contractspec/lib.design-system` instead of lower-level UI-kit tab modules.
+    required: false
+    when: When building or updating tabbed React or React Native UI.
+    steps:
+      - Replace `@contractspec/lib.ui-kit-web/ui/tabs` or `@contractspec/lib.ui-kit/ui/tabs` imports with `@contractspec/lib.design-system`.
+      - Use `defaultValue` for uncontrolled tabs, or `value` plus `onValueChange` for controlled tabs.
+      - Keep existing `TabsList`, `TabsTrigger`, and `TabsContent` structure.
+upgradeSteps:
+  - id: migrate-tab-imports
+    title: Migrate direct tab imports
+    summary: Move tabbed product surfaces to the design-system root export.
+    level: manual
+    instructions:
+      - Import `Tabs`, `TabsList`, `TabsTrigger`, and `TabsContent` from `@contractspec/lib.design-system`.
+      - Add `@contractspec/lib.design-system` as a package dependency if the consumer package did not already depend on it.
+      - Re-run typecheck for the migrated package.
+validation:
+  commands:
+    - "cd packages/libs/design-system && bun run lint:check && bun run typecheck && bun run test"
+    - "cd packages/examples/agent-console && bun run typecheck && bun run test"
+    - "cd packages/examples/crm-pipeline && bun run typecheck"
+    - "cd packages/examples/data-grid-showcase && bun run typecheck"
+    - "cd packages/modules/builder-workbench && bun run typecheck"
+    - "cd packages/modules/execution-console && bun run typecheck"
+    - "rg -n \"from '@contractspec/lib.ui-kit-web/ui/tabs'|from \\\"@contractspec/lib.ui-kit-web/ui/tabs\\\"|from '@contractspec/lib.ui-kit/ui/tabs'|from \\\"@contractspec/lib.ui-kit/ui/tabs\\\"\" packages/examples packages/modules packages/bundles packages/apps -g '*.tsx' -g '*.ts'"
+  evidence:
+    - "`@contractspec/lib.design-system` now exports `Tabs`, `TabsList`, `TabsTrigger`, `TabsContent`, and their prop types from the root barrel."
+    - "The native design-system tabs wrapper supplies concrete `value` and `onValueChange` props to the native UI kit while preserving optional controlled or uncontrolled caller APIs."
+    - "Current app, example, and module tab consumers no longer import lower-level UI-kit tab modules directly."
+knownGaps:
+  - "`cd packages/examples/agent-console && bun run lint:check` is blocked by the existing dirty root Biome plugin configuration resolving from the package cwd; focused checks over touched files pass."
