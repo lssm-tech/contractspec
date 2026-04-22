@@ -205,7 +205,7 @@
 	},
 	"overrides": {
 		"nativewind": "5.0.0-preview.2",
-		"expo": "^55.0.16",
+		"expo": "^~55.0.17",
 		"react-native": "0.83.6",
 		"react-native-css": "3.0.4",
 		"lightningcss": "1.30.1"
