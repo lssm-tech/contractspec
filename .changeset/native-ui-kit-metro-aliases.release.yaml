@@ -1,0 +1,51 @@
+schemaVersion: "1"
+slug: native-ui-kit-metro-aliases
+summary: Add native UI-kit subpaths for Metro's ui-kit-web alias surface so Expo builds can resolve shared design-system form controls.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.ui-kit"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - expo
+  - native
+affectedFrameworks:
+  - react
+  - react-native
+audiences:
+  - kind: maintainer
+    summary: Native UI-kit now exposes the subpaths Metro rewrites from ui-kit-web for shared design-system form controls.
+    affectedPackages:
+      - "@contractspec/lib.ui-kit"
+  - kind: integrator
+    summary: Expo consumers can import shared design-system form controls without Metro failing on missing native ui-kit subpaths.
+    affectedPackages:
+      - "@contractspec/lib.ui-kit"
+  - kind: customer
+    summary: Mobile demo and native product surfaces can render shared form controls without bundler resolution errors.
+    affectedPackages:
+      - "@contractspec/lib.ui-kit"
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: restart-expo-metro
+    title: Restart Expo Metro after updating the UI kit
+    summary: Metro may cache failed subpath resolutions from before these native exports existed.
+    level: manual
+    instructions:
+      - Stop the Expo dev server.
+      - Restart with a clean Metro cache when a previous run failed on ui-kit-web form-control subpaths.
+validation:
+  commands:
+    - "cd packages/libs/ui-kit && bun run typecheck && bun run lint:check"
+    - "cd packages/libs/design-system && bun run typecheck"
+    - "cd packages/apps/mobile-demo && bun run typecheck"
+    - "bun test packages/apps/mobile-demo/metro.config.test.ts"
+    - "bun test packages/libs/presentation-runtime-core/src/presentation-aliases.test.ts"
+    - "cd packages/apps/mobile-demo && bunx expo export --platform ios --output-dir /tmp/contractspec-mobile-demo-export-check"
+  evidence:
+    - "`@contractspec/lib.ui-kit/ui/combobox`, `./ui/input-group`, `./ui/input-otp`, and `./ui/native-select` now exist and are listed in both dev and publish exports."
+    - "The Metro alias helper maps the matching `@contractspec/lib.ui-kit-web/ui/*` subpaths to native UI-kit targets on iOS."
+    - "The mobile demo gets past the missing ui-kit form-control subpath resolution errors."
+knownGaps:
+  - "Expo export still fails later in the local environment because the installed Tailwind/PostCSS dependency tree is missing `lightningcss.darwin-x64.node`."

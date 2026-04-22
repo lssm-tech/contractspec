@@ -139,6 +139,7 @@
 		"./ui/carousel": "./ui/carousel.tsx",
 		"./ui/checkbox": "./ui/checkbox.tsx",
 		"./ui/collapsible": "./ui/collapsible.tsx",
+		"./ui/combobox": "./ui/combobox.tsx",
 		"./ui/command": "./ui/command.tsx",
 		"./ui/context-menu": "./ui/context-menu.tsx",
 		"./ui/contracts.typecheck": "./ui/contracts.typecheck.ts",
@@ -165,6 +166,8 @@
 		"./ui/icons/MoonStar": "./ui/icons/MoonStar.tsx",
 		"./ui/icons/Sun": "./ui/icons/Sun.tsx",
 		"./ui/icons/X": "./ui/icons/X.tsx",
+		"./ui/input-group": "./ui/input-group.tsx",
+		"./ui/input-otp": "./ui/input-otp.tsx",
 		"./ui/input": "./ui/input.tsx",
 		"./ui/label": "./ui/label.tsx",
 		"./ui/link": "./ui/link.tsx",
@@ -181,6 +184,7 @@
 		"./ui/molecules/SearchAndFilter/SearchAndFilter": "./ui/molecules/SearchAndFilter/SearchAndFilter.tsx",
 		"./ui/molecules/SearchAndFilter/types": "./ui/molecules/SearchAndFilter/types.ts",
 		"./ui/molecules/SkeletonList": "./ui/molecules/SkeletonList.tsx",
+		"./ui/native-select": "./ui/native-select.tsx",
 		"./ui/nativewind-env.d": "./ui/nativewind-env.d.ts",
 		"./ui/navigation-menu": "./ui/navigation-menu.tsx",
 		"./ui/organisms/ErrorBoundary": "./ui/organisms/ErrorBoundary/index.ts",
@@ -375,6 +379,12 @@
 				"bun": "./dist/ui/collapsible.js",
 				"default": "./dist/ui/collapsible.js"
 			},
+			"./ui/combobox": {
+				"types": "./dist/ui/combobox.d.ts",
+				"browser": "./dist/browser/ui/combobox.js",
+				"bun": "./dist/ui/combobox.js",
+				"default": "./dist/ui/combobox.js"
+			},
 			"./ui/command": {
 				"types": "./dist/ui/command.d.ts",
 				"browser": "./dist/browser/ui/command.js",
@@ -531,6 +541,18 @@
 				"bun": "./dist/ui/icons/X.js",
 				"default": "./dist/ui/icons/X.js"
 			},
+			"./ui/input-group": {
+				"types": "./dist/ui/input-group.d.ts",
+				"browser": "./dist/browser/ui/input-group.js",
+				"bun": "./dist/ui/input-group.js",
+				"default": "./dist/ui/input-group.js"
+			},
+			"./ui/input-otp": {
+				"types": "./dist/ui/input-otp.d.ts",
+				"browser": "./dist/browser/ui/input-otp.js",
+				"bun": "./dist/ui/input-otp.js",
+				"default": "./dist/ui/input-otp.js"
+			},
 			"./ui/input": {
 				"types": "./dist/ui/input.d.ts",
 				"browser": "./dist/browser/ui/input.js",
@@ -626,6 +648,12 @@
 				"browser": "./dist/browser/ui/molecules/SkeletonList.js",
 				"bun": "./dist/ui/molecules/SkeletonList.js",
 				"default": "./dist/ui/molecules/SkeletonList.js"
+			},
+			"./ui/native-select": {
+				"types": "./dist/ui/native-select.d.ts",
+				"browser": "./dist/browser/ui/native-select.js",
+				"bun": "./dist/ui/native-select.js",
+				"default": "./dist/ui/native-select.js"
 			},
 			"./ui/nativewind-env.d": {
 				"types": "./dist/ui/nativewind-env.d.d.ts",
