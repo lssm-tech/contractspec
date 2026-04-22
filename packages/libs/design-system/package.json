@@ -68,76 +68,173 @@
 	],
 	"exports": {
 		".": "./src/index.ts",
-		"./controls": "./src/components/forms/controls/index.ts",
 		"./components/agent/AgentMonitor": "./src/components/agent/AgentMonitor.tsx",
-		"./components/agent/ApprovalQueue": "./src/components/agent/ApprovalQueue.tsx",
-		"./components/agent/ApprovalQueue.mobile": "./src/components/agent/ApprovalQueue.mobile.tsx",
+		"./components/agent/ApprovalQueue": {
+			"types": "./src/components/agent/ApprovalQueue.tsx",
+			"react-native": "./src/components/agent/ApprovalQueue.native.tsx",
+			"default": "./src/components/agent/ApprovalQueue.tsx"
+		},
+		"./components/agent/ApprovalQueue.native": "./src/components/agent/ApprovalQueue.native.tsx",
 		"./components/atoms/ActionButtons": "./src/components/atoms/ActionButtons.tsx",
-		"./components/atoms/Button": "./src/components/atoms/Button.tsx",
-		"./components/atoms/Button.mobile": "./src/components/atoms/Button.mobile.tsx",
-		"./components/atoms/ButtonLink": "./src/components/atoms/ButtonLink.tsx",
-		"./components/atoms/ButtonLink.mobile": "./src/components/atoms/ButtonLink.mobile.tsx",
-		"./components/atoms/Cta": "./src/components/atoms/Cta.tsx",
-		"./components/atoms/Cta.mobile": "./src/components/atoms/Cta.mobile.tsx",
+		"./components/atoms/Button": {
+			"types": "./src/components/atoms/Button.tsx",
+			"react-native": "./src/components/atoms/Button.native.tsx",
+			"default": "./src/components/atoms/Button.tsx"
+		},
+		"./components/atoms/Button.native": "./src/components/atoms/Button.native.tsx",
+		"./components/atoms/ButtonLink": {
+			"types": "./src/components/atoms/ButtonLink.tsx",
+			"react-native": "./src/components/atoms/ButtonLink.native.tsx",
+			"default": "./src/components/atoms/ButtonLink.tsx"
+		},
+		"./components/atoms/ButtonLink.native": "./src/components/atoms/ButtonLink.native.tsx",
+		"./components/atoms/Cta": {
+			"types": "./src/components/atoms/Cta.tsx",
+			"react-native": "./src/components/atoms/Cta.native.tsx",
+			"default": "./src/components/atoms/Cta.tsx"
+		},
+		"./components/atoms/Cta.native": "./src/components/atoms/Cta.native.tsx",
 		"./components/atoms/DataChips": "./src/components/atoms/DataChips.tsx",
 		"./components/atoms/EmptyState": "./src/components/atoms/EmptyState.tsx",
-		"./components/atoms/ErrorState": "./src/components/atoms/ErrorState.tsx",
-		"./components/atoms/ErrorState.mobile": "./src/components/atoms/ErrorState.mobile.tsx",
-		"./components/atoms/Input": "./src/components/atoms/Input.tsx",
-		"./components/atoms/Input.mobile": "./src/components/atoms/Input.mobile.tsx",
-		"./components/atoms/InputPassword": "./src/components/atoms/InputPassword.tsx",
-		"./components/atoms/InputPassword.mobile": "./src/components/atoms/InputPassword.mobile.tsx",
+		"./components/atoms/ErrorState": {
+			"types": "./src/components/atoms/ErrorState.tsx",
+			"react-native": "./src/components/atoms/ErrorState.native.tsx",
+			"default": "./src/components/atoms/ErrorState.tsx"
+		},
+		"./components/atoms/ErrorState.native": "./src/components/atoms/ErrorState.native.tsx",
+		"./components/atoms/Input": {
+			"types": "./src/components/atoms/Input.tsx",
+			"react-native": "./src/components/atoms/Input.native.tsx",
+			"default": "./src/components/atoms/Input.tsx"
+		},
+		"./components/atoms/Input.native": "./src/components/atoms/Input.native.tsx",
+		"./components/atoms/InputPassword": {
+			"types": "./src/components/atoms/InputPassword.tsx",
+			"react-native": "./src/components/atoms/InputPassword.native.tsx",
+			"default": "./src/components/atoms/InputPassword.tsx"
+		},
+		"./components/atoms/InputPassword.native": "./src/components/atoms/InputPassword.native.tsx",
 		"./components/atoms/Link": {
 			"types": "./src/components/atoms/Link.tsx",
 			"browser": "./src/components/atoms/Link.web.tsx",
+			"react-native": "./src/components/atoms/Link.native.tsx",
 			"default": "./src/components/atoms/Link.tsx"
 		},
+		"./components/atoms/Link.native": "./src/components/atoms/Link.native.tsx",
 		"./components/atoms/Link.web": "./src/components/atoms/Link.web.tsx",
-		"./components/atoms/LoaderCircular": "./src/components/atoms/LoaderCircular.tsx",
-		"./components/atoms/LoaderCircular.mobile": "./src/components/atoms/LoaderCircular.mobile.tsx",
+		"./components/atoms/LoaderCircular": {
+			"types": "./src/components/atoms/LoaderCircular.tsx",
+			"react-native": "./src/components/atoms/LoaderCircular.native.tsx",
+			"default": "./src/components/atoms/LoaderCircular.tsx"
+		},
+		"./components/atoms/LoaderCircular.native": "./src/components/atoms/LoaderCircular.native.tsx",
 		"./components/atoms/NavBrand": "./src/components/atoms/NavBrand.tsx",
 		"./components/atoms/RankBadge": "./src/components/atoms/RankBadge.tsx",
 		"./components/atoms/ScoreBar": "./src/components/atoms/ScoreBar.tsx",
 		"./components/atoms/Stepper": "./src/components/atoms/Stepper.tsx",
-		"./components/atoms/Textarea": "./src/components/atoms/Textarea.tsx",
-		"./components/atoms/Textarea.mobile": "./src/components/atoms/Textarea.mobile.tsx",
-		"./components/data-table/DataTable": "./src/components/data-table/DataTable.tsx",
-		"./components/data-table/DataTable.mobile": "./src/components/data-table/DataTable.mobile.tsx",
-		"./components/data-table/DataTableToolbar": "./src/components/data-table/DataTableToolbar.tsx",
-		"./components/data-table/DataTableToolbar.mobile": "./src/components/data-table/DataTableToolbar.mobile.tsx",
+		"./components/atoms/Textarea": {
+			"types": "./src/components/atoms/Textarea.tsx",
+			"react-native": "./src/components/atoms/Textarea.native.tsx",
+			"default": "./src/components/atoms/Textarea.tsx"
+		},
+		"./components/atoms/Textarea.native": "./src/components/atoms/Textarea.native.tsx",
+		"./components/data-table/DataTable": {
+			"types": "./src/components/data-table/DataTable.tsx",
+			"react-native": "./src/components/data-table/DataTable.native.tsx",
+			"default": "./src/components/data-table/DataTable.tsx"
+		},
+		"./components/data-table/DataTable.native": "./src/components/data-table/DataTable.native.tsx",
+		"./components/data-table/DataTableToolbar": {
+			"types": "./src/components/data-table/DataTableToolbar.tsx",
+			"react-native": "./src/components/data-table/DataTableToolbar.native.tsx",
+			"default": "./src/components/data-table/DataTableToolbar.tsx"
+		},
+		"./components/data-table/DataTableToolbar.native": "./src/components/data-table/DataTableToolbar.native.tsx",
 		"./components/data-table/DataTableToolbar.shared": "./src/components/data-table/DataTableToolbar.shared.ts",
 		"./components/data-view/DataViewDetail": "./src/components/data-view/DataViewDetail.tsx",
 		"./components/data-view/DataViewList": "./src/components/data-view/DataViewList.tsx",
-		"./components/data-view/DataViewRenderer": "./src/components/data-view/DataViewRenderer.tsx",
-		"./components/data-view/DataViewRenderer.mobile": "./src/components/data-view/DataViewRenderer.mobile.tsx",
-		"./components/data-view/DataViewTable": "./src/components/data-view/DataViewTable.tsx",
-		"./components/data-view/DataViewTable.mobile": "./src/components/data-view/DataViewTable.mobile.tsx",
+		"./components/data-view/DataViewRenderer": {
+			"types": "./src/components/data-view/DataViewRenderer.tsx",
+			"react-native": "./src/components/data-view/DataViewRenderer.native.tsx",
+			"default": "./src/components/data-view/DataViewRenderer.tsx"
+		},
+		"./components/data-view/DataViewRenderer.native": "./src/components/data-view/DataViewRenderer.native.tsx",
+		"./components/data-view/DataViewTable": {
+			"types": "./src/components/data-view/DataViewTable.tsx",
+			"react-native": "./src/components/data-view/DataViewTable.native.tsx",
+			"default": "./src/components/data-view/DataViewTable.tsx"
+		},
+		"./components/data-view/DataViewTable.native": "./src/components/data-view/DataViewTable.native.tsx",
 		"./components/data-view/utils": "./src/components/data-view/utils.tsx",
 		"./components/forms": "./src/components/forms/index.ts",
 		"./components/forms/ActionForm": "./src/components/forms/ActionForm.tsx",
 		"./components/forms/controls": "./src/components/forms/controls/index.ts",
-		"./components/forms/controls/Autocomplete": "./src/components/forms/controls/Autocomplete.tsx",
-		"./components/forms/controls/Autocomplete.mobile": "./src/components/forms/controls/Autocomplete.mobile.tsx",
-		"./components/forms/controls/ChoiceControls": "./src/components/forms/controls/ChoiceControls.tsx",
-		"./components/forms/controls/ChoiceControls.mobile": "./src/components/forms/controls/ChoiceControls.mobile.tsx",
-		"./components/forms/controls/Combobox": "./src/components/forms/controls/Combobox.tsx",
-		"./components/forms/controls/Combobox.mobile": "./src/components/forms/controls/Combobox.mobile.tsx",
-		"./components/forms/controls/DateTimeControls": "./src/components/forms/controls/DateTimeControls.tsx",
-		"./components/forms/controls/DateTimeControls.mobile": "./src/components/forms/controls/DateTimeControls.mobile.tsx",
-		"./components/forms/controls/DropdownMenu": "./src/components/forms/controls/DropdownMenu.tsx",
-		"./components/forms/controls/DropdownMenu.mobile": "./src/components/forms/controls/DropdownMenu.mobile.tsx",
-		"./components/forms/controls/Field": "./src/components/forms/controls/Field.tsx",
-		"./components/forms/controls/Field.mobile": "./src/components/forms/controls/Field.mobile.tsx",
-		"./components/forms/controls/InputGroup": "./src/components/forms/controls/InputGroup.tsx",
-		"./components/forms/controls/InputGroup.mobile": "./src/components/forms/controls/InputGroup.mobile.tsx",
-		"./components/forms/controls/InputOTP": "./src/components/forms/controls/InputOTP.tsx",
-		"./components/forms/controls/InputOTP.mobile": "./src/components/forms/controls/InputOTP.mobile.tsx",
-		"./components/forms/controls/LoadingButton": "./src/components/forms/controls/LoadingButton.tsx",
-		"./components/forms/controls/LoadingButton.mobile": "./src/components/forms/controls/LoadingButton.mobile.tsx",
-		"./components/forms/controls/NativeSelect": "./src/components/forms/controls/NativeSelect.tsx",
-		"./components/forms/controls/NativeSelect.mobile": "./src/components/forms/controls/NativeSelect.mobile.tsx",
-		"./components/forms/controls/Select": "./src/components/forms/controls/Select.tsx",
-		"./components/forms/controls/Select.mobile": "./src/components/forms/controls/Select.mobile.tsx",
+		"./components/forms/controls/Autocomplete": {
+			"types": "./src/components/forms/controls/Autocomplete.tsx",
+			"react-native": "./src/components/forms/controls/Autocomplete.native.tsx",
+			"default": "./src/components/forms/controls/Autocomplete.tsx"
+		},
+		"./components/forms/controls/Autocomplete.native": "./src/components/forms/controls/Autocomplete.native.tsx",
+		"./components/forms/controls/ChoiceControls": {
+			"types": "./src/components/forms/controls/ChoiceControls.tsx",
+			"react-native": "./src/components/forms/controls/ChoiceControls.native.tsx",
+			"default": "./src/components/forms/controls/ChoiceControls.tsx"
+		},
+		"./components/forms/controls/ChoiceControls.native": "./src/components/forms/controls/ChoiceControls.native.tsx",
+		"./components/forms/controls/Combobox": {
+			"types": "./src/components/forms/controls/Combobox.tsx",
+			"react-native": "./src/components/forms/controls/Combobox.native.tsx",
+			"default": "./src/components/forms/controls/Combobox.tsx"
+		},
+		"./components/forms/controls/Combobox.native": "./src/components/forms/controls/Combobox.native.tsx",
+		"./components/forms/controls/DateTimeControls": {
+			"types": "./src/components/forms/controls/DateTimeControls.tsx",
+			"react-native": "./src/components/forms/controls/DateTimeControls.native.tsx",
+			"default": "./src/components/forms/controls/DateTimeControls.tsx"
+		},
+		"./components/forms/controls/DateTimeControls.native": "./src/components/forms/controls/DateTimeControls.native.tsx",
+		"./components/forms/controls/DropdownMenu": {
+			"types": "./src/components/forms/controls/DropdownMenu.tsx",
+			"react-native": "./src/components/forms/controls/DropdownMenu.native.tsx",
+			"default": "./src/components/forms/controls/DropdownMenu.tsx"
+		},
+		"./components/forms/controls/DropdownMenu.native": "./src/components/forms/controls/DropdownMenu.native.tsx",
+		"./components/forms/controls/Field": {
+			"types": "./src/components/forms/controls/Field.tsx",
+			"react-native": "./src/components/forms/controls/Field.native.tsx",
+			"default": "./src/components/forms/controls/Field.tsx"
+		},
+		"./components/forms/controls/Field.native": "./src/components/forms/controls/Field.native.tsx",
+		"./components/forms/controls/InputGroup": {
+			"types": "./src/components/forms/controls/InputGroup.tsx",
+			"react-native": "./src/components/forms/controls/InputGroup.native.tsx",
+			"default": "./src/components/forms/controls/InputGroup.tsx"
+		},
+		"./components/forms/controls/InputGroup.native": "./src/components/forms/controls/InputGroup.native.tsx",
+		"./components/forms/controls/InputOTP": {
+			"types": "./src/components/forms/controls/InputOTP.tsx",
+			"react-native": "./src/components/forms/controls/InputOTP.native.tsx",
+			"default": "./src/components/forms/controls/InputOTP.tsx"
+		},
+		"./components/forms/controls/InputOTP.native": "./src/components/forms/controls/InputOTP.native.tsx",
+		"./components/forms/controls/LoadingButton": {
+			"types": "./src/components/forms/controls/LoadingButton.tsx",
+			"react-native": "./src/components/forms/controls/LoadingButton.native.tsx",
+			"default": "./src/components/forms/controls/LoadingButton.tsx"
+		},
+		"./components/forms/controls/LoadingButton.native": "./src/components/forms/controls/LoadingButton.native.tsx",
+		"./components/forms/controls/NativeSelect": {
+			"types": "./src/components/forms/controls/NativeSelect.tsx",
+			"react-native": "./src/components/forms/controls/NativeSelect.native.tsx",
+			"default": "./src/components/forms/controls/NativeSelect.tsx"
+		},
+		"./components/forms/controls/NativeSelect.native": "./src/components/forms/controls/NativeSelect.native.tsx",
+		"./components/forms/controls/Select": {
+			"types": "./src/components/forms/controls/Select.tsx",
+			"react-native": "./src/components/forms/controls/Select.native.tsx",
+			"default": "./src/components/forms/controls/Select.tsx"
+		},
+		"./components/forms/controls/Select.native": "./src/components/forms/controls/Select.native.tsx",
 		"./components/forms/FormCardLayout": "./src/components/forms/FormCardLayout.tsx",
 		"./components/forms/FormDialog": "./src/components/forms/FormDialog.tsx",
 		"./components/forms/FormLayout": "./src/components/forms/FormLayout.tsx",
@@ -145,9 +242,12 @@
 		"./components/forms/FormStepsLayout": "./src/components/forms/FormStepsLayout.tsx",
 		"./components/forms/ZodForm": "./src/components/forms/ZodForm.tsx",
 		"./components/layout": "./src/components/layout/index.ts",
-		"./components/layout/Stack": "./src/components/layout/Stack.tsx",
-		"./components/layout/Stack.mobile": "./src/components/layout/Stack.mobile.tsx",
-		"./forms": "./src/components/forms/index.ts",
+		"./components/layout/Stack": {
+			"types": "./src/components/layout/Stack.tsx",
+			"react-native": "./src/components/layout/Stack.native.tsx",
+			"default": "./src/components/layout/Stack.tsx"
+		},
+		"./components/layout/Stack.native": "./src/components/layout/Stack.native.tsx",
 		"./components/legal/atoms/DefinitionList": "./src/components/legal/atoms/DefinitionList.tsx",
 		"./components/legal/atoms/KeyValueList": "./src/components/legal/atoms/KeyValueList.tsx",
 		"./components/legal/atoms/LegalCallout": "./src/components/legal/atoms/LegalCallout.tsx",
@@ -169,10 +269,12 @@
 		"./components/legal/templates/SalesTermsTemplate": "./src/components/legal/templates/SalesTermsTemplate.tsx",
 		"./components/legal/templates/TermsTemplate": "./src/components/legal/templates/TermsTemplate.tsx",
 		"./components/list": "./src/components/list/index.ts",
-		"./components/list/List": "./src/components/list/List.tsx",
-		"./components/list/List.mobile": "./src/components/list/List.mobile.tsx",
-		"./list": "./src/components/list/index.ts",
-		"./layout": "./src/components/layout/index.ts",
+		"./components/list/List": {
+			"types": "./src/components/list/List.tsx",
+			"react-native": "./src/components/list/List.native.tsx",
+			"default": "./src/components/list/List.tsx"
+		},
+		"./components/list/List.native": "./src/components/list/List.native.tsx",
 		"./components/marketing/MarketingCard": "./src/components/marketing/MarketingCard.tsx",
 		"./components/marketing/MarketingCardsSection": "./src/components/marketing/MarketingCardsSection.tsx",
 		"./components/marketing/MarketingComparisonSection": "./src/components/marketing/MarketingComparisonSection.tsx",
@@ -195,8 +297,12 @@
 		"./components/molecules/DimensionScoresCard": "./src/components/molecules/DimensionScoresCard.tsx",
 		"./components/molecules/DropdownMenu": "./src/components/molecules/DropdownMenu.tsx",
 		"./components/molecules/EntityCard": "./src/components/molecules/EntityCard.tsx",
-		"./components/molecules/FiltersToolbar": "./src/components/molecules/FiltersToolbar.tsx",
-		"./components/molecules/FiltersToolbar.mobile": "./src/components/molecules/FiltersToolbar.mobile.tsx",
+		"./components/molecules/FiltersToolbar": {
+			"types": "./src/components/molecules/FiltersToolbar.tsx",
+			"react-native": "./src/components/molecules/FiltersToolbar.native.tsx",
+			"default": "./src/components/molecules/FiltersToolbar.tsx"
+		},
+		"./components/molecules/FiltersToolbar.native": "./src/components/molecules/FiltersToolbar.native.tsx",
 		"./components/molecules/hover-previews/Doc": "./src/components/molecules/hover-previews/Doc.tsx",
 		"./components/molecules/hover-previews/Media": "./src/components/molecules/hover-previews/Media.tsx",
 		"./components/molecules/hover-previews/Simple": "./src/components/molecules/hover-previews/Simple.tsx",
@@ -208,8 +314,12 @@
 		"./components/molecules/InstallCommand/types": "./src/components/molecules/InstallCommand/types.ts",
 		"./components/molecules/LangSwitch": "./src/components/molecules/LangSwitch.tsx",
 		"./components/molecules/LangSwitchDropdown": "./src/components/molecules/LangSwitchDropdown.tsx",
-		"./components/molecules/LoaderBlock": "./src/components/molecules/LoaderBlock.tsx",
-		"./components/molecules/LoaderBlock.mobile": "./src/components/molecules/LoaderBlock.mobile.tsx",
+		"./components/molecules/LoaderBlock": {
+			"types": "./src/components/molecules/LoaderBlock.tsx",
+			"react-native": "./src/components/molecules/LoaderBlock.native.tsx",
+			"default": "./src/components/molecules/LoaderBlock.tsx"
+		},
+		"./components/molecules/LoaderBlock.native": "./src/components/molecules/LoaderBlock.native.tsx",
 		"./components/molecules/MarkdownRenderer": "./src/components/molecules/MarkdownRenderer/index.ts",
 		"./components/molecules/MarkdownRenderer/formatInlineMarkdown": "./src/components/molecules/MarkdownRenderer/formatInlineMarkdown.tsx",
 		"./components/molecules/MarkdownRenderer/MarkdownRenderer": "./src/components/molecules/MarkdownRenderer/MarkdownRenderer.tsx",
@@ -223,42 +333,73 @@
 		"./components/molecules/SkeletonBlock": {
 			"types": "./src/components/molecules/SkeletonBlock/index.ts",
 			"browser": "./src/components/molecules/SkeletonBlock/index.web.tsx",
+			"react-native": "./src/components/molecules/SkeletonBlock/index.native.tsx",
 			"default": "./src/components/molecules/SkeletonBlock/index.ts"
 		},
-		"./components/molecules/SkeletonBlock/index.mobile": "./src/components/molecules/SkeletonBlock/index.mobile.tsx",
+		"./components/molecules/SkeletonBlock/index.native": "./src/components/molecules/SkeletonBlock/index.native.tsx",
 		"./components/molecules/SkeletonBlock/index.web": "./src/components/molecules/SkeletonBlock/index.web.tsx",
 		"./components/molecules/SkeletonBlock/types": "./src/components/molecules/SkeletonBlock/types.ts",
 		"./components/molecules/SkeletonCircle": {
 			"types": "./src/components/molecules/SkeletonCircle/index.ts",
 			"browser": "./src/components/molecules/SkeletonCircle/index.web.tsx",
+			"react-native": "./src/components/molecules/SkeletonCircle/index.native.tsx",
 			"default": "./src/components/molecules/SkeletonCircle/index.ts"
 		},
-		"./components/molecules/SkeletonCircle/index.mobile": "./src/components/molecules/SkeletonCircle/index.mobile.tsx",
+		"./components/molecules/SkeletonCircle/index.native": "./src/components/molecules/SkeletonCircle/index.native.tsx",
 		"./components/molecules/SkeletonCircle/index.web": "./src/components/molecules/SkeletonCircle/index.web.tsx",
 		"./components/molecules/SkeletonCircle/types": "./src/components/molecules/SkeletonCircle/types.ts",
 		"./components/molecules/SkeletonList": {
 			"types": "./src/components/molecules/SkeletonList/index.ts",
 			"browser": "./src/components/molecules/SkeletonList/index.web.tsx",
+			"react-native": "./src/components/molecules/SkeletonList/index.native.tsx",
 			"default": "./src/components/molecules/SkeletonList/index.ts"
 		},
-		"./components/molecules/SkeletonList/index.mobile": "./src/components/molecules/SkeletonList/index.mobile.tsx",
+		"./components/molecules/SkeletonList/index.native": "./src/components/molecules/SkeletonList/index.native.tsx",
 		"./components/molecules/SkeletonList/index.web": "./src/components/molecules/SkeletonList/index.web.tsx",
 		"./components/molecules/SkeletonList/types": "./src/components/molecules/SkeletonList/types.ts",
 		"./components/molecules/StatCard": "./src/components/molecules/StatCard.tsx",
 		"./components/molecules/StatusChip": "./src/components/molecules/StatusChip.tsx",
-		"./components/molecules/Tabs": "./src/components/molecules/Tabs.tsx",
-		"./components/molecules/Tabs.mobile": "./src/components/molecules/Tabs.mobile.tsx",
-		"./components/native/BottomTabs.mobile": "./src/components/native/BottomTabs.mobile.tsx",
-		"./components/native/FlatListScreen.mobile": "./src/components/native/FlatListScreen.mobile.tsx",
-		"./components/native/SheetMenu.mobile": "./src/components/native/SheetMenu.mobile.tsx",
+		"./components/molecules/Tabs": {
+			"types": "./src/components/molecules/Tabs.tsx",
+			"react-native": "./src/components/molecules/Tabs.native.tsx",
+			"default": "./src/components/molecules/Tabs.tsx"
+		},
+		"./components/molecules/Tabs.native": "./src/components/molecules/Tabs.native.tsx",
+		"./components/native/BottomTabs": {
+			"types": "./src/components/native/BottomTabs.native.tsx",
+			"react-native": "./src/components/native/BottomTabs.native.tsx"
+		},
+		"./components/native/BottomTabs.native": "./src/components/native/BottomTabs.native.tsx",
+		"./components/native/FlatListScreen": {
+			"types": "./src/components/native/FlatListScreen.native.tsx",
+			"react-native": "./src/components/native/FlatListScreen.native.tsx"
+		},
+		"./components/native/FlatListScreen.native": "./src/components/native/FlatListScreen.native.tsx",
+		"./components/native/SheetMenu": {
+			"types": "./src/components/native/SheetMenu.native.tsx",
+			"react-native": "./src/components/native/SheetMenu.native.tsx"
+		},
+		"./components/native/SheetMenu.native": "./src/components/native/SheetMenu.native.tsx",
 		"./components/organisms/AcademyLayout": "./src/components/organisms/AcademyLayout.tsx",
-		"./components/organisms/AppHeader": "./src/components/organisms/AppHeader.tsx",
-		"./components/organisms/AppHeader.mobile": "./src/components/organisms/AppHeader.mobile.tsx",
+		"./components/organisms/AppHeader": {
+			"types": "./src/components/organisms/AppHeader.tsx",
+			"react-native": "./src/components/organisms/AppHeader.native.tsx",
+			"default": "./src/components/organisms/AppHeader.tsx"
+		},
+		"./components/organisms/AppHeader.native": "./src/components/organisms/AppHeader.native.tsx",
 		"./components/organisms/AppLayout": "./src/components/organisms/AppLayout.tsx",
-		"./components/organisms/AppSidebar": "./src/components/organisms/AppSidebar.tsx",
-		"./components/organisms/AppSidebar.mobile": "./src/components/organisms/AppSidebar.mobile.tsx",
-		"./components/organisms/EmptyDataList": "./src/components/organisms/EmptyDataList.tsx",
-		"./components/organisms/EmptyDataList.mobile": "./src/components/organisms/EmptyDataList.mobile.tsx",
+		"./components/organisms/AppSidebar": {
+			"types": "./src/components/organisms/AppSidebar.tsx",
+			"react-native": "./src/components/organisms/AppSidebar.native.tsx",
+			"default": "./src/components/organisms/AppSidebar.tsx"
+		},
+		"./components/organisms/AppSidebar.native": "./src/components/organisms/AppSidebar.native.tsx",
+		"./components/organisms/EmptyDataList": {
+			"types": "./src/components/organisms/EmptyDataList.tsx",
+			"react-native": "./src/components/organisms/EmptyDataList.native.tsx",
+			"default": "./src/components/organisms/EmptyDataList.tsx"
+		},
+		"./components/organisms/EmptyDataList.native": "./src/components/organisms/EmptyDataList.native.tsx",
 		"./components/organisms/EmptyDataList.types": "./src/components/organisms/EmptyDataList.types.tsx",
 		"./components/organisms/EmptySearchResult": "./src/components/organisms/EmptySearchResult.tsx",
 		"./components/organisms/FAQSection": "./src/components/organisms/FAQSection.tsx",
@@ -266,22 +407,34 @@
 		"./components/organisms/FeaturesSection": "./src/components/organisms/FeaturesSection.tsx",
 		"./components/organisms/Footer": "./src/components/organisms/Footer.tsx",
 		"./components/organisms/GridLayout": "./src/components/organisms/GridLayout.tsx",
-		"./components/organisms/Header": "./src/components/organisms/Header.tsx",
-		"./components/organisms/Header.mobile": "./src/components/organisms/Header.mobile.tsx",
+		"./components/organisms/Header": {
+			"types": "./src/components/organisms/Header.tsx",
+			"react-native": "./src/components/organisms/Header.native.tsx",
+			"default": "./src/components/organisms/Header.tsx"
+		},
+		"./components/organisms/Header.native": "./src/components/organisms/Header.native.tsx",
 		"./components/organisms/HeroResponsive": "./src/components/organisms/HeroResponsive.tsx",
 		"./components/organisms/HeroSection": "./src/components/organisms/HeroSection.tsx",
 		"./components/organisms/ListCardPage": "./src/components/organisms/ListCardPage.tsx",
 		"./components/organisms/ListGridPage": "./src/components/organisms/ListGridPage.tsx",
 		"./components/organisms/ListPageResponsive": "./src/components/organisms/ListPageResponsive.tsx",
-		"./components/organisms/ListTablePage": "./src/components/organisms/ListTablePage.tsx",
-		"./components/organisms/ListTablePage.mobile": "./src/components/organisms/ListTablePage.mobile.tsx",
+		"./components/organisms/ListTablePage": {
+			"types": "./src/components/organisms/ListTablePage.tsx",
+			"react-native": "./src/components/organisms/ListTablePage.native.tsx",
+			"default": "./src/components/organisms/ListTablePage.tsx"
+		},
+		"./components/organisms/ListTablePage.native": "./src/components/organisms/ListTablePage.native.tsx",
 		"./components/organisms/MarketingHeader": "./src/components/organisms/MarketingHeader.tsx",
 		"./components/organisms/MarketingHeaderDesktop": "./src/components/organisms/MarketingHeaderDesktop.tsx",
 		"./components/organisms/MarketingHeaderMobile": "./src/components/organisms/MarketingHeaderMobile.tsx",
 		"./components/organisms/MarketingLayout": "./src/components/organisms/MarketingLayout.tsx",
 		"./components/organisms/ModelComparisonView": "./src/components/organisms/ModelComparisonView.tsx",
-		"./components/organisms/PageHeaderResponsive": "./src/components/organisms/PageHeaderResponsive.tsx",
-		"./components/organisms/PageHeaderResponsive.mobile": "./src/components/organisms/PageHeaderResponsive.mobile.tsx",
+		"./components/organisms/PageHeaderResponsive": {
+			"types": "./src/components/organisms/PageHeaderResponsive.tsx",
+			"react-native": "./src/components/organisms/PageHeaderResponsive.native.tsx",
+			"default": "./src/components/organisms/PageHeaderResponsive.tsx"
+		},
+		"./components/organisms/PageHeaderResponsive.native": "./src/components/organisms/PageHeaderResponsive.native.tsx",
 		"./components/organisms/PricingCarousel": "./src/components/organisms/PricingCarousel.tsx",
 		"./components/organisms/PricingSection": "./src/components/organisms/PricingSection.tsx",
 		"./components/organisms/TestimonialCarousel": "./src/components/organisms/TestimonialCarousel.tsx",
@@ -291,38 +444,78 @@
 		"./components/templates/lists/ListPageTemplate": {
 			"types": "./src/components/templates/lists/ListPageTemplate/index.tsx",
 			"browser": "./src/components/templates/lists/ListPageTemplate/index.web.tsx",
+			"react-native": "./src/components/templates/lists/ListPageTemplate/index.native.tsx",
 			"default": "./src/components/templates/lists/ListPageTemplate/index.tsx"
 		},
-		"./components/templates/lists/ListPageTemplate/index.mobile": "./src/components/templates/lists/ListPageTemplate/index.mobile.tsx",
+		"./components/templates/lists/ListPageTemplate/index.native": "./src/components/templates/lists/ListPageTemplate/index.native.tsx",
 		"./components/templates/lists/ListPageTemplate/index.web": "./src/components/templates/lists/ListPageTemplate/index.web.tsx",
 		"./components/templates/lists/ListPageTemplate/types": "./src/components/templates/lists/ListPageTemplate/types.ts",
 		"./components/typography": "./src/components/typography/index.ts",
-		"./components/typography/Typography": "./src/components/typography/Typography.tsx",
-		"./components/typography/Typography.mobile": "./src/components/typography/Typography.mobile.tsx",
-		"./typography": "./src/components/typography/index.ts",
-		"./components/visualization/ComparisonView": "./src/components/visualization/ComparisonView.tsx",
-		"./components/visualization/ComparisonView.mobile": "./src/components/visualization/ComparisonView.mobile.tsx",
-		"./components/visualization/TimelineView": "./src/components/visualization/TimelineView.tsx",
-		"./components/visualization/TimelineView.mobile": "./src/components/visualization/TimelineView.mobile.tsx",
+		"./components/typography/Typography": {
+			"types": "./src/components/typography/Typography.tsx",
+			"react-native": "./src/components/typography/Typography.native.tsx",
+			"default": "./src/components/typography/Typography.tsx"
+		},
+		"./components/typography/Typography.native": "./src/components/typography/Typography.native.tsx",
+		"./components/visualization/ComparisonView": {
+			"types": "./src/components/visualization/ComparisonView.tsx",
+			"react-native": "./src/components/visualization/ComparisonView.native.tsx",
+			"default": "./src/components/visualization/ComparisonView.tsx"
+		},
+		"./components/visualization/ComparisonView.native": "./src/components/visualization/ComparisonView.native.tsx",
+		"./components/visualization/TimelineView": {
+			"types": "./src/components/visualization/TimelineView.tsx",
+			"react-native": "./src/components/visualization/TimelineView.native.tsx",
+			"default": "./src/components/visualization/TimelineView.tsx"
+		},
+		"./components/visualization/TimelineView.native": "./src/components/visualization/TimelineView.native.tsx",
 		"./components/visualization/types": "./src/components/visualization/types.ts",
-		"./components/visualization/VisualizationCard": "./src/components/visualization/VisualizationCard.tsx",
-		"./components/visualization/VisualizationCard.mobile": "./src/components/visualization/VisualizationCard.mobile.tsx",
-		"./components/visualization/VisualizationGrid": "./src/components/visualization/VisualizationGrid.tsx",
-		"./components/visualization/VisualizationGrid.mobile": "./src/components/visualization/VisualizationGrid.mobile.tsx",
-		"./components/visualization/VisualizationRenderer": "./src/components/visualization/VisualizationRenderer.tsx",
-		"./components/visualization/VisualizationRenderer.mobile": "./src/components/visualization/VisualizationRenderer.mobile.tsx",
+		"./components/visualization/VisualizationCard": {
+			"types": "./src/components/visualization/VisualizationCard.tsx",
+			"react-native": "./src/components/visualization/VisualizationCard.native.tsx",
+			"default": "./src/components/visualization/VisualizationCard.tsx"
+		},
+		"./components/visualization/VisualizationCard.native": "./src/components/visualization/VisualizationCard.native.tsx",
+		"./components/visualization/VisualizationGrid": {
+			"types": "./src/components/visualization/VisualizationGrid.tsx",
+			"react-native": "./src/components/visualization/VisualizationGrid.native.tsx",
+			"default": "./src/components/visualization/VisualizationGrid.tsx"
+		},
+		"./components/visualization/VisualizationGrid.native": "./src/components/visualization/VisualizationGrid.native.tsx",
+		"./components/visualization/VisualizationRenderer": {
+			"types": "./src/components/visualization/VisualizationRenderer.tsx",
+			"react-native": "./src/components/visualization/VisualizationRenderer.native.tsx",
+			"default": "./src/components/visualization/VisualizationRenderer.tsx"
+		},
+		"./components/visualization/VisualizationRenderer.native": "./src/components/visualization/VisualizationRenderer.native.tsx",
 		"./contracts.typecheck": "./src/contracts.typecheck.ts",
+		"./controls": "./src/controls.ts",
 		"./design-system.feature": "./src/design-system.feature.ts",
+		"./forms": "./src/forms.ts",
 		"./hooks/useListUrlState": "./src/hooks/useListUrlState.ts",
 		"./i18n/translation": "./src/i18n/translation.tsx",
+		"./layout": "./src/layout.ts",
 		"./lib/keyboard": "./src/lib/keyboard.ts",
 		"./lib/utils": "./src/lib/utils.ts",
-		"./platform/useColorScheme": "./src/platform/useColorScheme.ts",
-		"./platform/useColorScheme.mobile": "./src/platform/useColorScheme.mobile.ts",
-		"./platform/useReducedMotion": "./src/platform/useReducedMotion.ts",
-		"./platform/useReducedMotion.mobile": "./src/platform/useReducedMotion.mobile.ts",
-		"./platform/useResponsive": "./src/platform/useResponsive.ts",
-		"./platform/useResponsive.mobile": "./src/platform/useResponsive.mobile.ts",
+		"./list": "./src/list.ts",
+		"./platform/useColorScheme": {
+			"types": "./src/platform/useColorScheme.ts",
+			"react-native": "./src/platform/useColorScheme.native.ts",
+			"default": "./src/platform/useColorScheme.ts"
+		},
+		"./platform/useColorScheme.native": "./src/platform/useColorScheme.native.ts",
+		"./platform/useReducedMotion": {
+			"types": "./src/platform/useReducedMotion.ts",
+			"react-native": "./src/platform/useReducedMotion.native.ts",
+			"default": "./src/platform/useReducedMotion.ts"
+		},
+		"./platform/useReducedMotion.native": "./src/platform/useReducedMotion.native.ts",
+		"./platform/useResponsive": {
+			"types": "./src/platform/useResponsive.ts",
+			"react-native": "./src/platform/useResponsive.native.ts",
+			"default": "./src/platform/useResponsive.ts"
+		},
+		"./platform/useResponsive.native": "./src/platform/useResponsive.native.ts",
 		"./platform/withPlatformUI": "./src/platform/withPlatformUI.ts",
 		"./renderers": "./src/renderers/index.ts",
 		"./renderers/form-contract": "./src/renderers/form-contract.tsx",
@@ -342,7 +535,8 @@
 		"./theme/tokens": "./src/theme/tokens.ts",
 		"./theme/variants": "./src/theme/variants.ts",
 		"./types/nativewind-env.d": "./src/types/nativewind-env.d.ts",
-		"./types/navigation": "./src/types/navigation.ts"
+		"./types/navigation": "./src/types/navigation.ts",
+		"./typography": "./src/typography.ts"
 	},
 	"publishConfig": {
 		"access": "public",
@@ -353,12 +547,6 @@
 				"bun": "./dist/index.js",
 				"default": "./dist/index.js"
 			},
-			"./controls": {
-				"types": "./dist/components/forms/controls/index.d.ts",
-				"browser": "./dist/browser/components/forms/controls/index.js",
-				"bun": "./dist/components/forms/controls/index.js",
-				"default": "./dist/components/forms/controls/index.js"
-			},
 			"./components/agent/AgentMonitor": {
 				"types": "./dist/components/agent/AgentMonitor.d.ts",
 				"browser": "./dist/browser/components/agent/AgentMonitor.js",
@@ -368,14 +556,14 @@
 			"./components/agent/ApprovalQueue": {
 				"types": "./dist/components/agent/ApprovalQueue.d.ts",
 				"browser": "./dist/browser/components/agent/ApprovalQueue.js",
+				"react-native": "./dist/native/components/agent/ApprovalQueue.native.js",
 				"bun": "./dist/components/agent/ApprovalQueue.js",
 				"default": "./dist/components/agent/ApprovalQueue.js"
 			},
-			"./components/agent/ApprovalQueue.mobile": {
-				"types": "./dist/components/agent/ApprovalQueue.mobile.d.ts",
-				"browser": "./dist/browser/components/agent/ApprovalQueue.mobile.js",
-				"bun": "./dist/components/agent/ApprovalQueue.mobile.js",
-				"default": "./dist/components/agent/ApprovalQueue.mobile.js"
+			"./components/agent/ApprovalQueue.native": {
+				"types": "./dist/components/agent/ApprovalQueue.native.d.ts",
+				"react-native": "./dist/native/components/agent/ApprovalQueue.native.js",
+				"default": "./dist/native/components/agent/ApprovalQueue.native.js"
 			},
 			"./components/atoms/ActionButtons": {
 				"types": "./dist/components/atoms/ActionButtons.d.ts",
@@ -386,38 +574,38 @@
 			"./components/atoms/Button": {
 				"types": "./dist/components/atoms/Button.d.ts",
 				"browser": "./dist/browser/components/atoms/Button.js",
+				"react-native": "./dist/native/components/atoms/Button.native.js",
 				"bun": "./dist/components/atoms/Button.js",
 				"default": "./dist/components/atoms/Button.js"
 			},
-			"./components/atoms/Button.mobile": {
-				"types": "./dist/components/atoms/Button.mobile.d.ts",
-				"browser": "./dist/browser/components/atoms/Button.mobile.js",
-				"bun": "./dist/components/atoms/Button.mobile.js",
-				"default": "./dist/components/atoms/Button.mobile.js"
+			"./components/atoms/Button.native": {
+				"types": "./dist/components/atoms/Button.native.d.ts",
+				"react-native": "./dist/native/components/atoms/Button.native.js",
+				"default": "./dist/native/components/atoms/Button.native.js"
 			},
 			"./components/atoms/ButtonLink": {
 				"types": "./dist/components/atoms/ButtonLink.d.ts",
 				"browser": "./dist/browser/components/atoms/ButtonLink.js",
+				"react-native": "./dist/native/components/atoms/ButtonLink.native.js",
 				"bun": "./dist/components/atoms/ButtonLink.js",
 				"default": "./dist/components/atoms/ButtonLink.js"
 			},
-			"./components/atoms/ButtonLink.mobile": {
-				"types": "./dist/components/atoms/ButtonLink.mobile.d.ts",
-				"browser": "./dist/browser/components/atoms/ButtonLink.mobile.js",
-				"bun": "./dist/components/atoms/ButtonLink.mobile.js",
-				"default": "./dist/components/atoms/ButtonLink.mobile.js"
+			"./components/atoms/ButtonLink.native": {
+				"types": "./dist/components/atoms/ButtonLink.native.d.ts",
+				"react-native": "./dist/native/components/atoms/ButtonLink.native.js",
+				"default": "./dist/native/components/atoms/ButtonLink.native.js"
 			},
 			"./components/atoms/Cta": {
 				"types": "./dist/components/atoms/Cta.d.ts",
 				"browser": "./dist/browser/components/atoms/Cta.js",
+				"react-native": "./dist/native/components/atoms/Cta.native.js",
 				"bun": "./dist/components/atoms/Cta.js",
 				"default": "./dist/components/atoms/Cta.js"
 			},
-			"./components/atoms/Cta.mobile": {
-				"types": "./dist/components/atoms/Cta.mobile.d.ts",
-				"browser": "./dist/browser/components/atoms/Cta.mobile.js",
-				"bun": "./dist/components/atoms/Cta.mobile.js",
-				"default": "./dist/components/atoms/Cta.mobile.js"
+			"./components/atoms/Cta.native": {
+				"types": "./dist/components/atoms/Cta.native.d.ts",
+				"react-native": "./dist/native/components/atoms/Cta.native.js",
+				"default": "./dist/native/components/atoms/Cta.native.js"
 			},
 			"./components/atoms/DataChips": {
 				"types": "./dist/components/atoms/DataChips.d.ts",
@@ -434,44 +622,50 @@
 			"./components/atoms/ErrorState": {
 				"types": "./dist/components/atoms/ErrorState.d.ts",
 				"browser": "./dist/browser/components/atoms/ErrorState.js",
+				"react-native": "./dist/native/components/atoms/ErrorState.native.js",
 				"bun": "./dist/components/atoms/ErrorState.js",
 				"default": "./dist/components/atoms/ErrorState.js"
 			},
-			"./components/atoms/ErrorState.mobile": {
-				"types": "./dist/components/atoms/ErrorState.mobile.d.ts",
-				"browser": "./dist/browser/components/atoms/ErrorState.mobile.js",
-				"bun": "./dist/components/atoms/ErrorState.mobile.js",
-				"default": "./dist/components/atoms/ErrorState.mobile.js"
+			"./components/atoms/ErrorState.native": {
+				"types": "./dist/components/atoms/ErrorState.native.d.ts",
+				"react-native": "./dist/native/components/atoms/ErrorState.native.js",
+				"default": "./dist/native/components/atoms/ErrorState.native.js"
 			},
 			"./components/atoms/Input": {
 				"types": "./dist/components/atoms/Input.d.ts",
 				"browser": "./dist/browser/components/atoms/Input.js",
+				"react-native": "./dist/native/components/atoms/Input.native.js",
 				"bun": "./dist/components/atoms/Input.js",
 				"default": "./dist/components/atoms/Input.js"
 			},
-			"./components/atoms/Input.mobile": {
-				"types": "./dist/components/atoms/Input.mobile.d.ts",
-				"browser": "./dist/browser/components/atoms/Input.mobile.js",
-				"bun": "./dist/components/atoms/Input.mobile.js",
-				"default": "./dist/components/atoms/Input.mobile.js"
+			"./components/atoms/Input.native": {
+				"types": "./dist/components/atoms/Input.native.d.ts",
+				"react-native": "./dist/native/components/atoms/Input.native.js",
+				"default": "./dist/native/components/atoms/Input.native.js"
 			},
 			"./components/atoms/InputPassword": {
 				"types": "./dist/components/atoms/InputPassword.d.ts",
 				"browser": "./dist/browser/components/atoms/InputPassword.js",
+				"react-native": "./dist/native/components/atoms/InputPassword.native.js",
 				"bun": "./dist/components/atoms/InputPassword.js",
 				"default": "./dist/components/atoms/InputPassword.js"
 			},
-			"./components/atoms/InputPassword.mobile": {
-				"types": "./dist/components/atoms/InputPassword.mobile.d.ts",
-				"browser": "./dist/browser/components/atoms/InputPassword.mobile.js",
-				"bun": "./dist/components/atoms/InputPassword.mobile.js",
-				"default": "./dist/components/atoms/InputPassword.mobile.js"
+			"./components/atoms/InputPassword.native": {
+				"types": "./dist/components/atoms/InputPassword.native.d.ts",
+				"react-native": "./dist/native/components/atoms/InputPassword.native.js",
+				"default": "./dist/native/components/atoms/InputPassword.native.js"
 			},
 			"./components/atoms/Link": {
 				"types": "./dist/components/atoms/Link.d.ts",
 				"browser": "./dist/browser/components/atoms/Link.web.js",
+				"react-native": "./dist/native/components/atoms/Link.native.js",
 				"bun": "./dist/components/atoms/Link.js",
 				"default": "./dist/components/atoms/Link.js"
+			},
+			"./components/atoms/Link.native": {
+				"types": "./dist/components/atoms/Link.native.d.ts",
+				"react-native": "./dist/native/components/atoms/Link.native.js",
+				"default": "./dist/native/components/atoms/Link.native.js"
 			},
 			"./components/atoms/Link.web": {
 				"types": "./dist/components/atoms/Link.web.d.ts",
@@ -482,14 +676,14 @@
 			"./components/atoms/LoaderCircular": {
 				"types": "./dist/components/atoms/LoaderCircular.d.ts",
 				"browser": "./dist/browser/components/atoms/LoaderCircular.js",
+				"react-native": "./dist/native/components/atoms/LoaderCircular.native.js",
 				"bun": "./dist/components/atoms/LoaderCircular.js",
 				"default": "./dist/components/atoms/LoaderCircular.js"
 			},
-			"./components/atoms/LoaderCircular.mobile": {
-				"types": "./dist/components/atoms/LoaderCircular.mobile.d.ts",
-				"browser": "./dist/browser/components/atoms/LoaderCircular.mobile.js",
-				"bun": "./dist/components/atoms/LoaderCircular.mobile.js",
-				"default": "./dist/components/atoms/LoaderCircular.mobile.js"
+			"./components/atoms/LoaderCircular.native": {
+				"types": "./dist/components/atoms/LoaderCircular.native.d.ts",
+				"react-native": "./dist/native/components/atoms/LoaderCircular.native.js",
+				"default": "./dist/native/components/atoms/LoaderCircular.native.js"
 			},
 			"./components/atoms/NavBrand": {
 				"types": "./dist/components/atoms/NavBrand.d.ts",
@@ -518,38 +712,38 @@
 			"./components/atoms/Textarea": {
 				"types": "./dist/components/atoms/Textarea.d.ts",
 				"browser": "./dist/browser/components/atoms/Textarea.js",
+				"react-native": "./dist/native/components/atoms/Textarea.native.js",
 				"bun": "./dist/components/atoms/Textarea.js",
 				"default": "./dist/components/atoms/Textarea.js"
 			},
-			"./components/atoms/Textarea.mobile": {
-				"types": "./dist/components/atoms/Textarea.mobile.d.ts",
-				"browser": "./dist/browser/components/atoms/Textarea.mobile.js",
-				"bun": "./dist/components/atoms/Textarea.mobile.js",
-				"default": "./dist/components/atoms/Textarea.mobile.js"
+			"./components/atoms/Textarea.native": {
+				"types": "./dist/components/atoms/Textarea.native.d.ts",
+				"react-native": "./dist/native/components/atoms/Textarea.native.js",
+				"default": "./dist/native/components/atoms/Textarea.native.js"
 			},
 			"./components/data-table/DataTable": {
 				"types": "./dist/components/data-table/DataTable.d.ts",
 				"browser": "./dist/browser/components/data-table/DataTable.js",
+				"react-native": "./dist/native/components/data-table/DataTable.native.js",
 				"bun": "./dist/components/data-table/DataTable.js",
 				"default": "./dist/components/data-table/DataTable.js"
 			},
-			"./components/data-table/DataTable.mobile": {
-				"types": "./dist/components/data-table/DataTable.mobile.d.ts",
-				"browser": "./dist/browser/components/data-table/DataTable.mobile.js",
-				"bun": "./dist/components/data-table/DataTable.mobile.js",
-				"default": "./dist/components/data-table/DataTable.mobile.js"
+			"./components/data-table/DataTable.native": {
+				"types": "./dist/components/data-table/DataTable.native.d.ts",
+				"react-native": "./dist/native/components/data-table/DataTable.native.js",
+				"default": "./dist/native/components/data-table/DataTable.native.js"
 			},
 			"./components/data-table/DataTableToolbar": {
 				"types": "./dist/components/data-table/DataTableToolbar.d.ts",
 				"browser": "./dist/browser/components/data-table/DataTableToolbar.js",
+				"react-native": "./dist/native/components/data-table/DataTableToolbar.native.js",
 				"bun": "./dist/components/data-table/DataTableToolbar.js",
 				"default": "./dist/components/data-table/DataTableToolbar.js"
 			},
-			"./components/data-table/DataTableToolbar.mobile": {
-				"types": "./dist/components/data-table/DataTableToolbar.mobile.d.ts",
-				"browser": "./dist/browser/components/data-table/DataTableToolbar.mobile.js",
-				"bun": "./dist/components/data-table/DataTableToolbar.mobile.js",
-				"default": "./dist/components/data-table/DataTableToolbar.mobile.js"
+			"./components/data-table/DataTableToolbar.native": {
+				"types": "./dist/components/data-table/DataTableToolbar.native.d.ts",
+				"react-native": "./dist/native/components/data-table/DataTableToolbar.native.js",
+				"default": "./dist/native/components/data-table/DataTableToolbar.native.js"
 			},
 			"./components/data-table/DataTableToolbar.shared": {
 				"types": "./dist/components/data-table/DataTableToolbar.shared.d.ts",
@@ -572,26 +766,26 @@
 			"./components/data-view/DataViewRenderer": {
 				"types": "./dist/components/data-view/DataViewRenderer.d.ts",
 				"browser": "./dist/browser/components/data-view/DataViewRenderer.js",
+				"react-native": "./dist/native/components/data-view/DataViewRenderer.native.js",
 				"bun": "./dist/components/data-view/DataViewRenderer.js",
 				"default": "./dist/components/data-view/DataViewRenderer.js"
 			},
-			"./components/data-view/DataViewRenderer.mobile": {
-				"types": "./dist/components/data-view/DataViewRenderer.mobile.d.ts",
-				"browser": "./dist/browser/components/data-view/DataViewRenderer.mobile.js",
-				"bun": "./dist/components/data-view/DataViewRenderer.mobile.js",
-				"default": "./dist/components/data-view/DataViewRenderer.mobile.js"
+			"./components/data-view/DataViewRenderer.native": {
+				"types": "./dist/components/data-view/DataViewRenderer.native.d.ts",
+				"react-native": "./dist/native/components/data-view/DataViewRenderer.native.js",
+				"default": "./dist/native/components/data-view/DataViewRenderer.native.js"
 			},
 			"./components/data-view/DataViewTable": {
 				"types": "./dist/components/data-view/DataViewTable.d.ts",
 				"browser": "./dist/browser/components/data-view/DataViewTable.js",
+				"react-native": "./dist/native/components/data-view/DataViewTable.native.js",
 				"bun": "./dist/components/data-view/DataViewTable.js",
 				"default": "./dist/components/data-view/DataViewTable.js"
 			},
-			"./components/data-view/DataViewTable.mobile": {
-				"types": "./dist/components/data-view/DataViewTable.mobile.d.ts",
-				"browser": "./dist/browser/components/data-view/DataViewTable.mobile.js",
-				"bun": "./dist/components/data-view/DataViewTable.mobile.js",
-				"default": "./dist/components/data-view/DataViewTable.mobile.js"
+			"./components/data-view/DataViewTable.native": {
+				"types": "./dist/components/data-view/DataViewTable.native.d.ts",
+				"react-native": "./dist/native/components/data-view/DataViewTable.native.js",
+				"default": "./dist/native/components/data-view/DataViewTable.native.js"
 			},
 			"./components/data-view/utils": {
 				"types": "./dist/components/data-view/utils.d.ts",
@@ -620,134 +814,134 @@
 			"./components/forms/controls/Autocomplete": {
 				"types": "./dist/components/forms/controls/Autocomplete.d.ts",
 				"browser": "./dist/browser/components/forms/controls/Autocomplete.js",
+				"react-native": "./dist/native/components/forms/controls/Autocomplete.native.js",
 				"bun": "./dist/components/forms/controls/Autocomplete.js",
 				"default": "./dist/components/forms/controls/Autocomplete.js"
 			},
-			"./components/forms/controls/Autocomplete.mobile": {
-				"types": "./dist/components/forms/controls/Autocomplete.mobile.d.ts",
-				"browser": "./dist/browser/components/forms/controls/Autocomplete.mobile.js",
-				"bun": "./dist/components/forms/controls/Autocomplete.mobile.js",
-				"default": "./dist/components/forms/controls/Autocomplete.mobile.js"
+			"./components/forms/controls/Autocomplete.native": {
+				"types": "./dist/components/forms/controls/Autocomplete.native.d.ts",
+				"react-native": "./dist/native/components/forms/controls/Autocomplete.native.js",
+				"default": "./dist/native/components/forms/controls/Autocomplete.native.js"
 			},
 			"./components/forms/controls/ChoiceControls": {
 				"types": "./dist/components/forms/controls/ChoiceControls.d.ts",
 				"browser": "./dist/browser/components/forms/controls/ChoiceControls.js",
+				"react-native": "./dist/native/components/forms/controls/ChoiceControls.native.js",
 				"bun": "./dist/components/forms/controls/ChoiceControls.js",
 				"default": "./dist/components/forms/controls/ChoiceControls.js"
 			},
-			"./components/forms/controls/ChoiceControls.mobile": {
-				"types": "./dist/components/forms/controls/ChoiceControls.mobile.d.ts",
-				"browser": "./dist/browser/components/forms/controls/ChoiceControls.mobile.js",
-				"bun": "./dist/components/forms/controls/ChoiceControls.mobile.js",
-				"default": "./dist/components/forms/controls/ChoiceControls.mobile.js"
+			"./components/forms/controls/ChoiceControls.native": {
+				"types": "./dist/components/forms/controls/ChoiceControls.native.d.ts",
+				"react-native": "./dist/native/components/forms/controls/ChoiceControls.native.js",
+				"default": "./dist/native/components/forms/controls/ChoiceControls.native.js"
 			},
 			"./components/forms/controls/Combobox": {
 				"types": "./dist/components/forms/controls/Combobox.d.ts",
 				"browser": "./dist/browser/components/forms/controls/Combobox.js",
+				"react-native": "./dist/native/components/forms/controls/Combobox.native.js",
 				"bun": "./dist/components/forms/controls/Combobox.js",
 				"default": "./dist/components/forms/controls/Combobox.js"
 			},
-			"./components/forms/controls/Combobox.mobile": {
-				"types": "./dist/components/forms/controls/Combobox.mobile.d.ts",
-				"browser": "./dist/browser/components/forms/controls/Combobox.mobile.js",
-				"bun": "./dist/components/forms/controls/Combobox.mobile.js",
-				"default": "./dist/components/forms/controls/Combobox.mobile.js"
+			"./components/forms/controls/Combobox.native": {
+				"types": "./dist/components/forms/controls/Combobox.native.d.ts",
+				"react-native": "./dist/native/components/forms/controls/Combobox.native.js",
+				"default": "./dist/native/components/forms/controls/Combobox.native.js"
 			},
 			"./components/forms/controls/DateTimeControls": {
 				"types": "./dist/components/forms/controls/DateTimeControls.d.ts",
 				"browser": "./dist/browser/components/forms/controls/DateTimeControls.js",
+				"react-native": "./dist/native/components/forms/controls/DateTimeControls.native.js",
 				"bun": "./dist/components/forms/controls/DateTimeControls.js",
 				"default": "./dist/components/forms/controls/DateTimeControls.js"
 			},
-			"./components/forms/controls/DateTimeControls.mobile": {
-				"types": "./dist/components/forms/controls/DateTimeControls.mobile.d.ts",
-				"browser": "./dist/browser/components/forms/controls/DateTimeControls.mobile.js",
-				"bun": "./dist/components/forms/controls/DateTimeControls.mobile.js",
-				"default": "./dist/components/forms/controls/DateTimeControls.mobile.js"
+			"./components/forms/controls/DateTimeControls.native": {
+				"types": "./dist/components/forms/controls/DateTimeControls.native.d.ts",
+				"react-native": "./dist/native/components/forms/controls/DateTimeControls.native.js",
+				"default": "./dist/native/components/forms/controls/DateTimeControls.native.js"
 			},
 			"./components/forms/controls/DropdownMenu": {
 				"types": "./dist/components/forms/controls/DropdownMenu.d.ts",
 				"browser": "./dist/browser/components/forms/controls/DropdownMenu.js",
+				"react-native": "./dist/native/components/forms/controls/DropdownMenu.native.js",
 				"bun": "./dist/components/forms/controls/DropdownMenu.js",
 				"default": "./dist/components/forms/controls/DropdownMenu.js"
 			},
-			"./components/forms/controls/DropdownMenu.mobile": {
-				"types": "./dist/components/forms/controls/DropdownMenu.mobile.d.ts",
-				"browser": "./dist/browser/components/forms/controls/DropdownMenu.mobile.js",
-				"bun": "./dist/components/forms/controls/DropdownMenu.mobile.js",
-				"default": "./dist/components/forms/controls/DropdownMenu.mobile.js"
+			"./components/forms/controls/DropdownMenu.native": {
+				"types": "./dist/components/forms/controls/DropdownMenu.native.d.ts",
+				"react-native": "./dist/native/components/forms/controls/DropdownMenu.native.js",
+				"default": "./dist/native/components/forms/controls/DropdownMenu.native.js"
 			},
 			"./components/forms/controls/Field": {
 				"types": "./dist/components/forms/controls/Field.d.ts",
 				"browser": "./dist/browser/components/forms/controls/Field.js",
+				"react-native": "./dist/native/components/forms/controls/Field.native.js",
 				"bun": "./dist/components/forms/controls/Field.js",
 				"default": "./dist/components/forms/controls/Field.js"
 			},
-			"./components/forms/controls/Field.mobile": {
-				"types": "./dist/components/forms/controls/Field.mobile.d.ts",
-				"browser": "./dist/browser/components/forms/controls/Field.mobile.js",
-				"bun": "./dist/components/forms/controls/Field.mobile.js",
-				"default": "./dist/components/forms/controls/Field.mobile.js"
+			"./components/forms/controls/Field.native": {
+				"types": "./dist/components/forms/controls/Field.native.d.ts",
+				"react-native": "./dist/native/components/forms/controls/Field.native.js",
+				"default": "./dist/native/components/forms/controls/Field.native.js"
 			},
 			"./components/forms/controls/InputGroup": {
 				"types": "./dist/components/forms/controls/InputGroup.d.ts",
 				"browser": "./dist/browser/components/forms/controls/InputGroup.js",
+				"react-native": "./dist/native/components/forms/controls/InputGroup.native.js",
 				"bun": "./dist/components/forms/controls/InputGroup.js",
 				"default": "./dist/components/forms/controls/InputGroup.js"
 			},
-			"./components/forms/controls/InputGroup.mobile": {
-				"types": "./dist/components/forms/controls/InputGroup.mobile.d.ts",
-				"browser": "./dist/browser/components/forms/controls/InputGroup.mobile.js",
-				"bun": "./dist/components/forms/controls/InputGroup.mobile.js",
-				"default": "./dist/components/forms/controls/InputGroup.mobile.js"
+			"./components/forms/controls/InputGroup.native": {
+				"types": "./dist/components/forms/controls/InputGroup.native.d.ts",
+				"react-native": "./dist/native/components/forms/controls/InputGroup.native.js",
+				"default": "./dist/native/components/forms/controls/InputGroup.native.js"
 			},
 			"./components/forms/controls/InputOTP": {
 				"types": "./dist/components/forms/controls/InputOTP.d.ts",
 				"browser": "./dist/browser/components/forms/controls/InputOTP.js",
+				"react-native": "./dist/native/components/forms/controls/InputOTP.native.js",
 				"bun": "./dist/components/forms/controls/InputOTP.js",
 				"default": "./dist/components/forms/controls/InputOTP.js"
 			},
-			"./components/forms/controls/InputOTP.mobile": {
-				"types": "./dist/components/forms/controls/InputOTP.mobile.d.ts",
-				"browser": "./dist/browser/components/forms/controls/InputOTP.mobile.js",
-				"bun": "./dist/components/forms/controls/InputOTP.mobile.js",
-				"default": "./dist/components/forms/controls/InputOTP.mobile.js"
+			"./components/forms/controls/InputOTP.native": {
+				"types": "./dist/components/forms/controls/InputOTP.native.d.ts",
+				"react-native": "./dist/native/components/forms/controls/InputOTP.native.js",
+				"default": "./dist/native/components/forms/controls/InputOTP.native.js"
 			},
 			"./components/forms/controls/LoadingButton": {
 				"types": "./dist/components/forms/controls/LoadingButton.d.ts",
 				"browser": "./dist/browser/components/forms/controls/LoadingButton.js",
+				"react-native": "./dist/native/components/forms/controls/LoadingButton.native.js",
 				"bun": "./dist/components/forms/controls/LoadingButton.js",
 				"default": "./dist/components/forms/controls/LoadingButton.js"
 			},
-			"./components/forms/controls/LoadingButton.mobile": {
-				"types": "./dist/components/forms/controls/LoadingButton.mobile.d.ts",
-				"browser": "./dist/browser/components/forms/controls/LoadingButton.mobile.js",
-				"bun": "./dist/components/forms/controls/LoadingButton.mobile.js",
-				"default": "./dist/components/forms/controls/LoadingButton.mobile.js"
+			"./components/forms/controls/LoadingButton.native": {
+				"types": "./dist/components/forms/controls/LoadingButton.native.d.ts",
+				"react-native": "./dist/native/components/forms/controls/LoadingButton.native.js",
+				"default": "./dist/native/components/forms/controls/LoadingButton.native.js"
 			},
 			"./components/forms/controls/NativeSelect": {
 				"types": "./dist/components/forms/controls/NativeSelect.d.ts",
 				"browser": "./dist/browser/components/forms/controls/NativeSelect.js",
+				"react-native": "./dist/native/components/forms/controls/NativeSelect.native.js",
 				"bun": "./dist/components/forms/controls/NativeSelect.js",
 				"default": "./dist/components/forms/controls/NativeSelect.js"
 			},
-			"./components/forms/controls/NativeSelect.mobile": {
-				"types": "./dist/components/forms/controls/NativeSelect.mobile.d.ts",
-				"browser": "./dist/browser/components/forms/controls/NativeSelect.mobile.js",
-				"bun": "./dist/components/forms/controls/NativeSelect.mobile.js",
-				"default": "./dist/components/forms/controls/NativeSelect.mobile.js"
+			"./components/forms/controls/NativeSelect.native": {
+				"types": "./dist/components/forms/controls/NativeSelect.native.d.ts",
+				"react-native": "./dist/native/components/forms/controls/NativeSelect.native.js",
+				"default": "./dist/native/components/forms/controls/NativeSelect.native.js"
 			},
 			"./components/forms/controls/Select": {
 				"types": "./dist/components/forms/controls/Select.d.ts",
 				"browser": "./dist/browser/components/forms/controls/Select.js",
+				"react-native": "./dist/native/components/forms/controls/Select.native.js",
 				"bun": "./dist/components/forms/controls/Select.js",
 				"default": "./dist/components/forms/controls/Select.js"
 			},
-			"./components/forms/controls/Select.mobile": {
-				"types": "./dist/components/forms/controls/Select.mobile.d.ts",
-				"browser": "./dist/browser/components/forms/controls/Select.mobile.js",
-				"bun": "./dist/components/forms/controls/Select.mobile.js",
-				"default": "./dist/components/forms/controls/Select.mobile.js"
+			"./components/forms/controls/Select.native": {
+				"types": "./dist/components/forms/controls/Select.native.d.ts",
+				"react-native": "./dist/native/components/forms/controls/Select.native.js",
+				"default": "./dist/native/components/forms/controls/Select.native.js"
 			},
 			"./components/forms/FormCardLayout": {
 				"types": "./dist/components/forms/FormCardLayout.d.ts",
@@ -785,12 +979,6 @@
 				"bun": "./dist/components/forms/ZodForm.js",
 				"default": "./dist/components/forms/ZodForm.js"
 			},
-			"./forms": {
-				"types": "./dist/components/forms/index.d.ts",
-				"browser": "./dist/browser/components/forms/index.js",
-				"bun": "./dist/components/forms/index.js",
-				"default": "./dist/components/forms/index.js"
-			},
 			"./components/layout": {
 				"types": "./dist/components/layout/index.d.ts",
 				"browser": "./dist/browser/components/layout/index.js",
@@ -800,14 +988,14 @@
 			"./components/layout/Stack": {
 				"types": "./dist/components/layout/Stack.d.ts",
 				"browser": "./dist/browser/components/layout/Stack.js",
+				"react-native": "./dist/native/components/layout/Stack.native.js",
 				"bun": "./dist/components/layout/Stack.js",
 				"default": "./dist/components/layout/Stack.js"
 			},
-			"./components/layout/Stack.mobile": {
-				"types": "./dist/components/layout/Stack.mobile.d.ts",
-				"browser": "./dist/browser/components/layout/Stack.mobile.js",
-				"bun": "./dist/components/layout/Stack.mobile.js",
-				"default": "./dist/components/layout/Stack.mobile.js"
+			"./components/layout/Stack.native": {
+				"types": "./dist/components/layout/Stack.native.d.ts",
+				"react-native": "./dist/native/components/layout/Stack.native.js",
+				"default": "./dist/native/components/layout/Stack.native.js"
 			},
 			"./components/legal/atoms/DefinitionList": {
 				"types": "./dist/components/legal/atoms/DefinitionList.d.ts",
@@ -938,26 +1126,14 @@
 			"./components/list/List": {
 				"types": "./dist/components/list/List.d.ts",
 				"browser": "./dist/browser/components/list/List.js",
+				"react-native": "./dist/native/components/list/List.native.js",
 				"bun": "./dist/components/list/List.js",
 				"default": "./dist/components/list/List.js"
 			},
-			"./components/list/List.mobile": {
-				"types": "./dist/components/list/List.mobile.d.ts",
-				"browser": "./dist/browser/components/list/List.mobile.js",
-				"bun": "./dist/components/list/List.mobile.js",
-				"default": "./dist/components/list/List.mobile.js"
-			},
-			"./list": {
-				"types": "./dist/components/list/index.d.ts",
-				"browser": "./dist/browser/components/list/index.js",
-				"bun": "./dist/components/list/index.js",
-				"default": "./dist/components/list/index.js"
-			},
-			"./layout": {
-				"types": "./dist/components/layout/index.d.ts",
-				"browser": "./dist/browser/components/layout/index.js",
-				"bun": "./dist/components/layout/index.js",
-				"default": "./dist/components/layout/index.js"
+			"./components/list/List.native": {
+				"types": "./dist/components/list/List.native.d.ts",
+				"react-native": "./dist/native/components/list/List.native.js",
+				"default": "./dist/native/components/list/List.native.js"
 			},
 			"./components/marketing/MarketingCard": {
 				"types": "./dist/components/marketing/MarketingCard.d.ts",
@@ -1094,14 +1270,14 @@
 			"./components/molecules/FiltersToolbar": {
 				"types": "./dist/components/molecules/FiltersToolbar.d.ts",
 				"browser": "./dist/browser/components/molecules/FiltersToolbar.js",
+				"react-native": "./dist/native/components/molecules/FiltersToolbar.native.js",
 				"bun": "./dist/components/molecules/FiltersToolbar.js",
 				"default": "./dist/components/molecules/FiltersToolbar.js"
 			},
-			"./components/molecules/FiltersToolbar.mobile": {
-				"types": "./dist/components/molecules/FiltersToolbar.mobile.d.ts",
-				"browser": "./dist/browser/components/molecules/FiltersToolbar.mobile.js",
-				"bun": "./dist/components/molecules/FiltersToolbar.mobile.js",
-				"default": "./dist/components/molecules/FiltersToolbar.mobile.js"
+			"./components/molecules/FiltersToolbar.native": {
+				"types": "./dist/components/molecules/FiltersToolbar.native.d.ts",
+				"react-native": "./dist/native/components/molecules/FiltersToolbar.native.js",
+				"default": "./dist/native/components/molecules/FiltersToolbar.native.js"
 			},
 			"./components/molecules/hover-previews/Doc": {
 				"types": "./dist/components/molecules/hover-previews/Doc.d.ts",
@@ -1172,14 +1348,14 @@
 			"./components/molecules/LoaderBlock": {
 				"types": "./dist/components/molecules/LoaderBlock.d.ts",
 				"browser": "./dist/browser/components/molecules/LoaderBlock.js",
+				"react-native": "./dist/native/components/molecules/LoaderBlock.native.js",
 				"bun": "./dist/components/molecules/LoaderBlock.js",
 				"default": "./dist/components/molecules/LoaderBlock.js"
 			},
-			"./components/molecules/LoaderBlock.mobile": {
-				"types": "./dist/components/molecules/LoaderBlock.mobile.d.ts",
-				"browser": "./dist/browser/components/molecules/LoaderBlock.mobile.js",
-				"bun": "./dist/components/molecules/LoaderBlock.mobile.js",
-				"default": "./dist/components/molecules/LoaderBlock.mobile.js"
+			"./components/molecules/LoaderBlock.native": {
+				"types": "./dist/components/molecules/LoaderBlock.native.d.ts",
+				"react-native": "./dist/native/components/molecules/LoaderBlock.native.js",
+				"default": "./dist/native/components/molecules/LoaderBlock.native.js"
 			},
 			"./components/molecules/MarkdownRenderer": {
 				"types": "./dist/components/molecules/MarkdownRenderer/index.d.ts",
@@ -1244,14 +1420,14 @@
 			"./components/molecules/SkeletonBlock": {
 				"types": "./dist/components/molecules/SkeletonBlock/index.d.ts",
 				"browser": "./dist/browser/components/molecules/SkeletonBlock/index.web.js",
+				"react-native": "./dist/native/components/molecules/SkeletonBlock/index.native.js",
 				"bun": "./dist/components/molecules/SkeletonBlock/index.js",
 				"default": "./dist/components/molecules/SkeletonBlock/index.js"
 			},
-			"./components/molecules/SkeletonBlock/index.mobile": {
-				"types": "./dist/components/molecules/SkeletonBlock/index.mobile.d.ts",
-				"browser": "./dist/browser/components/molecules/SkeletonBlock/index.mobile.js",
-				"bun": "./dist/components/molecules/SkeletonBlock/index.mobile.js",
-				"default": "./dist/components/molecules/SkeletonBlock/index.mobile.js"
+			"./components/molecules/SkeletonBlock/index.native": {
+				"types": "./dist/components/molecules/SkeletonBlock/index.native.d.ts",
+				"react-native": "./dist/native/components/molecules/SkeletonBlock/index.native.js",
+				"default": "./dist/native/components/molecules/SkeletonBlock/index.native.js"
 			},
 			"./components/molecules/SkeletonBlock/index.web": {
 				"types": "./dist/components/molecules/SkeletonBlock/index.web.d.ts",
@@ -1268,14 +1444,14 @@
 			"./components/molecules/SkeletonCircle": {
 				"types": "./dist/components/molecules/SkeletonCircle/index.d.ts",
 				"browser": "./dist/browser/components/molecules/SkeletonCircle/index.web.js",
+				"react-native": "./dist/native/components/molecules/SkeletonCircle/index.native.js",
 				"bun": "./dist/components/molecules/SkeletonCircle/index.js",
 				"default": "./dist/components/molecules/SkeletonCircle/index.js"
 			},
-			"./components/molecules/SkeletonCircle/index.mobile": {
-				"types": "./dist/components/molecules/SkeletonCircle/index.mobile.d.ts",
-				"browser": "./dist/browser/components/molecules/SkeletonCircle/index.mobile.js",
-				"bun": "./dist/components/molecules/SkeletonCircle/index.mobile.js",
-				"default": "./dist/components/molecules/SkeletonCircle/index.mobile.js"
+			"./components/molecules/SkeletonCircle/index.native": {
+				"types": "./dist/components/molecules/SkeletonCircle/index.native.d.ts",
+				"react-native": "./dist/native/components/molecules/SkeletonCircle/index.native.js",
+				"default": "./dist/native/components/molecules/SkeletonCircle/index.native.js"
 			},
 			"./components/molecules/SkeletonCircle/index.web": {
 				"types": "./dist/components/molecules/SkeletonCircle/index.web.d.ts",
@@ -1292,14 +1468,14 @@
 			"./components/molecules/SkeletonList": {
 				"types": "./dist/components/molecules/SkeletonList/index.d.ts",
 				"browser": "./dist/browser/components/molecules/SkeletonList/index.web.js",
+				"react-native": "./dist/native/components/molecules/SkeletonList/index.native.js",
 				"bun": "./dist/components/molecules/SkeletonList/index.js",
 				"default": "./dist/components/molecules/SkeletonList/index.js"
 			},
-			"./components/molecules/SkeletonList/index.mobile": {
-				"types": "./dist/components/molecules/SkeletonList/index.mobile.d.ts",
-				"browser": "./dist/browser/components/molecules/SkeletonList/index.mobile.js",
-				"bun": "./dist/components/molecules/SkeletonList/index.mobile.js",
-				"default": "./dist/components/molecules/SkeletonList/index.mobile.js"
+			"./components/molecules/SkeletonList/index.native": {
+				"types": "./dist/components/molecules/SkeletonList/index.native.d.ts",
+				"react-native": "./dist/native/components/molecules/SkeletonList/index.native.js",
+				"default": "./dist/native/components/molecules/SkeletonList/index.native.js"
 			},
 			"./components/molecules/SkeletonList/index.web": {
 				"types": "./dist/components/molecules/SkeletonList/index.web.d.ts",
@@ -1328,32 +1504,41 @@
 			"./components/molecules/Tabs": {
 				"types": "./dist/components/molecules/Tabs.d.ts",
 				"browser": "./dist/browser/components/molecules/Tabs.js",
+				"react-native": "./dist/native/components/molecules/Tabs.native.js",
 				"bun": "./dist/components/molecules/Tabs.js",
 				"default": "./dist/components/molecules/Tabs.js"
 			},
-			"./components/molecules/Tabs.mobile": {
-				"types": "./dist/components/molecules/Tabs.mobile.d.ts",
-				"browser": "./dist/browser/components/molecules/Tabs.mobile.js",
-				"bun": "./dist/components/molecules/Tabs.mobile.js",
-				"default": "./dist/components/molecules/Tabs.mobile.js"
+			"./components/molecules/Tabs.native": {
+				"types": "./dist/components/molecules/Tabs.native.d.ts",
+				"react-native": "./dist/native/components/molecules/Tabs.native.js",
+				"default": "./dist/native/components/molecules/Tabs.native.js"
 			},
-			"./components/native/BottomTabs.mobile": {
-				"types": "./dist/components/native/BottomTabs.mobile.d.ts",
-				"browser": "./dist/browser/components/native/BottomTabs.mobile.js",
-				"bun": "./dist/components/native/BottomTabs.mobile.js",
-				"default": "./dist/components/native/BottomTabs.mobile.js"
+			"./components/native/BottomTabs": {
+				"types": "./dist/components/native/BottomTabs.native.d.ts",
+				"react-native": "./dist/native/components/native/BottomTabs.native.js"
 			},
-			"./components/native/FlatListScreen.mobile": {
-				"types": "./dist/components/native/FlatListScreen.mobile.d.ts",
-				"browser": "./dist/browser/components/native/FlatListScreen.mobile.js",
-				"bun": "./dist/components/native/FlatListScreen.mobile.js",
-				"default": "./dist/components/native/FlatListScreen.mobile.js"
+			"./components/native/BottomTabs.native": {
+				"types": "./dist/components/native/BottomTabs.native.d.ts",
+				"react-native": "./dist/native/components/native/BottomTabs.native.js",
+				"default": "./dist/native/components/native/BottomTabs.native.js"
 			},
-			"./components/native/SheetMenu.mobile": {
-				"types": "./dist/components/native/SheetMenu.mobile.d.ts",
-				"browser": "./dist/browser/components/native/SheetMenu.mobile.js",
-				"bun": "./dist/components/native/SheetMenu.mobile.js",
-				"default": "./dist/components/native/SheetMenu.mobile.js"
+			"./components/native/FlatListScreen": {
+				"types": "./dist/components/native/FlatListScreen.native.d.ts",
+				"react-native": "./dist/native/components/native/FlatListScreen.native.js"
+			},
+			"./components/native/FlatListScreen.native": {
+				"types": "./dist/components/native/FlatListScreen.native.d.ts",
+				"react-native": "./dist/native/components/native/FlatListScreen.native.js",
+				"default": "./dist/native/components/native/FlatListScreen.native.js"
+			},
+			"./components/native/SheetMenu": {
+				"types": "./dist/components/native/SheetMenu.native.d.ts",
+				"react-native": "./dist/native/components/native/SheetMenu.native.js"
+			},
+			"./components/native/SheetMenu.native": {
+				"types": "./dist/components/native/SheetMenu.native.d.ts",
+				"react-native": "./dist/native/components/native/SheetMenu.native.js",
+				"default": "./dist/native/components/native/SheetMenu.native.js"
 			},
 			"./components/organisms/AcademyLayout": {
 				"types": "./dist/components/organisms/AcademyLayout.d.ts",
@@ -1364,14 +1549,14 @@
 			"./components/organisms/AppHeader": {
 				"types": "./dist/components/organisms/AppHeader.d.ts",
 				"browser": "./dist/browser/components/organisms/AppHeader.js",
+				"react-native": "./dist/native/components/organisms/AppHeader.native.js",
 				"bun": "./dist/components/organisms/AppHeader.js",
 				"default": "./dist/components/organisms/AppHeader.js"
 			},
-			"./components/organisms/AppHeader.mobile": {
-				"types": "./dist/components/organisms/AppHeader.mobile.d.ts",
-				"browser": "./dist/browser/components/organisms/AppHeader.mobile.js",
-				"bun": "./dist/components/organisms/AppHeader.mobile.js",
-				"default": "./dist/components/organisms/AppHeader.mobile.js"
+			"./components/organisms/AppHeader.native": {
+				"types": "./dist/components/organisms/AppHeader.native.d.ts",
+				"react-native": "./dist/native/components/organisms/AppHeader.native.js",
+				"default": "./dist/native/components/organisms/AppHeader.native.js"
 			},
 			"./components/organisms/AppLayout": {
 				"types": "./dist/components/organisms/AppLayout.d.ts",
@@ -1382,26 +1567,26 @@
 			"./components/organisms/AppSidebar": {
 				"types": "./dist/components/organisms/AppSidebar.d.ts",
 				"browser": "./dist/browser/components/organisms/AppSidebar.js",
+				"react-native": "./dist/native/components/organisms/AppSidebar.native.js",
 				"bun": "./dist/components/organisms/AppSidebar.js",
 				"default": "./dist/components/organisms/AppSidebar.js"
 			},
-			"./components/organisms/AppSidebar.mobile": {
-				"types": "./dist/components/organisms/AppSidebar.mobile.d.ts",
-				"browser": "./dist/browser/components/organisms/AppSidebar.mobile.js",
-				"bun": "./dist/components/organisms/AppSidebar.mobile.js",
-				"default": "./dist/components/organisms/AppSidebar.mobile.js"
+			"./components/organisms/AppSidebar.native": {
+				"types": "./dist/components/organisms/AppSidebar.native.d.ts",
+				"react-native": "./dist/native/components/organisms/AppSidebar.native.js",
+				"default": "./dist/native/components/organisms/AppSidebar.native.js"
 			},
 			"./components/organisms/EmptyDataList": {
 				"types": "./dist/components/organisms/EmptyDataList.d.ts",
 				"browser": "./dist/browser/components/organisms/EmptyDataList.js",
+				"react-native": "./dist/native/components/organisms/EmptyDataList.native.js",
 				"bun": "./dist/components/organisms/EmptyDataList.js",
 				"default": "./dist/components/organisms/EmptyDataList.js"
 			},
-			"./components/organisms/EmptyDataList.mobile": {
-				"types": "./dist/components/organisms/EmptyDataList.mobile.d.ts",
-				"browser": "./dist/browser/components/organisms/EmptyDataList.mobile.js",
-				"bun": "./dist/components/organisms/EmptyDataList.mobile.js",
-				"default": "./dist/components/organisms/EmptyDataList.mobile.js"
+			"./components/organisms/EmptyDataList.native": {
+				"types": "./dist/components/organisms/EmptyDataList.native.d.ts",
+				"react-native": "./dist/native/components/organisms/EmptyDataList.native.js",
+				"default": "./dist/native/components/organisms/EmptyDataList.native.js"
 			},
 			"./components/organisms/EmptyDataList.types": {
 				"types": "./dist/components/organisms/EmptyDataList.types.d.ts",
@@ -1448,14 +1633,14 @@
 			"./components/organisms/Header": {
 				"types": "./dist/components/organisms/Header.d.ts",
 				"browser": "./dist/browser/components/organisms/Header.js",
+				"react-native": "./dist/native/components/organisms/Header.native.js",
 				"bun": "./dist/components/organisms/Header.js",
 				"default": "./dist/components/organisms/Header.js"
 			},
-			"./components/organisms/Header.mobile": {
-				"types": "./dist/components/organisms/Header.mobile.d.ts",
-				"browser": "./dist/browser/components/organisms/Header.mobile.js",
-				"bun": "./dist/components/organisms/Header.mobile.js",
-				"default": "./dist/components/organisms/Header.mobile.js"
+			"./components/organisms/Header.native": {
+				"types": "./dist/components/organisms/Header.native.d.ts",
+				"react-native": "./dist/native/components/organisms/Header.native.js",
+				"default": "./dist/native/components/organisms/Header.native.js"
 			},
 			"./components/organisms/HeroResponsive": {
 				"types": "./dist/components/organisms/HeroResponsive.d.ts",
@@ -1490,14 +1675,14 @@
 			"./components/organisms/ListTablePage": {
 				"types": "./dist/components/organisms/ListTablePage.d.ts",
 				"browser": "./dist/browser/components/organisms/ListTablePage.js",
+				"react-native": "./dist/native/components/organisms/ListTablePage.native.js",
 				"bun": "./dist/components/organisms/ListTablePage.js",
 				"default": "./dist/components/organisms/ListTablePage.js"
 			},
-			"./components/organisms/ListTablePage.mobile": {
-				"types": "./dist/components/organisms/ListTablePage.mobile.d.ts",
-				"browser": "./dist/browser/components/organisms/ListTablePage.mobile.js",
-				"bun": "./dist/components/organisms/ListTablePage.mobile.js",
-				"default": "./dist/components/organisms/ListTablePage.mobile.js"
+			"./components/organisms/ListTablePage.native": {
+				"types": "./dist/components/organisms/ListTablePage.native.d.ts",
+				"react-native": "./dist/native/components/organisms/ListTablePage.native.js",
+				"default": "./dist/native/components/organisms/ListTablePage.native.js"
 			},
 			"./components/organisms/MarketingHeader": {
 				"types": "./dist/components/organisms/MarketingHeader.d.ts",
@@ -1532,14 +1717,14 @@
 			"./components/organisms/PageHeaderResponsive": {
 				"types": "./dist/components/organisms/PageHeaderResponsive.d.ts",
 				"browser": "./dist/browser/components/organisms/PageHeaderResponsive.js",
+				"react-native": "./dist/native/components/organisms/PageHeaderResponsive.native.js",
 				"bun": "./dist/components/organisms/PageHeaderResponsive.js",
 				"default": "./dist/components/organisms/PageHeaderResponsive.js"
 			},
-			"./components/organisms/PageHeaderResponsive.mobile": {
-				"types": "./dist/components/organisms/PageHeaderResponsive.mobile.d.ts",
-				"browser": "./dist/browser/components/organisms/PageHeaderResponsive.mobile.js",
-				"bun": "./dist/components/organisms/PageHeaderResponsive.mobile.js",
-				"default": "./dist/components/organisms/PageHeaderResponsive.mobile.js"
+			"./components/organisms/PageHeaderResponsive.native": {
+				"types": "./dist/components/organisms/PageHeaderResponsive.native.d.ts",
+				"react-native": "./dist/native/components/organisms/PageHeaderResponsive.native.js",
+				"default": "./dist/native/components/organisms/PageHeaderResponsive.native.js"
 			},
 			"./components/organisms/PricingCarousel": {
 				"types": "./dist/components/organisms/PricingCarousel.d.ts",
@@ -1580,14 +1765,14 @@
 			"./components/templates/lists/ListPageTemplate": {
 				"types": "./dist/components/templates/lists/ListPageTemplate/index.d.ts",
 				"browser": "./dist/browser/components/templates/lists/ListPageTemplate/index.web.js",
+				"react-native": "./dist/native/components/templates/lists/ListPageTemplate/index.native.js",
 				"bun": "./dist/components/templates/lists/ListPageTemplate/index.js",
 				"default": "./dist/components/templates/lists/ListPageTemplate/index.js"
 			},
-			"./components/templates/lists/ListPageTemplate/index.mobile": {
-				"types": "./dist/components/templates/lists/ListPageTemplate/index.mobile.d.ts",
-				"browser": "./dist/browser/components/templates/lists/ListPageTemplate/index.mobile.js",
-				"bun": "./dist/components/templates/lists/ListPageTemplate/index.mobile.js",
-				"default": "./dist/components/templates/lists/ListPageTemplate/index.mobile.js"
+			"./components/templates/lists/ListPageTemplate/index.native": {
+				"types": "./dist/components/templates/lists/ListPageTemplate/index.native.d.ts",
+				"react-native": "./dist/native/components/templates/lists/ListPageTemplate/index.native.js",
+				"default": "./dist/native/components/templates/lists/ListPageTemplate/index.native.js"
 			},
 			"./components/templates/lists/ListPageTemplate/index.web": {
 				"types": "./dist/components/templates/lists/ListPageTemplate/index.web.d.ts",
@@ -1610,44 +1795,38 @@
 			"./components/typography/Typography": {
 				"types": "./dist/components/typography/Typography.d.ts",
 				"browser": "./dist/browser/components/typography/Typography.js",
+				"react-native": "./dist/native/components/typography/Typography.native.js",
 				"bun": "./dist/components/typography/Typography.js",
 				"default": "./dist/components/typography/Typography.js"
 			},
-			"./components/typography/Typography.mobile": {
-				"types": "./dist/components/typography/Typography.mobile.d.ts",
-				"browser": "./dist/browser/components/typography/Typography.mobile.js",
-				"bun": "./dist/components/typography/Typography.mobile.js",
-				"default": "./dist/components/typography/Typography.mobile.js"
-			},
-			"./typography": {
-				"types": "./dist/components/typography/index.d.ts",
-				"browser": "./dist/browser/components/typography/index.js",
-				"bun": "./dist/components/typography/index.js",
-				"default": "./dist/components/typography/index.js"
+			"./components/typography/Typography.native": {
+				"types": "./dist/components/typography/Typography.native.d.ts",
+				"react-native": "./dist/native/components/typography/Typography.native.js",
+				"default": "./dist/native/components/typography/Typography.native.js"
 			},
 			"./components/visualization/ComparisonView": {
 				"types": "./dist/components/visualization/ComparisonView.d.ts",
 				"browser": "./dist/browser/components/visualization/ComparisonView.js",
+				"react-native": "./dist/native/components/visualization/ComparisonView.native.js",
 				"bun": "./dist/components/visualization/ComparisonView.js",
 				"default": "./dist/components/visualization/ComparisonView.js"
 			},
-			"./components/visualization/ComparisonView.mobile": {
-				"types": "./dist/components/visualization/ComparisonView.mobile.d.ts",
-				"browser": "./dist/browser/components/visualization/ComparisonView.mobile.js",
-				"bun": "./dist/components/visualization/ComparisonView.mobile.js",
-				"default": "./dist/components/visualization/ComparisonView.mobile.js"
+			"./components/visualization/ComparisonView.native": {
+				"types": "./dist/components/visualization/ComparisonView.native.d.ts",
+				"react-native": "./dist/native/components/visualization/ComparisonView.native.js",
+				"default": "./dist/native/components/visualization/ComparisonView.native.js"
 			},
 			"./components/visualization/TimelineView": {
 				"types": "./dist/components/visualization/TimelineView.d.ts",
 				"browser": "./dist/browser/components/visualization/TimelineView.js",
+				"react-native": "./dist/native/components/visualization/TimelineView.native.js",
 				"bun": "./dist/components/visualization/TimelineView.js",
 				"default": "./dist/components/visualization/TimelineView.js"
 			},
-			"./components/visualization/TimelineView.mobile": {
-				"types": "./dist/components/visualization/TimelineView.mobile.d.ts",
-				"browser": "./dist/browser/components/visualization/TimelineView.mobile.js",
-				"bun": "./dist/components/visualization/TimelineView.mobile.js",
-				"default": "./dist/components/visualization/TimelineView.mobile.js"
+			"./components/visualization/TimelineView.native": {
+				"types": "./dist/components/visualization/TimelineView.native.d.ts",
+				"react-native": "./dist/native/components/visualization/TimelineView.native.js",
+				"default": "./dist/native/components/visualization/TimelineView.native.js"
 			},
 			"./components/visualization/types": {
 				"types": "./dist/components/visualization/types.d.ts",
@@ -1658,38 +1837,38 @@
 			"./components/visualization/VisualizationCard": {
 				"types": "./dist/components/visualization/VisualizationCard.d.ts",
 				"browser": "./dist/browser/components/visualization/VisualizationCard.js",
+				"react-native": "./dist/native/components/visualization/VisualizationCard.native.js",
 				"bun": "./dist/components/visualization/VisualizationCard.js",
 				"default": "./dist/components/visualization/VisualizationCard.js"
 			},
-			"./components/visualization/VisualizationCard.mobile": {
-				"types": "./dist/components/visualization/VisualizationCard.mobile.d.ts",
-				"browser": "./dist/browser/components/visualization/VisualizationCard.mobile.js",
-				"bun": "./dist/components/visualization/VisualizationCard.mobile.js",
-				"default": "./dist/components/visualization/VisualizationCard.mobile.js"
+			"./components/visualization/VisualizationCard.native": {
+				"types": "./dist/components/visualization/VisualizationCard.native.d.ts",
+				"react-native": "./dist/native/components/visualization/VisualizationCard.native.js",
+				"default": "./dist/native/components/visualization/VisualizationCard.native.js"
 			},
 			"./components/visualization/VisualizationGrid": {
 				"types": "./dist/components/visualization/VisualizationGrid.d.ts",
 				"browser": "./dist/browser/components/visualization/VisualizationGrid.js",
+				"react-native": "./dist/native/components/visualization/VisualizationGrid.native.js",
 				"bun": "./dist/components/visualization/VisualizationGrid.js",
 				"default": "./dist/components/visualization/VisualizationGrid.js"
 			},
-			"./components/visualization/VisualizationGrid.mobile": {
-				"types": "./dist/components/visualization/VisualizationGrid.mobile.d.ts",
-				"browser": "./dist/browser/components/visualization/VisualizationGrid.mobile.js",
-				"bun": "./dist/components/visualization/VisualizationGrid.mobile.js",
-				"default": "./dist/components/visualization/VisualizationGrid.mobile.js"
+			"./components/visualization/VisualizationGrid.native": {
+				"types": "./dist/components/visualization/VisualizationGrid.native.d.ts",
+				"react-native": "./dist/native/components/visualization/VisualizationGrid.native.js",
+				"default": "./dist/native/components/visualization/VisualizationGrid.native.js"
 			},
 			"./components/visualization/VisualizationRenderer": {
 				"types": "./dist/components/visualization/VisualizationRenderer.d.ts",
 				"browser": "./dist/browser/components/visualization/VisualizationRenderer.js",
+				"react-native": "./dist/native/components/visualization/VisualizationRenderer.native.js",
 				"bun": "./dist/components/visualization/VisualizationRenderer.js",
 				"default": "./dist/components/visualization/VisualizationRenderer.js"
 			},
-			"./components/visualization/VisualizationRenderer.mobile": {
-				"types": "./dist/components/visualization/VisualizationRenderer.mobile.d.ts",
-				"browser": "./dist/browser/components/visualization/VisualizationRenderer.mobile.js",
-				"bun": "./dist/components/visualization/VisualizationRenderer.mobile.js",
-				"default": "./dist/components/visualization/VisualizationRenderer.mobile.js"
+			"./components/visualization/VisualizationRenderer.native": {
+				"types": "./dist/components/visualization/VisualizationRenderer.native.d.ts",
+				"react-native": "./dist/native/components/visualization/VisualizationRenderer.native.js",
+				"default": "./dist/native/components/visualization/VisualizationRenderer.native.js"
 			},
 			"./contracts.typecheck": {
 				"types": "./dist/contracts.typecheck.d.ts",
@@ -1697,11 +1876,23 @@
 				"bun": "./dist/contracts.typecheck.js",
 				"default": "./dist/contracts.typecheck.js"
 			},
+			"./controls": {
+				"types": "./dist/controls.d.ts",
+				"browser": "./dist/browser/controls.js",
+				"bun": "./dist/controls.js",
+				"default": "./dist/controls.js"
+			},
 			"./design-system.feature": {
 				"types": "./dist/design-system.feature.d.ts",
 				"browser": "./dist/browser/design-system.feature.js",
 				"bun": "./dist/design-system.feature.js",
 				"default": "./dist/design-system.feature.js"
+			},
+			"./forms": {
+				"types": "./dist/forms.d.ts",
+				"browser": "./dist/browser/forms.js",
+				"bun": "./dist/forms.js",
+				"default": "./dist/forms.js"
 			},
 			"./hooks/useListUrlState": {
 				"types": "./dist/hooks/useListUrlState.d.ts",
@@ -1715,6 +1906,12 @@
 				"bun": "./dist/i18n/translation.js",
 				"default": "./dist/i18n/translation.js"
 			},
+			"./layout": {
+				"types": "./dist/layout.d.ts",
+				"browser": "./dist/browser/layout.js",
+				"bun": "./dist/layout.js",
+				"default": "./dist/layout.js"
+			},
 			"./lib/keyboard": {
 				"types": "./dist/lib/keyboard.d.ts",
 				"browser": "./dist/browser/lib/keyboard.js",
@@ -1727,41 +1924,47 @@
 				"bun": "./dist/lib/utils.js",
 				"default": "./dist/lib/utils.js"
 			},
+			"./list": {
+				"types": "./dist/list.d.ts",
+				"browser": "./dist/browser/list.js",
+				"bun": "./dist/list.js",
+				"default": "./dist/list.js"
+			},
 			"./platform/useColorScheme": {
 				"types": "./dist/platform/useColorScheme.d.ts",
 				"browser": "./dist/browser/platform/useColorScheme.js",
+				"react-native": "./dist/native/platform/useColorScheme.native.js",
 				"bun": "./dist/platform/useColorScheme.js",
 				"default": "./dist/platform/useColorScheme.js"
 			},
-			"./platform/useColorScheme.mobile": {
-				"types": "./dist/platform/useColorScheme.mobile.d.ts",
-				"browser": "./dist/browser/platform/useColorScheme.mobile.js",
-				"bun": "./dist/platform/useColorScheme.mobile.js",
-				"default": "./dist/platform/useColorScheme.mobile.js"
+			"./platform/useColorScheme.native": {
+				"types": "./dist/platform/useColorScheme.native.d.ts",
+				"react-native": "./dist/native/platform/useColorScheme.native.js",
+				"default": "./dist/native/platform/useColorScheme.native.js"
 			},
 			"./platform/useReducedMotion": {
 				"types": "./dist/platform/useReducedMotion.d.ts",
 				"browser": "./dist/browser/platform/useReducedMotion.js",
+				"react-native": "./dist/native/platform/useReducedMotion.native.js",
 				"bun": "./dist/platform/useReducedMotion.js",
 				"default": "./dist/platform/useReducedMotion.js"
 			},
-			"./platform/useReducedMotion.mobile": {
-				"types": "./dist/platform/useReducedMotion.mobile.d.ts",
-				"browser": "./dist/browser/platform/useReducedMotion.mobile.js",
-				"bun": "./dist/platform/useReducedMotion.mobile.js",
-				"default": "./dist/platform/useReducedMotion.mobile.js"
+			"./platform/useReducedMotion.native": {
+				"types": "./dist/platform/useReducedMotion.native.d.ts",
+				"react-native": "./dist/native/platform/useReducedMotion.native.js",
+				"default": "./dist/native/platform/useReducedMotion.native.js"
 			},
 			"./platform/useResponsive": {
 				"types": "./dist/platform/useResponsive.d.ts",
 				"browser": "./dist/browser/platform/useResponsive.js",
+				"react-native": "./dist/native/platform/useResponsive.native.js",
 				"bun": "./dist/platform/useResponsive.js",
 				"default": "./dist/platform/useResponsive.js"
 			},
-			"./platform/useResponsive.mobile": {
-				"types": "./dist/platform/useResponsive.mobile.d.ts",
-				"browser": "./dist/browser/platform/useResponsive.mobile.js",
-				"bun": "./dist/platform/useResponsive.mobile.js",
-				"default": "./dist/platform/useResponsive.mobile.js"
+			"./platform/useResponsive.native": {
+				"types": "./dist/platform/useResponsive.native.d.ts",
+				"react-native": "./dist/native/platform/useResponsive.native.js",
+				"default": "./dist/native/platform/useResponsive.native.js"
 			},
 			"./platform/withPlatformUI": {
 				"types": "./dist/platform/withPlatformUI.d.ts",
@@ -1882,6 +2085,12 @@
 				"browser": "./dist/browser/types/navigation.js",
 				"bun": "./dist/types/navigation.js",
 				"default": "./dist/types/navigation.js"
+			},
+			"./typography": {
+				"types": "./dist/typography.d.ts",
+				"browser": "./dist/browser/typography.js",
+				"bun": "./dist/typography.js",
+				"default": "./dist/typography.js"
 			}
 		},
 		"registry": "https://registry.npmjs.org/"

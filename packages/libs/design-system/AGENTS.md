@@ -32,7 +32,7 @@ The root barrel is the primary API.
 - Component hierarchy and composition layers should not be casually collapsed.
 - This package is broader than "tokens"; it also owns renderers and high-level composed UI.
 - This package is the preferred shared product-surface layer in `/docs/libraries/cross-platform-ui`; keep web/native compatibility behind design-system exports where possible.
-- Maintain paired `.tsx` / `.mobile.tsx` implementations for cross-surface components such as `DataTable`, `DataViewRenderer`, and `ListTablePage`.
+- Maintain paired `.tsx` / `.native.tsx` implementations for cross-surface components such as `DataTable`, `DataViewRenderer`, and `ListTablePage`.
 - Changes to `withPlatformUI`, `mapTokensForPlatform`, stack usage, or paired renderers require updating the cross-platform UI docs and customer markdown kit.
 - Form controls exported from this package must stay ThemeSpec-aware and TranslationSpec-aware. Caller props override ThemeSpec component variant defaults.
 - New form primitives should be added at the design-system boundary first, then backed by `ui-kit-web`/`ui-kit` primitives per platform.

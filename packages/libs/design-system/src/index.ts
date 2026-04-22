@@ -98,9 +98,6 @@ export {
 	type CodeBlockProps,
 	type CodeLanguage,
 } from './components/molecules/CodeBlock';
-// export { AppHeader as AppHeaderMobile } from './components/organisms/AppHeader.mobile';
-// export { BottomTabs } from './components/native/BottomTabs.mobile';
-// export { SheetMenu } from './components/native/SheetMenu.mobile';
 export { CommandPalette } from './components/molecules/CommandPalette';
 export { CommandSearchTrigger } from './components/molecules/CommandSearchTrigger';
 export {

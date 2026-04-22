@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Text, View } from 'react-native';
-import { LoaderCircular } from '../atoms/LoaderCircular.mobile';
+import { LoaderCircular } from '../atoms/LoaderCircular.native';
 
 export interface LoaderBlockProps {
 	label?: React.ReactNode;

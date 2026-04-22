@@ -3,7 +3,7 @@
 import { HStack, VStack } from '@contractspec/lib.ui-kit/ui/stack';
 import { Text } from '@contractspec/lib.ui-kit/ui/text';
 import * as React from 'react';
-import { useResponsive } from '../../platform/useResponsive.mobile';
+import { useResponsive } from '../../platform/useResponsive.native';
 
 interface Props {
 	title: React.ReactNode;

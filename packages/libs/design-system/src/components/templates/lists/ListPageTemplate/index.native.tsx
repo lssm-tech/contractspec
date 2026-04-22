@@ -1,8 +1,8 @@
 import type { ListRenderItem } from 'react-native';
-import { FiltersToolbar } from '../../../molecules/FiltersToolbar.mobile';
-import { FlatListScreen } from '../../../native/FlatListScreen.mobile';
-import { EmptyDataList } from '../../../organisms/EmptyDataList.mobile';
-import { PageHeaderResponsive } from '../../../organisms/PageHeaderResponsive.mobile';
+import { FiltersToolbar } from '../../../molecules/FiltersToolbar.native';
+import { FlatListScreen } from '../../../native/FlatListScreen.native';
+import { EmptyDataList } from '../../../organisms/EmptyDataList.native';
+import { PageHeaderResponsive } from '../../../organisms/PageHeaderResponsive.native';
 import type { ListPageTemplateProps } from './types';
 
 export * from './types';

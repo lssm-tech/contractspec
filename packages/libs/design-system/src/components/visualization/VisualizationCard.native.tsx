@@ -16,7 +16,7 @@ import {
 	resolveTranslationString,
 	useDesignSystemTranslation,
 } from '../../i18n/translation';
-import { VisualizationRenderer } from './VisualizationRenderer.mobile';
+import { VisualizationRenderer } from './VisualizationRenderer.native';
 
 export interface VisualizationCardProps {
 	spec: VisualizationSpec;

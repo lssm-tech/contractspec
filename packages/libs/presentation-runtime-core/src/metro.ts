@@ -36,12 +36,7 @@ export interface MetroConfigLike {
 }
 
 function isNativeMetroPlatform(platform: string): boolean {
-	return (
-		platform === 'ios' ||
-		platform === 'android' ||
-		platform === 'native' ||
-		platform === 'mobile'
-	);
+	return platform === 'ios' || platform === 'android' || platform === 'native';
 }
 
 function mergeConditions(
@@ -89,9 +84,6 @@ export function withPresentationMetroAliases<T extends MetroConfigLike>(
 		native: mergeConditions(resolver.unstable_conditionsByPlatform?.native, [
 			'react-native',
 		]),
-		mobile: mergeConditions(resolver.unstable_conditionsByPlatform?.mobile, [
-			'react-native',
-		]),
 		web: mergeConditions(resolver.unstable_conditionsByPlatform?.web, [
 			'browser',
 		]),
@@ -100,7 +92,6 @@ export function withPresentationMetroAliases<T extends MetroConfigLike>(
 		'ios',
 		'android',
 		'native',
-		'mobile',
 		'web',
 		...(resolver.platforms ?? []),
 	];

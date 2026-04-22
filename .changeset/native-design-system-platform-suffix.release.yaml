@@ -1,0 +1,64 @@
+schemaVersion: "1"
+slug: native-design-system-platform-suffix
+summary: Migrate design-system platform implementation suffixes from `.mobile` to `.native`.
+isBreaking: true
+packages:
+  - name: "@contractspec/lib.design-system"
+    releaseType: major
+  - name: "@contractspec/lib.presentation-runtime-core"
+    releaseType: patch
+  - name: "@contractspec/bundle.library"
+    releaseType: patch
+affectedRuntimes:
+  - expo
+  - native
+  - browser
+affectedFrameworks:
+  - metro
+  - react-native
+  - react
+audiences:
+  - kind: integrator
+    summary: Design-system platform variants now use Metro's standard `.native` suffix and no longer publish `.mobile` subpaths.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+  - kind: maintainer
+    summary: Package exports, registry metadata, and cross-platform UI docs now describe `.tsx` / `.native.tsx` renderer pairs.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+      - "@contractspec/bundle.library"
+      - "@contractspec/lib.presentation-runtime-core"
+deprecations:
+  - id: design-system-mobile-subpaths
+    title: Removed design-system `.mobile` subpaths
+    summary: Direct imports such as `@contractspec/lib.design-system/components/molecules/Tabs.mobile` have been replaced by `.native` subpaths.
+migrationInstructions:
+  - id: replace-design-system-mobile-subpaths
+    title: Replace direct `.mobile` design-system imports
+    summary: Move direct design-system platform imports from `.mobile` to `.native`.
+    required: true
+    steps:
+      - Replace imports ending in `.mobile` with the matching `.native` subpath.
+      - Prefer unsuffixed design-system imports when the same call site should run on both web and native.
+      - Restart Metro after upgrading so stale package export maps are cleared.
+upgradeSteps:
+  - id: regenerate-design-system-exports
+    title: Regenerate design-system exports
+    summary: Keep package exports and registry metadata aligned with `.native` source files.
+    level: required
+    instructions:
+      - Run `cd packages/libs/design-system && bun run prebuild && bun run registry:build`.
+      - Verify no `*.mobile.tsx` platform files remain in `packages/libs/design-system/src`.
+validation:
+  commands:
+    - "rg --files packages/libs/design-system/src | rg '\\.mobile\\.(ts|tsx)$'"
+    - "rg -n '\\.mobile\\b|mobile\\.tsx|mobile\\.ts' packages/libs/design-system packages/libs/presentation-runtime-core packages/bundles/library packages/apps/web-landing packages/examples/agent-console .changeset"
+    - "bun test packages/tools/bun/test/exports.test.ts packages/tools/bun/test/rewrite-package-exports.test.ts"
+    - "bun test packages/libs/presentation-runtime-core/src/presentation-aliases.test.ts"
+    - "bun test packages/apps/mobile-demo/metro.config.test.ts"
+    - "cd packages/libs/design-system && bun run prebuild && bun run registry:build && bun run lint:check && bun run typecheck && bun run test"
+    - "cd packages/libs/presentation-runtime-core && bun run lint:check && bun run typecheck"
+  evidence:
+    - "Design-system source files use `.native` for native platform implementations."
+    - "Design-system package exports no longer expose `.mobile` subpaths."
+    - "Cross-platform UI docs describe `.tsx` / `.native.tsx` renderer pairs."

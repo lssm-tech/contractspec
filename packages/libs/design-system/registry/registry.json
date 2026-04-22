@@ -14,7 +14,7 @@
 					"type": "registry:component"
 				},
 				{
-					"path": "src/components/atoms/Button.mobile.tsx",
+					"path": "src/components/atoms/Button.native.tsx",
 					"type": "registry:component"
 				},
 				{
@@ -22,7 +22,7 @@
 					"type": "registry:component"
 				},
 				{
-					"path": "src/components/atoms/ButtonLink.mobile.tsx",
+					"path": "src/components/atoms/ButtonLink.native.tsx",
 					"type": "registry:component"
 				},
 				{
@@ -30,7 +30,7 @@
 					"type": "registry:component"
 				},
 				{
-					"path": "src/components/atoms/Cta.mobile.tsx",
+					"path": "src/components/atoms/Cta.native.tsx",
 					"type": "registry:component"
 				},
 				{
@@ -46,7 +46,7 @@
 					"type": "registry:component"
 				},
 				{
-					"path": "src/components/atoms/ErrorState.mobile.tsx",
+					"path": "src/components/atoms/ErrorState.native.tsx",
 					"type": "registry:component"
 				},
 				{
@@ -54,11 +54,19 @@
 					"type": "registry:component"
 				},
 				{
-					"path": "src/components/atoms/Input.mobile.tsx",
+					"path": "src/components/atoms/Input.native.tsx",
 					"type": "registry:component"
 				},
 				{
 					"path": "src/components/atoms/Input.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/atoms/InputPassword.native.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/atoms/InputPassword.tsx",
 					"type": "registry:component"
 				},
 				{
@@ -74,7 +82,7 @@
 					"type": "registry:component"
 				},
 				{
-					"path": "src/components/atoms/LoaderCircular.mobile.tsx",
+					"path": "src/components/atoms/LoaderCircular.native.tsx",
 					"type": "registry:component"
 				},
 				{
@@ -86,11 +94,19 @@
 					"type": "registry:component"
 				},
 				{
+					"path": "src/components/atoms/RankBadge.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/atoms/ScoreBar.tsx",
+					"type": "registry:component"
+				},
+				{
 					"path": "src/components/atoms/Stepper.tsx",
 					"type": "registry:component"
 				},
 				{
-					"path": "src/components/atoms/Textarea.mobile.tsx",
+					"path": "src/components/atoms/Textarea.native.tsx",
 					"type": "registry:component"
 				},
 				{
@@ -114,11 +130,51 @@
 					"type": "registry:component"
 				},
 				{
+					"path": "src/components/molecules/CodeBlock/CodeBlock.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/molecules/CodeBlock/index.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "src/components/molecules/CodeBlock/types.ts",
+					"type": "registry:lib"
+				},
+				{
 					"path": "src/components/molecules/CommandPalette.tsx",
 					"type": "registry:component"
 				},
 				{
 					"path": "src/components/molecules/CommandSearchTrigger.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/molecules/CommandTabs/CommandTabs.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/molecules/CommandTabs/index.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "src/components/molecules/CommandTabs/types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "src/components/molecules/CopyButton/CopyButton.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/molecules/CopyButton/index.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "src/components/molecules/CopyButton/types.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "src/components/molecules/DimensionScoresCard.tsx",
 					"type": "registry:component"
 				},
 				{
@@ -130,7 +186,7 @@
 					"type": "registry:component"
 				},
 				{
-					"path": "src/components/molecules/FiltersToolbar.mobile.tsx",
+					"path": "src/components/molecules/FiltersToolbar.native.tsx",
 					"type": "registry:component"
 				},
 				{
@@ -162,6 +218,18 @@
 					"type": "registry:component"
 				},
 				{
+					"path": "src/components/molecules/InstallCommand/index.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "src/components/molecules/InstallCommand/InstallCommand.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/molecules/InstallCommand/types.ts",
+					"type": "registry:lib"
+				},
+				{
 					"path": "src/components/molecules/LangSwitch.tsx",
 					"type": "registry:component"
 				},
@@ -170,12 +238,32 @@
 					"type": "registry:component"
 				},
 				{
-					"path": "src/components/molecules/LoaderBlock.mobile.tsx",
+					"path": "src/components/molecules/LoaderBlock.native.tsx",
 					"type": "registry:component"
 				},
 				{
 					"path": "src/components/molecules/LoaderBlock.tsx",
 					"type": "registry:component"
+				},
+				{
+					"path": "src/components/molecules/MarkdownRenderer/formatInlineMarkdown.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/molecules/MarkdownRenderer/index.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "src/components/molecules/MarkdownRenderer/MarkdownRenderer.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/molecules/MarkdownRenderer/renderMarkdownTable.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/molecules/MarkdownRenderer/types.ts",
+					"type": "registry:lib"
 				},
 				{
 					"path": "src/components/molecules/MobileNavMenu.tsx",
@@ -198,7 +286,7 @@
 					"type": "registry:component"
 				},
 				{
-					"path": "src/components/molecules/SkeletonBlock/index.mobile.tsx",
+					"path": "src/components/molecules/SkeletonBlock/index.native.tsx",
 					"type": "registry:component"
 				},
 				{
@@ -214,7 +302,7 @@
 					"type": "registry:lib"
 				},
 				{
-					"path": "src/components/molecules/SkeletonCircle/index.mobile.tsx",
+					"path": "src/components/molecules/SkeletonCircle/index.native.tsx",
 					"type": "registry:component"
 				},
 				{
@@ -230,7 +318,7 @@
 					"type": "registry:lib"
 				},
 				{
-					"path": "src/components/molecules/SkeletonList/index.mobile.tsx",
+					"path": "src/components/molecules/SkeletonList/index.native.tsx",
 					"type": "registry:component"
 				},
 				{
@@ -252,6 +340,14 @@
 				{
 					"path": "src/components/molecules/StatusChip.tsx",
 					"type": "registry:component"
+				},
+				{
+					"path": "src/components/molecules/Tabs.native.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/molecules/Tabs.tsx",
+					"type": "registry:component"
 				}
 			]
 		},
@@ -266,7 +362,7 @@
 					"type": "registry:component"
 				},
 				{
-					"path": "src/components/organisms/AppHeader.mobile.tsx",
+					"path": "src/components/organisms/AppHeader.native.tsx",
 					"type": "registry:component"
 				},
 				{
@@ -278,7 +374,7 @@
 					"type": "registry:component"
 				},
 				{
-					"path": "src/components/organisms/AppSidebar.mobile.tsx",
+					"path": "src/components/organisms/AppSidebar.native.tsx",
 					"type": "registry:component"
 				},
 				{
@@ -286,7 +382,7 @@
 					"type": "registry:component"
 				},
 				{
-					"path": "src/components/organisms/EmptyDataList.mobile.tsx",
+					"path": "src/components/organisms/EmptyDataList.native.tsx",
 					"type": "registry:component"
 				},
 				{
@@ -322,7 +418,7 @@
 					"type": "registry:component"
 				},
 				{
-					"path": "src/components/organisms/Header.mobile.tsx",
+					"path": "src/components/organisms/Header.native.tsx",
 					"type": "registry:component"
 				},
 				{
@@ -350,6 +446,10 @@
 					"type": "registry:component"
 				},
 				{
+					"path": "src/components/organisms/ListTablePage.native.tsx",
+					"type": "registry:component"
+				},
+				{
 					"path": "src/components/organisms/ListTablePage.tsx",
 					"type": "registry:component"
 				},
@@ -370,7 +470,11 @@
 					"type": "registry:component"
 				},
 				{
-					"path": "src/components/organisms/PageHeaderResponsive.mobile.tsx",
+					"path": "src/components/organisms/ModelComparisonView.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/organisms/PageHeaderResponsive.native.tsx",
 					"type": "registry:component"
 				},
 				{
@@ -402,6 +506,98 @@
 					"type": "registry:component"
 				},
 				{
+					"path": "src/components/forms/controls/Autocomplete.native.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/forms/controls/Autocomplete.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/forms/controls/ChoiceControls.native.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/forms/controls/ChoiceControls.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/forms/controls/Combobox.native.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/forms/controls/Combobox.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/forms/controls/DateTimeControls.native.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/forms/controls/DateTimeControls.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/forms/controls/DropdownMenu.native.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/forms/controls/DropdownMenu.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/forms/controls/Field.native.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/forms/controls/Field.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/forms/controls/index.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "src/components/forms/controls/InputGroup.native.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/forms/controls/InputGroup.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/forms/controls/InputOTP.native.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/forms/controls/InputOTP.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/forms/controls/LoadingButton.native.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/forms/controls/LoadingButton.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/forms/controls/NativeSelect.native.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/forms/controls/NativeSelect.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/forms/controls/Select.native.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/forms/controls/Select.tsx",
+					"type": "registry:component"
+				},
+				{
 					"path": "src/components/forms/FormCardLayout.tsx",
 					"type": "registry:component"
 				},
@@ -420,6 +616,10 @@
 				{
 					"path": "src/components/forms/FormStepsLayout.tsx",
 					"type": "registry:component"
+				},
+				{
+					"path": "src/components/forms/index.ts",
+					"type": "registry:lib"
 				},
 				{
 					"path": "src/components/forms/ZodForm.tsx",
@@ -442,7 +642,15 @@
 					"type": "registry:component"
 				},
 				{
+					"path": "src/components/data-view/DataViewRenderer.native.tsx",
+					"type": "registry:component"
+				},
+				{
 					"path": "src/components/data-view/DataViewRenderer.tsx",
+					"type": "registry:component"
+				},
+				{
+					"path": "src/components/data-view/DataViewTable.native.tsx",
 					"type": "registry:component"
 				},
 				{
@@ -450,8 +658,8 @@
 					"type": "registry:component"
 				},
 				{
-					"path": "src/components/data-view/utils.ts",
-					"type": "registry:lib"
+					"path": "src/components/data-view/utils.tsx",
+					"type": "registry:component"
 				}
 			]
 		},
@@ -582,7 +790,7 @@
 			"description": "LSSM design-system templates (page-level compositions).",
 			"files": [
 				{
-					"path": "src/components/templates/lists/ListPageTemplate/index.mobile.tsx",
+					"path": "src/components/templates/lists/ListPageTemplate/index.native.tsx",
 					"type": "registry:component"
 				},
 				{
@@ -618,7 +826,7 @@
 					"type": "registry:lib"
 				},
 				{
-					"path": "src/platform/useColorScheme.mobile.ts",
+					"path": "src/platform/useColorScheme.native.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -626,7 +834,7 @@
 					"type": "registry:lib"
 				},
 				{
-					"path": "src/platform/useReducedMotion.mobile.ts",
+					"path": "src/platform/useReducedMotion.native.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -634,7 +842,7 @@
 					"type": "registry:lib"
 				},
 				{
-					"path": "src/platform/useResponsive.mobile.ts",
+					"path": "src/platform/useResponsive.native.ts",
 					"type": "registry:lib"
 				},
 				{
@@ -650,7 +858,55 @@
 					"type": "registry:lib"
 				},
 				{
+					"path": "src/renderers/form-contract/renderer.tsx",
+					"type": "registry:lib"
+				},
+				{
+					"path": "src/renderers/form-contract/rich-fields.tsx",
+					"type": "registry:lib"
+				},
+				{
+					"path": "src/renderers/form-contract/shell.tsx",
+					"type": "registry:lib"
+				},
+				{
+					"path": "src/renderers/form-contract/values.ts",
+					"type": "registry:lib"
+				},
+				{
 					"path": "src/renderers/index.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "src/theme/contracts.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "src/theme/index.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "src/theme/runtime-resolvers.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "src/theme/runtime.tsx",
+					"type": "registry:lib"
+				},
+				{
+					"path": "src/theme/tailwind-config.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "src/theme/tailwind-css.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "src/theme/tailwind-variables.ts",
+					"type": "registry:lib"
+				},
+				{
+					"path": "src/theme/tailwind.ts",
 					"type": "registry:lib"
 				},
 				{

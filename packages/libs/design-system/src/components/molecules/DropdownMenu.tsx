@@ -1,5 +1,5 @@
 // // Web wrapper for dropdown menu components. A native/mobile variant
-// // can provide a compatible API via .mobile.tsx if needed.
+// // can provide a compatible API via .native.tsx if needed.
 // export {
 //   DropdownMenu,
 //   DropdownMenuPortal,

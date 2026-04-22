@@ -1,5 +1,6 @@
 import fs from 'node:fs';
 import path from 'node:path';
+import { fileURLToPath } from 'node:url';
 
 interface RegistryFile {
 	path: string;
@@ -20,7 +21,10 @@ interface RegistryManifest {
 	items: RegistryItem[];
 }
 
-const pkgRoot = path.resolve(process.cwd(), 'packages/libs/design-system');
+const pkgRoot = path.resolve(
+	path.dirname(fileURLToPath(import.meta.url)),
+	'..'
+);
 
 function rel(absPath: string): string {
 	return path.relative(pkgRoot, absPath).split(path.sep).join('/');

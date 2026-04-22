@@ -3,8 +3,8 @@
 import { cn } from '@contractspec/lib.ui-kit/ui/utils';
 import * as React from 'react';
 import { Pressable, Text, View } from 'react-native';
-import { type BottomTabItem, BottomTabs } from '../native/BottomTabs.mobile';
-import { SheetMenu } from '../native/SheetMenu.mobile';
+import { type BottomTabItem, BottomTabs } from '../native/BottomTabs.native';
+import { SheetMenu } from '../native/SheetMenu.native';
 
 export interface AppHeaderMobileProps {
 	logo?: React.ReactNode; // typically a brand component

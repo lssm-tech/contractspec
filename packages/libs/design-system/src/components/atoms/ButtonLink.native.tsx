@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Linking } from 'react-native';
-import { Button, type ButtonProps } from './Button.mobile';
+import { Button, type ButtonProps } from './Button.native';
 
 export type ButtonLinkProps = Omit<ButtonProps, 'onPress'> & {
 	href: string;

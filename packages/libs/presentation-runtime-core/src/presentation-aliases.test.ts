@@ -148,7 +148,6 @@ describe('presentation alias helpers', () => {
 			'ios',
 			'android',
 			'native',
-			'mobile',
 			'web',
 			'web',
 		]);
@@ -156,7 +155,6 @@ describe('presentation alias helpers', () => {
 			ios: ['custom-ios', 'ios', 'react-native'],
 			android: ['android', 'react-native'],
 			native: ['react-native'],
-			mobile: ['react-native'],
 			web: ['custom-web', 'browser'],
 			windows: ['windows'],
 		});

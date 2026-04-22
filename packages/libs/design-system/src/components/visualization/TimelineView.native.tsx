@@ -8,21 +8,21 @@ import {
 	useDesignSystemTranslation,
 } from '../../i18n/translation';
 import type { VisualizationSurfaceItem } from './types';
-import { VisualizationCard } from './VisualizationCard.mobile';
+import { VisualizationCard } from './VisualizationCard.native';
 
-export interface ComparisonViewProps {
+export interface TimelineViewProps {
 	items: VisualizationSurfaceItem[];
 	title?: React.ReactNode;
 	description?: React.ReactNode;
 	className?: string;
 }
 
-export function ComparisonView({
+export function TimelineView({
 	items,
-	title = 'Comparison',
+	title = 'Timeline',
 	description,
 	className,
-}: ComparisonViewProps) {
+}: TimelineViewProps) {
 	const translate = useDesignSystemTranslation();
 	return (
 		<VStack gap="md" className={className}>

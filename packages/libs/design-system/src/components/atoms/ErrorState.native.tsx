@@ -1,6 +1,6 @@
 import * as React from 'react';
 import { Linking, Text, View } from 'react-native';
-import { Button } from '../atoms/Button.mobile';
+import { Button } from './Button.native';
 
 export interface ErrorStateProps {
 	title?: React.ReactNode;

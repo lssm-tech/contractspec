@@ -3,7 +3,7 @@
 import { HStack } from '@contractspec/lib.ui-kit/ui/stack';
 import { Text } from '@contractspec/lib.ui-kit/ui/text';
 import { Button } from '../atoms/Button';
-import { FiltersToolbar } from '../molecules/FiltersToolbar.mobile';
+import { FiltersToolbar } from '../molecules/FiltersToolbar.native';
 import {
 	type DataTableToolbarProps,
 	getHiddenDataColumns,
