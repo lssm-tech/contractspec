@@ -9,6 +9,7 @@ import {
 	DesignSystemTranslationProvider,
 } from '../../../i18n/translation';
 import { Input } from '../../atoms/Input';
+import { InputPassword } from '../../atoms/InputPassword';
 import { Textarea } from '../../atoms/Textarea';
 import { Autocomplete } from './Autocomplete';
 import { DatePicker, DateTimePicker, TimePicker } from './DateTimeControls';
@@ -25,6 +26,9 @@ const translations = new TranslationRegistry([
 		locale: 'fr',
 		messages: {
 			'input.placeholder': { value: 'Saisir une valeur' },
+			'password.placeholder': { value: 'Saisir le mot de passe' },
+			'password.show': { value: 'Afficher' },
+			'password.hide': { value: 'Masquer' },
 			'textarea.placeholder': { value: 'Décrire la demande' },
 			'select.placeholder': { value: 'Choisir un statut' },
 			'option.draft': { value: 'Brouillon' },
@@ -54,6 +58,11 @@ describe('design-system controls', () => {
 		const html = renderToStaticMarkup(
 			<WithTranslations>
 				<Input placeholderI18n="input.placeholder" />
+				<InputPassword
+					placeholderI18n="password.placeholder"
+					showLabelI18n="password.show"
+					hideLabelI18n="password.hide"
+				/>
 				<Textarea placeholderI18n="textarea.placeholder" />
 				<Select
 					placeholderI18n="select.placeholder"
@@ -69,6 +78,8 @@ describe('design-system controls', () => {
 		);
 
 		expect(html).toContain('Saisir une valeur');
+		expect(html).toContain('Saisir le mot de passe');
+		expect(html).toContain('aria-label="Afficher"');
 		expect(html).toContain('Décrire la demande');
 		expect(html).toContain('Choisir un statut');
 		expect(html).toContain('Rechercher');

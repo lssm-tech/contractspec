@@ -159,6 +159,15 @@ export interface InputGroupSpec {
 	addons?: InputGroupAddonSpec[];
 }
 
+export type PasswordFieldPurpose = 'current' | 'new';
+
+export interface PasswordFieldSpec {
+	purpose?: PasswordFieldPurpose;
+	visibilityToggle?: boolean;
+	showLabelI18n?: string;
+	hideLabelI18n?: string;
+}
+
 export interface BaseFieldSpec {
 	/** Field kind discriminator. */
 	kind:
@@ -216,6 +225,7 @@ export interface TextFieldSpec extends BaseFieldSpec {
 	kind: 'text';
 	name: string;
 	inputGroup?: InputGroupSpec;
+	password?: PasswordFieldSpec;
 	inputMode?:
 		| 'text'
 		| 'email'
@@ -883,6 +893,7 @@ This document defines the canonical contracts for declarative forms.
   - \`meta\` (extends \`OwnerShipMeta\`) + \`key\`/\`version\` for stability.
   - \`model\` (\`@contractspec/lib.schema\` \`SchemaModel\`) as the single source of truth.
   - \`fields\` built from \`FieldSpec\` kinds: \`text\`, \`textarea\`, \`select\`, \`checkbox\`, \`radio\`, \`switch\`, \`autocomplete\`, \`address\`, \`phone\`, \`date\`, \`time\`, \`datetime\`, \`group\`, \`array\`.
+  - \`text.password\` for masked current/new password fields with password-manager hints.
   - field-level \`readOnly\` support that preserves submitted values.
   - Optional \`layout\`, \`actions\`, \`policy.flags\`, \`constraints\` and \`renderHints\`.
 - Relations DSL provides \`visibleWhen\`, \`enabledWhen\`, \`requiredWhen\` based on predicates.
@@ -896,6 +907,7 @@ This document defines the canonical contracts for declarative forms.
 - \`phone\` uses the canonical \`PhoneFormValue\` object shape.
 - \`date\`, \`time\`, and \`datetime\` map directly to the corresponding schema scalar intent.
 - \`array\` remains the canonical dynamic-field primitive and can repeat grouped item layouts.
+- \`text\` can declare \`password.purpose\` as \`current\` or \`new\`; renderers map those to masked controls and \`current-password\` / \`new-password\` autocomplete hints.
 - \`text\` and \`textarea\` can declare portable \`inputGroup\` addons for text and host-resolved icons.
 
 ## Layout and Groups
@@ -910,7 +922,7 @@ This document defines the canonical contracts for declarative forms.
 Host apps supply a driver mapping slots to components:
 
 - Required: \`Field\`, \`FieldLabel\`, \`FieldDescription\`, \`FieldError\`, \`Input\`, \`Textarea\`, \`Select\`, \`Checkbox\`, \`RadioGroup\`, \`Switch\`, \`Autocomplete\`, \`AddressField\`, \`PhoneField\`, \`DateField\`, \`TimeField\`, \`DateTimeField\`, \`Button\`.
-- Optional: \`FieldContent\`, \`FieldGroup\`, \`FieldSet\`, \`FieldLegend\`, \`FieldSeparator\`, \`InputGroup\`, \`InputGroupAddon\`, \`InputGroupInput\`, \`InputGroupTextarea\`, \`InputGroupText\`, and \`InputGroupIcon\`.
+- Optional: \`FieldContent\`, \`FieldGroup\`, \`FieldSet\`, \`FieldLegend\`, \`FieldSeparator\`, \`InputGroup\`, \`InputGroupAddon\`, \`InputGroupInput\`, \`InputGroupTextarea\`, \`InputGroupText\`, \`InputGroupIcon\`, and \`PasswordInput\`.
 
 Use \`createFormRenderer({ driver })\` to obtain a \`render(spec)\` function.
 
@@ -926,7 +938,7 @@ Use \`createFormRenderer({ driver })\` to obtain a \`render(spec)\` function.
 
 ## Example
 
-Use the exported \`RichFieldsShowcaseForm\` as the canonical reference for readonly, autocomplete, address, phone, temporal, layout, and input-group field authoring.
+Use the exported \`RichFieldsShowcaseForm\` as the canonical reference for readonly, password, autocomplete, address, phone, temporal, layout, and input-group field authoring.
 `,
 	},
 ];

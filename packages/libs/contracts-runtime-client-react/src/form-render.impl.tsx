@@ -120,6 +120,14 @@ export interface DriverSlots {
 		iconKey: string;
 		label?: string;
 	}>;
+	PasswordInput?: React.ComponentType<
+		React.InputHTMLAttributes<HTMLInputElement> & {
+			passwordPurpose?: 'current' | 'new';
+			visibilityToggle?: boolean;
+			showLabelI18n?: string;
+			hideLabelI18n?: string;
+		}
+	>;
 	Select: React.ComponentType<
 		{
 			id?: string;
@@ -699,6 +707,45 @@ function renderInputGroupAddons(
 			)}
 		</InputGroupAddon>
 	));
+}
+
+interface PasswordFieldRenderIntent {
+	purpose: 'current' | 'new';
+	autoComplete: 'current-password' | 'new-password';
+	visibilityToggle: boolean;
+	showLabelI18n?: string;
+	hideLabelI18n?: string;
+}
+
+function resolvePasswordFieldIntent(
+	field: TextFieldSpec
+): PasswordFieldRenderIntent | undefined {
+	const uiType =
+		field.uiProps &&
+		typeof field.uiProps.type === 'string' &&
+		field.uiProps.type.toLowerCase() === 'password';
+	const autoComplete = field.keyboard?.autoComplete ?? field.autoComplete;
+	const isNewPassword =
+		field.password?.purpose === 'new' ||
+		field.keyboard?.kind === 'new-password' ||
+		autoComplete === 'new-password';
+	const isPassword =
+		field.password != null ||
+		uiType ||
+		isNewPassword ||
+		field.keyboard?.kind === 'password' ||
+		autoComplete === 'current-password';
+
+	if (!isPassword) return undefined;
+
+	const purpose = isNewPassword ? 'new' : 'current';
+	return {
+		purpose,
+		autoComplete: purpose === 'new' ? 'new-password' : 'current-password',
+		visibilityToggle: field.password?.visibilityToggle ?? true,
+		showLabelI18n: field.password?.showLabelI18n,
+		hideLabelI18n: field.password?.hideLabelI18n,
+	};
 }
 
 function SelectFieldControl<TValues extends FieldValues>(props: {
@@ -1635,6 +1682,8 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
 						) : null;
 						if (field.kind === 'text') {
 							const textField = field as TextFieldSpec;
+							const passwordIntent = resolvePasswordFieldIntent(textField);
+							const uiProps = field.uiProps as Record<string, unknown>;
 							const inputProps = {
 								id: ctx.id,
 								'aria-invalid': fieldState.invalid || undefined,
@@ -1647,8 +1696,33 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
 								disabled: !ctx.enabled,
 								readOnly: ctx.readOnly,
 								...rhfField,
-								...(field.uiProps as Record<string, unknown>),
+								...uiProps,
+								...(passwordIntent
+									? {
+											type: 'password',
+											autoComplete: passwordIntent.autoComplete,
+											autoCapitalize: 'none',
+											autoCorrect: 'off',
+										}
+									: {}),
 							};
+							const PasswordInput = props.merged.driver.PasswordInput;
+							if (passwordIntent && PasswordInput) {
+								return (
+									<DriverField {...wrapProps}>
+										{labelNode}
+										<PasswordInput
+											{...inputProps}
+											passwordPurpose={passwordIntent.purpose}
+											visibilityToggle={passwordIntent.visibilityToggle}
+											showLabelI18n={passwordIntent.showLabelI18n}
+											hideLabelI18n={passwordIntent.hideLabelI18n}
+										/>
+										{descNode}
+										{errorNode}
+									</DriverField>
+								);
+							}
 							const canRenderInputGroup =
 								textField.inputGroup?.addons?.length &&
 								props.merged.driver.InputGroup &&

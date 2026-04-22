@@ -232,6 +232,61 @@ describe('buildZodWithRelations', () => {
 		]);
 	});
 
+	it('accepts current and new password text field metadata', () => {
+		const spec = defineFormSpec({
+			meta: {
+				key: 'sigil.form.password',
+				version: '1.0.0',
+				title: 'Password Form',
+				description: 'Exercises password rendering metadata.',
+				domain: 'testing',
+				owners: [OwnersEnum.PlatformSigil],
+				tags: [TagsEnum.Auth],
+				stability: StabilityEnum.Experimental,
+			},
+			model: fromZod(
+				z.object({
+					currentPassword: z.string(),
+					newPassword: z.string(),
+				}),
+				{ name: 'PasswordFormModel' }
+			),
+			fields: [
+				{
+					kind: 'text',
+					name: 'currentPassword',
+					password: { purpose: 'current' },
+					autoComplete: 'current-password',
+				},
+				{
+					kind: 'text',
+					name: 'newPassword',
+					password: {
+						purpose: 'new',
+						visibilityToggle: false,
+						showLabelI18n: 'Show new password',
+						hideLabelI18n: 'Hide new password',
+					},
+					keyboard: {
+						kind: 'new-password',
+						autoComplete: 'new-password',
+					},
+				},
+			],
+		});
+
+		const normalized = normalizeFormSpec(spec);
+		expect(normalized.fields[0]?.kind).toBe('text');
+		expect(normalized.fields[1]?.kind).toBe('text');
+		if (normalized.fields[0]?.kind !== 'text') return;
+		if (normalized.fields[1]?.kind !== 'text') return;
+		expect(normalized.fields[0].password?.purpose).toBe('current');
+		expect(normalized.fields[0].autoComplete).toBe('current-password');
+		expect(normalized.fields[1].password?.purpose).toBe('new');
+		expect(normalized.fields[1].password?.visibilityToggle).toBe(false);
+		expect(normalized.fields[1].keyboard?.autoComplete).toBe('new-password');
+	});
+
 	it('supports group items inside arrays for indexed relation checks', () => {
 		const spec = {
 			meta: {

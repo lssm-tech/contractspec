@@ -64,6 +64,22 @@ const mockDriver: DriverSlots = {
 	InputGroupIcon: ({ iconKey, label }) => (
 		<span data-icon={iconKey} aria-label={label} />
 	),
+	PasswordInput: ({
+		passwordPurpose,
+		visibilityToggle,
+		showLabelI18n,
+		hideLabelI18n,
+		...props
+	}) => (
+		<input
+			data-slot="password-input"
+			data-password-purpose={passwordPurpose}
+			data-visibility-toggle={String(visibilityToggle)}
+			data-show-label={showLabelI18n}
+			data-hide-label={hideLabelI18n}
+			{...props}
+		/>
+	),
 	Select: ({ options, value, onChange }) => (
 		<select
 			value={value == null ? '' : String(value)}
@@ -213,6 +229,53 @@ const LayoutForm = defineFormSpec({
 	actions: [{ key: 'submit', labelI18n: 'Submit' }],
 });
 
+const PasswordForm = defineFormSpec({
+	meta: {
+		key: 'test.form.password',
+		version: '1.0.0',
+		title: 'Password Form',
+		description: 'Exercises password rendering hints.',
+		domain: 'test',
+		owners: ['@team.test'],
+		tags: ['test'],
+		stability: 'experimental',
+	},
+	model: fromZod(
+		z.object({
+			currentPassword: z.string().optional(),
+			newPassword: z.string().optional(),
+			legacyPassword: z.string().optional(),
+		}),
+		{ name: 'PasswordFormModel' }
+	),
+	fields: [
+		{
+			kind: 'text',
+			name: 'currentPassword',
+			labelI18n: 'Current password',
+			password: { purpose: 'current' },
+		},
+		{
+			kind: 'text',
+			name: 'newPassword',
+			labelI18n: 'New password',
+			keyboard: { kind: 'new-password' },
+			password: {
+				purpose: 'new',
+				visibilityToggle: false,
+				showLabelI18n: 'Show new password',
+				hideLabelI18n: 'Hide new password',
+			},
+		},
+		{
+			kind: 'text',
+			name: 'legacyPassword',
+			labelI18n: 'Legacy password',
+			uiProps: { type: 'password', autoComplete: 'off' },
+		},
+	],
+});
+
 describe('contracts-runtime-client-react form renderer', () => {
 	it('filters autocomplete options across configured search keys', () => {
 		const options = [
@@ -312,6 +375,35 @@ describe('contracts-runtime-client-react form renderer', () => {
 		);
 		expect(html).toContain('aria-label="Search icon"');
 		expect(html).toContain('aria-describedby="query-description"');
+	});
+
+	it('renders password fields through the driver password slot', () => {
+		const renderer = createFormRenderer({ driver: mockDriver });
+		const html = renderToStaticMarkup(renderer.render(PasswordForm));
+
+		expect(html).toContain('data-slot="password-input"');
+		expect(html).toContain('data-password-purpose="current"');
+		expect(html).toContain('autoComplete="current-password"');
+		expect(html).toContain('data-password-purpose="new"');
+		expect(html).toContain('autoComplete="new-password"');
+		expect(html).toContain('data-visibility-toggle="false"');
+		expect(html).toContain('data-show-label="Show new password"');
+		expect(html).toContain('name="legacyPassword"');
+		expect(html).toContain('type="password"');
+	});
+
+	it('falls back to a masked input when no password driver slot is supplied', () => {
+		const { PasswordInput: _PasswordInput, ...driverWithoutPassword } =
+			mockDriver;
+		const renderer = createFormRenderer({ driver: driverWithoutPassword });
+		const html = renderToStaticMarkup(renderer.render(PasswordForm));
+
+		expect(html).toContain('name="currentPassword"');
+		expect(html).toContain('type="password"');
+		expect(html).toContain('autoComplete="current-password"');
+		expect(html).toContain('name="newPassword"');
+		expect(html).toContain('autoComplete="new-password"');
+		expect(html).not.toContain('type="text"');
 	});
 
 	it('renders invalid state and error ids when form errors are supplied', () => {

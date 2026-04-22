@@ -38,6 +38,7 @@ import {
 	TranslatedInputGroupInput,
 	TranslatedInputGroupText,
 	TranslatedInputGroupTextarea,
+	TranslatedPasswordInput,
 	TranslatedTextarea,
 } from './shell';
 
@@ -57,6 +58,7 @@ export const formRenderer = createFormRenderer({
 		FieldArrayItem,
 		Actions,
 		Input: TranslatedInput as never,
+		PasswordInput: TranslatedPasswordInput as never,
 		Textarea: TranslatedTextarea as never,
 		InputGroup,
 		InputGroupAddon,

@@ -34,6 +34,8 @@ describe('design-system form renderer', () => {
 						nationalNumber: '612345678',
 						e164: '+33612345678',
 					},
+					currentPassword: 'old-secret',
+					newPassword: 'new-secret',
 					startDate: new Date('2026-04-10T00:00:00.000Z'),
 					startTime: '09:30',
 					publishedAt: new Date('2026-04-10T09:30:00.000Z'),
@@ -47,6 +49,11 @@ describe('design-system form renderer', () => {
 		expect(html).toContain('1 Main Street');
 		expect(html).toContain('+33');
 		expect(html).toContain('Support');
+		expect(html).toContain('Current password');
+		expect(html).toContain('autoComplete="current-password"');
+		expect(html).toContain('New password');
+		expect(html).toContain('autoComplete="new-password"');
+		expect(html).toContain('aria-label="Show new password"');
 		expect(html).toContain('<fieldset');
 		expect(html).toContain('Publication details');
 		expect(html).toContain('data-slot="input-group"');
@@ -80,6 +87,10 @@ describe('design-system form renderer', () => {
 					'Record ID': { value: 'Identifiant' },
 					'Search a reviewer': { value: 'Rechercher un reviewer' },
 					'Address line 1': { value: 'Adresse ligne 1' },
+					'Current password': { value: 'Mot de passe actuel' },
+					'Enter current password': { value: 'Saisir le mot de passe actuel' },
+					'Show password': { value: 'Afficher le mot de passe' },
+					'Hide password': { value: 'Masquer le mot de passe' },
 					'No results found.': { value: 'Aucun résultat' },
 				},
 			}),
@@ -104,6 +115,9 @@ describe('design-system form renderer', () => {
 		expect(html).toContain('Identifiant');
 		expect(html).toContain('Rechercher un reviewer');
 		expect(html).toContain('Adresse ligne 1');
+		expect(html).toContain('Mot de passe actuel');
+		expect(html).toContain('Saisir le mot de passe actuel');
+		expect(html).toContain('Afficher le mot de passe');
 		expect(html).toContain('Aucun résultat');
 	});
 });

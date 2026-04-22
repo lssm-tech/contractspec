@@ -36,6 +36,7 @@ export const sharedUiContractKeys = [
 	'form',
 	'hover-card',
 	'input',
+	'input-password',
 	'label',
 	'loading-button',
 	'marketing',

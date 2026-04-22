@@ -20,6 +20,7 @@ export {
 export { EmptyState } from './components/atoms/EmptyState';
 export { ErrorState } from './components/atoms/ErrorState';
 export { Input } from './components/atoms/Input';
+export { InputPassword } from './components/atoms/InputPassword';
 export { Link } from './components/atoms/Link';
 // Loaders & Skeletons
 export { LoaderCircular } from './components/atoms/LoaderCircular';

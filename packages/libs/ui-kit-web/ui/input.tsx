@@ -3,11 +3,14 @@ import { cn } from '@contractspec/lib.ui-kit-core/utils';
 import * as React from 'react';
 
 export type InputProps = SharedInputProps &
-	React.ComponentPropsWithoutRef<'input'>;
+	React.ComponentPropsWithoutRef<'input'> & {
+		ref?: React.Ref<HTMLInputElement>;
+	};
 
-function Input({ className, type, ...props }: InputProps) {
+function Input({ className, type, ref, ...props }: InputProps) {
 	return (
 		<input
+			ref={ref}
 			type={type}
 			data-slot="input"
 			className={cn(

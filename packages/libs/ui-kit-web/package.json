@@ -158,6 +158,7 @@
 		"./ui/input": "./ui/input.tsx",
 		"./ui/input-group": "./ui/input-group.tsx",
 		"./ui/input-otp": "./ui/input-otp.tsx",
+		"./ui/input-password": "./ui/input-password.tsx",
 		"./ui/item": "./ui/item.tsx",
 		"./ui/kbd": "./ui/kbd.tsx",
 		"./ui/label": "./ui/label.tsx",
@@ -546,6 +547,12 @@
 				"browser": "./dist/browser/ui/input-otp.js",
 				"bun": "./dist/ui/input-otp.js",
 				"default": "./dist/ui/input-otp.js"
+			},
+			"./ui/input-password": {
+				"types": "./dist/ui/input-password.d.ts",
+				"browser": "./dist/browser/ui/input-password.js",
+				"bun": "./dist/ui/input-password.js",
+				"default": "./dist/ui/input-password.js"
 			},
 			"./ui/item": {
 				"types": "./dist/ui/item.d.ts",

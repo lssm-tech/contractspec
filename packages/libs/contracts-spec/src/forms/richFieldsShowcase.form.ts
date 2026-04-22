@@ -13,6 +13,8 @@ const RichFieldsShowcaseModel = fromZod(
 			name: z.string(),
 			email: z.string().email(),
 		}),
+		currentPassword: z.string().optional(),
+		newPassword: z.string().optional(),
 		address: z.object({
 			line1: z.string(),
 			line2: z.string().optional(),
@@ -49,7 +51,7 @@ export const RichFieldsShowcaseForm = defineFormSpec({
 		version: '1.0.0',
 		title: 'Rich Fields Showcase',
 		description:
-			'Canonical showcase for readonly, autocomplete, address, phone, temporal, and repeated grouped fields.',
+			'Canonical showcase for readonly, password, autocomplete, address, phone, temporal, and repeated grouped fields.',
 		domain: 'forms',
 		owners: [OwnersEnum.PlatformCore],
 		tags: [TagsEnum.Docs, 'forms', 'showcase'],
@@ -137,6 +139,35 @@ export const RichFieldsShowcaseForm = defineFormSpec({
 		},
 		{
 			kind: 'group',
+			legendI18n: 'Password fields',
+			descriptionI18n: 'Password manager compatible fields.',
+			layout: {
+				columns: { base: 1, md: 2 },
+				gap: 'md',
+			},
+			fields: [
+				{
+					kind: 'text',
+					name: 'currentPassword',
+					labelI18n: 'Current password',
+					placeholderI18n: 'Enter current password',
+					password: { purpose: 'current' },
+				},
+				{
+					kind: 'text',
+					name: 'newPassword',
+					labelI18n: 'New password',
+					placeholderI18n: 'Enter new password',
+					password: {
+						purpose: 'new',
+						showLabelI18n: 'Show new password',
+						hideLabelI18n: 'Hide new password',
+					},
+				},
+			],
+		},
+		{
+			kind: 'group',
 			legendI18n: 'Contact channels',
 			layout: {
 				columns: { base: 1, md: 2 },
@@ -176,6 +207,9 @@ export const RichFieldsShowcaseForm = defineFormSpec({
 		},
 	],
 	actions: [{ key: 'submit', labelI18n: 'Save' }],
-	policy: { flags: [], pii: ['address', 'phone'] },
+	policy: {
+		flags: [],
+		pii: ['currentPassword', 'newPassword', 'address', 'phone'],
+	},
 	renderHints: { ui: 'custom', form: 'react-hook-form' },
 });

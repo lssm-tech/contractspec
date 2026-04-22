@@ -190,6 +190,7 @@
 		"./ui/organisms/ListPage/ListPage": "./ui/organisms/ListPage/ListPage.tsx",
 		"./ui/organisms/ListPage/types": "./ui/organisms/ListPage/types.ts",
 		"./ui/page-header": "./ui/page-header.tsx",
+		"./ui/input-password": "./ui/input-password.tsx",
 		"./ui/password-strength": "./ui/password-strength.tsx",
 		"./ui/popover": "./ui/popover.tsx",
 		"./ui/portal": "./ui/portal.tsx",
@@ -674,6 +675,12 @@
 				"browser": "./dist/browser/ui/page-header.js",
 				"bun": "./dist/ui/page-header.js",
 				"default": "./dist/ui/page-header.js"
+			},
+			"./ui/input-password": {
+				"types": "./dist/ui/input-password.d.ts",
+				"browser": "./dist/browser/ui/input-password.js",
+				"bun": "./dist/ui/input-password.js",
+				"default": "./dist/ui/input-password.js"
 			},
 			"./ui/password-strength": {
 				"types": "./dist/ui/password-strength.d.ts",

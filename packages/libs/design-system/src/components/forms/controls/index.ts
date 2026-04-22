@@ -1,3 +1,4 @@
+export { InputPassword } from '../../atoms/InputPassword';
 export {
 	Autocomplete,
 	type AutocompleteProps,

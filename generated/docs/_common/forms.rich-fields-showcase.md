@@ -2,7 +2,7 @@
 
 # forms.rich-fields-showcase
 
-Canonical showcase for readonly, autocomplete, address, phone, temporal, and repeated grouped fields.
+Canonical showcase for readonly, password, autocomplete, address, phone, temporal, and repeated grouped fields.
 
 ## Metadata
 
@@ -26,7 +26,7 @@ export const RichFieldsShowcaseForm = defineFormSpec({
 		version: '1.0.0',
 		title: 'Rich Fields Showcase',
 		description:
-			'Canonical showcase for readonly, autocomplete, address, phone, temporal, and repeated grouped fields.',
+			'Canonical showcase for readonly, password, autocomplete, address, phone, temporal, and repeated grouped fields.',
 		domain: 'forms',
 		owners: [OwnersEnum.PlatformCore],
 		tags: [TagsEnum.Docs, 'forms', 'showcase'],

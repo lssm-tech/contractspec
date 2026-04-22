@@ -9,6 +9,7 @@ import {
 import type * as React from 'react';
 import { Button } from '../../components/atoms/Button';
 import { Input } from '../../components/atoms/Input';
+import { InputPassword } from '../../components/atoms/InputPassword';
 import { Textarea } from '../../components/atoms/Textarea';
 import {
 	FieldDescription,
@@ -50,6 +51,24 @@ export const TranslatedFieldError = (
 export const TranslatedInput = (props: React.ComponentProps<typeof Input>) => {
 	const translate = useTranslatedText();
 	return <Input {...props} placeholder={translate(props.placeholder)} />;
+};
+
+export const TranslatedPasswordInput = (
+	props: React.ComponentProps<typeof InputPassword> & {
+		showLabelI18n?: string;
+		hideLabelI18n?: string;
+	}
+) => {
+	const translate = useTranslatedText();
+	const { showLabelI18n, hideLabelI18n, ...inputProps } = props;
+	return (
+		<InputPassword
+			{...inputProps}
+			placeholder={translate(props.placeholder)}
+			showLabel={translate(showLabelI18n ?? props.showLabel)}
+			hideLabel={translate(hideLabelI18n ?? props.hideLabel)}
+		/>
+	);
 };
 
 export const TranslatedTextarea = (

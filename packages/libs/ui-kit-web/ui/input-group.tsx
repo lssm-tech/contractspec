@@ -138,10 +138,14 @@ function InputGroupText({
 
 function InputGroupInput({
 	className,
+	ref,
 	...props
-}: React.ComponentPropsWithoutRef<'input'>) {
+}: React.ComponentPropsWithoutRef<'input'> & {
+	ref?: React.Ref<HTMLInputElement>;
+}) {
 	return (
 		<Input
+			ref={ref}
 			data-slot="input-group-control"
 			className={cn(
 				'flex-1 rounded-none border-0 bg-transparent shadow-none focus-visible:ring-0 dark:bg-transparent',
