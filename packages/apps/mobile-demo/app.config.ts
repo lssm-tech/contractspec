@@ -4,7 +4,7 @@ export default ({ config }: ConfigContext): ExpoConfig => ({
 	name: 'ContractSpec',
 	slug: 'contractspec-demo',
 	owner: 'lssm',
-	version: '0.1.0',
+	version: '0.1.1',
 	orientation: 'portrait',
 	icon: './assets/icon.png',
 	scheme: 'contractspec-demo',
