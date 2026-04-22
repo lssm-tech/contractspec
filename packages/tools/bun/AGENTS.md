@@ -13,7 +13,7 @@ Shared Bun build presets and CLI for ContractSpec packages. Provides the `contra
 
 | Subpath | Purpose |
 | --- | --- |
-| `.` | Build config presets (`index.js`) |
+| `.` | Build config presets (`index.js`) and declarations (`index.d.ts`) |
 
 **Binary**: `contractspec-bun-build` (transpile, types, dev, prebuild)
 

@@ -25,6 +25,25 @@ npx contractspec-bun-build --help
 bunx contractspec-bun-build --help
 ```
 
+## Typed Config
+
+The root package export includes TypeScript declarations for config presets:
+
+```ts
+import {
+	defineConfig,
+	moduleLibrary,
+	type BuildConfig,
+} from "@contractspec/tool.bun";
+
+const config: BuildConfig = {
+	...moduleLibrary,
+	styleMode: "copy",
+};
+
+export default defineConfig(() => config);
+```
+
 ## Style Exports
 
 `contractspec-bun-build` scans public CSS style entries separately from TypeScript entries so style files do not affect JavaScript output roots.

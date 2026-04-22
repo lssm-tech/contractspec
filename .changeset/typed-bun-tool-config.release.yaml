@@ -1,0 +1,40 @@
+schemaVersion: "1"
+slug: typed-bun-tool-config
+summary: Publish TypeScript declarations for the @contractspec/tool.bun root config preset API.
+isBreaking: false
+packages:
+  - name: "@contractspec/tool.bun"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+affectedFrameworks:
+  - typescript
+audiences:
+  - kind: maintainer
+    summary: The Bun build tool now exposes typed config presets through package metadata while keeping private build internals unexported.
+    affectedPackages:
+      - "@contractspec/tool.bun"
+  - kind: integrator
+    summary: TypeScript config files can import defineConfig, BuildConfig, and build presets from @contractspec/tool.bun with editor and compiler support.
+    affectedPackages:
+      - "@contractspec/tool.bun"
+  - kind: customer
+    summary: Customer projects get typed ContractSpec Bun build configuration instead of untyped package imports.
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: use-typed-bun-config
+    title: Import typed Bun build presets
+    summary: TypeScript config files can now import BuildConfig and defineConfig from @contractspec/tool.bun.
+    level: optional
+    instructions:
+      - Import defineConfig and the preset that matches the package shape.
+      - Import BuildConfig when an explicit config annotation is useful for editor feedback.
+validation:
+  commands:
+    - "cd packages/tools/bun && bun test"
+    - "cd packages/tools/bun && bun run typecheck"
+    - "node scripts/biome.cjs check packages/tools/bun/index.d.ts packages/tools/bun/index.js packages/tools/bun/package.json packages/tools/bun/README.md packages/tools/bun/AGENTS.md packages/tools/bun/test/types.test.ts .changeset/typed-bun-tool-config.md .changeset/typed-bun-tool-config.release.yaml"
+  evidence:
+    - "The package root export advertises index.d.ts under the types condition and package-level types field."
+    - "A strict temporary TypeScript consumer resolves @contractspec/tool.bun through package exports and validates the public config API."
