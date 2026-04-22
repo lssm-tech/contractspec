@@ -1,0 +1,54 @@
+schemaVersion: "1"
+slug: platform-suffix-bun-build
+summary: Support ios, android, native, and web platform suffixes in the shared Bun build tool and Metro presentation helper.
+isBreaking: false
+packages:
+  - name: "@contractspec/tool.bun"
+    releaseType: patch
+  - name: "@contractspec/lib.presentation-runtime-core"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - expo
+  - nextjs
+  - native
+affectedFrameworks:
+  - metro
+  - turbopack
+  - webpack
+  - react-native
+audiences:
+  - kind: maintainer
+    summary: contractspec-bun-build now treats ios and android as native-family platform variants while keeping web and native export behavior stable.
+    affectedPackages:
+      - "@contractspec/tool.bun"
+  - kind: integrator
+    summary: Packages can publish .ios, .android, .native, and .web source variants with matching conditional exports and build outputs.
+    affectedPackages:
+      - "@contractspec/tool.bun"
+      - "@contractspec/lib.presentation-runtime-core"
+  - kind: customer
+    summary: Cross-platform UI packages can resolve platform-specific variants more reliably in Expo, React Native, and Next.js projects.
+deprecations: []
+migrationInstructions:
+  - id: regenerate-platform-exports
+    title: Regenerate package exports for platform variants
+    summary: Run contractspec-bun-build prebuild in packages that add or rename .ios, .android, .native, or .web source entries.
+upgradeSteps:
+  - id: restart-metro-after-platform-export-changes
+    title: Restart Metro after platform export changes
+    summary: Metro may cache previous package export maps and should be restarted after upgrading packages that add platform variant exports.
+    level: manual
+    instructions:
+      - Stop the Expo or React Native dev server.
+      - Restart Metro after package exports have been regenerated and rebuilt.
+validation:
+  commands:
+    - "bun test packages/tools/bun/test/exports.test.ts packages/tools/bun/test/build.test.ts"
+    - "bun test packages/libs/presentation-runtime-core/src/presentation-aliases.test.ts"
+    - "cd packages/libs/presentation-runtime-core && bun run typecheck && bun run lint:check"
+    - "cd packages/tools/bun && bun test"
+  evidence:
+    - "Export-map tests cover canonical and exact .ios, .android, .native, and .web subpaths."
+    - "Build tests verify ios and android entries are emitted under dist/native and excluded from bun, node, and browser outputs."
+    - "Presentation helper tests verify Metro platform conditions are merged without dropping caller config."

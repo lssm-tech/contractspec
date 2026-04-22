@@ -24,6 +24,7 @@ export type MetroResolveRequestLike = (
 
 export interface MetroResolverLike {
 	unstable_enablePackageExports?: boolean;
+	unstable_conditionsByPlatform?: Record<string, string[]>;
 	platforms?: string[];
 	resolveRequest?: MetroResolveRequestLike;
 	[key: string]: unknown;
@@ -43,6 +44,21 @@ function isNativeMetroPlatform(platform: string): boolean {
 	);
 }
 
+function mergeConditions(
+	existing: string[] | undefined,
+	required: readonly string[]
+): string[] {
+	const merged = [...(existing ?? [])];
+
+	for (const condition of required) {
+		if (!merged.includes(condition)) {
+			merged.push(condition);
+		}
+	}
+
+	return merged;
+}
+
 export function withPresentationMetroAliases<T extends MetroConfigLike>(
 	config: T,
 	opts: MetroAliasOptions = {}
@@ -60,6 +76,26 @@ export function withPresentationMetroAliases<T extends MetroConfigLike>(
 	const resolver = config.resolver ?? {};
 
 	resolver.unstable_enablePackageExports = true;
+	resolver.unstable_conditionsByPlatform = {
+		...(resolver.unstable_conditionsByPlatform ?? {}),
+		ios: mergeConditions(resolver.unstable_conditionsByPlatform?.ios, [
+			'ios',
+			'react-native',
+		]),
+		android: mergeConditions(resolver.unstable_conditionsByPlatform?.android, [
+			'android',
+			'react-native',
+		]),
+		native: mergeConditions(resolver.unstable_conditionsByPlatform?.native, [
+			'react-native',
+		]),
+		mobile: mergeConditions(resolver.unstable_conditionsByPlatform?.mobile, [
+			'react-native',
+		]),
+		web: mergeConditions(resolver.unstable_conditionsByPlatform?.web, [
+			'browser',
+		]),
+	};
 	resolver.platforms = [
 		'ios',
 		'android',

@@ -1,9 +1,19 @@
 import { readFile, writeFile } from 'node:fs/promises';
 
-const PLATFORM_SUFFIXES = ['bun', 'node', 'browser', 'web', 'native'];
+const PLATFORM_SUFFIXES = [
+	'bun',
+	'node',
+	'browser',
+	'web',
+	'ios',
+	'android',
+	'native',
+];
 const CONDITION_KEYS = [
 	'types',
 	'browser',
+	'ios',
+	'android',
 	'react-native',
 	'bun',
 	'node',
@@ -123,6 +133,8 @@ function pickTypesVariant(variants) {
 		variants.browser ??
 		variants.web ??
 		variants.native ??
+		variants.ios ??
+		variants.android ??
 		null
 	);
 }
@@ -159,6 +171,10 @@ function pickVariant(variants, mode) {
 		variants.web ??
 		null
 	);
+}
+
+function pickNativeFamilyVariant(variants) {
+	return variants.native ?? variants.ios ?? variants.android ?? null;
 }
 
 function createConditionMap(values) {
@@ -199,6 +215,8 @@ function buildDevCanonicalExportEntry(variants) {
 	const typesSource = pickTypesVariant(variants);
 	const browserSource =
 		variants.browser || variants.web ? pickVariant(variants, 'browser') : null;
+	const iosSource = variants.ios ?? null;
+	const androidSource = variants.android ?? null;
 	const nativeSource = pickVariant(variants, 'react-native');
 	const bunSource = variants.bun ?? null;
 	const nodeSource = variants.node ?? null;
@@ -207,6 +225,8 @@ function buildDevCanonicalExportEntry(variants) {
 	return createConditionMap({
 		types: typesSource ? toSourcePath(typesSource) : null,
 		browser: browserSource ? toSourcePath(browserSource) : null,
+		ios: iosSource ? toSourcePath(iosSource) : null,
+		android: androidSource ? toSourcePath(androidSource) : null,
 		'react-native': nativeSource ? toSourcePath(nativeSource) : null,
 		bun: bunSource ? toSourcePath(bunSource) : null,
 		node: nodeSource ? toSourcePath(nodeSource) : null,
@@ -221,12 +241,17 @@ function buildPublishExportEntry(variants, targets, targetRoots, options = {}) {
 	const browserSource = targets.browser
 		? pickVariant(variants, 'browser')
 		: null;
+	const iosSource = variants.ios ?? null;
+	const androidSource = variants.android ?? null;
 	const nativeSource = pickVariant(variants, 'react-native');
 	const defaultSource =
 		pickVariant(variants, 'default') ??
-		(options.allowNativeDefault === true ? nativeSource : null);
+		(options.allowNativeDefault === true
+			? pickNativeFamilyVariant(variants)
+			: null);
 	const defaultTarget =
-		options.allowNativeDefault === true && defaultSource === nativeSource
+		options.allowNativeDefault === true &&
+		defaultSource === pickNativeFamilyVariant(variants)
 			? 'native'
 			: 'bun';
 
@@ -234,6 +259,10 @@ function buildPublishExportEntry(variants, targets, targetRoots, options = {}) {
 		types: typesSource ? toOutputPath(typesSource, 'types', targetRoots) : null,
 		browser: browserSource
 			? toOutputPath(browserSource, 'browser', targetRoots)
+			: null,
+		ios: iosSource ? toOutputPath(iosSource, 'native', targetRoots) : null,
+		android: androidSource
+			? toOutputPath(androidSource, 'native', targetRoots)
 			: null,
 		'react-native': nativeSource
 			? toOutputPath(nativeSource, 'native', targetRoots)
@@ -345,7 +374,11 @@ export function buildExportMaps(
 			{ [descriptor.suffix]: descriptor.source },
 			targets,
 			targetRoots,
-			{ allowNativeDefault: descriptor.suffix === 'native' }
+			{
+				allowNativeDefault: ['native', 'ios', 'android'].includes(
+					descriptor.suffix
+				),
+			}
 		);
 		if (publishExportEntry) {
 			publishExports[key] = publishExportEntry;

@@ -40,6 +40,8 @@ describe('presentation alias helpers', () => {
 			'.tsx',
 			'.ts',
 		]);
+		expect(config.resolve.extensions).not.toContain('.ios.ts');
+		expect(config.resolve.extensions).not.toContain('.android.ts');
 	});
 
 	test('withPresentationTurbopackAliases patches resolveAlias and initializes default extensions', () => {
@@ -70,6 +72,9 @@ describe('presentation alias helpers', () => {
 				'.json',
 			],
 		});
+		const resolveExtensions = nextConfig.turbopack?.resolveExtensions ?? [];
+		expect(resolveExtensions).not.toContain('.ios.ts');
+		expect(resolveExtensions).not.toContain('.android.ts');
 	});
 
 	test('withPresentationTurbopackAliases prepends web extensions and preserves caller order after them', () => {
@@ -116,6 +121,7 @@ describe('presentation alias helpers', () => {
 		const config: {
 			resolver: {
 				platforms: string[];
+				unstable_conditionsByPlatform: Record<string, string[]>;
 				resolveRequest: (
 					_ctx: unknown,
 					moduleName: string,
@@ -126,6 +132,11 @@ describe('presentation alias helpers', () => {
 		} = {
 			resolver: {
 				platforms: ['web'],
+				unstable_conditionsByPlatform: {
+					ios: ['custom-ios'],
+					web: ['custom-web', 'browser'],
+					windows: ['windows'],
+				},
 				resolveRequest: originalResolve,
 			},
 		};
@@ -141,6 +152,14 @@ describe('presentation alias helpers', () => {
 			'web',
 			'web',
 		]);
+		expect(config.resolver.unstable_conditionsByPlatform).toEqual({
+			ios: ['custom-ios', 'ios', 'react-native'],
+			android: ['android', 'react-native'],
+			native: ['react-native'],
+			mobile: ['react-native'],
+			web: ['custom-web', 'browser'],
+			windows: ['windows'],
+		});
 
 		config.resolver.resolveRequest(
 			{},

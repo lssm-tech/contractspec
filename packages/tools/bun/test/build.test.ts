@@ -48,6 +48,8 @@ describe('selectEntriesForTarget', () => {
 		'src/index.ts',
 		'src/foo.web.ts',
 		'src/foo.native.ts',
+		'src/foo.ios.ts',
+		'src/foo.android.ts',
 		'src/foo.node.ts',
 		'src/foo.bun.ts',
 		'src/foo.browser.ts',
@@ -82,6 +84,8 @@ describe('selectEntriesForTarget', () => {
 	test('includes only native files for native builds', () => {
 		expect(selectEntriesForTarget(entries, 'native')).toEqual([
 			'src/foo.native.ts',
+			'src/foo.ios.ts',
+			'src/foo.android.ts',
 		]);
 	});
 });
@@ -156,8 +160,22 @@ describe('runTranspile', () => {
 			path.join(srcDir, 'view.native.ts'),
 			'export const native = 1;\n'
 		);
+		await writeFile(
+			path.join(srcDir, 'view.ios.ts'),
+			'export const ios = 1;\n'
+		);
+		await writeFile(
+			path.join(srcDir, 'view.android.ts'),
+			'export const android = 1;\n'
+		);
 
-		const entries = ['src/index.ts', 'src/view.web.ts', 'src/view.native.ts'];
+		const entries = [
+			'src/index.ts',
+			'src/view.web.ts',
+			'src/view.native.ts',
+			'src/view.ios.ts',
+			'src/view.android.ts',
+		];
 		await runTranspile({
 			cwd,
 			entries,
@@ -178,17 +196,37 @@ describe('runTranspile', () => {
 		expect(await exists(path.join(cwd, 'dist', 'index.js'))).toBe(true);
 		expect(await exists(path.join(cwd, 'dist', 'view.web.js'))).toBe(true);
 		expect(await exists(path.join(cwd, 'dist', 'view.native.js'))).toBe(false);
+		expect(await exists(path.join(cwd, 'dist', 'view.ios.js'))).toBe(false);
+		expect(await exists(path.join(cwd, 'dist', 'view.android.js'))).toBe(false);
 		expect(await exists(path.join(cwd, 'dist', 'browser', 'view.web.js'))).toBe(
 			true
 		);
 		expect(
 			await exists(path.join(cwd, 'dist', 'browser', 'view.native.js'))
 		).toBe(false);
-		expect(await exists(path.join(cwd, 'dist', 'node', 'view.web.js'))).toBe(
+		expect(await exists(path.join(cwd, 'dist', 'browser', 'view.ios.js'))).toBe(
 			false
 		);
 		expect(
+			await exists(path.join(cwd, 'dist', 'browser', 'view.android.js'))
+		).toBe(false);
+		expect(await exists(path.join(cwd, 'dist', 'node', 'view.web.js'))).toBe(
+			false
+		);
+		expect(await exists(path.join(cwd, 'dist', 'node', 'view.ios.js'))).toBe(
+			false
+		);
+		expect(
+			await exists(path.join(cwd, 'dist', 'node', 'view.android.js'))
+		).toBe(false);
+		expect(
 			await exists(path.join(cwd, 'dist', 'native', 'view.native.js'))
+		).toBe(true);
+		expect(await exists(path.join(cwd, 'dist', 'native', 'view.ios.js'))).toBe(
+			true
+		);
+		expect(
+			await exists(path.join(cwd, 'dist', 'native', 'view.android.js'))
 		).toBe(true);
 	});
 

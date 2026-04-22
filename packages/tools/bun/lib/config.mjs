@@ -219,12 +219,17 @@ export async function normalizeBuildConfig(cwd, config) {
 }
 
 export function selectEntriesForTarget(entries, target) {
+	const isNativeFamilyEntry = (entry) =>
+		entry.includes('.native.') ||
+		entry.includes('.ios.') ||
+		entry.includes('.android.');
+
 	if (target === 'node') {
 		return entries.filter(
 			(entry) =>
 				!entry.includes('.browser.') &&
 				!entry.includes('.web.') &&
-				!entry.includes('.native.')
+				!isNativeFamilyEntry(entry)
 		);
 	}
 
@@ -233,15 +238,15 @@ export function selectEntriesForTarget(entries, target) {
 			(entry) =>
 				!entry.includes('.node.') &&
 				!entry.includes('.bun.') &&
-				!entry.includes('.native.')
+				!isNativeFamilyEntry(entry)
 		);
 	}
 
 	if (target === 'native') {
-		return entries.filter((entry) => entry.includes('.native.'));
+		return entries.filter((entry) => isNativeFamilyEntry(entry));
 	}
 
-	return entries.filter((entry) => !entry.includes('.native.'));
+	return entries.filter((entry) => !isNativeFamilyEntry(entry));
 }
 
 export function inferBuildRoot(entries) {

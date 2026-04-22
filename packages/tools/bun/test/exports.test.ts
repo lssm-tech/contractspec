@@ -116,6 +116,66 @@ describe('buildExportMaps', () => {
 		});
 	});
 
+	test('builds canonical and exact exports for ios and android entries', () => {
+		const { devExports, publishExports } = buildExportMaps(
+			['src/foo.ios.ts', 'src/foo.android.ts'],
+			TARGETS,
+			TARGET_ROOTS
+		);
+
+		expect(devExports['./foo']).toEqual({
+			types: './src/foo.ios.ts',
+			ios: './src/foo.ios.ts',
+			android: './src/foo.android.ts',
+		});
+		expect(devExports['./foo.android']).toBe('./src/foo.android.ts');
+		expect(devExports['./foo.ios']).toBe('./src/foo.ios.ts');
+		expect(publishExports['./foo']).toEqual({
+			types: './dist/foo.ios.d.ts',
+			ios: './dist/native/foo.ios.js',
+			android: './dist/native/foo.android.js',
+		});
+		expect(publishExports['./foo.android']).toEqual({
+			types: './dist/foo.android.d.ts',
+			android: './dist/native/foo.android.js',
+			default: './dist/native/foo.android.js',
+		});
+		expect(publishExports['./foo.ios']).toEqual({
+			types: './dist/foo.ios.d.ts',
+			ios: './dist/native/foo.ios.js',
+			default: './dist/native/foo.ios.js',
+		});
+	});
+
+	test('merges native, ios, and android variants into canonical conditional exports', () => {
+		const { devExports, publishExports } = buildExportMaps(
+			['src/foo.native.ts', 'src/foo.ios.ts', 'src/foo.android.ts'],
+			TARGETS,
+			TARGET_ROOTS
+		);
+
+		expect(devExports['./foo']).toEqual({
+			types: './src/foo.native.ts',
+			ios: './src/foo.ios.ts',
+			android: './src/foo.android.ts',
+			'react-native': './src/foo.native.ts',
+		});
+		expect(devExports['./foo.android']).toBe('./src/foo.android.ts');
+		expect(devExports['./foo.ios']).toBe('./src/foo.ios.ts');
+		expect(devExports['./foo.native']).toBe('./src/foo.native.ts');
+		expect(publishExports['./foo']).toEqual({
+			types: './dist/foo.native.d.ts',
+			ios: './dist/native/foo.ios.js',
+			android: './dist/native/foo.android.js',
+			'react-native': './dist/native/foo.native.js',
+		});
+		expect(publishExports['./foo.native']).toEqual({
+			types: './dist/foo.native.d.ts',
+			'react-native': './dist/native/foo.native.js',
+			default: './dist/native/foo.native.js',
+		});
+	});
+
 	test('merges paired web and native variants into canonical conditional exports', () => {
 		const { devExports, publishExports } = buildExportMaps(
 			['src/foo.web.ts', 'src/foo.native.ts'],
@@ -134,6 +194,41 @@ describe('buildExportMaps', () => {
 		expect(publishExports['./foo']).toEqual({
 			types: './dist/foo.web.d.ts',
 			browser: './dist/browser/foo.web.js',
+			'react-native': './dist/native/foo.native.js',
+			bun: './dist/foo.web.js',
+			default: './dist/foo.web.js',
+		});
+	});
+
+	test('merges web and native-family variants into canonical conditional exports', () => {
+		const { devExports, publishExports } = buildExportMaps(
+			[
+				'src/foo.web.ts',
+				'src/foo.native.ts',
+				'src/foo.ios.ts',
+				'src/foo.android.ts',
+			],
+			TARGETS,
+			TARGET_ROOTS
+		);
+
+		expect(devExports['./foo']).toEqual({
+			types: './src/foo.web.ts',
+			browser: './src/foo.web.ts',
+			ios: './src/foo.ios.ts',
+			android: './src/foo.android.ts',
+			'react-native': './src/foo.native.ts',
+			default: './src/foo.web.ts',
+		});
+		expect(devExports['./foo.android']).toBe('./src/foo.android.ts');
+		expect(devExports['./foo.ios']).toBe('./src/foo.ios.ts');
+		expect(devExports['./foo.native']).toBe('./src/foo.native.ts');
+		expect(devExports['./foo.web']).toBe('./src/foo.web.ts');
+		expect(publishExports['./foo']).toEqual({
+			types: './dist/foo.web.d.ts',
+			browser: './dist/browser/foo.web.js',
+			ios: './dist/native/foo.ios.js',
+			android: './dist/native/foo.android.js',
 			'react-native': './dist/native/foo.native.js',
 			bun: './dist/foo.web.js',
 			default: './dist/foo.web.js',

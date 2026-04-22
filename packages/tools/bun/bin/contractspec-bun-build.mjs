@@ -47,6 +47,7 @@ async function main() {
 			? inferBuildRoot(selectEntriesForTarget(entries, 'browser'))
 			: '.',
 		native: inferBuildRoot(selectEntriesForTarget(entries, 'native')),
+		types: inferBuildRoot(entries),
 	};
 
 	if (command === 'prebuild') {
@@ -80,7 +81,7 @@ async function main() {
 		await runTypes({
 			cwd,
 			tsconfigForTypes: normalizedConfig.tsconfigForTypes,
-			typesRoot: targetRoots.bun,
+			typesRoot: targetRoots.types,
 		});
 		return;
 	}
@@ -121,7 +122,7 @@ async function main() {
 		await runTypes({
 			cwd,
 			tsconfigForTypes: normalizedConfig.tsconfigForTypes,
-			typesRoot: targetRoots.bun,
+			typesRoot: targetRoots.types,
 		});
 		return;
 	}
