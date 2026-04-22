@@ -1,0 +1,69 @@
+schemaVersion: "1"
+slug: cross-platform-jsx-biome-guardrails
+summary: Add Biome guardrails that keep JSX layout and text compatible with React and React Native.
+isBreaking: false
+packages:
+  - name: "@contractspec/biome-config"
+    releaseType: patch
+  - name: "contractspec"
+    releaseType: patch
+  - name: "@contractspec/lib.ui-kit"
+    releaseType: patch
+  - name: "@contractspec/lib.ui-kit-web"
+    releaseType: patch
+  - name: "@contractspec/lib.ui-kit-core"
+    releaseType: patch
+  - name: "@contractspec/lib.design-system"
+    releaseType: patch
+affectedRuntimes:
+  - browser
+  - expo
+affectedFrameworks:
+  - react
+  - react-native
+audiences:
+  - kind: maintainer
+    summary: Maintainers get generated repo and consumer Biome presets that reject raw layout tags and raw JSX text outside typography components, with monorepo apps excluded by default.
+    affectedPackages:
+      - "@contractspec/biome-config"
+      - "@contractspec/lib.design-system"
+  - kind: integrator
+    summary: Integrators adopting the consumer preset get React Native compatible JSX text/list/layout policy diagnostics and shared list/typography primitives.
+    affectedPackages:
+      - "@contractspec/biome-config"
+      - "@contractspec/lib.ui-kit"
+      - "@contractspec/lib.ui-kit-web"
+      - "@contractspec/lib.ui-kit-core"
+      - "@contractspec/lib.design-system"
+deprecations: []
+migrationInstructions:
+  - id: replace-raw-layout-tags
+    title: Replace raw layout tags
+    summary: Use ContractSpec layout and typography primitives in JSX surfaces.
+    required: false
+    steps:
+      - Replace raw `<div>` layout containers with `HStack`, `VStack`, or `Box` from `@contractspec/lib.design-system/layout`.
+      - Replace raw `<ul>`, `<ol>`, and `<li>` with `List` and `ListItem` from `@contractspec/lib.design-system/list`.
+      - Replace raw headings and text tags with themed typography components from `@contractspec/lib.design-system/typography`.
+      - Wrap visible JSX text with `Text` or another approved typography component.
+      - Add an app package to the policy `appPackageAllowList` only when that app should opt into the shared presentation guardrails.
+upgradeSteps:
+  - id: sync-biome-policy-artifacts
+    title: Sync generated Biome policy artifacts
+    summary: Keep generated presets, Grit plugins, and AI summaries aligned with the typed manifest.
+    level: required
+    instructions:
+      - Run `cd packages/tools/biome-config && bun run sync:artifacts` after policy manifest edits.
+validation:
+  commands:
+    - "bun test packages/tools/biome-config/src/generate.test.ts"
+    - "cd packages/tools/biome-config && bun run sync:artifacts && bun run typecheck && bun run lint:check"
+    - "bun run lint:check"
+  evidence:
+    - "Generated repo and consumer presets include updated raw element diagnostics."
+    - "Design-system exports themed typography wrappers and List/ListItem wrappers."
+    - "UI kit packages export List/ListItem subpaths."
+    - "UI kit core registry includes the new shared list contract key."
+    - "Generated Grit plugins reject visible JSX text outside approved typography components."
+    - "Repo app packages are excluded from presentation guardrails unless allowlisted."
+    - "Root Biome config mirrors repo guardrails for local lint checks."

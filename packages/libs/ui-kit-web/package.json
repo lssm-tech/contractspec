@@ -163,6 +163,7 @@
 		"./ui/kbd": "./ui/kbd.tsx",
 		"./ui/label": "./ui/label.tsx",
 		"./ui/link": "./ui/link.tsx",
+		"./ui/list": "./ui/list.tsx",
 		"./ui/live-region": "./ui/live-region.tsx",
 		"./ui/loading-button": "./ui/loading-button.tsx",
 		"./ui/map": "./ui/map/index.ts",
@@ -577,6 +578,12 @@
 				"browser": "./dist/browser/ui/link.js",
 				"bun": "./dist/ui/link.js",
 				"default": "./dist/ui/link.js"
+			},
+			"./ui/list": {
+				"types": "./dist/ui/list.d.ts",
+				"browser": "./dist/browser/ui/list.js",
+				"bun": "./dist/ui/list.js",
+				"default": "./dist/ui/list.js"
 			},
 			"./ui/live-region": {
 				"types": "./dist/ui/live-region.d.ts",

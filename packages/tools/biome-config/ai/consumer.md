@@ -8,6 +8,12 @@ Generated from the typed Biome policy manifest.
 - Message: Consumer applications should use ContractSpec design-system and ui-kit components instead of native HTML primitives.
 - Docs source: packs/workspace-specific/rules/design-system-usage.md
 
+## consumer/no-raw-jsx-text-outside-typography
+- Engine: biome-grit
+- Severity: error
+- Message: Wrap visible JSX text with Text or another approved typography component for React and React Native compatibility.
+- Docs source: packs/workspace-specific/rules/design-system-usage.md
+
 ## consumer/prefer-contractspec-design-system-imports
 - Engine: biome-grit
 - Severity: error

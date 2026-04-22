@@ -1,9 +1,13 @@
+import { execFile } from 'node:child_process';
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
 import { dirname, join } from 'node:path';
 import { fileURLToPath } from 'node:url';
+import { promisify } from 'node:util';
 import { generateArtifactsForAudience } from './generate';
 
 const packageRoot = join(dirname(fileURLToPath(import.meta.url)), '..');
+const repoRoot = join(packageRoot, '..', '..', '..');
+const execFileAsync = promisify(execFile);
 
 async function writeGeneratedFile(
 	path: string,
@@ -43,3 +47,11 @@ async function syncAudienceArtifacts(
 
 await syncAudienceArtifacts('repo');
 await syncAudienceArtifacts('consumer');
+
+await execFileAsync('node', [
+	join(repoRoot, 'scripts', 'biome.cjs'),
+	'format',
+	'--write',
+	join(packageRoot, 'presets'),
+	join(packageRoot, 'plugins'),
+]);

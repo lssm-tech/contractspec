@@ -85,5 +85,60 @@
 				}
 			}
 		}
-	}
+	},
+	"overrides": [
+		{
+			"includes": [
+				"packages/bundles/**/*.{jsx,tsx}",
+				"packages/examples/**/*.{jsx,tsx}",
+				"packages/modules/**/*.{jsx,tsx}"
+			],
+			"plugins": [
+				"packages/tools/biome-config/plugins/repo-no-raw-jsx-text-outside-typography.grit"
+			]
+		},
+		{
+			"includes": [
+				"packages/bundles/**/*.{jsx,tsx}",
+				"packages/examples/**/*.{jsx,tsx}",
+				"packages/modules/**/*.{jsx,tsx}"
+			],
+			"linter": {
+				"rules": {
+					"correctness": {
+						"noRestrictedElements": {
+							"level": "error",
+							"options": {
+								"elements": {
+									"div": "Use HStack, VStack, or Box from @contractspec/lib.design-system/layout instead of <div> in application surfaces.",
+									"section": "Use HStack, VStack, or Box from @contractspec/lib.design-system/layout instead of <section> in application surfaces.",
+									"main": "Use an app or marketing layout component instead of <main> in application surfaces.",
+									"header": "Use a design-system header or page-header component instead of <header> in application surfaces.",
+									"footer": "Use HStack, VStack, or Box from @contractspec/lib.design-system/layout instead of <footer> in application surfaces.",
+									"nav": "Use the shared navigation primitives instead of <nav> in application surfaces.",
+									"span": "Use Text or a typography component from @contractspec/lib.design-system instead of raw <span> in application surfaces.",
+									"p": "Use Text or a typography component from @contractspec/lib.design-system instead of raw <p> in application surfaces.",
+									"h1": "Use Text or a typography heading component from @contractspec/lib.design-system instead of raw heading tags in application surfaces.",
+									"h2": "Use Text or a typography heading component from @contractspec/lib.design-system instead of raw heading tags in application surfaces.",
+									"h3": "Use Text or a typography heading component from @contractspec/lib.design-system instead of raw heading tags in application surfaces.",
+									"h4": "Use Text or a typography heading component from @contractspec/lib.design-system instead of raw heading tags in application surfaces.",
+									"h5": "Use Text or a typography heading component from @contractspec/lib.design-system instead of raw heading tags in application surfaces.",
+									"h6": "Use Text or a typography heading component from @contractspec/lib.design-system instead of raw heading tags in application surfaces.",
+									"ul": "Use List from @contractspec/lib.design-system/list instead of raw <ul> in application surfaces.",
+									"ol": "Use List with type=\"ordered\" from @contractspec/lib.design-system/list instead of raw <ol> in application surfaces.",
+									"li": "Use ListItem from @contractspec/lib.design-system/list instead of raw <li> in application surfaces.",
+									"button": "Use a design-system action primitive instead of raw <button> in application surfaces.",
+									"input": "Use a design-system form primitive instead of raw <input> in application surfaces.",
+									"textarea": "Use a design-system form primitive instead of raw <textarea> in application surfaces.",
+									"select": "Use a design-system form primitive instead of raw <select> in application surfaces.",
+									"form": "Use a design-system form primitive instead of raw <form> in application surfaces.",
+									"label": "Use a design-system form primitive instead of raw <label> in application surfaces."
+								}
+							}
+						}
+					}
+				}
+			}
+		}
+	]
 }

@@ -20,6 +20,12 @@ Generated from the typed Biome policy manifest.
 - Message: Use ContractSpec design-system primitives instead of raw HTML in application surfaces.
 - Docs source: packs/workspace-specific/rules/design-system-usage.md
 
+## repo/no-raw-jsx-text-outside-typography
+- Engine: biome-grit
+- Severity: error
+- Message: Wrap visible JSX text with Text or another approved typography component for React and React Native compatibility.
+- Docs source: packs/workspace-specific/rules/design-system-usage.md
+
 ## repo/prefer-design-system-imports
 - Engine: biome-grit
 - Severity: error

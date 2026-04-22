@@ -9,6 +9,7 @@ Website: https://contractspec.io
 - Acts as the source of truth for repository and consumer Biome policy artifacts.
 - Publishes generated presets, Grit plugins, and AI summaries alongside the typed manifest and generation helpers.
 - Requires artifact synchronization whenever the typed policy manifest changes so committed outputs stay aligned.
+- Enforces React and React Native compatible JSX in shared presentation packages by preferring layout primitives (`HStack`, `VStack`, `Box`) over raw `<div>` and requiring visible text to sit inside `Text` or approved typography components. Repository app packages are excluded by default and can be opted in with the policy allowlist.
 - Related ContractSpec packages include `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
 ## Installation
@@ -54,6 +55,7 @@ Import the root entrypoint from `@contractspec/biome-config`, or choose a docume
 
 ## Recent Updates
 
+- Add cross-platform JSX layout and text guardrails for React and React Native compatibility.
 - Replace eslint+prettier by biomejs to optimize speed.
 
 ## Notes

@@ -171,6 +171,7 @@
 		"./ui/input": "./ui/input.tsx",
 		"./ui/label": "./ui/label.tsx",
 		"./ui/link": "./ui/link.tsx",
+		"./ui/list": "./ui/list.tsx",
 		"./ui/loading-button": "./ui/loading-button.tsx",
 		"./ui/loading-overlay": "./ui/loading-overlay.tsx",
 		"./ui/loading-screen": "./ui/loading-screen.tsx",
@@ -570,6 +571,12 @@
 				"browser": "./dist/browser/ui/link.js",
 				"bun": "./dist/ui/link.js",
 				"default": "./dist/ui/link.js"
+			},
+			"./ui/list": {
+				"types": "./dist/ui/list.d.ts",
+				"browser": "./dist/browser/ui/list.js",
+				"bun": "./dist/ui/list.js",
+				"default": "./dist/ui/list.js"
 			},
 			"./ui/loading-button": {
 				"types": "./dist/ui/loading-button.d.ts",
