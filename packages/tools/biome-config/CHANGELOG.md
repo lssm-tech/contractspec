@@ -1,5 +1,13 @@
 # @contractspec/biome-config
 
+## 3.8.10
+
+### Patch Changes
+
+- Add Biome guardrails that keep JSX layout and text compatible with React and React Native.
+  - Packages: @contractspec/biome-config (patch), contractspec (patch), @contractspec/lib.ui-kit (patch), @contractspec/lib.ui-kit-web (patch), @contractspec/lib.ui-kit-core (patch), @contractspec/lib.design-system (patch)
+  - Migration: Use ContractSpec layout and typography primitives in JSX surfaces.
+
 ## 3.8.9
 
 ### Patch Changes

@@ -1,5 +1,44 @@
 # @contractspec/bundle.library
 
+## 3.9.5
+
+### Patch Changes
+
+- Migrate design-system platform implementation suffixes from `.mobile` to `.native`.
+  - Packages: @contractspec/lib.design-system (major), @contractspec/lib.presentation-runtime-core (patch), @contractspec/bundle.library (patch)
+  - Migration: Move direct design-system platform imports from `.mobile` to `.native`.
+  - Deprecations: Direct imports such as `@contractspec/lib.design-system/components/molecules/Tabs.mobile` have been replaced by `.native` subpaths.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add Biome guardrails that keep JSX layout and text compatible with React and React Native.
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+- Updated dependencies because of Migrate design-system platform implementation suffixes from `.mobile` to `.native`.
+- Updated dependencies because of Harden published cross-platform UI packages around precise public subpath imports and closed native dist graphs.
+- Updated dependencies because of Use shared stack layout primitives in the web pagination component while preserving semantic pagination markup.
+- Updated dependencies because of Add a unified design-system Tabs primitive and migrate local tab consumers away from ui-kit leaf imports.
+  - @contractspec/bundle.workspace@4.5.3
+  - @contractspec/lib.ai-providers@3.7.16
+  - @contractspec/lib.content-gen@3.7.23
+  - @contractspec/lib.contracts-integrations@3.8.15
+  - @contractspec/lib.contracts-library@3.7.23
+  - @contractspec/lib.contracts-runtime-server-graphql@3.8.2
+  - @contractspec/lib.contracts-runtime-server-mcp@3.8.3
+  - @contractspec/lib.contracts-runtime-server-rest@3.8.2
+  - @contractspec/lib.example-shared-ui@7.0.2
+  - @contractspec/lib.knowledge@3.7.23
+  - @contractspec/lib.logger@3.7.16
+  - @contractspec/lib.provider-ranking@0.7.16
+  - @contractspec/lib.runtime-sandbox@3.0.2
+  - @contractspec/lib.surface-runtime@0.5.23
+  - @contractspec/lib.ui-link@3.7.18
+  - @contractspec/module.context-storage@0.7.22
+  - @contractspec/module.examples@4.0.2
+  - @contractspec/lib.ui-kit-web@3.12.0
+  - @contractspec/lib.design-system@4.0.0
+  - @contractspec/lib.contracts-spec@5.6.0
+  - @contractspec/lib.contracts-runtime-client-react@3.11.0
+  - @contractspec/example.data-grid-showcase@3.8.17
+  - @contractspec/lib.schema@3.7.14
+
 ## 3.9.4
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @contractspec/lib.ai-providers
 
+## 3.7.16
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+  - @contractspec/lib.provider-ranking@0.7.16
+  - @contractspec/lib.contracts-spec@5.6.0
+
 ## 3.7.15
 
 ### Patch Changes

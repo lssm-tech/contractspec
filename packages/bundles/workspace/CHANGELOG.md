@@ -1,5 +1,25 @@
 # @contractspec/bundle.workspace
 
+## 4.5.3
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add Biome guardrails that keep JSX layout and text compatible with React and React Native.
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+  - @contractspec/integration.runtime@3.9.5
+  - @contractspec/lib.ai-agent@8.0.11
+  - @contractspec/lib.ai-providers@3.7.16
+  - @contractspec/lib.contracts-integrations@3.8.15
+  - @contractspec/lib.contracts-transformers@3.7.23
+  - @contractspec/lib.source-extractors@2.7.23
+  - @contractspec/lib.surface-runtime@0.5.23
+  - @contractspec/lib.utils-typescript@3.7.16
+  - @contractspec/module.workspace@4.3.3
+  - @contractspec/biome-config@3.8.10
+  - @contractspec/lib.contracts-spec@5.6.0
+
 ## 4.5.2
 
 ### Patch Changes

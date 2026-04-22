@@ -1,5 +1,18 @@
 # @contractspec/example.ai-chat-assistant
 
+## 3.8.17
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+- Updated dependencies because of Harden published cross-platform UI packages around precise public subpath imports and closed native dist graphs.
+  - @contractspec/lib.ai-agent@8.0.11
+  - @contractspec/lib.contracts-spec@5.6.0
+  - @contractspec/module.ai-chat@4.3.25
+  - @contractspec/lib.schema@3.7.14
+
 ## 3.8.16
 
 ### Patch Changes

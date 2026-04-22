@@ -1,5 +1,18 @@
 # @contractspec/example.learning-journey-crm-onboarding
 
+## 4.0.5
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+- Updated dependencies because of Add a unified design-system Tabs primitive and migrate local tab consumers away from ui-kit leaf imports.
+  - @contractspec/module.learning-journey@4.0.3
+  - @contractspec/lib.contracts-spec@5.6.0
+  - @contractspec/example.crm-pipeline@3.7.25
+  - @contractspec/lib.schema@3.7.14
+
 ## 4.0.4
 
 ### Patch Changes

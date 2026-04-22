@@ -1,5 +1,17 @@
 # @contractspec/integration.workflow-devkit
 
+## 0.1.9
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+  - @contractspec/lib.ai-agent@8.0.11
+  - @contractspec/lib.contracts-integrations@3.8.15
+  - @contractspec/lib.contracts-spec@5.6.0
+  - @contractspec/lib.schema@3.7.14
+
 ## 0.1.8
 
 ### Patch Changes

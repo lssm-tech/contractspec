@@ -1,5 +1,20 @@
 # @contractspec/lib.data-exchange-client
 
+## 0.2.4
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add Biome guardrails that keep JSX layout and text compatible with React and React Native.
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+- Updated dependencies because of Keep shared table string headers and cells as primitive render-model values so React Native table renderers can wrap them in Text.
+- Updated dependencies because of Use shared stack layout primitives in the web pagination component while preserving semantic pagination markup.
+  - @contractspec/lib.data-exchange-core@0.2.3
+  - @contractspec/lib.ui-kit-web@3.12.0
+  - @contractspec/lib.contracts-spec@5.6.0
+  - @contractspec/lib.presentation-runtime-react@38.0.3
+
 ## 0.2.3
 
 ### Patch Changes

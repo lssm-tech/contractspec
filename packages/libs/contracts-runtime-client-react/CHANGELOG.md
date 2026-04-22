@@ -1,5 +1,23 @@
 # @contractspec/lib.contracts-runtime-client-react
 
+## 3.11.0
+
+### Minor Changes
+
+- Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.contracts-runtime-client-react (minor), @contractspec/lib.design-system (minor), @contractspec/lib.ui-kit-web (minor), @contractspec/lib.ui-kit (minor), @contractspec/lib.ui-kit-core (patch)
+  - Migration: Existing text fields and custom driver slots remain compatible.; Prefer `text.password.purpose` for password fields instead of renderer-specific `uiProps.type`.
+
+### Patch Changes
+
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+- Updated dependencies because of Migrate design-system platform implementation suffixes from `.mobile` to `.native`.
+- Updated dependencies because of Support ios, android, native, and web platform suffixes in the shared Bun build tool and Metro presentation helper.
+- Updated dependencies because of Add lucide package rewrites to the shared presentation runtime bundler helpers for Expo and Next.js.
+  - @contractspec/lib.contracts-spec@5.6.0
+  - @contractspec/lib.presentation-runtime-core@5.0.3
+  - @contractspec/lib.schema@3.7.14
+
 ## 3.10.2
 
 ### Patch Changes

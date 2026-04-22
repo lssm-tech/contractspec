@@ -1,5 +1,19 @@
 # @contractspec/app.provider-ranking-mcp
 
+## 1.6.25
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+  - @contractspec/lib.ai-providers@3.7.16
+  - @contractspec/lib.contracts-runtime-server-mcp@3.8.3
+  - @contractspec/lib.logger@3.7.16
+  - @contractspec/lib.provider-ranking@0.7.16
+  - @contractspec/module.provider-ranking@0.7.22
+  - @contractspec/lib.contracts-spec@5.6.0
+
 ## 1.6.24
 
 ### Patch Changes

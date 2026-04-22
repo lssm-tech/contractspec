@@ -1,5 +1,18 @@
 # @contractspec/lib.ui-kit-core
 
+## 3.8.3
+
+### Patch Changes
+
+- Add Biome guardrails that keep JSX layout and text compatible with React and React Native.
+  - Packages: @contractspec/biome-config (patch), contractspec (patch), @contractspec/lib.ui-kit (patch), @contractspec/lib.ui-kit-web (patch), @contractspec/lib.ui-kit-core (patch), @contractspec/lib.design-system (patch)
+  - Migration: Use ContractSpec layout and typography primitives in JSX surfaces.
+- Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.contracts-runtime-client-react (minor), @contractspec/lib.design-system (minor), @contractspec/lib.ui-kit-web (minor), @contractspec/lib.ui-kit (minor), @contractspec/lib.ui-kit-core (patch)
+  - Migration: Existing text fields and custom driver slots remain compatible.; Prefer `text.password.purpose` for password fields instead of renderer-specific `uiProps.type`.
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+  - @contractspec/lib.contracts-spec@5.6.0
+
 ## 3.8.2
 
 ### Patch Changes

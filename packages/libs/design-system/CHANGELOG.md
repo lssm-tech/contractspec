@@ -1,5 +1,46 @@
 # @contractspec/lib.design-system
 
+## 4.0.0
+
+### Major Changes
+
+- Migrate design-system platform implementation suffixes from `.mobile` to `.native`.
+  - Packages: @contractspec/lib.design-system (major), @contractspec/lib.presentation-runtime-core (patch), @contractspec/bundle.library (patch)
+  - Migration: Move direct design-system platform imports from `.mobile` to `.native`.
+  - Deprecations: Direct imports such as `@contractspec/lib.design-system/components/molecules/Tabs.mobile` have been replaced by `.native` subpaths.
+
+### Minor Changes
+
+- Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.contracts-runtime-client-react (minor), @contractspec/lib.design-system (minor), @contractspec/lib.ui-kit-web (minor), @contractspec/lib.ui-kit (minor), @contractspec/lib.ui-kit-core (patch)
+  - Migration: Existing text fields and custom driver slots remain compatible.; Prefer `text.password.purpose` for password fields instead of renderer-specific `uiProps.type`.
+- Add a unified design-system Tabs primitive and migrate local tab consumers away from ui-kit leaf imports.
+  - Packages: @contractspec/lib.design-system (minor), @contractspec/example.agent-console (patch), @contractspec/example.crm-pipeline (patch), @contractspec/example.data-grid-showcase (patch), @contractspec/module.builder-workbench (patch), @contractspec/module.execution-console (patch)
+  - Migration: Consumers should import tabs from `@contractspec/lib.design-system` instead of lower-level UI-kit tab modules.
+
+### Patch Changes
+
+- Add Biome guardrails that keep JSX layout and text compatible with React and React Native.
+  - Packages: @contractspec/biome-config (patch), contractspec (patch), @contractspec/lib.ui-kit (patch), @contractspec/lib.ui-kit-web (patch), @contractspec/lib.ui-kit-core (patch), @contractspec/lib.design-system (patch)
+  - Migration: Use ContractSpec layout and typography primitives in JSX surfaces.
+- Harden published cross-platform UI packages around precise public subpath imports and closed native dist graphs.
+  - Packages: @contractspec/tool.bun (patch), @contractspec/lib.design-system (patch), @contractspec/module.ai-chat (patch)
+  - Migration: Replace root design-system imports in published UI modules with exact public component subpaths.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add Biome guardrails that keep JSX layout and text compatible with React and React Native.
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+- Updated dependencies because of Replace the native UI-kit data table resize handle's gesture-handler dependency with a Reanimated responder boundary.
+- Updated dependencies because of Harden native Pagination layout with shared stack primitives, safer page math, and accessible control labels.
+- Updated dependencies because of Keep shared table string headers and cells as primitive render-model values so React Native table renderers can wrap them in Text.
+- Updated dependencies because of Add native UI-kit subpaths for Metro's ui-kit-web alias surface so Expo builds can resolve shared design-system form controls.
+- Updated dependencies because of Use shared stack layout primitives in the web pagination component while preserving semantic pagination markup.
+  - @contractspec/lib.ai-agent@8.0.11
+  - @contractspec/lib.ui-kit@4.1.0
+  - @contractspec/lib.ui-kit-web@3.12.0
+  - @contractspec/lib.contracts-spec@5.6.0
+  - @contractspec/lib.contracts-runtime-client-react@3.11.0
+  - @contractspec/lib.presentation-runtime-react@38.0.3
+
 ## 3.11.2
 
 ### Patch Changes

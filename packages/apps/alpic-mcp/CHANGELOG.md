@@ -1,5 +1,16 @@
 # @contractspec/app.alpic-mcp
 
+## 3.7.22
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+  - @contractspec/bundle.alpic@3.7.22
+  - @contractspec/lib.logger@3.7.16
+  - @contractspec/lib.contracts-spec@5.6.0
+
 ## 3.7.21
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @contractspec/lib.contracts-runtime-server-graphql
 
+## 3.8.2
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+  - @contractspec/lib.contracts-runtime-server-rest@3.8.2
+  - @contractspec/lib.contracts-spec@5.6.0
+  - @contractspec/lib.schema@3.7.14
+
 ## 3.8.1
 
 ### Patch Changes

@@ -1,5 +1,18 @@
 # @contractspec/example.wealth-snapshot
 
+## 3.7.23
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+  - @contractspec/lib.identity-rbac@3.7.23
+  - @contractspec/module.audit-trail@3.7.23
+  - @contractspec/module.notifications@3.7.22
+  - @contractspec/lib.contracts-spec@5.6.0
+  - @contractspec/lib.schema@3.7.14
+
 ## 3.7.22
 
 ### Patch Changes

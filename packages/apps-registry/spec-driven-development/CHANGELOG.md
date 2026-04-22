@@ -1,5 +1,15 @@
 # spec-driven-development
 
+## 3.7.24
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+  - @contractspec/app.cli-contractspec@6.1.2
+  - @contractspec/lib.contracts-spec@5.6.0
+
 ## 3.7.23
 
 ### Patch Changes

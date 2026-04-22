@@ -1,5 +1,20 @@
 # @contractspec/module.mobile-review
 
+## 0.2.7
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add Biome guardrails that keep JSX layout and text compatible with React and React Native.
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+- Updated dependencies because of Use shared stack layout primitives in the web pagination component while preserving semantic pagination markup.
+- Updated dependencies because of Add a unified design-system Tabs primitive and migrate local tab consumers away from ui-kit leaf imports.
+  - @contractspec/lib.builder-spec@0.2.5
+  - @contractspec/lib.ui-kit-web@3.12.0
+  - @contractspec/lib.contracts-spec@5.6.0
+  - @contractspec/module.builder-workbench@0.2.7
+
 ## 0.2.6
 
 ### Patch Changes

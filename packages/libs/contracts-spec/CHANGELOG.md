@@ -1,5 +1,17 @@
 # @contractspec/lib.contracts-spec
 
+## 5.6.0
+
+### Minor Changes
+
+- Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.contracts-runtime-client-react (minor), @contractspec/lib.design-system (minor), @contractspec/lib.ui-kit-web (minor), @contractspec/lib.ui-kit (minor), @contractspec/lib.ui-kit-core (patch)
+  - Migration: Existing text fields and custom driver slots remain compatible.; Prefer `text.password.purpose` for password fields instead of renderer-specific `uiProps.type`.
+
+### Patch Changes
+
+- @contractspec/lib.schema@3.7.14
+
 ## 5.5.1
 
 ### Patch Changes

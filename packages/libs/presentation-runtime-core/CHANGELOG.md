@@ -1,5 +1,21 @@
 # @contractspec/lib.presentation-runtime-core
 
+## 5.0.3
+
+### Patch Changes
+
+- Migrate design-system platform implementation suffixes from `.mobile` to `.native`.
+  - Packages: @contractspec/lib.design-system (major), @contractspec/lib.presentation-runtime-core (patch), @contractspec/bundle.library (patch)
+  - Migration: Move direct design-system platform imports from `.mobile` to `.native`.
+  - Deprecations: Direct imports such as `@contractspec/lib.design-system/components/molecules/Tabs.mobile` have been replaced by `.native` subpaths.
+- Support ios, android, native, and web platform suffixes in the shared Bun build tool and Metro presentation helper.
+  - Packages: @contractspec/tool.bun (patch), @contractspec/lib.presentation-runtime-core (patch)
+  - Migration: Run contractspec-bun-build prebuild in packages that add or rename .ios, .android, .native, or .web source entries.
+- Add lucide package rewrites to the shared presentation runtime bundler helpers for Expo and Next.js.
+  - Packages: @contractspec/lib.presentation-runtime-core (patch)
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+  - @contractspec/lib.contracts-spec@5.6.0
+
 ## 5.0.2
 
 ### Patch Changes

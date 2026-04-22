@@ -1,5 +1,25 @@
 # @contractspec/example.data-grid-showcase
 
+## 3.8.17
+
+### Patch Changes
+
+- Add a unified design-system Tabs primitive and migrate local tab consumers away from ui-kit leaf imports.
+  - Packages: @contractspec/lib.design-system (minor), @contractspec/example.agent-console (patch), @contractspec/example.crm-pipeline (patch), @contractspec/example.data-grid-showcase (patch), @contractspec/module.builder-workbench (patch), @contractspec/module.execution-console (patch)
+  - Migration: Consumers should import tabs from `@contractspec/lib.design-system` instead of lower-level UI-kit tab modules.
+- Updated dependencies because of Add Biome guardrails that keep JSX layout and text compatible with React and React Native.
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+- Updated dependencies because of Migrate design-system platform implementation suffixes from `.mobile` to `.native`.
+- Updated dependencies because of Harden published cross-platform UI packages around precise public subpath imports and closed native dist graphs.
+- Updated dependencies because of Keep shared table string headers and cells as primitive render-model values so React Native table renderers can wrap them in Text.
+- Updated dependencies because of Use shared stack layout primitives in the web pagination component while preserving semantic pagination markup.
+- Updated dependencies because of Add a unified design-system Tabs primitive and migrate local tab consumers away from ui-kit leaf imports.
+  - @contractspec/lib.ui-kit-web@3.12.0
+  - @contractspec/lib.design-system@4.0.0
+  - @contractspec/lib.contracts-spec@5.6.0
+  - @contractspec/lib.presentation-runtime-react@38.0.3
+  - @contractspec/lib.schema@3.7.14
+
 ## 3.8.16
 
 ### Patch Changes

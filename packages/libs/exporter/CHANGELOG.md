@@ -1,5 +1,15 @@
 # @contractspec/lib.exporter
 
+## 3.7.17
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+  - @contractspec/lib.data-exchange-core@0.2.3
+  - @contractspec/lib.contracts-spec@5.6.0
+
 ## 3.7.16
 
 ### Patch Changes

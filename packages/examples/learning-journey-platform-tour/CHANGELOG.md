@@ -1,5 +1,16 @@
 # @contractspec/example.learning-journey-platform-tour
 
+## 4.0.3
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+  - @contractspec/module.learning-journey@4.0.3
+  - @contractspec/lib.contracts-spec@5.6.0
+  - @contractspec/lib.schema@3.7.14
+
 ## 4.0.2
 
 ### Patch Changes

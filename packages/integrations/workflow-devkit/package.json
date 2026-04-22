@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/integration.workflow-devkit",
-	"version": "0.1.8",
+	"version": "0.1.9",
 	"description": "Workflow DevKit compiler and runtime bridges for ContractSpec workflows",
 	"keywords": [
 		"contractspec",

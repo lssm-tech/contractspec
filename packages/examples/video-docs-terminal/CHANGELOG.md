@@ -1,5 +1,17 @@
 # @contractspec/example.video-docs-terminal
 
+## 3.7.25
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+  - @contractspec/lib.content-gen@3.7.23
+  - @contractspec/lib.contracts-integrations@3.8.15
+  - @contractspec/lib.video-gen@3.0.2
+  - @contractspec/lib.contracts-spec@5.6.0
+
 ## 3.7.24
 
 ### Patch Changes

@@ -1,5 +1,21 @@
 # @contractspec/lib.presentation-runtime-react
 
+## 38.0.3
+
+### Patch Changes
+
+- Keep shared table string headers and cells as primitive render-model values so React Native table renderers can wrap them in Text.
+  - Packages: @contractspec/lib.presentation-runtime-react (patch), @contractspec/lib.presentation-runtime-react-native (patch)
+- Updated dependencies because of Add Biome guardrails that keep JSX layout and text compatible with React and React Native.
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+- Updated dependencies because of Migrate design-system platform implementation suffixes from `.mobile` to `.native`.
+- Updated dependencies because of Use shared stack layout primitives in the web pagination component while preserving semantic pagination markup.
+- Updated dependencies because of Support ios, android, native, and web platform suffixes in the shared Bun build tool and Metro presentation helper.
+- Updated dependencies because of Add lucide package rewrites to the shared presentation runtime bundler helpers for Expo and Next.js.
+  - @contractspec/lib.ui-kit-web@3.12.0
+  - @contractspec/lib.contracts-spec@5.6.0
+  - @contractspec/lib.presentation-runtime-core@5.0.3
+
 ## 38.0.2
 
 ### Patch Changes

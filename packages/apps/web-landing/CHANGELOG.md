@@ -1,5 +1,59 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 3.8.19
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add Biome guardrails that keep JSX layout and text compatible with React and React Native.
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+- Updated dependencies because of Replace the native UI-kit data table resize handle's gesture-handler dependency with a Reanimated responder boundary.
+- Updated dependencies because of Migrate design-system platform implementation suffixes from `.mobile` to `.native`.
+- Updated dependencies because of Harden native Pagination layout with shared stack primitives, safer page math, and accessible control labels.
+- Updated dependencies because of Harden published cross-platform UI packages around precise public subpath imports and closed native dist graphs.
+- Updated dependencies because of Add native UI-kit subpaths for Metro's ui-kit-web alias surface so Expo builds can resolve shared design-system form controls.
+- Updated dependencies because of Use shared stack layout primitives in the web pagination component while preserving semantic pagination markup.
+- Updated dependencies because of Add a unified design-system Tabs primitive and migrate local tab consumers away from ui-kit leaf imports.
+  - @contractspec/bundle.marketing@3.8.18
+  - @contractspec/example.ai-chat-assistant@3.8.17
+  - @contractspec/example.analytics-dashboard@3.9.17
+  - @contractspec/example.in-app-docs@3.7.25
+  - @contractspec/example.integration-hub@3.8.17
+  - @contractspec/example.learning-journey-registry@4.0.5
+  - @contractspec/example.marketplace@3.8.17
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.25
+  - @contractspec/example.saas-boilerplate@3.8.17
+  - @contractspec/example.visualization-showcase@3.9.17
+  - @contractspec/example.workflow-system@3.8.17
+  - @contractspec/integration.provider.claude-code@0.2.4
+  - @contractspec/integration.provider.codex@0.2.4
+  - @contractspec/integration.provider.copilot@0.2.4
+  - @contractspec/integration.provider.gemini@0.2.4
+  - @contractspec/integration.provider.local-model@0.2.4
+  - @contractspec/integration.provider.stt@0.2.4
+  - @contractspec/integration.runtime.hybrid@0.2.5
+  - @contractspec/integration.runtime.local@0.2.5
+  - @contractspec/integration.runtime.managed@0.2.5
+  - @contractspec/lib.ai-providers@3.7.16
+  - @contractspec/lib.builder-spec@0.2.5
+  - @contractspec/lib.example-shared-ui@7.0.2
+  - @contractspec/lib.progressive-delivery@34.0.22
+  - @contractspec/lib.surface-runtime@0.5.23
+  - @contractspec/lib.ui-link@3.7.18
+  - @contractspec/module.examples@4.0.2
+  - @contractspec/lib.ui-kit@4.1.0
+  - @contractspec/lib.ui-kit-web@3.12.0
+  - @contractspec/lib.ui-kit-core@3.8.3
+  - @contractspec/lib.design-system@4.0.0
+  - @contractspec/lib.contracts-spec@5.6.0
+  - @contractspec/bundle.library@3.9.5
+  - @contractspec/module.ai-chat@4.3.25
+  - @contractspec/example.agent-console@3.8.17
+  - @contractspec/example.crm-pipeline@3.7.25
+  - @contractspec/example.data-grid-showcase@3.8.17
+  - @contractspec/module.builder-workbench@0.2.7
+
 ## 3.8.18
 
 ### Patch Changes

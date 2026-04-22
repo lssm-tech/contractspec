@@ -1,5 +1,18 @@
 # @contractspec/tool.bun
 
+## 3.7.18
+
+### Patch Changes
+
+- Harden published cross-platform UI packages around precise public subpath imports and closed native dist graphs.
+  - Packages: @contractspec/tool.bun (patch), @contractspec/lib.design-system (patch), @contractspec/module.ai-chat (patch)
+  - Migration: Replace root design-system imports in published UI modules with exact public component subpaths.
+- Support ios, android, native, and web platform suffixes in the shared Bun build tool and Metro presentation helper.
+  - Packages: @contractspec/tool.bun (patch), @contractspec/lib.presentation-runtime-core (patch)
+  - Migration: Run contractspec-bun-build prebuild in packages that add or rename .ios, .android, .native, or .web source entries.
+- Publish TypeScript declarations for the @contractspec/tool.bun root config preset API.
+  - Packages: @contractspec/tool.bun (patch)
+
 ## 3.7.17
 
 ### Patch Changes

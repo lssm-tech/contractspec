@@ -1,5 +1,20 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 3.7.23
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+  - @contractspec/lib.analytics@3.7.23
+  - @contractspec/lib.lifecycle@3.7.23
+  - @contractspec/lib.observability@3.7.23
+  - @contractspec/lib.surface-runtime@0.5.23
+  - @contractspec/module.lifecycle-advisor@3.7.22
+  - @contractspec/module.lifecycle-core@3.7.22
+  - @contractspec/lib.contracts-spec@5.6.0
+
 ## 3.7.22
 
 ### Patch Changes

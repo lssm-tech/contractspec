@@ -1,5 +1,22 @@
 # @contractspec/integration.runtime
 
+## 3.9.5
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+  - @contractspec/lib.builder-runtime@0.2.5
+  - @contractspec/lib.builder-spec@0.2.5
+  - @contractspec/lib.contracts-integrations@3.8.15
+  - @contractspec/lib.execution-lanes@0.1.6
+  - @contractspec/lib.jobs@3.8.2
+  - @contractspec/lib.logger@3.7.16
+  - @contractspec/lib.provider-spec@0.2.3
+  - @contractspec/lib.contracts-spec@5.6.0
+  - @contractspec/lib.schema@3.7.14
+
 ## 3.9.4
 
 ### Patch Changes

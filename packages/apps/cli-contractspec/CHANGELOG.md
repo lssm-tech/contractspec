@@ -1,5 +1,29 @@
 # Changelog
 
+## 6.1.2
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+- Updated dependencies because of Harden published cross-platform UI packages around precise public subpath imports and closed native dist graphs.
+  - @contractspec/bundle.workspace@4.5.3
+  - @contractspec/integration.harness-runtime@0.2.16
+  - @contractspec/integration.runtime@3.9.5
+  - @contractspec/lib.ai-agent@8.0.11
+  - @contractspec/lib.ai-providers@3.7.16
+  - @contractspec/lib.contracts-integrations@3.8.15
+  - @contractspec/lib.contracts-transformers@3.7.23
+  - @contractspec/lib.harness@0.2.16
+  - @contractspec/lib.plugins@3.7.23
+  - @contractspec/lib.testing@3.7.23
+  - @contractspec/module.examples@4.0.2
+  - @contractspec/module.workspace@4.3.3
+  - @contractspec/lib.contracts-spec@5.6.0
+  - @contractspec/module.ai-chat@4.3.25
+  - @contractspec/lib.schema@3.7.14
+
 ## 6.1.1
 
 ### Patch Changes

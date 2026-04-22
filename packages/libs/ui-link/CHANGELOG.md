@@ -1,5 +1,15 @@
 # @contractspec/lib.ui-link
 
+## 3.7.18
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Add Biome guardrails that keep JSX layout and text compatible with React and React Native.
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+  - @contractspec/lib.ui-kit-core@3.8.3
+  - @contractspec/lib.contracts-spec@5.6.0
+
 ## 3.7.17
 
 ### Patch Changes

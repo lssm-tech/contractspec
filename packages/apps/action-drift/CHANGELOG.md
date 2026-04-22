@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.7.23
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+  - @contractspec/bundle.workspace@4.5.3
+  - @contractspec/lib.contracts-spec@5.6.0
+
 ## 2.7.22
 
 ### Patch Changes

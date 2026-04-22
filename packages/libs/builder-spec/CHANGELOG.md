@@ -1,5 +1,17 @@
 # @contractspec/lib.builder-spec
 
+## 0.2.5
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+  - @contractspec/lib.execution-lanes@0.1.6
+  - @contractspec/lib.provider-spec@0.2.3
+  - @contractspec/lib.contracts-spec@5.6.0
+  - @contractspec/lib.schema@3.7.14
+
 ## 0.2.4
 
 ### Patch Changes

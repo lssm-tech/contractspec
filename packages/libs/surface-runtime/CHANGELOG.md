@@ -1,5 +1,16 @@
 # @contractspec/lib.surface-runtime
 
+## 0.5.23
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+  - @contractspec/lib.observability@3.7.23
+  - @contractspec/lib.overlay-engine@3.7.23
+  - @contractspec/lib.contracts-spec@5.6.0
+
 ## 0.5.22
 
 ### Patch Changes

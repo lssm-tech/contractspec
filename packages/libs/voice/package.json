@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.voice",
-	"version": "1.7.22",
+	"version": "1.7.23",
 	"description": "Voice capabilities: TTS, STT, and conversational AI",
 	"keywords": [
 		"contractspec",

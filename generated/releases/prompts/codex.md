@@ -1,101 +1,149 @@
 Apply the ContractSpec upgrade plan in this workspace using codex.
 
 Target packages:
-@contractspec/action.version: unknown -> 3.0.2
+@contractspec/action.version: unknown -> 3.0.3
 @contractspec/app.api-library: unknown -> latest
-@contractspec/app.cli-contractspec: unknown -> 6.1.1
+@contractspec/app.cli-contractspec: unknown -> 6.1.2
 @contractspec/app.cursor-marketplace: unknown -> latest
 @contractspec/app.expo-demo: unknown -> latest
-@contractspec/app.registry-packs: unknown -> 1.7.16
+@contractspec/app.registry-packs: unknown -> 1.7.17
 @contractspec/app.web-landing: unknown -> latest
-@contractspec/biome-config: unknown -> 3.8.9
-@contractspec/bundle.library: unknown -> 3.9.4
-@contractspec/bundle.marketing: unknown -> 3.8.17
-@contractspec/bundle.workspace: unknown -> 4.5.2
-@contractspec/example.agent-console: unknown -> 3.8.16
-@contractspec/example.ai-chat-assistant: unknown -> 3.8.16
-@contractspec/example.analytics-dashboard: unknown -> 3.9.16
-@contractspec/example.crm-pipeline: unknown -> 3.7.24
-@contractspec/example.data-grid-showcase: unknown -> 3.8.16
-@contractspec/example.integration-hub: unknown -> 3.8.16
-@contractspec/example.integration-posthog: unknown -> 3.7.23
-@contractspec/example.learning-journey-ambient-coach: unknown -> 4.0.2
-@contractspec/example.learning-journey-crm-onboarding: unknown -> 4.0.4
-@contractspec/example.learning-journey-duo-drills: unknown -> 4.0.2
-@contractspec/example.learning-journey-platform-tour: unknown -> 4.0.2
-@contractspec/example.learning-journey-quest-challenges: unknown -> 4.0.2
-@contractspec/example.learning-journey-registry: unknown -> 4.0.4
-@contractspec/example.learning-journey-studio-onboarding: unknown -> 4.0.2
-@contractspec/example.learning-journey-ui-coaching: unknown -> 4.0.4
-@contractspec/example.learning-journey-ui-gamified: unknown -> 4.0.4
-@contractspec/example.learning-journey-ui-onboarding: unknown -> 4.0.4
-@contractspec/example.learning-journey-ui-shared: unknown -> 4.0.4
-@contractspec/example.learning-patterns: unknown -> 4.0.2
-@contractspec/example.marketplace: unknown -> 3.8.16
-@contractspec/example.meeting-recorder-providers: unknown -> 3.7.23
-@contractspec/example.policy-safe-knowledge-assistant: unknown -> 3.7.24
-@contractspec/example.project-management-sync: unknown -> 3.7.23
-@contractspec/example.saas-boilerplate: unknown -> 3.8.16
-@contractspec/example.voice-providers: unknown -> 3.7.23
-@contractspec/example.workflow-system: unknown -> 3.8.16
-@contractspec/integration.builder-telegram: unknown -> 0.2.4
-@contractspec/integration.builder-voice: unknown -> 0.2.4
-@contractspec/integration.builder-whatsapp: unknown -> 0.2.4
-@contractspec/integration.provider.claude-code: unknown -> 0.2.3
-@contractspec/integration.provider.codex: unknown -> 0.2.3
-@contractspec/integration.provider.copilot: unknown -> 0.2.3
-@contractspec/integration.provider.gemini: unknown -> 0.2.3
-@contractspec/integration.provider.local-model: unknown -> 0.2.3
-@contractspec/integration.provider.stt: unknown -> 0.2.3
-@contractspec/integration.providers-impls: unknown -> 4.0.1
-@contractspec/integration.runtime: unknown -> 3.9.4
-@contractspec/integration.runtime.hybrid: unknown -> 0.2.4
-@contractspec/integration.runtime.local: unknown -> 0.2.4
-@contractspec/integration.runtime.managed: unknown -> 0.2.4
-@contractspec/lib.accessibility: unknown -> 3.7.23
-@contractspec/lib.builder-runtime: unknown -> 0.2.4
-@contractspec/lib.builder-spec: unknown -> 0.2.4
-@contractspec/lib.contracts-runtime-client-react: unknown -> 3.10.2
-@contractspec/lib.contracts-runtime-server-graphql: unknown -> 3.8.1
-@contractspec/lib.contracts-runtime-server-mcp: unknown -> 3.8.2
-@contractspec/lib.contracts-runtime-server-rest: unknown -> 3.8.1
-@contractspec/lib.contracts-spec: unknown -> 5.5.1
-@contractspec/lib.data-exchange-client: unknown -> 0.2.3
-@contractspec/lib.data-exchange-core: unknown -> 0.2.2
-@contractspec/lib.data-exchange-server: unknown -> 0.2.2
-@contractspec/lib.design-system: unknown -> 3.11.2
-@contractspec/lib.error: unknown -> 3.7.15
-@contractspec/lib.example-shared-ui: unknown -> 7.0.1
+@contractspec/biome-config: unknown -> 3.8.10
+@contractspec/bundle.library: unknown -> 3.9.5
+@contractspec/bundle.marketing: unknown -> 3.8.18
+@contractspec/bundle.workspace: unknown -> 4.5.3
+@contractspec/example.agent-console: unknown -> 3.8.17
+@contractspec/example.ai-chat-assistant: unknown -> 3.8.17
+@contractspec/example.analytics-dashboard: unknown -> 3.9.17
+@contractspec/example.crm-pipeline: unknown -> 3.7.25
+@contractspec/example.data-grid-showcase: unknown -> 3.8.17
+@contractspec/example.integration-hub: unknown -> 3.8.17
+@contractspec/example.integration-posthog: unknown -> 3.7.24
+@contractspec/example.learning-journey-ambient-coach: unknown -> 4.0.3
+@contractspec/example.learning-journey-crm-onboarding: unknown -> 4.0.5
+@contractspec/example.learning-journey-duo-drills: unknown -> 4.0.3
+@contractspec/example.learning-journey-platform-tour: unknown -> 4.0.3
+@contractspec/example.learning-journey-quest-challenges: unknown -> 4.0.3
+@contractspec/example.learning-journey-registry: unknown -> 4.0.5
+@contractspec/example.learning-journey-studio-onboarding: unknown -> 4.0.3
+@contractspec/example.learning-journey-ui-coaching: unknown -> 4.0.5
+@contractspec/example.learning-journey-ui-gamified: unknown -> 4.0.5
+@contractspec/example.learning-journey-ui-onboarding: unknown -> 4.0.5
+@contractspec/example.learning-journey-ui-shared: unknown -> 4.0.5
+@contractspec/example.learning-patterns: unknown -> 4.0.3
+@contractspec/example.marketplace: unknown -> 3.8.17
+@contractspec/example.meeting-recorder-providers: unknown -> 3.7.24
+@contractspec/example.policy-safe-knowledge-assistant: unknown -> 3.7.25
+@contractspec/example.project-management-sync: unknown -> 3.7.24
+@contractspec/example.saas-boilerplate: unknown -> 3.8.17
+@contractspec/example.voice-providers: unknown -> 3.7.24
+@contractspec/example.workflow-system: unknown -> 3.8.17
+@contractspec/integration.builder-telegram: unknown -> 0.2.5
+@contractspec/integration.builder-voice: unknown -> 0.2.5
+@contractspec/integration.builder-whatsapp: unknown -> 0.2.5
+@contractspec/integration.provider.claude-code: unknown -> 0.2.4
+@contractspec/integration.provider.codex: unknown -> 0.2.4
+@contractspec/integration.provider.copilot: unknown -> 0.2.4
+@contractspec/integration.provider.gemini: unknown -> 0.2.4
+@contractspec/integration.provider.local-model: unknown -> 0.2.4
+@contractspec/integration.provider.stt: unknown -> 0.2.4
+@contractspec/integration.providers-impls: unknown -> 4.0.2
+@contractspec/integration.runtime: unknown -> 3.9.5
+@contractspec/integration.runtime.hybrid: unknown -> 0.2.5
+@contractspec/integration.runtime.local: unknown -> 0.2.5
+@contractspec/integration.runtime.managed: unknown -> 0.2.5
+@contractspec/lib.accessibility: unknown -> 3.7.24
+@contractspec/lib.builder-runtime: unknown -> 0.2.5
+@contractspec/lib.builder-spec: unknown -> 0.2.5
+@contractspec/lib.contracts-runtime-client-react: unknown -> 3.11.0
+@contractspec/lib.contracts-runtime-server-graphql: unknown -> 3.8.2
+@contractspec/lib.contracts-runtime-server-mcp: unknown -> 3.8.3
+@contractspec/lib.contracts-runtime-server-rest: unknown -> 3.8.2
+@contractspec/lib.contracts-spec: unknown -> 5.6.0
+@contractspec/lib.data-exchange-client: unknown -> 0.2.4
+@contractspec/lib.data-exchange-core: unknown -> 0.2.3
+@contractspec/lib.data-exchange-server: unknown -> 0.2.3
+@contractspec/lib.design-system: unknown -> 4.0.0
+@contractspec/lib.error: unknown -> 3.7.16
+@contractspec/lib.example-shared-ui: unknown -> 7.0.2
 @contractspec/lib.exporter: unknown -> latest
-@contractspec/lib.jobs: unknown -> 3.8.1
-@contractspec/lib.knowledge: unknown -> 3.7.22
-@contractspec/lib.mobile-control: unknown -> 0.2.4
-@contractspec/lib.presentation-runtime-core: unknown -> 5.0.2
-@contractspec/lib.presentation-runtime-react: unknown -> 38.0.2
-@contractspec/lib.provider-runtime: unknown -> 0.2.4
-@contractspec/lib.provider-spec: unknown -> 0.2.2
-@contractspec/lib.runtime-sandbox: unknown -> 3.0.1
-@contractspec/lib.support-bot: unknown -> 4.0.2
-@contractspec/lib.surface-runtime: unknown -> 0.5.22
-@contractspec/lib.ui-kit: unknown -> 4.0.1
-@contractspec/lib.ui-kit-core: unknown -> 3.8.2
-@contractspec/lib.ui-kit-web: unknown -> 3.11.1
-@contractspec/lib.ui-link: unknown -> 3.7.17
-@contractspec/lib.video-gen: unknown -> 3.0.1
-@contractspec/module.builder-workbench: unknown -> 0.2.6
-@contractspec/module.examples: unknown -> 4.0.1
-@contractspec/module.execution-console: unknown -> 0.1.7
-@contractspec/module.learning-journey: unknown -> 4.0.2
-@contractspec/module.mobile-review: unknown -> 0.2.6
-@contractspec/module.notifications: unknown -> 3.7.21
-@contractspec/module.workspace: unknown -> 4.3.2
-@contractspec/tool.bun: unknown -> 3.7.17
-@contractspec/tool.docs-generator: unknown -> 3.7.21
+@contractspec/lib.jobs: unknown -> 3.8.2
+@contractspec/lib.knowledge: unknown -> 3.7.23
+@contractspec/lib.mobile-control: unknown -> 0.2.5
+@contractspec/lib.presentation-runtime-core: unknown -> 5.0.3
+@contractspec/lib.presentation-runtime-react: unknown -> 38.0.3
+@contractspec/lib.presentation-runtime-react-native: unknown -> 38.0.3
+@contractspec/lib.provider-runtime: unknown -> 0.2.5
+@contractspec/lib.provider-spec: unknown -> 0.2.3
+@contractspec/lib.runtime-sandbox: unknown -> 3.0.2
+@contractspec/lib.support-bot: unknown -> 4.0.3
+@contractspec/lib.surface-runtime: unknown -> 0.5.23
+@contractspec/lib.ui-kit: unknown -> 4.1.0
+@contractspec/lib.ui-kit-core: unknown -> 3.8.3
+@contractspec/lib.ui-kit-web: unknown -> 3.12.0
+@contractspec/lib.ui-link: unknown -> 3.7.18
+@contractspec/lib.video-gen: unknown -> 3.0.2
+@contractspec/module.ai-chat: unknown -> 4.3.25
+@contractspec/module.builder-workbench: unknown -> 0.2.7
+@contractspec/module.examples: unknown -> 4.0.2
+@contractspec/module.execution-console: unknown -> 0.1.8
+@contractspec/module.learning-journey: unknown -> 4.0.3
+@contractspec/module.mobile-review: unknown -> 0.2.7
+@contractspec/module.notifications: unknown -> 3.7.22
+@contractspec/module.workspace: unknown -> 4.3.3
+@contractspec/tool.bun: unknown -> 3.7.18
+@contractspec/tool.docs-generator: unknown -> 3.7.22
 agentpacks: unknown -> 1.8.0
 contractspec: unknown -> 1.46.2
-vscode-contractspec: unknown -> 3.10.5
+vscode-contractspec: unknown -> 3.10.6
 
 Required steps:
+- [assisted] Re-run native table previews after upgrading: Confirm table surfaces that render string headers, formatted numbers, and expanded content still display correctly.
+  - Run the focused presentation-runtime table tests.
+  - Run the native UI-kit table smoke tests.
+  - Re-open Expo previews that consume shared examples such as agent-console.
+- [manual] Add PasswordInput to custom drivers: Custom form renderers can provide the optional `PasswordInput` slot to get a visibility toggle.
+  - Implement a driver component that accepts input props plus `passwordPurpose`, `visibilityToggle`, `showLabelI18n`, and `hideLabelI18n`.
+  - Omit the slot to keep the fallback masked input behavior.
+- [assisted] Re-run presentation alias tests after upgrading: Confirm Metro, Turbopack, and Webpack helpers still preserve caller aliases and resolve extensions.
+  - Run the focused presentation-runtime-core alias test suite.
+  - Re-open any Expo or Next.js preview that consumes shared UI-kit components with lucide icons.
+- [assisted] Revalidate native data table resizing: Confirm table column resize handles still update widths in Expo or React Native surfaces after upgrading.
+  - Run the native UI-kit data table smoke test.
+  - Run ui-kit lint and typecheck.
+  - Re-open any Expo screen that exposes resizable native data table columns.
+- [manual] Revalidate native paginated views: Confirm table and list surfaces that render native Pagination still display the expected controls and item ranges.
+  - Open native data table and list surfaces that use `@contractspec/lib.ui-kit/ui/atoms/Pagination`.
+  - Check first, previous, numbered, next, last, and page-size controls.
+  - Confirm empty or out-of-range pagination state does not show negative or invalid item ranges.
+- [manual] Restart Expo Metro after updating the UI kit: Metro may cache failed subpath resolutions from before these native exports existed.
+  - Stop the Expo dev server.
+  - Restart with a clean Metro cache when a previous run failed on ui-kit-web form-control subpaths.
+- [manual] Regenerate design-system exports: Keep package exports and registry metadata aligned with `.native` source files.
+  - Run `cd packages/libs/design-system && bun run prebuild && bun run registry:build`.
+  - Verify no `*.mobile.tsx` platform files remain in `packages/libs/design-system/src`.
+- [manual] Migrate direct tab imports: Move tabbed product surfaces to the design-system root export.
+  - Import `Tabs`, `TabsList`, `TabsTrigger`, and `TabsContent` from `@contractspec/lib.design-system`.
+  - Add `@contractspec/lib.design-system` as a package dependency if the consumer package did not already depend on it.
+  - Re-run typecheck for the migrated package.
+- [manual] Verify custom pagination class overrides: Consumers that override pagination class names should confirm their overrides still combine correctly with shared stack defaults.
+  - Reopen pagination surfaces that pass custom `className` values to `Pagination`, `PaginationContent`, or `PaginationEllipsis`.
+  - Confirm the controls still align horizontally and preserve expected spacing.
+- [manual] Sync generated Biome policy artifacts: Keep generated presets, Grit plugins, and AI summaries aligned with the typed manifest.
+  - Run `cd packages/tools/biome-config && bun run sync:artifacts` after policy manifest edits.
+- [assisted] Run the JSX primitive fixer: Apply conservative automatic replacements before manually addressing mixed or ambiguous diagnostics.
+  - Run `bun run jsx:fix-primitives -- --check` to preview deterministic replacements.
+  - Run `bun run jsx:fix-primitives` to apply deterministic replacements in shared presentation packages.
+  - Add `--allow-app <package>` only when an app package should opt into the same fixer scope.
+- [manual] Rebuild packages with native-family entries: Run contractspec-bun-build prebuild and build so dist/native includes shared generic helper files.
+  - Rebuild packages that publish .native, .ios, or .android source variants.
+  - Restart Metro after upgrading packages with changed native publish artifacts.
+- [manual] Restart Metro after platform export changes: Metro may cache previous package export maps and should be restarted after upgrading packages that add platform variant exports.
+  - Stop the Expo or React Native dev server.
+  - Restart Metro after package exports have been regenerated and rebuilt.
+- [manual] Import typed Bun build presets: TypeScript config files can now import BuildConfig and defineConfig from @contractspec/tool.bun.
+  - Import defineConfig and the preset that matches the package shape.
+  - Import BuildConfig when an explicit config annotation is useful for editor feedback.
 - [manual] Use FormSpec layout hints for dense forms: Replace renderer-specific row wrappers with portable column and colspan metadata.
   - Add `layout.columns` at form or group level.
   - Use `field.layout.colSpan` for fields that should expand across columns.

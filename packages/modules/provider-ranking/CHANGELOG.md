@@ -1,5 +1,17 @@
 # @contractspec/module.provider-ranking
 
+## 0.7.22
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+  - @contractspec/lib.contracts-integrations@3.8.15
+  - @contractspec/lib.provider-ranking@0.7.16
+  - @contractspec/lib.contracts-spec@5.6.0
+  - @contractspec/lib.schema@3.7.14
+
 ## 0.7.21
 
 ### Patch Changes

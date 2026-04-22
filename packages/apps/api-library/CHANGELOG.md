@@ -1,5 +1,24 @@
 # @contractspec/app.api-library
 
+## 3.8.18
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+- Updated dependencies because of Migrate design-system platform implementation suffixes from `.mobile` to `.native`.
+  - @contractspec/bundle.marketing@3.8.18
+  - @contractspec/bundle.workspace@4.5.3
+  - @contractspec/integration.builder-telegram@0.2.5
+  - @contractspec/integration.builder-whatsapp@0.2.5
+  - @contractspec/integration.provider.codex@0.2.4
+  - @contractspec/integration.providers-impls@4.0.2
+  - @contractspec/integration.runtime@3.9.5
+  - @contractspec/integration.runtime.managed@0.2.5
+  - @contractspec/lib.contracts-spec@5.6.0
+  - @contractspec/bundle.library@3.9.5
+
 ## 3.8.17
 
 ### Patch Changes

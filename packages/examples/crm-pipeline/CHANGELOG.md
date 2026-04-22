@@ -1,5 +1,32 @@
 # @contractspec/example.crm-pipeline
 
+## 3.7.25
+
+### Patch Changes
+
+- Add a unified design-system Tabs primitive and migrate local tab consumers away from ui-kit leaf imports.
+  - Packages: @contractspec/lib.design-system (minor), @contractspec/example.agent-console (patch), @contractspec/example.crm-pipeline (patch), @contractspec/example.data-grid-showcase (patch), @contractspec/module.builder-workbench (patch), @contractspec/module.execution-console (patch)
+  - Migration: Consumers should import tabs from `@contractspec/lib.design-system` instead of lower-level UI-kit tab modules.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add Biome guardrails that keep JSX layout and text compatible with React and React Native.
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+- Updated dependencies because of Migrate design-system platform implementation suffixes from `.mobile` to `.native`.
+- Updated dependencies because of Harden published cross-platform UI packages around precise public subpath imports and closed native dist graphs.
+- Updated dependencies because of Use shared stack layout primitives in the web pagination component while preserving semantic pagination markup.
+- Updated dependencies because of Support ios, android, native, and web platform suffixes in the shared Bun build tool and Metro presentation helper.
+- Updated dependencies because of Add lucide package rewrites to the shared presentation runtime bundler helpers for Expo and Next.js.
+- Updated dependencies because of Add a unified design-system Tabs primitive and migrate local tab consumers away from ui-kit leaf imports.
+  - @contractspec/lib.example-shared-ui@7.0.2
+  - @contractspec/lib.identity-rbac@3.7.23
+  - @contractspec/lib.runtime-sandbox@3.0.2
+  - @contractspec/module.audit-trail@3.7.23
+  - @contractspec/module.notifications@3.7.22
+  - @contractspec/lib.ui-kit-web@3.12.0
+  - @contractspec/lib.design-system@4.0.0
+  - @contractspec/lib.contracts-spec@5.6.0
+  - @contractspec/lib.presentation-runtime-core@5.0.3
+  - @contractspec/lib.schema@3.7.14
+
 ## 3.7.24
 
 ### Patch Changes

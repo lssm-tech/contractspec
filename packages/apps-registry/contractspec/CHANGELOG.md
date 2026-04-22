@@ -1,5 +1,17 @@
 # contractspec
 
+## 4.0.6
+
+### Patch Changes
+
+- Add Biome guardrails that keep JSX layout and text compatible with React and React Native.
+  - Packages: @contractspec/biome-config (patch), contractspec (patch), @contractspec/lib.ui-kit (patch), @contractspec/lib.ui-kit-web (patch), @contractspec/lib.ui-kit-core (patch), @contractspec/lib.design-system (patch)
+  - Migration: Use ContractSpec layout and typography primitives in JSX surfaces.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+  - @contractspec/app.cli-contractspec@6.1.2
+  - @contractspec/lib.contracts-spec@5.6.0
+
 ## 4.0.5
 
 ### Patch Changes

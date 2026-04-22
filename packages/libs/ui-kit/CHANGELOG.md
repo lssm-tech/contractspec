@@ -1,5 +1,34 @@
 # @contractspec/lib.ui-kit
 
+## 4.1.0
+
+### Minor Changes
+
+- Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.contracts-runtime-client-react (minor), @contractspec/lib.design-system (minor), @contractspec/lib.ui-kit-web (minor), @contractspec/lib.ui-kit (minor), @contractspec/lib.ui-kit-core (patch)
+  - Migration: Existing text fields and custom driver slots remain compatible.; Prefer `text.password.purpose` for password fields instead of renderer-specific `uiProps.type`.
+
+### Patch Changes
+
+- Add Biome guardrails that keep JSX layout and text compatible with React and React Native.
+  - Packages: @contractspec/biome-config (patch), contractspec (patch), @contractspec/lib.ui-kit (patch), @contractspec/lib.ui-kit-web (patch), @contractspec/lib.ui-kit-core (patch), @contractspec/lib.design-system (patch)
+  - Migration: Use ContractSpec layout and typography primitives in JSX surfaces.
+- Replace the native UI-kit data table resize handle's gesture-handler dependency with a Reanimated responder boundary.
+  - Packages: @contractspec/lib.ui-kit (patch)
+  - Deprecations: Do not import `react-native-gesture-handler` for the native UI-kit data table resize handle; use the Reanimated-backed implementation.
+- Harden native Pagination layout with shared stack primitives, safer page math, and accessible control labels.
+  - Packages: @contractspec/lib.ui-kit (patch)
+- Add native UI-kit subpaths for Metro's ui-kit-web alias surface so Expo builds can resolve shared design-system form controls.
+  - Packages: @contractspec/lib.ui-kit (patch)
+- Updated dependencies because of Add Biome guardrails that keep JSX layout and text compatible with React and React Native.
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+- Updated dependencies because of Migrate design-system platform implementation suffixes from `.mobile` to `.native`.
+- Updated dependencies because of Support ios, android, native, and web platform suffixes in the shared Bun build tool and Metro presentation helper.
+- Updated dependencies because of Add lucide package rewrites to the shared presentation runtime bundler helpers for Expo and Next.js.
+  - @contractspec/lib.ui-kit-core@3.8.3
+  - @contractspec/lib.contracts-spec@5.6.0
+  - @contractspec/lib.presentation-runtime-core@5.0.3
+
 ## 4.0.1
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @contractspec/action.version
 
+## 3.0.3
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+  - @contractspec/lib.contracts-spec@5.6.0
+
 ## 3.0.2
 
 ### Patch Changes

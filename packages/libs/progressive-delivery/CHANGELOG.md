@@ -1,5 +1,15 @@
 # @contractspec/lib.progressive-delivery
 
+## 34.0.22
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+  - @contractspec/lib.observability@3.7.23
+  - @contractspec/lib.contracts-spec@5.6.0
+
 ## 34.0.21
 
 ### Patch Changes

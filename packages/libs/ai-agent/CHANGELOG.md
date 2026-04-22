@@ -1,5 +1,17 @@
 # @contractspec/lib.ai-agent
 
+## 8.0.11
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+  - @contractspec/lib.ai-providers@3.7.16
+  - @contractspec/lib.knowledge@3.7.23
+  - @contractspec/lib.surface-runtime@0.5.23
+  - @contractspec/lib.contracts-spec@5.6.0
+
 ## 8.0.10
 
 ### Patch Changes

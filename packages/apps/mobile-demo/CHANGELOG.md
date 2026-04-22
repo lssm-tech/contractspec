@@ -1,5 +1,48 @@
 # @contractspec/app.expo-demo
 
+## 1.1.27
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add Biome guardrails that keep JSX layout and text compatible with React and React Native.
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+- Updated dependencies because of Replace the native UI-kit data table resize handle's gesture-handler dependency with a Reanimated responder boundary.
+- Updated dependencies because of Migrate design-system platform implementation suffixes from `.mobile` to `.native`.
+- Updated dependencies because of Harden native Pagination layout with shared stack primitives, safer page math, and accessible control labels.
+- Updated dependencies because of Keep shared table string headers and cells as primitive render-model values so React Native table renderers can wrap them in Text.
+- Updated dependencies because of Add native UI-kit subpaths for Metro's ui-kit-web alias surface so Expo builds can resolve shared design-system form controls.
+- Updated dependencies because of Support ios, android, native, and web platform suffixes in the shared Bun build tool and Metro presentation helper.
+- Updated dependencies because of Add lucide package rewrites to the shared presentation runtime bundler helpers for Expo and Next.js.
+- Updated dependencies because of Add a unified design-system Tabs primitive and migrate local tab consumers away from ui-kit leaf imports.
+  - @contractspec/bundle.marketing@3.8.18
+  - @contractspec/example.ai-chat-assistant@3.8.17
+  - @contractspec/example.analytics-dashboard@3.9.17
+  - @contractspec/example.in-app-docs@3.7.25
+  - @contractspec/example.integration-hub@3.8.17
+  - @contractspec/example.learning-journey-registry@4.0.5
+  - @contractspec/example.marketplace@3.8.17
+  - @contractspec/example.meeting-recorder-providers@3.7.24
+  - @contractspec/example.pocket-family-office@3.7.23
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.25
+  - @contractspec/example.saas-boilerplate@3.8.17
+  - @contractspec/example.video-api-showcase@3.7.25
+  - @contractspec/example.video-docs-terminal@3.7.25
+  - @contractspec/example.visualization-showcase@3.9.17
+  - @contractspec/example.voice-providers@3.7.24
+  - @contractspec/example.workflow-system@3.8.17
+  - @contractspec/module.examples@4.0.2
+  - @contractspec/lib.ui-kit@4.1.0
+  - @contractspec/lib.ui-kit-core@3.8.3
+  - @contractspec/lib.contracts-spec@5.6.0
+  - @contractspec/lib.presentation-runtime-core@5.0.3
+  - @contractspec/lib.presentation-runtime-react-native@38.0.3
+  - @contractspec/example.agent-console@3.8.17
+  - @contractspec/example.crm-pipeline@3.7.25
+  - @contractspec/example.data-grid-showcase@3.8.17
+  - @contractspec/lib.schema@3.7.14
+
 ## 1.1.25
 
 ### Patch Changes

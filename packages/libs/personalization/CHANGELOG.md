@@ -1,5 +1,19 @@
 # @contractspec/lib.personalization
 
+## 6.0.23
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+  - @contractspec/lib.bus@3.7.23
+  - @contractspec/lib.knowledge@3.7.23
+  - @contractspec/lib.overlay-engine@3.7.23
+  - @contractspec/lib.surface-runtime@0.5.23
+  - @contractspec/lib.contracts-spec@5.6.0
+  - @contractspec/lib.schema@3.7.14
+
 ## 6.0.22
 
 ### Patch Changes

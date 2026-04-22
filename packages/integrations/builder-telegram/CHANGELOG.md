@@ -1,5 +1,18 @@
 # @contractspec/integration.builder-telegram
 
+## 0.2.5
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/integration.runtime@3.9.5
+  - @contractspec/lib.builder-runtime@0.2.5
+  - @contractspec/lib.builder-spec@0.2.5
+  - @contractspec/lib.contracts-integrations@3.8.15
+  - @contractspec/lib.provider-spec@0.2.3
+  - @contractspec/lib.schema@3.7.14
+
 ## 0.2.4
 
 ### Patch Changes

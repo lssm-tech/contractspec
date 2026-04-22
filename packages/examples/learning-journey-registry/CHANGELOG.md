@@ -1,5 +1,25 @@
 # @contractspec/example.learning-journey-registry
 
+## 4.0.5
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add password-aware FormSpec rendering with current/new password manager hints and visibility toggles.
+  - @contractspec/example.learning-journey-ambient-coach@4.0.3
+  - @contractspec/example.learning-journey-crm-onboarding@4.0.5
+  - @contractspec/example.learning-journey-duo-drills@4.0.3
+  - @contractspec/example.learning-journey-platform-tour@4.0.3
+  - @contractspec/example.learning-journey-quest-challenges@4.0.3
+  - @contractspec/example.learning-journey-studio-onboarding@4.0.3
+  - @contractspec/example.learning-journey-ui-coaching@4.0.5
+  - @contractspec/example.learning-journey-ui-gamified@4.0.5
+  - @contractspec/example.learning-journey-ui-onboarding@4.0.5
+  - @contractspec/example.learning-journey-ui-shared@4.0.5
+  - @contractspec/module.learning-journey@4.0.3
+  - @contractspec/lib.contracts-spec@5.6.0
+
 ## 4.0.4
 
 ### Patch Changes
