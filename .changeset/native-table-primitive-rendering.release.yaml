@@ -1,0 +1,48 @@
+schemaVersion: "1"
+slug: native-table-primitive-rendering
+summary: Keep shared table string headers and cells as primitive render-model values so React Native table renderers can wrap them in Text.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.presentation-runtime-react"
+    releaseType: patch
+  - name: "@contractspec/lib.presentation-runtime-react-native"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - expo
+affectedFrameworks:
+  - react
+  - react-native
+audiences:
+  - kind: maintainer
+    summary: The TanStack-backed table controller now resolves its internal header and cell templates directly instead of returning React component wrappers for primitive strings.
+    affectedPackages:
+      - "@contractspec/lib.presentation-runtime-react"
+      - "@contractspec/lib.presentation-runtime-react-native"
+  - kind: integrator
+    summary: Expo consumers can keep importing the shared table hook through the native presentation runtime while native UI-kit tables receive strings they can wrap in Text.
+    affectedPackages:
+      - "@contractspec/lib.presentation-runtime-react-native"
+  - kind: customer
+    summary: Agent-console and other native table previews no longer fail when string table headers or formatted cell values render inside React Native table cells.
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: revalidate-native-table-previews
+    title: Re-run native table previews after upgrading
+    summary: Confirm table surfaces that render string headers, formatted numbers, and expanded content still display correctly.
+    level: assisted
+    instructions:
+      - Run the focused presentation-runtime table tests.
+      - Run the native UI-kit table smoke tests.
+      - Re-open Expo previews that consume shared examples such as agent-console.
+validation:
+  commands:
+    - cd packages/libs/presentation-runtime-react && bun test src/useDataViewTable.test.tsx && bun run typecheck && bun run lint:check
+    - cd packages/libs/presentation-runtime-react-native && bun run typecheck
+    - cd packages/libs/ui-kit && bun test ui/data-table.smoke.test.tsx
+    - cd packages/examples/agent-console && bun run typecheck
+  evidence:
+    - "`useContractTable` now keeps string headers, cell content, and expanded content as primitive render-model values."
+    - "The native UI-kit data table smoke suite still wraps primitive cell strings through its Text boundary."
+    - "The agent-console package typecheck validates the shared preview table against the Expo-facing alias boundary."

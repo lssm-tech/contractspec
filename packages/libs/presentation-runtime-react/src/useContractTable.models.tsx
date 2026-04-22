@@ -5,12 +5,7 @@ import type {
 	ContractTableRowRenderModel,
 	ContractTableSelectionMode,
 } from '@contractspec/lib.presentation-runtime-core';
-import {
-	type Column,
-	type ColumnDef,
-	flexRender,
-	type Table,
-} from '@tanstack/react-table';
+import { type Column, type ColumnDef, type Table } from '@tanstack/react-table';
 import * as React from 'react';
 import type { ContractTableColumnDef } from './table.types';
 import { clampTableSize, normalizePinState } from './table.utils';
@@ -134,6 +129,29 @@ function getStickyOffset<TItem>(column: LeafColumn<TItem>) {
 	return undefined;
 }
 
+function renderHeader<TItem>(
+	header: ReturnType<Table<TItem>['getFlatHeaders']>[number] | undefined,
+	fallback: React.ReactNode
+) {
+	if (!header) return fallback;
+
+	const headerTemplate = header.column.columnDef.header;
+	return typeof headerTemplate === 'function'
+		? headerTemplate(header.getContext())
+		: (headerTemplate ?? fallback);
+}
+
+function renderCell<TItem>(
+	cell: ReturnType<
+		ReturnType<Table<TItem>['getRowModel']>['rows'][number]['getVisibleCells']
+	>[number]
+) {
+	const cellTemplate = cell.column.columnDef.cell;
+	return typeof cellTemplate === 'function'
+		? cellTemplate(cell.getContext())
+		: (cellTemplate ?? null);
+}
+
 export function createRenderColumns<TItem>(
 	table: Table<TItem>
 ): ContractTableColumnRenderModel<React.ReactNode>[] {
@@ -148,12 +166,7 @@ export function createRenderColumns<TItem>(
 		return {
 			id: column.id,
 			kind: meta?.kind ?? 'data',
-			header: header
-				? (flexRender(
-						header.column.columnDef.header,
-						header.getContext()
-					) as React.ReactNode)
-				: (meta?.label ?? column.id),
+			header: renderHeader(header, meta?.label ?? column.id),
 			label: meta?.label ?? column.id,
 			align: meta?.align ?? 'left',
 			size: column.getSize(),
@@ -213,13 +226,7 @@ export function createRenderRows<TItem>(
 				id: cell.id,
 				columnId: cell.column.id,
 				kind: meta?.kind ?? 'data',
-				content:
-					meta?.kind === 'data'
-						? (flexRender(
-								cell.column.columnDef.cell,
-								cell.getContext()
-							) as React.ReactNode)
-						: null,
+				content: meta?.kind === 'data' ? renderCell(cell) : null,
 				align: meta?.align ?? 'left',
 				size: cell.column.getSize(),
 				pinState: normalizePinState(cell.column.getIsPinned()),

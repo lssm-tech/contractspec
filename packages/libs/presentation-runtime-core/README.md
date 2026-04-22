@@ -81,6 +81,11 @@ const config = getDefaultConfig(projectRoot);
 module.exports = withPresentationMetroAliases(config);
 ```
 
+The helpers also keep shared UI imports platform-correct:
+
+- Metro rewrites `@contractspec/lib.ui-kit-web/ui/*` to `@contractspec/lib.ui-kit/ui/*`, `@contractspec/lib.presentation-runtime-react` to `@contractspec/lib.presentation-runtime-react-native`, and `lucide-react` to `lucide-react-native` for native platforms.
+- Next.js Turbopack/Webpack rewrites the native package names back to the web packages, including `lucide-react-native` to `lucide-react`.
+
 ## Architecture
 
 - `src/index.ts` is the root public barrel that builds the package entrypoint.

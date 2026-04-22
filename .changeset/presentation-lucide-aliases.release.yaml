@@ -1,0 +1,43 @@
+schemaVersion: "1"
+slug: presentation-lucide-aliases
+summary: Add lucide package rewrites to the shared presentation runtime bundler helpers for Expo and Next.js.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.presentation-runtime-core"
+    releaseType: patch
+affectedRuntimes:
+  - expo
+  - nextjs
+affectedFrameworks:
+  - metro
+  - turbopack
+  - webpack
+  - react-native
+audiences:
+  - kind: maintainer
+    summary: Presentation alias helpers now treat lucide icons as a platform pair alongside the UI-kit and presentation-runtime package pairs.
+    affectedPackages:
+      - "@contractspec/lib.presentation-runtime-core"
+  - kind: integrator
+    summary: Shared React/React Native surfaces can import lucide icons through the platform-natural package while bundler helpers rewrite them for Expo or Next.js.
+    affectedPackages:
+      - "@contractspec/lib.presentation-runtime-core"
+  - kind: customer
+    summary: Mobile and web previews avoid lucide package mismatches when shared UI code crosses the Expo and Next.js boundaries.
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: revalidate-bundler-aliases
+    title: Re-run presentation alias tests after upgrading
+    summary: Confirm Metro, Turbopack, and Webpack helpers still preserve caller aliases and resolve extensions.
+    level: assisted
+    instructions:
+      - Run the focused presentation-runtime-core alias test suite.
+      - Re-open any Expo or Next.js preview that consumes shared UI-kit components with lucide icons.
+validation:
+  commands:
+    - cd packages/libs/presentation-runtime-core && bun test src/presentation-aliases.test.ts && bun run typecheck && bun run lint:check
+  evidence:
+    - "Metro now rewrites `lucide-react` to `lucide-react-native` on native platforms."
+    - "Next.js Turbopack and Webpack alias maps now rewrite `lucide-react-native` to `lucide-react`."
+    - "The presentation-runtime-core README documents the icon package alias behavior."

@@ -30,6 +30,7 @@ describe('presentation alias helpers', () => {
 			'@contractspec/lib.ui-kit': '@contractspec/lib.ui-kit-web',
 			'@contractspec/lib.presentation-runtime-react-native':
 				'@contractspec/lib.presentation-runtime-react',
+			'lucide-react-native': 'lucide-react',
 		});
 		expect(config.resolve.extensions).toEqual([
 			'.web.js',
@@ -54,6 +55,7 @@ describe('presentation alias helpers', () => {
 				'@contractspec/lib.ui-kit': '@contractspec/lib.ui-kit-web',
 				'@contractspec/lib.presentation-runtime-react-native':
 					'@contractspec/lib.presentation-runtime-react',
+				'lucide-react-native': 'lucide-react',
 			},
 			resolveExtensions: [
 				'.web.tsx',
@@ -87,6 +89,7 @@ describe('presentation alias helpers', () => {
 			'@contractspec/lib.ui-kit': '@contractspec/lib.ui-kit-web',
 			'@contractspec/lib.presentation-runtime-react-native':
 				'@contractspec/lib.presentation-runtime-react',
+			'lucide-react-native': 'lucide-react',
 		});
 		expect(nextConfig.turbopack.resolveExtensions).toEqual([
 			'.web.tsx',
@@ -149,12 +152,14 @@ describe('presentation alias helpers', () => {
 			'@contractspec/lib.presentation-runtime-react',
 			'native'
 		);
+		config.resolver.resolveRequest({}, 'lucide-react', 'android');
 		config.resolver.resolveRequest({}, 'tslib', 'ios');
 		config.resolver.resolveRequest(
 			{},
 			'@contractspec/lib.ui-kit-web/ui/stack',
 			'web'
 		);
+		config.resolver.resolveRequest({}, 'lucide-react', 'web');
 		config.resolver.resolveRequest({}, 'tslib', 'web');
 
 		expect(calls).toEqual([
@@ -167,11 +172,19 @@ describe('presentation alias helpers', () => {
 				platform: 'native',
 			},
 			{
+				moduleName: 'lucide-react-native',
+				platform: 'android',
+			},
+			{
 				moduleName: 'tslib/tslib.es6.js',
 				platform: 'ios',
 			},
 			{
 				moduleName: '@contractspec/lib.ui-kit-web/ui/stack',
+				platform: 'web',
+			},
+			{
+				moduleName: 'lucide-react',
 				platform: 'web',
 			},
 			{

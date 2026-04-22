@@ -290,6 +290,32 @@ describe('table hooks', () => {
 		});
 	});
 
+	test('useContractTable keeps string headers and cells as primitive content', async () => {
+		let controllerRef:
+			| ReturnType<typeof useContractTable<(typeof BASE_ROWS)[number]>>
+			| undefined;
+		const onReady = (controller: typeof controllerRef) => {
+			controllerRef = controller ?? undefined;
+		};
+
+		const { root } = await renderNode(
+			<ControllerHarness onReady={onReady} rows={BASE_ROWS} />
+		);
+
+		expect(
+			controllerRef?.columns.find((column) => column.id === 'account')?.header
+		).toBe('Account');
+		expect(
+			controllerRef?.rows[0]?.cells.find((cell) => cell.columnId === 'account')
+				?.content
+		).toBe('Northwind');
+		expect(controllerRef?.rows[0]?.expandedContent).toBe('Expanded');
+
+		await act(async () => {
+			root.unmount();
+		});
+	});
+
 	test('useContractTable prunes stale visibility and pinning after columns disappear', async () => {
 		let controllerRef:
 			| ReturnType<typeof useContractTable<(typeof BASE_ROWS)[number]>>

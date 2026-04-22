@@ -3,6 +3,8 @@ export interface PresentationAliasOptions {
 	uiKitNative?: string;
 	presentationReact?: string;
 	presentationNative?: string;
+	lucideReact?: string;
+	lucideReactNative?: string;
 }
 
 export interface PresentationAliasTargets {
@@ -10,6 +12,8 @@ export interface PresentationAliasTargets {
 	uiKitNative: string;
 	presentationReact: string;
 	presentationNative: string;
+	lucideReact: string;
+	lucideReactNative: string;
 }
 
 export type TurbopackAliasTarget = string | { browser: string };
@@ -49,6 +53,8 @@ export function resolvePresentationAliasTargets(
 		presentationNative:
 			options.presentationNative ??
 			'@contractspec/lib.presentation-runtime-react-native',
+		lucideReact: options.lucideReact ?? 'lucide-react',
+		lucideReactNative: options.lucideReactNative ?? 'lucide-react-native',
 	};
 }
 
@@ -60,6 +66,7 @@ export function createPresentationAliasMap(
 	return {
 		[targets.uiKitNative]: targets.uiKitWeb,
 		[targets.presentationNative]: targets.presentationReact,
+		[targets.lucideReactNative]: targets.lucideReact,
 	};
 }
 
