@@ -3,9 +3,8 @@ import {
 	ChevronRight,
 	ChevronsLeft,
 	ChevronsRight,
-} from 'lucide-react';
+} from 'lucide-react-native';
 import React from 'react';
-import { View } from 'react-native';
 import { Button } from '../../button';
 import {
 	Select,
@@ -14,8 +13,46 @@ import {
 	SelectTrigger,
 	SelectValue,
 } from '../../select';
+import { HStack, VStack } from '../../stack';
 import { Text } from '../../text';
 import type { PaginationProps } from './types';
+
+type VisiblePageItem = number | 'start-ellipsis' | 'end-ellipsis';
+
+function getVisiblePageItems(
+	currentPage: number,
+	totalPages: number
+): VisiblePageItem[] {
+	if (totalPages <= 7) {
+		return Array.from({ length: totalPages }, (_, i) => i + 1);
+	}
+
+	if (currentPage <= 3) {
+		return [1, 2, 3, 4, 5, 'end-ellipsis', totalPages];
+	}
+
+	if (currentPage >= totalPages - 2) {
+		return [
+			1,
+			'start-ellipsis',
+			totalPages - 4,
+			totalPages - 3,
+			totalPages - 2,
+			totalPages - 1,
+			totalPages,
+		];
+	}
+
+	return [
+		1,
+		'start-ellipsis',
+		currentPage - 1,
+		currentPage,
+		currentPage + 1,
+		'end-ellipsis',
+		totalPages,
+	];
+}
 
 export const Pagination: React.FC<PaginationProps> = ({
 	currentPage,
@@ -29,64 +66,50 @@ export const Pagination: React.FC<PaginationProps> = ({
 	showItemsPerPage = true,
 	itemsPerPageOptions = [10, 25, 50, 100],
 }) => {
-	const startItem = totalItems === 0 ? 0 : (currentPage - 1) * itemsPerPage + 1;
+	if (totalPages <= 0) return null;
+
+	const safeTotalItems = Math.max(0, totalItems);
+	const safeItemsPerPage = Math.max(1, itemsPerPage);
+	const normalizedCurrentPage = Math.min(Math.max(currentPage, 1), totalPages);
+	const startItem =
+		safeTotalItems === 0
+			? 0
+			: (normalizedCurrentPage - 1) * safeItemsPerPage + 1;
 	const endItem =
-		totalItems === 0 ? 0 : Math.min(currentPage * itemsPerPage, totalItems);
+		safeTotalItems === 0
+			? 0
+			: Math.min(normalizedCurrentPage * safeItemsPerPage, safeTotalItems);
 
-	const canGoPrevious = currentPage > 1 && !disabled;
-	const canGoNext = currentPage < totalPages && !disabled;
-
-	const getVisiblePageNumbers = () => {
-		if (totalPages <= 7) {
-			return Array.from({ length: totalPages }, (_, i) => i + 1);
-		}
-
-		if (currentPage <= 3) {
-			return [1, 2, 3, 4, 5, -1, totalPages]; // -1 represents ellipsis
-		}
-
-		if (currentPage >= totalPages - 2) {
-			return [
-				1,
-				-1,
-				totalPages - 4,
-				totalPages - 3,
-				totalPages - 2,
-				totalPages - 1,
-				totalPages,
-			];
-		}
-
-		return [
-			1,
-			-1,
-			currentPage - 1,
-			currentPage,
-			currentPage + 1,
-			-1,
-			totalPages,
-		];
-	};
-
-	if (totalPages === 0) return null;
+	const canGoPrevious = normalizedCurrentPage > 1 && !disabled;
+	const canGoNext = normalizedCurrentPage < totalPages && !disabled;
+	const visiblePageItems = getVisiblePageItems(
+		normalizedCurrentPage,
+		totalPages
+	);
 
 	return (
-		<View
-			className={`flex flex-col items-center justify-between gap-4 sm:flex-row ${className}`}
+		<VStack
+			align="center"
+			gap="md"
+			justify="between"
+			className={`sm:flex-row ${className}`}
 		>
 			{/* Items info */}
-			<View className="order-2 text-base text-muted-foreground sm:order-1">
-				Affichage de {startItem} à {endItem} sur {totalItems} résultats
-			</View>
+			<VStack className="order-2 text-base text-muted-foreground sm:order-1">
+				<Text>
+					Affichage de {startItem} à {endItem} sur {safeTotalItems} résultats
+				</Text>
+			</VStack>
 
 			{/* Pagination controls */}
-			<View className="order-1 flex items-center gap-2 sm:order-2">
+			<HStack align="center" gap="sm" className="order-1 sm:order-2">
 				{/* First page */}
 				<Button
 					variant="outline"
 					size="sm"
 					onPress={() => onPageChange(1)}
 					disabled={!canGoPrevious}
+					accessibilityLabel="Première page"
 					className="hidden h-8 w-8 p-0 sm:flex"
 				>
 					<ChevronsLeft className="h-4 w-4" />
@@ -97,8 +120,9 @@ export const Pagination: React.FC<PaginationProps> = ({
 				<Button
 					variant="outline"
 					size="sm"
-					onPress={() => onPageChange(currentPage - 1)}
+					onPress={() => onPageChange(normalizedCurrentPage - 1)}
 					disabled={!canGoPrevious}
+					accessibilityLabel="Page précédente"
 					className="h-8 w-8 p-0"
 				>
 					<ChevronLeft className="h-4 w-4" />
@@ -106,40 +130,44 @@ export const Pagination: React.FC<PaginationProps> = ({
 				</Button>
 
 				{/* Page numbers */}
-				<View className="flex items-center gap-1">
-					{getVisiblePageNumbers().map((page, index) => {
-						if (page === -1) {
+				<HStack align="center" gap="xs">
+					{visiblePageItems.map((pageItem) => {
+						if (typeof pageItem !== 'number') {
 							return (
-								<View
-									key={`ellipsis-${index}`}
+								<HStack
+									key={pageItem}
 									className="px-2 py-1 text-muted-foreground"
 								>
-									...
-								</View>
+									<Text>...</Text>
+								</HStack>
 							);
 						}
 
 						return (
 							<Button
-								key={page}
-								variant={page === currentPage ? 'default' : 'outline'}
+								key={pageItem}
+								variant={
+									pageItem === normalizedCurrentPage ? 'default' : 'outline'
+								}
 								size="sm"
-								onPress={() => onPageChange(page)}
+								onPress={() => onPageChange(pageItem)}
 								disabled={disabled}
+								accessibilityLabel={`Page ${pageItem}`}
 								className="h-8 min-w-8 px-2"
 							>
-								<Text>{page}</Text>
+								<Text>{pageItem}</Text>
 							</Button>
 						);
 					})}
-				</View>
+				</HStack>
 
 				{/* Next page */}
 				<Button
 					variant="outline"
 					size="sm"
-					onPress={() => onPageChange(currentPage + 1)}
+					onPress={() => onPageChange(normalizedCurrentPage + 1)}
 					disabled={!canGoNext}
+					accessibilityLabel="Page suivante"
 					className="h-8 w-8 p-0"
 				>
 					<ChevronRight className="h-4 w-4" />
@@ -152,16 +180,17 @@ export const Pagination: React.FC<PaginationProps> = ({
 					size="sm"
 					onPress={() => onPageChange(totalPages)}
 					disabled={!canGoNext}
+					accessibilityLabel="Dernière page"
 					className="hidden h-8 w-8 p-0 sm:flex"
 				>
 					<ChevronsRight className="h-4 w-4" />
 					<Text className="sr-only">Dernière page</Text>
 				</Button>
-			</View>
+			</HStack>
 
 			{/* Items per page */}
 			{showItemsPerPage && onItemsPerPageChange && (
-				<View className="order-3 flex items-center gap-2 text-base">
+				<HStack align="center" gap="sm" className="order-3 text-base">
 					<Text className="text-muted-foreground">Afficher:</Text>
 					<Select
 						value={{
@@ -170,7 +199,7 @@ export const Pagination: React.FC<PaginationProps> = ({
 						}}
 						onValueChange={(value) => {
 							const parsed = parseInt(value?.value ?? '', 10);
-							if (!Number.isNaN(parsed)) {
+							if (!Number.isNaN(parsed) && parsed > 0) {
 								onItemsPerPageChange(parsed);
 							}
 						}}
@@ -191,8 +220,8 @@ export const Pagination: React.FC<PaginationProps> = ({
 							))}
 						</SelectContent>
 					</Select>
-				</View>
+				</HStack>
 			)}
-		</View>
+		</VStack>
 	);
 };

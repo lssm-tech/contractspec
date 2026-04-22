@@ -1,0 +1,41 @@
+schemaVersion: "1"
+slug: native-pagination-stack-hardening
+summary: Harden native Pagination layout with shared stack primitives, safer page math, and accessible control labels.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.ui-kit"
+    releaseType: patch
+affectedRuntimes:
+  - expo
+affectedFrameworks:
+  - react-native
+audiences:
+  - kind: maintainer
+    summary: The native Pagination atom now relies on UI-kit stack primitives instead of raw View layout wrappers and keeps its visible page-window calculation typed outside render.
+    affectedPackages:
+      - "@contractspec/lib.ui-kit"
+  - kind: integrator
+    summary: Consumers keep the same Pagination props while receiving more defensive item range display behavior when page or page-size inputs drift out of bounds.
+    affectedPackages:
+      - "@contractspec/lib.ui-kit"
+  - kind: customer
+    summary: Pagination controls retain the same visual behavior with clearer accessibility labels for first, previous, numbered, next, and last page actions.
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: revalidate-native-pagination-surfaces
+    title: Revalidate native paginated views
+    summary: Confirm table and list surfaces that render native Pagination still display the expected controls and item ranges.
+    level: optional
+    instructions:
+      - Open native data table and list surfaces that use `@contractspec/lib.ui-kit/ui/atoms/Pagination`.
+      - Check first, previous, numbered, next, last, and page-size controls.
+      - Confirm empty or out-of-range pagination state does not show negative or invalid item ranges.
+validation:
+  commands:
+    - cd packages/libs/ui-kit && bun run lint:check
+    - cd packages/libs/ui-kit && bun run typecheck
+  evidence:
+    - "The Pagination atom now composes layout through `HStack` and `VStack`."
+    - "Visible page items use typed ellipsis markers rather than the `-1` sentinel."
+    - "Pagination display math clamps total items, current page, and page size before rendering item ranges."
