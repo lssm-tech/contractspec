@@ -1,5 +1,6 @@
 /* global Bun */
 
+import { randomUUID } from 'node:crypto';
 import { existsSync } from 'node:fs';
 import {
 	copyFile,
@@ -692,7 +693,10 @@ export async function runTypes({
 	declarationMap = process.env.CONTRACTSPEC_TYPES_DECLARATION_MAP === '1',
 }) {
 	const configPath = tsconfigForTypes ?? 'tsconfig.json';
-	const tempTsConfigPath = path.join(cwd, '.tsconfig.contractspec-types.json');
+	const tempTsConfigPath = path.join(
+		cwd,
+		`.tsconfig.contractspec-types.${process.pid}.${randomUUID()}.json`
+	);
 	const dependencyPaths = await resolveDependencyPathMappings(cwd);
 
 	const tempConfig = {

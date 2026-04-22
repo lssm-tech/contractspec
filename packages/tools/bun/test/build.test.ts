@@ -3,6 +3,7 @@ import {
 	access,
 	mkdir,
 	mkdtemp,
+	readdir,
 	readFile,
 	rm,
 	writeFile,
@@ -356,6 +357,54 @@ describe('runTranspile', () => {
 });
 
 describe('runTypes', () => {
+	test('isolates temporary tsconfig files for concurrent type builds', async () => {
+		const cwd = await createTempDir();
+		await mkdir(path.join(cwd, 'src'), { recursive: true });
+		await writeFile(
+			path.join(cwd, 'package.json'),
+			JSON.stringify({ type: 'module' }, null, 2) + '\n'
+		);
+		await writeFile(
+			path.join(cwd, 'tsconfig.json'),
+			JSON.stringify(
+				{
+					compilerOptions: {
+						target: 'ES2022',
+						module: 'ESNext',
+						moduleResolution: 'Bundler',
+						strict: true,
+						rootDir: 'src',
+						outDir: 'dist',
+						declaration: true,
+					},
+					include: ['src'],
+				},
+				null,
+				2
+			) + '\n'
+		);
+		await writeFile(
+			path.join(cwd, 'src', 'index.ts'),
+			'export interface BuildResult { ok: true; }\n'
+		);
+
+		await Promise.all([
+			runTypes({ cwd, typesRoot: 'src' }),
+			runTypes({ cwd, typesRoot: 'src' }),
+		]);
+
+		const generatedTypes = await readFile(
+			path.join(cwd, 'dist', 'index.d.ts'),
+			'utf8'
+		);
+		const tempTypeConfigs = (await readdir(cwd)).filter((entry) =>
+			entry.startsWith('.tsconfig.contractspec-types')
+		);
+
+		expect(generatedTypes).toContain('BuildResult');
+		expect(tempTypeConfigs).toEqual([]);
+	});
+
 	test('builds missing workspace dependency declarations before emitting consumer types', async () => {
 		const workspaceRoot = await createTempDir();
 		await writeFile(
