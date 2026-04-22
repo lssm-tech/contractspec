@@ -37,7 +37,7 @@ upgradeSteps:
   - id: rebuild-native-publish-artifacts
     title: Rebuild packages with native-family entries
     summary: Run contractspec-bun-build prebuild and build so dist/native includes shared generic helper files.
-    level: required
+    level: manual
     instructions:
       - Rebuild packages that publish .native, .ios, or .android source variants.
       - Restart Metro after upgrading packages with changed native publish artifacts.

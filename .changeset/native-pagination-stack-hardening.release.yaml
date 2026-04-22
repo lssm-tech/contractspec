@@ -26,7 +26,7 @@ upgradeSteps:
   - id: revalidate-native-pagination-surfaces
     title: Revalidate native paginated views
     summary: Confirm table and list surfaces that render native Pagination still display the expected controls and item ranges.
-    level: optional
+    level: manual
     instructions:
       - Open native data table and list surfaces that use `@contractspec/lib.ui-kit/ui/atoms/Pagination`.
       - Check first, previous, numbered, next, last, and page-size controls.

@@ -28,7 +28,7 @@ upgradeSteps:
   - id: verify-custom-pagination-classnames
     title: Verify custom pagination class overrides
     summary: Consumers that override pagination class names should confirm their overrides still combine correctly with shared stack defaults.
-    level: optional
+    level: manual
     instructions:
       - Reopen pagination surfaces that pass custom `className` values to `Pagination`, `PaginationContent`, or `PaginationEllipsis`.
       - Confirm the controls still align horizontally and preserve expected spacing.

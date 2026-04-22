@@ -29,9 +29,7 @@ audiences:
       - "@contractspec/bundle.library"
       - "@contractspec/lib.presentation-runtime-core"
 deprecations:
-  - id: design-system-mobile-subpaths
-    title: Removed design-system `.mobile` subpaths
-    summary: Direct imports such as `@contractspec/lib.design-system/components/molecules/Tabs.mobile` have been replaced by `.native` subpaths.
+  - Direct imports such as `@contractspec/lib.design-system/components/molecules/Tabs.mobile` have been replaced by `.native` subpaths.
 migrationInstructions:
   - id: replace-design-system-mobile-subpaths
     title: Replace direct `.mobile` design-system imports
@@ -45,7 +43,7 @@ upgradeSteps:
   - id: regenerate-design-system-exports
     title: Regenerate design-system exports
     summary: Keep package exports and registry metadata aligned with `.native` source files.
-    level: required
+    level: manual
     instructions:
       - Run `cd packages/libs/design-system && bun run prebuild && bun run registry:build`.
       - Verify no `*.mobile.tsx` platform files remain in `packages/libs/design-system/src`.

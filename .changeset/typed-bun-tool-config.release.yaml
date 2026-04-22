@@ -26,7 +26,7 @@ upgradeSteps:
   - id: use-typed-bun-config
     title: Import typed Bun build presets
     summary: TypeScript config files can now import BuildConfig and defineConfig from @contractspec/tool.bun.
-    level: optional
+    level: manual
     instructions:
       - Import defineConfig and the preset that matches the package shape.
       - Import BuildConfig when an explicit config annotation is useful for editor feedback.

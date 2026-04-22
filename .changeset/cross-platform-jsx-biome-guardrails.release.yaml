@@ -51,13 +51,13 @@ upgradeSteps:
   - id: sync-biome-policy-artifacts
     title: Sync generated Biome policy artifacts
     summary: Keep generated presets, Grit plugins, and AI summaries aligned with the typed manifest.
-    level: required
+    level: manual
     instructions:
       - Run `cd packages/tools/biome-config && bun run sync:artifacts` after policy manifest edits.
   - id: run-jsx-primitive-fixer
     title: Run the JSX primitive fixer
     summary: Apply conservative automatic replacements before manually addressing mixed or ambiguous diagnostics.
-    level: optional
+    level: assisted
     instructions:
       - Run `bun run jsx:fix-primitives -- --check` to preview deterministic replacements.
       - Run `bun run jsx:fix-primitives` to apply deterministic replacements in shared presentation packages.
