@@ -23,7 +23,7 @@ affectedFrameworks:
   - react-native
 audiences:
   - kind: maintainer
-    summary: Maintainers get generated repo and consumer Biome presets that reject raw layout tags and raw JSX text outside typography components, with monorepo apps excluded by default.
+    summary: Maintainers get generated repo and consumer Biome presets that reject raw layout tags and raw JSX text outside typography components, with monorepo apps excluded by default and a conservative fixer command for deterministic replacements.
     affectedPackages:
       - "@contractspec/biome-config"
       - "@contractspec/lib.design-system"
@@ -54,16 +54,26 @@ upgradeSteps:
     level: required
     instructions:
       - Run `cd packages/tools/biome-config && bun run sync:artifacts` after policy manifest edits.
+  - id: run-jsx-primitive-fixer
+    title: Run the JSX primitive fixer
+    summary: Apply conservative automatic replacements before manually addressing mixed or ambiguous diagnostics.
+    level: optional
+    instructions:
+      - Run `bun run jsx:fix-primitives -- --check` to preview deterministic replacements.
+      - Run `bun run jsx:fix-primitives` to apply deterministic replacements in shared presentation packages.
+      - Add `--allow-app <package>` only when an app package should opt into the same fixer scope.
 validation:
   commands:
     - "bun test packages/tools/biome-config/src/generate.test.ts"
+    - "bun test packages/tools/biome-config/src/fix-jsx-primitives.test.ts"
     - "cd packages/tools/biome-config && bun run sync:artifacts && bun run typecheck && bun run lint:check"
-    - "bun run lint:check"
+    - "bun run jsx:fix-primitives -- --check packages/bundles/library/src/components/docs/advanced/AdvancedSpecExperimentsPage.tsx"
   evidence:
     - "Generated repo and consumer presets include updated raw element diagnostics."
     - "Design-system exports themed typography wrappers and List/ListItem wrappers."
     - "UI kit packages export List/ListItem subpaths."
     - "UI kit core registry includes the new shared list contract key."
     - "Generated Grit plugins reject visible JSX text outside approved typography components."
+    - "Conservative JSX primitive fixer rewrites deterministic layout, list, and typography cases."
     - "Repo app packages are excluded from presentation guardrails unless allowlisted."
     - "Root Biome config mirrors repo guardrails for local lint checks."

@@ -148,6 +148,7 @@
 		"lint:check": "node scripts/biome.cjs check .",
 		"lint:fix": "bun run lint:fix:tailwind && node scripts/biome.cjs check --write . && bun run format:prisma",
 		"lint:fix:tailwind": "node scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses .",
+		"jsx:fix-primitives": "bun packages/tools/biome-config/src/fix-jsx-primitives.ts --write",
 		"format:prisma": "bun run --cwd packages/apps/cli-database prisma:format",
 		"docs:generate": "bun ./node_modules/turbo/bin/turbo run docs:generate --filter=\"@contractspec/tool.docs-generator\"",
 		"dev": "bun ./node_modules/turbo/bin/turbo run dev --filter=\"!@contractspec/app.*\"",

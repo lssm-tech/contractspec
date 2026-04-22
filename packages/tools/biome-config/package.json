@@ -20,6 +20,7 @@
 		"lint": "bun run lint:fix",
 		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
 		"lint:check": "node ../../../scripts/biome.cjs check .",
+		"fix:jsx-primitives": "bun src/fix-jsx-primitives.ts --write",
 		"sync:artifacts": "bun src/sync.ts",
 		"test": "bun test",
 		"prebuild": "bun run sync:artifacts && contractspec-bun-build prebuild",
