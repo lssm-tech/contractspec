@@ -28,7 +28,15 @@ export const NotificationStatusEnum = defineEntityEnum({
  */
 export const NotificationChannelEnum = defineEntityEnum({
 	name: 'NotificationChannel',
-	values: ['EMAIL', 'IN_APP', 'PUSH', 'WEBHOOK', 'SMS'] as const,
+	values: [
+		'EMAIL',
+		'IN_APP',
+		'PUSH',
+		'WEBHOOK',
+		'SMS',
+		'TELEGRAM',
+		'WHATSAPP',
+	] as const,
 	schema: 'lssm_notifications',
 	description: 'Delivery channel for notifications.',
 });
@@ -161,6 +169,9 @@ export const NotificationTemplateEntity = defineEntity({
 		inAppBody: field.string({ isOptional: true }),
 		pushTitle: field.string({ isOptional: true }),
 		pushBody: field.string({ isOptional: true }),
+		smsBody: field.string({ isOptional: true }),
+		telegramBody: field.string({ isOptional: true }),
+		whatsappBody: field.string({ isOptional: true }),
 
 		// Settings
 		defaultChannels: field.string({ isArray: true }),

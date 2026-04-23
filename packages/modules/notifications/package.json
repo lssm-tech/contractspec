@@ -41,6 +41,9 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./channels": "./src/channels/index.ts",
+		"./channels/base": "./src/channels/base.ts",
+		"./channels/provider-channels": "./src/channels/provider-channels.ts",
+		"./channels/types": "./src/channels/types.ts",
 		"./contracts": "./src/contracts/index.ts",
 		"./entities": "./src/entities/index.ts",
 		"./i18n": "./src/i18n/index.ts",
@@ -75,6 +78,27 @@
 				"bun": "./dist/channels/index.js",
 				"node": "./dist/node/channels/index.js",
 				"default": "./dist/channels/index.js"
+			},
+			"./channels/base": {
+				"types": "./dist/channels/base.d.ts",
+				"browser": "./dist/browser/channels/base.js",
+				"bun": "./dist/channels/base.js",
+				"node": "./dist/node/channels/base.js",
+				"default": "./dist/channels/base.js"
+			},
+			"./channels/provider-channels": {
+				"types": "./dist/channels/provider-channels.d.ts",
+				"browser": "./dist/browser/channels/provider-channels.js",
+				"bun": "./dist/channels/provider-channels.js",
+				"node": "./dist/node/channels/provider-channels.js",
+				"default": "./dist/channels/provider-channels.js"
+			},
+			"./channels/types": {
+				"types": "./dist/channels/types.d.ts",
+				"browser": "./dist/browser/channels/types.js",
+				"bun": "./dist/channels/types.js",
+				"node": "./dist/node/channels/types.js",
+				"default": "./dist/channels/types.js"
 			},
 			"./contracts": {
 				"types": "./dist/contracts/index.d.ts",

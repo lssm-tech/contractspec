@@ -25,6 +25,9 @@ const NotificationChannelSchemaEnum = defineEnum('NotificationChannel', [
 	'IN_APP',
 	'PUSH',
 	'WEBHOOK',
+	'SMS',
+	'TELEGRAM',
+	'WHATSAPP',
 ]);
 
 export const NotificationFilterEnum = defineEnum('NotificationFilter', [

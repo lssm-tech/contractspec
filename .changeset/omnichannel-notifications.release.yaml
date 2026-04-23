@@ -1,0 +1,43 @@
+schemaVersion: "1"
+slug: omnichannel-notifications
+summary: Add concrete omnichannel notification channels for email, SMS, Telegram, and WhatsApp.
+isBreaking: false
+packages:
+  - name: "@contractspec/module.notifications"
+    releaseType: minor
+affectedRuntimes:
+  - bun
+  - node
+affectedFrameworks:
+  - react
+audiences:
+  - kind: maintainer
+    summary: Maintainers can wire provider-backed notification channels directly from the module instead of supplying their own email or messaging adapter layer.
+    affectedPackages:
+      - "@contractspec/module.notifications"
+  - kind: integrator
+    summary: Integrators can register ready-made email, SMS, Telegram, and WhatsApp channels and keep notification contracts aligned with those delivery targets.
+    affectedPackages:
+      - "@contractspec/module.notifications"
+migrationInstructions:
+  - id: adopt-provider-backed-channels
+    title: Replace custom omnichannel notification wrappers
+    summary: Prefer the built-in provider-backed channels for email, SMS, Telegram, and WhatsApp.
+    required: false
+    steps:
+      - Import `ProviderEmailChannel`, `ProviderSmsChannel`, `TelegramChannel`, and `WhatsappChannel` from `@contractspec/module.notifications/channels`.
+      - Register those channels with `createChannelRegistry(...)` alongside any existing in-app, push, or webhook channels.
+      - Use the expanded notification channel enums when persisting or validating delivery targets.
+upgradeSteps:
+  - id: align-notification-channel-enums
+    title: Update notification channel allowlists
+    summary: Add the new omnichannel values anywhere channel enums are mirrored outside the module.
+    level: manual
+    instructions:
+      - Add `SMS`, `TELEGRAM`, and `WHATSAPP` to any application-level channel allowlists or validation layers that mirror the module enums.
+validation:
+  commands:
+    - cd packages/modules/notifications && bun test && bun run typecheck && bun run lint:check && bun run build
+  evidence:
+    - "Provider-backed channel tests cover email, SMS, Telegram, and WhatsApp delivery result mapping."
+    - "Notification contract/entity tests verify the expanded channel enums stay aligned."

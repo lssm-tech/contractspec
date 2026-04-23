@@ -28,6 +28,9 @@ export interface ChannelContentMap {
 	inApp?: ChannelTemplateContent;
 	push?: ChannelTemplateContent;
 	webhook?: ChannelTemplateContent;
+	sms?: ChannelTemplateContent;
+	telegram?: ChannelTemplateContent;
+	whatsapp?: ChannelTemplateContent;
 }
 
 /**
