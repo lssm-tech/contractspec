@@ -64,6 +64,7 @@
 		"./retriever/interface": "./src/retriever/interface.ts",
 		"./retriever/static-retriever": "./src/retriever/static-retriever.ts",
 		"./retriever/vector-retriever": "./src/retriever/vector-retriever.ts",
+		"./runtime": "./src/runtime.ts",
 		"./types": "./src/types.ts",
 		"./vector-payload": "./src/vector-payload.ts"
 	},
@@ -213,6 +214,12 @@
 				"bun": "./dist/retriever/vector-retriever.js",
 				"node": "./dist/node/retriever/vector-retriever.js",
 				"default": "./dist/retriever/vector-retriever.js"
+			},
+			"./runtime": {
+				"types": "./dist/runtime.d.ts",
+				"bun": "./dist/runtime.js",
+				"node": "./dist/node/runtime.js",
+				"default": "./dist/runtime.js"
 			},
 			"./types": {
 				"types": "./dist/types.d.ts",

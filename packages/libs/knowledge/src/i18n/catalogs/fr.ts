@@ -28,15 +28,33 @@ export const frMessages = defineTranslation({
 				"L'espace de connaissances \"{spaceKey}\" n'est pas li\u00e9 dans la configuration de l'application.",
 			description: 'Denial reason when a knowledge space is not bound',
 		},
+		'access.automationWriteDisabled': {
+			value:
+				'L\'espace de connaissances "{spaceKey}" n\'autorise pas les \u00e9critures automatis\u00e9es.',
+			description:
+				'Denial reason when a write is attempted against a non-writable space',
+		},
 		'access.readOnly': {
 			value:
 				'L\'espace de connaissances "{spaceKey}" est de cat\u00e9gorie "{category}" et est en lecture seule.',
 			description: 'Denial reason when write is attempted on a read-only space',
 		},
+		'access.workflowBindingRequired': {
+			value:
+				'Un workflow li\u00e9 est requis pour acc\u00e9der \u00e0 l\'espace de connaissances "{spaceKey}".',
+			description:
+				'Denial reason when a workflow-scoped space is accessed without a workflow name',
+		},
 		'access.workflowUnauthorized': {
 			value:
 				'Le workflow "{workflowName}" n\'est pas autoris\u00e9 \u00e0 acc\u00e9der \u00e0 l\'espace de connaissances "{spaceKey}".',
 			description: 'Denial reason when a workflow lacks space access',
+		},
+		'access.agentBindingRequired': {
+			value:
+				'Un agent li\u00e9 est requis pour acc\u00e9der \u00e0 l\'espace de connaissances "{spaceKey}".',
+			description:
+				'Denial reason when an agent-scoped space is accessed without an agent name',
 		},
 		'access.agentUnauthorized': {
 			value:

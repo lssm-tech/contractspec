@@ -19,12 +19,16 @@ export interface StaticRetrieverConfig extends RetrieverConfig {
  */
 export class StaticRetriever implements KnowledgeRetriever {
 	private readonly content: Map<string, string>;
+	private readonly defaultTopK?: number;
+	private readonly defaultMinScore?: number;
 
 	constructor(config: StaticRetrieverConfig) {
 		this.content =
 			config.content instanceof Map
 				? config.content
 				: new Map(Object.entries(config.content));
+		this.defaultTopK = config.defaultTopK;
+		this.defaultMinScore = config.defaultMinScore;
 	}
 
 	async retrieve(
@@ -33,6 +37,10 @@ export class StaticRetriever implements KnowledgeRetriever {
 	): Promise<RetrievalResult[]> {
 		const content = this.content.get(options.spaceKey);
 		if (!content) return [];
+		const minScore = options.minScore ?? this.defaultMinScore ?? 0;
+		if (minScore > 1) {
+			return [];
+		}
 
 		// Simple keyword matching for static retriever
 		const queryLower = query.toLowerCase();
@@ -50,7 +58,7 @@ export class StaticRetriever implements KnowledgeRetriever {
 			}
 		}
 
-		return results.slice(0, options.topK ?? 5);
+		return results.slice(0, options.topK ?? this.defaultTopK ?? 5);
 	}
 
 	async getStatic(spaceKey: string): Promise<string | null> {

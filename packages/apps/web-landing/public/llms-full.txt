@@ -3,7 +3,7 @@
 > Aggregated content from all packages. For summary, see /llms
 
 Generated: stable
-Packages: 189
+Packages: 205
 
 ---
 
@@ -2492,7 +2492,7 @@ bun add @contractspec/lib.contracts-spec @contractspec/lib.schema
 - `ContractResult`: canonical success/failure envelope used by operation, workflow, job, API, MCP, GraphQL, and React runtimes while preserving raw-response compatibility for adapters.
 - `defineEvent` + `EventRegistry`: typed event contracts and lookup.
 - `defineResourceTemplate` + `ResourceRegistry`: URI-template-based resource contracts.
-- `FormRegistry`: contract-first form declarations consumed by UI runtimes, including readonly, password, autocomplete, address, phone, date, time, datetime, grouped array authoring, semantic legends/descriptions, grid layout hints, and text/textarea input-group addons through `@contractspec/lib.contracts-spec/forms`.
+- `FormRegistry`: contract-first form declarations consumed by UI runtimes, including readonly, password, autocomplete, address, phone, date, time, datetime, grouped array authoring, semantic legends/descriptions, grid layout hints, mobile-safe `responsiveFormColumns(...)`, and text/textarea input-group addons through `@contractspec/lib.contracts-spec/forms`.
 - `installOp`: one-call helper to register + bind operation handlers.
 - `makeEmit`: typed helper for declared event emission in handlers.
 
@@ -2661,7 +2661,7 @@ Use these example packages when you want one focused, importable reference per c
 - `data-view`: [`@contractspec/example.data-grid-showcase`](../../examples/data-grid-showcase/README.md)
 - `visualization`: [`@contractspec/example.visualization-showcase`](../../examples/visualization-showcase/README.md)
 - `agent`: [`@contractspec/example.agent-console`](../../examples/agent-console/README.md)
-- `harness-scenario`, `harness-suite`: focused reference [`@contractspec/example.harness-lab`](../../examples/harness-lab/README.md), product/business proof [`@contractspec/example.agent-console`](../../examples/agent-console/README.md)
+- `harness-scenario`, `harness-suite`: focused reference [`@contractspec/example.harness-lab`](../../examples/harness-lab/README.md) covering sandbox, Playwright, agent-browser, auth refs, and visual evidence; product/business proof [`@contractspec/example.agent-console`](../../examples/agent-console/README.md)
 - `knowledge`, `knowledge-space`, lightweight `app-config`: [`@contractspec/example.knowledge-canon`](../../examples/knowledge-canon/README.md)
 - `integration`, `workflow`, integration-oriented `app-config`: [`@contractspec/example.integration-stripe`](../../examples/integration-stripe/README.md)
 - `policy`, `form`, `translation`: [`@contractspec/example.locale-jurisdiction-gate`](../../examples/locale-jurisdiction-gate/README.md)
@@ -2676,6 +2676,13 @@ Use these example packages when you want one focused, importable reference per c
 The canonical data-table example lives in
 [`@contractspec/example.data-grid-showcase`](../../examples/data-grid-showcase/README.md)
 and starts with a declarative `DataViewSpec` in this package:
+
+DataView filters now distinguish user-editable filters from scoped constraints.
+Use `view.filterScope.initial` to seed removable filters and
+`view.filterScope.locked` for constraints that always apply but are not
+serialized into URL state. Locked filters render as disabled chips by default
+so embedded views, such as a category-scoped posts list, stay explainable while
+reusing the same base DataView contract.
 
 ```ts
 import { defineDataView } from '@contractspec/lib.contracts-spec/data-views';
@@ -3382,6 +3389,7 @@ Website: https://contractspec.io
 - Provides the mode-agnostic harness core used by higher-level runtime adapters and harness-aware workflows.
 - Exports focused surfaces for assertions, evidence normalization, orchestration, policy classification, replay bundles, and shared types.
 - Acts as the central execution model for controlled evaluation, proof generation, and inspection flows.
+- Executes scenario `setup` and `reset` hooks through an explicit `HarnessScenarioHookExecutor`, enforces required evidence, and applies scenario success rules during evaluation.
 - `src/adapters/` contains runtime, provider, or environment-specific adapters.
 
 ## Installation
@@ -3437,10 +3445,12 @@ Import the root entrypoint from `@contractspec/lib.harness`, or choose a documen
 
 - Replace eslint+prettier by biomejs to optimize speed.
 - Add a first-class harness system for controlled inspection, testing, evaluation, and proof generation.
+- Implement scenario setup/reset hooks, required evidence checks, success-rule evaluation, and suite mode/target propagation.
 
 ## Notes
 
 - Works alongside `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- Hook execution is intentionally injected through `HarnessScenarioHookExecutor`; the harness core does not import operation registries or application runtimes implicitly.
 
 
 ---
@@ -3730,12 +3740,47 @@ This package currently owns four related concerns:
 
 - Retrieval contracts and implementations: `KnowledgeRetriever`, `StaticRetriever`, and `VectorRetriever`.
 - Ingestion and indexing pipeline pieces: `DocumentProcessor`, `EmbeddingService`, `VectorIndexer`, and ingestion adapters.
-- Retrieval-augmented query flow: `KnowledgeQueryService`.
+- Retrieval-augmented query flow: `KnowledgeQueryService` and `KnowledgeQueryOptions`.
+- Runtime convenience for OSS consumers: `KnowledgeRuntime` and `createKnowledgeRuntime`.
 - Access guardrails and localization: `KnowledgeAccessGuard` and the `i18n` surface.
 
 Use this package when you need the knowledge-layer primitives inside ContractSpec. It is not the source of truth for knowledge-space specs, tenant bindings, provider SDKs, or background job orchestration.
 
 ## Core workflows
+
+### Quickstart: one runtime for ingest + retrieve + answer
+
+```ts
+import { createKnowledgeRuntime } from "@contractspec/lib.knowledge";
+
+const knowledge = createKnowledgeRuntime({
+  collection: "knowledge-support-faq",
+  namespace: "tenant-acme",
+  spaceKey: "support-faq",
+  embeddings: embeddingProvider,
+  vectorStore: vectorStoreProvider,
+  llm: llmProvider,
+});
+
+await knowledge.ingestDocument({
+  id: "faq-rotate-key",
+  mimeType: "text/plain",
+  data: new TextEncoder().encode("Rotate API keys from Settings > API."),
+  metadata: { locale: "en", category: "canonical" },
+});
+
+const snippets = await knowledge.retrieve("How do I rotate a key?", {
+  spaceKey: "support-faq",
+  tenantId: "tenant-acme",
+  locale: "en",
+  category: "canonical",
+});
+
+const answer = await knowledge.query("How do I rotate a key?", {
+  namespace: "tenant-acme",
+  filter: { locale: "en" },
+});
+```
 
 ### Ingest documents into a vector index
 
@@ -3777,6 +3822,8 @@ const retriever = createVectorRetriever({
 const snippets = await retriever.retrieve("How do I rotate a key?", {
   spaceKey: "support-faq",
   topK: 3,
+  locale: "en",
+  category: "canonical",
 });
 
 const queryService = new KnowledgeQueryService(
@@ -3789,8 +3836,38 @@ const queryService = new KnowledgeQueryService(
     topK: 5,
   }
 );
+const answer = await queryService.query("How do I rotate a key?", {
+  namespace: "tenant-acme",
+  topK: 3,
+  filter: { locale: "en" },
+});
+```
 
-const answer = await queryService.query("How do I rotate a key?");
+### Use static knowledge for tests or lightweight examples
+
+```ts
+import { createStaticRetriever } from "@contractspec/lib.knowledge";
+
+const retriever = createStaticRetriever({
+  "product-canon": [
+    "Rotate API keys from Settings > API.",
+    "Only cite reviewed canon content in answers.",
+  ].join("\n"),
+});
+
+const snippets = await retriever.retrieve("rotate", {
+  spaceKey: "product-canon",
+  topK: 1,
+});
+```
+
+### Localize prompts and access messages
+
+```ts
+import { createKnowledgeI18n } from "@contractspec/lib.knowledge/i18n";
+
+const i18n = createKnowledgeI18n("fr");
+const noResults = i18n.t("query.noResults");
 ```
 
 Typical flow:
@@ -3808,13 +3885,14 @@ Typical flow:
 - `RetrieverConfig`: shared defaults for retriever implementations.
 - `StaticRetriever` and `createStaticRetriever`: in-memory, line-oriented retrieval for simple spaces and tests.
 - `VectorRetriever` and `createVectorRetriever`: embedding + vector-store backed retrieval.
-- `RetrievalOptions`: query filters such as `spaceKey`, `topK`, `minScore`, `tenantId`, and `locale`.
+- `RetrievalOptions`: query filters such as `spaceKey`, `topK`, `minScore`, `tenantId`, `locale`, `category`, and provider filter metadata.
 - `RetrievalResult`: returned content, source, score, and optional metadata.
 
 ### Query
 
 - `KnowledgeQueryService`: embed -> search -> prompt -> LLM chat flow for knowledge-backed answers.
-- `KnowledgeQueryConfig`: collection, namespace, prompt, `topK`, and locale settings.
+- `KnowledgeQueryConfig`: collection, namespace, prompt, filter, `topK`, and locale defaults.
+- `KnowledgeQueryOptions`: per-query overrides for namespace, `topK`, filter, locale, and prompt.
 - `KnowledgeAnswer`: answer text, references, and optional token usage.
 
 ### Ingestion
@@ -3824,6 +3902,7 @@ Typical flow:
 - `VectorIndexer` and `VectorIndexConfig`: map embeddings to `VectorStoreProvider.upsert()` requests and persist canonical `payload.text` content for later retrieval/query use.
 - `GmailIngestionAdapter`: convert email threads into plaintext documents and index them.
 - `StorageIngestionAdapter`: fetch object content and run the same process/index pipeline.
+- `KnowledgeRuntime` and `createKnowledgeRuntime`: convenience composition for the common ingest -> retrieve -> answer path.
 
 ### Guardrails and i18n
 
@@ -3838,9 +3917,12 @@ The root barrel at `src/index.ts` re-exports public symbols from:
 
 - `./access`
 - `./ingestion`
+- `./knowledge.feature`
 - `./query`
+- `./runtime`
 - `./retriever`
 - `./types`
+- `./vector-payload`
 
 Published subpaths from `package.json` are grouped around:
 
@@ -3848,8 +3930,9 @@ Published subpaths from `package.json` are grouped around:
 - retrieval: `./retriever`, `./retriever/interface`, `./retriever/static-retriever`, `./retriever/vector-retriever`
 - query: `./query`, `./query/service`
 - ingestion: `./ingestion`, `./ingestion/document-processor`, `./ingestion/embedding-service`, `./ingestion/gmail-adapter`, `./ingestion/storage-adapter`, `./ingestion/vector-indexer`
+- feature/runtime helpers: `./knowledge.feature`, root `KnowledgeRuntime` / `createKnowledgeRuntime`
 - i18n: `./i18n`, `./i18n/catalogs`, `./i18n/catalogs/en`, `./i18n/catalogs/es`, `./i18n/catalogs/fr`, `./i18n/keys`, `./i18n/locale`, `./i18n/messages`
-- shared types: `./types`
+- shared types/helpers: `./types`, `./vector-payload`
 
 Use `package.json` as the exhaustive source of truth for subpaths; the README calls out the clusters that matter most to consumers.
 
@@ -3860,12 +3943,14 @@ Use `package.json` as the exhaustive source of truth for subpaths; the README ca
 - If an extractor returns no fragments, `DocumentProcessor.process()` returns one empty fragment for the document.
 - `EmbeddingService` batches fragments; the default batch size is `16`.
 - `StaticRetriever.retrieve()` does simple line-level substring matching. It is not semantic retrieval.
+- `StaticRetriever` honors `topK` and `minScore`, but its scores are always `1.0` for matching lines.
 - `VectorRetriever.retrieve()` returns `[]` when the requested `spaceKey` is not mapped to a collection.
-- `VectorRetriever` uses `tenantId` as the vector-store namespace when provided.
-- `VectorIndexer.upsert()` stores fragment text under `payload.text`, together with merged fragment/config metadata and `documentId`.
-- `KnowledgeQueryService` always runs embed -> vector search -> prompt build -> `LLMProvider.chat()`, using indexed `payload.text` as the primary context source and falling back to legacy `payload.content` when needed.
+- `VectorRetriever` uses `tenantId` as the vector-store namespace when provided and automatically merges typed `locale` / `category` filters into the provider filter payload.
+- `VectorIndexer.upsert()` stores fragment text under `payload.text`, together with merged fragment/config metadata and `documentId`. Fragment metadata wins over config metadata when keys collide.
+- `KnowledgeQueryService` always runs embed -> vector search -> prompt build -> `LLMProvider.chat()`, using indexed `payload.text` as the primary context source and falling back to legacy `payload.content` when needed. Per-query overrides let you change namespace, `topK`, filter, locale, and prompt without rebuilding the service.
 - `KnowledgeAccessGuard` defaults to blocking writes to `external` and `ephemeral` knowledge categories.
-- `KnowledgeAccessGuard` defaults to requiring workflow binding and not requiring agent binding.
+- `KnowledgeAccessGuard` also blocks writes when `ResolvedKnowledge.space.access.automationWritable` is `false`.
+- `KnowledgeAccessGuard` defaults to requiring workflow binding and not requiring agent binding. If a scoped workflow or agent allow-list exists, missing names are denied rather than silently bypassed.
 - `GmailIngestionAdapter` converts threads into plaintext and strips HTML when text bodies are missing.
 - This package localizes access messages, query prompts, and Gmail formatting through the `i18n` surface.
 
@@ -3881,6 +3966,7 @@ Use `package.json` as the exhaustive source of truth for subpaths; the README ca
 - `@contractspec/lib.contracts-integrations`: provider interfaces used by vector, embedding, LLM, email, and storage integrations.
 - `@contractspec/lib.contracts-spec`: source of knowledge-space specs, resolved bindings, and shared translation helpers.
 - `@contractspec/lib.ai-agent`: major consumer of retrieval and query contracts.
+- `@contractspec/example.knowledge-canon`: runnable package-level example of binding knowledge spaces and answering through `lib.knowledge`.
 - Context-storage modules and bundles in the repo reuse the ingestion pipeline primitives for document indexing flows.
 
 ## Local commands
@@ -5685,10 +5771,11 @@ hidden-column recovery without widening the primitive table API.
 ### Renderers and hooks
 
 - renderer exports from `./renderers`
-- form-contract renderer support, including readonly, password, autocomplete, address, phone, date, time, datetime, semantic FormSpec groups, grid layout hints, and text/textarea input groups
+- form-contract renderer support, including readonly, password, autocomplete, address, phone, date, time, datetime, semantic FormSpec groups, grid layout hints, mobile-safe FormSpec column helper output, and text/textarea input groups
 - translation-aware rendering through `DesignSystemTranslationProvider` and `createTranslationResolver`
 - theme-aware form controls and stack primitives that consume ThemeSpec component variant props
-- hooks such as `useListUrlState`
+- hooks such as `useListUrlState`, including scoped list filters where locked constraints are excluded from user-editable URL state
+- DataViewRenderer filter chips for scoped DataView filters, including disabled locked chips on web and native surfaces
 - navigation-related shared types
 
 ### Component composition layers
@@ -7359,6 +7446,59 @@ or
 
 Import the root entrypoint from `@contractspec/module.notifications`, or choose a documented subpath when you only need one part of the package surface.
 
+### Omnichannel Delivery
+
+The module now ships concrete provider-backed channels for:
+
+- `EMAIL` via `ProviderEmailChannel`
+- `SMS` via `ProviderSmsChannel`
+- `TELEGRAM` via `TelegramChannel`
+- `WHATSAPP` via `WhatsappChannel`
+
+Those adapters are structural, so they work directly with the ContractSpec provider packages:
+
+```ts
+import { PostmarkEmailProvider } from '@contractspec/integration.provider.email/impls/postmark-email';
+import { TwilioSmsProvider } from '@contractspec/integration.provider.sms/impls/twilio-sms';
+import { TelegramMessagingProvider } from '@contractspec/integration.provider.messaging/impls/messaging-telegram';
+import { MetaWhatsappMessagingProvider } from '@contractspec/integration.provider.messaging/impls/messaging-whatsapp-meta';
+import {
+	createChannelRegistry,
+	ProviderEmailChannel,
+	ProviderSmsChannel,
+	TelegramChannel,
+	WhatsappChannel,
+} from '@contractspec/module.notifications/channels';
+
+const registry = createChannelRegistry({
+	channels: [
+		new ProviderEmailChannel(
+			new PostmarkEmailProvider({ serverToken: process.env.POSTMARK_TOKEN! }),
+			{ defaultFrom: { email: 'noreply@example.com', name: 'ContractSpec' } }
+		),
+		new ProviderSmsChannel(
+			new TwilioSmsProvider({
+				accountSid: process.env.TWILIO_ACCOUNT_SID!,
+				authToken: process.env.TWILIO_AUTH_TOKEN!,
+				fromNumber: process.env.TWILIO_FROM_NUMBER,
+			})
+		),
+		new TelegramChannel(
+			new TelegramMessagingProvider({
+				botToken: process.env.TELEGRAM_BOT_TOKEN!,
+				defaultChatId: process.env.TELEGRAM_DEFAULT_CHAT_ID,
+			})
+		),
+		new WhatsappChannel(
+			new MetaWhatsappMessagingProvider({
+				accessToken: process.env.WHATSAPP_META_ACCESS_TOKEN!,
+				phoneNumberId: process.env.WHATSAPP_META_PHONE_NUMBER_ID!,
+			})
+		),
+	],
+});
+```
+
 ## Architecture
 
 - `src/channels` is part of the package's public or composition surface.
@@ -8870,7 +9010,7 @@ URL: /llms/app.api-library
 - Elysia server with MCP endpoint integration.
 - `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
 - Internal control-plane endpoints expose approval queues, trace inspection, policy explanation, skill registry actions, and dashboard summaries for operators.
-- Related ContractSpec packages include `@contractspec/bundle.library`, `@contractspec/bundle.marketing`, `@contractspec/bundle.workspace`, `@contractspec/integration.providers-impls`, `@contractspec/integration.runtime`, `@contractspec/lib.contracts-spec`, ...
+- Related ContractSpec packages include `@contractspec/bundle.library`, `@contractspec/bundle.marketing`, `@contractspec/bundle.workspace`, `@contractspec/integration.provider.messaging`, `@contractspec/integration.runtime`, `@contractspec/lib.contracts-spec`, ...
 - `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
 
 ## Running Locally
@@ -9616,7 +9756,7 @@ Use `@contractspec/example.project-management-sync` as a reference implementatio
 
 ## Notes
 
-- Works alongside `@contractspec/integration.providers-impls`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- Works alongside `@contractspec/integration.provider.project-management`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
 
 ---
@@ -9699,7 +9839,7 @@ Use `@contractspec/example.email-gmail` as a reference implementation, or import
 
 ## Notes
 
-- Works alongside `@contractspec/integration.providers-impls`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- Works alongside `@contractspec/integration.provider.email`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
 
 ---
@@ -9786,7 +9926,7 @@ Use `@contractspec/example.product-intent` as a reference implementation, or imp
 
 ## Notes
 
-- Works alongside `@contractspec/integration.providers-impls`, `@contractspec/lib.ai-agent`, `@contractspec/lib.analytics`, `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, ...
+- Works alongside `@contractspec/integration.provider.analytics`, `@contractspec/integration.provider.project-management`, `@contractspec/lib.ai-agent`, `@contractspec/lib.analytics`, `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, ...
 
 
 ---
@@ -10195,7 +10335,7 @@ Use `@contractspec/example.integration-posthog` as a reference implementation, o
 
 ## Notes
 
-- Works alongside `@contractspec/integration.providers-impls`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- Works alongside `@contractspec/integration.provider.analytics`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
 
 ---
@@ -10777,7 +10917,7 @@ Use `@contractspec/example.meeting-recorder-providers` as a reference implementa
 
 ## Notes
 
-- Works alongside `@contractspec/integration.providers-impls`, `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- Works alongside `@contractspec/integration.provider.meeting-recorder`, `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
 
 ---
@@ -11976,7 +12116,7 @@ Use `@contractspec/example.calendar-google` as a reference implementation, or im
 
 ## Notes
 
-- Works alongside `@contractspec/integration.providers-impls`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- Works alongside `@contractspec/integration.provider.calendar`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
 
 ---
@@ -11991,7 +12131,7 @@ URL: /llms/example.knowledge-canon
 
 Website: https://contractspec.io
 
-**Knowledge example – Product Canon space (blueprint + tenant config + source sample + runtime helper).**
+**Knowledge example – Product Canon space (blueprint + tenant config + source sample + real `lib.knowledge` retrieval helper).**
 
 ## What This Demonstrates
 
@@ -11999,7 +12139,7 @@ Website: https://contractspec.io
 - Lightweight `app-config` example via `defineAppConfig(...)`.
 - Multi-tenant configuration for knowledge bases.
 - Source sample for content ingestion.
-- Agent helper for knowledge retrieval.
+- Agent helper backed by `@contractspec/lib.knowledge` static retrieval.
 - Minimal contract-only example pattern.
 - `src/docs/` contains docblocks and documentation-facing exports.
 
@@ -12015,12 +12155,14 @@ From `packages/examples/knowledge-canon`:
 
 Use `@contractspec/example.knowledge-canon` as a reference implementation, or import its exported surfaces into a workspace that composes ContractSpec examples and bundles.
 
+The public `answerWithKnowledge(...)` helper now performs a real retrieval step through `@contractspec/lib.knowledge`, so the example is suitable as a copy-pasteable lightweight knowledge-routing pattern.
+
 ## Architecture
 
 - `src/agent.ts` is part of the package's public or composition surface.
 - `src/blueprint.ts` is part of the package's public or composition surface.
 - `src/docs/` contains docblocks and documentation-facing exports.
-- `src/example.ts` is the runnable example entrypoint.
+- `src/example.ts` is the package example manifest/metadata entrypoint.
 - `src/index.ts` is the root public barrel and package entrypoint.
 - `src/knowledge-canon.feature.ts` defines a feature entrypoint.
 - `src/product-canon.space.ts` defines the exported knowledge-space spec.
@@ -12146,7 +12288,7 @@ Use `@contractspec/example.openbanking-powens` as a reference implementation, or
 
 ## Notes
 
-- Works alongside `@contractspec/integration.providers-impls`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- Works alongside `@contractspec/integration.provider.openbanking`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
 
 ---
@@ -12589,8 +12731,8 @@ Website: https://contractspec.io
 
 - Contract layer: canonical `harness-scenario` and `harness-suite` exports.
 - Orchestration layer: `HarnessRunner`, `HarnessEvaluationRunner`, and replay bundle generation.
-- Runtime layer: `SandboxedCodeExecutionAdapter`, `PlaywrightBrowserHarnessAdapter`, `DefaultHarnessTargetResolver`, and `InMemoryHarnessArtifactStore`.
-- A deterministic local browser fixture that stays offline and exercises the real Playwright lane.
+- Runtime layer: `SandboxedCodeExecutionAdapter`, `PlaywrightBrowserHarnessAdapter`, optional `AgentBrowserHarnessAdapter`, `DefaultHarnessTargetResolver`, and `InMemoryHarnessArtifactStore`.
+- A deterministic local browser fixture that stays offline and exercises Playwright, auth profile refs, visual diff evidence, and optional agent-browser evidence.
 - `src/docs/` contains docblocks and documentation-facing exports.
 
 ## Running Locally
@@ -12612,7 +12754,7 @@ Use `@contractspec/example.harness-lab` as the focused harness reference package
 - `src/harness-lab.feature.ts` defines the feature entrypoint for docs/discovery.
 - `src/index.ts` is the root public barrel and package entrypoint.
 - `src/runtime/` contains the runnable sandbox and browser evaluation helpers plus the local browser fixture.
-- `src/scenarios/` contains the focused scenario contracts.
+- `src/scenarios/` contains sandbox, Playwright browser, authenticated browser, visual baseline, and optional agent-browser scenario contracts.
 - `src/suite/` contains the dual-mode harness suite contract.
 
 ## Public Entry Points
@@ -12623,13 +12765,19 @@ Use `@contractspec/example.harness-lab` as the focused harness reference package
 - Export `./example` resolves through `./src/example.ts`.
 - Export `./harness-lab.feature` resolves through `./src/harness-lab.feature.ts`.
 - Export `./runtime` resolves through `./src/runtime/index.ts`.
+- Export `./runtime/runAgentBrowserEvaluation` resolves through `./src/runtime/runAgentBrowserEvaluation.ts`.
+- Export `./runtime/runAuthenticatedBrowserEvaluation` resolves through `./src/runtime/runAuthenticatedBrowserEvaluation.ts`.
 - Export `./runtime/runBrowserEvaluation` resolves through `./src/runtime/runBrowserEvaluation.ts`.
 - Export `./runtime/runSandboxEvaluation` resolves through `./src/runtime/runSandboxEvaluation.ts`.
+- Export `./runtime/runVisualEvaluation` resolves through `./src/runtime/runVisualEvaluation.ts`.
 - Export `./scenarios` resolves through `./src/scenarios/index.ts`.
+- Export `./scenarios/harnessLabAgentBrowser.scenario` resolves through `./src/scenarios/harnessLabAgentBrowser.scenario.ts`.
+- Export `./scenarios/harnessLabAuthenticatedBrowser.scenario` resolves through `./src/scenarios/harnessLabAuthenticatedBrowser.scenario.ts`.
 - Export `./scenarios/harnessLabBrowser.scenario` resolves through `./src/scenarios/harnessLabBrowser.scenario.ts`.
 - Export `./scenarios/harnessLabSandbox.scenario` resolves through `./src/scenarios/harnessLabSandbox.scenario.ts`.
+- Export `./scenarios/harnessLabVisual.scenario` resolves through `./src/scenarios/harnessLabVisual.scenario.ts`.
 - Export `./suite` resolves through `./src/suite/index.ts`.
-- The package publishes 12 total export subpaths; keep docs aligned with `package.json`.
+- The package publishes 21 total export subpaths; keep docs aligned with `package.json`.
 
 ## Local Commands
 
@@ -12650,6 +12798,8 @@ Use `@contractspec/example.harness-lab` as the focused harness reference package
 ## Notes
 
 - Browser tests use a real local Playwright run against an in-package HTTP fixture. Install Chromium locally before running `bun run test`.
+- Agent-browser tests are optional and skip automatically when the `agent-browser` CLI is unavailable.
+- Authenticated scenarios use named auth profile refs; storage state is created by the test harness and credentials are not embedded in scenario specs.
 
 
 ---
@@ -13685,7 +13835,7 @@ Use `@contractspec/example.voice-providers` as a reference implementation, or im
 
 ## Notes
 
-- Works alongside `@contractspec/integration.providers-impls`, `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- Works alongside `@contractspec/integration.provider.voice`, `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
 
 ---
@@ -14636,6 +14786,29 @@ URL: /llms/integration.provider.copilot
 
 ---
 
+## @contractspec/integration.provider.project-management
+
+Description: Project management provider implementations for ContractSpec.
+Path: packages/integrations/provider-project-management
+URL: /llms/integration.provider.project-management
+
+# @contractspec/integration.provider.project-management
+
+Website: https://contractspec.io
+
+Project management provider implementations for ContractSpec.
+
+## Usage
+
+Import the root entrypoint for the domain surface, or import a concrete implementation from the `./impls/*` subpaths.
+
+## Compatibility
+
+This package owns the project-management implementation slice split out of `@contractspec/integration.providers-impls`. The legacy package continues to re-export these subpaths for existing consumers.
+
+
+---
+
 ## @contractspec/integration.workflow-devkit
 
 Description: Workflow DevKit compiler and runtime bridges for ContractSpec workflows
@@ -14725,6 +14898,29 @@ export async function runOnboarding(input: Record<string, unknown>, bridge: Work
 
 ---
 
+## @contractspec/integration.provider.meeting-recorder
+
+Description: Meeting recorder provider implementations for ContractSpec.
+Path: packages/integrations/provider-meeting-recorder
+URL: /llms/integration.provider.meeting-recorder
+
+# @contractspec/integration.provider.meeting-recorder
+
+Website: https://contractspec.io
+
+Meeting recorder provider implementations for ContractSpec.
+
+## Usage
+
+Import the root entrypoint for the domain surface, or import a concrete implementation from the `./impls/*` subpaths.
+
+## Compatibility
+
+This package owns the meeting-recorder implementation slice split out of `@contractspec/integration.providers-impls`. The legacy package continues to re-export these subpaths for existing consumers.
+
+
+---
+
 ## @contractspec/integration.provider.local-model
 
 Description: Local model provider compatibility wrapper for Builder.
@@ -14732,6 +14928,52 @@ Path: packages/integrations/provider-local-model
 URL: /llms/integration.provider.local-model
 
 (No README.md)
+
+---
+
+## @contractspec/integration.provider.vector-store
+
+Description: Vector store provider implementations for ContractSpec.
+Path: packages/integrations/provider-vector-store
+URL: /llms/integration.provider.vector-store
+
+# @contractspec/integration.provider.vector-store
+
+Website: https://contractspec.io
+
+Vector store provider implementations for ContractSpec.
+
+## Usage
+
+Import the root entrypoint for the domain surface, or import a concrete implementation from the `./impls/*` subpaths.
+
+## Compatibility
+
+This package owns the vector-store implementation slice split out of `@contractspec/integration.providers-impls`. The legacy package continues to re-export these subpaths for existing consumers.
+
+
+---
+
+## @contractspec/integration.provider.storage
+
+Description: Object storage provider implementations for ContractSpec.
+Path: packages/integrations/provider-storage
+URL: /llms/integration.provider.storage
+
+# @contractspec/integration.provider.storage
+
+Website: https://contractspec.io
+
+Object storage provider implementations for ContractSpec.
+
+## Usage
+
+Import the root entrypoint for the domain surface, or import a concrete implementation from the `./impls/*` subpaths.
+
+## Compatibility
+
+This package owns the storage implementation slice split out of `@contractspec/integration.providers-impls`. The legacy package continues to re-export these subpaths for existing consumers.
+
 
 ---
 
@@ -14882,6 +15124,104 @@ The channel runtime keeps policy evaluation deterministic and auditable:
 
 ---
 
+## @contractspec/integration.provider.messaging
+
+Description: Messaging provider implementations for ContractSpec.
+Path: packages/integrations/provider-messaging
+URL: /llms/integration.provider.messaging
+
+# @contractspec/integration.provider.messaging
+
+Website: https://contractspec.io
+
+Messaging provider implementations for ContractSpec.
+
+## Usage
+
+Import the root entrypoint for the domain surface, or import a concrete implementation from the `./impls/*` subpaths.
+
+## Included Providers
+
+- `TelegramMessagingProvider`
+- `MetaWhatsappMessagingProvider`
+- `TwilioWhatsappMessagingProvider`
+
+## Compatibility
+
+This package owns the messaging implementation slice split out of `@contractspec/integration.providers-impls`. The legacy package continues to re-export these subpaths for existing consumers.
+
+
+---
+
+## @contractspec/integration.provider.llm
+
+Description: LLM provider implementations for ContractSpec.
+Path: packages/integrations/provider-llm
+URL: /llms/integration.provider.llm
+
+# @contractspec/integration.provider.llm
+
+Website: https://contractspec.io
+
+LLM provider implementations for ContractSpec.
+
+## Usage
+
+Import the root entrypoint for the domain surface, or import a concrete implementation from the `./impls/*` subpaths.
+
+## Compatibility
+
+This package owns the llm implementation slice split out of `@contractspec/integration.providers-impls`. The legacy package continues to re-export these subpaths for existing consumers.
+
+
+---
+
+## @contractspec/integration.provider.analytics
+
+Description: Analytics provider implementations for ContractSpec.
+Path: packages/integrations/provider-analytics
+URL: /llms/integration.provider.analytics
+
+# @contractspec/integration.provider.analytics
+
+Website: https://contractspec.io
+
+Analytics provider implementations for ContractSpec.
+
+## Usage
+
+Import the root entrypoint for the domain surface, or import a concrete implementation from the `./impls/*` subpaths.
+
+## Compatibility
+
+This package owns the analytics implementation slice split out of `@contractspec/integration.providers-impls`. The legacy package continues to re-export these subpaths for existing consumers.
+
+
+---
+
+## @contractspec/integration.provider.sms
+
+Description: SMS provider implementations for ContractSpec.
+Path: packages/integrations/provider-sms
+URL: /llms/integration.provider.sms
+
+# @contractspec/integration.provider.sms
+
+Website: https://contractspec.io
+
+SMS provider implementations for ContractSpec.
+
+## Usage
+
+Import the root entrypoint for the domain surface, or import a concrete implementation from the `./impls/*` subpaths.
+
+## Compatibility
+
+This package owns the sms implementation slice split out of `@contractspec/integration.providers-impls`. The legacy package continues to re-export these subpaths for existing consumers.
+
+
+---
+
 ## @contractspec/integration.example-generator
 
 Description: Example plugin: Markdown documentation generator for ContractSpec specs
@@ -14968,14 +15308,14 @@ URL: /llms/integration.providers-impls
 
 Website: https://contractspec.io
 
-**Integration provider implementations for email, payments, storage, and more.**
+**Compatibility facade and all-provider factory for ContractSpec provider implementations.**
 
 ## What It Provides
 
 - **Layer**: integration.
-- **Consumers**: bundles, apps, modules that need concrete provider wiring.
-- Related ContractSpec packages include `@contractspec/integration.runtime`, `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
-- Related ContractSpec packages include `@contractspec/integration.runtime`, `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- **Consumers**: bundles, apps, and modules that still need the broad compatibility surface or the all-provider factory.
+- Targeted provider implementation packages now own the concrete domains, such as `@contractspec/integration.provider.email`, `@contractspec/integration.provider.payments`, `@contractspec/integration.provider.voice`, and `@contractspec/integration.provider.project-management`.
+- Related ContractSpec packages include `@contractspec/integration.runtime`, `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, and `@contractspec/tool.typescript`.
 
 ## Installation
 
@@ -14987,18 +15327,50 @@ or
 
 ## Usage
 
-Import the root entrypoint from `@contractspec/integration.providers-impls`, or choose a documented subpath when you only need one part of the package surface.
+Prefer a targeted package when you only need one provider domain:
+
+```ts
+import { GmailInboundProvider } from '@contractspec/integration.provider.email/impls/gmail-inbound';
+import { StripePaymentsProvider } from '@contractspec/integration.provider.payments/impls/stripe-payments';
+```
+
+Existing imports from `@contractspec/integration.providers-impls` and its `./impls/*` subpaths remain supported as compatibility re-exports. Keep using this package for `IntegrationProviderFactory` or when you intentionally need the broad composition surface.
+
+### Communication Coverage
+
+`IntegrationProviderFactory` now covers the main OSS communication paths directly:
+
+- `createEmailInboundProvider(...)` for Gmail thread/message sync
+- `createEmailOutboundProvider(...)` for Gmail and Postmark delivery
+- `createSmsProvider(...)` for Twilio SMS
+- `createMessagingProvider(...)` for Telegram, WhatsApp Meta, and WhatsApp Twilio
 
 ## Architecture
 
-- `src/analytics.ts` is part of the package's public or composition surface.
-- `src/calendar.ts` is part of the package's public or composition surface.
-- `src/database.ts` is part of the package's public or composition surface.
-- `src/email.ts` is part of the package's public or composition surface.
-- `src/embedding.ts` is part of the package's public or composition surface.
-- `src/health.ts` is part of the package's public or composition surface.
-- `src/impls` is part of the package's public or composition surface.
+- `src/analytics.ts`, `src/calendar.ts`, `src/database.ts`, `src/email.ts`, `src/embedding.ts`, and the other domain files are compatibility re-exports to targeted packages.
+- `src/impls/provider-factory.ts` owns the all-provider factory and imports targeted packages.
+- `src/impls/composio-*` owns the cross-domain Composio fallback/proxy surface.
+- `src/impls/*` provider implementation files are compatibility re-exports to targeted packages.
 - `src/index.ts` is the root public barrel and package entrypoint.
+
+## Targeted Packages
+
+- `@contractspec/integration.provider.analytics`
+- `@contractspec/integration.provider.calendar`
+- `@contractspec/integration.provider.database`
+- `@contractspec/integration.provider.email`
+- `@contractspec/integration.provider.embedding`
+- `@contractspec/integration.provider.health`
+- `@contractspec/integration.provider.llm`
+- `@contractspec/integration.provider.meeting-recorder`
+- `@contractspec/integration.provider.messaging`
+- `@contractspec/integration.provider.openbanking`
+- `@contractspec/integration.provider.payments`
+- `@contractspec/integration.provider.project-management`
+- `@contractspec/integration.provider.sms`
+- `@contractspec/integration.provider.storage`
+- `@contractspec/integration.provider.vector-store`
+- `@contractspec/integration.provider.voice`
 
 ## Public Entry Points
 
@@ -15012,7 +15384,7 @@ Import the root entrypoint from `@contractspec/integration.providers-impls`, or 
 - Export `./impls` resolves through `./src/impls/index.ts`.
 - Export `./impls/async-event-queue` resolves through `./src/impls/async-event-queue.ts`.
 - Export `./impls/composio-fallback-resolver` resolves through `./src/impls/composio-fallback-resolver.ts`.
-- The package publishes 76 total export subpaths; keep docs aligned with `package.json`.
+- The package publishes 78 total export subpaths; keep docs aligned with `package.json`.
 
 ## Local Commands
 
@@ -15050,6 +15422,29 @@ Import the root entrypoint from `@contractspec/integration.providers-impls`, or 
 
 ---
 
+## @contractspec/integration.provider.calendar
+
+Description: Calendar provider implementations for ContractSpec.
+Path: packages/integrations/provider-calendar
+URL: /llms/integration.provider.calendar
+
+# @contractspec/integration.provider.calendar
+
+Website: https://contractspec.io
+
+Calendar provider implementations for ContractSpec.
+
+## Usage
+
+Import the root entrypoint for the domain surface, or import a concrete implementation from the `./impls/*` subpaths.
+
+## Compatibility
+
+This package owns the calendar implementation slice split out of `@contractspec/integration.providers-impls`. The legacy package continues to re-export these subpaths for existing consumers.
+
+
+---
+
 ## @contractspec/integration.runtime.local
 
 Description: Local runtime compatibility wrapper for Builder.
@@ -15057,6 +15452,29 @@ Path: packages/integrations/runtime-local
 URL: /llms/integration.runtime.local
 
 (No README.md)
+
+---
+
+## @contractspec/integration.provider.voice
+
+Description: Voice, speech, and conversational provider implementations for ContractSpec.
+Path: packages/integrations/provider-voice
+URL: /llms/integration.provider.voice
+
+# @contractspec/integration.provider.voice
+
+Website: https://contractspec.io
+
+Voice, speech, and conversational provider implementations for ContractSpec.
+
+## Usage
+
+Import the root entrypoint for the domain surface, or import a concrete implementation from the `./impls/*` subpaths.
+
+## Compatibility
+
+This package owns the voice implementation slice split out of `@contractspec/integration.providers-impls`. The legacy package continues to re-export these subpaths for existing consumers.
+
 
 ---
 
@@ -15086,6 +15504,29 @@ Browser and uploaded voice helpers for Builder transcription flows.
 
 ---
 
+## @contractspec/integration.provider.database
+
+Description: Database provider implementations for ContractSpec.
+Path: packages/integrations/provider-database
+URL: /llms/integration.provider.database
+
+# @contractspec/integration.provider.database
+
+Website: https://contractspec.io
+
+Database provider implementations for ContractSpec.
+
+## Usage
+
+Import the root entrypoint for the domain surface, or import a concrete implementation from the `./impls/*` subpaths.
+
+## Compatibility
+
+This package owns the database implementation slice split out of `@contractspec/integration.providers-impls`. The legacy package continues to re-export these subpaths for existing consumers.
+
+
+---
+
 ## @contractspec/integration.provider.gemini
 
 Description: Gemini provider compatibility wrapper for Builder.
@@ -15110,7 +15551,7 @@ Website: https://contractspec.io
 
 ## What It Provides
 
-- Provides concrete adapters for browser automation, visual harnessing, sandboxed execution, and artifact storage.
+- Provides concrete adapters for deterministic Playwright browser automation, optional `agent-browser` visual computer-use runs, sandboxed execution, and artifact storage.
 - Exposes MCP helpers and default target resolution on top of the mode-agnostic harness core.
 - Keeps higher-cost runtime integrations optional so consumers can opt into heavier execution targets deliberately.
 - `src/adapters/` contains runtime, provider, or environment-specific adapters.
@@ -15130,7 +15571,7 @@ Import the root entrypoint from `@contractspec/integration.harness-runtime`, or 
 
 ## Architecture
 
-- `src/adapters/` contains browser, sandbox, and visual harness adapters.
+- `src/adapters/` contains Playwright, agent-browser, sandbox, and visual harness adapters.
 - `src/artifacts/` contains filesystem and in-memory artifact-store implementations.
 - `src/mcp/` exposes harness execution surfaces to MCP-aware runtimes.
 - `src/targets/` contains target resolution helpers and target-selection logic.
@@ -15141,6 +15582,7 @@ Import the root entrypoint from `@contractspec/integration.harness-runtime`, or 
 
 - Exports runtime adapters, artifact stores, MCP exposure helpers, target resolution, and shared types.
 - Export `.` resolves through `./src/index.ts`.
+- Export `./adapters/agentBrowserHarnessAdapter` resolves through `./src/adapters/agentBrowserHarnessAdapter.ts`.
 - Export `./adapters/playwrightBrowserHarnessAdapter` resolves through `./src/adapters/playwrightBrowserHarnessAdapter.ts`.
 - Export `./adapters/sandboxedCodeExecutionAdapter` resolves through `./src/adapters/sandboxedCodeExecutionAdapter.ts`.
 - Export `./adapters/visualHarnessAdapter` resolves through `./src/adapters/visualHarnessAdapter.ts`.
@@ -15170,10 +15612,12 @@ Import the root entrypoint from `@contractspec/integration.harness-runtime`, or 
 
 - Replace eslint+prettier by biomejs to optimize speed.
 - Add a first-class harness system for controlled inspection, testing, evaluation, and proof generation.
+- Add OSS full-app verification adapters for Playwright and `agent-browser`, including auth profile refs, visual diff evidence, and replay-friendly browser artifacts.
 
 ## Notes
 
 - Works alongside `@contractspec/lib.contracts-spec`, `@contractspec/lib.harness`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- Authenticated browser runs should use named storage-state, browser-profile, session-name, or headers-env refs. Do not embed raw credentials, cookies, or bearer tokens in scenario specs or replay bundles.
 
 
 ---
@@ -15188,6 +15632,29 @@ URL: /llms/integration.provider.stt
 
 ---
 
+## @contractspec/integration.provider.payments
+
+Description: Payments provider implementations for ContractSpec.
+Path: packages/integrations/provider-payments
+URL: /llms/integration.provider.payments
+
+# @contractspec/integration.provider.payments
+
+Website: https://contractspec.io
+
+Payments provider implementations for ContractSpec.
+
+## Usage
+
+Import the root entrypoint for the domain surface, or import a concrete implementation from the `./impls/*` subpaths.
+
+## Compatibility
+
+This package owns the payments implementation slice split out of `@contractspec/integration.providers-impls`. The legacy package continues to re-export these subpaths for existing consumers.
+
+
+---
+
 ## @contractspec/integration.builder-whatsapp
 
 Description: WhatsApp Builder control-channel integration.
@@ -15197,6 +15664,75 @@ URL: /llms/integration.builder-whatsapp
 # @contractspec/integration.builder-whatsapp
 
 Meta and Twilio WhatsApp normalization for Builder control-channel workflows.
+
+
+---
+
+## @contractspec/integration.provider.embedding
+
+Description: Embedding provider implementations for ContractSpec.
+Path: packages/integrations/provider-embedding
+URL: /llms/integration.provider.embedding
+
+# @contractspec/integration.provider.embedding
+
+Website: https://contractspec.io
+
+Embedding provider implementations for ContractSpec.
+
+## Usage
+
+Import the root entrypoint for the domain surface, or import a concrete implementation from the `./impls/*` subpaths.
+
+## Compatibility
+
+This package owns the embedding implementation slice split out of `@contractspec/integration.providers-impls`. The legacy package continues to re-export these subpaths for existing consumers.
+
+
+---
+
+## @contractspec/integration.provider.openbanking
+
+Description: Open banking provider implementations for ContractSpec.
+Path: packages/integrations/provider-openbanking
+URL: /llms/integration.provider.openbanking
+
+# @contractspec/integration.provider.openbanking
+
+Website: https://contractspec.io
+
+Open banking provider implementations for ContractSpec.
+
+## Usage
+
+Import the root entrypoint for the domain surface, or import a concrete implementation from the `./impls/*` subpaths.
+
+## Compatibility
+
+This package owns the openbanking implementation slice split out of `@contractspec/integration.providers-impls`. The legacy package continues to re-export these subpaths for existing consumers.
+
+
+---
+
+## @contractspec/integration.provider.health
+
+Description: Health data provider implementations for ContractSpec.
+Path: packages/integrations/provider-health
+URL: /llms/integration.provider.health
+
+# @contractspec/integration.provider.health
+
+Website: https://contractspec.io
+
+Health data provider implementations for ContractSpec.
+
+## Usage
+
+Import the root entrypoint for the domain surface, or import a concrete implementation from the `./impls/*` subpaths.
+
+## Compatibility
+
+This package owns the health implementation slice split out of `@contractspec/integration.providers-impls`. The legacy package continues to re-export these subpaths for existing consumers.
 
 
 ---
@@ -15218,6 +15754,35 @@ Path: packages/integrations/runtime-managed
 URL: /llms/integration.runtime.managed
 
 (No README.md)
+
+---
+
+## @contractspec/integration.provider.email
+
+Description: Email provider implementations for ContractSpec.
+Path: packages/integrations/provider-email
+URL: /llms/integration.provider.email
+
+# @contractspec/integration.provider.email
+
+Website: https://contractspec.io
+
+Email provider implementations for ContractSpec.
+
+## Usage
+
+Import the root entrypoint for the domain surface, or import a concrete implementation from the `./impls/*` subpaths.
+
+## Included Providers
+
+- `GmailInboundProvider` for thread and message sync
+- `GmailOutboundProvider` for Gmail-based outbound delivery
+- `PostmarkEmailProvider` for transactional email delivery
+
+## Compatibility
+
+This package owns the email implementation slice split out of `@contractspec/integration.providers-impls`. The legacy package continues to re-export these subpaths for existing consumers.
+
 
 ---
 

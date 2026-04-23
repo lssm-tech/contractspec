@@ -55,6 +55,18 @@ export class KnowledgeAccessGuard {
 
 		if (
 			context.operation === 'write' &&
+			space.access.automationWritable === false
+		) {
+			return {
+				allowed: false,
+				reason: this.i18n.t('access.automationWriteDisabled', {
+					spaceKey: space.meta.key,
+				}),
+			};
+		}
+
+		if (
+			context.operation === 'write' &&
 			this.disallowedWrite.has(space.meta.category)
 		) {
 			return {
@@ -66,32 +78,25 @@ export class KnowledgeAccessGuard {
 			};
 		}
 
-		if (this.requireWorkflowBinding && context.workflowName) {
-			const allowedWorkflows = binding.scope?.workflows;
-			if (
-				allowedWorkflows &&
-				!allowedWorkflows.includes(context.workflowName)
-			) {
-				return {
-					allowed: false,
-					reason: this.i18n.t('access.workflowUnauthorized', {
-						workflowName: context.workflowName,
-						spaceKey: space.meta.key,
-					}),
-				};
+		if (this.requireWorkflowBinding) {
+			const workflowAccess = this.checkWorkflowAccess(
+				binding.scope?.workflows,
+				context,
+				space
+			);
+			if (!workflowAccess.allowed) {
+				return workflowAccess;
 			}
 		}
 
-		if (this.requireAgentBinding && context.agentName) {
-			const allowedAgents = binding.scope?.agents;
-			if (allowedAgents && !allowedAgents.includes(context.agentName)) {
-				return {
-					allowed: false,
-					reason: this.i18n.t('access.agentUnauthorized', {
-						agentName: context.agentName,
-						spaceKey: space.meta.key,
-					}),
-				};
+		if (this.requireAgentBinding) {
+			const agentAccess = this.checkAgentAccess(
+				binding.scope?.agents,
+				context,
+				space
+			);
+			if (!agentAccess.allowed) {
+				return agentAccess;
 			}
 		}
 
@@ -118,5 +123,61 @@ export class KnowledgeAccessGuard {
 				(resolved.space.meta.version == null ||
 					entry.space.meta.version === resolved.space.meta.version)
 		);
+	}
+
+	private checkWorkflowAccess(
+		allowedWorkflows: string[] | undefined,
+		context: KnowledgeAccessContext,
+		space: ResolvedKnowledge['space']
+	): KnowledgeAccessResult {
+		if (!allowedWorkflows || allowedWorkflows.length === 0) {
+			return { allowed: true };
+		}
+		if (!context.workflowName) {
+			return {
+				allowed: false,
+				reason: this.i18n.t('access.workflowBindingRequired', {
+					spaceKey: space.meta.key,
+				}),
+			};
+		}
+		if (!allowedWorkflows.includes(context.workflowName)) {
+			return {
+				allowed: false,
+				reason: this.i18n.t('access.workflowUnauthorized', {
+					workflowName: context.workflowName,
+					spaceKey: space.meta.key,
+				}),
+			};
+		}
+		return { allowed: true };
+	}
+
+	private checkAgentAccess(
+		allowedAgents: string[] | undefined,
+		context: KnowledgeAccessContext,
+		space: ResolvedKnowledge['space']
+	): KnowledgeAccessResult {
+		if (!allowedAgents || allowedAgents.length === 0) {
+			return { allowed: true };
+		}
+		if (!context.agentName) {
+			return {
+				allowed: false,
+				reason: this.i18n.t('access.agentBindingRequired', {
+					spaceKey: space.meta.key,
+				}),
+			};
+		}
+		if (!allowedAgents.includes(context.agentName)) {
+			return {
+				allowed: false,
+				reason: this.i18n.t('access.agentUnauthorized', {
+					agentName: context.agentName,
+					spaceKey: space.meta.key,
+				}),
+			};
+		}
+		return { allowed: true };
 	}
 }

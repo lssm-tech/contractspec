@@ -2,7 +2,7 @@
 
 Website: https://contractspec.io
 
-**Knowledge example – Product Canon space (blueprint + tenant config + source sample + runtime helper).**
+**Knowledge example – Product Canon space (blueprint + tenant config + source sample + real `lib.knowledge` retrieval helper).**
 
 ## What This Demonstrates
 
@@ -10,7 +10,7 @@ Website: https://contractspec.io
 - Lightweight `app-config` example via `defineAppConfig(...)`.
 - Multi-tenant configuration for knowledge bases.
 - Source sample for content ingestion.
-- Agent helper for knowledge retrieval.
+- Agent helper backed by `@contractspec/lib.knowledge` static retrieval.
 - Minimal contract-only example pattern.
 - `src/docs/` contains docblocks and documentation-facing exports.
 
@@ -26,12 +26,14 @@ From `packages/examples/knowledge-canon`:
 
 Use `@contractspec/example.knowledge-canon` as a reference implementation, or import its exported surfaces into a workspace that composes ContractSpec examples and bundles.
 
+The public `answerWithKnowledge(...)` helper now performs a real retrieval step through `@contractspec/lib.knowledge`, so the example is suitable as a copy-pasteable lightweight knowledge-routing pattern.
+
 ## Architecture
 
 - `src/agent.ts` is part of the package's public or composition surface.
 - `src/blueprint.ts` is part of the package's public or composition surface.
 - `src/docs/` contains docblocks and documentation-facing exports.
-- `src/example.ts` is the runnable example entrypoint.
+- `src/example.ts` is the package example manifest/metadata entrypoint.
 - `src/index.ts` is the root public barrel and package entrypoint.
 - `src/knowledge-canon.feature.ts` defines a feature entrypoint.
 - `src/product-canon.space.ts` defines the exported knowledge-space spec.

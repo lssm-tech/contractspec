@@ -14,10 +14,16 @@
 export const ACCESS_KEYS = {
 	/** 'Knowledge space "{spaceKey}" is not bound in the resolved app config.' */
 	'access.notBound': 'access.notBound',
+	/** 'Knowledge space "{spaceKey}" does not allow automated writes.' */
+	'access.automationWriteDisabled': 'access.automationWriteDisabled',
 	/** 'Knowledge space "{spaceKey}" is category "{category}" and is read-only.' */
 	'access.readOnly': 'access.readOnly',
+	/** 'Workflow binding is required to access knowledge space "{spaceKey}".' */
+	'access.workflowBindingRequired': 'access.workflowBindingRequired',
 	/** 'Workflow "{workflowName}" is not authorized to access knowledge space "{spaceKey}".' */
 	'access.workflowUnauthorized': 'access.workflowUnauthorized',
+	/** 'Agent binding is required to access knowledge space "{spaceKey}".' */
+	'access.agentBindingRequired': 'access.agentBindingRequired',
 	/** 'Agent "{agentName}" is not authorized to access knowledge space "{spaceKey}".' */
 	'access.agentUnauthorized': 'access.agentUnauthorized',
 	/** 'Knowledge space "{spaceKey}" is ephemeral; results may be transient.' */

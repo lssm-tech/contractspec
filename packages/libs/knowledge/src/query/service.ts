@@ -14,8 +14,17 @@ export interface KnowledgeQueryConfig {
 	collection: string;
 	namespace?: string;
 	topK?: number;
+	filter?: Record<string, unknown>;
 	systemPrompt?: string;
 	/** Locale for LLM prompts and context labels */
+	locale?: string;
+}
+
+export interface KnowledgeQueryOptions {
+	topK?: number;
+	namespace?: string;
+	filter?: Record<string, unknown>;
+	systemPrompt?: string;
 	locale?: string;
 }
 
@@ -49,17 +58,28 @@ export class KnowledgeQueryService {
 			: getDefaultI18n();
 	}
 
-	async query(question: string): Promise<KnowledgeAnswer> {
+	async query(
+		question: string,
+		options: KnowledgeQueryOptions = {}
+	): Promise<KnowledgeAnswer> {
+		const i18n = options.locale
+			? createKnowledgeI18n(this.config.locale, options.locale)
+			: this.i18n;
 		const embedding = await this.embeddings.embedQuery(question);
 		const results = await this.vectorStore.search({
 			collection: this.config.collection,
 			vector: embedding.vector,
-			topK: this.config.topK ?? 5,
-			namespace: this.config.namespace,
-			filter: undefined,
+			topK: options.topK ?? this.config.topK ?? 5,
+			namespace: options.namespace ?? this.config.namespace,
+			filter: options.filter ?? this.config.filter,
 		});
-		const context = buildContext(results, this.i18n);
-		const messages = this.buildMessages(question, context);
+		const context = buildContext(results, i18n);
+		const messages = this.buildMessages(
+			question,
+			context,
+			i18n,
+			options.systemPrompt
+		);
 		const response = await this.llm.chat(messages);
 		return {
 			answer: response.message.content
@@ -73,9 +93,16 @@ export class KnowledgeQueryService {
 		};
 	}
 
-	private buildMessages(question: string, context: string): LLMMessage[] {
+	private buildMessages(
+		question: string,
+		context: string,
+		i18n: KnowledgeI18n,
+		systemPromptOverride?: string
+	): LLMMessage[] {
 		const systemPrompt =
-			this.config.systemPrompt ?? this.i18n.t('query.systemPrompt');
+			systemPromptOverride ??
+			this.config.systemPrompt ??
+			i18n.t('query.systemPrompt');
 		return [
 			{
 				role: 'system',
@@ -86,7 +113,7 @@ export class KnowledgeQueryService {
 				content: [
 					{
 						type: 'text',
-						text: this.i18n.t('query.userMessage', { question, context }),
+						text: i18n.t('query.userMessage', { question, context }),
 					},
 				],
 			},

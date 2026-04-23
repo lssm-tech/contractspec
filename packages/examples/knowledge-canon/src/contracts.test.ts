@@ -1,5 +1,6 @@
 import { describe, expect, test } from 'bun:test';
 import {
+	answerWithKnowledge,
 	artisanKnowledgeBlueprint,
 	artisanKnowledgeTenantConfig,
 	KnowledgeCanonFeature,
@@ -23,5 +24,61 @@ describe('@contractspec/example.knowledge-canon', () => {
 				version: ProductCanonKnowledgeSpace.meta.version,
 			},
 		]);
+	});
+
+	test('answers with concrete retrieved knowledge content', async () => {
+		const binding = artisanKnowledgeTenantConfig.knowledge?.[0];
+		if (!binding) {
+			throw new Error('Expected a tenant knowledge binding for the example.');
+		}
+		const resolved = {
+			appId: 'artisan',
+			tenantId: 'artisan-co',
+			blueprintName: artisanKnowledgeBlueprint.meta.key,
+			blueprintVersion: artisanKnowledgeBlueprint.meta.version,
+			configVersion: artisanKnowledgeTenantConfig.meta.version,
+			capabilities: { enabled: [], disabled: [] },
+			features: { include: [], exclude: [] },
+			dataViews: {},
+			workflows: {},
+			jobs: {},
+			policies: [],
+			experiments: { catalog: [], active: [], paused: [] },
+			featureFlags: [],
+			routes: [],
+			integrations: [],
+			knowledge: [
+				{
+					binding,
+					space: ProductCanonKnowledgeSpace,
+					sources: [],
+				},
+			],
+			translation: {
+				defaultLocale: 'en',
+				supportedLocales: ['en'],
+				tenantOverrides: [],
+			},
+			branding: {
+				appName: 'Artisan',
+				assets: {},
+				colors: {
+					primary: '#111111',
+					secondary: '#222222',
+				},
+				domain: 'artisan.example.com',
+			},
+		};
+
+		const answer = await answerWithKnowledge(
+			resolved,
+			'How do I rotate a key?',
+			{
+				workflowId: 'answerFaq',
+			}
+		);
+
+		expect(answer).toContain('Retrieved evidence:');
+		expect(answer).toContain('Rotate API keys from Settings > API.');
 	});
 });

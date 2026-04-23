@@ -53,7 +53,7 @@ class FakeVectorStoreProvider implements VectorStoreProvider {
 }
 
 describe('VectorRetriever', () => {
-	it('returns readable text from canonical payloads and applies filters', async () => {
+	it('returns readable text from canonical payloads and applies typed filters', async () => {
 		const vectorStore = new FakeVectorStoreProvider([
 			{
 				id: 'doc-1',
@@ -84,9 +84,9 @@ describe('VectorRetriever', () => {
 		const results = await retriever.retrieve('rotate key', {
 			spaceKey: 'product-canon',
 			tenantId: 'tenant-acme',
-			filter: {
-				locale: 'en',
-			},
+			category: 'canonical',
+			locale: 'en',
+			filter: { sourceType: 'runbook' },
 		});
 
 		expect(vectorStore.lastSearch).toMatchObject({
@@ -94,7 +94,9 @@ describe('VectorRetriever', () => {
 			topK: 3,
 			namespace: 'tenant-acme',
 			filter: {
+				category: 'canonical',
 				locale: 'en',
+				sourceType: 'runbook',
 			},
 		});
 		expect(results).toEqual([

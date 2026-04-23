@@ -39,13 +39,16 @@ class FakeEmbeddingProvider implements EmbeddingProvider {
 }
 
 class FakeVectorStoreProvider implements VectorStoreProvider {
+	lastSearch?: VectorSearchQuery;
+
 	constructor(private readonly results: VectorSearchResult[]) {}
 
 	async upsert(_request: VectorUpsertRequest): Promise<void> {
 		/* noop */
 	}
 
-	async search(_query: VectorSearchQuery): Promise<VectorSearchResult[]> {
+	async search(query: VectorSearchQuery): Promise<VectorSearchResult[]> {
+		this.lastSearch = query;
 		return this.results;
 	}
 
@@ -92,26 +95,39 @@ class FakeLLMProvider {
 describe('KnowledgeQueryService', () => {
 	it('builds prompt context from indexed text payloads', async () => {
 		const llm = new FakeLLMProvider();
+		const vectorStore = new FakeVectorStoreProvider([
+			{
+				id: 'fragment-1',
+				score: 0.95,
+				payload: {
+					text: 'Invoice #2025-01 is due on 2025-02-05.',
+				},
+			},
+		]);
 		const queryService = new KnowledgeQueryService(
 			new FakeEmbeddingProvider(),
-			new FakeVectorStoreProvider([
-				{
-					id: 'fragment-1',
-					score: 0.95,
-					payload: {
-						text: 'Invoice #2025-01 is due on 2025-02-05.',
-					},
-				},
-			]),
+			vectorStore,
 			llm,
 			{
 				collection: 'tenant.family-office',
 			}
 		);
 
-		const answer = await queryService.query('What invoices are due next week?');
+		const answer = await queryService.query(
+			'What invoices are due next week?',
+			{
+				topK: 2,
+				namespace: 'tenant-acme',
+				filter: { locale: 'en' },
+			}
+		);
 
 		expect(answer.answer).toBe('Use the indexed invoice context.');
+		expect(vectorStore.lastSearch).toMatchObject({
+			topK: 2,
+			namespace: 'tenant-acme',
+			filter: { locale: 'en' },
+		});
 		expect(answer.references).toEqual([
 			{
 				id: 'fragment-1',
@@ -125,6 +141,33 @@ describe('KnowledgeQueryService', () => {
 		expect(llm.lastMessages?.[1]?.content[0]).toEqual({
 			type: 'text',
 			text: expect.stringContaining('Invoice #2025-01 is due on 2025-02-05.'),
+		});
+	});
+
+	it('supports per-query prompt and locale overrides', async () => {
+		const llm = new FakeLLMProvider();
+		const queryService = new KnowledgeQueryService(
+			new FakeEmbeddingProvider(),
+			new FakeVectorStoreProvider([]),
+			llm,
+			{
+				collection: 'tenant.family-office',
+				systemPrompt: 'Default prompt',
+			}
+		);
+
+		await queryService.query('Question test', {
+			systemPrompt: 'Custom prompt',
+			locale: 'fr',
+		});
+
+		expect(llm.lastMessages?.[0]?.content[0]).toEqual({
+			type: 'text',
+			text: 'Custom prompt',
+		});
+		expect(llm.lastMessages?.[1]?.content[0]).toEqual({
+			type: 'text',
+			text: expect.stringContaining('Question :\nQuestion test'),
 		});
 	});
 
@@ -146,5 +189,31 @@ describe('KnowledgeQueryService', () => {
 			type: 'text',
 			text: expect.stringContaining('No relevant documents found.'),
 		});
+	});
+
+	it('falls back to payload.content when payload.text is absent', async () => {
+		const llm = new FakeLLMProvider();
+		const queryService = new KnowledgeQueryService(
+			new FakeEmbeddingProvider(),
+			new FakeVectorStoreProvider([
+				{
+					id: 'legacy-fragment',
+					score: 0.87,
+					payload: {
+						content: 'Legacy content remains searchable.',
+					},
+				},
+			]),
+			llm,
+			{
+				collection: 'tenant.family-office',
+			}
+		);
+
+		const answer = await queryService.query('legacy?');
+
+		expect(answer.references[0]?.text).toBe(
+			'Legacy content remains searchable.'
+		);
 	});
 });

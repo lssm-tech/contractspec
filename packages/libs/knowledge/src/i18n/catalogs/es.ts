@@ -28,15 +28,33 @@ export const esMessages = defineTranslation({
 				'El espacio de conocimiento "{spaceKey}" no est\u00e1 vinculado en la configuraci\u00f3n de la aplicaci\u00f3n.',
 			description: 'Denial reason when a knowledge space is not bound',
 		},
+		'access.automationWriteDisabled': {
+			value:
+				'El espacio de conocimiento "{spaceKey}" no permite escrituras automatizadas.',
+			description:
+				'Denial reason when a write is attempted against a non-writable space',
+		},
 		'access.readOnly': {
 			value:
 				'El espacio de conocimiento "{spaceKey}" es de categor\u00eda "{category}" y es de solo lectura.',
 			description: 'Denial reason when write is attempted on a read-only space',
 		},
+		'access.workflowBindingRequired': {
+			value:
+				'Se requiere un workflow vinculado para acceder al espacio de conocimiento "{spaceKey}".',
+			description:
+				'Denial reason when a workflow-scoped space is accessed without a workflow name',
+		},
 		'access.workflowUnauthorized': {
 			value:
 				'El flujo de trabajo "{workflowName}" no est\u00e1 autorizado para acceder al espacio de conocimiento "{spaceKey}".',
 			description: 'Denial reason when a workflow lacks space access',
+		},
+		'access.agentBindingRequired': {
+			value:
+				'Se requiere un agente vinculado para acceder al espacio de conocimiento "{spaceKey}".',
+			description:
+				'Denial reason when an agent-scoped space is accessed without an agent name',
 		},
 		'access.agentUnauthorized': {
 			value:

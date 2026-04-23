@@ -1,0 +1,47 @@
+schemaVersion: "1"
+slug: knowledge-runtime-hardening
+summary: Complete the knowledge OSS surface with stricter guardrails and an easier runtime path.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.knowledge"
+    releaseType: minor
+  - name: "@contractspec/example.knowledge-canon"
+    releaseType: minor
+affectedRuntimes:
+  - bun
+  - node
+affectedFrameworks: []
+audiences:
+  - kind: maintainer
+    summary: Maintainers get a stricter, better-tested knowledge package and a concrete example surface that proves the OSS path end to end.
+    affectedPackages:
+      - "@contractspec/lib.knowledge"
+      - "@contractspec/example.knowledge-canon"
+  - kind: integrator
+    summary: Integrators can compose `KnowledgeRuntime`, use per-query overrides, rely on typed retrieval filters, and see real example usage in the knowledge-canon package.
+    affectedPackages:
+      - "@contractspec/lib.knowledge"
+      - "@contractspec/example.knowledge-canon"
+deprecations: []
+migrationInstructions:
+  - "If you relied on `KnowledgeAccessGuard` allowing writes when `automationWritable` was false, update the space definition or the calling flow before upgrading."
+  - "If you relied on missing workflow or agent names silently bypassing scoped bindings, pass the correct binding identifiers explicitly."
+upgradeSteps:
+  - id: adopt-knowledge-runtime
+    title: Use the higher-level runtime helper when you want a simple OSS setup
+    summary: Prefer `createKnowledgeRuntime(...)` for the common ingest, retrieve, and answer flow instead of composing every low-level primitive by hand.
+    level: self-serve
+    instructions:
+      - Provide embedding and vector-store providers, plus an LLM provider if you want `query(...)`.
+      - Set `collection`, `namespace`, and either `spaceKey` or `spaceCollections`.
+      - Keep using the lower-level primitives directly when you need custom orchestration.
+validation:
+  commands:
+    - "cd packages/libs/knowledge && bun run test && bun run typecheck && bun run lint:check"
+    - "cd packages/examples/knowledge-canon && bun run test && bun run typecheck && bun run lint:check"
+    - "cd packages/apps/web-landing && bun scripts/generate-llms-full.mjs"
+  evidence:
+    - "`@contractspec/lib.knowledge` now exports `KnowledgeRuntime` / `createKnowledgeRuntime` from the root barrel."
+    - "`KnowledgeQueryService.query(...)` supports per-query overrides for namespace, topK, filter, locale, and prompt."
+    - "`KnowledgeAccessGuard` now enforces `automationWritable` and missing scoped workflow/agent bindings."
+    - "`@contractspec/example.knowledge-canon` now uses `@contractspec/lib.knowledge` in its public helper instead of a placeholder TODO."

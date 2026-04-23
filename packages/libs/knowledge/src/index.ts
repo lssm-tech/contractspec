@@ -9,4 +9,5 @@ export * from './knowledge.feature';
 export * from './query';
 // Retriever interface and implementations
 export * from './retriever';
+export * from './runtime';
 export * from './types';

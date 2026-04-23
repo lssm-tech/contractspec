@@ -11,7 +11,7 @@ const blocks: DocBlock[] = [
 		visibility: 'public',
 		route: '/docs/examples/knowledge-canon',
 		tags: ['knowledge', 'canon', 'example'],
-		body: `## Included assets\n- Blueprint referencing a workflow depending on the Product Canon space.\n- Tenant app config binding the space to a workflow and agent scope.\n- Sample knowledge source configuration.\n- Helper to pick knowledge bindings from ResolvedAppConfig.\n\n## Guardrails\n- Keep sources scoped per tenant.\n- Keep secret fields out of config (use secret providers).\n- Enforce scope restrictions before answering.`,
+		body: `## Included assets\n- Blueprint referencing a workflow depending on the Product Canon space.\n- Tenant app config binding the space to a workflow and agent scope.\n- Sample knowledge source configuration.\n- Helper to pick knowledge bindings from ResolvedAppConfig and answer through \`@contractspec/lib.knowledge\`.\n\n## Guardrails\n- Keep sources scoped per tenant.\n- Keep secret fields out of config (use secret providers).\n- Enforce scope restrictions before answering.`,
 	},
 	{
 		id: 'docs.examples.knowledge-canon.usage',
@@ -22,7 +22,7 @@ const blocks: DocBlock[] = [
 		visibility: 'public',
 		route: '/docs/examples/knowledge-canon/usage',
 		tags: ['knowledge', 'usage'],
-		body: `## Usage\n1) Register the knowledge space spec in your KnowledgeSpaceRegistry.\n2) Persist the source config through knowledge CRUD operations.\n3) Compose ResolvedAppConfig and pass it to your workflow/agent runtime.\n4) Use helpers like \`selectKnowledgeBindings\` before dispatching to search/embedding.\n\n## Notes\n- Avoid logging PII.\n- Keep search results auditable and cite sources.`,
+		body: `## Usage\n1) Register the knowledge space spec in your KnowledgeSpaceRegistry.\n2) Persist the source config through knowledge CRUD operations.\n3) Compose ResolvedAppConfig and pass it to your workflow/agent runtime.\n4) Use helpers like \`selectKnowledgeBindings\` or \`answerWithKnowledge\` to dispatch into \`@contractspec/lib.knowledge\`.\n\n## Notes\n- Avoid logging PII.\n- Keep search results auditable and cite sources.`,
 	},
 ];
 

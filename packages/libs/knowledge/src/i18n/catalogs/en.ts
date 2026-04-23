@@ -31,6 +31,12 @@ export const enMessages = defineTranslation({
 			description: 'Denial reason when a knowledge space is not bound',
 			placeholders: [{ name: 'spaceKey', type: 'string' }],
 		},
+		'access.automationWriteDisabled': {
+			value: 'Knowledge space "{spaceKey}" does not allow automated writes.',
+			description:
+				'Denial reason when a write is attempted against a non-writable space',
+			placeholders: [{ name: 'spaceKey', type: 'string' }],
+		},
 		'access.readOnly': {
 			value:
 				'Knowledge space "{spaceKey}" is category "{category}" and is read-only.',
@@ -40,6 +46,13 @@ export const enMessages = defineTranslation({
 				{ name: 'category', type: 'string' },
 			],
 		},
+		'access.workflowBindingRequired': {
+			value:
+				'Workflow binding is required to access knowledge space "{spaceKey}".',
+			description:
+				'Denial reason when a workflow-scoped space is accessed without a workflow name',
+			placeholders: [{ name: 'spaceKey', type: 'string' }],
+		},
 		'access.workflowUnauthorized': {
 			value:
 				'Workflow "{workflowName}" is not authorized to access knowledge space "{spaceKey}".',
@@ -48,6 +61,13 @@ export const enMessages = defineTranslation({
 				{ name: 'workflowName', type: 'string' },
 				{ name: 'spaceKey', type: 'string' },
 			],
+		},
+		'access.agentBindingRequired': {
+			value:
+				'Agent binding is required to access knowledge space "{spaceKey}".',
+			description:
+				'Denial reason when an agent-scoped space is accessed without an agent name',
+			placeholders: [{ name: 'spaceKey', type: 'string' }],
 		},
 		'access.agentUnauthorized': {
 			value:

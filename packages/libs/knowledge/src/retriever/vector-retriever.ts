@@ -62,7 +62,7 @@ export class VectorRetriever implements KnowledgeRetriever {
 			vector: embedding.vector,
 			topK: options.topK ?? this.config.defaultTopK ?? 5,
 			namespace: options.tenantId,
-			filter: options.filter,
+			filter: buildRetrievalFilter(options),
 		});
 
 		// Filter by minimum score
@@ -98,4 +98,19 @@ export function createVectorRetriever(
 	config: VectorRetrieverConfig
 ): VectorRetriever {
 	return new VectorRetriever(config);
+}
+
+function buildRetrievalFilter(
+	options: RetrievalOptions
+): Record<string, unknown> | undefined {
+	const filter: Record<string, unknown> = {
+		...(options.filter ?? {}),
+	};
+	if (options.category) {
+		filter.category = options.category;
+	}
+	if (options.locale) {
+		filter.locale = options.locale;
+	}
+	return Object.keys(filter).length > 0 ? filter : undefined;
 }

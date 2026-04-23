@@ -57,9 +57,14 @@ class FakeVectorStoreProvider implements VectorStoreProvider {
 }
 
 class FakeEmailInboundProvider implements EmailInboundProvider {
+	lastQuery?: Parameters<EmailInboundProvider['listThreads']>[0];
+
 	constructor(private readonly threads: EmailThread[]) {}
 
-	async listThreads(): Promise<EmailThread[]> {
+	async listThreads(
+		query?: Parameters<EmailInboundProvider['listThreads']>[0]
+	): Promise<EmailThread[]> {
+		this.lastQuery = query;
 		return this.threads;
 	}
 
@@ -141,6 +146,69 @@ describe('knowledge ingestion adapters', () => {
 		});
 		expect(vectorStore.lastUpsert?.documents[0]?.payload?.text).toEqual(
 			expect.stringContaining('The payout retried automatically.')
+		);
+	});
+
+	it('throws when storage objects do not include data', async () => {
+		const vectorStore = new FakeVectorStoreProvider();
+		const adapter = new StorageIngestionAdapter(
+			new DocumentProcessor(),
+			new EmbeddingService(new FakeEmbeddingProvider()),
+			createIndexer(vectorStore)
+		);
+
+		await expect(
+			adapter.ingestObject({
+				bucket: 'documents',
+				key: 'missing.txt',
+				contentType: 'text/plain',
+				checksum: 'sha256-123',
+			} as GetObjectResult)
+		).rejects.toThrow('Storage ingestion requires object data');
+	});
+
+	it('prefers Gmail textBody, forwards sync query, and localizes labels', async () => {
+		const vectorStore = new FakeVectorStoreProvider();
+		const gmail = new FakeEmailInboundProvider([
+			{
+				id: 'thread-2',
+				subject: 'Question produit',
+				snippet: 'Bonjour',
+				participants: [{ email: 'ops@example.com' }],
+				updatedAt: new Date('2025-01-02T12:00:00.000Z'),
+				messages: [
+					{
+						id: 'message-2',
+						threadId: 'thread-2',
+						from: { email: 'ops@example.com', name: 'Ops' },
+						to: [{ email: 'support@example.com' }],
+						sentAt: new Date('2025-01-02T12:00:00.000Z'),
+						textBody: 'Texte brut préféré.',
+						htmlBody: '<p>HTML ignoré</p>',
+					},
+				],
+			},
+		]);
+		const adapter = new GmailIngestionAdapter(
+			gmail,
+			new DocumentProcessor(),
+			new EmbeddingService(new FakeEmbeddingProvider()),
+			createIndexer(vectorStore),
+			'fr'
+		);
+
+		await adapter.syncThreads({
+			label: 'support',
+		});
+
+		expect(gmail.lastQuery).toEqual({
+			label: 'support',
+		});
+		expect(vectorStore.lastUpsert?.documents[0]?.payload?.text).toEqual(
+			expect.stringContaining('Texte brut préféré.')
+		);
+		expect(vectorStore.lastUpsert?.documents[0]?.payload?.text).toEqual(
+			expect.stringContaining('Objet : Question produit')
 		);
 	});
 });
