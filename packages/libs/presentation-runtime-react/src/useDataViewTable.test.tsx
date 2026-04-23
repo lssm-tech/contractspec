@@ -4,6 +4,7 @@ import Window from 'happy-dom/lib/window/Window.js';
 import * as React from 'react';
 import { act } from 'react';
 import { createRoot, type Root } from 'react-dom/client';
+import { useListCoordinator } from './index';
 import { useContractTable } from './useContractTable';
 import { useDataViewTable } from './useDataViewTable';
 
@@ -216,6 +217,79 @@ function DataViewHarness({ onReady }: DataViewHarnessProps) {
 	return null;
 }
 
+interface PostFilters extends Record<string, unknown> {
+	status?: string;
+	categoryId?: string;
+}
+
+interface ListCoordinatorHarnessProps {
+	onReady: (
+		controller: ReturnType<typeof useListCoordinator<PostFilters, unknown>>
+	) => void;
+}
+
+function useMemoryUrlState({
+	defaults,
+}: {
+	defaults: {
+		q: string;
+		page: number;
+		limit: number;
+		sort?: string | null;
+		filters: PostFilters;
+	};
+}) {
+	const [state, setStateValue] = React.useState(defaults);
+	const setState = React.useCallback(
+		(next: Partial<typeof defaults>) =>
+			setStateValue((current) => ({ ...current, ...next })),
+		[]
+	);
+	const setFilter = React.useCallback(
+		(key: keyof PostFilters, value: PostFilters[keyof PostFilters] | null) =>
+			setStateValue((current) => ({
+				...current,
+				filters: { ...current.filters, [key]: value },
+			})),
+		[]
+	);
+	const clearFilters = React.useCallback(
+		() => setStateValue((current) => ({ ...current, filters: {} })),
+		[]
+	);
+
+	return { state, setState, setFilter, clearFilters };
+}
+
+function ListCoordinatorHarness({ onReady }: ListCoordinatorHarnessProps) {
+	const controller = useListCoordinator<PostFilters, unknown>({
+		defaults: {
+			q: '',
+			page: 1,
+			limit: 20,
+			filters: { status: 'draft', categoryId: 'cat_2' },
+		},
+		form: { defaultValues: {} },
+		filterScope: {
+			initial: { status: 'published' },
+			locked: { categoryId: 'cat_1' },
+		},
+		toVariables: (state) => state,
+		toChips: (filters) =>
+			Object.entries(filters).map(([key, value]) => ({
+				key,
+				label: `${key}: ${String(value)}`,
+			})),
+		useUrlState: useMemoryUrlState,
+	});
+
+	React.useEffect(() => {
+		onReady(controller);
+	}, [controller, onReady]);
+
+	return null;
+}
+
 async function renderNode(node: React.ReactElement) {
 	const container = document.createElement('div');
 	document.body.append(container);
@@ -229,6 +303,38 @@ async function renderNode(node: React.ReactElement) {
 }
 
 describe('table hooks', () => {
+	test('useListCoordinator keeps locked filters effective but not user-editable', async () => {
+		let controllerRef:
+			| ReturnType<typeof useListCoordinator<PostFilters, unknown>>
+			| undefined;
+
+		const { root } = await renderNode(
+			<ListCoordinatorHarness
+				onReady={(controller) => {
+					controllerRef = controller;
+				}}
+			/>
+		);
+
+		expect(controllerRef?.variables).toMatchObject({
+			filters: { status: 'draft', categoryId: 'cat_1' },
+		});
+		expect(controllerRef?.chips.map((chip) => chip.key)).toEqual(['status']);
+
+		act(() => {
+			controllerRef?.clearAll();
+		});
+		await act(async () => {});
+
+		expect(controllerRef?.variables).toMatchObject({
+			filters: { categoryId: 'cat_1' },
+		});
+
+		await act(async () => {
+			root.unmount();
+		});
+	});
+
 	test('useDataViewTable lets caller pinning override spec defaults', async () => {
 		let controllerRef:
 			| ReturnType<typeof useDataViewTable<(typeof BASE_ROWS)[number]>>

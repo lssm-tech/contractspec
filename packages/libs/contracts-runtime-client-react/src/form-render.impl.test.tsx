@@ -2,6 +2,7 @@ import { describe, expect, it } from 'bun:test';
 import {
 	defineFormSpec,
 	RichFieldsShowcaseForm,
+	responsiveFormColumns,
 } from '@contractspec/lib.contracts-spec/forms';
 import { fromZod } from '@contractspec/lib.schema';
 import { renderToStaticMarkup } from 'react-dom/server';
@@ -229,6 +230,56 @@ const LayoutForm = defineFormSpec({
 	actions: [{ key: 'submit', labelI18n: 'Submit' }],
 });
 
+const LegacyNumericLayoutForm = defineFormSpec({
+	meta: {
+		key: 'test.form.legacy-numeric-layout',
+		version: '1.0.0',
+		title: 'Legacy Numeric Layout Form',
+		description: 'Exercises legacy numeric column rendering.',
+		domain: 'test',
+		owners: ['@team.test'],
+		tags: ['test'],
+		stability: 'experimental',
+	},
+	model: fromZod(
+		z.object({
+			firstName: z.string().optional(),
+			lastName: z.string().optional(),
+		}),
+		{ name: 'LegacyNumericLayoutFormModel' }
+	),
+	layout: { columns: 2 },
+	fields: [
+		{ kind: 'text', name: 'firstName', labelI18n: 'First name' },
+		{ kind: 'text', name: 'lastName', labelI18n: 'Last name' },
+	],
+});
+
+const MobileSafeLayoutForm = defineFormSpec({
+	meta: {
+		key: 'test.form.mobile-safe-layout',
+		version: '1.0.0',
+		title: 'Mobile Safe Layout Form',
+		description: 'Exercises mobile-safe column helper rendering.',
+		domain: 'test',
+		owners: ['@team.test'],
+		tags: ['test'],
+		stability: 'experimental',
+	},
+	model: fromZod(
+		z.object({
+			firstName: z.string().optional(),
+			lastName: z.string().optional(),
+		}),
+		{ name: 'MobileSafeLayoutFormModel' }
+	),
+	layout: { columns: responsiveFormColumns(2) },
+	fields: [
+		{ kind: 'text', name: 'firstName', labelI18n: 'First name' },
+		{ kind: 'text', name: 'lastName', labelI18n: 'Last name' },
+	],
+});
+
 const PasswordForm = defineFormSpec({
 	meta: {
 		key: 'test.form.password',
@@ -375,6 +426,21 @@ describe('contracts-runtime-client-react form renderer', () => {
 		);
 		expect(html).toContain('aria-label="Search icon"');
 		expect(html).toContain('aria-describedby="query-description"');
+	});
+
+	it('preserves legacy numeric columns and renders helper-authored mobile-safe columns', () => {
+		const renderer = createFormRenderer({ driver: mockDriver });
+		const legacyHtml = renderToStaticMarkup(
+			renderer.render(LegacyNumericLayoutForm)
+		);
+		const mobileSafeHtml = renderToStaticMarkup(
+			renderer.render(MobileSafeLayoutForm)
+		);
+
+		expect(legacyHtml).toContain('grid-cols-2');
+		expect(legacyHtml).not.toContain('md:grid-cols-2');
+		expect(mobileSafeHtml).toContain('grid-cols-1');
+		expect(mobileSafeHtml).toContain('md:grid-cols-2');
 	});
 
 	it('renders password fields through the driver password slot', () => {

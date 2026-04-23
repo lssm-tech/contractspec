@@ -1,0 +1,92 @@
+schemaVersion: "1"
+slug: formspec-layout-scoped-filters
+summary: Add mobile-safe FormSpec layout helpers and scoped DataView filters.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.contracts-spec"
+    releaseType: minor
+  - name: "@contractspec/lib.contracts-runtime-client-react"
+    releaseType: patch
+  - name: "@contractspec/lib.presentation-runtime-core"
+    releaseType: minor
+  - name: "@contractspec/lib.presentation-runtime-react"
+    releaseType: minor
+  - name: "@contractspec/lib.presentation-runtime-react-native"
+    releaseType: minor
+  - name: "@contractspec/lib.design-system"
+    releaseType: minor
+affectedRuntimes:
+  - bun
+  - browser
+  - nextjs
+  - expo
+affectedFrameworks:
+  - react
+  - react-native
+audiences:
+  - kind: maintainer
+    summary: Maintainers can add mobile-safe FormSpec layout metadata and first-class scoped filter contracts without breaking existing numeric layout semantics.
+    affectedPackages:
+      - "@contractspec/lib.contracts-spec"
+      - "@contractspec/lib.presentation-runtime-core"
+  - kind: integrator
+    summary: Integrators can reuse one DataView contract for generic and restricted list/search screens while locked filters stay out of user-editable URL state.
+    affectedPackages:
+      - "@contractspec/lib.presentation-runtime-react"
+      - "@contractspec/lib.presentation-runtime-react-native"
+      - "@contractspec/lib.design-system"
+  - kind: customer
+    summary: Contract-driven forms can opt into mobile-safe layouts, and scoped listings now show non-removable locked filter chips by default.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+deprecations: []
+migrationInstructions:
+  - id: numeric-columns-compatible
+    title: Keep existing numeric layouts as-is
+    summary: Existing `layout.columns: 2` contracts continue to render as base two-column layouts.
+    required: false
+    steps:
+      - No migration is required for existing numeric column specs.
+      - Use `responsiveFormColumns(...)` in new specs that should collapse to one mobile column.
+  - id: adopt-scoped-filters
+    title: Move fixed list constraints into DataView filter scope
+    summary: Use `view.filterScope.locked` for non-removable list constraints such as category-scoped posts.
+    required: false
+    steps:
+      - Keep user-editable filter definitions in `view.filters`.
+      - Put removable defaults in `view.filterScope.initial`.
+      - Put non-removable constraints in `view.filterScope.locked`.
+upgradeSteps:
+  - id: mobile-safe-form-layouts
+    title: Opt into mobile-safe form columns
+    summary: Replace ad hoc responsive column objects with `responsiveFormColumns(...)` where mobile forms should render one field per row.
+    level: manual
+    instructions:
+      - Import `responsiveFormColumns` from `@contractspec/lib.contracts-spec/forms`.
+      - Set `layout.columns` to `responsiveFormColumns(2)` or another supported column count.
+  - id: scoped-data-view-filters
+    title: Adopt scoped DataView filters
+    summary: Declare initial and locked filters in the DataView contract instead of passing all filters as removable renderer state.
+    level: manual
+    instructions:
+      - Add `filterScope.initial` for removable default filters.
+      - Add `filterScope.locked` for fixed constraints.
+      - Use `lockedChips: "hidden"` only when the surrounding UI explains the constraint elsewhere.
+validation:
+  commands:
+    - "bun run --cwd packages/libs/contracts-spec test -- data-views/types.test.ts forms/forms.test.ts"
+    - "bun run --cwd packages/libs/contracts-runtime-client-react test -- form-render.impl.test.tsx"
+    - "bun run --cwd packages/libs/presentation-runtime-core test -- list-state.test.ts"
+    - "bun run --cwd packages/libs/presentation-runtime-react test -- useDataViewTable.test.tsx"
+    - "bun run --cwd packages/libs/design-system test -- DataViewRenderer.test.tsx useListUrlState.test.tsx"
+    - "bun run --cwd packages/libs/contracts-spec typecheck && bun run --cwd packages/libs/contracts-spec lint:check"
+    - "bun run --cwd packages/libs/contracts-runtime-client-react typecheck && bun run --cwd packages/libs/contracts-runtime-client-react lint:check"
+    - "bun run --cwd packages/libs/presentation-runtime-core typecheck && bun run --cwd packages/libs/presentation-runtime-core lint:check"
+    - "bun run --cwd packages/libs/presentation-runtime-react typecheck && bun run --cwd packages/libs/presentation-runtime-react lint:check"
+    - "bun run --cwd packages/libs/presentation-runtime-react-native typecheck && bun run --cwd packages/libs/presentation-runtime-react-native lint:check"
+    - "bun run --cwd packages/libs/design-system typecheck && bun run --cwd packages/libs/design-system lint:check"
+  evidence:
+    - "FormSpec exposes `responsiveFormColumns(...)` while preserving legacy numeric layout behavior."
+    - "DataView exposes `filterScope` and canonical filter value/resolution helpers."
+    - "Presentation runtime and design-system URL state preserve locked filters outside user-editable URL state."
+    - "DataViewRenderer renders visible locked chips as disabled/non-removable by default."

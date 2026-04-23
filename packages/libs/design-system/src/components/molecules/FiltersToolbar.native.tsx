@@ -54,7 +54,8 @@ export function FiltersToolbar({
 							key={chip.key}
 							size="sm"
 							variant="secondary"
-							onPress={chip.onRemove}
+							disabled={chip.disabled}
+							onPress={chip.disabled ? undefined : chip.onRemove}
 						>
 							{chip.label}
 						</Button>

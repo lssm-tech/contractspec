@@ -7,6 +7,7 @@ import { Input } from '../atoms/Input';
 export interface ActiveFilterChip {
 	key: string;
 	label: React.ReactNode;
+	disabled?: boolean;
 	onRemove?: () => void;
 }
 
@@ -82,10 +83,13 @@ export function FiltersToolbar({
 						<Badge
 							key={c.key}
 							variant="secondary"
-							className="inline-flex items-center gap-2"
+							className={cn(
+								'inline-flex items-center gap-2',
+								c.disabled && 'opacity-70'
+							)}
 						>
 							<span>{c.label}</span>
-							{c.onRemove && (
+							{c.onRemove && !c.disabled && (
 								<button
 									type="button"
 									aria-label="Supprimer le filtre"

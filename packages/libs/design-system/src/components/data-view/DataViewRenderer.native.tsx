@@ -1,10 +1,13 @@
 'use client';
 
 import type {
+	DataViewFilterSet,
+	DataViewFilterValue,
 	DataViewGridConfig,
 	DataViewListConfig,
 	DataViewSpec,
 } from '@contractspec/lib.contracts-spec/data-views';
+import { resolveDataViewFilters } from '@contractspec/lib.contracts-spec/data-views';
 import { Pagination as TablePagination } from '@contractspec/lib.ui-kit/ui/atoms/Pagination';
 import { VStack } from '@contractspec/lib.ui-kit/ui/stack';
 import { Text } from '@contractspec/lib.ui-kit/ui/text';
@@ -33,8 +36,10 @@ export interface DataViewRendererProps {
 	footer?: React.ReactNode;
 	search?: string;
 	onSearchChange?: (value: string) => void;
-	filters?: Record<string, unknown>;
-	onFilterChange?: (filters: Record<string, unknown>) => void;
+	filters?: Record<string, unknown> | DataViewFilterSet;
+	onFilterChange?: (
+		filters: Record<string, unknown> | DataViewFilterSet
+	) => void;
 	pagination?: {
 		page: number;
 		pageSize: number;
@@ -64,6 +69,51 @@ export function DataViewRenderer({
 	onPageChange,
 }: DataViewRendererProps) {
 	const translate = useDesignSystemTranslation();
+	const resolvedFilters = React.useMemo(
+		() =>
+			resolveDataViewFilters({
+				filters: spec.view.filters,
+				scope: spec.view.filterScope,
+				user: toDataViewFilterSet(filters),
+			}),
+		[filters, spec.view.filterScope, spec.view.filters]
+	);
+	const activeChips = React.useMemo(() => {
+		if (spec.view.filterScope) {
+			const userChips = Object.entries(resolvedFilters.user).map(
+				([key, value]) => ({
+					key,
+					label: `${filterLabel(spec, key)}: ${formatFilterValue(value)}`,
+					onRemove: () => {
+						const { [key]: _, ...rest } = resolvedFilters.user;
+						onFilterChange?.(rest);
+					},
+				})
+			);
+			const lockedChips =
+				resolvedFilters.lockedChips === 'hidden'
+					? []
+					: Object.entries(resolvedFilters.locked).map(([key, value]) => ({
+							key: `locked-${key}`,
+							label: `${filterLabel(spec, key)}: ${formatFilterValue(value)}`,
+							disabled: true,
+						}));
+			return [...userChips, ...lockedChips];
+		}
+		return filters
+			? Object.entries(filters).map(([key, value]) => ({
+					key,
+					label: `${key}: ${String(value)}`,
+					onRemove: () => {
+						const { [key]: _, ...rest } = filters;
+						onFilterChange?.(rest);
+					},
+				}))
+			: [];
+	}, [filters, onFilterChange, resolvedFilters, spec]);
+	const hasClearableFilters = spec.view.filterScope
+		? Object.keys(resolvedFilters.user).length > 0
+		: Boolean(filters && Object.keys(filters).length > 0);
 	const viewContent = React.useMemo(() => {
 		switch (spec.view.kind) {
 			case 'list':
@@ -111,6 +161,7 @@ export function DataViewRenderer({
 					actions: grid.actions,
 					primaryField: grid.primaryField,
 					secondaryFields: grid.secondaryFields,
+					filterScope: grid.filterScope,
 				};
 				const listSpec = {
 					...spec,
@@ -161,31 +212,16 @@ export function DataViewRenderer({
 
 	return (
 		<VStack gap="lg">
-			{(spec.view.filters?.length || onSearchChange) && (
+			{(spec.view.filters?.length || onSearchChange || activeChips.length) && (
 				<FiltersToolbar
 					searchValue={search}
 					onSearchChange={onSearchChange}
 					searchPlaceholder={
 						resolveTranslationString('Search...', translate) ?? 'Search...'
 					}
-					activeChips={
-						filters
-							? Object.entries(filters).map(([key, value]) => ({
-									key,
-									label: `${key}: ${value}`,
-									onRemove: () => {
-										if (filters) {
-											const { [key]: _, ...rest } = filters;
-											onFilterChange?.(rest);
-										}
-									},
-								}))
-							: []
-					}
+					activeChips={activeChips}
 					onClearAll={
-						filters && Object.keys(filters).length > 0
-							? () => onFilterChange?.({})
-							: undefined
+						hasClearableFilters ? () => onFilterChange?.({}) : undefined
 					}
 					right={spec.view.kind === 'table' ? undefined : headerActions}
 				/>
@@ -209,4 +245,40 @@ export function DataViewRenderer({
 			) : null}
 		</VStack>
 	);
+}
+
+function toDataViewFilterSet(
+	filters: DataViewRendererProps['filters']
+): DataViewFilterSet | undefined {
+	if (!filters) return undefined;
+	return Object.fromEntries(
+		Object.entries(filters ?? {}).filter(
+			(entry): entry is [string, DataViewFilterValue] =>
+				Boolean(
+					entry[1] &&
+						typeof entry[1] === 'object' &&
+						'kind' in entry[1] &&
+						typeof (entry[1] as { kind?: unknown }).kind === 'string'
+				)
+		)
+	);
+}
+
+function filterLabel(spec: DataViewSpec, key: string) {
+	return spec.view.filters?.find((filter) => filter.key === key)?.label ?? key;
+}
+
+function formatFilterValue(value: DataViewFilterValue | undefined) {
+	if (!value) return '';
+	if (value.kind === 'single') return String(value.value);
+	if (value.kind === 'multi') return value.values.map(String).join(', ');
+	if (value.kind === 'range') {
+		return [
+			value.from == null ? '' : String(value.from),
+			value.to == null ? '' : String(value.to),
+		]
+			.filter(Boolean)
+			.join(' - ');
+	}
+	return `${value.mode}(${value.clauses.length})`;
 }

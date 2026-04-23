@@ -79,6 +79,57 @@ export interface DataViewFilter {
 	field: string;
 	type: 'search' | 'enum' | 'number' | 'date' | 'boolean';
 	options?: { value: string; label: string }[];
+	operator?: DataViewFilterOperator;
+	valueMode?: 'single' | 'multi' | 'range' | 'composite';
+}
+
+export type DataViewFilterScalar = string | number | boolean;
+
+export type DataViewFilterComparable = string | number;
+
+export type DataViewFilterOperator =
+	| 'eq'
+	| 'neq'
+	| 'contains'
+	| 'in'
+	| 'notIn'
+	| 'gt'
+	| 'gte'
+	| 'lt'
+	| 'lte'
+	| 'between'
+	| 'isNull'
+	| 'isNotNull';
+
+export type DataViewFilterValue =
+	| { kind: 'single'; value: DataViewFilterScalar }
+	| { kind: 'multi'; values: DataViewFilterScalar[] }
+	| {
+			kind: 'range';
+			from?: DataViewFilterComparable;
+			to?: DataViewFilterComparable;
+			includeFrom?: boolean;
+			includeTo?: boolean;
+	  }
+	| {
+			kind: 'composite';
+			mode: 'and' | 'or';
+			clauses: DataViewFilterClause[];
+	  };
+
+export interface DataViewFilterClause {
+	filterKey: string;
+	field: string;
+	operator: DataViewFilterOperator;
+	value?: DataViewFilterValue;
+}
+
+export type DataViewFilterSet = Record<string, DataViewFilterValue | undefined>;
+
+export interface DataViewFilterScope {
+	initial?: DataViewFilterSet;
+	locked?: DataViewFilterSet;
+	lockedChips?: 'visible-disabled' | 'hidden';
 }
 
 /**
@@ -112,6 +163,7 @@ export interface DataViewBaseConfig {
 	primaryField?: string;
 	secondaryFields?: string[];
 	filters?: DataViewFilter[];
+	filterScope?: DataViewFilterScope;
 	actions?: DataViewAction[];
 }
 

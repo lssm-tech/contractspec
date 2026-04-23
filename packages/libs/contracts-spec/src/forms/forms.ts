@@ -118,6 +118,24 @@ export type ResponsiveColumns =
 			lg?: 1 | 2 | 3 | 4;
 	  };
 
+export type ResponsiveColumnBreakpoint = 'sm' | 'md' | 'lg';
+
+export interface ResponsiveFormColumnsOptions {
+	breakpoint?: ResponsiveColumnBreakpoint;
+	base?: 1;
+}
+
+export function responsiveFormColumns(
+	columns: Exclude<ResponsiveColumns, object>,
+	options: ResponsiveFormColumnsOptions = {}
+): ResponsiveColumns {
+	const breakpoint = options.breakpoint ?? 'md';
+	return {
+		base: options.base ?? 1,
+		[breakpoint]: columns,
+	};
+}
+
 export type ResponsiveSpanValue = 1 | 2 | 3 | 4 | 'full';
 
 export type ResponsiveSpan =

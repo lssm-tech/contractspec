@@ -1,4 +1,6 @@
 import { describe, expect, it } from 'bun:test';
+import { resolveDataViewFilters } from './filter-scope';
+import { resolveDataViewFilters as resolveDataViewFiltersFromIndex } from './index';
 import type {
 	DataViewAction,
 	DataViewConfig,
@@ -6,6 +8,7 @@ import type {
 	DataViewField,
 	DataViewFieldFormat,
 	DataViewFilter,
+	DataViewFilterScope,
 	DataViewGridConfig,
 	DataViewKind,
 	DataViewListConfig,
@@ -123,12 +126,18 @@ describe('DataViewField', () => {
 });
 
 describe('DataViewFilter', () => {
+	it('exports filter scope helpers from the data-views boundary', () => {
+		expect(resolveDataViewFiltersFromIndex).toBe(resolveDataViewFilters);
+	});
+
 	it('should define filter structure', () => {
 		const filter: DataViewFilter = {
 			key: 'status',
 			label: 'Status',
 			field: 'status',
 			type: 'enum',
+			operator: 'in',
+			valueMode: 'multi',
 			options: [
 				{ value: 'active', label: 'Active' },
 				{ value: 'inactive', label: 'Inactive' },
@@ -136,7 +145,161 @@ describe('DataViewFilter', () => {
 		};
 
 		expect(filter.type).toBe('enum');
+		expect(filter.operator).toBe('in');
 		expect(filter.options).toHaveLength(2);
+	});
+
+	it('supports scoped initial and locked filter values', () => {
+		const scope: DataViewFilterScope = {
+			initial: {
+				status: { kind: 'single', value: 'published' },
+			},
+			locked: {
+				categoryId: { kind: 'single', value: 'cat_1' },
+			},
+			lockedChips: 'visible-disabled',
+		};
+
+		const config: DataViewListConfig = {
+			kind: 'list',
+			fields: [{ key: 'title', label: 'Title', dataPath: 'title' }],
+			filters: [
+				{ key: 'status', label: 'Status', field: 'status', type: 'enum' },
+				{
+					key: 'categoryId',
+					label: 'Category',
+					field: 'categoryId',
+					type: 'enum',
+				},
+			],
+			filterScope: scope,
+		};
+
+		expect(config.filterScope?.locked?.categoryId).toEqual({
+			kind: 'single',
+			value: 'cat_1',
+		});
+	});
+
+	it('resolves effective filters with locked precedence', () => {
+		const seeded = resolveDataViewFilters({
+			filters: [
+				{ key: 'status', label: 'Status', field: 'status', type: 'enum' },
+			],
+			scope: {
+				initial: {
+					status: { kind: 'single', value: 'published' },
+				},
+			},
+		});
+		const cleared = resolveDataViewFilters({
+			filters: [
+				{ key: 'status', label: 'Status', field: 'status', type: 'enum' },
+			],
+			scope: {
+				initial: {
+					status: { kind: 'single', value: 'published' },
+				},
+			},
+			user: {},
+		});
+
+		expect(seeded.user).toEqual({
+			status: { kind: 'single', value: 'published' },
+		});
+		expect(cleared.user).toEqual({});
+
+		const resolved = resolveDataViewFilters({
+			filters: [
+				{ key: 'status', label: 'Status', field: 'status', type: 'enum' },
+				{
+					key: 'categoryId',
+					label: 'Category',
+					field: 'categoryId',
+					type: 'enum',
+				},
+				{ key: 'score', label: 'Score', field: 'score', type: 'number' },
+			],
+			scope: {
+				initial: {
+					status: { kind: 'single', value: 'published' },
+					score: { kind: 'range', from: 10 },
+				},
+				locked: {
+					categoryId: { kind: 'single', value: 'cat_1' },
+					score: { kind: 'range', to: 20 },
+				},
+			},
+			user: {
+				status: { kind: 'single', value: 'draft' },
+				categoryId: { kind: 'single', value: 'cat_2' },
+				score: { kind: 'range', from: 12 },
+				empty: { kind: 'multi', values: [] },
+			},
+		});
+
+		expect(resolved.user).toEqual({
+			score: { kind: 'range', from: 12 },
+			status: { kind: 'single', value: 'draft' },
+		});
+		expect(resolved.locked.categoryId).toEqual({
+			kind: 'single',
+			value: 'cat_1',
+		});
+		expect(resolved.effective.map((clause) => clause.filterKey)).toEqual([
+			'status',
+			'score',
+			'categoryId',
+			'score',
+		]);
+		expect(resolved.lockedChips).toBe('visible-disabled');
+	});
+
+	it('prunes composite clauses independently while preserving value kinds', () => {
+		const resolved = resolveDataViewFilters({
+			scope: {
+				locked: {
+					categoryId: { kind: 'single', value: 'cat_1' },
+				},
+			},
+			user: {
+				searchOrCategory: {
+					kind: 'composite',
+					mode: 'or',
+					clauses: [
+						{
+							filterKey: 'query',
+							field: 'title',
+							operator: 'contains',
+							value: { kind: 'single', value: 'launch' },
+						},
+						{
+							filterKey: 'categoryId',
+							field: 'categoryId',
+							operator: 'eq',
+							value: { kind: 'single', value: 'cat_2' },
+						},
+					],
+				},
+			},
+			filters: [
+				{
+					key: 'categoryId',
+					label: 'Category',
+					field: 'categoryId',
+					type: 'enum',
+				},
+			],
+		});
+
+		expect(resolved.effective).toHaveLength(2);
+		expect(resolved.effective[0]?.filterKey).toBe('query');
+		expect(resolved.effective[0]?.value?.kind).toBe('single');
+		expect(resolved.effective[1]?.filterKey).toBe('categoryId');
+		expect(resolved.user.searchOrCategory?.kind).toBe('composite');
+		if (resolved.user.searchOrCategory?.kind !== 'composite') return;
+		expect(resolved.user.searchOrCategory.clauses).toHaveLength(1);
+		expect(resolved.user.searchOrCategory.clauses[0]?.filterKey).toBe('query');
 	});
 });
 

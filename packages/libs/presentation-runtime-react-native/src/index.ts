@@ -2,7 +2,12 @@
 
 import type {
 	ListFetcher,
+	ListFilterScope,
 	ListState,
+} from '@contractspec/lib.presentation-runtime-core';
+import {
+	createScopedListState,
+	sanitizeListUserFilters,
 } from '@contractspec/lib.presentation-runtime-core';
 import * as React from 'react';
 import {
@@ -24,6 +29,7 @@ export interface UsePresentationControllerOpts<
 	};
 	toVariables: (input: ListState<TFilters>) => TVars;
 	fetcher: ListFetcher<TVars, TItem>;
+	filterScope?: ListFilterScope<TFilters>;
 	toChips?: (
 		filters: TFilters,
 		setFilter: (
@@ -52,10 +58,12 @@ export function usePresentationController<
 	form: formOpts,
 	toVariables,
 	fetcher,
+	filterScope,
 	toChips,
 	useUrlState,
 	replace,
 }: UsePresentationControllerOpts<TFilters, TVars, TItem>) {
+	const stableFilterScope = useStableFilterScope(filterScope);
 	const url = useUrlState({ defaults, replace });
 	const form = useForm<TFilters>({
 		defaultValues: formOpts.defaultValues,
@@ -63,11 +71,17 @@ export function usePresentationController<
 	} as any);
 
 	React.useEffect(() => {
-		form.reset({ ...(form.getValues() as any), ...(url.state.filters as any) });
-	}, [url.state.filters]);
+		form.reset({
+			...(form.getValues() as any),
+			...(sanitizeListUserFilters(url.state.filters, stableFilterScope) as any),
+		});
+	}, [url.state.filters, stableFilterScope]);
 
 	const submitFilters = form.handleSubmit((values: TFilters) => {
-		url.setState({ filters: values as TFilters, page: 1 });
+		url.setState({
+			filters: sanitizeListUserFilters(values as TFilters, stableFilterScope),
+			page: 1,
+		});
 	});
 
 	const setSearch = React.useCallback(
@@ -75,8 +89,8 @@ export function usePresentationController<
 		[url]
 	);
 	const variables = React.useMemo(
-		() => toVariables(url.state),
-		[url.state, toVariables]
+		() => toVariables(createScopedListState(url.state, stableFilterScope)),
+		[url.state, stableFilterScope, toVariables]
 	);
 
 	const [data, setData] = React.useState<TItem[]>([]);
@@ -112,17 +126,20 @@ export function usePresentationController<
 		() =>
 			toChips
 				? toChips(
-						(url.state.filters as TFilters) || ({} as any),
+						sanitizeListUserFilters(
+							(url.state.filters as TFilters) || ({} as any),
+							stableFilterScope
+						),
 						url.setFilter as any
 					)
 				: [],
-		[url.state.filters, toChips]
+		[url.state.filters, stableFilterScope, toChips]
 	);
 
 	const clearAll = React.useCallback(() => {
 		form.reset(formOpts.defaultValues as TFilters);
 		url.setState({ filters: {} as TFilters, page: 1 });
-	}, [form, formOpts.defaultValues, url]);
+	}, [stableFilterScope, form, formOpts.defaultValues, url]);
 
 	return {
 		form: form as UseFormReturn<TFilters>,
@@ -151,6 +168,7 @@ export interface UseListCoordinatorOpts<
 		resolver?: Resolver<TFilters>;
 	};
 	toVariables: (input: ListState<TFilters>) => TVars;
+	filterScope?: ListFilterScope<TFilters>;
 	toChips?: (
 		filters: TFilters,
 		setFilter: (
@@ -177,10 +195,12 @@ export function useListCoordinator<
 	defaults,
 	form: formOpts,
 	toVariables,
+	filterScope,
 	toChips,
 	useUrlState,
 	replace,
 }: UseListCoordinatorOpts<TFilters, TVars>) {
+	const stableFilterScope = useStableFilterScope(filterScope);
 	const url = useUrlState({ defaults, replace });
 	const form = useForm<TFilters>({
 		defaultValues: formOpts.defaultValues,
@@ -188,11 +208,17 @@ export function useListCoordinator<
 	} as any);
 
 	React.useEffect(() => {
-		form.reset({ ...(form.getValues() as any), ...(url.state.filters as any) });
-	}, [url.state.filters]);
+		form.reset({
+			...(form.getValues() as any),
+			...(sanitizeListUserFilters(url.state.filters, stableFilterScope) as any),
+		});
+	}, [url.state.filters, stableFilterScope]);
 
 	const submitFilters = form.handleSubmit((values: TFilters) => {
-		url.setState({ filters: values as TFilters, page: 1 });
+		url.setState({
+			filters: sanitizeListUserFilters(values as TFilters, stableFilterScope),
+			page: 1,
+		});
 	});
 
 	const setSearch = React.useCallback(
@@ -200,25 +226,28 @@ export function useListCoordinator<
 		[url]
 	);
 	const variables = React.useMemo(
-		() => toVariables(url.state),
-		[url.state, toVariables]
+		() => toVariables(createScopedListState(url.state, stableFilterScope)),
+		[url.state, stableFilterScope, toVariables]
 	);
 
 	const chips = React.useMemo(
 		() =>
 			toChips
 				? toChips(
-						(url.state.filters as TFilters) || ({} as any),
+						sanitizeListUserFilters(
+							(url.state.filters as TFilters) || ({} as any),
+							stableFilterScope
+						),
 						url.setFilter as any
 					)
 				: [],
-		[url.state.filters, toChips]
+		[url.state.filters, stableFilterScope, toChips]
 	);
 
 	const clearAll = React.useCallback(() => {
 		form.reset(formOpts.defaultValues as TFilters);
 		url.setState({ filters: {} as TFilters, page: 1 });
-	}, [form, formOpts.defaultValues, url]);
+	}, [stableFilterScope, form, formOpts.defaultValues, url]);
 
 	return {
 		form: form as UseFormReturn<TFilters>,
@@ -242,3 +271,13 @@ export {
 	useDataViewTable,
 } from '@contractspec/lib.presentation-runtime-react/useDataViewTable';
 export * from './presentation-runtime-react-native.feature';
+
+function useStableFilterScope<TFilters extends Record<string, unknown>>(
+	filterScope: ListFilterScope<TFilters> | undefined
+) {
+	const filterScopeKey = React.useMemo(
+		() => JSON.stringify(filterScope ?? {}),
+		[filterScope]
+	);
+	return React.useMemo(() => filterScope, [filterScopeKey]);
+}

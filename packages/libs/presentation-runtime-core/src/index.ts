@@ -7,6 +7,56 @@ export interface ListState<TFilters extends Record<string, unknown>> {
 	filters: TFilters;
 }
 
+export interface ListFilterScope<
+	TFilters extends Record<string, unknown> = Record<string, unknown>,
+> {
+	initial?: Partial<TFilters>;
+	locked?: Partial<TFilters>;
+}
+
+export function sanitizeListUserFilters<
+	TFilters extends Record<string, unknown>,
+>(filters: TFilters, scope?: ListFilterScope<TFilters>): TFilters {
+	const lockedKeys = new Set(Object.keys(scope?.locked ?? {}));
+	return Object.fromEntries(
+		Object.entries(filters).filter(
+			([key, value]) =>
+				!lockedKeys.has(key) &&
+				value !== undefined &&
+				value !== null &&
+				value !== ''
+		)
+	) as TFilters;
+}
+
+export function createInitialListFilters<
+	TFilters extends Record<string, unknown>,
+>(scope?: ListFilterScope<TFilters>): TFilters {
+	return sanitizeListUserFilters(
+		{ ...(scope?.initial ?? {}) } as TFilters,
+		scope
+	);
+}
+
+export function resolveListStateFilters<
+	TFilters extends Record<string, unknown>,
+>(filters: TFilters, scope?: ListFilterScope<TFilters>): TFilters {
+	return {
+		...sanitizeListUserFilters(filters, scope),
+		...(scope?.locked ?? {}),
+	} as TFilters;
+}
+
+export function createScopedListState<TFilters extends Record<string, unknown>>(
+	state: ListState<TFilters>,
+	scope?: ListFilterScope<TFilters>
+): ListState<TFilters> {
+	return {
+		...state,
+		filters: resolveListStateFilters(state.filters, scope),
+	};
+}
+
 export type ListFetcher<TVars, TItem> = (
 	vars: TVars
 ) => Promise<{ items: TItem[]; totalItems?: number; totalPages?: number }>;

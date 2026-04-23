@@ -7,6 +7,7 @@ import {
 	defineFormSpec,
 	type FormSpec,
 	normalizeFormSpec,
+	responsiveFormColumns,
 } from './forms';
 
 const ArrayFormModel = fromZod(
@@ -230,6 +231,34 @@ describe('buildZodWithRelations', () => {
 			'notes',
 			'nested.code',
 		]);
+	});
+
+	it('creates explicit mobile-safe responsive column hints', () => {
+		expect(responsiveFormColumns(2)).toEqual({ base: 1, md: 2 });
+		expect(responsiveFormColumns(3, { breakpoint: 'lg' })).toEqual({
+			base: 1,
+			lg: 3,
+		});
+
+		const spec = defineFormSpec({
+			meta: {
+				key: 'sigil.form.numeric-layout',
+				version: '1.0.0',
+				title: 'Numeric Layout Form',
+				description: 'Exercises legacy numeric layout behavior.',
+				domain: 'testing',
+				owners: [OwnersEnum.PlatformSigil],
+				tags: [TagsEnum.Auth],
+				stability: StabilityEnum.Experimental,
+			},
+			model: fromZod(z.object({ name: z.string() }), {
+				name: 'NumericLayoutModel',
+			}),
+			layout: { columns: 2 },
+			fields: [{ kind: 'text', name: 'name' }],
+		});
+
+		expect(normalizeFormSpec(spec).layout?.columns).toBe(2);
 	});
 
 	it('accepts current and new password text field metadata', () => {

@@ -1,3 +1,8 @@
+import type { ListFilterScope } from '@contractspec/lib.presentation-runtime-core';
+import {
+	createInitialListFilters,
+	sanitizeListUserFilters,
+} from '@contractspec/lib.presentation-runtime-core';
 import * as React from 'react';
 
 export interface ListUrlState<
@@ -22,8 +27,10 @@ export function useListUrlState<
 		filters: 'f',
 	},
 	replaceState = true,
+	filterScope,
 }: {
 	defaults: ListUrlState<TFilters>;
+	filterScope?: ListFilterScope<TFilters>;
 	paramKeys?: {
 		q: string;
 		page: string;
@@ -33,6 +40,15 @@ export function useListUrlState<
 	};
 	replaceState?: boolean;
 }) {
+	const defaultUserFilters = React.useMemo(
+		() =>
+			({
+				...createInitialListFilters(filterScope),
+				...sanitizeListUserFilters(defaults.filters, filterScope),
+			}) as TFilters,
+		[defaults.filters, filterScope]
+	);
+
 	const read = React.useCallback((): ListUrlState<TFilters> => {
 		if (typeof window === 'undefined') return defaults;
 		const url = new URL(window.location.href);
@@ -45,10 +61,15 @@ export function useListUrlState<
 		let filters: TFilters = defaults.filters;
 		if (filtersRaw) {
 			try {
-				filters = JSON.parse(filtersRaw) as TFilters;
+				filters = sanitizeListUserFilters(
+					JSON.parse(filtersRaw) as TFilters,
+					filterScope
+				);
 			} catch {
-				filters = defaults.filters;
+				filters = defaultUserFilters;
 			}
+		} else {
+			filters = defaultUserFilters;
 		}
 		return {
 			q: qs.get(paramKeys.q) ?? defaults.q,
@@ -57,7 +78,7 @@ export function useListUrlState<
 			sort: qs.get(paramKeys.sort),
 			filters,
 		};
-	}, [defaults, paramKeys]);
+	}, [defaultUserFilters, defaults, filterScope, paramKeys]);
 
 	const [state, setState] = React.useState<ListUrlState<TFilters>>(read);
 
@@ -69,6 +90,10 @@ export function useListUrlState<
 			const merged: ListUrlState<TFilters> = {
 				...state,
 				...next,
+				filters: sanitizeListUserFilters(
+					(next.filters ?? state.filters) as TFilters,
+					filterScope
+				),
 			} as ListUrlState<TFilters>;
 
 			const setOrDel = (key: string, value: string | null | undefined) => {
@@ -92,7 +117,7 @@ export function useListUrlState<
 			else window.history.pushState({}, '', newUrl);
 			setState(merged);
 		},
-		[state, paramKeys, replaceState]
+		[filterScope, state, paramKeys, replaceState]
 	);
 
 	const setFilter = React.useCallback(
