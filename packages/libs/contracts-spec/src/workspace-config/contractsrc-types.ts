@@ -624,6 +624,46 @@ export interface TestingConfig {
 	};
 	/** Test linking configuration for contract-first test discovery */
 	testLinking?: TestLinkingConfig;
+	/** Harness verification configuration for browser, visual, and full-app runs */
+	harness?: TestingHarnessConfig;
+}
+
+export type TestingHarnessBrowserEngine =
+	| 'playwright'
+	| 'agent-browser'
+	| 'both';
+
+export interface TestingHarnessTargetUrls {
+	preview?: string;
+	task?: string;
+	shared?: string;
+	sandbox?: string;
+}
+
+export interface TestingHarnessVisualConfig {
+	maxDiffBytes?: number;
+	maxDiffRatio?: number;
+	updateBaselines?: boolean;
+}
+
+export interface TestingHarnessAuthProfileConfig {
+	kind: 'storage-state' | 'browser-profile' | 'session-name' | 'headers-env';
+	ref: string;
+}
+
+export interface TestingHarnessConfig {
+	/** Root directory for generated harness evidence and replay bundles. */
+	artifactRoot?: string;
+	/** Browser backend preference for harness browser scenarios. */
+	browserEngine?: TestingHarnessBrowserEngine;
+	/** Runtime target URLs used by local and CI harness runs. */
+	targetBaseUrls?: TestingHarnessTargetUrls;
+	/** Navigation domains allowed for browser harness runs. */
+	allowlistedDomains?: string[];
+	/** Visual comparison defaults. */
+	visual?: TestingHarnessVisualConfig;
+	/** Named auth state/profile/header refs. Values must not embed raw secrets. */
+	authProfiles?: Record<string, TestingHarnessAuthProfileConfig>;
 }
 
 export interface RulesConfig {

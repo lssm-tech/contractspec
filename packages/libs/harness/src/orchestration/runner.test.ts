@@ -287,4 +287,278 @@ describe('HarnessRunner', () => {
 		expect(suiteResult.summary.totalScenarios).toBe(1);
 		expect(suiteResult.summary.passRate).toBe(1);
 	});
+
+	it('runs setup hooks and reset hooks even when a scenario step fails', async () => {
+		const calls: string[] = [];
+		const runner = new HarnessRunner({
+			targetResolver,
+			artifactStore: new MemoryArtifactStore(),
+			hookExecutor: {
+				async execute(input) {
+					calls.push(`${input.phase}:${input.hook.operation.key}`);
+					return { status: 'completed', summary: `${input.phase} done` };
+				},
+			},
+			adapters: [
+				scriptedAdapter('deterministic-browser', async () => ({
+					status: 'failed',
+					summary: 'Step failed',
+				})),
+			],
+		});
+		const scenario = defineHarnessScenario({
+			meta: {
+				key: 'qa.hooks.failure',
+				version: '1.0.0',
+				title: 'Hooks failure',
+				description: 'Hooks still reset after failure',
+				domain: 'harness',
+				owners: ['platform.harness'],
+				tags: ['qa'],
+				stability: 'experimental',
+			},
+			target: { allowlistedDomains: ['example.test'] },
+			allowedModes: ['deterministic-browser'],
+			setup: [{ operation: { key: 'fixtures.seed', version: '1.0.0' } }],
+			reset: [{ operation: { key: 'fixtures.reset', version: '1.0.0' } }],
+			steps: [
+				{
+					key: 'fail',
+					description: 'Fail',
+					actionClass: 'read',
+					intent: 'Fail the scenario',
+				},
+			],
+			assertions: [],
+		});
+
+		const result = await runner.runScenario({ scenario });
+
+		expect(result.run.status).toBe('failed');
+		expect(calls).toEqual(['setup:fixtures.seed', 'reset:fixtures.reset']);
+		expect(result.run.steps.map((step) => step.stepKey)).toEqual([
+			'__setup:fixtures.seed',
+			'fail',
+			'__reset:fixtures.reset',
+		]);
+	});
+
+	it('blocks hook scenarios clearly when no hook executor is configured', async () => {
+		const runner = new HarnessRunner({
+			targetResolver,
+			artifactStore: new MemoryArtifactStore(),
+			adapters: [],
+		});
+		const scenario = defineHarnessScenario({
+			meta: {
+				key: 'qa.hooks.missing',
+				version: '1.0.0',
+				title: 'Missing hooks',
+				description: 'Missing hook executor',
+				domain: 'harness',
+				owners: ['platform.harness'],
+				tags: ['qa'],
+				stability: 'experimental',
+			},
+			target: { allowlistedDomains: ['example.test'] },
+			allowedModes: ['deterministic-browser'],
+			setup: [{ operation: { key: 'fixtures.seed', version: '1.0.0' } }],
+			steps: [],
+			assertions: [],
+		});
+
+		const result = await runner.runScenario({ scenario });
+
+		expect(result.run.status).toBe('blocked');
+		expect(result.run.steps[0]?.summary).toContain('hook executor');
+	});
+
+	it('evaluates required evidence and optional assertion success rules', async () => {
+		const runner = new HarnessRunner({
+			targetResolver,
+			artifactStore: new MemoryArtifactStore(),
+			adapters: [
+				scriptedAdapter('deterministic-browser', async () => ({
+					status: 'completed',
+					summary: 'Done',
+					artifacts: [{ kind: 'step-summary', summary: 'Only text' }],
+				})),
+			],
+		});
+		const scenario = defineHarnessScenario({
+			meta: {
+				key: 'qa.evidence.required',
+				version: '1.0.0',
+				title: 'Evidence required',
+				description: 'Missing required screenshot',
+				domain: 'harness',
+				owners: ['platform.harness'],
+				tags: ['qa'],
+				stability: 'experimental',
+			},
+			target: { allowlistedDomains: ['example.test'] },
+			allowedModes: ['deterministic-browser'],
+			requiredEvidence: ['screenshot'],
+			steps: [
+				{
+					key: 'open',
+					description: 'Open',
+					actionClass: 'read',
+					intent: 'Open',
+					expectedEvidence: ['dom-snapshot'],
+				},
+			],
+			assertions: [
+				{
+					key: 'open-completed',
+					type: 'step-status',
+					source: 'open',
+					match: 'completed',
+				},
+			],
+			success: { requireAllAssertions: false },
+		});
+		const evaluationRunner = new HarnessEvaluationRunner({ runner });
+
+		const result = await evaluationRunner.runScenarioEvaluation({ scenario });
+
+		expect(result.status).toBe('passed');
+		expect(
+			result.assertions.map((assertion) => assertion.assertionKey)
+		).toEqual([
+			'open-completed',
+			'required-evidence:screenshot',
+			'expected-evidence:open:dom-snapshot',
+		]);
+		expect(
+			result.assertions.filter((assertion) => assertion.status === 'failed')
+		).toHaveLength(2);
+	});
+
+	it('honors maxBlockedSteps while resolving evaluation status', async () => {
+		const runner = new HarnessRunner({
+			targetResolver,
+			artifactStore: new MemoryArtifactStore(),
+			adapters: [],
+		});
+		const scenario = defineHarnessScenario({
+			meta: {
+				key: 'qa.blocked.tolerance',
+				version: '1.0.0',
+				title: 'Blocked tolerance',
+				description: 'Allow one blocked login',
+				domain: 'harness',
+				owners: ['platform.harness'],
+				tags: ['qa'],
+				stability: 'experimental',
+			},
+			target: { allowlistedDomains: ['example.test'] },
+			allowedModes: ['deterministic-browser'],
+			steps: [
+				{
+					key: 'login',
+					description: 'Login',
+					actionClass: 'login',
+					intent: 'Authenticate',
+				},
+			],
+			assertions: [],
+			success: { maxBlockedSteps: 1 },
+		});
+		const evaluationRunner = new HarnessEvaluationRunner({ runner });
+
+		const result = await evaluationRunner.runScenarioEvaluation({ scenario });
+
+		expect(result.run.status).toBe('blocked');
+		expect(result.status).toBe('passed');
+	});
+
+	it('passes suite mode, target, and context into scenario evaluations', async () => {
+		const seen: Array<{
+			mode: string;
+			baseUrl: string | undefined;
+			workspaceId: string | undefined;
+		}> = [];
+		const runner = new HarnessRunner({
+			targetResolver: {
+				async resolve(request) {
+					return {
+						targetId: 'target-suite',
+						kind: 'preview',
+						isolation: 'preview',
+						environment: 'preview',
+						baseUrl: request.baseUrl,
+						allowlistedDomains: request.allowlistedDomains,
+					};
+				},
+			},
+			artifactStore: new MemoryArtifactStore(),
+			adapters: [
+				scriptedAdapter('visual-computer-use', async (input) => {
+					seen.push({
+						mode: input.step.mode ?? 'missing',
+						baseUrl: input.target.baseUrl,
+						workspaceId: input.context.workspaceId,
+					});
+					return { status: 'completed', summary: 'Visual ok' };
+				}),
+			],
+		});
+		const scenario = defineHarnessScenario({
+			meta: {
+				key: 'qa.suite.propagation',
+				version: '1.0.0',
+				title: 'Suite propagation',
+				description: 'Propagates suite options',
+				domain: 'harness',
+				owners: ['platform.harness'],
+				tags: ['qa'],
+				stability: 'experimental',
+			},
+			target: { allowlistedDomains: ['example.test'] },
+			allowedModes: ['visual-computer-use'],
+			steps: [
+				{
+					key: 'inspect',
+					description: 'Inspect',
+					actionClass: 'read',
+					intent: 'Inspect',
+				},
+			],
+			assertions: [],
+		});
+		const suite = defineHarnessSuite({
+			meta: {
+				key: 'qa.suite.propagation',
+				version: '1.0.0',
+				title: 'Suite propagation',
+				description: 'Suite',
+				domain: 'harness',
+				owners: ['platform.harness'],
+				tags: ['qa'],
+				stability: 'experimental',
+			},
+			scenarios: [{ scenario: { key: scenario.meta.key, version: '1.0.0' } }],
+		});
+		const evaluationRunner = new HarnessEvaluationRunner({
+			runner,
+			scenarioRegistry: new HarnessScenarioRegistry([scenario]),
+			suiteRegistry: new HarnessSuiteRegistry([suite]),
+		});
+
+		await evaluationRunner.runSuiteEvaluation({
+			suiteKey: suite.meta.key,
+			mode: 'visual-computer-use',
+			target: { baseUrl: 'https://custom.example.test' },
+			context: { workspaceId: 'workspace-1' },
+		});
+
+		expect(seen).toEqual([
+			{
+				mode: 'missing',
+				baseUrl: 'https://custom.example.test',
+				workspaceId: 'workspace-1',
+			},
+		]);
+	});
 });

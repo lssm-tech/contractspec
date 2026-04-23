@@ -11,6 +11,7 @@ const HARNESS_LAB_BROWSER_FIXTURE_HTML = `<!doctype html>
     <main>
       <h1>Harness Lab</h1>
       <p id="status">Ready for deterministic browser assertions.</p>
+      <p id="auth-status">Auth profile: anonymous</p>
       <label for="participant-name">Participant</label>
       <input id="participant-name" name="participant-name" />
       <button id="confirm" type="button">Confirm</button>
@@ -19,8 +20,12 @@ const HARNESS_LAB_BROWSER_FIXTURE_HTML = `<!doctype html>
     <script>
       const input = document.getElementById("participant-name");
       const status = document.getElementById("status");
+      const authStatus = document.getElementById("auth-status");
       const result = document.getElementById("result");
       const confirm = document.getElementById("confirm");
+      const authProfile = localStorage.getItem("harnessAuth") || "anonymous";
+      authStatus.textContent = "Auth profile: " + authProfile;
+      document.body.dataset.authProfile = authProfile;
 
       confirm.addEventListener("click", () => {
         const name = input.value.trim() || "anonymous";

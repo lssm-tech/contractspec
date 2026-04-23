@@ -23,6 +23,7 @@ contractspec connect review list
 contractspec connect review sync [--all|--decision <decision-id>] [--queue <queue>]
 contractspec connect replay <decision-id>
 contractspec connect eval <decision-id> --registry <path> (--scenario <key> | --suite <key>) [--version <version>]
+contractspec harness eval --registry <path> (--scenario <key> | --suite <key>) [--version <version>] [--target-url <url>] [--browser-engine playwright|agent-browser|both] [--auth-profile <key>]
 ```
 
 ## Existing CLI surfaces Connect should reuse
@@ -125,6 +126,14 @@ contractspec control-plane trace replay <decision-id>
 - requires exactly one of `--scenario` or `--suite`
 - reuses harness-style evaluation and replay patterns instead of inventing a separate evaluator
 - stores `evaluation-result.json` beside the decision history and may also emit `replay-bundle.json`
+
+### `contractspec harness eval --registry <path> (--scenario <key> | --suite <key>)`
+
+- runs the same harness runtime without requiring a Connect decision
+- writes replay bundles and browser evidence under `.contractspec/harness`
+- supports deterministic Playwright, optional agent-browser, or both
+- supports named auth profile refs from `.contractsrc.json > testing.harness.authProfiles`
+- never accepts raw credentials, cookies, or bearer tokens in scenario specs
 
 ## Exit code behavior
 

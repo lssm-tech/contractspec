@@ -7,6 +7,8 @@ export type HarnessExecutionMode =
 	| 'visual-computer-use'
 	| 'code-execution';
 
+export type HarnessBrowserEngine = 'playwright' | 'agent-browser' | 'both';
+
 export type HarnessActionClass =
 	| 'read'
 	| 'navigate'
@@ -25,6 +27,8 @@ export type HarnessPolicyVerdict = 'autonomous' | 'assist' | 'blocked';
 export type HarnessTargetIsolation = 'preview' | 'task' | 'shared' | 'sandbox';
 export type EvidenceArtifactKind =
 	| 'screenshot'
+	| 'visual-diff'
+	| 'accessibility-snapshot'
 	| 'dom-snapshot'
 	| 'console'
 	| 'network'
@@ -41,6 +45,66 @@ export interface HarnessTargetRef {
 	baseUrl?: string;
 	allowlistedDomains?: string[];
 	metadata?: Record<string, unknown>;
+}
+
+export interface HarnessBrowserViewport {
+	width: number;
+	height: number;
+}
+
+export interface HarnessBrowserAuthProfileRef {
+	key: string;
+	kind: 'storage-state' | 'browser-profile' | 'session-name' | 'headers-env';
+	ref: string;
+}
+
+export type HarnessBrowserAction =
+	| { type: 'click'; selector: string }
+	| { type: 'dblclick'; selector: string }
+	| { type: 'fill'; selector: string; value: string }
+	| { type: 'type'; selector: string; value: string }
+	| { type: 'press'; key: string }
+	| { type: 'select'; selector: string; value: string | string[] }
+	| { type: 'check'; selector: string }
+	| { type: 'uncheck'; selector: string }
+	| { type: 'hover'; selector: string }
+	| {
+			type: 'wait';
+			selector?: string;
+			text?: string;
+			url?: string;
+			load?: 'domcontentloaded' | 'load' | 'networkidle';
+			ms?: number;
+	  }
+	| { type: 'snapshot'; selector?: string }
+	| { type: 'screenshot'; fullPage?: boolean }
+	| {
+			type: 'get';
+			target: 'text' | 'html' | 'value' | 'title' | 'url';
+			selector?: string;
+	  };
+
+export interface HarnessVisualDiffInput {
+	baselinePath: string;
+	maxDiffBytes?: number;
+	maxDiffRatio?: number;
+	updateBaseline?: boolean;
+}
+
+export interface HarnessBrowserStepInput {
+	url?: string;
+	actions?: HarnessBrowserAction[];
+	authProfile?: string | HarnessBrowserAuthProfileRef;
+	viewport?: HarnessBrowserViewport;
+	headersEnv?: string;
+	visual?: HarnessVisualDiffInput;
+	capture?: {
+		screenshot?: boolean;
+		dom?: boolean;
+		console?: boolean;
+		network?: boolean;
+		accessibilitySnapshot?: boolean;
+	};
 }
 
 export interface EvidenceArtifact {
@@ -117,7 +181,13 @@ export interface HarnessScenarioStep {
 
 export interface HarnessScenarioAssertion {
 	key: string;
-	type: 'artifact' | 'step-status' | 'text-match' | 'json-match' | 'count';
+	type:
+		| 'artifact'
+		| 'step-status'
+		| 'text-match'
+		| 'json-match'
+		| 'count'
+		| 'visual-diff';
 	description?: string;
 	source?: string;
 	match?: unknown;

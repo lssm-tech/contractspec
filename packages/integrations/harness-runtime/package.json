@@ -44,6 +44,7 @@
 	},
 	"exports": {
 		".": "./src/index.ts",
+		"./adapters/agentBrowserHarnessAdapter": "./src/adapters/agentBrowserHarnessAdapter.ts",
 		"./adapters/playwrightBrowserHarnessAdapter": "./src/adapters/playwrightBrowserHarnessAdapter.ts",
 		"./adapters/sandboxedCodeExecutionAdapter": "./src/adapters/sandboxedCodeExecutionAdapter.ts",
 		"./adapters/visualHarnessAdapter": "./src/adapters/visualHarnessAdapter.ts",
@@ -63,6 +64,12 @@
 				"bun": "./dist/index.js",
 				"node": "./dist/node/index.js",
 				"default": "./dist/index.js"
+			},
+			"./adapters/agentBrowserHarnessAdapter": {
+				"types": "./dist/adapters/agentBrowserHarnessAdapter.d.ts",
+				"bun": "./dist/adapters/agentBrowserHarnessAdapter.js",
+				"node": "./dist/node/adapters/agentBrowserHarnessAdapter.js",
+				"default": "./dist/adapters/agentBrowserHarnessAdapter.js"
 			},
 			"./adapters/playwrightBrowserHarnessAdapter": {
 				"types": "./dist/adapters/playwrightBrowserHarnessAdapter.d.ts",

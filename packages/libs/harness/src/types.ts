@@ -99,6 +99,7 @@ export interface HarnessApprovalGateway {
 		runId: string;
 		stepKey: string;
 		actionClass: HarnessActionClass;
+		target: HarnessTargetRef;
 		reasons: string[];
 	}): Promise<HarnessApprovalDecision>;
 }
@@ -152,11 +153,36 @@ export interface HarnessReplaySink {
 	save(bundle: unknown): Promise<string | undefined>;
 }
 
+export interface HarnessScenarioHookExecutionInput {
+	context: HarnessExecutionContext;
+	scenario: HarnessScenarioSpec;
+	runId: string;
+	hook: NonNullable<HarnessScenarioSpec['setup']>[number];
+	phase: 'setup' | 'reset';
+	target: HarnessTargetRef;
+}
+
+export interface HarnessScenarioHookExecutionResult {
+	status: 'completed' | 'blocked' | 'failed';
+	summary?: string;
+	output?: unknown;
+	artifacts?: HarnessCapturedArtifact[];
+	reasons?: string[];
+	metadata?: Record<string, unknown>;
+}
+
+export interface HarnessScenarioHookExecutor {
+	execute(
+		input: HarnessScenarioHookExecutionInput
+	): Promise<HarnessScenarioHookExecutionResult>;
+}
+
 export interface HarnessRunnerOptions {
 	targetResolver: HarnessTargetResolver;
 	adapters: HarnessExecutionAdapter[];
 	artifactStore: HarnessArtifactStore;
 	approvalGateway?: HarnessApprovalGateway;
+	hookExecutor?: HarnessScenarioHookExecutor;
 	now?: () => Date;
 	idFactory?: () => string;
 	defaultMode?: HarnessExecutionMode;

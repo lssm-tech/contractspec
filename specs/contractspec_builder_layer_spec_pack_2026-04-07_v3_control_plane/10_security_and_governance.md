@@ -40,6 +40,14 @@ External providers must be isolated by:
 
 Provider output is proposal material until accepted.
 
+## Harness browser security
+
+Browser verification may exercise authenticated app paths, but auth must be referenced, not copied:
+- storage-state, browser-profile, session-name, and headers-env refs are allowed,
+- scenario specs and replay bundles must not contain raw credentials, cookies, or bearer tokens,
+- browser targets must enforce allowlisted domains,
+- visual and DOM evidence must be treated as audit artifacts with the same retention policy as other harness evidence.
+
 ## Runtime target security
 
 ### Managed

@@ -799,6 +799,95 @@
 						}
 					},
 					"additionalProperties": false
+				},
+				"harness": {
+					"type": "object",
+					"properties": {
+						"artifactRoot": {
+							"default": ".contractspec/harness",
+							"type": "string"
+						},
+						"browserEngine": {
+							"default": "playwright",
+							"type": "string",
+							"enum": ["playwright", "agent-browser", "both"]
+						},
+						"targetBaseUrls": {
+							"type": "object",
+							"properties": {
+								"preview": {
+									"type": "string",
+									"format": "uri"
+								},
+								"task": {
+									"type": "string",
+									"format": "uri"
+								},
+								"shared": {
+									"type": "string",
+									"format": "uri"
+								},
+								"sandbox": {
+									"type": "string",
+									"format": "uri"
+								}
+							},
+							"additionalProperties": false
+						},
+						"allowlistedDomains": {
+							"type": "array",
+							"items": {
+								"type": "string"
+							}
+						},
+						"visual": {
+							"type": "object",
+							"properties": {
+								"maxDiffBytes": {
+									"type": "integer",
+									"minimum": 0,
+									"maximum": 9007199254740991
+								},
+								"maxDiffRatio": {
+									"type": "number",
+									"minimum": 0,
+									"maximum": 1
+								},
+								"updateBaselines": {
+									"default": false,
+									"type": "boolean"
+								}
+							},
+							"additionalProperties": false
+						},
+						"authProfiles": {
+							"type": "object",
+							"propertyNames": {
+								"type": "string"
+							},
+							"additionalProperties": {
+								"type": "object",
+								"properties": {
+									"kind": {
+										"type": "string",
+										"enum": [
+											"storage-state",
+											"browser-profile",
+											"session-name",
+											"headers-env"
+										]
+									},
+									"ref": {
+										"type": "string",
+										"minLength": 1
+									}
+								},
+								"required": ["kind", "ref"],
+								"additionalProperties": false
+							}
+						}
+					},
+					"additionalProperties": false
 				}
 			},
 			"additionalProperties": false

@@ -1,11 +1,15 @@
 import type {
 	EvidenceArtifact,
 	EvidenceArtifactKind,
+	HarnessBrowserAuthProfileRef,
+	HarnessBrowserEngine,
 	HarnessExecutionMode,
 	HarnessScenarioSpec,
 	HarnessTargetIsolation,
 	HarnessTargetRef,
 } from '@contractspec/lib.contracts-spec';
+
+export type { HarnessBrowserAuthProfileRef, HarnessBrowserEngine };
 
 export interface HarnessTargetResolutionRequest {
 	explicitTargetId?: string;
@@ -70,4 +74,13 @@ export interface HarnessExecutionAdapter {
 	execute(
 		input: HarnessStepExecutionInput
 	): Promise<HarnessStepExecutionResult>;
+}
+
+export interface HarnessBrowserRuntimeOptions {
+	authProfiles?: Record<string, HarnessBrowserAuthProfileRef>;
+	visual?: {
+		maxDiffBytes?: number;
+		maxDiffRatio?: number;
+		updateBaselines?: boolean;
+	};
 }

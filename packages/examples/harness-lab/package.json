@@ -13,11 +13,17 @@
 		"./runtime": "./src/runtime/index.ts",
 		"./runtime/browserFixtureServer": "./src/runtime/browserFixtureServer.ts",
 		"./runtime/createHarnessLabEvaluationTools": "./src/runtime/createHarnessLabEvaluationTools.ts",
+		"./runtime/runAgentBrowserEvaluation": "./src/runtime/runAgentBrowserEvaluation.ts",
+		"./runtime/runAuthenticatedBrowserEvaluation": "./src/runtime/runAuthenticatedBrowserEvaluation.ts",
 		"./runtime/runBrowserEvaluation": "./src/runtime/runBrowserEvaluation.ts",
 		"./runtime/runSandboxEvaluation": "./src/runtime/runSandboxEvaluation.ts",
+		"./runtime/runVisualEvaluation": "./src/runtime/runVisualEvaluation.ts",
 		"./scenarios": "./src/scenarios/index.ts",
+		"./scenarios/harnessLabAgentBrowser.scenario": "./src/scenarios/harnessLabAgentBrowser.scenario.ts",
+		"./scenarios/harnessLabAuthenticatedBrowser.scenario": "./src/scenarios/harnessLabAuthenticatedBrowser.scenario.ts",
 		"./scenarios/harnessLabBrowser.scenario": "./src/scenarios/harnessLabBrowser.scenario.ts",
 		"./scenarios/harnessLabSandbox.scenario": "./src/scenarios/harnessLabSandbox.scenario.ts",
+		"./scenarios/harnessLabVisual.scenario": "./src/scenarios/harnessLabVisual.scenario.ts",
 		"./suite": "./src/suite/index.ts",
 		"./suite/harnessLabDualMode.suite": "./src/suite/harnessLabDualMode.suite.ts"
 	},
@@ -106,6 +112,18 @@
 				"node": "./dist/node/runtime/createHarnessLabEvaluationTools.js",
 				"default": "./dist/runtime/createHarnessLabEvaluationTools.js"
 			},
+			"./runtime/runAgentBrowserEvaluation": {
+				"types": "./dist/runtime/runAgentBrowserEvaluation.d.ts",
+				"bun": "./dist/runtime/runAgentBrowserEvaluation.js",
+				"node": "./dist/node/runtime/runAgentBrowserEvaluation.js",
+				"default": "./dist/runtime/runAgentBrowserEvaluation.js"
+			},
+			"./runtime/runAuthenticatedBrowserEvaluation": {
+				"types": "./dist/runtime/runAuthenticatedBrowserEvaluation.d.ts",
+				"bun": "./dist/runtime/runAuthenticatedBrowserEvaluation.js",
+				"node": "./dist/node/runtime/runAuthenticatedBrowserEvaluation.js",
+				"default": "./dist/runtime/runAuthenticatedBrowserEvaluation.js"
+			},
 			"./runtime/runBrowserEvaluation": {
 				"types": "./dist/runtime/runBrowserEvaluation.d.ts",
 				"bun": "./dist/runtime/runBrowserEvaluation.js",
@@ -118,11 +136,29 @@
 				"node": "./dist/node/runtime/runSandboxEvaluation.js",
 				"default": "./dist/runtime/runSandboxEvaluation.js"
 			},
+			"./runtime/runVisualEvaluation": {
+				"types": "./dist/runtime/runVisualEvaluation.d.ts",
+				"bun": "./dist/runtime/runVisualEvaluation.js",
+				"node": "./dist/node/runtime/runVisualEvaluation.js",
+				"default": "./dist/runtime/runVisualEvaluation.js"
+			},
 			"./scenarios": {
 				"types": "./dist/scenarios/index.d.ts",
 				"bun": "./dist/scenarios/index.js",
 				"node": "./dist/node/scenarios/index.js",
 				"default": "./dist/scenarios/index.js"
+			},
+			"./scenarios/harnessLabAgentBrowser.scenario": {
+				"types": "./dist/scenarios/harnessLabAgentBrowser.scenario.d.ts",
+				"bun": "./dist/scenarios/harnessLabAgentBrowser.scenario.js",
+				"node": "./dist/node/scenarios/harnessLabAgentBrowser.scenario.js",
+				"default": "./dist/scenarios/harnessLabAgentBrowser.scenario.js"
+			},
+			"./scenarios/harnessLabAuthenticatedBrowser.scenario": {
+				"types": "./dist/scenarios/harnessLabAuthenticatedBrowser.scenario.d.ts",
+				"bun": "./dist/scenarios/harnessLabAuthenticatedBrowser.scenario.js",
+				"node": "./dist/node/scenarios/harnessLabAuthenticatedBrowser.scenario.js",
+				"default": "./dist/scenarios/harnessLabAuthenticatedBrowser.scenario.js"
 			},
 			"./scenarios/harnessLabBrowser.scenario": {
 				"types": "./dist/scenarios/harnessLabBrowser.scenario.d.ts",
@@ -135,6 +171,12 @@
 				"bun": "./dist/scenarios/harnessLabSandbox.scenario.js",
 				"node": "./dist/node/scenarios/harnessLabSandbox.scenario.js",
 				"default": "./dist/scenarios/harnessLabSandbox.scenario.js"
+			},
+			"./scenarios/harnessLabVisual.scenario": {
+				"types": "./dist/scenarios/harnessLabVisual.scenario.d.ts",
+				"bun": "./dist/scenarios/harnessLabVisual.scenario.js",
+				"node": "./dist/node/scenarios/harnessLabVisual.scenario.js",
+				"default": "./dist/scenarios/harnessLabVisual.scenario.js"
 			},
 			"./suite": {
 				"types": "./dist/suite/index.d.ts",

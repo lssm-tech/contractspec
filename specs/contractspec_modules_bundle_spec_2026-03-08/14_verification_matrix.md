@@ -88,6 +88,8 @@ For each critical bundle surface, snapshot at least:
 - one top-down state
 - one bottom-up state
 - one constrained capability state
+- one authenticated state when the feature has gated user/admin behavior
+- one visual baseline state for high-risk UI surfaces
 
 You do not need the full Cartesian product. That would be absurd. Use risk-based combinations.
 

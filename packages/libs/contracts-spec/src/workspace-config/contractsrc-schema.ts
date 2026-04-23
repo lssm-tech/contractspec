@@ -69,6 +69,11 @@ import type {
 	SchemaFormat,
 	SpecKind,
 	TestingConfig,
+	TestingHarnessAuthProfileConfig,
+	TestingHarnessBrowserEngine,
+	TestingHarnessConfig,
+	TestingHarnessTargetUrls,
+	TestingHarnessVisualConfig,
 	TestLinkingConfig,
 	TestLinkingStrategy,
 	UpgradeConfig,
@@ -812,6 +817,48 @@ export const TestLinkingConfigSchema: z.ZodType<TestLinkingConfig> = z.object({
 	warnOnConvention: z.boolean().default(false).optional(),
 });
 
+export const TestingHarnessBrowserEngineSchema: z.ZodType<TestingHarnessBrowserEngine> =
+	z.enum(['playwright', 'agent-browser', 'both']);
+
+export const TestingHarnessTargetUrlsSchema: z.ZodType<TestingHarnessTargetUrls> =
+	z.object({
+		preview: z.string().url().optional(),
+		task: z.string().url().optional(),
+		shared: z.string().url().optional(),
+		sandbox: z.string().url().optional(),
+	});
+
+export const TestingHarnessVisualConfigSchema: z.ZodType<TestingHarnessVisualConfig> =
+	z.object({
+		maxDiffBytes: z.number().int().min(0).optional(),
+		maxDiffRatio: z.number().min(0).max(1).optional(),
+		updateBaselines: z.boolean().default(false).optional(),
+	});
+
+export const TestingHarnessAuthProfileConfigSchema: z.ZodType<TestingHarnessAuthProfileConfig> =
+	z.object({
+		kind: z.enum([
+			'storage-state',
+			'browser-profile',
+			'session-name',
+			'headers-env',
+		]),
+		ref: z.string().min(1),
+	});
+
+export const TestingHarnessConfigSchema: z.ZodType<TestingHarnessConfig> =
+	z.object({
+		artifactRoot: z.string().default('.contractspec/harness').optional(),
+		browserEngine:
+			TestingHarnessBrowserEngineSchema.default('playwright').optional(),
+		targetBaseUrls: TestingHarnessTargetUrlsSchema.optional(),
+		allowlistedDomains: z.array(z.string()).optional(),
+		visual: TestingHarnessVisualConfigSchema.optional(),
+		authProfiles: z
+			.record(z.string(), TestingHarnessAuthProfileConfigSchema)
+			.optional(),
+	});
+
 /**
  * Testing configuration section.
  */
@@ -839,6 +886,8 @@ export const TestingConfigSchema: z.ZodType<TestingConfig> = z.object({
 		.optional(),
 	/** Test linking configuration for contract-first test discovery */
 	testLinking: TestLinkingConfigSchema.optional(),
+	/** Harness verification configuration */
+	harness: TestingHarnessConfigSchema.optional(),
 });
 
 /**

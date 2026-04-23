@@ -233,6 +233,63 @@ describe('ContractsrcSchema with testing', () => {
 		}
 	});
 
+	it('should allow harness testing config without embedded secrets', () => {
+		const result = ContractsrcSchema.safeParse({
+			testing: {
+				runner: 'bun',
+				harness: {
+					artifactRoot: '.contractspec/harness',
+					browserEngine: 'both',
+					targetBaseUrls: {
+						preview: 'http://127.0.0.1:3000',
+						sandbox: 'https://sandbox.contractspec.local',
+					},
+					allowlistedDomains: ['127.0.0.1', 'sandbox.contractspec.local'],
+					visual: {
+						maxDiffBytes: 0,
+						maxDiffRatio: 0,
+						updateBaselines: false,
+					},
+					authProfiles: {
+						operator: {
+							kind: 'storage-state',
+							ref: '.contractspec/auth/operator.json',
+						},
+						headers: {
+							kind: 'headers-env',
+							ref: 'CONTRACTSPEC_HARNESS_HEADERS',
+						},
+					},
+				},
+			},
+		});
+
+		expect(result.success).toBe(true);
+		if (result.success) {
+			expect(result.data.testing?.harness?.browserEngine).toBe('both');
+			expect(result.data.testing?.harness?.authProfiles?.operator?.kind).toBe(
+				'storage-state'
+			);
+		}
+	});
+
+	it('should reject invalid harness auth profile refs', () => {
+		const result = ContractsrcSchema.safeParse({
+			testing: {
+				harness: {
+					authProfiles: {
+						unsafe: {
+							kind: 'password',
+							ref: 'secret',
+						},
+					},
+				},
+			},
+		});
+
+		expect(result.success).toBe(false);
+	});
+
 	it('should allow staged package declaration policy config', () => {
 		const result = ContractsrcSchema.safeParse({
 			ci: {

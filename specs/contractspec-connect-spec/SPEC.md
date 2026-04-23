@@ -97,6 +97,7 @@ Connect sits between an adapter and risky actions:
 | Human approval resolution | `controlPlane.execution.approve`, `controlPlane.execution.reject`, `agent.approvals` |
 | Impact classification | workspace snapshot, diff, and impact services |
 | Deterministic regression check | harness replay bundle and evaluation runner |
+| Full-app browser verification | shared harness runtime with Playwright and optional agent-browser adapters |
 
 ## 8. Adapter-facing verdict model
 
@@ -269,6 +270,7 @@ OSS must include:
 - local context, plan, verdict, and review packet generation
 - local audit evidence
 - deterministic replay hooks
+- OSS harness CLI evaluation for functional, visual, and authenticated app flows using auth profile refs
 - adapter integrations that work without Studio
 
 Studio may add:

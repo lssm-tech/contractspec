@@ -67,12 +67,13 @@ describe('PlaywrightBrowserHarnessAdapter', () => {
 		expect(secondResult.status).toBe('completed');
 		expect(secondResult.summary).toBe('Harness Lab | Ready for Grace Hopper');
 		expect(lifecycle.launchCount).toBe(1);
-		expect(lifecycle.pageCount).toBe(2);
-		expect(lifecycle.pageCloseCount).toBe(2);
+		expect(lifecycle.pageCount).toBe(1);
+		expect(lifecycle.pageCloseCount).toBe(0);
 		expect(lifecycle.browserCloseCount).toBe(0);
 
 		await adapter.dispose();
 
+		expect(lifecycle.pageCloseCount).toBe(1);
 		expect(lifecycle.browserCloseCount).toBe(1);
 	});
 });

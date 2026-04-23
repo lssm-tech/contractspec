@@ -21,6 +21,7 @@ import { extractCommand } from '../commands/extract/index';
 import { fixCommand } from '../commands/fix/index';
 import { gapCommand } from '../commands/gap/index';
 import { generateCommand } from '../commands/generate/index';
+import { harnessCommand } from '../commands/harness/index';
 import { registerHookCommand } from '../commands/hook/index';
 import { createImpactCommand } from '../commands/impact/index';
 import { createImplCommand } from '../commands/impl/index';
@@ -87,6 +88,7 @@ export function registerRootCommands(
 	program.addCommand(withCategory(fixCommand, CATEGORY_DEVELOPMENT));
 
 	program.addCommand(withCategory(integrityCommand, CATEGORY_TESTING));
+	program.addCommand(withCategory(harnessCommand, CATEGORY_TESTING));
 	program.addCommand(withCategory(doctorCommand, CATEGORY_TESTING));
 	program.addCommand(withCategory(ciCommand, CATEGORY_TESTING));
 

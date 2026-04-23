@@ -9,6 +9,7 @@ Website: https://contractspec.io
 - Provides the mode-agnostic harness core used by higher-level runtime adapters and harness-aware workflows.
 - Exports focused surfaces for assertions, evidence normalization, orchestration, policy classification, replay bundles, and shared types.
 - Acts as the central execution model for controlled evaluation, proof generation, and inspection flows.
+- Executes scenario `setup` and `reset` hooks through an explicit `HarnessScenarioHookExecutor`, enforces required evidence, and applies scenario success rules during evaluation.
 - `src/adapters/` contains runtime, provider, or environment-specific adapters.
 
 ## Installation
@@ -64,7 +65,9 @@ Import the root entrypoint from `@contractspec/lib.harness`, or choose a documen
 
 - Replace eslint+prettier by biomejs to optimize speed.
 - Add a first-class harness system for controlled inspection, testing, evaluation, and proof generation.
+- Implement scenario setup/reset hooks, required evidence checks, success-rule evaluation, and suite mode/target propagation.
 
 ## Notes
 
 - Works alongside `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- Hook execution is intentionally injected through `HarnessScenarioHookExecutor`; the harness core does not import operation registries or application runtimes implicitly.

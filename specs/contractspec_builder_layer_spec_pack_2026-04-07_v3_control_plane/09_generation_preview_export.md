@@ -34,6 +34,7 @@ Builder turns fused intent and provider outputs into:
 Preview must support:
 - responsive web preview,
 - screenshot evidence,
+- deterministic Playwright verification and optional agent-browser visual evidence,
 - mobile preview evidence,
 - channel-specific simulation where needed,
 - runtime-mode simulation if behavior differs by target.
@@ -44,6 +45,7 @@ Every preview should expose:
 - blueprint version,
 - provider runs used,
 - harness suite outcomes,
+- browser/visual evidence refs and redacted auth-profile refs when authenticated flows were exercised,
 - notable assumptions,
 - runtime target used for preview,
 - unsupported surfaces or degraded behavior.

@@ -1,5 +1,7 @@
 import {
+	AgentBrowserHarnessAdapter,
 	DefaultHarnessTargetResolver,
+	type HarnessBrowserAuthProfileRef,
 	InMemoryHarnessArtifactStore,
 	PlaywrightBrowserHarnessAdapter,
 	SandboxedCodeExecutionAdapter,
@@ -15,12 +17,16 @@ import {
 	HarnessRunner,
 } from '@contractspec/lib.harness';
 import {
+	HarnessLabAgentBrowserScenario,
+	HarnessLabAuthenticatedBrowserScenario,
 	HarnessLabBrowserScenario,
 	HarnessLabSandboxScenario,
+	HarnessLabVisualScenario,
 } from '../scenarios';
 import { HarnessLabDualModeSuite } from '../suite';
 
 export interface HarnessLabEvaluationToolsOptions {
+	authProfiles?: Record<string, HarnessBrowserAuthProfileRef>;
 	previewBaseUrl?: string;
 	sandboxBaseUrl?: string;
 	replaySink?: HarnessReplaySink;
@@ -94,7 +100,12 @@ export function createHarnessLabEvaluationTools(
 	const now = createHarnessLabNow();
 	const replayCapture = createReplayCapture(options.replaySink);
 	const artifactStore = new InMemoryHarnessArtifactStore();
-	const browserAdapter = new PlaywrightBrowserHarnessAdapter();
+	const browserAdapter = new PlaywrightBrowserHarnessAdapter({
+		authProfiles: options.authProfiles,
+	});
+	const agentBrowserAdapter = new AgentBrowserHarnessAdapter({
+		authProfiles: options.authProfiles,
+	});
 	const runner = new HarnessRunner({
 		targetResolver: new DefaultHarnessTargetResolver({
 			previewBaseUrl: options.previewBaseUrl,
@@ -106,6 +117,7 @@ export function createHarnessLabEvaluationTools(
 		adapters: [
 			new SandboxedCodeExecutionAdapter({ timeoutMs: 1_000 }),
 			browserAdapter,
+			agentBrowserAdapter,
 		],
 		approvalGateway: {
 			async approve() {
@@ -122,6 +134,9 @@ export function createHarnessLabEvaluationTools(
 		scenarioRegistry: new HarnessScenarioRegistry([
 			HarnessLabSandboxScenario,
 			HarnessLabBrowserScenario,
+			HarnessLabAuthenticatedBrowserScenario,
+			HarnessLabVisualScenario,
+			HarnessLabAgentBrowserScenario,
 		]),
 		suiteRegistry: new HarnessSuiteRegistry([HarnessLabDualModeSuite]),
 		replaySink: replayCapture.sink,
@@ -134,6 +149,9 @@ export function createHarnessLabEvaluationTools(
 		evaluationRunner,
 		getReplayBundle: replayCapture.getBundle,
 		getReplayUri: replayCapture.getReplayUri,
-		dispose: () => browserAdapter.dispose(),
+		dispose: async () => {
+			await browserAdapter.dispose();
+			await agentBrowserAdapter.dispose();
+		},
 	};
 }

@@ -1,0 +1,74 @@
+schemaVersion: "1"
+slug: harness-browser-verification
+summary: Add OSS harness CLI verification with deterministic Playwright, optional agent-browser visual runs, auth profile refs, visual diff evidence, replay bundles, and core scenario success semantics.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.contracts-spec"
+    releaseType: minor
+  - name: "@contractspec/lib.harness"
+    releaseType: minor
+  - name: "@contractspec/integration.harness-runtime"
+    releaseType: minor
+  - name: "@contractspec/app.cli-contractspec"
+    releaseType: minor
+  - name: "@contractspec/example.harness-lab"
+    releaseType: minor
+affectedRuntimes:
+  - bun
+  - browser
+  - node
+affectedFrameworks:
+  - playwright
+  - agent-browser
+audiences:
+  - kind: maintainer
+    summary: Harness scenarios now support typed browser actions, auth profile refs, visual-diff assertions, setup/reset hook execution, required evidence enforcement, success rules, and a shared CLI runtime used by both `contractspec harness eval` and `contractspec connect eval`.
+    affectedPackages:
+      - "@contractspec/lib.contracts-spec"
+      - "@contractspec/lib.harness"
+      - "@contractspec/app.cli-contractspec"
+  - kind: integrator
+    summary: Integrators can run OSS full-app verification locally or in CI with Playwright, agent-browser, or both, while writing replay bundles and browser evidence under `.contractspec/harness`.
+    affectedPackages:
+      - "@contractspec/integration.harness-runtime"
+      - "@contractspec/app.cli-contractspec"
+  - kind: customer
+    summary: Browser, authenticated, and visual app flows can now be verified with replayable evidence before accepting provider or agent-generated work.
+    affectedPackages:
+      - "@contractspec/example.harness-lab"
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: configure-harness-auth-profiles
+    title: Configure named harness auth profiles
+    summary: Authenticated browser scenarios should reference named storage-state, browser-profile, session-name, or headers-env profiles instead of embedding secrets.
+    level: assisted
+    instructions:
+      - Add `.contractsrc.json > testing.harness.authProfiles` entries for any authenticated browser flows.
+      - Keep raw credentials, cookies, and bearer tokens outside scenario specs and replay bundles.
+      - Use `contractspec harness eval --auth-profile <key>` when running a scenario that should apply a configured auth profile.
+  - id: install-optional-browser-runtimes
+    title: Install optional browser runtimes for full local proof
+    summary: Playwright and agent-browser are optional runtime dependencies, but local full-app proof requires the corresponding browser binaries or CLI.
+    level: manual
+    instructions:
+      - Run `bunx playwright install chromium` before local Playwright harness runs when browsers are missing.
+      - Install `agent-browser` where visual computer-use scenarios should run.
+      - Use `--browser-engine playwright`, `--browser-engine agent-browser`, or `--browser-engine both` to select the runtime lane.
+validation:
+  commands:
+    - "bun run --cwd packages/libs/contracts-spec typecheck && bun run --cwd packages/libs/contracts-spec lint:check && bun run --cwd packages/libs/contracts-spec test"
+    - "bun run --cwd packages/libs/harness typecheck && bun run --cwd packages/libs/harness lint:check && bun run --cwd packages/libs/harness test"
+    - "bun run --cwd packages/integrations/harness-runtime typecheck && bun run --cwd packages/integrations/harness-runtime lint:check && bun run --cwd packages/integrations/harness-runtime test"
+    - "bun run --cwd packages/apps/cli-contractspec typecheck && bun run --cwd packages/apps/cli-contractspec lint:check && bun run --cwd packages/apps/cli-contractspec test"
+    - "bun run --cwd packages/examples/harness-lab typecheck && bun run --cwd packages/examples/harness-lab lint:check && bun run --cwd packages/examples/harness-lab test"
+  evidence:
+    - "`contractspec harness eval` exposes scenario/suite evaluation, target URL overrides, browser engine selection, auth profile refs, JSON output, and baseline update controls."
+    - "`contractspec connect eval` now uses the same shared harness runtime factory as standalone harness eval."
+    - "`HarnessRunner` now executes setup/reset hooks through an explicit hook executor, blocks hook scenarios when no executor exists, and records hook results in replayable run steps."
+    - "`HarnessEvaluationRunner` now enforces required evidence and scenario success rules, and propagates mode/target/context through suite runs."
+    - "`contractspec harness eval` auto-approves local preview/task/sandbox login and form-submit actions while keeping higher-risk actions blocked."
+    - "`AgentBrowserHarnessAdapter` executes argument-safe agent-browser commands with allowlisted domains, optional auth refs, screenshots, accessibility snapshots, console evidence, and cleanup."
+    - "`PlaywrightBrowserHarnessAdapter` preserves page state across run steps and supports storage-state/header refs, visual diff artifacts, DOM snapshots, screenshots, and console evidence."
+    - "`@contractspec/example.harness-lab` verifies sandbox, Playwright browser, authenticated storage-state, visual baseline, and agent-browser scenarios locally."
+knownGaps: []

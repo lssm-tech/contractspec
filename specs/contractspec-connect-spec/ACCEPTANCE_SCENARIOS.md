@@ -74,6 +74,7 @@ Input:
 - prior decision id exists locally
 - corresponding trace refs and review artifacts exist
 - operator runs `contractspec connect eval <decision-id> --registry ./harness-registry.ts --scenario connect.safe-refactor`
+- operator can also run `contractspec harness eval --registry ./harness-registry.ts --scenario connect.safe-refactor --browser-engine both`
 
 Expected result:
 
@@ -81,6 +82,7 @@ Expected result:
 - local decision snapshots resolve from `.contractspec/connect/decisions/<decisionId>/`
 - trace refs resolve through existing control-plane services
 - harness-style evaluation can be attached without a Connect-specific evaluator
+- Playwright and agent-browser browser evidence use the shared harness runtime and preserve auth refs without embedding secrets
 
 ## 7. Adapter acceptance
 

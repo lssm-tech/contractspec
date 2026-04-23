@@ -1,5 +1,7 @@
 import type {
+	HarnessRunRecord,
 	HarnessScenarioRegistry,
+	HarnessScenarioSpec,
 	HarnessSuiteRegistry,
 } from '@contractspec/lib.contracts-spec';
 import { randomUUID } from 'crypto';
@@ -56,13 +58,19 @@ export class HarnessEvaluationRunner {
 			artifacts: execution.artifacts,
 			assertions,
 			replayBundleUri,
-			status: this.resolveStatus(execution.run.status, assertions),
+			status: this.resolveStatus({
+				run: execution.run,
+				assertions,
+				scenario: input.scenario,
+			}),
 		};
 	}
 
 	async runSuiteEvaluation(input: {
 		suiteKey: string;
 		version?: string;
+		mode?: HarnessRunScenarioInput['mode'];
+		target?: HarnessRunScenarioInput['target'];
 		context?: HarnessRunScenarioInput['context'];
 	}): Promise<HarnessSuiteEvaluationResult> {
 		const suite = this.options.suiteRegistry?.get(
@@ -84,6 +92,8 @@ export class HarnessEvaluationRunner {
 				await this.runScenarioEvaluation({
 					scenario,
 					suiteKey: suite.meta.key,
+					mode: input.mode,
+					target: input.target,
 					context: input.context,
 				})
 			);
@@ -123,14 +133,32 @@ export class HarnessEvaluationRunner {
 		return this.options.replaySink?.save(bundle);
 	}
 
-	private resolveStatus(
-		runStatus: string,
-		assertions: HarnessScenarioEvaluationResult['assertions']
-	) {
-		if (runStatus === 'blocked') return 'blocked';
-		if (runStatus === 'failed') return 'failed';
-		return assertions.some((assertion) => assertion.status === 'failed')
-			? 'failed'
-			: 'passed';
+	private resolveStatus(input: {
+		run: HarnessRunRecord;
+		assertions: HarnessScenarioEvaluationResult['assertions'];
+		scenario: HarnessScenarioSpec;
+	}) {
+		if (input.run.status === 'failed') return 'failed';
+
+		const blockedSteps = input.run.steps.filter(
+			(step) => step.status === 'blocked'
+		).length;
+		const maxBlockedSteps = input.scenario.success?.maxBlockedSteps ?? 0;
+		if (input.run.status === 'blocked' && blockedSteps > maxBlockedSteps) {
+			return 'blocked';
+		}
+
+		const requireAllAssertions =
+			input.scenario.success?.requireAllAssertions ?? true;
+		if (input.assertions.length === 0) return 'passed';
+		if (requireAllAssertions) {
+			return input.assertions.some((assertion) => assertion.status === 'failed')
+				? 'failed'
+				: 'passed';
+		}
+
+		return input.assertions.some((assertion) => assertion.status === 'passed')
+			? 'passed'
+			: 'failed';
 	}
 }

@@ -132,9 +132,20 @@ For critical bundles, store:
 Do this for:
 - desktop
 - mobile
+- authenticated browser states via named auth profile refs
 - low capability actors
 - advanced actors
 - different preference presets
+
+## Full-app browser and visual evals
+
+Critical bundle surfaces should have harness scenarios that combine:
+- Playwright for deterministic functional verification,
+- agent-browser for visual/computer-use evidence when available,
+- screenshot or visual-diff artifacts for baseline-sensitive UI changes,
+- DOM or accessibility snapshots for explainable replay.
+
+Authenticated scenarios must reference storage-state, browser-profile, session-name, or headers-env auth profiles. They must not store raw credentials, cookies, or bearer tokens in specs, snapshots, or replay bundles.
 
 ## Assistant evals
 

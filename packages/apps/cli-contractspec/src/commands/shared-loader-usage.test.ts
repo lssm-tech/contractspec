@@ -22,9 +22,9 @@ describe('shared authored-module loader adoption', () => {
 		expect(source).not.toContain("from '../../utils/module-loader'");
 	});
 
-	it('connect registry runtime uses the shared loader for harness registries', () => {
+	it('harness runtime uses the shared loader for harness registries', () => {
 		const source = readFileSync(
-			resolve(commandsDir, 'connect/registry.ts'),
+			resolve(commandsDir, 'harness/runtime.ts'),
 			'utf8'
 		);
 		expect(source).toContain('loadAuthoredModuleExports');

@@ -1,15 +1,25 @@
 import { afterAll, beforeAll, describe, expect, it } from 'bun:test';
+import { mkdtemp, rm, writeFile } from 'node:fs/promises';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 import { summarizeHarnessReplayBundle } from '@contractspec/lib.harness';
 import { chromium } from 'playwright';
 import {
+	HARNESS_LAB_AUTH_TEXT,
 	HARNESS_LAB_BROWSER_RESULT_TEXT,
+	HarnessLabAgentBrowserScenario,
+	HarnessLabAuthenticatedBrowserScenario,
 	HarnessLabBrowserScenario,
 	HarnessLabDualModeSuite,
 	HarnessLabSandboxScenario,
+	HarnessLabVisualScenario,
 } from './index';
 import {
+	runHarnessLabAgentBrowserEvaluation,
+	runHarnessLabAuthenticatedBrowserEvaluation,
 	runHarnessLabBrowserEvaluation,
 	runHarnessLabSandboxEvaluation,
+	runHarnessLabVisualEvaluation,
 } from './runtime';
 import {
 	type HarnessLabBrowserFixtureServer,
@@ -22,10 +32,16 @@ import {
 
 const BROWSER_TEST_TIMEOUT_MS = 15_000;
 const CAN_RUN_BROWSER_TESTS = await canRunPlaywrightChromium();
+const CAN_RUN_AGENT_BROWSER_TESTS = await canRunAgentBrowser();
 const browserIt = CAN_RUN_BROWSER_TESTS ? it : it.skip;
+const agentBrowserIt =
+	CAN_RUN_BROWSER_TESTS && CAN_RUN_AGENT_BROWSER_TESTS ? it : it.skip;
 
 let browserFixture: HarnessLabBrowserFixtureServer | null = null;
 let browserTools: HarnessLabEvaluationTools | null = null;
+let authStatePath: string | null = null;
+let tempDir: string | null = null;
+const GENERATED_EVIDENCE_DIR = join(import.meta.dir, '..', '.contractspec');
 
 beforeAll(async () => {
 	if (!CAN_RUN_BROWSER_TESTS) {
@@ -33,8 +49,30 @@ beforeAll(async () => {
 	}
 
 	browserFixture = await startHarnessLabBrowserFixture();
+	tempDir = await mkdtemp(join(tmpdir(), 'harness-lab-auth-'));
+	authStatePath = join(tempDir, 'operator.storage-state.json');
+	await writeFile(
+		authStatePath,
+		JSON.stringify({
+			cookies: [],
+			origins: [
+				{
+					origin: browserFixture.baseUrl,
+					localStorage: [{ name: 'harnessAuth', value: 'operator' }],
+				},
+			],
+		}),
+		'utf8'
+	);
 	browserTools = createHarnessLabEvaluationTools({
 		previewBaseUrl: browserFixture.baseUrl,
+		authProfiles: {
+			operator: {
+				key: 'operator',
+				kind: 'storage-state',
+				ref: authStatePath,
+			},
+		},
 	});
 });
 
@@ -49,6 +87,12 @@ afterAll(async () => {
 
 	await browserFixture.close();
 	browserFixture = null;
+	if (tempDir) {
+		await rm(tempDir, { recursive: true, force: true });
+		tempDir = null;
+		authStatePath = null;
+	}
+	await rm(GENERATED_EVIDENCE_DIR, { recursive: true, force: true });
 });
 
 describe('@contractspec/example.harness-lab runtime', () => {
@@ -139,6 +183,75 @@ describe('@contractspec/example.harness-lab runtime', () => {
 		},
 		{ timeout: BROWSER_TEST_TIMEOUT_MS }
 	);
+
+	browserIt(
+		'runs an authenticated browser evaluation with storage-state auth refs',
+		async () => {
+			if (!browserTools || !authStatePath) {
+				throw new Error('Harness lab auth tools were not initialized.');
+			}
+
+			const result = await runHarnessLabAuthenticatedBrowserEvaluation({
+				authStatePath,
+				tools: browserTools,
+			});
+			const domSnapshots = result.evaluation.artifacts.filter(
+				(artifact) => artifact.kind === 'dom-snapshot'
+			);
+
+			expect(result.evaluation.status).toBe('passed');
+			expect(result.evaluation.run.scenarioKey).toBe(
+				HarnessLabAuthenticatedBrowserScenario.meta.key
+			);
+			expect(String(domSnapshots.at(-1)?.body ?? '')).toContain(
+				HARNESS_LAB_AUTH_TEXT
+			);
+		},
+		{ timeout: BROWSER_TEST_TIMEOUT_MS }
+	);
+
+	browserIt(
+		'runs a visual baseline evaluation and records diff evidence',
+		async () => {
+			if (!browserTools) {
+				throw new Error('Harness lab browser tools were not initialized.');
+			}
+
+			const result = await runHarnessLabVisualEvaluation({
+				tools: browserTools,
+			});
+			const visualDiffs = result.evaluation.artifacts.filter(
+				(artifact) => artifact.kind === 'visual-diff'
+			);
+
+			expect(result.evaluation.status).toBe('passed');
+			expect(result.evaluation.run.scenarioKey).toBe(
+				HarnessLabVisualScenario.meta.key
+			);
+			expect(visualDiffs).toHaveLength(1);
+			expect(visualDiffs[0]?.metadata?.status).toBe('passed');
+		},
+		{ timeout: BROWSER_TEST_TIMEOUT_MS }
+	);
+
+	agentBrowserIt(
+		'runs the optional agent-browser evaluation when the CLI is available',
+		async () => {
+			if (!browserTools) {
+				throw new Error('Harness lab browser tools were not initialized.');
+			}
+
+			const result = await runHarnessLabAgentBrowserEvaluation({
+				tools: browserTools,
+			});
+
+			expect(result.evaluation.status).toBe('passed');
+			expect(result.evaluation.run.scenarioKey).toBe(
+				HarnessLabAgentBrowserScenario.meta.key
+			);
+		},
+		{ timeout: BROWSER_TEST_TIMEOUT_MS }
+	);
 });
 
 async function canRunPlaywrightChromium(): Promise<boolean> {
@@ -148,6 +261,18 @@ async function canRunPlaywrightChromium(): Promise<boolean> {
 		});
 		await browser.close();
 		return true;
+	} catch {
+		return false;
+	}
+}
+
+async function canRunAgentBrowser(): Promise<boolean> {
+	try {
+		const proc = Bun.spawn(['agent-browser', '--version'], {
+			stdout: 'ignore',
+			stderr: 'ignore',
+		});
+		return (await proc.exited) === 0;
 	} catch {
 		return false;
 	}

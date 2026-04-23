@@ -6,6 +6,7 @@ export interface DefaultHarnessTargetResolverOptions {
 	taskBaseUrl?: string;
 	sharedBaseUrl?: string;
 	sandboxBaseUrl?: string;
+	allowlistedDomains?: string[];
 }
 
 export class DefaultHarnessTargetResolver implements HarnessTargetResolver {
@@ -34,6 +35,7 @@ export class DefaultHarnessTargetResolver implements HarnessTargetResolver {
 			baseUrl,
 			allowlistedDomains:
 				request.allowlistedDomains ??
+				this.options.allowlistedDomains ??
 				(baseUrl ? [new URL(baseUrl).hostname] : undefined),
 			metadata: request.metadata,
 		};

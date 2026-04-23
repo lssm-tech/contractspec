@@ -6,7 +6,7 @@ Website: https://contractspec.io
 
 ## What It Provides
 
-- Provides concrete adapters for browser automation, visual harnessing, sandboxed execution, and artifact storage.
+- Provides concrete adapters for deterministic Playwright browser automation, optional `agent-browser` visual computer-use runs, sandboxed execution, and artifact storage.
 - Exposes MCP helpers and default target resolution on top of the mode-agnostic harness core.
 - Keeps higher-cost runtime integrations optional so consumers can opt into heavier execution targets deliberately.
 - `src/adapters/` contains runtime, provider, or environment-specific adapters.
@@ -26,7 +26,7 @@ Import the root entrypoint from `@contractspec/integration.harness-runtime`, or 
 
 ## Architecture
 
-- `src/adapters/` contains browser, sandbox, and visual harness adapters.
+- `src/adapters/` contains Playwright, agent-browser, sandbox, and visual harness adapters.
 - `src/artifacts/` contains filesystem and in-memory artifact-store implementations.
 - `src/mcp/` exposes harness execution surfaces to MCP-aware runtimes.
 - `src/targets/` contains target resolution helpers and target-selection logic.
@@ -37,6 +37,7 @@ Import the root entrypoint from `@contractspec/integration.harness-runtime`, or 
 
 - Exports runtime adapters, artifact stores, MCP exposure helpers, target resolution, and shared types.
 - Export `.` resolves through `./src/index.ts`.
+- Export `./adapters/agentBrowserHarnessAdapter` resolves through `./src/adapters/agentBrowserHarnessAdapter.ts`.
 - Export `./adapters/playwrightBrowserHarnessAdapter` resolves through `./src/adapters/playwrightBrowserHarnessAdapter.ts`.
 - Export `./adapters/sandboxedCodeExecutionAdapter` resolves through `./src/adapters/sandboxedCodeExecutionAdapter.ts`.
 - Export `./adapters/visualHarnessAdapter` resolves through `./src/adapters/visualHarnessAdapter.ts`.
@@ -66,7 +67,9 @@ Import the root entrypoint from `@contractspec/integration.harness-runtime`, or 
 
 - Replace eslint+prettier by biomejs to optimize speed.
 - Add a first-class harness system for controlled inspection, testing, evaluation, and proof generation.
+- Add OSS full-app verification adapters for Playwright and `agent-browser`, including auth profile refs, visual diff evidence, and replay-friendly browser artifacts.
 
 ## Notes
 
 - Works alongside `@contractspec/lib.contracts-spec`, `@contractspec/lib.harness`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- Authenticated browser runs should use named storage-state, browser-profile, session-name, or headers-env refs. Do not embed raw credentials, cookies, or bearer tokens in scenario specs or replay bundles.

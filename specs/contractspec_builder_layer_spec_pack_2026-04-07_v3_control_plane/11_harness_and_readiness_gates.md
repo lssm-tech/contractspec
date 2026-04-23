@@ -47,6 +47,13 @@ Checks:
 - hybrid compatibility,
 - runtime-specific blockers are visible.
 
+### 6a. Full-app browser verification suite
+Checks:
+- deterministic Playwright scenarios execute functional paths,
+- optional agent-browser scenarios capture visual/computer-use evidence,
+- authenticated flows use named storage-state/profile/session/header refs,
+- screenshots, DOM snapshots, accessibility snapshots, console output, and replay bundles are retained without raw secrets.
+
 ### 7. Channel replay suite
 Checks:
 - Telegram / WhatsApp events replay deterministically,
@@ -90,6 +97,7 @@ Export must be blocked when:
 - policy suite fails,
 - high-risk STT-derived instruction remains unconfirmed,
 - required approval strength is missing.
+- authenticated browser evidence embeds raw credentials, cookies, or bearer tokens.
 
 ## UX requirement
 
