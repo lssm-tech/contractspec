@@ -17,7 +17,7 @@
         "cz-conventional-changelog": "^3.3.0",
         "glob": "^13.0.6",
         "globals": "^17.5.0",
-        "knip": "^6.6.0",
+        "knip": "^6.6.1",
         "memoirist": "^0.4.0",
         "next": "catalog:",
         "patch-package": "^8.0.1",
@@ -123,7 +123,7 @@
         "@contractspec/integration.builder-telegram": "workspace:*",
         "@contractspec/integration.builder-whatsapp": "workspace:*",
         "@contractspec/integration.provider.codex": "workspace:*",
-        "@contractspec/integration.providers-impls": "workspace:*",
+        "@contractspec/integration.provider.messaging": "workspace:*",
         "@contractspec/integration.runtime": "workspace:*",
         "@contractspec/integration.runtime.managed": "workspace:*",
         "@contractspec/lib.contracts-spec": "workspace:*",
@@ -727,7 +727,7 @@
       "name": "@contractspec/example.calendar-google",
       "version": "3.7.24",
       "dependencies": {
-        "@contractspec/integration.providers-impls": "workspace:*",
+        "@contractspec/integration.provider.calendar": "workspace:*",
         "@contractspec/lib.contracts-spec": "workspace:*",
         "googleapis": "catalog:integrations",
       },
@@ -803,7 +803,7 @@
       "name": "@contractspec/example.email-gmail",
       "version": "3.7.24",
       "dependencies": {
-        "@contractspec/integration.providers-impls": "workspace:*",
+        "@contractspec/integration.provider.email": "workspace:*",
         "@contractspec/lib.contracts-spec": "workspace:*",
         "googleapis": "catalog:integrations",
       },
@@ -879,7 +879,7 @@
       "name": "@contractspec/example.integration-posthog",
       "version": "3.7.24",
       "dependencies": {
-        "@contractspec/integration.providers-impls": "workspace:*",
+        "@contractspec/integration.provider.analytics": "workspace:*",
         "@contractspec/lib.contracts-spec": "workspace:*",
         "posthog-node": "catalog:integrations",
       },
@@ -1221,7 +1221,7 @@
       "name": "@contractspec/example.meeting-recorder-providers",
       "version": "3.7.24",
       "dependencies": {
-        "@contractspec/integration.providers-impls": "workspace:*",
+        "@contractspec/integration.provider.meeting-recorder": "workspace:*",
         "@contractspec/lib.contracts-integrations": "workspace:*",
         "@contractspec/lib.contracts-spec": "workspace:*",
         "fathom-typescript": "catalog:integrations",
@@ -1261,7 +1261,7 @@
       "name": "@contractspec/example.openbanking-powens",
       "version": "3.7.24",
       "dependencies": {
-        "@contractspec/integration.providers-impls": "workspace:*",
+        "@contractspec/integration.provider.openbanking": "workspace:*",
         "@contractspec/lib.contracts-spec": "workspace:*",
       },
       "devDependencies": {
@@ -1342,7 +1342,8 @@
       "name": "@contractspec/example.product-intent",
       "version": "3.7.24",
       "dependencies": {
-        "@contractspec/integration.providers-impls": "workspace:*",
+        "@contractspec/integration.provider.analytics": "workspace:*",
+        "@contractspec/integration.provider.project-management": "workspace:*",
         "@contractspec/lib.ai-agent": "workspace:*",
         "@contractspec/lib.analytics": "workspace:*",
         "@contractspec/lib.contracts-integrations": "workspace:*",
@@ -1359,7 +1360,7 @@
       "name": "@contractspec/example.project-management-sync",
       "version": "3.7.24",
       "dependencies": {
-        "@contractspec/integration.providers-impls": "workspace:*",
+        "@contractspec/integration.provider.project-management": "workspace:*",
         "@contractspec/lib.contracts-spec": "workspace:*",
         "@linear/sdk": "^80.1.0",
         "@notionhq/client": "^5.17.0",
@@ -1500,7 +1501,7 @@
       "version": "3.7.24",
       "dependencies": {
         "@confiture-ai/gradium-sdk-js": "catalog:integrations",
-        "@contractspec/integration.providers-impls": "workspace:*",
+        "@contractspec/integration.provider.voice": "workspace:*",
         "@contractspec/lib.contracts-integrations": "workspace:*",
         "@contractspec/lib.contracts-spec": "workspace:*",
         "@fal-ai/client": "catalog:integrations",
@@ -1641,6 +1642,36 @@
         "playwright",
       ],
     },
+    "packages/integrations/provider-analytics": {
+      "name": "@contractspec/integration.provider.analytics",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/integration.runtime": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "@types/bun": "catalog:types",
+        "posthog-node": "catalog:integrations",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/integrations/provider-calendar": {
+      "name": "@contractspec/integration.provider.calendar",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/integration.runtime": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "@types/bun": "catalog:types",
+        "googleapis": "catalog:integrations",
+        "typescript": "catalog:",
+      },
+    },
     "packages/integrations/provider-claude-code": {
       "name": "@contractspec/integration.provider.claude-code",
       "version": "0.2.4",
@@ -1683,6 +1714,53 @@
         "typescript": "catalog:",
       },
     },
+    "packages/integrations/provider-database": {
+      "name": "@contractspec/integration.provider.database",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/integration.runtime": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "@types/bun": "catalog:types",
+        "drizzle-orm": "catalog:data",
+        "postgres": "^3.4.9",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/integrations/provider-email": {
+      "name": "@contractspec/integration.provider.email",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/integration.runtime": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "@types/bun": "catalog:types",
+        "googleapis": "catalog:integrations",
+        "postmark": "^4.0.7",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/integrations/provider-embedding": {
+      "name": "@contractspec/integration.provider.embedding",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/integration.runtime": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "@mistralai/mistralai": "^2.2.1",
+        "@types/bun": "catalog:types",
+        "typescript": "catalog:",
+      },
+    },
     "packages/integrations/provider-gemini": {
       "name": "@contractspec/integration.provider.gemini",
       "version": "0.2.4",
@@ -1694,6 +1772,35 @@
       "devDependencies": {
         "@contractspec/tool.bun": "workspace:*",
         "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/integrations/provider-health": {
+      "name": "@contractspec/integration.provider.health",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/integration.runtime": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "@types/bun": "catalog:types",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/integrations/provider-llm": {
+      "name": "@contractspec/integration.provider.llm",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/integration.runtime": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "@mistralai/mistralai": "^2.2.1",
+        "@types/bun": "catalog:types",
         "typescript": "catalog:",
       },
     },
@@ -1711,6 +1818,109 @@
         "typescript": "catalog:",
       },
     },
+    "packages/integrations/provider-meeting-recorder": {
+      "name": "@contractspec/integration.provider.meeting-recorder",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/integration.runtime": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "@types/bun": "catalog:types",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/integrations/provider-messaging": {
+      "name": "@contractspec/integration.provider.messaging",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/integration.runtime": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "@types/bun": "catalog:types",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/integrations/provider-openbanking": {
+      "name": "@contractspec/integration.provider.openbanking",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/integration.runtime": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "@types/bun": "catalog:types",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/integrations/provider-payments": {
+      "name": "@contractspec/integration.provider.payments",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/integration.runtime": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "@types/bun": "catalog:types",
+        "stripe": "^22.0.1",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/integrations/provider-project-management": {
+      "name": "@contractspec/integration.provider.project-management",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/integration.runtime": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "@linear/sdk": "^82.1.0",
+        "@notionhq/client": "^5.20.0",
+        "@types/bun": "catalog:types",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/integrations/provider-sms": {
+      "name": "@contractspec/integration.provider.sms",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/integration.runtime": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "@types/bun": "catalog:types",
+        "twilio": "^6.0.0",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/integrations/provider-storage": {
+      "name": "@contractspec/integration.provider.storage",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/integration.runtime": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "@google-cloud/storage": "^7.19.0",
+        "@types/bun": "catalog:types",
+        "typescript": "catalog:",
+      },
+    },
     "packages/integrations/provider-stt": {
       "name": "@contractspec/integration.provider.stt",
       "version": "0.2.4",
@@ -1725,10 +1935,59 @@
         "typescript": "catalog:",
       },
     },
+    "packages/integrations/provider-vector-store": {
+      "name": "@contractspec/integration.provider.vector-store",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/integration.provider.database": "workspace:*",
+        "@contractspec/integration.runtime": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "@qdrant/js-client-rest": "^1.17.0",
+        "@types/bun": "catalog:types",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/integrations/provider-voice": {
+      "name": "@contractspec/integration.provider.voice",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/integration.runtime": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
+      },
+      "devDependencies": {
+        "@confiture-ai/gradium-sdk-js": "catalog:integrations",
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "@elevenlabs/elevenlabs-js": "^2.44.0",
+        "@fal-ai/client": "catalog:integrations",
+        "@types/bun": "catalog:types",
+        "typescript": "catalog:",
+      },
+    },
     "packages/integrations/providers-impls": {
       "name": "@contractspec/integration.providers-impls",
       "version": "4.0.2",
       "dependencies": {
+        "@contractspec/integration.provider.analytics": "workspace:*",
+        "@contractspec/integration.provider.calendar": "workspace:*",
+        "@contractspec/integration.provider.database": "workspace:*",
+        "@contractspec/integration.provider.email": "workspace:*",
+        "@contractspec/integration.provider.embedding": "workspace:*",
+        "@contractspec/integration.provider.health": "workspace:*",
+        "@contractspec/integration.provider.llm": "workspace:*",
+        "@contractspec/integration.provider.meeting-recorder": "workspace:*",
+        "@contractspec/integration.provider.messaging": "workspace:*",
+        "@contractspec/integration.provider.openbanking": "workspace:*",
+        "@contractspec/integration.provider.payments": "workspace:*",
+        "@contractspec/integration.provider.project-management": "workspace:*",
+        "@contractspec/integration.provider.sms": "workspace:*",
+        "@contractspec/integration.provider.storage": "workspace:*",
+        "@contractspec/integration.provider.vector-store": "workspace:*",
+        "@contractspec/integration.provider.voice": "workspace:*",
         "@contractspec/integration.runtime": "workspace:*",
         "@contractspec/lib.contracts-integrations": "workspace:*",
         "@contractspec/lib.contracts-spec": "workspace:*",
@@ -1737,25 +1996,9 @@
       },
       "devDependencies": {
         "@composio/core": "0.6.10",
-        "@confiture-ai/gradium-sdk-js": "catalog:integrations",
         "@contractspec/tool.bun": "workspace:*",
         "@contractspec/tool.typescript": "workspace:*",
-        "@elevenlabs/elevenlabs-js": "^2.44.0",
-        "@fal-ai/client": "catalog:integrations",
-        "@google-cloud/storage": "^7.19.0",
-        "@linear/sdk": "^82.1.0",
-        "@mistralai/mistralai": "^2.2.1",
-        "@notionhq/client": "^5.20.0",
-        "@qdrant/js-client-rest": "^1.17.0",
         "@types/bun": "catalog:types",
-        "drizzle-orm": "catalog:data",
-        "fathom-typescript": "catalog:integrations",
-        "googleapis": "catalog:integrations",
-        "postgres": "^3.4.9",
-        "posthog-node": "catalog:integrations",
-        "postmark": "^4.0.7",
-        "stripe": "^22.0.1",
-        "twilio": "^6.0.0",
         "typescript": "catalog:",
       },
       "peerDependencies": {
@@ -4435,17 +4678,49 @@
 
     "@contractspec/integration.harness-runtime": ["@contractspec/integration.harness-runtime@workspace:packages/integrations/harness-runtime"],
 
+    "@contractspec/integration.provider.analytics": ["@contractspec/integration.provider.analytics@workspace:packages/integrations/provider-analytics"],
+
+    "@contractspec/integration.provider.calendar": ["@contractspec/integration.provider.calendar@workspace:packages/integrations/provider-calendar"],
+
     "@contractspec/integration.provider.claude-code": ["@contractspec/integration.provider.claude-code@workspace:packages/integrations/provider-claude-code"],
 
     "@contractspec/integration.provider.codex": ["@contractspec/integration.provider.codex@workspace:packages/integrations/provider-codex"],
 
     "@contractspec/integration.provider.copilot": ["@contractspec/integration.provider.copilot@workspace:packages/integrations/provider-copilot"],
 
+    "@contractspec/integration.provider.database": ["@contractspec/integration.provider.database@workspace:packages/integrations/provider-database"],
+
+    "@contractspec/integration.provider.email": ["@contractspec/integration.provider.email@workspace:packages/integrations/provider-email"],
+
+    "@contractspec/integration.provider.embedding": ["@contractspec/integration.provider.embedding@workspace:packages/integrations/provider-embedding"],
+
     "@contractspec/integration.provider.gemini": ["@contractspec/integration.provider.gemini@workspace:packages/integrations/provider-gemini"],
+
+    "@contractspec/integration.provider.health": ["@contractspec/integration.provider.health@workspace:packages/integrations/provider-health"],
+
+    "@contractspec/integration.provider.llm": ["@contractspec/integration.provider.llm@workspace:packages/integrations/provider-llm"],
 
     "@contractspec/integration.provider.local-model": ["@contractspec/integration.provider.local-model@workspace:packages/integrations/provider-local-model"],
 
+    "@contractspec/integration.provider.meeting-recorder": ["@contractspec/integration.provider.meeting-recorder@workspace:packages/integrations/provider-meeting-recorder"],
+
+    "@contractspec/integration.provider.messaging": ["@contractspec/integration.provider.messaging@workspace:packages/integrations/provider-messaging"],
+
+    "@contractspec/integration.provider.openbanking": ["@contractspec/integration.provider.openbanking@workspace:packages/integrations/provider-openbanking"],
+
+    "@contractspec/integration.provider.payments": ["@contractspec/integration.provider.payments@workspace:packages/integrations/provider-payments"],
+
+    "@contractspec/integration.provider.project-management": ["@contractspec/integration.provider.project-management@workspace:packages/integrations/provider-project-management"],
+
+    "@contractspec/integration.provider.sms": ["@contractspec/integration.provider.sms@workspace:packages/integrations/provider-sms"],
+
+    "@contractspec/integration.provider.storage": ["@contractspec/integration.provider.storage@workspace:packages/integrations/provider-storage"],
+
     "@contractspec/integration.provider.stt": ["@contractspec/integration.provider.stt@workspace:packages/integrations/provider-stt"],
+
+    "@contractspec/integration.provider.vector-store": ["@contractspec/integration.provider.vector-store@workspace:packages/integrations/provider-vector-store"],
+
+    "@contractspec/integration.provider.voice": ["@contractspec/integration.provider.voice@workspace:packages/integrations/provider-voice"],
 
     "@contractspec/integration.providers-impls": ["@contractspec/integration.providers-impls@workspace:packages/integrations/providers-impls"],
 
@@ -9069,7 +9344,7 @@
 
     "@composio/core/chalk": ["chalk@4.1.2", "", { "dependencies": { "ansi-styles": "^4.1.0", "supports-color": "^7.1.0" } }, "sha512-oKnbhFyRIXpUuez8iBMmyEa4nbj4IOQyuhc/wy9kY7/WVPcwIO9VA668Pu8RkO7+0G76SLROeyw9CpQ061i4mA=="],
 
-    "@contractspec/integration.providers-impls/@linear/sdk": ["@linear/sdk@82.1.0", "", { "dependencies": { "@graphql-typed-document-node/core": "^3.2.0" } }, "sha512-Ok7o+LqXaenx6Um58NQqjQoQanDsCgAIe9yNgpVbqRSh5APz3Ds1kZUz2vWmSNTNATFZm1zDQtEktTMga2X7UQ=="],
+    "@contractspec/integration.provider.project-management/@linear/sdk": ["@linear/sdk@82.1.0", "", { "dependencies": { "@graphql-typed-document-node/core": "^3.2.0" } }, "sha512-Ok7o+LqXaenx6Um58NQqjQoQanDsCgAIe9yNgpVbqRSh5APz3Ds1kZUz2vWmSNTNATFZm1zDQtEktTMga2X7UQ=="],
 
     "@electric-sql/pglite-socket/@electric-sql/pglite": ["@electric-sql/pglite@0.4.1", "", {}, "sha512-mZ9NzzUSYPOCnxHH1oAHPRzoMFJHY472raDKwXl/+6oPbpdJ7g8LsCN4FSaIIfkiCKHhb3iF/Zqo3NYxaIhU7Q=="],
 

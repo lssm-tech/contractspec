@@ -29,7 +29,7 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@contractspec/integration.providers-impls": "workspace:*",
+		"@contractspec/integration.provider.analytics": "workspace:*",
 		"@contractspec/lib.contracts-spec": "workspace:*",
 		"posthog-node": "catalog:integrations"
 	},

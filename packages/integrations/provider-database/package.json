@@ -1,0 +1,75 @@
+{
+	"name": "@contractspec/integration.provider.database",
+	"version": "0.1.0",
+	"description": "Database provider implementations for ContractSpec.",
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"scripts": {
+		"build": "bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"dev": "contractspec-bun-build dev",
+		"clean": "rimraf dist .turbo",
+		"lint:check": "node ../../../scripts/biome.cjs check .",
+		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
+		"test": "bun test",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/integrations/provider-database"
+	},
+	"dependencies": {
+		"@contractspec/integration.runtime": "workspace:*",
+		"@contractspec/lib.contracts-integrations": "workspace:*"
+	},
+	"devDependencies": {
+		"@contractspec/tool.bun": "workspace:*",
+		"@contractspec/tool.typescript": "workspace:*",
+		"@types/bun": "catalog:types",
+		"drizzle-orm": "catalog:data",
+		"postgres": "^3.4.9",
+		"typescript": "catalog:"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./database": "./src/database.ts",
+		"./impls": "./src/impls/index.ts",
+		"./impls/supabase-psql": "./src/impls/supabase-psql.ts"
+	},
+	"publishConfig": {
+		"access": "public",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./database": {
+				"types": "./dist/database.d.ts",
+				"bun": "./dist/database.js",
+				"node": "./dist/node/database.js",
+				"default": "./dist/database.js"
+			},
+			"./impls": {
+				"types": "./dist/impls/index.d.ts",
+				"bun": "./dist/impls/index.js",
+				"node": "./dist/node/impls/index.js",
+				"default": "./dist/impls/index.js"
+			},
+			"./impls/supabase-psql": {
+				"types": "./dist/impls/supabase-psql.d.ts",
+				"bun": "./dist/impls/supabase-psql.js",
+				"node": "./dist/node/impls/supabase-psql.js",
+				"default": "./dist/impls/supabase-psql.js"
+			}
+		}
+	}
+}

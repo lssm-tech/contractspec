@@ -32,9 +32,9 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@contractspec/integration.providers-impls": "workspace:*",
-		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/integration.provider.meeting-recorder": "workspace:*",
 		"@contractspec/lib.contracts-integrations": "workspace:*",
+		"@contractspec/lib.contracts-spec": "workspace:*",
 		"fathom-typescript": "catalog:integrations"
 	},
 	"devDependencies": {

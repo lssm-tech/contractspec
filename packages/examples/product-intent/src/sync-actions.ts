@@ -1,6 +1,6 @@
-import { JiraProjectManagementProvider } from '@contractspec/integration.providers-impls/impls/jira';
-import { LinearProjectManagementProvider } from '@contractspec/integration.providers-impls/impls/linear';
-import { NotionProjectManagementProvider } from '@contractspec/integration.providers-impls/impls/notion';
+import { JiraProjectManagementProvider } from '@contractspec/integration.provider.project-management/impls/jira';
+import { LinearProjectManagementProvider } from '@contractspec/integration.provider.project-management/impls/linear';
+import { NotionProjectManagementProvider } from '@contractspec/integration.provider.project-management/impls/notion';
 import { createAgentJsonRunner } from '@contractspec/lib.ai-agent/agent/json-runner';
 import type { ProjectManagementProvider } from '@contractspec/lib.contracts-integrations';
 import type { TicketPipelineModelRunner } from '@contractspec/lib.product-intent-utils';

@@ -1,0 +1,95 @@
+{
+	"name": "@contractspec/integration.provider.email",
+	"version": "0.1.0",
+	"description": "Email provider implementations for ContractSpec.",
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"scripts": {
+		"build": "bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"dev": "contractspec-bun-build dev",
+		"clean": "rimraf dist .turbo",
+		"lint:check": "node ../../../scripts/biome.cjs check .",
+		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
+		"test": "bun test",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/integrations/provider-email"
+	},
+	"dependencies": {
+		"@contractspec/integration.runtime": "workspace:*",
+		"@contractspec/lib.contracts-integrations": "workspace:*"
+	},
+	"devDependencies": {
+		"@contractspec/tool.bun": "workspace:*",
+		"@contractspec/tool.typescript": "workspace:*",
+		"@types/bun": "catalog:types",
+		"googleapis": "catalog:integrations",
+		"postmark": "^4.0.7",
+		"typescript": "catalog:"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./email": "./src/email.ts",
+		"./impls": "./src/impls/index.ts",
+		"./impls/gmail-inbound": "./src/impls/gmail-inbound.ts",
+		"./impls/gmail-outbound": "./src/impls/gmail-outbound.ts",
+		"./impls/postmark-email": "./src/impls/postmark-email.ts"
+	},
+	"publishConfig": {
+		"access": "public",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"browser": "./dist/browser/index.js",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./email": {
+				"types": "./dist/email.d.ts",
+				"browser": "./dist/browser/email.js",
+				"bun": "./dist/email.js",
+				"node": "./dist/node/email.js",
+				"default": "./dist/email.js"
+			},
+			"./impls": {
+				"types": "./dist/impls/index.d.ts",
+				"browser": "./dist/browser/impls/index.js",
+				"bun": "./dist/impls/index.js",
+				"node": "./dist/node/impls/index.js",
+				"default": "./dist/impls/index.js"
+			},
+			"./impls/gmail-inbound": {
+				"types": "./dist/impls/gmail-inbound.d.ts",
+				"browser": "./dist/browser/impls/gmail-inbound.js",
+				"bun": "./dist/impls/gmail-inbound.js",
+				"node": "./dist/node/impls/gmail-inbound.js",
+				"default": "./dist/impls/gmail-inbound.js"
+			},
+			"./impls/gmail-outbound": {
+				"types": "./dist/impls/gmail-outbound.d.ts",
+				"browser": "./dist/browser/impls/gmail-outbound.js",
+				"bun": "./dist/impls/gmail-outbound.js",
+				"node": "./dist/node/impls/gmail-outbound.js",
+				"default": "./dist/impls/gmail-outbound.js"
+			},
+			"./impls/postmark-email": {
+				"types": "./dist/impls/postmark-email.d.ts",
+				"browser": "./dist/browser/impls/postmark-email.js",
+				"bun": "./dist/impls/postmark-email.js",
+				"node": "./dist/node/impls/postmark-email.js",
+				"default": "./dist/impls/postmark-email.js"
+			}
+		}
+	}
+}

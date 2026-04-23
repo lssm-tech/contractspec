@@ -393,14 +393,15 @@ Examples:
 ## Direct provider usage (without factory)
 
 Use direct implementations when you already have typed credentials and do not need `IntegrationContext` routing.
+Prefer targeted provider packages for direct imports. The legacy `@contractspec/integration.providers-impls/impls/*` subpaths remain available as compatibility re-exports.
 
 ### Example: Gmail + Google Calendar
 
 ```ts
 import { google } from "googleapis";
-import { GmailInboundProvider } from "@contractspec/integration.providers-impls/impls/gmail-inbound";
-import { GmailOutboundProvider } from "@contractspec/integration.providers-impls/impls/gmail-outbound";
-import { GoogleCalendarProvider } from "@contractspec/integration.providers-impls/impls/google-calendar";
+import { GmailInboundProvider } from "@contractspec/integration.provider.email/impls/gmail-inbound";
+import { GmailOutboundProvider } from "@contractspec/integration.provider.email/impls/gmail-outbound";
+import { GoogleCalendarProvider } from "@contractspec/integration.provider.calendar/impls/google-calendar";
 
 const auth = new google.auth.OAuth2(
   process.env.GOOGLE_CLIENT_ID,

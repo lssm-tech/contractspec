@@ -1,0 +1,117 @@
+{
+	"name": "@contractspec/integration.provider.health",
+	"version": "0.1.0",
+	"description": "Health data provider implementations for ContractSpec.",
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"scripts": {
+		"build": "bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"dev": "contractspec-bun-build dev",
+		"clean": "rimraf dist .turbo",
+		"lint:check": "node ../../../scripts/biome.cjs check .",
+		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
+		"test": "bun test",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/integrations/provider-health"
+	},
+	"dependencies": {
+		"@contractspec/integration.runtime": "workspace:*",
+		"@contractspec/lib.contracts-integrations": "workspace:*"
+	},
+	"devDependencies": {
+		"@contractspec/tool.bun": "workspace:*",
+		"@contractspec/tool.typescript": "workspace:*",
+		"@types/bun": "catalog:types",
+		"typescript": "catalog:"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./health": "./src/health.ts",
+		"./impls": "./src/impls/index.ts",
+		"./impls/health-provider-factory": "./src/impls/health-provider-factory.ts",
+		"./impls/health/base-health-provider": "./src/impls/health/base-health-provider.ts",
+		"./impls/health/hybrid-health-providers": "./src/impls/health/hybrid-health-providers.ts",
+		"./impls/health/official-health-providers": "./src/impls/health/official-health-providers.ts",
+		"./impls/health/provider-normalizers": "./src/impls/health/provider-normalizers.ts",
+		"./impls/health/providers": "./src/impls/health/providers.ts"
+	},
+	"publishConfig": {
+		"access": "public",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"browser": "./dist/browser/index.js",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./health": {
+				"types": "./dist/health.d.ts",
+				"browser": "./dist/browser/health.js",
+				"bun": "./dist/health.js",
+				"node": "./dist/node/health.js",
+				"default": "./dist/health.js"
+			},
+			"./impls": {
+				"types": "./dist/impls/index.d.ts",
+				"browser": "./dist/browser/impls/index.js",
+				"bun": "./dist/impls/index.js",
+				"node": "./dist/node/impls/index.js",
+				"default": "./dist/impls/index.js"
+			},
+			"./impls/health-provider-factory": {
+				"types": "./dist/impls/health-provider-factory.d.ts",
+				"browser": "./dist/browser/impls/health-provider-factory.js",
+				"bun": "./dist/impls/health-provider-factory.js",
+				"node": "./dist/node/impls/health-provider-factory.js",
+				"default": "./dist/impls/health-provider-factory.js"
+			},
+			"./impls/health/base-health-provider": {
+				"types": "./dist/impls/health/base-health-provider.d.ts",
+				"browser": "./dist/browser/impls/health/base-health-provider.js",
+				"bun": "./dist/impls/health/base-health-provider.js",
+				"node": "./dist/node/impls/health/base-health-provider.js",
+				"default": "./dist/impls/health/base-health-provider.js"
+			},
+			"./impls/health/hybrid-health-providers": {
+				"types": "./dist/impls/health/hybrid-health-providers.d.ts",
+				"browser": "./dist/browser/impls/health/hybrid-health-providers.js",
+				"bun": "./dist/impls/health/hybrid-health-providers.js",
+				"node": "./dist/node/impls/health/hybrid-health-providers.js",
+				"default": "./dist/impls/health/hybrid-health-providers.js"
+			},
+			"./impls/health/official-health-providers": {
+				"types": "./dist/impls/health/official-health-providers.d.ts",
+				"browser": "./dist/browser/impls/health/official-health-providers.js",
+				"bun": "./dist/impls/health/official-health-providers.js",
+				"node": "./dist/node/impls/health/official-health-providers.js",
+				"default": "./dist/impls/health/official-health-providers.js"
+			},
+			"./impls/health/provider-normalizers": {
+				"types": "./dist/impls/health/provider-normalizers.d.ts",
+				"browser": "./dist/browser/impls/health/provider-normalizers.js",
+				"bun": "./dist/impls/health/provider-normalizers.js",
+				"node": "./dist/node/impls/health/provider-normalizers.js",
+				"default": "./dist/impls/health/provider-normalizers.js"
+			},
+			"./impls/health/providers": {
+				"types": "./dist/impls/health/providers.d.ts",
+				"browser": "./dist/browser/impls/health/providers.js",
+				"bun": "./dist/impls/health/providers.js",
+				"node": "./dist/node/impls/health/providers.js",
+				"default": "./dist/impls/health/providers.js"
+			}
+		}
+	}
+}

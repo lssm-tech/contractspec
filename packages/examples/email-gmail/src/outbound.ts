@@ -1,8 +1,8 @@
 import type {
 	EmailOutboundMessage,
 	EmailOutboundResult,
-} from '@contractspec/integration.providers-impls/email';
-import { GmailOutboundProvider } from '@contractspec/integration.providers-impls/impls/gmail-outbound';
+} from '@contractspec/integration.provider.email';
+import { GmailOutboundProvider } from '@contractspec/integration.provider.email/impls/gmail-outbound';
 import { google } from 'googleapis';
 import { createGmailAuthFromEnv } from './auth';
 

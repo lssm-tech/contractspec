@@ -5,8 +5,8 @@
  * in sync. Unknown events are ignored (or can be recorded by the app layer).
  */
 
-import type { PowensEnvironment } from '@contractspec/integration.providers-impls/impls/powens-client';
-import { PowensOpenBankingProvider } from '@contractspec/integration.providers-impls/impls/powens-openbanking';
+import type { PowensEnvironment } from '@contractspec/integration.provider.openbanking/impls/powens-client';
+import { PowensOpenBankingProvider } from '@contractspec/integration.provider.openbanking/impls/powens-openbanking';
 import { createHmac, timingSafeEqual } from 'crypto';
 
 export async function powensWebhookHandler(req: Request) {

@@ -1,6 +1,6 @@
 import { describe, expect, it, vi } from 'bun:test';
 
-import type { DatabaseProvider } from '../database';
+import type { DatabaseProvider } from '@contractspec/integration.provider.database';
 import { SupabaseVectorProvider } from './supabase-vector';
 
 describe('SupabaseVectorProvider', () => {

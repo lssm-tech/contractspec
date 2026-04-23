@@ -39,12 +39,13 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@contractspec/lib.analytics": "workspace:*",
-		"@contractspec/lib.contracts-spec": "workspace:*",
-		"@contractspec/lib.contracts-integrations": "workspace:*",
+		"@contractspec/integration.provider.analytics": "workspace:*",
+		"@contractspec/integration.provider.project-management": "workspace:*",
 		"@contractspec/lib.ai-agent": "workspace:*",
-		"@contractspec/lib.product-intent-utils": "workspace:*",
-		"@contractspec/integration.providers-impls": "workspace:*"
+		"@contractspec/lib.analytics": "workspace:*",
+		"@contractspec/lib.contracts-integrations": "workspace:*",
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/lib.product-intent-utils": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",

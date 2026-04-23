@@ -1,0 +1,89 @@
+{
+	"name": "@contractspec/integration.provider.project-management",
+	"version": "0.1.0",
+	"description": "Project management provider implementations for ContractSpec.",
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"scripts": {
+		"build": "bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"dev": "contractspec-bun-build dev",
+		"clean": "rimraf dist .turbo",
+		"lint:check": "node ../../../scripts/biome.cjs check .",
+		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
+		"test": "bun test",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/integrations/provider-project-management"
+	},
+	"dependencies": {
+		"@contractspec/integration.runtime": "workspace:*",
+		"@contractspec/lib.contracts-integrations": "workspace:*"
+	},
+	"devDependencies": {
+		"@contractspec/tool.bun": "workspace:*",
+		"@contractspec/tool.typescript": "workspace:*",
+		"@linear/sdk": "^82.1.0",
+		"@notionhq/client": "^5.20.0",
+		"@types/bun": "catalog:types",
+		"typescript": "catalog:"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./impls": "./src/impls/index.ts",
+		"./impls/jira": "./src/impls/jira.ts",
+		"./impls/linear": "./src/impls/linear.ts",
+		"./impls/notion": "./src/impls/notion.ts",
+		"./project-management": "./src/project-management.ts"
+	},
+	"publishConfig": {
+		"access": "public",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./impls": {
+				"types": "./dist/impls/index.d.ts",
+				"bun": "./dist/impls/index.js",
+				"node": "./dist/node/impls/index.js",
+				"default": "./dist/impls/index.js"
+			},
+			"./impls/jira": {
+				"types": "./dist/impls/jira.d.ts",
+				"bun": "./dist/impls/jira.js",
+				"node": "./dist/node/impls/jira.js",
+				"default": "./dist/impls/jira.js"
+			},
+			"./impls/linear": {
+				"types": "./dist/impls/linear.d.ts",
+				"bun": "./dist/impls/linear.js",
+				"node": "./dist/node/impls/linear.js",
+				"default": "./dist/impls/linear.js"
+			},
+			"./impls/notion": {
+				"types": "./dist/impls/notion.d.ts",
+				"bun": "./dist/impls/notion.js",
+				"node": "./dist/node/impls/notion.js",
+				"default": "./dist/impls/notion.js"
+			},
+			"./project-management": {
+				"types": "./dist/project-management.d.ts",
+				"bun": "./dist/project-management.js",
+				"node": "./dist/node/project-management.js",
+				"default": "./dist/project-management.js"
+			}
+		}
+	}
+}

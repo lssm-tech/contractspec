@@ -1,8 +1,8 @@
-import { GithubMessagingProvider } from '@contractspec/integration.providers-impls/impls/messaging-github';
-import { SlackMessagingProvider } from '@contractspec/integration.providers-impls/impls/messaging-slack';
-import { TelegramMessagingProvider } from '@contractspec/integration.providers-impls/impls/messaging-telegram';
-import { MetaWhatsappMessagingProvider } from '@contractspec/integration.providers-impls/impls/messaging-whatsapp-meta';
-import { TwilioWhatsappMessagingProvider } from '@contractspec/integration.providers-impls/impls/messaging-whatsapp-twilio';
+import { GithubMessagingProvider } from '@contractspec/integration.provider.messaging/impls/messaging-github';
+import { SlackMessagingProvider } from '@contractspec/integration.provider.messaging/impls/messaging-slack';
+import { TelegramMessagingProvider } from '@contractspec/integration.provider.messaging/impls/messaging-telegram';
+import { MetaWhatsappMessagingProvider } from '@contractspec/integration.provider.messaging/impls/messaging-whatsapp-meta';
+import { TwilioWhatsappMessagingProvider } from '@contractspec/integration.provider.messaging/impls/messaging-whatsapp-twilio';
 import type {
 	ChannelMessageSender,
 	ChannelOutboxActionRecord,

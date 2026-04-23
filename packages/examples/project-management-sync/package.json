@@ -29,7 +29,7 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@contractspec/integration.providers-impls": "workspace:*",
+		"@contractspec/integration.provider.project-management": "workspace:*",
 		"@contractspec/lib.contracts-spec": "workspace:*",
 		"@linear/sdk": "^80.1.0",
 		"@notionhq/client": "^5.17.0"

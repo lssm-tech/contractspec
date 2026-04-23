@@ -24,14 +24,14 @@
 		"@contractspec/integration.builder-telegram": "workspace:*",
 		"@contractspec/integration.builder-whatsapp": "workspace:*",
 		"@contractspec/integration.provider.codex": "workspace:*",
-		"@contractspec/integration.providers-impls": "workspace:*",
+		"@contractspec/integration.provider.messaging": "workspace:*",
 		"@contractspec/integration.runtime": "workspace:*",
 		"@contractspec/integration.runtime.managed": "workspace:*",
 		"@contractspec/lib.contracts-spec": "workspace:*",
 		"elysia": "catalog:server",
 		"pg": "catalog:server",
-		"zod": "catalog:",
-		"twilio": "^6.0.0"
+		"twilio": "^6.0.0",
+		"zod": "catalog:"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",

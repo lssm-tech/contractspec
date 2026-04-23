@@ -2,14 +2,14 @@
 
 Website: https://contractspec.io
 
-**Integration provider implementations for email, payments, storage, and more.**
+**Compatibility facade and all-provider factory for ContractSpec provider implementations.**
 
 ## What It Provides
 
 - **Layer**: integration.
-- **Consumers**: bundles, apps, modules that need concrete provider wiring.
-- Related ContractSpec packages include `@contractspec/integration.runtime`, `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
-- Related ContractSpec packages include `@contractspec/integration.runtime`, `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- **Consumers**: bundles, apps, and modules that still need the broad compatibility surface or the all-provider factory.
+- Targeted provider implementation packages now own the concrete domains, such as `@contractspec/integration.provider.email`, `@contractspec/integration.provider.payments`, `@contractspec/integration.provider.voice`, and `@contractspec/integration.provider.project-management`.
+- Related ContractSpec packages include `@contractspec/integration.runtime`, `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, and `@contractspec/tool.typescript`.
 
 ## Installation
 
@@ -21,18 +21,50 @@ or
 
 ## Usage
 
-Import the root entrypoint from `@contractspec/integration.providers-impls`, or choose a documented subpath when you only need one part of the package surface.
+Prefer a targeted package when you only need one provider domain:
+
+```ts
+import { GmailInboundProvider } from '@contractspec/integration.provider.email/impls/gmail-inbound';
+import { StripePaymentsProvider } from '@contractspec/integration.provider.payments/impls/stripe-payments';
+```
+
+Existing imports from `@contractspec/integration.providers-impls` and its `./impls/*` subpaths remain supported as compatibility re-exports. Keep using this package for `IntegrationProviderFactory` or when you intentionally need the broad composition surface.
+
+### Communication Coverage
+
+`IntegrationProviderFactory` now covers the main OSS communication paths directly:
+
+- `createEmailInboundProvider(...)` for Gmail thread/message sync
+- `createEmailOutboundProvider(...)` for Gmail and Postmark delivery
+- `createSmsProvider(...)` for Twilio SMS
+- `createMessagingProvider(...)` for Telegram, WhatsApp Meta, and WhatsApp Twilio
 
 ## Architecture
 
-- `src/analytics.ts` is part of the package's public or composition surface.
-- `src/calendar.ts` is part of the package's public or composition surface.
-- `src/database.ts` is part of the package's public or composition surface.
-- `src/email.ts` is part of the package's public or composition surface.
-- `src/embedding.ts` is part of the package's public or composition surface.
-- `src/health.ts` is part of the package's public or composition surface.
-- `src/impls` is part of the package's public or composition surface.
+- `src/analytics.ts`, `src/calendar.ts`, `src/database.ts`, `src/email.ts`, `src/embedding.ts`, and the other domain files are compatibility re-exports to targeted packages.
+- `src/impls/provider-factory.ts` owns the all-provider factory and imports targeted packages.
+- `src/impls/composio-*` owns the cross-domain Composio fallback/proxy surface.
+- `src/impls/*` provider implementation files are compatibility re-exports to targeted packages.
 - `src/index.ts` is the root public barrel and package entrypoint.
+
+## Targeted Packages
+
+- `@contractspec/integration.provider.analytics`
+- `@contractspec/integration.provider.calendar`
+- `@contractspec/integration.provider.database`
+- `@contractspec/integration.provider.email`
+- `@contractspec/integration.provider.embedding`
+- `@contractspec/integration.provider.health`
+- `@contractspec/integration.provider.llm`
+- `@contractspec/integration.provider.meeting-recorder`
+- `@contractspec/integration.provider.messaging`
+- `@contractspec/integration.provider.openbanking`
+- `@contractspec/integration.provider.payments`
+- `@contractspec/integration.provider.project-management`
+- `@contractspec/integration.provider.sms`
+- `@contractspec/integration.provider.storage`
+- `@contractspec/integration.provider.vector-store`
+- `@contractspec/integration.provider.voice`
 
 ## Public Entry Points
 
@@ -46,7 +78,7 @@ Import the root entrypoint from `@contractspec/integration.providers-impls`, or 
 - Export `./impls` resolves through `./src/impls/index.ts`.
 - Export `./impls/async-event-queue` resolves through `./src/impls/async-event-queue.ts`.
 - Export `./impls/composio-fallback-resolver` resolves through `./src/impls/composio-fallback-resolver.ts`.
-- The package publishes 76 total export subpaths; keep docs aligned with `package.json`.
+- The package publishes 78 total export subpaths; keep docs aligned with `package.json`.
 
 ## Local Commands
 

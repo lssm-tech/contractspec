@@ -1,0 +1,93 @@
+schemaVersion: "1"
+slug: split-provider-impls-targeted-packages
+summary: Split provider implementations into targeted integration packages while preserving the legacy providers-impls facade.
+isBreaking: false
+packages:
+  - name: "@contractspec/integration.providers-impls"
+    releaseType: minor
+  - name: "@contractspec/integration.provider.analytics"
+    releaseType: minor
+  - name: "@contractspec/integration.provider.calendar"
+    releaseType: minor
+  - name: "@contractspec/integration.provider.database"
+    releaseType: minor
+  - name: "@contractspec/integration.provider.email"
+    releaseType: minor
+  - name: "@contractspec/integration.provider.embedding"
+    releaseType: minor
+  - name: "@contractspec/integration.provider.health"
+    releaseType: minor
+  - name: "@contractspec/integration.provider.llm"
+    releaseType: minor
+  - name: "@contractspec/integration.provider.meeting-recorder"
+    releaseType: minor
+  - name: "@contractspec/integration.provider.messaging"
+    releaseType: minor
+  - name: "@contractspec/integration.provider.openbanking"
+    releaseType: minor
+  - name: "@contractspec/integration.provider.payments"
+    releaseType: minor
+  - name: "@contractspec/integration.provider.project-management"
+    releaseType: minor
+  - name: "@contractspec/integration.provider.sms"
+    releaseType: minor
+  - name: "@contractspec/integration.provider.storage"
+    releaseType: minor
+  - name: "@contractspec/integration.provider.vector-store"
+    releaseType: minor
+  - name: "@contractspec/integration.provider.voice"
+    releaseType: minor
+  - name: "@contractspec/app.api-library"
+    releaseType: patch
+  - name: "@contractspec/example.calendar-google"
+    releaseType: patch
+  - name: "@contractspec/example.email-gmail"
+    releaseType: patch
+  - name: "@contractspec/example.integration-posthog"
+    releaseType: patch
+  - name: "@contractspec/example.meeting-recorder-providers"
+    releaseType: patch
+  - name: "@contractspec/example.openbanking-powens"
+    releaseType: patch
+  - name: "@contractspec/example.product-intent"
+    releaseType: patch
+  - name: "@contractspec/example.project-management-sync"
+    releaseType: patch
+  - name: "@contractspec/example.voice-providers"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - node
+affectedFrameworks:
+  - react
+audiences:
+  - kind: integrator
+    summary: Consumers can now install the provider implementation domain they need instead of the broad compatibility package.
+    affectedPackages:
+      - "@contractspec/integration.provider.email"
+      - "@contractspec/integration.provider.payments"
+      - "@contractspec/integration.provider.voice"
+      - "@contractspec/integration.provider.project-management"
+  - kind: maintainer
+    summary: The legacy providers-impls package remains a compatibility facade and all-provider factory, with concrete implementation files owned by targeted packages.
+    affectedPackages:
+      - "@contractspec/integration.providers-impls"
+migrationInstructions:
+  - id: prefer-targeted-provider-packages
+    title: Import concrete providers from targeted packages
+    summary: "Replace direct provider imports such as `@contractspec/integration.providers-impls/impls/gmail-inbound` with targeted packages such as `@contractspec/integration.provider.email/impls/gmail-inbound`."
+  - id: keep-factory-on-legacy-package
+    title: Keep the all-provider factory on providers-impls
+    summary: "Continue importing `IntegrationProviderFactory` from `@contractspec/integration.providers-impls/impls/provider-factory` when you need broad provider routing."
+validation:
+  commands:
+    - cd packages/integrations/providers-impls && bun run typecheck && bun run test && bun run lint:check
+    - cd packages/integrations/provider-voice && bun run typecheck && bun run test && bun run lint:check
+    - cd packages/integrations/provider-project-management && bun run typecheck && bun run test && bun run lint:check
+    - cd packages/integrations/provider-email && bun run typecheck && bun run test && bun run lint:check
+    - cd packages/apps/api-library && bun run typecheck
+  evidence:
+    - "The legacy package keeps every documented root/domain/provider subpath as a source-level re-export."
+    - "Moved provider tests live with the package that owns each implementation slice."
+knownGaps:
+  - "This pass splits by implementation domain, not every individual vendor. A later major release can split high-churn SDK families further if install-size data justifies it."

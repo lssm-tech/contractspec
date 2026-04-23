@@ -3,8 +3,8 @@ import type {
 	CalendarEventInput,
 	CalendarListEventsQuery,
 	CalendarProvider,
-} from '@contractspec/integration.providers-impls/calendar';
-import { GoogleCalendarProvider } from '@contractspec/integration.providers-impls/impls/google-calendar';
+} from '@contractspec/integration.provider.calendar';
+import { GoogleCalendarProvider } from '@contractspec/integration.provider.calendar/impls/google-calendar';
 import { google } from 'googleapis';
 
 export interface CalendarSyncOutput {

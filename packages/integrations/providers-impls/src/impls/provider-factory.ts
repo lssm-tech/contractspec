@@ -1,5 +1,58 @@
 import { Buffer } from 'node:buffer';
-
+import type { AnalyticsProvider } from '@contractspec/integration.provider.analytics';
+import { PosthogAnalyticsProvider } from '@contractspec/integration.provider.analytics/impls/posthog';
+import type { DatabaseProvider } from '@contractspec/integration.provider.database';
+import { SupabasePostgresProvider } from '@contractspec/integration.provider.database/impls/supabase-psql';
+import type {
+	EmailInboundProvider,
+	EmailOutboundProvider,
+} from '@contractspec/integration.provider.email';
+import { GmailInboundProvider } from '@contractspec/integration.provider.email/impls/gmail-inbound';
+import { GmailOutboundProvider } from '@contractspec/integration.provider.email/impls/gmail-outbound';
+import { PostmarkEmailProvider } from '@contractspec/integration.provider.email/impls/postmark-email';
+import type { EmbeddingProvider } from '@contractspec/integration.provider.embedding';
+import { MistralEmbeddingProvider } from '@contractspec/integration.provider.embedding/impls/mistral-embedding';
+import type { HealthProvider } from '@contractspec/integration.provider.health';
+import { createHealthProviderFromContext } from '@contractspec/integration.provider.health/impls/health-provider-factory';
+import type { LLMProvider } from '@contractspec/integration.provider.llm';
+import { MistralLLMProvider } from '@contractspec/integration.provider.llm/impls/mistral-llm';
+import type { MeetingRecorderProvider } from '@contractspec/integration.provider.meeting-recorder';
+import { FathomMeetingRecorderProvider } from '@contractspec/integration.provider.meeting-recorder/impls/fathom-meeting-recorder';
+import { FirefliesMeetingRecorderProvider } from '@contractspec/integration.provider.meeting-recorder/impls/fireflies-meeting-recorder';
+import { GranolaMeetingRecorderProvider } from '@contractspec/integration.provider.meeting-recorder/impls/granola-meeting-recorder';
+import { TldvMeetingRecorderProvider } from '@contractspec/integration.provider.meeting-recorder/impls/tldv-meeting-recorder';
+import type { MessagingProvider } from '@contractspec/integration.provider.messaging';
+import { GithubMessagingProvider } from '@contractspec/integration.provider.messaging/impls/messaging-github';
+import { SlackMessagingProvider } from '@contractspec/integration.provider.messaging/impls/messaging-slack';
+import { TelegramMessagingProvider } from '@contractspec/integration.provider.messaging/impls/messaging-telegram';
+import { MetaWhatsappMessagingProvider } from '@contractspec/integration.provider.messaging/impls/messaging-whatsapp-meta';
+import { TwilioWhatsappMessagingProvider } from '@contractspec/integration.provider.messaging/impls/messaging-whatsapp-twilio';
+import type { OpenBankingProvider } from '@contractspec/integration.provider.openbanking';
+import type { PowensEnvironment } from '@contractspec/integration.provider.openbanking/impls/powens-client';
+import { PowensOpenBankingProvider } from '@contractspec/integration.provider.openbanking/impls/powens-openbanking';
+import type { PaymentsProvider } from '@contractspec/integration.provider.payments';
+import { StripePaymentsProvider } from '@contractspec/integration.provider.payments/impls/stripe-payments';
+import type { ProjectManagementProvider } from '@contractspec/integration.provider.project-management';
+import { JiraProjectManagementProvider } from '@contractspec/integration.provider.project-management/impls/jira';
+import { LinearProjectManagementProvider } from '@contractspec/integration.provider.project-management/impls/linear';
+import { NotionProjectManagementProvider } from '@contractspec/integration.provider.project-management/impls/notion';
+import type { SmsProvider } from '@contractspec/integration.provider.sms';
+import { TwilioSmsProvider } from '@contractspec/integration.provider.sms/impls/twilio-sms';
+import type { ObjectStorageProvider } from '@contractspec/integration.provider.storage';
+import { GoogleCloudStorageProvider } from '@contractspec/integration.provider.storage/impls/gcs-storage';
+import type { VectorStoreProvider } from '@contractspec/integration.provider.vector-store';
+import { QdrantVectorProvider } from '@contractspec/integration.provider.vector-store/impls/qdrant-vector';
+import { SupabaseVectorProvider } from '@contractspec/integration.provider.vector-store/impls/supabase-vector';
+import type {
+	ConversationalProvider,
+	STTProvider,
+	TTSProvider,
+} from '@contractspec/integration.provider.voice';
+import { ElevenLabsVoiceProvider } from '@contractspec/integration.provider.voice/impls/elevenlabs-voice';
+import { FalVoiceProvider } from '@contractspec/integration.provider.voice/impls/fal-voice';
+import { GradiumVoiceProvider } from '@contractspec/integration.provider.voice/impls/gradium-voice';
+import { MistralConversationalProvider } from '@contractspec/integration.provider.voice/impls/mistral-conversational';
+import { MistralSttProvider } from '@contractspec/integration.provider.voice/impls/mistral-stt';
 import type { IntegrationContext } from '@contractspec/integration.runtime/runtime';
 import type { SecretValue } from '@contractspec/integration.runtime/secrets/provider';
 import type { IntegrationAuthType } from '@contractspec/lib.contracts-integrations/integrations/auth';
@@ -7,56 +60,8 @@ import { findAuthConfig } from '@contractspec/lib.contracts-integrations/integra
 import { buildAuthHeaders } from '@contractspec/lib.contracts-integrations/integrations/auth-helpers';
 import { resolveIntegrationRequestContext } from '@contractspec/lib.contracts-integrations/integrations/runtime';
 import type { IntegrationTransportType } from '@contractspec/lib.contracts-integrations/integrations/transport';
-import type { AnalyticsProvider } from '../analytics';
-import type { DatabaseProvider } from '../database';
-import type { EmailOutboundProvider } from '../email';
-import type { EmbeddingProvider } from '../embedding';
-import type { HealthProvider } from '../health';
-import type { LLMProvider } from '../llm';
-import type { MeetingRecorderProvider } from '../meeting-recorder';
-import type { MessagingProvider } from '../messaging';
-import type { OpenBankingProvider } from '../openbanking';
-import type { PaymentsProvider } from '../payments';
-import type { ProjectManagementProvider } from '../project-management';
-import type { SmsProvider } from '../sms';
-import type { ObjectStorageProvider } from '../storage';
-import type { VectorStoreProvider } from '../vector-store';
-import type {
-	ConversationalProvider,
-	STTProvider,
-	TTSProvider,
-} from '../voice';
+import { google } from 'googleapis';
 import type { ComposioFallbackResolver } from './composio-fallback-resolver';
-import { ElevenLabsVoiceProvider } from './elevenlabs-voice';
-import { FalVoiceProvider } from './fal-voice';
-import { FathomMeetingRecorderProvider } from './fathom-meeting-recorder';
-import { FirefliesMeetingRecorderProvider } from './fireflies-meeting-recorder';
-import { GoogleCloudStorageProvider } from './gcs-storage';
-import { GradiumVoiceProvider } from './gradium-voice';
-import { GranolaMeetingRecorderProvider } from './granola-meeting-recorder';
-import { createHealthProviderFromContext } from './health-provider-factory';
-import { JiraProjectManagementProvider } from './jira';
-import { LinearProjectManagementProvider } from './linear';
-import { GithubMessagingProvider } from './messaging-github';
-import { SlackMessagingProvider } from './messaging-slack';
-import { TelegramMessagingProvider } from './messaging-telegram';
-import { MetaWhatsappMessagingProvider } from './messaging-whatsapp-meta';
-import { TwilioWhatsappMessagingProvider } from './messaging-whatsapp-twilio';
-import { MistralConversationalProvider } from './mistral-conversational';
-import { MistralEmbeddingProvider } from './mistral-embedding';
-import { MistralLLMProvider } from './mistral-llm';
-import { MistralSttProvider } from './mistral-stt';
-import { NotionProjectManagementProvider } from './notion';
-import { PosthogAnalyticsProvider } from './posthog';
-import { PostmarkEmailProvider } from './postmark-email';
-import type { PowensEnvironment } from './powens-client';
-import { PowensOpenBankingProvider } from './powens-openbanking';
-import { QdrantVectorProvider } from './qdrant-vector';
-import { StripePaymentsProvider } from './stripe-payments';
-import { SupabasePostgresProvider } from './supabase-psql';
-import { SupabaseVectorProvider } from './supabase-vector';
-import { TldvMeetingRecorderProvider } from './tldv-meeting-recorder';
-import { TwilioSmsProvider } from './twilio-sms';
 
 const SECRET_CACHE = new Map<string, Record<string, unknown>>();
 
@@ -137,6 +142,10 @@ export class IntegrationProviderFactory {
 	): Promise<EmailOutboundProvider> {
 		const secrets = await this.loadSecrets(context);
 		switch (context.spec.meta.key) {
+			case 'email.gmail':
+				return new GmailOutboundProvider({
+					auth: createGmailAuth(secrets),
+				});
 			case 'email.postmark':
 				return new PostmarkEmailProvider({
 					serverToken: requireSecret<string>(
@@ -155,6 +164,25 @@ export class IntegrationProviderFactory {
 				}
 				throw new Error(
 					`Unsupported email integration: ${context.spec.meta.key}`
+				);
+		}
+	}
+
+	async createEmailInboundProvider(
+		context: IntegrationContext
+	): Promise<EmailInboundProvider> {
+		const secrets = await this.loadSecrets(context);
+		switch (context.spec.meta.key) {
+			case 'email.gmail':
+				return new GmailInboundProvider({
+					auth: createGmailAuth(secrets),
+					includeSpamTrash: Boolean(
+						(context.config as { includeSpamTrash?: boolean }).includeSpamTrash
+					),
+				});
+			default:
+				throw new Error(
+					`Unsupported inbound email integration: ${context.spec.meta.key}`
 				);
 		}
 	}
@@ -924,4 +952,30 @@ function requireConfig<T>(
 		throw new Error(message);
 	}
 	return value as T;
+}
+
+function createGmailAuth(secrets: Record<string, unknown>) {
+	const clientId = requireSecret<string>(
+		secrets,
+		'clientId',
+		'Gmail clientId is required'
+	);
+	const clientSecret = requireSecret<string>(
+		secrets,
+		'clientSecret',
+		'Gmail clientSecret is required'
+	);
+	const refreshToken = requireSecret<string>(
+		secrets,
+		'refreshToken',
+		'Gmail refreshToken is required'
+	);
+	const redirectUri =
+		typeof secrets.redirectUri === 'string'
+			? secrets.redirectUri
+			: 'https://developers.google.com/oauthplayground';
+
+	const oauth = new google.auth.OAuth2(clientId, clientSecret, redirectUri);
+	oauth.setCredentials({ refresh_token: refreshToken });
+	return oauth;
 }

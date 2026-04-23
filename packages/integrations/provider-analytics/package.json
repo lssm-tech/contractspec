@@ -1,0 +1,94 @@
+{
+	"name": "@contractspec/integration.provider.analytics",
+	"version": "0.1.0",
+	"description": "Analytics provider implementations for ContractSpec.",
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"scripts": {
+		"build": "bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"dev": "contractspec-bun-build dev",
+		"clean": "rimraf dist .turbo",
+		"lint:check": "node ../../../scripts/biome.cjs check .",
+		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
+		"test": "bun test",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/integrations/provider-analytics"
+	},
+	"dependencies": {
+		"@contractspec/integration.runtime": "workspace:*",
+		"@contractspec/lib.contracts-integrations": "workspace:*"
+	},
+	"devDependencies": {
+		"@contractspec/tool.bun": "workspace:*",
+		"@contractspec/tool.typescript": "workspace:*",
+		"@types/bun": "catalog:types",
+		"posthog-node": "catalog:integrations",
+		"typescript": "catalog:"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./analytics": "./src/analytics.ts",
+		"./impls": "./src/impls/index.ts",
+		"./impls/posthog": "./src/impls/posthog.ts",
+		"./impls/posthog-reader": "./src/impls/posthog-reader.ts",
+		"./impls/posthog-utils": "./src/impls/posthog-utils.ts"
+	},
+	"publishConfig": {
+		"access": "public",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"browser": "./dist/browser/index.js",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./analytics": {
+				"types": "./dist/analytics.d.ts",
+				"browser": "./dist/browser/analytics.js",
+				"bun": "./dist/analytics.js",
+				"node": "./dist/node/analytics.js",
+				"default": "./dist/analytics.js"
+			},
+			"./impls": {
+				"types": "./dist/impls/index.d.ts",
+				"browser": "./dist/browser/impls/index.js",
+				"bun": "./dist/impls/index.js",
+				"node": "./dist/node/impls/index.js",
+				"default": "./dist/impls/index.js"
+			},
+			"./impls/posthog": {
+				"types": "./dist/impls/posthog.d.ts",
+				"browser": "./dist/browser/impls/posthog.js",
+				"bun": "./dist/impls/posthog.js",
+				"node": "./dist/node/impls/posthog.js",
+				"default": "./dist/impls/posthog.js"
+			},
+			"./impls/posthog-reader": {
+				"types": "./dist/impls/posthog-reader.d.ts",
+				"browser": "./dist/browser/impls/posthog-reader.js",
+				"bun": "./dist/impls/posthog-reader.js",
+				"node": "./dist/node/impls/posthog-reader.js",
+				"default": "./dist/impls/posthog-reader.js"
+			},
+			"./impls/posthog-utils": {
+				"types": "./dist/impls/posthog-utils.d.ts",
+				"browser": "./dist/browser/impls/posthog-utils.js",
+				"bun": "./dist/impls/posthog-utils.js",
+				"node": "./dist/node/impls/posthog-utils.js",
+				"default": "./dist/impls/posthog-utils.js"
+			}
+		}
+	}
+}

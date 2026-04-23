@@ -31,7 +31,7 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@contractspec/integration.providers-impls": "workspace:*",
+		"@contractspec/integration.provider.openbanking": "workspace:*",
 		"@contractspec/lib.contracts-spec": "workspace:*"
 	},
 	"devDependencies": {

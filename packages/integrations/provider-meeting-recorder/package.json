@@ -1,0 +1,157 @@
+{
+	"name": "@contractspec/integration.provider.meeting-recorder",
+	"version": "0.1.0",
+	"description": "Meeting recorder provider implementations for ContractSpec.",
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"scripts": {
+		"build": "bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"dev": "contractspec-bun-build dev",
+		"clean": "rimraf dist .turbo",
+		"lint:check": "node ../../../scripts/biome.cjs check .",
+		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
+		"test": "bun test",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/integrations/provider-meeting-recorder"
+	},
+	"dependencies": {
+		"@contractspec/integration.runtime": "workspace:*",
+		"@contractspec/lib.contracts-integrations": "workspace:*"
+	},
+	"devDependencies": {
+		"@contractspec/tool.bun": "workspace:*",
+		"@contractspec/tool.typescript": "workspace:*",
+		"@types/bun": "catalog:types",
+		"typescript": "catalog:"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./impls": "./src/impls/index.ts",
+		"./impls/fathom-meeting-recorder": "./src/impls/fathom-meeting-recorder.ts",
+		"./impls/fathom-meeting-recorder.mapper": "./src/impls/fathom-meeting-recorder.mapper.ts",
+		"./impls/fathom-meeting-recorder.types": "./src/impls/fathom-meeting-recorder.types.ts",
+		"./impls/fathom-meeting-recorder.utils": "./src/impls/fathom-meeting-recorder.utils.ts",
+		"./impls/fathom-meeting-recorder.webhooks": "./src/impls/fathom-meeting-recorder.webhooks.ts",
+		"./impls/fireflies-meeting-recorder": "./src/impls/fireflies-meeting-recorder.ts",
+		"./impls/fireflies-meeting-recorder.queries": "./src/impls/fireflies-meeting-recorder.queries.ts",
+		"./impls/fireflies-meeting-recorder.types": "./src/impls/fireflies-meeting-recorder.types.ts",
+		"./impls/fireflies-meeting-recorder.utils": "./src/impls/fireflies-meeting-recorder.utils.ts",
+		"./impls/granola-meeting-recorder": "./src/impls/granola-meeting-recorder.ts",
+		"./impls/granola-meeting-recorder.mcp": "./src/impls/granola-meeting-recorder.mcp.ts",
+		"./impls/granola-meeting-recorder.types": "./src/impls/granola-meeting-recorder.types.ts",
+		"./impls/tldv-meeting-recorder": "./src/impls/tldv-meeting-recorder.ts",
+		"./meeting-recorder": "./src/meeting-recorder.ts"
+	},
+	"publishConfig": {
+		"access": "public",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./impls": {
+				"types": "./dist/impls/index.d.ts",
+				"bun": "./dist/impls/index.js",
+				"node": "./dist/node/impls/index.js",
+				"default": "./dist/impls/index.js"
+			},
+			"./impls/fathom-meeting-recorder": {
+				"types": "./dist/impls/fathom-meeting-recorder.d.ts",
+				"bun": "./dist/impls/fathom-meeting-recorder.js",
+				"node": "./dist/node/impls/fathom-meeting-recorder.js",
+				"default": "./dist/impls/fathom-meeting-recorder.js"
+			},
+			"./impls/fathom-meeting-recorder.mapper": {
+				"types": "./dist/impls/fathom-meeting-recorder.mapper.d.ts",
+				"bun": "./dist/impls/fathom-meeting-recorder.mapper.js",
+				"node": "./dist/node/impls/fathom-meeting-recorder.mapper.js",
+				"default": "./dist/impls/fathom-meeting-recorder.mapper.js"
+			},
+			"./impls/fathom-meeting-recorder.types": {
+				"types": "./dist/impls/fathom-meeting-recorder.types.d.ts",
+				"bun": "./dist/impls/fathom-meeting-recorder.types.js",
+				"node": "./dist/node/impls/fathom-meeting-recorder.types.js",
+				"default": "./dist/impls/fathom-meeting-recorder.types.js"
+			},
+			"./impls/fathom-meeting-recorder.utils": {
+				"types": "./dist/impls/fathom-meeting-recorder.utils.d.ts",
+				"bun": "./dist/impls/fathom-meeting-recorder.utils.js",
+				"node": "./dist/node/impls/fathom-meeting-recorder.utils.js",
+				"default": "./dist/impls/fathom-meeting-recorder.utils.js"
+			},
+			"./impls/fathom-meeting-recorder.webhooks": {
+				"types": "./dist/impls/fathom-meeting-recorder.webhooks.d.ts",
+				"bun": "./dist/impls/fathom-meeting-recorder.webhooks.js",
+				"node": "./dist/node/impls/fathom-meeting-recorder.webhooks.js",
+				"default": "./dist/impls/fathom-meeting-recorder.webhooks.js"
+			},
+			"./impls/fireflies-meeting-recorder": {
+				"types": "./dist/impls/fireflies-meeting-recorder.d.ts",
+				"bun": "./dist/impls/fireflies-meeting-recorder.js",
+				"node": "./dist/node/impls/fireflies-meeting-recorder.js",
+				"default": "./dist/impls/fireflies-meeting-recorder.js"
+			},
+			"./impls/fireflies-meeting-recorder.queries": {
+				"types": "./dist/impls/fireflies-meeting-recorder.queries.d.ts",
+				"bun": "./dist/impls/fireflies-meeting-recorder.queries.js",
+				"node": "./dist/node/impls/fireflies-meeting-recorder.queries.js",
+				"default": "./dist/impls/fireflies-meeting-recorder.queries.js"
+			},
+			"./impls/fireflies-meeting-recorder.types": {
+				"types": "./dist/impls/fireflies-meeting-recorder.types.d.ts",
+				"bun": "./dist/impls/fireflies-meeting-recorder.types.js",
+				"node": "./dist/node/impls/fireflies-meeting-recorder.types.js",
+				"default": "./dist/impls/fireflies-meeting-recorder.types.js"
+			},
+			"./impls/fireflies-meeting-recorder.utils": {
+				"types": "./dist/impls/fireflies-meeting-recorder.utils.d.ts",
+				"bun": "./dist/impls/fireflies-meeting-recorder.utils.js",
+				"node": "./dist/node/impls/fireflies-meeting-recorder.utils.js",
+				"default": "./dist/impls/fireflies-meeting-recorder.utils.js"
+			},
+			"./impls/granola-meeting-recorder": {
+				"types": "./dist/impls/granola-meeting-recorder.d.ts",
+				"bun": "./dist/impls/granola-meeting-recorder.js",
+				"node": "./dist/node/impls/granola-meeting-recorder.js",
+				"default": "./dist/impls/granola-meeting-recorder.js"
+			},
+			"./impls/granola-meeting-recorder.mcp": {
+				"types": "./dist/impls/granola-meeting-recorder.mcp.d.ts",
+				"bun": "./dist/impls/granola-meeting-recorder.mcp.js",
+				"node": "./dist/node/impls/granola-meeting-recorder.mcp.js",
+				"default": "./dist/impls/granola-meeting-recorder.mcp.js"
+			},
+			"./impls/granola-meeting-recorder.types": {
+				"types": "./dist/impls/granola-meeting-recorder.types.d.ts",
+				"bun": "./dist/impls/granola-meeting-recorder.types.js",
+				"node": "./dist/node/impls/granola-meeting-recorder.types.js",
+				"default": "./dist/impls/granola-meeting-recorder.types.js"
+			},
+			"./impls/tldv-meeting-recorder": {
+				"types": "./dist/impls/tldv-meeting-recorder.d.ts",
+				"bun": "./dist/impls/tldv-meeting-recorder.js",
+				"node": "./dist/node/impls/tldv-meeting-recorder.js",
+				"default": "./dist/impls/tldv-meeting-recorder.js"
+			},
+			"./meeting-recorder": {
+				"types": "./dist/meeting-recorder.d.ts",
+				"bun": "./dist/meeting-recorder.js",
+				"node": "./dist/node/meeting-recorder.js",
+				"default": "./dist/meeting-recorder.js"
+			}
+		}
+	}
+}

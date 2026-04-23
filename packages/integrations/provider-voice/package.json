@@ -1,0 +1,128 @@
+{
+	"name": "@contractspec/integration.provider.voice",
+	"version": "0.1.0",
+	"description": "Voice, speech, and conversational provider implementations for ContractSpec.",
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"scripts": {
+		"build": "bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"dev": "contractspec-bun-build dev",
+		"clean": "rimraf dist .turbo",
+		"lint:check": "node ../../../scripts/biome.cjs check .",
+		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
+		"test": "bun test",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/integrations/provider-voice"
+	},
+	"dependencies": {
+		"@contractspec/integration.runtime": "workspace:*",
+		"@contractspec/lib.contracts-integrations": "workspace:*"
+	},
+	"devDependencies": {
+		"@confiture-ai/gradium-sdk-js": "catalog:integrations",
+		"@contractspec/tool.bun": "workspace:*",
+		"@contractspec/tool.typescript": "workspace:*",
+		"@elevenlabs/elevenlabs-js": "^2.44.0",
+		"@fal-ai/client": "catalog:integrations",
+		"@types/bun": "catalog:types",
+		"typescript": "catalog:"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./impls": "./src/impls/index.ts",
+		"./impls/async-event-queue": "./src/impls/async-event-queue.ts",
+		"./impls/elevenlabs-voice": "./src/impls/elevenlabs-voice.ts",
+		"./impls/fal-voice": "./src/impls/fal-voice.ts",
+		"./impls/gradium-voice": "./src/impls/gradium-voice.ts",
+		"./impls/mistral-conversational": "./src/impls/mistral-conversational.ts",
+		"./impls/mistral-conversational.session": "./src/impls/mistral-conversational.session.ts",
+		"./impls/mistral-stt": "./src/impls/mistral-stt.ts",
+		"./voice": "./src/voice.ts"
+	},
+	"publishConfig": {
+		"access": "public",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"browser": "./dist/browser/index.js",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./impls": {
+				"types": "./dist/impls/index.d.ts",
+				"browser": "./dist/browser/impls/index.js",
+				"bun": "./dist/impls/index.js",
+				"node": "./dist/node/impls/index.js",
+				"default": "./dist/impls/index.js"
+			},
+			"./impls/async-event-queue": {
+				"types": "./dist/impls/async-event-queue.d.ts",
+				"browser": "./dist/browser/impls/async-event-queue.js",
+				"bun": "./dist/impls/async-event-queue.js",
+				"node": "./dist/node/impls/async-event-queue.js",
+				"default": "./dist/impls/async-event-queue.js"
+			},
+			"./impls/elevenlabs-voice": {
+				"types": "./dist/impls/elevenlabs-voice.d.ts",
+				"browser": "./dist/browser/impls/elevenlabs-voice.js",
+				"bun": "./dist/impls/elevenlabs-voice.js",
+				"node": "./dist/node/impls/elevenlabs-voice.js",
+				"default": "./dist/impls/elevenlabs-voice.js"
+			},
+			"./impls/fal-voice": {
+				"types": "./dist/impls/fal-voice.d.ts",
+				"browser": "./dist/browser/impls/fal-voice.js",
+				"bun": "./dist/impls/fal-voice.js",
+				"node": "./dist/node/impls/fal-voice.js",
+				"default": "./dist/impls/fal-voice.js"
+			},
+			"./impls/gradium-voice": {
+				"types": "./dist/impls/gradium-voice.d.ts",
+				"browser": "./dist/browser/impls/gradium-voice.js",
+				"bun": "./dist/impls/gradium-voice.js",
+				"node": "./dist/node/impls/gradium-voice.js",
+				"default": "./dist/impls/gradium-voice.js"
+			},
+			"./impls/mistral-conversational": {
+				"types": "./dist/impls/mistral-conversational.d.ts",
+				"browser": "./dist/browser/impls/mistral-conversational.js",
+				"bun": "./dist/impls/mistral-conversational.js",
+				"node": "./dist/node/impls/mistral-conversational.js",
+				"default": "./dist/impls/mistral-conversational.js"
+			},
+			"./impls/mistral-conversational.session": {
+				"types": "./dist/impls/mistral-conversational.session.d.ts",
+				"browser": "./dist/browser/impls/mistral-conversational.session.js",
+				"bun": "./dist/impls/mistral-conversational.session.js",
+				"node": "./dist/node/impls/mistral-conversational.session.js",
+				"default": "./dist/impls/mistral-conversational.session.js"
+			},
+			"./impls/mistral-stt": {
+				"types": "./dist/impls/mistral-stt.d.ts",
+				"browser": "./dist/browser/impls/mistral-stt.js",
+				"bun": "./dist/impls/mistral-stt.js",
+				"node": "./dist/node/impls/mistral-stt.js",
+				"default": "./dist/impls/mistral-stt.js"
+			},
+			"./voice": {
+				"types": "./dist/voice.d.ts",
+				"browser": "./dist/browser/voice.js",
+				"bun": "./dist/voice.js",
+				"node": "./dist/node/voice.js",
+				"default": "./dist/voice.js"
+			}
+		}
+	}
+}

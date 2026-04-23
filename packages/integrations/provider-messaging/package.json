@@ -1,0 +1,101 @@
+{
+	"name": "@contractspec/integration.provider.messaging",
+	"version": "0.1.0",
+	"description": "Messaging provider implementations for ContractSpec.",
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"scripts": {
+		"build": "bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"dev": "contractspec-bun-build dev",
+		"clean": "rimraf dist .turbo",
+		"lint:check": "node ../../../scripts/biome.cjs check .",
+		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
+		"test": "bun test",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/integrations/provider-messaging"
+	},
+	"dependencies": {
+		"@contractspec/integration.runtime": "workspace:*",
+		"@contractspec/lib.contracts-integrations": "workspace:*"
+	},
+	"devDependencies": {
+		"@contractspec/tool.bun": "workspace:*",
+		"@contractspec/tool.typescript": "workspace:*",
+		"@types/bun": "catalog:types",
+		"typescript": "catalog:"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./impls": "./src/impls/index.ts",
+		"./impls/messaging-github": "./src/impls/messaging-github.ts",
+		"./impls/messaging-slack": "./src/impls/messaging-slack.ts",
+		"./impls/messaging-telegram": "./src/impls/messaging-telegram.ts",
+		"./impls/messaging-whatsapp-meta": "./src/impls/messaging-whatsapp-meta.ts",
+		"./impls/messaging-whatsapp-twilio": "./src/impls/messaging-whatsapp-twilio.ts",
+		"./messaging": "./src/messaging.ts"
+	},
+	"publishConfig": {
+		"access": "public",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./impls": {
+				"types": "./dist/impls/index.d.ts",
+				"bun": "./dist/impls/index.js",
+				"node": "./dist/node/impls/index.js",
+				"default": "./dist/impls/index.js"
+			},
+			"./impls/messaging-github": {
+				"types": "./dist/impls/messaging-github.d.ts",
+				"bun": "./dist/impls/messaging-github.js",
+				"node": "./dist/node/impls/messaging-github.js",
+				"default": "./dist/impls/messaging-github.js"
+			},
+			"./impls/messaging-slack": {
+				"types": "./dist/impls/messaging-slack.d.ts",
+				"bun": "./dist/impls/messaging-slack.js",
+				"node": "./dist/node/impls/messaging-slack.js",
+				"default": "./dist/impls/messaging-slack.js"
+			},
+			"./impls/messaging-telegram": {
+				"types": "./dist/impls/messaging-telegram.d.ts",
+				"bun": "./dist/impls/messaging-telegram.js",
+				"node": "./dist/node/impls/messaging-telegram.js",
+				"default": "./dist/impls/messaging-telegram.js"
+			},
+			"./impls/messaging-whatsapp-meta": {
+				"types": "./dist/impls/messaging-whatsapp-meta.d.ts",
+				"bun": "./dist/impls/messaging-whatsapp-meta.js",
+				"node": "./dist/node/impls/messaging-whatsapp-meta.js",
+				"default": "./dist/impls/messaging-whatsapp-meta.js"
+			},
+			"./impls/messaging-whatsapp-twilio": {
+				"types": "./dist/impls/messaging-whatsapp-twilio.d.ts",
+				"bun": "./dist/impls/messaging-whatsapp-twilio.js",
+				"node": "./dist/node/impls/messaging-whatsapp-twilio.js",
+				"default": "./dist/impls/messaging-whatsapp-twilio.js"
+			},
+			"./messaging": {
+				"types": "./dist/messaging.d.ts",
+				"bun": "./dist/messaging.js",
+				"node": "./dist/node/messaging.js",
+				"default": "./dist/messaging.js"
+			}
+		}
+	}
+}

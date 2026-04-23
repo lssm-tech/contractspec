@@ -1,4 +1,4 @@
-import { PosthogAnalyticsProvider } from '@contractspec/integration.providers-impls/impls/posthog';
+import { PosthogAnalyticsProvider } from '@contractspec/integration.provider.analytics/impls/posthog';
 import type {
 	AnalyticsEvent,
 	FunnelDefinition,

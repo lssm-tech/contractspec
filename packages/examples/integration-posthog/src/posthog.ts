@@ -4,8 +4,8 @@ import type {
 	AnalyticsQueryResult,
 	AnalyticsRequest,
 	AnalyticsResponse,
-} from '@contractspec/integration.providers-impls/analytics';
-import { PosthogAnalyticsProvider } from '@contractspec/integration.providers-impls/impls/posthog';
+} from '@contractspec/integration.provider.analytics';
+import { PosthogAnalyticsProvider } from '@contractspec/integration.provider.analytics/impls/posthog';
 
 export type PosthogExampleMode =
 	| 'capture'

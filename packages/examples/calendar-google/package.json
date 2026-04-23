@@ -29,7 +29,7 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@contractspec/integration.providers-impls": "workspace:*",
+		"@contractspec/integration.provider.calendar": "workspace:*",
 		"@contractspec/lib.contracts-spec": "workspace:*",
 		"googleapis": "catalog:integrations"
 	},

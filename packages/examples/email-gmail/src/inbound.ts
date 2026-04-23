@@ -1,8 +1,8 @@
 import type {
 	EmailMessage,
 	EmailThread,
-} from '@contractspec/integration.providers-impls/email';
-import { GmailInboundProvider } from '@contractspec/integration.providers-impls/impls/gmail-inbound';
+} from '@contractspec/integration.provider.email';
+import { GmailInboundProvider } from '@contractspec/integration.provider.email/impls/gmail-inbound';
 import { createGmailAuthFromEnv } from './auth';
 
 export interface GmailInboundSnapshot {

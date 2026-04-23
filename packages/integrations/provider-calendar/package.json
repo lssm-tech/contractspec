@@ -1,0 +1,78 @@
+{
+	"name": "@contractspec/integration.provider.calendar",
+	"version": "0.1.0",
+	"description": "Calendar provider implementations for ContractSpec.",
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"scripts": {
+		"build": "bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"dev": "contractspec-bun-build dev",
+		"clean": "rimraf dist .turbo",
+		"lint:check": "node ../../../scripts/biome.cjs check .",
+		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
+		"test": "bun test",
+		"prebuild": "contractspec-bun-build prebuild",
+		"typecheck": "tsc --noEmit"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/integrations/provider-calendar"
+	},
+	"dependencies": {
+		"@contractspec/integration.runtime": "workspace:*",
+		"@contractspec/lib.contracts-integrations": "workspace:*"
+	},
+	"devDependencies": {
+		"@contractspec/tool.bun": "workspace:*",
+		"@contractspec/tool.typescript": "workspace:*",
+		"@types/bun": "catalog:types",
+		"googleapis": "catalog:integrations",
+		"typescript": "catalog:"
+	},
+	"exports": {
+		".": "./src/index.ts",
+		"./calendar": "./src/calendar.ts",
+		"./impls": "./src/impls/index.ts",
+		"./impls/google-calendar": "./src/impls/google-calendar.ts"
+	},
+	"publishConfig": {
+		"access": "public",
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"browser": "./dist/browser/index.js",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./calendar": {
+				"types": "./dist/calendar.d.ts",
+				"browser": "./dist/browser/calendar.js",
+				"bun": "./dist/calendar.js",
+				"node": "./dist/node/calendar.js",
+				"default": "./dist/calendar.js"
+			},
+			"./impls": {
+				"types": "./dist/impls/index.d.ts",
+				"browser": "./dist/browser/impls/index.js",
+				"bun": "./dist/impls/index.js",
+				"node": "./dist/node/impls/index.js",
+				"default": "./dist/impls/index.js"
+			},
+			"./impls/google-calendar": {
+				"types": "./dist/impls/google-calendar.d.ts",
+				"browser": "./dist/browser/impls/google-calendar.js",
+				"bun": "./dist/impls/google-calendar.js",
+				"node": "./dist/node/impls/google-calendar.js",
+				"default": "./dist/impls/google-calendar.js"
+			}
+		}
+	}
+}

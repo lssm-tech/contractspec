@@ -32,11 +32,11 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@contractspec/integration.providers-impls": "workspace:*",
-		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@confiture-ai/gradium-sdk-js": "catalog:integrations",
+		"@contractspec/integration.provider.voice": "workspace:*",
 		"@contractspec/lib.contracts-integrations": "workspace:*",
-		"@fal-ai/client": "catalog:integrations",
-		"@confiture-ai/gradium-sdk-js": "catalog:integrations"
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@fal-ai/client": "catalog:integrations"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",
