@@ -1,4 +1,4 @@
-import type { AnyOperationSpec } from '@contractspec/lib.contracts-spec';
+import type { AnyOperationSpec } from '@contractspec/lib.contracts-spec/operations/operation';
 
 export type OverlayScopeKey =
 	| 'tenantId'

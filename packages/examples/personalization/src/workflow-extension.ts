@@ -1,4 +1,4 @@
-import { StabilityEnum } from '@contractspec/lib.contracts-spec';
+import { StabilityEnum } from '@contractspec/lib.contracts-spec/ownership';
 import type { WorkflowSpec } from '@contractspec/lib.contracts-spec/workflow/spec';
 import { Logger, LogLevel } from '@contractspec/lib.logger';
 import { WorkflowComposer } from '@contractspec/lib.workflow-composer';
