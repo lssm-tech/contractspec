@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.graphql-prisma",
-	"version": "3.7.17",
+	"version": "3.7.18",
 	"description": "Pothos + Prisma builder factory with injectable client/DMMF",
 	"keywords": [
 		"contractspec",

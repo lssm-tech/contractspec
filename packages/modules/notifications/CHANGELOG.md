@@ -1,5 +1,24 @@
 # @contractspec/module.notifications
 
+## 3.8.0
+
+### Minor Changes
+
+- Add concrete omnichannel notification channels for email, SMS, Telegram, and WhatsApp.
+  - Packages: @contractspec/module.notifications (minor)
+  - Migration: Prefer the built-in provider-backed channels for email, SMS, Telegram, and WhatsApp.
+
+### Patch Changes
+
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add mobile-safe FormSpec layout helpers and scoped DataView filters.
+
+FormSpec authors can now use `responsiveFormColumns(...)` for explicit mobile-first column metadata without changing legacy numeric `layout.columns` behavior. DataView contracts can declare `filterScope.initial` and `filterScope.locked` filters so generic list/search contracts can be reused in context-restricted screens while keeping locked constraints out of user-editable URL state.
+
+- Updated dependencies because of Add OSS harness CLI verification with deterministic Playwright, optional agent-browser visual runs, auth profile refs, visual diff evidence, replay bundles, and core scenario success semantics.
+  - @contractspec/lib.bus@3.7.24
+  - @contractspec/lib.contracts-spec@5.7.0
+
 ## 3.7.22
 
 ### Patch Changes

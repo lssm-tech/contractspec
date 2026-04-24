@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.exporter",
-	"version": "3.7.17",
+	"version": "3.7.18",
 	"description": "Compatibility exporter shim backed by the data-exchange core.",
 	"keywords": [
 		"contractspec",

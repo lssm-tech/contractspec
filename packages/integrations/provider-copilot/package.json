@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/integration.provider.copilot",
-	"version": "0.2.4",
+	"version": "0.2.5",
 	"description": "Copilot provider compatibility wrapper for Builder.",
 	"type": "module",
 	"types": "./dist/index.d.ts",

@@ -1,5 +1,14 @@
 # @contractspec/bundle.alpic
 
+## 3.7.23
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/lib.surface-runtime@0.5.24
+  - @contractspec/module.alpic@3.7.24
+
 ## 3.7.22
 
 ### Patch Changes

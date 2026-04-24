@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/module.provider-ranking",
-	"version": "0.7.22",
+	"version": "0.7.23",
 	"description": "AI provider ranking module with persistence and pipeline orchestration",
 	"keywords": [
 		"contractspec",

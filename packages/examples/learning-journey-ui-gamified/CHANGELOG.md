@@ -1,5 +1,25 @@
 # @contractspec/example.learning-journey-ui-gamified
 
+## 4.0.6
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add Biome guardrails that keep JSX layout and text compatible with React and React Native.
+- Updated dependencies because of Add mobile-safe FormSpec layout helpers and scoped DataView filters.
+
+FormSpec authors can now use `responsiveFormColumns(...)` for explicit mobile-first column metadata without changing legacy numeric `layout.columns` behavior. DataView contracts can declare `filterScope.initial` and `filterScope.locked` filters so generic list/search contracts can be reused in context-restricted screens while keeping locked constraints out of user-editable URL state.
+
+- Updated dependencies because of Add OSS harness CLI verification with deterministic Playwright, optional agent-browser visual runs, auth profile refs, visual diff evidence, replay bundles, and core scenario success semantics.
+  - @contractspec/example.learning-journey-duo-drills@4.0.4
+  - @contractspec/example.learning-journey-quest-challenges@4.0.4
+  - @contractspec/example.learning-journey-ui-shared@4.0.6
+  - @contractspec/module.learning-journey@4.0.4
+  - @contractspec/lib.ui-kit-web@3.12.1
+  - @contractspec/lib.design-system@4.1.0
+  - @contractspec/lib.contracts-spec@5.7.0
+
 ## 4.0.5
 
 ### Patch Changes

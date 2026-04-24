@@ -43,7 +43,7 @@ deprecations: []
 migrationInstructions:
   - id: numeric-columns-compatible
     title: Keep existing numeric layouts as-is
-    summary: Existing `layout.columns: 2` contracts continue to render as base two-column layouts.
+    summary: "Existing `layout.columns: 2` contracts continue to render as base two-column layouts."
     required: false
     steps:
       - No migration is required for existing numeric column specs.
@@ -71,7 +71,7 @@ upgradeSteps:
     instructions:
       - Add `filterScope.initial` for removable default filters.
       - Add `filterScope.locked` for fixed constraints.
-      - Use `lockedChips: "hidden"` only when the surrounding UI explains the constraint elsewhere.
+      - "Use `lockedChips: \"hidden\"` only when the surrounding UI explains the constraint elsewhere."
 validation:
   commands:
     - "bun run --cwd packages/libs/contracts-spec test -- data-views/types.test.ts forms/forms.test.ts"

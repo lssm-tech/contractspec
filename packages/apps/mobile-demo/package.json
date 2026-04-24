@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/app.expo-demo",
-	"version": "1.1.27",
+	"version": "1.1.28",
 	"private": true,
 	"description": "Expo landing companion for the shared ContractSpec OSS-first product story",
 	"main": "index.js",

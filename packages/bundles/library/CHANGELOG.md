@@ -1,5 +1,46 @@
 # @contractspec/bundle.library
 
+## 3.9.6
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add Biome guardrails that keep JSX layout and text compatible with React and React Native.
+- Updated dependencies because of Add mobile-safe FormSpec layout helpers and scoped DataView filters.
+
+FormSpec authors can now use `responsiveFormColumns(...)` for explicit mobile-first column metadata without changing legacy numeric `layout.columns` behavior. DataView contracts can declare `filterScope.initial` and `filterScope.locked` filters so generic list/search contracts can be reused in context-restricted screens while keeping locked constraints out of user-editable URL state.
+
+- Updated dependencies because of Add OSS harness CLI verification with deterministic Playwright, optional agent-browser visual runs, auth profile refs, visual diff evidence, replay bundles, and core scenario success semantics.
+- Updated dependencies because of Complete the knowledge OSS surface with stricter guardrails and an easier runtime path.
+
+`@contractspec/lib.knowledge` now exposes a higher-level `KnowledgeRuntime` helper for the common ingest -> retrieve -> answer flow, adds per-query overrides on `KnowledgeQueryService`, and makes typed retrieval filters (`locale`, `category`) real rather than documentation-only. The access guard now enforces `automationWritable` and denies missing workflow/agent bindings when scoped allow-lists exist, which aligns runtime behavior with the contracts-spec knowledge semantics. The package also gains deeper regression coverage over previously untested public primitives.
+
+`@contractspec/example.knowledge-canon` now demonstrates a real `lib.knowledge` retrieval path instead of a placeholder TODO, so OSS consumers have a concrete example package they can reuse.
+
+- @contractspec/bundle.workspace@4.5.4
+- @contractspec/example.data-grid-showcase@3.8.18
+- @contractspec/lib.ai-providers@3.7.17
+- @contractspec/lib.content-gen@3.7.24
+- @contractspec/lib.contracts-integrations@3.8.16
+- @contractspec/lib.contracts-library@3.7.24
+- @contractspec/lib.contracts-runtime-server-graphql@3.8.3
+- @contractspec/lib.contracts-runtime-server-mcp@3.8.4
+- @contractspec/lib.contracts-runtime-server-rest@3.8.3
+- @contractspec/lib.example-shared-ui@7.0.3
+- @contractspec/lib.logger@3.7.17
+- @contractspec/lib.provider-ranking@0.7.17
+- @contractspec/lib.runtime-sandbox@3.0.3
+- @contractspec/lib.surface-runtime@0.5.24
+- @contractspec/lib.ui-link@3.7.19
+- @contractspec/module.context-storage@0.7.23
+- @contractspec/module.examples@4.0.3
+- @contractspec/lib.ui-kit-web@3.12.1
+- @contractspec/lib.design-system@4.1.0
+- @contractspec/lib.contracts-spec@5.7.0
+- @contractspec/lib.contracts-runtime-client-react@3.11.1
+- @contractspec/lib.knowledge@3.8.0
+
 ## 3.9.5
 
 ### Patch Changes

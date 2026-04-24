@@ -1,5 +1,28 @@
 # @contractspec/app.api-library
 
+## 3.8.19
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add mobile-safe FormSpec layout helpers and scoped DataView filters.
+
+FormSpec authors can now use `responsiveFormColumns(...)` for explicit mobile-first column metadata without changing legacy numeric `layout.columns` behavior. DataView contracts can declare `filterScope.initial` and `filterScope.locked` filters so generic list/search contracts can be reused in context-restricted screens while keeping locked constraints out of user-editable URL state.
+
+- Updated dependencies because of Add OSS harness CLI verification with deterministic Playwright, optional agent-browser visual runs, auth profile refs, visual diff evidence, replay bundles, and core scenario success semantics.
+- Updated dependencies because of Split provider implementations into targeted integration packages while preserving the legacy providers-impls facade.
+  - @contractspec/bundle.library@3.9.6
+  - @contractspec/bundle.marketing@3.8.19
+  - @contractspec/bundle.workspace@4.5.4
+  - @contractspec/integration.builder-telegram@0.2.6
+  - @contractspec/integration.builder-whatsapp@0.2.6
+  - @contractspec/integration.provider.codex@0.2.5
+  - @contractspec/integration.runtime@3.9.6
+  - @contractspec/integration.runtime.managed@0.2.6
+  - @contractspec/lib.contracts-spec@5.7.0
+  - @contractspec/integration.provider.messaging@0.2.0
+
 ## 3.8.18
 
 ### Patch Changes

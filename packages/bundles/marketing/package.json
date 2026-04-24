@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/bundle.marketing",
-	"version": "3.8.18",
+	"version": "3.8.19",
 	"type": "module",
 	"scripts": {
 		"clean": "rm -rf dist",

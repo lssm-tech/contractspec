@@ -1,5 +1,56 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 3.8.20
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add Biome guardrails that keep JSX layout and text compatible with React and React Native.
+- Updated dependencies because of Add mobile-safe FormSpec layout helpers and scoped DataView filters.
+
+FormSpec authors can now use `responsiveFormColumns(...)` for explicit mobile-first column metadata without changing legacy numeric `layout.columns` behavior. DataView contracts can declare `filterScope.initial` and `filterScope.locked` filters so generic list/search contracts can be reused in context-restricted screens while keeping locked constraints out of user-editable URL state.
+
+- Updated dependencies because of Add OSS harness CLI verification with deterministic Playwright, optional agent-browser visual runs, auth profile refs, visual diff evidence, replay bundles, and core scenario success semantics.
+  - @contractspec/bundle.library@3.9.6
+  - @contractspec/bundle.marketing@3.8.19
+  - @contractspec/example.agent-console@3.8.18
+  - @contractspec/example.ai-chat-assistant@3.8.18
+  - @contractspec/example.analytics-dashboard@3.9.18
+  - @contractspec/example.crm-pipeline@3.7.26
+  - @contractspec/example.data-grid-showcase@3.8.18
+  - @contractspec/example.in-app-docs@3.7.26
+  - @contractspec/example.integration-hub@3.8.18
+  - @contractspec/example.learning-journey-registry@4.0.6
+  - @contractspec/example.marketplace@3.8.18
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.26
+  - @contractspec/example.saas-boilerplate@3.8.18
+  - @contractspec/example.visualization-showcase@3.9.18
+  - @contractspec/example.workflow-system@3.8.18
+  - @contractspec/integration.provider.claude-code@0.2.5
+  - @contractspec/integration.provider.codex@0.2.5
+  - @contractspec/integration.provider.copilot@0.2.5
+  - @contractspec/integration.provider.gemini@0.2.5
+  - @contractspec/integration.provider.local-model@0.2.5
+  - @contractspec/integration.provider.stt@0.2.5
+  - @contractspec/integration.runtime.hybrid@0.2.6
+  - @contractspec/integration.runtime.local@0.2.6
+  - @contractspec/integration.runtime.managed@0.2.6
+  - @contractspec/lib.ai-providers@3.7.17
+  - @contractspec/lib.builder-spec@0.2.6
+  - @contractspec/lib.example-shared-ui@7.0.3
+  - @contractspec/lib.progressive-delivery@34.0.23
+  - @contractspec/lib.surface-runtime@0.5.24
+  - @contractspec/lib.ui-link@3.7.19
+  - @contractspec/module.ai-chat@4.3.26
+  - @contractspec/module.builder-workbench@0.2.8
+  - @contractspec/module.examples@4.0.3
+  - @contractspec/lib.ui-kit@4.1.1
+  - @contractspec/lib.ui-kit-web@3.12.1
+  - @contractspec/lib.ui-kit-core@3.8.4
+  - @contractspec/lib.design-system@4.1.0
+  - @contractspec/lib.contracts-spec@5.7.0
+
 ## 3.8.19
 
 ### Patch Changes

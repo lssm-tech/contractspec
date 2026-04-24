@@ -1,5 +1,44 @@
 # @contractspec/app.expo-demo
 
+## 1.1.28
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add Biome guardrails that keep JSX layout and text compatible with React and React Native.
+- Updated dependencies because of Add mobile-safe FormSpec layout helpers and scoped DataView filters.
+
+FormSpec authors can now use `responsiveFormColumns(...)` for explicit mobile-first column metadata without changing legacy numeric `layout.columns` behavior. DataView contracts can declare `filterScope.initial` and `filterScope.locked` filters so generic list/search contracts can be reused in context-restricted screens while keeping locked constraints out of user-editable URL state.
+
+- Updated dependencies because of Add OSS harness CLI verification with deterministic Playwright, optional agent-browser visual runs, auth profile refs, visual diff evidence, replay bundles, and core scenario success semantics.
+- Updated dependencies because of Split provider implementations into targeted integration packages while preserving the legacy providers-impls facade.
+  - @contractspec/bundle.marketing@3.8.19
+  - @contractspec/example.agent-console@3.8.18
+  - @contractspec/example.ai-chat-assistant@3.8.18
+  - @contractspec/example.analytics-dashboard@3.9.18
+  - @contractspec/example.crm-pipeline@3.7.26
+  - @contractspec/example.data-grid-showcase@3.8.18
+  - @contractspec/example.in-app-docs@3.7.26
+  - @contractspec/example.integration-hub@3.8.18
+  - @contractspec/example.learning-journey-registry@4.0.6
+  - @contractspec/example.marketplace@3.8.18
+  - @contractspec/example.pocket-family-office@3.7.24
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.26
+  - @contractspec/example.saas-boilerplate@3.8.18
+  - @contractspec/example.video-api-showcase@3.7.26
+  - @contractspec/example.video-docs-terminal@3.7.26
+  - @contractspec/example.visualization-showcase@3.9.18
+  - @contractspec/example.workflow-system@3.8.18
+  - @contractspec/module.examples@4.0.3
+  - @contractspec/lib.ui-kit@4.1.1
+  - @contractspec/lib.ui-kit-core@3.8.4
+  - @contractspec/lib.contracts-spec@5.7.0
+  - @contractspec/lib.presentation-runtime-core@5.1.0
+  - @contractspec/lib.presentation-runtime-react-native@39.0.0
+  - @contractspec/example.meeting-recorder-providers@3.7.25
+  - @contractspec/example.voice-providers@3.7.25
+
 ## 1.1.27
 
 ### Patch Changes

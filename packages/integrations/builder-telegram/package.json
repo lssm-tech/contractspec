@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/integration.builder-telegram",
-	"version": "0.2.5",
+	"version": "0.2.6",
 	"description": "Telegram Builder control-channel integration.",
 	"keywords": [
 		"contractspec",

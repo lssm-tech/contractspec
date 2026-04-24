@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/integration.runtime.managed",
-	"version": "0.2.5",
+	"version": "0.2.6",
 	"description": "Managed runtime compatibility wrapper for Builder.",
 	"type": "module",
 	"types": "./dist/index.d.ts",

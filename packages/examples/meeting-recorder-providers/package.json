@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/example.meeting-recorder-providers",
-	"version": "3.7.24",
+	"version": "3.7.25",
 	"description": "Meeting recorder provider example: list meetings, transcripts, and webhooks.",
 	"type": "module",
 	"types": "./dist/index.d.ts",

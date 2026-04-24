@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/example.product-intent",
-	"version": "3.7.24",
+	"version": "3.7.25",
 	"description": "Product intent example: evidence ingestion and prompt-ready outputs.",
 	"keywords": [
 		"contractspec",

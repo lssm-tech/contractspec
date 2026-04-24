@@ -1,5 +1,32 @@
 # @contractspec/lib.design-system
 
+## 4.1.0
+
+### Minor Changes
+
+- Add mobile-safe FormSpec layout helpers and scoped DataView filters.
+
+FormSpec authors can now use `responsiveFormColumns(...)` for explicit mobile-first column metadata without changing legacy numeric `layout.columns` behavior. DataView contracts can declare `filterScope.initial` and `filterScope.locked` filters so generic list/search contracts can be reused in context-restricted screens while keeping locked constraints out of user-editable URL state.
+
+### Patch Changes
+
+- Add Biome guardrails that keep JSX layout and text compatible with React and React Native.
+  - Packages: @contractspec/biome-config (patch), contractspec (patch), @contractspec/lib.ui-kit (patch), @contractspec/lib.ui-kit-web (patch), @contractspec/lib.ui-kit-core (patch), @contractspec/lib.design-system (patch)
+  - Migration: Use ContractSpec layout and typography primitives in JSX surfaces.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add Biome guardrails that keep JSX layout and text compatible with React and React Native.
+- Updated dependencies because of Add mobile-safe FormSpec layout helpers and scoped DataView filters.
+
+FormSpec authors can now use `responsiveFormColumns(...)` for explicit mobile-first column metadata without changing legacy numeric `layout.columns` behavior. DataView contracts can declare `filterScope.initial` and `filterScope.locked` filters so generic list/search contracts can be reused in context-restricted screens while keeping locked constraints out of user-editable URL state.
+
+- Updated dependencies because of Add OSS harness CLI verification with deterministic Playwright, optional agent-browser visual runs, auth profile refs, visual diff evidence, replay bundles, and core scenario success semantics.
+  - @contractspec/lib.ai-agent@8.0.12
+  - @contractspec/lib.ui-kit@4.1.1
+  - @contractspec/lib.ui-kit-web@3.12.1
+  - @contractspec/lib.contracts-spec@5.7.0
+  - @contractspec/lib.contracts-runtime-client-react@3.11.1
+  - @contractspec/lib.presentation-runtime-react@39.0.0
+
 ## 4.0.0
 
 ### Major Changes

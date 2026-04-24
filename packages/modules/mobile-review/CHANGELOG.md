@@ -1,5 +1,22 @@
 # @contractspec/module.mobile-review
 
+## 0.2.8
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add Biome guardrails that keep JSX layout and text compatible with React and React Native.
+- Updated dependencies because of Add mobile-safe FormSpec layout helpers and scoped DataView filters.
+
+FormSpec authors can now use `responsiveFormColumns(...)` for explicit mobile-first column metadata without changing legacy numeric `layout.columns` behavior. DataView contracts can declare `filterScope.initial` and `filterScope.locked` filters so generic list/search contracts can be reused in context-restricted screens while keeping locked constraints out of user-editable URL state.
+
+- Updated dependencies because of Add OSS harness CLI verification with deterministic Playwright, optional agent-browser visual runs, auth profile refs, visual diff evidence, replay bundles, and core scenario success semantics.
+  - @contractspec/lib.builder-spec@0.2.6
+  - @contractspec/module.builder-workbench@0.2.8
+  - @contractspec/lib.ui-kit-web@3.12.1
+  - @contractspec/lib.contracts-spec@5.7.0
+
 ## 0.2.7
 
 ### Patch Changes

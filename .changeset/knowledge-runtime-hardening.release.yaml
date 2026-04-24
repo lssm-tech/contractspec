@@ -24,13 +24,27 @@ audiences:
       - "@contractspec/example.knowledge-canon"
 deprecations: []
 migrationInstructions:
-  - "If you relied on `KnowledgeAccessGuard` allowing writes when `automationWritable` was false, update the space definition or the calling flow before upgrading."
-  - "If you relied on missing workflow or agent names silently bypassing scoped bindings, pass the correct binding identifiers explicitly."
+  - id: respect-automation-writable
+    title: Update flows that depended on permissive automation writes
+    summary: "`KnowledgeAccessGuard` now enforces `automationWritable`, so spaces or callers that relied on writes being allowed must be updated before upgrading."
+    required: false
+    when: "When a consumer previously expected automation writes to succeed even when `automationWritable` was false."
+    steps:
+      - "Update the affected space definition to allow the required write path, or change the calling flow so it no longer attempts that write."
+      - "Verify automation-triggered write operations still succeed only for explicitly writable spaces."
+  - id: pass-scoped-binding-identifiers
+    title: Provide explicit scoped workflow and agent bindings
+    summary: "Missing workflow or agent names no longer bypass scoped bindings implicitly."
+    required: false
+    when: "When a consumer previously omitted workflow or agent binding identifiers and relied on permissive fallback behavior."
+    steps:
+      - "Pass the correct workflow and agent binding identifiers explicitly wherever scoped bindings are required."
+      - "Re-run the affected retrieval or mutation flows to confirm the intended scope still resolves."
 upgradeSteps:
   - id: adopt-knowledge-runtime
     title: Use the higher-level runtime helper when you want a simple OSS setup
     summary: Prefer `createKnowledgeRuntime(...)` for the common ingest, retrieve, and answer flow instead of composing every low-level primitive by hand.
-    level: self-serve
+    level: manual
     instructions:
       - Provide embedding and vector-store providers, plus an LLM provider if you want `query(...)`.
       - Set `collection`, `namespace`, and either `spaceKey` or `spaceCollections`.
