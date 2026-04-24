@@ -38,7 +38,7 @@ By default the fixer scans `packages/bundles`, `packages/examples`, and `package
 
 `bun run jsx:fix-primitives -- --allow-app web-landing`
 
-Use `--check` for a dry run. The fixer rewrites deterministic layout, list, and typography cases only; mixed JSX text and ambiguous form/action primitives remain diagnostic-only.
+Use `--check` for a dry run. The fixer preserves original attributes and className by default, infers safe list props from simple class strings, and wraps raw text with context awareness: block-safe containers keep `<Text>...</Text>`, while mixed-content contexts use inline-safe `<Text asChild><span>...</span></Text>`. Ambiguous form/action primitives remain diagnostic-only, and generic inline `<span>` elements are still skipped.
 
 ## Architecture
 

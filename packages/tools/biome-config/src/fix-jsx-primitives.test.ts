@@ -6,9 +6,9 @@ function fix(source: string, filePath = 'packages/modules/demo/src/Probe.tsx') {
 }
 
 describe('fix-jsx-primitives', () => {
-	it('rewrites divs and sole raw text to Box and Text', () => {
+	it('preserves className on Box and wraps raw body text', () => {
 		const result = fix(
-			'export const Probe = () => <div className="x">Body</div>;'
+			'export const Probe = () => <div className="space-y-4 rounded-2xl border">Body</div>;'
 		);
 
 		expect(result.conflicts).toEqual([]);
@@ -20,26 +20,32 @@ describe('fix-jsx-primitives', () => {
 			"import { Text } from '@contractspec/lib.design-system/typography';"
 		);
 		expect(result.output).toContain(
-			'<Box className="x"><Text>Body</Text></Box>'
+			'<Box className="space-y-4 rounded-2xl border"><Text>Body</Text></Box>'
 		);
 	});
 
-	it('rewrites headings to typography components without wrapping text', () => {
-		const result = fix('export const Probe = () => <h1>Title</h1>;');
+	it('rewrites headings and preserves typography classes', () => {
+		const result = fix(
+			'export const Probe = () => <h2 className="font-bold text-2xl text-foreground">Title</h2>;'
+		);
 
 		expect(result.changed).toBe(true);
 		expect(result.output).toContain(
-			"import { H1 } from '@contractspec/lib.design-system/typography';"
+			"import { H2 } from '@contractspec/lib.design-system/typography';"
 		);
-		expect(result.output).toContain('<H1>Title</H1>');
-		expect(result.output).not.toContain('<Text>Title</Text>');
+		expect(result.output).toContain(
+			'<H2 className="font-bold text-2xl text-foreground">Title</H2>'
+		);
 	});
 
-	it('rewrites unordered lists to List and ListItem', () => {
+	it('rewrites unordered lists with inferred props and preserved residual classes', () => {
 		const result = fix(
 			[
-				"import { Text } from '@contractspec/lib.design-system/typography';",
-				'export const Probe = () => <ul><li><Text>Item</Text></li></ul>;',
+				'export const Probe = () => (',
+				'  <ul className="list-disc space-y-2 pl-6 rounded-xl">',
+				'    <li>Item</li>',
+				'  </ul>',
+				');',
 			].join('\n')
 		);
 
@@ -48,29 +54,80 @@ describe('fix-jsx-primitives', () => {
 			"import { List, ListItem } from '@contractspec/lib.design-system/list';"
 		);
 		expect(result.output).toContain(
-			'<List><ListItem><Text>Item</Text></ListItem></List>'
+			'<List type="unordered" spacing="sm" className="pl-6 rounded-xl">'
 		);
+		expect(result.output).toContain('<ListItem><Text>Item</Text></ListItem>');
 	});
 
-	it('rewrites ordered lists and wraps sole list item text', () => {
-		const result = fix('export const Probe = () => <ol><li>Step</li></ol>;');
+	it('rewrites ordered lists and maps spacing tokens', () => {
+		const result = fix(
+			[
+				'export const Probe = () => (',
+				'  <ol className="list-decimal space-y-3">',
+				'    <li>Step</li>',
+				'  </ol>',
+				');',
+			].join('\n')
+		);
+
+		expect(result.changed).toBe(true);
+		expect(result.output).toContain('<List type="ordered" spacing="md">');
+		expect(result.output).toContain('<ListItem><Text>Step</Text></ListItem>');
+	});
+
+	it('wraps mixed visible text runs without crossing JSX element boundaries', () => {
+		const result = fix(
+			'export const Probe = () => <Box>Start with OSS <ArrowRight size={16} /></Box>;'
+		);
 
 		expect(result.changed).toBe(true);
 		expect(result.output).toContain(
-			'<List type="ordered"><ListItem><Text>Step</Text></ListItem></List>'
+			'<Box><Text asChild><span>Start with OSS </span></Text><ArrowRight size={16} /></Box>'
 		);
 	});
 
-	it('reports mixed text but leaves it unchanged', () => {
+	it('wraps text-expression runs into a single Text node', () => {
 		const result = fix(
-			"import { Box, Text } from '@contractspec/lib.design-system';\nexport const Probe = () => <Box>Hello <Text>ok</Text></Box>;"
+			"export const Probe = ({ count }: { count: number }) => <Box>{count} source{count !== 1 ? 's' : ''}</Box>;"
 		);
+
+		expect(result.changed).toBe(true);
+		expect(result.output).toContain(
+			"<Box><Text>{count} source{count !== 1 ? 's' : ''}</Text></Box>"
+		);
+	});
+
+	it('reuses compatible imports from ui-kit modules', () => {
+		const result = fix(
+			[
+				"import { Box } from '@contractspec/lib.ui-kit-web/ui/stack';",
+				"import { Text } from '@contractspec/lib.ui-kit-web/ui/text';",
+				'export const Probe = () => <div className="x">Body</div>;',
+			].join('\n')
+		);
+
+		expect(result.changed).toBe(true);
+		expect(result.output).not.toContain(
+			'@contractspec/lib.design-system/layout'
+		);
+		expect(result.output).not.toContain(
+			'@contractspec/lib.design-system/typography'
+		);
+		expect(result.output).toContain(
+			'<Box className="x"><Text>Body</Text></Box>'
+		);
+	});
+
+	it('keeps generic spans unchanged and reports them as unsupported', () => {
+		const source =
+			'export const Probe = () => <span className="inline-block">Inline</span>;';
+		const result = fix(source);
 
 		expect(result.changed).toBe(false);
 		expect(
-			result.reports.some((report) => report.includes('Mixed JSX text'))
+			result.unsupportedPatterns.some((message) => message.includes('<span>'))
 		).toBe(true);
-		expect(result.output).toContain('<Box>Hello <Text>ok</Text></Box>');
+		expect(result.output).toBe(source);
 	});
 
 	it('skips app package files unless they are allowlisted', () => {
@@ -89,7 +146,7 @@ describe('fix-jsx-primitives', () => {
 		expect(allowed.changed).toBe(true);
 	});
 
-	it('reports identifier collisions without rewriting the file', () => {
+	it('reports identifier collisions without rewriting the conflicting node', () => {
 		const source = [
 			'import { Box } from "other-ui";',
 			'export const Probe = () => <div>Body</div>;',

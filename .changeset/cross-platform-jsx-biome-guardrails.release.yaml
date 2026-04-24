@@ -23,7 +23,7 @@ affectedFrameworks:
   - react-native
 audiences:
   - kind: maintainer
-    summary: Maintainers get generated repo and consumer Biome presets that reject raw layout tags and raw JSX text outside typography components, with monorepo apps excluded by default and a conservative fixer command for deterministic replacements.
+    summary: Maintainers get generated repo and consumer Biome presets that reject raw layout tags and raw JSX text outside typography components, with monorepo apps excluded by default and a style-preserving fixer command for deterministic replacements.
     affectedPackages:
       - "@contractspec/biome-config"
       - "@contractspec/lib.design-system"
@@ -56,11 +56,11 @@ upgradeSteps:
       - Run `cd packages/tools/biome-config && bun run sync:artifacts` after policy manifest edits.
   - id: run-jsx-primitive-fixer
     title: Run the JSX primitive fixer
-    summary: Apply conservative automatic replacements before manually addressing mixed or ambiguous diagnostics.
+    summary: Apply conservative automatic replacements before manually addressing unsupported or ambiguous diagnostics.
     level: assisted
     instructions:
-      - Run `bun run jsx:fix-primitives -- --check` to preview deterministic replacements.
-      - Run `bun run jsx:fix-primitives` to apply deterministic replacements in shared presentation packages.
+      - Run `bun run jsx:fix-primitives -- --check` to preview style-preserving deterministic replacements.
+      - Run `bun run jsx:fix-primitives` to apply style-preserving deterministic replacements in shared presentation packages.
       - Add `--allow-app <package>` only when an app package should opt into the same fixer scope.
 validation:
   commands:
@@ -74,6 +74,6 @@ validation:
     - "UI kit packages export List/ListItem subpaths."
     - "UI kit core registry includes the new shared list contract key."
     - "Generated Grit plugins reject visible JSX text outside approved typography components."
-    - "Conservative JSX primitive fixer rewrites deterministic layout, list, and typography cases."
+    - "JSX primitive fixer preserves className and attributes, infers safe list props, and chooses block or inline-safe text wrappers based on surrounding JSX context."
     - "Repo app packages are excluded from presentation guardrails unless allowlisted."
     - "Root Biome config mirrors repo guardrails for local lint checks."

@@ -12,6 +12,7 @@ type Replacement = {
 };
 
 type ImportModule =
+	| '@contractspec/lib.design-system'
 	| '@contractspec/lib.design-system/layout'
 	| '@contractspec/lib.design-system/list'
 	| '@contractspec/lib.design-system/typography';
@@ -19,13 +20,36 @@ type ImportModule =
 type FixTarget = {
 	component: string;
 	importModule: ImportModule;
-	ordered?: boolean;
-	typography?: boolean;
+	explicitType?: 'ordered' | 'unordered' | 'none';
 };
 
 type FixOptions = {
 	allowApps?: string[];
 	filePath?: string;
+};
+
+type ImportCollection = {
+	declarations: Set<string>;
+	importDeclarations: ts.ImportDeclaration[];
+	importedNames: Map<string, string>;
+};
+
+type ImportResolution =
+	| {
+			kind: 'compatible';
+	  }
+	| {
+			kind: 'conflict';
+			message: string;
+	  }
+	| {
+			kind: 'needs-import';
+	  };
+
+type ListAttributeAnalysis = {
+	classNameText: string | null;
+	propsToInsert: string[];
+	unsupportedReason?: string;
 };
 
 export type FixJsxPrimitivesResult = {
@@ -34,6 +58,8 @@ export type FixJsxPrimitivesResult = {
 	output: string;
 	reports: string[];
 	skipped: boolean;
+	skippedRewrites: string[];
+	unsupportedPatterns: string[];
 };
 
 const packageRoot = resolve(dirname(fileURLToPath(import.meta.url)), '..');
@@ -67,47 +93,79 @@ const intrinsicTargets: Record<string, FixTarget> = {
 	h1: {
 		component: 'H1',
 		importModule: '@contractspec/lib.design-system/typography',
-		typography: true,
 	},
 	h2: {
 		component: 'H2',
 		importModule: '@contractspec/lib.design-system/typography',
-		typography: true,
 	},
 	h3: {
 		component: 'H3',
 		importModule: '@contractspec/lib.design-system/typography',
-		typography: true,
 	},
 	h4: {
 		component: 'H4',
 		importModule: '@contractspec/lib.design-system/typography',
-		typography: true,
 	},
 	p: {
 		component: 'P',
 		importModule: '@contractspec/lib.design-system/typography',
-		typography: true,
-	},
-	span: {
-		component: 'Text',
-		importModule: '@contractspec/lib.design-system/typography',
-		typography: true,
 	},
 	ul: {
 		component: 'List',
 		importModule: '@contractspec/lib.design-system/list',
+		explicitType: 'unordered',
 	},
 	ol: {
 		component: 'List',
 		importModule: '@contractspec/lib.design-system/list',
-		ordered: true,
+		explicitType: 'ordered',
 	},
 	li: {
 		component: 'ListItem',
 		importModule: '@contractspec/lib.design-system/list',
 	},
 };
+
+const spacingTokenToProp = new Map<string, string>([
+	['space-y-1', 'xs'],
+	['space-y-2', 'sm'],
+	['space-y-3', 'md'],
+	['space-y-4', 'lg'],
+]);
+
+const listTokenToType = new Map<string, string>([
+	['list-disc', 'unordered'],
+	['list-decimal', 'ordered'],
+	['list-none', 'none'],
+]);
+
+const listCompatibleModules = new Set([
+	'@contractspec/lib.design-system',
+	'@contractspec/lib.design-system/list',
+	'@contractspec/lib.ui-kit-web/ui/list',
+	'@contractspec/lib.ui-kit/ui/list',
+]);
+
+const typographyCompatibleModules = new Set([
+	'@contractspec/lib.design-system',
+	'@contractspec/lib.design-system/typography',
+	'@contractspec/lib.ui-kit-web/ui/typography',
+	'@contractspec/lib.ui-kit/ui/typography',
+]);
+
+const textCompatibleModules = new Set([
+	'@contractspec/lib.design-system',
+	'@contractspec/lib.design-system/typography',
+	'@contractspec/lib.ui-kit-web/ui/text',
+	'@contractspec/lib.ui-kit/ui/text',
+]);
+
+const boxCompatibleModules = new Set([
+	'@contractspec/lib.design-system',
+	'@contractspec/lib.design-system/layout',
+	'@contractspec/lib.ui-kit-web/ui/stack',
+	'@contractspec/lib.ui-kit/ui/stack',
+]);
 
 const typographyContainers = new Set([
 	'Text',
@@ -126,19 +184,171 @@ const typographyContainers = new Set([
 	'LegalHeading',
 ]);
 
+const blockSafeTextContainers = new Set([
+	'Box',
+	'ListItem',
+	'P',
+	'H1',
+	'H2',
+	'H3',
+	'H4',
+]);
+
 function getJsxName(node: ts.JsxTagNameExpression): string | null {
-	if (ts.isIdentifier(node)) {
-		return node.text;
-	}
-	return null;
+	return ts.isIdentifier(node) ? node.text : null;
 }
 
-function isVisibleText(node: ts.Node): node is ts.JsxText {
+function getAttributeNameText(name: ts.JsxAttributeName): string | undefined {
+	return ts.isIdentifier(name) ? name.text : undefined;
+}
+
+function getSimpleStringAttributeValue(
+	attribute: ts.JsxAttribute
+): string | undefined {
+	return attribute.initializer && ts.isStringLiteral(attribute.initializer)
+		? attribute.initializer.text
+		: undefined;
+}
+
+function tokenizeClassName(value: string): string[] {
+	return value
+		.split(/\s+/)
+		.map((token) => token.trim())
+		.filter(Boolean);
+}
+
+function isVisibleJsxText(node: ts.Node): node is ts.JsxText {
 	return ts.isJsxText(node) && node.getText().trim().length > 0;
 }
 
-function isIgnorableJsxChild(node: ts.Node): boolean {
+function isWhitespaceOnlyJsxText(node: ts.Node): node is ts.JsxText {
 	return ts.isJsxText(node) && node.getText().trim().length === 0;
+}
+
+function isStringLikeExpression(
+	expression: ts.Expression
+): expression is ts.StringLiteral | ts.NoSubstitutionTemplateLiteral {
+	return (
+		ts.isStringLiteral(expression) ||
+		ts.isNoSubstitutionTemplateLiteral(expression)
+	);
+}
+
+function isWhitespaceOnlyExpression(node: ts.Node): boolean {
+	return (
+		ts.isJsxExpression(node) &&
+		!!node.expression &&
+		isStringLikeExpression(node.expression) &&
+		node.expression.text.trim().length === 0
+	);
+}
+
+function isTextCompatibleExpression(
+	expression: ts.Expression | undefined
+): boolean {
+	if (!expression) {
+		return false;
+	}
+	if (
+		ts.isIdentifier(expression) ||
+		ts.isPropertyAccessExpression(expression) ||
+		ts.isElementAccessExpression(expression) ||
+		ts.isNumericLiteral(expression) ||
+		isStringLikeExpression(expression)
+	) {
+		return true;
+	}
+	if (ts.isParenthesizedExpression(expression)) {
+		return isTextCompatibleExpression(expression.expression);
+	}
+	if (ts.isConditionalExpression(expression)) {
+		return (
+			isTextCompatibleExpression(expression.whenTrue) &&
+			isTextCompatibleExpression(expression.whenFalse)
+		);
+	}
+	if (ts.isTemplateExpression(expression)) {
+		return expression.templateSpans.every((span) =>
+			isTextCompatibleExpression(span.expression)
+		);
+	}
+	if (
+		ts.isBinaryExpression(expression) &&
+		expression.operatorToken.kind === ts.SyntaxKind.PlusToken
+	) {
+		return (
+			isTextCompatibleExpression(expression.left) &&
+			isTextCompatibleExpression(expression.right)
+		);
+	}
+	return false;
+}
+
+function isTextRunPart(node: ts.JsxChild): boolean {
+	if (ts.isJsxText(node)) {
+		return true;
+	}
+	return (
+		ts.isJsxExpression(node) && isTextCompatibleExpression(node.expression)
+	);
+}
+
+function hasVisibleText(node: ts.JsxChild): boolean {
+	if (isVisibleJsxText(node)) {
+		return true;
+	}
+	return (
+		ts.isJsxExpression(node) &&
+		!!node.expression &&
+		(!isStringLikeExpression(node.expression) ||
+			node.expression.text.trim().length > 0)
+	);
+}
+
+function isMeaningfulJsxChild(node: ts.JsxChild): boolean {
+	return !isWhitespaceOnlyJsxText(node) && !isWhitespaceOnlyExpression(node);
+}
+
+function determineTextWrapMode(
+	effectiveContainer: string | null | undefined,
+	children: readonly ts.JsxChild[],
+	allowTextWrap: boolean
+): 'none' | 'block' | 'inline' {
+	if (!allowTextWrap) {
+		return 'none';
+	}
+
+	const meaningfulChildren = children.filter(isMeaningfulJsxChild);
+	if (meaningfulChildren.length === 0) {
+		return 'none';
+	}
+
+	const hasNonTextSiblings = meaningfulChildren.some(
+		(child) => !isTextRunPart(child)
+	);
+
+	if (
+		effectiveContainer &&
+		blockSafeTextContainers.has(effectiveContainer) &&
+		!hasNonTextSiblings
+	) {
+		return 'block';
+	}
+
+	return 'inline';
+}
+
+function shouldProcessFile(
+	filePath: string | undefined,
+	allowApps: string[]
+): boolean {
+	if (!filePath) {
+		return true;
+	}
+
+	const normalized = filePath.split('\\').join('/');
+	const match = normalized.match(/(?:^|\/)packages\/apps\/([^/]+)\//);
+	return !match || allowApps.includes(match[1] ?? '');
 }
 
 function applyReplacements(
@@ -154,43 +364,19 @@ function applyReplacements(
 		);
 }
 
-function addTargetImport(
-	sourceFile: ts.SourceFile,
-	source: string,
-	importModule: ImportModule,
-	names: string[]
-): string {
-	if (names.length === 0) {
-		return source;
-	}
-
-	const sortedNames = [...new Set(names)].sort();
-	const importText = `import { ${sortedNames.join(', ')} } from '${importModule}';\n`;
-	const importDeclarations = sourceFile.statements.filter(
-		ts.isImportDeclaration
-	);
-	const insertAt =
-		importDeclarations.length > 0
-			? (importDeclarations[importDeclarations.length - 1]?.end ?? 0)
-			: 0;
-	const prefix =
-		insertAt > 0 && !source.slice(insertAt).startsWith('\n') ? '\n' : '';
-
-	return `${source.slice(0, insertAt)}${prefix}${importText}${source.slice(insertAt)}`;
-}
-
-function collectImportsAndDeclarations(sourceFile: ts.SourceFile): {
-	declarations: Set<string>;
-	importedNames: Map<string, string>;
-} {
+function collectImportsAndDeclarations(
+	sourceFile: ts.SourceFile
+): ImportCollection {
 	const declarations = new Set<string>();
 	const importedNames = new Map<string, string>();
+	const importDeclarations: ts.ImportDeclaration[] = [];
 
 	function visit(node: ts.Node): void {
 		if (
 			ts.isImportDeclaration(node) &&
 			ts.isStringLiteral(node.moduleSpecifier)
 		) {
+			importDeclarations.push(node);
 			const moduleName = node.moduleSpecifier.text;
 			const bindings = node.importClause?.namedBindings;
 			if (bindings && ts.isNamedImports(bindings)) {
@@ -222,20 +408,359 @@ function collectImportsAndDeclarations(sourceFile: ts.SourceFile): {
 
 	visit(sourceFile);
 
-	return { declarations, importedNames };
+	return { declarations, importDeclarations, importedNames };
 }
 
-function shouldProcessFile(
-	filePath: string | undefined,
-	allowApps: string[]
+function isCompatibleImport(
+	name: string,
+	importedFrom: string,
+	targetModule: ImportModule
 ): boolean {
-	if (!filePath) {
+	if (importedFrom === targetModule) {
 		return true;
 	}
+	if (targetModule === '@contractspec/lib.design-system/layout') {
+		return name === 'Box' && boxCompatibleModules.has(importedFrom);
+	}
+	if (targetModule === '@contractspec/lib.design-system/list') {
+		return (
+			(name === 'List' || name === 'ListItem') &&
+			listCompatibleModules.has(importedFrom)
+		);
+	}
+	if (targetModule === '@contractspec/lib.design-system/typography') {
+		if (name === 'Text') {
+			return textCompatibleModules.has(importedFrom);
+		}
+		return typographyCompatibleModules.has(importedFrom);
+	}
+	return false;
+}
 
-	const normalized = filePath.split('\\').join('/');
-	const match = normalized.match(/(?:^|\/)packages\/apps\/([^/]+)\//);
-	return !match || allowApps.includes(match[1] ?? '');
+function resolveImport(
+	name: string,
+	targetModule: ImportModule,
+	importCollection: ImportCollection
+): ImportResolution {
+	const importedFrom = importCollection.importedNames.get(name);
+	if (importedFrom) {
+		return isCompatibleImport(name, importedFrom, targetModule)
+			? { kind: 'compatible' }
+			: {
+					kind: 'conflict',
+					message: `${name} is already imported from ${importedFrom}.`,
+				};
+	}
+	if (importCollection.declarations.has(name)) {
+		return {
+			kind: 'conflict',
+			message: `${name} is already declared locally.`,
+		};
+	}
+	return { kind: 'needs-import' };
+}
+
+function addRequiredImport(
+	requiredImports: Map<ImportModule, Set<string>>,
+	importCollection: ImportCollection,
+	target: FixTarget,
+	conflicts: Set<string>
+): boolean {
+	const resolution = resolveImport(
+		target.component,
+		target.importModule,
+		importCollection
+	);
+	if (resolution.kind === 'conflict') {
+		conflicts.add(resolution.message);
+		return false;
+	}
+	if (resolution.kind === 'needs-import') {
+		const names = requiredImports.get(target.importModule) ?? new Set<string>();
+		names.add(target.component);
+		requiredImports.set(target.importModule, names);
+	}
+	return true;
+}
+
+function analyzeListClassName(
+	value: string,
+	defaultType: string | undefined
+): ListAttributeAnalysis {
+	const tokens = tokenizeClassName(value);
+	const residualTokens: string[] = [];
+	let inferredType = defaultType;
+	let inferredSpacing: string | undefined;
+	let sawListTypeToken = false;
+	let sawSpacingToken = false;
+
+	for (const token of tokens) {
+		const mappedType = listTokenToType.get(token);
+		if (mappedType) {
+			inferredType = mappedType;
+			sawListTypeToken = true;
+			continue;
+		}
+
+		const mappedSpacing = spacingTokenToProp.get(token);
+		if (mappedSpacing) {
+			inferredSpacing = mappedSpacing;
+			sawSpacingToken = true;
+			continue;
+		}
+
+		residualTokens.push(token);
+	}
+
+	const propsToInsert: string[] = [];
+	if (defaultType === 'ordered' || sawListTypeToken) {
+		propsToInsert.push(`type="${inferredType ?? defaultType}"`);
+	} else if (inferredType && inferredType !== 'unordered') {
+		propsToInsert.push(`type="${inferredType}"`);
+	}
+
+	if (sawSpacingToken && inferredSpacing) {
+		propsToInsert.push(`spacing="${inferredSpacing}"`);
+	}
+
+	return {
+		classNameText: residualTokens.length > 0 ? residualTokens.join(' ') : null,
+		propsToInsert,
+	};
+}
+
+function preserveClassnameAndAttributes(
+	node: ts.JsxOpeningElement | ts.JsxSelfClosingElement,
+	target: FixTarget,
+	sourceFile: ts.SourceFile
+): {
+	attributeText: string;
+	unsupportedReason?: string;
+} {
+	const attributeTexts: string[] = [];
+	let inferredProps: string[] = [];
+
+	for (const property of node.attributes.properties) {
+		if (ts.isJsxSpreadAttribute(property)) {
+			attributeTexts.push(property.getText(sourceFile));
+			continue;
+		}
+
+		const attributeName = getAttributeNameText(property.name);
+		if (!attributeName) {
+			attributeTexts.push(property.getText(sourceFile));
+			continue;
+		}
+
+		if (
+			target.component === 'List' &&
+			attributeName === 'type' &&
+			property.initializer
+		) {
+			return {
+				attributeText: '',
+				unsupportedReason:
+					'Raw list `type` attributes are not auto-fixable because they do not map cleanly to design-system List props.',
+			};
+		}
+
+		if (attributeName === 'className' && target.component === 'List') {
+			const classValue = getSimpleStringAttributeValue(property);
+			if (classValue !== undefined) {
+				const analysis = analyzeListClassName(classValue, target.explicitType);
+				inferredProps = analysis.propsToInsert;
+				if (analysis.classNameText) {
+					attributeTexts.push(`className="${analysis.classNameText}"`);
+				}
+				continue;
+			}
+		}
+
+		attributeTexts.push(property.getText(sourceFile));
+	}
+
+	const allAttributes = [...inferredProps, ...attributeTexts];
+	return {
+		attributeText:
+			allAttributes.length > 0 ? ` ${allAttributes.join(' ')}` : '',
+	};
+}
+
+function classifyElementRewrite(
+	node: ts.JsxOpeningElement | ts.JsxSelfClosingElement | ts.JsxClosingElement,
+	sourceFile: ts.SourceFile
+): {
+	replacement?: Replacement;
+	target?: FixTarget;
+	unsupportedReason?: string;
+} {
+	const name = getJsxName(node.tagName);
+	if (!name) {
+		return {};
+	}
+
+	if (name === 'span') {
+		return {
+			unsupportedReason:
+				'Generic <span> autofix is intentionally skipped until there is an inline-safe design-system text strategy.',
+		};
+	}
+
+	const target = intrinsicTargets[name];
+	if (!target) {
+		return {};
+	}
+
+	if (ts.isJsxClosingElement(node)) {
+		return {
+			replacement: {
+				start: node.tagName.getStart(sourceFile),
+				end: node.tagName.getEnd(),
+				text: target.component,
+			},
+			target,
+		};
+	}
+
+	const preserved = preserveClassnameAndAttributes(node, target, sourceFile);
+	if (preserved.unsupportedReason) {
+		return {
+			target,
+			unsupportedReason: preserved.unsupportedReason,
+		};
+	}
+
+	return {
+		replacement: {
+			start: node.getStart(sourceFile),
+			end: node.getEnd(),
+			text: ts.isJsxSelfClosingElement(node)
+				? `<${target.component}${preserved.attributeText} />`
+				: `<${target.component}${preserved.attributeText}>`,
+		},
+		target,
+	};
+}
+
+function collectTextRunReplacements(
+	children: readonly ts.JsxChild[],
+	sourceFile: ts.SourceFile,
+	mode: 'none' | 'block' | 'inline'
+): Replacement[] {
+	if (mode === 'none') {
+		return [];
+	}
+
+	const replacements: Replacement[] = [];
+	let index = 0;
+
+	while (index < children.length) {
+		const child = children[index];
+		if (!child || !isTextRunPart(child)) {
+			index++;
+			continue;
+		}
+
+		const run: ts.JsxChild[] = [child];
+		let nextIndex = index + 1;
+		while (
+			nextIndex < children.length &&
+			children[nextIndex] &&
+			isTextRunPart(children[nextIndex]!)
+		) {
+			run.push(children[nextIndex]!);
+			nextIndex++;
+		}
+
+		if (run.some(hasVisibleText)) {
+			const first = run[0];
+			const last = run[run.length - 1];
+			if (first && last) {
+				const sourceSlice = sourceFile.text.slice(
+					first.getStart(sourceFile),
+					last.getEnd()
+				);
+				replacements.push({
+					start: first.getStart(sourceFile),
+					end: last.getEnd(),
+					text:
+						mode === 'inline'
+							? `<Text asChild><span>${sourceSlice}</span></Text>`
+							: `<Text>${sourceSlice}</Text>`,
+				});
+			}
+		}
+
+		index = nextIndex;
+	}
+
+	return replacements;
+}
+
+function mergeAndInsertImports(
+	source: string,
+	requiredImports: Map<ImportModule, Set<string>>
+): string {
+	if (requiredImports.size === 0) {
+		return source;
+	}
+
+	let output = source;
+
+	for (const importModule of [...requiredImports.keys()].sort()) {
+		const names = [
+			...(requiredImports.get(importModule) ?? new Set<string>()),
+		].sort();
+		if (names.length === 0) {
+			continue;
+		}
+
+		const sourceFile = ts.createSourceFile(
+			'updated.tsx',
+			output,
+			ts.ScriptTarget.Latest,
+			true,
+			ts.ScriptKind.TSX
+		);
+		const importCollection = collectImportsAndDeclarations(sourceFile);
+		const importDeclaration = importCollection.importDeclarations.find(
+			(statement) =>
+				ts.isStringLiteral(statement.moduleSpecifier) &&
+				statement.moduleSpecifier.text === importModule
+		);
+
+		if (
+			importDeclaration?.importClause?.namedBindings &&
+			ts.isNamedImports(importDeclaration.importClause.namedBindings)
+		) {
+			const existingNames =
+				importDeclaration.importClause.namedBindings.elements.map((element) =>
+					element.getText(sourceFile)
+				);
+			const merged = [...new Set([...existingNames, ...names])].sort();
+			const replacement = `import { ${merged.join(', ')} } from '${importModule}';`;
+			output = applyReplacements(output, [
+				{
+					start: importDeclaration.getStart(sourceFile),
+					end: importDeclaration.getEnd(),
+					text: replacement,
+				},
+			]);
+			continue;
+		}
+
+		const importText = `import { ${names.join(', ')} } from '${importModule}';\n`;
+		const insertAt =
+			importCollection.importDeclarations.length > 0
+				? (importCollection.importDeclarations[
+						importCollection.importDeclarations.length - 1
+					]?.end ?? 0)
+				: 0;
+		const prefix = insertAt > 0 ? '\n' : '';
+		output = `${output.slice(0, insertAt)}${prefix}${importText}${output.slice(insertAt)}`;
+	}
+
+	return output;
 }
 
 export function fixJsxPrimitivesInSource(
@@ -250,6 +775,8 @@ export function fixJsxPrimitivesInSource(
 			output: source,
 			reports: ['Skipped app package outside appPackageAllowList.'],
 			skipped: true,
+			skippedRewrites: [],
+			unsupportedPatterns: [],
 		};
 	}
 
@@ -260,152 +787,202 @@ export function fixJsxPrimitivesInSource(
 		true,
 		ts.ScriptKind.TSX
 	);
-	const { declarations, importedNames } =
-		collectImportsAndDeclarations(sourceFile);
+	const importCollection = collectImportsAndDeclarations(sourceFile);
 	const replacements: Replacement[] = [];
 	const requiredImports = new Map<ImportModule, Set<string>>();
+	const conflicts = new Set<string>();
 	const reports: string[] = [];
+	const skippedRewrites = new Set<string>();
+	const unsupportedPatterns = new Set<string>();
 
-	function requireImport(target: FixTarget): void {
-		const names = requiredImports.get(target.importModule) ?? new Set<string>();
-		names.add(target.component);
-		requiredImports.set(target.importModule, names);
+	function maybeRequireImport(target: FixTarget): boolean {
+		return addRequiredImport(
+			requiredImports,
+			importCollection,
+			target,
+			conflicts
+		);
 	}
 
-	function visit(node: ts.Node): void {
-		if (ts.isJsxOpeningElement(node) || ts.isJsxSelfClosingElement(node)) {
-			const name = getJsxName(node.tagName);
-			const target = name ? intrinsicTargets[name] : undefined;
-			if (target) {
-				replacements.push({
-					start: node.tagName.getStart(sourceFile),
-					end: node.tagName.getEnd(),
-					text: target.component,
-				});
-				if (target.ordered && ts.isJsxOpeningElement(node)) {
-					const hasTypeAttribute = node.attributes.properties.some(
-						(attribute) =>
-							ts.isJsxAttribute(attribute) &&
-							ts.isIdentifier(attribute.name) &&
-							attribute.name.text === 'type'
-					);
-					if (!hasTypeAttribute) {
-						replacements.push({
-							start: node.tagName.getEnd(),
-							end: node.tagName.getEnd(),
-							text: ' type="ordered"',
-						});
-					}
+	function visit(node: ts.Node, allowTextWrap = true): void {
+		if (ts.isJsxSelfClosingElement(node)) {
+			const classified = classifyElementRewrite(node, sourceFile);
+			if (classified.unsupportedReason) {
+				const name = getJsxName(node.tagName);
+				if (name === 'span') {
+					unsupportedPatterns.add(classified.unsupportedReason);
+				} else {
+					skippedRewrites.add(classified.unsupportedReason);
 				}
-				requireImport(target);
 			}
-		}
-
-		if (ts.isJsxClosingElement(node)) {
-			const name = getJsxName(node.tagName);
-			const target = name ? intrinsicTargets[name] : undefined;
-			if (target) {
-				replacements.push({
-					start: node.tagName.getStart(sourceFile),
-					end: node.tagName.getEnd(),
-					text: target.component,
-				});
+			if (
+				classified.replacement &&
+				classified.target &&
+				maybeRequireImport(classified.target)
+			) {
+				replacements.push(classified.replacement);
 			}
+			return;
 		}
 
 		if (ts.isJsxElement(node)) {
 			const openingName = getJsxName(node.openingElement.tagName);
 			const target = openingName ? intrinsicTargets[openingName] : undefined;
-			const effectiveContainer = target?.component ?? openingName;
-			const isTypographyContainer = effectiveContainer
-				? typographyContainers.has(effectiveContainer)
-				: false;
-			const visibleChildren = node.children.filter(
-				(child) => !isIgnorableJsxChild(child)
+			const openingClassification = classifyElementRewrite(
+				node.openingElement,
+				sourceFile
 			);
-			const visibleTextChildren = node.children.filter(isVisibleText);
+			let rewriteApplied = false;
+			let rewriteBlocked = false;
 
-			if (!isTypographyContainer && visibleTextChildren.length > 0) {
-				const onlyVisibleChild = visibleChildren[0];
-				if (
-					visibleChildren.length === 1 &&
-					onlyVisibleChild &&
-					isVisibleText(onlyVisibleChild)
-				) {
-					const child = onlyVisibleChild;
-					replacements.push({
-						start: child.getStart(sourceFile),
-						end: child.getEnd(),
-						text: `<Text>${child.getText()}</Text>`,
-					});
-					requiredImports.set(
-						'@contractspec/lib.design-system/typography',
-						(
-							requiredImports.get(
-								'@contractspec/lib.design-system/typography'
-							) ?? new Set<string>()
-						).add('Text')
-					);
+			if (openingClassification.unsupportedReason) {
+				if (openingName === 'span') {
+					unsupportedPatterns.add(openingClassification.unsupportedReason);
 				} else {
-					reports.push(
-						`Mixed JSX text left unchanged at ${sourceFile.getLineAndCharacterOfPosition(visibleTextChildren[0]?.getStart(sourceFile) ?? node.getStart(sourceFile)).line + 1}.`
+					skippedRewrites.add(openingClassification.unsupportedReason);
+				}
+				rewriteBlocked = true;
+			}
+
+			if (openingClassification.replacement && openingClassification.target) {
+				if (maybeRequireImport(openingClassification.target)) {
+					replacements.push(openingClassification.replacement);
+					const closingClassification = classifyElementRewrite(
+						node.closingElement,
+						sourceFile
+					);
+					if (closingClassification.replacement) {
+						replacements.push(closingClassification.replacement);
+					}
+					rewriteApplied = true;
+				} else if (target) {
+					rewriteBlocked = true;
+				}
+			}
+
+			const effectiveContainer = rewriteApplied
+				? openingClassification.target?.component
+				: openingName;
+			const currentAllowTextWrap =
+				allowTextWrap &&
+				!rewriteBlocked &&
+				!(effectiveContainer && typographyContainers.has(effectiveContainer));
+
+			const textWrapMode = determineTextWrapMode(
+				effectiveContainer,
+				node.children,
+				currentAllowTextWrap
+			);
+
+			if (textWrapMode !== 'none') {
+				const textImportTarget: FixTarget = {
+					component: 'Text',
+					importModule: '@contractspec/lib.design-system/typography',
+				};
+				const textImportResolution = resolveImport(
+					textImportTarget.component,
+					textImportTarget.importModule,
+					importCollection
+				);
+
+				if (textImportResolution.kind === 'conflict') {
+					conflicts.add(textImportResolution.message);
+				} else {
+					if (textImportResolution.kind === 'needs-import') {
+						const names =
+							requiredImports.get(textImportTarget.importModule) ??
+							new Set<string>();
+						names.add(textImportTarget.component);
+						requiredImports.set(textImportTarget.importModule, names);
+					}
+					replacements.push(
+						...collectTextRunReplacements(
+							node.children,
+							sourceFile,
+							textWrapMode
+						)
 					);
 				}
 			}
+
+			for (const child of node.children) {
+				visit(child, currentAllowTextWrap);
+			}
+			return;
 		}
 
-		ts.forEachChild(node, visit);
+		if (ts.isJsxFragment(node)) {
+			const textWrapMode = determineTextWrapMode(
+				null,
+				node.children,
+				allowTextWrap
+			);
+			if (textWrapMode !== 'none') {
+				const textImportTarget: FixTarget = {
+					component: 'Text',
+					importModule: '@contractspec/lib.design-system/typography',
+				};
+				const textImportResolution = resolveImport(
+					textImportTarget.component,
+					textImportTarget.importModule,
+					importCollection
+				);
+
+				if (textImportResolution.kind === 'conflict') {
+					conflicts.add(textImportResolution.message);
+				} else {
+					if (textImportResolution.kind === 'needs-import') {
+						const names =
+							requiredImports.get(textImportTarget.importModule) ??
+							new Set<string>();
+						names.add(textImportTarget.component);
+						requiredImports.set(textImportTarget.importModule, names);
+					}
+					replacements.push(
+						...collectTextRunReplacements(
+							node.children,
+							sourceFile,
+							textWrapMode
+						)
+					);
+				}
+			}
+
+			for (const child of node.children) {
+				visit(child, allowTextWrap);
+			}
+			return;
+		}
+
+		ts.forEachChild(node, (child) => visit(child, allowTextWrap));
 	}
 
 	visit(sourceFile);
 
-	if (replacements.length === 0) {
+	if (conflicts.size > 0 && replacements.length === 0) {
 		return {
 			changed: false,
-			conflicts: [],
-			output: source,
-			reports,
-			skipped: false,
-		};
-	}
-
-	const conflicts: string[] = [];
-	for (const [importModule, names] of requiredImports) {
-		for (const name of names) {
-			const importedFrom = importedNames.get(name);
-			if (importedFrom && importedFrom !== importModule) {
-				conflicts.push(`${name} is already imported from ${importedFrom}.`);
-			}
-			if (!importedFrom && declarations.has(name)) {
-				conflicts.push(`${name} is already declared locally.`);
-			}
-		}
-	}
-
-	if (conflicts.length > 0) {
-		return {
-			changed: false,
-			conflicts,
+			conflicts: [...conflicts].sort(),
 			output: source,
 			reports,
 			skipped: true,
+			skippedRewrites: [...skippedRewrites].sort(),
+			unsupportedPatterns: [...unsupportedPatterns].sort(),
 		};
 	}
 
-	let output = applyReplacements(source, replacements);
-	for (const [importModule, names] of requiredImports) {
-		const missingNames = [...names].filter(
-			(name) => importedNames.get(name) !== importModule
-		);
-		output = addTargetImport(sourceFile, output, importModule, missingNames);
-	}
+	let output =
+		replacements.length > 0 ? applyReplacements(source, replacements) : source;
+	output = mergeAndInsertImports(output, requiredImports);
 
 	return {
 		changed: output !== source,
-		conflicts: [],
+		conflicts: [...conflicts].sort(),
 		output,
 		reports,
 		skipped: false,
+		skippedRewrites: [...skippedRewrites].sort(),
+		unsupportedPatterns: [...unsupportedPatterns].sort(),
 	};
 }
 
@@ -507,6 +1084,8 @@ export async function runFixJsxPrimitivesCli(args: string[]): Promise<number> {
 	const changedFiles: string[] = [];
 	const conflictMessages: string[] = [];
 	const reportMessages: string[] = [];
+	const skippedMessages: string[] = [];
+	const unsupportedMessages: string[] = [];
 
 	for (const filePath of files) {
 		const source = await readFile(filePath, 'utf8');
@@ -522,6 +1101,12 @@ export async function runFixJsxPrimitivesCli(args: string[]): Promise<number> {
 		for (const report of result.reports) {
 			reportMessages.push(`${displayPath}: ${report}`);
 		}
+		for (const skippedRewrite of result.skippedRewrites) {
+			skippedMessages.push(`${displayPath}: ${skippedRewrite}`);
+		}
+		for (const unsupportedPattern of result.unsupportedPatterns) {
+			unsupportedMessages.push(`${displayPath}: ${unsupportedPattern}`);
+		}
 		if (result.changed) {
 			changedFiles.push(displayPath);
 			if (options.mode === 'write') {
@@ -531,6 +1116,12 @@ export async function runFixJsxPrimitivesCli(args: string[]): Promise<number> {
 	}
 
 	for (const message of reportMessages) {
+		console.log(message);
+	}
+	for (const message of skippedMessages) {
+		console.log(message);
+	}
+	for (const message of unsupportedMessages) {
 		console.log(message);
 	}
 	for (const message of conflictMessages) {
