@@ -238,15 +238,13 @@ export function selectEntriesForTarget(entries, target) {
 
 	if (target === 'node') {
 		return entries.filter(
-			(entry) =>
-				!isWebFamilyEntry(entry) && !isNativeFamilyEntry(entry)
+			(entry) => !isWebFamilyEntry(entry) && !isNativeFamilyEntry(entry)
 		);
 	}
 
 	if (target === 'browser') {
 		return entries.filter(
-			(entry) =>
-				!isServerFamilyEntry(entry) && !isNativeFamilyEntry(entry)
+			(entry) => !isServerFamilyEntry(entry) && !isNativeFamilyEntry(entry)
 		);
 	}
 

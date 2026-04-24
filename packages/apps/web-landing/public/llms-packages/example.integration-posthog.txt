@@ -68,4 +68,4 @@ Use `@contractspec/example.integration-posthog` as a reference implementation, o
 
 ## Notes
 
-- Works alongside `@contractspec/integration.providers-impls`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- Works alongside `@contractspec/integration.provider.analytics`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.

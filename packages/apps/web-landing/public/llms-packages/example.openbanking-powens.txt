@@ -70,4 +70,4 @@ Use `@contractspec/example.openbanking-powens` as a reference implementation, or
 
 ## Notes
 
-- Works alongside `@contractspec/integration.providers-impls`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- Works alongside `@contractspec/integration.provider.openbanking`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.

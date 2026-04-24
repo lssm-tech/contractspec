@@ -189,6 +189,7 @@
 		"./control-plane/skills/verifier": "./src/control-plane/skills/verifier.ts",
 		"./data-views": "./src/data-views/index.ts",
 		"./data-views/data-views": "./src/data-views/data-views.ts",
+		"./data-views/filter-scope": "./src/data-views/filter-scope.ts",
 		"./data-views/query-generator": "./src/data-views/query-generator.ts",
 		"./data-views/registry": "./src/data-views/registry.ts",
 		"./data-views/report/contractVerificationTable": "./src/data-views/report/contractVerificationTable.ts",
@@ -1290,6 +1291,12 @@
 				"bun": "./dist/data-views/data-views.js",
 				"node": "./dist/node/data-views/data-views.js",
 				"default": "./dist/data-views/data-views.js"
+			},
+			"./data-views/filter-scope": {
+				"types": "./dist/data-views/filter-scope.d.ts",
+				"bun": "./dist/data-views/filter-scope.js",
+				"node": "./dist/node/data-views/filter-scope.js",
+				"default": "./dist/data-views/filter-scope.js"
 			},
 			"./data-views/query-generator": {
 				"types": "./dist/data-views/query-generator.d.ts",

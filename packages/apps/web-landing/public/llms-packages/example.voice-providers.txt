@@ -72,4 +72,4 @@ Use `@contractspec/example.voice-providers` as a reference implementation, or im
 
 ## Notes
 
-- Works alongside `@contractspec/integration.providers-impls`, `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- Works alongside `@contractspec/integration.provider.voice`, `@contractspec/lib.contracts-integrations`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.

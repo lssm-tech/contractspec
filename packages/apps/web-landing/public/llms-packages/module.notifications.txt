@@ -24,6 +24,59 @@ or
 
 Import the root entrypoint from `@contractspec/module.notifications`, or choose a documented subpath when you only need one part of the package surface.
 
+### Omnichannel Delivery
+
+The module now ships concrete provider-backed channels for:
+
+- `EMAIL` via `ProviderEmailChannel`
+- `SMS` via `ProviderSmsChannel`
+- `TELEGRAM` via `TelegramChannel`
+- `WHATSAPP` via `WhatsappChannel`
+
+Those adapters are structural, so they work directly with the ContractSpec provider packages:
+
+```ts
+import { PostmarkEmailProvider } from '@contractspec/integration.provider.email/impls/postmark-email';
+import { TwilioSmsProvider } from '@contractspec/integration.provider.sms/impls/twilio-sms';
+import { TelegramMessagingProvider } from '@contractspec/integration.provider.messaging/impls/messaging-telegram';
+import { MetaWhatsappMessagingProvider } from '@contractspec/integration.provider.messaging/impls/messaging-whatsapp-meta';
+import {
+	createChannelRegistry,
+	ProviderEmailChannel,
+	ProviderSmsChannel,
+	TelegramChannel,
+	WhatsappChannel,
+} from '@contractspec/module.notifications/channels';
+
+const registry = createChannelRegistry({
+	channels: [
+		new ProviderEmailChannel(
+			new PostmarkEmailProvider({ serverToken: process.env.POSTMARK_TOKEN! }),
+			{ defaultFrom: { email: 'noreply@example.com', name: 'ContractSpec' } }
+		),
+		new ProviderSmsChannel(
+			new TwilioSmsProvider({
+				accountSid: process.env.TWILIO_ACCOUNT_SID!,
+				authToken: process.env.TWILIO_AUTH_TOKEN!,
+				fromNumber: process.env.TWILIO_FROM_NUMBER,
+			})
+		),
+		new TelegramChannel(
+			new TelegramMessagingProvider({
+				botToken: process.env.TELEGRAM_BOT_TOKEN!,
+				defaultChatId: process.env.TELEGRAM_DEFAULT_CHAT_ID,
+			})
+		),
+		new WhatsappChannel(
+			new MetaWhatsappMessagingProvider({
+				accessToken: process.env.WHATSAPP_META_ACCESS_TOKEN!,
+				phoneNumberId: process.env.WHATSAPP_META_PHONE_NUMBER_ID!,
+			})
+		),
+	],
+});
+```
+
 ## Architecture
 
 - `src/channels` is part of the package's public or composition surface.

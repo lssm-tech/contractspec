@@ -70,4 +70,4 @@ Use `@contractspec/example.email-gmail` as a reference implementation, or import
 
 ## Notes
 
-- Works alongside `@contractspec/integration.providers-impls`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+- Works alongside `@contractspec/integration.provider.email`, `@contractspec/lib.contracts-spec`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.

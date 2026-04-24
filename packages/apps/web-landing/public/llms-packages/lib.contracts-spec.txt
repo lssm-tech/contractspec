@@ -51,7 +51,7 @@ bun add @contractspec/lib.contracts-spec @contractspec/lib.schema
 - `ContractResult`: canonical success/failure envelope used by operation, workflow, job, API, MCP, GraphQL, and React runtimes while preserving raw-response compatibility for adapters.
 - `defineEvent` + `EventRegistry`: typed event contracts and lookup.
 - `defineResourceTemplate` + `ResourceRegistry`: URI-template-based resource contracts.
-- `FormRegistry`: contract-first form declarations consumed by UI runtimes, including readonly, password, autocomplete, address, phone, date, time, datetime, grouped array authoring, semantic legends/descriptions, grid layout hints, and text/textarea input-group addons through `@contractspec/lib.contracts-spec/forms`.
+- `FormRegistry`: contract-first form declarations consumed by UI runtimes, including readonly, password, autocomplete, address, phone, date, time, datetime, grouped array authoring, semantic legends/descriptions, grid layout hints, mobile-safe `responsiveFormColumns(...)`, and text/textarea input-group addons through `@contractspec/lib.contracts-spec/forms`.
 - `installOp`: one-call helper to register + bind operation handlers.
 - `makeEmit`: typed helper for declared event emission in handlers.
 
@@ -220,7 +220,7 @@ Use these example packages when you want one focused, importable reference per c
 - `data-view`: [`@contractspec/example.data-grid-showcase`](../../examples/data-grid-showcase/README.md)
 - `visualization`: [`@contractspec/example.visualization-showcase`](../../examples/visualization-showcase/README.md)
 - `agent`: [`@contractspec/example.agent-console`](../../examples/agent-console/README.md)
-- `harness-scenario`, `harness-suite`: focused reference [`@contractspec/example.harness-lab`](../../examples/harness-lab/README.md), product/business proof [`@contractspec/example.agent-console`](../../examples/agent-console/README.md)
+- `harness-scenario`, `harness-suite`: focused reference [`@contractspec/example.harness-lab`](../../examples/harness-lab/README.md) covering sandbox, Playwright, agent-browser, auth refs, and visual evidence; product/business proof [`@contractspec/example.agent-console`](../../examples/agent-console/README.md)
 - `knowledge`, `knowledge-space`, lightweight `app-config`: [`@contractspec/example.knowledge-canon`](../../examples/knowledge-canon/README.md)
 - `integration`, `workflow`, integration-oriented `app-config`: [`@contractspec/example.integration-stripe`](../../examples/integration-stripe/README.md)
 - `policy`, `form`, `translation`: [`@contractspec/example.locale-jurisdiction-gate`](../../examples/locale-jurisdiction-gate/README.md)
@@ -235,6 +235,13 @@ Use these example packages when you want one focused, importable reference per c
 The canonical data-table example lives in
 [`@contractspec/example.data-grid-showcase`](../../examples/data-grid-showcase/README.md)
 and starts with a declarative `DataViewSpec` in this package:
+
+DataView filters now distinguish user-editable filters from scoped constraints.
+Use `view.filterScope.initial` to seed removable filters and
+`view.filterScope.locked` for constraints that always apply but are not
+serialized into URL state. Locked filters render as disabled chips by default
+so embedded views, such as a category-scoped posts list, stay explainable while
+reusing the same base DataView contract.
 
 ```ts
 import { defineDataView } from '@contractspec/lib.contracts-spec/data-views';

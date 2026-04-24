@@ -936,6 +936,7 @@
       "version": "3.7.23",
       "dependencies": {
         "@contractspec/lib.contracts-spec": "workspace:*",
+        "@contractspec/lib.knowledge": "workspace:*",
       },
       "devDependencies": {
         "@contractspec/tool.bun": "workspace:*",
