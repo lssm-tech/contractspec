@@ -3,6 +3,7 @@ import Window from 'happy-dom/lib/window/Window.js';
 import * as React from 'react';
 import { act } from 'react';
 import { createRoot } from 'react-dom/client';
+import { Button } from './button';
 import { Combobox } from './combobox';
 
 beforeAll(() => {
@@ -77,6 +78,30 @@ function renderCombobox(node: React.ReactNode) {
 }
 
 describe('ui-kit-web Combobox', () => {
+	test('forwards Button refs through slotted rendering', () => {
+		const forwardedElements: (HTMLElement | null)[] = [];
+		const { root } = renderCombobox(
+			<Button
+				asChild
+				ref={(node) => {
+					forwardedElements.push(node);
+				}}
+			>
+				<a href="#details">Details</a>
+			</Button>
+		);
+		const forwardedElement =
+			forwardedElements.find((node): node is HTMLElement => node !== null) ??
+			null;
+
+		expect(forwardedElement).toBeInstanceOf(HTMLElement);
+		expect(forwardedElement?.tagName).toBe('A');
+
+		act(() => {
+			root.unmount();
+		});
+	});
+
 	test('renders editable autocomplete semantics and supports keyboard selection', () => {
 		let selectedValue: string | undefined;
 		const { container, root } = renderCombobox(

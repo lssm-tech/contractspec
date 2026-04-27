@@ -1,0 +1,44 @@
+schemaVersion: "1"
+slug: ui-kit-web-button-forward-ref
+summary: Forward refs through the web Button primitive and its slotted rendering path to stabilize Radix `asChild` triggers.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.ui-kit-web"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - browser
+  - nextjs
+affectedFrameworks:
+  - react
+audiences:
+  - kind: maintainer
+    summary: The web Button primitive now uses `React.forwardRef` and passes refs through Radix Slot when `asChild` is enabled.
+    affectedPackages:
+      - "@contractspec/lib.ui-kit-web"
+  - kind: integrator
+    summary: Existing Button imports stay compatible while Radix trigger wrappers receive stable forwarded refs.
+    affectedPackages:
+      - "@contractspec/lib.ui-kit-web"
+  - kind: customer
+    summary: Popover-backed controls using Button triggers avoid ref churn that could produce React maximum update depth errors.
+deprecations: []
+migrationInstructions: []
+upgradeSteps: []
+validation:
+  commands:
+    - "bun test packages/libs/ui-kit-web/ui/combobox.test.tsx"
+    - "bun test packages/libs/ui-kit-web/ui/select.test.tsx"
+    - "cd packages/libs/ui-kit-web && bun run test"
+    - "cd packages/libs/ui-kit-web && bun run typecheck"
+    - "cd packages/libs/ui-kit-web && bun run lint:check"
+    - "cd packages/libs/design-system && bun run test"
+    - "cd packages/libs/design-system && bun run typecheck"
+    - "cd packages/libs/design-system && bun run lint:check"
+  evidence:
+    - "Button now forwards refs in both normal and `asChild` rendering."
+    - "The Combobox regression test verifies slotted Button refs resolve to the underlying element."
+    - "The ui-kit-web Select regression test mounts grouped Radix Select items and rerenders the selected value without update-depth failures."
+    - "The design-system grouped Select tests still render grouped web and native controls."
+knownGaps:
+  - "The original host route was not provided; verification uses the shared primitive and Combobox trigger path indicated by the stack."
