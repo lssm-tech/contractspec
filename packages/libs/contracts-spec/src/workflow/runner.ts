@@ -1,4 +1,3 @@
-import { randomUUID } from 'crypto';
 import type { ResolvedBranding } from '../app-config/branding';
 import type {
 	ResolvedAppConfig,
@@ -27,6 +26,13 @@ import type {
 	WorkflowSpec,
 } from './spec';
 import type { StateStore, StepExecution, WorkflowState } from './state';
+
+function createRuntimeId(): string {
+	return (
+		globalThis.crypto?.randomUUID?.() ??
+		`id_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 10)}`
+	);
+}
 
 export interface OperationExecutorContext {
 	workflow: WorkflowState;
@@ -111,8 +117,8 @@ export class WorkflowRunner {
 		const spec = this.getSpec(workflowName, version);
 		const entryStepId = resolveEntryStepId(spec);
 		const now = new Date();
-		const workflowId = randomUUID();
-		const traceId = randomUUID();
+		const workflowId = createRuntimeId();
+		const traceId = createRuntimeId();
 
 		const state: WorkflowState = {
 			workflowId,

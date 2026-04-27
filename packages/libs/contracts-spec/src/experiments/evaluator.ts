@@ -1,4 +1,3 @@
-import { createHash } from 'crypto';
 import type { PolicyRef } from '../policy/spec';
 import type {
 	ExperimentRegistry,
@@ -152,8 +151,12 @@ export class ExperimentEvaluator {
 	}
 
 	private hashToUnitInterval(value: string): number {
-		const hash = createHash('sha256').update(value).digest('hex').slice(0, 15);
-		const intValue = parseInt(hash, 16);
+		let hash = 0x811c9dc5;
+		for (let index = 0; index < value.length; index += 1) {
+			hash ^= value.charCodeAt(index);
+			hash = Math.imul(hash, 0x01000193);
+		}
+		const intValue = hash >>> 0;
 		return (intValue % 1_000_000) / 1_000_000;
 	}
 

@@ -1,0 +1,38 @@
+schemaVersion: "1"
+slug: contracts-spec-root-crypto-surface
+summary: Remove avoidable Node crypto imports from ContractSpec runtime surfaces and keep signing helpers isolated.
+isBreaking: true
+packages:
+  - name: "@contractspec/lib.contracts-spec"
+    releaseType: major
+affectedRuntimes:
+  - browser
+  - nextjs
+  - node
+affectedFrameworks:
+  - nextjs
+audiences:
+  - kind: integrator
+    summary: Browser and Next.js consumers can use workflow, telemetry, experiments, root, and broad control-plane surfaces without static Node crypto imports.
+    affectedPackages:
+      - "@contractspec/lib.contracts-spec"
+migrationInstructions:
+  - id: import-control-plane-skills-directly
+    title: Import control-plane skill signing helpers from direct subpaths
+    summary: Replace broad root or `control-plane` imports for signing and verification helpers with `@contractspec/lib.contracts-spec/control-plane/skills`, `/signer`, or `/verifier`.
+  - id: review-sticky-experiment-buckets
+    title: Review sticky experiment bucket assignment changes
+    summary: Sticky experiment variants may rebucket because the evaluator now uses a browser-safe deterministic hash instead of Node SHA-256.
+validation:
+  commands:
+    - cd packages/libs/contracts-spec && bun test src/index.browser-surface.test.ts
+    - cd packages/libs/contracts-spec && bun run test
+    - cd packages/libs/contracts-spec && bun run typecheck
+    - cd packages/libs/contracts-spec && bun run lint:check
+    - cd packages/libs/contracts-spec && bun run build
+  evidence:
+    - "The new browser-surface regression test walks runtime re-exports from `src/index.ts` and fails when any reachable file statically imports Node crypto."
+    - "The same regression test scans all source files and allows Node crypto imports only in `control-plane/skills/{signer,verifier}.ts` and the skill-signing test, including static import, dynamic import, and require forms."
+    - "The package build emits `control-plane/index.js` separately from `control-plane/skills/*`, preserving direct Node-side skill helper subpaths."
+knownGaps:
+  - "Direct `control-plane/skills/*` subpath imports still include Node crypto because manifest signing and signature verification require Node cryptographic APIs."

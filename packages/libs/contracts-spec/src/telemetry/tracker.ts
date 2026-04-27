@@ -1,4 +1,3 @@
-import { randomUUID } from 'crypto';
 import type { Actor, Channel } from '../types';
 import type { TelemetryAnomalyMonitor } from './anomaly';
 import type {
@@ -7,6 +6,13 @@ import type {
 	TelemetrySamplingConfig,
 	TelemetrySpec,
 } from './spec';
+
+function createRuntimeId(): string {
+	return (
+		globalThis.crypto?.randomUUID?.() ??
+		`id_${Date.now().toString(36)}_${Math.random().toString(36).slice(2, 10)}`
+	);
+}
 
 export interface TelemetryEventContext {
 	tenantId?: string;
@@ -112,7 +118,7 @@ export class TelemetryTracker {
 
 		const redactedProperties = this.redactProperties(definition, properties);
 		const dispatch: TelemetryDispatch = {
-			id: randomUUID(),
+			id: createRuntimeId(),
 			name: definition.key,
 			version: definition.version,
 			occurredAt: this.clock().toISOString(),
