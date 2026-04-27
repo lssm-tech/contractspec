@@ -1,4 +1,4 @@
-import { describe, expect, it } from 'bun:test';
+import { afterEach, beforeAll, describe, expect, it } from 'bun:test';
 import {
 	defineFormSpec,
 	RichFieldsShowcaseForm,
@@ -8,6 +8,9 @@ import {
 	TranslationRegistry,
 } from '@contractspec/lib.contracts-spec/translations';
 import { fromZod } from '@contractspec/lib.schema';
+import Window from 'happy-dom/lib/window/Window.js';
+import { act } from 'react';
+import { createRoot } from 'react-dom/client';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { z } from 'zod';
 import {
@@ -16,6 +19,41 @@ import {
 } from '../i18n/translation';
 import { formRenderer } from './form-contract';
 import { formRenderer as rendererFromBarrel } from './index';
+
+beforeAll(() => {
+	const windowInstance = new Window({
+		url: 'https://design-system.contractspec.local/tests',
+	});
+	Object.defineProperty(windowInstance, 'SyntaxError', {
+		value: SyntaxError,
+		configurable: true,
+	});
+	Object.assign(globalThis, {
+		window: windowInstance,
+		document: windowInstance.document,
+		navigator: windowInstance.navigator,
+		HTMLElement: windowInstance.HTMLElement,
+		HTMLInputElement: windowInstance.HTMLInputElement,
+		HTMLButtonElement: windowInstance.HTMLButtonElement,
+		Node: windowInstance.Node,
+		Event: windowInstance.Event,
+		MouseEvent: windowInstance.MouseEvent,
+		IS_REACT_ACT_ENVIRONMENT: true,
+	});
+});
+
+afterEach(() => {
+	document.body.innerHTML = '';
+});
+
+function click(element: Element | null) {
+	if (!element) throw new Error('Expected element to exist.');
+	act(() => {
+		element.dispatchEvent(
+			new window.MouseEvent('click', { bubbles: true, cancelable: true })
+		);
+	});
+}
 
 const DesignSystemStepFlowForm = defineFormSpec({
 	meta: {
@@ -57,6 +95,34 @@ const DesignSystemStepFlowForm = defineFormSpec({
 		{ kind: 'text', name: 'lastName', labelI18n: 'Last name' },
 	],
 	actions: [{ key: 'submit', labelI18n: 'Submit' }],
+});
+
+const DesignSystemPasswordVisibilityForm = defineFormSpec({
+	meta: {
+		key: 'design-system.form.password-visibility',
+		version: '1.0.0',
+		title: 'Password Visibility Form',
+		description: 'Exercises FormSpec password visibility rendering.',
+		domain: 'design-system',
+		owners: ['@team.design'],
+		tags: ['test'],
+		stability: 'experimental',
+	},
+	model: fromZod(
+		z.object({
+			currentPassword: z.string().optional(),
+		}),
+		{ name: 'DesignSystemPasswordVisibilityModel' }
+	),
+	fields: [
+		{
+			kind: 'text',
+			name: 'currentPassword',
+			labelI18n: 'Current password',
+			password: { purpose: 'current' },
+			uiProps: { type: 'password' },
+		},
+	],
 });
 
 describe('design-system form renderer', () => {
@@ -137,6 +203,41 @@ describe('design-system form renderer', () => {
 		expect(html).toContain('First name');
 		expect(html).not.toContain('Last name');
 		expect(html).not.toContain('Submit');
+	});
+
+	it('toggles FormSpec-rendered password visibility through design-system controls', () => {
+		const container = document.createElement('div');
+		document.body.append(container);
+		const root = createRoot(container);
+
+		act(() => {
+			root.render(
+				formRenderer.render(DesignSystemPasswordVisibilityForm, {
+					defaultValues: { currentPassword: 'secret-value' },
+				})
+			);
+		});
+
+		const input = container.querySelector('input[name="currentPassword"]');
+		const button = container.querySelector('button');
+
+		expect(input?.getAttribute('type')).toBe('password');
+		expect(button?.getAttribute('aria-label')).toBe('Show password');
+		expect(button?.getAttribute('aria-pressed')).toBe('false');
+
+		click(button);
+
+		expect(input?.getAttribute('type')).toBe('text');
+		expect(button?.getAttribute('aria-label')).toBe('Hide password');
+		expect(button?.getAttribute('aria-pressed')).toBe('true');
+
+		click(button);
+
+		expect(input?.getAttribute('type')).toBe('password');
+
+		act(() => {
+			root.unmount();
+		});
 	});
 
 	it('resolves translated form labels through the design-system provider', () => {

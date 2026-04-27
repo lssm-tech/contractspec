@@ -1,7 +1,7 @@
 import { afterEach, beforeAll, describe, expect, test } from 'bun:test';
 import Window from 'happy-dom/lib/window/Window.js';
 import { act } from 'react';
-import { createRoot, type Root } from 'react-dom/client';
+import { createRoot } from 'react-dom/client';
 import { InputPassword } from './input-password';
 
 beforeAll(() => {
@@ -29,14 +29,15 @@ afterEach(() => {
 	document.body.innerHTML = '';
 });
 
-function renderPasswordInput() {
+function renderPasswordInput(props = {}) {
 	const container = document.createElement('div');
 	document.body.append(container);
-	const root: Root = createRoot(container);
+	const root = createRoot(container);
 
 	act(() => {
 		root.render(
 			<InputPassword
+				{...props}
 				name="password"
 				passwordPurpose="new"
 				showLabel="Show secret"
@@ -79,6 +80,31 @@ describe('ui-kit-web InputPassword', () => {
 		expect(input?.getAttribute('type')).toBe('password');
 		expect(button?.getAttribute('aria-label')).toBe('Show secret');
 		expect(button?.getAttribute('aria-pressed')).toBe('false');
+
+		act(() => {
+			root.unmount();
+		});
+	});
+
+	test('keeps the visibility state authoritative over caller type props', () => {
+		const propsWithForcedType = {
+			type: 'password',
+		};
+		const { container, root } = renderPasswordInput(propsWithForcedType);
+		const input = container.querySelector('input');
+		const button = container.querySelector('button');
+
+		expect(input?.getAttribute('type')).toBe('password');
+
+		click(button);
+
+		expect(input?.getAttribute('type')).toBe('text');
+		expect(button?.getAttribute('aria-label')).toBe('Hide secret');
+		expect(button?.getAttribute('aria-pressed')).toBe('true');
+
+		click(button);
+
+		expect(input?.getAttribute('type')).toBe('password');
 
 		act(() => {
 			root.unmount();

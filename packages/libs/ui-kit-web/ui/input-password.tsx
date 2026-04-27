@@ -50,13 +50,13 @@ function InputPassword({
 		return (
 			<Input
 				ref={ref}
+				{...props}
 				type="password"
 				autoComplete={resolvedAutoComplete}
 				autoCapitalize={autoCapitalize}
 				autoCorrect={autoCorrect}
 				disabled={disabled}
 				className={className}
-				{...props}
 			/>
 		);
 	}
@@ -65,13 +65,13 @@ function InputPassword({
 		<InputGroup data-disabled={disabled ? true : undefined}>
 			<InputGroupInput
 				ref={ref}
+				{...props}
 				type={type}
 				autoComplete={resolvedAutoComplete}
 				autoCapitalize={autoCapitalize}
 				autoCorrect={autoCorrect}
 				disabled={disabled}
 				className={className}
-				{...props}
 			/>
 			<InputGroupAddon align="inline-end">
 				<InputGroupButton
