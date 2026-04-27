@@ -62,6 +62,8 @@ export const allFieldSampleValues = [
 	['Contacts', `${allFieldsDefaultValues.contacts.length} rows`],
 ] as const;
 
+export const contactRows = allFieldsDefaultValues.contacts;
+
 export const progressiveSampleValues = [
 	['Company', progressiveDefaultValues.companyName],
 	['Slug', progressiveDefaultValues.workspaceSlug],

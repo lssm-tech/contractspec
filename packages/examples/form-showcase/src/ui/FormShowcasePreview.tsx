@@ -2,45 +2,37 @@
 
 import { HStack, VStack } from '@contractspec/lib.design-system/layout';
 import { H2, Text } from '@contractspec/lib.design-system/typography';
+import { AllFieldsDemoForm } from './FormShowcaseAllFieldsDemo';
+import { Metric, PreviewPanel } from './FormShowcasePreviewParts';
+import { ProgressiveDemoForm } from './FormShowcaseProgressiveDemo';
 import {
-	FieldKindGrid,
-	Metric,
-	PreviewPanel,
-	SampleValues,
-	SectionTimeline,
-} from './FormShowcasePreviewParts';
-import {
-	allFieldSampleValues,
 	allFieldSections,
 	fieldKinds,
-	progressiveActions,
-	progressiveSampleValues,
 	progressiveSteps,
 } from './form-showcase-preview.model';
 
 export function FormShowcasePreview() {
 	return (
-		<VStack as="section" gap="xl" className="p-4 sm:p-6">
-			<HStack align="stretch" className="gap-4 lg:flex-nowrap">
-				<VStack
-					gap="xs"
-					className="flex-1 rounded-lg border border-border bg-card p-5 shadow-sm"
-				>
+		<VStack as="section" gap="lg" className="p-4 sm:p-5">
+			<HStack align="start" justify="between" className="gap-4 lg:flex-nowrap">
+				<VStack gap="xs" className="min-w-0 flex-1">
 					<Text className="font-semibold text-muted-foreground text-xs uppercase">
 						Form-only template
 					</Text>
-					<H2 className="mt-2 font-serif text-3xl tracking-normal">
+					<H2 className="font-serif text-3xl tracking-normal">
 						ContractSpec form preview
 					</H2>
-					<Text className="mt-2 max-w-3xl text-muted-foreground text-sm leading-6">
-						Two schema-backed FormSpec contracts cover rich field kinds,
-						responsive sections, progressive steps, groups, arrays,
-						conditionals, PII policy, and action metadata.
+					<Text className="max-w-4xl text-muted-foreground text-sm leading-6">
+						An actual form surface showing text, email, textarea, select, radio,
+						checkbox, switch, autocomplete, address, phone, date, time,
+						datetime, group, array, conditional fields, sections, and steps.
 					</Text>
 				</VStack>
 				<HStack
 					align="stretch"
-					className="w-full gap-2 rounded-lg border border-border bg-background p-4 lg:w-80 lg:flex-col"
+					justify="end"
+					wrap="wrap"
+					className="shrink-0 gap-2"
 				>
 					<Metric label="Kinds" value={String(fieldKinds.length)} />
 					<Metric label="Sections" value={String(allFieldSections.length)} />
@@ -48,31 +40,18 @@ export function FormShowcasePreview() {
 				</HStack>
 			</HStack>
 
-			<HStack align="start" className="gap-6 xl:flex-nowrap">
+			<HStack align="start" className="gap-5 xl:flex-nowrap">
 				<PreviewPanel
 					title="All field kinds"
-					description="Schema fields grouped into responsive sections with nested arrays, input groups, policy hints, and conditional logic."
+					description="Responsive sections, grouped credentials, repeated contact rows, rich fields, policy hints, and conditional controls."
 				>
-					<FieldKindGrid kinds={fieldKinds} />
-					<SectionTimeline sections={allFieldSections} />
-					<SampleValues values={allFieldSampleValues} />
+					<AllFieldsDemoForm />
 				</PreviewPanel>
 				<PreviewPanel
-					title="Progressive steps"
-					description="Step flow with resolver-backed choices, conditional review notes, draft and submit actions."
+					title="Progressive layout"
+					description="A step-oriented setup form with resolver-style plan choice, computed slug, security review conditionals, and draft/submit actions."
 				>
-					<SectionTimeline sections={progressiveSteps} />
-					<SampleValues values={progressiveSampleValues} />
-					<HStack gap="sm" wrap="wrap">
-						{progressiveActions.map((action) => (
-							<Text
-								key={action.key}
-								className="rounded-full border border-border bg-muted px-3 py-1 text-muted-foreground text-xs"
-							>
-								{action.labelI18n}
-							</Text>
-						))}
-					</HStack>
+					<ProgressiveDemoForm />
 				</PreviewPanel>
 			</HStack>
 		</VStack>

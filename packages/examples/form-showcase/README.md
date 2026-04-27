@@ -9,7 +9,7 @@ Focused ContractSpec form example and template covering field kinds, conditional
 - Layout variants including responsive columns, full-width spans, section flows, step flows, nested groups, horizontal/responsive orientation, and repeated group arrays.
 - Form metadata for input groups, password fields, read-only/computed hints, conditional visibility/enabled/required rules, custom constraints, PII hints, and submit actions.
 - A `FormRegistry` that downstream apps can import and filter.
-- A `FormShowcasePreview` UI that summarizes the specs as a static contract-driven blueprint for template previews.
+- A `FormShowcasePreview` UI that demonstrates the specs with real form controls across field kinds, sections, arrays, groups, and step layouts.
 
 ## Running Locally
 
@@ -49,5 +49,5 @@ Use this package as a form-only template when you want a compact reference for C
 
 ## Notes
 
-- This package intentionally does not ship a custom renderer. Its preview reads the same `FormSpec` metadata and sample values, while host apps can map `FieldSpec` objects to their own design-system components for fully interactive forms.
+- This package intentionally does not ship a production custom renderer. Its preview uses real controls and the same sample data to demonstrate the contract capabilities, while host apps can map `FieldSpec` objects to their own design-system components for fully interactive forms.
 - The example is available in the templates catalog through `surfaces.templates: true`.

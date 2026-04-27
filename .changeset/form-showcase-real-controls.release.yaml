@@ -1,0 +1,35 @@
+schemaVersion: "1"
+slug: form-showcase-real-controls
+summary: Replace the form showcase preview blueprint with a real form-control demonstration.
+isBreaking: false
+packages:
+  - name: "@contractspec/example.form-showcase"
+    releaseType: patch
+affectedRuntimes:
+  - browser
+  - nextjs
+affectedFrameworks:
+  - react
+audiences:
+  - kind: maintainer
+    summary: The form-showcase UI preview now composes real controls instead of listing field kinds as metadata.
+    affectedPackages:
+      - "@contractspec/example.form-showcase"
+  - kind: integrator
+    summary: Template preview consumers can inspect representative form layouts and controls directly from the Form Showcase example.
+    affectedPackages:
+      - "@contractspec/example.form-showcase"
+  - kind: customer
+    summary: The form template preview now displays actual inputs, grouped fields, repeated rows, and progressive steps.
+deprecations: []
+migrationInstructions: []
+upgradeSteps: []
+validation:
+  commands:
+    - "bun run --cwd packages/examples/form-showcase typecheck"
+    - "bun run --cwd packages/examples/form-showcase build"
+    - "bunx biome check packages/examples/form-showcase/src/ui packages/examples/form-showcase/README.md packages/examples/form-showcase/AGENTS.md"
+    - "Playwright smoke test against http://localhost:3000/templates"
+  evidence:
+    - "The Form Showcase preview dialog contains real text/email/password/date/time inputs, textarea, checkbox, radio, switch, address, phone, array rows, and progressive step sections."
+knownGaps: []
