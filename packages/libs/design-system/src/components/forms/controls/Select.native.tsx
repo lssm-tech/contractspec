@@ -1,9 +1,9 @@
-import type { FormOption } from '@contractspec/lib.contracts-spec/forms';
 import {
 	Select as NativeSelectRoot,
 	SelectContent,
 	SelectGroup,
 	SelectItem,
+	SelectLabel,
 	SelectTrigger,
 	SelectValue,
 } from '@contractspec/lib.ui-kit/ui/select';
@@ -12,13 +12,19 @@ import {
 	useThemedPrimitive,
 	useTranslatedText,
 } from '../../primitives/themed';
-
-function optionValue(value: unknown) {
-	return typeof value === 'string' ? value : String(value ?? '');
-}
+import {
+	type FormOption,
+	type SelectOptionGroup,
+	selectGroupKey,
+	selectGroupLabel,
+	selectOptionGroups,
+	selectOptionLabel,
+	selectOptionValue,
+} from './select-options';
 
 export interface SelectProps extends ThemedPrimitiveProps {
-	options?: FormOption[];
+	options?: readonly FormOption[];
+	groups?: readonly SelectOptionGroup[];
 	value?: unknown;
 	onChange?: (value: unknown) => void;
 	placeholder?: string;
@@ -28,6 +34,7 @@ export interface SelectProps extends ThemedPrimitiveProps {
 
 export function Select({
 	options,
+	groups,
 	value,
 	onChange,
 	placeholder,
@@ -44,13 +51,22 @@ export function Select({
 		themeVariant,
 		className,
 	});
+	const optionGroups = selectOptionGroups({ options, groups });
+	const selectedValue = value == null ? undefined : selectOptionValue(value);
+	const selectedOption = optionGroups
+		.flatMap((group) => group.options)
+		.find((option) => selectOptionValue(option.value) === selectedValue);
+	const selectedLabel = selectedOption
+		? (selectOptionLabel(selectedOption, translate) ??
+			selectOptionValue(selectedOption.value))
+		: selectedValue;
 
 	return (
 		<NativeSelectRoot
 			value={
-				value == null
+				selectedValue == null
 					? undefined
-					: { value: optionValue(value), label: optionValue(value) }
+					: { value: selectedValue, label: selectedLabel ?? selectedValue }
 			}
 			onValueChange={(next) => onChange?.(next?.value)}
 		>
@@ -60,21 +76,35 @@ export function Select({
 				/>
 			</SelectTrigger>
 			<SelectContent>
-				<SelectGroup>
-					{options?.map((option, index) => (
-						<SelectItem
-							key={`${optionValue(option.value)}-${index}`}
-							value={optionValue(option.value)}
-							label={
-								translate(option.labelI18n) ?? optionValue(option.labelI18n)
-							}
-							disabled={option.disabled}
-						/>
-					))}
-				</SelectGroup>
+				{optionGroups.map((group, groupIndex) => {
+					const groupKey = selectGroupKey(group, groupIndex);
+					const groupLabel = selectGroupLabel(group, translate);
+
+					return (
+						<SelectGroup key={`${groupKey}-${groupIndex}`}>
+							{groupLabel ? <SelectLabel>{groupLabel}</SelectLabel> : null}
+							{group.options.map((option, optionIndex) => (
+								<SelectItem
+									key={`${groupKey}-${selectOptionValue(option.value)}-${optionIndex}`}
+									value={selectOptionValue(option.value)}
+									label={selectOptionLabel(option, translate)}
+									disabled={option.disabled}
+								/>
+							))}
+						</SelectGroup>
+					);
+				})}
 			</SelectContent>
 		</NativeSelectRoot>
 	);
 }
 
-export { SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue };
+export type { SelectOptionGroup };
+export {
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectLabel,
+	SelectTrigger,
+	SelectValue,
+};

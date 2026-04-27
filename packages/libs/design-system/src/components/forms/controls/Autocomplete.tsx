@@ -1,17 +1,7 @@
 'use client';
 
 import type { AutocompleteOption } from '@contractspec/lib.contracts-spec/forms';
-import {
-	Command,
-	CommandEmpty,
-	CommandGroup,
-	CommandInput,
-	CommandItem,
-	CommandList,
-} from '@contractspec/lib.ui-kit-web/ui/command';
-import { Text } from '@contractspec/lib.ui-kit-web/ui/text';
-import { Button } from '../../atoms/Button';
-import { HStack, VStack } from '../../layout/Stack';
+import { Combobox } from '@contractspec/lib.ui-kit-web/ui/combobox';
 import {
 	type ThemedPrimitiveProps,
 	useThemedPrimitive,
@@ -35,6 +25,29 @@ export interface AutocompleteProps extends ThemedPrimitiveProps {
 	disabled?: boolean;
 	className?: string;
 	emptyText?: string;
+	loadingText?: string;
+	errorText?: string;
+	loading?: boolean;
+	error?: string | null;
+	id?: string;
+	name?: string;
+	'aria-invalid'?: boolean;
+	'aria-describedby'?: string;
+}
+
+function mergeOptions(
+	options: readonly AutocompleteOption[],
+	selectedOptions: readonly AutocompleteOption[]
+) {
+	const seen = new Set<string>();
+	const merged: AutocompleteOption[] = [];
+	for (const option of [...selectedOptions, ...options]) {
+		const key = optionValue(option.value);
+		if (seen.has(key)) continue;
+		seen.add(key);
+		merged.push(option);
+	}
+	return merged;
 }
 
 export function Autocomplete({
@@ -53,6 +66,14 @@ export function Autocomplete({
 	componentKey,
 	themeVariant,
 	emptyText = 'No results found.',
+	loadingText = 'Loading options...',
+	errorText = 'Unable to load options.',
+	loading,
+	error,
+	id,
+	name,
+	'aria-invalid': ariaInvalid,
+	'aria-describedby': ariaDescribedBy,
 }: AutocompleteProps) {
 	const translate = useTranslatedText();
 	const themed = useThemedPrimitive({
@@ -61,65 +82,59 @@ export function Autocomplete({
 		themeVariant,
 		className,
 	});
+	const mergedOptions = mergeOptions(options, selectedOptions);
+	const optionByValue = new Map(
+		mergedOptions.map((option) => [optionValue(option.value), option])
+	);
 
 	return (
-		<VStack gap="sm" className={themed.className}>
-			<Command shouldFilter={false} className="rounded-md border border-input">
-				<CommandInput
-					value={query}
-					onValueChange={onQueryChange}
-					placeholder={translate(placeholderI18n ?? placeholder)}
-					disabled={disabled || readOnly}
-				/>
-				<CommandList>
-					<CommandEmpty>{translate(emptyText)}</CommandEmpty>
-					<CommandGroup>
-						{options.map((option) => {
-							const selected = selectedOptions.some(
-								(item) => optionValue(item.value) === optionValue(option.value)
-							);
-							return (
-								<CommandItem
-									key={optionValue(option.value)}
-									value={translate(option.labelI18n) ?? option.labelI18n}
-									onSelect={() => onSelectOption?.(option)}
-									disabled={disabled || option.disabled || readOnly}
-								>
-									<VStack gap="xs">
-										<Text>{translate(option.labelI18n)}</Text>
-										{option.descriptionI18n ? (
-											<Text className="text-muted-foreground text-xs">
-												{translate(option.descriptionI18n)}
-											</Text>
-										) : null}
-									</VStack>
-									{selected ? (
-										<Text className="ml-auto text-muted-foreground text-xs">
-											{translate('Selected')}
-										</Text>
-									) : null}
-								</CommandItem>
-							);
-						})}
-					</CommandGroup>
-				</CommandList>
-			</Command>
-			{selectedOptions.length ? (
-				<HStack gap="sm" wrap="wrap">
-					{selectedOptions.map((option) => (
-						<Button
-							key={`selected-${optionValue(option.value)}`}
-							type="button"
-							variant="outline"
-							size="sm"
-							onClick={() => onRemoveOption?.(option)}
-							disabled={!multiple || readOnly || disabled}
-						>
-							{translate(option.labelI18n)}
-						</Button>
-					))}
-				</HStack>
-			) : null}
-		</VStack>
+		<Combobox
+			{...themed.props}
+			id={id}
+			name={name}
+			className={themed.className}
+			options={mergedOptions.map((option) => ({
+				value: optionValue(option.value),
+				label: translate(option.labelI18n) ?? option.labelI18n,
+				description: option.descriptionI18n
+					? (translate(option.descriptionI18n) ?? option.descriptionI18n)
+					: undefined,
+				disabled: option.disabled,
+			}))}
+			value={
+				multiple ? undefined : optionValue(selectedOptions[0]?.value ?? '')
+			}
+			selectedValues={
+				multiple
+					? selectedOptions.map((option) => optionValue(option.value))
+					: undefined
+			}
+			query={query}
+			onQueryChange={onQueryChange}
+			onValueChange={(nextValue) => {
+				const option = optionByValue.get(nextValue);
+				if (option) {
+					onSelectOption?.(option);
+				}
+			}}
+			onRemoveValue={(nextValue) => {
+				const option = optionByValue.get(nextValue);
+				if (option) {
+					onRemoveOption?.(option);
+				}
+			}}
+			multiple={multiple}
+			placeholder={translate(placeholderI18n ?? placeholder)}
+			searchPlaceholder={translate(placeholderI18n ?? placeholder)}
+			emptyText={translate(emptyText)}
+			loadingText={translate(loadingText)}
+			errorText={translate(errorText)}
+			loading={loading}
+			error={error ? translate(error) : null}
+			readOnly={readOnly}
+			disabled={disabled}
+			aria-invalid={ariaInvalid}
+			aria-describedby={ariaDescribedBy}
+		/>
 	);
 }

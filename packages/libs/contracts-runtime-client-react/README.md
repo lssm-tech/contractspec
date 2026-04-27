@@ -23,6 +23,14 @@ Import the root entrypoint from `@contractspec/lib.contracts-runtime-client-reac
 
 The form renderer supports the expanded FormSpec field set: readonly inputs, email, autocomplete, address, phone, date, time, datetime, semantic groups, repeated grouped arrays, grid layout hints, progressive `layout.flow` sections/steps, and text/textarea/email input groups. Drivers are expected to provide dedicated slots for rich widgets plus shadcn/Radix-style `Field*` and optional `InputGroup*` slots. Email fields render through the standard input slot with native email input behavior. When input-group slots are absent, text, email, and textarea fields fall back to plain controls.
 
+Autocomplete fields support local filtering and resolver-backed search. Resolver
+calls receive the current query, watched dependency values, field name, and an
+`AbortSignal` through the existing resolver args object; stale responses are
+ignored and selected remote options remain visible when later searches return a
+different result set. Custom autocomplete driver slots can read optional
+`loading`, `error`, `emptyText`, `loadingText`, and `errorText` props to expose
+async state.
+
 ## Architecture
 
 - `src/drivers` is part of the package's public or composition surface.

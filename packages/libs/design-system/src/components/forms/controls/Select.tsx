@@ -1,10 +1,10 @@
 'use client';
 
-import type { FormOption } from '@contractspec/lib.contracts-spec/forms';
 import {
 	SelectContent,
 	SelectGroup,
 	SelectItem,
+	SelectLabel,
 	SelectTrigger,
 	SelectValue,
 	Select as WebSelect,
@@ -14,13 +14,19 @@ import {
 	useThemedPrimitive,
 	useTranslatedText,
 } from '../../primitives/themed';
-
-function optionValue(value: unknown) {
-	return typeof value === 'string' ? value : String(value ?? '');
-}
+import {
+	type FormOption,
+	type SelectOptionGroup,
+	selectGroupKey,
+	selectGroupLabel,
+	selectOptionGroups,
+	selectOptionLabel,
+	selectOptionValue,
+} from './select-options';
 
 export interface SelectProps extends ThemedPrimitiveProps {
-	options?: FormOption[];
+	options?: readonly FormOption[];
+	groups?: readonly SelectOptionGroup[];
 	value?: unknown;
 	onChange?: (value: unknown) => void;
 	placeholder?: string;
@@ -32,6 +38,7 @@ export interface SelectProps extends ThemedPrimitiveProps {
 
 export function Select({
 	options,
+	groups,
 	value,
 	onChange,
 	placeholder,
@@ -49,10 +56,11 @@ export function Select({
 		themeVariant,
 		className,
 	});
+	const optionGroups = selectOptionGroups({ options, groups });
 
 	return (
 		<WebSelect
-			value={value == null ? '' : optionValue(value)}
+			value={value == null ? '' : selectOptionValue(value)}
 			onValueChange={(next) => onChange?.(next)}
 			disabled={disabled}
 			{...props}
@@ -61,20 +69,36 @@ export function Select({
 				<SelectValue placeholder={translate(placeholderI18n ?? placeholder)} />
 			</SelectTrigger>
 			<SelectContent>
-				<SelectGroup>
-					{options?.map((option, index) => (
-						<SelectItem
-							key={`${optionValue(option.value)}-${index}`}
-							value={optionValue(option.value)}
-							disabled={option.disabled}
-						>
-							{translate(option.labelI18n) ?? optionValue(option.labelI18n)}
-						</SelectItem>
-					))}
-				</SelectGroup>
+				{optionGroups.map((group, groupIndex) => {
+					const groupKey = selectGroupKey(group, groupIndex);
+					const groupLabel = selectGroupLabel(group, translate);
+
+					return (
+						<SelectGroup key={`${groupKey}-${groupIndex}`}>
+							{groupLabel ? <SelectLabel>{groupLabel}</SelectLabel> : null}
+							{group.options.map((option, optionIndex) => (
+								<SelectItem
+									key={`${groupKey}-${selectOptionValue(option.value)}-${optionIndex}`}
+									value={selectOptionValue(option.value)}
+									disabled={option.disabled}
+								>
+									{selectOptionLabel(option, translate)}
+								</SelectItem>
+							))}
+						</SelectGroup>
+					);
+				})}
 			</SelectContent>
 		</WebSelect>
 	);
 }
 
-export { SelectContent, SelectGroup, SelectItem, SelectTrigger, SelectValue };
+export type { SelectOptionGroup };
+export {
+	SelectContent,
+	SelectGroup,
+	SelectItem,
+	SelectLabel,
+	SelectTrigger,
+	SelectValue,
+};

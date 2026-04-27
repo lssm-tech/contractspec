@@ -285,6 +285,6 @@ describe('design-system form renderer', () => {
 		expect(html).toContain('Mot de passe actuel');
 		expect(html).toContain('Saisir le mot de passe actuel');
 		expect(html).toContain('Afficher le mot de passe');
-		expect(html).toContain('Aucun résultat');
+		expect(html).toContain('reviewer-listbox');
 	});
 });

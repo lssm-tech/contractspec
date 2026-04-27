@@ -55,6 +55,12 @@ bun add @contractspec/lib.contracts-spec @contractspec/lib.schema
 - `installOp`: one-call helper to register + bind operation handlers.
 - `makeEmit`: typed helper for declared event emission in handlers.
 
+FormSpec autocomplete fields support local option filtering or
+resolver-backed search through `resolverKey`, dependency paths, debounce, and
+minimum-query metadata. The contract stays transport-neutral: host renderers
+provide the resolver/fetcher, and value submission is controlled by
+`valueMapping` (`scalar`, `object`, or `pick`).
+
 ## Typed Results
 
 `@contractspec/lib.contracts-spec/results` is the canonical success/failure

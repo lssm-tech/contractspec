@@ -78,4 +78,4 @@ export {
 	NativeSelectOption,
 	type NativeSelectProps,
 } from './NativeSelect';
-export { Select, type SelectProps } from './Select';
+export { Select, type SelectOptionGroup, type SelectProps } from './Select';

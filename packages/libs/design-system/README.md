@@ -154,8 +154,24 @@ import {
     componentKey="Select"
     options={[{ labelI18n: "status.draft", value: "draft" }]}
   />
+  <Select
+    componentKey="Select"
+    groups={[
+      {
+        labelI18n: "status.lifecycle",
+        options: [{ labelI18n: "status.draft", value: "draft" }],
+      },
+      {
+        labelI18n: "status.release",
+        options: [{ labelI18n: "status.published", value: "published" }],
+      },
+    ]}
+  />
 </DesignSystemThemeProvider>;
 ```
+
+When both `options` and `groups` are provided to `Select`, grouped options are
+used and the flat `options` list is ignored.
 
 ### Use form controls from the design-system boundary
 
@@ -169,6 +185,11 @@ surfaces: `Button`, `Input`, `Textarea`, `Select`, `NativeSelect`,
 `FieldContent`, `FieldLabel`, `FieldDescription`, `FieldError`, and
 `FieldSeparator` wrappers so contract-driven forms can preserve accessible
 legend, description, invalid, and grouped-control structure.
+
+The `Autocomplete` control renders through the shared combobox primitive on web
+and keeps native rendering aligned for query, selected options, loading, error,
+and empty states. FormSpec renderers pass resolver-backed async state through
+these props without requiring product surfaces to know the underlying transport.
 
 ### Render forms on mobile through the shared renderer
 

@@ -189,6 +189,11 @@ export interface DriverSlots {
 		query: string;
 		options: AutocompleteOption[];
 		selectedOptions: AutocompleteOption[];
+		loading?: boolean;
+		error?: string | null;
+		emptyText?: string;
+		loadingText?: string;
+		errorText?: string;
 		onQueryChange?: (query: string) => void;
 		onSelectOption?: (option: AutocompleteOption) => void;
 		onRemoveOption?: (option: AutocompleteOption) => void;
@@ -827,6 +832,40 @@ function selectedAutocompleteOptions(
 	);
 }
 
+function autocompleteOptionKey(option: AutocompleteOption) {
+	return String(option.value);
+}
+
+function mergeAutocompleteOptions(
+	options: readonly AutocompleteOption[],
+	cached: readonly AutocompleteOption[]
+) {
+	const seen = new Set<string>();
+	const merged: AutocompleteOption[] = [];
+	for (const option of [...options, ...cached]) {
+		const key = autocompleteOptionKey(option);
+		if (seen.has(key)) continue;
+		seen.add(key);
+		merged.push(option);
+	}
+	return merged;
+}
+
+function autocompleteResolverErrorMessage(error: unknown) {
+	if (error instanceof Error && error.message.trim()) return error.message;
+	if (typeof error === 'string' && error.trim()) return error;
+	return 'Unable to load options.';
+}
+
+function autocompleteDependencyArgs<TValues>(
+	values: TValues,
+	deps: readonly string[] | undefined
+) {
+	return Object.fromEntries(
+		(deps ?? []).map((path) => [path, getAtPath(values, path)])
+	);
+}
+
 function normalizePhoneValue(value: PhoneFormValue | null | undefined) {
 	if (!value) {
 		return {
@@ -1103,6 +1142,13 @@ function AutocompleteFieldControl<TValues extends FieldValues>(props: {
 	const [resolverOptions, setResolverOptions] = React.useState<
 		AutocompleteOption[]
 	>([]);
+	const [cachedOptions, setCachedOptions] = React.useState<
+		AutocompleteOption[]
+	>([]);
+	const [loading, setLoading] = React.useState(false);
+	const [error, setError] = React.useState<string | null>(null);
+	const requestSeqRef = React.useRef(0);
+	const suppressedResolverQueryRef = React.useRef<string | null>(null);
 	const depKey = React.useMemo(() => {
 		return props.spec.source.kind === 'resolver'
 			? `${props.spec.source.resolverKey}:${makeDepsKey(
@@ -1114,32 +1160,65 @@ function AutocompleteFieldControl<TValues extends FieldValues>(props: {
 
 	React.useEffect(() => {
 		if (props.spec.source.kind !== 'resolver') return;
+		const requestId = requestSeqRef.current + 1;
+		requestSeqRef.current = requestId;
 		const resolver = props.resolvers?.[props.spec.source.resolverKey];
 		const minQueryLength = props.spec.source.minQueryLength ?? 0;
 		if (!resolver || debouncedQuery.trim().length < minQueryLength) {
 			setResolverOptions([]);
+			setLoading(false);
+			setError(null);
+			return;
+		}
+		if (suppressedResolverQueryRef.current === debouncedQuery) {
+			suppressedResolverQueryRef.current = null;
+			setLoading(false);
+			setError(null);
 			return;
 		}
 		let mounted = true;
+		const controller =
+			typeof AbortController !== 'undefined' ? new AbortController() : null;
 		const args = {
 			...(props.spec.source.args ?? {}),
 			query: debouncedQuery,
+			deps: autocompleteDependencyArgs(props.values, props.spec.source.deps),
+			fieldName: props.ctx.name,
+			...(controller ? { signal: controller.signal } : {}),
 		};
-		void Promise.resolve(resolver(props.values, args)).then((next) => {
-			if (mounted) {
-				setResolverOptions([
+		setLoading(true);
+		setError(null);
+		void Promise.resolve(resolver(props.values, args))
+			.then((next) => {
+				if (!mounted || requestSeqRef.current !== requestId) return;
+				const nextOptions = [
 					...((next as AutocompleteOption[] | undefined) ?? []),
-				]);
-			}
-		});
+				];
+				setResolverOptions(nextOptions);
+				setCachedOptions((current) =>
+					mergeAutocompleteOptions(nextOptions, current)
+				);
+			})
+			.catch((nextError) => {
+				if (!mounted || requestSeqRef.current !== requestId) return;
+				if (controller?.signal.aborted) return;
+				setResolverOptions([]);
+				setError(autocompleteResolverErrorMessage(nextError));
+			})
+			.finally(() => {
+				if (mounted && requestSeqRef.current === requestId) {
+					setLoading(false);
+				}
+			});
 		return () => {
 			mounted = false;
+			controller?.abort();
 		};
 	}, [
 		depKey,
+		props.ctx.name,
 		props.resolvers,
 		props.spec.source,
-		props.values,
 		debouncedQuery,
 	]);
 
@@ -1166,8 +1245,12 @@ function AutocompleteFieldControl<TValues extends FieldValues>(props: {
 					props.ctx.errorId,
 					fieldState.invalid
 				);
+				const optionPool =
+					props.spec.source.kind === 'resolver'
+						? mergeAutocompleteOptions(options, cachedOptions)
+						: options;
 				const selectedOptions = selectedAutocompleteOptions(
-					options,
+					optionPool,
 					field.value,
 					props.spec.valueMapping,
 					props.spec.multiple
@@ -1175,6 +1258,9 @@ function AutocompleteFieldControl<TValues extends FieldValues>(props: {
 
 				const commitOption = (option: AutocompleteOption) => {
 					if (props.ctx.readOnly) return;
+					setCachedOptions((current) =>
+						mergeAutocompleteOptions([option], current)
+					);
 					const mapped = mapAutocompleteValue(option, props.spec.valueMapping);
 					if (props.spec.multiple) {
 						const current = Array.isArray(field.value) ? field.value : [];
@@ -1183,6 +1269,7 @@ function AutocompleteFieldControl<TValues extends FieldValues>(props: {
 						return;
 					}
 					field.onChange(mapped);
+					suppressedResolverQueryRef.current = option.labelI18n;
 					setQuery(option.labelI18n);
 				};
 
@@ -1217,6 +1304,8 @@ function AutocompleteFieldControl<TValues extends FieldValues>(props: {
 							query={query}
 							options={options}
 							selectedOptions={selectedOptions}
+							loading={loading}
+							error={error}
 							onQueryChange={setQuery}
 							onSelectOption={commitOption}
 							onRemoveOption={removeOption}

@@ -1,0 +1,38 @@
+{
+	"name": "@contractspec/example.form-showcase",
+	"version": "1.0.0",
+	"description": "Focused ContractSpec form example and template covering field kinds, conditional rules, and layout flows.",
+	"type": "module",
+	"exports": {
+		".": "./src/index.ts",
+		"./docs": "./src/docs/index.ts",
+		"./example": "./src/example.ts",
+		"./forms": "./src/forms/index.ts",
+		"./forms/all-fields.form": "./src/forms/all-fields.form.ts",
+		"./forms/form-showcase.docs": "./src/forms/form-showcase.docs.ts",
+		"./forms/progressive-steps.form": "./src/forms/progressive-steps.form.ts"
+	},
+	"scripts": {
+		"build": "tsc --project tsconfig.json",
+		"typecheck": "tsc --noEmit",
+		"test": "bun test",
+		"smoke": "bun test src/example.smoke.test.ts",
+		"preflight": "bun run build && bun run typecheck && bun run test && bun run smoke"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/examples/form-showcase"
+	},
+	"homepage": "https://contractspec.io",
+	"license": "MIT",
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/lib.schema": "workspace:*",
+		"zod": "catalog:"
+	},
+	"devDependencies": {
+		"@contractspec/tool.typescript": "workspace:*",
+		"typescript": "catalog:"
+	}
+}

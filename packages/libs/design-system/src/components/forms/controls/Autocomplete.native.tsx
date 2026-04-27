@@ -26,6 +26,10 @@ export interface AutocompleteProps extends ThemedPrimitiveProps {
 	disabled?: boolean;
 	className?: string;
 	emptyText?: string;
+	loadingText?: string;
+	errorText?: string;
+	loading?: boolean;
+	error?: string | null;
 }
 
 export function Autocomplete({
@@ -44,6 +48,10 @@ export function Autocomplete({
 	componentKey,
 	themeVariant,
 	emptyText = 'No results found.',
+	loadingText = 'Loading options...',
+	errorText = 'Unable to load options.',
+	loading,
+	error,
 }: AutocompleteProps) {
 	const translate = useTranslatedText();
 	const themed = useThemedPrimitive({
@@ -66,7 +74,11 @@ export function Autocomplete({
 				disabled={disabled || readOnly}
 			/>
 			<VStack gap="xs">
-				{options.length ? (
+				{loading ? (
+					<Text>{translate(loadingText)}</Text>
+				) : error ? (
+					<Text>{translate(error) ?? translate(errorText)}</Text>
+				) : options.length ? (
 					options.map((option) => (
 						<Button
 							key={optionValue(option.value)}

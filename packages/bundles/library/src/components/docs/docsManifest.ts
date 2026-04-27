@@ -314,6 +314,18 @@ export const DOCS_PAGES: readonly DocsPageEntry[] = [
 		ctaMode: 'oss-next',
 	},
 	{
+		href: '/docs/guides/contract-driven-forms',
+		title: 'Build a contract-driven form',
+		description:
+			'Define schema-backed form data, fields, layout, policy, and submit actions as one reusable ContractSpec surface.',
+		section: 'build',
+		order: 45,
+		navTitle: 'Contract-driven forms',
+		primaryNav: true,
+		audience: 'oss',
+		ctaMode: 'oss-next',
+	},
+	{
 		href: '/docs/guides/generate-docs-clients-schemas',
 		title: 'Generate docs, clients, and schemas',
 		description:

@@ -144,10 +144,10 @@ bun run validate`}
 
 			<div className="flex items-center gap-4 pt-4">
 				<Link
-					href="/docs/guides/generate-docs-clients-schemas"
+					href="/docs/guides/contract-driven-forms"
 					className="btn-primary"
 				>
-					Next: Generate docs + clients <ChevronRight size={16} />
+					Next: Contract-driven forms <ChevronRight size={16} />
 				</Link>
 				<Link href="/docs/guides" className="btn-ghost">
 					Back to guides

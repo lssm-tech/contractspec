@@ -1,0 +1,40 @@
+schemaVersion: "1"
+slug: design-system-select-groups
+summary: Add grouped option support to design-system Select controls across web and native.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.design-system"
+    releaseType: minor
+affectedRuntimes:
+  - bun
+  - browser
+  - native
+affectedFrameworks:
+  - react
+  - react-native
+audiences:
+  - kind: maintainer
+    summary: The design-system Select wrappers now share grouped-option normalization and expose a typed grouped Select API.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+  - kind: integrator
+    summary: Existing flat Select options keep working, while callers can opt into translated grouped option sections on web and native.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+  - kind: customer
+    summary: Select controls can now present options in labelled groups consistently across web and native surfaces.
+deprecations: []
+migrationInstructions: []
+upgradeSteps: []
+validation:
+  commands:
+    - "bun test packages/libs/design-system/src/components/forms/controls/Select.grouped.test.tsx"
+    - "cd packages/libs/design-system && bun run test"
+    - "cd packages/libs/design-system && bun run typecheck"
+    - "cd packages/libs/design-system && bun run lint:check"
+  evidence:
+    - "Web Select renders multiple translated groups through the design-system wrapper."
+    - "Native Select resolves the selected label from grouped options before passing the value to the native primitive."
+    - "Flat Select options remain supported as the fallback when grouped options are omitted."
+knownGaps:
+  - "No real-device native visual run was performed; native grouped behavior is covered by wrapper-level tests and typecheck."

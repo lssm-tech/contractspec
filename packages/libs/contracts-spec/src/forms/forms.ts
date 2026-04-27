@@ -953,7 +953,8 @@ This document defines the canonical contracts for declarative forms.
 
 ## Rich field contracts
 
-- \`autocomplete\` supports local or resolver-backed search and configurable submit-value mapping.
+- \`autocomplete\` supports local filtering or resolver-backed search, including debounce/min-query hints and configurable submit-value mapping.
+- Resolver-backed autocomplete stays runtime-neutral: forms declare \`resolverKey\`, dependency paths, and optional args while host renderers provide the actual fetcher.
 - \`email\` represents one string email-address field; schema validation remains model-owned while renderers supply email input affordances.
 - \`address\` uses the canonical \`AddressFormValue\` object shape.
 - \`phone\` uses the canonical \`PhoneFormValue\` object shape.
@@ -982,6 +983,7 @@ Host apps supply a driver mapping slots to components:
 
 - Required: \`Field\`, \`FieldLabel\`, \`FieldDescription\`, \`FieldError\`, \`Input\`, \`Textarea\`, \`Select\`, \`Checkbox\`, \`RadioGroup\`, \`Switch\`, \`Autocomplete\`, \`AddressField\`, \`PhoneField\`, \`DateField\`, \`TimeField\`, \`DateTimeField\`, \`Button\`.
 - Optional: \`FieldContent\`, \`FieldGroup\`, \`FieldSet\`, \`FieldLegend\`, \`FieldSeparator\`, \`InputGroup\`, \`InputGroupAddon\`, \`InputGroupInput\`, \`InputGroupTextarea\`, \`InputGroupText\`, \`InputGroupIcon\`, and \`PasswordInput\`.
+- Autocomplete drivers should accept optional \`loading\`, \`error\`, \`emptyText\`, \`loadingText\`, and \`errorText\` props so resolver-backed fields can expose async state without embedding transport details in the contract.
 
 Use \`createFormRenderer({ driver })\` to obtain a \`render(spec)\` function.
 

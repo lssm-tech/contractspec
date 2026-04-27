@@ -26,7 +26,7 @@
 		"lint:check": "node ../../../scripts/biome.cjs check .",
 		"storybook": "storybook dev -p 6006",
 		"build-storybook": "storybook build",
-		"test": "jest --passWithNoTests",
+		"test": "bun test --pass-with-no-tests",
 		"prebuild": "contractspec-bun-build prebuild",
 		"typecheck": "tsc --noEmit"
 	},

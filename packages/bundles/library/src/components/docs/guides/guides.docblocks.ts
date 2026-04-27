@@ -39,6 +39,18 @@ Create a single OperationSpec, register it, and expose it through a Next.js App 
 Define command/query specs that enforce validation and generate types without rewriting your app.`,
 	},
 	{
+		id: 'docs.guides.contract-driven-forms',
+		title: 'Contract-driven forms',
+		summary: 'Define schema-backed FormSpec surfaces and render them safely.',
+		kind: 'usage',
+		visibility: 'public',
+		route: '/docs/guides/contract-driven-forms',
+		tags: ['guides', 'forms', 'ui'],
+		body: `# Build a contract-driven form
+
+Define a FormSpec with model, fields, layout, policy, and actions, then render it through a shared or app-specific renderer.`,
+	},
+	{
 		id: 'docs.guides.docs-clients-schemas',
 		title: 'Generate docs, clients, schemas',
 		summary: 'Generate docs and OpenAPI for client SDKs from specs.',

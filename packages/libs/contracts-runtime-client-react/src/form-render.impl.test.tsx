@@ -1,10 +1,14 @@
-import { describe, expect, it } from 'bun:test';
+import { afterEach, beforeAll, describe, expect, it } from 'bun:test';
 import {
 	defineFormSpec,
 	RichFieldsShowcaseForm,
 	responsiveFormColumns,
 } from '@contractspec/lib.contracts-spec/forms';
 import { fromZod } from '@contractspec/lib.schema';
+import Window from 'happy-dom/lib/window/Window.js';
+import type { ComponentProps } from 'react';
+import { act } from 'react';
+import { createRoot, type Root } from 'react-dom/client';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { z } from 'zod';
 import {
@@ -13,6 +17,34 @@ import {
 	filterAutocompleteOptions,
 	mapAutocompleteValue,
 } from './form-render.impl';
+
+beforeAll(() => {
+	const windowInstance = new Window({
+		url: 'https://contracts-runtime-client-react.contractspec.local/tests',
+	});
+	Object.defineProperty(windowInstance, 'SyntaxError', {
+		value: SyntaxError,
+		configurable: true,
+	});
+	Object.assign(globalThis, {
+		window: windowInstance,
+		document: windowInstance.document,
+		navigator: windowInstance.navigator,
+		HTMLElement: windowInstance.HTMLElement,
+		HTMLInputElement: windowInstance.HTMLInputElement,
+		HTMLButtonElement: windowInstance.HTMLButtonElement,
+		Node: windowInstance.Node,
+		Event: windowInstance.Event,
+		MouseEvent: windowInstance.MouseEvent,
+		AbortController:
+			windowInstance.AbortController ?? globalThis.AbortController,
+		IS_REACT_ACT_ENVIRONMENT: true,
+	});
+});
+
+afterEach(() => {
+	document.body.innerHTML = '';
+});
 
 const mockDriver: DriverSlots = {
 	Field: ({ children, layout: _layout, ...props }) => (
@@ -149,6 +181,12 @@ const mockDriver: DriverSlots = {
 	),
 	Button: ({ children, ...props }) => <button {...props}>{children}</button>,
 };
+
+type AutocompleteDriverProps = ComponentProps<DriverSlots['Autocomplete']>;
+
+function delay(ms = 0) {
+	return new Promise((resolve) => setTimeout(resolve, ms));
+}
 
 const LayoutForm = defineFormSpec({
 	meta: {
@@ -454,12 +492,53 @@ const EmailForm = defineFormSpec({
 	],
 });
 
+const ResolverAutocompleteForm = defineFormSpec({
+	meta: {
+		key: 'test.form.resolver-autocomplete',
+		version: '1.0.0',
+		title: 'Resolver Autocomplete Form',
+		description: 'Exercises resolver-backed autocomplete rendering.',
+		domain: 'test',
+		owners: ['@team.test'],
+		tags: ['test'],
+		stability: 'experimental',
+	},
+	model: fromZod(
+		z.object({
+			teamId: z.string(),
+			reviewer: z
+				.object({
+					id: z.string(),
+					name: z.string(),
+				})
+				.optional(),
+		}),
+		{ name: 'ResolverAutocompleteFormModel' }
+	),
+	fields: [
+		{
+			kind: 'autocomplete',
+			name: 'reviewer',
+			labelI18n: 'Reviewer',
+			source: {
+				kind: 'resolver',
+				resolverKey: 'reviewers',
+				deps: ['teamId'],
+				minQueryLength: 2,
+				debounceMs: 0,
+			},
+			valueMapping: { mode: 'object' },
+		},
+	],
+});
+
 describe('contracts-runtime-client-react form renderer', () => {
 	it('filters autocomplete options across configured search keys', () => {
 		const options = [
 			{
 				labelI18n: 'Alice Martin',
 				value: 'usr_1',
+				descriptionI18n: 'Senior reviewer',
 				data: { id: 'usr_1', email: 'alice@example.com' },
 			},
 			{
@@ -473,6 +552,8 @@ describe('contracts-runtime-client-react form renderer', () => {
 
 		expect(result).toHaveLength(1);
 		expect(result[0]?.labelI18n).toBe('Bob Chen');
+		expect(filterAutocompleteOptions(options, 'senior', [])).toHaveLength(1);
+		expect(filterAutocompleteOptions(options, 'usr_1', [])).toHaveLength(1);
 	});
 
 	it('maps autocomplete selections according to object and pick modes', () => {
@@ -485,11 +566,196 @@ describe('contracts-runtime-client-react form renderer', () => {
 		expect(mapAutocompleteValue(option, { mode: 'object' })).toEqual(
 			option.data
 		);
+		expect(mapAutocompleteValue(option, { mode: 'scalar' })).toBe('usr_1');
+		expect(
+			mapAutocompleteValue(option, { mode: 'scalar', valueKey: 'email' })
+		).toBe('alice@example.com');
 		expect(
 			mapAutocompleteValue(option, { mode: 'pick', pickKeys: ['id', 'email'] })
 		).toEqual({
 			id: 'usr_1',
 			email: 'alice@example.com',
+		});
+	});
+
+	it('keeps resolver-backed autocomplete state resilient across fetches', async () => {
+		type ResolverCall = {
+			args?: Record<string, unknown>;
+			resolve: (value: readonly unknown[]) => void;
+			reject: (error: unknown) => void;
+		};
+		const calls: ResolverCall[] = [];
+		let latestAutocomplete: AutocompleteDriverProps | undefined;
+		let root: Root | undefined;
+		const renderer = createFormRenderer({
+			driver: {
+				...mockDriver,
+				Autocomplete: (props) => {
+					latestAutocomplete = props;
+					return (
+						<div
+							data-widget="autocomplete"
+							data-loading={props.loading || undefined}
+							data-error={props.error ?? undefined}
+						>
+							{props.selectedOptions
+								.map((option) => option.labelI18n)
+								.join(',')}
+							{props.options.map((option) => (
+								<span key={String(option.value)}>{option.labelI18n}</span>
+							))}
+						</div>
+					);
+				},
+			},
+			resolvers: {
+				reviewers: (_values, args) =>
+					new Promise<readonly unknown[]>((resolve, reject) => {
+						calls.push({ args, resolve, reject });
+					}),
+			},
+		});
+		const getLatest = () => {
+			if (!latestAutocomplete) {
+				throw new Error('Autocomplete did not render.');
+			}
+			return latestAutocomplete;
+		};
+		const flushAutocomplete = async () => {
+			await act(async () => {
+				await delay(20);
+			});
+		};
+
+		const container = document.createElement('div');
+		document.body.append(container);
+		root = createRoot(container);
+
+		await act(async () => {
+			root?.render(
+				renderer.render(ResolverAutocompleteForm, {
+					defaultValues: { teamId: 'team_1' },
+				})
+			);
+			await delay();
+		});
+
+		await act(async () => {
+			getLatest().onQueryChange?.('a');
+		});
+		await flushAutocomplete();
+
+		expect(calls).toHaveLength(0);
+		expect(getLatest().loading).toBe(false);
+
+		await act(async () => {
+			getLatest().onQueryChange?.('al');
+		});
+		await flushAutocomplete();
+
+		expect(calls).toHaveLength(1);
+		expect(calls[0]?.args?.query).toBe('al');
+		expect(calls[0]?.args?.fieldName).toBe('reviewer');
+		expect(
+			(calls[0]?.args?.deps as Record<string, unknown> | undefined)?.teamId
+		).toBe('team_1');
+		expect((calls[0]?.args?.signal as AbortSignal | undefined)?.aborted).toBe(
+			false
+		);
+		expect(getLatest().loading).toBe(true);
+
+		await act(async () => {
+			getLatest().onQueryChange?.('ali');
+		});
+		await flushAutocomplete();
+
+		expect(calls).toHaveLength(2);
+		expect((calls[0]?.args?.signal as AbortSignal | undefined)?.aborted).toBe(
+			true
+		);
+		expect(calls[1]?.args?.query).toBe('ali');
+
+		await act(async () => {
+			calls[1]?.resolve([
+				{
+					labelI18n: 'Alice Martin',
+					value: 'usr_1',
+					data: { id: 'usr_1', name: 'Alice Martin' },
+				},
+			]);
+			await delay();
+		});
+
+		expect(getLatest().loading).toBe(false);
+		expect(getLatest().options.map((option) => option.labelI18n)).toEqual([
+			'Alice Martin',
+		]);
+
+		await act(async () => {
+			calls[0]?.resolve([
+				{
+					labelI18n: 'Stale Reviewer',
+					value: 'usr_stale',
+					data: { id: 'usr_stale', name: 'Stale Reviewer' },
+				},
+			]);
+			await delay();
+		});
+
+		expect(getLatest().options.map((option) => option.labelI18n)).toEqual([
+			'Alice Martin',
+		]);
+
+		await act(async () => {
+			const alice = getLatest().options[0];
+			if (!alice) throw new Error('Expected Alice option.');
+			getLatest().onSelectOption?.(alice);
+			await delay();
+		});
+
+		expect(
+			getLatest().selectedOptions.map((option) => option.labelI18n)
+		).toEqual(['Alice Martin']);
+
+		await act(async () => {
+			getLatest().onQueryChange?.('bo');
+		});
+		await flushAutocomplete();
+
+		expect(calls).toHaveLength(3);
+
+		await act(async () => {
+			calls[2]?.resolve([
+				{
+					labelI18n: 'Bob Chen',
+					value: 'usr_2',
+					data: { id: 'usr_2', name: 'Bob Chen' },
+				},
+			]);
+			await delay();
+		});
+
+		expect(getLatest().options.map((option) => option.labelI18n)).toEqual([
+			'Bob Chen',
+		]);
+		expect(
+			getLatest().selectedOptions.map((option) => option.labelI18n)
+		).toEqual(['Alice Martin']);
+
+		await act(async () => {
+			getLatest().onQueryChange?.('err');
+		});
+		await flushAutocomplete();
+		await act(async () => {
+			calls[3]?.reject(new Error('Reviewer lookup failed'));
+			await delay();
+		});
+
+		expect(getLatest().loading).toBe(false);
+		expect(getLatest().error).toBe('Reviewer lookup failed');
+
+		await act(async () => {
+			root?.unmount();
 		});
 	});
 

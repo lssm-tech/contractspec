@@ -1,0 +1,55 @@
+schemaVersion: "1"
+slug: forms-autocomplete-combobox
+summary: Improve FormSpec autocomplete rendering and resolver-backed search.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.contracts-spec"
+    releaseType: patch
+  - name: "@contractspec/lib.contracts-runtime-client-react"
+    releaseType: minor
+  - name: "@contractspec/lib.design-system"
+    releaseType: minor
+  - name: "@contractspec/lib.ui-kit-web"
+    releaseType: minor
+affectedRuntimes:
+  - bun
+  - browser
+  - nextjs
+affectedFrameworks:
+  - react
+audiences:
+  - kind: maintainer
+    summary: FormSpec autocomplete docs now describe local and resolver-backed authoring without adding transport fields to the contract.
+    affectedPackages:
+      - "@contractspec/lib.contracts-spec"
+  - kind: integrator
+    summary: React FormSpec autocomplete resolvers receive query, dependency values, field name, and AbortSignal args while stale responses are ignored.
+    affectedPackages:
+      - "@contractspec/lib.contracts-runtime-client-react"
+  - kind: customer
+    summary: Contract-rendered autocomplete fields now use an accessible editable combobox on web and show loading, empty, error, and selected states more reliably.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+      - "@contractspec/lib.ui-kit-web"
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: expose-autocomplete-async-state
+    title: Forward optional autocomplete async props in custom drivers
+    summary: Custom autocomplete driver slots can opt into loading/error rendering without changing existing fields.
+    level: manual
+    instructions:
+      - Accept optional `loading`, `error`, `emptyText`, `loadingText`, and `errorText` props on custom autocomplete components.
+      - Keep existing `query`, `options`, `selectedOptions`, and selection callbacks unchanged.
+validation:
+  commands:
+    - "bun test packages/libs/contracts-spec/src/forms/forms.test.ts packages/libs/contracts-runtime-client-react/src/form-render.impl.test.tsx packages/libs/design-system/src/components/forms/controls/controls.test.tsx packages/libs/design-system/src/renderers/form-contract.test.tsx packages/libs/ui-kit-web/ui/combobox.test.tsx"
+    - "cd packages/libs/contracts-spec && bun run typecheck && bun run lint:check"
+    - "cd packages/libs/contracts-runtime-client-react && bun run typecheck && bun run lint:check"
+    - "cd packages/libs/design-system && bun run typecheck && bun run lint:check && bun run test"
+    - "cd packages/libs/ui-kit-web && bun run typecheck && bun run lint:check && bun run test"
+  evidence:
+    - "Resolver-backed autocomplete now tracks loading/error state, passes query/deps/fieldName/signal args, aborts obsolete requests, and ignores stale responses."
+    - "Selected remote options are cached so their labels remain visible when later searches return different options."
+    - "The web combobox exposes editable combobox/listbox ARIA, keyboard selection, async copy, option descriptions, disabled options, and multi-select chips."
+knownGaps: []

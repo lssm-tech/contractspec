@@ -1,0 +1,63 @@
+schemaVersion: "1"
+slug: form-showcase-template
+summary: Add a form-only example template and public docs links for ContractSpec form adoption.
+isBreaking: false
+packages:
+  - name: "@contractspec/example.form-showcase"
+    releaseType: minor
+  - name: "@contractspec/module.examples"
+    releaseType: patch
+  - name: "@contractspec/bundle.library"
+    releaseType: patch
+  - name: "@contractspec/app.web-landing"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - browser
+  - nextjs
+affectedFrameworks:
+  - react
+  - nextjs
+audiences:
+  - kind: maintainer
+    summary: Maintainers get a dedicated `@contractspec/example.form-showcase` package registered through the generated examples catalog.
+    affectedPackages:
+      - "@contractspec/example.form-showcase"
+      - "@contractspec/module.examples"
+  - kind: integrator
+    summary: Integrators can inspect schema-backed FormSpec examples for all field kinds, section/step flows, conditionals, arrays, groups, and registry usage.
+    affectedPackages:
+      - "@contractspec/example.form-showcase"
+  - kind: customer
+    summary: Docs readers can jump from the contract-driven forms guide into the form-only example, the templates catalog, or the sandbox spec preview.
+    affectedPackages:
+      - "@contractspec/bundle.library"
+      - "@contractspec/app.web-landing"
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: review-form-showcase-template
+    title: Review the form-only template before adapting it
+    summary: The new template is additive and intended as a starting point for custom form renderers or generated surfaces.
+    level: manual
+    instructions:
+      - Open `/docs/examples/form-showcase` to inspect the example package context.
+      - Open `/templates?tag=forms` to confirm the template is discoverable from the public catalog.
+      - Open `/sandbox?template=form-showcase` to inspect the generated example metadata and spec surfaces.
+validation:
+  commands:
+    - "bun run --cwd packages/examples/form-showcase typecheck"
+    - "bun run --cwd packages/examples/form-showcase build"
+    - "bun test packages/examples/form-showcase/src/example.smoke.test.ts"
+    - "bun scripts/generate-example-registry.ts"
+    - "bun run --cwd packages/modules/examples typecheck"
+    - "bun run --cwd packages/bundles/library typecheck"
+    - "bun run --cwd packages/apps/web-landing build:types"
+    - "bun run --cwd packages/apps/web-landing lint:check"
+    - "bun test packages/bundles/library/src/components/docs/docsManifest.test.ts packages/apps/web-landing/src/app/docs/examples/example-doc-routes.test.ts packages/bundles/marketing/src/components/templates/template-catalog.test.ts"
+  evidence:
+    - "The new example package typechecks, builds, and has smoke coverage for metadata, all field kinds, layout flows, registry lookup, and indexed relation validation."
+    - "The generated examples registry now includes `form-showcase` and its package source metadata."
+    - "The public form guide and repo tutorial link to the example docs route, form-filtered template catalog, and sandbox route."
+knownGaps:
+  - "`bun run examples:validate` still fails globally on pre-existing example docblock policy drift and generated-registry validation drift unrelated to this thread."

@@ -30,6 +30,8 @@ const DOCS_ROUTES = [
 	'/docs/manifesto',
 	'/docs/examples',
 	...listDiscoverableExampleDocsRoutes(),
+	// Guides
+	'/docs/guides/contract-driven-forms',
 	// Getting Started
 	'/docs/getting-started/installation',
 	'/docs/getting-started/hello-world',

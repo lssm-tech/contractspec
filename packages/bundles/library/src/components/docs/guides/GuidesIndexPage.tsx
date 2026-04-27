@@ -25,6 +25,13 @@ const guides = [
 		time: '20 min',
 	},
 	{
+		title: 'Build a contract-driven form',
+		description:
+			'Use FormSpec to keep data shape, fields, layout, policy, and submit behavior aligned.',
+		href: '/docs/guides/contract-driven-forms',
+		time: '25 min',
+	},
+	{
 		title: 'Generate docs and clients',
 		description:
 			'Publish stable docs, schemas, and client-facing artifacts from the contract layer.',
