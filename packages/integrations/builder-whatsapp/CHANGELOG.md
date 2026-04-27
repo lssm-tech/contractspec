@@ -1,5 +1,17 @@
 # @contractspec/integration.builder-whatsapp
 
+## 0.2.7
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/integration.runtime@3.9.7
+  - @contractspec/lib.builder-runtime@0.2.7
+  - @contractspec/lib.builder-spec@0.2.7
+  - @contractspec/lib.contracts-integrations@3.8.17
+  - @contractspec/lib.provider-spec@0.2.5
+
 ## 0.2.6
 
 ### Patch Changes

@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/integration.provider.project-management",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"description": "Project management provider implementations for ContractSpec.",
 	"type": "module",
 	"types": "./dist/index.d.ts",

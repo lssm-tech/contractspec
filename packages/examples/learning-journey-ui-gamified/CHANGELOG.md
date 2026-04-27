@@ -1,5 +1,29 @@
 # @contractspec/example.learning-journey-ui-gamified
 
+## 4.0.7
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Remove avoidable Node crypto imports from ContractSpec runtime surfaces and keep signing helpers isolated.
+- Updated dependencies because of Add grouped option support to design-system Select controls across web and native.
+- Updated dependencies because of Improve FormSpec autocomplete rendering and resolver-backed search.
+- Updated dependencies because of Keep web FormSpec datetime controls inside their responsive form columns.
+- Updated dependencies because of Add first-class FormSpec email fields with native renderer affordances.
+- Updated dependencies because of Preserve FormSpec email input behavior when optional renderer metadata is omitted.
+- Updated dependencies because of Add ThemeSpec Tailwind aliases for FormSpec option surface backgrounds.
+- Updated dependencies because of Fix FormSpec password visibility toggles so rendered password fields can reveal and re-mask values.
+- Updated dependencies because of Add progressive FormSpec section and step layout metadata with shared React and design-system rendering support.
+- Updated dependencies because of Forward refs through the web Button primitive and its slotted rendering path to stabilize Radix `asChild` triggers.
+  - @contractspec/example.learning-journey-duo-drills@4.0.5
+  - @contractspec/example.learning-journey-quest-challenges@4.0.5
+  - @contractspec/example.learning-journey-ui-shared@4.0.7
+  - @contractspec/module.learning-journey@4.0.5
+  - @contractspec/lib.contracts-spec@6.0.0
+  - @contractspec/lib.design-system@4.2.0
+  - @contractspec/lib.ui-kit-web@3.13.0
+
 ## 4.0.6
 
 ### Patch Changes

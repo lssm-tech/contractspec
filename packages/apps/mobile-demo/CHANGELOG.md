@@ -1,5 +1,43 @@
 # @contractspec/app.expo-demo
 
+## 1.1.29
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Remove avoidable Node crypto imports from ContractSpec runtime surfaces and keep signing helpers isolated.
+- Updated dependencies because of Make the form-only showcase previewable from the templates catalog and restore sandbox routing for non-inline template previews.
+- Updated dependencies because of Add a form-only example template and public docs links for ContractSpec form adoption.
+- Updated dependencies because of Improve FormSpec autocomplete rendering and resolver-backed search.
+- Updated dependencies because of Add first-class FormSpec email fields with native renderer affordances.
+- Updated dependencies because of Add progressive FormSpec section and step layout metadata with shared React and design-system rendering support.
+  - @contractspec/example.agent-console@3.8.19
+  - @contractspec/example.ai-chat-assistant@3.8.19
+  - @contractspec/example.analytics-dashboard@3.9.19
+  - @contractspec/example.crm-pipeline@3.7.27
+  - @contractspec/example.data-grid-showcase@3.8.19
+  - @contractspec/example.in-app-docs@3.7.27
+  - @contractspec/example.integration-hub@3.8.19
+  - @contractspec/example.learning-journey-registry@4.0.7
+  - @contractspec/example.marketplace@3.8.19
+  - @contractspec/example.meeting-recorder-providers@3.7.26
+  - @contractspec/example.pocket-family-office@3.7.25
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.27
+  - @contractspec/example.saas-boilerplate@3.8.19
+  - @contractspec/example.video-api-showcase@3.7.27
+  - @contractspec/example.video-docs-terminal@3.7.27
+  - @contractspec/example.visualization-showcase@3.9.19
+  - @contractspec/example.voice-providers@3.7.26
+  - @contractspec/example.workflow-system@3.8.19
+  - @contractspec/lib.presentation-runtime-core@5.1.1
+  - @contractspec/lib.presentation-runtime-react-native@39.0.1
+  - @contractspec/lib.ui-kit@4.1.2
+  - @contractspec/lib.ui-kit-core@3.8.5
+  - @contractspec/lib.contracts-spec@6.0.0
+  - @contractspec/module.examples@4.0.4
+  - @contractspec/bundle.marketing@3.8.20
+
 ## 1.1.28
 
 ### Patch Changes

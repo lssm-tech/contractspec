@@ -1,5 +1,27 @@
 # @contractspec/lib.contracts-spec
 
+## 6.0.0
+
+### Major Changes
+
+- Remove avoidable Node crypto imports from ContractSpec runtime surfaces and keep signing helpers isolated.
+  - Packages: @contractspec/lib.contracts-spec (major)
+  - Migration: Replace broad root or `control-plane` imports for signing and verification helpers with `@contractspec/lib.contracts-spec/control-plane/skills`, `/signer`, or `/verifier`.; Sticky experiment variants may rebucket because the evaluator now uses a browser-safe deterministic hash instead of Node SHA-256.
+
+### Minor Changes
+
+- Add first-class FormSpec email fields with native renderer affordances.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.contracts-runtime-client-react (minor), @contractspec/lib.design-system (minor)
+  - Migration: Existing `kind: "text"` fields with email input hints continue to render normally.; `kind: "email"` only describes rendering intent; strict validation remains schema-owned.
+- Add progressive FormSpec section and step layout metadata with shared React and design-system rendering support.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.contracts-runtime-client-react (minor), @contractspec/lib.design-system (minor)
+  - Migration: Existing forms render exactly as before unless they opt into `layout.flow`.; Use `layout.flow.sections` to group existing fields by immediate field name.
+
+### Patch Changes
+
+- Improve FormSpec autocomplete rendering and resolver-backed search.
+  - Packages: @contractspec/lib.contracts-spec (patch), @contractspec/lib.contracts-runtime-client-react (minor), @contractspec/lib.design-system (minor), @contractspec/lib.ui-kit-web (minor)
+
 ## 5.7.0
 
 ### Minor Changes

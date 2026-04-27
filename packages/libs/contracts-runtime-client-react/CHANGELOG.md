@@ -1,5 +1,30 @@
 # @contractspec/lib.contracts-runtime-client-react
 
+## 3.12.0
+
+### Minor Changes
+
+- Improve FormSpec autocomplete rendering and resolver-backed search.
+  - Packages: @contractspec/lib.contracts-spec (patch), @contractspec/lib.contracts-runtime-client-react (minor), @contractspec/lib.design-system (minor), @contractspec/lib.ui-kit-web (minor)
+- Add first-class FormSpec email fields with native renderer affordances.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.contracts-runtime-client-react (minor), @contractspec/lib.design-system (minor)
+  - Migration: Existing `kind: "text"` fields with email input hints continue to render normally.; `kind: "email"` only describes rendering intent; strict validation remains schema-owned.
+- Add progressive FormSpec section and step layout metadata with shared React and design-system rendering support.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.contracts-runtime-client-react (minor), @contractspec/lib.design-system (minor)
+  - Migration: Existing forms render exactly as before unless they opt into `layout.flow`.; Use `layout.flow.sections` to group existing fields by immediate field name.
+
+### Patch Changes
+
+- Preserve FormSpec email input behavior when optional renderer metadata is omitted.
+  - Packages: @contractspec/lib.contracts-runtime-client-react (patch), @contractspec/lib.design-system (patch)
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Remove avoidable Node crypto imports from ContractSpec runtime surfaces and keep signing helpers isolated.
+- Updated dependencies because of Improve FormSpec autocomplete rendering and resolver-backed search.
+- Updated dependencies because of Add first-class FormSpec email fields with native renderer affordances.
+- Updated dependencies because of Add progressive FormSpec section and step layout metadata with shared React and design-system rendering support.
+  - @contractspec/lib.presentation-runtime-core@5.1.1
+  - @contractspec/lib.contracts-spec@6.0.0
+
 ## 3.11.1
 
 ### Patch Changes

@@ -1,5 +1,26 @@
 # Changelog
 
+## 3.10.8
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Remove avoidable Node crypto imports from ContractSpec runtime surfaces and keep signing helpers isolated.
+- Updated dependencies because of Make the form-only showcase previewable from the templates catalog and restore sandbox routing for non-inline template previews.
+- Updated dependencies because of Add a form-only example template and public docs links for ContractSpec form adoption.
+- Updated dependencies because of Improve FormSpec autocomplete rendering and resolver-backed search.
+- Updated dependencies because of Add first-class FormSpec email fields with native renderer affordances.
+- Updated dependencies because of Add progressive FormSpec section and step layout metadata with shared React and design-system rendering support.
+  - @contractspec/bundle.workspace@4.5.5
+  - @contractspec/lib.ai-agent@8.0.13
+  - @contractspec/lib.ai-providers@3.7.18
+  - @contractspec/lib.contracts-transformers@3.7.25
+  - @contractspec/module.ai-chat@4.3.27
+  - @contractspec/module.workspace@4.3.5
+  - @contractspec/lib.contracts-spec@6.0.0
+  - @contractspec/module.examples@4.0.4
+
 ## 3.10.7
 
 ### Patch Changes

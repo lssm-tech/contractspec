@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/example.lifecycle-dashboard",
-	"version": "3.7.24",
+	"version": "3.7.25",
 	"description": "Lifecycle dashboard example (snippet): how to call lifecycle-managed APIs and render a status card.",
 	"type": "module",
 	"types": "./dist/index.d.ts",

@@ -1,5 +1,44 @@
 # @contractspec/lib.design-system
 
+## 4.2.0
+
+### Minor Changes
+
+- Add grouped option support to design-system Select controls across web and native.
+  - Packages: @contractspec/lib.design-system (minor)
+- Improve FormSpec autocomplete rendering and resolver-backed search.
+  - Packages: @contractspec/lib.contracts-spec (patch), @contractspec/lib.contracts-runtime-client-react (minor), @contractspec/lib.design-system (minor), @contractspec/lib.ui-kit-web (minor)
+- Add first-class FormSpec email fields with native renderer affordances.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.contracts-runtime-client-react (minor), @contractspec/lib.design-system (minor)
+  - Migration: Existing `kind: "text"` fields with email input hints continue to render normally.; `kind: "email"` only describes rendering intent; strict validation remains schema-owned.
+- Add progressive FormSpec section and step layout metadata with shared React and design-system rendering support.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.contracts-runtime-client-react (minor), @contractspec/lib.design-system (minor)
+  - Migration: Existing forms render exactly as before unless they opt into `layout.flow`.; Use `layout.flow.sections` to group existing fields by immediate field name.
+
+### Patch Changes
+
+- Preserve FormSpec email input behavior when optional renderer metadata is omitted.
+  - Packages: @contractspec/lib.contracts-runtime-client-react (patch), @contractspec/lib.design-system (patch)
+- Add ThemeSpec Tailwind aliases for FormSpec option surface backgrounds.
+  - Packages: @contractspec/lib.design-system (patch)
+- Fix FormSpec password visibility toggles so rendered password fields can reveal and re-mask values.
+  - Packages: @contractspec/lib.design-system (patch), @contractspec/lib.ui-kit-web (patch)
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Remove avoidable Node crypto imports from ContractSpec runtime surfaces and keep signing helpers isolated.
+- Updated dependencies because of Improve FormSpec autocomplete rendering and resolver-backed search.
+- Updated dependencies because of Keep web FormSpec datetime controls inside their responsive form columns.
+- Updated dependencies because of Add first-class FormSpec email fields with native renderer affordances.
+- Updated dependencies because of Preserve FormSpec email input behavior when optional renderer metadata is omitted.
+- Updated dependencies because of Fix FormSpec password visibility toggles so rendered password fields can reveal and re-mask values.
+- Updated dependencies because of Add progressive FormSpec section and step layout metadata with shared React and design-system rendering support.
+- Updated dependencies because of Forward refs through the web Button primitive and its slotted rendering path to stabilize Radix `asChild` triggers.
+  - @contractspec/lib.ai-agent@8.0.13
+  - @contractspec/lib.presentation-runtime-react@39.0.1
+  - @contractspec/lib.ui-kit@4.1.2
+  - @contractspec/lib.contracts-spec@6.0.0
+  - @contractspec/lib.contracts-runtime-client-react@3.12.0
+  - @contractspec/lib.ui-kit-web@3.13.0
+
 ## 4.1.0
 
 ### Minor Changes

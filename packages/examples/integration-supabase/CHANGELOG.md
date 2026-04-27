@@ -1,5 +1,20 @@
 # @contractspec/example.integration-supabase
 
+## 3.7.26
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Remove avoidable Node crypto imports from ContractSpec runtime surfaces and keep signing helpers isolated.
+- Updated dependencies because of Improve FormSpec autocomplete rendering and resolver-backed search.
+- Updated dependencies because of Add first-class FormSpec email fields with native renderer affordances.
+- Updated dependencies because of Add progressive FormSpec section and step layout metadata with shared React and design-system rendering support.
+  - @contractspec/integration.providers-impls@4.1.1
+  - @contractspec/integration.runtime@3.9.7
+  - @contractspec/lib.contracts-integrations@3.8.17
+  - @contractspec/lib.contracts-spec@6.0.0
+
 ## 3.7.25
 
 ### Patch Changes

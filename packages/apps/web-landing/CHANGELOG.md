@@ -1,5 +1,67 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 3.8.21
+
+### Patch Changes
+
+- Make the form-only showcase previewable from the templates catalog and restore sandbox routing for non-inline template previews.
+  - Packages: @contractspec/example.form-showcase (minor), @contractspec/module.examples (patch), @contractspec/bundle.marketing (patch), @contractspec/bundle.library (patch), @contractspec/app.web-landing (patch)
+- Add a form-only example template and public docs links for ContractSpec form adoption.
+  - Packages: @contractspec/example.form-showcase (minor), @contractspec/module.examples (patch), @contractspec/bundle.library (patch), @contractspec/app.web-landing (patch)
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Remove avoidable Node crypto imports from ContractSpec runtime surfaces and keep signing helpers isolated.
+- Updated dependencies because of Add grouped option support to design-system Select controls across web and native.
+- Updated dependencies because of Make the form-only showcase previewable from the templates catalog and restore sandbox routing for non-inline template previews.
+- Updated dependencies because of Replace the form showcase preview blueprint with a real form-control demonstration.
+- Updated dependencies because of Add a form-only example template and public docs links for ContractSpec form adoption.
+- Updated dependencies because of Improve FormSpec autocomplete rendering and resolver-backed search.
+- Updated dependencies because of Keep web FormSpec datetime controls inside their responsive form columns.
+- Updated dependencies because of Add first-class FormSpec email fields with native renderer affordances.
+- Updated dependencies because of Preserve FormSpec email input behavior when optional renderer metadata is omitted.
+- Updated dependencies because of Add ThemeSpec Tailwind aliases for FormSpec option surface backgrounds.
+- Updated dependencies because of Fix FormSpec password visibility toggles so rendered password fields can reveal and re-mask values.
+- Updated dependencies because of Add progressive FormSpec section and step layout metadata with shared React and design-system rendering support.
+- Updated dependencies because of Forward refs through the web Button primitive and its slotted rendering path to stabilize Radix `asChild` triggers.
+  - @contractspec/example.agent-console@3.8.19
+  - @contractspec/example.ai-chat-assistant@3.8.19
+  - @contractspec/example.analytics-dashboard@3.9.19
+  - @contractspec/example.crm-pipeline@3.7.27
+  - @contractspec/example.data-grid-showcase@3.8.19
+  - @contractspec/example.in-app-docs@3.7.27
+  - @contractspec/example.integration-hub@3.8.19
+  - @contractspec/example.learning-journey-registry@4.0.7
+  - @contractspec/example.marketplace@3.8.19
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.27
+  - @contractspec/example.saas-boilerplate@3.8.19
+  - @contractspec/example.visualization-showcase@3.9.19
+  - @contractspec/example.workflow-system@3.8.19
+  - @contractspec/integration.provider.claude-code@0.2.6
+  - @contractspec/integration.provider.codex@0.2.6
+  - @contractspec/integration.provider.copilot@0.2.6
+  - @contractspec/integration.provider.gemini@0.2.6
+  - @contractspec/integration.provider.local-model@0.2.6
+  - @contractspec/integration.provider.stt@0.2.6
+  - @contractspec/integration.runtime.hybrid@0.2.7
+  - @contractspec/integration.runtime.local@0.2.7
+  - @contractspec/integration.runtime.managed@0.2.7
+  - @contractspec/lib.ai-providers@3.7.18
+  - @contractspec/lib.builder-spec@0.2.7
+  - @contractspec/lib.example-shared-ui@7.0.4
+  - @contractspec/lib.progressive-delivery@34.0.24
+  - @contractspec/lib.surface-runtime@0.5.25
+  - @contractspec/lib.ui-kit@4.1.2
+  - @contractspec/lib.ui-kit-core@3.8.5
+  - @contractspec/lib.ui-link@3.7.20
+  - @contractspec/module.ai-chat@4.3.27
+  - @contractspec/module.builder-workbench@0.2.9
+  - @contractspec/lib.contracts-spec@6.0.0
+  - @contractspec/lib.design-system@4.2.0
+  - @contractspec/example.form-showcase@1.1.0
+  - @contractspec/module.examples@4.0.4
+  - @contractspec/bundle.marketing@3.8.20
+  - @contractspec/bundle.library@3.9.7
+  - @contractspec/lib.ui-kit-web@3.13.0
+
 ## 3.8.20
 
 ### Patch Changes

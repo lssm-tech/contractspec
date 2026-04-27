@@ -1,5 +1,29 @@
 # @contractspec/lib.ui-kit-web
 
+## 3.13.0
+
+### Minor Changes
+
+- Improve FormSpec autocomplete rendering and resolver-backed search.
+  - Packages: @contractspec/lib.contracts-spec (patch), @contractspec/lib.contracts-runtime-client-react (minor), @contractspec/lib.design-system (minor), @contractspec/lib.ui-kit-web (minor)
+
+### Patch Changes
+
+- Keep web FormSpec datetime controls inside their responsive form columns.
+  - Packages: @contractspec/lib.ui-kit-web (patch)
+- Fix FormSpec password visibility toggles so rendered password fields can reveal and re-mask values.
+  - Packages: @contractspec/lib.design-system (patch), @contractspec/lib.ui-kit-web (patch)
+- Forward refs through the web Button primitive and its slotted rendering path to stabilize Radix `asChild` triggers.
+  - Packages: @contractspec/lib.ui-kit-web (patch)
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Remove avoidable Node crypto imports from ContractSpec runtime surfaces and keep signing helpers isolated.
+- Updated dependencies because of Improve FormSpec autocomplete rendering and resolver-backed search.
+- Updated dependencies because of Add first-class FormSpec email fields with native renderer affordances.
+- Updated dependencies because of Add progressive FormSpec section and step layout metadata with shared React and design-system rendering support.
+  - @contractspec/lib.presentation-runtime-core@5.1.1
+  - @contractspec/lib.ui-kit-core@3.8.5
+  - @contractspec/lib.contracts-spec@6.0.0
+
 ## 3.12.1
 
 ### Patch Changes

@@ -1,5 +1,49 @@
 # @contractspec/bundle.library
 
+## 3.9.7
+
+### Patch Changes
+
+- Make the form-only showcase previewable from the templates catalog and restore sandbox routing for non-inline template previews.
+  - Packages: @contractspec/example.form-showcase (minor), @contractspec/module.examples (patch), @contractspec/bundle.marketing (patch), @contractspec/bundle.library (patch), @contractspec/app.web-landing (patch)
+- Add a form-only example template and public docs links for ContractSpec form adoption.
+  - Packages: @contractspec/example.form-showcase (minor), @contractspec/module.examples (patch), @contractspec/bundle.library (patch), @contractspec/app.web-landing (patch)
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Remove avoidable Node crypto imports from ContractSpec runtime surfaces and keep signing helpers isolated.
+- Updated dependencies because of Add grouped option support to design-system Select controls across web and native.
+- Updated dependencies because of Make the form-only showcase previewable from the templates catalog and restore sandbox routing for non-inline template previews.
+- Updated dependencies because of Add a form-only example template and public docs links for ContractSpec form adoption.
+- Updated dependencies because of Improve FormSpec autocomplete rendering and resolver-backed search.
+- Updated dependencies because of Keep web FormSpec datetime controls inside their responsive form columns.
+- Updated dependencies because of Add first-class FormSpec email fields with native renderer affordances.
+- Updated dependencies because of Preserve FormSpec email input behavior when optional renderer metadata is omitted.
+- Updated dependencies because of Add ThemeSpec Tailwind aliases for FormSpec option surface backgrounds.
+- Updated dependencies because of Fix FormSpec password visibility toggles so rendered password fields can reveal and re-mask values.
+- Updated dependencies because of Add progressive FormSpec section and step layout metadata with shared React and design-system rendering support.
+- Updated dependencies because of Forward refs through the web Button primitive and its slotted rendering path to stabilize Radix `asChild` triggers.
+  - @contractspec/bundle.workspace@4.5.5
+  - @contractspec/example.data-grid-showcase@3.8.19
+  - @contractspec/lib.ai-providers@3.7.18
+  - @contractspec/lib.content-gen@3.7.25
+  - @contractspec/lib.contracts-integrations@3.8.17
+  - @contractspec/lib.contracts-library@3.7.25
+  - @contractspec/lib.contracts-runtime-server-graphql@3.8.4
+  - @contractspec/lib.contracts-runtime-server-mcp@3.8.5
+  - @contractspec/lib.contracts-runtime-server-rest@3.8.4
+  - @contractspec/lib.example-shared-ui@7.0.4
+  - @contractspec/lib.knowledge@3.8.1
+  - @contractspec/lib.logger@3.7.18
+  - @contractspec/lib.provider-ranking@0.7.18
+  - @contractspec/lib.runtime-sandbox@3.0.4
+  - @contractspec/lib.surface-runtime@0.5.25
+  - @contractspec/lib.ui-link@3.7.20
+  - @contractspec/module.context-storage@0.7.24
+  - @contractspec/lib.contracts-spec@6.0.0
+  - @contractspec/lib.design-system@4.2.0
+  - @contractspec/module.examples@4.0.4
+  - @contractspec/lib.contracts-runtime-client-react@3.12.0
+  - @contractspec/lib.ui-kit-web@3.13.0
+
 ## 3.9.6
 
 ### Patch Changes

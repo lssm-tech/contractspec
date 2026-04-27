@@ -1,5 +1,28 @@
 # @contractspec/example.learning-journey-registry
 
+## 4.0.7
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Remove avoidable Node crypto imports from ContractSpec runtime surfaces and keep signing helpers isolated.
+- Updated dependencies because of Improve FormSpec autocomplete rendering and resolver-backed search.
+- Updated dependencies because of Add first-class FormSpec email fields with native renderer affordances.
+- Updated dependencies because of Add progressive FormSpec section and step layout metadata with shared React and design-system rendering support.
+  - @contractspec/example.learning-journey-ambient-coach@4.0.5
+  - @contractspec/example.learning-journey-crm-onboarding@4.0.7
+  - @contractspec/example.learning-journey-duo-drills@4.0.5
+  - @contractspec/example.learning-journey-platform-tour@4.0.5
+  - @contractspec/example.learning-journey-quest-challenges@4.0.5
+  - @contractspec/example.learning-journey-studio-onboarding@4.0.5
+  - @contractspec/example.learning-journey-ui-coaching@4.0.7
+  - @contractspec/example.learning-journey-ui-gamified@4.0.7
+  - @contractspec/example.learning-journey-ui-onboarding@4.0.7
+  - @contractspec/example.learning-journey-ui-shared@4.0.7
+  - @contractspec/module.learning-journey@4.0.5
+  - @contractspec/lib.contracts-spec@6.0.0
+
 ## 4.0.6
 
 ### Patch Changes

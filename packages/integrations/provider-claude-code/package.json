@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/integration.provider.claude-code",
-	"version": "0.2.5",
+	"version": "0.2.6",
 	"description": "Claude Code provider compatibility wrapper for Builder.",
 	"type": "module",
 	"types": "./dist/index.d.ts",

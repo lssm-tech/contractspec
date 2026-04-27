@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/integration.provider.payments",
-	"version": "0.2.0",
+	"version": "0.2.1",
 	"description": "Payments provider implementations for ContractSpec.",
 	"type": "module",
 	"types": "./dist/index.d.ts",

@@ -1,5 +1,35 @@
 # @contractspec/integration.providers-impls
 
+## 4.1.1
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Remove avoidable Node crypto imports from ContractSpec runtime surfaces and keep signing helpers isolated.
+- Updated dependencies because of Improve FormSpec autocomplete rendering and resolver-backed search.
+- Updated dependencies because of Add first-class FormSpec email fields with native renderer affordances.
+- Updated dependencies because of Add progressive FormSpec section and step layout metadata with shared React and design-system rendering support.
+  - @contractspec/integration.provider.analytics@0.2.1
+  - @contractspec/integration.provider.calendar@0.2.1
+  - @contractspec/integration.provider.database@0.2.1
+  - @contractspec/integration.provider.email@0.2.1
+  - @contractspec/integration.provider.embedding@0.2.1
+  - @contractspec/integration.provider.health@0.2.1
+  - @contractspec/integration.provider.llm@0.2.1
+  - @contractspec/integration.provider.meeting-recorder@0.2.1
+  - @contractspec/integration.provider.messaging@0.2.1
+  - @contractspec/integration.provider.openbanking@0.2.1
+  - @contractspec/integration.provider.payments@0.2.1
+  - @contractspec/integration.provider.project-management@0.2.1
+  - @contractspec/integration.provider.sms@0.2.1
+  - @contractspec/integration.provider.storage@0.2.1
+  - @contractspec/integration.provider.vector-store@0.2.1
+  - @contractspec/integration.provider.voice@0.2.1
+  - @contractspec/integration.runtime@3.9.7
+  - @contractspec/lib.contracts-integrations@3.8.17
+  - @contractspec/lib.contracts-spec@6.0.0
+
 ## 4.1.0
 
 ### Minor Changes

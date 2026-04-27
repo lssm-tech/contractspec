@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/example.integration-stripe",
-	"version": "3.7.24",
+	"version": "3.7.25",
 	"description": "Integration example – Stripe Payments (blueprint + workflow + tenant config).",
 	"type": "module",
 	"types": "./dist/index.d.ts",
