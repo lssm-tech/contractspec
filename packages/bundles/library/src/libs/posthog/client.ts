@@ -29,25 +29,26 @@ const shouldCaptureAnalytics = () => {
 	return dnt !== '1' && dnt !== 'yes';
 };
 
+const isDevelopment = () => process.env.NODE_ENV === 'development';
+
 export function initPosthog() {
 	if (typeof window === 'undefined') return;
+	if (isDevelopment()) return;
 	if (!posthogKey) {
 		console.warn('[PostHog] NEXT_PUBLIC_CONTRACTSPEC_POSTHOG_KEY is missing');
 		return;
 	}
 	if (!shouldCaptureAnalytics()) return;
 
-	const isDev = process.env.NODE_ENV === 'development';
-
 	posthog.init(posthogKey, {
 		api_host: posthogHost,
-		autocapture: !isDev,
-		capture_dead_clicks: !isDev,
-		capture_performance: !isDev,
-		capture_pageview: !isDev,
-		capture_heatmaps: !isDev,
-		capture_exceptions: !isDev,
-		debug: process.env.NODE_ENV === 'development',
+		autocapture: true,
+		capture_dead_clicks: true,
+		capture_performance: true,
+		capture_pageview: true,
+		capture_heatmaps: true,
+		capture_exceptions: true,
+		debug: false,
 	});
 }
 
@@ -56,6 +57,7 @@ export function captureAnalyticsEvent(
 	properties?: Record<string, unknown>
 ) {
 	if (!posthogKey) return;
+	if (isDevelopment()) return;
 	if (!shouldCaptureAnalytics()) return;
 	try {
 		const globalPosthog = (globalThis as { posthog?: PostHogInstance }).posthog;

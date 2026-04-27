@@ -26,10 +26,27 @@ export function supportsTemplatePreview(templateId: TemplateId): boolean {
 	return Boolean(getExamplePreviewSurface(templateId));
 }
 
+const RUNTIME_BACKED_TEMPLATE_PREVIEWS = new Set<TemplateId>([
+	'agent-console',
+	'analytics-dashboard',
+	'crm-pipeline',
+	'integration-hub',
+	'marketplace',
+	'policy-safe-knowledge-assistant',
+	'saas-boilerplate',
+	'workflow-system',
+]);
+
+export function requiresTemplateRuntimePreview(
+	templateId: TemplateId
+): boolean {
+	return RUNTIME_BACKED_TEMPLATE_PREVIEWS.has(templateId);
+}
+
 export function getLocalTemplatePreviewAction(
 	template: LocalTemplateCatalogItem
 ): LocalTemplatePreviewAction {
-	if (supportsTemplatePreview(template.id)) {
+	if (supportsInlineTemplatePreview(template.id)) {
 		return { kind: 'modal', templateId: template.id };
 	}
 

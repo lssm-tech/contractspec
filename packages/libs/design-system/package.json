@@ -234,6 +234,7 @@
 			"react-native": "./src/components/forms/controls/Select.native.tsx",
 			"default": "./src/components/forms/controls/Select.tsx"
 		},
+		"./components/forms/controls/select-options": "./src/components/forms/controls/select-options.ts",
 		"./components/forms/controls/Select.native": "./src/components/forms/controls/Select.native.tsx",
 		"./components/forms/FormCardLayout": "./src/components/forms/FormCardLayout.tsx",
 		"./components/forms/FormDialog": "./src/components/forms/FormDialog.tsx",
@@ -937,6 +938,12 @@
 				"react-native": "./dist/native/components/forms/controls/Select.native.js",
 				"bun": "./dist/components/forms/controls/Select.js",
 				"default": "./dist/components/forms/controls/Select.js"
+			},
+			"./components/forms/controls/select-options": {
+				"types": "./dist/components/forms/controls/select-options.d.ts",
+				"browser": "./dist/browser/components/forms/controls/select-options.js",
+				"bun": "./dist/components/forms/controls/select-options.js",
+				"default": "./dist/components/forms/controls/select-options.js"
 			},
 			"./components/forms/controls/Select.native": {
 				"types": "./dist/components/forms/controls/Select.native.d.ts",

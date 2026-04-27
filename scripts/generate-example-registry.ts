@@ -62,6 +62,7 @@ const PRIMARY_UI_EXPORT_BY_DIRECTORY: Record<string, string> = {
 	'analytics-dashboard': 'AnalyticsDashboard',
 	'crm-pipeline': 'CrmDashboard',
 	'data-grid-showcase': 'DataGridShowcase',
+	'form-showcase': 'FormShowcasePreview',
 	'in-app-docs': 'InAppDocsViewer',
 	'integration-hub': 'IntegrationDashboard',
 	'learning-journey-registry': 'LearningMiniApp',

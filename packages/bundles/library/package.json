@@ -93,6 +93,8 @@
 		"./components/docs/guides": "./src/components/docs/guides/index.ts",
 		"./components/docs/guides/GuideCIDiffGatingPage": "./src/components/docs/guides/GuideCIDiffGatingPage.tsx",
 		"./components/docs/guides/GuideConnectInRepoPage": "./src/components/docs/guides/GuideConnectInRepoPage.tsx",
+		"./components/docs/guides/GuideContractDrivenFormsPage": "./src/components/docs/guides/GuideContractDrivenFormsPage.tsx",
+		"./components/docs/guides/GuideContractDrivenFormsPage.content": "./src/components/docs/guides/GuideContractDrivenFormsPage.content.ts",
 		"./components/docs/guides/GuideContractTypesPage": "./src/components/docs/guides/GuideContractTypesPage.tsx",
 		"./components/docs/guides/GuideDocsPipelinePage": "./src/components/docs/guides/GuideDocsPipelinePage.tsx",
 		"./components/docs/guides/GuideFirstModuleBundlePage": "./src/components/docs/guides/GuideFirstModuleBundlePage.tsx",
@@ -849,6 +851,18 @@
 				"bun": "./dist/components/docs/guides/GuideConnectInRepoPage.js",
 				"node": "./dist/node/components/docs/guides/GuideConnectInRepoPage.js",
 				"default": "./dist/components/docs/guides/GuideConnectInRepoPage.js"
+			},
+			"./components/docs/guides/GuideContractDrivenFormsPage": {
+				"types": "./dist/components/docs/guides/GuideContractDrivenFormsPage.d.ts",
+				"bun": "./dist/components/docs/guides/GuideContractDrivenFormsPage.js",
+				"node": "./dist/node/components/docs/guides/GuideContractDrivenFormsPage.js",
+				"default": "./dist/components/docs/guides/GuideContractDrivenFormsPage.js"
+			},
+			"./components/docs/guides/GuideContractDrivenFormsPage.content": {
+				"types": "./dist/components/docs/guides/GuideContractDrivenFormsPage.content.d.ts",
+				"bun": "./dist/components/docs/guides/GuideContractDrivenFormsPage.content.js",
+				"node": "./dist/node/components/docs/guides/GuideContractDrivenFormsPage.content.js",
+				"default": "./dist/components/docs/guides/GuideContractDrivenFormsPage.content.js"
 			},
 			"./components/docs/guides/GuideContractTypesPage": {
 				"types": "./dist/components/docs/guides/GuideContractTypesPage.d.ts",

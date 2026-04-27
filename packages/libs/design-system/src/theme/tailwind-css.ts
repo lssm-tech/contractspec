@@ -5,6 +5,11 @@ import type {
 } from './tailwind-variables';
 
 const DEFAULT_MODE_NAMES = ['light', 'dark'] as const;
+const SHADCN_COLOR_ALIASES: Record<string, string[]> = {
+	background: ['card', 'popover'],
+	foreground: ['card-foreground', 'popover-foreground'],
+	border: ['input'],
+};
 
 function cssBlock(selector: string, variables: ThemeCssVariableMap): string {
 	const body = Object.entries(variables)
@@ -34,12 +39,26 @@ function tailwindVariableFor(name: string): string | undefined {
 	return undefined;
 }
 
+function shadcnAliasVariablesFor(name: string): string[] {
+	if (!name.startsWith('--ds-color-')) {
+		return [];
+	}
+	const colorName = name.slice('--ds-color-'.length);
+	const aliases = SHADCN_COLOR_ALIASES[colorName] ?? [];
+
+	return aliases.map((alias) => `--color-${alias}`);
+}
+
 function tailwindThemeBlock(variables: ThemeCssVariables): string {
 	const lines = Object.keys(mergedVariables(variables))
 		.sort()
 		.flatMap((name) => {
 			const tailwindName = tailwindVariableFor(name);
-			return tailwindName ? [`\t${tailwindName}: var(${name});`] : [];
+			const aliases = shadcnAliasVariablesFor(name);
+			return [
+				...(tailwindName ? [`\t${tailwindName}: var(${name});`] : []),
+				...aliases.map((alias) => `\t${alias}: var(${name});`),
+			];
 		});
 
 	return `@theme inline {\n${lines.join('\n')}\n}`;

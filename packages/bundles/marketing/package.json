@@ -102,6 +102,7 @@
 		"@contractspec/example.analytics-dashboard": "workspace:*",
 		"@contractspec/example.crm-pipeline": "workspace:*",
 		"@contractspec/example.data-grid-showcase": "workspace:*",
+		"@contractspec/example.form-showcase": "workspace:*",
 		"@contractspec/example.in-app-docs": "workspace:*",
 		"@contractspec/example.integration-hub": "workspace:*",
 		"@contractspec/example.learning-journey-registry": "workspace:*",

@@ -39,6 +39,7 @@
 		"@contractspec/example.saas-boilerplate": "workspace:*",
 		"@contractspec/example.crm-pipeline": "workspace:*",
 		"@contractspec/example.data-grid-showcase": "workspace:*",
+		"@contractspec/example.form-showcase": "workspace:*",
 		"@contractspec/example.agent-console": "workspace:*",
 		"@contractspec/example.ai-chat-assistant": "workspace:*",
 		"@contractspec/example.workflow-system": "workspace:*",

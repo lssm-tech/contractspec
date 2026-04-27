@@ -66,6 +66,17 @@ export const INLINE_EXAMPLE_PREVIEW_REGISTRY: readonly GeneratedInlineExamplePre
 				}),
 		},
 		{
+			key: 'form-showcase',
+			exportName: 'FormShowcasePreview',
+			loadModule: () =>
+				import('@contractspec/example.form-showcase/ui').catch((error) => {
+					throw new Error(
+						'Example package @contractspec/example.form-showcase is not installed. Run `contractspec examples download form-showcase` or install the package before requesting its runtime preview.',
+						{ cause: error }
+					);
+				}),
+		},
+		{
 			key: 'in-app-docs',
 			exportName: 'InAppDocsViewer',
 			loadModule: () =>

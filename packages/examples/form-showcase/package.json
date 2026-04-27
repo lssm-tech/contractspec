@@ -10,7 +10,9 @@
 		"./forms": "./src/forms/index.ts",
 		"./forms/all-fields.form": "./src/forms/all-fields.form.ts",
 		"./forms/form-showcase.docs": "./src/forms/form-showcase.docs.ts",
-		"./forms/progressive-steps.form": "./src/forms/progressive-steps.form.ts"
+		"./forms/progressive-steps.form": "./src/forms/progressive-steps.form.ts",
+		"./ui": "./src/ui/index.ts",
+		"./ui/FormShowcasePreview": "./src/ui/FormShowcasePreview.tsx"
 	},
 	"scripts": {
 		"build": "tsc --project tsconfig.json",
@@ -28,10 +30,15 @@
 	"license": "MIT",
 	"dependencies": {
 		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/lib.design-system": "workspace:*",
 		"@contractspec/lib.schema": "workspace:*",
+		"react": "catalog:",
+		"react-dom": "catalog:",
 		"zod": "catalog:"
 	},
 	"devDependencies": {
+		"@types/react": "catalog:types",
+		"@types/react-dom": "catalog:types",
 		"@contractspec/tool.typescript": "workspace:*",
 		"typescript": "catalog:"
 	}

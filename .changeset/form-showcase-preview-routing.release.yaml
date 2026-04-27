@@ -1,0 +1,59 @@
+schemaVersion: "1"
+slug: form-showcase-preview-routing
+summary: Make the form-only showcase previewable from the templates catalog and restore sandbox routing for non-inline template previews.
+isBreaking: false
+packages:
+  - name: "@contractspec/example.form-showcase"
+    releaseType: minor
+  - name: "@contractspec/module.examples"
+    releaseType: patch
+  - name: "@contractspec/bundle.marketing"
+    releaseType: patch
+  - name: "@contractspec/bundle.library"
+    releaseType: patch
+  - name: "@contractspec/app.web-landing"
+    releaseType: patch
+affectedRuntimes:
+  - browser
+  - nextjs
+affectedFrameworks:
+  - react
+  - turbopack
+audiences:
+  - kind: maintainer
+    summary: The generated example preview registry now includes the form-showcase UI entrypoint, while marketing preview actions distinguish inline previews from sandbox-only examples.
+    affectedPackages:
+      - "@contractspec/example.form-showcase"
+      - "@contractspec/module.examples"
+      - "@contractspec/bundle.marketing"
+  - kind: integrator
+    summary: Web apps that install the example package can open the Form Showcase preview from `/templates`; examples without inline UI keep routing to `/sandbox?template=...`.
+    affectedPackages:
+      - "@contractspec/app.web-landing"
+      - "@contractspec/bundle.marketing"
+  - kind: customer
+    summary: Template browsing now opens a useful form-only preview for Form Showcase and sends sandbox-backed templates to the sandbox instead of an empty preview dialog.
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: regenerate-example-preview-registry
+    title: Regenerate example preview metadata after adding UI entrypoints
+    summary: Example packages that add a `./ui` export must refresh the module.examples preview registry.
+    level: assisted
+    instructions:
+      - Run `bun run --cwd packages/modules/examples generate:registry`.
+      - Add the example package as a runtime dependency of preview-consuming apps and bundles.
+validation:
+  commands:
+    - "bun run --cwd packages/modules/examples generate:registry"
+    - "bun test packages/bundles/marketing/src/components/templates/template-preview.test.ts packages/modules/examples/src/runtime/previews.test.ts"
+    - "bun run --cwd packages/examples/form-showcase typecheck"
+    - "bun run --cwd packages/bundles/marketing typecheck"
+    - "bun run --cwd packages/apps/web-landing build:types"
+    - "Playwright smoke test against http://localhost:3000/templates"
+  evidence:
+    - "Form Showcase card opens a preview dialog containing ContractSpec form preview, All field kinds, and Progressive steps."
+    - "Calendar Google preview resolves to /sandbox?template=calendar-google instead of opening the inline modal."
+    - "Development PostHog initialization is skipped, avoiding the hydration overlay observed on the templates page."
+knownGaps:
+  - "The Form Showcase catalog preview is intentionally a static contract-driven blueprint; fully interactive field rendering remains owned by host apps using the FormSpec renderer."

@@ -1,5 +1,5 @@
 {
-	"extends": "@contractspec/tool.typescript/base.json",
+	"extends": "@contractspec/tool.typescript/react-library.json",
 	"compilerOptions": {
 		"rootDir": "./src",
 		"outDir": "./dist"

@@ -1,18 +1,13 @@
 'use client';
 
+import { VStack } from '@contractspec/lib.design-system/layout';
+import { Text } from '@contractspec/lib.design-system/typography';
 import type { RegistryTemplate } from '@contractspec/lib.example-shared-ui';
-import Link from 'next/link';
-import { TemplateCard } from './TemplateCard';
 import {
-	formatExampleKindLabel,
-	formatExampleVisibilityLabel,
-	formatStabilityLabel,
-	type LocalTemplateCatalogItem,
-} from './template-catalog';
-import {
-	getLocalTemplatePreviewAction,
-	getRegistryTemplatePreviewAction,
-} from './template-preview';
+	LocalTemplateGrid,
+	RegistryTemplateGrid,
+} from './TemplatesCatalogGrid';
+import type { LocalTemplateCatalogItem } from './template-catalog';
 import type { TemplateSource } from './template-source';
 
 export interface TemplatesCatalogSectionProps {
@@ -46,133 +41,46 @@ export function TemplatesCatalogSection({
 	const emptyStateMessage = getEmptyStateMessage(hasSearch, selectedTag);
 
 	return (
-		<section className="section-padding">
-			<div className="editorial-shell">
+		<VStack as="section" className="section-padding">
+			<VStack className="editorial-shell">
 				{showRegistry ? (
 					registryLoading ? (
-						<div className="py-12 text-center">
-							<p className="text-muted-foreground">
+						<VStack className="py-12 text-center">
+							<Text className="text-muted-foreground">
 								Loading community templates…
-							</p>
-						</div>
+							</Text>
+						</VStack>
 					) : !registryHasTemplates ? (
-						<div className="py-12 text-center">
-							<p className="text-muted-foreground">
+						<VStack className="py-12 text-center">
+							<Text className="text-muted-foreground">
 								No community templates found.
-							</p>
-						</div>
+							</Text>
+						</VStack>
 					) : registryTemplates.length === 0 ? (
-						<div className="py-12 text-center">
-							<p className="text-muted-foreground">{emptyStateMessage}</p>
-						</div>
+						<VStack className="py-12 text-center">
+							<Text className="text-muted-foreground">{emptyStateMessage}</Text>
+						</VStack>
 					) : (
-						<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-							{registryTemplates.map((template) => {
-								const localTemplate = localTemplateById.get(template.id);
-								const previewAction = getRegistryTemplatePreviewAction(
-									template,
-									localTemplate
-								);
-
-								return (
-									<TemplateCard
-										key={template.id}
-										title={template.name}
-										description={template.description}
-										metaBadges={['Community']}
-										tags={template.tags}
-										previewAction={
-											previewAction.kind === 'modal' ? (
-												<button
-													className="btn-ghost flex-1 text-center text-xs"
-													onClick={() => onPreview(template.id)}
-												>
-													Preview
-												</button>
-											) : previewAction.kind === 'sandbox' ? (
-												<Link
-													href={previewAction.href}
-													className="btn-ghost flex-1 text-center text-xs"
-												>
-													Open Sandbox
-												</Link>
-											) : (
-												<button
-													className="btn-ghost flex-1 cursor-not-allowed text-center text-xs opacity-60"
-													type="button"
-													disabled
-												>
-													Preview Unavailable
-												</button>
-											)
-										}
-										useAction={
-											<button
-												className="btn-primary flex-1 text-center text-xs"
-												onClick={() => onUseTemplate(template.id, 'registry')}
-											>
-												Use Template
-											</button>
-										}
-									/>
-								);
-							})}
-						</div>
+						<RegistryTemplateGrid
+							registryTemplates={registryTemplates}
+							localTemplateById={localTemplateById}
+							onPreview={onPreview}
+							onUseTemplate={onUseTemplate}
+						/>
 					)
 				) : localTemplates.length === 0 ? (
-					<div className="py-12 text-center">
-						<p className="text-muted-foreground">{emptyStateMessage}</p>
-					</div>
+					<VStack className="py-12 text-center">
+						<Text className="text-muted-foreground">{emptyStateMessage}</Text>
+					</VStack>
 				) : (
-					<div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-						{localTemplates.map((template) => {
-							const previewAction = getLocalTemplatePreviewAction(template);
-
-							return (
-								<TemplateCard
-									key={template.id}
-									title={template.title}
-									description={template.description}
-									isNew={template.isNew}
-									metaBadges={[
-										formatExampleKindLabel(template.kind),
-										formatStabilityLabel(template.stability),
-										formatExampleVisibilityLabel(template.visibility),
-									]}
-									tags={template.tags}
-									featureList={template.featureList}
-									previewAction={
-										previewAction.kind === 'modal' ? (
-											<button
-												className="btn-ghost flex-1 text-center text-xs"
-												onClick={() => onPreview(template.id)}
-											>
-												Preview
-											</button>
-										) : (
-											<Link
-												href={previewAction.href}
-												className="btn-ghost flex-1 text-center text-xs"
-											>
-												Open Sandbox
-											</Link>
-										)
-									}
-									useAction={
-										<button
-											className="btn-primary flex-1 text-center text-xs"
-											onClick={() => onUseTemplate(template.id, 'local')}
-										>
-											Use Template
-										</button>
-									}
-								/>
-							);
-						})}
-					</div>
+					<LocalTemplateGrid
+						localTemplates={localTemplates}
+						onPreview={onPreview}
+						onUseTemplate={onUseTemplate}
+					/>
 				)}
-			</div>
-		</section>
+			</VStack>
+		</VStack>
 	);
 }
 

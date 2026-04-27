@@ -1,0 +1,35 @@
+schemaVersion: "1"
+slug: forms-option-surface-aliases
+summary: Add ThemeSpec Tailwind aliases for FormSpec option surface backgrounds.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.design-system"
+    releaseType: patch
+affectedRuntimes:
+  - browser
+  - nextjs
+affectedFrameworks:
+  - react
+audiences:
+  - kind: maintainer
+    summary: The ThemeSpec Tailwind bridge now emits shadcn-compatible color aliases for popover, card, and input surfaces.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+  - kind: integrator
+    summary: Apps using generated design-system theme CSS get the color aliases expected by Radix/shadcn select and combobox primitives.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+  - kind: customer
+    summary: Contract-rendered select and combobox option panels keep a proper themed surface instead of falling back to transparency when the app relies on ThemeSpec CSS.
+deprecations: []
+migrationInstructions: []
+upgradeSteps: []
+validation:
+  commands:
+    - "bun test packages/libs/design-system/src/theme/contracts.test.ts packages/libs/design-system/src/components/forms/controls/Select.grouped.test.tsx"
+    - "cd packages/libs/design-system && bun run typecheck"
+  evidence:
+    - "ThemeSpec Tailwind CSS includes --color-popover, --color-popover-foreground, --color-card, and --color-input aliases."
+    - "Existing grouped Select wrapper tests still pass across web and native wrapper mocks."
+knownGaps:
+  - "No browser screenshot was captured because the defect is in generated CSS token availability and is covered by bridge serialization tests."

@@ -1,5 +1,7 @@
 'use client';
 
+import { HStack, VStack } from '@contractspec/lib.design-system/layout';
+import { H3, Text } from '@contractspec/lib.design-system/typography';
 import type { ReactNode } from 'react';
 
 export interface TemplateCardProps {
@@ -24,51 +26,54 @@ export function TemplateCard({
 	useAction,
 }: TemplateCardProps) {
 	return (
-		<div className="editorial-panel relative flex flex-col space-y-4 transition-colors hover:border-[color:rgb(162_79_42_/_0.55)]">
+		<VStack
+			as="article"
+			gap="lg"
+			className="editorial-panel relative transition-colors hover:border-[color:rgb(162_79_42_/_0.55)]"
+		>
 			{isNew ? (
-				<span className="absolute top-4 right-4 rounded-full bg-[color:var(--success)] px-2.5 py-1 font-medium text-[11px] text-white uppercase">
+				<Text className="absolute top-4 right-4 rounded-full bg-[color:var(--success)] px-2.5 py-1 font-medium text-[11px] text-white uppercase">
 					New
-				</span>
+				</Text>
 			) : null}
 
-			<div>
-				<h3 className="font-serif text-2xl tracking-[-0.03em]">{title}</h3>
-				<p className="mt-1 text-muted-foreground text-sm">{description}</p>
-			</div>
+			<VStack gap="xs">
+				<H3 className="font-serif text-2xl tracking-[-0.03em]">{title}</H3>
+				<Text className="text-muted-foreground text-sm">{description}</Text>
+			</VStack>
 
-			<div className="flex-1 space-y-3">
-				<div className="flex flex-wrap gap-2">
-					{metaBadges.map((badge) => (
-						<span
-							key={badge}
+			<VStack gap="md" className="flex-1">
+				<HStack gap="sm" wrap="wrap">
+					{metaBadges.map((badge, index) => (
+						<Text
+							key={`${badge}-${index}`}
 							className="rounded-full border border-border bg-background px-3 py-1 text-[11px] text-foreground"
 						>
 							{badge}
-						</span>
+						</Text>
 					))}
-				</div>
+				</HStack>
 				{featureList.length > 0 ? (
-					<p className="text-muted-foreground text-xs">
-						<span className="font-medium text-foreground">Features:</span>{' '}
-						{featureList.join(', ')}
-					</p>
+					<Text className="text-muted-foreground text-xs">
+						Features: {featureList.join(', ')}
+					</Text>
 				) : null}
-				<div className="flex flex-wrap gap-1">
+				<HStack gap="xs" wrap="wrap">
 					{tags.map((tag) => (
-						<span
+						<Text
 							key={tag}
 							className="rounded-full border border-border bg-muted px-3 py-1 text-[11px] text-muted-foreground"
 						>
 							{tag}
-						</span>
+						</Text>
 					))}
-				</div>
-			</div>
+				</HStack>
+			</VStack>
 
-			<div className="flex gap-2 pt-4">
+			<HStack gap="sm" align="stretch" wrap="nowrap" className="pt-4">
 				{previewAction}
 				{useAction}
-			</div>
-		</div>
+			</HStack>
+		</VStack>
 	);
 }

@@ -28,6 +28,10 @@ export const INLINE_EXAMPLE_PREVIEW_METADATA: readonly GeneratedInlineExamplePre
 			exportName: 'DataGridShowcase',
 		},
 		{
+			key: 'form-showcase',
+			exportName: 'FormShowcasePreview',
+		},
+		{
 			key: 'in-app-docs',
 			exportName: 'InAppDocsViewer',
 		},

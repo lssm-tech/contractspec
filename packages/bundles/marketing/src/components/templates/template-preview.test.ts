@@ -1,6 +1,9 @@
 import { describe, expect, test } from 'bun:test';
 import { buildLocalTemplateCatalog } from './template-catalog';
-import { getLocalTemplatePreviewAction } from './template-preview';
+import {
+	getLocalTemplatePreviewAction,
+	requiresTemplateRuntimePreview,
+} from './template-preview';
 
 describe('template preview actions', () => {
 	test('uses inline modal previews for ui-backed template examples', () => {
@@ -15,16 +18,33 @@ describe('template preview actions', () => {
 		});
 	});
 
-	test('uses fallback modal previews for non-inline template examples', () => {
+	test('uses sandbox previews for non-inline template examples', () => {
 		const template = buildLocalTemplateCatalog().find(
 			(candidate) => candidate.id === 'calendar-google'
 		);
 
 		expect(template).toBeDefined();
 		expect(getLocalTemplatePreviewAction(template!)).toEqual({
-			kind: 'modal',
-			templateId: 'calendar-google',
+			kind: 'sandbox',
+			href: '/sandbox?template=calendar-google',
 		});
+	});
+
+	test('uses inline modal previews for the form-only showcase', () => {
+		const template = buildLocalTemplateCatalog().find(
+			(candidate) => candidate.id === 'form-showcase'
+		);
+
+		expect(template).toBeDefined();
+		expect(getLocalTemplatePreviewAction(template!)).toEqual({
+			kind: 'modal',
+			templateId: 'form-showcase',
+		});
+	});
+
+	test('keeps form-only previews outside the heavy template runtime', () => {
+		expect(requiresTemplateRuntimePreview('agent-console')).toBe(true);
+		expect(requiresTemplateRuntimePreview('form-showcase')).toBe(false);
 	});
 
 	test('keeps non-template discoverable examples out of the templates catalog', () => {

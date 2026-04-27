@@ -176,5 +176,11 @@ describe('theme contract bridge', () => {
 		expect(css).toContain('@custom-variant dark');
 		expect(css).toContain('--ds-color-primary: oklch(0.64 0.15 246);');
 		expect(css).toContain('--color-primary: var(--ds-color-primary);');
+		expect(css).toContain('--color-popover: var(--ds-color-background);');
+		expect(css).toContain(
+			'--color-popover-foreground: var(--ds-color-foreground);'
+		);
+		expect(css).toContain('--color-card: var(--ds-color-background);');
+		expect(css).toContain('--color-input: var(--ds-color-border);');
 	});
 });
