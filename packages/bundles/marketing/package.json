@@ -56,9 +56,11 @@
 		"./components/templates/template-source": "./src/components/templates/template-source.ts",
 		"./components/templates/template-tag-visibility": "./src/components/templates/template-tag-visibility.ts",
 		"./components/templates/TemplateCard": "./src/components/templates/TemplateCard.tsx",
+		"./components/templates/TemplateCatalogActions": "./src/components/templates/TemplateCatalogActions.tsx",
 		"./components/templates/TemplateCommandDialog": "./src/components/templates/TemplateCommandDialog.tsx",
 		"./components/templates/TemplatePreviewContent": "./src/components/templates/TemplatePreviewContent.tsx",
 		"./components/templates/TemplatesBrowseControls": "./src/components/templates/TemplatesBrowseControls.tsx",
+		"./components/templates/TemplatesCatalogGrid": "./src/components/templates/TemplatesCatalogGrid.tsx",
 		"./components/templates/TemplatesCatalogSection": "./src/components/templates/TemplatesCatalogSection.tsx",
 		"./components/templates/TemplatesClientPage": "./src/components/templates/TemplatesClientPage.tsx",
 		"./components/templates/TemplatesHeroSection": "./src/components/templates/TemplatesHeroSection.tsx",
@@ -382,6 +384,13 @@
 				"node": "./dist/node/components/templates/TemplateCard.js",
 				"default": "./dist/components/templates/TemplateCard.js"
 			},
+			"./components/templates/TemplateCatalogActions": {
+				"types": "./dist/components/templates/TemplateCatalogActions.d.ts",
+				"browser": "./dist/browser/components/templates/TemplateCatalogActions.js",
+				"bun": "./dist/components/templates/TemplateCatalogActions.js",
+				"node": "./dist/node/components/templates/TemplateCatalogActions.js",
+				"default": "./dist/components/templates/TemplateCatalogActions.js"
+			},
 			"./components/templates/TemplateCommandDialog": {
 				"types": "./dist/components/templates/TemplateCommandDialog.d.ts",
 				"browser": "./dist/browser/components/templates/TemplateCommandDialog.js",
@@ -402,6 +411,13 @@
 				"bun": "./dist/components/templates/TemplatesBrowseControls.js",
 				"node": "./dist/node/components/templates/TemplatesBrowseControls.js",
 				"default": "./dist/components/templates/TemplatesBrowseControls.js"
+			},
+			"./components/templates/TemplatesCatalogGrid": {
+				"types": "./dist/components/templates/TemplatesCatalogGrid.d.ts",
+				"browser": "./dist/browser/components/templates/TemplatesCatalogGrid.js",
+				"bun": "./dist/components/templates/TemplatesCatalogGrid.js",
+				"node": "./dist/node/components/templates/TemplatesCatalogGrid.js",
+				"default": "./dist/components/templates/TemplatesCatalogGrid.js"
 			},
 			"./components/templates/TemplatesCatalogSection": {
 				"types": "./dist/components/templates/TemplatesCatalogSection.d.ts",

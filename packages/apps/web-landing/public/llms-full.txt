@@ -3,7 +3,7 @@
 > Aggregated content from all packages. For summary, see /llms
 
 Generated: stable
-Packages: 205
+Packages: 206
 
 ---
 
@@ -1913,7 +1913,15 @@ or
 
 Import the root entrypoint from `@contractspec/lib.contracts-runtime-client-react`, or choose a documented subpath when you only need one part of the package surface.
 
-The form renderer supports the expanded FormSpec field set: readonly inputs, autocomplete, address, phone, date, time, datetime, semantic groups, repeated grouped arrays, grid layout hints, and text/textarea input groups. Drivers are expected to provide dedicated slots for rich widgets plus shadcn/Radix-style `Field*` and optional `InputGroup*` slots. When input-group slots are absent, text and textarea fields fall back to plain controls.
+The form renderer supports the expanded FormSpec field set: readonly inputs, email, autocomplete, address, phone, date, time, datetime, semantic groups, repeated grouped arrays, grid layout hints, progressive `layout.flow` sections/steps, and text/textarea/email input groups. Drivers are expected to provide dedicated slots for rich widgets plus shadcn/Radix-style `Field*` and optional `InputGroup*` slots. Email fields render through the standard input slot with native email input behavior. When input-group slots are absent, text, email, and textarea fields fall back to plain controls.
+
+Autocomplete fields support local filtering and resolver-backed search. Resolver
+calls receive the current query, watched dependency values, field name, and an
+`AbortSignal` through the existing resolver args object; stale responses are
+ignored and selected remote options remain visible when later searches return a
+different result set. Custom autocomplete driver slots can read optional
+`loading`, `error`, `emptyText`, `loadingText`, and `errorText` props to expose
+async state.
 
 ## Architecture
 
@@ -2492,9 +2500,15 @@ bun add @contractspec/lib.contracts-spec @contractspec/lib.schema
 - `ContractResult`: canonical success/failure envelope used by operation, workflow, job, API, MCP, GraphQL, and React runtimes while preserving raw-response compatibility for adapters.
 - `defineEvent` + `EventRegistry`: typed event contracts and lookup.
 - `defineResourceTemplate` + `ResourceRegistry`: URI-template-based resource contracts.
-- `FormRegistry`: contract-first form declarations consumed by UI runtimes, including readonly, password, autocomplete, address, phone, date, time, datetime, grouped array authoring, semantic legends/descriptions, grid layout hints, mobile-safe `responsiveFormColumns(...)`, and text/textarea input-group addons through `@contractspec/lib.contracts-spec/forms`.
+- `FormRegistry`: contract-first form declarations consumed by UI runtimes, including readonly, email, password, autocomplete, address, phone, date, time, datetime, grouped array authoring, semantic legends/descriptions, grid layout hints, progressive `layout.flow` sections/steps, mobile-safe `responsiveFormColumns(...)`, and text/textarea/email input-group addons through `@contractspec/lib.contracts-spec/forms`.
 - `installOp`: one-call helper to register + bind operation handlers.
 - `makeEmit`: typed helper for declared event emission in handlers.
+
+FormSpec autocomplete fields support local option filtering or
+resolver-backed search through `resolverKey`, dependency paths, debounce, and
+minimum-query metadata. The contract stays transport-neutral: host renderers
+provide the resolver/fetcher, and value submission is controlled by
+`valueMapping` (`scalar`, `object`, or `pick`).
 
 ## Typed Results
 
@@ -5640,8 +5654,24 @@ import {
     componentKey="Select"
     options={[{ labelI18n: "status.draft", value: "draft" }]}
   />
+  <Select
+    componentKey="Select"
+    groups={[
+      {
+        labelI18n: "status.lifecycle",
+        options: [{ labelI18n: "status.draft", value: "draft" }],
+      },
+      {
+        labelI18n: "status.release",
+        options: [{ labelI18n: "status.published", value: "published" }],
+      },
+    ]}
+  />
 </DesignSystemThemeProvider>;
 ```
+
+When both `options` and `groups` are provided to `Select`, grouped options are
+used and the flat `options` list is ignored.
 
 ### Use form controls from the design-system boundary
 
@@ -5655,6 +5685,11 @@ surfaces: `Button`, `Input`, `Textarea`, `Select`, `NativeSelect`,
 `FieldContent`, `FieldLabel`, `FieldDescription`, `FieldError`, and
 `FieldSeparator` wrappers so contract-driven forms can preserve accessible
 legend, description, invalid, and grouped-control structure.
+
+The `Autocomplete` control renders through the shared combobox primitive on web
+and keeps native rendering aligned for query, selected options, loading, error,
+and empty states. FormSpec renderers pass resolver-backed async state through
+these props without requiring product surfaces to know the underlying transport.
 
 ### Render forms on mobile through the shared renderer
 
@@ -5771,7 +5806,7 @@ hidden-column recovery without widening the primitive table API.
 ### Renderers and hooks
 
 - renderer exports from `./renderers`
-- form-contract renderer support, including readonly, password, autocomplete, address, phone, date, time, datetime, semantic FormSpec groups, grid layout hints, mobile-safe FormSpec column helper output, and text/textarea input groups
+- form-contract renderer support, including readonly, email, password, autocomplete, address, phone, date, time, datetime, semantic FormSpec groups, grid layout hints, progressive FormSpec sections/steps, mobile-safe FormSpec column helper output, and text/textarea/email input groups
 - translation-aware rendering through `DesignSystemTranslationProvider` and `createTranslationResolver`
 - theme-aware form controls and stack primitives that consume ThemeSpec component variant props
 - hooks such as `useListUrlState`, including scoped list filters where locked constraints are excluded from user-editable URL state
@@ -5988,6 +6023,10 @@ recovery, keep this primitive lean and layer
 right-side visibility toggle while preserving `current-password` and
 `new-password` autocomplete hints for password managers.
 - `./ui/combobox`
+
+`./ui/combobox` keeps the select-style button API compatible and also supports
+editable autocomplete usage with query control, listbox ARIA wiring, loading,
+empty, error, disabled-option, description, and multi-select chip states.
 - `./ui/input-group`
 - `./ui/input-otp`
 - `./ui/spinner`
@@ -10088,6 +10127,69 @@ Use `@contractspec/example.content-generation` as a reference implementation, or
 ## Notes
 
 - Works alongside `@contractspec/lib.content-gen`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.logger`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
+
+
+---
+
+## @contractspec/example.form-showcase
+
+Description: Focused ContractSpec form example and template covering field kinds, conditional rules, and layout flows.
+Path: packages/examples/form-showcase
+URL: /llms/example.form-showcase
+
+# @contractspec/example.form-showcase
+
+Focused ContractSpec form example and template covering field kinds, conditional rules, and layout flows.
+
+## What This Demonstrates
+
+- Schema-backed `defineFormSpec` authoring with `fromZod`.
+- Every current form field kind: text, email, textarea, select, checkbox, radio, switch, autocomplete, address, phone, date, time, datetime, group, and array.
+- Layout variants including responsive columns, full-width spans, section flows, step flows, nested groups, horizontal/responsive orientation, and repeated group arrays.
+- Form metadata for input groups, password fields, read-only/computed hints, conditional visibility/enabled/required rules, custom constraints, PII hints, and submit actions.
+- A `FormRegistry` that downstream apps can import and filter.
+- A `FormShowcasePreview` UI that demonstrates the specs with real form controls across field kinds, sections, arrays, groups, and step layouts.
+
+## Running Locally
+
+From `packages/examples/form-showcase`:
+
+- `bun run build`
+- `bun run typecheck`
+- `bun run test`
+- `bun run smoke`
+- `bun run preflight`
+
+## Usage
+
+Import the registry or individual form specs:
+
+```ts
+import {
+	FormShowcaseRegistry,
+	FormShowcaseAllFieldsForm,
+	FormShowcaseProgressiveStepsForm,
+} from "@contractspec/example.form-showcase/forms";
+```
+
+Use this package as a form-only template when you want a compact reference for ContractSpec form authoring without a larger business app around it.
+
+## Public Entry Points
+
+- `@contractspec/example.form-showcase`
+- `@contractspec/example.form-showcase/example`
+- `@contractspec/example.form-showcase/forms`
+- `@contractspec/example.form-showcase/forms/all-fields.form`
+- `@contractspec/example.form-showcase/forms/form-showcase.docs`
+- `@contractspec/example.form-showcase/forms/progressive-steps.form`
+- `@contractspec/example.form-showcase/docs`
+- `@contractspec/example.form-showcase/ui`
+- `@contractspec/example.form-showcase/ui/FormShowcasePreview`
+
+## Notes
+
+- This package intentionally does not ship a production custom renderer. Its preview uses real controls and the same sample data to demonstrate the contract capabilities, while host apps can map `FieldSpec` objects to their own design-system components for fully interactive forms.
+- The example is available in the templates catalog through `surfaces.templates: true`.
 
 
 ---
@@ -14351,7 +14453,7 @@ By default the fixer scans `packages/bundles`, `packages/examples`, and `package
 
 `bun run jsx:fix-primitives -- --allow-app web-landing`
 
-Use `--check` for a dry run. The fixer rewrites deterministic layout, list, and typography cases only; mixed JSX text and ambiguous form/action primitives remain diagnostic-only.
+Use `--check` for a dry run. The fixer preserves original attributes and className by default, infers safe list props from simple class strings, and wraps raw text with context awareness: block-safe containers keep `<Text>...</Text>`, while mixed-content contexts use inline-safe `<Text asChild><span>...</span></Text>`. Ambiguous form/action primitives remain diagnostic-only, and generic inline `<span>` elements are still skipped.
 
 ## Architecture
 

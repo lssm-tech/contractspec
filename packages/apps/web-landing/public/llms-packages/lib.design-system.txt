@@ -154,8 +154,24 @@ import {
     componentKey="Select"
     options={[{ labelI18n: "status.draft", value: "draft" }]}
   />
+  <Select
+    componentKey="Select"
+    groups={[
+      {
+        labelI18n: "status.lifecycle",
+        options: [{ labelI18n: "status.draft", value: "draft" }],
+      },
+      {
+        labelI18n: "status.release",
+        options: [{ labelI18n: "status.published", value: "published" }],
+      },
+    ]}
+  />
 </DesignSystemThemeProvider>;
 ```
+
+When both `options` and `groups` are provided to `Select`, grouped options are
+used and the flat `options` list is ignored.
 
 ### Use form controls from the design-system boundary
 
@@ -169,6 +185,11 @@ surfaces: `Button`, `Input`, `Textarea`, `Select`, `NativeSelect`,
 `FieldContent`, `FieldLabel`, `FieldDescription`, `FieldError`, and
 `FieldSeparator` wrappers so contract-driven forms can preserve accessible
 legend, description, invalid, and grouped-control structure.
+
+The `Autocomplete` control renders through the shared combobox primitive on web
+and keeps native rendering aligned for query, selected options, loading, error,
+and empty states. FormSpec renderers pass resolver-backed async state through
+these props without requiring product surfaces to know the underlying transport.
 
 ### Render forms on mobile through the shared renderer
 
@@ -285,7 +306,7 @@ hidden-column recovery without widening the primitive table API.
 ### Renderers and hooks
 
 - renderer exports from `./renderers`
-- form-contract renderer support, including readonly, password, autocomplete, address, phone, date, time, datetime, semantic FormSpec groups, grid layout hints, mobile-safe FormSpec column helper output, and text/textarea input groups
+- form-contract renderer support, including readonly, email, password, autocomplete, address, phone, date, time, datetime, semantic FormSpec groups, grid layout hints, progressive FormSpec sections/steps, mobile-safe FormSpec column helper output, and text/textarea/email input groups
 - translation-aware rendering through `DesignSystemTranslationProvider` and `createTranslationResolver`
 - theme-aware form controls and stack primitives that consume ThemeSpec component variant props
 - hooks such as `useListUrlState`, including scoped list filters where locked constraints are excluded from user-editable URL state

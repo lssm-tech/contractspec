@@ -51,9 +51,15 @@ bun add @contractspec/lib.contracts-spec @contractspec/lib.schema
 - `ContractResult`: canonical success/failure envelope used by operation, workflow, job, API, MCP, GraphQL, and React runtimes while preserving raw-response compatibility for adapters.
 - `defineEvent` + `EventRegistry`: typed event contracts and lookup.
 - `defineResourceTemplate` + `ResourceRegistry`: URI-template-based resource contracts.
-- `FormRegistry`: contract-first form declarations consumed by UI runtimes, including readonly, password, autocomplete, address, phone, date, time, datetime, grouped array authoring, semantic legends/descriptions, grid layout hints, mobile-safe `responsiveFormColumns(...)`, and text/textarea input-group addons through `@contractspec/lib.contracts-spec/forms`.
+- `FormRegistry`: contract-first form declarations consumed by UI runtimes, including readonly, email, password, autocomplete, address, phone, date, time, datetime, grouped array authoring, semantic legends/descriptions, grid layout hints, progressive `layout.flow` sections/steps, mobile-safe `responsiveFormColumns(...)`, and text/textarea/email input-group addons through `@contractspec/lib.contracts-spec/forms`.
 - `installOp`: one-call helper to register + bind operation handlers.
 - `makeEmit`: typed helper for declared event emission in handlers.
+
+FormSpec autocomplete fields support local option filtering or
+resolver-backed search through `resolverKey`, dependency paths, debounce, and
+minimum-query metadata. The contract stays transport-neutral: host renderers
+provide the resolver/fetcher, and value submission is controlled by
+`valueMapping` (`scalar`, `object`, or `pick`).
 
 ## Typed Results
 

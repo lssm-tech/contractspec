@@ -136,6 +136,10 @@ recovery, keep this primitive lean and layer
 right-side visibility toggle while preserving `current-password` and
 `new-password` autocomplete hints for password managers.
 - `./ui/combobox`
+
+`./ui/combobox` keeps the select-style button API compatible and also supports
+editable autocomplete usage with query control, listbox ARIA wiring, loading,
+empty, error, disabled-option, description, and multi-select chip states.
 - `./ui/input-group`
 - `./ui/input-otp`
 - `./ui/spinner`

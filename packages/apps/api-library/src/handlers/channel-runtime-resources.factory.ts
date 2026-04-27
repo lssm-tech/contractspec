@@ -26,9 +26,11 @@ import {
 	ControlPlaneCoreCapability,
 	ControlPlaneFeature,
 	ControlPlaneSkillRegistryCapability,
+} from '@contractspec/lib.contracts-spec/control-plane';
+import {
 	type ControlPlaneSkillRuntimeContext,
 	type ControlPlaneSkillTrustPolicy,
-} from '@contractspec/lib.contracts-spec/control-plane';
+} from '@contractspec/lib.contracts-spec/control-plane/skills/types';
 import {
 	createConnectReviewQueueStore,
 	createPostgresChannelRuntimeStore,
