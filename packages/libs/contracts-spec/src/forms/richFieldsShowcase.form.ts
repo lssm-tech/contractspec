@@ -13,6 +13,7 @@ const RichFieldsShowcaseModel = fromZod(
 			name: z.string(),
 			email: z.string().email(),
 		}),
+		contactEmail: z.string().email(),
 		currentPassword: z.string().optional(),
 		newPassword: z.string().optional(),
 		address: z.object({
@@ -175,6 +176,12 @@ export const RichFieldsShowcaseForm = defineFormSpec({
 			},
 			fields: [
 				{ kind: 'address', name: 'address', labelI18n: 'Address' },
+				{
+					kind: 'email',
+					name: 'contactEmail',
+					labelI18n: 'Contact email',
+					placeholderI18n: 'support@example.com',
+				},
 				{ kind: 'phone', name: 'phone', labelI18n: 'Phone' },
 				{ kind: 'date', name: 'startDate', labelI18n: 'Start date' },
 				{
@@ -209,7 +216,7 @@ export const RichFieldsShowcaseForm = defineFormSpec({
 	actions: [{ key: 'submit', labelI18n: 'Save' }],
 	policy: {
 		flags: [],
-		pii: ['currentPassword', 'newPassword', 'address', 'phone'],
+		pii: ['contactEmail', 'currentPassword', 'newPassword', 'address', 'phone'],
 	},
 	renderHints: { ui: 'custom', form: 'react-hook-form' },
 });

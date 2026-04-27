@@ -1,18 +1,18 @@
 [
-	{
-		"id": "ai-chat-assistant/ai-chat-assistant",
-		"title": "ai-chat-assistant",
-		"summary": "Focused assistant example with chat UX and search-backed retrieval.\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: beta\n- **Owners**: @platform.core\n- **Tags**: ai, chat, assistant, example\n- **File**: `packages/examples/ai-chat-assistant/src/ai-chat-assistant.feature.ts`",
-		"route": "/docs/reference/ai-chat-assistant/ai-chat-assistant",
-		"source": "generated",
-		"contentPath": "ai-chat-assistant/ai-chat-assistant.md"
-	},
-	{
-		"id": "ai-chat-assistant/assistant.search",
-		"title": "assistant.search",
-		"summary": "Search for content within the assistant context.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @example.ai-chat-assistant\n- **Tags**: assistant, search, chat",
-		"route": "/docs/reference/ai-chat-assistant/assistant.search",
-		"source": "generated",
-		"contentPath": "ai-chat-assistant/assistant.search.md"
-	}
+  {
+    "id": "ai-chat-assistant/ai-chat-assistant",
+    "title": "ai-chat-assistant",
+    "summary": "Focused assistant example with chat UX and search-backed retrieval.\n- **Type**: feature\n- **Version**: 1.0.0\n- **Stability**: beta\n- **Owners**: @platform.core\n- **Tags**: ai, chat, assistant, example\n- **File**: `packages/examples/ai-chat-assistant/src/ai-chat-assistant.feature.ts`",
+    "route": "/docs/reference/ai-chat-assistant/ai-chat-assistant",
+    "source": "generated",
+    "contentPath": "ai-chat-assistant/ai-chat-assistant.md"
+  },
+  {
+    "id": "ai-chat-assistant/assistant.search",
+    "title": "assistant.search",
+    "summary": "Search for content within the assistant context.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Stability**: experimental\n- **Owners**: @example.ai-chat-assistant\n- **Tags**: assistant, search, chat",
+    "route": "/docs/reference/ai-chat-assistant/assistant.search",
+    "source": "generated",
+    "contentPath": "ai-chat-assistant/assistant.search.md"
+  }
 ]

@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-04-24T18:00:10.950Z",
+  "generatedAt": "2026-04-27T17:49:12.451Z",
   "releases": [
     {
       "slug": "adoption-engine-and-authoring-targets",
@@ -2334,6 +2334,232 @@
       }
     },
     {
+      "slug": "forms-datetime-containment",
+      "version": "3.12.1",
+      "summary": "Keep web FormSpec datetime controls inside their responsive form columns.",
+      "date": "2026-04-27",
+      "isBreaking": false,
+      "packages": [
+        {
+          "name": "@contractspec/lib.ui-kit-web",
+          "releaseType": "patch",
+          "version": "3.12.1"
+        }
+      ],
+      "affectedRuntimes": [
+        "bun",
+        "browser",
+        "nextjs"
+      ],
+      "affectedFrameworks": [
+        "react"
+      ],
+      "audiences": [
+        {
+          "kind": "maintainer",
+          "summary": "The web datetime picker now gives its composite date and time controls shrinkable width constraints.",
+          "affectedPackages": [
+            "@contractspec/lib.ui-kit-web"
+          ]
+        },
+        {
+          "kind": "integrator",
+          "summary": "Existing datetime picker and FormSpec renderer imports stay compatible while the composite control fits responsive grids.",
+          "affectedPackages": [
+            "@contractspec/lib.ui-kit-web"
+          ]
+        },
+        {
+          "kind": "customer",
+          "summary": "Datetime FormSpec fields now fit inside responsive form columns instead of overflowing into neighboring fields."
+        }
+      ],
+      "deprecations": [],
+      "migrationInstructions": [],
+      "upgradeSteps": [],
+      "validation": {
+        "commands": [
+          "bun test packages/libs/design-system/src/renderers/form-contract.test.tsx",
+          "cd packages/libs/ui-kit-web && bun run lint:check",
+          "cd packages/libs/ui-kit-web && bun run typecheck",
+          "cd packages/libs/design-system && bun run test"
+        ],
+        "evidence": [
+          "The web datetime picker wrapper now renders with `w-full min-w-0`.",
+          "The nested date and time controls now render with shrinkable flex sizing.",
+          "The design-system FormSpec renderer regression test asserts the non-overflow datetime sizing classes."
+        ]
+      }
+    },
+    {
+      "slug": "forms-email-field",
+      "version": "5.7.0",
+      "summary": "Add first-class FormSpec email fields with native renderer affordances.",
+      "date": "2026-04-27",
+      "isBreaking": false,
+      "packages": [
+        {
+          "name": "@contractspec/lib.contracts-spec",
+          "releaseType": "minor",
+          "version": "5.7.0"
+        },
+        {
+          "name": "@contractspec/lib.contracts-runtime-client-react",
+          "releaseType": "minor",
+          "version": "3.11.1"
+        },
+        {
+          "name": "@contractspec/lib.design-system",
+          "releaseType": "minor",
+          "version": "4.1.0"
+        }
+      ],
+      "affectedRuntimes": [
+        "bun",
+        "browser",
+        "nextjs",
+        "expo"
+      ],
+      "affectedFrameworks": [
+        "react",
+        "react-native"
+      ],
+      "audiences": [
+        {
+          "kind": "maintainer",
+          "summary": "Maintainers can declare single-address email inputs with `kind: \"email\"` while keeping validation in the form model.",
+          "affectedPackages": [
+            "@contractspec/lib.contracts-spec"
+          ]
+        },
+        {
+          "kind": "integrator",
+          "summary": "Integrators get native email input attributes through the existing form renderer driver slots without adding an EmailInput slot.",
+          "affectedPackages": [
+            "@contractspec/lib.contracts-runtime-client-react",
+            "@contractspec/lib.design-system"
+          ]
+        },
+        {
+          "kind": "customer",
+          "summary": "Contract-driven email fields now use email keyboards, autofill, and browser email input behavior by default.",
+          "affectedPackages": [
+            "@contractspec/lib.design-system"
+          ]
+        }
+      ],
+      "deprecations": [],
+      "migrationInstructions": [
+        {
+          "id": "existing-email-text-fields-compatible",
+          "title": "Keep existing text email fields as-is",
+          "summary": "Existing `kind: \"text\"` fields with email input hints continue to render normally.",
+          "required": false,
+          "steps": [
+            "No migration is required for existing text fields.",
+            "Prefer `kind: \"email\"` for new single-address email fields."
+          ]
+        },
+        {
+          "id": "preserve-schema-validation",
+          "title": "Keep email validation in the model",
+          "summary": "`kind: \"email\"` only describes rendering intent; strict validation remains schema-owned.",
+          "required": false,
+          "steps": [
+            "Use `z.string().email()` or the existing schema email scalar for email format validation."
+          ]
+        }
+      ],
+      "upgradeSteps": [
+        {
+          "id": "adopt-email-kind",
+          "title": "Adopt first-class email fields",
+          "summary": "Replace renderer-specific email text hints with `kind: \"email\"` where a field captures one email address.",
+          "level": "manual",
+          "instructions": [
+            "Use `{ kind: \"email\", name: \"contactEmail\" }` for single-address email fields.",
+            "Use an `array` of email fields when a form must collect multiple addresses."
+          ]
+        }
+      ],
+      "validation": {
+        "commands": [
+          "bun test packages/libs/contracts-spec/src/forms/forms.test.ts packages/libs/contracts-runtime-client-react/src/form-render.impl.test.tsx packages/libs/design-system/src/renderers/form-contract.test.tsx",
+          "bun run --cwd packages/libs/contracts-spec typecheck && bun run --cwd packages/libs/contracts-spec lint:check",
+          "bun run --cwd packages/libs/contracts-runtime-client-react typecheck && bun run --cwd packages/libs/contracts-runtime-client-react lint:check",
+          "bun run --cwd packages/libs/design-system typecheck && bun run --cwd packages/libs/design-system lint:check && bun run --cwd packages/libs/design-system test",
+          "bun run release:build"
+        ],
+        "evidence": [
+          "FormSpec exposes additive `EmailFieldSpec` and accepts email fields in groups, arrays, input groups, constraints, and conditional rules.",
+          "React renderer maps email fields to standard driver input slots with native email attributes and input-group fallback behavior.",
+          "The design-system canonical FormSpec showcase renders `kind: \"email\"` through the shared renderer."
+        ]
+      }
+    },
+    {
+      "slug": "forms-email-input-safety",
+      "version": "3.11.1",
+      "summary": "Preserve FormSpec email input behavior when optional renderer metadata is omitted.",
+      "date": "2026-04-27",
+      "isBreaking": false,
+      "packages": [
+        {
+          "name": "@contractspec/lib.contracts-runtime-client-react",
+          "releaseType": "patch",
+          "version": "3.11.1"
+        },
+        {
+          "name": "@contractspec/lib.design-system",
+          "releaseType": "patch",
+          "version": "4.1.0"
+        }
+      ],
+      "affectedRuntimes": [
+        "bun",
+        "browser",
+        "nextjs"
+      ],
+      "affectedFrameworks": [
+        "react"
+      ],
+      "audiences": [
+        {
+          "kind": "maintainer",
+          "summary": "The React FormSpec renderer now treats `uiProps` as optional for email and text fields, and design-system inputs preserve explicit HTML input props over default keyboard hints.",
+          "affectedPackages": [
+            "@contractspec/lib.contracts-runtime-client-react",
+            "@contractspec/lib.design-system"
+          ]
+        },
+        {
+          "kind": "integrator",
+          "summary": "Existing email FormSpec fields render without requiring `uiProps`, while explicit `type`, `inputMode`, and autofill props continue to pass through the design-system input wrapper.",
+          "affectedPackages": [
+            "@contractspec/lib.contracts-runtime-client-react",
+            "@contractspec/lib.design-system"
+          ]
+        },
+        {
+          "kind": "customer",
+          "summary": "Contract-driven email fields keep their expected browser email input behavior."
+        }
+      ],
+      "deprecations": [],
+      "migrationInstructions": [],
+      "upgradeSteps": [],
+      "validation": {
+        "commands": [
+          "bun test packages/libs/design-system/src/renderers/form-contract.test.tsx",
+          "cd packages/libs/design-system && bun run test"
+        ],
+        "evidence": [
+          "Optional `uiProps` no longer causes FormSpec email field rendering to fail.",
+          "Design-system inputs preserve explicit email input props from the FormSpec renderer."
+        ]
+      }
+    },
+    {
       "slug": "forms-layout-input-groups",
       "version": "5.7.0",
       "summary": "Add FormSpec layout hints, semantic field rendering, and portable text/textarea input-group addons.",
@@ -2596,6 +2822,114 @@
           "FormSpec text fields expose additive password metadata for current/new password purposes.",
           "React renderer detects explicit and legacy password hints and emits masked current/new autocomplete fields.",
           "Design-system, web UI kit, and native UI kit expose shared InputPassword controls with visibility toggles."
+        ]
+      }
+    },
+    {
+      "slug": "forms-progressive-layout",
+      "version": "5.7.0",
+      "summary": "Add progressive FormSpec section and step layout metadata with shared React and design-system rendering support.",
+      "date": "2026-04-27",
+      "isBreaking": false,
+      "packages": [
+        {
+          "name": "@contractspec/lib.contracts-spec",
+          "releaseType": "minor",
+          "version": "5.7.0"
+        },
+        {
+          "name": "@contractspec/lib.contracts-runtime-client-react",
+          "releaseType": "minor",
+          "version": "3.11.1"
+        },
+        {
+          "name": "@contractspec/lib.design-system",
+          "releaseType": "minor",
+          "version": "4.1.0"
+        }
+      ],
+      "affectedRuntimes": [
+        "bun",
+        "browser",
+        "nextjs",
+        "expo"
+      ],
+      "affectedFrameworks": [
+        "react",
+        "react-native"
+      ],
+      "audiences": [
+        {
+          "kind": "maintainer",
+          "summary": "Maintainers can declare progressive form sections or steps as additive FormSpec layout metadata while keeping the field list canonical.",
+          "affectedPackages": [
+            "@contractspec/lib.contracts-spec",
+            "@contractspec/lib.contracts-runtime-client-react"
+          ]
+        },
+        {
+          "kind": "integrator",
+          "summary": "Integrators can render long contract-driven forms through shared section or step layouts without custom per-form wrappers.",
+          "affectedPackages": [
+            "@contractspec/lib.contracts-runtime-client-react",
+            "@contractspec/lib.design-system"
+          ]
+        },
+        {
+          "kind": "customer",
+          "summary": "Long forms can now be split into scannable sections or progressive steps, improving completion ergonomics without changing submitted data.",
+          "affectedPackages": [
+            "@contractspec/lib.design-system"
+          ]
+        }
+      ],
+      "deprecations": [],
+      "migrationInstructions": [
+        {
+          "id": "existing-forms-compatible",
+          "title": "Keep existing forms as-is",
+          "summary": "Existing forms render exactly as before unless they opt into `layout.flow`.",
+          "required": false,
+          "steps": [
+            "No migration is required for forms without `layout.flow`."
+          ]
+        },
+        {
+          "id": "adopt-progressive-layout",
+          "title": "Add section or step flow metadata to long forms",
+          "summary": "Use `layout.flow.sections` to group existing fields by immediate field name.",
+          "required": false,
+          "steps": [
+            "Add `layout.flow.kind: \"sections\"` when all sections should remain visible.",
+            "Add `layout.flow.kind: \"steps\"` when the renderer should show one section at a time.",
+            "Keep field definitions in `FormSpec.fields` and reference them through section `fieldNames`."
+          ]
+        }
+      ],
+      "upgradeSteps": [
+        {
+          "id": "verify-custom-form-drivers",
+          "title": "Verify custom form driver button and fieldset slots",
+          "summary": "Custom drivers should confirm their existing `Button`, `FieldSet`, `FieldLegend`, `FieldDescription`, and `FieldGroup` slots render the new flow structure cleanly.",
+          "level": "manual",
+          "instructions": [
+            "Render a form with `layout.flow.kind: \"sections\"`.",
+            "Render a form with `layout.flow.kind: \"steps\"`.",
+            "Confirm unlisted fields remain visible and step navigation buttons inherit expected styling."
+          ]
+        }
+      ],
+      "validation": {
+        "commands": [
+          "bun test packages/libs/contracts-spec/src/forms/forms.test.ts packages/libs/contracts-runtime-client-react/src/form-render.impl.test.tsx packages/libs/design-system/src/renderers/form-contract.test.tsx",
+          "cd packages/libs/contracts-spec && bun run typecheck && bun run lint:check",
+          "cd packages/libs/contracts-runtime-client-react && bun run typecheck && bun run lint:check",
+          "cd packages/libs/design-system && bun run typecheck && bun run lint:check && bun run test"
+        ],
+        "evidence": [
+          "FormSpec exposes additive `layout.flow` types for section and step rendering.",
+          "React renderer maps flow metadata to existing driver fieldset, group, and button slots.",
+          "Design-system renderer inherits progressive flow behavior through the shared renderer."
         ]
       }
     },

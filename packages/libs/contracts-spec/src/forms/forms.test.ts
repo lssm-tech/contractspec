@@ -261,6 +261,66 @@ describe('buildZodWithRelations', () => {
 		expect(normalizeFormSpec(spec).layout?.columns).toBe(2);
 	});
 
+	it('accepts section and step flow layout without duplicating fields', () => {
+		const spec = defineFormSpec({
+			meta: {
+				key: 'sigil.form.flow-layout',
+				version: '1.0.0',
+				title: 'Flow Layout Form',
+				description: 'Exercises section and step flow metadata.',
+				domain: 'testing',
+				owners: [OwnersEnum.PlatformSigil],
+				tags: [TagsEnum.Auth],
+				stability: StabilityEnum.Experimental,
+			},
+			model: fromZod(
+				z.object({
+					firstName: z.string(),
+					lastName: z.string(),
+					notes: z.string().optional(),
+				}),
+				{ name: 'FlowLayoutModel' }
+			),
+			layout: {
+				flow: {
+					kind: 'steps',
+					previousLabelI18n: 'Back',
+					nextLabelI18n: 'Continue',
+					sections: [
+						{
+							key: 'identity',
+							titleI18n: 'Identity',
+							fieldNames: ['firstName', 'lastName'],
+							layout: { columns: responsiveFormColumns(2) },
+						},
+						{
+							key: 'notes',
+							titleI18n: 'Notes',
+							descriptionI18n: 'Optional context.',
+							fieldNames: ['notes'],
+						},
+					],
+				},
+			},
+			fields: [
+				{ kind: 'text', name: 'firstName' },
+				{ kind: 'text', name: 'lastName' },
+				{ kind: 'textarea', name: 'notes' },
+			],
+		});
+
+		expect(spec.layout?.flow?.kind).toBe('steps');
+		expect(spec.layout?.flow?.sections[0]?.fieldNames).toEqual([
+			'firstName',
+			'lastName',
+		]);
+		expect(spec.fields.map((field) => field.name)).toEqual([
+			'firstName',
+			'lastName',
+			'notes',
+		]);
+	});
+
 	it('accepts current and new password text field metadata', () => {
 		const spec = defineFormSpec({
 			meta: {
@@ -314,6 +374,104 @@ describe('buildZodWithRelations', () => {
 		expect(normalized.fields[1].password?.purpose).toBe('new');
 		expect(normalized.fields[1].password?.visibilityToggle).toBe(false);
 		expect(normalized.fields[1].keyboard?.autoComplete).toBe('new-password');
+	});
+
+	it('accepts email fields with input groups inside groups and arrays', () => {
+		const spec = defineFormSpec({
+			meta: {
+				key: 'sigil.form.email',
+				version: '1.0.0',
+				title: 'Email Form',
+				description: 'Exercises first-class email field authoring.',
+				domain: 'testing',
+				owners: [OwnersEnum.PlatformSigil],
+				tags: [TagsEnum.Auth],
+				stability: StabilityEnum.Experimental,
+			},
+			model: fromZod(
+				z.object({
+					primaryEmail: z.string().email().optional(),
+					billing: z.object({
+						email: z.string().email().optional(),
+					}),
+					contacts: z.array(
+						z.object({
+							label: z.string(),
+							value: z.string().email().optional(),
+						})
+					),
+				}),
+				{ name: 'EmailFormModel' }
+			),
+			fields: [
+				{
+					kind: 'email',
+					name: 'primaryEmail',
+					labelI18n: 'Primary email',
+					autoComplete: 'email',
+					inputGroup: {
+						addons: [
+							{
+								align: 'inline-start',
+								items: [{ kind: 'icon', iconKey: 'mail', labelI18n: 'Email' }],
+							},
+						],
+					},
+				},
+				{
+					kind: 'group',
+					legendI18n: 'Billing',
+					fields: [{ kind: 'email', name: 'billing.email' }],
+				},
+				{
+					kind: 'array',
+					name: 'contacts',
+					of: {
+						kind: 'group',
+						fields: [
+							{ kind: 'text', name: 'label' },
+							{
+								kind: 'email',
+								name: 'value',
+								requiredWhen: {
+									when: {
+										path: 'contacts.$index.label',
+										op: 'equals',
+										value: 'work',
+									},
+								},
+							},
+						],
+					},
+				},
+			],
+			constraints: [
+				{
+					key: 'email-consistency',
+					messageI18n: 'Email mismatch',
+					paths: ['primaryEmail', 'billing.email', 'contacts.$index.value'],
+				},
+			],
+		});
+
+		expect(spec.fields[0]?.kind).toBe('email');
+		if (spec.fields[0]?.kind !== 'email') return;
+		expect(spec.fields[0].inputGroup?.addons?.[0]?.items[0]?.kind).toBe('icon');
+		expect(spec.constraints?.[0]?.paths).toEqual([
+			'primaryEmail',
+			'billing.email',
+			'contacts.$index.value',
+		]);
+
+		const schema = buildZodWithRelations(spec);
+		const result = schema.safeParse({
+			billing: {},
+			contacts: [{ label: 'work' }, { label: 'personal' }],
+		});
+
+		expect(result.success).toBe(false);
+		if (result.success) return;
+		expect(result.error.issues[0]?.path).toEqual(['contacts', 0, 'value']);
 	});
 
 	it('supports group items inside arrays for indexed relation checks', () => {
@@ -397,6 +555,7 @@ describe('buildZodWithRelations', () => {
 						countryCode: z.string(),
 						nationalNumber: z.string(),
 					}),
+					contactEmail: z.string().email(),
 					startDate: z.coerce.date(),
 					startTime: z.string(),
 					publishedAt: z.coerce.date(),
@@ -418,6 +577,7 @@ describe('buildZodWithRelations', () => {
 				},
 				{ kind: 'address', name: 'address' },
 				{ kind: 'phone', name: 'phone' },
+				{ kind: 'email', name: 'contactEmail' },
 				{ kind: 'date', name: 'startDate' },
 				{ kind: 'time', name: 'startTime' },
 				{ kind: 'datetime', name: 'publishedAt' },
@@ -428,6 +588,7 @@ describe('buildZodWithRelations', () => {
 			'autocomplete',
 			'address',
 			'phone',
+			'email',
 			'date',
 			'time',
 			'datetime',

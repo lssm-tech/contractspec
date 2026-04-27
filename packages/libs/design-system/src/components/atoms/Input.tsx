@@ -40,7 +40,7 @@ export function Input({
 	ariaLabelI18n,
 	...rest
 }: InputProps) {
-	const webKeyboard = mapKeyboardToWeb(keyboard);
+	const webKeyboard = keyboard ? mapKeyboardToWeb(keyboard) : {};
 	const field = useThemedTextField({
 		defaultComponentKey: 'Input',
 		componentKey,
@@ -55,6 +55,7 @@ export function Input({
 	return (
 		<WebInput
 			{...(field.themed.props as Partial<WebInputProps>)}
+			{...webKeyboard}
 			{...rest}
 			className={field.themed.className}
 			style={field.themed.style}
@@ -71,7 +72,6 @@ export function Input({
 			readOnly={readOnly}
 			maxLength={maxLength}
 			name={name}
-			{...webKeyboard}
 		/>
 	);
 }

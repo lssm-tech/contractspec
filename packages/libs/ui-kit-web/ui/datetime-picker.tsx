@@ -35,7 +35,7 @@ export function DateTimePicker({
 	};
 
 	return (
-		<div className={cn('flex gap-2', className)}>
+		<div className={cn('flex w-full min-w-0 gap-2', className)}>
 			<DatePicker
 				value={value}
 				onChange={handleDate}
@@ -43,6 +43,7 @@ export function DateTimePicker({
 				minDate={minDate}
 				maxDate={maxDate}
 				placeholder={datePlaceholder}
+				className="min-w-0 flex-1 shrink"
 			/>
 			<TimePicker
 				value={value}
@@ -50,6 +51,7 @@ export function DateTimePicker({
 				disabled={disabled}
 				is24Hour={is24Hour}
 				placeholder={timePlaceholder}
+				className="min-w-0 flex-1 shrink"
 			/>
 		</div>
 	);

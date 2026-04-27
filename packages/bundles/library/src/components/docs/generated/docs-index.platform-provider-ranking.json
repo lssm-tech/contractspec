@@ -1,218 +1,218 @@
 [
-	{
-		"id": "platform.provider-ranking/docs.tech.provider-ranking.benchmark.custom.completed",
-		"title": "provider-ranking.benchmark.custom.completed",
-		"summary": "Emitted when a custom evaluation run completes execution.",
-		"route": "/docs/reference/platform.provider-ranking/docs.tech.provider-ranking.benchmark.custom.completed",
-		"source": "generated",
-		"contentPath": "platform.provider-ranking/docs.tech.provider-ranking.benchmark.custom.completed.md"
-	},
-	{
-		"id": "platform.provider-ranking/docs.tech.provider-ranking.benchmark.ingest",
-		"title": "provider-ranking.benchmark.ingest",
-		"summary": "Imports and normalizes benchmark scores from external leaderboards.",
-		"route": "/docs/reference/platform.provider-ranking/docs.tech.provider-ranking.benchmark.ingest",
-		"source": "generated",
-		"contentPath": "platform.provider-ranking/docs.tech.provider-ranking.benchmark.ingest.md"
-	},
-	{
-		"id": "platform.provider-ranking/docs.tech.provider-ranking.benchmark.ingest.form",
-		"title": "provider-ranking.benchmark.ingest.form",
-		"summary": "Form surface used by Studio to trigger benchmark data ingestion.",
-		"route": "/docs/reference/platform.provider-ranking/docs.tech.provider-ranking.benchmark.ingest.form",
-		"source": "generated",
-		"contentPath": "platform.provider-ranking/docs.tech.provider-ranking.benchmark.ingest.form.md"
-	},
-	{
-		"id": "platform.provider-ranking/docs.tech.provider-ranking.benchmark.ingested",
-		"title": "provider-ranking.benchmark.ingested",
-		"summary": "Emitted when external benchmark data is successfully imported and stored.",
-		"route": "/docs/reference/platform.provider-ranking/docs.tech.provider-ranking.benchmark.ingested",
-		"source": "generated",
-		"contentPath": "platform.provider-ranking/docs.tech.provider-ranking.benchmark.ingested.md"
-	},
-	{
-		"id": "platform.provider-ranking/docs.tech.provider-ranking.benchmark.results.list",
-		"title": "provider-ranking.benchmark.results.list",
-		"summary": "Returns individual benchmark data points filterable by source, model, and dimension.",
-		"route": "/docs/reference/platform.provider-ranking/docs.tech.provider-ranking.benchmark.results.list",
-		"source": "generated",
-		"contentPath": "platform.provider-ranking/docs.tech.provider-ranking.benchmark.results.list.md"
-	},
-	{
-		"id": "platform.provider-ranking/docs.tech.provider-ranking.benchmark.run-custom",
-		"title": "provider-ranking.benchmark.run-custom",
-		"summary": "Evaluates model performance using internal eval suites with configurable parameters.",
-		"route": "/docs/reference/platform.provider-ranking/docs.tech.provider-ranking.benchmark.run-custom",
-		"source": "generated",
-		"contentPath": "platform.provider-ranking/docs.tech.provider-ranking.benchmark.run-custom.md"
-	},
-	{
-		"id": "platform.provider-ranking/docs.tech.provider-ranking.benchmark.run-custom.form",
-		"title": "provider-ranking.benchmark.run-custom.form",
-		"summary": "Form surface used by Studio to launch custom benchmark evaluations.",
-		"route": "/docs/reference/platform.provider-ranking/docs.tech.provider-ranking.benchmark.run-custom.form",
-		"source": "generated",
-		"contentPath": "platform.provider-ranking/docs.tech.provider-ranking.benchmark.run-custom.form.md"
-	},
-	{
-		"id": "platform.provider-ranking/docs.tech.provider-ranking.model.comparison",
-		"title": "provider-ranking.model.comparison",
-		"summary": "Presentation surface for comparing two or more models across all ranking dimensions.",
-		"route": "/docs/reference/platform.provider-ranking/docs.tech.provider-ranking.model.comparison",
-		"source": "generated",
-		"contentPath": "platform.provider-ranking/docs.tech.provider-ranking.model.comparison.md"
-	},
-	{
-		"id": "platform.provider-ranking/docs.tech.provider-ranking.model.profile.get",
-		"title": "provider-ranking.model.profile.get",
-		"summary": "Returns comprehensive model information including scores, metadata, cost, context window, and capabilities.",
-		"route": "/docs/reference/platform.provider-ranking/docs.tech.provider-ranking.model.profile.get",
-		"source": "generated",
-		"contentPath": "platform.provider-ranking/docs.tech.provider-ranking.model.profile.get.md"
-	},
-	{
-		"id": "platform.provider-ranking/docs.tech.provider-ranking.ranking.get",
-		"title": "provider-ranking.ranking.get",
-		"summary": "Returns a paginated, filterable leaderboard of AI models ranked by composite or per-dimension scores.",
-		"route": "/docs/reference/platform.provider-ranking/docs.tech.provider-ranking.ranking.get",
-		"source": "generated",
-		"contentPath": "platform.provider-ranking/docs.tech.provider-ranking.ranking.get.md"
-	},
-	{
-		"id": "platform.provider-ranking/docs.tech.provider-ranking.ranking.refresh",
-		"title": "provider-ranking.ranking.refresh",
-		"summary": "Recomputes weighted composite scores across all dimensions and updates the leaderboard.",
-		"route": "/docs/reference/platform.provider-ranking/docs.tech.provider-ranking.ranking.refresh",
-		"source": "generated",
-		"contentPath": "platform.provider-ranking/docs.tech.provider-ranking.ranking.refresh.md"
-	},
-	{
-		"id": "platform.provider-ranking/docs.tech.provider-ranking.ranking.updated",
-		"title": "provider-ranking.ranking.updated",
-		"summary": "Emitted when the leaderboard is refreshed with new composite scores.",
-		"route": "/docs/reference/platform.provider-ranking/docs.tech.provider-ranking.ranking.updated",
-		"source": "generated",
-		"contentPath": "platform.provider-ranking/docs.tech.provider-ranking.ranking.updated.md"
-	},
-	{
-		"id": "platform.provider-ranking/docs.tech.provider-ranking.system",
-		"title": "AI Provider Ranking",
-		"summary": "Defines the core operations, events, and UI surfaces for ingesting benchmark data, computing composite rankings, and comparing AI models across dimensions.",
-		"route": "/docs/reference/platform.provider-ranking/docs.tech.provider-ranking.system",
-		"source": "generated",
-		"contentPath": "platform.provider-ranking/docs.tech.provider-ranking.system.md"
-	},
-	{
-		"id": "platform.provider-ranking/platform.provider-ranking",
-		"title": "platform.provider-ranking",
-		"summary": "Benchmark ingestion, custom benchmark runs, and AI model ranking with leaderboards\n- **Type**: feature\n- **Version**: 1.0.0\n- **Tags**: ai, ranking, benchmark\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/provider-ranking.feature.ts`",
-		"route": "/docs/reference/platform.provider-ranking/platform.provider-ranking",
-		"source": "generated",
-		"contentPath": "platform.provider-ranking/platform.provider-ranking.md"
-	},
-	{
-		"id": "platform.provider-ranking/provider-ranking.benchmark.custom.completed",
-		"title": "provider-ranking.benchmark.custom.completed",
-		"summary": "Emitted when a custom benchmark run finishes.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: custom, eval\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/events/benchmarkCustomCompleted.event.ts`",
-		"route": "/docs/reference/platform.provider-ranking/provider-ranking.benchmark.custom.completed",
-		"source": "generated",
-		"contentPath": "platform.provider-ranking/provider-ranking.benchmark.custom.completed.md"
-	},
-	{
-		"id": "platform.provider-ranking/provider-ranking.benchmark.ingest",
-		"title": "provider-ranking.benchmark.ingest",
-		"summary": "Trigger ingestion of external benchmark data from a public source.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: ingest\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/commands/benchmarkIngest.command.ts`",
-		"route": "/docs/reference/platform.provider-ranking/provider-ranking.benchmark.ingest",
-		"source": "generated",
-		"contentPath": "platform.provider-ranking/provider-ranking.benchmark.ingest.md"
-	},
-	{
-		"id": "platform.provider-ranking/provider-ranking.benchmark.ingest.form",
-		"title": "provider-ranking.benchmark.ingest.form",
-		"summary": "Form to trigger benchmark data ingestion from external sources.\n- **Type**: form (form)\n- **Version**: 1.0.0\n- **Tags**: ingest\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/forms/benchmarkIngest.form.ts`",
-		"route": "/docs/reference/platform.provider-ranking/provider-ranking.benchmark.ingest.form",
-		"source": "generated",
-		"contentPath": "platform.provider-ranking/provider-ranking.benchmark.ingest.form.md"
-	},
-	{
-		"id": "platform.provider-ranking/provider-ranking.benchmark.ingested",
-		"title": "provider-ranking.benchmark.ingested",
-		"summary": "Emitted after external benchmark data is ingested.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: ingest\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/events/benchmarkIngested.event.ts`",
-		"route": "/docs/reference/platform.provider-ranking/provider-ranking.benchmark.ingested",
-		"source": "generated",
-		"contentPath": "platform.provider-ranking/provider-ranking.benchmark.ingested.md"
-	},
-	{
-		"id": "platform.provider-ranking/provider-ranking.benchmark.results.list",
-		"title": "provider-ranking.benchmark.results.list",
-		"summary": "List raw benchmark results with pagination, filterable by source, model, and dimension.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: results\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/queries/benchmarkResultsList.query.ts`",
-		"route": "/docs/reference/platform.provider-ranking/provider-ranking.benchmark.results.list",
-		"source": "generated",
-		"contentPath": "platform.provider-ranking/provider-ranking.benchmark.results.list.md"
-	},
-	{
-		"id": "platform.provider-ranking/provider-ranking.benchmark.run-custom",
-		"title": "provider-ranking.benchmark.run-custom",
-		"summary": "Launch a custom benchmark evaluation against a specific model.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: custom, eval\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/commands/benchmarkRunCustom.command.ts`",
-		"route": "/docs/reference/platform.provider-ranking/provider-ranking.benchmark.run-custom",
-		"source": "generated",
-		"contentPath": "platform.provider-ranking/provider-ranking.benchmark.run-custom.md"
-	},
-	{
-		"id": "platform.provider-ranking/provider-ranking.benchmark.run-custom.form",
-		"title": "provider-ranking.benchmark.run-custom.form",
-		"summary": "Form to launch a custom benchmark evaluation against a model.\n- **Type**: form (form)\n- **Version**: 1.0.0\n- **Tags**: custom, eval\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/forms/benchmarkRunCustom.form.ts`",
-		"route": "/docs/reference/platform.provider-ranking/provider-ranking.benchmark.run-custom.form",
-		"source": "generated",
-		"contentPath": "platform.provider-ranking/provider-ranking.benchmark.run-custom.form.md"
-	},
-	{
-		"id": "platform.provider-ranking/provider-ranking.model.comparison",
-		"title": "provider-ranking.model.comparison",
-		"summary": "Side-by-side comparison of AI model scores and capabilities.\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Tags**: comparison\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/presentations/modelComparison.presentation.ts`",
-		"route": "/docs/reference/platform.provider-ranking/provider-ranking.model.comparison",
-		"source": "generated",
-		"contentPath": "platform.provider-ranking/provider-ranking.model.comparison.md"
-	},
-	{
-		"id": "platform.provider-ranking/provider-ranking.model.profile.get",
-		"title": "provider-ranking.model.profile.get",
-		"summary": "Get detailed profile for a single model including all scores, metadata, cost, and capabilities.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: model, profile\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/queries/modelProfileGet.query.ts`",
-		"route": "/docs/reference/platform.provider-ranking/provider-ranking.model.profile.get",
-		"source": "generated",
-		"contentPath": "platform.provider-ranking/provider-ranking.model.profile.get.md"
-	},
-	{
-		"id": "platform.provider-ranking/provider-ranking.ranking.get",
-		"title": "provider-ranking.ranking.get",
-		"summary": "Get ranked list of providers/models with composite scores, filterable by dimension.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: leaderboard\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/queries/providerRankingGet.query.ts`",
-		"route": "/docs/reference/platform.provider-ranking/provider-ranking.ranking.get",
-		"source": "generated",
-		"contentPath": "platform.provider-ranking/provider-ranking.ranking.get.md"
-	},
-	{
-		"id": "platform.provider-ranking/provider-ranking.ranking.refresh",
-		"title": "provider-ranking.ranking.refresh",
-		"summary": "Recompute composite rankings from latest benchmark data.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: refresh\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/commands/rankingRefresh.command.ts`",
-		"route": "/docs/reference/platform.provider-ranking/provider-ranking.ranking.refresh",
-		"source": "generated",
-		"contentPath": "platform.provider-ranking/provider-ranking.ranking.refresh.md"
-	},
-	{
-		"id": "platform.provider-ranking/provider-ranking.ranking.updated",
-		"title": "provider-ranking.ranking.updated",
-		"summary": "Emitted when composite rankings are recomputed.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: refresh\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/events/rankingUpdated.event.ts`",
-		"route": "/docs/reference/platform.provider-ranking/provider-ranking.ranking.updated",
-		"source": "generated",
-		"contentPath": "platform.provider-ranking/provider-ranking.ranking.updated.md"
-	},
-	{
-		"id": "platform.provider-ranking/provider-ranking.system",
-		"title": "provider-ranking.system",
-		"summary": "Benchmark ingestion, scoring, and ranking for AI providers and models.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: system\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/capabilities/providerRanking.capability.ts`",
-		"route": "/docs/reference/platform.provider-ranking/provider-ranking.system",
-		"source": "generated",
-		"contentPath": "platform.provider-ranking/provider-ranking.system.md"
-	}
+  {
+    "id": "platform.provider-ranking/docs.tech.provider-ranking.benchmark.custom.completed",
+    "title": "provider-ranking.benchmark.custom.completed",
+    "summary": "Emitted when a custom evaluation run completes execution.",
+    "route": "/docs/reference/platform.provider-ranking/docs.tech.provider-ranking.benchmark.custom.completed",
+    "source": "generated",
+    "contentPath": "platform.provider-ranking/docs.tech.provider-ranking.benchmark.custom.completed.md"
+  },
+  {
+    "id": "platform.provider-ranking/docs.tech.provider-ranking.benchmark.ingest",
+    "title": "provider-ranking.benchmark.ingest",
+    "summary": "Imports and normalizes benchmark scores from external leaderboards.",
+    "route": "/docs/reference/platform.provider-ranking/docs.tech.provider-ranking.benchmark.ingest",
+    "source": "generated",
+    "contentPath": "platform.provider-ranking/docs.tech.provider-ranking.benchmark.ingest.md"
+  },
+  {
+    "id": "platform.provider-ranking/docs.tech.provider-ranking.benchmark.ingest.form",
+    "title": "provider-ranking.benchmark.ingest.form",
+    "summary": "Form surface used by Studio to trigger benchmark data ingestion.",
+    "route": "/docs/reference/platform.provider-ranking/docs.tech.provider-ranking.benchmark.ingest.form",
+    "source": "generated",
+    "contentPath": "platform.provider-ranking/docs.tech.provider-ranking.benchmark.ingest.form.md"
+  },
+  {
+    "id": "platform.provider-ranking/docs.tech.provider-ranking.benchmark.ingested",
+    "title": "provider-ranking.benchmark.ingested",
+    "summary": "Emitted when external benchmark data is successfully imported and stored.",
+    "route": "/docs/reference/platform.provider-ranking/docs.tech.provider-ranking.benchmark.ingested",
+    "source": "generated",
+    "contentPath": "platform.provider-ranking/docs.tech.provider-ranking.benchmark.ingested.md"
+  },
+  {
+    "id": "platform.provider-ranking/docs.tech.provider-ranking.benchmark.results.list",
+    "title": "provider-ranking.benchmark.results.list",
+    "summary": "Returns individual benchmark data points filterable by source, model, and dimension.",
+    "route": "/docs/reference/platform.provider-ranking/docs.tech.provider-ranking.benchmark.results.list",
+    "source": "generated",
+    "contentPath": "platform.provider-ranking/docs.tech.provider-ranking.benchmark.results.list.md"
+  },
+  {
+    "id": "platform.provider-ranking/docs.tech.provider-ranking.benchmark.run-custom",
+    "title": "provider-ranking.benchmark.run-custom",
+    "summary": "Evaluates model performance using internal eval suites with configurable parameters.",
+    "route": "/docs/reference/platform.provider-ranking/docs.tech.provider-ranking.benchmark.run-custom",
+    "source": "generated",
+    "contentPath": "platform.provider-ranking/docs.tech.provider-ranking.benchmark.run-custom.md"
+  },
+  {
+    "id": "platform.provider-ranking/docs.tech.provider-ranking.benchmark.run-custom.form",
+    "title": "provider-ranking.benchmark.run-custom.form",
+    "summary": "Form surface used by Studio to launch custom benchmark evaluations.",
+    "route": "/docs/reference/platform.provider-ranking/docs.tech.provider-ranking.benchmark.run-custom.form",
+    "source": "generated",
+    "contentPath": "platform.provider-ranking/docs.tech.provider-ranking.benchmark.run-custom.form.md"
+  },
+  {
+    "id": "platform.provider-ranking/docs.tech.provider-ranking.model.comparison",
+    "title": "provider-ranking.model.comparison",
+    "summary": "Presentation surface for comparing two or more models across all ranking dimensions.",
+    "route": "/docs/reference/platform.provider-ranking/docs.tech.provider-ranking.model.comparison",
+    "source": "generated",
+    "contentPath": "platform.provider-ranking/docs.tech.provider-ranking.model.comparison.md"
+  },
+  {
+    "id": "platform.provider-ranking/docs.tech.provider-ranking.model.profile.get",
+    "title": "provider-ranking.model.profile.get",
+    "summary": "Returns comprehensive model information including scores, metadata, cost, context window, and capabilities.",
+    "route": "/docs/reference/platform.provider-ranking/docs.tech.provider-ranking.model.profile.get",
+    "source": "generated",
+    "contentPath": "platform.provider-ranking/docs.tech.provider-ranking.model.profile.get.md"
+  },
+  {
+    "id": "platform.provider-ranking/docs.tech.provider-ranking.ranking.get",
+    "title": "provider-ranking.ranking.get",
+    "summary": "Returns a paginated, filterable leaderboard of AI models ranked by composite or per-dimension scores.",
+    "route": "/docs/reference/platform.provider-ranking/docs.tech.provider-ranking.ranking.get",
+    "source": "generated",
+    "contentPath": "platform.provider-ranking/docs.tech.provider-ranking.ranking.get.md"
+  },
+  {
+    "id": "platform.provider-ranking/docs.tech.provider-ranking.ranking.refresh",
+    "title": "provider-ranking.ranking.refresh",
+    "summary": "Recomputes weighted composite scores across all dimensions and updates the leaderboard.",
+    "route": "/docs/reference/platform.provider-ranking/docs.tech.provider-ranking.ranking.refresh",
+    "source": "generated",
+    "contentPath": "platform.provider-ranking/docs.tech.provider-ranking.ranking.refresh.md"
+  },
+  {
+    "id": "platform.provider-ranking/docs.tech.provider-ranking.ranking.updated",
+    "title": "provider-ranking.ranking.updated",
+    "summary": "Emitted when the leaderboard is refreshed with new composite scores.",
+    "route": "/docs/reference/platform.provider-ranking/docs.tech.provider-ranking.ranking.updated",
+    "source": "generated",
+    "contentPath": "platform.provider-ranking/docs.tech.provider-ranking.ranking.updated.md"
+  },
+  {
+    "id": "platform.provider-ranking/docs.tech.provider-ranking.system",
+    "title": "AI Provider Ranking",
+    "summary": "Defines the core operations, events, and UI surfaces for ingesting benchmark data, computing composite rankings, and comparing AI models across dimensions.",
+    "route": "/docs/reference/platform.provider-ranking/docs.tech.provider-ranking.system",
+    "source": "generated",
+    "contentPath": "platform.provider-ranking/docs.tech.provider-ranking.system.md"
+  },
+  {
+    "id": "platform.provider-ranking/platform.provider-ranking",
+    "title": "platform.provider-ranking",
+    "summary": "Benchmark ingestion, custom benchmark runs, and AI model ranking with leaderboards\n- **Type**: feature\n- **Version**: 1.0.0\n- **Tags**: ai, ranking, benchmark\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/provider-ranking.feature.ts`",
+    "route": "/docs/reference/platform.provider-ranking/platform.provider-ranking",
+    "source": "generated",
+    "contentPath": "platform.provider-ranking/platform.provider-ranking.md"
+  },
+  {
+    "id": "platform.provider-ranking/provider-ranking.benchmark.custom.completed",
+    "title": "provider-ranking.benchmark.custom.completed",
+    "summary": "Emitted when a custom benchmark run finishes.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: custom, eval\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/events/benchmarkCustomCompleted.event.ts`",
+    "route": "/docs/reference/platform.provider-ranking/provider-ranking.benchmark.custom.completed",
+    "source": "generated",
+    "contentPath": "platform.provider-ranking/provider-ranking.benchmark.custom.completed.md"
+  },
+  {
+    "id": "platform.provider-ranking/provider-ranking.benchmark.ingest",
+    "title": "provider-ranking.benchmark.ingest",
+    "summary": "Trigger ingestion of external benchmark data from a public source.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: ingest\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/commands/benchmarkIngest.command.ts`",
+    "route": "/docs/reference/platform.provider-ranking/provider-ranking.benchmark.ingest",
+    "source": "generated",
+    "contentPath": "platform.provider-ranking/provider-ranking.benchmark.ingest.md"
+  },
+  {
+    "id": "platform.provider-ranking/provider-ranking.benchmark.ingest.form",
+    "title": "provider-ranking.benchmark.ingest.form",
+    "summary": "Form to trigger benchmark data ingestion from external sources.\n- **Type**: form (form)\n- **Version**: 1.0.0\n- **Tags**: ingest\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/forms/benchmarkIngest.form.ts`",
+    "route": "/docs/reference/platform.provider-ranking/provider-ranking.benchmark.ingest.form",
+    "source": "generated",
+    "contentPath": "platform.provider-ranking/provider-ranking.benchmark.ingest.form.md"
+  },
+  {
+    "id": "platform.provider-ranking/provider-ranking.benchmark.ingested",
+    "title": "provider-ranking.benchmark.ingested",
+    "summary": "Emitted after external benchmark data is ingested.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: ingest\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/events/benchmarkIngested.event.ts`",
+    "route": "/docs/reference/platform.provider-ranking/provider-ranking.benchmark.ingested",
+    "source": "generated",
+    "contentPath": "platform.provider-ranking/provider-ranking.benchmark.ingested.md"
+  },
+  {
+    "id": "platform.provider-ranking/provider-ranking.benchmark.results.list",
+    "title": "provider-ranking.benchmark.results.list",
+    "summary": "List raw benchmark results with pagination, filterable by source, model, and dimension.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: results\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/queries/benchmarkResultsList.query.ts`",
+    "route": "/docs/reference/platform.provider-ranking/provider-ranking.benchmark.results.list",
+    "source": "generated",
+    "contentPath": "platform.provider-ranking/provider-ranking.benchmark.results.list.md"
+  },
+  {
+    "id": "platform.provider-ranking/provider-ranking.benchmark.run-custom",
+    "title": "provider-ranking.benchmark.run-custom",
+    "summary": "Launch a custom benchmark evaluation against a specific model.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: custom, eval\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/commands/benchmarkRunCustom.command.ts`",
+    "route": "/docs/reference/platform.provider-ranking/provider-ranking.benchmark.run-custom",
+    "source": "generated",
+    "contentPath": "platform.provider-ranking/provider-ranking.benchmark.run-custom.md"
+  },
+  {
+    "id": "platform.provider-ranking/provider-ranking.benchmark.run-custom.form",
+    "title": "provider-ranking.benchmark.run-custom.form",
+    "summary": "Form to launch a custom benchmark evaluation against a model.\n- **Type**: form (form)\n- **Version**: 1.0.0\n- **Tags**: custom, eval\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/forms/benchmarkRunCustom.form.ts`",
+    "route": "/docs/reference/platform.provider-ranking/provider-ranking.benchmark.run-custom.form",
+    "source": "generated",
+    "contentPath": "platform.provider-ranking/provider-ranking.benchmark.run-custom.form.md"
+  },
+  {
+    "id": "platform.provider-ranking/provider-ranking.model.comparison",
+    "title": "provider-ranking.model.comparison",
+    "summary": "Side-by-side comparison of AI model scores and capabilities.\n- **Type**: presentation (presentation)\n- **Version**: 1.0.0\n- **Tags**: comparison\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/presentations/modelComparison.presentation.ts`",
+    "route": "/docs/reference/platform.provider-ranking/provider-ranking.model.comparison",
+    "source": "generated",
+    "contentPath": "platform.provider-ranking/provider-ranking.model.comparison.md"
+  },
+  {
+    "id": "platform.provider-ranking/provider-ranking.model.profile.get",
+    "title": "provider-ranking.model.profile.get",
+    "summary": "Get detailed profile for a single model including all scores, metadata, cost, and capabilities.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: model, profile\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/queries/modelProfileGet.query.ts`",
+    "route": "/docs/reference/platform.provider-ranking/provider-ranking.model.profile.get",
+    "source": "generated",
+    "contentPath": "platform.provider-ranking/provider-ranking.model.profile.get.md"
+  },
+  {
+    "id": "platform.provider-ranking/provider-ranking.ranking.get",
+    "title": "provider-ranking.ranking.get",
+    "summary": "Get ranked list of providers/models with composite scores, filterable by dimension.\n- **Type**: operation (query)\n- **Version**: 1.0.0\n- **Tags**: leaderboard\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/queries/providerRankingGet.query.ts`",
+    "route": "/docs/reference/platform.provider-ranking/provider-ranking.ranking.get",
+    "source": "generated",
+    "contentPath": "platform.provider-ranking/provider-ranking.ranking.get.md"
+  },
+  {
+    "id": "platform.provider-ranking/provider-ranking.ranking.refresh",
+    "title": "provider-ranking.ranking.refresh",
+    "summary": "Recompute composite rankings from latest benchmark data.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: refresh\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/commands/rankingRefresh.command.ts`",
+    "route": "/docs/reference/platform.provider-ranking/provider-ranking.ranking.refresh",
+    "source": "generated",
+    "contentPath": "platform.provider-ranking/provider-ranking.ranking.refresh.md"
+  },
+  {
+    "id": "platform.provider-ranking/provider-ranking.ranking.updated",
+    "title": "provider-ranking.ranking.updated",
+    "summary": "Emitted when composite rankings are recomputed.\n- **Type**: event (event)\n- **Version**: 1.0.0\n- **Tags**: refresh\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/events/rankingUpdated.event.ts`",
+    "route": "/docs/reference/platform.provider-ranking/provider-ranking.ranking.updated",
+    "source": "generated",
+    "contentPath": "platform.provider-ranking/provider-ranking.ranking.updated.md"
+  },
+  {
+    "id": "platform.provider-ranking/provider-ranking.system",
+    "title": "provider-ranking.system",
+    "summary": "Benchmark ingestion, scoring, and ranking for AI providers and models.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: system\n- **File**: `packages/libs/contracts-spec/src/provider-ranking/capabilities/providerRanking.capability.ts`",
+    "route": "/docs/reference/platform.provider-ranking/provider-ranking.system",
+    "source": "generated",
+    "contentPath": "platform.provider-ranking/provider-ranking.system.md"
+  }
 ]

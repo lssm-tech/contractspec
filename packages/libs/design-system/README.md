@@ -285,7 +285,7 @@ hidden-column recovery without widening the primitive table API.
 ### Renderers and hooks
 
 - renderer exports from `./renderers`
-- form-contract renderer support, including readonly, password, autocomplete, address, phone, date, time, datetime, semantic FormSpec groups, grid layout hints, mobile-safe FormSpec column helper output, and text/textarea input groups
+- form-contract renderer support, including readonly, email, password, autocomplete, address, phone, date, time, datetime, semantic FormSpec groups, grid layout hints, progressive FormSpec sections/steps, mobile-safe FormSpec column helper output, and text/textarea/email input groups
 - translation-aware rendering through `DesignSystemTranslationProvider` and `createTranslationResolver`
 - theme-aware form controls and stack primitives that consume ThemeSpec component variant props
 - hooks such as `useListUrlState`, including scoped list filters where locked constraints are excluded from user-editable URL state

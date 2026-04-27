@@ -40,7 +40,7 @@ export function Input({
 	ariaLabelI18n,
 	...rest
 }: InputProps) {
-	const nativeKeyboard = mapKeyboardToNative(keyboard);
+	const nativeKeyboard = keyboard ? mapKeyboardToNative(keyboard) : {};
 	const field = useThemedTextField({
 		defaultComponentKey: 'Input',
 		componentKey,

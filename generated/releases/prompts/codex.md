@@ -122,6 +122,13 @@ contractspec: unknown -> 1.46.2
 vscode-contractspec: unknown -> 3.10.7
 
 Required steps:
+- [manual] Adopt first-class email fields: Replace renderer-specific email text hints with `kind: "email"` where a field captures one email address.
+  - Use `{ kind: "email", name: "contactEmail" }` for single-address email fields.
+  - Use an `array` of email fields when a form must collect multiple addresses.
+- [manual] Verify custom form driver button and fieldset slots: Custom drivers should confirm their existing `Button`, `FieldSet`, `FieldLegend`, `FieldDescription`, and `FieldGroup` slots render the new flow structure cleanly.
+  - Render a form with `layout.flow.kind: "sections"`.
+  - Render a form with `layout.flow.kind: "steps"`.
+  - Confirm unlisted fields remain visible and step navigation buttons inherit expected styling.
 - [manual] Opt into mobile-safe form columns: Replace ad hoc responsive column objects with `responsiveFormColumns(...)` where mobile forms should render one field per row.
   - Import `responsiveFormColumns` from `@contractspec/lib.contracts-spec/forms`.
   - Set `layout.columns` to `responsiveFormColumns(2)` or another supported column count.

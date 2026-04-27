@@ -1,0 +1,69 @@
+schemaVersion: "1"
+slug: forms-progressive-layout
+summary: Add progressive FormSpec section and step layout metadata with shared React and design-system rendering support.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.contracts-spec"
+    releaseType: minor
+  - name: "@contractspec/lib.contracts-runtime-client-react"
+    releaseType: minor
+  - name: "@contractspec/lib.design-system"
+    releaseType: minor
+affectedRuntimes:
+  - bun
+  - browser
+  - nextjs
+  - expo
+affectedFrameworks:
+  - react
+  - react-native
+audiences:
+  - kind: maintainer
+    summary: Maintainers can declare progressive form sections or steps as additive FormSpec layout metadata while keeping the field list canonical.
+    affectedPackages:
+      - "@contractspec/lib.contracts-spec"
+      - "@contractspec/lib.contracts-runtime-client-react"
+  - kind: integrator
+    summary: Integrators can render long contract-driven forms through shared section or step layouts without custom per-form wrappers.
+    affectedPackages:
+      - "@contractspec/lib.contracts-runtime-client-react"
+      - "@contractspec/lib.design-system"
+  - kind: customer
+    summary: Long forms can now be split into scannable sections or progressive steps, improving completion ergonomics without changing submitted data.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+deprecations: []
+migrationInstructions:
+  - id: existing-forms-compatible
+    title: Keep existing forms as-is
+    summary: Existing forms render exactly as before unless they opt into `layout.flow`.
+    required: false
+    steps:
+      - No migration is required for forms without `layout.flow`.
+  - id: adopt-progressive-layout
+    title: Add section or step flow metadata to long forms
+    summary: Use `layout.flow.sections` to group existing fields by immediate field name.
+    required: false
+    steps:
+      - 'Add `layout.flow.kind: "sections"` when all sections should remain visible.'
+      - 'Add `layout.flow.kind: "steps"` when the renderer should show one section at a time.'
+      - Keep field definitions in `FormSpec.fields` and reference them through section `fieldNames`.
+upgradeSteps:
+  - id: verify-custom-form-drivers
+    title: Verify custom form driver button and fieldset slots
+    summary: Custom drivers should confirm their existing `Button`, `FieldSet`, `FieldLegend`, `FieldDescription`, and `FieldGroup` slots render the new flow structure cleanly.
+    level: manual
+    instructions:
+      - 'Render a form with `layout.flow.kind: "sections"`.'
+      - 'Render a form with `layout.flow.kind: "steps"`.'
+      - Confirm unlisted fields remain visible and step navigation buttons inherit expected styling.
+validation:
+  commands:
+    - "bun test packages/libs/contracts-spec/src/forms/forms.test.ts packages/libs/contracts-runtime-client-react/src/form-render.impl.test.tsx packages/libs/design-system/src/renderers/form-contract.test.tsx"
+    - "cd packages/libs/contracts-spec && bun run typecheck && bun run lint:check"
+    - "cd packages/libs/contracts-runtime-client-react && bun run typecheck && bun run lint:check"
+    - "cd packages/libs/design-system && bun run typecheck && bun run lint:check && bun run test"
+  evidence:
+    - "FormSpec exposes additive `layout.flow` types for section and step rendering."
+    - "React renderer maps flow metadata to existing driver fieldset, group, and button slots."
+    - "Design-system renderer inherits progressive flow behavior through the shared renderer."

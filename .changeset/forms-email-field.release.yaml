@@ -1,0 +1,67 @@
+schemaVersion: "1"
+slug: forms-email-field
+summary: Add first-class FormSpec email fields with native renderer affordances.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.contracts-spec"
+    releaseType: minor
+  - name: "@contractspec/lib.contracts-runtime-client-react"
+    releaseType: minor
+  - name: "@contractspec/lib.design-system"
+    releaseType: minor
+affectedRuntimes:
+  - bun
+  - browser
+  - nextjs
+  - expo
+affectedFrameworks:
+  - react
+  - react-native
+audiences:
+  - kind: maintainer
+    summary: 'Maintainers can declare single-address email inputs with `kind: "email"` while keeping validation in the form model.'
+    affectedPackages:
+      - "@contractspec/lib.contracts-spec"
+  - kind: integrator
+    summary: Integrators get native email input attributes through the existing form renderer driver slots without adding an EmailInput slot.
+    affectedPackages:
+      - "@contractspec/lib.contracts-runtime-client-react"
+      - "@contractspec/lib.design-system"
+  - kind: customer
+    summary: Contract-driven email fields now use email keyboards, autofill, and browser email input behavior by default.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+deprecations: []
+migrationInstructions:
+  - id: existing-email-text-fields-compatible
+    title: Keep existing text email fields as-is
+    summary: 'Existing `kind: "text"` fields with email input hints continue to render normally.'
+    required: false
+    steps:
+      - No migration is required for existing text fields.
+      - 'Prefer `kind: "email"` for new single-address email fields.'
+  - id: preserve-schema-validation
+    title: Keep email validation in the model
+    summary: '`kind: "email"` only describes rendering intent; strict validation remains schema-owned.'
+    required: false
+    steps:
+      - 'Use `z.string().email()` or the existing schema email scalar for email format validation.'
+upgradeSteps:
+  - id: adopt-email-kind
+    title: Adopt first-class email fields
+    summary: 'Replace renderer-specific email text hints with `kind: "email"` where a field captures one email address.'
+    level: manual
+    instructions:
+      - 'Use `{ kind: "email", name: "contactEmail" }` for single-address email fields.'
+      - 'Use an `array` of email fields when a form must collect multiple addresses.'
+validation:
+  commands:
+    - "bun test packages/libs/contracts-spec/src/forms/forms.test.ts packages/libs/contracts-runtime-client-react/src/form-render.impl.test.tsx packages/libs/design-system/src/renderers/form-contract.test.tsx"
+    - "bun run --cwd packages/libs/contracts-spec typecheck && bun run --cwd packages/libs/contracts-spec lint:check"
+    - "bun run --cwd packages/libs/contracts-runtime-client-react typecheck && bun run --cwd packages/libs/contracts-runtime-client-react lint:check"
+    - "bun run --cwd packages/libs/design-system typecheck && bun run --cwd packages/libs/design-system lint:check && bun run --cwd packages/libs/design-system test"
+    - "bun run release:build"
+  evidence:
+    - "FormSpec exposes additive `EmailFieldSpec` and accepts email fields in groups, arrays, input groups, constraints, and conditional rules."
+    - "React renderer maps email fields to standard driver input slots with native email attributes and input-group fallback behavior."
+    - "The design-system canonical FormSpec showcase renders `kind: \"email\"` through the shared renderer."

@@ -253,6 +253,30 @@
 - Deprecations:
   - Importing the broad `@contractspec/lib.contracts-spec/workflow` barrel from sandboxed workflow entrypoints is discouraged.
 
+### Keep web FormSpec datetime controls inside their responsive form columns.
+- Slug: forms-datetime-containment
+- Date: 2026-04-27
+- Breaking: no
+- @contractspec/lib.ui-kit-web@3.12.1 (patch)
+- Maintainer: The web datetime picker now gives its composite date and time controls shrinkable width constraints.
+
+### Add first-class FormSpec email fields with native renderer affordances.
+- Slug: forms-email-field
+- Date: 2026-04-27
+- Breaking: no
+- @contractspec/lib.contracts-spec@5.7.0 (minor)
+- @contractspec/lib.contracts-runtime-client-react@3.11.1 (minor)
+- @contractspec/lib.design-system@4.1.0 (minor)
+- Maintainer: Maintainers can declare single-address email inputs with `kind: "email"` while keeping validation in the form model.
+
+### Preserve FormSpec email input behavior when optional renderer metadata is omitted.
+- Slug: forms-email-input-safety
+- Date: 2026-04-27
+- Breaking: no
+- @contractspec/lib.contracts-runtime-client-react@3.11.1 (patch)
+- @contractspec/lib.design-system@4.1.0 (patch)
+- Maintainer: The React FormSpec renderer now treats `uiProps` as optional for email and text fields, and design-system inputs preserve explicit HTML input props over default keyboard hints.
+
 ### Add FormSpec layout hints, semantic field rendering, and portable text/textarea input-group addons.
 - Slug: forms-layout-input-groups
 - Date: 2026-04-21
@@ -277,6 +301,15 @@
 - @contractspec/lib.ui-kit@4.1.1 (minor)
 - @contractspec/lib.ui-kit-core@3.8.4 (patch)
 - Maintainer: Maintainers can declare current and new password fields as additive FormSpec text metadata.
+
+### Add progressive FormSpec section and step layout metadata with shared React and design-system rendering support.
+- Slug: forms-progressive-layout
+- Date: 2026-04-27
+- Breaking: no
+- @contractspec/lib.contracts-spec@5.7.0 (minor)
+- @contractspec/lib.contracts-runtime-client-react@3.11.1 (minor)
+- @contractspec/lib.design-system@4.1.0 (minor)
+- Maintainer: Maintainers can declare progressive form sections or steps as additive FormSpec layout metadata while keeping the field list canonical.
 
 ### Add mobile-safe FormSpec layout helpers and scoped DataView filters.
 - Slug: formspec-layout-scoped-filters

@@ -8,9 +8,12 @@ import type {
 	AutocompleteOption,
 	DateFieldSpec,
 	DateTimeFieldSpec,
+	EmailFieldSpec,
 	FieldSpec,
+	FormFlowSpec,
 	FormLayoutSpec,
 	FormOption,
+	FormSectionSpec,
 	FormSpec,
 	FormValuesFor,
 	InputGroupAddonSpec,
@@ -459,6 +462,208 @@ function DefaultFieldGroup({
 	className,
 }: React.PropsWithChildren<{ className?: string; layout?: FormLayoutSpec }>) {
 	return <div className={className}>{children}</div>;
+}
+
+function fieldCollectionKey(field: FieldSpec, index: number) {
+	return field.name ?? `${field.kind}-${index}`;
+}
+
+function partitionFlowFields(fields: readonly FieldSpec[], flow: FormFlowSpec) {
+	const claimed = new Set<number>();
+	const sections = flow.sections
+		.map((section) => {
+			const sectionFields = section.fieldNames
+				.map((fieldName) => {
+					const index = fields.findIndex(
+						(candidate, candidateIndex) =>
+							!claimed.has(candidateIndex) && candidate.name === fieldName
+					);
+					if (index < 0) return undefined;
+					claimed.add(index);
+					return { field: fields[index] as FieldSpec, index };
+				})
+				.filter((value): value is FieldCollectionEntry => value != null);
+
+			return { section, fields: sectionFields };
+		})
+		.filter((entry) => entry.fields.length > 0);
+
+	const unlistedFields = fields
+		.map((field, index) => ({ field, index }))
+		.filter((entry) => !claimed.has(entry.index));
+
+	return { sections, unlistedFields };
+}
+
+function getRenderableFlowSectionCount(
+	fields: readonly FieldSpec[],
+	flow: FormFlowSpec | undefined
+) {
+	if (!flow) return 0;
+	return partitionFlowFields(fields, flow).sections.length;
+}
+
+function clampStepIndex(index: number, sectionCount: number) {
+	return Math.min(Math.max(index, 0), Math.max(sectionCount - 1, 0));
+}
+
+interface FieldCollectionEntry {
+	field: FieldSpec;
+	index: number;
+}
+
+interface FieldCollectionRendererProps {
+	driver: DriverSlots;
+	fields: readonly FieldSpec[];
+	layout?: FormLayoutSpec;
+	parent?: string;
+	idBase: string;
+	renderField: (
+		field: FieldSpec,
+		parent?: string,
+		parentLayout?: FormLayoutSpec,
+		fallbackId?: string
+	) => React.ReactElement | null;
+	activeStepIndex?: number;
+	onActiveStepIndexChange?: (index: number) => void;
+}
+
+function FieldCollectionRenderer({
+	driver,
+	fields,
+	layout,
+	parent,
+	idBase,
+	renderField,
+	activeStepIndex,
+	onActiveStepIndexChange,
+}: FieldCollectionRendererProps) {
+	const [localStepIndex, setLocalStepIndex] = React.useState(0);
+	const FieldGroup = driver.FieldGroup ?? DefaultFieldGroup;
+	const FieldSet = driver.FieldSet ?? 'div';
+	const FieldLegend = driver.FieldLegend;
+	const flow = layout?.flow;
+	const fieldEntries = fields.map((field, index) => ({ field, index }));
+
+	const renderPlainFields = (plainFields: readonly FieldCollectionEntry[]) => (
+		<FieldGroup layout={layout} className={formLayoutClassName(layout)}>
+			{plainFields.map(({ field, index }) => (
+				<React.Fragment key={fieldCollectionKey(field, index)}>
+					{renderField(field, parent, layout, `${idBase}-${index}`)}
+				</React.Fragment>
+			))}
+		</FieldGroup>
+	);
+
+	if (!flow?.sections.length) {
+		return renderPlainFields(fieldEntries);
+	}
+
+	const { sections, unlistedFields } = partitionFlowFields(fields, flow);
+	if (sections.length === 0) {
+		return renderPlainFields(fieldEntries);
+	}
+
+	const stepIndex = clampStepIndex(
+		activeStepIndex ?? localStepIndex,
+		sections.length
+	);
+	const setStepIndex = onActiveStepIndexChange ?? setLocalStepIndex;
+
+	const renderSection = (
+		section: FormSectionSpec,
+		sectionFields: readonly FieldCollectionEntry[]
+	) => {
+		const sectionLayout = section.layout ?? layout;
+		const descriptionId = section.descriptionI18n
+			? `${idBase}-${section.key}-description`
+			: undefined;
+		return (
+			<FieldSet
+				key={section.key}
+				className={fieldLayoutClassName({ colSpan: 'full' })}
+			>
+				{FieldLegend ? (
+					<FieldLegend variant="legend">{section.titleI18n}</FieldLegend>
+				) : (
+					<driver.FieldLabel>{section.titleI18n}</driver.FieldLabel>
+				)}
+				{section.descriptionI18n ? (
+					<driver.FieldDescription id={descriptionId}>
+						{section.descriptionI18n}
+					</driver.FieldDescription>
+				) : null}
+				<FieldGroup
+					layout={sectionLayout}
+					className={formLayoutClassName(sectionLayout)}
+				>
+					{sectionFields.map(({ field, index }) => (
+						<React.Fragment key={fieldCollectionKey(field, index)}>
+							{renderField(field, parent, sectionLayout, `${idBase}-${index}`)}
+						</React.Fragment>
+					))}
+				</FieldGroup>
+			</FieldSet>
+		);
+	};
+
+	if (flow.kind === 'steps') {
+		const activeSection = sections[stepIndex];
+		return (
+			<>
+				<div className="flex flex-wrap gap-2" data-slot="form-steps">
+					{sections.map(({ section }, index) => (
+						<driver.Button
+							key={section.key}
+							type="button"
+							variant={index === stepIndex ? 'default' : 'outline'}
+							size="sm"
+							onClick={() => setStepIndex(index)}
+						>
+							{section.titleI18n}
+						</driver.Button>
+					))}
+				</div>
+				{activeSection
+					? renderSection(activeSection.section, activeSection.fields)
+					: null}
+				<div className="flex flex-wrap gap-2" data-slot="form-step-actions">
+					<driver.Button
+						type="button"
+						variant="outline"
+						size="sm"
+						disabled={stepIndex <= 0}
+						onClick={() =>
+							setStepIndex(clampStepIndex(stepIndex - 1, sections.length))
+						}
+					>
+						{flow.previousLabelI18n ?? 'Previous'}
+					</driver.Button>
+					<driver.Button
+						type="button"
+						variant="outline"
+						size="sm"
+						disabled={stepIndex >= sections.length - 1}
+						onClick={() =>
+							setStepIndex(clampStepIndex(stepIndex + 1, sections.length))
+						}
+					>
+						{flow.nextLabelI18n ?? 'Next'}
+					</driver.Button>
+				</div>
+				{unlistedFields.length ? renderPlainFields(unlistedFields) : null}
+			</>
+		);
+	}
+
+	return (
+		<>
+			{sections.map(({ section, fields: sectionFields }) =>
+				renderSection(section, sectionFields)
+			)}
+			{unlistedFields.length ? renderPlainFields(unlistedFields) : null}
+		</>
+	);
 }
 
 function makeDepsKey(values: unknown, deps: string[] | undefined) {
@@ -1431,6 +1636,7 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
 			defaultValues: props.options?.defaultValues as never,
 		});
 		const values = form.watch();
+		const [activeStepIndex, setActiveStepIndex] = React.useState(0);
 
 		const renderField = (
 			field: FieldSpec,
@@ -1442,8 +1648,6 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
 			const DriverLabel = props.merged.driver.FieldLabel;
 			const DriverDesc = props.merged.driver.FieldDescription;
 			const DriverError = props.merged.driver.FieldError;
-			const DriverFieldGroup =
-				props.merged.driver.FieldGroup ?? DefaultFieldGroup;
 			const DriverFieldSet = props.merged.driver.FieldSet ?? 'div';
 			const DriverLegend = props.merged.driver.FieldLegend;
 			const name = fieldPath(parent, field.name);
@@ -1501,16 +1705,14 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
 							<DriverLabel>{legendNode}</DriverLabel>
 						) : null}
 						{descNode}
-						<DriverFieldGroup
+						<FieldCollectionRenderer
+							driver={props.merged.driver}
+							fields={field.fields}
 							layout={field.layout}
-							className={formLayoutClassName(field.layout)}
-						>
-							{field.fields.map((child, index) => (
-								<React.Fragment key={`${name}-${index}`}>
-									{renderField(child, name, field.layout, `${idBase}-${index}`)}
-								</React.Fragment>
-							))}
-						</DriverFieldGroup>
+							parent={name}
+							idBase={idBase}
+							renderField={renderField}
+						/>
 					</DriverFieldSet>
 				);
 			}
@@ -1680,10 +1882,78 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
 						const errorNode = fieldState.invalid ? (
 							<DriverError id={ctx.errorId} errors={err} />
 						) : null;
+						if (field.kind === 'email') {
+							const emailField = field as EmailFieldSpec;
+							const uiProps = (field.uiProps ?? {}) as Partial<
+								React.InputHTMLAttributes<HTMLInputElement>
+							>;
+							const keyboardAutoCorrect =
+								emailField.keyboard?.autoCorrect == null
+									? undefined
+									: emailField.keyboard.autoCorrect
+										? 'on'
+										: 'off';
+							const emailAutoComplete = (emailField.keyboard?.autoComplete ??
+								emailField.autoComplete ??
+								uiProps.autoComplete ??
+								'email') as React.InputHTMLAttributes<HTMLInputElement>['autoComplete'];
+							const emailAutoCapitalize = (emailField.keyboard
+								?.autoCapitalize ??
+								uiProps.autoCapitalize ??
+								'none') as React.InputHTMLAttributes<HTMLInputElement>['autoCapitalize'];
+							const emailAutoCorrect = (keyboardAutoCorrect ??
+								uiProps.autoCorrect ??
+								'off') as React.InputHTMLAttributes<HTMLInputElement>['autoCorrect'];
+							const inputProps: React.InputHTMLAttributes<HTMLInputElement> = {
+								id: ctx.id,
+								'aria-invalid': fieldState.invalid || undefined,
+								'aria-describedby': describedBy,
+								placeholder: field.placeholderI18n,
+								disabled: !ctx.enabled,
+								readOnly: ctx.readOnly,
+								...rhfField,
+								...uiProps,
+								type: 'email',
+								inputMode: 'email',
+								autoComplete: emailAutoComplete,
+								autoCapitalize: emailAutoCapitalize,
+								autoCorrect: emailAutoCorrect,
+								maxLength: emailField.maxLength,
+								minLength: emailField.minLength,
+							};
+							const canRenderInputGroup =
+								emailField.inputGroup?.addons?.length &&
+								props.merged.driver.InputGroup &&
+								props.merged.driver.InputGroupAddon &&
+								props.merged.driver.InputGroupInput;
+							const InputGroup = props.merged.driver.InputGroup;
+							const InputGroupInput = props.merged.driver.InputGroupInput;
+							return (
+								<DriverField {...wrapProps}>
+									{labelNode}
+									{canRenderInputGroup && InputGroup && InputGroupInput ? (
+										<InputGroup>
+											<InputGroupInput {...inputProps} />
+											{renderInputGroupAddons(
+												props.merged.driver,
+												emailField.inputGroup
+											)}
+										</InputGroup>
+									) : (
+										<props.merged.driver.Input {...inputProps} />
+									)}
+									{descNode}
+									{errorNode}
+								</DriverField>
+							);
+						}
+
 						if (field.kind === 'text') {
 							const textField = field as TextFieldSpec;
 							const passwordIntent = resolvePasswordFieldIntent(textField);
-							const uiProps = field.uiProps as Record<string, unknown>;
+							const uiProps = (field.uiProps ?? {}) as Partial<
+								React.InputHTMLAttributes<HTMLInputElement>
+							>;
 							const inputProps = {
 								id: ctx.id,
 								'aria-invalid': fieldState.invalid || undefined,
@@ -1891,9 +2161,17 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
 		};
 		const FormRoot = props.merged.driver.FormRoot ?? 'form';
 		const Actions = props.merged.driver.Actions ?? 'div';
-		const FieldGroup = props.merged.driver.FieldGroup ?? DefaultFieldGroup;
 		const submitMode = props.merged.submitMode ?? 'form';
 		const submit = form.handleSubmit(onSubmit);
+		const flowSectionCount = getRenderableFlowSectionCount(
+			normalizedSpec.fields,
+			normalizedSpec.layout?.flow
+		);
+		const activeFlowStep = clampStepIndex(activeStepIndex, flowSectionCount);
+		const showActions =
+			normalizedSpec.layout?.flow?.kind !== 'steps' ||
+			flowSectionCount === 0 ||
+			activeFlowStep >= flowSectionCount - 1;
 		const submitButtonProps =
 			submitMode === 'button'
 				? ({
@@ -1906,22 +2184,16 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
 
 		return (
 			<FormRoot onSubmit={submitMode === 'form' ? submit : undefined}>
-				<FieldGroup
+				<FieldCollectionRenderer
+					driver={props.merged.driver}
+					fields={normalizedSpec.fields}
 					layout={normalizedSpec.layout}
-					className={formLayoutClassName(normalizedSpec.layout)}
-				>
-					{normalizedSpec.fields.map((field, index) => (
-						<React.Fragment key={index}>
-							{renderField(
-								field,
-								undefined,
-								normalizedSpec.layout,
-								`field-${index}`
-							)}
-						</React.Fragment>
-					))}
-				</FieldGroup>
-				{normalizedSpec.actions?.length ? (
+					idBase="field"
+					renderField={renderField}
+					activeStepIndex={activeFlowStep}
+					onActiveStepIndexChange={setActiveStepIndex}
+				/>
+				{normalizedSpec.actions?.length && showActions ? (
 					<Actions>
 						{normalizedSpec.actions.map((action) => (
 							<props.merged.driver.Button

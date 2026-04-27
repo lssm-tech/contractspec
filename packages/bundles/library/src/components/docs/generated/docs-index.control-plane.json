@@ -1,18 +1,18 @@
 [
-	{
-		"id": "control-plane/control-plane",
-		"title": "control-plane",
-		"summary": "Canonical generated feature reference:\n- `generated/docs/platform.control-plane/platform.control-plane.md`\nCanonical generated operation references:\n- `generated/docs/platform.control-plane/controlPlane.intent.submit.md`",
-		"route": "/docs/reference/control-plane/control-plane",
-		"source": "generated",
-		"contentPath": "control-plane/control-plane.md"
-	},
-	{
-		"id": "control-plane/README",
-		"title": "control-plane docs compatibility path",
-		"summary": "This directory exists to satisfy the implementation-plan path `generated/docs/control-plane/`.\nThe canonical generated control-plane reference docs currently live under:\n- `generated/docs/platform.control-plane/`",
-		"route": "/docs/reference/control-plane/README",
-		"source": "generated",
-		"contentPath": "control-plane/README.md"
-	}
+  {
+    "id": "control-plane/control-plane",
+    "title": "control-plane",
+    "summary": "Canonical generated feature reference:\n- `generated/docs/platform.control-plane/platform.control-plane.md`\nCanonical generated operation references:\n- `generated/docs/platform.control-plane/controlPlane.intent.submit.md`",
+    "route": "/docs/reference/control-plane/control-plane",
+    "source": "generated",
+    "contentPath": "control-plane/control-plane.md"
+  },
+  {
+    "id": "control-plane/README",
+    "title": "control-plane docs compatibility path",
+    "summary": "This directory exists to satisfy the implementation-plan path `generated/docs/control-plane/`.\nThe canonical generated control-plane reference docs currently live under:\n- `generated/docs/platform.control-plane/`",
+    "route": "/docs/reference/control-plane/README",
+    "source": "generated",
+    "contentPath": "control-plane/README.md"
+  }
 ]

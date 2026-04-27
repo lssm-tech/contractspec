@@ -1,0 +1,38 @@
+schemaVersion: "1"
+slug: forms-datetime-containment
+summary: Keep web FormSpec datetime controls inside their responsive form columns.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.ui-kit-web"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - browser
+  - nextjs
+affectedFrameworks:
+  - react
+audiences:
+  - kind: maintainer
+    summary: The web datetime picker now gives its composite date and time controls shrinkable width constraints.
+    affectedPackages:
+      - "@contractspec/lib.ui-kit-web"
+  - kind: integrator
+    summary: Existing datetime picker and FormSpec renderer imports stay compatible while the composite control fits responsive grids.
+    affectedPackages:
+      - "@contractspec/lib.ui-kit-web"
+  - kind: customer
+    summary: Datetime FormSpec fields now fit inside responsive form columns instead of overflowing into neighboring fields.
+deprecations: []
+migrationInstructions: []
+upgradeSteps: []
+validation:
+  commands:
+    - "bun test packages/libs/design-system/src/renderers/form-contract.test.tsx"
+    - "cd packages/libs/ui-kit-web && bun run lint:check"
+    - "cd packages/libs/ui-kit-web && bun run typecheck"
+    - "cd packages/libs/design-system && bun run test"
+  evidence:
+    - "The web datetime picker wrapper now renders with `w-full min-w-0`."
+    - "The nested date and time controls now render with shrinkable flex sizing."
+    - "The design-system FormSpec renderer regression test asserts the non-overflow datetime sizing classes."
+knownGaps: []

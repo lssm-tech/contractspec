@@ -448,6 +448,52 @@
     - Replace broad workflow barrel imports with the specific `workflow/spec`, `workflow/runner`, `workflow/adapters`, and `workflow/expression` subpaths you need.
     - Keep `crypto` and other Node-only dependencies in step functions instead of workflow entrypoints.
 
+### Keep web FormSpec datetime controls inside their responsive form columns.
+- @contractspec/lib.ui-kit-web@3.12.1 (patch)
+- Integrator: Existing datetime picker and FormSpec renderer imports stay compatible while the composite control fits responsive grids.
+- Customer: Datetime FormSpec fields now fit inside responsive form columns instead of overflowing into neighboring fields.
+
+
+
+### Keep web FormSpec datetime controls inside their responsive form columns.
+- Customer: Datetime FormSpec fields now fit inside responsive form columns instead of overflowing into neighboring fields.
+- No manual migration steps recorded.
+
+### Add first-class FormSpec email fields with native renderer affordances.
+- @contractspec/lib.contracts-spec@5.7.0 (minor)
+- @contractspec/lib.contracts-runtime-client-react@3.11.1 (minor)
+- @contractspec/lib.design-system@4.1.0 (minor)
+- Integrator: Integrators get native email input attributes through the existing form renderer driver slots without adding an EmailInput slot.
+- Customer: Contract-driven email fields now use email keyboards, autofill, and browser email input behavior by default.
+- Keep existing text email fields as-is: Existing `kind: "text"` fields with email input hints continue to render normally.
+- Keep email validation in the model: `kind: "email"` only describes rendering intent; strict validation remains schema-owned.
+
+
+
+### Add first-class FormSpec email fields with native renderer affordances.
+- Customer: Contract-driven email fields now use email keyboards, autofill, and browser email input behavior by default.
+- Keep existing text email fields as-is: Existing `kind: "text"` fields with email input hints continue to render normally.
+  - No migration is required for existing text fields.
+  - Prefer `kind: "email"` for new single-address email fields.
+- Keep email validation in the model: `kind: "email"` only describes rendering intent; strict validation remains schema-owned.
+  - Use `z.string().email()` or the existing schema email scalar for email format validation.
+- Upgrade steps:
+  - [manual] Adopt first-class email fields: Replace renderer-specific email text hints with `kind: "email"` where a field captures one email address.
+    - Use `{ kind: "email", name: "contactEmail" }` for single-address email fields.
+    - Use an `array` of email fields when a form must collect multiple addresses.
+
+### Preserve FormSpec email input behavior when optional renderer metadata is omitted.
+- @contractspec/lib.contracts-runtime-client-react@3.11.1 (patch)
+- @contractspec/lib.design-system@4.1.0 (patch)
+- Integrator: Existing email FormSpec fields render without requiring `uiProps`, while explicit `type`, `inputMode`, and autofill props continue to pass through the design-system input wrapper.
+- Customer: Contract-driven email fields keep their expected browser email input behavior.
+
+
+
+### Preserve FormSpec email input behavior when optional renderer metadata is omitted.
+- Customer: Contract-driven email fields keep their expected browser email input behavior.
+- No manual migration steps recorded.
+
 ### Add FormSpec layout hints, semantic field rendering, and portable text/textarea input-group addons.
 - @contractspec/lib.contracts-spec@5.7.0 (minor)
 - @contractspec/lib.contracts-runtime-client-react@3.11.1 (minor)
@@ -508,6 +554,31 @@
   - [manual] Add PasswordInput to custom drivers: Custom form renderers can provide the optional `PasswordInput` slot to get a visibility toggle.
     - Implement a driver component that accepts input props plus `passwordPurpose`, `visibilityToggle`, `showLabelI18n`, and `hideLabelI18n`.
     - Omit the slot to keep the fallback masked input behavior.
+
+### Add progressive FormSpec section and step layout metadata with shared React and design-system rendering support.
+- @contractspec/lib.contracts-spec@5.7.0 (minor)
+- @contractspec/lib.contracts-runtime-client-react@3.11.1 (minor)
+- @contractspec/lib.design-system@4.1.0 (minor)
+- Integrator: Integrators can render long contract-driven forms through shared section or step layouts without custom per-form wrappers.
+- Customer: Long forms can now be split into scannable sections or progressive steps, improving completion ergonomics without changing submitted data.
+- Keep existing forms as-is: Existing forms render exactly as before unless they opt into `layout.flow`.
+- Add section or step flow metadata to long forms: Use `layout.flow.sections` to group existing fields by immediate field name.
+
+
+
+### Add progressive FormSpec section and step layout metadata with shared React and design-system rendering support.
+- Customer: Long forms can now be split into scannable sections or progressive steps, improving completion ergonomics without changing submitted data.
+- Keep existing forms as-is: Existing forms render exactly as before unless they opt into `layout.flow`.
+  - No migration is required for forms without `layout.flow`.
+- Add section or step flow metadata to long forms: Use `layout.flow.sections` to group existing fields by immediate field name.
+  - Add `layout.flow.kind: "sections"` when all sections should remain visible.
+  - Add `layout.flow.kind: "steps"` when the renderer should show one section at a time.
+  - Keep field definitions in `FormSpec.fields` and reference them through section `fieldNames`.
+- Upgrade steps:
+  - [manual] Verify custom form driver button and fieldset slots: Custom drivers should confirm their existing `Button`, `FieldSet`, `FieldLegend`, `FieldDescription`, and `FieldGroup` slots render the new flow structure cleanly.
+    - Render a form with `layout.flow.kind: "sections"`.
+    - Render a form with `layout.flow.kind: "steps"`.
+    - Confirm unlisted fields remain visible and step navigation buttons inherit expected styling.
 
 ### Add mobile-safe FormSpec layout helpers and scoped DataView filters.
 - @contractspec/lib.contracts-spec@5.7.0 (minor)

@@ -1,138 +1,138 @@
 [
-	{
-		"id": "platform.acp/acp.fs.access",
-		"title": "acp.fs.access",
-		"summary": "Perform file system access within an ACP session.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: filesystem\n- **File**: `packages/libs/contracts-spec/src/acp/commands/acpFsAccess.command.ts`",
-		"route": "/docs/reference/platform.acp/acp.fs.access",
-		"source": "generated",
-		"contentPath": "platform.acp/acp.fs.access.md"
-	},
-	{
-		"id": "platform.acp/acp.prompt.turn",
-		"title": "acp.prompt.turn",
-		"summary": "Execute a prompt turn within an ACP session.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: prompt\n- **File**: `packages/libs/contracts-spec/src/acp/commands/acpPromptTurn.command.ts`\nRun ACP prompt turns with tool calls and structured outputs.",
-		"route": "/docs/reference/platform.acp/acp.prompt.turn",
-		"source": "generated",
-		"contentPath": "platform.acp/acp.prompt.turn.md"
-	},
-	{
-		"id": "platform.acp/acp.session.init",
-		"title": "acp.session.init",
-		"summary": "Initialize a new ACP session.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: session\n- **File**: `packages/libs/contracts-spec/src/acp/commands/acpSessionInit.command.ts`\nStart a governed ACP session with configured tools and policies.",
-		"route": "/docs/reference/platform.acp/acp.session.init",
-		"source": "generated",
-		"contentPath": "platform.acp/acp.session.init.md"
-	},
-	{
-		"id": "platform.acp/acp.session.resume",
-		"title": "acp.session.resume",
-		"summary": "Resume an existing ACP session.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: session\n- **File**: `packages/libs/contracts-spec/src/acp/commands/acpSessionResume.command.ts`\nContinue a previously initialized ACP session with full context.",
-		"route": "/docs/reference/platform.acp/acp.session.resume",
-		"source": "generated",
-		"contentPath": "platform.acp/acp.session.resume.md"
-	},
-	{
-		"id": "platform.acp/acp.session.stop",
-		"title": "acp.session.stop",
-		"summary": "Stop an active ACP session.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: session\n- **File**: `packages/libs/contracts-spec/src/acp/commands/acpSessionStop.command.ts`\nTerminate ACP sessions cleanly with audit trails.",
-		"route": "/docs/reference/platform.acp/acp.session.stop",
-		"source": "generated",
-		"contentPath": "platform.acp/acp.session.stop.md"
-	},
-	{
-		"id": "platform.acp/acp.terminal.exec",
-		"title": "acp.terminal.exec",
-		"summary": "Execute a terminal command within an ACP session.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: terminal\n- **File**: `packages/libs/contracts-spec/src/acp/commands/acpTerminalExec.command.ts`",
-		"route": "/docs/reference/platform.acp/acp.terminal.exec",
-		"source": "generated",
-		"contentPath": "platform.acp/acp.terminal.exec.md"
-	},
-	{
-		"id": "platform.acp/acp.tool.calls",
-		"title": "acp.tool.calls",
-		"summary": "Execute tool calls within an ACP session.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: tools\n- **File**: `packages/libs/contracts-spec/src/acp/commands/acpToolCalls.command.ts`\nRun tool calls with safe governance and telemetry.",
-		"route": "/docs/reference/platform.acp/acp.tool.calls",
-		"source": "generated",
-		"contentPath": "platform.acp/acp.tool.calls.md"
-	},
-	{
-		"id": "platform.acp/acp.transport",
-		"title": "acp.transport",
-		"summary": "Agent Client Protocol transport surfaces.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: transport\n- **File**: `packages/libs/contracts-spec/src/acp/capabilities/acpTransport.capability.ts`",
-		"route": "/docs/reference/platform.acp/acp.transport",
-		"source": "generated",
-		"contentPath": "platform.acp/acp.transport.md"
-	},
-	{
-		"id": "platform.acp/docs.tech.acp.fs.access",
-		"title": "acp.fs.access",
-		"summary": "Performs file system access with policy gating.",
-		"route": "/docs/reference/platform.acp/docs.tech.acp.fs.access",
-		"source": "generated",
-		"contentPath": "platform.acp/docs.tech.acp.fs.access.md"
-	},
-	{
-		"id": "platform.acp/docs.tech.acp.prompt.turn",
-		"title": "acp.prompt.turn",
-		"summary": "Runs a prompt turn and returns structured outputs and tool calls.",
-		"route": "/docs/reference/platform.acp/docs.tech.acp.prompt.turn",
-		"source": "generated",
-		"contentPath": "platform.acp/docs.tech.acp.prompt.turn.md"
-	},
-	{
-		"id": "platform.acp/docs.tech.acp.session.init",
-		"title": "acp.session.init",
-		"summary": "Creates a new ACP session and returns session metadata.",
-		"route": "/docs/reference/platform.acp/docs.tech.acp.session.init",
-		"source": "generated",
-		"contentPath": "platform.acp/docs.tech.acp.session.init.md"
-	},
-	{
-		"id": "platform.acp/docs.tech.acp.session.resume",
-		"title": "acp.session.resume",
-		"summary": "Resumes a previously initialized ACP session.",
-		"route": "/docs/reference/platform.acp/docs.tech.acp.session.resume",
-		"source": "generated",
-		"contentPath": "platform.acp/docs.tech.acp.session.resume.md"
-	},
-	{
-		"id": "platform.acp/docs.tech.acp.session.stop",
-		"title": "acp.session.stop",
-		"summary": "Stops an active ACP session with audit trails.",
-		"route": "/docs/reference/platform.acp/docs.tech.acp.session.stop",
-		"source": "generated",
-		"contentPath": "platform.acp/docs.tech.acp.session.stop.md"
-	},
-	{
-		"id": "platform.acp/docs.tech.acp.terminal.exec",
-		"title": "acp.terminal.exec",
-		"summary": "Executes terminal commands in a governed ACP session.",
-		"route": "/docs/reference/platform.acp/docs.tech.acp.terminal.exec",
-		"source": "generated",
-		"contentPath": "platform.acp/docs.tech.acp.terminal.exec.md"
-	},
-	{
-		"id": "platform.acp/docs.tech.acp.tool.calls",
-		"title": "acp.tool.calls",
-		"summary": "Executes tool calls with governance and telemetry.",
-		"route": "/docs/reference/platform.acp/docs.tech.acp.tool.calls",
-		"source": "generated",
-		"contentPath": "platform.acp/docs.tech.acp.tool.calls.md"
-	},
-	{
-		"id": "platform.acp/docs.tech.acp.transport",
-		"title": "ACP transport",
-		"summary": "Defines the ContractSpec ACP server + client surfaces for HTTP streamable transport.",
-		"route": "/docs/reference/platform.acp/docs.tech.acp.transport",
-		"source": "generated",
-		"contentPath": "platform.acp/docs.tech.acp.transport.md"
-	},
-	{
-		"id": "platform.acp/platform.acp",
-		"title": "platform.acp",
-		"summary": "Session management and transport operations for agent communication (prompt turns, tool calls, terminal exec, fs access)\n- **Type**: feature\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts-spec/src/acp/acp.feature.ts`",
-		"route": "/docs/reference/platform.acp/platform.acp",
-		"source": "generated",
-		"contentPath": "platform.acp/platform.acp.md"
-	}
+  {
+    "id": "platform.acp/acp.fs.access",
+    "title": "acp.fs.access",
+    "summary": "Perform file system access within an ACP session.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: filesystem\n- **File**: `packages/libs/contracts-spec/src/acp/commands/acpFsAccess.command.ts`",
+    "route": "/docs/reference/platform.acp/acp.fs.access",
+    "source": "generated",
+    "contentPath": "platform.acp/acp.fs.access.md"
+  },
+  {
+    "id": "platform.acp/acp.prompt.turn",
+    "title": "acp.prompt.turn",
+    "summary": "Execute a prompt turn within an ACP session.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: prompt\n- **File**: `packages/libs/contracts-spec/src/acp/commands/acpPromptTurn.command.ts`\nRun ACP prompt turns with tool calls and structured outputs.",
+    "route": "/docs/reference/platform.acp/acp.prompt.turn",
+    "source": "generated",
+    "contentPath": "platform.acp/acp.prompt.turn.md"
+  },
+  {
+    "id": "platform.acp/acp.session.init",
+    "title": "acp.session.init",
+    "summary": "Initialize a new ACP session.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: session\n- **File**: `packages/libs/contracts-spec/src/acp/commands/acpSessionInit.command.ts`\nStart a governed ACP session with configured tools and policies.",
+    "route": "/docs/reference/platform.acp/acp.session.init",
+    "source": "generated",
+    "contentPath": "platform.acp/acp.session.init.md"
+  },
+  {
+    "id": "platform.acp/acp.session.resume",
+    "title": "acp.session.resume",
+    "summary": "Resume an existing ACP session.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: session\n- **File**: `packages/libs/contracts-spec/src/acp/commands/acpSessionResume.command.ts`\nContinue a previously initialized ACP session with full context.",
+    "route": "/docs/reference/platform.acp/acp.session.resume",
+    "source": "generated",
+    "contentPath": "platform.acp/acp.session.resume.md"
+  },
+  {
+    "id": "platform.acp/acp.session.stop",
+    "title": "acp.session.stop",
+    "summary": "Stop an active ACP session.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: session\n- **File**: `packages/libs/contracts-spec/src/acp/commands/acpSessionStop.command.ts`\nTerminate ACP sessions cleanly with audit trails.",
+    "route": "/docs/reference/platform.acp/acp.session.stop",
+    "source": "generated",
+    "contentPath": "platform.acp/acp.session.stop.md"
+  },
+  {
+    "id": "platform.acp/acp.terminal.exec",
+    "title": "acp.terminal.exec",
+    "summary": "Execute a terminal command within an ACP session.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: terminal\n- **File**: `packages/libs/contracts-spec/src/acp/commands/acpTerminalExec.command.ts`",
+    "route": "/docs/reference/platform.acp/acp.terminal.exec",
+    "source": "generated",
+    "contentPath": "platform.acp/acp.terminal.exec.md"
+  },
+  {
+    "id": "platform.acp/acp.tool.calls",
+    "title": "acp.tool.calls",
+    "summary": "Execute tool calls within an ACP session.\n- **Type**: operation (command)\n- **Version**: 1.0.0\n- **Tags**: tools\n- **File**: `packages/libs/contracts-spec/src/acp/commands/acpToolCalls.command.ts`\nRun tool calls with safe governance and telemetry.",
+    "route": "/docs/reference/platform.acp/acp.tool.calls",
+    "source": "generated",
+    "contentPath": "platform.acp/acp.tool.calls.md"
+  },
+  {
+    "id": "platform.acp/acp.transport",
+    "title": "acp.transport",
+    "summary": "Agent Client Protocol transport surfaces.\n- **Type**: capability (capability)\n- **Version**: 1.0.0\n- **Tags**: transport\n- **File**: `packages/libs/contracts-spec/src/acp/capabilities/acpTransport.capability.ts`",
+    "route": "/docs/reference/platform.acp/acp.transport",
+    "source": "generated",
+    "contentPath": "platform.acp/acp.transport.md"
+  },
+  {
+    "id": "platform.acp/docs.tech.acp.fs.access",
+    "title": "acp.fs.access",
+    "summary": "Performs file system access with policy gating.",
+    "route": "/docs/reference/platform.acp/docs.tech.acp.fs.access",
+    "source": "generated",
+    "contentPath": "platform.acp/docs.tech.acp.fs.access.md"
+  },
+  {
+    "id": "platform.acp/docs.tech.acp.prompt.turn",
+    "title": "acp.prompt.turn",
+    "summary": "Runs a prompt turn and returns structured outputs and tool calls.",
+    "route": "/docs/reference/platform.acp/docs.tech.acp.prompt.turn",
+    "source": "generated",
+    "contentPath": "platform.acp/docs.tech.acp.prompt.turn.md"
+  },
+  {
+    "id": "platform.acp/docs.tech.acp.session.init",
+    "title": "acp.session.init",
+    "summary": "Creates a new ACP session and returns session metadata.",
+    "route": "/docs/reference/platform.acp/docs.tech.acp.session.init",
+    "source": "generated",
+    "contentPath": "platform.acp/docs.tech.acp.session.init.md"
+  },
+  {
+    "id": "platform.acp/docs.tech.acp.session.resume",
+    "title": "acp.session.resume",
+    "summary": "Resumes a previously initialized ACP session.",
+    "route": "/docs/reference/platform.acp/docs.tech.acp.session.resume",
+    "source": "generated",
+    "contentPath": "platform.acp/docs.tech.acp.session.resume.md"
+  },
+  {
+    "id": "platform.acp/docs.tech.acp.session.stop",
+    "title": "acp.session.stop",
+    "summary": "Stops an active ACP session with audit trails.",
+    "route": "/docs/reference/platform.acp/docs.tech.acp.session.stop",
+    "source": "generated",
+    "contentPath": "platform.acp/docs.tech.acp.session.stop.md"
+  },
+  {
+    "id": "platform.acp/docs.tech.acp.terminal.exec",
+    "title": "acp.terminal.exec",
+    "summary": "Executes terminal commands in a governed ACP session.",
+    "route": "/docs/reference/platform.acp/docs.tech.acp.terminal.exec",
+    "source": "generated",
+    "contentPath": "platform.acp/docs.tech.acp.terminal.exec.md"
+  },
+  {
+    "id": "platform.acp/docs.tech.acp.tool.calls",
+    "title": "acp.tool.calls",
+    "summary": "Executes tool calls with governance and telemetry.",
+    "route": "/docs/reference/platform.acp/docs.tech.acp.tool.calls",
+    "source": "generated",
+    "contentPath": "platform.acp/docs.tech.acp.tool.calls.md"
+  },
+  {
+    "id": "platform.acp/docs.tech.acp.transport",
+    "title": "ACP transport",
+    "summary": "Defines the ContractSpec ACP server + client surfaces for HTTP streamable transport.",
+    "route": "/docs/reference/platform.acp/docs.tech.acp.transport",
+    "source": "generated",
+    "contentPath": "platform.acp/docs.tech.acp.transport.md"
+  },
+  {
+    "id": "platform.acp/platform.acp",
+    "title": "platform.acp",
+    "summary": "Session management and transport operations for agent communication (prompt turns, tool calls, terminal exec, fs access)\n- **Type**: feature\n- **Version**: 1.0.0\n- **File**: `packages/libs/contracts-spec/src/acp/acp.feature.ts`",
+    "route": "/docs/reference/platform.acp/platform.acp",
+    "source": "generated",
+    "contentPath": "platform.acp/platform.acp.md"
+  }
 ]

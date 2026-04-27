@@ -147,10 +147,32 @@ export type ResponsiveSpan =
 			lg?: ResponsiveSpanValue;
 	  };
 
-export interface FormLayoutSpec {
+export interface FormSectionLayoutSpec {
 	columns?: ResponsiveColumns;
 	gap?: 'sm' | 'md' | 'lg';
 	fieldOrientation?: FieldOrientation;
+}
+
+export type FormFlowKind = 'sections' | 'steps';
+
+export interface FormSectionSpec {
+	key: string;
+	titleI18n: string;
+	descriptionI18n?: string;
+	/** Immediate field names from the surrounding field collection. */
+	fieldNames: string[];
+	layout?: FormSectionLayoutSpec;
+}
+
+export interface FormFlowSpec {
+	kind: FormFlowKind;
+	sections: FormSectionSpec[];
+	previousLabelI18n?: string;
+	nextLabelI18n?: string;
+}
+
+export interface FormLayoutSpec extends FormSectionLayoutSpec {
+	flow?: FormFlowSpec;
 }
 
 export interface FieldLayoutSpec {
@@ -190,6 +212,7 @@ export interface BaseFieldSpec {
 	/** Field kind discriminator. */
 	kind:
 		| 'text'
+		| 'email'
 		| 'textarea'
 		| 'select'
 		| 'checkbox'
@@ -252,6 +275,15 @@ export interface TextFieldSpec extends BaseFieldSpec {
 		| 'numeric'
 		| 'decimal'
 		| 'search';
+	autoComplete?: string;
+	maxLength?: number;
+	minLength?: number;
+}
+
+export interface EmailFieldSpec extends BaseFieldSpec {
+	kind: 'email';
+	name: string;
+	inputGroup?: InputGroupSpec;
 	autoComplete?: string;
 	maxLength?: number;
 	minLength?: number;
@@ -352,6 +384,7 @@ export interface ArrayFieldSpec extends BaseFieldSpec {
 
 export type FieldSpec =
 	| TextFieldSpec
+	| EmailFieldSpec
 	| TextareaFieldSpec
 	| SelectFieldSpec
 	| CheckboxFieldSpec
@@ -838,7 +871,7 @@ type EnhanceField<Field extends AnyFieldLike, P extends string> = Field & {
 	(Field extends { kind: 'radio' }
 		? { options: TypedOptionsSource<P> | readonly FormOption[] }
 		: unknown) &
-	(Field extends { kind: 'text' } | { kind: 'textarea' }
+	(Field extends { kind: 'text' } | { kind: 'email' } | { kind: 'textarea' }
 		? { inputGroup?: InputGroupSpec }
 		: unknown) &
 	(Field extends { kind: 'autocomplete' }
@@ -910,10 +943,10 @@ This document defines the canonical contracts for declarative forms.
 - \`FormSpec\` (in \`@contractspec/lib.contracts-spec/forms\`) declares:
   - \`meta\` (extends \`OwnerShipMeta\`) + \`key\`/\`version\` for stability.
   - \`model\` (\`@contractspec/lib.schema\` \`SchemaModel\`) as the single source of truth.
-  - \`fields\` built from \`FieldSpec\` kinds: \`text\`, \`textarea\`, \`select\`, \`checkbox\`, \`radio\`, \`switch\`, \`autocomplete\`, \`address\`, \`phone\`, \`date\`, \`time\`, \`datetime\`, \`group\`, \`array\`.
+  - \`fields\` built from \`FieldSpec\` kinds: \`text\`, \`email\`, \`textarea\`, \`select\`, \`checkbox\`, \`radio\`, \`switch\`, \`autocomplete\`, \`address\`, \`phone\`, \`date\`, \`time\`, \`datetime\`, \`group\`, \`array\`.
   - \`text.password\` for masked current/new password fields with password-manager hints.
   - field-level \`readOnly\` support that preserves submitted values.
-  - Optional \`layout\`, \`actions\`, \`policy.flags\`, \`constraints\` and \`renderHints\`.
+  - Optional \`layout\`, \`layout.flow\`, \`actions\`, \`policy.flags\`, \`constraints\` and \`renderHints\`.
 - Relations DSL provides \`visibleWhen\`, \`enabledWhen\`, \`requiredWhen\` based on predicates.
 - \`buildZodWithRelations(spec)\` augments the base zod with conditional rules and constraints.
 - React adapter renders with React Hook Form + driver API for UI components.
@@ -921,11 +954,19 @@ This document defines the canonical contracts for declarative forms.
 ## Rich field contracts
 
 - \`autocomplete\` supports local or resolver-backed search and configurable submit-value mapping.
+- \`email\` represents one string email-address field; schema validation remains model-owned while renderers supply email input affordances.
 - \`address\` uses the canonical \`AddressFormValue\` object shape.
 - \`phone\` uses the canonical \`PhoneFormValue\` object shape.
 - \`date\`, \`time\`, and \`datetime\` map directly to the corresponding schema scalar intent.
 - \`array\` remains the canonical dynamic-field primitive and can repeat grouped item layouts.
 - \`text\` can declare \`password.purpose\` as \`current\` or \`new\`; renderers map those to masked controls and \`current-password\` / \`new-password\` autocomplete hints.
+
+## Progressive form layout
+
+- \`layout.flow.kind: "sections"\` groups existing fields into accessible sections while keeping all sections visible.
+- \`layout.flow.kind: "steps"\` uses the same section metadata for progressive, one-section-at-a-time rendering.
+- \`FormSectionSpec.fieldNames\` references existing immediate field names; field definitions stay in \`FormSpec.fields\`.
+- Unlisted fields remain visible so flow metadata cannot accidentally drop required model inputs.
 - \`text\` and \`textarea\` can declare portable \`inputGroup\` addons for text and host-resolved icons.
 
 ## Layout and Groups

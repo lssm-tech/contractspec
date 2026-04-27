@@ -1,16 +1,63 @@
 import { describe, expect, it } from 'bun:test';
-import { RichFieldsShowcaseForm } from '@contractspec/lib.contracts-spec/forms';
+import {
+	defineFormSpec,
+	RichFieldsShowcaseForm,
+} from '@contractspec/lib.contracts-spec/forms';
 import {
 	defineTranslation,
 	TranslationRegistry,
 } from '@contractspec/lib.contracts-spec/translations';
+import { fromZod } from '@contractspec/lib.schema';
 import { renderToStaticMarkup } from 'react-dom/server';
+import { z } from 'zod';
 import {
 	createTranslationResolver,
 	DesignSystemTranslationProvider,
 } from '../i18n/translation';
 import { formRenderer } from './form-contract';
 import { formRenderer as rendererFromBarrel } from './index';
+
+const DesignSystemStepFlowForm = defineFormSpec({
+	meta: {
+		key: 'design-system.form.step-flow',
+		version: '1.0.0',
+		title: 'Step Flow Form',
+		description: 'Exercises design-system step flow rendering.',
+		domain: 'design-system',
+		owners: ['@team.design'],
+		tags: ['test'],
+		stability: 'experimental',
+	},
+	model: fromZod(
+		z.object({
+			firstName: z.string().optional(),
+			lastName: z.string().optional(),
+		}),
+		{ name: 'DesignSystemStepFlowModel' }
+	),
+	layout: {
+		flow: {
+			kind: 'steps',
+			sections: [
+				{
+					key: 'profile',
+					titleI18n: 'Profile',
+					fieldNames: ['firstName'],
+				},
+				{
+					key: 'contact',
+					titleI18n: 'Contact',
+					fieldNames: ['lastName'],
+				},
+			],
+		},
+	},
+	fields: [
+		{ kind: 'text', name: 'firstName', labelI18n: 'First name' },
+		{ kind: 'text', name: 'lastName', labelI18n: 'Last name' },
+	],
+	actions: [{ key: 'submit', labelI18n: 'Submit' }],
+});
 
 describe('design-system form renderer', () => {
 	it('renders the shared rich field showcase without dropping field kinds', () => {
@@ -24,6 +71,7 @@ describe('design-system form renderer', () => {
 						name: 'Alice Martin',
 						email: 'alice@example.com',
 					},
+					contactEmail: 'support@example.com',
 					address: {
 						line1: '1 Main Street',
 						city: 'Paris',
@@ -46,6 +94,9 @@ describe('design-system form renderer', () => {
 
 		expect(html).toContain('Record ID');
 		expect(html).toContain('Alice Martin');
+		expect(html).toContain('Contact email');
+		expect(html).toContain('type="email"');
+		expect(html).toContain('autoComplete="email"');
 		expect(html).toContain('1 Main Street');
 		expect(html).toContain('+33');
 		expect(html).toContain('Support');
@@ -59,6 +110,8 @@ describe('design-system form renderer', () => {
 		expect(html).toContain('data-slot="input-group"');
 		expect(html).toContain('data-slot="input-group-addon"');
 		expect(html).toContain('md:grid-cols-2');
+		expect(html).toContain('flex w-full min-w-0 gap-2');
+		expect(html).toContain('relative w-full min-w-0 flex-1 shrink');
 	});
 
 	it('exports the shared form renderer from the renderers barrel', () => {
@@ -71,6 +124,19 @@ describe('design-system form renderer', () => {
 		);
 
 		expect(html).toContain('Record ID');
+	});
+
+	it('renders progressive step flow through design-system controls', () => {
+		const html = renderToStaticMarkup(
+			formRenderer.render(DesignSystemStepFlowForm)
+		);
+
+		expect(html).toContain('data-slot="form-steps"');
+		expect(html).toContain('Profile');
+		expect(html).toContain('Contact');
+		expect(html).toContain('First name');
+		expect(html).not.toContain('Last name');
+		expect(html).not.toContain('Submit');
 	});
 
 	it('resolves translated form labels through the design-system provider', () => {

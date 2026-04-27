@@ -1,0 +1,39 @@
+schemaVersion: "1"
+slug: forms-email-input-safety
+summary: Preserve FormSpec email input behavior when optional renderer metadata is omitted.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.contracts-runtime-client-react"
+    releaseType: patch
+  - name: "@contractspec/lib.design-system"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - browser
+  - nextjs
+affectedFrameworks:
+  - react
+audiences:
+  - kind: maintainer
+    summary: The React FormSpec renderer now treats `uiProps` as optional for email and text fields, and design-system inputs preserve explicit HTML input props over default keyboard hints.
+    affectedPackages:
+      - "@contractspec/lib.contracts-runtime-client-react"
+      - "@contractspec/lib.design-system"
+  - kind: integrator
+    summary: Existing email FormSpec fields render without requiring `uiProps`, while explicit `type`, `inputMode`, and autofill props continue to pass through the design-system input wrapper.
+    affectedPackages:
+      - "@contractspec/lib.contracts-runtime-client-react"
+      - "@contractspec/lib.design-system"
+  - kind: customer
+    summary: Contract-driven email fields keep their expected browser email input behavior.
+deprecations: []
+migrationInstructions: []
+upgradeSteps: []
+validation:
+  commands:
+    - "bun test packages/libs/design-system/src/renderers/form-contract.test.tsx"
+    - "cd packages/libs/design-system && bun run test"
+  evidence:
+    - "Optional `uiProps` no longer causes FormSpec email field rendering to fail."
+    - "Design-system inputs preserve explicit email input props from the FormSpec renderer."
+knownGaps: []

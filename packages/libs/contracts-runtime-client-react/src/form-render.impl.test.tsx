@@ -280,6 +280,97 @@ const MobileSafeLayoutForm = defineFormSpec({
 	],
 });
 
+const SectionFlowForm = defineFormSpec({
+	meta: {
+		key: 'test.form.section-flow',
+		version: '1.0.0',
+		title: 'Section Flow Form',
+		description: 'Exercises section flow rendering.',
+		domain: 'test',
+		owners: ['@team.test'],
+		tags: ['test'],
+		stability: 'experimental',
+	},
+	model: fromZod(
+		z.object({
+			firstName: z.string().optional(),
+			lastName: z.string().optional(),
+			enabled: z.boolean().optional(),
+			notes: z.string().optional(),
+		}),
+		{ name: 'SectionFlowFormModel' }
+	),
+	layout: {
+		flow: {
+			kind: 'sections',
+			sections: [
+				{
+					key: 'profile',
+					titleI18n: 'Profile',
+					descriptionI18n: 'Name details.',
+					fieldNames: ['firstName', 'lastName'],
+					layout: { columns: responsiveFormColumns(2) },
+				},
+				{
+					key: 'settings',
+					titleI18n: 'Settings',
+					fieldNames: ['enabled'],
+				},
+			],
+		},
+	},
+	fields: [
+		{ kind: 'text', name: 'firstName', labelI18n: 'First name' },
+		{ kind: 'text', name: 'lastName', labelI18n: 'Last name' },
+		{ kind: 'switch', name: 'enabled', labelI18n: 'Enabled' },
+		{ kind: 'textarea', name: 'notes', labelI18n: 'Notes' },
+	],
+});
+
+const StepFlowForm = defineFormSpec({
+	meta: {
+		key: 'test.form.step-flow',
+		version: '1.0.0',
+		title: 'Step Flow Form',
+		description: 'Exercises step flow rendering.',
+		domain: 'test',
+		owners: ['@team.test'],
+		tags: ['test'],
+		stability: 'experimental',
+	},
+	model: fromZod(
+		z.object({
+			firstName: z.string().optional(),
+			lastName: z.string().optional(),
+		}),
+		{ name: 'StepFlowFormModel' }
+	),
+	layout: {
+		flow: {
+			kind: 'steps',
+			previousLabelI18n: 'Back',
+			nextLabelI18n: 'Continue',
+			sections: [
+				{
+					key: 'first',
+					titleI18n: 'First step',
+					fieldNames: ['firstName'],
+				},
+				{
+					key: 'second',
+					titleI18n: 'Second step',
+					fieldNames: ['lastName'],
+				},
+			],
+		},
+	},
+	fields: [
+		{ kind: 'text', name: 'firstName', labelI18n: 'First name' },
+		{ kind: 'text', name: 'lastName', labelI18n: 'Last name' },
+	],
+	actions: [{ key: 'submit', labelI18n: 'Submit' }],
+});
+
 const PasswordForm = defineFormSpec({
 	meta: {
 		key: 'test.form.password',
@@ -323,6 +414,42 @@ const PasswordForm = defineFormSpec({
 			name: 'legacyPassword',
 			labelI18n: 'Legacy password',
 			uiProps: { type: 'password', autoComplete: 'off' },
+		},
+	],
+});
+
+const EmailForm = defineFormSpec({
+	meta: {
+		key: 'test.form.email',
+		version: '1.0.0',
+		title: 'Email Form',
+		description: 'Exercises first-class email rendering.',
+		domain: 'test',
+		owners: ['@team.test'],
+		tags: ['test'],
+		stability: 'experimental',
+	},
+	model: fromZod(
+		z.object({
+			contactEmail: z.string().email().optional(),
+		}),
+		{ name: 'EmailFormModel' }
+	),
+	fields: [
+		{
+			kind: 'email',
+			name: 'contactEmail',
+			labelI18n: 'Contact email',
+			descriptionI18n: 'Used for account notifications.',
+			placeholderI18n: 'name@example.com',
+			inputGroup: {
+				addons: [
+					{
+						align: 'inline-start',
+						items: [{ kind: 'icon', iconKey: 'mail', labelI18n: 'Email' }],
+					},
+				],
+			},
 		},
 	],
 });
@@ -378,6 +505,7 @@ describe('contracts-runtime-client-react form renderer', () => {
 						name: 'Alice Martin',
 						email: 'alice@example.com',
 					},
+					contactEmail: 'support@example.com',
 					address: {
 						line1: '1 Main Street',
 						city: 'Paris',
@@ -400,6 +528,8 @@ describe('contracts-runtime-client-react form renderer', () => {
 		expect(html).toContain('data-widget="autocomplete"');
 		expect(html).toContain('data-widget="address"');
 		expect(html).toContain('data-widget="phone"');
+		expect(html).toContain('name="contactEmail"');
+		expect(html).toContain('type="email"');
 		expect(html).toContain('data-widget="date"');
 		expect(html).toContain('data-widget="time"');
 		expect(html).toContain('data-widget="datetime"');
@@ -428,6 +558,38 @@ describe('contracts-runtime-client-react form renderer', () => {
 		expect(html).toContain('aria-describedby="query-description"');
 	});
 
+	it('renders email fields with native email input behavior', () => {
+		const renderer = createFormRenderer({ driver: mockDriver });
+		const html = renderToStaticMarkup(renderer.render(EmailForm));
+
+		expect(html).toContain('Contact email');
+		expect(html).toContain('name="contactEmail"');
+		expect(html).toContain('type="email"');
+		expect(html).toContain('inputMode="email"');
+		expect(html).toContain('autoComplete="email"');
+		expect(html).toContain('autoCapitalize="none"');
+		expect(html).toContain('autoCorrect="off"');
+		expect(html).toContain('data-slot="input-group"');
+		expect(html).toContain('aria-label="Email"');
+		expect(html).toContain('aria-describedby="contactEmail-description"');
+	});
+
+	it('falls back to a plain input when email input-group slots are absent', () => {
+		const {
+			InputGroup: _InputGroup,
+			InputGroupAddon: _InputGroupAddon,
+			InputGroupInput: _InputGroupInput,
+			...driverWithoutInputGroup
+		} = mockDriver;
+		const renderer = createFormRenderer({ driver: driverWithoutInputGroup });
+		const html = renderToStaticMarkup(renderer.render(EmailForm));
+
+		expect(html).toContain('name="contactEmail"');
+		expect(html).toContain('type="email"');
+		expect(html).toContain('autoComplete="email"');
+		expect(html).not.toContain('data-slot="input-group"');
+	});
+
 	it('preserves legacy numeric columns and renders helper-authored mobile-safe columns', () => {
 		const renderer = createFormRenderer({ driver: mockDriver });
 		const legacyHtml = renderToStaticMarkup(
@@ -441,6 +603,35 @@ describe('contracts-runtime-client-react form renderer', () => {
 		expect(legacyHtml).not.toContain('md:grid-cols-2');
 		expect(mobileSafeHtml).toContain('grid-cols-1');
 		expect(mobileSafeHtml).toContain('md:grid-cols-2');
+	});
+
+	it('renders section flow without dropping unlisted fields', () => {
+		const renderer = createFormRenderer({ driver: mockDriver });
+		const html = renderToStaticMarkup(renderer.render(SectionFlowForm));
+
+		expect(html).toContain('<legend data-variant="legend">Profile</legend>');
+		expect(html).toContain('Name details.');
+		expect(html).toContain('<legend data-variant="legend">Settings</legend>');
+		expect(html).toContain('First name');
+		expect(html).toContain('Last name');
+		expect(html).toContain('Enabled');
+		expect(html).toContain('Notes');
+		expect(html).toContain('md:grid-cols-2');
+	});
+
+	it('renders step flow one section at a time with navigation controls', () => {
+		const renderer = createFormRenderer({ driver: mockDriver });
+		const html = renderToStaticMarkup(renderer.render(StepFlowForm));
+
+		expect(html).toContain('data-slot="form-steps"');
+		expect(html).toContain('First step');
+		expect(html).toContain('Second step');
+		expect(html).toContain('<legend data-variant="legend">First step</legend>');
+		expect(html).toContain('First name');
+		expect(html).not.toContain('Last name');
+		expect(html).toContain('Back');
+		expect(html).toContain('Continue');
+		expect(html).not.toContain('Submit');
 	});
 
 	it('renders password fields through the driver password slot', () => {
@@ -557,6 +748,7 @@ describe('contracts-runtime-client-react form renderer', () => {
 						name: 'Alice Martin',
 						email: 'alice@example.com',
 					},
+					contactEmail: 'support@example.com',
 					address: {
 						line1: '1 Main Street',
 						city: 'Paris',
