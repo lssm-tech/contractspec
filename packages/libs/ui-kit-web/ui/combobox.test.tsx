@@ -40,9 +40,10 @@ afterEach(() => {
 	document.body.innerHTML = '';
 });
 
-function focus(element: HTMLElement) {
-	act(() => {
+async function focusAndFlush(element: HTMLElement) {
+	await act(async () => {
 		element.focus();
+		await new Promise((resolve) => setTimeout(resolve, 0));
 	});
 }
 
@@ -102,7 +103,7 @@ describe('ui-kit-web Combobox', () => {
 		});
 	});
 
-	test('renders editable autocomplete semantics and supports keyboard selection', () => {
+	test('renders editable autocomplete as a floating listbox and supports keyboard selection', async () => {
 		let selectedValue: string | undefined;
 		const { container, root } = renderCombobox(
 			<Combobox
@@ -127,12 +128,18 @@ describe('ui-kit-web Combobox', () => {
 		expect(input.getAttribute('aria-expanded')).toBe('false');
 		expect(input.getAttribute('aria-controls')).toBe('reviewer-listbox');
 
-		focus(input);
+		await focusAndFlush(input);
 
 		expect(input.getAttribute('aria-expanded')).toBe('true');
-		expect(
-			document.getElementById('reviewer-listbox')?.getAttribute('role')
-		).toBe('listbox');
+		const listbox = document.getElementById('reviewer-listbox');
+		expect(listbox?.getAttribute('role')).toBe('listbox');
+		expect(container.contains(listbox)).toBe(false);
+		expect(listbox?.className).toContain('max-h-[300px]');
+		expect(listbox?.className).toContain('overflow-y-auto');
+		const popoverContent = listbox?.closest('[data-slot="popover-content"]');
+		expect(popoverContent?.className).toContain(
+			'w-(--radix-popover-trigger-width)'
+		);
 
 		keyDown(input, 'ArrowDown');
 		expect(input.getAttribute('aria-activedescendant')).toBe(
@@ -148,7 +155,7 @@ describe('ui-kit-web Combobox', () => {
 		});
 	});
 
-	test('renders loading, error, empty, and multi-select chip states', () => {
+	test('renders loading, error, empty, and multi-select chip states', async () => {
 		let removedValue: string | undefined;
 		const { container, root } = renderCombobox(
 			<Combobox
@@ -171,7 +178,7 @@ describe('ui-kit-web Combobox', () => {
 			throw new Error('Expected combobox input.');
 		}
 
-		focus(input);
+		await focusAndFlush(input);
 		expect(document.body.textContent).toContain('Loading reviewers');
 		expect(document.body.textContent).toContain('Alice Martin');
 		expect(container.querySelector('button')?.getAttribute('aria-label')).toBe(
@@ -196,7 +203,7 @@ describe('ui-kit-web Combobox', () => {
 		if (!(errorInput instanceof HTMLInputElement)) {
 			throw new Error('Expected error combobox input.');
 		}
-		focus(errorInput);
+		await focusAndFlush(errorInput);
 		expect(document.body.textContent).toContain('Resolver failed');
 
 		act(() => {
@@ -213,7 +220,7 @@ describe('ui-kit-web Combobox', () => {
 		if (!(emptyInput instanceof HTMLInputElement)) {
 			throw new Error('Expected empty combobox input.');
 		}
-		focus(emptyInput);
+		await focusAndFlush(emptyInput);
 		expect(document.body.textContent).toContain('No reviewers');
 
 		act(() => {

@@ -3,6 +3,7 @@
 import { cn } from '@contractspec/lib.ui-kit-core/utils';
 import { Check, ChevronsUpDown, X } from 'lucide-react';
 import * as React from 'react';
+import { createPortal } from 'react-dom';
 import { Button } from './button';
 import {
 	Command,
@@ -91,6 +92,8 @@ export function Combobox({
 }: ComboboxProps) {
 	const [open, setOpen] = React.useState(false);
 	const [activeIndex, setActiveIndex] = React.useState(-1);
+	const [panelStyle, setPanelStyle] = React.useState<React.CSSProperties>();
+	const inputRef = React.useRef<HTMLInputElement | null>(null);
 	const generatedId = React.useId().replace(/:/g, '');
 	const inputId = id ?? `combobox-${generatedId}`;
 	const listboxId = `${inputId}-listbox`;
@@ -111,8 +114,33 @@ export function Combobox({
 		loading !== undefined ||
 		error !== undefined;
 
+	const updatePanelPosition = React.useCallback(() => {
+		const input = inputRef.current;
+		if (!input) return;
+		const rect = input.getBoundingClientRect();
+		setPanelStyle({
+			left: rect.left,
+			position: 'fixed',
+			top: rect.bottom + 4,
+			width: rect.width,
+			zIndex: 50,
+		});
+	}, []);
+
+	React.useEffect(() => {
+		if (!open || !autocompleteMode) return;
+		updatePanelPosition();
+		window.addEventListener('resize', updatePanelPosition);
+		window.addEventListener('scroll', updatePanelPosition, true);
+		return () => {
+			window.removeEventListener('resize', updatePanelPosition);
+			window.removeEventListener('scroll', updatePanelPosition, true);
+		};
+	}, [autocompleteMode, open, updatePanelPosition]);
+
 	const openAutocomplete = () => {
 		if (disabled || readOnly) return;
+		updatePanelPosition();
 		setOpen(true);
 		setActiveIndex((current) =>
 			current >= 0 ? current : nextEnabledIndex(options, -1, 1)
@@ -134,10 +162,65 @@ export function Combobox({
 			: error
 				? (error ?? errorText)
 				: emptyText;
+		const listbox = (
+			<div
+				id={listboxId}
+				role="listbox"
+				aria-busy={loading || undefined}
+				aria-multiselectable={multiple || undefined}
+				className="max-h-[300px] w-full overflow-y-auto overflow-x-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md"
+			>
+				{options.length && !loading && !error ? (
+					options.map((option, index) => {
+						const key = optionValue(option);
+						const selected = selectedValueSet.has(key);
+						return (
+							<div
+								key={key}
+								id={`${listboxId}-${key}`}
+								role="option"
+								aria-selected={selected}
+								aria-disabled={option.disabled || undefined}
+								data-active={activeIndex === index || undefined}
+								data-selected={selected || undefined}
+								className={cn(
+									'flex cursor-default select-none items-start gap-2 rounded-xs px-2 py-1.5 text-sm outline-hidden',
+									'data-[active=true]:bg-accent data-[active=true]:text-accent-foreground',
+									option.disabled && 'pointer-events-none opacity-50'
+								)}
+								onMouseDown={(event) => event.preventDefault()}
+								onMouseEnter={() => setActiveIndex(index)}
+								onClick={() => selectOption(option)}
+							>
+								<Check
+									className={cn(
+										'mt-0.5 size-4 shrink-0',
+										selected ? 'opacity-100' : 'opacity-0'
+									)}
+								/>
+								<span className="min-w-0">
+									<span className="block truncate">{option.label}</span>
+									{option.description ? (
+										<span className="block truncate text-muted-foreground text-xs">
+											{option.description}
+										</span>
+									) : null}
+								</span>
+							</div>
+						);
+					})
+				) : (
+					<div className="px-2 py-6 text-center text-muted-foreground text-sm">
+						{statusText}
+					</div>
+				)}
+			</div>
+		);
 
 		return (
 			<div className={cn('relative w-full min-w-0 space-y-2', className)}>
 				<input
+					ref={inputRef}
 					id={inputId}
 					name={name}
 					type="text"
@@ -173,6 +256,7 @@ export function Combobox({
 						}
 						if (event.key === 'ArrowDown') {
 							event.preventDefault();
+							updatePanelPosition();
 							setOpen(true);
 							setActiveIndex((current) =>
 								nextEnabledIndex(options, current, 1)
@@ -181,6 +265,7 @@ export function Combobox({
 						}
 						if (event.key === 'ArrowUp') {
 							event.preventDefault();
+							updatePanelPosition();
 							setOpen(true);
 							setActiveIndex((current) =>
 								nextEnabledIndex(
@@ -197,60 +282,18 @@ export function Combobox({
 						}
 					}}
 				/>
-				{open ? (
-					<div
-						id={listboxId}
-						role="listbox"
-						aria-busy={loading || undefined}
-						aria-multiselectable={multiple || undefined}
-						className="z-50 max-h-[300px] w-full overflow-y-auto overflow-x-hidden rounded-md border bg-popover p-1 text-popover-foreground shadow-md"
-					>
-						{options.length && !loading && !error ? (
-							options.map((option, index) => {
-								const key = optionValue(option);
-								const selected = selectedValueSet.has(key);
-								return (
-									<div
-										key={key}
-										id={`${listboxId}-${key}`}
-										role="option"
-										aria-selected={selected}
-										aria-disabled={option.disabled || undefined}
-										data-active={activeIndex === index || undefined}
-										data-selected={selected || undefined}
-										className={cn(
-											'flex cursor-default select-none items-start gap-2 rounded-xs px-2 py-1.5 text-sm outline-hidden',
-											'data-[active=true]:bg-accent data-[active=true]:text-accent-foreground',
-											option.disabled && 'pointer-events-none opacity-50'
-										)}
-										onMouseDown={(event) => event.preventDefault()}
-										onMouseEnter={() => setActiveIndex(index)}
-										onClick={() => selectOption(option)}
-									>
-										<Check
-											className={cn(
-												'mt-0.5 size-4 shrink-0',
-												selected ? 'opacity-100' : 'opacity-0'
-											)}
-										/>
-										<span className="min-w-0">
-											<span className="block truncate">{option.label}</span>
-											{option.description ? (
-												<span className="block truncate text-muted-foreground text-xs">
-													{option.description}
-												</span>
-											) : null}
-										</span>
-									</div>
-								);
-							})
-						) : (
-							<div className="px-2 py-6 text-center text-muted-foreground text-sm">
-								{statusText}
-							</div>
-						)}
-					</div>
-				) : null}
+				{open
+					? createPortal(
+							<div
+								data-slot="popover-content"
+								className="z-50 w-(--radix-popover-trigger-width) p-0"
+								style={panelStyle}
+							>
+								{listbox}
+							</div>,
+							document.body
+						)
+					: null}
 				{multiple && selectedValues?.length ? (
 					<div className="flex flex-wrap gap-2">
 						{selectedValues.map((selectedValue) => {

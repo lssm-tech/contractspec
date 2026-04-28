@@ -1,0 +1,40 @@
+schemaVersion: "1"
+slug: resolver-autocomplete-floating-overlay
+summary: Render resolver-backed combobox results as a floating overlay instead of inline form content.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.ui-kit-web"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - browser
+  - nextjs
+affectedFrameworks:
+  - react
+audiences:
+  - kind: maintainer
+    summary: Editable/query combobox mode now portals its listbox and positions it from the input rect instead of rendering it as an inline sibling.
+    affectedPackages:
+      - "@contractspec/lib.ui-kit-web"
+  - kind: integrator
+    summary: Existing combobox props and FormSpec autocomplete drivers remain compatible while resolver-backed result panels no longer change parent layout height.
+    affectedPackages:
+      - "@contractspec/lib.ui-kit-web"
+  - kind: customer
+    summary: Autocomplete fields in ContractSpec web forms now open search results as an overlay that tracks the input width and scrolls internally.
+deprecations: []
+migrationInstructions: []
+upgradeSteps: []
+validation:
+  commands:
+    - "bun test packages/libs/ui-kit-web/ui/combobox.test.tsx"
+    - "bun run --cwd packages/libs/ui-kit-web typecheck"
+    - "bun run --cwd packages/libs/ui-kit-web lint:check"
+    - "bun run --cwd packages/libs/design-system test"
+    - "bun run --cwd packages/libs/design-system typecheck"
+  evidence:
+    - "The combobox regression test verifies editable autocomplete listboxes are portaled outside the field wrapper."
+    - "Keyboard navigation, Enter selection, loading, error, empty, and multi-select chip states remain covered."
+    - "The floating panel keeps input-width tracking, a max height, and internal vertical scroll."
+knownGaps:
+  - "Browser positioning was validated through DOM-level regression tests and package checks; a host-app visual smoke remains useful for route-specific clipping or stacking contexts."
