@@ -9,6 +9,7 @@ import { Select } from '@contractspec/lib.design-system/controls';
 import { FormDialog } from '@contractspec/lib.design-system/forms';
 import { HStack } from '@contractspec/lib.design-system/layout';
 import { List, ListItem } from '@contractspec/lib.design-system/list';
+import { AppShell, PageOutline } from '@contractspec/lib.design-system/shell';
 import {
 	defaultTokens,
 	themeSpecToTailwindPreset,
@@ -23,6 +24,8 @@ describe('design-system public subpaths', () => {
 		expect(typeof HStack).toBe('function');
 		expect(typeof List).toBe('function');
 		expect(typeof ListItem).toBe('function');
+		expect(typeof AppShell).toBe('function');
+		expect(typeof PageOutline).toBe('function');
 		expect(typeof Text).toBe('function');
 		expect(typeof H1).toBe('function');
 		expect(typeof P).toBe('function');

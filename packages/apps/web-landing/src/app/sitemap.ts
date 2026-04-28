@@ -77,6 +77,7 @@ const DOCS_ROUTES = [
 	'/docs/libraries',
 	'/docs/libraries/contracts',
 	'/docs/libraries/ai-agent',
+	'/docs/libraries/application-shell',
 	'/docs/libraries/cross-platform-ui',
 	'/docs/libraries/design-system',
 	'/docs/libraries/evolution',

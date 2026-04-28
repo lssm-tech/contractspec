@@ -1,6 +1,7 @@
 export { LibrariesAccessibilityPage } from './LibrariesAccessibilityPage';
 export { LibrariesAiAgentPage } from './LibrariesAiAgentPage';
 export { LibrariesAnalyticsPage } from './LibrariesAnalyticsPage';
+export { LibrariesApplicationShellPage } from './LibrariesApplicationShellPage';
 export { LibrariesContentGenPage } from './LibrariesContentGenPage';
 export { LibrariesContractsPage } from './LibrariesContractsPage';
 export { LibrariesCostTrackingPage } from './LibrariesCostTrackingPage';

@@ -141,6 +141,18 @@ describe('design-system publish exports', () => {
 		expect(
 			resolveExport('./components/object-reference/actions', ['bun'])
 		).toBe('./dist/components/object-reference/actions.js');
+		expect(resolveExport('./shell', ['browser'])).toBe(
+			'./dist/browser/shell.js'
+		);
+		expect(resolveExport('./shell', ['react-native'])).toBe(
+			'./dist/native/shell.native.js'
+		);
+		expect(resolveExport('./components/shell/AppShell', ['browser'])).toBe(
+			'./dist/browser/components/shell/AppShell.js'
+		);
+		expect(resolveExport('./components/shell/AppShell', ['react-native'])).toBe(
+			'./dist/native/components/shell/AppShell.native.js'
+		);
 	});
 
 	it('emits a closed native dist graph for Metro-style relative resolution', () => {

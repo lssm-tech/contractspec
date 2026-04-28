@@ -49,6 +49,12 @@ const libraryGroups = [
 				href: '/docs/libraries/design-system',
 			},
 			{
+				title: 'Application shell',
+				description:
+					'Adopt the shared sidebar, topbar, command search, mobile navigation, and PageOutline patterns for product apps.',
+				href: '/docs/libraries/application-shell',
+			},
+			{
 				title: 'Cross-platform UI',
 				description:
 					'See how the presentation runtimes, ui-kit-web, ui-kit, and design-system stay compatible across React and React Native.',

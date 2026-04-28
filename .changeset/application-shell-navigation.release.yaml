@@ -1,0 +1,21 @@
+summary: Add design-system application shell primitives
+audiences:
+  - design-system consumers
+  - web app developers
+  - Expo app developers
+  - documentation readers
+migration:
+  - Existing AppLayout, AppSidebar, AppHeader, NavLink, and NavSection imports remain supported.
+  - New application shells should import AppShell and PageOutline from "@contractspec/lib.design-system/shell".
+validation:
+  - cd packages/libs/design-system && bun run typecheck
+  - cd packages/libs/design-system && bun run test
+  - cd packages/libs/design-system && bun run lint:check
+  - cd packages/bundles/library && bun run typecheck
+  - cd packages/bundles/marketing && bun run typecheck
+  - cd packages/apps/web-landing && bun run build:types
+  - cd packages/apps/web-landing && bun run build
+evidence:
+  - PageOutline render coverage for three levels and active state.
+  - AppShell render coverage for brand, breadcrumbs, nested navigation, content, and page outline.
+  - Public docs route /docs/libraries/application-shell builds and returns HTTP 200 locally.

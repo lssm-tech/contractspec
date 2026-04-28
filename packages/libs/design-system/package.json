@@ -478,6 +478,28 @@
 		"./components/primitives/control": "./src/components/primitives/control.ts",
 		"./components/primitives/themed": "./src/components/primitives/themed.tsx",
 		"./components/providers/PackageManagerProvider": "./src/components/providers/PackageManagerProvider.tsx",
+		"./components/shell": {
+			"types": "./src/components/shell/index.ts",
+			"react-native": "./src/components/shell/index.native.ts",
+			"default": "./src/components/shell/index.ts"
+		},
+		"./components/shell/AppShell": {
+			"types": "./src/components/shell/AppShell.tsx",
+			"react-native": "./src/components/shell/AppShell.native.tsx",
+			"default": "./src/components/shell/AppShell.tsx"
+		},
+		"./components/shell/AppShell.native": "./src/components/shell/AppShell.native.tsx",
+		"./components/shell/AppShell.types": "./src/components/shell/AppShell.types.ts",
+		"./components/shell/index.native": "./src/components/shell/index.native.ts",
+		"./components/shell/outline": "./src/components/shell/outline.ts",
+		"./components/shell/PageOutline": {
+			"types": "./src/components/shell/PageOutline.tsx",
+			"react-native": "./src/components/shell/PageOutline.native.tsx",
+			"default": "./src/components/shell/PageOutline.tsx"
+		},
+		"./components/shell/PageOutline.native": "./src/components/shell/PageOutline.native.tsx",
+		"./components/shell/ShellSidebar": "./src/components/shell/ShellSidebar.tsx",
+		"./components/shell/types": "./src/components/shell/types.ts",
 		"./components/templates/lists/ListPageTemplate": {
 			"types": "./src/components/templates/lists/ListPageTemplate/index.tsx",
 			"browser": "./src/components/templates/lists/ListPageTemplate/index.web.tsx",
@@ -560,6 +582,12 @@
 		"./renderers/form-contract/rich-fields": "./src/renderers/form-contract/rich-fields.tsx",
 		"./renderers/form-contract/shell": "./src/renderers/form-contract/shell.tsx",
 		"./renderers/form-contract/values": "./src/renderers/form-contract/values.ts",
+		"./shell": {
+			"types": "./src/shell.ts",
+			"react-native": "./src/shell.native.ts",
+			"default": "./src/shell.ts"
+		},
+		"./shell.native": "./src/shell.native.ts",
 		"./theme": "./src/theme/index.ts",
 		"./theme/contracts": "./src/theme/contracts.ts",
 		"./theme/runtime": "./src/theme/runtime.tsx",
@@ -1901,6 +1929,66 @@
 				"bun": "./dist/components/providers/PackageManagerProvider.js",
 				"default": "./dist/components/providers/PackageManagerProvider.js"
 			},
+			"./components/shell": {
+				"types": "./dist/components/shell/index.d.ts",
+				"browser": "./dist/browser/components/shell/index.js",
+				"react-native": "./dist/native/components/shell/index.native.js",
+				"bun": "./dist/components/shell/index.js",
+				"default": "./dist/components/shell/index.js"
+			},
+			"./components/shell/AppShell": {
+				"types": "./dist/components/shell/AppShell.d.ts",
+				"browser": "./dist/browser/components/shell/AppShell.js",
+				"react-native": "./dist/native/components/shell/AppShell.native.js",
+				"bun": "./dist/components/shell/AppShell.js",
+				"default": "./dist/components/shell/AppShell.js"
+			},
+			"./components/shell/AppShell.native": {
+				"types": "./dist/components/shell/AppShell.native.d.ts",
+				"react-native": "./dist/native/components/shell/AppShell.native.js",
+				"default": "./dist/native/components/shell/AppShell.native.js"
+			},
+			"./components/shell/AppShell.types": {
+				"types": "./dist/components/shell/AppShell.types.d.ts",
+				"browser": "./dist/browser/components/shell/AppShell.types.js",
+				"bun": "./dist/components/shell/AppShell.types.js",
+				"default": "./dist/components/shell/AppShell.types.js"
+			},
+			"./components/shell/index.native": {
+				"types": "./dist/components/shell/index.native.d.ts",
+				"react-native": "./dist/native/components/shell/index.native.js",
+				"default": "./dist/native/components/shell/index.native.js"
+			},
+			"./components/shell/outline": {
+				"types": "./dist/components/shell/outline.d.ts",
+				"browser": "./dist/browser/components/shell/outline.js",
+				"bun": "./dist/components/shell/outline.js",
+				"default": "./dist/components/shell/outline.js"
+			},
+			"./components/shell/PageOutline": {
+				"types": "./dist/components/shell/PageOutline.d.ts",
+				"browser": "./dist/browser/components/shell/PageOutline.js",
+				"react-native": "./dist/native/components/shell/PageOutline.native.js",
+				"bun": "./dist/components/shell/PageOutline.js",
+				"default": "./dist/components/shell/PageOutline.js"
+			},
+			"./components/shell/PageOutline.native": {
+				"types": "./dist/components/shell/PageOutline.native.d.ts",
+				"react-native": "./dist/native/components/shell/PageOutline.native.js",
+				"default": "./dist/native/components/shell/PageOutline.native.js"
+			},
+			"./components/shell/ShellSidebar": {
+				"types": "./dist/components/shell/ShellSidebar.d.ts",
+				"browser": "./dist/browser/components/shell/ShellSidebar.js",
+				"bun": "./dist/components/shell/ShellSidebar.js",
+				"default": "./dist/components/shell/ShellSidebar.js"
+			},
+			"./components/shell/types": {
+				"types": "./dist/components/shell/types.d.ts",
+				"browser": "./dist/browser/components/shell/types.js",
+				"bun": "./dist/components/shell/types.js",
+				"default": "./dist/components/shell/types.js"
+			},
 			"./components/templates/lists/ListPageTemplate": {
 				"types": "./dist/components/templates/lists/ListPageTemplate/index.d.ts",
 				"browser": "./dist/browser/components/templates/lists/ListPageTemplate/index.web.js",
@@ -2146,6 +2234,18 @@
 				"browser": "./dist/browser/renderers/form-contract/values.js",
 				"bun": "./dist/renderers/form-contract/values.js",
 				"default": "./dist/renderers/form-contract/values.js"
+			},
+			"./shell": {
+				"types": "./dist/shell.d.ts",
+				"browser": "./dist/browser/shell.js",
+				"react-native": "./dist/native/shell.native.js",
+				"bun": "./dist/shell.js",
+				"default": "./dist/shell.js"
+			},
+			"./shell.native": {
+				"types": "./dist/shell.native.d.ts",
+				"react-native": "./dist/native/shell.native.js",
+				"default": "./dist/native/shell.native.js"
 			},
 			"./theme": {
 				"types": "./dist/theme/index.d.ts",

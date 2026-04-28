@@ -145,6 +145,8 @@
 		"./components/docs/libraries/LibrariesAccessibilityPage": "./src/components/docs/libraries/LibrariesAccessibilityPage.tsx",
 		"./components/docs/libraries/LibrariesAiAgentPage": "./src/components/docs/libraries/LibrariesAiAgentPage.tsx",
 		"./components/docs/libraries/LibrariesAnalyticsPage": "./src/components/docs/libraries/LibrariesAnalyticsPage.tsx",
+		"./components/docs/libraries/LibrariesApplicationShellPage": "./src/components/docs/libraries/LibrariesApplicationShellPage.tsx",
+		"./components/docs/libraries/LibrariesApplicationShellPage.content": "./src/components/docs/libraries/LibrariesApplicationShellPage.content.ts",
 		"./components/docs/libraries/LibrariesContentGenPage": "./src/components/docs/libraries/LibrariesContentGenPage.tsx",
 		"./components/docs/libraries/LibrariesContractsPage": "./src/components/docs/libraries/LibrariesContractsPage.tsx",
 		"./components/docs/libraries/LibrariesCostTrackingPage": "./src/components/docs/libraries/LibrariesCostTrackingPage.tsx",
@@ -1163,6 +1165,18 @@
 				"bun": "./dist/components/docs/libraries/LibrariesAnalyticsPage.js",
 				"node": "./dist/node/components/docs/libraries/LibrariesAnalyticsPage.js",
 				"default": "./dist/components/docs/libraries/LibrariesAnalyticsPage.js"
+			},
+			"./components/docs/libraries/LibrariesApplicationShellPage": {
+				"types": "./dist/components/docs/libraries/LibrariesApplicationShellPage.d.ts",
+				"bun": "./dist/components/docs/libraries/LibrariesApplicationShellPage.js",
+				"node": "./dist/node/components/docs/libraries/LibrariesApplicationShellPage.js",
+				"default": "./dist/components/docs/libraries/LibrariesApplicationShellPage.js"
+			},
+			"./components/docs/libraries/LibrariesApplicationShellPage.content": {
+				"types": "./dist/components/docs/libraries/LibrariesApplicationShellPage.content.d.ts",
+				"bun": "./dist/components/docs/libraries/LibrariesApplicationShellPage.content.js",
+				"node": "./dist/node/components/docs/libraries/LibrariesApplicationShellPage.content.js",
+				"default": "./dist/components/docs/libraries/LibrariesApplicationShellPage.content.js"
 			},
 			"./components/docs/libraries/LibrariesContentGenPage": {
 				"types": "./dist/components/docs/libraries/LibrariesContentGenPage.d.ts",

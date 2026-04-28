@@ -187,6 +187,7 @@ export function LibrariesDesignSystemPage() {
 					<div className="card-subtle p-4">
 						<h3 className="mb-2 font-semibold">Organisms</h3>
 						<ul className="space-y-1 text-muted-foreground text-sm">
+							<li>AppShell, PageOutline</li>
 							<li>AppLayout, AppHeader, AppSidebar</li>
 							<li>MarketingLayout, HeroSection</li>
 							<li>ListCardPage, ListTablePage</li>
@@ -224,6 +225,14 @@ export function LibrariesDesignSystemPage() {
 				<h2 className="font-bold text-2xl">Where this layer fits</h2>
 				<p className="text-muted-foreground">
 					Read{' '}
+					<Link
+						href="/docs/libraries/application-shell"
+						className="text-[color:var(--rust)] underline underline-offset-4"
+					>
+						Application shell
+					</Link>{' '}
+					for the shared sidebar, topbar, command search, mobile navigation, and{' '}
+					<code>PageOutline</code> pattern. Read{' '}
 					<Link
 						href="/docs/libraries/cross-platform-ui"
 						className="text-[color:var(--rust)] underline underline-offset-4"

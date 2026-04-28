@@ -407,6 +407,16 @@ export const DOCS_PAGES: readonly DocsPageEntry[] = [
 		ctaMode: 'oss-next',
 	},
 	{
+		href: '/docs/libraries/application-shell',
+		title: 'Application shell',
+		description:
+			'Implement reusable app navigation with desktop sidebars, topbar breadcrumbs, command search, mobile adapters, and PageOutline section navigation.',
+		section: 'build',
+		order: 72,
+		audience: 'oss',
+		ctaMode: 'oss-next',
+	},
+	{
 		href: '/docs/architecture',
 		title: 'Architecture',
 		description:

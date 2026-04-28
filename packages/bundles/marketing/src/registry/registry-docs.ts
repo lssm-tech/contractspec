@@ -68,6 +68,7 @@ import { KnowledgeSpacesPage } from '@contractspec/bundle.library/components/doc
 import { LibrariesAccessibilityPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesAccessibilityPage';
 import { LibrariesAiAgentPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesAiAgentPage';
 import { LibrariesAnalyticsPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesAnalyticsPage';
+import { LibrariesApplicationShellPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesApplicationShellPage';
 import { LibrariesContentGenPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesContentGenPage';
 import { LibrariesContractsPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesContractsPage';
 import { LibrariesCostTrackingPage } from '@contractspec/bundle.library/components/docs/libraries/LibrariesCostTrackingPage';
@@ -140,6 +141,7 @@ export const docsComponentMap: ComponentMap = {
 	LibrariesContractsPage,
 	LibrariesAiAgentPage,
 	LibrariesAnalyticsPage,
+	LibrariesApplicationShellPage,
 	LibrariesAccessibilityPage,
 	LibrariesContentGenPage,
 	LibrariesCostTrackingPage,
@@ -365,6 +367,12 @@ export const docsPresentations: [string, PresentationSpec][] = [
 		'web-landing.docs.libraries.accessibility',
 		'LibrariesAccessibilityPage',
 		'ContractSpec accessibility library'
+	),
+	docsEntry(
+		'/docs/libraries/application-shell',
+		'web-landing.docs.libraries.application-shell',
+		'LibrariesApplicationShellPage',
+		'ContractSpec application shell guide'
 	),
 	docsEntry(
 		'/docs/libraries/content-gen',

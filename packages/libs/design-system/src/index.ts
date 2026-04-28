@@ -219,6 +219,28 @@ export {
 	type PackageManagerProviderProps,
 	usePackageManager,
 } from './components/providers/PackageManagerProvider';
+export type {
+	AppShellConfig,
+	PageOutlineItem,
+	PageOutlineLevel,
+	ShellBreadcrumbItem,
+	ShellCommandGroup,
+	ShellCommandItem,
+	ShellNavItem,
+	ShellNavMatch,
+	ShellNavSection,
+	ShellUserMenu,
+	ShellUserMenuItem,
+} from './components/shell';
+export {
+	AppShell,
+	type AppShellProps,
+	PageOutline,
+	type PageOutlineProps,
+	ShellSidebar,
+	type ShellSidebarProps,
+	usePageOutlineActiveItem,
+} from './components/shell';
 export { ListPageTemplate } from './components/templates/lists/ListPageTemplate';
 export {
 	BlockQuote,
