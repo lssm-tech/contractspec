@@ -136,6 +136,45 @@ function WideTableHarness({
 	);
 }
 
+function OverflowTableHarness() {
+	const controller = useContractTable({
+		data: ROWS.slice(0, 1),
+		columns: [
+			{
+				id: 'account',
+				header: 'Account',
+				accessorKey: 'account',
+				overflow: 'truncate',
+			},
+			{
+				id: 'status',
+				header: 'Status',
+				accessorKey: 'status',
+				overflow: 'expand',
+			},
+			{
+				id: 'notes',
+				header: 'Notes',
+				accessorKey: 'notes',
+				overflow: 'wrap',
+			},
+			{
+				id: 'node',
+				header: 'Node',
+				accessor: () => <strong>Node content</strong>,
+				overflow: 'none',
+			},
+		],
+		renderExpandedContent: (row) => row.notes,
+		getCanExpand: () => true,
+		initialState: {
+			expanded: { 'row-1': true },
+		},
+	});
+
+	return <DataTable controller={controller} />;
+}
+
 function renderTable({
 	onRowPress,
 	onController,
@@ -349,6 +388,44 @@ describe('ui-kit-web data-table', () => {
 		expect(accountToggles).toEqual([true]);
 		expect(statusToggles).toEqual([true]);
 		expect(notesToggles).toEqual([true]);
+	});
+
+	test('applies overflow classes to data cell content', async () => {
+		const container = document.createElement('div');
+		document.body.append(container);
+		const root: Root = createRoot(container);
+
+		act(() => {
+			root.render(<OverflowTableHarness />);
+		});
+
+		const overflowCells = Array.from(container.querySelectorAll('div')).filter(
+			(element) => element.className.includes('max-w-full')
+		);
+		const accountCell = overflowCells.find((element) =>
+			element.textContent?.includes('Account 1')
+		);
+		const statusCell = overflowCells.find((element) =>
+			element.textContent?.includes('healthy')
+		);
+		const notesCell = overflowCells.find((element) =>
+			element.textContent?.includes('Note 1')
+		);
+		const nodeCell = Array.from(container.querySelectorAll('strong')).find(
+			(element) => element.textContent === 'Node content'
+		);
+
+		expect(accountCell?.className).toContain('truncate');
+		expect(statusCell?.className).toContain('truncate');
+		expect(notesCell?.className).toContain('break-words');
+		expect(String(nodeCell?.parentElement?.className ?? '')).not.toContain(
+			'max-w-full'
+		);
+		expect(container.textContent).toContain('Note 1');
+
+		act(() => {
+			root.unmount();
+		});
 	});
 
 	test('handles repeated resize and visibility churn on wide tables without throwing', async () => {

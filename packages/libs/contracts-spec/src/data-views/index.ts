@@ -46,6 +46,7 @@ export type {
 	DataViewTableExecutionMode,
 	DataViewTableExpansionConfig,
 	DataViewTableInitialState,
+	DataViewTableOverflowBehavior,
 	DataViewTablePinnedColumns,
 	DataViewTableSelectionMode,
 	DataViewTableSort,

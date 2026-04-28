@@ -75,8 +75,23 @@ mock.module('./stack', () => ({
 	),
 }));
 mock.module('./text', () => ({
-	Text: ({ children, ...props }: { children?: React.ReactNode }) => (
-		<span {...props}>{children}</span>
+	Text: ({
+		children,
+		ellipsizeMode,
+		numberOfLines,
+		...props
+	}: {
+		children?: React.ReactNode;
+		ellipsizeMode?: string;
+		numberOfLines?: number;
+	}) => (
+		<span
+			data-ellipsize-mode={ellipsizeMode}
+			data-number-of-lines={numberOfLines}
+			{...props}
+		>
+			{children}
+		</span>
 	),
 }));
 mock.module('./table', () => ({
@@ -284,6 +299,45 @@ function NativeTableHarness({
 	);
 }
 
+function NativeOverflowTableHarness() {
+	const controller = useContractTable({
+		data: ROWS.slice(0, 1),
+		columns: [
+			{
+				id: 'account',
+				header: 'Account',
+				accessorKey: 'account',
+				overflow: 'truncate',
+			},
+			{
+				id: 'status',
+				header: 'Status',
+				accessorKey: 'status',
+				overflow: 'expand',
+			},
+			{
+				id: 'notes',
+				header: 'Notes',
+				accessorKey: 'notes',
+				overflow: 'wrap',
+			},
+			{
+				id: 'node',
+				header: 'Node',
+				accessor: () => <strong>Node content</strong>,
+				overflow: 'none',
+			},
+		],
+		renderExpandedContent: (row) => row.notes,
+		getCanExpand: () => true,
+		initialState: {
+			expanded: { 'acct-1': true },
+		},
+	});
+
+	return <DataTable controller={controller} />;
+}
+
 async function renderTable(
 	props: Parameters<typeof NativeTableHarness>[0] = {}
 ) {
@@ -364,6 +418,42 @@ describe('ui-kit data-table smoke', () => {
 		);
 		await act(async () => {});
 		expect(accountButton?.disabled).toBe(false);
+
+		act(() => {
+			root.unmount();
+		});
+	});
+
+	test('mirrors overflow behavior for native text cells', async () => {
+		const container = document.createElement('div');
+		document.body.append(container);
+		const root: Root = createRoot(container);
+
+		await act(async () => {
+			root.render(<NativeOverflowTableHarness />);
+		});
+		await act(async () => {});
+
+		const accountText = Array.from(container.querySelectorAll('span')).find(
+			(element) => element.textContent === 'Northwind'
+		);
+		const statusText = Array.from(container.querySelectorAll('span')).find(
+			(element) => element.textContent === 'healthy'
+		);
+		const notesText = Array.from(container.querySelectorAll('span')).find(
+			(element) => element.textContent === 'A'
+		);
+		const nodeContent = Array.from(container.querySelectorAll('strong')).find(
+			(element) => element.textContent === 'Node content'
+		);
+
+		expect(accountText?.getAttribute('data-number-of-lines')).toBe('1');
+		expect(statusText?.getAttribute('data-number-of-lines')).toBe('1');
+		expect(notesText?.getAttribute('data-number-of-lines')).toBeNull();
+		expect(
+			nodeContent?.parentElement?.getAttribute('class') ?? ''
+		).not.toContain('overflow-hidden');
+		expect(container.textContent).toContain('A');
 
 		act(() => {
 			root.unmount();

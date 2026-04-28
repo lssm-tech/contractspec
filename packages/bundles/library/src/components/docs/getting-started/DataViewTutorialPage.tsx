@@ -45,7 +45,43 @@ export const TransactionHistory = defineDataView({
       { key: 'account', label: 'Account', dataPath: 'account', sortable: true },
       { key: 'owner', label: 'Owner', dataPath: 'owner', sortable: true },
       { key: 'status', label: 'Status', dataPath: 'status', sortable: true },
+      {
+        key: 'amount',
+        label: 'Amount',
+        dataPath: 'amount',
+        sortable: true,
+        format: { type: 'currency', currency: 'EUR', rounded: true },
+      },
+      {
+        key: 'renewalDate',
+        label: 'Renewal',
+        dataPath: 'renewalDate',
+        format: { type: 'date', dateStyle: 'medium' },
+      },
+      {
+        key: 'processingTime',
+        label: 'Processing time',
+        dataPath: 'processingMinutes',
+        format: { type: 'duration', unit: 'minute', display: 'digital' },
+      },
       { key: 'notes', label: 'Notes', dataPath: 'notes' },
+    ],
+    filters: [
+      { key: 'status', label: 'Status', field: 'status', type: 'enum' },
+      {
+        key: 'amount',
+        label: 'Amount',
+        field: 'amount',
+        type: 'currency',
+        valueMode: 'range',
+      },
+      {
+        key: 'renewalDate',
+        label: 'Renewal',
+        field: 'renewalDate',
+        type: 'date',
+        valueMode: 'range',
+      },
     ],
   },
 });`;
@@ -154,7 +190,10 @@ export function TransactionsPage() {
 						Column visibility, pinning, resizing, and row expansion stay
 						contract-driven
 					</li>
-					<li>Format rules (currency, dates, badges) applied consistently</li>
+					<li>
+						Typed format rules for numbers, percent values, currency, dates,
+						times, datetimes, and durations applied consistently
+					</li>
 					<li>Export to CSV/PDF using the same spec</li>
 					<li>A/B test different layouts without touching the backend</li>
 				</ul>

@@ -1,4 +1,8 @@
-import type { DataViewSpec } from '../data-views';
+import type {
+	DataViewFilter,
+	DataViewFilterValue,
+	DataViewSpec,
+} from '../data-views';
 
 export interface DataViewQueryParams {
 	filters?: Record<string, unknown>;
@@ -61,6 +65,11 @@ export class DataViewQueryGenerator {
 				const defined = this.spec.view.filters.find((f) => f.key === key);
 				if (!defined) {
 					errors.push(`Unknown filter key: ${key}`);
+					continue;
+				}
+				const typeError = validateFilterValue(defined, params.filters[key]);
+				if (typeError) {
+					errors.push(typeError);
 				}
 			}
 		}
@@ -79,4 +88,76 @@ export class DataViewQueryGenerator {
 
 		return errors;
 	}
+}
+
+function validateFilterValue(
+	filter: DataViewFilter,
+	value: unknown
+): string | undefined {
+	if (value == null) return undefined;
+	const raw = unwrapFilterValue(value);
+	switch (filter.type) {
+		case 'number':
+		case 'percent':
+		case 'currency':
+		case 'duration':
+			return validateNumericFilter(filter.key, raw);
+		case 'boolean':
+			return typeof raw === 'boolean'
+				? undefined
+				: `Filter must be boolean: ${filter.key}`;
+		case 'date':
+		case 'time':
+		case 'datetime':
+			return validateComparableFilter(filter.key, raw);
+		case 'search':
+		case 'enum':
+		default:
+			return undefined;
+	}
+}
+
+function unwrapFilterValue(value: unknown): unknown {
+	if (!isFilterValue(value)) return value;
+	switch (value.kind) {
+		case 'single':
+			return value.value;
+		case 'multi':
+			return value.values;
+		case 'range':
+			return [value.from, value.to].filter((item) => item != null);
+		case 'composite':
+			return undefined;
+	}
+}
+
+function isFilterValue(value: unknown): value is DataViewFilterValue {
+	return (
+		typeof value === 'object' &&
+		value != null &&
+		'kind' in value &&
+		typeof (value as { kind?: unknown }).kind === 'string'
+	);
+}
+
+function validateNumericFilter(
+	key: string,
+	value: unknown
+): string | undefined {
+	const values = Array.isArray(value) ? value : [value];
+	return values.every((item) => typeof item === 'number')
+		? undefined
+		: `Filter must be numeric: ${key}`;
+}
+
+function validateComparableFilter(
+	key: string,
+	value: unknown
+): string | undefined {
+	const values = Array.isArray(value) ? value : [value];
+	return values.every(
+		(item) => typeof item === 'string' || typeof item === 'number'
+	)
+		? undefined
+		: `Filter must be comparable: ${key}`;
 }

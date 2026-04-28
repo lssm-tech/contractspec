@@ -1,7 +1,9 @@
 import type {
 	DataViewField,
+	DataViewFieldFormat,
 	DataViewTableColumn,
 	DataViewTableConfig,
+	DataViewTableOverflowBehavior,
 } from '@contractspec/lib.contracts-spec/data-views';
 import type { ContractTableInitialState } from '@contractspec/lib.presentation-runtime-core';
 import * as React from 'react';
@@ -36,6 +38,7 @@ export function useDataViewTable<TItem extends Record<string, unknown>>({
 		const columns = view.columns ?? view.fields.map(fieldToColumn);
 		return columns.map((column) => {
 			const field = fieldsByKey.get(column.field) ?? fallbackField(column);
+			const overflow = resolveColumnOverflow(column, field, view);
 			return {
 				id: column.field,
 				header: column.label ?? field.label,
@@ -53,6 +56,7 @@ export function useDataViewTable<TItem extends Record<string, unknown>>({
 				canResize: column.resizable ?? view.columnResizing ?? false,
 				canPin: Boolean(view.columnPinning),
 				defaultPinned: column.pinned ?? false,
+				overflow,
 			};
 		});
 	}, [
@@ -65,20 +69,37 @@ export function useDataViewTable<TItem extends Record<string, unknown>>({
 		view.fields,
 	]);
 
-	const expandedFields = React.useMemo(
+	const overflowExpandedFields = React.useMemo(
 		() =>
-			(view.rowExpansion?.fields ?? [])
-				.map((fieldKey) => fieldsByKey.get(fieldKey))
+			(view.columns ?? view.fields.map(fieldToColumn))
+				.map((column) => {
+					const field = fieldsByKey.get(column.field) ?? fallbackField(column);
+					const overflow = resolveColumnOverflow(column, field, view);
+					return overflow === 'expand' ? field : undefined;
+				})
 				.filter((field): field is DataViewField => Boolean(field)),
-		[fieldsByKey, view.rowExpansion?.fields]
+		[fieldsByKey, view]
 	);
+
+	const expandedFields = React.useMemo(() => {
+		const fields = (view.rowExpansion?.fields ?? [])
+			.map((fieldKey) => fieldsByKey.get(fieldKey))
+			.filter((field): field is DataViewField => Boolean(field));
+		const seenKeys = new Set(fields.map((field) => field.key));
+		overflowExpandedFields.forEach((field) => {
+			if (seenKeys.has(field.key)) return;
+			seenKeys.add(field.key);
+			fields.push(field);
+		});
+		return fields;
+	}, [fieldsByKey, overflowExpandedFields, view.rowExpansion?.fields]);
 
 	const resolvedInitialState = React.useMemo<ContractTableInitialState>(() => {
 		const hiddenColumns = Object.fromEntries(
-			(view.initialState?.hiddenColumns ?? []).map((columnId) => [
-				columnId,
-				false,
-			])
+			[
+				...(view.columnVisibility ? hiddenOverflowColumns(view) : []),
+				...(view.initialState?.hiddenColumns ?? []),
+			].map((columnId) => [columnId, false])
 		);
 		const expanded = Object.fromEntries(
 			(view.initialState?.expandedRowIds ?? []).map((rowId) => [rowId, true])
@@ -177,6 +198,53 @@ function fallbackField(column: DataViewTableColumn): DataViewField {
 		label: column.label ?? column.field,
 		dataPath: column.field,
 	};
+}
+
+function resolveColumnOverflow(
+	column: DataViewTableColumn,
+	field: DataViewField,
+	view: DataViewTableConfig
+) {
+	const overflow =
+		column.overflow ?? field.overflow ?? inferOverflowBehavior(field.format);
+	if (overflow === 'hideColumn') {
+		return view.columnVisibility ? 'truncate' : 'truncate';
+	}
+	return overflow;
+}
+
+function hiddenOverflowColumns(view: DataViewTableConfig) {
+	const fieldsByKey = new Map(view.fields.map((field) => [field.key, field]));
+	return (view.columns ?? view.fields.map(fieldToColumn))
+		.filter((column) => {
+			const field = fieldsByKey.get(column.field) ?? fallbackField(column);
+			return (column.overflow ?? field.overflow) === 'hideColumn';
+		})
+		.map((column) => column.field);
+}
+
+function inferOverflowBehavior(
+	format?: DataViewFieldFormat
+): Exclude<DataViewTableOverflowBehavior, 'hideColumn'> {
+	const type = typeof format === 'string' ? format : format?.type;
+	switch (type) {
+		case 'markdown':
+			return 'wrap';
+		case 'number':
+		case 'currency':
+		case 'percent':
+		case 'percentage':
+		case 'date':
+		case 'time':
+		case 'datetime':
+		case 'dateTime':
+		case 'duration':
+		case 'boolean':
+		case 'badge':
+		case 'text':
+		default:
+			return 'truncate';
+	}
 }
 
 function sizeFromWidth(width?: DataViewField['width']) {

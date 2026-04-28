@@ -1,6 +1,7 @@
 'use client';
 
 import type {
+	DataViewFilter,
 	DataViewFilterSet,
 	DataViewFilterValue,
 	DataViewGridConfig,
@@ -9,13 +10,15 @@ import type {
 } from '@contractspec/lib.contracts-spec/data-views';
 import { resolveDataViewFilters } from '@contractspec/lib.contracts-spec/data-views';
 import { Pagination as TablePagination } from '@contractspec/lib.ui-kit/ui/atoms/Pagination';
-import { VStack } from '@contractspec/lib.ui-kit/ui/stack';
+import { HStack, VStack } from '@contractspec/lib.ui-kit/ui/stack';
 import { Text } from '@contractspec/lib.ui-kit/ui/text';
 import * as React from 'react';
 import {
 	resolveTranslationString,
 	useDesignSystemTranslation,
 } from '../../i18n/translation';
+import { Button } from '../atoms/Button';
+import { Input } from '../atoms/Input';
 import { FiltersToolbar } from '../molecules/FiltersToolbar';
 import { DataViewDetail } from './DataViewDetail';
 import { DataViewList } from './DataViewList';
@@ -224,7 +227,14 @@ export function DataViewRenderer({
 						hasClearableFilters ? () => onFilterChange?.({}) : undefined
 					}
 					right={spec.view.kind === 'table' ? undefined : headerActions}
-				/>
+				>
+					<DataViewFilterControls
+						filters={spec.view.filters}
+						values={resolvedFilters.user}
+						lockedKeys={Object.keys(resolvedFilters.locked)}
+						onFilterChange={onFilterChange}
+					/>
+				</FiltersToolbar>
 			)}
 
 			{viewContent}
@@ -281,4 +291,195 @@ function formatFilterValue(value: DataViewFilterValue | undefined) {
 			.join(' - ');
 	}
 	return `${value.mode}(${value.clauses.length})`;
+}
+
+function DataViewFilterControls({
+	filters,
+	values,
+	lockedKeys,
+	onFilterChange,
+}: {
+	filters?: DataViewFilter[];
+	values: DataViewFilterSet;
+	lockedKeys: string[];
+	onFilterChange?: DataViewRendererProps['onFilterChange'];
+}) {
+	if (!filters?.length || !onFilterChange) return null;
+	const locked = new Set(lockedKeys);
+	const editableFilters = filters.filter(
+		(filter) => filter.type !== 'search' && !locked.has(filter.key)
+	);
+	if (editableFilters.length === 0) return null;
+	return (
+		<HStack className="flex flex-wrap items-center gap-2">
+			{editableFilters.map((filter) => (
+				<DataViewFilterControl
+					key={filter.key}
+					filter={filter}
+					value={values[filter.key]}
+					values={values}
+					onFilterChange={onFilterChange}
+				/>
+			))}
+		</HStack>
+	);
+}
+
+function DataViewFilterControl({
+	filter,
+	value,
+	values,
+	onFilterChange,
+}: {
+	filter: DataViewFilter;
+	value?: DataViewFilterValue;
+	values: DataViewFilterSet;
+	onFilterChange: NonNullable<DataViewRendererProps['onFilterChange']>;
+}) {
+	if (filter.type === 'boolean') {
+		const current = value?.kind === 'single' ? value.value === true : undefined;
+		return (
+			<Button
+				size="sm"
+				variant="outline"
+				onPress={() =>
+					setFilterValue(
+						values,
+						filter.key,
+						current === undefined ? true : !current,
+						onFilterChange
+					)
+				}
+			>
+				{filter.label}: {current ? 'Oui' : 'Non'}
+			</Button>
+		);
+	}
+	if (filter.valueMode === 'range') {
+		const range = value?.kind === 'range' ? value : undefined;
+		return (
+			<HStack className="items-center gap-2">
+				<Input
+					value={range?.from == null ? '' : String(range.from)}
+					onChange={(nextValue) =>
+						setRangeFilterValue(
+							values,
+							filter,
+							'from',
+							readInputValue(nextValue),
+							onFilterChange
+						)
+					}
+					placeholder={`${filter.label} min`}
+					keyboard={keyboardForFilter(filter)}
+					className="h-9 w-28"
+				/>
+				<Input
+					value={range?.to == null ? '' : String(range.to)}
+					onChange={(nextValue) =>
+						setRangeFilterValue(
+							values,
+							filter,
+							'to',
+							readInputValue(nextValue),
+							onFilterChange
+						)
+					}
+					placeholder={`${filter.label} max`}
+					keyboard={keyboardForFilter(filter)}
+					className="h-9 w-28"
+				/>
+			</HStack>
+		);
+	}
+	return (
+		<Input
+			value={value?.kind === 'single' ? String(value.value) : ''}
+			onChange={(nextValue) =>
+				setFilterValue(
+					values,
+					filter.key,
+					parseFilterInput(filter, readInputValue(nextValue)),
+					onFilterChange
+				)
+			}
+			placeholder={filter.label}
+			keyboard={keyboardForFilter(filter)}
+			className="h-9 w-36"
+		/>
+	);
+}
+
+function setFilterValue(
+	values: DataViewFilterSet,
+	key: string,
+	value: string | number | boolean | undefined,
+	onFilterChange: NonNullable<DataViewRendererProps['onFilterChange']>
+) {
+	const next = { ...values };
+	if (value === undefined || value === '') {
+		delete next[key];
+	} else {
+		next[key] = { kind: 'single', value };
+	}
+	onFilterChange(next);
+}
+
+function setRangeFilterValue(
+	values: DataViewFilterSet,
+	filter: DataViewFilter,
+	bound: 'from' | 'to',
+	input: string,
+	onFilterChange: NonNullable<DataViewRendererProps['onFilterChange']>
+) {
+	const existing = values[filter.key];
+	const current: { from?: string | number; to?: string | number } =
+		existing?.kind === 'range' ? existing : {};
+	const parsed = parseFilterInput(filter, input);
+	const nextRange = { ...current, [bound]: parsed };
+	if (nextRange.from == null && nextRange.to == null) {
+		const next = { ...values };
+		delete next[filter.key];
+		onFilterChange(next);
+		return;
+	}
+	onFilterChange({
+		...values,
+		[filter.key]: {
+			kind: 'range',
+			from: nextRange.from as string | number | undefined,
+			to: nextRange.to as string | number | undefined,
+		},
+	});
+}
+
+function parseFilterInput(filter: DataViewFilter, value: string) {
+	if (value === '') return undefined;
+	switch (filter.type) {
+		case 'number':
+		case 'percent':
+		case 'currency':
+		case 'duration': {
+			const parsed = Number(value);
+			return Number.isFinite(parsed) ? parsed : undefined;
+		}
+		default:
+			return value;
+	}
+}
+
+function keyboardForFilter(filter: DataViewFilter) {
+	switch (filter.type) {
+		case 'number':
+		case 'percent':
+		case 'currency':
+		case 'duration':
+			return { kind: 'decimal' } as const;
+		default:
+			return undefined;
+	}
+}
+
+function readInputValue(value: string | React.ChangeEvent<HTMLInputElement>) {
+	return typeof value === 'string' ? value : value.currentTarget.value;
 }

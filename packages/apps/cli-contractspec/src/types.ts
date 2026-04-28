@@ -3,6 +3,8 @@ export type {
 	AuthoringTargetId,
 } from '@contractspec/module.workspace';
 
+import type { DataViewFieldFormat } from '@contractspec/lib.contracts-spec/data-views';
+
 export type OpKind = 'command' | 'query';
 
 export type PresentationKind = 'web_component' | 'markdown' | 'data';
@@ -113,7 +115,7 @@ export interface DataViewFieldData {
 	key: string;
 	label: string;
 	dataPath: string;
-	format?: string;
+	format?: DataViewFieldFormat;
 	sortable?: boolean;
 	filterable?: boolean;
 }

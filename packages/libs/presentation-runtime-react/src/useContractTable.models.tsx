@@ -1,6 +1,7 @@
 import type {
 	ContractTableCellAlign,
 	ContractTableColumnRenderModel,
+	ContractTableOverflowBehavior,
 	ContractTablePinState,
 	ContractTableRowRenderModel,
 	ContractTableSelectionMode,
@@ -16,6 +17,7 @@ export interface InternalColumnMeta {
 	label: string;
 	minSize?: number;
 	maxSize?: number;
+	overflow?: ContractTableOverflowBehavior;
 }
 
 interface CreateTableColumnsOptions<TItem> {
@@ -109,6 +111,7 @@ export function createTableColumns<TItem>({
 					(typeof column.header === 'string' ? column.header : columnId),
 				minSize: column.minSize,
 				maxSize: column.maxSize,
+				overflow: column.overflow,
 			} satisfies InternalColumnMeta,
 		});
 	});
@@ -172,6 +175,7 @@ export function createRenderColumns<TItem>(
 			size: column.getSize(),
 			minSize: meta?.minSize,
 			maxSize: meta?.maxSize,
+			overflow: meta?.overflow,
 			pinState: normalizePinState(column.getIsPinned()),
 			stickyOffset: getStickyOffset(column),
 			canSort: column.getCanSort(),
@@ -229,6 +233,7 @@ export function createRenderRows<TItem>(
 				content: meta?.kind === 'data' ? renderCell(cell) : null,
 				align: meta?.align ?? 'left',
 				size: cell.column.getSize(),
+				overflow: meta?.overflow,
 				pinState: normalizePinState(cell.column.getIsPinned()),
 				stickyOffset: getStickyOffset(cell.column),
 			};

@@ -35,16 +35,125 @@ export interface DataViewSource {
 /**
  * Display formatting hints for data view fields.
  */
-export type DataViewFieldFormat =
+export type DataViewCurrencyCode =
+	| 'USD'
+	| 'EUR'
+	| 'GBP'
+	| 'JPY'
+	| 'CHF'
+	| 'CAD'
+	| 'AUD'
+	| 'BTC'
+	| 'ETH'
+	| (string & {});
+
+export type DataViewNumberRoundingMode =
+	| 'ceil'
+	| 'floor'
+	| 'expand'
+	| 'trunc'
+	| 'halfCeil'
+	| 'halfFloor'
+	| 'halfExpand'
+	| 'halfTrunc'
+	| 'halfEven';
+
+export interface DataViewNumberFormatSpec {
+	type: 'number';
+	locale?: string;
+	minimumFractionDigits?: number;
+	maximumFractionDigits?: number;
+	useGrouping?: boolean;
+	notation?: 'standard' | 'scientific' | 'engineering' | 'compact';
+	signDisplay?: 'auto' | 'always' | 'exceptZero' | 'negative' | 'never';
+	rounding?: {
+		mode?: DataViewNumberRoundingMode;
+		increment?: number;
+	};
+}
+
+export interface DataViewPercentFormatSpec
+	extends Omit<DataViewNumberFormatSpec, 'type'> {
+	type: 'percent';
+	/** `fraction` stores 0.42 as 42%; `whole` stores 42 as 42%. */
+	valueScale?: 'fraction' | 'whole';
+}
+
+export interface DataViewCurrencyFormatSpec
+	extends Omit<DataViewNumberFormatSpec, 'type'> {
+	type: 'currency';
+	currency: DataViewCurrencyCode;
+	currencyDisplay?: 'symbol' | 'narrowSymbol' | 'code' | 'name';
+	/** Convenience signal for renderers that should use whole-unit display. */
+	rounded?: boolean;
+}
+
+export interface DataViewTemporalFormatSpec {
+	type: 'date' | 'time' | 'datetime';
+	locale?: string;
+	calendar?: string;
+	timeZone?: string;
+	dateStyle?: 'full' | 'long' | 'medium' | 'short';
+	timeStyle?: 'full' | 'long' | 'medium' | 'short';
+	hour12?: boolean;
+}
+
+export type DataViewDurationUnit =
+	| 'millisecond'
+	| 'second'
+	| 'minute'
+	| 'hour'
+	| 'day'
+	| 'week'
+	| 'month'
+	| 'year';
+
+export interface DataViewDurationFormatSpec {
+	type: 'duration';
+	locale?: string;
+	unit?: DataViewDurationUnit;
+	display?: 'short' | 'narrow' | 'long' | 'digital';
+	maxUnit?: DataViewDurationUnit;
+	minUnit?: DataViewDurationUnit;
+	rounding?: {
+		mode?: DataViewNumberRoundingMode;
+		increment?: number;
+	};
+}
+
+export type DataViewStructuredFieldFormat =
+	| DataViewNumberFormatSpec
+	| DataViewPercentFormatSpec
+	| DataViewCurrencyFormatSpec
+	| DataViewTemporalFormatSpec
+	| DataViewDurationFormatSpec
+	| { type: 'text' | 'boolean' | 'markdown' | 'badge' };
+
+export type DataViewLegacyFieldFormat =
 	| 'text'
 	| 'number'
 	| 'currency'
+	| 'percent'
 	| 'percentage'
 	| 'date'
+	| 'time'
+	| 'datetime'
 	| 'dateTime'
+	| 'duration'
 	| 'boolean'
 	| 'markdown'
 	| 'badge';
+
+export type DataViewFieldFormat =
+	| DataViewLegacyFieldFormat
+	| DataViewStructuredFieldFormat;
+
+export type DataViewTableOverflowBehavior =
+	| 'truncate'
+	| 'wrap'
+	| 'expand'
+	| 'hideColumn'
+	| 'none';
 
 /**
  * Field definition within a data view.
@@ -66,6 +175,8 @@ export interface DataViewField {
 	filterable?: boolean;
 	/** Optional width hint for table layouts. */
 	width?: 'auto' | 'xs' | 'sm' | 'md' | 'lg';
+	/** Optional table overflow behavior. Table columns can override this. */
+	overflow?: DataViewTableOverflowBehavior;
 	/** Optional presentation override (e.g., card component). */
 	presentation?: PresentationRef;
 }
@@ -77,7 +188,17 @@ export interface DataViewFilter {
 	key: string;
 	label: string;
 	field: string;
-	type: 'search' | 'enum' | 'number' | 'date' | 'boolean';
+	type:
+		| 'search'
+		| 'enum'
+		| 'number'
+		| 'percent'
+		| 'currency'
+		| 'date'
+		| 'time'
+		| 'datetime'
+		| 'duration'
+		| 'boolean';
 	options?: { value: string; label: string }[];
 	operator?: DataViewFilterOperator;
 	valueMode?: 'single' | 'multi' | 'range' | 'composite';
@@ -198,6 +319,7 @@ export interface DataViewTableColumn {
 	defaultWidth?: number;
 	minWidth?: number;
 	maxWidth?: number;
+	overflow?: DataViewTableOverflowBehavior;
 }
 
 export type DataViewTableExecutionMode = 'client' | 'server';

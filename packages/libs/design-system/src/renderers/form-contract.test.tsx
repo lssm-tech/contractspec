@@ -153,6 +153,10 @@ describe('design-system form renderer', () => {
 					startDate: new Date('2026-04-10T00:00:00.000Z'),
 					startTime: '09:30',
 					publishedAt: new Date('2026-04-10T09:30:00.000Z'),
+					budget: 1250,
+					completionRatio: 0.42,
+					allocation: 999.95,
+					estimatedDuration: 90,
 					contacts: [{ label: 'Support', value: 'support@example.com' }],
 				},
 			})
@@ -173,6 +177,11 @@ describe('design-system form renderer', () => {
 		expect(html).toContain('aria-label="Show new password"');
 		expect(html).toContain('<fieldset');
 		expect(html).toContain('Publication details');
+		expect(html).toContain('Budget units');
+		expect(html).toContain('Completion');
+		expect(html).toContain('value="42"');
+		expect(html).toContain('Allocation');
+		expect(html).toContain('Estimated duration');
 		expect(html).toContain('data-slot="input-group"');
 		expect(html).toContain('data-slot="input-group-addon"');
 		expect(html).toContain('md:grid-cols-2');

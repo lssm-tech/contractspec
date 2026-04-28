@@ -1,4 +1,5 @@
 import type {
+	ContractTableCellRenderModel,
 	ContractTableColumnRenderModel,
 	ContractTableController,
 	ContractTableRowRenderModel,
@@ -368,8 +369,31 @@ function renderCellContent<TItem>(
 		);
 	}
 	return typeof cell.content === 'string' ? (
-		<Text>{cell.content}</Text>
+		<Text
+			ellipsizeMode={shouldTruncateCell(cell) ? 'tail' : undefined}
+			numberOfLines={shouldTruncateCell(cell) ? 1 : undefined}
+		>
+			{cell.content}
+		</Text>
 	) : (
-		cell.content
+		renderNonTextCellContent(cell)
 	);
+}
+
+function shouldTruncateCell(
+	cell: ContractTableCellRenderModel<React.ReactNode>
+) {
+	return cell.overflow === 'truncate' || cell.overflow === 'expand';
+}
+
+function renderNonTextCellContent(
+	cell: ContractTableCellRenderModel<React.ReactNode>
+) {
+	if (cell.overflow === 'wrap') {
+		return <View className="min-w-0">{cell.content}</View>;
+	}
+	if (shouldTruncateCell(cell)) {
+		return <View className="min-w-0 overflow-hidden">{cell.content}</View>;
+	}
+	return cell.content;
 }

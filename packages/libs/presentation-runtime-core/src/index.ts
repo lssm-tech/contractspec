@@ -90,6 +90,7 @@ export type {
 	ContractTableExecutionMode,
 	ContractTableExpandedState,
 	ContractTableInitialState,
+	ContractTableOverflowBehavior,
 	ContractTablePaginationState,
 	ContractTablePinningState,
 	ContractTablePinState,

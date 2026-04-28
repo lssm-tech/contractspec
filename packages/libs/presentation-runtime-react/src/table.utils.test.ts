@@ -52,5 +52,39 @@ describe('table.utils', () => {
 		expect(getAtPath({ profile: { name: 'Ada' } }, 'profile.name')).toBe('Ada');
 		expect(clampTableSize(20, 40, 100)).toBe(40);
 		expect(formatTableValue(0.5, 'percentage')).toBe('50.0%');
+		expect(
+			formatTableValue(42.125, { type: 'number', maximumFractionDigits: 1 })
+		).toBe('42.1');
+		expect(
+			formatTableValue(0.125, { type: 'percent', maximumFractionDigits: 1 })
+		).toBe('12.5%');
+		expect(
+			formatTableValue(12.5, {
+				type: 'percent',
+				valueScale: 'whole',
+				maximumFractionDigits: 1,
+			})
+		).toBe('12.5%');
+		expect(
+			formatTableValue(1234.56, {
+				type: 'currency',
+				currency: 'EUR',
+				rounded: true,
+			})
+		).toContain('1,235');
+		expect(
+			formatTableValue(3661, {
+				type: 'duration',
+				unit: 'second',
+				display: 'digital',
+			})
+		).toBe('1:01:01');
+		expect(
+			formatTableValue(61, {
+				type: 'duration',
+				unit: 'minute',
+				display: 'digital',
+			})
+		).toBe('1:01:00');
 	});
 });

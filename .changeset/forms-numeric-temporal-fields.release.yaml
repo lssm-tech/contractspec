@@ -1,0 +1,62 @@
+schemaVersion: "1"
+slug: forms-numeric-temporal-fields
+summary: Add numeric and temporal FormSpec field kinds with shared renderer support for number, percent, currency, and duration inputs.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.contracts-spec"
+    releaseType: minor
+  - name: "@contractspec/lib.contracts-runtime-client-react"
+    releaseType: minor
+  - name: "@contractspec/lib.design-system"
+    releaseType: minor
+affectedRuntimes:
+  - bun
+  - browser
+  - nextjs
+  - expo
+affectedFrameworks:
+  - react
+  - react-native
+audiences:
+  - kind: maintainer
+    summary: FormSpec contracts and examples can now declare numeric and temporal field-specific formatting metadata without bespoke renderer code.
+    affectedPackages:
+      - "@contractspec/lib.contracts-spec"
+      - "@contractspec/lib.contracts-runtime-client-react"
+      - "@contractspec/lib.design-system"
+  - kind: integrator
+    summary: Custom form drivers can implement `NumberField`, `PercentField`, `CurrencyField`, and `DurationField` slots, while older drivers fall back to standard inputs.
+    affectedPackages:
+      - "@contractspec/lib.contracts-runtime-client-react"
+      - "@contractspec/lib.design-system"
+  - kind: customer
+    summary: Contract-driven forms can now express budgets, completion ratios, currency amounts, and durations with consistent metadata and shared rendering defaults.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+deprecations: []
+migrationInstructions:
+  - id: adopt-numeric-form-field-kinds
+    title: Use dedicated numeric field kinds instead of generic text inputs
+    summary: New field kinds provide stronger semantics and formatting metadata for finance and operations forms.
+    required: false
+    steps:
+      - Replace ad hoc numeric `text` fields with `number`, `percent`, `currency`, or `duration` where the schema intent is known.
+      - Set `format` metadata when locale, precision, currency display, or duration display needs to be explicit.
+upgradeSteps:
+  - id: extend-custom-form-drivers
+    title: Add numeric field slots to custom form drivers
+    summary: Shared drivers can opt into richer rendering for the new field kinds.
+    level: assisted
+    instructions:
+      - Implement the optional `NumberField`, `PercentField`, `CurrencyField`, and `DurationField` driver slots when custom styling is required.
+      - Keep relying on the `Input` fallback when a separate visual treatment is unnecessary.
+validation:
+  commands:
+    - "bun test packages/libs/contracts-spec/src/forms/forms.test.ts packages/libs/contracts-runtime-client-react/src/form-render.impl.test.tsx packages/libs/design-system/src/renderers/form-contract.test.tsx"
+    - "cd packages/libs/contracts-spec && bun run typecheck && bun run lint:check"
+    - "cd packages/libs/contracts-runtime-client-react && bun run typecheck && bun run lint:check"
+    - "cd packages/libs/design-system && bun run typecheck && bun run lint:check"
+  evidence:
+    - "FormSpec exports additive `number`, `percent`, `currency`, and `duration` field kinds plus formatting metadata."
+    - "The React form renderer forwards numeric/temporal formatting props and percent scaling through dedicated driver slots."
+    - "The shared design-system form renderer exposes translated numeric field slots without requiring app-local wrappers."

@@ -1,10 +1,12 @@
 'use client';
 
 import type {
+	ContractTableCellRenderModel,
 	ContractTableColumnRenderModel,
 	ContractTableController,
 	ContractTableRowRenderModel,
 } from '@contractspec/lib.presentation-runtime-core';
+import { cn } from '@contractspec/lib.ui-kit-core/utils';
 import {
 	ChevronDown,
 	ChevronRight,
@@ -328,6 +330,34 @@ export function renderCellContent<TItem>(
 		) : null;
 	}
 	return cell.content;
+}
+
+export function cellOverflowClassName(
+	cell: ContractTableCellRenderModel<React.ReactNode> | undefined
+) {
+	if (!cell || cell.kind !== 'data') return undefined;
+	switch (cell.overflow) {
+		case 'truncate':
+		case 'expand':
+			return 'max-w-full truncate whitespace-nowrap';
+		case 'wrap':
+			return 'max-w-full whitespace-normal break-words';
+		case 'none':
+		default:
+			return undefined;
+	}
+}
+
+export function renderOverflowCellContent<TItem>(
+	row: ContractTableRowRenderModel<TItem, React.ReactNode>,
+	cell:
+		| ContractTableRowRenderModel<TItem, React.ReactNode>['cells'][number]
+		| undefined
+) {
+	const content = renderCellContent(row, cell);
+	const overflowClassName = cellOverflowClassName(cell);
+	if (!overflowClassName) return content;
+	return <div className={cn('min-w-0', overflowClassName)}>{content}</div>;
 }
 
 export function stickyStyle(

@@ -1,6 +1,6 @@
 schemaVersion: "1"
 slug: finance-ops-demo-preview
-summary: Upgrade the Finance Ops AI Workflows template into a multi-screen, fixture-driven demo preview.
+summary: Expand the Finance Ops AI Workflows preview into a multi-screen template demo and refresh the generated LLMS package surface for it.
 isBreaking: false
 packages:
   - name: "@contractspec/example.finance-ops-ai-workflows"
@@ -12,36 +12,35 @@ affectedRuntimes:
   - nextjs
 affectedFrameworks:
   - react
+  - turbopack
 audiences:
   - kind: maintainer
-    summary: The finance ops example now exposes a computed preview model, per-workflow screens, split demo fixtures, and focused tests that keep the inline preview aligned with deterministic handlers.
+    summary: The finance-ops example now ships richer preview fixtures, split preview screens, and refreshed docs surface exports for the showcase route.
     affectedPackages:
       - "@contractspec/example.finance-ops-ai-workflows"
   - kind: integrator
-    summary: The web templates catalog keeps loading Finance Ops AI Workflows through the existing inline preview path, now with scenario switching and workflow-specific screens.
+    summary: Preview-consuming apps can surface a deterministic multi-screen finance-ops demo rather than a single static panel.
     affectedPackages:
+      - "@contractspec/example.finance-ops-ai-workflows"
       - "@contractspec/app.web-landing"
   - kind: customer
-    summary: The Finance Ops AI Workflows Preview button now opens a sales-ready walkthrough with mission intake, cash aging, procedure, reporting, and adoption ROI screens.
+    summary: The `/templates` Finance Ops AI Workflows preview now reads like a guided operator demo with scenario-specific screens and review flows.
 deprecations: []
 migrationInstructions: []
 upgradeSteps:
-  - id: validate-finance-preview
-    title: Verify the Finance Ops AI Workflows inline preview
-    summary: Consumers that package the web templates catalog should verify the inline modal can load the upgraded multi-screen preview.
+  - id: use-finance-ops-preview-entrypoint
+    title: Consume the richer finance-ops preview entrypoint
+    summary: The example package keeps the same `./ui` surface, but hosts should expect multiple preview screens and supporting fixtures.
     level: assisted
     instructions:
-      - Run the finance example preflight.
-      - Run the template preview integration tests.
-      - Open `/templates`, click Preview on Finance Ops AI Workflows, and exercise the fixture loader and workflow navigation.
+      - Install `@contractspec/example.finance-ops-ai-workflows` in preview-consuming apps.
+      - Regenerate any LLMS or docs package listings that enumerate example package surfaces.
 validation:
   commands:
     - "bun run --cwd packages/examples/finance-ops-ai-workflows preflight"
-    - "bun test packages/modules/examples/src/runtime/previews.test.ts packages/bundles/marketing/src/components/templates/template-preview.test.ts packages/apps/web-landing/next.config.test.ts"
-    - "bun run --cwd packages/apps/web-landing typecheck"
-    - "Playwright smoke test against http://localhost:3000/templates"
+    - "bun run --cwd packages/apps/web-landing build:types"
   evidence:
-    - "The Finance Ops AI Workflows preview renders mission-control, mission intake, cash aging, procedure, reporting, and adoption ROI screens."
-    - "The fixture loader switches between the PME recovery and reporting reset scenarios."
-    - "Preview content is computed from deterministic handlers rather than a stale static data file."
-    - "The old visible boundary checklist copy is absent from the preview UI."
+    - "Finance Ops AI Workflows preview is split into multiple deterministic scenario screens with dedicated fixture data."
+    - "The generated LLMS package page for the example reflects the refreshed package surface."
+knownGaps:
+  - "No browser screenshot evidence is attached in this capsule; the preview remains deterministic but verification is currently package-local."

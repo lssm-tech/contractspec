@@ -51,7 +51,7 @@ bun add @contractspec/lib.contracts-spec @contractspec/lib.schema
 - `ContractResult`: canonical success/failure envelope used by operation, workflow, job, API, MCP, GraphQL, and React runtimes while preserving raw-response compatibility for adapters.
 - `defineEvent` + `EventRegistry`: typed event contracts and lookup.
 - `defineResourceTemplate` + `ResourceRegistry`: URI-template-based resource contracts.
-- `FormRegistry`: contract-first form declarations consumed by UI runtimes, including readonly, email, password, autocomplete, address, phone, date, time, datetime, grouped array authoring, semantic legends/descriptions, grid layout hints, progressive `layout.flow` sections/steps, mobile-safe `responsiveFormColumns(...)`, and text/textarea/email input-group addons through `@contractspec/lib.contracts-spec/forms`.
+- `FormRegistry`: contract-first form declarations consumed by UI runtimes, including readonly, email, password, autocomplete, address, phone, number, percent, currency, date, time, datetime, duration, grouped array authoring, semantic legends/descriptions, grid layout hints, progressive `layout.flow` sections/steps, mobile-safe `responsiveFormColumns(...)`, and text/textarea/email input-group addons through `@contractspec/lib.contracts-spec/forms`.
 - `installOp`: one-call helper to register + bind operation handlers.
 - `makeEmit`: typed helper for declared event emission in handlers.
 
@@ -249,6 +249,13 @@ serialized into URL state. Locked filters render as disabled chips by default
 so embedded views, such as a category-scoped posts list, stay explainable while
 reusing the same base DataView contract.
 
+Table fields and columns can declare `overflow` as `truncate`, `wrap`,
+`expand`, `hideColumn`, or `none`. Column overflow overrides field overflow,
+and unspecified values use type-aware defaults: markdown wraps, while text,
+badges, numbers, currency, percentages, dates, times, durations, and booleans
+truncate. `expand` keeps the compact cell but adds the field to row expansion;
+`hideColumn` starts the column hidden when column visibility is enabled.
+
 ```ts
 import { defineDataView } from '@contractspec/lib.contracts-spec/data-views';
 import { ListDataGridShowcaseRowsQuery } from '@contractspec/example.data-grid-showcase/contracts/data-grid-showcase.operation';
@@ -294,7 +301,13 @@ export const DataGridShowcaseDataView = defineDataView({
       { key: 'account', label: 'Account', dataPath: 'account', sortable: true },
       { key: 'owner', label: 'Owner', dataPath: 'owner', sortable: true },
       { key: 'status', label: 'Status', dataPath: 'status', sortable: true },
-      { key: 'notes', label: 'Notes', dataPath: 'notes' },
+      { key: 'notes', label: 'Notes', dataPath: 'notes', overflow: 'expand' },
+    ],
+    columns: [
+      { field: 'account' },
+      { field: 'owner' },
+      { field: 'status', overflow: 'truncate' },
+      { field: 'notes', overflow: 'hideColumn' },
     ],
   },
 });

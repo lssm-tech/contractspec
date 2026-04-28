@@ -6,8 +6,10 @@ import type {
 	ArrayFieldSpec,
 	AutocompleteFieldSpec,
 	AutocompleteOption,
+	CurrencyFieldSpec,
 	DateFieldSpec,
 	DateTimeFieldSpec,
+	DurationFieldSpec,
 	EmailFieldSpec,
 	FieldSpec,
 	FormFlowSpec,
@@ -18,7 +20,9 @@ import type {
 	FormValuesFor,
 	InputGroupAddonSpec,
 	InputGroupSpec,
+	NumberFieldSpec,
 	OptionsSource,
+	PercentFieldSpec,
 	PhoneFieldSpec,
 	PhoneFormValue,
 	RadioFieldSpec,
@@ -46,6 +50,16 @@ import {
 } from 'react-hook-form';
 
 type FormFieldValues<M extends AnySchemaModel> = FormValuesFor<M> & FieldValues;
+
+type NumericFieldSlotProps = React.InputHTMLAttributes<HTMLInputElement> & {
+	format?:
+		| NumberFieldSpec['format']
+		| PercentFieldSpec['format']
+		| CurrencyFieldSpec['format']
+		| DurationFieldSpec['format'];
+	valueScale?: PercentFieldSpec['valueScale'];
+	valueUnit?: DurationFieldSpec['valueUnit'];
+};
 
 export interface DriverSlots {
 	FormRoot?: React.ComponentType<
@@ -100,6 +114,10 @@ export interface DriverSlots {
 		React.PropsWithChildren<{ className?: string }>
 	>;
 	Input: React.ComponentType<React.InputHTMLAttributes<HTMLInputElement>>;
+	NumberField?: React.ComponentType<NumericFieldSlotProps>;
+	PercentField?: React.ComponentType<NumericFieldSlotProps>;
+	CurrencyField?: React.ComponentType<NumericFieldSlotProps>;
+	DurationField?: React.ComponentType<NumericFieldSlotProps>;
 	Textarea: React.ComponentType<
 		React.TextareaHTMLAttributes<HTMLTextAreaElement>
 	>;
@@ -232,8 +250,9 @@ export interface DriverSlots {
 		'aria-invalid'?: boolean;
 		'aria-describedby'?: string;
 		placeholder?: string;
-		minDate?: Date;
-		maxDate?: Date;
+		minDate?: Date | string;
+		maxDate?: Date | string;
+		format?: DateFieldSpec['format'];
 	}>;
 	TimeField: React.ComponentType<{
 		id?: string;
@@ -246,6 +265,7 @@ export interface DriverSlots {
 		'aria-describedby'?: string;
 		placeholder?: string;
 		is24Hour?: boolean;
+		format?: TimeFieldSpec['format'];
 	}>;
 	DateTimeField: React.ComponentType<{
 		id?: string;
@@ -258,9 +278,10 @@ export interface DriverSlots {
 		'aria-describedby'?: string;
 		datePlaceholder?: string;
 		timePlaceholder?: string;
-		minDate?: Date;
-		maxDate?: Date;
+		minDate?: Date | string;
+		maxDate?: Date | string;
 		is24Hour?: boolean;
+		format?: DateTimeFieldSpec['format'];
 	}>;
 	Button: React.ComponentType<
 		React.PropsWithChildren<{
@@ -1457,6 +1478,143 @@ function PhoneFieldControl<TValues extends FieldValues>(props: {
 	);
 }
 
+type NumericFieldSpec =
+	| NumberFieldSpec
+	| PercentFieldSpec
+	| CurrencyFieldSpec
+	| DurationFieldSpec;
+
+function NumericFieldControl<TValues extends FieldValues>(props: {
+	driver: DriverSlots;
+	form: UseFormReturn<TValues>;
+	spec: NumericFieldSpec;
+	ctx: FieldRenderContext;
+	labelNode: React.ReactNode;
+	descNode: React.ReactNode;
+	commonWrapProps: CommonWrapProps;
+}) {
+	const DriverField = props.driver.Field;
+	const DriverError = props.driver.FieldError;
+	const uiProps = (props.spec.uiProps ?? {}) as Partial<
+		React.InputHTMLAttributes<HTMLInputElement>
+	>;
+
+	return (
+		<Controller
+			name={props.ctx.name as never}
+			control={props.form.control}
+			render={({ field, fieldState }) => {
+				const err = fieldState.error ? [fieldState.error] : [];
+				const describedBy = ariaDescribedBy(
+					props.ctx.descriptionId,
+					props.ctx.errorId,
+					fieldState.invalid
+				);
+				const value =
+					typeof field.value === 'number'
+						? formatNumericInputValue(field.value, props.spec)
+						: typeof field.value === 'string'
+							? field.value
+							: '';
+				const inputProps: React.InputHTMLAttributes<HTMLInputElement> = {
+					id: props.ctx.id,
+					name: props.ctx.name,
+					'aria-invalid': fieldState.invalid || undefined,
+					'aria-describedby': describedBy,
+					placeholder: props.spec.placeholderI18n,
+					disabled: !props.ctx.enabled,
+					readOnly: props.ctx.readOnly,
+					type: 'number',
+					inputMode:
+						props.spec.kind === 'number' ? props.spec.inputMode : 'decimal',
+					min: props.spec.min,
+					max: props.spec.max,
+					step: props.spec.step,
+					value,
+					onBlur: field.onBlur,
+					onChange: (event) => {
+						if (props.ctx.readOnly) return;
+						field.onChange(
+							parseNumericInputValue(event.currentTarget.value, props.spec)
+						);
+					},
+					...uiProps,
+				};
+				const NumericInput = resolveNumericFieldSlot(props.driver, props.spec);
+				const numericSlotProps = numericFieldSlotProps(props.spec);
+
+				return (
+					<DriverField
+						{...props.commonWrapProps}
+						data-invalid={
+							fieldState.invalid ||
+							props.commonWrapProps['data-invalid'] ||
+							undefined
+						}
+					>
+						{props.labelNode}
+						<NumericInput {...inputProps} {...numericSlotProps} />
+						{props.descNode}
+						{fieldState.invalid ? (
+							<DriverError id={props.ctx.errorId} errors={err} />
+						) : null}
+					</DriverField>
+				);
+			}}
+		/>
+	);
+}
+
+function resolveNumericFieldSlot(driver: DriverSlots, spec: NumericFieldSpec) {
+	switch (spec.kind) {
+		case 'number':
+			return driver.NumberField ?? driver.Input;
+		case 'percent':
+			return driver.PercentField ?? driver.Input;
+		case 'currency':
+			return driver.CurrencyField ?? driver.Input;
+		case 'duration':
+			return driver.DurationField ?? driver.Input;
+	}
+}
+
+function numericFieldSlotProps(spec: NumericFieldSpec) {
+	switch (spec.kind) {
+		case 'number':
+			return { format: spec.format };
+		case 'percent':
+			return { format: spec.format, valueScale: spec.valueScale };
+		case 'currency':
+			return { format: spec.format };
+		case 'duration':
+			return { format: spec.format, valueUnit: spec.valueUnit };
+	}
+}
+
+function parseNumericInputValue(
+	value: string,
+	spec: NumericFieldSpec
+): number | string | undefined {
+	if (value.trim() === '') return undefined;
+	if ('valueMode' in spec && spec.valueMode === 'string') return value;
+	const parsed = Number(value);
+	if (Number.isNaN(parsed)) return value;
+	if (spec.kind === 'percent') {
+		const valueScale = spec.valueScale ?? spec.format?.valueScale ?? 'fraction';
+		return valueScale === 'fraction' ? parsed / 100 : parsed;
+	}
+	return parsed;
+}
+
+function formatNumericInputValue(
+	value: number,
+	spec: NumericFieldSpec
+): number | string {
+	if (spec.kind !== 'percent') return value;
+	const valueScale = spec.valueScale ?? spec.format?.valueScale ?? 'fraction';
+	return valueScale === 'fraction' ? value * 100 : value;
+}
+
 function DateFieldControl<TValues extends FieldValues>(props: {
 	driver: DriverSlots;
 	form: UseFormReturn<TValues>;
@@ -1505,6 +1663,7 @@ function DateFieldControl<TValues extends FieldValues>(props: {
 							placeholder={props.spec.placeholderI18n}
 							minDate={props.spec.minDate}
 							maxDate={props.spec.maxDate}
+							format={props.spec.format}
 						/>
 						{props.descNode}
 						{fieldState.invalid ? (
@@ -1564,6 +1723,7 @@ function TimeFieldControl<TValues extends FieldValues>(props: {
 							aria-describedby={describedBy}
 							placeholder={props.spec.placeholderI18n}
 							is24Hour={props.spec.is24Hour}
+							format={props.spec.format}
 						/>
 						{props.descNode}
 						{fieldState.invalid ? (
@@ -1626,6 +1786,7 @@ function DateTimeFieldControl<TValues extends FieldValues>(props: {
 							minDate={props.spec.minDate}
 							maxDate={props.spec.maxDate}
 							is24Hour={props.spec.is24Hour}
+							format={props.spec.format}
 						/>
 						{props.descNode}
 						{fieldState.invalid ? (
@@ -1900,6 +2061,26 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
 						descNode={descNode}
 						commonWrapProps={commonWrapProps}
 						resolvers={props.merged.resolvers}
+					/>
+				);
+			}
+
+			if (
+				field.kind === 'number' ||
+				field.kind === 'percent' ||
+				field.kind === 'currency' ||
+				field.kind === 'duration'
+			) {
+				return (
+					<NumericFieldControl
+						key={name}
+						driver={props.merged.driver}
+						form={form}
+						spec={field}
+						ctx={ctx}
+						labelNode={labelNode}
+						descNode={descNode}
+						commonWrapProps={commonWrapProps}
 					/>
 				);
 			}

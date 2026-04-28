@@ -10,7 +10,7 @@ export function generateDataViewSpec(data: DataViewSpecData): string {
         key: '${field.key}',
         label: '${escape(field.label)}',
         dataPath: '${field.dataPath}',
-        ${field.format ? `format: '${field.format}',` : ''}
+        ${field.format ? `format: ${formatFieldFormat(field.format)},` : ''}
         ${field.sortable ? 'sortable: true,' : ''}
         ${field.filterable ? 'filterable: true,' : ''}
       }`
@@ -87,4 +87,11 @@ function toPascalCase(value: string): string {
 
 function escape(value: string): string {
 	return value.replace(/'/g, "\\'");
+}
+
+function formatFieldFormat(
+	format: DataViewSpecData['fields'][number]['format']
+) {
+	if (typeof format === 'string') return `'${escape(format)}'`;
+	return JSON.stringify(format);
 }

@@ -78,6 +78,84 @@ export interface PhoneFormValue {
 	e164?: string;
 }
 
+export type CurrencyCode =
+	| 'USD'
+	| 'EUR'
+	| 'GBP'
+	| 'JPY'
+	| 'CHF'
+	| 'CAD'
+	| 'AUD'
+	| 'BTC'
+	| 'ETH'
+	| (string & {});
+
+export type NumberRoundingMode =
+	| 'ceil'
+	| 'floor'
+	| 'expand'
+	| 'trunc'
+	| 'halfCeil'
+	| 'halfFloor'
+	| 'halfExpand'
+	| 'halfTrunc'
+	| 'halfEven';
+
+export interface NumberRoundingSpec {
+	mode?: NumberRoundingMode;
+	increment?: number;
+}
+
+export interface NumberFormatSpec {
+	locale?: string;
+	minimumFractionDigits?: number;
+	maximumFractionDigits?: number;
+	useGrouping?: boolean;
+	notation?: 'standard' | 'scientific' | 'engineering' | 'compact';
+	signDisplay?: 'auto' | 'always' | 'exceptZero' | 'negative' | 'never';
+	rounding?: NumberRoundingSpec;
+}
+
+export interface PercentFormatSpec extends NumberFormatSpec {
+	/** `fraction` stores 0.42 as 42%; `whole` stores 42 as 42%. */
+	valueScale?: 'fraction' | 'whole';
+}
+
+export interface CurrencyFormatSpec extends NumberFormatSpec {
+	currency: CurrencyCode;
+	currencyDisplay?: 'symbol' | 'narrowSymbol' | 'code' | 'name';
+	/** Convenience signal for renderers that should use whole-unit display. */
+	rounded?: boolean;
+}
+
+export interface TemporalFormatSpec {
+	locale?: string;
+	calendar?: string;
+	timeZone?: string;
+	dateStyle?: 'full' | 'long' | 'medium' | 'short';
+	timeStyle?: 'full' | 'long' | 'medium' | 'short';
+	hour12?: boolean;
+}
+
+export type DurationUnit =
+	| 'millisecond'
+	| 'second'
+	| 'minute'
+	| 'hour'
+	| 'day'
+	| 'week'
+	| 'month'
+	| 'year';
+
+export interface DurationFormatSpec {
+	locale?: string;
+	unit?: DurationUnit;
+	display?: 'short' | 'narrow' | 'long' | 'digital';
+	maxUnit?: DurationUnit;
+	minUnit?: DurationUnit;
+	rounding?: NumberRoundingSpec;
+}
+
 export type AutocompleteValueMapping =
 	| { mode: 'scalar'; valueKey?: string }
 	| { mode: 'object' }
@@ -221,9 +299,13 @@ export interface BaseFieldSpec {
 		| 'autocomplete'
 		| 'address'
 		| 'phone'
+		| 'number'
+		| 'percent'
+		| 'currency'
 		| 'date'
 		| 'time'
 		| 'datetime'
+		| 'duration'
 		| 'group'
 		| 'array';
 	/** Field name (dot path relative to the form root or parent context). */
@@ -342,25 +424,69 @@ export interface PhoneFieldSpec extends BaseFieldSpec {
 	countryOptions?: OptionsSource | readonly FormOption[];
 }
 
+export interface NumberFieldSpec extends BaseFieldSpec {
+	kind: 'number';
+	name: string;
+	min?: number;
+	max?: number;
+	step?: number;
+	inputMode?: 'numeric' | 'decimal';
+	valueMode?: 'number' | 'string';
+	format?: NumberFormatSpec;
+}
+
+export interface PercentFieldSpec extends BaseFieldSpec {
+	kind: 'percent';
+	name: string;
+	min?: number;
+	max?: number;
+	step?: number;
+	valueScale?: PercentFormatSpec['valueScale'];
+	format?: PercentFormatSpec;
+}
+
+export interface CurrencyFieldSpec extends BaseFieldSpec {
+	kind: 'currency';
+	name: string;
+	min?: number;
+	max?: number;
+	step?: number;
+	valueMode?: 'number' | 'string';
+	format: CurrencyFormatSpec;
+}
+
 export interface DateFieldSpec extends BaseFieldSpec {
 	kind: 'date';
 	name: string;
-	minDate?: Date;
-	maxDate?: Date;
+	minDate?: Date | string;
+	maxDate?: Date | string;
+	format?: TemporalFormatSpec;
 }
 
 export interface TimeFieldSpec extends BaseFieldSpec {
 	kind: 'time';
 	name: string;
 	is24Hour?: boolean;
+	format?: TemporalFormatSpec;
 }
 
 export interface DateTimeFieldSpec extends BaseFieldSpec {
 	kind: 'datetime';
 	name: string;
-	minDate?: Date;
-	maxDate?: Date;
+	minDate?: Date | string;
+	maxDate?: Date | string;
 	is24Hour?: boolean;
+	format?: TemporalFormatSpec;
+}
+
+export interface DurationFieldSpec extends BaseFieldSpec {
+	kind: 'duration';
+	name: string;
+	min?: number;
+	max?: number;
+	step?: number;
+	valueUnit?: DurationUnit;
+	format?: DurationFormatSpec;
 }
 
 export interface GroupFieldSpec extends BaseFieldSpec {
@@ -393,9 +519,13 @@ export type FieldSpec =
 	| AutocompleteFieldSpec
 	| AddressFieldSpec
 	| PhoneFieldSpec
+	| NumberFieldSpec
+	| PercentFieldSpec
+	| CurrencyFieldSpec
 	| DateFieldSpec
 	| TimeFieldSpec
 	| DateTimeFieldSpec
+	| DurationFieldSpec
 	| GroupFieldSpec
 	| ArrayFieldSpec;
 
@@ -943,7 +1073,7 @@ This document defines the canonical contracts for declarative forms.
 - \`FormSpec\` (in \`@contractspec/lib.contracts-spec/forms\`) declares:
   - \`meta\` (extends \`OwnerShipMeta\`) + \`key\`/\`version\` for stability.
   - \`model\` (\`@contractspec/lib.schema\` \`SchemaModel\`) as the single source of truth.
-  - \`fields\` built from \`FieldSpec\` kinds: \`text\`, \`email\`, \`textarea\`, \`select\`, \`checkbox\`, \`radio\`, \`switch\`, \`autocomplete\`, \`address\`, \`phone\`, \`date\`, \`time\`, \`datetime\`, \`group\`, \`array\`.
+  - \`fields\` built from \`FieldSpec\` kinds: \`text\`, \`email\`, \`textarea\`, \`select\`, \`checkbox\`, \`radio\`, \`switch\`, \`autocomplete\`, \`address\`, \`phone\`, \`number\`, \`percent\`, \`currency\`, \`date\`, \`time\`, \`datetime\`, \`duration\`, \`group\`, \`array\`.
   - \`text.password\` for masked current/new password fields with password-manager hints.
   - field-level \`readOnly\` support that preserves submitted values.
   - Optional \`layout\`, \`layout.flow\`, \`actions\`, \`policy.flags\`, \`constraints\` and \`renderHints\`.
@@ -958,7 +1088,8 @@ This document defines the canonical contracts for declarative forms.
 - \`email\` represents one string email-address field; schema validation remains model-owned while renderers supply email input affordances.
 - \`address\` uses the canonical \`AddressFormValue\` object shape.
 - \`phone\` uses the canonical \`PhoneFormValue\` object shape.
-- \`date\`, \`time\`, and \`datetime\` map directly to the corresponding schema scalar intent.
+- \`number\`, \`percent\`, and \`currency\` map numeric schema intent to native input controls while preserving locale, precision, rounding, and currency-display metadata.
+- \`date\`, \`time\`, \`datetime\`, and \`duration\` map temporal schema intent to native controls while preserving locale, timezone, unit, and display metadata.
 - \`array\` remains the canonical dynamic-field primitive and can repeat grouped item layouts.
 - \`text\` can declare \`password.purpose\` as \`current\` or \`new\`; renderers map those to masked controls and \`current-password\` / \`new-password\` autocomplete hints.
 
@@ -981,7 +1112,7 @@ This document defines the canonical contracts for declarative forms.
 
 Host apps supply a driver mapping slots to components:
 
-- Required: \`Field\`, \`FieldLabel\`, \`FieldDescription\`, \`FieldError\`, \`Input\`, \`Textarea\`, \`Select\`, \`Checkbox\`, \`RadioGroup\`, \`Switch\`, \`Autocomplete\`, \`AddressField\`, \`PhoneField\`, \`DateField\`, \`TimeField\`, \`DateTimeField\`, \`Button\`.
+- Required: \`Field\`, \`FieldLabel\`, \`FieldDescription\`, \`FieldError\`, \`Input\`, \`Textarea\`, \`Select\`, \`Checkbox\`, \`RadioGroup\`, \`Switch\`, \`Autocomplete\`, \`AddressField\`, \`PhoneField\`, \`NumberField\`, \`PercentField\`, \`CurrencyField\`, \`DateField\`, \`TimeField\`, \`DateTimeField\`, \`DurationField\`, \`Button\`.
 - Optional: \`FieldContent\`, \`FieldGroup\`, \`FieldSet\`, \`FieldLegend\`, \`FieldSeparator\`, \`InputGroup\`, \`InputGroupAddon\`, \`InputGroupInput\`, \`InputGroupTextarea\`, \`InputGroupText\`, \`InputGroupIcon\`, and \`PasswordInput\`.
 - Autocomplete drivers should accept optional \`loading\`, \`error\`, \`emptyText\`, \`loadingText\`, and \`errorText\` props so resolver-backed fields can expose async state without embedding transport details in the contract.
 

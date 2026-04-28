@@ -17,11 +17,19 @@ const FORMAT_CHOICES = [
 	{ name: 'Text (default)', value: 'text' },
 	{ name: 'Number', value: 'number' },
 	{ name: 'Currency', value: 'currency' },
+	{ name: 'Percent', value: 'percent' },
 	{ name: 'Percentage', value: 'percentage' },
 	{ name: 'Date', value: 'date' },
+	{ name: 'Time', value: 'time' },
+	{ name: 'Date time', value: 'datetime' },
 	{ name: 'Date & Time', value: 'dateTime' },
+	{ name: 'Duration', value: 'duration' },
 	{ name: 'Boolean', value: 'boolean' },
+	{ name: 'Markdown', value: 'markdown' },
+	{ name: 'Badge', value: 'badge' },
 ];
+
+type WizardFieldFormat = (typeof FORMAT_CHOICES)[number]['value'];
 
 const STABILITY_CHOICES: { name: string; value: Stability }[] = [
 	{ name: 'Experimental', value: 'experimental' },
@@ -212,7 +220,7 @@ async function collectFields(
 		const format = await select({
 			message: 'Formatting hint:',
 			choices: FORMAT_CHOICES,
-			default: def?.format ?? 'text',
+			default: defaultFieldFormat(def?.format),
 		});
 
 		const sortable = await confirm({
@@ -229,7 +237,7 @@ async function collectFields(
 			key,
 			label,
 			dataPath,
-			format,
+			format: format as DataViewFieldData['format'],
 			sortable,
 			filterable,
 		});
@@ -242,6 +250,14 @@ async function collectFields(
 	}
 
 	return fields;
+}
+
+function defaultFieldFormat(
+	format: DataViewFieldData['format']
+): WizardFieldFormat {
+	if (!format) return 'text';
+	if (typeof format === 'string') return format as WizardFieldFormat;
+	return format.type as WizardFieldFormat;
 }
 
 function positiveInt(value: number) {

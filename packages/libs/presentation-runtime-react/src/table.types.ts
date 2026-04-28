@@ -8,6 +8,7 @@ import type {
 	ContractTableController,
 	ContractTableExecutionMode,
 	ContractTableInitialState,
+	ContractTableOverflowBehavior,
 	ContractTablePinState,
 	ContractTableRowRenderModel,
 	ContractTableSelectionMode,
@@ -37,6 +38,7 @@ export interface ContractTableColumnDef<TItem> {
 	canResize?: boolean;
 	canPin?: boolean;
 	defaultPinned?: ContractTablePinState;
+	overflow?: ContractTableOverflowBehavior;
 }
 
 export interface UseContractTableOptions<TItem> {
@@ -84,5 +86,6 @@ export interface UseDataViewTableOptions<TItem extends Record<string, unknown>>
 export type {
 	ContractTableColumnRenderModel,
 	ContractTableController,
+	ContractTableOverflowBehavior,
 	ContractTableRowRenderModel,
 };

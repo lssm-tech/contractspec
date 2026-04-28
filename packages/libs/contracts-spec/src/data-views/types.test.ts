@@ -18,6 +18,7 @@ import type {
 	DataViewStates,
 	DataViewTableConfig,
 	DataViewTableExecutionMode,
+	DataViewTableOverflowBehavior,
 	DataViewTableSelectionMode,
 } from './types';
 
@@ -84,14 +85,25 @@ describe('DataViewFieldFormat', () => {
 			'text',
 			'number',
 			'currency',
+			'percent',
 			'percentage',
 			'date',
+			'time',
+			'datetime',
 			'dateTime',
+			'duration',
 			'boolean',
 			'badge',
+			{ type: 'number', maximumFractionDigits: 2, useGrouping: true },
+			{ type: 'percent', valueScale: 'fraction', maximumFractionDigits: 1 },
+			{ type: 'currency', currency: 'GBP', rounded: true },
+			{ type: 'date', dateStyle: 'medium' },
+			{ type: 'time', timeStyle: 'short', hour12: false },
+			{ type: 'datetime', dateStyle: 'medium', timeStyle: 'short' },
+			{ type: 'duration', unit: 'minute', display: 'digital' },
 		];
 
-		expect(formats).toHaveLength(8);
+		expect(formats).toHaveLength(19);
 	});
 });
 
@@ -123,6 +135,24 @@ describe('DataViewField', () => {
 
 		expect(field.presentation?.key).toBe('avatar.component');
 	});
+
+	it('should support table overflow behavior hints', () => {
+		const behaviors: DataViewTableOverflowBehavior[] = [
+			'truncate',
+			'wrap',
+			'expand',
+			'hideColumn',
+			'none',
+		];
+		const fields: DataViewField[] = behaviors.map((overflow) => ({
+			key: overflow,
+			label: overflow,
+			dataPath: overflow,
+			overflow,
+		}));
+
+		expect(fields.map((field) => field.overflow)).toEqual(behaviors);
+	});
 });
 
 describe('DataViewFilter', () => {
@@ -147,6 +177,29 @@ describe('DataViewFilter', () => {
 		expect(filter.type).toBe('enum');
 		expect(filter.operator).toBe('in');
 		expect(filter.options).toHaveLength(2);
+	});
+
+	it('supports numeric and temporal filter types', () => {
+		const filters: DataViewFilter[] = [
+			{ key: 'amount', label: 'Amount', field: 'amount', type: 'currency' },
+			{ key: 'margin', label: 'Margin', field: 'margin', type: 'percent' },
+			{ key: 'startedAt', label: 'Started', field: 'startedAt', type: 'time' },
+			{
+				key: 'publishedAt',
+				label: 'Published',
+				field: 'publishedAt',
+				type: 'datetime',
+			},
+			{ key: 'elapsed', label: 'Elapsed', field: 'elapsed', type: 'duration' },
+		];
+
+		expect(filters.map((filter) => filter.type)).toEqual([
+			'currency',
+			'percent',
+			'time',
+			'datetime',
+			'duration',
+		]);
 	});
 
 	it('supports scoped initial and locked filter values', () => {
@@ -376,6 +429,7 @@ describe('DataViewConfig', () => {
 					defaultWidth: 240,
 					minWidth: 180,
 					maxWidth: 360,
+					overflow: 'wrap',
 				},
 			],
 			executionMode: 'server',
@@ -401,6 +455,7 @@ describe('DataViewConfig', () => {
 		expect(config.selection).toBe('multiple');
 		expect(config.rowExpansion?.fields).toContain('name');
 		expect(config.initialState?.pageSize).toBe(50);
+		expect(config.columns?.[0]?.overflow).toBe('wrap');
 	});
 
 	it('should support grid config', () => {

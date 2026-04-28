@@ -45,7 +45,43 @@ export const DataGridShowcaseDataView = defineDataView({
       { key: 'account', label: 'Account', dataPath: 'account', sortable: true },
       { key: 'owner', label: 'Owner', dataPath: 'owner', sortable: true },
       { key: 'status', label: 'Status', dataPath: 'status', sortable: true },
+      {
+        key: 'arr',
+        label: 'ARR',
+        dataPath: 'arr',
+        sortable: true,
+        format: { type: 'currency', currency: 'USD', rounded: true },
+      },
+      {
+        key: 'healthScore',
+        label: 'Health score',
+        dataPath: 'healthScore',
+        format: { type: 'percent', valueScale: 'fraction', maximumFractionDigits: 1 },
+      },
+      {
+        key: 'lastActivityAt',
+        label: 'Last activity',
+        dataPath: 'lastActivityAt',
+        format: { type: 'datetime', dateStyle: 'medium', timeStyle: 'short' },
+      },
       { key: 'notes', label: 'Notes', dataPath: 'notes' },
+    ],
+    filters: [
+      { key: 'status', label: 'Status', field: 'status', type: 'enum' },
+      {
+        key: 'arr',
+        label: 'ARR',
+        field: 'arr',
+        type: 'currency',
+        valueMode: 'range',
+      },
+      {
+        key: 'lastActivityAt',
+        label: 'Last activity',
+        field: 'lastActivityAt',
+        type: 'datetime',
+        valueMode: 'range',
+      },
     ],
   },
 });`;
@@ -84,9 +120,9 @@ export function SpecsDataViewsPage() {
 						<h3 className="font-semibold text-lg">Filtering</h3>
 						<p className="text-muted-foreground">
 							Define filters that users can apply to narrow down results.
-							Filters can be simple (e.g., "status equals 'active'") or complex
-							(e.g., "created within the last 30 days AND assigned to current
-							user").
+							Filters are typed as search, enum, number, percent, currency,
+							date, time, datetime, duration, or boolean so renderers and query
+							helpers can validate values before execution.
 						</p>
 					</div>
 					<div>

@@ -13,8 +13,8 @@ import {
 	ColumnVisibilityMenu,
 	PinMenu,
 	ResizeHandle,
-	renderCellContent,
 	renderHeaderContent,
+	renderOverflowCellContent,
 	stickyStyle,
 } from './data-table.parts';
 import { Skeleton } from './skeleton';
@@ -154,7 +154,7 @@ export function DataTable<TItem>({
 														key={column.id}
 														style={stickyStyle(column)}
 													>
-														{renderCellContent(
+														{renderOverflowCellContent(
 															row,
 															cellsByColumnId.get(column.id)
 														)}

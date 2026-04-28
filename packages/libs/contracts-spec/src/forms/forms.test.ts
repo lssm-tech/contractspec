@@ -556,9 +556,13 @@ describe('buildZodWithRelations', () => {
 						nationalNumber: z.string(),
 					}),
 					contactEmail: z.string().email(),
+					budget: z.number(),
+					progress: z.number(),
+					allocation: z.number(),
 					startDate: z.coerce.date(),
 					startTime: z.string(),
 					publishedAt: z.coerce.date(),
+					estimatedDuration: z.number(),
 				}),
 				{ name: 'RichKindsModel' }
 			),
@@ -578,9 +582,41 @@ describe('buildZodWithRelations', () => {
 				{ kind: 'address', name: 'address' },
 				{ kind: 'phone', name: 'phone' },
 				{ kind: 'email', name: 'contactEmail' },
-				{ kind: 'date', name: 'startDate' },
-				{ kind: 'time', name: 'startTime' },
-				{ kind: 'datetime', name: 'publishedAt' },
+				{
+					kind: 'number',
+					name: 'budget',
+					min: 0,
+					step: 0.01,
+					format: { maximumFractionDigits: 2, useGrouping: true },
+				},
+				{
+					kind: 'percent',
+					name: 'progress',
+					valueScale: 'fraction',
+					format: { valueScale: 'fraction', maximumFractionDigits: 1 },
+				},
+				{
+					kind: 'currency',
+					name: 'allocation',
+					format: {
+						currency: 'EUR',
+						currencyDisplay: 'symbol',
+						rounded: false,
+					},
+				},
+				{ kind: 'date', name: 'startDate', format: { dateStyle: 'medium' } },
+				{ kind: 'time', name: 'startTime', format: { timeStyle: 'short' } },
+				{
+					kind: 'datetime',
+					name: 'publishedAt',
+					format: { dateStyle: 'medium', timeStyle: 'short' },
+				},
+				{
+					kind: 'duration',
+					name: 'estimatedDuration',
+					valueUnit: 'minute',
+					format: { unit: 'minute', display: 'short' },
+				},
 			],
 		} satisfies FormSpec;
 
@@ -589,9 +625,13 @@ describe('buildZodWithRelations', () => {
 			'address',
 			'phone',
 			'email',
+			'number',
+			'percent',
+			'currency',
 			'date',
 			'time',
 			'datetime',
+			'duration',
 		]);
 	});
 });

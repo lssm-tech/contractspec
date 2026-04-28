@@ -32,13 +32,29 @@ describe('generateDataViewSpec', () => {
 		const data: DataViewSpecData = {
 			...baseData,
 			fields: [
-				{ key: 'id', label: 'ID', dataPath: 'id', sortable: true },
+				{
+					key: 'id',
+					label: 'ID',
+					dataPath: 'id',
+					sortable: true,
+					format: 'number',
+				},
 				{ key: 'name', label: 'Name', dataPath: 'name', filterable: true },
+				{
+					key: 'amount',
+					label: 'Amount',
+					dataPath: 'amount',
+					format: { type: 'currency', currency: 'EUR', rounded: true },
+				},
 			],
 		};
 		const code = generateDataViewSpec(data);
 		expect(code).toContain("key: 'id'");
 		expect(code).toContain("label: 'ID'");
+		expect(code).toContain("format: 'number'");
+		expect(code).toContain(
+			'format: {"type":"currency","currency":"EUR","rounded":true}'
+		);
 		expect(code).toContain('sortable: true');
 		expect(code).toContain('filterable: true');
 	});

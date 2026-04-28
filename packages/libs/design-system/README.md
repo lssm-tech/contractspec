@@ -287,6 +287,10 @@ export function AccountHealthTable() {
 `DataTable` remains the composed card/container surface. `DataTableToolbar` is
 the recommended ergonomic layer for search, chips, selection summary, and
 hidden-column recovery without widening the primitive table API.
+DataView-driven tables also honor field and column overflow hints from
+`DataViewSpec`: column hints override field hints, markdown wraps by default,
+compact scalar formats truncate, `expand` adds detail to the row expansion
+surface, and `hideColumn` starts hidden when column visibility is enabled.
 
 ## API map
 

@@ -346,6 +346,7 @@ export type {
 	ContractTableColumnDef,
 	ContractTableColumnRenderModel,
 	ContractTableController,
+	ContractTableOverflowBehavior,
 	ContractTableRowRenderModel,
 	UseContractTableOptions,
 } from './table.types';

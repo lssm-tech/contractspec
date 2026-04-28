@@ -8,6 +8,7 @@ import {
 	type ContractSpecType,
 	type OpKind,
 } from '@contractspec/lib.contracts-spec';
+import type { DataViewFieldFormat } from '@contractspec/lib.contracts-spec/data-views';
 
 export type AuthoringContractSpecType = Exclude<
 	ContractSpecType,
@@ -108,7 +109,7 @@ export interface DataViewFieldData {
 	key: string;
 	label: string;
 	dataPath: string;
-	format?: string;
+	format?: DataViewFieldFormat;
 	sortable?: boolean;
 	filterable?: boolean;
 }

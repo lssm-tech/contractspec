@@ -31,6 +31,25 @@ const tableSpec = {
 				field: 'account',
 				type: 'search',
 			},
+			{
+				key: 'amount',
+				label: 'Amount',
+				field: 'amount',
+				type: 'currency',
+				valueMode: 'range',
+			},
+			{
+				key: 'ratio',
+				label: 'Ratio',
+				field: 'ratio',
+				type: 'percent',
+			},
+			{
+				key: 'elapsed',
+				label: 'Elapsed',
+				field: 'elapsedMinutes',
+				type: 'duration',
+			},
 		],
 		fields: [
 			{
@@ -38,6 +57,27 @@ const tableSpec = {
 				label: 'Account',
 				dataPath: 'account',
 				sortable: true,
+				overflow: 'truncate',
+			},
+			{
+				key: 'amount',
+				label: 'Amount',
+				dataPath: 'amount',
+				format: { type: 'currency', currency: 'EUR', rounded: true },
+				overflow: 'none',
+			},
+			{
+				key: 'ratio',
+				label: 'Ratio',
+				dataPath: 'ratio',
+				format: { type: 'percent', maximumFractionDigits: 1 },
+			},
+			{
+				key: 'elapsed',
+				label: 'Elapsed',
+				dataPath: 'elapsedMinutes',
+				format: { type: 'duration', unit: 'minute', display: 'digital' },
+				overflow: 'wrap',
 			},
 		],
 	},
@@ -85,18 +125,32 @@ describe('DataViewRenderer table mode', () => {
 		const html = renderToStaticMarkup(
 			<DataViewRenderer
 				spec={tableSpec}
-				items={[{ account: 'Northwind' }]}
+				items={[
+					{
+						account: 'Northwind',
+						amount: 1234.56,
+						ratio: 0.125,
+						elapsedMinutes: 61,
+					},
+				]}
 				search=""
 				onSearchChange={() => void 0}
+				onFilterChange={() => void 0}
 				headerActions={<span>Header action</span>}
 				toolbar={<span>Toolbar slot</span>}
-				loading
 			/>
 		);
 
 		expect(html).toContain('Toolbar slot');
 		expect(html).toContain('Header action');
 		expect(html.match(/Header action/g)?.length).toBe(1);
+		expect(html).toContain('1:01:00');
+		expect(html).toContain('12.5%');
+		expect(html).toContain('1,235');
+		expect(html).toContain('break-words');
+		expect(html).toContain('Amount min');
+		expect(html).toContain('Ratio');
+		expect(html).toContain('Elapsed');
 	});
 
 	it('renders locked filter chips as non-removable by default', () => {

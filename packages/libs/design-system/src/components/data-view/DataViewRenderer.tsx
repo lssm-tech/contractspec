@@ -1,6 +1,7 @@
 'use client';
 
 import type {
+	DataViewFilter,
 	DataViewFilterSet,
 	DataViewFilterValue,
 	DataViewGridConfig,
@@ -16,6 +17,8 @@ import {
 	resolveTranslationString,
 	useDesignSystemTranslation,
 } from '../../i18n/translation';
+import { Button } from '../atoms/Button';
+import { Input } from '../atoms/Input';
 import { FiltersToolbar } from '../molecules/FiltersToolbar';
 import { DataViewDetail } from './DataViewDetail';
 import { DataViewList } from './DataViewList';
@@ -230,7 +233,12 @@ export function DataViewRenderer({
 					}
 					right={spec.view.kind === 'table' ? undefined : headerActions}
 				>
-					{/* Render filter dropdowns here if needed */}
+					<DataViewFilterControls
+						filters={spec.view.filters}
+						values={resolvedFilters.user}
+						lockedKeys={Object.keys(resolvedFilters.locked)}
+						onFilterChange={onFilterChange}
+					/>
 				</FiltersToolbar>
 			)}
 
@@ -288,4 +296,212 @@ function formatFilterValue(value: DataViewFilterValue | undefined) {
 			.join(' - ');
 	}
 	return `${value.mode}(${value.clauses.length})`;
+}
+
+function DataViewFilterControls({
+	filters,
+	values,
+	lockedKeys,
+	onFilterChange,
+}: {
+	filters?: DataViewFilter[];
+	values: DataViewFilterSet;
+	lockedKeys: string[];
+	onFilterChange?: DataViewRendererProps['onFilterChange'];
+}) {
+	if (!filters?.length || !onFilterChange) return null;
+	const locked = new Set(lockedKeys);
+	const editableFilters = filters.filter(
+		(filter) => filter.type !== 'search' && !locked.has(filter.key)
+	);
+	if (editableFilters.length === 0) return null;
+	return (
+		<div className="flex flex-wrap items-center gap-2">
+			{editableFilters.map((filter) => (
+				<DataViewFilterControl
+					key={filter.key}
+					filter={filter}
+					value={values[filter.key]}
+					values={values}
+					onFilterChange={onFilterChange}
+				/>
+			))}
+		</div>
+	);
+}
+
+function DataViewFilterControl({
+	filter,
+	value,
+	values,
+	onFilterChange,
+}: {
+	filter: DataViewFilter;
+	value?: DataViewFilterValue;
+	values: DataViewFilterSet;
+	onFilterChange: NonNullable<DataViewRendererProps['onFilterChange']>;
+}) {
+	if (filter.type === 'boolean') {
+		const current = value?.kind === 'single' ? value.value === true : undefined;
+		return (
+			<Button
+				size="sm"
+				variant="outline"
+				onPress={() =>
+					setFilterValue(
+						values,
+						filter.key,
+						current === undefined ? true : !current,
+						onFilterChange
+					)
+				}
+			>
+				{filter.label}: {current ? 'Oui' : 'Non'}
+			</Button>
+		);
+	}
+	if (filter.valueMode === 'range') {
+		const range = value?.kind === 'range' ? value : undefined;
+		return (
+			<div className="flex min-w-0 items-center gap-2">
+				<Input
+					type={inputTypeForFilter(filter)}
+					inputMode={inputModeForFilter(filter)}
+					value={range?.from == null ? '' : String(range.from)}
+					onChange={(event) =>
+						setRangeFilterValue(
+							values,
+							filter,
+							'from',
+							event.currentTarget.value,
+							onFilterChange
+						)
+					}
+					placeholder={`${filter.label} min`}
+					className="h-9 w-28"
+				/>
+				<Input
+					type={inputTypeForFilter(filter)}
+					inputMode={inputModeForFilter(filter)}
+					value={range?.to == null ? '' : String(range.to)}
+					onChange={(event) =>
+						setRangeFilterValue(
+							values,
+							filter,
+							'to',
+							event.currentTarget.value,
+							onFilterChange
+						)
+					}
+					placeholder={`${filter.label} max`}
+					className="h-9 w-28"
+				/>
+			</div>
+		);
+	}
+	return (
+		<Input
+			type={inputTypeForFilter(filter)}
+			inputMode={inputModeForFilter(filter)}
+			value={value?.kind === 'single' ? String(value.value) : ''}
+			onChange={(event) =>
+				setFilterValue(
+					values,
+					filter.key,
+					parseFilterInput(filter, event.currentTarget.value),
+					onFilterChange
+				)
+			}
+			placeholder={filter.label}
+			className="h-9 w-36"
+		/>
+	);
+}
+
+function setFilterValue(
+	values: DataViewFilterSet,
+	key: string,
+	value: string | number | boolean | undefined,
+	onFilterChange: NonNullable<DataViewRendererProps['onFilterChange']>
+) {
+	const next = { ...values };
+	if (value === undefined || value === '') {
+		delete next[key];
+	} else {
+		next[key] = { kind: 'single', value };
+	}
+	onFilterChange(next);
+}
+
+function setRangeFilterValue(
+	values: DataViewFilterSet,
+	filter: DataViewFilter,
+	bound: 'from' | 'to',
+	input: string,
+	onFilterChange: NonNullable<DataViewRendererProps['onFilterChange']>
+) {
+	const existing = values[filter.key];
+	const current: { from?: string | number; to?: string | number } =
+		existing?.kind === 'range' ? existing : {};
+	const parsed = parseFilterInput(filter, input);
+	const nextRange = { ...current, [bound]: parsed };
+	if (nextRange.from == null && nextRange.to == null) {
+		const next = { ...values };
+		delete next[filter.key];
+		onFilterChange(next);
+		return;
+	}
+	onFilterChange({
+		...values,
+		[filter.key]: {
+			kind: 'range',
+			from: nextRange.from as string | number | undefined,
+			to: nextRange.to as string | number | undefined,
+		},
+	});
+}
+
+function parseFilterInput(filter: DataViewFilter, value: string) {
+	if (value === '') return undefined;
+	switch (filter.type) {
+		case 'number':
+		case 'percent':
+		case 'currency':
+		case 'duration': {
+			const parsed = Number(value);
+			return Number.isFinite(parsed) ? parsed : undefined;
+		}
+		default:
+			return value;
+	}
+}
+
+function inputTypeForFilter(filter: DataViewFilter) {
+	switch (filter.type) {
+		case 'number':
+		case 'percent':
+		case 'currency':
+		case 'duration':
+			return 'number';
+		case 'date':
+			return 'date';
+		case 'time':
+			return 'time';
+		case 'datetime':
+			return 'datetime-local';
+		default:
+			return 'text';
+	}
+}
+
+function inputModeForFilter(filter: DataViewFilter) {
+	switch (filter.type) {
+		case 'number':
+		case 'percent':
+		case 'currency':
+		case 'duration':
+			return 'decimal';
+		default:
+			return undefined;
+	}
 }

@@ -6,6 +6,12 @@ export type ContractTablePinState = false | 'left' | 'right';
 
 export type ContractTableCellAlign = 'left' | 'center' | 'right';
 
+export type ContractTableOverflowBehavior =
+	| 'truncate'
+	| 'wrap'
+	| 'expand'
+	| 'none';
+
 export interface ContractTableSort {
 	id: string;
 	desc: boolean;
@@ -50,6 +56,7 @@ export interface ContractTableColumnRenderModel<TContent = unknown> {
 	size: number;
 	minSize?: number;
 	maxSize?: number;
+	overflow?: ContractTableOverflowBehavior;
 	pinState: ContractTablePinState;
 	stickyOffset?: number;
 	canSort: boolean;
@@ -73,6 +80,7 @@ export interface ContractTableCellRenderModel<TContent = unknown> {
 	content: TContent;
 	align: ContractTableCellAlign;
 	size: number;
+	overflow?: ContractTableOverflowBehavior;
 	pinState: ContractTablePinState;
 	stickyOffset?: number;
 }

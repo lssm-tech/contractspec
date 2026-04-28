@@ -1,0 +1,96 @@
+schemaVersion: "1"
+slug: data-table-overflow-policy
+summary: Add contract-driven overflow behavior and typed DataView hints for shared DataView and DataTable surfaces.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.contracts-spec"
+    releaseType: minor
+  - name: "@contractspec/lib.presentation-runtime-core"
+    releaseType: minor
+  - name: "@contractspec/lib.presentation-runtime-react"
+    releaseType: minor
+  - name: "@contractspec/lib.ui-kit-web"
+    releaseType: patch
+  - name: "@contractspec/lib.ui-kit"
+    releaseType: patch
+  - name: "@contractspec/lib.design-system"
+    releaseType: patch
+  - name: "@contractspec/module.workspace"
+    releaseType: patch
+  - name: "@contractspec/bundle.workspace"
+    releaseType: patch
+  - name: "@contractspec/app.cli-contractspec"
+    releaseType: patch
+  - name: "@contractspec/bundle.library"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - node
+  - nextjs
+  - expo
+affectedFrameworks:
+  - react
+  - react-native
+  - terminal
+audiences:
+  - kind: maintainer
+    summary: DataView contracts, renderers, scaffolds, and docs now expose overflow hints and typed data hints end-to-end, from spec authoring through table rendering and generated starter files.
+    affectedPackages:
+      - "@contractspec/lib.contracts-spec"
+      - "@contractspec/lib.presentation-runtime-core"
+      - "@contractspec/lib.presentation-runtime-react"
+      - "@contractspec/lib.ui-kit-web"
+      - "@contractspec/lib.ui-kit"
+      - "@contractspec/lib.design-system"
+      - "@contractspec/module.workspace"
+      - "@contractspec/bundle.workspace"
+      - "@contractspec/app.cli-contractspec"
+      - "@contractspec/bundle.library"
+  - kind: integrator
+    summary: OSS consumers can specify `overflow` on DataView fields or table columns, while the CLI and workspace scaffolds emit the new shape and richer format/filter metadata.
+    affectedPackages:
+      - "@contractspec/lib.contracts-spec"
+      - "@contractspec/lib.design-system"
+      - "@contractspec/module.workspace"
+      - "@contractspec/app.cli-contractspec"
+  - kind: customer
+    summary: Published data-view docs now describe overflow behavior, expansion mode, and generated table defaults more concretely.
+    affectedPackages:
+      - "@contractspec/bundle.library"
+deprecations: []
+migrationInstructions:
+  - id: opt-into-table-overflow
+    title: Add explicit overflow behavior where defaults are not enough
+    summary: Existing tables keep working, but long prose, markdown, and detail-heavy columns can now declare their intended behavior.
+    required: false
+    when: When a table column needs wrapping, row-expansion detail, initial hiding, or unmodified rendering.
+    steps:
+      - Set `overflow` on `DataViewField` for behavior shared by every table using that field.
+      - Set `overflow` on `DataViewTableColumn` when a specific table needs to override the field default.
+      - Use `expand` for compact rows with full detail in row expansion, and `hideColumn` for low-priority columns that should start hidden when column visibility is enabled.
+upgradeSteps:
+  - id: revalidate-table-overflow
+    title: Re-run focused table overflow verification after upgrading
+    summary: The contract, runtime, web, native, design-system, CLI, and workspace layers all participate in overflow behavior.
+    level: assisted
+    instructions:
+      - Run the focused data-view and data-table test suites for contracts-spec, presentation-runtime-react, ui-kit-web, ui-kit, and design-system.
+      - Run typecheck and lint checks for the touched libraries, CLI, and workspace packages.
+validation:
+  commands:
+    - bun test packages/libs/contracts-spec/src/data-views/types.test.ts packages/libs/presentation-runtime-react/src/useDataViewTable.test.tsx packages/libs/ui-kit-web/ui/data-table.test.tsx packages/libs/ui-kit/ui/data-table.smoke.test.tsx packages/libs/design-system/src/components/data-table/DataTableToolbar.test.tsx packages/libs/design-system/src/components/data-view/DataViewRenderer.test.tsx
+    - cd packages/libs/contracts-spec && bun run typecheck && bun run lint:check
+    - cd packages/libs/presentation-runtime-core && bun run typecheck && bun run lint:check
+    - cd packages/libs/presentation-runtime-react && bun run typecheck && bun run lint:check
+    - cd packages/libs/ui-kit-web && bun run typecheck && bun run lint:check
+    - cd packages/libs/ui-kit && bun run typecheck && bun run lint:check
+    - cd packages/libs/design-system && bun run typecheck && bun run lint:check
+    - cd packages/modules/workspace && bun run typecheck && bun run lint:check
+    - cd packages/bundles/workspace && bun run typecheck && bun run lint:check
+    - cd packages/apps/cli-contractspec && bun run typecheck && bun run lint:check
+  evidence:
+    - "`DataViewField` and `DataViewTableColumn` accept explicit overflow behavior."
+    - "DataView format and filter metadata covers numeric, currency, percent, temporal, and duration values."
+    - "`useDataViewTable` resolves column-over-field-over-default precedence and forwards overflow metadata to columns and cells."
+    - "Web and native data-table renderers apply truncation, wrapping, and expansion-compatible compact cell rendering from the shared render model."
+    - "CLI and workspace data-view templates expose overflow-ready table specs instead of the older narrower scaffold shape."

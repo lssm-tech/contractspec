@@ -53,6 +53,23 @@ export const TranslatedInput = (props: React.ComponentProps<typeof Input>) => {
 	return <Input {...props} placeholder={translate(props.placeholder)} />;
 };
 
+type NumericFieldProps = React.ComponentProps<typeof Input> & {
+	format?: unknown;
+	valueScale?: unknown;
+	valueUnit?: unknown;
+};
+
+export const TranslatedNumberField = ({
+	format: _format,
+	valueScale: _valueScale,
+	valueUnit: _valueUnit,
+	...props
+}: NumericFieldProps) => <TranslatedInput {...props} />;
+
+export const TranslatedPercentField = TranslatedNumberField;
+export const TranslatedCurrencyField = TranslatedNumberField;
+export const TranslatedDurationField = TranslatedNumberField;
+
 export const TranslatedPasswordInput = (
 	props: React.ComponentProps<typeof InputPassword> & {
 		showLabelI18n?: string;

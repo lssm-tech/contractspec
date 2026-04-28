@@ -128,12 +128,31 @@ describe('defineDataView', () => {
 			},
 			view: {
 				kind: 'grid',
-				fields: [{ key: 'id', label: 'ID', dataPath: 'id' }],
+				fields: [
+					{ key: 'id', label: 'ID', dataPath: 'id' },
+					{
+						key: 'amount',
+						label: 'Amount',
+						dataPath: 'amount',
+						format: { type: 'currency', currency: 'USD', rounded: true },
+					},
+					{
+						key: 'elapsed',
+						label: 'Elapsed',
+						dataPath: 'elapsedSeconds',
+						format: { type: 'duration', unit: 'second', display: 'digital' },
+					},
+				],
 				columns: 3,
 			},
 		});
 
 		expect(spec.meta.version).toBe('2.0.0');
+		expect(spec.view.fields[1]?.format).toEqual({
+			type: 'currency',
+			currency: 'USD',
+			rounded: true,
+		});
 		expect(spec.view.kind).toBe('grid');
 		if (spec.view.kind === 'grid') {
 			expect(spec.view.columns).toBe(3);

@@ -62,7 +62,9 @@ export function UserPage() {
 						<code>filters</code>: Current filter state object.
 					</li>
 					<li>
-						<code>onFilterChange</code>: Callback when filters change.
+						<code>onFilterChange</code>: Callback when typed filters change.
+						Renderers emit <code>DataViewFilterValue</code> objects for numeric,
+						percent, currency, temporal, duration, and boolean filters.
 					</li>
 					<li>
 						<code>pagination</code>: Object with <code>page</code>,{' '}
@@ -86,12 +88,19 @@ export function UserPage() {
 					code={`import { DataViewQueryGenerator } from '@contractspec/lib.contracts-spec/data-views/query-generator';
 
 const generator = new DataViewQueryGenerator(MyUserList);
-const query = generator.generate({
+const params = {
   pagination: { page: 1, pageSize: 20 },
-  filters: { role: 'admin' }
-});
+  filters: {
+    role: { kind: 'single', value: 'admin' },
+    revenue: { kind: 'range', from: 1000, to: 5000 },
+    lastSeenAt: { kind: 'single', value: '2026-04-28T08:30:00Z' }
+  }
+};
 
-// query.input contains { skip: 0, take: 20, role: 'admin' }`}
+const errors = generator.validateParams(params);
+const query = generator.generate(params);
+
+// query.input contains skip/take plus the typed filter payloads.`}
 				/>
 			</div>
 

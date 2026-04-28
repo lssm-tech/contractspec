@@ -91,6 +91,48 @@ const BASE_ROWS = [
 	{ id: 'acct-2', account: 'Aster', status: 'risk', notes: 'B' },
 ] as const;
 
+const OVERFLOW_DATA_VIEW_SPEC = defineDataView({
+	meta: {
+		key: 'tests.accounts.overflow',
+		version: '1.0.0',
+		entity: 'account',
+		title: 'Overflow Accounts',
+		description: 'Overflow test spec',
+		domain: 'tests',
+		owners: ['@tests'],
+		tags: ['table'],
+		stability: 'experimental',
+	},
+	source: {
+		primary: { key: 'tests.accounts.list', version: '1.0.0' },
+	},
+	view: {
+		kind: 'table',
+		columnVisibility: true,
+		fields: [
+			{ key: 'account', label: 'Account', dataPath: 'account', format: 'text' },
+			{
+				key: 'status',
+				label: 'Status',
+				dataPath: 'status',
+				format: 'badge',
+				overflow: 'expand',
+			},
+			{
+				key: 'notes',
+				label: 'Notes',
+				dataPath: 'notes',
+				format: 'markdown',
+			},
+		],
+		columns: [
+			{ field: 'account' },
+			{ field: 'status', overflow: 'wrap' },
+			{ field: 'notes', overflow: 'hideColumn' },
+		],
+	},
+});
+
 interface ControllerHarnessProps {
 	onReady: (
 		controller: ReturnType<typeof useContractTable<(typeof BASE_ROWS)[number]>>
@@ -207,6 +249,22 @@ function DataViewHarness({ onReady }: DataViewHarnessProps) {
 				left: ['status'],
 				right: ['account'],
 			},
+		},
+	});
+
+	React.useEffect(() => {
+		onReady(controller);
+	}, [controller, onReady]);
+
+	return null;
+}
+
+function OverflowDataViewHarness({ onReady }: DataViewHarnessProps) {
+	const controller = useDataViewTable({
+		spec: OVERFLOW_DATA_VIEW_SPEC,
+		data: BASE_ROWS,
+		initialState: {
+			expanded: { 'acct-1': true },
 		},
 	});
 
@@ -353,6 +411,96 @@ describe('table hooks', () => {
 
 		expect(accountColumn?.pinState).toBe('right');
 		expect(statusColumn?.pinState).toBe('left');
+
+		await act(async () => {
+			root.unmount();
+		});
+	});
+
+	test('useDataViewTable resolves overflow defaults, overrides, and hidden columns', async () => {
+		let controllerRef:
+			| ReturnType<typeof useDataViewTable<(typeof BASE_ROWS)[number]>>
+			| undefined;
+
+		const { root } = await renderNode(
+			<OverflowDataViewHarness
+				onReady={(controller) => (controllerRef = controller)}
+			/>
+		);
+
+		const accountColumn = controllerRef?.columns.find(
+			(column) => column.id === 'account'
+		);
+		const statusColumn = controllerRef?.columns.find(
+			(column) => column.id === 'status'
+		);
+		const notesColumn = controllerRef?.columns.find(
+			(column) => column.id === 'notes'
+		);
+		const accountCell = controllerRef?.rows[0]?.cells.find(
+			(cell) => cell.columnId === 'account'
+		);
+		const statusCell = controllerRef?.rows[0]?.cells.find(
+			(cell) => cell.columnId === 'status'
+		);
+
+		expect(accountColumn?.overflow).toBe('truncate');
+		expect(accountCell?.overflow).toBe('truncate');
+		expect(statusColumn?.overflow).toBe('wrap');
+		expect(statusCell?.overflow).toBe('wrap');
+		expect(notesColumn?.overflow).toBe('truncate');
+		expect(notesColumn?.visible).toBe(false);
+		expect(controllerRef?.visibleColumns.map((column) => column.id)).toEqual([
+			'account',
+			'status',
+		]);
+
+		await act(async () => {
+			root.unmount();
+		});
+	});
+
+	test('useDataViewTable expands fields with expand overflow behavior', async () => {
+		const expandSpec = defineDataView({
+			...OVERFLOW_DATA_VIEW_SPEC,
+			view: {
+				...OVERFLOW_DATA_VIEW_SPEC.view,
+				columns: [
+					{ field: 'account' },
+					{ field: 'status' },
+					{ field: 'notes', overflow: 'expand' },
+				],
+			},
+		});
+		let controllerRef:
+			| ReturnType<typeof useDataViewTable<(typeof BASE_ROWS)[number]>>
+			| undefined;
+
+		function ExpandHarness() {
+			const controller = useDataViewTable({
+				spec: expandSpec,
+				data: BASE_ROWS,
+				initialState: {
+					expanded: { 'acct-1': true },
+				},
+				renderExpandedContent: ({ fields }) =>
+					fields.map((field) => field.key).join(','),
+			});
+
+			React.useEffect(() => {
+				controllerRef = controller;
+			}, [controller]);
+
+			return null;
+		}
+
+		const { root } = await renderNode(<ExpandHarness />);
+
+		expect(
+			controllerRef?.columns.find((column) => column.id === 'notes')?.overflow
+		).toBe('expand');
+		expect(controllerRef?.rows[0]?.canExpand).toBe(true);
+		expect(controllerRef?.rows[0]?.expandedContent).toBe('status,notes');
 
 		await act(async () => {
 			root.unmount();

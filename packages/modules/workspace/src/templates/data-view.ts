@@ -11,7 +11,7 @@ export function generateDataViewSpec(data: DataViewSpecData): string {
         key: '${escapeString(field.key)}',
         label: '${escape(field.label)}',
         dataPath: '${escapeString(field.dataPath)}',
-        ${field.format ? `format: '${escapeString(field.format)}',` : ''}
+        ${field.format ? `format: ${formatFieldFormat(field.format)},` : ''}
         ${field.sortable ? 'sortable: true,' : ''}
         ${field.filterable ? 'filterable: true,' : ''}
       }`
@@ -80,4 +80,11 @@ ${fields}
 
 function escape(value: string): string {
 	return value.replace(/'/g, "\\'");
+}
+
+function formatFieldFormat(
+	format: DataViewSpecData['fields'][number]['format']
+) {
+	if (typeof format === 'string') return `'${escapeString(format)}'`;
+	return JSON.stringify(format);
 }

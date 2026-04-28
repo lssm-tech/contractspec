@@ -80,6 +80,16 @@ const mockDriver: DriverSlots = {
 		<legend data-variant={variant}>{children}</legend>
 	),
 	Input: (props) => <input {...props} />,
+	NumberField: (props) => <input data-slot="number-field" {...props} />,
+	PercentField: ({ valueScale, ...props }) => (
+		<input data-slot="percent-field" data-value-scale={valueScale} {...props} />
+	),
+	CurrencyField: ({ format: _format, ...props }) => (
+		<input data-slot="currency-field" {...props} />
+	),
+	DurationField: ({ valueUnit, ...props }) => (
+		<input data-slot="duration-field" data-value-unit={valueUnit} {...props} />
+	),
 	Textarea: (props) => <textarea {...props} />,
 	InputGroup: ({ children }) => <div data-slot="input-group">{children}</div>,
 	InputGroupAddon: ({ children, align }) => (
@@ -168,14 +178,18 @@ const mockDriver: DriverSlots = {
 	PhoneField: ({ value }) => (
 		<div data-widget="phone">{value?.countryCode ?? 'phone-empty'}</div>
 	),
-	DateField: ({ value }) => (
-		<div data-widget="date">{value ? value.toISOString() : 'date-empty'}</div>
+	DateField: ({ value, format }) => (
+		<div data-format={format?.dateStyle} data-widget="date">
+			{value ? value.toISOString() : 'date-empty'}
+		</div>
 	),
-	TimeField: ({ value }) => (
-		<div data-widget="time">{value ? value.toISOString() : 'time-empty'}</div>
+	TimeField: ({ value, format }) => (
+		<div data-format={format?.timeStyle} data-widget="time">
+			{value ? value.toISOString() : 'time-empty'}
+		</div>
 	),
-	DateTimeField: ({ value }) => (
-		<div data-widget="datetime">
+	DateTimeField: ({ value, format }) => (
+		<div data-format={format?.dateStyle} data-widget="datetime">
 			{value ? value.toISOString() : 'datetime-empty'}
 		</div>
 	),
@@ -785,6 +799,10 @@ describe('contracts-runtime-client-react form renderer', () => {
 					startDate: new Date('2026-04-10T00:00:00.000Z'),
 					startTime: '09:30',
 					publishedAt: new Date('2026-04-10T09:30:00.000Z'),
+					budget: 1250,
+					completionRatio: 0.42,
+					allocation: 999.95,
+					estimatedDuration: 90,
 					contacts: [{ label: 'Support', value: 'support@example.com' }],
 				},
 			})
@@ -797,8 +815,19 @@ describe('contracts-runtime-client-react form renderer', () => {
 		expect(html).toContain('name="contactEmail"');
 		expect(html).toContain('type="email"');
 		expect(html).toContain('data-widget="date"');
+		expect(html).toContain('data-format="medium"');
 		expect(html).toContain('data-widget="time"');
+		expect(html).toContain('data-format="short"');
 		expect(html).toContain('data-widget="datetime"');
+		expect(html).toContain('data-slot="number-field"');
+		expect(html).toContain('name="budget"');
+		expect(html).toContain('value="1250"');
+		expect(html).toContain('data-slot="percent-field"');
+		expect(html).toContain('data-value-scale="fraction"');
+		expect(html).toContain('value="42"');
+		expect(html).toContain('data-slot="currency-field"');
+		expect(html).toContain('data-slot="duration-field"');
+		expect(html).toContain('data-value-unit="minute"');
 	});
 
 	it('renders layout hints, semantic groups, and input-group addons', () => {
@@ -1028,6 +1057,10 @@ describe('contracts-runtime-client-react form renderer', () => {
 					startDate: new Date('2026-04-10T00:00:00.000Z'),
 					startTime: '09:30',
 					publishedAt: new Date('2026-04-10T09:30:00.000Z'),
+					budget: 1250,
+					completionRatio: 0.42,
+					allocation: 2500.5,
+					estimatedDuration: 90,
 					contacts: [{ label: 'Support', value: 'support@example.com' }],
 				},
 			})
