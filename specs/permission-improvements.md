@@ -1,4 +1,4 @@
-We need to be really strong about roles and permissions system!
+$ralplan We need to be really strong about roles and permissions system!
 It should cover:
 - `@contractspec/lib.contracts-spec`
   => to declare the roles and permissions (using the policy system?)
