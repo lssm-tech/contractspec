@@ -381,6 +381,30 @@
 			"react-native": "./src/components/native/SheetMenu.native.tsx"
 		},
 		"./components/native/SheetMenu.native": "./src/components/native/SheetMenu.native.tsx",
+		"./components/object-reference": {
+			"types": "./src/components/object-reference/index.ts",
+			"react-native": "./src/components/object-reference/index.native.ts",
+			"default": "./src/components/object-reference/index.ts"
+		},
+		"./components/object-reference/actions": "./src/components/object-reference/actions.ts",
+		"./components/object-reference/DefaultObjectReferenceParts": {
+			"types": "./src/components/object-reference/DefaultObjectReferenceParts.tsx",
+			"react-native": "./src/components/object-reference/DefaultObjectReferenceParts.native.tsx",
+			"default": "./src/components/object-reference/DefaultObjectReferenceParts.tsx"
+		},
+		"./components/object-reference/DefaultObjectReferenceParts.native": "./src/components/object-reference/DefaultObjectReferenceParts.native.tsx",
+		"./components/object-reference/index.native": "./src/components/object-reference/index.native.ts",
+		"./components/object-reference/maps": "./src/components/object-reference/maps.ts",
+		"./components/object-reference/ObjectReferenceHandler": {
+			"types": "./src/components/object-reference/ObjectReferenceHandler.tsx",
+			"react-native": "./src/components/object-reference/ObjectReferenceHandler.native.tsx",
+			"default": "./src/components/object-reference/ObjectReferenceHandler.tsx"
+		},
+		"./components/object-reference/ObjectReferenceHandler.native": "./src/components/object-reference/ObjectReferenceHandler.native.tsx",
+		"./components/object-reference/ReferenceIcon": "./src/components/object-reference/ReferenceIcon.tsx",
+		"./components/object-reference/runtime": "./src/components/object-reference/runtime.ts",
+		"./components/object-reference/types": "./src/components/object-reference/types.ts",
+		"./components/object-reference/useObjectReferenceController": "./src/components/object-reference/useObjectReferenceController.ts",
 		"./components/organisms/AcademyLayout": "./src/components/organisms/AcademyLayout.tsx",
 		"./components/organisms/AppHeader": {
 			"types": "./src/components/organisms/AppHeader.tsx",
@@ -1546,6 +1570,78 @@
 				"types": "./dist/components/native/SheetMenu.native.d.ts",
 				"react-native": "./dist/native/components/native/SheetMenu.native.js",
 				"default": "./dist/native/components/native/SheetMenu.native.js"
+			},
+			"./components/object-reference": {
+				"types": "./dist/components/object-reference/index.d.ts",
+				"browser": "./dist/browser/components/object-reference/index.js",
+				"react-native": "./dist/native/components/object-reference/index.native.js",
+				"bun": "./dist/components/object-reference/index.js",
+				"default": "./dist/components/object-reference/index.js"
+			},
+			"./components/object-reference/actions": {
+				"types": "./dist/components/object-reference/actions.d.ts",
+				"browser": "./dist/browser/components/object-reference/actions.js",
+				"bun": "./dist/components/object-reference/actions.js",
+				"default": "./dist/components/object-reference/actions.js"
+			},
+			"./components/object-reference/DefaultObjectReferenceParts": {
+				"types": "./dist/components/object-reference/DefaultObjectReferenceParts.d.ts",
+				"browser": "./dist/browser/components/object-reference/DefaultObjectReferenceParts.js",
+				"react-native": "./dist/native/components/object-reference/DefaultObjectReferenceParts.native.js",
+				"bun": "./dist/components/object-reference/DefaultObjectReferenceParts.js",
+				"default": "./dist/components/object-reference/DefaultObjectReferenceParts.js"
+			},
+			"./components/object-reference/DefaultObjectReferenceParts.native": {
+				"types": "./dist/components/object-reference/DefaultObjectReferenceParts.native.d.ts",
+				"react-native": "./dist/native/components/object-reference/DefaultObjectReferenceParts.native.js",
+				"default": "./dist/native/components/object-reference/DefaultObjectReferenceParts.native.js"
+			},
+			"./components/object-reference/index.native": {
+				"types": "./dist/components/object-reference/index.native.d.ts",
+				"react-native": "./dist/native/components/object-reference/index.native.js",
+				"default": "./dist/native/components/object-reference/index.native.js"
+			},
+			"./components/object-reference/maps": {
+				"types": "./dist/components/object-reference/maps.d.ts",
+				"browser": "./dist/browser/components/object-reference/maps.js",
+				"bun": "./dist/components/object-reference/maps.js",
+				"default": "./dist/components/object-reference/maps.js"
+			},
+			"./components/object-reference/ObjectReferenceHandler": {
+				"types": "./dist/components/object-reference/ObjectReferenceHandler.d.ts",
+				"browser": "./dist/browser/components/object-reference/ObjectReferenceHandler.js",
+				"react-native": "./dist/native/components/object-reference/ObjectReferenceHandler.native.js",
+				"bun": "./dist/components/object-reference/ObjectReferenceHandler.js",
+				"default": "./dist/components/object-reference/ObjectReferenceHandler.js"
+			},
+			"./components/object-reference/ObjectReferenceHandler.native": {
+				"types": "./dist/components/object-reference/ObjectReferenceHandler.native.d.ts",
+				"react-native": "./dist/native/components/object-reference/ObjectReferenceHandler.native.js",
+				"default": "./dist/native/components/object-reference/ObjectReferenceHandler.native.js"
+			},
+			"./components/object-reference/ReferenceIcon": {
+				"types": "./dist/components/object-reference/ReferenceIcon.d.ts",
+				"browser": "./dist/browser/components/object-reference/ReferenceIcon.js",
+				"bun": "./dist/components/object-reference/ReferenceIcon.js",
+				"default": "./dist/components/object-reference/ReferenceIcon.js"
+			},
+			"./components/object-reference/runtime": {
+				"types": "./dist/components/object-reference/runtime.d.ts",
+				"browser": "./dist/browser/components/object-reference/runtime.js",
+				"bun": "./dist/components/object-reference/runtime.js",
+				"default": "./dist/components/object-reference/runtime.js"
+			},
+			"./components/object-reference/types": {
+				"types": "./dist/components/object-reference/types.d.ts",
+				"browser": "./dist/browser/components/object-reference/types.js",
+				"bun": "./dist/components/object-reference/types.js",
+				"default": "./dist/components/object-reference/types.js"
+			},
+			"./components/object-reference/useObjectReferenceController": {
+				"types": "./dist/components/object-reference/useObjectReferenceController.d.ts",
+				"browser": "./dist/browser/components/object-reference/useObjectReferenceController.js",
+				"bun": "./dist/components/object-reference/useObjectReferenceController.js",
+				"default": "./dist/components/object-reference/useObjectReferenceController.js"
 			},
 			"./components/organisms/AcademyLayout": {
 				"types": "./dist/components/organisms/AcademyLayout.d.ts",

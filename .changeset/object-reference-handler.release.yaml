@@ -1,0 +1,42 @@
+schemaVersion: "1"
+slug: object-reference-handler
+summary: Add an extensible design-system object reference handler for actionable references.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.design-system"
+    releaseType: minor
+affectedRuntimes:
+  - bun
+  - browser
+  - native
+affectedFrameworks:
+  - react
+  - react-native
+audiences:
+  - kind: maintainer
+    summary: The design-system package now exposes a public object-reference component group with schema-friendly descriptors, runtime action handlers, and paired web/native implementations.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+  - kind: integrator
+    summary: Product surfaces can replace inert addresses, phone numbers, users, customers, files, URLs, and custom references with one extensible interaction surface.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+  - kind: customer
+    summary: Reference text can now offer quick actions such as copy, open, call, or maps navigation from a consistent interaction surface.
+deprecations: []
+migrationInstructions: []
+upgradeSteps: []
+validation:
+  commands:
+    - "bun test packages/libs/design-system/src/components/object-reference/ObjectReferenceHandler.test.tsx"
+    - "cd packages/libs/design-system && bun run test"
+    - "cd packages/libs/design-system && bun run typecheck"
+    - "cd packages/libs/design-system && bun run lint:check"
+    - "bun run release:check:strict"
+  evidence:
+    - "Object reference action builders cover copy, phone, file/open, and maps provider descriptors without runtime callbacks."
+    - "The web handler opens a sheet, resolves action handling in deterministic order, and supports injected href/copy behavior."
+    - "Root, focused subpath, action helper, and native publish export resolution are covered by public surface tests."
+knownGaps:
+  - "Native uses a disclosure-style fallback until @contractspec/lib.ui-kit exposes a real native sheet primitive."
+  - "The descriptor model is not yet promoted to a canonical @contractspec/lib.contracts-spec schema."

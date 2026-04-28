@@ -5,10 +5,11 @@ export const DesignSystemFeature = defineFeature({
 		key: 'libs.design-system',
 		version: '1.0.0',
 		title: 'Design System',
-		description: 'Design tokens and theming primitives',
+		description:
+			'Design tokens, theming primitives, and composed product-surface components',
 		domain: 'design-system',
 		owners: ['@contractspec-core'],
-		tags: ['package', 'libs', 'design-system'],
+		tags: ['package', 'libs', 'design-system', 'components'],
 		stability: 'experimental',
 	},
 });

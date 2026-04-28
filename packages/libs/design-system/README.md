@@ -191,6 +191,46 @@ and keeps native rendering aligned for query, selected options, loading, error,
 and empty states. FormSpec renderers pass resolver-backed async state through
 these props without requiring product surfaces to know the underlying transport.
 
+### Render actionable object references
+
+Use `ObjectReferenceHandler` when product surfaces render references that usually
+need quick interaction, such as addresses, phone numbers, users, customers,
+files, URLs, or tenant-specific objects.
+
+```tsx
+import {
+  ObjectReferenceHandler,
+  createMapsReferenceActions,
+} from "@contractspec/lib.design-system";
+
+const address = {
+  id: "customer-site",
+  kind: "address",
+  label: "10 Downing Street",
+  value: "10 Downing Street, London",
+} as const;
+
+<ObjectReferenceHandler
+  reference={address}
+  interactivityVisibility="icon"
+  actions={createMapsReferenceActions(address)}
+  openHref={(href) => window.open(href, "_blank", "noopener,noreferrer")}
+/>;
+```
+
+The descriptor and action descriptor types are intentionally data-only:
+`id`, `kind`, `label`, `value`, `href`, `metadata`, and optional `iconKey`.
+Runtime behavior belongs in props such as `actionHandlers`, `copyHandler`,
+`openHref`, `renderTrigger`, `renderDetail`, `renderAction`, and
+`iconRenderer`. This keeps the surface compatible with future declarative
+ContractSpec schema work without making React callbacks part of the descriptor
+contract.
+
+Web renders the interaction surface with the existing sheet primitives. Native
+exports the same prop contract through the focused object-reference subpath and
+uses a disclosure-style fallback until `@contractspec/lib.ui-kit` provides a
+real native sheet primitive.
+
 ### Render forms on mobile through the shared renderer
 
 Use the focused shared renderer subpath when rendering `FormSpec` contracts in

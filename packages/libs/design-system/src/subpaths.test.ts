@@ -1,5 +1,10 @@
 import { describe, expect, it } from 'bun:test';
-import { Tabs } from '@contractspec/lib.design-system';
+import { ObjectReferenceHandler, Tabs } from '@contractspec/lib.design-system';
+import {
+	createCopyReferenceAction,
+	ObjectReferenceHandler as ObjectReferenceHandlerSubpath,
+} from '@contractspec/lib.design-system/components/object-reference';
+import { createMapsProviderHref } from '@contractspec/lib.design-system/components/object-reference/actions';
 import { Select } from '@contractspec/lib.design-system/controls';
 import { FormDialog } from '@contractspec/lib.design-system/forms';
 import { HStack } from '@contractspec/lib.design-system/layout';
@@ -21,6 +26,14 @@ describe('design-system public subpaths', () => {
 		expect(typeof Text).toBe('function');
 		expect(typeof H1).toBe('function');
 		expect(typeof P).toBe('function');
+		expect(typeof ObjectReferenceHandler).toBe('function');
+		expect(typeof ObjectReferenceHandlerSubpath).toBe('function');
+		expect(
+			createCopyReferenceAction({ id: 'ref', kind: 'custom', label: 'Ref' }).id
+		).toBe('copy');
+		expect(createMapsProviderHref('apple', '1 Main St')).toContain(
+			'maps.apple.com'
+		);
 		expect(
 			themeSpecToTailwindPreset(defaultTokens).theme.extend.colors
 		).toBeDefined();

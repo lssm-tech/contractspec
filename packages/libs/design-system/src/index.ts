@@ -157,6 +157,27 @@ export {
 	TabsTrigger,
 	type TabsTriggerProps,
 } from './components/molecules/Tabs';
+export {
+	createCopyReferenceAction,
+	createDefaultObjectReferenceActions,
+	createMapsProviderHref,
+	createMapsReferenceActions,
+	createOpenReferenceAction,
+	createPhoneReferenceAction,
+	getObjectReferenceDisplayValue,
+	type ObjectReferenceActionDescriptor,
+	type ObjectReferenceActionEvent,
+	type ObjectReferenceActionHandler,
+	type ObjectReferenceCopyHandler,
+	type ObjectReferenceDescriptor,
+	ObjectReferenceHandler,
+	type ObjectReferenceHandlerProps,
+	type ObjectReferenceInteractivityVisibility,
+	type ObjectReferenceKind,
+	type ObjectReferenceMapsProvider,
+	type ObjectReferenceMetadata,
+	type ObjectReferenceOpenHrefHandler,
+} from './components/object-reference';
 export { AcademyLayout } from './components/organisms/AcademyLayout';
 export { AppHeader } from './components/organisms/AppHeader';
 export { AppLayout } from './components/organisms/AppLayout';

@@ -125,6 +125,22 @@ describe('design-system publish exports', () => {
 		expect(
 			resolveExport('./components/data-table/DataTable', ['react-native'])
 		).toBe('./dist/native/components/data-table/DataTable.native.js');
+		expect(
+			resolveExport('./components/object-reference/ObjectReferenceHandler', [
+				'react-native',
+			])
+		).toBe(
+			'./dist/native/components/object-reference/ObjectReferenceHandler.native.js'
+		);
+		expect(resolveExport('./components/object-reference', ['browser'])).toBe(
+			'./dist/browser/components/object-reference/index.js'
+		);
+		expect(
+			resolveExport('./components/object-reference', ['react-native'])
+		).toBe('./dist/native/components/object-reference/index.native.js');
+		expect(
+			resolveExport('./components/object-reference/actions', ['bun'])
+		).toBe('./dist/components/object-reference/actions.js');
 	});
 
 	it('emits a closed native dist graph for Metro-style relative resolution', () => {
