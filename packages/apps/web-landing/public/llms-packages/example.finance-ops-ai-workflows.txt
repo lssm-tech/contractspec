@@ -1,58 +1,74 @@
 # @contractspec/example.finance-ops-ai-workflows
 
-Safe finance operations AI workflow example with mission intake triage, cash prioritization, procedure drafting, reporting narrative, human review, and adoption ROI logging.
+Finance Ops AI Workflows is a public ContractSpec template for safe, deterministic, human-reviewed AI-assisted finance operations workflows.
 
-## What This Demonstrates
+It is designed as a credible business demo for NDconsulting / Desliance style work: DAF transition, cash management, reporting, procedures, finance process improvement, training, and AI adoption ROI.
 
-- Turning finance ops requests into explicit ContractSpec operations instead of prompt-only workflows.
-- Deterministic mission intake triage for DAF / finance transformation scoping.
-- Fixed-date cash aging prioritization using synthetic receivables and rule-based actions.
-- Procedure draft and reporting narrative helpers that keep management validation explicit.
-- AI adoption ROI logging that measures use cases, time saved, data risk, quality, and policy needs.
+## Product Positioning
+
+This is not a chatbot, prompt collection, SaaS app, or live integration. It demonstrates how to turn finance-ops work into explicit workflows:
+
+business input -> ContractSpec operation -> deterministic handler -> simulated AI-assisted workflow -> human review -> reviewable output -> ROI/adoption log.
+
+The value is not "make an LLM talk". The value is to frame finance work, separate deterministic rules from assisted drafting, block autonomous decisions, and leave evidence that can be tested and industrialized.
+
+## Included Workflows
+
+- `financeOps.missionIntake.triage`: fictive DAF / finance transformation mission intake.
+- `financeOps.cashAging.prioritize`: fixed-date aged receivables prioritization using deterministic rules.
+- `financeOps.procedureDraft.create`: internal finance procedure draft with roles, steps, controls and KPIs.
+- `financeOps.reportingNarrative.compose`: management reporting narrative with variance helpers and no invented causes.
+- `financeOps.aiAdoption.logUsage`: AI adoption ROI log that tracks use cases, not intrusive employee surveillance.
+
+## Demo Script
+
+1. Open `/templates` and preview `Finance Ops AI Workflows`.
+2. Switch between the PME recovery and reporting reset scenarios from the demo command bar.
+3. Run a workflow draft, select the mission item, invoice, procedure step, reporting variance, or adoption log under discussion, and use the selected-detail panel to request changes or mark the draft ready.
+4. Move through Mission intake, Cash aging, Procedure, Reporting, and Adoption ROI as an operator cockpit rather than a slide sequence.
+5. Reset the replay when the presenter wants to restart the story from the same synthetic fixture.
 
 ## Interactive Preview
 
-- Home screen with scenario loader and mission-control metrics.
-- Mission intake screen with risks, documents, questions, and 30/60/90 plan.
-- Cash aging screen with exposure totals, top priorities, and action pack.
-- Procedure screen with roles, steps, controls, KPIs, and open questions.
-- Reporting screen with deterministic KPI variance highlights and follow-ups.
-- Adoption ROI screen with workflow-level usage logs and recommendations.
+The inline template preview is intentionally demo-grade:
 
-The package uses synthetic fixtures and deterministic handlers only. Outputs are review drafts and human review is required before any client-facing or operational use.
+- Command bar with scenario switching, deterministic replay reset, draft-run controls and current workflow state.
+- Workflow rail for Mission intake, Cash aging, Procedure, Reporting, and Adoption ROI.
+- Compact lists and tables instead of oversized card grids.
+- Selected-detail panel for every workflow click: mission evidence, invoice follow-up, procedure control, reporting variance, or adoption recommendation.
+- Draft-only review actions to request changes or mark the selected workflow ready.
 
-## Running Locally
+The preview recomputes from the handlers, so it demonstrates the same deterministic contract outputs that tests and replay proof cover. The interactivity is local UI state only: it simulates review and replay, not real operational execution.
 
-From `packages/examples/finance-ops-ai-workflows`:
+## Scope Boundaries
+
+The package uses synthetic fixtures and deterministic handlers only. It does not connect to live finance systems, does not send operational communications, and does not provide production financial, legal, tax, accounting, or investment advice. Workflow outputs keep `humanReviewRequired` set to `true`.
+
+## Public Entry Points
+
+- `@contractspec/example.finance-ops-ai-workflows`
+- `@contractspec/example.finance-ops-ai-workflows/contracts`
+- `@contractspec/example.finance-ops-ai-workflows/contracts/mission-intake-triage.operation`
+- `@contractspec/example.finance-ops-ai-workflows/contracts/cash-aging-prioritization.operation`
+- `@contractspec/example.finance-ops-ai-workflows/contracts/procedure-draft.operation`
+- `@contractspec/example.finance-ops-ai-workflows/contracts/reporting-narrative.operation`
+- `@contractspec/example.finance-ops-ai-workflows/contracts/adoption-roi-log.operation`
+- `@contractspec/example.finance-ops-ai-workflows/fixtures`
+- `@contractspec/example.finance-ops-ai-workflows/handlers`
+- `@contractspec/example.finance-ops-ai-workflows/proof`
+- `@contractspec/example.finance-ops-ai-workflows/ui`
+
+## Implementation Notes
+
+- Handlers are pure deterministic functions wrapped with `HandlerForOperationSpec`.
+- Structured lists are returned as JSON strings where the contract surface asks for `*Json` fields.
+- Fixtures are fictive and tuned for a commercial demo: PME industrielle, 85 employees, 14 M EUR revenue, RAF departure, missing reporting, cash tension and fragmented Excel/Power BI tools.
+- The replay proof runs all five workflows and returns a compact evidence object.
+
+## Commands
+
 - `bun run build`
 - `bun run typecheck`
 - `bun run test`
 - `bun run smoke`
 - `bun run preflight`
-
-## Demo Flow
-
-1. Open `/templates` and click Preview on `Finance Ops AI Workflows`.
-2. Switch between the PME recovery and reporting reset fixture scenarios.
-3. Use Mission intake and Cash aging to demonstrate scoping and cash action workflows.
-4. Use Procedure and Reporting to demonstrate operational artifacts beyond prompts.
-5. Use Adoption ROI and the review drawer to close on measurable workflow adoption.
-
-## Public Entry Points
-
-- Export `.` resolves through `./src/index.ts`.
-- Export `./contracts` resolves through `./src/contracts/index.ts`.
-- Export `./docs` resolves through `./src/docs/index.ts`.
-- Export `./example` resolves through `./src/example.ts`.
-- Export `./fixtures` resolves through `./src/fixtures/index.ts`.
-- Export `./handlers` resolves through `./src/handlers/index.ts`.
-- Export `./proof` resolves through `./src/proof/index.ts`.
-- Export `./ui` resolves through `./src/ui/index.ts`.
-
-## Local Commands
-
-- `bun run build` — tsc --project tsconfig.json
-- `bun run typecheck` — tsc --noEmit
-- `bun run test` — bun test
-- `bun run smoke` — bun test src/example.smoke.test.ts
-- `bun run preflight` — bun run build && bun run typecheck && bun run test && bun run smoke

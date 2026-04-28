@@ -23,23 +23,22 @@ The value is not "make an LLM talk". The value is to frame finance work, separat
 ## Demo Script
 
 1. Open `/templates` and preview `Finance Ops AI Workflows`.
-2. Use the fixture loader to switch between the PME recovery and reporting reset scenarios.
-3. Start from Mission control to explain the consulting angle and decision moment.
-4. Open Mission intake, Cash aging, Procedure, Reporting, and Adoption ROI to show one workflow screen per operation.
-5. Use the review drawer to connect the operational outputs to the next client decision.
+2. Switch between the PME recovery and reporting reset scenarios from the demo command bar.
+3. Run a workflow draft, select the mission item, invoice, procedure step, reporting variance, or adoption log under discussion, and use the selected-detail panel to request changes or mark the draft ready.
+4. Move through Mission intake, Cash aging, Procedure, Reporting, and Adoption ROI as an operator cockpit rather than a slide sequence.
+5. Reset the replay when the presenter wants to restart the story from the same synthetic fixture.
 
 ## Interactive Preview
 
 The inline template preview is intentionally demo-grade:
 
-- Home screen with a fixture loader and commercial journey.
-- Mission intake screen with risks, documents, questions and 30/60/90 plan.
-- Cash aging screen with exposure totals, priorities and action pack.
-- Procedure screen with roles, steps, controls, KPIs and open questions.
-- Reporting screen with KPI variance highlights and follow-up questions.
-- Adoption ROI screen with workflow-level usage logs and recommendations.
+- Command bar with scenario switching, deterministic replay reset, draft-run controls and current workflow state.
+- Workflow rail for Mission intake, Cash aging, Procedure, Reporting, and Adoption ROI.
+- Compact lists and tables instead of oversized card grids.
+- Selected-detail panel for every workflow click: mission evidence, invoice follow-up, procedure control, reporting variance, or adoption recommendation.
+- Draft-only review actions to request changes or mark the selected workflow ready.
 
-The preview recomputes from the handlers, so it demonstrates the same deterministic contract outputs that tests and replay proof cover.
+The preview recomputes from the handlers, so it demonstrates the same deterministic contract outputs that tests and replay proof cover. The interactivity is local UI state only: it simulates review and replay, not real operational execution.
 
 ## Scope Boundaries
 

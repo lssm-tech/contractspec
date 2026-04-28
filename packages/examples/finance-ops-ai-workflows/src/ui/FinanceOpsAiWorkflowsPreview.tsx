@@ -1,100 +1,88 @@
 'use client';
 
-import { HStack, VStack } from '@contractspec/lib.design-system/layout';
+import { Box, VStack } from '@contractspec/lib.design-system/layout';
 import { Text } from '@contractspec/lib.design-system/typography';
-import { useMemo, useState } from 'react';
-import type { FinanceOpsDemoScenario } from '../fixtures';
-import { FinanceOpsHomeScreen } from './FinanceOpsHomeScreen';
+import { useMemo, useReducer } from 'react';
+import { financeOpsDemoScenarios } from '../fixtures';
+import { DemoCommandBar } from './FinanceOpsPreviewParts';
+import { FinanceOpsPreviewRouter } from './FinanceOpsPreviewRouter';
+import { WorkflowRail } from './FinanceOpsWorkflowRail';
 import {
-	CashAgingScreen,
-	MissionIntakeScreen,
-} from './FinanceOpsMissionCashScreens';
-import { ReviewRail, ScreenNav } from './FinanceOpsPreviewParts';
-import {
-	AdoptionRoiScreen,
-	ProcedureDraftScreen,
-	ReportingNarrativeScreen,
-} from './FinanceOpsProcedureReportingAdoptionScreens';
-import {
-	buildFinanceOpsPreviewModel,
-	type FinanceOpsPreviewScreenId,
-} from './finance-ops-ai-workflows-preview.model';
+	createFinanceOpsDemoSession,
+	financeOpsDemoSessionReducer,
+	getActiveWorkflowId,
+} from './finance-ops-ai-workflows-demo-session';
+import { buildFinanceOpsPreviewModel } from './finance-ops-ai-workflows-preview.model';
 
 export function FinanceOpsAiWorkflowsPreview() {
-	const [scenarioId, setScenarioId] =
-		useState<FinanceOpsDemoScenario['id']>('pme-recovery');
-	const [activeScreen, setActiveScreen] =
-		useState<FinanceOpsPreviewScreenId>('home');
-	const model = useMemo(
-		() => buildFinanceOpsPreviewModel(scenarioId),
-		[scenarioId]
+	const [session, dispatch] = useReducer(
+		financeOpsDemoSessionReducer,
+		'pme-recovery',
+		createFinanceOpsDemoSession
 	);
+	const model = useMemo(
+		() => buildFinanceOpsPreviewModel(session.scenarioId),
+		[session.scenarioId]
+	);
+	const activeWorkflow = getActiveWorkflowId(session.activeScreen);
+	const activeWorkflowLabel =
+		model.screens.find((screen) => screen.id === activeWorkflow)?.label ??
+		activeWorkflow;
 
 	return (
 		<VStack as="section" gap="lg" className="p-4 sm:p-5">
-			<HStack align="center" justify="between" className="gap-4 lg:flex-nowrap">
+			<Box
+				align="start"
+				justify="start"
+				className="!grid grid-cols-1 gap-4 xl:grid-cols-2"
+				style={{ display: 'grid' }}
+			>
 				<VStack gap="xs" className="min-w-0 flex-1">
 					<Text className="font-semibold text-muted-foreground text-xs uppercase">
 						{model.scenario.label}
 					</Text>
-					<Text className="font-semibold text-2xl leading-tight">
+					<Text className="min-h-[3.5rem] font-semibold text-2xl leading-tight">
 						{model.scenario.oneLine}
 					</Text>
 				</VStack>
-				<Text className="max-w-md rounded-lg border border-border bg-card p-3 text-muted-foreground text-xs leading-5">
+				<Text className="max-w-md rounded-lg border border-border bg-card p-3 text-muted-foreground text-xs leading-5 xl:justify-self-end">
 					{model.scenario.clientProfile}
 				</Text>
-			</HStack>
+			</Box>
 
-			<ScreenNav
-				activeScreen={activeScreen}
-				onSelect={setActiveScreen}
-				screens={model.screens}
+			<DemoCommandBar
+				activeScreen={session.activeScreen}
+				onResetReplay={() => dispatch({ type: 'reset_replay' })}
+				onRunWorkflow={(workflow) =>
+					dispatch({ type: 'run_workflow', workflow })
+				}
+				onSelectScenario={(scenarioId) =>
+					dispatch({ type: 'select_scenario', scenarioId })
+				}
+				scenarioId={session.scenarioId}
+				scenarios={financeOpsDemoScenarios}
+				status={session.draftStatuses[activeWorkflow]}
+				workflowLabel={activeWorkflowLabel}
 			/>
 
-			<HStack align="start" className="gap-5 2xl:flex-nowrap">
-				<VStack gap="lg" className="min-w-0 flex-[1.6]">
-					{renderScreen(activeScreen, model, setScenarioId, setActiveScreen)}
-				</VStack>
-				<VStack className="min-w-[18rem] flex-1">
-					<ReviewRail
-						cashDecision={model.reviewPanel.cashDecision}
-						currency={model.cash.result.currency}
-						decisionMoment={model.reviewPanel.decisionMoment}
-						nextWorkflow={model.reviewPanel.nextWorkflow}
-						presenterAngle={model.reviewPanel.presenterAngle}
-						totalExposure={model.cash.result.totalExposure}
+			<div className="flex min-w-0 flex-col gap-4 lg:flex-row">
+				<div className="min-w-0 lg:w-64 lg:shrink-0">
+					<WorkflowRail
+						activeWorkflow={activeWorkflow}
+						draftStatuses={session.draftStatuses}
+						onSelect={(screen) => dispatch({ type: 'select_screen', screen })}
+						screens={model.screens}
 					/>
-				</VStack>
-			</HStack>
+				</div>
+				<div className="min-w-0 flex-1">
+					<FinanceOpsPreviewRouter
+						activeScreen={session.activeScreen}
+						dispatch={dispatch}
+						model={model}
+						session={session}
+					/>
+				</div>
+			</div>
 		</VStack>
 	);
-}
-
-function renderScreen(
-	activeScreen: FinanceOpsPreviewScreenId,
-	model: ReturnType<typeof buildFinanceOpsPreviewModel>,
-	setScenarioId: (scenarioId: FinanceOpsDemoScenario['id']) => void,
-	setActiveScreen: (screen: FinanceOpsPreviewScreenId) => void
-) {
-	switch (activeScreen) {
-		case 'mission':
-			return <MissionIntakeScreen model={model} />;
-		case 'cash':
-			return <CashAgingScreen model={model} />;
-		case 'procedure':
-			return <ProcedureDraftScreen model={model} />;
-		case 'reporting':
-			return <ReportingNarrativeScreen model={model} />;
-		case 'adoption':
-			return <AdoptionRoiScreen model={model} />;
-		default:
-			return (
-				<FinanceOpsHomeScreen
-					model={model}
-					onSelectScenario={setScenarioId}
-					onSelectScreen={setActiveScreen}
-				/>
-			);
-	}
 }

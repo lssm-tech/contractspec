@@ -1,100 +1,112 @@
 'use client';
 
-import { Box, HStack, VStack } from '@contractspec/lib.design-system/layout';
-import { Text } from '@contractspec/lib.design-system/typography';
-import { PreviewPanel, ReviewItem } from './FinanceOpsPreviewParts';
+import { DetailField, DetailPanel } from './FinanceOpsDetailPanel';
+import {
+	SelectableRow,
+	WorkflowWorkspace,
+} from './FinanceOpsCockpitWorkspace';
+import type { FinanceOpsDraftStatus } from './finance-ops-ai-workflows-demo-session';
+import { formatMoney } from './finance-ops-ai-workflows-preview.format';
 import { readString } from './finance-ops-ai-workflows-preview.helpers';
 import type { FinanceOpsPreviewModel } from './finance-ops-ai-workflows-preview.model';
 
-export function CashAgingScreen({ model }: { model: FinanceOpsPreviewModel }) {
-	return (
-		<VStack gap="lg">
-			<PreviewPanel
-				title="Cash aging prioritization"
-				description={model.cash.result.executiveSummary}
-			>
-				<HStack align="start" className="gap-3 lg:flex-nowrap">
-					<ReviewItem
-						label="Total exposure"
-						value={`${model.cash.result.totalExposure} ${model.cash.result.currency}`}
-					/>
-					<ReviewItem
-						label="Overdue"
-						value={`${model.cash.result.overdueExposure} ${model.cash.result.currency}`}
-					/>
-					<ReviewItem
-						label="Disputed"
-						value={`${model.cash.result.disputedExposure} ${model.cash.result.currency}`}
-					/>
-				</HStack>
-			</PreviewPanel>
-
-			<Box className="grid gap-5 xl:grid-cols-[1.35fr_0.9fr]">
-				<PreviewPanel title="Priority queue">
-					<VStack gap="sm">
-						{model.cash.priorities.map((priority) => (
-							<CashPriorityCard key={priority.invoiceId} priority={priority} />
-						))}
-					</VStack>
-				</PreviewPanel>
-
-				<PreviewPanel title="Action pack">
-					<VStack gap="sm">
-						{model.cash.actions.slice(0, 5).map((action, index) => (
-							<VStack
-								key={`${index}-${readString(action, 'invoiceId')}`}
-								gap="xs"
-								className="rounded-md border border-border bg-background p-3"
-							>
-								<Text className="font-semibold text-sm">
-									{readString(action, 'invoiceId')}
-								</Text>
-								<Text className="text-muted-foreground text-xs">
-									{readString(action, 'owner')}
-								</Text>
-								<Text className="text-sm leading-5">
-									{readString(action, 'action')}
-								</Text>
-							</VStack>
-						))}
-					</VStack>
-				</PreviewPanel>
-			</Box>
-		</VStack>
-	);
-}
-
-function CashPriorityCard({
-	priority,
+export function CashAgingScreen({
+	model,
+	onMarkReady,
+	onRequestChanges,
+	onSelectInvoice,
+	selectedInvoiceId,
+	status,
 }: {
-	priority: FinanceOpsPreviewModel['cash']['priorities'][number];
+	model: FinanceOpsPreviewModel;
+	onMarkReady: () => void;
+	onRequestChanges: () => void;
+	onSelectInvoice: (invoiceId: string) => void;
+	selectedInvoiceId: string;
+	status: FinanceOpsDraftStatus;
 }) {
+	const selected =
+		model.cash.priorities.find(
+			(priority) => priority.invoiceId === selectedInvoiceId
+		) ?? model.cash.priorities[0];
+	const selectedAction = model.cash.actions.find(
+		(action) => readString(action, 'invoiceId') === selected?.invoiceId
+	);
+
 	return (
-		<HStack
-			justify="between"
-			align="start"
-			wrap="nowrap"
-			className="gap-3 rounded-md border border-border bg-background p-3"
-		>
-			<VStack gap="xs" className="min-w-0">
-				<Text className="font-semibold text-sm">
-					{priority.invoiceId} · {priority.clientName}
-				</Text>
-				<Text className="text-muted-foreground text-xs">
-					{priority.owner} · {priority.amountLabel}
-				</Text>
-				<Text className="text-muted-foreground text-xs leading-5">
-					{priority.action}
-				</Text>
-			</VStack>
-			<VStack gap="xs" className="shrink-0 items-end text-right">
-				<Text className="font-semibold text-xs capitalize">
-					{priority.priority}
-				</Text>
-				<Text className="text-muted-foreground text-xs">
-					{priority.overdueDays} days
-				</Text>
-			</VStack>
-		</HStack>
+		<WorkflowWorkspace
+			detail={
+				<DetailPanel
+					eyebrow="Selected detail"
+					onMarkReady={onMarkReady}
+					onRequestChanges={onRequestChanges}
+					status={status}
+					title={selected?.invoiceId ?? 'Invoice'}
+				>
+					<DetailField label="Client" value={selected?.clientName ?? ''} />
+					<DetailField label="Amount" value={selected?.amountLabel ?? ''} />
+					<DetailField label="Owner" value={selected?.owner ?? ''} />
+					<DetailField
+						label="Dispute"
+						value={
+							selected?.priority === 'dispute'
+								? 'Pricing or scope dispute to clarify before collection.'
+								: 'No dispute flagged in the synthetic aging row.'
+						}
+					/>
+					<DetailField
+						label="Follow-up"
+						value={readString(
+							selectedAction ?? {},
+							'action',
+							selected?.action ?? ''
+						)}
+					/>
+					<DetailField
+						label="Evidence"
+						value="Confirm invoice, owner note, due date and client promise before sending anything."
+					/>
+				</DetailPanel>
+			}
+			list={model.cash.priorities.map((priority) => (
+				<SelectableRow
+					badge={priority.priority}
+					key={priority.invoiceId}
+					label={priority.invoiceId}
+					meta={`${priority.clientName} · ${priority.owner}`}
+					onSelect={() => onSelectInvoice(priority.invoiceId)}
+					selected={priority.invoiceId === selected?.invoiceId}
+					value={priority.amountLabel}
+				/>
+			))}
+			listTitle="Aging priorities"
+			metrics={[
+				{
+					label: 'Total exposure',
+					value: formatMoney(
+						model.cash.result.totalExposure,
+						model.cash.result.currency
+					),
+				},
+				{
+					label: 'Overdue',
+					value: formatMoney(
+						model.cash.result.overdueExposure,
+						model.cash.result.currency
+					),
+				},
+				{
+					label: 'Disputed',
+					value: formatMoney(
+						model.cash.result.disputedExposure,
+						model.cash.result.currency
+					),
+				},
+				{ label: 'Decision', value: model.cash.result.workflowDecision },
+			]}
+			status={status}
+			summary={model.cash.result.executiveSummary}
+			title="Cash aging"
+		/>
 	);
 }

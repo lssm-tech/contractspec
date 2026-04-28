@@ -1,6 +1,6 @@
 schemaVersion: "1"
 slug: finance-ops-demo-preview
-summary: Expand the Finance Ops AI Workflows preview into a multi-screen template demo and refresh the generated LLMS package surface for it.
+summary: Expand the Finance Ops AI Workflows preview into an operator cockpit and refresh the generated LLMS package surface for it.
 isBreaking: false
 packages:
   - name: "@contractspec/example.finance-ops-ai-workflows"
@@ -15,22 +15,22 @@ affectedFrameworks:
   - turbopack
 audiences:
   - kind: maintainer
-    summary: The finance-ops example now ships richer preview fixtures, split preview screens, and refreshed docs surface exports for the showcase route.
+    summary: The finance-ops example now ships richer preview fixtures, deterministic replay controls, local draft-review state, and refreshed docs surface exports for the showcase route.
     affectedPackages:
       - "@contractspec/example.finance-ops-ai-workflows"
   - kind: integrator
-    summary: Preview-consuming apps can surface a deterministic multi-screen finance-ops demo rather than a single static panel.
+    summary: Preview-consuming apps can surface a deterministic finance-ops operator cockpit rather than a static preview panel.
     affectedPackages:
       - "@contractspec/example.finance-ops-ai-workflows"
       - "@contractspec/app.web-landing"
   - kind: customer
-    summary: The `/templates` Finance Ops AI Workflows preview now reads like a guided operator demo with scenario-specific screens and review flows.
+    summary: The `/templates` Finance Ops AI Workflows preview now plays like an operator cockpit with scenario-specific screens, replay controls, selectable records, selected details, and draft-only review flows.
 deprecations: []
 migrationInstructions: []
 upgradeSteps:
   - id: use-finance-ops-preview-entrypoint
     title: Consume the richer finance-ops preview entrypoint
-    summary: The example package keeps the same `./ui` surface, but hosts should expect multiple preview screens and supporting fixtures.
+    summary: The example package keeps the same `./ui` surface, but hosts should expect workflow rail navigation, supporting fixtures, local replay controls, selected-detail panels, and draft-review state.
     level: assisted
     instructions:
       - Install `@contractspec/example.finance-ops-ai-workflows` in preview-consuming apps.
@@ -38,9 +38,11 @@ upgradeSteps:
 validation:
   commands:
     - "bun run --cwd packages/examples/finance-ops-ai-workflows preflight"
+    - "bun run --cwd packages/apps/web-landing llms:generate"
     - "bun run --cwd packages/apps/web-landing build:types"
   evidence:
-    - "Finance Ops AI Workflows preview is split into multiple deterministic scenario screens with dedicated fixture data."
+    - "Finance Ops AI Workflows preview includes deterministic replay controls, workflow status, selectable fixture records, selected-detail panels, and draft-only review interactions."
     - "The generated LLMS package page for the example reflects the refreshed package surface."
+    - "Browser smoke on `/templates` covered scenario switching, workflow navigation, selected-detail changes, request changes, mark ready, replay reset, clean console, and desktop/mobile overflow checks."
 knownGaps:
-  - "No browser screenshot evidence is attached in this capsule; the preview remains deterministic but verification is currently package-local."
+  - "Production Next build was not rerun; type build and browser smoke covered the changed preview surface."

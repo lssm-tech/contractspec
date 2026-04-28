@@ -42,16 +42,18 @@ The package uses synthetic fixtures and deterministic handlers only. Keep confid
 		route: '/docs/examples/finance-ops-ai-workflows/usage',
 		tags: ['finance', 'usage', 'workflow', 'proof'],
 		body: `## Demo flow
-1. Open the website template Preview button and select a fixture scenario.
-2. Start from the Mission control screen to explain the business context.
-3. Open Mission intake and Cash aging to show scoping, risks, priorities, and reviewable action packs.
-4. Open Procedure and Reporting to show operational artifacts beyond prompt text.
-5. Open Adoption ROI to show measurable, policy-aware workflow adoption.
+1. Open the website template Preview button and select a fixture scenario from the command bar.
+2. Run a workflow draft to show the deterministic fixture -> contract -> handler -> review path.
+3. Select a mission item, invoice, procedure step, reporting variance, or adoption log to make the demo feel operated rather than narrated.
+4. Use the selected-detail panel to request draft changes or mark a review artifact ready for handoff.
+5. Open Adoption ROI to show measurable, policy-aware workflow adoption, then reset replay to restart the synthetic scenario.
+
+The cockpit interactivity is local UI state only. It does not send emails, collect cash, approve accounting output, call a model, or connect to finance systems.
 
 ## Validation
 - Run \`bun run preflight\` in the package.
 - Run \`runFinanceOpsAiWorkflowsReplay()\` from \`./proof\` to replay all five workflows on synthetic fixtures.
-- Use the website template Preview button to inspect the multi-screen inline demo surface.
+- Use the website template Preview button to inspect the operator cockpit demo surface.
 
 ## Extension rules
 - Keep calculations deterministic unless a future contract explicitly separates model-assisted drafting from rule-based decisions.

@@ -3,4 +3,4 @@
 "@contractspec/app.web-landing": patch
 ---
 
-Upgrade the Finance Ops AI Workflows template preview into a multi-screen demo with scenario fixtures, handler-computed workflow outputs, a review drawer, and refreshed docs for the `/templates` Preview flow.
+Upgrade the Finance Ops AI Workflows template preview into an operator cockpit with scenario fixtures, handler-computed workflow outputs, deterministic replay controls, selected-detail review interactions, and refreshed docs for the `/templates` Preview flow.

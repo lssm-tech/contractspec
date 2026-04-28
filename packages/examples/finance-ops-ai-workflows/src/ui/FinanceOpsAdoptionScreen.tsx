@@ -1,72 +1,119 @@
 'use client';
 
-import { Box, HStack, VStack } from '@contractspec/lib.design-system/layout';
-import { Text } from '@contractspec/lib.design-system/typography';
-import { PreviewPanel, ReviewItem } from './FinanceOpsPreviewParts';
+import { DetailField, DetailPanel } from './FinanceOpsDetailPanel';
+import {
+	SelectableRow,
+	WorkflowWorkspace,
+} from './FinanceOpsCockpitWorkspace';
+import { formatDraftStatus } from './FinanceOpsDemoChrome';
+import type {
+	FinanceOpsDemoSession,
+	FinanceOpsDraftStatus,
+	FinanceOpsWorkflowScreenId,
+} from './finance-ops-ai-workflows-demo-session';
 import type {
 	AdoptionUsageView,
 	FinanceOpsPreviewModel,
 } from './finance-ops-ai-workflows-preview.model';
 
 export function AdoptionRoiScreen({
+	draftStatuses,
 	model,
+	onMarkReady,
+	onRequestChanges,
+	onSelectUsage,
+	selectedUsageLogId,
+	status,
 }: {
+	draftStatuses: FinanceOpsDemoSession['draftStatuses'];
 	model: FinanceOpsPreviewModel;
+	onMarkReady: () => void;
+	onRequestChanges: () => void;
+	onSelectUsage: (usageLogId: string) => void;
+	selectedUsageLogId: string;
+	status: FinanceOpsDraftStatus;
 }) {
+	const selected =
+		model.adoption.usages.find(
+			(usage) => usage.result.usageLogId === selectedUsageLogId
+		) ?? model.adoption.usages[0];
+
 	return (
-		<VStack gap="lg">
-			<PreviewPanel
-				title="AI adoption ROI log"
-				description="The demo measures workflow-level adoption: gains, quality, data risk and the next governance move."
-			>
-				<HStack align="start" className="gap-3 lg:flex-nowrap">
-					<ReviewItem
+		<WorkflowWorkspace
+			detail={
+				<DetailPanel
+					eyebrow="Selected detail"
+					onMarkReady={onMarkReady}
+					onRequestChanges={onRequestChanges}
+					status={status}
+					title={selected?.useCase ?? 'Adoption log'}
+				>
+					<DetailField label="Team" value={selected?.team ?? ''} />
+					<DetailField
 						label="Minutes saved"
-						value={String(model.adoption.totalMinutesSaved)}
+						value={String(selected?.result.estimatedMinutesSaved ?? 0)}
 					/>
-					<ReviewItem
-						label="Hours saved"
-						value={String(model.adoption.totalHoursSaved)}
+					<DetailField
+						label="Risk"
+						value={`${selected?.dataRisk ?? 'low'} data risk · quality ${selected?.quality ?? 'medium'}`}
 					/>
-					<ReviewItem
-						label="Recommendations"
-						value={model.adoption.recommendations.join(', ')}
+					<DetailField
+						label="Recommendation"
+						value={selected?.result.recommendedNextStep ?? 'monitor'}
 					/>
-				</HStack>
-			</PreviewPanel>
-
-			<Box className="grid gap-3 md:grid-cols-2">
-				{model.adoption.usages.map((usage) => (
-					<AdoptionUsageCard key={usage.result.usageLogId} usage={usage} />
-				))}
-			</Box>
-		</VStack>
+					<DetailField
+						label="Review"
+						value={
+							selected?.humanValidated
+								? 'Human validation recorded; standardize only after owner sign-off.'
+								: 'Do not standardize; review training support and validation gap first.'
+						}
+					/>
+				</DetailPanel>
+			}
+			list={model.adoption.usages.map((usage) => (
+				<SelectableRow
+					badge={formatDraftStatus(getWorkflowStatus(usage, draftStatuses))}
+					key={usage.result.usageLogId}
+					label={usage.useCase}
+					meta={`${usage.team} · ${usage.workflowKey}`}
+					onSelect={() => onSelectUsage(usage.result.usageLogId)}
+					selected={usage.result.usageLogId === selected?.result.usageLogId}
+					value={`${usage.result.estimatedMinutesSaved} min`}
+				/>
+			))}
+			listTitle="Usage log"
+			metrics={[
+				{
+					label: 'Minutes saved',
+					value: String(model.adoption.totalMinutesSaved),
+				},
+				{ label: 'Hours saved', value: String(model.adoption.totalHoursSaved) },
+				{
+					label: 'Recommendations',
+					value: String(model.adoption.recommendations.length),
+				},
+				{ label: 'Entries', value: String(model.adoption.usages.length) },
+			]}
+			status={status}
+			summary="Workflow-level adoption log for time saved, quality, data risk and governance next steps."
+			title="Adoption ROI"
+		/>
 	);
 }
 
-function AdoptionUsageCard({ usage }: { usage: AdoptionUsageView }) {
-	return (
-		<VStack gap="sm" className="rounded-lg border border-border bg-card p-4">
-			<VStack gap="xs">
-				<Text className="font-semibold text-sm">{usage.useCase}</Text>
-				<Text className="font-mono text-muted-foreground text-xs">
-					{usage.workflowKey}
-				</Text>
-			</VStack>
-			<Text className="text-muted-foreground text-xs leading-5">
-				{usage.result.roiSummary}
-			</Text>
-			<HStack className="gap-2">
-				<Text className="rounded-full border border-border px-2 py-1 text-xs">
-					{usage.team}
-				</Text>
-				<Text className="rounded-full border border-border px-2 py-1 text-xs">
-					quality {usage.quality}
-				</Text>
-				<Text className="rounded-full border border-border px-2 py-1 text-xs">
-					{usage.result.recommendedNextStep}
-				</Text>
-			</HStack>
-		</VStack>
-	);
+function getWorkflowStatus(
+	usage: AdoptionUsageView,
+	statuses: FinanceOpsDemoSession['draftStatuses']
+): FinanceOpsDraftStatus {
+	const workflow = workflowByKey[usage.workflowKey];
+	return workflow ? statuses[workflow] : 'not_started';
 }
+
+const workflowByKey: Record<string, FinanceOpsWorkflowScreenId> = {
+	'financeOps.aiAdoption.logUsage': 'adoption',
+	'financeOps.cashAging.prioritize': 'cash',
+	'financeOps.missionIntake.triage': 'mission',
+	'financeOps.procedureDraft.create': 'procedure',
+	'financeOps.reportingNarrative.compose': 'reporting',
+};

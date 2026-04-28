@@ -11,6 +11,7 @@ import {
 	createProcedureDraft,
 	logAiAdoptionUsage,
 	type MissionIntakeResult,
+	parseNumberSafely,
 	type ProcedureDraftResult,
 	prioritizeCashAging,
 	type ReportingNarrativeResult,
@@ -54,9 +55,13 @@ export interface FinanceOpsStageCard extends FinanceOpsMetric {
 }
 
 export interface AdoptionUsageView {
+	dataRisk: string;
+	humanValidated: boolean;
 	quality: string;
 	result: AiAdoptionUsageResult;
 	team: string;
+	timeAfterMinutes: number;
+	timeBeforeMinutes: number;
 	useCase: string;
 	workflowKey: string;
 }
@@ -95,6 +100,7 @@ export interface FinanceOpsPreviewModel {
 	reporting: {
 		followUps: readonly string[];
 		highlights: readonly Record<string, unknown>[];
+		kpis: readonly Record<string, unknown>[];
 		questions: readonly string[];
 		result: ReportingNarrativeResult;
 	};
@@ -146,9 +152,14 @@ export function buildFinanceOpsPreviewModel(
 	const procedure = createProcedureDraft(scenario.fixtures.procedure);
 	const reporting = composeReportingNarrative(scenario.fixtures.reporting);
 	const usages = scenario.fixtures.adoption.map((fixture) => ({
+		dataRisk: fixture.dataRisk,
+		humanValidated:
+			fixture.humanValidated === true || fixture.humanValidated === 'true',
 		quality: fixture.qualityRating,
 		result: logAiAdoptionUsage(fixture),
 		team: fixture.team,
+		timeAfterMinutes: parseNumberSafely(fixture.timeAfterMinutes),
+		timeBeforeMinutes: parseNumberSafely(fixture.timeBeforeMinutes),
 		useCase: fixture.useCase,
 		workflowKey: fixture.workflowKey,
 	}));
@@ -217,6 +228,7 @@ export function buildFinanceOpsPreviewModel(
 		reporting: {
 			followUps: parseStringList(reporting.recommendedFollowUpsJson),
 			highlights: parseRecordList(reporting.varianceHighlightsJson),
+			kpis: parseRecordList(scenario.fixtures.reporting.kpiSnapshotJson),
 			questions: parseStringList(reporting.questionsForReviewJson),
 			result: reporting,
 		},

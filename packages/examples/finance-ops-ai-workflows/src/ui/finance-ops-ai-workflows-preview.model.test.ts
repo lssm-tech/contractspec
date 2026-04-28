@@ -27,6 +27,15 @@ describe('finance ops preview model', () => {
 			invoiceId: 'INV-1002',
 			priority: 'dispute',
 		});
+		expect(model.reporting.kpis[0]).toMatchObject({
+			currentValue: 1120000,
+			metric: 'Revenue',
+			targetValue: 1180000,
+		});
+		expect(model.adoption.usages[0]).toMatchObject({
+			dataRisk: 'low',
+			humanValidated: true,
+		});
 		expect(model.adoption.totalMinutesSaved).toBeGreaterThan(0);
 		expect(model.adoption.recommendations).toContain('standardize');
 	});
