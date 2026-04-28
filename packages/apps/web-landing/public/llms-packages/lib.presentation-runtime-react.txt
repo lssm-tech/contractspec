@@ -66,6 +66,8 @@ Import the root entrypoint from `@contractspec/lib.presentation-runtime-react`, 
 - Replace eslint+prettier by biomejs to optimize speed.
 - Add data visualization capabilities.
 - Add table capabilities.
+- Propagate DataView table overflow metadata through `useDataViewTable` so
+  renderers can truncate, wrap, expand, or initially hide columns consistently.
 
 ## Notes
 

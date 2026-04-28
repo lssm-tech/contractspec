@@ -132,6 +132,8 @@ The helpers also keep shared UI imports platform-correct:
 - Replace eslint+prettier by biomejs to optimize speed.
 - Add data visualization capabilities.
 - Add table capabilities.
+- Add table overflow metadata to controller render models so web and native
+  renderers can apply consistent cell overflow behavior.
 
 ## Notes
 

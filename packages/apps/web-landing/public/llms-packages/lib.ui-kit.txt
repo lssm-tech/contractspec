@@ -120,6 +120,10 @@ export function NativeAccountGrid() {
 }
 ```
 
+Cells receive overflow behavior from the table controller. Native renderers use
+single-line ellipsis for `truncate` and `expand`, multiline text for `wrap`,
+and preserve caller rendering for `none`.
+
 This example explicitly demonstrates the same sorting, pagination, selection, column visibility, column resizing, left/right pinning, row expansion, loading, and empty-state contracts used by the browser lanes.
 
 ### Hooks, utilities, and grouped surfaces

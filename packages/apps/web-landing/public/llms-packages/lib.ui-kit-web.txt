@@ -113,6 +113,10 @@ export function WebAccountGrid() {
 }
 ```
 
+Cells receive overflow behavior from the table controller. Web renderers use a
+compact truncating wrapper for `truncate` and `expand`, multiline wrapping for
+`wrap`, and preserve caller rendering for `none`.
+
 Use the web primitive when you want direct control over the render surface.
 For higher-level search, active chips, selection summary, and hidden-column
 recovery, keep this primitive lean and layer

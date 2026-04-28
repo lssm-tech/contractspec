@@ -608,6 +608,10 @@ export function NativeAccountGrid() {
 }
 ```
 
+Cells receive overflow behavior from the table controller. Native renderers use
+single-line ellipsis for `truncate` and `expand`, multiline text for `wrap`,
+and preserve caller rendering for `none`.
+
 This example explicitly demonstrates the same sorting, pagination, selection, column visibility, column resizing, left/right pinning, row expansion, loading, and empty-state contracts used by the browser lanes.
 
 ### Hooks, utilities, and grouped surfaces
@@ -2500,7 +2504,7 @@ bun add @contractspec/lib.contracts-spec @contractspec/lib.schema
 - `ContractResult`: canonical success/failure envelope used by operation, workflow, job, API, MCP, GraphQL, and React runtimes while preserving raw-response compatibility for adapters.
 - `defineEvent` + `EventRegistry`: typed event contracts and lookup.
 - `defineResourceTemplate` + `ResourceRegistry`: URI-template-based resource contracts.
-- `FormRegistry`: contract-first form declarations consumed by UI runtimes, including readonly, email, password, autocomplete, address, phone, date, time, datetime, grouped array authoring, semantic legends/descriptions, grid layout hints, progressive `layout.flow` sections/steps, mobile-safe `responsiveFormColumns(...)`, and text/textarea/email input-group addons through `@contractspec/lib.contracts-spec/forms`.
+- `FormRegistry`: contract-first form declarations consumed by UI runtimes, including readonly, email, password, autocomplete, address, phone, number, percent, currency, date, time, datetime, duration, grouped array authoring, semantic legends/descriptions, grid layout hints, progressive `layout.flow` sections/steps, mobile-safe `responsiveFormColumns(...)`, and text/textarea/email input-group addons through `@contractspec/lib.contracts-spec/forms`.
 - `installOp`: one-call helper to register + bind operation handlers.
 - `makeEmit`: typed helper for declared event emission in handlers.
 
@@ -2698,6 +2702,23 @@ serialized into URL state. Locked filters render as disabled chips by default
 so embedded views, such as a category-scoped posts list, stay explainable while
 reusing the same base DataView contract.
 
+Table fields and columns can declare `overflow` as `truncate`, `wrap`,
+`expand`, `hideColumn`, or `none`. Column overflow overrides field overflow,
+and unspecified values use type-aware defaults: markdown wraps, while text,
+badges, numbers, currency, percentages, dates, times, durations, and booleans
+truncate. `expand` keeps the compact cell but adds the field to row expansion;
+`hideColumn` starts the column hidden when column visibility is enabled.
+
+Collection data views (`list`, `grid`, and `table`) can now share production
+listing defaults under `view.collection`. Use `collection.viewModes` to declare
+which modes a renderer may project between, `collection.pagination.pageSize` to
+seed query generation, `collection.toolbar` to describe search/filter/view-mode
+controls, and `collection.density` for cross-mode spacing defaults. The
+authored `view.kind` remains the canonical shape; renderers derive alternate
+collection projections without mutating the source spec. Table `density`
+remains supported as a permanent compatibility alias and wins over shared
+collection density for table specs.
+
 ```ts
 import { defineDataView } from '@contractspec/lib.contracts-spec/data-views';
 import { ListDataGridShowcaseRowsQuery } from '@contractspec/example.data-grid-showcase/contracts/data-grid-showcase.operation';
@@ -2723,6 +2744,15 @@ export const DataGridShowcaseDataView = defineDataView({
   },
   view: {
     kind: 'table',
+    collection: {
+      viewModes: {
+        defaultMode: 'table',
+        allowedModes: ['list', 'grid', 'table'],
+      },
+      pagination: { pageSize: 20 },
+      toolbar: { search: true, viewMode: true, filters: true, density: true },
+      density: 'comfortable',
+    },
     executionMode: 'client',
     selection: 'multiple',
     columnVisibility: true,
@@ -2743,7 +2773,13 @@ export const DataGridShowcaseDataView = defineDataView({
       { key: 'account', label: 'Account', dataPath: 'account', sortable: true },
       { key: 'owner', label: 'Owner', dataPath: 'owner', sortable: true },
       { key: 'status', label: 'Status', dataPath: 'status', sortable: true },
-      { key: 'notes', label: 'Notes', dataPath: 'notes' },
+      { key: 'notes', label: 'Notes', dataPath: 'notes', overflow: 'expand' },
+    ],
+    columns: [
+      { field: 'account' },
+      { field: 'owner' },
+      { field: 'status', overflow: 'truncate' },
+      { field: 'notes', overflow: 'hideColumn' },
     ],
   },
 });
@@ -4135,6 +4171,8 @@ Import the root entrypoint from `@contractspec/lib.presentation-runtime-react`, 
 - Replace eslint+prettier by biomejs to optimize speed.
 - Add data visualization capabilities.
 - Add table capabilities.
+- Propagate DataView table overflow metadata through `useDataViewTable` so
+  renderers can truncate, wrap, expand, or initially hide columns consistently.
 
 ## Notes
 
@@ -5482,6 +5520,8 @@ The helpers also keep shared UI imports platform-correct:
 - Replace eslint+prettier by biomejs to optimize speed.
 - Add data visualization capabilities.
 - Add table capabilities.
+- Add table overflow metadata to controller render models so web and native
+  renderers can apply consistent cell overflow behavior.
 
 ## Notes
 
@@ -5691,6 +5731,46 @@ and keeps native rendering aligned for query, selected options, loading, error,
 and empty states. FormSpec renderers pass resolver-backed async state through
 these props without requiring product surfaces to know the underlying transport.
 
+### Render actionable object references
+
+Use `ObjectReferenceHandler` when product surfaces render references that usually
+need quick interaction, such as addresses, phone numbers, users, customers,
+files, URLs, or tenant-specific objects.
+
+```tsx
+import {
+  ObjectReferenceHandler,
+  createMapsReferenceActions,
+} from "@contractspec/lib.design-system";
+
+const address = {
+  id: "customer-site",
+  kind: "address",
+  label: "10 Downing Street",
+  value: "10 Downing Street, London",
+} as const;
+
+<ObjectReferenceHandler
+  reference={address}
+  interactivityVisibility="icon"
+  actions={createMapsReferenceActions(address)}
+  openHref={(href) => window.open(href, "_blank", "noopener,noreferrer")}
+/>;
+```
+
+The descriptor and action descriptor types are intentionally data-only:
+`id`, `kind`, `label`, `value`, `href`, `metadata`, and optional `iconKey`.
+Runtime behavior belongs in props such as `actionHandlers`, `copyHandler`,
+`openHref`, `renderTrigger`, `renderDetail`, `renderAction`, and
+`iconRenderer`. This keeps the surface compatible with future declarative
+ContractSpec schema work without making React callbacks part of the descriptor
+contract.
+
+Web renders the interaction surface with the existing sheet primitives. Native
+exports the same prop contract through the focused object-reference subpath and
+uses a disclosure-style fallback until `@contractspec/lib.ui-kit` provides a
+real native sheet primitive.
+
 ### Render forms on mobile through the shared renderer
 
 Use the focused shared renderer subpath when rendering `FormSpec` contracts in
@@ -5787,6 +5867,15 @@ export function AccountHealthTable() {
 `DataTable` remains the composed card/container surface. `DataTableToolbar` is
 the recommended ergonomic layer for search, chips, selection summary, and
 hidden-column recovery without widening the primitive table API.
+DataView-driven tables also honor field and column overflow hints from
+`DataViewSpec`: column hints override field hints, markdown wraps by default,
+compact scalar formats truncate, `expand` adds detail to the row expansion
+surface, and `hideColumn` starts hidden when column visibility is enabled.
+Collection `DataViewSpec` contracts can also declare `view.collection` defaults
+for list/grid/table mode switching, toolbar controls, query page size, and
+density. `DataViewRenderer` uses those defaults for web and native renderers
+while keeping caller props authoritative through `viewMode`, `density`,
+`onViewModeChange`, and `onDensityChange`.
 
 ## API map
 
@@ -5999,6 +6088,10 @@ export function WebAccountGrid() {
   );
 }
 ```
+
+Cells receive overflow behavior from the table controller. Web renderers use a
+compact truncating wrapper for `truncate` and `expand`, multiline wrapping for
+`wrap`, and preserve caller rendering for `none`.
 
 Use the web primitive when you want direct control over the render surface.
 For higher-level search, active chips, selection summary, and hidden-column
@@ -11543,6 +11636,7 @@ Website: https://contractspec.io
 - Capability and feature definition patterns.
 - Presentation layer and event-driven architecture.
 - RBAC, audit trail, and notification module integration.
+- An inline `WealthSnapshotPreview` UI for template and example browsers.
 - `src/docs/` contains docblocks and documentation-facing exports.
 - `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
 
@@ -11566,6 +11660,7 @@ Use `@contractspec/example.wealth-snapshot` as a reference implementation, or im
 - `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
 - `src/index.ts` is the root public barrel and package entrypoint.
 - `src/operations` is part of the package's public or composition surface.
+- `src/ui/` contains the inline preview surface for catalog and template browsers.
 
 ## Public Entry Points
 
@@ -11578,8 +11673,12 @@ Use `@contractspec/example.wealth-snapshot` as a reference implementation, or im
 - Export `./handlers` resolves through `./src/handlers/index.ts`.
 - Export `./operations` resolves through `./src/operations/index.ts`.
 - Export `./presentations` resolves through `./src/presentations.ts`.
+- Export `./ui` resolves through `./src/ui/index.ts`.
+- Export `./ui/WealthSnapshotPreview` resolves through `./src/ui/WealthSnapshotPreview.tsx`.
+- Export `./ui/wealth-snapshot-preview.data` resolves through `./src/ui/wealth-snapshot-preview.data.ts`.
 - Export `./wealth-snapshot.capability` resolves through `./src/wealth-snapshot.capability.ts`.
-- The package publishes 11 total export subpaths; keep docs aligned with `package.json`.
+- Export `./wealth-snapshot.feature` resolves through `./src/wealth-snapshot.feature.ts`.
+- The package publishes 14 total export subpaths; keep docs aligned with `package.json`.
 
 ## Local Commands
 
@@ -11628,6 +11727,7 @@ Website: https://contractspec.io
 - Capability and feature definition patterns.
 - Canonical `telemetry` export via `pocketFamilyOfficeTelemetry`.
 - Sample tenant and connection configuration.
+- An inline `PocketFamilyOfficePreview` UI for template and example browsers.
 
 ## Running Locally
 
@@ -11651,6 +11751,7 @@ Use `@contractspec/example.pocket-family-office` as a reference implementation, 
 - `src/knowledge` is part of the package's public or composition surface.
 - `src/operations` is part of the package's public or composition surface.
 - `src/telemetry.ts` defines the exported telemetry spec.
+- `src/ui/` contains the inline preview surface for catalog and template browsers.
 
 ## Public Entry Points
 
@@ -11665,7 +11766,12 @@ Use `@contractspec/example.pocket-family-office` as a reference implementation, 
 - Export `./pocket-family-office.capability` resolves through `./src/pocket-family-office.capability.ts`.
 - Export `./pocket-family-office.feature` resolves through `./src/pocket-family-office.feature.ts`.
 - Export `./telemetry` resolves through `./src/telemetry.ts`.
-- The package publishes 20 total export subpaths; keep docs aligned with `package.json`.
+- Export `./tenant.sample` resolves through `./src/tenant.sample.ts`.
+- Export `./ui` resolves through `./src/ui/index.ts`.
+- Export `./ui/PocketFamilyOfficePreview` resolves through `./src/ui/PocketFamilyOfficePreview.tsx`.
+- Export `./ui/pocket-family-office-preview.data` resolves through `./src/ui/pocket-family-office-preview.data.ts`.
+- Export `./workflows` resolves through `./src/workflows/index.ts`.
+- The package publishes 24 total export subpaths; keep docs aligned with `package.json`.
 
 ## Local Commands
 
