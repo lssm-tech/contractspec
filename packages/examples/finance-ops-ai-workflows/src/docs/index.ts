@@ -30,10 +30,7 @@ Finance Ops AI Workflows demonstrates how to turn finance, DAF, cash, reporting,
 - \`financeOps.aiAdoption.logUsage\` logs AI workflow usage, estimated time saved, and governance next steps.
 
 ## Safety posture
-- No LLM calls, no API calls, no live finance systems, no email sending.
-- Synthetic data only; do not put confidential client content into fixtures or usage logs.
-- Outputs are review drafts, not financial, legal, tax, accounting, or investment advice.
-- Human review is mandatory before client-facing or operational use.`,
+The package uses synthetic fixtures and deterministic handlers only. Keep confidential client content out of fixtures and usage logs. Outputs are review drafts, not financial, legal, tax, accounting, or investment advice, and human review is mandatory before client-facing or operational use.`,
 	},
 	{
 		id: 'docs.examples.finance-ops-ai-workflows.usage',
@@ -45,16 +42,16 @@ Finance Ops AI Workflows demonstrates how to turn finance, DAF, cash, reporting,
 		route: '/docs/examples/finance-ops-ai-workflows/usage',
 		tags: ['finance', 'usage', 'workflow', 'proof'],
 		body: `## Demo flow
-1. Import the fixtures from \`@contractspec/example.finance-ops-ai-workflows/fixtures\`.
-2. Run mission intake triage to frame the DAF / finance recovery mission.
-3. Run cash aging prioritization to produce a reviewable cash action pack.
-4. Run procedure draft and reporting narrative workflows to show governed assistance beyond prompt text.
-5. Run adoption ROI logging to show measurable, policy-aware AI adoption.
+1. Open the website template Preview button and select a fixture scenario.
+2. Start from the Mission control screen to explain the business context.
+3. Open Mission intake and Cash aging to show scoping, risks, priorities, and reviewable action packs.
+4. Open Procedure and Reporting to show operational artifacts beyond prompt text.
+5. Open Adoption ROI to show measurable, policy-aware workflow adoption.
 
 ## Validation
 - Run \`bun run preflight\` in the package.
 - Run \`runFinanceOpsAiWorkflowsReplay()\` from \`./proof\` to replay all five workflows on synthetic fixtures.
-- Use the website template Preview button to inspect the inline demo surface.
+- Use the website template Preview button to inspect the multi-screen inline demo surface.
 
 ## Extension rules
 - Keep calculations deterministic unless a future contract explicitly separates model-assisted drafting from rule-based decisions.

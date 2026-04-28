@@ -1,164 +1,100 @@
 'use client';
 
 import { HStack, VStack } from '@contractspec/lib.design-system/layout';
-import { H2, H3, Text } from '@contractspec/lib.design-system/typography';
-import type { ReactNode } from 'react';
+import { Text } from '@contractspec/lib.design-system/typography';
+import { useMemo, useState } from 'react';
+import type { FinanceOpsDemoScenario } from '../fixtures';
+import { FinanceOpsHomeScreen } from './FinanceOpsHomeScreen';
 import {
-	financeOpsAgingRows,
-	financeOpsDemoFlow,
-	financeOpsSafetyChecklist,
-	financeOpsWorkflowCards,
-	financeOpsWorkflowMetrics,
-} from './finance-ops-ai-workflows-preview.data';
+	CashAgingScreen,
+	MissionIntakeScreen,
+} from './FinanceOpsMissionCashScreens';
+import { ReviewRail, ScreenNav } from './FinanceOpsPreviewParts';
+import {
+	AdoptionRoiScreen,
+	ProcedureDraftScreen,
+	ReportingNarrativeScreen,
+} from './FinanceOpsProcedureReportingAdoptionScreens';
+import {
+	buildFinanceOpsPreviewModel,
+	type FinanceOpsPreviewScreenId,
+} from './finance-ops-ai-workflows-preview.model';
 
 export function FinanceOpsAiWorkflowsPreview() {
-	return (
-		<VStack as="section" gap="xl" className="p-4 sm:p-6">
-			<VStack
-				gap="sm"
-				className="rounded-lg border border-border bg-card p-5 shadow-sm"
-			>
-				<Text className="font-semibold text-muted-foreground text-xs uppercase">
-					Governed finance operations
-				</Text>
-				<H2 className="font-serif text-3xl tracking-normal">
-					Finance Ops AI Workflows
-				</H2>
-				<Text className="max-w-3xl text-muted-foreground text-sm leading-6">
-					A ContractSpec template for safe, deterministic, human-reviewed
-					AI-assisted finance operations: mission triage, cash management,
-					procedure drafting, reporting narrative and adoption ROI.
-				</Text>
-			</VStack>
+	const [scenarioId, setScenarioId] =
+		useState<FinanceOpsDemoScenario['id']>('pme-recovery');
+	const [activeScreen, setActiveScreen] =
+		useState<FinanceOpsPreviewScreenId>('home');
+	const model = useMemo(
+		() => buildFinanceOpsPreviewModel(scenarioId),
+		[scenarioId]
+	);
 
-			<HStack align="stretch" className="gap-3 lg:flex-nowrap">
-				{financeOpsWorkflowMetrics.map((metric) => (
-					<VStack
-						key={metric.label}
-						gap="xs"
-						className="min-w-0 flex-1 rounded-lg border border-border bg-background p-4"
-					>
-						<Text className="text-muted-foreground text-xs uppercase">
-							{metric.label}
-						</Text>
-						<Text className="font-semibold text-2xl">{metric.value}</Text>
-						<Text className="text-muted-foreground text-xs">
-							{metric.detail}
-						</Text>
-					</VStack>
-				))}
+	return (
+		<VStack as="section" gap="lg" className="p-4 sm:p-5">
+			<HStack align="center" justify="between" className="gap-4 lg:flex-nowrap">
+				<VStack gap="xs" className="min-w-0 flex-1">
+					<Text className="font-semibold text-muted-foreground text-xs uppercase">
+						{model.scenario.label}
+					</Text>
+					<Text className="font-semibold text-2xl leading-tight">
+						{model.scenario.oneLine}
+					</Text>
+				</VStack>
+				<Text className="max-w-md rounded-lg border border-border bg-card p-3 text-muted-foreground text-xs leading-5">
+					{model.scenario.clientProfile}
+				</Text>
 			</HStack>
 
-			<HStack align="start" className="gap-6 xl:flex-nowrap">
-				<PreviewPanel
-					title="Workflow contracts"
-					description="Each operation turns a business input into an explicit contract, deterministic handler output, and reviewable workflow artifact."
-				>
-					{financeOpsWorkflowCards.map((workflow) => (
-						<VStack
-							key={workflow.key}
-							gap="xs"
-							className="rounded-md border border-border bg-background p-3"
-						>
-							<Text className="font-semibold text-sm">{workflow.title}</Text>
-							<Text className="font-mono text-muted-foreground text-xs">
-								{workflow.key}
-							</Text>
-							<Text className="text-muted-foreground text-xs leading-5">
-								{workflow.description}
-							</Text>
-							<HStack className="gap-2">
-								{workflow.outputs.map((output) => (
-									<Text
-										key={output}
-										className="rounded-full border border-border px-2 py-1 text-muted-foreground text-xs"
-									>
-										{output}
-									</Text>
-								))}
-							</HStack>
-						</VStack>
-					))}
-				</PreviewPanel>
+			<ScreenNav
+				activeScreen={activeScreen}
+				onSelect={setActiveScreen}
+				screens={model.screens}
+			/>
 
-				<PreviewPanel
-					title="Demo flow and controls"
-					description="The commercial demo shows workflows, not prompts: every output remains synthetic, traceable and human-reviewed."
-				>
-					<VStack gap="xs" className="rounded-md border border-border p-3">
-						{financeOpsDemoFlow.map((step, index) => (
-							<HStack key={step} wrap="nowrap" className="gap-3">
-								<Text className="font-semibold text-muted-foreground text-xs">
-									{index + 1}
-								</Text>
-								<Text className="text-sm">{step}</Text>
-							</HStack>
-						))}
-					</VStack>
-					<VStack gap="xs">
-						{financeOpsSafetyChecklist.map((item) => (
-							<Text
-								key={item}
-								className="rounded-md border border-border bg-background px-3 py-2 text-xs"
-							>
-								{item}
-							</Text>
-						))}
-					</VStack>
-					<VStack
-						gap="xs"
-						className="rounded-md border border-border bg-muted/40 p-3"
-					>
-						{financeOpsAgingRows.map((row) => (
-							<HStack key={row.invoiceId} justify="between" wrap="nowrap">
-								<VStack gap="xs" className="min-w-0">
-									<Text className="font-semibold text-sm">{row.invoiceId}</Text>
-									<Text className="text-muted-foreground text-xs">
-										{row.counterparty} · {row.amountDue}
-									</Text>
-								</VStack>
-								<VStack gap="xs" className="items-end text-right">
-									<Text className="font-semibold text-xs capitalize">
-										{row.priority}
-									</Text>
-									<Text className="text-muted-foreground text-xs">
-										{row.daysLate} days late
-									</Text>
-									<Text className="text-muted-foreground text-xs">
-										{row.action}
-									</Text>
-								</VStack>
-							</HStack>
-						))}
-					</VStack>
-				</PreviewPanel>
+			<HStack align="start" className="gap-5 2xl:flex-nowrap">
+				<VStack gap="lg" className="min-w-0 flex-[1.6]">
+					{renderScreen(activeScreen, model, setScenarioId, setActiveScreen)}
+				</VStack>
+				<VStack className="min-w-[18rem] flex-1">
+					<ReviewRail
+						cashDecision={model.reviewPanel.cashDecision}
+						currency={model.cash.result.currency}
+						decisionMoment={model.reviewPanel.decisionMoment}
+						nextWorkflow={model.reviewPanel.nextWorkflow}
+						presenterAngle={model.reviewPanel.presenterAngle}
+						totalExposure={model.cash.result.totalExposure}
+					/>
+				</VStack>
 			</HStack>
 		</VStack>
 	);
 }
 
-function PreviewPanel({
-	title,
-	description,
-	children,
-}: {
-	title: string;
-	description: string;
-	children: ReactNode;
-}) {
-	return (
-		<VStack
-			as="article"
-			gap="md"
-			className="min-w-0 flex-1 rounded-lg border border-border bg-card p-4 shadow-sm"
-		>
-			<VStack as="header" gap="xs">
-				<H3 className="font-semibold text-lg">{title}</H3>
-				<Text className="text-muted-foreground text-sm leading-6">
-					{description}
-				</Text>
-			</VStack>
-			{children}
-		</VStack>
-	);
+function renderScreen(
+	activeScreen: FinanceOpsPreviewScreenId,
+	model: ReturnType<typeof buildFinanceOpsPreviewModel>,
+	setScenarioId: (scenarioId: FinanceOpsDemoScenario['id']) => void,
+	setActiveScreen: (screen: FinanceOpsPreviewScreenId) => void
+) {
+	switch (activeScreen) {
+		case 'mission':
+			return <MissionIntakeScreen model={model} />;
+		case 'cash':
+			return <CashAgingScreen model={model} />;
+		case 'procedure':
+			return <ProcedureDraftScreen model={model} />;
+		case 'reporting':
+			return <ReportingNarrativeScreen model={model} />;
+		case 'adoption':
+			return <AdoptionRoiScreen model={model} />;
+		default:
+			return (
+				<FinanceOpsHomeScreen
+					model={model}
+					onSelectScenario={setScenarioId}
+					onSelectScreen={setActiveScreen}
+				/>
+			);
+	}
 }

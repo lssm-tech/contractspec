@@ -1,0 +1,47 @@
+schemaVersion: "1"
+slug: finance-ops-demo-preview
+summary: Upgrade the Finance Ops AI Workflows template into a multi-screen, fixture-driven demo preview.
+isBreaking: false
+packages:
+  - name: "@contractspec/example.finance-ops-ai-workflows"
+    releaseType: minor
+  - name: "@contractspec/app.web-landing"
+    releaseType: patch
+affectedRuntimes:
+  - browser
+  - nextjs
+affectedFrameworks:
+  - react
+audiences:
+  - kind: maintainer
+    summary: The finance ops example now exposes a computed preview model, per-workflow screens, split demo fixtures, and focused tests that keep the inline preview aligned with deterministic handlers.
+    affectedPackages:
+      - "@contractspec/example.finance-ops-ai-workflows"
+  - kind: integrator
+    summary: The web templates catalog keeps loading Finance Ops AI Workflows through the existing inline preview path, now with scenario switching and workflow-specific screens.
+    affectedPackages:
+      - "@contractspec/app.web-landing"
+  - kind: customer
+    summary: The Finance Ops AI Workflows Preview button now opens a sales-ready walkthrough with mission intake, cash aging, procedure, reporting, and adoption ROI screens.
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: validate-finance-preview
+    title: Verify the Finance Ops AI Workflows inline preview
+    summary: Consumers that package the web templates catalog should verify the inline modal can load the upgraded multi-screen preview.
+    level: assisted
+    instructions:
+      - Run the finance example preflight.
+      - Run the template preview integration tests.
+      - Open `/templates`, click Preview on Finance Ops AI Workflows, and exercise the fixture loader and workflow navigation.
+validation:
+  commands:
+    - "bun run --cwd packages/examples/finance-ops-ai-workflows preflight"
+    - "bun test packages/modules/examples/src/runtime/previews.test.ts packages/bundles/marketing/src/components/templates/template-preview.test.ts packages/apps/web-landing/next.config.test.ts"
+    - "bun run --cwd packages/apps/web-landing typecheck"
+    - "Playwright smoke test against http://localhost:3000/templates"
+  evidence:
+    - "The Finance Ops AI Workflows preview renders mission-control, mission intake, cash aging, procedure, reporting, and adoption ROI screens."
+    - "The fixture loader switches between the PME recovery and reporting reset scenarios."
+    - "Preview content is computed from deterministic handlers rather than a stale static data file."
+    - "The old visible boundary checklist copy is absent from the preview UI."

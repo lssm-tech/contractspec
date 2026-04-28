@@ -10,15 +10,16 @@ Safe finance operations AI workflow example with mission intake triage, cash pri
 - Procedure draft and reporting narrative helpers that keep management validation explicit.
 - AI adoption ROI logging that measures use cases, time saved, data risk, quality, and policy needs.
 
-## Safety Boundaries
+## Interactive Preview
 
-- No LLM calls.
-- No external API calls.
-- No email sending.
-- No live ERP, CRM, BI, banking, or finance-system integration.
-- No real client, employee, or personal data.
-- Outputs are review drafts only, not financial, legal, tax, accounting, or investment advice.
-- Human review is required before any client-facing or operational use.
+- Home screen with scenario loader and mission-control metrics.
+- Mission intake screen with risks, documents, questions, and 30/60/90 plan.
+- Cash aging screen with exposure totals, top priorities, and action pack.
+- Procedure screen with roles, steps, controls, KPIs, and open questions.
+- Reporting screen with deterministic KPI variance highlights and follow-ups.
+- Adoption ROI screen with workflow-level usage logs and recommendations.
+
+The package uses synthetic fixtures and deterministic handlers only. Outputs are review drafts and human review is required before any client-facing or operational use.
 
 ## Running Locally
 
@@ -31,11 +32,11 @@ From `packages/examples/finance-ops-ai-workflows`:
 
 ## Demo Flow
 
-1. Import fixtures from `@contractspec/example.finance-ops-ai-workflows/fixtures`.
-2. Run `financeOps.missionIntake.triage` to frame a fictive DAF / finance recovery mission.
-3. Run `financeOps.cashAging.prioritize` to produce a reviewable cash action pack.
-4. Run `financeOps.procedureDraft.create` and `financeOps.reportingNarrative.compose` to show governed assistance beyond prompt text.
-5. Run `financeOps.aiAdoption.logUsage` to show measurable, policy-aware AI adoption.
+1. Open `/templates` and click Preview on `Finance Ops AI Workflows`.
+2. Switch between the PME recovery and reporting reset fixture scenarios.
+3. Use Mission intake and Cash aging to demonstrate scoping and cash action workflows.
+4. Use Procedure and Reporting to demonstrate operational artifacts beyond prompts.
+5. Use Adoption ROI and the review drawer to close on measurable workflow adoption.
 
 ## Public Entry Points
 

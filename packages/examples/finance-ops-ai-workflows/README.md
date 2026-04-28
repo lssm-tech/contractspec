@@ -23,21 +23,27 @@ The value is not "make an LLM talk". The value is to frame finance work, separat
 ## Demo Script
 
 1. Open `/templates` and preview `Finance Ops AI Workflows`.
-2. Import the fixtures from `@contractspec/example.finance-ops-ai-workflows/fixtures`.
-3. Run mission intake to frame the DAF / finance recovery situation.
-4. Run cash aging, procedure draft, and reporting narrative to show operational workflows.
-5. Run AI adoption ROI logging to show measurable safe adoption and governance next steps.
+2. Use the fixture loader to switch between the PME recovery and reporting reset scenarios.
+3. Start from Mission control to explain the consulting angle and decision moment.
+4. Open Mission intake, Cash aging, Procedure, Reporting, and Adoption ROI to show one workflow screen per operation.
+5. Use the review drawer to connect the operational outputs to the next client decision.
 
-## Safety Boundaries
+## Interactive Preview
 
-- No LLM calls.
-- No external API calls.
-- No autonomous email sending.
-- No real personal or client data.
-- No production financial, legal, tax, or accounting advice.
-- `humanReviewRequired` is always `true` for workflow outputs.
-- Cash aging uses fixed reference date `2026-04-28`.
-- Invalid JSON inputs return safe review outputs instead of triggering uncontrolled behavior.
+The inline template preview is intentionally demo-grade:
+
+- Home screen with a fixture loader and commercial journey.
+- Mission intake screen with risks, documents, questions and 30/60/90 plan.
+- Cash aging screen with exposure totals, priorities and action pack.
+- Procedure screen with roles, steps, controls, KPIs and open questions.
+- Reporting screen with KPI variance highlights and follow-up questions.
+- Adoption ROI screen with workflow-level usage logs and recommendations.
+
+The preview recomputes from the handlers, so it demonstrates the same deterministic contract outputs that tests and replay proof cover.
+
+## Scope Boundaries
+
+The package uses synthetic fixtures and deterministic handlers only. It does not connect to live finance systems, does not send operational communications, and does not provide production financial, legal, tax, accounting, or investment advice. Workflow outputs keep `humanReviewRequired` set to `true`.
 
 ## Public Entry Points
 
