@@ -39,7 +39,7 @@ upgradeSteps:
   - id: adopt-view-collection
     title: Add optional collection defaults to collection DataView specs
     summary: Existing specs keep working; add view.collection when a renderer should expose shared collection controls or query page-size defaults.
-    level: optional
+    level: assisted
     instructions:
       - Add view.collection.viewModes to declare allowed list/grid/table projections.
       - Add view.collection.pagination.pageSize when query generation should use a contract default.
@@ -50,4 +50,8 @@ validation:
     - "bun run --cwd packages/libs/contracts-spec typecheck"
     - "bun test packages/libs/design-system/src/components/data-view/DataViewRenderer.test.tsx"
     - "bun run --cwd packages/libs/design-system typecheck"
+  evidence:
+    - "DataView collection specs now support shared view-mode, toolbar, pagination, and density defaults under view.collection."
+    - "DataViewRenderer can switch among allowed list, grid, and table projections while preserving existing specs and caller-controlled props."
+    - "Generated data-view screens can expose list, grid, table, search, filters, pagination, and density controls."
 knownGaps: []

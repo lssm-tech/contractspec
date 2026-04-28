@@ -1,21 +1,67 @@
-summary: Add design-system application shell primitives
+schemaVersion: "1"
+slug: application-shell-navigation
+summary: Add design-system application shell primitives with typed navigation, command search, breadcrumbs, native bottom-tab adaptation, and PageOutline support.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.design-system"
+    releaseType: minor
+  - name: "@contractspec/bundle.library"
+    releaseType: patch
+  - name: "@contractspec/bundle.marketing"
+    releaseType: patch
+affectedRuntimes:
+  - browser
+  - react-native
+  - nextjs
+  - expo
+affectedFrameworks:
+  - react
+  - react-native
 audiences:
-  - design-system consumers
-  - web app developers
-  - Expo app developers
-  - documentation readers
-migration:
-  - Existing AppLayout, AppSidebar, AppHeader, NavLink, and NavSection imports remain supported.
-  - New application shells should import AppShell and PageOutline from "@contractspec/lib.design-system/shell".
+  - kind: maintainer
+    summary: Design-system maintainers now have a focused shell API for application frames, navigation sections, breadcrumbs, commands, and page outlines.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+  - kind: integrator
+    summary: Web and Expo app developers can adopt AppShell and PageOutline from the shell subpath while existing AppLayout, AppSidebar, AppHeader, NavLink, and NavSection imports remain supported.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+      - "@contractspec/bundle.library"
+      - "@contractspec/bundle.marketing"
+  - kind: customer
+    summary: Documentation readers get public library docs with copy-ready AI prompts for fresh application shell implementation and existing-app refactors.
+    affectedPackages:
+      - "@contractspec/bundle.library"
+deprecations: []
+migrationInstructions:
+  - id: adopt-application-shell-subpath
+    title: Adopt the focused application shell subpath
+    summary: Existing shell-related imports keep working, but new application frames should use the focused shell entrypoint.
+    required: false
+    when: When creating a new app shell or refactoring an existing navigation frame.
+    steps:
+      - Import AppShell and PageOutline from "@contractspec/lib.design-system/shell".
+      - Keep existing AppLayout, AppSidebar, AppHeader, NavLink, and NavSection imports where no refactor is needed.
+      - Use the public library docs prompts when migrating existing app frame structure.
+upgradeSteps:
+  - id: adopt-application-shell-primitives
+    title: Use AppShell and PageOutline for new application frames
+    summary: New application shells should compose the focused shell primitives instead of rebuilding frame, navigation, breadcrumb, command, and outline behavior locally.
+    level: assisted
+    instructions:
+      - Import AppShell and PageOutline from "@contractspec/lib.design-system/shell".
+      - Keep legacy imports for existing AppLayout, AppSidebar, AppHeader, NavLink, and NavSection consumers.
+      - Re-run design-system and affected docs or app typechecks after adopting the shell subpath.
 validation:
-  - cd packages/libs/design-system && bun run typecheck
-  - cd packages/libs/design-system && bun run test
-  - cd packages/libs/design-system && bun run lint:check
-  - cd packages/bundles/library && bun run typecheck
-  - cd packages/bundles/marketing && bun run typecheck
-  - cd packages/apps/web-landing && bun run build:types
-  - cd packages/apps/web-landing && bun run build
-evidence:
-  - PageOutline render coverage for three levels and active state.
-  - AppShell render coverage for brand, breadcrumbs, nested navigation, content, and page outline.
-  - Public docs route /docs/libraries/application-shell builds and returns HTTP 200 locally.
+  commands:
+    - "cd packages/libs/design-system && bun run typecheck"
+    - "cd packages/libs/design-system && bun run test"
+    - "cd packages/libs/design-system && bun run lint:check"
+    - "cd packages/bundles/library && bun run typecheck"
+    - "cd packages/bundles/marketing && bun run typecheck"
+    - "cd packages/apps/web-landing && bun run build:types"
+    - "cd packages/apps/web-landing && bun run build"
+  evidence:
+    - "PageOutline render coverage exercises three levels and active state."
+    - "AppShell render coverage exercises brand, breadcrumbs, nested navigation, content, and page outline."
+    - "Public docs route /docs/libraries/application-shell builds and returns HTTP 200 locally."

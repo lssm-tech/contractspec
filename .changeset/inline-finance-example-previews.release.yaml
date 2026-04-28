@@ -32,16 +32,16 @@ audiences:
       - "@contractspec/bundle.marketing"
       - "@contractspec/app.web-landing"
   - kind: customer
-    summary: `/templates` can now open useful inline previews for Wealth Snapshot and Pocket Family Office instead of only linking through the sandbox flow.
+    summary: "`/templates` can now open useful inline previews for Wealth Snapshot and Pocket Family Office instead of only linking through the sandbox flow."
 deprecations: []
 migrationInstructions: []
 upgradeSteps:
   - id: refresh-inline-preview-registry
     title: Regenerate the examples preview registry
-    summary: Example packages that add `./ui` exports must refresh the generated preview registry before preview consumers can load them.
+    summary: "Example packages that add `./ui` exports must refresh the generated preview registry before preview consumers can load them."
     level: assisted
     instructions:
-      - Run `bun run --cwd packages/modules/examples generate:registry`.
+      - "Run `bun run --cwd packages/modules/examples generate:registry`."
       - Add the example packages as dependencies of preview-consuming bundles and apps.
 validation:
   commands:
