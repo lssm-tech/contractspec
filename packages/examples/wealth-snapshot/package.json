@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/example.wealth-snapshot",
-	"version": "3.7.25",
+	"version": "3.8.0",
 	"description": "Wealth Snapshot mini-app for accounts, assets, liabilities, and goals",
 	"types": "./dist/index.d.ts",
 	"type": "module",

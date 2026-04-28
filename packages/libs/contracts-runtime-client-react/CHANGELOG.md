@@ -1,5 +1,21 @@
 # @contractspec/lib.contracts-runtime-client-react
 
+## 3.13.0
+
+### Minor Changes
+
+- Add numeric and temporal FormSpec field kinds with shared renderer support for number, percent, currency, and duration inputs.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.contracts-runtime-client-react (minor), @contractspec/lib.design-system (minor)
+  - Migration: New field kinds provide stronger semantics and formatting metadata for finance and operations forms.
+
+### Patch Changes
+
+- Updated dependencies because of Add contract-driven overflow behavior and typed DataView hints for shared DataView and DataTable surfaces.
+- Updated dependencies because of Add production-ready collection defaults and renderer mode switching for DataView list, grid, and table specs.
+- Updated dependencies because of Add numeric and temporal FormSpec field kinds with shared renderer support for number, percent, currency, and duration inputs.
+  - @contractspec/lib.contracts-spec@6.1.0
+  - @contractspec/lib.presentation-runtime-core@5.2.0
+
 ## 3.12.0
 
 ### Minor Changes

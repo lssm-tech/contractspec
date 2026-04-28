@@ -1,5 +1,19 @@
 # @contractspec/example.lifecycle-cli
 
+## 3.7.26
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add contract-driven overflow behavior and typed DataView hints for shared DataView and DataTable surfaces.
+- Updated dependencies because of Add production-ready collection defaults and renderer mode switching for DataView list, grid, and table specs.
+- Updated dependencies because of Add numeric and temporal FormSpec field kinds with shared renderer support for number, percent, currency, and duration inputs.
+  - @contractspec/bundle.lifecycle-managed@3.7.26
+  - @contractspec/lib.lifecycle@3.7.26
+  - @contractspec/lib.logger@3.7.19
+  - @contractspec/lib.contracts-spec@6.1.0
+
 ## 3.7.25
 
 ### Patch Changes

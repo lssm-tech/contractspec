@@ -1,5 +1,23 @@
 # @contractspec/module.examples
 
+## 4.0.5
+
+### Patch Changes
+
+- Add a governed public finance-ops workflow template with replay proof and inline web template preview support.
+  - Packages: @contractspec/example.finance-ops-ai-workflows (minor), @contractspec/module.examples (patch), @contractspec/bundle.marketing (patch), @contractspec/app.web-landing (patch)
+- Add inline preview support for the Wealth Snapshot and Pocket Family Office examples in the templates catalog.
+  - Packages: @contractspec/example.pocket-family-office (minor), @contractspec/example.wealth-snapshot (minor), @contractspec/module.examples (patch), @contractspec/bundle.marketing (patch), @contractspec/app.web-landing (patch)
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add contract-driven overflow behavior and typed DataView hints for shared DataView and DataTable surfaces.
+- Updated dependencies because of Add production-ready collection defaults and renderer mode switching for DataView list, grid, and table specs.
+- Updated dependencies because of Add numeric and temporal FormSpec field kinds with shared renderer support for number, percent, currency, and duration inputs.
+  - @contractspec/lib.example-shared-ui@7.0.5
+  - @contractspec/lib.runtime-sandbox@3.0.5
+  - @contractspec/lib.contracts-spec@6.1.0
+  - @contractspec/lib.presentation-runtime-core@5.2.0
+  - @contractspec/lib.contracts-runtime-client-react@3.13.0
+
 ## 4.0.4
 
 ### Patch Changes

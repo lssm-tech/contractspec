@@ -1,5 +1,26 @@
 # @contractspec/example.agent-console
 
+## 3.8.20
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Add design-system application shell primitives with typed navigation, command search, breadcrumbs, native bottom-tab adaptation, and PageOutline support.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add contract-driven overflow behavior and typed DataView hints for shared DataView and DataTable surfaces.
+- Updated dependencies because of Add production-ready collection defaults and renderer mode switching for DataView list, grid, and table specs.
+- Updated dependencies because of Add numeric and temporal FormSpec field kinds with shared renderer support for number, percent, currency, and duration inputs.
+- Updated dependencies because of Add an extensible design-system object reference handler for actionable references.
+- Updated dependencies because of Render resolver-backed combobox results as a floating overlay instead of inline form content.
+  - @contractspec/lib.design-system@4.3.0
+  - @contractspec/lib.example-shared-ui@7.0.5
+  - @contractspec/lib.runtime-sandbox@3.0.5
+  - @contractspec/module.execution-console@0.1.11
+  - @contractspec/lib.contracts-spec@6.1.0
+  - @contractspec/lib.presentation-runtime-core@5.2.0
+  - @contractspec/lib.presentation-runtime-react@40.0.0
+  - @contractspec/lib.ui-kit-web@3.13.1
+
 ## 3.8.19
 
 ### Patch Changes

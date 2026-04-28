@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.knowledge",
-	"version": "3.8.1",
+	"version": "3.8.2",
 	"description": "RAG and knowledge base primitives",
 	"keywords": [
 		"contractspec",

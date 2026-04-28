@@ -1,5 +1,49 @@
 # @contractspec/bundle.library
 
+## 3.9.8
+
+### Patch Changes
+
+- Add design-system application shell primitives with typed navigation, command search, breadcrumbs, native bottom-tab adaptation, and PageOutline support.
+  - Packages: @contractspec/lib.design-system (minor), @contractspec/bundle.library (patch), @contractspec/bundle.marketing (patch)
+  - Migration: Existing shell-related imports keep working, but new application frames should use the focused shell entrypoint.
+- Add contract-driven overflow behavior and typed DataView hints for shared DataView and DataTable surfaces.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.presentation-runtime-core (minor), @contractspec/lib.presentation-runtime-react (minor), @contractspec/lib.ui-kit-web (patch), @contractspec/lib.ui-kit (patch), @contractspec/lib.design-system (patch), @contractspec/module.workspace (patch), @contractspec/bundle.workspace (patch), @contractspec/app.cli-contractspec (patch), @contractspec/bundle.library (patch)
+  - Migration: Existing tables keep working, but long prose, markdown, and detail-heavy columns can now declare their intended behavior.
+- Add production-ready collection defaults and renderer mode switching for DataView list, grid, and table specs.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.design-system (minor), @contractspec/module.workspace (patch), @contractspec/bundle.workspace (patch), @contractspec/app.cli-contractspec (patch), @contractspec/bundle.library (patch)
+- Updated dependencies because of Add design-system application shell primitives with typed navigation, command search, breadcrumbs, native bottom-tab adaptation, and PageOutline support.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add contract-driven overflow behavior and typed DataView hints for shared DataView and DataTable surfaces.
+- Updated dependencies because of Add production-ready collection defaults and renderer mode switching for DataView list, grid, and table specs.
+- Updated dependencies because of Add a governed public finance-ops workflow template with replay proof and inline web template preview support.
+- Updated dependencies because of Add numeric and temporal FormSpec field kinds with shared renderer support for number, percent, currency, and duration inputs.
+- Updated dependencies because of Add inline preview support for the Wealth Snapshot and Pocket Family Office examples in the templates catalog.
+- Updated dependencies because of Add an extensible design-system object reference handler for actionable references.
+- Updated dependencies because of Render resolver-backed combobox results as a floating overlay instead of inline form content.
+  - @contractspec/lib.design-system@4.3.0
+  - @contractspec/example.data-grid-showcase@3.8.20
+  - @contractspec/lib.ai-providers@3.7.19
+  - @contractspec/lib.content-gen@3.7.26
+  - @contractspec/lib.contracts-integrations@3.8.18
+  - @contractspec/lib.contracts-library@3.7.26
+  - @contractspec/lib.contracts-runtime-server-graphql@3.8.5
+  - @contractspec/lib.contracts-runtime-server-mcp@3.8.6
+  - @contractspec/lib.contracts-runtime-server-rest@3.8.5
+  - @contractspec/lib.example-shared-ui@7.0.5
+  - @contractspec/lib.knowledge@3.8.2
+  - @contractspec/lib.logger@3.7.19
+  - @contractspec/lib.provider-ranking@0.7.19
+  - @contractspec/lib.runtime-sandbox@3.0.5
+  - @contractspec/lib.surface-runtime@0.5.26
+  - @contractspec/lib.ui-link@3.7.21
+  - @contractspec/module.context-storage@0.7.25
+  - @contractspec/lib.contracts-spec@6.1.0
+  - @contractspec/lib.ui-kit-web@3.13.1
+  - @contractspec/bundle.workspace@4.5.6
+  - @contractspec/module.examples@4.0.5
+  - @contractspec/lib.contracts-runtime-client-react@3.13.0
+
 ## 3.9.7
 
 ### Patch Changes

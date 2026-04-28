@@ -1,5 +1,28 @@
 # @contractspec/app.api-library
 
+## 3.8.21
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Add design-system application shell primitives with typed navigation, command search, breadcrumbs, native bottom-tab adaptation, and PageOutline support.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add contract-driven overflow behavior and typed DataView hints for shared DataView and DataTable surfaces.
+- Updated dependencies because of Add production-ready collection defaults and renderer mode switching for DataView list, grid, and table specs.
+- Updated dependencies because of Add a governed public finance-ops workflow template with replay proof and inline web template preview support.
+- Updated dependencies because of Add numeric and temporal FormSpec field kinds with shared renderer support for number, percent, currency, and duration inputs.
+- Updated dependencies because of Add inline preview support for the Wealth Snapshot and Pocket Family Office examples in the templates catalog.
+  - @contractspec/bundle.library@3.9.8
+  - @contractspec/bundle.marketing@3.8.21
+  - @contractspec/integration.builder-telegram@0.2.8
+  - @contractspec/integration.builder-whatsapp@0.2.8
+  - @contractspec/integration.provider.codex@0.2.7
+  - @contractspec/integration.provider.messaging@0.2.2
+  - @contractspec/integration.runtime@3.9.8
+  - @contractspec/integration.runtime.managed@0.2.8
+  - @contractspec/lib.contracts-spec@6.1.0
+  - @contractspec/bundle.workspace@4.5.6
+
 ## 3.8.20
 
 ### Patch Changes

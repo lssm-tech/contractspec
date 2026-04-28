@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/example.crm-pipeline",
-	"version": "3.7.27",
+	"version": "3.7.28",
 	"description": "CRM Pipeline - Contacts, Companies, Deals, Tasks",
 	"type": "module",
 	"types": "./dist/index.d.ts",

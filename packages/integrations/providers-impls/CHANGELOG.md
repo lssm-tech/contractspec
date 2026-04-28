@@ -1,5 +1,34 @@
 # @contractspec/integration.providers-impls
 
+## 4.1.2
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add contract-driven overflow behavior and typed DataView hints for shared DataView and DataTable surfaces.
+- Updated dependencies because of Add production-ready collection defaults and renderer mode switching for DataView list, grid, and table specs.
+- Updated dependencies because of Add numeric and temporal FormSpec field kinds with shared renderer support for number, percent, currency, and duration inputs.
+  - @contractspec/integration.provider.analytics@0.2.2
+  - @contractspec/integration.provider.calendar@0.2.2
+  - @contractspec/integration.provider.database@0.2.2
+  - @contractspec/integration.provider.email@0.2.2
+  - @contractspec/integration.provider.embedding@0.2.2
+  - @contractspec/integration.provider.health@0.2.2
+  - @contractspec/integration.provider.llm@0.2.2
+  - @contractspec/integration.provider.meeting-recorder@0.2.2
+  - @contractspec/integration.provider.messaging@0.2.2
+  - @contractspec/integration.provider.openbanking@0.2.2
+  - @contractspec/integration.provider.payments@0.2.2
+  - @contractspec/integration.provider.project-management@0.2.2
+  - @contractspec/integration.provider.sms@0.2.2
+  - @contractspec/integration.provider.storage@0.2.2
+  - @contractspec/integration.provider.vector-store@0.2.2
+  - @contractspec/integration.provider.voice@0.2.2
+  - @contractspec/integration.runtime@3.9.8
+  - @contractspec/lib.contracts-integrations@3.8.18
+  - @contractspec/lib.contracts-spec@6.1.0
+
 ## 4.1.1
 
 ### Patch Changes

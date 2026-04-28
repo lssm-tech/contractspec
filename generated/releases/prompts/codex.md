@@ -1,128 +1,154 @@
 Apply the ContractSpec upgrade plan in this workspace using codex.
 
 Target packages:
-@contractspec/action.version: unknown -> 3.0.5
+@contractspec/action.version: unknown -> 3.0.6
 @contractspec/app.api-library: unknown -> latest
-@contractspec/app.cli-contractspec: unknown -> 6.2.1
+@contractspec/app.cli-contractspec: unknown -> 6.2.2
 @contractspec/app.cursor-marketplace: unknown -> latest
 @contractspec/app.expo-demo: unknown -> latest
-@contractspec/app.registry-packs: unknown -> 1.7.19
+@contractspec/app.registry-packs: unknown -> 1.7.20
 @contractspec/app.web-landing: unknown -> latest
 @contractspec/biome-config: unknown -> 3.8.11
-@contractspec/bundle.library: unknown -> 3.9.7
-@contractspec/bundle.marketing: unknown -> 3.8.20
-@contractspec/bundle.workspace: unknown -> 4.5.5
-@contractspec/example.agent-console: unknown -> 3.8.19
-@contractspec/example.ai-chat-assistant: unknown -> 3.8.19
-@contractspec/example.analytics-dashboard: unknown -> 3.9.19
-@contractspec/example.calendar-google: unknown -> 3.7.26
-@contractspec/example.crm-pipeline: unknown -> 3.7.27
-@contractspec/example.data-grid-showcase: unknown -> 3.8.19
-@contractspec/example.email-gmail: unknown -> 3.7.26
-@contractspec/example.form-showcase: unknown -> 1.1.0
-@contractspec/example.harness-lab: unknown -> 3.8.1
-@contractspec/example.integration-hub: unknown -> 3.8.19
-@contractspec/example.integration-posthog: unknown -> 3.7.26
-@contractspec/example.knowledge-canon: unknown -> 3.8.1
-@contractspec/example.learning-journey-ambient-coach: unknown -> 4.0.5
-@contractspec/example.learning-journey-crm-onboarding: unknown -> 4.0.7
-@contractspec/example.learning-journey-duo-drills: unknown -> 4.0.5
-@contractspec/example.learning-journey-platform-tour: unknown -> 4.0.5
-@contractspec/example.learning-journey-quest-challenges: unknown -> 4.0.5
-@contractspec/example.learning-journey-registry: unknown -> 4.0.7
-@contractspec/example.learning-journey-studio-onboarding: unknown -> 4.0.5
-@contractspec/example.learning-journey-ui-coaching: unknown -> 4.0.7
-@contractspec/example.learning-journey-ui-gamified: unknown -> 4.0.7
-@contractspec/example.learning-journey-ui-onboarding: unknown -> 4.0.7
-@contractspec/example.learning-journey-ui-shared: unknown -> 4.0.7
-@contractspec/example.learning-patterns: unknown -> 4.0.5
-@contractspec/example.marketplace: unknown -> 3.8.19
-@contractspec/example.meeting-recorder-providers: unknown -> 3.7.26
-@contractspec/example.openbanking-powens: unknown -> 3.7.26
-@contractspec/example.policy-safe-knowledge-assistant: unknown -> 3.7.27
-@contractspec/example.product-intent: unknown -> 3.7.26
-@contractspec/example.project-management-sync: unknown -> 3.7.26
-@contractspec/example.saas-boilerplate: unknown -> 3.8.19
-@contractspec/example.voice-providers: unknown -> 3.7.26
-@contractspec/example.workflow-system: unknown -> 3.8.19
-@contractspec/integration.builder-telegram: unknown -> 0.2.7
-@contractspec/integration.builder-voice: unknown -> 0.2.7
-@contractspec/integration.builder-whatsapp: unknown -> 0.2.7
-@contractspec/integration.harness-runtime: unknown -> 0.3.1
-@contractspec/integration.provider.analytics: unknown -> 0.2.1
-@contractspec/integration.provider.calendar: unknown -> 0.2.1
-@contractspec/integration.provider.claude-code: unknown -> 0.2.6
-@contractspec/integration.provider.codex: unknown -> 0.2.6
-@contractspec/integration.provider.copilot: unknown -> 0.2.6
-@contractspec/integration.provider.database: unknown -> 0.2.1
-@contractspec/integration.provider.email: unknown -> 0.2.1
-@contractspec/integration.provider.embedding: unknown -> 0.2.1
-@contractspec/integration.provider.gemini: unknown -> 0.2.6
-@contractspec/integration.provider.health: unknown -> 0.2.1
-@contractspec/integration.provider.llm: unknown -> 0.2.1
-@contractspec/integration.provider.local-model: unknown -> 0.2.6
-@contractspec/integration.provider.meeting-recorder: unknown -> 0.2.1
-@contractspec/integration.provider.messaging: unknown -> 0.2.1
-@contractspec/integration.provider.openbanking: unknown -> 0.2.1
-@contractspec/integration.provider.payments: unknown -> 0.2.1
-@contractspec/integration.provider.project-management: unknown -> 0.2.1
-@contractspec/integration.provider.sms: unknown -> 0.2.1
-@contractspec/integration.provider.storage: unknown -> 0.2.1
-@contractspec/integration.provider.stt: unknown -> 0.2.6
-@contractspec/integration.provider.vector-store: unknown -> 0.2.1
-@contractspec/integration.provider.voice: unknown -> 0.2.1
-@contractspec/integration.providers-impls: unknown -> 4.1.1
-@contractspec/integration.runtime: unknown -> 3.9.7
-@contractspec/integration.runtime.hybrid: unknown -> 0.2.7
-@contractspec/integration.runtime.local: unknown -> 0.2.7
-@contractspec/integration.runtime.managed: unknown -> 0.2.7
-@contractspec/lib.accessibility: unknown -> 3.7.26
-@contractspec/lib.builder-runtime: unknown -> 0.2.7
-@contractspec/lib.builder-spec: unknown -> 0.2.7
-@contractspec/lib.contracts-runtime-client-react: unknown -> 3.12.0
-@contractspec/lib.contracts-runtime-server-graphql: unknown -> 3.8.4
-@contractspec/lib.contracts-runtime-server-mcp: unknown -> 3.8.5
-@contractspec/lib.contracts-runtime-server-rest: unknown -> 3.8.4
-@contractspec/lib.contracts-spec: unknown -> 6.0.0
-@contractspec/lib.data-exchange-client: unknown -> 0.2.6
-@contractspec/lib.data-exchange-core: unknown -> 0.2.5
-@contractspec/lib.data-exchange-server: unknown -> 0.2.5
-@contractspec/lib.design-system: unknown -> 4.2.0
-@contractspec/lib.error: unknown -> 3.7.18
-@contractspec/lib.example-shared-ui: unknown -> 7.0.4
+@contractspec/bundle.library: unknown -> 3.9.8
+@contractspec/bundle.marketing: unknown -> 3.8.21
+@contractspec/bundle.workspace: unknown -> 4.5.6
+@contractspec/example.agent-console: unknown -> 3.8.20
+@contractspec/example.ai-chat-assistant: unknown -> 3.8.20
+@contractspec/example.analytics-dashboard: unknown -> 3.9.20
+@contractspec/example.calendar-google: unknown -> 3.7.27
+@contractspec/example.crm-pipeline: unknown -> 3.7.28
+@contractspec/example.data-grid-showcase: unknown -> 3.8.20
+@contractspec/example.email-gmail: unknown -> 3.7.27
+@contractspec/example.finance-ops-ai-workflows: unknown -> 1.1.0
+@contractspec/example.form-showcase: unknown -> 1.1.1
+@contractspec/example.harness-lab: unknown -> 3.8.2
+@contractspec/example.integration-hub: unknown -> 3.8.20
+@contractspec/example.integration-posthog: unknown -> 3.7.27
+@contractspec/example.knowledge-canon: unknown -> 3.8.2
+@contractspec/example.learning-journey-ambient-coach: unknown -> 4.0.6
+@contractspec/example.learning-journey-crm-onboarding: unknown -> 4.0.8
+@contractspec/example.learning-journey-duo-drills: unknown -> 4.0.6
+@contractspec/example.learning-journey-platform-tour: unknown -> 4.0.6
+@contractspec/example.learning-journey-quest-challenges: unknown -> 4.0.6
+@contractspec/example.learning-journey-registry: unknown -> 4.0.8
+@contractspec/example.learning-journey-studio-onboarding: unknown -> 4.0.6
+@contractspec/example.learning-journey-ui-coaching: unknown -> 4.0.8
+@contractspec/example.learning-journey-ui-gamified: unknown -> 4.0.8
+@contractspec/example.learning-journey-ui-onboarding: unknown -> 4.0.8
+@contractspec/example.learning-journey-ui-shared: unknown -> 4.0.8
+@contractspec/example.learning-patterns: unknown -> 4.0.6
+@contractspec/example.marketplace: unknown -> 3.8.20
+@contractspec/example.meeting-recorder-providers: unknown -> 3.7.27
+@contractspec/example.openbanking-powens: unknown -> 3.7.27
+@contractspec/example.pocket-family-office: unknown -> 3.8.0
+@contractspec/example.policy-safe-knowledge-assistant: unknown -> 3.7.28
+@contractspec/example.product-intent: unknown -> 3.7.27
+@contractspec/example.project-management-sync: unknown -> 3.7.27
+@contractspec/example.saas-boilerplate: unknown -> 3.8.20
+@contractspec/example.voice-providers: unknown -> 3.7.27
+@contractspec/example.wealth-snapshot: unknown -> 3.8.0
+@contractspec/example.workflow-system: unknown -> 3.8.20
+@contractspec/integration.builder-telegram: unknown -> 0.2.8
+@contractspec/integration.builder-voice: unknown -> 0.2.8
+@contractspec/integration.builder-whatsapp: unknown -> 0.2.8
+@contractspec/integration.harness-runtime: unknown -> 0.3.2
+@contractspec/integration.provider.analytics: unknown -> 0.2.2
+@contractspec/integration.provider.calendar: unknown -> 0.2.2
+@contractspec/integration.provider.claude-code: unknown -> 0.2.7
+@contractspec/integration.provider.codex: unknown -> 0.2.7
+@contractspec/integration.provider.copilot: unknown -> 0.2.7
+@contractspec/integration.provider.database: unknown -> 0.2.2
+@contractspec/integration.provider.email: unknown -> 0.2.2
+@contractspec/integration.provider.embedding: unknown -> 0.2.2
+@contractspec/integration.provider.gemini: unknown -> 0.2.7
+@contractspec/integration.provider.health: unknown -> 0.2.2
+@contractspec/integration.provider.llm: unknown -> 0.2.2
+@contractspec/integration.provider.local-model: unknown -> 0.2.7
+@contractspec/integration.provider.meeting-recorder: unknown -> 0.2.2
+@contractspec/integration.provider.messaging: unknown -> 0.2.2
+@contractspec/integration.provider.openbanking: unknown -> 0.2.2
+@contractspec/integration.provider.payments: unknown -> 0.2.2
+@contractspec/integration.provider.project-management: unknown -> 0.2.2
+@contractspec/integration.provider.sms: unknown -> 0.2.2
+@contractspec/integration.provider.storage: unknown -> 0.2.2
+@contractspec/integration.provider.stt: unknown -> 0.2.7
+@contractspec/integration.provider.vector-store: unknown -> 0.2.2
+@contractspec/integration.provider.voice: unknown -> 0.2.2
+@contractspec/integration.providers-impls: unknown -> 4.1.2
+@contractspec/integration.runtime: unknown -> 3.9.8
+@contractspec/integration.runtime.hybrid: unknown -> 0.2.8
+@contractspec/integration.runtime.local: unknown -> 0.2.8
+@contractspec/integration.runtime.managed: unknown -> 0.2.8
+@contractspec/lib.accessibility: unknown -> 3.7.27
+@contractspec/lib.builder-runtime: unknown -> 0.2.8
+@contractspec/lib.builder-spec: unknown -> 0.2.8
+@contractspec/lib.contracts-runtime-client-react: unknown -> 3.13.0
+@contractspec/lib.contracts-runtime-server-graphql: unknown -> 3.8.5
+@contractspec/lib.contracts-runtime-server-mcp: unknown -> 3.8.6
+@contractspec/lib.contracts-runtime-server-rest: unknown -> 3.8.5
+@contractspec/lib.contracts-spec: unknown -> 6.1.0
+@contractspec/lib.data-exchange-client: unknown -> 0.2.7
+@contractspec/lib.data-exchange-core: unknown -> 0.2.6
+@contractspec/lib.data-exchange-server: unknown -> 0.2.6
+@contractspec/lib.design-system: unknown -> 4.3.0
+@contractspec/lib.error: unknown -> 3.7.19
+@contractspec/lib.example-shared-ui: unknown -> 7.0.5
 @contractspec/lib.exporter: unknown -> latest
-@contractspec/lib.harness: unknown -> 0.3.1
-@contractspec/lib.jobs: unknown -> 3.8.4
-@contractspec/lib.knowledge: unknown -> 3.8.1
-@contractspec/lib.mobile-control: unknown -> 0.2.7
-@contractspec/lib.presentation-runtime-core: unknown -> 5.1.1
-@contractspec/lib.presentation-runtime-react: unknown -> 39.0.1
-@contractspec/lib.presentation-runtime-react-native: unknown -> 39.0.1
-@contractspec/lib.provider-runtime: unknown -> 0.2.7
-@contractspec/lib.provider-spec: unknown -> 0.2.5
-@contractspec/lib.runtime-sandbox: unknown -> 3.0.4
-@contractspec/lib.support-bot: unknown -> 4.0.5
-@contractspec/lib.surface-runtime: unknown -> 0.5.25
-@contractspec/lib.ui-kit: unknown -> 4.1.2
-@contractspec/lib.ui-kit-core: unknown -> 3.8.5
-@contractspec/lib.ui-kit-web: unknown -> 3.13.0
-@contractspec/lib.ui-link: unknown -> 3.7.20
-@contractspec/lib.video-gen: unknown -> 3.0.4
-@contractspec/module.ai-chat: unknown -> 4.3.27
-@contractspec/module.builder-workbench: unknown -> 0.2.9
-@contractspec/module.examples: unknown -> 4.0.4
-@contractspec/module.execution-console: unknown -> 0.1.10
-@contractspec/module.learning-journey: unknown -> 4.0.5
-@contractspec/module.mobile-review: unknown -> 0.2.9
-@contractspec/module.notifications: unknown -> 3.8.1
-@contractspec/module.workspace: unknown -> 4.3.5
+@contractspec/lib.harness: unknown -> 0.3.2
+@contractspec/lib.jobs: unknown -> 3.8.5
+@contractspec/lib.knowledge: unknown -> 3.8.2
+@contractspec/lib.mobile-control: unknown -> 0.2.8
+@contractspec/lib.presentation-runtime-core: unknown -> 5.2.0
+@contractspec/lib.presentation-runtime-react: unknown -> 40.0.0
+@contractspec/lib.presentation-runtime-react-native: unknown -> 40.0.0
+@contractspec/lib.provider-runtime: unknown -> 0.2.8
+@contractspec/lib.provider-spec: unknown -> 0.2.6
+@contractspec/lib.runtime-sandbox: unknown -> 3.0.5
+@contractspec/lib.support-bot: unknown -> 4.0.6
+@contractspec/lib.surface-runtime: unknown -> 0.5.26
+@contractspec/lib.ui-kit: unknown -> 4.1.3
+@contractspec/lib.ui-kit-core: unknown -> 3.8.6
+@contractspec/lib.ui-kit-web: unknown -> 3.13.1
+@contractspec/lib.ui-link: unknown -> 3.7.21
+@contractspec/lib.video-gen: unknown -> 3.0.5
+@contractspec/module.ai-chat: unknown -> 4.3.28
+@contractspec/module.builder-workbench: unknown -> 0.2.10
+@contractspec/module.examples: unknown -> 4.0.5
+@contractspec/module.execution-console: unknown -> 0.1.11
+@contractspec/module.learning-journey: unknown -> 4.0.6
+@contractspec/module.mobile-review: unknown -> 0.2.10
+@contractspec/module.notifications: unknown -> 3.8.2
+@contractspec/module.workspace: unknown -> 4.3.6
 @contractspec/tool.bun: unknown -> 3.7.18
-@contractspec/tool.docs-generator: unknown -> 3.7.24
+@contractspec/tool.docs-generator: unknown -> 3.7.25
 agentpacks: unknown -> 1.8.0
 contractspec: unknown -> 1.46.2
-vscode-contractspec: unknown -> 3.10.8
+vscode-contractspec: unknown -> 3.10.9
 
 Required steps:
+- [assisted] Re-run focused table overflow verification after upgrading: The contract, runtime, web, native, design-system, CLI, and workspace layers all participate in overflow behavior.
+  - Run the focused data-view and data-table test suites for contracts-spec, presentation-runtime-react, ui-kit-web, ui-kit, and design-system.
+  - Run typecheck and lint checks for the touched libraries, CLI, and workspace packages.
+- [assisted] Add optional collection defaults to collection DataView specs: Existing specs keep working; add view.collection when a renderer should expose shared collection controls or query page-size defaults.
+  - Add view.collection.viewModes to declare allowed list/grid/table projections.
+  - Add view.collection.pagination.pageSize when query generation should use a contract default.
+  - Keep table view.density where already used; it remains a permanent compatibility alias.
+- [assisted] Add numeric field slots to custom form drivers: Shared drivers can opt into richer rendering for the new field kinds.
+  - Implement the optional `NumberField`, `PercentField`, `CurrencyField`, and `DurationField` driver slots when custom styling is required.
+  - Keep relying on the `Input` fallback when a separate visual treatment is unnecessary.
+- [assisted] Use AppShell and PageOutline for new application frames: New application shells should compose the focused shell primitives instead of rebuilding frame, navigation, breadcrumb, command, and outline behavior locally.
+  - Import AppShell and PageOutline from "@contractspec/lib.design-system/shell".
+  - Keep legacy imports for existing AppLayout, AppSidebar, AppHeader, NavLink, and NavSection consumers.
+  - Re-run design-system and affected docs or app typechecks after adopting the shell subpath.
+- [assisted] Regenerate the examples preview registry: Example packages that add `./ui` exports must refresh the generated preview registry before preview consumers can load them.
+  - Run `bun run --cwd packages/modules/examples generate:registry`.
+  - Add the example packages as dependencies of preview-consuming bundles and apps.
+- [assisted] Regenerate the examples catalog and preview loaders: The workspace examples registry and inline preview registry must be regenerated after adding the public example package and its `./ui` export.
+  - Run `bun run --cwd packages/modules/examples generate:registry`.
+  - Add the example package as a dependency of preview-consuming bundles and apps.
+- [assisted] Consume the richer finance-ops preview entrypoint: The example package keeps the same `./ui` surface, but hosts should expect workflow rail navigation, supporting fixtures, local replay controls, selected-detail panels, and draft-review state.
+  - Install `@contractspec/example.finance-ops-ai-workflows` in preview-consuming apps.
+  - Regenerate any LLMS or docs package listings that enumerate example package surfaces.
 - [manual] Forward optional autocomplete async props in custom drivers: Custom autocomplete driver slots can opt into loading/error rendering without changing existing fields.
   - Accept optional `loading`, `error`, `emptyText`, `loadingText`, and `errorText` props on custom autocomplete components.
   - Keep existing `query`, `options`, `selectedOptions`, and selection callbacks unchanged.

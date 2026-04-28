@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.data-exchange-core",
-	"version": "0.2.5",
+	"version": "0.2.6",
 	"description": "SchemaModel-first core primitives for data import/export and mapping",
 	"keywords": [
 		"contractspec",

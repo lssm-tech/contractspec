@@ -1,5 +1,35 @@
 # Changelog
 
+## 6.2.2
+
+### Patch Changes
+
+- Add contract-driven overflow behavior and typed DataView hints for shared DataView and DataTable surfaces.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.presentation-runtime-core (minor), @contractspec/lib.presentation-runtime-react (minor), @contractspec/lib.ui-kit-web (patch), @contractspec/lib.ui-kit (patch), @contractspec/lib.design-system (patch), @contractspec/module.workspace (patch), @contractspec/bundle.workspace (patch), @contractspec/app.cli-contractspec (patch), @contractspec/bundle.library (patch)
+  - Migration: Existing tables keep working, but long prose, markdown, and detail-heavy columns can now declare their intended behavior.
+- Add production-ready collection defaults and renderer mode switching for DataView list, grid, and table specs.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.design-system (minor), @contractspec/module.workspace (patch), @contractspec/bundle.workspace (patch), @contractspec/app.cli-contractspec (patch), @contractspec/bundle.library (patch)
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add contract-driven overflow behavior and typed DataView hints for shared DataView and DataTable surfaces.
+- Updated dependencies because of Add production-ready collection defaults and renderer mode switching for DataView list, grid, and table specs.
+- Updated dependencies because of Add a governed public finance-ops workflow template with replay proof and inline web template preview support.
+- Updated dependencies because of Add numeric and temporal FormSpec field kinds with shared renderer support for number, percent, currency, and duration inputs.
+- Updated dependencies because of Add inline preview support for the Wealth Snapshot and Pocket Family Office examples in the templates catalog.
+  - @contractspec/integration.harness-runtime@0.3.2
+  - @contractspec/integration.runtime@3.9.8
+  - @contractspec/lib.ai-agent@8.0.14
+  - @contractspec/lib.ai-providers@3.7.19
+  - @contractspec/lib.contracts-integrations@3.8.18
+  - @contractspec/lib.contracts-transformers@3.7.26
+  - @contractspec/lib.harness@0.3.2
+  - @contractspec/lib.plugins@3.7.26
+  - @contractspec/lib.testing@3.7.26
+  - @contractspec/module.ai-chat@4.3.28
+  - @contractspec/lib.contracts-spec@6.1.0
+  - @contractspec/module.workspace@4.3.6
+  - @contractspec/bundle.workspace@4.5.6
+  - @contractspec/module.examples@4.0.5
+
 ## 6.2.1
 
 ### Patch Changes

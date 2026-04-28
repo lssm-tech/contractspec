@@ -1,5 +1,23 @@
 # @contractspec/integration.runtime
 
+## 3.9.8
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add contract-driven overflow behavior and typed DataView hints for shared DataView and DataTable surfaces.
+- Updated dependencies because of Add production-ready collection defaults and renderer mode switching for DataView list, grid, and table specs.
+- Updated dependencies because of Add numeric and temporal FormSpec field kinds with shared renderer support for number, percent, currency, and duration inputs.
+  - @contractspec/lib.builder-runtime@0.2.8
+  - @contractspec/lib.builder-spec@0.2.8
+  - @contractspec/lib.contracts-integrations@3.8.18
+  - @contractspec/lib.execution-lanes@0.1.9
+  - @contractspec/lib.jobs@3.8.5
+  - @contractspec/lib.logger@3.7.19
+  - @contractspec/lib.provider-spec@0.2.6
+  - @contractspec/lib.contracts-spec@6.1.0
+
 ## 3.9.7
 
 ### Patch Changes

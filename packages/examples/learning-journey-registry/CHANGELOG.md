@@ -1,5 +1,27 @@
 # @contractspec/example.learning-journey-registry
 
+## 4.0.8
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add contract-driven overflow behavior and typed DataView hints for shared DataView and DataTable surfaces.
+- Updated dependencies because of Add production-ready collection defaults and renderer mode switching for DataView list, grid, and table specs.
+- Updated dependencies because of Add numeric and temporal FormSpec field kinds with shared renderer support for number, percent, currency, and duration inputs.
+  - @contractspec/example.learning-journey-ambient-coach@4.0.6
+  - @contractspec/example.learning-journey-crm-onboarding@4.0.8
+  - @contractspec/example.learning-journey-duo-drills@4.0.6
+  - @contractspec/example.learning-journey-platform-tour@4.0.6
+  - @contractspec/example.learning-journey-quest-challenges@4.0.6
+  - @contractspec/example.learning-journey-studio-onboarding@4.0.6
+  - @contractspec/example.learning-journey-ui-coaching@4.0.8
+  - @contractspec/example.learning-journey-ui-gamified@4.0.8
+  - @contractspec/example.learning-journey-ui-onboarding@4.0.8
+  - @contractspec/example.learning-journey-ui-shared@4.0.8
+  - @contractspec/module.learning-journey@4.0.6
+  - @contractspec/lib.contracts-spec@6.1.0
+
 ## 4.0.7
 
 ### Patch Changes

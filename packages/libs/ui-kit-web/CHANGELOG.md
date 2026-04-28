@@ -1,5 +1,22 @@
 # @contractspec/lib.ui-kit-web
 
+## 3.13.1
+
+### Patch Changes
+
+- Add contract-driven overflow behavior and typed DataView hints for shared DataView and DataTable surfaces.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.presentation-runtime-core (minor), @contractspec/lib.presentation-runtime-react (minor), @contractspec/lib.ui-kit-web (patch), @contractspec/lib.ui-kit (patch), @contractspec/lib.design-system (patch), @contractspec/module.workspace (patch), @contractspec/bundle.workspace (patch), @contractspec/app.cli-contractspec (patch), @contractspec/bundle.library (patch)
+  - Migration: Existing tables keep working, but long prose, markdown, and detail-heavy columns can now declare their intended behavior.
+- Render resolver-backed combobox results as a floating overlay instead of inline form content.
+  - Packages: @contractspec/lib.ui-kit-web (patch)
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add contract-driven overflow behavior and typed DataView hints for shared DataView and DataTable surfaces.
+- Updated dependencies because of Add production-ready collection defaults and renderer mode switching for DataView list, grid, and table specs.
+- Updated dependencies because of Add numeric and temporal FormSpec field kinds with shared renderer support for number, percent, currency, and duration inputs.
+  - @contractspec/lib.ui-kit-core@3.8.6
+  - @contractspec/lib.contracts-spec@6.1.0
+  - @contractspec/lib.presentation-runtime-core@5.2.0
+
 ## 3.13.0
 
 ### Minor Changes

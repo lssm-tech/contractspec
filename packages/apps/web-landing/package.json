@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/app.web-landing",
-	"version": "3.8.21",
+	"version": "3.8.22",
 	"private": true,
 	"scripts": {
 		"clean": "rimraf .next dist .turbo",

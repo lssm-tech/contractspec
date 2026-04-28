@@ -1,5 +1,17 @@
 # @contractspec/integration.builder-voice
 
+## 0.2.8
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/lib.builder-runtime@0.2.8
+  - @contractspec/lib.builder-spec@0.2.8
+  - @contractspec/lib.contracts-integrations@3.8.18
+  - @contractspec/lib.provider-spec@0.2.6
+  - @contractspec/lib.voice@1.7.26
+
 ## 0.2.7
 
 ### Patch Changes

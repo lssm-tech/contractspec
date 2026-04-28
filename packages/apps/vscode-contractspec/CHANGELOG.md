@@ -1,5 +1,25 @@
 # Changelog
 
+## 3.10.9
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add contract-driven overflow behavior and typed DataView hints for shared DataView and DataTable surfaces.
+- Updated dependencies because of Add production-ready collection defaults and renderer mode switching for DataView list, grid, and table specs.
+- Updated dependencies because of Add a governed public finance-ops workflow template with replay proof and inline web template preview support.
+- Updated dependencies because of Add numeric and temporal FormSpec field kinds with shared renderer support for number, percent, currency, and duration inputs.
+- Updated dependencies because of Add inline preview support for the Wealth Snapshot and Pocket Family Office examples in the templates catalog.
+  - @contractspec/lib.ai-agent@8.0.14
+  - @contractspec/lib.ai-providers@3.7.19
+  - @contractspec/lib.contracts-transformers@3.7.26
+  - @contractspec/module.ai-chat@4.3.28
+  - @contractspec/lib.contracts-spec@6.1.0
+  - @contractspec/module.workspace@4.3.6
+  - @contractspec/bundle.workspace@4.5.6
+  - @contractspec/module.examples@4.0.5
+
 ## 3.10.8
 
 ### Patch Changes

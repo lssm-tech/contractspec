@@ -1,5 +1,57 @@
 # @contractspec/bundle.marketing
 
+## 3.8.21
+
+### Patch Changes
+
+- Add design-system application shell primitives with typed navigation, command search, breadcrumbs, native bottom-tab adaptation, and PageOutline support.
+  - Packages: @contractspec/lib.design-system (minor), @contractspec/bundle.library (patch), @contractspec/bundle.marketing (patch)
+  - Migration: Existing shell-related imports keep working, but new application frames should use the focused shell entrypoint.
+- Add a governed public finance-ops workflow template with replay proof and inline web template preview support.
+  - Packages: @contractspec/example.finance-ops-ai-workflows (minor), @contractspec/module.examples (patch), @contractspec/bundle.marketing (patch), @contractspec/app.web-landing (patch)
+- Add inline preview support for the Wealth Snapshot and Pocket Family Office examples in the templates catalog.
+  - Packages: @contractspec/example.pocket-family-office (minor), @contractspec/example.wealth-snapshot (minor), @contractspec/module.examples (patch), @contractspec/bundle.marketing (patch), @contractspec/app.web-landing (patch)
+- Updated dependencies because of Add design-system application shell primitives with typed navigation, command search, breadcrumbs, native bottom-tab adaptation, and PageOutline support.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add contract-driven overflow behavior and typed DataView hints for shared DataView and DataTable surfaces.
+- Updated dependencies because of Add production-ready collection defaults and renderer mode switching for DataView list, grid, and table specs.
+- Updated dependencies because of Add a governed public finance-ops workflow template with replay proof and inline web template preview support.
+- Updated dependencies because of Expand the Finance Ops AI Workflows preview into an operator cockpit and refresh the generated LLMS package surface for it.
+- Updated dependencies because of Add numeric and temporal FormSpec field kinds with shared renderer support for number, percent, currency, and duration inputs.
+- Updated dependencies because of Add inline preview support for the Wealth Snapshot and Pocket Family Office examples in the templates catalog.
+- Updated dependencies because of Add an extensible design-system object reference handler for actionable references.
+- Updated dependencies because of Render resolver-backed combobox results as a floating overlay instead of inline form content.
+  - @contractspec/lib.design-system@4.3.0
+  - @contractspec/bundle.library@3.9.8
+  - @contractspec/example.agent-console@3.8.20
+  - @contractspec/example.ai-chat-assistant@3.8.20
+  - @contractspec/example.analytics-dashboard@3.9.20
+  - @contractspec/example.crm-pipeline@3.7.28
+  - @contractspec/example.data-grid-showcase@3.8.20
+  - @contractspec/example.form-showcase@1.1.1
+  - @contractspec/example.in-app-docs@3.7.28
+  - @contractspec/example.integration-hub@3.8.20
+  - @contractspec/example.learning-journey-registry@4.0.8
+  - @contractspec/example.marketplace@3.8.20
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.28
+  - @contractspec/example.saas-boilerplate@3.8.20
+  - @contractspec/example.visualization-showcase@3.9.20
+  - @contractspec/example.workflow-system@3.8.20
+  - @contractspec/lib.email@3.7.19
+  - @contractspec/lib.example-shared-ui@7.0.5
+  - @contractspec/lib.logger@3.7.19
+  - @contractspec/lib.runtime-sandbox@3.0.5
+  - @contractspec/lib.surface-runtime@0.5.26
+  - @contractspec/lib.ui-kit-core@3.8.6
+  - @contractspec/lib.ui-link@3.7.21
+  - @contractspec/lib.contracts-spec@6.1.0
+  - @contractspec/lib.ui-kit-web@3.13.1
+  - @contractspec/example.finance-ops-ai-workflows@1.1.0
+  - @contractspec/module.examples@4.0.5
+  - @contractspec/lib.contracts-runtime-client-react@3.13.0
+  - @contractspec/example.pocket-family-office@3.8.0
+  - @contractspec/example.wealth-snapshot@3.8.0
+
 ## 3.8.20
 
 ### Patch Changes

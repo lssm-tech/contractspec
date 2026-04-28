@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/integration.provider.storage",
-	"version": "0.2.1",
+	"version": "0.2.2",
 	"description": "Object storage provider implementations for ContractSpec.",
 	"type": "module",
 	"types": "./dist/index.d.ts",

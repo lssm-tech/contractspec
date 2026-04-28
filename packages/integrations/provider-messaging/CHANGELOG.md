@@ -1,5 +1,14 @@
 # @contractspec/integration.provider.messaging
 
+## 0.2.2
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/integration.runtime@3.9.8
+  - @contractspec/lib.contracts-integrations@3.8.18
+
 ## 0.2.1
 
 ### Patch Changes

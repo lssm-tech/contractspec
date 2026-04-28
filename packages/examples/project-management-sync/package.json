@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/example.project-management-sync",
-	"version": "3.7.26",
+	"version": "3.7.27",
 	"description": "Project management sync example: Linear, Jira, and Notion work item creation.",
 	"type": "module",
 	"types": "./dist/index.d.ts",

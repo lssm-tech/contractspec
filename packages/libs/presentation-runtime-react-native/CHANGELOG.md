@@ -1,5 +1,18 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 40.0.0
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Add contract-driven overflow behavior and typed DataView hints for shared DataView and DataTable surfaces.
+- Updated dependencies because of Add production-ready collection defaults and renderer mode switching for DataView list, grid, and table specs.
+- Updated dependencies because of Add numeric and temporal FormSpec field kinds with shared renderer support for number, percent, currency, and duration inputs.
+  - @contractspec/lib.contracts-spec@6.1.0
+  - @contractspec/lib.presentation-runtime-core@5.2.0
+  - @contractspec/lib.presentation-runtime-react@40.0.0
+  - @contractspec/lib.ui-kit@4.1.3
+
 ## 39.0.1
 
 ### Patch Changes

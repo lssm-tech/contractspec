@@ -1,5 +1,18 @@
 # @contractspec/lib.contracts-spec
 
+## 6.1.0
+
+### Minor Changes
+
+- Add contract-driven overflow behavior and typed DataView hints for shared DataView and DataTable surfaces.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.presentation-runtime-core (minor), @contractspec/lib.presentation-runtime-react (minor), @contractspec/lib.ui-kit-web (patch), @contractspec/lib.ui-kit (patch), @contractspec/lib.design-system (patch), @contractspec/module.workspace (patch), @contractspec/bundle.workspace (patch), @contractspec/app.cli-contractspec (patch), @contractspec/bundle.library (patch)
+  - Migration: Existing tables keep working, but long prose, markdown, and detail-heavy columns can now declare their intended behavior.
+- Add production-ready collection defaults and renderer mode switching for DataView list, grid, and table specs.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.design-system (minor), @contractspec/module.workspace (patch), @contractspec/bundle.workspace (patch), @contractspec/app.cli-contractspec (patch), @contractspec/bundle.library (patch)
+- Add numeric and temporal FormSpec field kinds with shared renderer support for number, percent, currency, and duration inputs.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.contracts-runtime-client-react (minor), @contractspec/lib.design-system (minor)
+  - Migration: New field kinds provide stronger semantics and formatting metadata for finance and operations forms.
+
 ## 6.0.0
 
 ### Major Changes

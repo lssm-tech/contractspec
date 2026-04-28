@@ -1,5 +1,20 @@
 # @contractspec/lib.personalization
 
+## 6.0.26
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add contract-driven overflow behavior and typed DataView hints for shared DataView and DataTable surfaces.
+- Updated dependencies because of Add production-ready collection defaults and renderer mode switching for DataView list, grid, and table specs.
+- Updated dependencies because of Add numeric and temporal FormSpec field kinds with shared renderer support for number, percent, currency, and duration inputs.
+  - @contractspec/lib.bus@3.7.26
+  - @contractspec/lib.knowledge@3.8.2
+  - @contractspec/lib.overlay-engine@3.7.26
+  - @contractspec/lib.surface-runtime@0.5.26
+  - @contractspec/lib.contracts-spec@6.1.0
+
 ## 6.0.25
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @contractspec/app.cursor-marketplace
 
+## 1.7.20
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Add contract-driven overflow behavior and typed DataView hints for shared DataView and DataTable surfaces.
+- Updated dependencies because of Add production-ready collection defaults and renderer mode switching for DataView list, grid, and table specs.
+- Updated dependencies because of Add numeric and temporal FormSpec field kinds with shared renderer support for number, percent, currency, and duration inputs.
+  - @contractspec/lib.contracts-spec@6.1.0
+
 ## 1.7.19
 
 ### Patch Changes

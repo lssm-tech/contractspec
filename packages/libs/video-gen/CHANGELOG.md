@@ -1,5 +1,24 @@
 # @contractspec/lib.video-gen
 
+## 3.0.5
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Add design-system application shell primitives with typed navigation, command search, breadcrumbs, native bottom-tab adaptation, and PageOutline support.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add contract-driven overflow behavior and typed DataView hints for shared DataView and DataTable surfaces.
+- Updated dependencies because of Add production-ready collection defaults and renderer mode switching for DataView list, grid, and table specs.
+- Updated dependencies because of Add numeric and temporal FormSpec field kinds with shared renderer support for number, percent, currency, and duration inputs.
+- Updated dependencies because of Add an extensible design-system object reference handler for actionable references.
+  - @contractspec/lib.design-system@4.3.0
+  - @contractspec/lib.ai-providers@3.7.19
+  - @contractspec/lib.content-gen@3.7.26
+  - @contractspec/lib.contracts-integrations@3.8.18
+  - @contractspec/lib.image-gen@1.7.26
+  - @contractspec/lib.voice@1.7.26
+  - @contractspec/lib.contracts-spec@6.1.0
+
 ## 3.0.4
 
 ### Patch Changes

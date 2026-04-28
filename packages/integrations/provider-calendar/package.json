@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/integration.provider.calendar",
-	"version": "0.2.1",
+	"version": "0.2.2",
 	"description": "Calendar provider implementations for ContractSpec.",
 	"type": "module",
 	"types": "./dist/index.d.ts",

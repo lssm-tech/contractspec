@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/example.team-hub",
-	"version": "3.7.25",
+	"version": "3.7.26",
 	"description": "Team Hub example with spaces, tasks, rituals, and announcements",
 	"types": "./dist/index.d.ts",
 	"type": "module",

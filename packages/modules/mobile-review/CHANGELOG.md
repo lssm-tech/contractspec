@@ -1,5 +1,20 @@
 # @contractspec/module.mobile-review
 
+## 0.2.10
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add contract-driven overflow behavior and typed DataView hints for shared DataView and DataTable surfaces.
+- Updated dependencies because of Add production-ready collection defaults and renderer mode switching for DataView list, grid, and table specs.
+- Updated dependencies because of Add numeric and temporal FormSpec field kinds with shared renderer support for number, percent, currency, and duration inputs.
+- Updated dependencies because of Render resolver-backed combobox results as a floating overlay instead of inline form content.
+  - @contractspec/lib.builder-spec@0.2.8
+  - @contractspec/module.builder-workbench@0.2.10
+  - @contractspec/lib.contracts-spec@6.1.0
+  - @contractspec/lib.ui-kit-web@3.13.1
+
 ## 0.2.9
 
 ### Patch Changes

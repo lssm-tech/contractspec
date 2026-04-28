@@ -1,5 +1,15 @@
 # @contractspec/integration.provider.vector-store
 
+## 0.2.2
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/integration.provider.database@0.2.2
+  - @contractspec/integration.runtime@3.9.8
+  - @contractspec/lib.contracts-integrations@3.8.18
+
 ## 0.2.1
 
 ### Patch Changes

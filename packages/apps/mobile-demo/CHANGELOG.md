@@ -1,5 +1,43 @@
 # @contractspec/app.expo-demo
 
+## 1.1.30
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Add design-system application shell primitives with typed navigation, command search, breadcrumbs, native bottom-tab adaptation, and PageOutline support.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add contract-driven overflow behavior and typed DataView hints for shared DataView and DataTable surfaces.
+- Updated dependencies because of Add production-ready collection defaults and renderer mode switching for DataView list, grid, and table specs.
+- Updated dependencies because of Add a governed public finance-ops workflow template with replay proof and inline web template preview support.
+- Updated dependencies because of Add numeric and temporal FormSpec field kinds with shared renderer support for number, percent, currency, and duration inputs.
+- Updated dependencies because of Add inline preview support for the Wealth Snapshot and Pocket Family Office examples in the templates catalog.
+  - @contractspec/bundle.marketing@3.8.21
+  - @contractspec/example.agent-console@3.8.20
+  - @contractspec/example.ai-chat-assistant@3.8.20
+  - @contractspec/example.analytics-dashboard@3.9.20
+  - @contractspec/example.crm-pipeline@3.7.28
+  - @contractspec/example.data-grid-showcase@3.8.20
+  - @contractspec/example.in-app-docs@3.7.28
+  - @contractspec/example.integration-hub@3.8.20
+  - @contractspec/example.learning-journey-registry@4.0.8
+  - @contractspec/example.marketplace@3.8.20
+  - @contractspec/example.meeting-recorder-providers@3.7.27
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.28
+  - @contractspec/example.saas-boilerplate@3.8.20
+  - @contractspec/example.video-api-showcase@3.7.28
+  - @contractspec/example.video-docs-terminal@3.7.28
+  - @contractspec/example.visualization-showcase@3.9.20
+  - @contractspec/example.voice-providers@3.7.27
+  - @contractspec/example.workflow-system@3.8.20
+  - @contractspec/lib.presentation-runtime-react-native@40.0.0
+  - @contractspec/lib.ui-kit-core@3.8.6
+  - @contractspec/lib.contracts-spec@6.1.0
+  - @contractspec/lib.presentation-runtime-core@5.2.0
+  - @contractspec/lib.ui-kit@4.1.3
+  - @contractspec/module.examples@4.0.5
+  - @contractspec/example.pocket-family-office@3.8.0
+
 ## 1.1.29
 
 ### Patch Changes
