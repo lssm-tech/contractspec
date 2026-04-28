@@ -66,6 +66,33 @@ describe('example previews', () => {
 		);
 	});
 
+	test('exposes finance templates as inline previews', () => {
+		expect(supportsInlineExamplePreview('finance-ops-ai-workflows')).toBe(true);
+		expect(supportsInlineExamplePreview('wealth-snapshot')).toBe(true);
+		expect(supportsInlineExamplePreview('pocket-family-office')).toBe(true);
+		expect(
+			listInlineExamplePreviews().map((preview) => [
+				preview.key,
+				preview.exportName,
+			])
+		).toContainEqual([
+			'finance-ops-ai-workflows',
+			'FinanceOpsAiWorkflowsPreview',
+		]);
+		expect(
+			listInlineExamplePreviews().map((preview) => [
+				preview.key,
+				preview.exportName,
+			])
+		).toContainEqual(['wealth-snapshot', 'WealthSnapshotPreview']);
+		expect(
+			listInlineExamplePreviews().map((preview) => [
+				preview.key,
+				preview.exportName,
+			])
+		).toContainEqual(['pocket-family-office', 'PocketFamilyOfficePreview']);
+	});
+
 	test('builds preview surface data for every discoverable example', () => {
 		const surfaces = listExamplePreviewSurfaces();
 		const surfaceKeys = surfaces.map((surface) => surface.key).sort();

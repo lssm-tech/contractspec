@@ -1,0 +1,60 @@
+schemaVersion: "1"
+slug: inline-finance-example-previews
+summary: Add inline preview support for the Wealth Snapshot and Pocket Family Office examples in the templates catalog.
+isBreaking: false
+packages:
+  - name: "@contractspec/example.pocket-family-office"
+    releaseType: minor
+  - name: "@contractspec/example.wealth-snapshot"
+    releaseType: minor
+  - name: "@contractspec/module.examples"
+    releaseType: patch
+  - name: "@contractspec/bundle.marketing"
+    releaseType: patch
+  - name: "@contractspec/app.web-landing"
+    releaseType: patch
+affectedRuntimes:
+  - browser
+  - nextjs
+affectedFrameworks:
+  - react
+  - turbopack
+audiences:
+  - kind: maintainer
+    summary: The two finance example packages now publish `./ui` preview entrypoints, and the generated examples preview registry recognizes both exports.
+    affectedPackages:
+      - "@contractspec/example.pocket-family-office"
+      - "@contractspec/example.wealth-snapshot"
+      - "@contractspec/module.examples"
+  - kind: integrator
+    summary: Preview-consuming bundles and apps can resolve inline previews for both finance examples once the new example package dependencies are installed.
+    affectedPackages:
+      - "@contractspec/bundle.marketing"
+      - "@contractspec/app.web-landing"
+  - kind: customer
+    summary: `/templates` can now open useful inline previews for Wealth Snapshot and Pocket Family Office instead of only linking through the sandbox flow.
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: refresh-inline-preview-registry
+    title: Regenerate the examples preview registry
+    summary: Example packages that add `./ui` exports must refresh the generated preview registry before preview consumers can load them.
+    level: assisted
+    instructions:
+      - Run `bun run --cwd packages/modules/examples generate:registry`.
+      - Add the example packages as dependencies of preview-consuming bundles and apps.
+validation:
+  commands:
+    - "bun run --cwd packages/modules/examples generate:registry"
+    - "bun test packages/bundles/marketing/src/components/templates/template-preview.test.ts packages/modules/examples/src/runtime/previews.test.ts"
+    - "bun run --cwd packages/examples/wealth-snapshot typecheck && bun run --cwd packages/examples/wealth-snapshot build"
+    - "bun run --cwd packages/examples/pocket-family-office typecheck && bun run --cwd packages/examples/pocket-family-office build"
+    - "bun run --cwd packages/modules/examples typecheck"
+    - "bun run --cwd packages/bundles/marketing typecheck"
+    - "bun run --cwd packages/apps/web-landing build:types"
+    - "Playwright smoke test against http://localhost:3000/templates"
+  evidence:
+    - "Wealth Snapshot and Pocket Family Office both report `supportsInlineExamplePreview(...) === true`."
+    - "The templates catalog Preview button opens inline cards for both finance examples without using TemplateRuntimeProvider."
+knownGaps:
+  - "The inline previews are static summary surfaces designed for catalog browsing, not full interactive finance workspaces."

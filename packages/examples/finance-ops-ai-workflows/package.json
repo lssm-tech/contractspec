@@ -1,0 +1,50 @@
+{
+	"name": "@contractspec/example.finance-ops-ai-workflows",
+	"version": "1.0.0",
+	"description": "Deterministic finance operations AI workflow example with human review, fixed rules, and synthetic data only.",
+	"type": "module",
+	"exports": {
+		".": "./src/index.ts",
+		"./contracts": "./src/contracts/index.ts",
+		"./contracts/adoption-roi-log.operation": "./src/contracts/adoption-roi-log.operation.ts",
+		"./contracts/cash-aging-prioritization.operation": "./src/contracts/cash-aging-prioritization.operation.ts",
+		"./contracts/mission-intake-triage.operation": "./src/contracts/mission-intake-triage.operation.ts",
+		"./contracts/procedure-draft.operation": "./src/contracts/procedure-draft.operation.ts",
+		"./contracts/reporting-narrative.operation": "./src/contracts/reporting-narrative.operation.ts",
+		"./docs": "./src/docs/index.ts",
+		"./example": "./src/example.ts",
+		"./fixtures": "./src/fixtures/index.ts",
+		"./finance-ops-ai-workflows.feature": "./src/finance-ops-ai-workflows.feature.ts",
+		"./handlers": "./src/handlers/index.ts",
+		"./handlers/finance-ops-ai-workflows.handlers": "./src/handlers/finance-ops-ai-workflows.handlers.ts",
+		"./proof": "./src/proof/index.ts",
+		"./proof/finance-ops-ai-workflows.replay": "./src/proof/finance-ops-ai-workflows.replay.ts",
+		"./ui": "./src/ui/index.ts",
+		"./ui/FinanceOpsAiWorkflowsPreview": "./src/ui/FinanceOpsAiWorkflowsPreview.tsx"
+	},
+	"scripts": {
+		"build": "tsc --project tsconfig.json",
+		"typecheck": "tsc --noEmit",
+		"test": "bun test",
+		"smoke": "bun test src/example.smoke.test.ts",
+		"preflight": "bun run build && bun run typecheck && bun run test && bun run smoke"
+	},
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/lssm-tech/contractspec.git",
+		"directory": "packages/examples/finance-ops-ai-workflows"
+	},
+	"devDependencies": {
+		"@types/react": "catalog:types",
+		"@types/react-dom": "catalog:types",
+		"@contractspec/tool.typescript": "workspace:*",
+		"typescript": "catalog:"
+	},
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/lib.design-system": "workspace:*",
+		"@contractspec/lib.schema": "workspace:*",
+		"react": "catalog:",
+		"react-dom": "catalog:"
+	}
+}

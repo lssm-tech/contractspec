@@ -12,6 +12,7 @@ Website: https://contractspec.io
 - Capability and feature definition patterns.
 - Canonical `telemetry` export via `pocketFamilyOfficeTelemetry`.
 - Sample tenant and connection configuration.
+- An inline `PocketFamilyOfficePreview` UI for template and example browsers.
 
 ## Running Locally
 
@@ -35,6 +36,7 @@ Use `@contractspec/example.pocket-family-office` as a reference implementation, 
 - `src/knowledge` is part of the package's public or composition surface.
 - `src/operations` is part of the package's public or composition surface.
 - `src/telemetry.ts` defines the exported telemetry spec.
+- `src/ui/` contains the inline preview surface for catalog and template browsers.
 
 ## Public Entry Points
 
@@ -49,7 +51,12 @@ Use `@contractspec/example.pocket-family-office` as a reference implementation, 
 - Export `./pocket-family-office.capability` resolves through `./src/pocket-family-office.capability.ts`.
 - Export `./pocket-family-office.feature` resolves through `./src/pocket-family-office.feature.ts`.
 - Export `./telemetry` resolves through `./src/telemetry.ts`.
-- The package publishes 20 total export subpaths; keep docs aligned with `package.json`.
+- Export `./tenant.sample` resolves through `./src/tenant.sample.ts`.
+- Export `./ui` resolves through `./src/ui/index.ts`.
+- Export `./ui/PocketFamilyOfficePreview` resolves through `./src/ui/PocketFamilyOfficePreview.tsx`.
+- Export `./ui/pocket-family-office-preview.data` resolves through `./src/ui/pocket-family-office-preview.data.ts`.
+- Export `./workflows` resolves through `./src/workflows/index.ts`.
+- The package publishes 24 total export subpaths; keep docs aligned with `package.json`.
 
 ## Local Commands
 

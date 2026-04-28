@@ -66,6 +66,19 @@ export const INLINE_EXAMPLE_PREVIEW_REGISTRY: readonly GeneratedInlineExamplePre
 				}),
 		},
 		{
+			key: 'finance-ops-ai-workflows',
+			exportName: 'FinanceOpsAiWorkflowsPreview',
+			loadModule: () =>
+				import('@contractspec/example.finance-ops-ai-workflows/ui').catch(
+					(error) => {
+						throw new Error(
+							'Example package @contractspec/example.finance-ops-ai-workflows is not installed. Run `contractspec examples download finance-ops-ai-workflows` or install the package before requesting its runtime preview.',
+							{ cause: error }
+						);
+					}
+				),
+		},
+		{
 			key: 'form-showcase',
 			exportName: 'FormShowcasePreview',
 			loadModule: () =>
@@ -123,6 +136,19 @@ export const INLINE_EXAMPLE_PREVIEW_REGISTRY: readonly GeneratedInlineExamplePre
 				}),
 		},
 		{
+			key: 'pocket-family-office',
+			exportName: 'PocketFamilyOfficePreview',
+			loadModule: () =>
+				import('@contractspec/example.pocket-family-office/ui').catch(
+					(error) => {
+						throw new Error(
+							'Example package @contractspec/example.pocket-family-office is not installed. Run `contractspec examples download pocket-family-office` or install the package before requesting its runtime preview.',
+							{ cause: error }
+						);
+					}
+				),
+		},
+		{
 			key: 'policy-safe-knowledge-assistant',
 			exportName: 'PolicySafeKnowledgeAssistantDashboard',
 			loadModule: () =>
@@ -158,6 +184,17 @@ export const INLINE_EXAMPLE_PREVIEW_REGISTRY: readonly GeneratedInlineExamplePre
 						);
 					}
 				),
+		},
+		{
+			key: 'wealth-snapshot',
+			exportName: 'WealthSnapshotPreview',
+			loadModule: () =>
+				import('@contractspec/example.wealth-snapshot/ui').catch((error) => {
+					throw new Error(
+						'Example package @contractspec/example.wealth-snapshot is not installed. Run `contractspec examples download wealth-snapshot` or install the package before requesting its runtime preview.',
+						{ cause: error }
+					);
+				}),
 		},
 		{
 			key: 'workflow-system',

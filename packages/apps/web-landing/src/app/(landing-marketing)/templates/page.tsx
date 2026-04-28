@@ -1,4 +1,4 @@
-import { TemplatesPage } from '@contractspec/bundle.marketing';
+import { TemplatesPage as TemplatesClientPage } from '@contractspec/bundle.marketing/components/templates/TemplatesClientPage';
 
 import type { Metadata } from 'next';
 
@@ -17,4 +17,6 @@ export const metadata: Metadata = {
 	},
 };
 
-export default TemplatesPage;
+export default function TemplatesPage() {
+	return <TemplatesClientPage />;
+}

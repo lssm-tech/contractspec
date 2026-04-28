@@ -4,6 +4,7 @@ export { default as example } from './example';
 export * from './handlers';
 export * from './operations';
 export * from './presentations';
+export * from './ui';
 export * from './wealth-snapshot.feature';
 import './docs';
 

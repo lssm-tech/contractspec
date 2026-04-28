@@ -19,16 +19,21 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/lib.design-system": "workspace:*",
 		"@contractspec/lib.identity-rbac": "workspace:*",
 		"@contractspec/lib.schema": "workspace:*",
-		"@contractspec/lib.contracts-spec": "workspace:*",
 		"@contractspec/module.audit-trail": "workspace:*",
-		"@contractspec/module.notifications": "workspace:*"
+		"@contractspec/module.notifications": "workspace:*",
+		"react": "catalog:",
+		"react-dom": "catalog:"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",
-		"typescript": "catalog:",
-		"@contractspec/tool.bun": "workspace:*"
+		"@contractspec/tool.bun": "workspace:*",
+		"@types/react": "catalog:types",
+		"@types/react-dom": "catalog:types",
+		"typescript": "catalog:"
 	},
 	"exports": {
 		".": "./src/index.ts",
@@ -40,6 +45,9 @@
 		"./handlers": "./src/handlers/index.ts",
 		"./operations": "./src/operations/index.ts",
 		"./presentations": "./src/presentations.ts",
+		"./ui": "./src/ui/index.ts",
+		"./ui/wealth-snapshot-preview.data": "./src/ui/wealth-snapshot-preview.data.ts",
+		"./ui/WealthSnapshotPreview": "./src/ui/WealthSnapshotPreview.tsx",
 		"./wealth-snapshot.capability": "./src/wealth-snapshot.capability.ts",
 		"./wealth-snapshot.feature": "./src/wealth-snapshot.feature.ts"
 	},
@@ -112,6 +120,27 @@
 				"bun": "./dist/presentations.js",
 				"node": "./dist/node/presentations.js",
 				"default": "./dist/presentations.js"
+			},
+			"./ui": {
+				"types": "./dist/ui/index.d.ts",
+				"browser": "./dist/browser/ui/index.js",
+				"bun": "./dist/ui/index.js",
+				"node": "./dist/node/ui/index.js",
+				"default": "./dist/ui/index.js"
+			},
+			"./ui/wealth-snapshot-preview.data": {
+				"types": "./dist/ui/wealth-snapshot-preview.data.d.ts",
+				"browser": "./dist/browser/ui/wealth-snapshot-preview.data.js",
+				"bun": "./dist/ui/wealth-snapshot-preview.data.js",
+				"node": "./dist/node/ui/wealth-snapshot-preview.data.js",
+				"default": "./dist/ui/wealth-snapshot-preview.data.js"
+			},
+			"./ui/WealthSnapshotPreview": {
+				"types": "./dist/ui/WealthSnapshotPreview.d.ts",
+				"browser": "./dist/browser/ui/WealthSnapshotPreview.js",
+				"bun": "./dist/ui/WealthSnapshotPreview.js",
+				"node": "./dist/node/ui/WealthSnapshotPreview.js",
+				"default": "./dist/ui/WealthSnapshotPreview.js"
 			},
 			"./wealth-snapshot.capability": {
 				"types": "./dist/wealth-snapshot.capability.d.ts",

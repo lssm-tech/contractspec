@@ -289,6 +289,52 @@ export const EXAMPLE_REGISTRY = [
 	},
 	{
 		meta: {
+			key: 'finance-ops-ai-workflows',
+			version: '1.0.0',
+			title: 'Finance Ops AI Workflows',
+			description:
+				'Safe finance operations AI workflow example with mission intake triage, cash prioritization, procedure drafting, reporting narrative, human review, and adoption ROI logging.',
+			summary:
+				'A ContractSpec template for safe, deterministic, human-reviewed AI-assisted finance operations workflows.',
+			kind: 'template',
+			visibility: 'public',
+			stability: 'beta',
+			owners: ['@platform.finance-ops'],
+			tags: [
+				'package',
+				'examples',
+				'finance',
+				'finance-ops',
+				'workflow',
+				'agents',
+				'human-review',
+				'cash-management',
+				'reporting',
+				'adoption',
+				'roi',
+			],
+		},
+		surfaces: {
+			templates: true,
+			sandbox: {
+				enabled: true,
+				modes: ['playground', 'specs'],
+			},
+			studio: {
+				enabled: false,
+				installable: false,
+			},
+			mcp: {
+				enabled: false,
+			},
+		},
+		entrypoints: {
+			packageName: '@contractspec/example.finance-ops-ai-workflows',
+			docs: './docs',
+		},
+	},
+	{
+		meta: {
 			key: 'form-showcase',
 			version: '1.0.0',
 			title: 'Form Showcase',
@@ -1802,6 +1848,13 @@ export const EXAMPLE_SOURCE_REGISTRY = [
 		packageName: '@contractspec/example.email-gmail',
 		repositoryUrl: 'https://github.com/lssm-tech/contractspec.git',
 		directory: 'packages/examples/email-gmail',
+		defaultRef: 'main',
+	},
+	{
+		key: 'finance-ops-ai-workflows',
+		packageName: '@contractspec/example.finance-ops-ai-workflows',
+		repositoryUrl: 'https://github.com/lssm-tech/contractspec.git',
+		directory: 'packages/examples/finance-ops-ai-workflows',
 		defaultRef: 'main',
 	},
 	{

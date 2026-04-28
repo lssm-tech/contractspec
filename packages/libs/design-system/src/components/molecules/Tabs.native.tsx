@@ -52,7 +52,6 @@ export function Tabs({
 	componentKey,
 	themeVariant,
 }: TabsProps) {
-	console.log('tabs mobile');
 	const themed = useThemedPrimitive({
 		defaultComponentKey: 'Tabs',
 		componentKey,

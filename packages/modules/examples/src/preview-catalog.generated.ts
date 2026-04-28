@@ -28,6 +28,10 @@ export const INLINE_EXAMPLE_PREVIEW_METADATA: readonly GeneratedInlineExamplePre
 			exportName: 'DataGridShowcase',
 		},
 		{
+			key: 'finance-ops-ai-workflows',
+			exportName: 'FinanceOpsAiWorkflowsPreview',
+		},
+		{
 			key: 'form-showcase',
 			exportName: 'FormShowcasePreview',
 		},
@@ -48,6 +52,10 @@ export const INLINE_EXAMPLE_PREVIEW_METADATA: readonly GeneratedInlineExamplePre
 			exportName: 'MarketplaceDashboard',
 		},
 		{
+			key: 'pocket-family-office',
+			exportName: 'PocketFamilyOfficePreview',
+		},
+		{
 			key: 'policy-safe-knowledge-assistant',
 			exportName: 'PolicySafeKnowledgeAssistantDashboard',
 		},
@@ -58,6 +66,10 @@ export const INLINE_EXAMPLE_PREVIEW_METADATA: readonly GeneratedInlineExamplePre
 		{
 			key: 'visualization-showcase',
 			exportName: 'VisualizationShowcase',
+		},
+		{
+			key: 'wealth-snapshot',
+			exportName: 'WealthSnapshotPreview',
 		},
 		{
 			key: 'workflow-system',

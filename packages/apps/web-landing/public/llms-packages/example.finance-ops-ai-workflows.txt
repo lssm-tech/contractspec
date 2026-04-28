@@ -1,0 +1,57 @@
+# @contractspec/example.finance-ops-ai-workflows
+
+Safe finance operations AI workflow example with mission intake triage, cash prioritization, procedure drafting, reporting narrative, human review, and adoption ROI logging.
+
+## What This Demonstrates
+
+- Turning finance ops requests into explicit ContractSpec operations instead of prompt-only workflows.
+- Deterministic mission intake triage for DAF / finance transformation scoping.
+- Fixed-date cash aging prioritization using synthetic receivables and rule-based actions.
+- Procedure draft and reporting narrative helpers that keep management validation explicit.
+- AI adoption ROI logging that measures use cases, time saved, data risk, quality, and policy needs.
+
+## Safety Boundaries
+
+- No LLM calls.
+- No external API calls.
+- No email sending.
+- No live ERP, CRM, BI, banking, or finance-system integration.
+- No real client, employee, or personal data.
+- Outputs are review drafts only, not financial, legal, tax, accounting, or investment advice.
+- Human review is required before any client-facing or operational use.
+
+## Running Locally
+
+From `packages/examples/finance-ops-ai-workflows`:
+- `bun run build`
+- `bun run typecheck`
+- `bun run test`
+- `bun run smoke`
+- `bun run preflight`
+
+## Demo Flow
+
+1. Import fixtures from `@contractspec/example.finance-ops-ai-workflows/fixtures`.
+2. Run `financeOps.missionIntake.triage` to frame a fictive DAF / finance recovery mission.
+3. Run `financeOps.cashAging.prioritize` to produce a reviewable cash action pack.
+4. Run `financeOps.procedureDraft.create` and `financeOps.reportingNarrative.compose` to show governed assistance beyond prompt text.
+5. Run `financeOps.aiAdoption.logUsage` to show measurable, policy-aware AI adoption.
+
+## Public Entry Points
+
+- Export `.` resolves through `./src/index.ts`.
+- Export `./contracts` resolves through `./src/contracts/index.ts`.
+- Export `./docs` resolves through `./src/docs/index.ts`.
+- Export `./example` resolves through `./src/example.ts`.
+- Export `./fixtures` resolves through `./src/fixtures/index.ts`.
+- Export `./handlers` resolves through `./src/handlers/index.ts`.
+- Export `./proof` resolves through `./src/proof/index.ts`.
+- Export `./ui` resolves through `./src/ui/index.ts`.
+
+## Local Commands
+
+- `bun run build` — tsc --project tsconfig.json
+- `bun run typecheck` — tsc --noEmit
+- `bun run test` — bun test
+- `bun run smoke` — bun test src/example.smoke.test.ts
+- `bun run preflight` — bun run build && bun run typecheck && bun run test && bun run smoke

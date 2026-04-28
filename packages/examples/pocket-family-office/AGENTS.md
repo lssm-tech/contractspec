@@ -20,6 +20,7 @@ Pocket Family Office example - personal finance automation with open banking.
 - `src/index.ts` is the root public barrel and package entrypoint.
 - `src/knowledge` is part of the package's public or composition surface.
 - `src/operations` is part of the package's public or composition surface.
+- `src/ui/` contains the inline preview surface for catalog and template browsers.
 
 ## Public Surface
 
@@ -33,7 +34,13 @@ Pocket Family Office example - personal finance automation with open banking.
 - Export `./operations` resolves through `./src/operations/index.ts`.
 - Export `./pocket-family-office.capability` resolves through `./src/pocket-family-office.capability.ts`.
 - Export `./pocket-family-office.feature` resolves through `./src/pocket-family-office.feature.ts`.
-- The package publishes 21 total export subpaths; keep docs aligned with `package.json`.
+- Export `./telemetry` resolves through `./src/telemetry.ts`.
+- Export `./tenant.sample` resolves through `./src/tenant.sample.ts`.
+- Export `./ui` resolves through `./src/ui/index.ts`.
+- Export `./ui/PocketFamilyOfficePreview` resolves through `./src/ui/PocketFamilyOfficePreview.tsx`.
+- Export `./ui/pocket-family-office-preview.data` resolves through `./src/ui/pocket-family-office-preview.data.ts`.
+- Export `./workflows` resolves through `./src/workflows/index.ts`.
+- The package publishes 24 total export subpaths; keep docs aligned with `package.json`.
 
 ## Guardrails
 

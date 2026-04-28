@@ -33,6 +33,12 @@ describe('native preview registry', () => {
 		expect(getNativeExamplePreview('data-grid-showcase')?.kind).toBe(
 			'data-grid-showcase'
 		);
+		expect(getNativeExamplePreview('finance-ops-ai-workflows')?.kind).toBe(
+			'finance-ops-ai-workflows'
+		);
+		expect(getNativeExamplePreview('form-showcase')?.kind).toBe(
+			'form-showcase'
+		);
 		expect(getNativeExamplePreview('agent-console')?.kind).toBe(
 			'agent-console'
 		);
@@ -47,6 +53,9 @@ describe('native preview registry', () => {
 		);
 		expect(getNativeExamplePreview('workflow-system')?.kind).toBe(
 			'workflow-system'
+		);
+		expect(getNativeExamplePreview('wealth-snapshot')?.kind).toBe(
+			'wealth-snapshot'
 		);
 	});
 

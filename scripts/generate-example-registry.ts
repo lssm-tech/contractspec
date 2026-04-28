@@ -62,14 +62,17 @@ const PRIMARY_UI_EXPORT_BY_DIRECTORY: Record<string, string> = {
 	'analytics-dashboard': 'AnalyticsDashboard',
 	'crm-pipeline': 'CrmDashboard',
 	'data-grid-showcase': 'DataGridShowcase',
+	'finance-ops-ai-workflows': 'FinanceOpsAiWorkflowsPreview',
 	'form-showcase': 'FormShowcasePreview',
 	'in-app-docs': 'InAppDocsViewer',
 	'integration-hub': 'IntegrationDashboard',
 	'learning-journey-registry': 'LearningMiniApp',
 	marketplace: 'MarketplaceDashboard',
+	'pocket-family-office': 'PocketFamilyOfficePreview',
 	'policy-safe-knowledge-assistant': 'PolicySafeKnowledgeAssistantDashboard',
 	'saas-boilerplate': 'SaasDashboard',
 	'visualization-showcase': 'VisualizationShowcase',
+	'wealth-snapshot': 'WealthSnapshotPreview',
 	'workflow-system': 'WorkflowDashboard',
 };
 

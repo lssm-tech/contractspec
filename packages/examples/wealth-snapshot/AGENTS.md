@@ -20,6 +20,7 @@ Wealth Snapshot mini-app for accounts, assets, liabilities, and goals.
 - `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
 - `src/index.ts` is the root public barrel and package entrypoint.
 - `src/operations` is part of the package's public or composition surface.
+- `src/ui/` contains the inline preview surface for catalog and template browsers.
 
 ## Public Surface
 
@@ -32,8 +33,12 @@ Wealth Snapshot mini-app for accounts, assets, liabilities, and goals.
 - Export `./handlers` resolves through `./src/handlers/index.ts`.
 - Export `./operations` resolves through `./src/operations/index.ts`.
 - Export `./presentations` resolves through `./src/presentations.ts`.
+- Export `./ui` resolves through `./src/ui/index.ts`.
+- Export `./ui/WealthSnapshotPreview` resolves through `./src/ui/WealthSnapshotPreview.tsx`.
+- Export `./ui/wealth-snapshot-preview.data` resolves through `./src/ui/wealth-snapshot-preview.data.ts`.
 - Export `./wealth-snapshot.capability` resolves through `./src/wealth-snapshot.capability.ts`.
-- The package publishes 11 total export subpaths; keep docs aligned with `package.json`.
+- Export `./wealth-snapshot.feature` resolves through `./src/wealth-snapshot.feature.ts`.
+- The package publishes 14 total export subpaths; keep docs aligned with `package.json`.
 
 ## Guardrails
 

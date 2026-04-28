@@ -24,6 +24,7 @@ describe('web-landing Next.js tracing config', () => {
 				'@contractspec/example.analytics-dashboard',
 				'@contractspec/example.crm-pipeline',
 				'@contractspec/example.data-grid-showcase',
+				'@contractspec/example.finance-ops-ai-workflows',
 				'@contractspec/example.in-app-docs',
 				'@contractspec/example.integration-hub',
 				'@contractspec/example.learning-journey-registry',

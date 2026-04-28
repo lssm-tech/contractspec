@@ -29,15 +29,20 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@contractspec/lib.knowledge": "workspace:*",
-		"@contractspec/lib.contracts-spec": "workspace:*",
 		"@contractspec/lib.contracts-integrations": "workspace:*",
-		"@contractspec/lib.schema": "workspace:*"
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/lib.design-system": "workspace:*",
+		"@contractspec/lib.knowledge": "workspace:*",
+		"@contractspec/lib.schema": "workspace:*",
+		"react": "catalog:",
+		"react-dom": "catalog:"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",
-		"typescript": "catalog:",
-		"@contractspec/tool.bun": "workspace:*"
+		"@contractspec/tool.bun": "workspace:*",
+		"@types/react": "catalog:types",
+		"@types/react-dom": "catalog:types",
+		"typescript": "catalog:"
 	},
 	"exports": {
 		".": "./src/index.ts",
@@ -52,6 +57,9 @@
 		"./pocket-family-office.feature": "./src/pocket-family-office.feature.ts",
 		"./telemetry": "./src/telemetry.ts",
 		"./tenant.sample": "./src/tenant.sample.ts",
+		"./ui": "./src/ui/index.ts",
+		"./ui/pocket-family-office-preview.data": "./src/ui/pocket-family-office-preview.data.ts",
+		"./ui/PocketFamilyOfficePreview": "./src/ui/PocketFamilyOfficePreview.tsx",
 		"./workflows": "./src/workflows/index.ts",
 		"./workflows/generate-financial-summary": "./src/workflows/generate-financial-summary.ts",
 		"./workflows/generate-openbanking-overview": "./src/workflows/generate-openbanking-overview.ts",
@@ -153,6 +161,27 @@
 				"bun": "./dist/tenant.sample.js",
 				"node": "./dist/node/tenant.sample.js",
 				"default": "./dist/tenant.sample.js"
+			},
+			"./ui": {
+				"types": "./dist/ui/index.d.ts",
+				"browser": "./dist/browser/ui/index.js",
+				"bun": "./dist/ui/index.js",
+				"node": "./dist/node/ui/index.js",
+				"default": "./dist/ui/index.js"
+			},
+			"./ui/pocket-family-office-preview.data": {
+				"types": "./dist/ui/pocket-family-office-preview.data.d.ts",
+				"browser": "./dist/browser/ui/pocket-family-office-preview.data.js",
+				"bun": "./dist/ui/pocket-family-office-preview.data.js",
+				"node": "./dist/node/ui/pocket-family-office-preview.data.js",
+				"default": "./dist/ui/pocket-family-office-preview.data.js"
+			},
+			"./ui/PocketFamilyOfficePreview": {
+				"types": "./dist/ui/PocketFamilyOfficePreview.d.ts",
+				"browser": "./dist/browser/ui/PocketFamilyOfficePreview.js",
+				"bun": "./dist/ui/PocketFamilyOfficePreview.js",
+				"node": "./dist/node/ui/PocketFamilyOfficePreview.js",
+				"default": "./dist/ui/PocketFamilyOfficePreview.js"
 			},
 			"./workflows": {
 				"types": "./dist/workflows/index.d.ts",

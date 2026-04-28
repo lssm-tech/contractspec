@@ -6,6 +6,7 @@ export * from './operations';
 export * from './pocket-family-office.feature';
 export * from './telemetry';
 export * from './tenant.sample';
+export * from './ui';
 export * from './workflows';
 
 import './docs';

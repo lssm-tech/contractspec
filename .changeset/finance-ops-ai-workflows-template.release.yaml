@@ -1,0 +1,58 @@
+schemaVersion: "1"
+slug: finance-ops-ai-workflows-template
+summary: Add a governed public finance-ops workflow template with replay proof and inline web template preview support.
+isBreaking: false
+packages:
+  - name: "@contractspec/example.finance-ops-ai-workflows"
+    releaseType: minor
+  - name: "@contractspec/module.examples"
+    releaseType: patch
+  - name: "@contractspec/bundle.marketing"
+    releaseType: patch
+  - name: "@contractspec/app.web-landing"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - browser
+  - nextjs
+affectedFrameworks:
+  - react
+audiences:
+  - kind: maintainer
+    summary: Maintainers now have a public deterministic finance-ops example package covering mission intake, cash-aging prioritization, procedure drafting, reporting narrative composition, AI usage governance, and an inline UI preview.
+    affectedPackages:
+      - "@contractspec/example.finance-ops-ai-workflows"
+  - kind: integrator
+    summary: Integrators can route the new finance-ops template through existing examples discovery, sandbox surfaces, and generated inline preview loaders without external AI dependencies.
+    affectedPackages:
+      - "@contractspec/example.finance-ops-ai-workflows"
+      - "@contractspec/module.examples"
+      - "@contractspec/bundle.marketing"
+      - "@contractspec/app.web-landing"
+  - kind: customer
+    summary: Example consumers can open the Finance Ops AI Workflows Preview button from `/templates` and inspect governed finance workflow assistance across five synthetic workflows with fixed rules, replay proof, and mandatory human review.
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: regenerate-examples-catalog
+    title: Regenerate the examples catalog and preview loaders
+    summary: The workspace examples registry and inline preview registry must be regenerated after adding the public example package and its `./ui` export.
+    level: assisted
+    instructions:
+      - Run `bun run --cwd packages/modules/examples generate:registry`.
+      - Add the example package as a dependency of preview-consuming bundles and apps.
+validation:
+  commands:
+    - "bun run --cwd packages/examples/finance-ops-ai-workflows preflight"
+    - "bun run --cwd packages/modules/examples generate:registry"
+    - "bun test packages/modules/examples/src/runtime/previews.test.ts packages/modules/examples/src/registry.test.ts packages/apps/web-landing/next.config.test.ts"
+    - "bun test packages/bundles/marketing/src/components/templates/template-preview.test.ts packages/apps/mobile-demo/src/examples/native-preview-registry.test.ts"
+    - "bun run --cwd packages/modules/examples typecheck"
+    - "bun run --cwd packages/bundles/marketing typecheck"
+    - "bun run --cwd packages/apps/web-landing typecheck"
+    - "Playwright smoke test against http://localhost:3000/templates"
+  evidence:
+    - "The new package publishes five deterministic finance workflow operations with public beta template metadata, fixtures, handlers, and replay proof support."
+    - "module.examples builtins and inline preview registries include finance-ops-ai-workflows with generated source and UI loader metadata."
+    - "The templates catalog Preview button opens the Finance Ops AI Workflows inline modal and renders safety content without console errors."
+knownGaps: []

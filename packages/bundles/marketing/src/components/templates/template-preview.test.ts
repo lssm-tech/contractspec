@@ -44,7 +44,37 @@ describe('template preview actions', () => {
 
 	test('keeps form-only previews outside the heavy template runtime', () => {
 		expect(requiresTemplateRuntimePreview('agent-console')).toBe(true);
+		expect(requiresTemplateRuntimePreview('finance-ops-ai-workflows')).toBe(
+			false
+		);
 		expect(requiresTemplateRuntimePreview('form-showcase')).toBe(false);
+		expect(requiresTemplateRuntimePreview('wealth-snapshot')).toBe(false);
+		expect(requiresTemplateRuntimePreview('pocket-family-office')).toBe(false);
+	});
+
+	test('uses inline modal previews for finance templates', () => {
+		const templates = new Map(
+			buildLocalTemplateCatalog().map((template) => [template.id, template])
+		);
+
+		expect(
+			getLocalTemplatePreviewAction(templates.get('finance-ops-ai-workflows')!)
+		).toEqual({
+			kind: 'modal',
+			templateId: 'finance-ops-ai-workflows',
+		});
+		expect(
+			getLocalTemplatePreviewAction(templates.get('wealth-snapshot')!)
+		).toEqual({
+			kind: 'modal',
+			templateId: 'wealth-snapshot',
+		});
+		expect(
+			getLocalTemplatePreviewAction(templates.get('pocket-family-office')!)
+		).toEqual({
+			kind: 'modal',
+			templateId: 'pocket-family-office',
+		});
 	});
 
 	test('keeps non-template discoverable examples out of the templates catalog', () => {

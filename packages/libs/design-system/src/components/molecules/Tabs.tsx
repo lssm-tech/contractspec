@@ -54,7 +54,6 @@ export function Tabs({
 	componentKey,
 	themeVariant,
 }: TabsProps) {
-	console.log('tabs web');
 	const themed = useThemedPrimitive({
 		defaultComponentKey: 'Tabs',
 		componentKey,
