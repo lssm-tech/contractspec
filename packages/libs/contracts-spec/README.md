@@ -256,6 +256,16 @@ badges, numbers, currency, percentages, dates, times, durations, and booleans
 truncate. `expand` keeps the compact cell but adds the field to row expansion;
 `hideColumn` starts the column hidden when column visibility is enabled.
 
+Collection data views (`list`, `grid`, and `table`) can now share production
+listing defaults under `view.collection`. Use `collection.viewModes` to declare
+which modes a renderer may project between, `collection.pagination.pageSize` to
+seed query generation, `collection.toolbar` to describe search/filter/view-mode
+controls, and `collection.density` for cross-mode spacing defaults. The
+authored `view.kind` remains the canonical shape; renderers derive alternate
+collection projections without mutating the source spec. Table `density`
+remains supported as a permanent compatibility alias and wins over shared
+collection density for table specs.
+
 ```ts
 import { defineDataView } from '@contractspec/lib.contracts-spec/data-views';
 import { ListDataGridShowcaseRowsQuery } from '@contractspec/example.data-grid-showcase/contracts/data-grid-showcase.operation';
@@ -281,6 +291,15 @@ export const DataGridShowcaseDataView = defineDataView({
   },
   view: {
     kind: 'table',
+    collection: {
+      viewModes: {
+        defaultMode: 'table',
+        allowedModes: ['list', 'grid', 'table'],
+      },
+      pagination: { pageSize: 20 },
+      toolbar: { search: true, viewMode: true, filters: true, density: true },
+      density: 'comfortable',
+    },
     executionMode: 'client',
     selection: 'multiple',
     columnVisibility: true,

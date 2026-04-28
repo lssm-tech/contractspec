@@ -1,0 +1,53 @@
+schemaVersion: "1"
+slug: data-views-collection-readiness
+summary: Add production-ready collection defaults and renderer mode switching for DataView list, grid, and table specs.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.contracts-spec"
+    releaseType: minor
+  - name: "@contractspec/lib.design-system"
+    releaseType: minor
+  - name: "@contractspec/module.workspace"
+    releaseType: patch
+  - name: "@contractspec/bundle.workspace"
+    releaseType: patch
+  - name: "@contractspec/app.cli-contractspec"
+    releaseType: patch
+  - name: "@contractspec/bundle.library"
+    releaseType: patch
+affectedRuntimes:
+  - browser
+  - react-native
+affectedFrameworks:
+  - react
+  - expo
+audiences:
+  - kind: maintainer
+    summary: DataView collection specs now share view-mode, toolbar, pagination, and density defaults under view.collection.
+    affectedPackages:
+      - "@contractspec/lib.contracts-spec"
+      - "@contractspec/lib.design-system"
+  - kind: integrator
+    summary: DataViewRenderer can switch among allowed list, grid, and table projections while preserving existing specs and caller-controlled props.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+  - kind: customer
+    summary: Generated data-view screens can expose modern list/grid/table switching, search, filters, pagination, and density controls.
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: adopt-view-collection
+    title: Add optional collection defaults to collection DataView specs
+    summary: Existing specs keep working; add view.collection when a renderer should expose shared collection controls or query page-size defaults.
+    level: optional
+    instructions:
+      - Add view.collection.viewModes to declare allowed list/grid/table projections.
+      - Add view.collection.pagination.pageSize when query generation should use a contract default.
+      - Keep table view.density where already used; it remains a permanent compatibility alias.
+validation:
+  commands:
+    - "bun test packages/libs/contracts-spec/src/data-views"
+    - "bun run --cwd packages/libs/contracts-spec typecheck"
+    - "bun test packages/libs/design-system/src/components/data-view/DataViewRenderer.test.tsx"
+    - "bun run --cwd packages/libs/design-system typecheck"
+knownGaps: []

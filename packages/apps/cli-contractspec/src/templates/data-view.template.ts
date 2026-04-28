@@ -24,7 +24,7 @@ export function generateDataViewSpec(data: DataViewSpecData): string {
 		: '';
 
 	const itemOperation = data.itemOperation
-		? `item: { name: '${data.itemOperation.name}', version: ${data.itemOperation.version} },`
+		? `item: { key: '${data.itemOperation.name}', version: ${data.itemOperation.version} },`
 		: '';
 
 	return `import type { DataViewSpec } from '@contractspec/lib.contracts-spec/data-views';
@@ -45,7 +45,7 @@ export const ${viewVarName}: DataViewSpec = {
   },
   source: {
     primary: {
-      name: '${data.primaryOperation.name}',
+      key: '${data.primaryOperation.name}',
       version: ${data.primaryOperation.version},
     },
     ${itemOperation}
@@ -70,8 +70,8 @@ ${fields}
     ],
   },
   states: {
-    // empty: { name: 'app.data.empty', version: '1.0.0' },
-    // error: { name: 'app.data.error', version: '1.0.0' },
+    // empty: { key: 'app.data.empty', version: '1.0.0' },
+    // error: { key: 'app.data.error', version: '1.0.0' },
   },
 };
 `;

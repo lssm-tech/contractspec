@@ -331,6 +331,11 @@ DataView-driven tables also honor field and column overflow hints from
 `DataViewSpec`: column hints override field hints, markdown wraps by default,
 compact scalar formats truncate, `expand` adds detail to the row expansion
 surface, and `hideColumn` starts hidden when column visibility is enabled.
+Collection `DataViewSpec` contracts can also declare `view.collection` defaults
+for list/grid/table mode switching, toolbar controls, query page size, and
+density. `DataViewRenderer` uses those defaults for web and native renderers
+while keeping caller props authoritative through `viewMode`, `density`,
+`onViewModeChange`, and `onDensityChange`.
 
 ## API map
 

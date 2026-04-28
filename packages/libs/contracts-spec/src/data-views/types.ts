@@ -155,6 +155,44 @@ export type DataViewTableOverflowBehavior =
 	| 'hideColumn'
 	| 'none';
 
+export type DataViewCollectionMode = 'list' | 'grid' | 'table';
+
+export type DataViewDensity = 'comfortable' | 'compact';
+
+export interface DataViewCollectionViewModesConfig {
+	defaultMode?: DataViewCollectionMode;
+	allowedModes?: DataViewCollectionMode[];
+	labels?: Partial<Record<DataViewCollectionMode, string>>;
+}
+
+export interface DataViewCollectionPaginationConfig {
+	pageSize?: number;
+	pageSizeOptions?: number[];
+}
+
+export interface DataViewCollectionSearchConfig {
+	enabled?: boolean;
+	placeholder?: string;
+	debounceMs?: number;
+	filterKey?: string;
+}
+
+export interface DataViewCollectionToolbarConfig {
+	enabled?: boolean;
+	search?: boolean | DataViewCollectionSearchConfig;
+	viewMode?: boolean | DataViewCollectionViewModesConfig;
+	filters?: boolean;
+	density?: boolean;
+	actions?: 'start' | 'end' | 'both' | 'hidden';
+}
+
+export interface DataViewCollectionConfig {
+	viewModes?: DataViewCollectionViewModesConfig;
+	toolbar?: DataViewCollectionToolbarConfig;
+	pagination?: DataViewCollectionPaginationConfig;
+	density?: DataViewDensity;
+}
+
 /**
  * Field definition within a data view.
  */
@@ -294,6 +332,7 @@ export interface DataViewBaseConfig {
 export interface DataViewListConfig extends DataViewBaseConfig {
 	kind: 'list';
 	layout?: 'card' | 'compact';
+	collection?: DataViewCollectionConfig;
 }
 
 /**
@@ -362,7 +401,8 @@ export interface DataViewTableConfig extends DataViewBaseConfig {
 	rowExpansion?: DataViewTableExpansionConfig;
 	initialState?: DataViewTableInitialState;
 	rowSelectable?: boolean;
-	density?: 'comfortable' | 'compact';
+	density?: DataViewDensity;
+	collection?: DataViewCollectionConfig;
 }
 
 /**
@@ -371,6 +411,7 @@ export interface DataViewTableConfig extends DataViewBaseConfig {
 export interface DataViewGridConfig extends DataViewBaseConfig {
 	kind: 'grid';
 	columns?: number;
+	collection?: DataViewCollectionConfig;
 }
 
 /**

@@ -1,6 +1,7 @@
 'use client';
 
 import type {
+	DataViewDensity,
 	DataViewField,
 	DataViewSpec,
 	DataViewTableConfig,
@@ -26,6 +27,7 @@ export interface DataViewTableProps {
 	emptyState?: React.ReactNode;
 	headerActions?: React.ReactNode;
 	footer?: React.ReactNode;
+	density?: DataViewDensity;
 }
 
 export function DataViewTable({
@@ -38,6 +40,7 @@ export function DataViewTable({
 	emptyState,
 	headerActions,
 	footer,
+	density,
 }: DataViewTableProps) {
 	const translate = useDesignSystemTranslation();
 	if (spec.view.kind !== 'table') {
@@ -46,7 +49,17 @@ export function DataViewTable({
 		);
 	}
 
-	const view = spec.view as DataViewTableConfig;
+	const effectiveSpec = React.useMemo(
+		() =>
+			density && spec.view.kind === 'table'
+				? ({
+						...spec,
+						view: { ...spec.view, density },
+					} satisfies DataViewSpec)
+				: spec,
+		[density, spec]
+	);
+	const view = effectiveSpec.view as DataViewTableConfig;
 	const expandedFields = React.useMemo(
 		() =>
 			(view.rowExpansion?.fields ?? [])
@@ -58,7 +71,7 @@ export function DataViewTable({
 	);
 
 	const controller = useDataViewTable({
-		spec,
+		spec: effectiveSpec,
 		data: items,
 		renderValue: ({ value, field }) => (
 			<DataViewFormattedValue value={value} format={field.format} />

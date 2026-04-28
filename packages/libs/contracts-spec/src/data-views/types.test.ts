@@ -3,7 +3,9 @@ import { resolveDataViewFilters } from './filter-scope';
 import { resolveDataViewFilters as resolveDataViewFiltersFromIndex } from './index';
 import type {
 	DataViewAction,
+	DataViewCollectionMode,
 	DataViewConfig,
+	DataViewDensity,
 	DataViewDetailConfig,
 	DataViewField,
 	DataViewFieldFormat,
@@ -396,10 +398,37 @@ describe('DataViewConfig', () => {
 			kind: 'list',
 			fields: [{ key: 'name', label: 'Name', dataPath: 'name' }],
 			layout: 'card',
+			collection: {
+				viewModes: {
+					defaultMode: 'grid',
+					allowedModes: ['list', 'grid', 'table'],
+					labels: {
+						list: 'List',
+						grid: 'Grid',
+						table: 'Table',
+					},
+				},
+				toolbar: {
+					search: {
+						placeholder: 'Search records',
+						debounceMs: 150,
+					},
+					viewMode: true,
+					filters: true,
+					density: true,
+					actions: 'end',
+				},
+				pagination: {
+					pageSize: 24,
+					pageSizeOptions: [12, 24, 48],
+				},
+				density: 'comfortable',
+			},
 		};
 
 		expect(config.kind).toBe('list');
 		expect(config.layout).toBe('card');
+		expect(config.collection?.viewModes?.defaultMode).toBe('grid');
 	});
 
 	it('should support detail config with sections', () => {
@@ -447,6 +476,10 @@ describe('DataViewConfig', () => {
 			},
 			rowSelectable: true,
 			density: 'compact',
+			collection: {
+				density: 'comfortable',
+				pagination: { pageSize: 25 },
+			},
 		};
 
 		expect(config.kind).toBe('table');
@@ -456,6 +489,7 @@ describe('DataViewConfig', () => {
 		expect(config.rowExpansion?.fields).toContain('name');
 		expect(config.initialState?.pageSize).toBe(50);
 		expect(config.columns?.[0]?.overflow).toBe('wrap');
+		expect(config.collection?.density).toBe('comfortable');
 	});
 
 	it('should support grid config', () => {
@@ -463,10 +497,23 @@ describe('DataViewConfig', () => {
 			kind: 'grid',
 			fields: [{ key: 'name', label: 'Name', dataPath: 'name' }],
 			columns: 4,
+			collection: {
+				pagination: { pageSize: 16 },
+				viewModes: { allowedModes: ['grid', 'list'] },
+			},
 		};
 
 		expect(config.kind).toBe('grid');
 		expect(config.columns).toBe(4);
+		expect(config.collection?.pagination?.pageSize).toBe(16);
+	});
+
+	it('exports collection mode and density types', () => {
+		const modes: DataViewCollectionMode[] = ['list', 'grid', 'table'];
+		const densities: DataViewDensity[] = ['comfortable', 'compact'];
+
+		expect(modes).toEqual(['list', 'grid', 'table']);
+		expect(densities).toEqual(['comfortable', 'compact']);
 	});
 
 	it('should be a union type for DataViewConfig', () => {

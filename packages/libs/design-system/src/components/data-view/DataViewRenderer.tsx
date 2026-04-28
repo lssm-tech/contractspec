@@ -1,17 +1,18 @@
 'use client';
 
 import type {
+	DataViewCollectionMode,
+	DataViewDensity,
 	DataViewFilter,
 	DataViewFilterSet,
 	DataViewFilterValue,
-	DataViewGridConfig,
-	DataViewListConfig,
 	DataViewSpec,
 } from '@contractspec/lib.contracts-spec/data-views';
 import { resolveDataViewFilters } from '@contractspec/lib.contracts-spec/data-views';
 import { Pagination as TablePagination } from '@contractspec/lib.ui-kit-web/ui/atoms/Pagination';
 import { VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import { Text } from '@contractspec/lib.ui-kit-web/ui/text';
+import { Grid3X3, List, Table2 } from 'lucide-react';
 import * as React from 'react';
 import {
 	resolveTranslationString,
@@ -20,7 +21,16 @@ import {
 import { Button } from '../atoms/Button';
 import { Input } from '../atoms/Input';
 import { FiltersToolbar } from '../molecules/FiltersToolbar';
+import {
+	getDataViewCollectionConfig,
+	getDataViewCollectionViewModesConfig,
+	isDataViewCollectionKind,
+	resolveAllowedCollectionModes,
+	resolveCollectionDensity,
+	resolveCollectionView,
+} from './collection';
 import { DataViewDetail } from './DataViewDetail';
+import { DataViewGrid } from './DataViewGrid';
 import { DataViewList } from './DataViewList';
 import { DataViewTable } from './DataViewTable';
 
@@ -37,6 +47,12 @@ export interface DataViewRendererProps {
 	headerActions?: React.ReactNode;
 	emptyState?: React.ReactNode;
 	footer?: React.ReactNode;
+	viewMode?: DataViewCollectionMode;
+	defaultViewMode?: DataViewCollectionMode;
+	onViewModeChange?: (mode: DataViewCollectionMode) => void;
+	density?: DataViewDensity;
+	defaultDensity?: DataViewDensity;
+	onDensityChange?: (density: DataViewDensity) => void;
 
 	// Filters & Search
 	search?: string;
@@ -68,6 +84,12 @@ export function DataViewRenderer({
 	headerActions,
 	emptyState,
 	footer,
+	viewMode,
+	defaultViewMode,
+	onViewModeChange,
+	density,
+	defaultDensity,
+	onDensityChange,
 	search,
 	onSearchChange,
 	filters,
@@ -76,6 +98,46 @@ export function DataViewRenderer({
 	onPageChange,
 }: DataViewRendererProps) {
 	const translate = useDesignSystemTranslation();
+	const allowedModes = React.useMemo(
+		() => resolveAllowedCollectionModes(spec.view),
+		[spec.view]
+	);
+	const [internalViewMode, setInternalViewMode] = React.useState<
+		DataViewCollectionMode | undefined
+	>(defaultViewMode);
+	const requestedViewMode = viewMode ?? internalViewMode ?? defaultViewMode;
+	const resolvedCollection = React.useMemo(
+		() => resolveCollectionView(spec, requestedViewMode),
+		[requestedViewMode, spec]
+	);
+	const [internalDensity, setInternalDensity] = React.useState<
+		DataViewDensity | undefined
+	>(defaultDensity);
+	const effectiveDensity = resolveCollectionDensity(spec, {
+		density: density ?? internalDensity,
+		defaultDensity,
+	});
+	const collectionConfig = getDataViewCollectionConfig(spec.view);
+	const viewModesConfig = getDataViewCollectionViewModesConfig(spec.view);
+	const collectionToolbar = collectionConfig?.toolbar;
+	const toolbarEnabled = collectionToolbar?.enabled !== false;
+	const filterControlsEnabled = collectionToolbar?.filters !== false;
+	const actionPlacement = collectionToolbar?.actions ?? 'end';
+	const toolbarActionsStart =
+		actionPlacement === 'start' || actionPlacement === 'both'
+			? headerActions
+			: undefined;
+	const toolbarActionsEnd =
+		actionPlacement === 'end' || actionPlacement === 'both'
+			? headerActions
+			: undefined;
+	const searchConfig =
+		typeof collectionToolbar?.search === 'object'
+			? collectionToolbar.search
+			: undefined;
+	const searchEnabled = Boolean(
+		toolbarEnabled && collectionToolbar?.search !== false && onSearchChange
+	);
 	const resolvedFilters = React.useMemo(
 		() =>
 			resolveDataViewFilters({
@@ -122,30 +184,35 @@ export function DataViewRenderer({
 		? Object.keys(resolvedFilters.user).length > 0
 		: Boolean(filters && Object.keys(filters).length > 0);
 	const viewContent = React.useMemo(() => {
-		switch (spec.view.kind) {
+		const renderSpec = isDataViewCollectionKind(spec.view.kind)
+			? resolvedCollection.spec
+			: spec;
+		switch (renderSpec.view.kind) {
 			case 'list':
 				return (
 					<DataViewList
-						spec={spec}
+						spec={renderSpec}
 						items={items}
 						className={className}
 						renderActions={renderActions}
 						onSelect={onSelect}
 						emptyState={emptyState}
+						density={effectiveDensity}
 					/>
 				);
 			case 'table':
 				return (
 					<DataViewTable
-						spec={spec}
+						spec={renderSpec}
 						items={items}
 						className={className}
 						onRowClick={onRowClick}
 						toolbar={toolbar}
 						loading={loading}
 						emptyState={emptyState}
-						headerActions={headerActions}
+						headerActions={toolbarEnabled ? undefined : headerActions}
 						footer={footer}
+						density={effectiveDensity}
 					/>
 				);
 			case 'detail':
@@ -159,29 +226,15 @@ export function DataViewRenderer({
 					/>
 				);
 			case 'grid': {
-				const grid = spec.view as DataViewGridConfig;
-				const listView: DataViewListConfig = {
-					kind: 'list',
-					layout: 'card',
-					fields: grid.fields,
-					filters: grid.filters,
-					actions: grid.actions,
-					primaryField: grid.primaryField,
-					secondaryFields: grid.secondaryFields,
-					filterScope: grid.filterScope,
-				};
-				const listSpec = {
-					...spec,
-					view: listView,
-				} satisfies DataViewSpec;
 				return (
-					<DataViewList
-						spec={listSpec}
+					<DataViewGrid
+						spec={renderSpec}
 						items={items}
 						className={className}
 						renderActions={renderActions}
 						onSelect={onSelect}
 						emptyState={emptyState}
+						density={effectiveDensity}
 					/>
 				);
 			}
@@ -194,6 +247,7 @@ export function DataViewRenderer({
 		}
 	}, [
 		spec,
+		resolvedCollection.spec,
 		items,
 		item,
 		className,
@@ -205,6 +259,8 @@ export function DataViewRenderer({
 		headerActions,
 		emptyState,
 		footer,
+		effectiveDensity,
+		toolbarEnabled,
 		translate,
 	]);
 
@@ -220,27 +276,66 @@ export function DataViewRenderer({
 
 	return (
 		<VStack gap="lg">
-			{(spec.view.filters?.length || onSearchChange || activeChips.length) && (
+			{toolbarEnabled &&
+			((filterControlsEnabled && spec.view.filters?.length) ||
+				searchEnabled ||
+				activeChips.length ||
+				allowedModes.length > 1 ||
+				collectionToolbar?.density ||
+				toolbarActionsStart ||
+				toolbarActionsEnd) ? (
 				<FiltersToolbar
 					searchValue={search}
-					onSearchChange={onSearchChange}
+					onSearchChange={searchEnabled ? onSearchChange : undefined}
 					searchPlaceholder={
-						resolveTranslationString('Search...', translate) ?? 'Search...'
+						searchConfig?.placeholder ??
+						resolveTranslationString('Search...', translate) ??
+						'Search...'
 					}
+					debounceMs={searchConfig?.debounceMs}
 					activeChips={activeChips}
 					onClearAll={
 						hasClearableFilters ? () => onFilterChange?.({}) : undefined
 					}
-					right={spec.view.kind === 'table' ? undefined : headerActions}
+					right={toolbarActionsEnd}
 				>
-					<DataViewFilterControls
-						filters={spec.view.filters}
-						values={resolvedFilters.user}
-						lockedKeys={Object.keys(resolvedFilters.locked)}
-						onFilterChange={onFilterChange}
-					/>
+					{toolbarActionsStart}
+					{allowedModes.length > 1 && collectionToolbar?.viewMode !== false ? (
+						<DataViewModeSwitcher
+							mode={resolvedCollection.mode}
+							allowedModes={allowedModes}
+							labels={
+								isDataViewCollectionKind(spec.view.kind)
+									? viewModesConfig?.labels
+									: undefined
+							}
+							onChange={(nextMode) => {
+								if (nextMode === resolvedCollection.mode) return;
+								if (viewMode === undefined) setInternalViewMode(nextMode);
+								onViewModeChange?.(nextMode);
+							}}
+						/>
+					) : null}
+					{collectionToolbar?.density ? (
+						<DataViewDensitySwitcher
+							density={effectiveDensity}
+							onChange={(nextDensity) => {
+								if (nextDensity === effectiveDensity) return;
+								if (density === undefined) setInternalDensity(nextDensity);
+								onDensityChange?.(nextDensity);
+							}}
+						/>
+					) : null}
+					{filterControlsEnabled ? (
+						<DataViewFilterControls
+							filters={spec.view.filters}
+							values={resolvedFilters.user}
+							lockedKeys={Object.keys(resolvedFilters.locked)}
+							onFilterChange={onFilterChange}
+						/>
+					) : null}
 				</FiltersToolbar>
-			)}
+			) : null}
 
 			{viewContent}
 
@@ -504,4 +599,68 @@ function inputModeForFilter(filter: DataViewFilter) {
 		default:
 			return undefined;
 	}
+}
+
+function DataViewModeSwitcher({
+	mode,
+	allowedModes,
+	labels,
+	onChange,
+}: {
+	mode: DataViewCollectionMode;
+	allowedModes: DataViewCollectionMode[];
+	labels?: Partial<Record<DataViewCollectionMode, string>>;
+	onChange: (mode: DataViewCollectionMode) => void;
+}) {
+	return (
+		<div className="flex items-center gap-1 rounded-md border bg-background p-1">
+			{allowedModes.map((item) => {
+				const Icon = modeIcon(item);
+				return (
+					<Button
+						key={item}
+						size="sm"
+						variant={item === mode ? 'default' : 'ghost'}
+						onPress={() => onChange(item)}
+						ariaLabelI18n={labels?.[item] ?? item}
+					>
+						<Icon className="h-4 w-4" />
+					</Button>
+				);
+			})}
+		</div>
+	);
+}
+
+function DataViewDensitySwitcher({
+	density,
+	onChange,
+}: {
+	density: DataViewDensity;
+	onChange: (density: DataViewDensity) => void;
+}) {
+	return (
+		<div className="flex items-center gap-1 rounded-md border bg-background p-1">
+			<Button
+				size="sm"
+				variant={density === 'comfortable' ? 'default' : 'ghost'}
+				onPress={() => onChange('comfortable')}
+			>
+				Comfort
+			</Button>
+			<Button
+				size="sm"
+				variant={density === 'compact' ? 'default' : 'ghost'}
+				onPress={() => onChange('compact')}
+			>
+				Compact
+			</Button>
+		</div>
+	);
+}
+
+function modeIcon(mode: DataViewCollectionMode) {
+	if (mode === 'grid') return Grid3X3;
+	if (mode === 'table') return Table2;
+	return List;
 }

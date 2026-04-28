@@ -73,6 +73,18 @@ export function UserPage() {
 					<li>
 						<code>onPageChange</code>: Callback when page changes.
 					</li>
+					<li>
+						<code>viewMode</code> / <code>defaultViewMode</code>: Controlled
+						or initial collection mode for specs that allow <code>list</code>,{' '}
+						<code>grid</code>, or <code>table</code> projections through{' '}
+						<code>view.collection.viewModes</code>.
+					</li>
+					<li>
+						<code>density</code> / <code>defaultDensity</code>: Controlled or
+						initial density for collection renderers, seeded by{' '}
+						<code>view.collection.density</code> and table{' '}
+						<code>view.density</code>.
+					</li>
 				</ul>
 			</div>
 

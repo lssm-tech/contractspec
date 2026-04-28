@@ -1,4 +1,5 @@
 import type {
+	DataViewConfig,
 	DataViewFilter,
 	DataViewFilterValue,
 	DataViewSpec,
@@ -26,7 +27,8 @@ export class DataViewQueryGenerator {
 	generate(params: DataViewQueryParams): DataViewQuery {
 		const { primary } = this.spec.source;
 		const page = params.pagination?.page ?? 1;
-		const pageSize = params.pagination?.pageSize ?? 20;
+		const pageSize =
+			params.pagination?.pageSize ?? collectionPageSize(this.spec.view) ?? 20;
 		const skip = (page - 1) * pageSize;
 		const take = pageSize;
 
@@ -88,6 +90,11 @@ export class DataViewQueryGenerator {
 
 		return errors;
 	}
+}
+
+function collectionPageSize(view: DataViewConfig): number | undefined {
+	if (view.kind === 'detail') return undefined;
+	return view.collection?.pagination?.pageSize;
 }
 
 function validateFilterValue(

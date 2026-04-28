@@ -1,6 +1,7 @@
 import { describe, expect, it } from 'bun:test';
 import { DataViewQueryGenerator } from './query-generator';
 import type { DataViewSpec } from './spec';
+import type { DataViewTableConfig } from './types';
 
 const spec: DataViewSpec = {
 	meta: {
@@ -53,6 +54,59 @@ const spec: DataViewSpec = {
 };
 
 describe('DataViewQueryGenerator', () => {
+	const tableView = spec.view as DataViewTableConfig;
+
+	it('uses caller pagination before collection pagination defaults', () => {
+		const generator = new DataViewQueryGenerator({
+			...spec,
+			view: {
+				...tableView,
+				collection: {
+					pagination: { pageSize: 40 },
+				},
+			},
+		});
+
+		expect(
+			generator.generate({ pagination: { page: 2, pageSize: 10 } })
+		).toMatchObject({
+			input: { skip: 10, take: 10 },
+			meta: { pagination: { page: 2, pageSize: 10, skip: 10, take: 10 } },
+		});
+	});
+
+	it('uses collection pagination as the default page size', () => {
+		const generator = new DataViewQueryGenerator({
+			...spec,
+			view: {
+				...tableView,
+				collection: {
+					pagination: { pageSize: 40 },
+				},
+			},
+		});
+
+		expect(generator.generate({})).toMatchObject({
+			input: { skip: 0, take: 40 },
+			meta: { pagination: { page: 1, pageSize: 40, skip: 0, take: 40 } },
+		});
+	});
+
+	it('does not use table initial state as a query page size default', () => {
+		const generator = new DataViewQueryGenerator({
+			...spec,
+			view: {
+				...tableView,
+				initialState: { pageSize: 50 },
+			},
+		});
+
+		expect(generator.generate({})).toMatchObject({
+			input: { skip: 0, take: 20 },
+			meta: { pagination: { page: 1, pageSize: 20, skip: 0, take: 20 } },
+		});
+	});
+
 	it('validates typed numeric, temporal, and boolean filter values', () => {
 		const generator = new DataViewQueryGenerator(spec);
 

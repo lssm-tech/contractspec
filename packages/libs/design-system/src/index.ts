@@ -40,6 +40,7 @@ export {
 	type DataTableToolbarProps,
 } from './components/data-table/DataTableToolbar';
 export { DataViewDetail } from './components/data-view/DataViewDetail';
+export { DataViewGrid } from './components/data-view/DataViewGrid';
 export { DataViewList } from './components/data-view/DataViewList';
 export { DataViewRenderer } from './components/data-view/DataViewRenderer';
 export { DataViewTable } from './components/data-view/DataViewTable';

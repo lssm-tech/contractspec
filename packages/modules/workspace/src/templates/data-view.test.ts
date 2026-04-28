@@ -26,6 +26,7 @@ describe('generateDataViewSpec', () => {
 		expect(code).toContain('export const ViewDataView: DataViewSpec = {');
 		expect(code).toContain("kind: 'list'");
 		expect(code).toContain("entity: 'User'");
+		expect(code).toContain("key: 'op.list'");
 	});
 
 	it('includes fields', () => {
@@ -74,6 +75,6 @@ describe('generateDataViewSpec', () => {
 			itemOperation: { name: 'op.get', version: '1' },
 		};
 		const code = generateDataViewSpec(data);
-		expect(code).toContain("item: { name: 'op.get', version: 1 }");
+		expect(code).toContain("item: { key: 'op.get', version: 1 }");
 	});
 });

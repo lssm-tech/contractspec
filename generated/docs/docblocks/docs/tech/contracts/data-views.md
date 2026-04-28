@@ -29,10 +29,11 @@ export interface DataViewSpec {
   - `mutations`: optional create/update/delete operation refs.
   - `refreshEvents`: events that should trigger refresh.
 - **DataViewConfig** (union):
-  - `list`: card/compact list, `primaryField`, `secondaryFields`.
-  - `table`: column configuration plus execution mode, selection, column visibility, column resizing, column pinning, row expansion, and initial state.
+  - `list`: card/compact list, `primaryField`, `secondaryFields`, optional shared `collection` defaults.
+  - `table`: column configuration plus execution mode, selection, column visibility, column resizing, column pinning, row expansion, initial state, and optional shared `collection` defaults.
   - `detail`: sections of fields for record inspection.
-  - `grid`: multi-column grid (rendered as card list today).
+  - `grid`: multi-column card grid with optional shared `collection` defaults.
+- **DataViewCollectionConfig**: shared listing defaults for `list`, `grid`, and `table`, including allowed/default view modes, toolbar controls, query page size, and density. `view.kind` remains the authored canonical shape; renderers may project to allowed collection modes without mutating the source spec.
 - **DataViewField**: `key`, `label`, `dataPath`, formatting hints (`format`), sort/filter toggles, optional presentation override.
 - **DataViewFilter**: describes filter inputs (search, enum, number, date, boolean).
 - **DataViewAction**: simple declarative actions (`navigation` or `operation`).
@@ -108,4 +109,3 @@ Wizard prompts:
 - Derived filters from `fields.filterable` (auto-generated UI).
 - Policy-aware field visibility for table columns.
 - Automated docs/LLM sync via CLI.
-

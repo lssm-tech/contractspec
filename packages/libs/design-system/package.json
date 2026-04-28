@@ -151,8 +151,20 @@
 		},
 		"./components/data-table/DataTableToolbar.native": "./src/components/data-table/DataTableToolbar.native.tsx",
 		"./components/data-table/DataTableToolbar.shared": "./src/components/data-table/DataTableToolbar.shared.ts",
+		"./components/data-view/collection": "./src/components/data-view/collection.ts",
 		"./components/data-view/DataViewDetail": "./src/components/data-view/DataViewDetail.tsx",
-		"./components/data-view/DataViewList": "./src/components/data-view/DataViewList.tsx",
+		"./components/data-view/DataViewGrid": {
+			"types": "./src/components/data-view/DataViewGrid.tsx",
+			"react-native": "./src/components/data-view/DataViewGrid.native.tsx",
+			"default": "./src/components/data-view/DataViewGrid.tsx"
+		},
+		"./components/data-view/DataViewGrid.native": "./src/components/data-view/DataViewGrid.native.tsx",
+		"./components/data-view/DataViewList": {
+			"types": "./src/components/data-view/DataViewList.tsx",
+			"react-native": "./src/components/data-view/DataViewList.native.tsx",
+			"default": "./src/components/data-view/DataViewList.tsx"
+		},
+		"./components/data-view/DataViewList.native": "./src/components/data-view/DataViewList.native.tsx",
 		"./components/data-view/DataViewRenderer": {
 			"types": "./src/components/data-view/DataViewRenderer.tsx",
 			"react-native": "./src/components/data-view/DataViewRenderer.native.tsx",
@@ -776,17 +788,41 @@
 				"bun": "./dist/components/data-table/DataTableToolbar.shared.js",
 				"default": "./dist/components/data-table/DataTableToolbar.shared.js"
 			},
+			"./components/data-view/collection": {
+				"types": "./dist/components/data-view/collection.d.ts",
+				"browser": "./dist/browser/components/data-view/collection.js",
+				"bun": "./dist/components/data-view/collection.js",
+				"default": "./dist/components/data-view/collection.js"
+			},
 			"./components/data-view/DataViewDetail": {
 				"types": "./dist/components/data-view/DataViewDetail.d.ts",
 				"browser": "./dist/browser/components/data-view/DataViewDetail.js",
 				"bun": "./dist/components/data-view/DataViewDetail.js",
 				"default": "./dist/components/data-view/DataViewDetail.js"
 			},
+			"./components/data-view/DataViewGrid": {
+				"types": "./dist/components/data-view/DataViewGrid.d.ts",
+				"browser": "./dist/browser/components/data-view/DataViewGrid.js",
+				"react-native": "./dist/native/components/data-view/DataViewGrid.native.js",
+				"bun": "./dist/components/data-view/DataViewGrid.js",
+				"default": "./dist/components/data-view/DataViewGrid.js"
+			},
+			"./components/data-view/DataViewGrid.native": {
+				"types": "./dist/components/data-view/DataViewGrid.native.d.ts",
+				"react-native": "./dist/native/components/data-view/DataViewGrid.native.js",
+				"default": "./dist/native/components/data-view/DataViewGrid.native.js"
+			},
 			"./components/data-view/DataViewList": {
 				"types": "./dist/components/data-view/DataViewList.d.ts",
 				"browser": "./dist/browser/components/data-view/DataViewList.js",
+				"react-native": "./dist/native/components/data-view/DataViewList.native.js",
 				"bun": "./dist/components/data-view/DataViewList.js",
 				"default": "./dist/components/data-view/DataViewList.js"
+			},
+			"./components/data-view/DataViewList.native": {
+				"types": "./dist/components/data-view/DataViewList.native.d.ts",
+				"react-native": "./dist/native/components/data-view/DataViewList.native.js",
+				"default": "./dist/native/components/data-view/DataViewList.native.js"
 			},
 			"./components/data-view/DataViewRenderer": {
 				"types": "./dist/components/data-view/DataViewRenderer.d.ts",

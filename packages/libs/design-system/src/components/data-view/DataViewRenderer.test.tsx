@@ -1,5 +1,7 @@
 import { describe, expect, it } from 'bun:test';
+import type { DataViewSpec } from '@contractspec/lib.contracts-spec/data-views';
 import { renderToStaticMarkup } from 'react-dom/server';
+import { resolveCollectionView } from './collection';
 import { DataViewRenderer } from './DataViewRenderer';
 
 const tableSpec = {
@@ -120,7 +122,165 @@ const initialTableSpec = {
 	},
 } as const;
 
+const collectionListSpec = {
+	...tableSpec,
+	view: {
+		kind: 'list',
+		primaryField: 'account',
+		secondaryFields: ['amount'],
+		collection: {
+			viewModes: {
+				defaultMode: 'grid',
+				allowedModes: ['list', 'grid', 'table'],
+			},
+			toolbar: {
+				viewMode: true,
+				density: true,
+			},
+			density: 'compact',
+		},
+		filters: tableSpec.view.filters,
+		fields: tableSpec.view.fields,
+		actions: [{ key: 'open', label: 'Open', kind: 'navigation' }],
+	},
+} satisfies DataViewSpec;
+
+const collectionGridSpec = {
+	...tableSpec,
+	view: {
+		kind: 'grid',
+		columns: 4,
+		primaryField: 'account',
+		secondaryFields: ['amount'],
+		collection: {
+			viewModes: {
+				allowedModes: ['grid', 'list'],
+			},
+		},
+		filters: tableSpec.view.filters,
+		fields: tableSpec.view.fields,
+	},
+} satisfies DataViewSpec;
+
+const collectionTableSpec = {
+	...tableSpec,
+	view: {
+		...tableSpec.view,
+		collection: {
+			viewModes: {
+				allowedModes: ['list', 'grid', 'table'],
+			},
+		},
+	},
+} satisfies DataViewSpec;
+
 describe('DataViewRenderer table mode', () => {
+	it('projects collection modes without mutating the source spec', () => {
+		const before = JSON.stringify(collectionListSpec.view);
+		const projectedTable = resolveCollectionView(collectionListSpec, 'table');
+		const projectedList = resolveCollectionView(collectionTableSpec, 'list');
+		const projectedGrid = resolveCollectionView(collectionGridSpec, 'grid');
+		const projectedGridList = resolveCollectionView(collectionGridSpec, 'list');
+
+		expect(projectedTable.mode).toBe('table');
+		expect(projectedTable.spec.view.kind).toBe('table');
+		expect(projectedList.mode).toBe('list');
+		expect(projectedList.spec.view.kind).toBe('list');
+		expect(projectedList.spec.view.filters).toEqual(tableSpec.view.filters);
+		expect(projectedGrid.mode).toBe('grid');
+		expect(projectedGrid.spec.view.kind).toBe('grid');
+		expect(projectedGridList.mode).toBe('list');
+		expect(projectedGridList.spec.view.kind).toBe('list');
+		expect(projectedGridList.spec.view.primaryField).toBe('account');
+		expect(projectedGridList.spec.view.secondaryFields).toEqual(['amount']);
+		expect(JSON.stringify(collectionListSpec.view)).toBe(before);
+	});
+
+	it('falls back to the resolved default for disallowed modes', () => {
+		const resolved = resolveCollectionView(collectionGridSpec, 'table');
+
+		expect(resolved.allowedModes).toEqual(['list', 'grid']);
+		expect(resolved.mode).toBe('grid');
+		expect(resolved.spec.view.kind).toBe('grid');
+	});
+
+	it('defaults to all modes when toolbar view mode is enabled', () => {
+		const resolved = resolveCollectionView({
+			...collectionListSpec,
+			view: {
+				...collectionListSpec.view,
+				collection: {
+					toolbar: { viewMode: true },
+				},
+			},
+		});
+
+		expect(resolved.allowedModes).toEqual(['list', 'grid', 'table']);
+		expect(resolved.mode).toBe('list');
+	});
+
+	it('renders collection view controls only for multi-mode collections', () => {
+		const html = renderToStaticMarkup(
+			<DataViewRenderer
+				spec={collectionListSpec}
+				items={[{ account: 'Northwind', amount: 1234.56 }]}
+				headerActions={<span>Header action</span>}
+				renderActions={() => <span>Row action</span>}
+				onSearchChange={() => void 0}
+				onFilterChange={() => void 0}
+			/>
+		);
+
+		expect(html).toContain('aria-label="list"');
+		expect(html).toContain('aria-label="grid"');
+		expect(html).toContain('aria-label="table"');
+		expect(html.match(/Header action/g)?.length).toBe(1);
+		expect(html).toContain('Row action');
+		expect(html).toContain('Compact');
+	});
+
+	it('honors collection toolbar filter and action visibility config', () => {
+		const html = renderToStaticMarkup(
+			<DataViewRenderer
+				spec={{
+					...collectionListSpec,
+					view: {
+						...collectionListSpec.view,
+						collection: {
+							...collectionListSpec.view.collection,
+							toolbar: {
+								...collectionListSpec.view.collection?.toolbar,
+								filters: false,
+								actions: 'hidden',
+							},
+						},
+					},
+				}}
+				items={[{ account: 'Northwind', amount: 1234.56 }]}
+				headerActions={<span>Header action</span>}
+				onFilterChange={() => void 0}
+			/>
+		);
+
+		expect(html).not.toContain('Amount min');
+		expect(html).not.toContain('Header action');
+		expect(html).toContain('aria-label="list"');
+	});
+
+	it('renders controlled table mode from a list spec', () => {
+		const html = renderToStaticMarkup(
+			<DataViewRenderer
+				spec={collectionListSpec}
+				viewMode="table"
+				items={[{ account: 'Northwind', amount: 1234.56 }]}
+			/>
+		);
+
+		expect(html).toContain('Accounts');
+		expect(html).toContain('Northwind');
+		expect(html).toContain('1,235');
+	});
+
 	it('forwards toolbar/loading and does not duplicate header actions into filters', () => {
 		const html = renderToStaticMarkup(
 			<DataViewRenderer
