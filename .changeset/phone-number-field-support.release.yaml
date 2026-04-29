@@ -1,0 +1,59 @@
+schemaVersion: "1"
+slug: phone-number-field-support
+summary: Add first-class FormSpec phone input support with country detection, split outputs, and flag rendering.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.contracts-spec"
+    releaseType: minor
+  - name: "@contractspec/lib.contracts-runtime-client-react"
+    releaseType: minor
+  - name: "@contractspec/lib.design-system"
+    releaseType: minor
+affectedRuntimes:
+  - browser
+  - react-native
+  - bun
+  - node
+affectedFrameworks:
+  - react
+audiences:
+  - kind: maintainer
+    summary: FormSpec phone contracts now expose input, output, country, and display configuration while keeping the schema-owned value model backward compatible.
+    affectedPackages:
+      - "@contractspec/lib.contracts-spec"
+      - "@contractspec/lib.contracts-runtime-client-react"
+  - kind: integrator
+    summary: Host renderers can set phone defaults through `createFormRenderer({ phone })`, while individual FormSpecs can choose object, E.164, or split linked outputs.
+    affectedPackages:
+      - "@contractspec/lib.contracts-runtime-client-react"
+      - "@contractspec/lib.design-system"
+  - kind: customer
+    summary: Form-rendered phone fields can show country flags, detect countries from international input, and keep single or split controls synchronized.
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: configure-phone-fields
+    title: Configure phone fields where split values or single-input UX are needed
+    summary: Existing `kind: "phone"` object-valued fields continue to work; opt into new modes through field metadata.
+    level: assisted
+    instructions:
+      - Use `phone.input.mode` to choose `single` or `split` rendering.
+      - Use `phone.output.mode` with linked path names to write split country/national/E.164 values.
+      - Use `phone.country.defaultIso2` and `phone.display.flag` for country defaults and flag affordances.
+validation:
+  commands:
+    - "bun run --cwd packages/libs/contracts-spec test"
+    - "bun run --cwd packages/libs/contracts-spec typecheck"
+    - "bun run --cwd packages/libs/contracts-spec build"
+    - "bun run --cwd packages/libs/contracts-runtime-client-react typecheck"
+    - "bun test packages/libs/contracts-runtime-client-react/src/form-render.impl.test.tsx"
+    - "bun run --cwd packages/libs/contracts-runtime-client-react build"
+    - "bun run --cwd packages/libs/design-system test"
+    - "bun run --cwd packages/libs/design-system typecheck"
+    - "bun run --cwd packages/libs/design-system build"
+  evidence:
+    - "Contract tests cover typed phone field configuration on the public FormSpec surface."
+    - "Runtime renderer tests cover linked split output writes from a single phone field."
+    - "Design-system tests cover E.164 parsing, country metadata detection, and flag rendering."
+knownGaps:
+  - "Native phone rendering uses the shared design-system renderer path and existing ui-kit input/select primitives; no dedicated platform-native phone picker was introduced."

@@ -553,6 +553,7 @@ describe('buildZodWithRelations', () => {
 					address: z.object({ line1: z.string() }),
 					phone: z.object({
 						countryCode: z.string(),
+						countryIso2: z.string().optional(),
 						nationalNumber: z.string(),
 					}),
 					contactEmail: z.string().email(),
@@ -580,7 +581,19 @@ describe('buildZodWithRelations', () => {
 					valueMapping: { mode: 'object' },
 				},
 				{ kind: 'address', name: 'address' },
-				{ kind: 'phone', name: 'phone' },
+				{
+					kind: 'phone',
+					name: 'phone',
+					input: { mode: 'single', autoSwitch: true },
+					output: {
+						mode: 'split',
+						countryCodeName: 'phoneCountryCode',
+						countryIso2Name: 'phoneCountryIso2',
+						e164Name: 'phoneE164',
+					},
+					country: { defaultIso2: 'FR', detection: 'input' },
+					display: { flag: true, callingCode: true },
+				},
 				{ kind: 'email', name: 'contactEmail' },
 				{
 					kind: 'number',
@@ -632,6 +645,50 @@ describe('buildZodWithRelations', () => {
 			'time',
 			'datetime',
 			'duration',
+		]);
+	});
+
+	it('normalizes phone split output paths into pii policy coverage', () => {
+		const spec = normalizeFormSpec({
+			meta: {
+				key: 'sigil.form.phone-pii',
+				version: '1.0.0',
+				title: 'Phone PII Form',
+				description: 'Exercises linked phone output PII coverage.',
+				domain: 'testing',
+				owners: [OwnersEnum.PlatformSigil],
+				tags: [TagsEnum.Auth],
+				stability: StabilityEnum.Experimental,
+			},
+			model: fromZod(
+				z.object({
+					phoneNumber: z.string().optional(),
+					phoneCountryCode: z.string().optional(),
+					phoneCountryIso2: z.string().optional(),
+					phoneE164: z.string().optional(),
+				}),
+				{ name: 'PhonePiiModel' }
+			),
+			fields: [
+				{
+					kind: 'phone',
+					name: 'phoneNumber',
+					output: {
+						mode: 'split',
+						countryCodeName: 'phoneCountryCode',
+						countryIso2Name: 'phoneCountryIso2',
+						e164Name: 'phoneE164',
+					},
+				},
+			],
+			policy: { pii: ['phoneNumber'] },
+		} satisfies FormSpec);
+
+		expect(spec.policy?.pii).toEqual([
+			'phoneNumber',
+			'phoneCountryCode',
+			'phoneCountryIso2',
+			'phoneE164',
 		]);
 	});
 });

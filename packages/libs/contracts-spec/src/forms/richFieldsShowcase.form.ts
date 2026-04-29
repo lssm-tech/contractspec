@@ -26,6 +26,7 @@ const RichFieldsShowcaseModel = fromZod(
 		}) satisfies z.ZodType<AddressFormValue>,
 		phone: z.object({
 			countryCode: z.string(),
+			countryIso2: z.string().optional(),
 			nationalNumber: z.string(),
 			extension: z.string().optional(),
 			e164: z.string().optional(),
@@ -186,7 +187,14 @@ export const RichFieldsShowcaseForm = defineFormSpec({
 					labelI18n: 'Contact email',
 					placeholderI18n: 'support@example.com',
 				},
-				{ kind: 'phone', name: 'phone', labelI18n: 'Phone' },
+				{
+					kind: 'phone',
+					name: 'phone',
+					labelI18n: 'Phone',
+					country: { defaultIso2: 'FR', detection: 'input' },
+					input: { mode: 'split', autoSwitch: true },
+					display: { flag: true, callingCode: true, countrySelect: true },
+				},
 				{
 					kind: 'date',
 					name: 'startDate',

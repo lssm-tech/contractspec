@@ -62,6 +62,12 @@ minimum-query metadata. The contract stays transport-neutral: host renderers
 provide the resolver/fetcher, and value submission is controlled by
 `valueMapping` (`scalar`, `object`, or `pick`).
 
+FormSpec phone fields support first-class country metadata. On a
+`kind: "phone"` field, use `input` to choose a single linked input or split
+country/national inputs, `output` to store a `PhoneFormValue`, one E.164
+string, or split linked paths, and `display`/`country` to control flags,
+calling codes, default country, and automatic country detection.
+
 ## Typed Results
 
 `@contractspec/lib.contracts-spec/results` is the canonical success/failure

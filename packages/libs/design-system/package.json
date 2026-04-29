@@ -40,6 +40,8 @@
 		"@hookform/resolvers": "5.2.2",
 		"class-variance-authority": "catalog:ui",
 		"clsx": "catalog:ui",
+		"country-flag-icons": "^1.6.16",
+		"libphonenumber-js": "^1.12.42",
 		"lucide-react": "catalog:ui",
 		"next": "catalog:",
 		"react": "catalog:",
@@ -592,6 +594,15 @@
 		"./platform/withPlatformUI": "./src/platform/withPlatformUI.ts",
 		"./renderers": "./src/renderers/index.ts",
 		"./renderers/form-contract": "./src/renderers/form-contract.tsx",
+		"./renderers/form-contract/phone-country-control": {
+			"types": "./src/renderers/form-contract/phone-country-control.tsx",
+			"react-native": "./src/renderers/form-contract/phone-country-control.native.tsx",
+			"default": "./src/renderers/form-contract/phone-country-control.tsx"
+		},
+		"./renderers/form-contract/phone-country-control.native": "./src/renderers/form-contract/phone-country-control.native.tsx",
+		"./renderers/form-contract/phone-country-utils": "./src/renderers/form-contract/phone-country-utils.ts",
+		"./renderers/form-contract/phone-field": "./src/renderers/form-contract/phone-field.tsx",
+		"./renderers/form-contract/phone-utils": "./src/renderers/form-contract/phone-utils.ts",
 		"./renderers/form-contract/renderer": "./src/renderers/form-contract/renderer.tsx",
 		"./renderers/form-contract/rich-fields": "./src/renderers/form-contract/rich-fields.tsx",
 		"./renderers/form-contract/shell": "./src/renderers/form-contract/shell.tsx",
@@ -2278,6 +2289,36 @@
 				"browser": "./dist/browser/renderers/form-contract.js",
 				"bun": "./dist/renderers/form-contract.js",
 				"default": "./dist/renderers/form-contract.js"
+			},
+			"./renderers/form-contract/phone-country-control": {
+				"types": "./dist/renderers/form-contract/phone-country-control.d.ts",
+				"browser": "./dist/browser/renderers/form-contract/phone-country-control.js",
+				"react-native": "./dist/native/renderers/form-contract/phone-country-control.native.js",
+				"bun": "./dist/renderers/form-contract/phone-country-control.js",
+				"default": "./dist/renderers/form-contract/phone-country-control.js"
+			},
+			"./renderers/form-contract/phone-country-control.native": {
+				"types": "./dist/renderers/form-contract/phone-country-control.native.d.ts",
+				"react-native": "./dist/native/renderers/form-contract/phone-country-control.native.js",
+				"default": "./dist/native/renderers/form-contract/phone-country-control.native.js"
+			},
+			"./renderers/form-contract/phone-country-utils": {
+				"types": "./dist/renderers/form-contract/phone-country-utils.d.ts",
+				"browser": "./dist/browser/renderers/form-contract/phone-country-utils.js",
+				"bun": "./dist/renderers/form-contract/phone-country-utils.js",
+				"default": "./dist/renderers/form-contract/phone-country-utils.js"
+			},
+			"./renderers/form-contract/phone-field": {
+				"types": "./dist/renderers/form-contract/phone-field.d.ts",
+				"browser": "./dist/browser/renderers/form-contract/phone-field.js",
+				"bun": "./dist/renderers/form-contract/phone-field.js",
+				"default": "./dist/renderers/form-contract/phone-field.js"
+			},
+			"./renderers/form-contract/phone-utils": {
+				"types": "./dist/renderers/form-contract/phone-utils.d.ts",
+				"browser": "./dist/browser/renderers/form-contract/phone-utils.js",
+				"bun": "./dist/renderers/form-contract/phone-utils.js",
+				"default": "./dist/renderers/form-contract/phone-utils.js"
 			},
 			"./renderers/form-contract/renderer": {
 				"types": "./dist/renderers/form-contract/renderer.d.ts",

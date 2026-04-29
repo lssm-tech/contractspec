@@ -1,14 +1,15 @@
 import type {
 	AddressFormValue,
 	FormOption,
-	PhoneFormValue,
 } from '@contractspec/lib.contracts-spec/forms';
 import { Input } from '../../components/atoms/Input';
 import { Select } from '../../components/forms/controls/Select';
 import { VStack } from '../../components/layout/Stack';
 import { inputValue, optionValue } from '../../components/primitives/control';
 import { useTranslatedText } from '../../components/primitives/themed';
-import { FORM_FALLBACK_TEXT, updateAddress, updatePhone } from './values';
+import { FORM_FALLBACK_TEXT, updateAddress } from './values';
+
+export { PhoneField } from './phone-field';
 
 export const AddressField = (props: {
 	value?: AddressFormValue | null;
@@ -119,79 +120,6 @@ export const AddressField = (props: {
 					disabled={props.disabled}
 				/>
 			)}
-		</VStack>
-	);
-};
-
-export const PhoneField = (props: {
-	value?: PhoneFormValue | null;
-	onChange?: (value: PhoneFormValue) => void;
-	parts?: {
-		labelsI18n?: Partial<Record<keyof PhoneFormValue, string>>;
-		placeholdersI18n?: Partial<Record<keyof PhoneFormValue, string>>;
-	};
-	countryOptions?: FormOption[];
-	readOnly?: boolean;
-	disabled?: boolean;
-}) => {
-	const translate = useTranslatedText();
-	return (
-		<VStack gap="sm">
-			{props.countryOptions?.length ? (
-				<Select
-					value={props.value?.countryCode ?? ''}
-					onChange={(value) =>
-						props.onChange?.(
-							updatePhone(props.value, 'countryCode', optionValue(value))
-						)
-					}
-					options={props.countryOptions}
-					disabled={props.disabled || props.readOnly}
-				/>
-			) : (
-				<Input
-					value={props.value?.countryCode ?? ''}
-					onChange={(event) =>
-						props.onChange?.(
-							updatePhone(props.value, 'countryCode', inputValue(event))
-						)
-					}
-					placeholder={translate(
-						props.parts?.placeholdersI18n?.countryCode ??
-							FORM_FALLBACK_TEXT.countryCode
-					)}
-					readOnly={props.readOnly}
-					disabled={props.disabled}
-				/>
-			)}
-			<Input
-				value={props.value?.nationalNumber ?? ''}
-				onChange={(event) =>
-					props.onChange?.(
-						updatePhone(props.value, 'nationalNumber', inputValue(event))
-					)
-				}
-				placeholder={translate(
-					props.parts?.placeholdersI18n?.nationalNumber ??
-						FORM_FALLBACK_TEXT.phoneNumber
-				)}
-				readOnly={props.readOnly}
-				disabled={props.disabled}
-			/>
-			<Input
-				value={props.value?.extension ?? ''}
-				onChange={(event) =>
-					props.onChange?.(
-						updatePhone(props.value, 'extension', inputValue(event))
-					)
-				}
-				placeholder={translate(
-					props.parts?.placeholdersI18n?.extension ??
-						FORM_FALLBACK_TEXT.extension
-				)}
-				readOnly={props.readOnly}
-				disabled={props.disabled}
-			/>
 		</VStack>
 	);
 };

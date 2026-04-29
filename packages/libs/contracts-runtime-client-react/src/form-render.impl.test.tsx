@@ -197,6 +197,7 @@ const mockDriver: DriverSlots = {
 };
 
 type AutocompleteDriverProps = ComponentProps<DriverSlots['Autocomplete']>;
+type PhoneDriverProps = ComponentProps<DriverSlots['PhoneField']>;
 
 function delay(ms = 0) {
 	return new Promise((resolve) => setTimeout(resolve, ms));
@@ -770,6 +771,92 @@ describe('contracts-runtime-client-react form renderer', () => {
 
 		await act(async () => {
 			root?.unmount();
+		});
+	});
+
+	it('writes linked split phone outputs from one phone field', async () => {
+		const SplitPhoneForm = defineFormSpec({
+			meta: {
+				key: 'test.form.split-phone',
+				version: '1.0.0',
+				title: 'Split Phone Form',
+				description: 'Exercises split phone output mapping.',
+				domain: 'test',
+				owners: ['@team.test'],
+				tags: ['test'],
+				stability: 'experimental',
+			},
+			model: fromZod(
+				z.object({
+					phoneNumber: z.string().optional(),
+					phoneCountryCode: z.string().optional(),
+					phoneCountryIso2: z.string().optional(),
+					phoneE164: z.string().optional(),
+				}),
+				{ name: 'SplitPhoneModel' }
+			),
+			fields: [
+				{
+					kind: 'phone',
+					name: 'phoneNumber',
+					output: {
+						mode: 'split',
+						countryCodeFormat: 'iso2',
+						countryCodeName: 'phoneCountryCode',
+						countryIso2Name: 'phoneCountryIso2',
+						e164Name: 'phoneE164',
+					},
+				},
+			],
+			actions: [{ key: 'submit', labelI18n: 'Submit' }],
+		});
+		let latestPhone: PhoneDriverProps | undefined;
+		let submitted: Record<string, unknown> | undefined;
+		const renderer = createFormRenderer({
+			driver: {
+				...mockDriver,
+				PhoneField: (props) => {
+					latestPhone = props;
+					return <div data-widget="phone" />;
+				},
+			},
+			submitMode: 'button',
+			onSubmitOverride: (values) => {
+				submitted = values as Record<string, unknown>;
+			},
+		});
+		const container = document.createElement('div');
+		document.body.append(container);
+		const root = createRoot(container);
+
+		await act(async () => {
+			root.render(renderer.render(SplitPhoneForm));
+			await delay();
+		});
+		await act(async () => {
+			latestPhone?.onChange?.({
+				countryCode: 'FR',
+				countryIso2: 'FR',
+				nationalNumber: '612345678',
+				e164: '+33612345678',
+			});
+			await delay();
+		});
+		await act(async () => {
+			container
+				.querySelector('button')
+				?.dispatchEvent(
+					new window.MouseEvent('click', { bubbles: true, cancelable: true })
+				);
+			await delay();
+		});
+
+		expect(submitted?.phoneNumber).toBe('612345678');
+		expect(submitted?.phoneCountryCode).toBe('FR');
+		expect(submitted?.phoneCountryIso2).toBe('FR');
+		expect(submitted?.phoneE164).toBe('+33612345678');
+		await act(async () => {
+			root.unmount();
 		});
 	});
 

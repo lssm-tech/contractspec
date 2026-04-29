@@ -37,6 +37,7 @@ export function updatePhone(
 ) {
 	return {
 		countryCode: value?.countryCode ?? '',
+		countryIso2: value?.countryIso2,
 		nationalNumber: value?.nationalNumber ?? '',
 		extension: value?.extension,
 		e164: value?.e164,

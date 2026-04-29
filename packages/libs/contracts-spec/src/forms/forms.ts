@@ -73,10 +73,59 @@ export interface AddressFormValue {
 }
 
 export interface PhoneFormValue {
+	/** Calling code by default (for example `+33`); can be ISO-2 when configured with `countryCodeFormat: "iso2"`. */
 	countryCode: string;
+	/** ISO 3166-1 alpha-2 country code used for flags and parsing (for example `FR`). */
+	countryIso2?: string;
 	nationalNumber: string;
 	extension?: string;
 	e164?: string;
+}
+
+export type PhoneInputMode = 'single' | 'split';
+
+export type PhoneOutputMode = 'object' | 'e164' | 'split';
+
+export type PhoneCountryDetectionMode = 'off' | 'input';
+
+export type PhoneCountryCodeFormat = 'callingCode' | 'iso2';
+
+export interface PhoneInputSpec {
+	/** `single` renders one linked phone box; `split` renders country and national controls. */
+	mode?: PhoneInputMode;
+	/** Allow a typed international prefix in either mode to update the selected country automatically. */
+	autoSwitch?: boolean;
+}
+
+export interface PhoneOutputSpec {
+	/** `object` stores PhoneFormValue, `e164` stores one string, `split` writes linked paths. */
+	mode?: PhoneOutputMode;
+	/** Country-code path for split output. */
+	countryCodeName?: string;
+	/** Optional ISO-2 country path for split output and flag persistence. */
+	countryIso2Name?: string;
+	/** Optional national-number path when it differs from `name`. */
+	nationalNumberName?: string;
+	/** Optional E.164 mirror path for split/object output. */
+	e164Name?: string;
+	/** Controls what is written to `countryCode`/`countryCodeName`. */
+	countryCodeFormat?: PhoneCountryCodeFormat;
+}
+
+export interface PhoneCountrySpec {
+	/** Initial ISO-2 country when the value cannot be parsed yet. */
+	defaultIso2?: string;
+	/** Parse typed international values and update country metadata automatically. */
+	detection?: PhoneCountryDetectionMode;
+	/** Restrict selectable/detectable countries to these ISO-2 values. */
+	allowedIso2?: string[];
+}
+
+export interface PhoneDisplaySpec {
+	flag?: boolean;
+	callingCode?: boolean;
+	countrySelect?: boolean;
+	extension?: boolean;
 }
 
 export type CurrencyCode =
@@ -423,6 +472,10 @@ export interface PhoneFieldSpec extends BaseFieldSpec {
 	name: string;
 	parts?: CompositePartConfig<keyof PhoneFormValue>;
 	countryOptions?: OptionsSource | readonly FormOption[];
+	input?: PhoneInputSpec;
+	output?: PhoneOutputSpec;
+	country?: PhoneCountrySpec;
+	display?: PhoneDisplaySpec;
 }
 
 export interface NumberFieldSpec extends BaseFieldSpec {
@@ -597,12 +650,53 @@ export function normalizeFieldSpec<T extends FieldSpec>(field: T): T {
 	return normalizedBase;
 }
 
+function collectPhoneOutputPaths(
+	field: FieldSpec,
+	parentPath?: string
+): string[] {
+	const fieldPath = field.name
+		? parentPath
+			? `${parentPath}.${field.name}`
+			: field.name
+		: (parentPath ?? '');
+	if (field.kind === 'group') {
+		return field.fields.flatMap((child) =>
+			collectPhoneOutputPaths(child, fieldPath)
+		);
+	}
+	if (field.kind === 'array') {
+		return collectPhoneOutputPaths(field.of, fieldPath);
+	}
+	if (field.kind !== 'phone') return [];
+	return [
+		fieldPath,
+		field.output?.countryCodeName,
+		field.output?.countryIso2Name,
+		field.output?.nationalNumberName,
+		field.output?.e164Name,
+	].filter((path): path is string => Boolean(path));
+}
+
+function normalizeFormPolicy(
+	policy: SurfacePolicyRequirement | undefined,
+	fields: FieldSpec[]
+): SurfacePolicyRequirement | undefined {
+	const phonePiiPaths = fields.flatMap((field) =>
+		collectPhoneOutputPaths(field)
+	);
+	if (!phonePiiPaths.length) return policy;
+	const pii = [...new Set([...(policy?.pii ?? []), ...phonePiiPaths])];
+	return { ...policy, pii };
+}
+
 export function normalizeFormSpec<M extends AnySchemaModel>(
 	spec: FormSpec<M>
 ): FormSpec<M> {
+	const fields = spec.fields.map((field) => normalizeFieldSpec(field));
 	return {
 		...spec,
-		fields: spec.fields.map((field) => normalizeFieldSpec(field)),
+		fields,
+		policy: normalizeFormPolicy(spec.policy, fields),
 	};
 }
 

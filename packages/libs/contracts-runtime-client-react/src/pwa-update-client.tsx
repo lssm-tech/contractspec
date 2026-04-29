@@ -3,7 +3,7 @@
 import type {
 	PwaUpdateCheckInputValue,
 	PwaUpdateCheckOutputValue,
-} from '@contractspec/lib.contracts-spec/pwa';
+} from '@contractspec/lib.contracts-spec/pwa/types';
 import * as React from 'react';
 import { parseContractResponse } from './contract-result-client';
 

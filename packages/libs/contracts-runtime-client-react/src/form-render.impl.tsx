@@ -239,6 +239,10 @@ export interface DriverSlots {
 		'aria-describedby'?: string;
 		parts?: PhoneFieldSpec['parts'];
 		countryOptions?: FormOption[];
+		input?: PhoneFieldSpec['input'];
+		output?: PhoneFieldSpec['output'];
+		country?: PhoneFieldSpec['country'];
+		display?: PhoneFieldSpec['display'];
 	}>;
 	DateField: React.ComponentType<{
 		id?: string;
@@ -307,6 +311,13 @@ export type ComputationMap<TValues> = Record<
 	(values: TValues) => unknown
 >;
 
+export interface PhoneRendererOptions {
+	input?: PhoneFieldSpec['input'];
+	output?: PhoneFieldSpec['output'];
+	country?: PhoneFieldSpec['country'];
+	display?: PhoneFieldSpec['display'];
+}
+
 export interface CreateRendererOptions<TValues = Record<string, unknown>> {
 	driver: DriverSlots;
 	formOptions?: Record<string, unknown>;
@@ -317,6 +328,7 @@ export interface CreateRendererOptions<TValues = Record<string, unknown>> {
 	activeFlags?: string[];
 	resolvers?: ResolverMap<TValues>;
 	computations?: ComputationMap<TValues>;
+	phone?: PhoneRendererOptions;
 	unmountStrategy?: 'keep' | 'clear';
 	submitMode?: 'form' | 'button';
 }
@@ -895,17 +907,130 @@ function normalizePhoneValue(value: PhoneFormValue | null | undefined) {
 		} satisfies PhoneFormValue;
 	}
 	const trimmedCountry = value.countryCode.trim();
-	const digits = value.nationalNumber.replace(/\s+/g, '');
-	const prefix = trimmedCountry.replace(/^\+?/, '+');
+	const digits = value.nationalNumber.replace(/\D+/g, '');
+	const canDeriveE164 = Boolean(
+		trimmedCountry &&
+			digits &&
+			(trimmedCountry.startsWith('+') || /^\d+$/.test(trimmedCountry))
+	);
 	const next: PhoneFormValue = {
 		...value,
 		countryCode: trimmedCountry,
+		countryIso2: value.countryIso2?.trim().toUpperCase(),
 		nationalNumber: value.nationalNumber,
 	};
-	if (value.e164 != null || trimmedCountry || digits) {
-		next.e164 = `${prefix}${digits}`.trim();
+	if (value.e164 != null) {
+		next.e164 = value.e164;
+	} else if (canDeriveE164) {
+		next.e164 = `${trimmedCountry.replace(/^\+?/, '+')}${digits}`;
 	}
 	return next;
+}
+
+function mergePhoneOptions(
+	spec: PhoneFieldSpec,
+	defaults?: PhoneRendererOptions
+): PhoneRendererOptions {
+	return {
+		input: { ...defaults?.input, ...spec.input },
+		output: { ...defaults?.output, ...spec.output },
+		country: { ...defaults?.country, ...spec.country },
+		display: { ...defaults?.display, ...spec.display },
+	};
+}
+
+function stringAtPath(values: unknown, path: string | undefined) {
+	if (!path) return undefined;
+	const value = getAtPath(values, path);
+	return value == null ? undefined : String(value);
+}
+
+function readPhoneValue<TValues extends FieldValues>(props: {
+	fieldValue: unknown;
+	values: TValues;
+	config: PhoneRendererOptions;
+}) {
+	const output = props.config.output;
+	if (output?.mode === 'split') {
+		const nationalNumber =
+			stringAtPath(props.values, output.nationalNumberName) ??
+			(props.fieldValue == null ? '' : String(props.fieldValue));
+		return normalizePhoneValue({
+			countryCode: stringAtPath(props.values, output.countryCodeName) ?? '',
+			countryIso2: stringAtPath(props.values, output.countryIso2Name),
+			nationalNumber,
+			e164: stringAtPath(props.values, output.e164Name),
+		});
+	}
+	if (typeof props.fieldValue === 'string') {
+		return normalizePhoneValue({
+			countryCode: '',
+			nationalNumber: props.fieldValue.startsWith('+') ? '' : props.fieldValue,
+			e164: props.fieldValue.startsWith('+') ? props.fieldValue : undefined,
+		});
+	}
+	return normalizePhoneValue(
+		(props.fieldValue as PhoneFormValue | null | undefined) ?? null
+	);
+}
+
+function countryCodeOutput(
+	value: PhoneFormValue,
+	output?: PhoneFieldSpec['output']
+) {
+	return output?.countryCodeFormat === 'iso2'
+		? (value.countryIso2 ?? '')
+		: value.countryCode;
+}
+
+function setPhonePath<TValues extends FieldValues>(
+	form: UseFormReturn<TValues>,
+	path: string | undefined,
+	value: string
+) {
+	if (!path) return;
+	form.setValue(path as never, value as never, {
+		shouldDirty: true,
+		shouldValidate: true,
+	});
+}
+
+function writeLinkedPhonePaths<TValues extends FieldValues>(props: {
+	form: UseFormReturn<TValues>;
+	ctxName: string;
+	fieldOnChange: (value: unknown) => void;
+	value: PhoneFormValue;
+	config: PhoneRendererOptions;
+}) {
+	const output = props.config.output;
+	const value = normalizePhoneValue(props.value);
+
+	if (output?.mode === 'e164') {
+		props.fieldOnChange(value.e164 ?? '');
+		setPhonePath(props.form, output.e164Name, value.e164 ?? '');
+		return;
+	}
+
+	if (output?.mode === 'split') {
+		props.fieldOnChange(value.nationalNumber);
+		if (
+			output.nationalNumberName &&
+			output.nationalNumberName !== props.ctxName
+		) {
+			setPhonePath(props.form, output.nationalNumberName, value.nationalNumber);
+		}
+		setPhonePath(
+			props.form,
+			output.countryCodeName,
+			countryCodeOutput(value, output)
+		);
+		setPhonePath(props.form, output.countryIso2Name, value.countryIso2 ?? '');
+		setPhonePath(props.form, output.e164Name, value.e164 ?? '');
+		return;
+	}
+
+	props.fieldOnChange(value);
+	setPhonePath(props.form, output?.e164Name, value.e164 ?? '');
 }
 
 interface FieldRenderContext {
@@ -1420,7 +1545,9 @@ function PhoneFieldControl<TValues extends FieldValues>(props: {
 	descNode: React.ReactNode;
 	commonWrapProps: CommonWrapProps;
 	resolvers?: ResolverMap<TValues>;
+	phone?: PhoneRendererOptions;
 }) {
+	const phoneConfig = mergePhoneOptions(props.spec, props.phone);
 	const countryOptions = useResolvedOptions(
 		props.values,
 		toOptionsArray(props.spec.countryOptions),
@@ -1428,10 +1555,15 @@ function PhoneFieldControl<TValues extends FieldValues>(props: {
 	);
 	const DriverField = props.driver.Field;
 	const DriverError = props.driver.FieldError;
+	const controllerName =
+		phoneConfig.output?.mode === 'split' &&
+		phoneConfig.output.nationalNumberName
+			? phoneConfig.output.nationalNumberName
+			: props.ctx.name;
 
 	return (
 		<Controller
-			name={props.ctx.name as never}
+			name={controllerName as never}
 			control={props.form.control}
 			render={({ field, fieldState }) => {
 				const err = fieldState.error ? [fieldState.error] : [];
@@ -1453,12 +1585,20 @@ function PhoneFieldControl<TValues extends FieldValues>(props: {
 						<props.driver.PhoneField
 							id={props.ctx.id}
 							name={props.ctx.name}
-							value={normalizePhoneValue(
-								(field.value as PhoneFormValue | null | undefined) ?? null
-							)}
+							value={readPhoneValue({
+								fieldValue: field.value,
+								values: props.values,
+								config: phoneConfig,
+							})}
 							onChange={(value) => {
 								if (props.ctx.readOnly) return;
-								field.onChange(normalizePhoneValue(value));
+								writeLinkedPhonePaths({
+									form: props.form,
+									ctxName: props.ctx.name,
+									fieldOnChange: field.onChange,
+									value,
+									config: phoneConfig,
+								});
 							}}
 							disabled={!props.ctx.enabled}
 							readOnly={props.ctx.readOnly}
@@ -1466,6 +1606,10 @@ function PhoneFieldControl<TValues extends FieldValues>(props: {
 							aria-describedby={describedBy}
 							parts={props.spec.parts}
 							countryOptions={countryOptions}
+							input={phoneConfig.input}
+							output={phoneConfig.output}
+							country={phoneConfig.country}
+							display={phoneConfig.display}
 						/>
 						{props.descNode}
 						{fieldState.invalid ? (
@@ -2061,6 +2205,7 @@ export function createFormRenderer<M extends AnySchemaModel = AnySchemaModel>(
 						descNode={descNode}
 						commonWrapProps={commonWrapProps}
 						resolvers={props.merged.resolvers}
+						phone={props.merged.phone}
 					/>
 				);
 			}
