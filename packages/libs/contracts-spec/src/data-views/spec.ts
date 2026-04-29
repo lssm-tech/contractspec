@@ -1,6 +1,7 @@
 import type { DocBlock } from '../docs/types';
 import type { ExperimentRef } from '../experiments/spec';
 import type { DataViewRef } from '../features/types';
+import type { SurfacePolicyRequirement } from '../policy/requirements';
 import type {
 	DataViewConfig,
 	DataViewMeta,
@@ -19,7 +20,7 @@ export interface DataViewSpec {
 	source: DataViewSource;
 	view: DataViewConfig;
 	states?: DataViewStates;
-	policy?: { flags?: string[]; pii?: string[] };
+	policy?: SurfacePolicyRequirement;
 	experiments?: ExperimentRef[];
 }
 

@@ -1,8 +1,15 @@
+import type { PolicyDecision } from '@contractspec/lib.contracts-spec';
+import type { PolicyRequirement } from '@contractspec/lib.contracts-spec/policy';
 import type * as React from 'react';
 
 export type ShellNavMatch = 'exact' | 'startsWith';
 
 export interface ShellNavItem {
+	policy?: PolicyRequirement;
+	policyBehavior?: 'hide' | 'disable' | 'show-with-lock';
+	policyDecision?: PolicyDecision;
+	disabled?: boolean;
+	locked?: boolean;
 	key?: string;
 	label: React.ReactNode;
 	href?: string;
@@ -20,12 +27,22 @@ export interface ShellNavItem {
 }
 
 export interface ShellNavSection {
+	policy?: PolicyRequirement;
+	policyBehavior?: 'hide' | 'disable' | 'show-with-lock';
+	policyDecision?: PolicyDecision;
+	disabled?: boolean;
+	locked?: boolean;
 	key?: string;
 	title?: React.ReactNode;
 	items: ShellNavItem[];
 }
 
 export interface ShellCommandItem {
+	policy?: PolicyRequirement;
+	policyBehavior?: 'hide' | 'disable' | 'show-with-lock';
+	policyDecision?: PolicyDecision;
+	disabled?: boolean;
+	locked?: boolean;
 	id: string;
 	label: string;
 	shortcut?: string;

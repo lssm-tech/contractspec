@@ -1,3 +1,4 @@
+import type { SurfacePolicyRequirement } from '../policy/requirements';
 /* eslint-disable */
 
 import type { AnySchemaModel, ZodSchemaModel } from '@contractspec/lib.schema';
@@ -552,7 +553,7 @@ export interface FormSpec<M extends AnySchemaModel = AnySchemaModel> {
 	/** Flat list or tree using groups/arrays */
 	fields: FieldSpec[];
 	layout?: FormLayoutSpec;
-	policy?: { flags?: string[]; pii?: string[] };
+	policy?: SurfacePolicyRequirement;
 	actions?: FormAction[];
 	renderHints?: { ui: 'shadcn' | 'custom'; form: 'react-hook-form' };
 	constraints?: ConstraintDecl[];

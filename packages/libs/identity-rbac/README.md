@@ -24,6 +24,26 @@ or
 
 Import the root entrypoint from `@contractspec/lib.identity-rbac`, or choose a documented subpath when you only need one part of the package surface.
 
+The `RBACPolicyEngine` can evaluate shared ContractSpec `PolicyRequirement` objects against static role templates, dynamic role/binding sources, or a hybrid of both. Dynamic persistence is intentionally app-owned; the library consumes provider results and applies deterministic precedence (source unavailable fails closed, expired/out-of-scope bindings are ignored, explicit deny wins, dynamic grants extend static templates).
+
+```ts
+import { RBACPolicyEngine, StaticRolePermissionSource } from "@contractspec/lib.identity-rbac/policies";
+
+const source = new StaticRolePermissionSource({
+  roles: [
+    { key: "billing.viewer", permissions: ["invoice.read"], source: "static" },
+  ],
+});
+
+const engine = new RBACPolicyEngine();
+const decision = await engine.evaluateRequirement({
+  mode: "static",
+  requirements: { permissions: { any: ["invoice.read"] } },
+  subject: { id: "user-1", roles: ["billing.viewer"] },
+  source,
+});
+```
+
 ## Architecture
 
 - `src/contracts/` contains contract specs, operations, entities, and registry exports.

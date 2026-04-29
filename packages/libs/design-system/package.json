@@ -498,6 +498,7 @@
 			"default": "./src/components/shell/PageOutline.tsx"
 		},
 		"./components/shell/PageOutline.native": "./src/components/shell/PageOutline.native.tsx",
+		"./components/shell/policy": "./src/components/shell/policy.ts",
 		"./components/shell/ShellSidebar": "./src/components/shell/ShellSidebar.tsx",
 		"./components/shell/types": "./src/components/shell/types.ts",
 		"./components/templates/lists/ListPageTemplate": {
@@ -1976,6 +1977,12 @@
 				"types": "./dist/components/shell/PageOutline.native.d.ts",
 				"react-native": "./dist/native/components/shell/PageOutline.native.js",
 				"default": "./dist/native/components/shell/PageOutline.native.js"
+			},
+			"./components/shell/policy": {
+				"types": "./dist/components/shell/policy.d.ts",
+				"browser": "./dist/browser/components/shell/policy.js",
+				"bun": "./dist/components/shell/policy.js",
+				"default": "./dist/components/shell/policy.js"
 			},
 			"./components/shell/ShellSidebar": {
 				"types": "./dist/components/shell/ShellSidebar.d.ts",

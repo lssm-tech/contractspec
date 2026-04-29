@@ -72,12 +72,18 @@ function buildInsights(
 			}));
 	});
 
+	const deniedFields = Object.keys(summary.deniedFieldCounts ?? {});
+	const deniedActions = Object.keys(summary.deniedActionCounts ?? {});
 	const layoutPreference = detectLayout(summary);
 
 	return {
 		unusedFields: ignoredFields,
 		suggestedHiddenFields: ignoredFields.slice(0, 5),
-		frequentlyUsedFields: frequentlyUsedFields.slice(0, 10),
+		frequentlyUsedFields: frequentlyUsedFields
+			.filter((field) => !deniedFields.includes(field))
+			.slice(0, 10),
+		deniedFields,
+		deniedActions,
 		workflowBottlenecks,
 		layoutPreference,
 	};

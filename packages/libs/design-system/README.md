@@ -237,6 +237,8 @@ move behind accessible menu triggers. On native, the shell maps primary
 navigation to bottom tabs and keeps overflow navigation, actions, user content,
 and page outline inside the menu sheet.
 
+Shell navigation and command items may carry optional `policy` metadata plus a `policyBehavior` of `hide`, `disable`, or `show-with-lock`. Use `filterShellNavigationForPolicy()` / `annotateShellCommandsDecisions()` with decisions produced by your application runtime; AppShell only adapts affordances and does not fetch permissions or enforce backend access.
+
 ### Render actionable object references
 
 Use `ObjectReferenceHandler` when product surfaces render references that usually

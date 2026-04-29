@@ -2,6 +2,7 @@ import type { AnySchemaModel } from '@contractspec/lib.schema';
 import type { CapabilityRef } from '../capabilities/capabilities';
 import type { DocBlock } from '../docs/types';
 import type { OwnerShipMeta } from '../ownership';
+import type { SurfacePolicyRequirement } from '../policy/requirements';
 import type { BlockConfig } from './shim-blocknotejs';
 
 export type { BlockConfig } from './shim-blocknotejs';
@@ -57,7 +58,7 @@ export interface PresentationSpec {
 	 * Used for bidirectional linking between capabilities and presentations.
 	 */
 	capability?: CapabilityRef;
-	policy?: { flags?: string[]; pii?: string[] };
+	policy?: SurfacePolicyRequirement;
 	source: PresentationSource;
 	targets: PresentationTarget[]; // which outputs are supported by transforms
 }
@@ -116,7 +117,7 @@ type PresentationSource =
 
 interface PresentationSpec {
   meta: PresentationMeta; // includes partial OwnerShipMeta + description
-  policy?: { flags?: string[]; pii?: string[] };
+  policy?: SurfacePolicyRequirement;
   source: PresentationSource;
   targets: PresentationTarget[];
 }

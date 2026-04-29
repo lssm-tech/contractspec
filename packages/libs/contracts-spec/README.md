@@ -46,6 +46,7 @@ bun add @contractspec/lib.contracts-spec @contractspec/lib.schema
 ## Core concepts
 
 - `defineCommand` / `defineQuery`: typed operation specs with metadata, I/O schema, policy, transport hints, and side effects.
+- `PolicyRequirement` and `SurfacePolicyRequirement`: additive role/permission/flag/policy-ref requirements for operations, presentations, data views, forms, and knowledge access metadata.
 - `defineAgent` + `AgentRegistry`: typed agent-definition contracts that runtime packages execute, export, or adapt.
 - `OperationSpecRegistry`: registers specs, binds handlers, and executes with validation/policy/event guards.
 - `ContractResult`: canonical success/failure envelope used by operation, workflow, job, API, MCP, GraphQL, and React runtimes while preserving raw-response compatibility for adapters.
@@ -512,6 +513,24 @@ export const GetWorkspace = defineQuery({
   io: { input: WorkspaceInput, output: WorkspaceOutput },
   policy: { auth: "user" },
 });
+
+Operations can also declare stronger policy requirements without replacing the legacy `auth`, `flags`, or `pii` fields:
+
+```ts
+export const ReadInvoice = defineQuery({
+  // ...meta and io...
+  policy: {
+    auth: "user",
+    permissions: { any: ["invoice.read"] },
+    roles: { any: ["billing.viewer", "billing.admin"] },
+    fieldPolicies: [
+      { field: "internalNotes", actions: ["read"], permissions: ["invoice.notes.read"] },
+    ],
+  },
+});
+```
+
+`OperationSpecRegistry.execute()` normalizes those requirements and passes them to `ctx.decide` with subject, resource, tenant/workspace, policy refs, and field-policy context before the handler runs. UI surfaces may reuse the same requirement shape for adaptation, but authoritative enforcement belongs in the runtime decider or server-side RBAC engine.
 
 export const CreateWorkspace = defineCommand({
   meta: {

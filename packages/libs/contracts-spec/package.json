@@ -334,6 +334,7 @@
 		"./policy/guards": "./src/policy/guards.ts",
 		"./policy/opa-adapter": "./src/policy/opa-adapter.ts",
 		"./policy/registry": "./src/policy/registry.ts",
+		"./policy/requirements": "./src/policy/requirements.ts",
 		"./policy/spec": "./src/policy/spec.ts",
 		"./policy/validation": "./src/policy/validation.ts",
 		"./presentations": "./src/presentations/index.ts",
@@ -2161,6 +2162,12 @@
 				"bun": "./dist/policy/registry.js",
 				"node": "./dist/node/policy/registry.js",
 				"default": "./dist/policy/registry.js"
+			},
+			"./policy/requirements": {
+				"types": "./dist/policy/requirements.d.ts",
+				"bun": "./dist/policy/requirements.js",
+				"node": "./dist/node/policy/requirements.js",
+				"default": "./dist/policy/requirements.js"
 			},
 			"./policy/spec": {
 				"types": "./dist/policy/spec.d.ts",

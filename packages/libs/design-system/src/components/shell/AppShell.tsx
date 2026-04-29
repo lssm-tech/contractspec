@@ -82,9 +82,11 @@ function ShellNavListItem({
 		</span>
 	);
 
+	const disabled = item.disabled || item.policyDecision?.effect === 'deny';
+
 	return (
 		<div className="flex flex-col gap-1">
-			{item.href ? (
+			{item.href && !disabled ? (
 				<a
 					href={item.href}
 					target={item.target}
@@ -101,10 +103,12 @@ function ShellNavListItem({
 			) : (
 				<button
 					type="button"
+					aria-disabled={disabled || undefined}
+					disabled={disabled}
 					aria-label={item.ariaLabel}
 					onClick={() => item.onSelect?.()}
 					className={cn(
-						'rounded-xs px-2 py-2 text-left text-sm hover:bg-accent hover:text-accent-foreground',
+						'rounded-xs px-2 py-2 text-left text-sm hover:bg-accent hover:text-accent-foreground disabled:pointer-events-none disabled:opacity-50',
 						active && 'bg-accent font-medium text-accent-foreground'
 					)}
 				>

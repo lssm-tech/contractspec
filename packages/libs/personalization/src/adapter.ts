@@ -11,6 +11,7 @@ export interface OverlaySuggestionOptions {
 	userId?: string;
 	role?: string;
 	version?: string;
+	deniedFields?: string[];
 }
 
 export interface WorkflowAdaptation {
@@ -33,10 +34,18 @@ export function insightsToOverlaySuggestion(
 		});
 	});
 
-	if (insights.frequentlyUsedFields.length) {
+	const deniedFields = new Set([
+		...(insights.deniedFields ?? []),
+		...(options.deniedFields ?? []),
+	]);
+	const reorderFields = insights.frequentlyUsedFields.filter(
+		(field) => !deniedFields.has(field)
+	);
+
+	if (reorderFields.length) {
 		modifications.push({
 			type: 'reorderFields',
-			fields: insights.frequentlyUsedFields,
+			fields: reorderFields,
 		});
 	}
 

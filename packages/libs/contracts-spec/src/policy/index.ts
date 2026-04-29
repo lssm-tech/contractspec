@@ -3,6 +3,7 @@ export * from './engine';
 export * from './guards';
 export * from './opa-adapter';
 export * from './registry';
+export * from './requirements';
 export * from './spec';
 export * from './validation';
 

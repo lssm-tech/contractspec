@@ -46,6 +46,7 @@ function NativeNavItem({
 	onNavigate?: (item: ShellNavItem) => void;
 	depth?: number;
 }) {
+	const disabled = item.disabled || item.policyDecision?.effect === 'deny';
 	const active =
 		item.active ||
 		(Boolean(activeHref) &&
@@ -58,7 +59,8 @@ function NativeNavItem({
 		<View className="gap-1">
 			<Pressable
 				accessibilityRole="link"
-				accessibilityState={{ selected: active }}
+				accessibilityState={{ selected: active, disabled }}
+				disabled={disabled}
 				onPress={() => {
 					item.onSelect?.();
 					onNavigate?.(item);
@@ -66,6 +68,7 @@ function NativeNavItem({
 				className={cn(
 					'rounded-xs px-2 py-2',
 					depth > 0 && 'pl-5',
+					disabled && 'opacity-50',
 					active ? 'bg-muted' : undefined
 				)}
 			>

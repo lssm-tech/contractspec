@@ -1,5 +1,6 @@
 import type { DocBlock } from '../docs/types';
 import type { OwnerShipMeta } from '../ownership';
+import type { PolicyRequirement } from '../policy/requirements';
 import type { PolicyRef } from '../policy/spec';
 import { SpecContractRegistry } from '../registry';
 export type KnowledgeCategory =
@@ -22,6 +23,8 @@ export interface KnowledgeRetentionPolicy {
 export interface KnowledgeAccessPolicy {
 	/** Which PolicySpec governs access. */
 	policy?: PolicyRef;
+	/** Additive role/permission requirements for this knowledge surface. */
+	requirements?: PolicyRequirement;
 	/** Trust level for agent/workflow consumption. */
 	trustLevel: 'high' | 'medium' | 'low';
 	/** Can this space be mutated by automation? */

@@ -1,0 +1,65 @@
+schemaVersion: "1"
+slug: roles-permissions-rbac-policy-system
+summary: Add a shared roles and permissions policy system across contracts, RBAC evaluation, AppShell adaptation, and personalization suppression.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.contracts-spec"
+    releaseType: minor
+  - name: "@contractspec/lib.identity-rbac"
+    releaseType: minor
+  - name: "@contractspec/lib.design-system"
+    releaseType: minor
+  - name: "@contractspec/lib.personalization"
+    releaseType: minor
+affectedRuntimes:
+  - bun
+  - node
+  - browser
+  - nextjs
+  - expo
+affectedFrameworks:
+  - react
+  - react-native
+audiences:
+  - kind: maintainer
+    summary: Contract authors can declare shared static policy requirements while RBAC providers evaluate static, dynamic, and hybrid workspace-scoped grants.
+    affectedPackages:
+      - "@contractspec/lib.contracts-spec"
+      - "@contractspec/lib.identity-rbac"
+  - kind: integrator
+    summary: AppShell navigation and personalization adapters can consume runtime policy decisions without becoming enforcement authorities.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+      - "@contractspec/lib.personalization"
+  - kind: customer
+    summary: Workspace applications can hide or disable unauthorized navigation and avoid promoting denied fields while server-side policy decisions remain authoritative.
+deprecations: []
+migrationInstructions:
+  - id: adopt-shared-policy-requirements
+    title: Adopt shared PolicyRequirement metadata incrementally
+    summary: Existing policies continue to work; add roles, permissions, policy refs, and field policies when a contract needs stronger authorization metadata.
+    required: false
+    steps:
+      - Import shared policy requirement types from `@contractspec/lib.contracts-spec/policy` when authoring reusable contract metadata.
+      - Keep server/runtime `ctx.decide` or RBAC evaluation as the source of enforcement authority.
+      - Pass evaluated decisions to AppShell and personalization helpers only for UX adaptation and suppression.
+upgradeSteps:
+  - id: wire-dynamic-rbac-sources
+    title: Wire app-owned dynamic RBAC providers
+    summary: Apps that store workspace-specific role bindings can implement a role-permission source and pass it to `RBACPolicyEngine.evaluateRequirement`.
+    level: assisted
+    instructions:
+      - Resolve static templates and dynamic role/binding records for the current tenant/workspace.
+      - "Mark explicit denies with `effect: \"deny\"` so they override static/template grants."
+      - Treat provider failure as a protected-operation denial unless an audited break-glass path exists.
+validation:
+  commands:
+    - "bun run --cwd packages/libs/contracts-spec test && bun run --cwd packages/libs/contracts-spec typecheck && bun run --cwd packages/libs/contracts-spec lint:check"
+    - "bun run --cwd packages/libs/identity-rbac test && bun run --cwd packages/libs/identity-rbac typecheck && bun run --cwd packages/libs/identity-rbac lint:check"
+    - "bun run --cwd packages/libs/design-system test && bun run --cwd packages/libs/design-system typecheck && bun run --cwd packages/libs/design-system lint:check"
+    - "bun run --cwd packages/libs/personalization test && bun run --cwd packages/libs/personalization typecheck && bun run --cwd packages/libs/personalization lint:check"
+  evidence:
+    - "contracts-spec validates normalized role/permission/policy requirements and passes enriched policy context to runtime deciders before handlers execute."
+    - "identity-rbac tests cover static, dynamic, hybrid, scoped, expired, source-unavailable, and explicit-deny precedence cases."
+    - "design-system AppShell tests cover no-policy identity preservation, hide/disable behavior, nested pruning, and command annotation."
+    - "personalization tests cover authorization context propagation and denied-field suppression from reorder suggestions."

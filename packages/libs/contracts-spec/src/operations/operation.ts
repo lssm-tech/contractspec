@@ -8,6 +8,10 @@ import type { CapabilityRef } from '../capabilities/capabilities';
 import type { EventSpec } from '../events';
 import type { DataViewRef, FormRef, PresentationRef } from '../features';
 import type { OwnerShipMeta } from '../ownership';
+import type {
+	PolicyFieldRequirement,
+	PolicyRequirement,
+} from '../policy/requirements';
 import type { PolicyRef } from '../policy/spec';
 import type { ResourceRefDescriptor } from '../resources';
 import type {
@@ -83,6 +87,21 @@ export interface OperationSpecMeta extends OwnerShipMeta {
 	context: string;
 }
 
+export interface OperationPolicySpec extends Omit<PolicyRequirement, 'auth'> {
+	/** Minimal auth category allowed to call this op */
+	auth: NonNullable<PolicyRequirement['auth']>;
+	/** Idempotency hint. Queries default true; commands default false. */
+	idempotent?: boolean;
+	/** Soft rate limit suggestion; adapter enforces via limiter */
+	rateLimit?: { rpm: number; key: 'user' | 'org' | 'global' };
+	/** Whether a human must approve before action (e.g., risky commands) */
+	escalate?: 'human_review' | null;
+	/** Referenced policy specs governing access */
+	policies?: PolicyRef[];
+	/** Field-level overrides referencing policy specs */
+	fieldPolicies?: PolicyFieldRequirement[];
+}
+
 /**
  * The core specification interface for any operation (Command or Query).
  *
@@ -136,28 +155,7 @@ export interface OperationSpec<
 	/** Preferred typed result catalog for operation-specific success/failure codes. */
 	results?: ResultCatalog;
 
-	policy: {
-		/** Minimal auth category allowed to call this op */
-		auth: 'anonymous' | 'user' | 'admin';
-		/** Idempotency hint. Queries default true; commands default false. */
-		idempotent?: boolean;
-		/** Soft rate limit suggestion; adapter enforces via limiter */
-		rateLimit?: { rpm: number; key: 'user' | 'org' | 'global' };
-		/** Feature flags that must be ON for this op to run */
-		flags?: string[];
-		/** Whether a human must approve before action (e.g., risky commands) */
-		escalate?: 'human_review' | null;
-		/** JSONPath-like pointers to redact from logs/prompts */
-		pii?: string[];
-		/** Referenced policy specs governing access */
-		policies?: PolicyRef[];
-		/** Field-level overrides referencing policy specs */
-		fieldPolicies?: {
-			field: string;
-			actions: ('read' | 'write')[];
-			policy?: PolicyRef;
-		}[];
-	};
+	policy: OperationPolicySpec;
 
 	sideEffects?: {
 		/** Declared events this op may emit; runtime will guard against others */

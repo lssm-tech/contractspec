@@ -56,6 +56,7 @@ function ShellSidebarItem({
 	depth?: number;
 }) {
 	const active = isActive(item, activeHref);
+	const disabled = item.disabled || item.policyDecision?.effect === 'deny';
 	const hasChildren = Boolean(item.children?.length);
 	const content = (
 		<span
@@ -72,12 +73,14 @@ function ShellSidebarItem({
 	return (
 		<SidebarMenuItem>
 			<SidebarMenuButton
-				asChild={!!item.href}
+				asChild={!!item.href && !disabled}
 				isActive={active}
-				aria-label={item.href ? undefined : item.ariaLabel}
-				onClick={item.href ? undefined : () => item.onSelect?.()}
+				aria-disabled={disabled}
+				aria-label={item.href && !disabled ? undefined : item.ariaLabel}
+				disabled={disabled}
+				onClick={item.href || disabled ? undefined : () => item.onSelect?.()}
 			>
-				{item.href ? (
+				{item.href && !disabled ? (
 					<a
 						href={item.href}
 						target={item.target}

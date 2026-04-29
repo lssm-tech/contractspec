@@ -10,6 +10,7 @@
 import type { AnySchemaModel } from '@contractspec/lib.schema';
 import { eventKey } from '../events';
 import type { HandlerForOperationSpecWithResult } from '../install';
+import { normalizePolicyRequirement } from '../policy/requirements';
 import { SpecContractRegistry } from '../registry';
 import type { ResourceRefDescriptor } from '../resources';
 import {
@@ -212,6 +213,15 @@ export class OperationSpecRegistry extends SpecContractRegistry<
 			const [service, command] = spec.meta.key.split('.');
 			if (!service || !command)
 				throw new Error(`Invalid spec name: ${spec.meta.key}`);
+			const requirements = normalizePolicyRequirement(spec.policy);
+			const policyContext = {
+				tenantId: ctx.tenantId,
+				workspaceId: ctx.workspaceId,
+				organizationId: ctx.organizationId,
+				userId: ctx.userId,
+				channel: ctx.channel,
+				...ctx.policyContext,
+			};
 			const decision = await ctx.decide({
 				service,
 				command,
@@ -221,7 +231,29 @@ export class OperationSpecRegistry extends SpecContractRegistry<
 				roles: ctx.roles,
 				organizationId: ctx.organizationId,
 				userId: ctx.userId,
-				flags: [], // adapter may fill flags from request
+				flags: spec.policy.flags ?? [],
+				operation: {
+					key: spec.meta.key,
+					version: spec.meta.version,
+					kind: spec.meta.kind,
+				},
+				requirements,
+				policies: spec.policy.policies,
+				fieldPolicies: spec.policy.fieldPolicies,
+				permissions: ctx.permissions,
+				subject: {
+					roles: ctx.roles,
+					permissions: ctx.permissions,
+					attributes: ctx.attributes,
+					relationships: ctx.relationships,
+				},
+				resource: {
+					type: spec.policy.resource?.type ?? spec.meta.key,
+					fields:
+						spec.policy.resource?.fields ??
+						spec.policy.fieldPolicies?.map((fieldPolicy) => fieldPolicy.field),
+				},
+				context: policyContext,
 			});
 			if (decision.effect === 'deny') {
 				throw new Error(`PolicyDenied: ${spec.meta.key}.v${spec.meta.version}`);

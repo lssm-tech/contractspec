@@ -1,13 +1,27 @@
+import type { PolicyDecision } from '@contractspec/lib.contracts-spec';
+
 export type BehaviorEventType =
 	| 'field_access'
 	| 'feature_usage'
 	| 'workflow_step';
+
+export interface AuthorizationDecisionSummary
+	extends Pick<
+		PolicyDecision,
+		'effect' | 'reason' | 'missing' | 'matched' | 'source'
+	> {
+	fields?: string[];
+	actions?: string[];
+}
 
 export interface BehaviorEventBase {
 	id?: string;
 	tenantId: string;
 	userId?: string;
 	role?: string;
+	roles?: string[];
+	permissions?: string[];
+	policyDecisions?: Record<string, AuthorizationDecisionSummary>;
 	device?: string;
 	timestamp: number;
 	metadata?: Record<string, unknown>;
@@ -41,6 +55,9 @@ export interface BehaviorQuery {
 	tenantId?: string;
 	userId?: string;
 	role?: string;
+	roles?: string[];
+	permission?: string;
+	permissions?: string[];
 	feature?: string;
 	operation?: string;
 	workflow?: string;
@@ -54,12 +71,16 @@ export interface BehaviorSummary {
 	featureCounts: Record<string, number>;
 	workflowStepCounts: Record<string, Record<string, number>>;
 	totalEvents: number;
+	deniedFieldCounts?: Record<string, number>;
+	deniedActionCounts?: Record<string, number>;
 }
 
 export interface BehaviorInsights {
 	unusedFields: string[];
 	frequentlyUsedFields: string[];
 	suggestedHiddenFields: string[];
+	deniedFields?: string[];
+	deniedActions?: string[];
 	workflowBottlenecks: {
 		workflow: string;
 		step: string;

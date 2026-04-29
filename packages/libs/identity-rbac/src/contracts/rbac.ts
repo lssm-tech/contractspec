@@ -11,6 +11,13 @@ export const RoleModel = new SchemaModel({
 		id: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
 		name: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
 		description: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+		source: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+		templateKey: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+		templateVersion: {
+			type: ScalarTypeEnum.String_unsecure(),
+			isOptional: true,
+		},
+		disabledAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
 		permissions: {
 			type: ScalarTypeEnum.String_unsecure(),
 			isOptional: false,
@@ -29,6 +36,19 @@ export const PolicyBindingModel = new SchemaModel({
 		targetType: { type: ScalarTypeEnum.String_unsecure(), isOptional: false }, // user | organization
 		targetId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
 		expiresAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
+		scopeType: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+		scopeId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+		tenantId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+		workspaceId: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+		source: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+		templateKey: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+		templateVersion: {
+			type: ScalarTypeEnum.String_unsecure(),
+			isOptional: true,
+		},
+		effect: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+		disabledAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
+		reason: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
 		createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: false },
 		role: { type: RoleModel, isOptional: false },
 	},
@@ -50,6 +70,13 @@ export const CreateRoleInputModel = new SchemaModel({
 	fields: {
 		name: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
 		description: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+		source: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+		templateKey: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+		templateVersion: {
+			type: ScalarTypeEnum.String_unsecure(),
+			isOptional: true,
+		},
+		disabledAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
 		permissions: {
 			type: ScalarTypeEnum.String_unsecure(),
 			isOptional: false,
@@ -65,6 +92,13 @@ export const UpdateRoleInputModel = new SchemaModel({
 		roleId: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
 		name: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
 		description: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+		source: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+		templateKey: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
+		templateVersion: {
+			type: ScalarTypeEnum.String_unsecure(),
+			isOptional: true,
+		},
+		disabledAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
 		permissions: {
 			type: ScalarTypeEnum.String_unsecure(),
 			isOptional: true,

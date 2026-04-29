@@ -39,6 +39,15 @@ const tracker = createBehaviorTracker({
     tenantId: "acme",
     userId: "user-123",
     role: "manager",
+    roles: ["manager"],
+    permissions: ["billing.order.read"],
+    policyDecisions: {
+      internalNotes: {
+        effect: "deny",
+        fields: ["internalNotes"],
+        missing: { permissions: ["billing.notes.read"] },
+      },
+    },
   },
   autoFlushIntervalMs: 5000,
 });
@@ -96,6 +105,7 @@ Typical flow:
 - `InMemoryBehaviorStore`: simple in-memory implementation for tests, demos, and local composition.
 - `BehaviorTracker` and `createBehaviorTracker`: buffered event capture with tenant/user context and OpenTelemetry instrumentation.
 - `BehaviorAnalyzer`: converts `BehaviorSummary` data into `BehaviorInsights`.
+- Authorization context: events may carry `roles`, `permissions`, and policy decision summaries so analyzers can suppress denied fields/actions without granting access.
 - `insightsToOverlaySuggestion`: turns analysis output into an overlay-engine `OverlaySpec`.
 - `insightsToWorkflowAdaptations`: turns workflow bottlenecks into lightweight adaptation notes.
 
@@ -105,6 +115,7 @@ Typical flow:
 - `BehaviorQuery`: filter shape used by `BehaviorStore.query()` and `BehaviorStore.summarize()`.
 - `BehaviorSummary`: aggregated counts returned by store summarization.
 - `BehaviorInsights`: analyzer output including hidden-field candidates, bottlenecks, and layout preference hints.
+  When authorization decisions are supplied, denied fields/actions are surfaced for suppression and are not promoted in overlay reorder suggestions.
 - `BehaviorAnalyzerOptions`: tuning knobs for inactivity threshold and minimum workflow sample size.
 - `OverlaySuggestionOptions`: metadata required to build an overlay suggestion.
 - `WorkflowAdaptation`: workflow, step, and note triple derived from bottlenecks.

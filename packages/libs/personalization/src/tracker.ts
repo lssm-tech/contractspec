@@ -1,11 +1,14 @@
 import { metrics, trace } from '@opentelemetry/api';
 import type { BehaviorStore } from './store';
-import type { BehaviorEvent } from './types';
+import type { AuthorizationDecisionSummary, BehaviorEvent } from './types';
 
 export interface BehaviorTrackerContext {
 	tenantId: string;
 	userId?: string;
 	role?: string;
+	roles?: string[];
+	permissions?: string[];
+	policyDecisions?: Record<string, AuthorizationDecisionSummary>;
 	device?: string;
 	metadata?: Record<string, unknown>;
 }

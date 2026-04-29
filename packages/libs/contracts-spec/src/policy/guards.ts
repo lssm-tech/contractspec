@@ -18,6 +18,7 @@
 import type { AnyOperationSpec } from '../operations/operation';
 import type { PolicyContext } from './context';
 import { PolicyViolationError } from './context';
+import type { CombinedPolicyRequirements } from './requirements';
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Guard Types
@@ -342,14 +343,6 @@ export function checkAllPermissions(
 // ─────────────────────────────────────────────────────────────────────────────
 // Combined Guards
 // ─────────────────────────────────────────────────────────────────────────────
-
-export interface CombinedPolicyRequirements {
-	roles?: string[];
-	anyRole?: string[];
-	permissions?: string[];
-	anyPermission?: string[];
-	flags?: string[];
-}
 
 /**
  * Check multiple policy requirements at once.

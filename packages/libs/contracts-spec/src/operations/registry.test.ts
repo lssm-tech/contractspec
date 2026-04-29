@@ -326,3 +326,76 @@ describe('OperationSpecRegistry', () => {
 		});
 	});
 });
+
+it('passes normalized policy requirements to the runtime decider', async () => {
+	const registry = new OperationSpecRegistry().register(NoInputQuery);
+	registry.bind(NoInputQuery, async () => ({ received: 'ok' }));
+
+	const decisions: unknown[] = [];
+	await registry.execute(
+		'test.noInput',
+		'1.0.0',
+		{},
+		{
+			actor: 'user',
+			channel: 'web',
+			roles: ['manager'],
+			permissions: ['test.noInput.read'],
+			tenantId: 'tenant-1',
+			workspaceId: 'workspace-1',
+			organizationId: 'org-1',
+			userId: 'user-1',
+			attributes: { department: 'ops' },
+			policyContext: { safe: true },
+			decide: async (input) => {
+				decisions.push(input);
+				return { effect: 'allow' };
+			},
+		}
+	);
+
+	expect(decisions).toHaveLength(1);
+	expect(decisions[0]).toMatchObject({
+		service: 'test',
+		command: 'noInput',
+		version: '1.0.0',
+		operation: { key: 'test.noInput', version: '1.0.0', kind: 'query' },
+		requirements: { auth: 'anonymous' },
+		permissions: ['test.noInput.read'],
+		subject: {
+			roles: ['manager'],
+			permissions: ['test.noInput.read'],
+			attributes: { department: 'ops' },
+		},
+		resource: { type: 'test.noInput' },
+		context: {
+			tenantId: 'tenant-1',
+			workspaceId: 'workspace-1',
+			organizationId: 'org-1',
+			userId: 'user-1',
+			channel: 'web',
+			safe: true,
+		},
+	});
+});
+
+it('denies before executing the handler when the runtime decider rejects access', async () => {
+	let called = false;
+	const registry = new OperationSpecRegistry().register(NoInputQuery);
+	registry.bind(NoInputQuery, async () => {
+		called = true;
+		return { received: 'should-not-run' };
+	});
+
+	await expect(
+		registry.execute(
+			'test.noInput',
+			'1.0.0',
+			{},
+			{
+				decide: async () => ({ effect: 'deny', reason: 'missing_permission' }),
+			}
+		)
+	).rejects.toThrow('PolicyDenied');
+	expect(called).toBe(false);
+});

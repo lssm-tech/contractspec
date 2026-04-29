@@ -24,7 +24,8 @@
 		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
 		"lint:check": "node ../../../scripts/biome.cjs check .",
 		"prebuild": "contractspec-bun-build prebuild",
-		"typecheck": "tsc --noEmit"
+		"typecheck": "tsc --noEmit",
+		"test": "bun test"
 	},
 	"dependencies": {
 		"@contractspec/lib.schema": "workspace:*",

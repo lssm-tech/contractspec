@@ -40,6 +40,10 @@ import type {
 import type { EventRegistry } from './events';
 import type { SpecVariantResolver } from './experiments/spec-resolver';
 import type {
+	PolicyFieldRequirement,
+	PolicyRequirement,
+} from './policy/requirements';
+import type {
 	ConsentDefinition,
 	PolicySpec,
 	RateLimitDefinition,
@@ -149,6 +153,21 @@ export interface PolicyDecision {
 	pii?: PolicySpec['pii'];
 	/** Consents required before proceeding. */
 	requiredConsents?: ConsentDefinition[];
+	/** Missing requirements that caused or explain a denial. */
+	missing?: {
+		roles?: string[];
+		permissions?: string[];
+		flags?: string[];
+		policies?: string[];
+	};
+	/** Matched grant metadata for audit/debug output. */
+	matched?: {
+		role?: string;
+		permission?: string;
+		policy?: string;
+	};
+	/** Authorization source that produced or shaped this decision. */
+	source?: 'static' | 'dynamic' | 'hybrid' | 'template' | 'engine' | 'opa';
 	/** Which engine produced this decision. */
 	evaluatedBy?: 'engine' | 'opa';
 }
@@ -176,6 +195,36 @@ export interface PolicyDeciderInput {
 	userId?: string | null;
 	/** Active feature flags. */
 	flags?: string[];
+	/** Operation metadata associated with this decision. */
+	operation?: { key: string; version: string; kind?: string };
+	/** Normalized declarative requirements from the protected surface. */
+	requirements?: PolicyRequirement;
+	/** Referenced policy specs governing access. */
+	policies?: PolicyRequirement['policies'];
+	/** Field-level policy hints from the protected surface. */
+	fieldPolicies?: PolicyFieldRequirement[];
+	/** Effective permissions already resolved by the adapter/runtime. */
+	permissions?: string[];
+	/** Subject context for policy engines and RBAC evaluators. */
+	subject?: {
+		roles?: string[];
+		permissions?: string[];
+		attributes?: Record<string, unknown>;
+		relationships?: Array<{
+			relation: string;
+			object: string;
+			objectType?: string;
+		}>;
+	};
+	/** Resource context for policy engines and field decisions. */
+	resource?: {
+		type: string;
+		id?: string;
+		fields?: string[];
+		attributes?: Record<string, unknown>;
+	};
+	/** Safe, non-PII contextual facts for policy expressions. */
+	context?: Record<string, unknown>;
 }
 
 /**
@@ -272,6 +321,22 @@ export interface HandlerCtx {
 	channel?: Channel;
 	/** Roles assigned to the authenticated user. */
 	roles?: string[];
+	/** Permissions assigned to or resolved for the authenticated user. */
+	permissions?: string[];
+	/** Workspace context for multi-workspace operations. */
+	workspaceId?: string | null;
+	/** Tenant context for multi-tenant operations. */
+	tenantId?: string | null;
+	/** Safe subject attributes for ABAC/policy evaluation. */
+	attributes?: Record<string, unknown>;
+	/** Subject relationships for ReBAC/policy evaluation. */
+	relationships?: Array<{
+		relation: string;
+		object: string;
+		objectType?: string;
+	}>;
+	/** Safe policy context facts supplied by the runtime adapter. */
+	policyContext?: Record<string, unknown>;
 
 	/** Policy engine for authorization decisions. */
 	decide?: PolicyDecider;

@@ -15,6 +15,13 @@ export const RoleEntity = defineEntity({
 			isOptional: true,
 			description: 'Role description',
 		}),
+		source: field.string({
+			isOptional: true,
+			description: 'static, dynamic, or template',
+		}),
+		templateKey: field.string({ isOptional: true }),
+		templateVersion: field.string({ isOptional: true }),
+		disabledAt: field.dateTime({ isOptional: true }),
 		permissions: field.string({
 			isArray: true,
 			description: 'Array of permission names',
@@ -67,6 +74,22 @@ export const PolicyBindingEntity = defineEntity({
 			isOptional: true,
 			description: 'When binding expires',
 		}),
+		scopeType: field.string({
+			isOptional: true,
+			description: 'global, tenant, workspace, organization, or user',
+		}),
+		scopeId: field.string({ isOptional: true }),
+		tenantId: field.string({ isOptional: true }),
+		workspaceId: field.string({ isOptional: true }),
+		source: field.string({
+			isOptional: true,
+			description: 'static, dynamic, or template',
+		}),
+		templateKey: field.string({ isOptional: true }),
+		templateVersion: field.string({ isOptional: true }),
+		effect: field.string({ isOptional: true, description: 'grant or deny' }),
+		disabledAt: field.dateTime({ isOptional: true }),
+		reason: field.string({ isOptional: true }),
 		createdAt: field.createdAt(),
 
 		// Optional direct relations
