@@ -1,0 +1,42 @@
+schemaVersion: "1"
+slug: fast-npm-dist-tag-reconciliation
+summary: Speed up npm release publishing by removing per-package dist-tag convergence polling after successful dist-tag updates.
+isBreaking: false
+packages:
+  - name: "contractspec"
+    releaseType: patch
+affectedRuntimes:
+  - github-actions
+  - npm
+  - node
+affectedFrameworks:
+  - changesets
+audiences:
+  - kind: maintainer
+    summary: Stable and canary npm release jobs now avoid the repeated dist-tag verification sleep loop after `npm dist-tag add` succeeds.
+    affectedPackages:
+      - "contractspec"
+  - kind: integrator
+    summary: Release manifest verification remains the final registry consistency gate, while publish logs now distinguish immediate tag verification from manifest-deferred reconciliation.
+    affectedPackages:
+      - "contractspec"
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: monitor-release-manifest-verification
+    title: Monitor release manifest verification
+    summary: Dist-tag read-after-write convergence failures now surface at the manifest verification step instead of during every package publish.
+    level: manual
+    instructions:
+      - Keep `Verify npm release manifest` enabled after stable and canary publish steps.
+      - Tune `CONTRACTSPEC_RELEASE_VERIFY_RETRY_COUNT` or `CONTRACTSPEC_RELEASE_VERIFY_RETRY_DELAY_MS` if npm registry reads need a longer final convergence window.
+validation:
+  commands:
+    - "bun test scripts/publish-packages.test.mjs scripts/verify-release-manifest.test.mjs"
+    - "node scripts/biome.cjs check scripts/publish-packages.js scripts/publish-packages.test.mjs scripts/verify-release-manifest.test.mjs"
+  evidence:
+    - "`ensureDistTag` returns immediate evidence only when `npm view` already reports the expected tag."
+    - "Successful stale-tag reconciliation records `distTagVerification: deferred-to-manifest` without post-add polling or sleep."
+    - "Release manifest tests cover deferred publish-time evidence, final tag success, and final mismatch failure."
+knownGaps:
+  - "If npm accepts a dist-tag update but registry reads never converge within the final manifest verifier retry budget, the workflow still fails at manifest verification."

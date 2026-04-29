@@ -23,7 +23,7 @@ function writeJson(filePath, value) {
 	fs.writeFileSync(filePath, `${JSON.stringify(value, null, 2)}\n`, 'utf8');
 }
 
-function createManifest() {
+function createManifest(packageEntry = {}) {
 	return {
 		version: '1.0.0',
 		generatedAt: '2026-03-19T21:10:09.578Z',
@@ -35,6 +35,7 @@ function createManifest() {
 				version: '1.2.3',
 				distTag: 'latest',
 				status: 'published',
+				...packageEntry,
 			},
 		],
 	};
@@ -112,6 +113,65 @@ describe('verifyReleaseManifest', () => {
 			})
 		).rejects.toThrow(
 			'Failed to read dist-tags for @contractspec/lib.surface-runtime'
+		);
+
+		expect(attempts).toBe(1);
+	});
+
+	it('accepts deferred publish-time dist-tag evidence when final registry tags match', async () => {
+		const dir = createTempDir('contractspec-release-manifest-');
+		const manifestPath = path.join(dir, 'release-manifest.json');
+
+		writeJson(
+			manifestPath,
+			createManifest({
+				distTagVerification: 'deferred-to-manifest',
+			})
+		);
+
+		await expect(
+			verifyReleaseManifest({
+				manifestPath,
+				sleep: async () => {},
+				log: () => {},
+				runCommand: () => ({
+					status: 0,
+					stdout: '{"latest":"1.2.3"}\n',
+					stderr: '',
+				}),
+			})
+		).resolves.toBeUndefined();
+	});
+
+	it('fails fast when final registry dist-tags do not match the manifest', async () => {
+		const dir = createTempDir('contractspec-release-manifest-');
+		const manifestPath = path.join(dir, 'release-manifest.json');
+		let attempts = 0;
+
+		writeJson(
+			manifestPath,
+			createManifest({
+				distTagVerification: 'deferred-to-manifest',
+			})
+		);
+
+		await expect(
+			verifyReleaseManifest({
+				manifestPath,
+				retryCount: 3,
+				sleep: async () => {},
+				log: () => {},
+				runCommand: () => {
+					attempts += 1;
+					return {
+						status: 0,
+						stdout: '{"latest":"1.2.2"}\n',
+						stderr: '',
+					};
+				},
+			})
+		).rejects.toThrow(
+			'Dist-tag mismatch for @contractspec/lib.surface-runtime'
 		);
 
 		expect(attempts).toBe(1);

@@ -1,5 +1,6 @@
 import { afterEach, describe, expect, it, mock } from 'bun:test';
 import {
+	ensureDistTag,
 	publishPackages,
 	publishPreparedPackage,
 	resolveRequestedPackageNames,
@@ -14,7 +15,9 @@ afterEach(() => {
 describe('publishPreparedPackage', () => {
 	it('self-heals fresh publishes when dist-tags lag behind npm publish', () => {
 		const publishTarball = mock(() => {});
-		const ensureDistTag = mock(() => '0.2.0');
+		const ensureDistTag = mock(() => ({
+			distTagVerification: 'deferred-to-manifest',
+		}));
 
 		const result = publishPreparedPackage(
 			{
@@ -45,8 +48,187 @@ describe('publishPreparedPackage', () => {
 			version: '0.2.0',
 			distTag: 'latest',
 			status: 'published',
-			verifiedTag: '0.2.0',
+			distTagVerification: 'deferred-to-manifest',
 		});
+		expect(result).not.toHaveProperty('verifiedTag');
+	});
+});
+
+describe('ensureDistTag', () => {
+	it('returns immediate evidence when the registry tag is already current', () => {
+		const calls = [];
+		const logs = [];
+		const waits = [];
+
+		const result = ensureDistTag(
+			'@contractspec/lib.provider-runtime',
+			'0.2.0',
+			'latest',
+			{},
+			{
+				runCommand: (command, args, options) => {
+					calls.push({ command, args, options });
+					return {
+						status: 0,
+						stdout: '{"latest":"0.2.0"}\n',
+						stderr: '',
+					};
+				},
+				log: (message) => logs.push(message),
+				sleep: (delayMs) => waits.push(delayMs),
+			}
+		);
+
+		expect(result).toEqual({
+			verifiedTag: '0.2.0',
+			distTagVerification: 'immediate',
+		});
+		expect(calls).toHaveLength(1);
+		expect(calls[0].args).toEqual([
+			'view',
+			'@contractspec/lib.provider-runtime',
+			'dist-tags',
+			'--json',
+		]);
+		expect(logs).toEqual([]);
+		expect(waits).toEqual([]);
+	});
+
+	it('updates stale tags without post-add polling or sleep', () => {
+		const calls = [];
+		const logs = [];
+		const waits = [];
+
+		const result = ensureDistTag(
+			'@contractspec/lib.provider-runtime',
+			'0.2.0',
+			'latest',
+			{},
+			{
+				runCommand: (command, args, options) => {
+					calls.push({ command, args, options });
+					if (args[0] === 'view') {
+						return {
+							status: 0,
+							stdout: '{"latest":"0.1.0"}\n',
+							stderr: '',
+						};
+					}
+					return { status: 0, stdout: '', stderr: '' };
+				},
+				log: (message) => logs.push(message),
+				sleep: (delayMs) => waits.push(delayMs),
+			}
+		);
+
+		expect(result).toEqual({
+			distTagVerification: 'deferred-to-manifest',
+		});
+		expect(calls.map((call) => call.args[0])).toEqual(['view', 'dist-tag']);
+		expect(calls[1].args).toEqual([
+			'dist-tag',
+			'add',
+			'@contractspec/lib.provider-runtime@0.2.0',
+			'latest',
+		]);
+		expect(calls[1].options).toMatchObject({
+			capture: true,
+			echoCaptured: true,
+		});
+		expect(logs).toEqual([
+			'[publish] Updating dist-tag latest -> @contractspec/lib.provider-runtime@0.2.0 (was 0.1.0)',
+		]);
+		expect(waits).toEqual([]);
+	});
+
+	it('retries transient read and add failures before succeeding', () => {
+		const calls = [];
+		const waits = [];
+		let addAttempt = 0;
+		let viewAttempt = 0;
+
+		const result = ensureDistTag(
+			'@contractspec/lib.provider-runtime',
+			'0.2.0',
+			'latest',
+			{},
+			{
+				retryCount: 3,
+				retryDelayMs: 25,
+				runCommand: (command, args, options) => {
+					calls.push({ command, args, options });
+					if (args[0] === 'view') {
+						viewAttempt += 1;
+						if (viewAttempt === 1) {
+							return {
+								status: 1,
+								stdout: '',
+								stderr: 'npm error code ECONNRESET',
+							};
+						}
+						return {
+							status: 0,
+							stdout: '{"latest":"0.1.0"}\n',
+							stderr: '',
+						};
+					}
+
+					addAttempt += 1;
+					if (addAttempt === 1) {
+						throw new Error(
+							'Command failed (npm dist-tag add): npm error code ECONNRESET'
+						);
+					}
+					return { status: 0, stdout: '', stderr: '' };
+				},
+				log: () => {},
+				sleep: (delayMs) => waits.push(delayMs),
+			}
+		);
+
+		expect(result).toEqual({
+			distTagVerification: 'deferred-to-manifest',
+		});
+		expect(calls.map((call) => call.args[0])).toEqual([
+			'view',
+			'view',
+			'dist-tag',
+			'view',
+			'dist-tag',
+		]);
+		expect(waits).toEqual([25, 50]);
+	});
+
+	it('does not retry non-retryable dist-tag add failures', () => {
+		const calls = [];
+
+		expect(() =>
+			ensureDistTag(
+				'@contractspec/lib.provider-runtime',
+				'0.2.0',
+				'latest',
+				{},
+				{
+					retryCount: 3,
+					retryDelayMs: 25,
+					runCommand: (command, args, options) => {
+						calls.push({ command, args, options });
+						if (args[0] === 'view') {
+							return {
+								status: 0,
+								stdout: '{"latest":"0.1.0"}\n',
+								stderr: '',
+							};
+						}
+						throw new Error('Command failed (npm dist-tag add): forbidden');
+					},
+					log: () => {},
+					sleep: () => {},
+				}
+			)
+		).toThrow('forbidden');
+
+		expect(calls.map((call) => call.args[0])).toEqual(['view', 'dist-tag']);
 	});
 });
 

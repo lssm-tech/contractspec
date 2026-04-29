@@ -248,7 +248,8 @@ function npmViewVersionExists(name, version, npmEnv) {
 }
 
 function getDistTags(name, npmEnv, options = {}) {
-	const result = runCommand('npm', ['view', name, 'dist-tags', '--json'], {
+	const command = options.runCommand ?? runCommand;
+	const result = command('npm', ['view', name, 'dist-tags', '--json'], {
 		capture: true,
 		allowFailure: true,
 		env: npmEnv,
@@ -283,42 +284,46 @@ function getDistTagRetrySettings(options = {}) {
 	};
 }
 
-function ensureDistTag(name, version, tag, npmEnv) {
-	const { retryCount, retryDelayMs } = getDistTagRetrySettings();
+function ensureDistTag(name, version, tag, npmEnv, options = {}) {
+	const command = options.runCommand ?? runCommand;
+	const log = options.log ?? console.log;
+	const sleep = options.sleep ?? sleepMs;
+	const { retryCount, retryDelayMs } = getDistTagRetrySettings(options);
 	let lastErrorMessage = '';
 
 	for (let attempt = 0; attempt < retryCount; attempt += 1) {
 		if (attempt > 0) {
 			const delayMs = retryDelayMs * attempt;
-			console.log(
-				`[publish] Waiting ${delayMs}ms before retrying dist-tag verification for ${name}@${version} (${attempt + 1}/${retryCount})`
+			log(
+				`[publish] Waiting ${delayMs}ms before retrying dist-tag reconciliation for ${name}@${version} (${attempt + 1}/${retryCount})`
 			);
-			sleepMs(delayMs);
+			sleep(delayMs);
 		}
 
 		try {
 			const currentDistTags = getDistTags(name, npmEnv, {
 				allowMissing: true,
+				runCommand: command,
 			});
 			if (currentDistTags[tag] === version) {
-				return version;
+				return {
+					verifiedTag: version,
+					distTagVerification: 'immediate',
+				};
 			}
 
-			console.log(
+			log(
 				`[publish] Updating dist-tag ${tag} -> ${name}@${version} (was ${currentDistTags[tag] ?? 'unset'})`
 			);
-			runCommand('npm', ['dist-tag', 'add', `${name}@${version}`, tag], {
+			command('npm', ['dist-tag', 'add', `${name}@${version}`, tag], {
+				capture: true,
+				echoCaptured: true,
 				env: npmEnv,
 			});
 
-			const updatedDistTags = getDistTags(name, npmEnv, {
-				allowMissing: true,
-			});
-			if (updatedDistTags[tag] === version) {
-				return version;
-			}
-
-			lastErrorMessage = `[publish] Dist-tag ${tag} for ${name} is ${updatedDistTags[tag] ?? 'unset'} after publish; expected ${version}.`;
+			return {
+				distTagVerification: 'deferred-to-manifest',
+			};
 		} catch (error) {
 			lastErrorMessage = error instanceof Error ? error.message : String(error);
 			if (
@@ -334,6 +339,17 @@ function ensureDistTag(name, version, tag, npmEnv) {
 		lastErrorMessage ||
 			`[publish] Failed to verify dist-tag ${tag} for ${name}@${version}.`
 	);
+}
+
+function toDistTagEvidence(evidence) {
+	if (evidence && typeof evidence === 'object') {
+		return evidence;
+	}
+
+	return {
+		verifiedTag: evidence,
+		distTagVerification: 'immediate',
+	};
 }
 
 function publishTarball({ tarballPath, tag, dryRun, npmEnv }) {
@@ -429,7 +445,7 @@ function publishPreparedPackage(preparedPackage, context) {
 	}
 
 	if (alreadyPublished) {
-		const verifiedTag = finalizeDistTag(
+		const distTagEvidence = finalizeDistTag(
 			preparedPackage.name,
 			preparedPackage.version,
 			context.npmTag,
@@ -439,7 +455,7 @@ function publishPreparedPackage(preparedPackage, context) {
 		return {
 			...preparedPackage,
 			distTag: context.npmTag,
-			verifiedTag,
+			...toDistTagEvidence(distTagEvidence),
 			status: 'existing',
 		};
 	}
@@ -451,7 +467,7 @@ function publishPreparedPackage(preparedPackage, context) {
 		npmEnv: context.npmEnv,
 	});
 
-	const verifiedTag = finalizeDistTag(
+	const distTagEvidence = finalizeDistTag(
 		preparedPackage.name,
 		preparedPackage.version,
 		context.npmTag,
@@ -461,12 +477,12 @@ function publishPreparedPackage(preparedPackage, context) {
 	return {
 		...preparedPackage,
 		distTag: context.npmTag,
-		verifiedTag,
+		...toDistTagEvidence(distTagEvidence),
 		status: 'published',
 	};
 }
 
-export { publishPreparedPackage };
+export { ensureDistTag, publishPreparedPackage };
 
 export function resolveRequestedPackageNames({
 	selectedPackageNames,
