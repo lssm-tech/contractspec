@@ -145,6 +145,19 @@ export const DOCS_PAGES: readonly DocsPageEntry[] = [
 		ctaMode: 'oss-next',
 	},
 	{
+		href: '/docs/getting-started/dataviews',
+		title: 'Display data with DataViews',
+		description:
+			'Define a query-backed DataView, render it on the frontend, and add preference-aware collection defaults.',
+		section: 'start',
+		order: 55,
+		navTitle: 'Display data',
+		primaryNav: true,
+		audience: 'oss',
+		ctaMode: 'oss-next',
+		aliases: ['DataViews tutorial', 'DataView personalization tutorial'],
+	},
+	{
 		href: '/docs/getting-started/troubleshooting',
 		title: 'Troubleshooting',
 		description:
@@ -397,12 +410,42 @@ export const DOCS_PAGES: readonly DocsPageEntry[] = [
 		ctaMode: 'oss-next',
 	},
 	{
+		href: '/docs/libraries/data-views',
+		title: 'DataViews runtime',
+		description:
+			'Render list, grid, and table DataViews with shared collection defaults, toolbar controls, data depth, and personalization bridges.',
+		section: 'build',
+		order: 71,
+		navTitle: 'DataViews runtime',
+		primaryNav: true,
+		audience: 'oss',
+		ctaMode: 'oss-next',
+		aliases: ['DataViewRenderer', 'dataDepth', 'collection view modes'],
+	},
+	{
+		href: '/docs/libraries/personalization',
+		title: 'Personalization',
+		description:
+			'Track behavior events, resolve DataView preferences, and convert insights into overlays or workflow adaptations.',
+		section: 'build',
+		order: 72,
+		navTitle: 'Personalization',
+		primaryNav: true,
+		audience: 'oss',
+		ctaMode: 'oss-next',
+		aliases: [
+			'resolveDataViewPreferences',
+			'trackDataViewInteraction',
+			'data_view_interaction',
+		],
+	},
+	{
 		href: '/docs/libraries/translation-runtime',
 		title: 'Translation runtime',
 		description:
 			'Use ContractSpec TranslationSpec catalogs as the canonical i18n layer, then resolve, format, snapshot, and optionally project messages to i18next.',
 		section: 'build',
-		order: 71,
+		order: 73,
 		navTitle: 'Translation runtime',
 		primaryNav: true,
 		audience: 'oss',
@@ -415,7 +458,7 @@ export const DOCS_PAGES: readonly DocsPageEntry[] = [
 		description:
 			'Understand how the presentation runtimes, ui-kit-web, ui-kit, and design-system stay aligned across React and React Native.',
 		section: 'build',
-		order: 72,
+		order: 74,
 		audience: 'oss',
 		ctaMode: 'oss-next',
 	},
@@ -425,7 +468,7 @@ export const DOCS_PAGES: readonly DocsPageEntry[] = [
 		description:
 			'Implement reusable app navigation with desktop sidebars, topbar breadcrumbs, command search, in-app notifications, mobile adapters, and PageOutline section navigation.',
 		section: 'build',
-		order: 73,
+		order: 75,
 		audience: 'oss',
 		ctaMode: 'oss-next',
 	},
@@ -435,7 +478,7 @@ export const DOCS_PAGES: readonly DocsPageEntry[] = [
 		description:
 			'Adopt high-level product UI primitives, actionable object references, responsive AdaptivePanel overlays, forms, data tables, and theme helpers.',
 		section: 'build',
-		order: 74,
+		order: 76,
 		primaryNav: true,
 		audience: 'oss',
 		ctaMode: 'oss-next',

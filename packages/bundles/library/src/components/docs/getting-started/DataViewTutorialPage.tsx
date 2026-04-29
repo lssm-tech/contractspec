@@ -1,4 +1,13 @@
 import { CodeBlock } from '@contractspec/lib.design-system';
+import { HStack, VStack } from '@contractspec/lib.design-system/layout';
+import { List, ListItem } from '@contractspec/lib.design-system/list';
+import {
+	H1,
+	H2,
+	H3,
+	P,
+	Text,
+} from '@contractspec/lib.design-system/typography';
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
 
@@ -64,8 +73,41 @@ export const TransactionHistory = defineDataView({
         dataPath: 'processingMinutes',
         format: { type: 'duration', unit: 'minute', display: 'digital' },
       },
-      { key: 'notes', label: 'Notes', dataPath: 'notes' },
+      {
+        key: 'notes',
+        label: 'Notes',
+        dataPath: 'notes',
+        visibility: { minDataDepth: 'detailed' },
+      },
     ],
+    collection: {
+      viewModes: {
+        defaultMode: 'table',
+        allowedModes: ['list', 'grid', 'table'],
+      },
+      toolbar: {
+        search: true,
+        viewMode: true,
+        filters: true,
+        density: true,
+        dataDepth: true,
+      },
+      pagination: {
+        pageSize: 25,
+        pageSizeOptions: [10, 25, 50],
+      },
+      density: 'comfortable',
+      dataDepth: 'standard',
+      personalization: {
+        enabled: true,
+        persist: {
+          viewMode: true,
+          density: true,
+          dataDepth: true,
+          pageSize: true,
+        },
+      },
+    },
     filters: [
       { key: 'status', label: 'Status', field: 'status', type: 'enum' },
       {
@@ -88,20 +130,20 @@ export const TransactionHistory = defineDataView({
 
 export function DataViewTutorialPage() {
 	return (
-		<div className="space-y-8">
-			<div className="space-y-4">
-				<h1 className="font-bold text-4xl">Display Data with DataViews</h1>
-				<p className="text-lg text-muted-foreground">
+		<VStack className="space-y-8">
+			<VStack className="space-y-4">
+				<H1 className="font-bold text-4xl">Display Data with DataViews</H1>
+				<P className="text-lg text-muted-foreground">
 					Define a filterable, sortable transaction history view that works
 					across web and mobile without duplicating UI code.
-				</p>
-			</div>
+				</P>
+			</VStack>
 
-			<div className="space-y-4">
-				<h2 className="font-bold text-2xl">1. Define the underlying query</h2>
-				<p className="text-muted-foreground">
+			<VStack className="space-y-4">
+				<H2 className="font-bold text-2xl">1. Define the underlying query</H2>
+				<P className="text-muted-foreground">
 					First, create a query operation to fetch the data:
-				</p>
+				</P>
 				<CodeBlock
 					language="typescript"
 					filename="lib/specs/billing/list-transactions.ts"
@@ -120,35 +162,35 @@ export const ListTransactions = defineQuery({
   policy: { auth: 'user' },
 });`}
 				/>
-			</div>
+			</VStack>
 
-			<div className="space-y-4">
-				<h2 className="font-bold text-2xl">2. Define the DataView spec</h2>
-				<p className="text-muted-foreground">
+			<VStack className="space-y-4">
+				<H2 className="font-bold text-2xl">2. Define the DataView spec</H2>
+				<P className="text-muted-foreground">
 					Wrap your query with presentation metadata:
-				</p>
+				</P>
 				<CodeBlock
 					language="typescript"
 					filename="lib/specs/billing/transaction-history.data-view.ts"
 					code={DATAVIEW_TUTORIAL_EXAMPLE}
 				/>
-				<p className="text-muted-foreground text-sm">
+				<P className="text-muted-foreground text-sm">
 					The live version of this pattern is available in the canonical{' '}
 					<Link
 						href="/docs/examples/data-grid-showcase"
 						className="text-[color:var(--rust)] underline underline-offset-4"
 					>
-						Data Grid Showcase
+						<Text>Data Grid Showcase</Text>
 					</Link>
 					.
-				</p>
-			</div>
+				</P>
+			</VStack>
 
-			<div className="space-y-4">
-				<h2 className="font-bold text-2xl">3. Render on the frontend</h2>
-				<p className="text-muted-foreground">
+			<VStack className="space-y-4">
+				<H2 className="font-bold text-2xl">3. Render on the frontend</H2>
+				<P className="text-muted-foreground">
 					Use the runtime renderer in your React or React Native app:
-				</p>
+				</P>
 				<CodeBlock
 					language="tsx"
 					filename="app/dashboard/transactions/page.tsx"
@@ -169,8 +211,11 @@ export function TransactionsPage() {
       <h1 className="text-3xl font-bold mb-6">Payment History</h1>
       <DataViewRenderer
         spec={TransactionHistory}
-        data={data?.items ?? []}
+        items={data?.items ?? []}
         loading={isLoading}
+        defaultViewMode="table"
+        defaultDensity="comfortable"
+        defaultDataDepth="standard"
         onFilterChange={(filters) => {
           // refetch with new filters
         }}
@@ -179,34 +224,120 @@ export function TransactionsPage() {
   );
 }`}
 				/>
-			</div>
+			</VStack>
 
-			<div className="card-subtle space-y-4 p-6">
-				<h3 className="font-bold">Why DataViews?</h3>
-				<ul className="space-y-2 text-muted-foreground text-sm">
-					<li>Same spec renders on web (React) and mobile (React Native)</li>
-					<li>Filters, sorting, and pagination handled automatically</li>
-					<li>
-						Column visibility, pinning, resizing, and row expansion stay
-						contract-driven
-					</li>
-					<li>
-						Typed format rules for numbers, percent values, currency, dates,
-						times, datetimes, and durations applied consistently
-					</li>
-					<li>Export to CSV/PDF using the same spec</li>
-					<li>A/B test different layouts without touching the backend</li>
-				</ul>
-			</div>
+			<VStack className="space-y-4">
+				<H2 className="font-bold text-2xl">4. Add personalization</H2>
+				<P className="text-muted-foreground">
+					When the app has a user profile or behavior insights, resolve DataView
+					preferences before rendering. The renderer receives plain props;
+					personalization stays in the app/runtime boundary.
+				</P>
+				<CodeBlock
+					language="tsx"
+					filename="app/dashboard/transactions/PersonalizedTransactions.tsx"
+					code={`'use client';
 
-			<div className="flex items-center gap-4 pt-4">
+import { DataViewRenderer } from '@contractspec/lib.design-system';
+import { resolveDataViewPreferences } from '@contractspec/lib.personalization/data-view-preferences';
+import { createBehaviorTracker } from '@contractspec/lib.personalization';
+
+const tracker = createBehaviorTracker({
+  store,
+  context: { tenantId: tenant.id, userId: user.id },
+});
+
+const resolved = resolveDataViewPreferences({
+  spec: TransactionHistory,
+  preferences: profile.canonical,
+  insights,
+  record: savedTransactionViewPreference,
+});
+
+<DataViewRenderer
+  spec={TransactionHistory}
+  items={transactions}
+  defaultViewMode={resolved.viewMode}
+  defaultDensity={resolved.density}
+  defaultDataDepth={resolved.dataDepth}
+  pagination={{ page, pageSize: resolved.pageSize ?? 25, total }}
+  onViewModeChange={(viewMode) =>
+    tracker.trackDataViewInteraction({
+      dataViewKey: TransactionHistory.meta.key,
+      action: 'view_mode_changed',
+      viewMode,
+    })
+  }
+  onDataDepthChange={(dataDepth) =>
+    tracker.trackDataViewInteraction({
+      dataViewKey: TransactionHistory.meta.key,
+      action: 'data_depth_changed',
+      dataDepth,
+    })
+  }
+/>;`}
+				/>
+			</VStack>
+
+			<VStack className="card-subtle space-y-4 p-6">
+				<H3 className="font-bold">Why DataViews?</H3>
+				<List className="space-y-2 text-muted-foreground text-sm">
+					<ListItem>
+						<Text>
+							Same spec renders on web (React) and mobile (React Native)
+						</Text>
+					</ListItem>
+					<ListItem>
+						<Text>Filters, sorting, and pagination handled automatically</Text>
+					</ListItem>
+					<ListItem>
+						<Text>
+							Column visibility, pinning, resizing, and row expansion stay
+							contract-driven
+						</Text>
+					</ListItem>
+					<ListItem>
+						<Text>
+							List, grid, and table modes can share one collection config with
+							toolbar and pagination defaults
+						</Text>
+					</ListItem>
+					<ListItem>
+						<Text>
+							Data depth lets summary screens hide detailed fields without
+							forking the spec
+						</Text>
+					</ListItem>
+					<ListItem>
+						<Text>
+							Typed format rules for numbers, percent values, currency, dates,
+							times, datetimes, and durations applied consistently
+						</Text>
+					</ListItem>
+					<ListItem>
+						<Text>
+							Personalization helpers can seed preferred view mode, density,
+							data depth, and page size from user preferences or behavior
+							insights
+						</Text>
+					</ListItem>
+					<ListItem>
+						<Text>Export to CSV/PDF using the same spec</Text>
+					</ListItem>
+					<ListItem>
+						<Text>A/B test different layouts without touching the backend</Text>
+					</ListItem>
+				</List>
+			</VStack>
+
+			<HStack className="items-center gap-4 pt-4">
 				<Link href="/docs/libraries/data-views" className="btn-primary">
-					DataView API Reference <ChevronRight size={16} />
+					<Text>DataView API Reference</Text> <ChevronRight size={16} />
 				</Link>
 				<Link href="/docs/specs/workflows" className="btn-ghost">
-					Next: Workflows
+					<Text>Next: Workflows</Text>
 				</Link>
-			</div>
-		</div>
+			</HStack>
+		</VStack>
 	);
 }

@@ -1,0 +1,50 @@
+schemaVersion: "1"
+slug: web-landing-data-view-personalization-docs
+summary: Add public docs and LLM guidance for preference-aware DataViews.
+isBreaking: false
+packages:
+  - name: "@contractspec/app.web-landing"
+    releaseType: patch
+  - name: "@contractspec/bundle.library"
+    releaseType: patch
+  - name: "@contractspec/lib.personalization"
+    releaseType: patch
+affectedRuntimes:
+  - browser
+  - node
+affectedFrameworks:
+  - nextjs
+  - react
+audiences:
+  - kind: integrator
+    summary: Public docs now show how to wire DataViewRenderer with resolveDataViewPreferences and trackDataViewInteraction.
+    affectedPackages:
+      - "@contractspec/app.web-landing"
+      - "@contractspec/bundle.library"
+      - "@contractspec/lib.personalization"
+  - kind: maintainer
+    summary: DataView personalization docs are registered in the docs manifest and mirrored into /llms package guides.
+    affectedPackages:
+      - "@contractspec/app.web-landing"
+      - "@contractspec/bundle.library"
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: read-data-view-personalization-docs
+    title: Use the linked DataViews and personalization docs for collection screens
+    summary: Follow the DataViews tutorial or runtime guide, then apply the personalization bridge from the personalization library page.
+    level: informational
+    instructions:
+      - Open `/docs/getting-started/dataviews` for the end-to-end query/spec/render flow.
+      - Open `/docs/libraries/data-views` for collection config, data depth, and renderer props.
+      - Open `/docs/libraries/personalization` for preference resolution, interaction tracking, analyzer output, and agent prompts.
+validation:
+  commands:
+    - "bun run --cwd packages/apps/web-landing build:types"
+    - "bun test packages/bundles/library/src/components/docs/docsManifest.test.ts"
+    - "node scripts/biome.cjs check <edited DataView docs, manifest, README, and changeset files>"
+    - "bun run --cwd packages/apps/web-landing llms:generate"
+  evidence:
+    - "Docs manifest tests assert DataView tutorial, runtime, and personalization pages are registered in primary navigation."
+    - "Content grep confirms resolveDataViewPreferences, trackDataViewInteraction, visibility.minDataDepth, and personalization persist hints appear in docs and /llms outputs."
+knownGaps: []

@@ -28,6 +28,39 @@ describe('docs manifest learning paths', () => {
 		expect(buildHrefs).toContain('/docs/guides/host-builder-workbench');
 	});
 
+	it('promotes DataView tutorial and preference docs in primary navigation', () => {
+		expect(getDocsPageByHref('/docs/getting-started/dataviews')).toBeDefined();
+		expect(getDocsPageByHref('/docs/libraries/data-views')).toBeDefined();
+		expect(getDocsPageByHref('/docs/libraries/personalization')).toBeDefined();
+		expect(
+			getDocsPageByHref('/docs/libraries/personalization')?.aliases
+		).toContain('resolveDataViewPreferences');
+
+		const startSection = getPrimaryDocsSections().find(
+			(section) => section.key === 'start'
+		);
+		const startHrefs = startSection?.items.map((item) => item.href) ?? [];
+
+		expect(startHrefs).toContain('/docs/getting-started/dataviews');
+		expect(startHrefs.indexOf('/docs/getting-started/dataviews')).toBeLessThan(
+			startHrefs.indexOf('/docs/getting-started/troubleshooting')
+		);
+
+		const buildSection = getPrimaryDocsSections().find(
+			(section) => section.key === 'build'
+		);
+		const buildHrefs = buildSection?.items.map((item) => item.href) ?? [];
+
+		expect(buildHrefs).toContain('/docs/libraries/data-views');
+		expect(buildHrefs).toContain('/docs/libraries/personalization');
+		expect(buildHrefs.indexOf('/docs/libraries/data-views')).toBeGreaterThan(
+			buildHrefs.indexOf('/docs/libraries')
+		);
+		expect(
+			buildHrefs.indexOf('/docs/libraries/personalization')
+		).toBeGreaterThan(buildHrefs.indexOf('/docs/libraries/data-views'));
+	});
+
 	it('registers the translation runtime guide for i18n and i18next adoption', () => {
 		const page = getDocsPageByHref('/docs/libraries/translation-runtime');
 
@@ -116,6 +149,9 @@ describe('docs manifest learning paths', () => {
 			'/docs/libraries/translation-runtime',
 			'/docs/libraries/cross-platform-ui',
 			'/docs/libraries/design-system',
+			'/docs/libraries/data-views',
+			'/docs/libraries/personalization',
+			'/docs/getting-started/dataviews',
 		]) {
 			expect(
 				getDocsPageByHref(href) != null || NON_MANIFEST_DOC_ROUTES.has(href)

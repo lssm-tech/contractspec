@@ -128,6 +128,37 @@ package. Stored data-view preference records win over behavior insights,
 preference dimensions, and authored contract defaults. Disallowed inferred view
 modes are ignored so the renderer only receives modes allowed by the spec.
 
+Record renderer interactions with the behavior tracker so later analysis can
+derive scoped preferred modes:
+
+```ts
+tracker.trackDataViewInteraction({
+  dataViewKey: AccountsDataView.meta.key,
+  dataViewVersion: AccountsDataView.meta.version,
+  action: "view_mode_changed",
+  viewMode: "grid",
+});
+
+tracker.trackDataViewInteraction({
+  dataViewKey: AccountsDataView.meta.key,
+  action: "data_depth_changed",
+  dataDepth: "detailed",
+});
+```
+
+Agent prompt for a DataView preference integration:
+
+```md
+Add DataView personalization for <screen>.
+
+- Resolve viewMode, density, dataDepth, and pageSize with resolveDataViewPreferences.
+- Apply resolved values to DataViewRenderer as default or controlled props.
+- Track opened, view_mode_changed, density_changed, data_depth_changed, search_changed, filter_changed, sort_changed, and page_changed actions with trackDataViewInteraction.
+- Persist only the dimensions enabled by view.collection.personalization.persist.
+- Ignore behavior-derived modes not allowed by view.collection.viewModes.allowedModes.
+- Keep @contractspec/lib.personalization free of React and design-system imports.
+```
+
 ## API map
 
 ### Main runtime APIs
