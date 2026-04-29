@@ -33,7 +33,7 @@ upgradeSteps:
   - id: read-data-view-personalization-docs
     title: Use the linked DataViews and personalization docs for collection screens
     summary: Follow the DataViews tutorial or runtime guide, then apply the personalization bridge from the personalization library page.
-    level: informational
+    level: manual
     instructions:
       - Open `/docs/getting-started/dataviews` for the end-to-end query/spec/render flow.
       - Open `/docs/libraries/data-views` for collection config, data depth, and renderer props.
