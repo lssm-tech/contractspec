@@ -1,5 +1,43 @@
 # @contractspec/app.expo-demo
 
+## 1.1.31
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add a ContractSpec-native production-grade translation runtime and optional i18next adapter.
+- Updated dependencies because of Add preference-aware DataView collection defaults and personalization adapters.
+- Updated dependencies because of Move notifications to library-first contracts/runtime surfaces and add AppShell in-app notification affordances.
+- Updated dependencies because of Add first-class FormSpec phone input support with country detection, split outputs, and flag rendering.
+- Updated dependencies because of Add PWA update management contracts and runtime helpers.
+- Updated dependencies because of Add a shared roles and permissions policy system across contracts, RBAC evaluation, AppShell adaptation, and personalization suppression.
+  - @contractspec/bundle.marketing@3.8.22
+  - @contractspec/example.agent-console@3.8.21
+  - @contractspec/example.ai-chat-assistant@3.8.21
+  - @contractspec/example.analytics-dashboard@3.9.21
+  - @contractspec/example.data-grid-showcase@3.8.21
+  - @contractspec/example.in-app-docs@3.7.29
+  - @contractspec/example.integration-hub@3.8.21
+  - @contractspec/example.learning-journey-registry@4.0.9
+  - @contractspec/example.marketplace@3.8.21
+  - @contractspec/example.meeting-recorder-providers@3.7.28
+  - @contractspec/example.pocket-family-office@3.8.1
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.29
+  - @contractspec/example.video-api-showcase@3.7.29
+  - @contractspec/example.video-docs-terminal@3.7.29
+  - @contractspec/example.visualization-showcase@3.9.21
+  - @contractspec/example.voice-providers@3.7.28
+  - @contractspec/example.workflow-system@3.8.21
+  - @contractspec/lib.presentation-runtime-core@5.2.1
+  - @contractspec/lib.presentation-runtime-react-native@40.0.1
+  - @contractspec/lib.ui-kit@4.1.4
+  - @contractspec/lib.ui-kit-core@3.8.7
+  - @contractspec/module.examples@4.0.6
+  - @contractspec/lib.contracts-spec@6.2.0
+  - @contractspec/example.crm-pipeline@3.7.29
+  - @contractspec/example.saas-boilerplate@3.8.21
+
 ## 1.1.30
 
 ### Patch Changes

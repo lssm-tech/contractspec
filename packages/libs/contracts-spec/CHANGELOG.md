@@ -1,5 +1,27 @@
 # @contractspec/lib.contracts-spec
 
+## 6.2.0
+
+### Minor Changes
+
+- Add a ContractSpec-native production-grade translation runtime and optional i18next adapter.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.translation-runtime (minor), @contractspec/lib.design-system (minor), @contractspec/example.locale-jurisdiction-gate (patch)
+  - Migration: Prefer `meta.key: "bundle.messages"` with `locale: "fr-FR"` over stable keys that encode locale suffixes.; The i18next adapter exports ContractSpec ICU messages intact and does not make i18next canonical.
+- Add preference-aware DataView collection defaults and personalization adapters.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.design-system (minor), @contractspec/lib.personalization (minor), @contractspec/bundle.library (patch)
+- Move notifications to library-first contracts/runtime surfaces and add AppShell in-app notification affordances.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.notification (minor), @contractspec/module.notifications (patch), @contractspec/lib.design-system (minor), @contractspec/example.crm-pipeline (patch), @contractspec/example.wealth-snapshot (patch), @contractspec/example.saas-boilerplate (patch)
+  - Migration: Move new notification integrations away from the module shim.; Provide notification items and callbacks to the design-system shell without coupling it to a delivery runtime.
+  - Deprecations: The `@contractspec/module.notifications` package remains import-compatible for this release, but new code should import contracts from `@contractspec/lib.contracts-spec/notifications` and runtime helpers from `@contractspec/lib.notification`.
+- Add first-class FormSpec phone input support with country detection, split outputs, and flag rendering.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.contracts-runtime-client-react (minor), @contractspec/lib.design-system (minor)
+- Add PWA update management contracts and runtime helpers.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.contracts-runtime-server-rest (minor), @contractspec/lib.contracts-runtime-client-react (minor)
+  - Migration: Register the PWA update operation, bind it to a manifest resolver, and call it from the frontend on startup or polling intervals.
+- Add a shared roles and permissions policy system across contracts, RBAC evaluation, AppShell adaptation, and personalization suppression.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.identity-rbac (minor), @contractspec/lib.design-system (minor), @contractspec/lib.personalization (minor)
+  - Migration: Existing policies continue to work; add roles, permissions, policy refs, and field policies when a contract needs stronger authorization metadata.
+
 ## 6.1.0
 
 ### Minor Changes

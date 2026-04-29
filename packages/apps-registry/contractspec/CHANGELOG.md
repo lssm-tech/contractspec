@@ -1,5 +1,24 @@
 # contractspec
 
+## 4.0.10
+
+### Patch Changes
+
+- Speed up npm release publishing by removing per-package dist-tag convergence polling after successful dist-tag updates.
+  - Packages: contractspec (patch)
+- Stabilize release artifact generation so customer-facing release files stay current-release-only and deterministic.
+  - Packages: @contractspec/bundle.workspace (minor), @contractspec/app.cli-contractspec (minor), @contractspec/app.web-landing (patch), contractspec (patch)
+  - Migration: Consumers that previously treated `generated/releases/manifest.json` as a full historical changelog should build the history output path.
+- Updated dependencies because of Add a ContractSpec-native production-grade translation runtime and optional i18next adapter.
+- Updated dependencies because of Add preference-aware DataView collection defaults and personalization adapters.
+- Updated dependencies because of Move notifications to library-first contracts/runtime surfaces and add AppShell in-app notification affordances.
+- Updated dependencies because of Add first-class FormSpec phone input support with country detection, split outputs, and flag rendering.
+- Updated dependencies because of Add PWA update management contracts and runtime helpers.
+- Updated dependencies because of Add a shared roles and permissions policy system across contracts, RBAC evaluation, AppShell adaptation, and personalization suppression.
+- Updated dependencies because of Stabilize release artifact generation so customer-facing release files stay current-release-only and deterministic.
+  - @contractspec/lib.contracts-spec@6.2.0
+  - @contractspec/app.cli-contractspec@6.3.0
+
 ## 4.0.9
 
 ### Patch Changes

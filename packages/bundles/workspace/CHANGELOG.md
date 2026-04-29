@@ -1,5 +1,35 @@
 # @contractspec/bundle.workspace
 
+## 4.6.0
+
+### Minor Changes
+
+- Stabilize release artifact generation so customer-facing release files stay current-release-only and deterministic.
+  - Packages: @contractspec/bundle.workspace (minor), @contractspec/app.cli-contractspec (minor), @contractspec/app.web-landing (patch), contractspec (patch)
+  - Migration: Consumers that previously treated `generated/releases/manifest.json` as a full historical changelog should build the history output path.
+
+### Patch Changes
+
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add a ContractSpec-native production-grade translation runtime and optional i18next adapter.
+- Updated dependencies because of Add preference-aware DataView collection defaults and personalization adapters.
+- Updated dependencies because of Move notifications to library-first contracts/runtime surfaces and add AppShell in-app notification affordances.
+- Updated dependencies because of Add first-class FormSpec phone input support with country detection, split outputs, and flag rendering.
+- Updated dependencies because of Add PWA update management contracts and runtime helpers.
+- Updated dependencies because of Add a shared roles and permissions policy system across contracts, RBAC evaluation, AppShell adaptation, and personalization suppression.
+  - @contractspec/integration.runtime@3.9.9
+  - @contractspec/lib.ai-agent@8.0.15
+  - @contractspec/lib.ai-providers@3.7.20
+  - @contractspec/lib.builder-spec@0.2.9
+  - @contractspec/lib.contracts-integrations@3.8.19
+  - @contractspec/lib.contracts-transformers@3.7.27
+  - @contractspec/lib.provider-spec@0.2.7
+  - @contractspec/lib.source-extractors@2.7.27
+  - @contractspec/lib.surface-runtime@0.5.27
+  - @contractspec/lib.utils-typescript@3.7.20
+  - @contractspec/module.workspace@4.3.7
+  - @contractspec/lib.contracts-spec@6.2.0
+
 ## 4.5.6
 
 ### Patch Changes

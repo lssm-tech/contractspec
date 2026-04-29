@@ -3,7 +3,7 @@
   "releases": [
     {
       "slug": "adaptive-object-reference-panel",
-      "version": "4.3.0",
+      "version": "4.4.0",
       "summary": "Promote object-reference detail panels to a reusable adaptive sheet/drawer surface.",
       "date": "2026-04-29",
       "isBreaking": false,
@@ -11,7 +11,7 @@
         {
           "name": "@contractspec/lib.design-system",
           "releaseType": "minor",
-          "version": "4.3.0"
+          "version": "4.4.0"
         }
       ],
       "affectedRuntimes": [
@@ -68,7 +68,7 @@
     },
     {
       "slug": "adaptive-panel-menu-migration",
-      "version": "4.3.0",
+      "version": "4.4.0",
       "summary": "Route design-system mobile menu overlays through the shared AdaptivePanel primitive.",
       "date": "2026-04-29",
       "isBreaking": false,
@@ -76,7 +76,7 @@
         {
           "name": "@contractspec/lib.design-system",
           "releaseType": "patch",
-          "version": "4.3.0"
+          "version": "4.4.0"
         }
       ],
       "affectedRuntimes": [
@@ -123,7 +123,7 @@
     },
     {
       "slug": "application-shell-notification-docs",
-      "version": "3.9.8",
+      "version": "3.9.9",
       "summary": "Document AppShell in-app notification adoption and refresh shell implementation prompts.",
       "date": "2026-04-29",
       "isBreaking": false,
@@ -131,7 +131,7 @@
         {
           "name": "@contractspec/bundle.library",
           "releaseType": "patch",
-          "version": "3.9.8"
+          "version": "3.9.9"
         },
         {
           "name": "@contractspec/app.web-landing",
@@ -195,7 +195,7 @@
     },
     {
       "slug": "contractspec-i18n-runtime",
-      "version": "6.1.0",
+      "version": "6.2.0",
       "summary": "Add a ContractSpec-native production-grade translation runtime and optional i18next adapter.",
       "date": "2026-04-29",
       "isBreaking": false,
@@ -203,22 +203,22 @@
         {
           "name": "@contractspec/lib.contracts-spec",
           "releaseType": "minor",
-          "version": "6.1.0"
+          "version": "6.2.0"
         },
         {
           "name": "@contractspec/lib.translation-runtime",
           "releaseType": "minor",
-          "version": "0.1.0"
+          "version": "0.2.0"
         },
         {
           "name": "@contractspec/lib.design-system",
           "releaseType": "minor",
-          "version": "4.3.0"
+          "version": "4.4.0"
         },
         {
           "name": "@contractspec/example.locale-jurisdiction-gate",
           "releaseType": "patch",
-          "version": "3.7.26"
+          "version": "3.7.27"
         }
       ],
       "affectedRuntimes": [
@@ -312,7 +312,7 @@
     },
     {
       "slug": "contractspec-i18next-adapter",
-      "version": "0.1.0",
+      "version": "0.2.0",
       "summary": "Add an optional ContractSpec-first i18next adapter for downstream interoperability.",
       "date": "2026-04-29",
       "isBreaking": false,
@@ -320,7 +320,7 @@
         {
           "name": "@contractspec/lib.translation-runtime",
           "releaseType": "minor",
-          "version": "0.1.0"
+          "version": "0.2.0"
         }
       ],
       "affectedRuntimes": [
@@ -411,7 +411,7 @@
     },
     {
       "slug": "data-exchange-import-templates",
-      "version": "0.2.6",
+      "version": "0.3.0",
       "summary": "Add template-aware import mapping with column aliases, flexible value formatting, codec options, client review state, and server audit evidence.",
       "date": "2026-04-29",
       "isBreaking": false,
@@ -419,17 +419,17 @@
         {
           "name": "@contractspec/lib.data-exchange-core",
           "releaseType": "minor",
-          "version": "0.2.6"
+          "version": "0.3.0"
         },
         {
           "name": "@contractspec/lib.data-exchange-client",
           "releaseType": "minor",
-          "version": "0.2.7"
+          "version": "0.3.0"
         },
         {
           "name": "@contractspec/lib.data-exchange-server",
           "releaseType": "minor",
-          "version": "0.2.6"
+          "version": "0.3.0"
         }
       ],
       "affectedRuntimes": [
@@ -500,7 +500,7 @@
     },
     {
       "slug": "data-views-personalization-integration",
-      "version": "6.1.0",
+      "version": "6.2.0",
       "summary": "Add preference-aware DataView collection defaults and personalization adapters.",
       "date": "2026-04-29",
       "isBreaking": false,
@@ -508,22 +508,22 @@
         {
           "name": "@contractspec/lib.contracts-spec",
           "releaseType": "minor",
-          "version": "6.1.0"
+          "version": "6.2.0"
         },
         {
           "name": "@contractspec/lib.design-system",
           "releaseType": "minor",
-          "version": "4.3.0"
+          "version": "4.4.0"
         },
         {
           "name": "@contractspec/lib.personalization",
           "releaseType": "minor",
-          "version": "6.0.26"
+          "version": "6.1.0"
         },
         {
           "name": "@contractspec/bundle.library",
           "releaseType": "patch",
-          "version": "3.9.8"
+          "version": "3.9.9"
         }
       ],
       "affectedRuntimes": [
@@ -584,6 +584,71 @@
           "Contract tests cover data depth, field visibility, and collection personalization config.",
           "Renderer tests cover pure data-depth projection and controlled DataViewRenderer dataDepth behavior.",
           "Personalization tests cover preference resolution precedence, valid-mode fallback, and data_view_interaction insights."
+        ]
+      }
+    },
+    {
+      "slug": "document-object-reference-adoption",
+      "version": "3.9.9",
+      "summary": "Document and link object-reference adoption and adaptive panel guidance in the public docs bundle.",
+      "date": "2026-04-29",
+      "isBreaking": false,
+      "packages": [
+        {
+          "name": "@contractspec/bundle.library",
+          "releaseType": "patch",
+          "version": "3.9.9"
+        }
+      ],
+      "affectedRuntimes": [
+        "browser"
+      ],
+      "affectedFrameworks": [
+        "react"
+      ],
+      "audiences": [
+        {
+          "kind": "maintainer",
+          "summary": "The design-system docs now cover ObjectReferenceHandler descriptors, rich properties and sections, action handlers, safe hrefs, AdaptivePanel behavior, adoption prompts, and sidebar discovery.",
+          "affectedPackages": [
+            "@contractspec/bundle.library"
+          ]
+        },
+        {
+          "kind": "integrator",
+          "summary": "Downstream apps have concrete guidance for replacing inert references with ObjectReferenceHandler and using AdaptivePanel instead of direct Sheet/Drawer branching.",
+          "affectedPackages": [
+            "@contractspec/bundle.library"
+          ]
+        },
+        {
+          "kind": "customer",
+          "summary": "Product teams get clearer guidance for making addresses, phone numbers, users, customers, files, and URLs actionable in responsive panels."
+        }
+      ],
+      "deprecations": [],
+      "migrationInstructions": [],
+      "upgradeSteps": [
+        {
+          "id": "replace-inert-references",
+          "title": "Replace inert references with ObjectReferenceHandler",
+          "summary": "Use the documented adoption prompt and examples to find plain object references and wrap them with the shared handler.",
+          "level": "assisted",
+          "instructions": [
+            "Start with address, phone, email, user, customer, file, and URL text rendered in product workflows.",
+            "Model each reference as a data-only descriptor and put runtime behavior in handler props.",
+            "Use rich properties and sections when one object should expose multiple interaction targets.",
+            "Keep responsive overlays on AdaptivePanel or ObjectReferenceHandler panel props."
+          ]
+        }
+      ],
+      "validation": {
+        "commands": [
+          "node scripts/biome.cjs check packages/bundles/library/src/components/docs/libraries/LibrariesDesignSystemPage.tsx packages/bundles/library/src/components/docs/libraries/LibrariesOverviewPage.tsx packages/apps/web-landing/README.md packages/apps/web-landing/public/llms-packages/lib.design-system.txt .changeset/document-object-reference-adoption.md .changeset/document-object-reference-adoption.release.yaml"
+        ],
+        "evidence": [
+          "The docs page and LLM package guidance now include rich reference examples, adaptive panel usage, safe runtime boundaries, and an adoption prompt.",
+          "The docs manifest registers /docs/libraries/design-system in the build sidebar with object-reference and AdaptivePanel aliases."
         ]
       }
     },
@@ -652,7 +717,7 @@
     },
     {
       "slug": "notification-library-shell",
-      "version": "6.1.0",
+      "version": "6.2.0",
       "summary": "Move notifications to library-first contracts/runtime surfaces and add AppShell in-app notification affordances.",
       "date": "2026-04-29",
       "isBreaking": false,
@@ -660,37 +725,37 @@
         {
           "name": "@contractspec/lib.contracts-spec",
           "releaseType": "minor",
-          "version": "6.1.0"
+          "version": "6.2.0"
         },
         {
           "name": "@contractspec/lib.notification",
           "releaseType": "minor",
-          "version": "0.1.0"
+          "version": "0.2.0"
         },
         {
           "name": "@contractspec/module.notifications",
           "releaseType": "patch",
-          "version": "3.8.2"
+          "version": "3.8.3"
         },
         {
           "name": "@contractspec/lib.design-system",
           "releaseType": "minor",
-          "version": "4.3.0"
+          "version": "4.4.0"
         },
         {
           "name": "@contractspec/example.crm-pipeline",
           "releaseType": "patch",
-          "version": "3.7.28"
+          "version": "3.7.29"
         },
         {
           "name": "@contractspec/example.wealth-snapshot",
           "releaseType": "patch",
-          "version": "3.8.0"
+          "version": "3.8.1"
         },
         {
           "name": "@contractspec/example.saas-boilerplate",
           "releaseType": "patch",
-          "version": "3.8.20"
+          "version": "3.8.21"
         }
       ],
       "affectedRuntimes": [
@@ -780,7 +845,7 @@
     },
     {
       "slug": "phone-number-field-support",
-      "version": "6.1.0",
+      "version": "6.2.0",
       "summary": "Add first-class FormSpec phone input support with country detection, split outputs, and flag rendering.",
       "date": "2026-04-29",
       "isBreaking": false,
@@ -788,17 +853,17 @@
         {
           "name": "@contractspec/lib.contracts-spec",
           "releaseType": "minor",
-          "version": "6.1.0"
+          "version": "6.2.0"
         },
         {
           "name": "@contractspec/lib.contracts-runtime-client-react",
           "releaseType": "minor",
-          "version": "3.13.0"
+          "version": "3.14.0"
         },
         {
           "name": "@contractspec/lib.design-system",
           "releaseType": "minor",
-          "version": "4.3.0"
+          "version": "4.4.0"
         }
       ],
       "affectedRuntimes": [
@@ -868,7 +933,7 @@
     },
     {
       "slug": "pwa-update-management",
-      "version": "6.1.0",
+      "version": "6.2.0",
       "summary": "Add PWA update management contracts and runtime helpers.",
       "date": "2026-04-29",
       "isBreaking": false,
@@ -876,17 +941,17 @@
         {
           "name": "@contractspec/lib.contracts-spec",
           "releaseType": "minor",
-          "version": "6.1.0"
+          "version": "6.2.0"
         },
         {
           "name": "@contractspec/lib.contracts-runtime-server-rest",
           "releaseType": "minor",
-          "version": "3.8.5"
+          "version": "3.9.0"
         },
         {
           "name": "@contractspec/lib.contracts-runtime-client-react",
           "releaseType": "minor",
-          "version": "3.13.0"
+          "version": "3.14.0"
         }
       ],
       "affectedRuntimes": [
@@ -948,7 +1013,7 @@
     },
     {
       "slug": "roles-permissions-rbac-policy-system",
-      "version": "6.1.0",
+      "version": "6.2.0",
       "summary": "Add a shared roles and permissions policy system across contracts, RBAC evaluation, AppShell adaptation, and personalization suppression.",
       "date": "2026-04-29",
       "isBreaking": false,
@@ -956,22 +1021,22 @@
         {
           "name": "@contractspec/lib.contracts-spec",
           "releaseType": "minor",
-          "version": "6.1.0"
+          "version": "6.2.0"
         },
         {
           "name": "@contractspec/lib.identity-rbac",
           "releaseType": "minor",
-          "version": "3.7.26"
+          "version": "3.8.0"
         },
         {
           "name": "@contractspec/lib.design-system",
           "releaseType": "minor",
-          "version": "4.3.0"
+          "version": "4.4.0"
         },
         {
           "name": "@contractspec/lib.personalization",
           "releaseType": "minor",
-          "version": "6.0.26"
+          "version": "6.1.0"
         }
       ],
       "affectedRuntimes": [
@@ -1051,7 +1116,7 @@
     },
     {
       "slug": "stabilize-current-release-artifacts",
-      "version": "4.5.6",
+      "version": "4.6.0",
       "summary": "Stabilize release artifact generation so customer-facing release files stay current-release-only and deterministic.",
       "date": "2026-04-29",
       "isBreaking": false,
@@ -1059,12 +1124,12 @@
         {
           "name": "@contractspec/bundle.workspace",
           "releaseType": "minor",
-          "version": "4.5.6"
+          "version": "4.6.0"
         },
         {
           "name": "@contractspec/app.cli-contractspec",
           "releaseType": "minor",
-          "version": "6.2.2"
+          "version": "6.3.0"
         },
         {
           "name": "@contractspec/app.web-landing",
@@ -1147,6 +1212,258 @@
           "Release service tests cover current-only builds, explicit full-history builds, local post-version selection, CI baseline selection, and stable generated timestamps.",
           "CLI release command tests cover guided prepare, edit, rerun slug reuse, and invalid capsule messaging.",
           "The generated current release bundle contains 12 releases, 0 historical entries, and is 121,562 bytes across the customer-facing files."
+        ]
+      }
+    },
+    {
+      "slug": "web-landing-data-exchange-import-template-docs",
+      "version": "3.9.9",
+      "summary": "Add public website docs and prompts for flexible data-exchange import templates and user column mapping review.",
+      "date": "2026-04-29",
+      "isBreaking": false,
+      "packages": [
+        {
+          "name": "@contractspec/bundle.library",
+          "releaseType": "patch",
+          "version": "3.9.9"
+        },
+        {
+          "name": "@contractspec/app.web-landing",
+          "releaseType": "patch"
+        }
+      ],
+      "affectedRuntimes": [
+        "browser"
+      ],
+      "affectedFrameworks": [
+        "nextjs",
+        "react"
+      ],
+      "audiences": [
+        {
+          "kind": "maintainer",
+          "summary": "Maintainers can point developers at a canonical website guide for import templates, alias matching, format profiles, codec options, and verification.",
+          "affectedPackages": [
+            "@contractspec/bundle.library",
+            "@contractspec/app.web-landing"
+          ]
+        },
+        {
+          "kind": "integrator",
+          "summary": "Integrators can use the public guide and prompts to accept partner CSV, JSON, or XML imports with alternate headers and localized value formats.",
+          "affectedPackages": [
+            "@contractspec/app.web-landing"
+          ]
+        },
+        {
+          "kind": "customer",
+          "summary": "Import-review flows can now be explained from the public docs with matched columns, required gaps, ignored source columns, and user remapping actions.",
+          "affectedPackages": [
+            "@contractspec/app.web-landing"
+          ]
+        }
+      ],
+      "deprecations": [],
+      "migrationInstructions": [
+        {
+          "id": "read-import-template-guide",
+          "title": "Use the import-template guide for flexible ingestion flows",
+          "summary": "Start from `/docs/guides/data-exchange-import-templates` when adding a recommended import template that still accepts partner-specific files.",
+          "required": false,
+          "steps": [
+            "Define a reusable template with target fields, required columns, aliases, and value-format rules.",
+            "Dry-run CSV, JSON, or XML files with codec options before execution.",
+            "Show the client mapping-review state so users can remap columns or adjust formats before import.",
+            "Use `/llms/lib.data-exchange-core`, `/llms/lib.data-exchange-client`, and `/llms/lib.data-exchange-server` for package-specific agent context."
+          ]
+        }
+      ],
+      "upgradeSteps": [
+        {
+          "id": "align-import-template-doc-surfaces",
+          "title": "Keep website docs and LLM guides aligned for data-exchange imports",
+          "summary": "When data-exchange template behavior changes, update the package READMEs, public guide, web-landing README, and generated `/llms*` package guides together.",
+          "level": "manual",
+          "instructions": [
+            "Update the data-exchange package READMEs for package-level API behavior.",
+            "Update `/docs/guides/data-exchange-import-templates` for end-to-end website guidance.",
+            "Regenerate or verify `/llms*` package guides before release."
+          ]
+        }
+      ],
+      "validation": {
+        "commands": [
+          "node scripts/biome.cjs check packages/apps/web-landing/README.md packages/bundles/library/package.json packages/bundles/library/src/components/docs/docsManifest.ts packages/bundles/library/src/components/docs/docsManifest.test.ts packages/bundles/library/src/components/docs/guides/GuidesIndexPage.tsx packages/bundles/library/src/components/docs/guides/GuideDataExchangeImportTemplatesPage.tsx packages/bundles/library/src/components/docs/guides/GuideDataExchangeImportTemplatesPage.content.ts packages/bundles/library/src/components/docs/guides/index.ts packages/apps/web-landing/src/app/docs/guides/data-exchange-import-templates/page.tsx",
+          "bun test packages/bundles/library/src/components/docs/docsManifest.test.ts",
+          "bun run --cwd packages/apps/web-landing typecheck"
+        ],
+        "evidence": [
+          "The docs manifest test asserts `/docs/guides/data-exchange-import-templates` resolves and appears in the expected build navigation order.",
+          "The public guide includes template definition, server dry-run, client review, prompt, and verification sections."
+        ]
+      }
+    },
+    {
+      "slug": "web-landing-data-view-personalization-docs",
+      "version": "3.9.9",
+      "summary": "Add public docs and LLM guidance for preference-aware DataViews.",
+      "date": "2026-04-29",
+      "isBreaking": false,
+      "packages": [
+        {
+          "name": "@contractspec/app.web-landing",
+          "releaseType": "patch"
+        },
+        {
+          "name": "@contractspec/bundle.library",
+          "releaseType": "patch",
+          "version": "3.9.9"
+        },
+        {
+          "name": "@contractspec/lib.personalization",
+          "releaseType": "patch",
+          "version": "6.1.0"
+        }
+      ],
+      "affectedRuntimes": [
+        "browser",
+        "node"
+      ],
+      "affectedFrameworks": [
+        "nextjs",
+        "react"
+      ],
+      "audiences": [
+        {
+          "kind": "integrator",
+          "summary": "Public docs now show how to wire DataViewRenderer with resolveDataViewPreferences and trackDataViewInteraction.",
+          "affectedPackages": [
+            "@contractspec/app.web-landing",
+            "@contractspec/bundle.library",
+            "@contractspec/lib.personalization"
+          ]
+        },
+        {
+          "kind": "maintainer",
+          "summary": "DataView personalization docs are registered in the docs manifest and mirrored into /llms package guides.",
+          "affectedPackages": [
+            "@contractspec/app.web-landing",
+            "@contractspec/bundle.library"
+          ]
+        }
+      ],
+      "deprecations": [],
+      "migrationInstructions": [],
+      "upgradeSteps": [
+        {
+          "id": "read-data-view-personalization-docs",
+          "title": "Use the linked DataViews and personalization docs for collection screens",
+          "summary": "Follow the DataViews tutorial or runtime guide, then apply the personalization bridge from the personalization library page.",
+          "level": "manual",
+          "instructions": [
+            "Open `/docs/getting-started/dataviews` for the end-to-end query/spec/render flow.",
+            "Open `/docs/libraries/data-views` for collection config, data depth, and renderer props.",
+            "Open `/docs/libraries/personalization` for preference resolution, interaction tracking, analyzer output, and agent prompts."
+          ]
+        }
+      ],
+      "validation": {
+        "commands": [
+          "bun run --cwd packages/apps/web-landing build:types",
+          "bun test packages/bundles/library/src/components/docs/docsManifest.test.ts",
+          "node scripts/biome.cjs check <edited DataView docs, manifest, README, and changeset files>",
+          "bun run --cwd packages/apps/web-landing llms:generate"
+        ],
+        "evidence": [
+          "Docs manifest tests assert DataView tutorial, runtime, and personalization pages are registered in primary navigation.",
+          "Content grep confirms resolveDataViewPreferences, trackDataViewInteraction, visibility.minDataDepth, and personalization persist hints appear in docs and /llms outputs."
+        ]
+      }
+    },
+    {
+      "slug": "web-landing-translation-runtime-docs",
+      "version": "3.9.9",
+      "summary": "Add public web docs and agent guidance for the ContractSpec translation runtime and optional i18next adapter.",
+      "date": "2026-04-29",
+      "isBreaking": false,
+      "packages": [
+        {
+          "name": "@contractspec/bundle.library",
+          "releaseType": "patch",
+          "version": "3.9.9"
+        },
+        {
+          "name": "@contractspec/app.web-landing",
+          "releaseType": "patch"
+        }
+      ],
+      "affectedRuntimes": [
+        "browser"
+      ],
+      "affectedFrameworks": [
+        "nextjs"
+      ],
+      "audiences": [
+        {
+          "kind": "maintainer",
+          "summary": "The shared docs bundle now registers a translation-runtime library guide and primary-nav entry so the public web shell can expose ContractSpec i18n guidance consistently.",
+          "affectedPackages": [
+            "@contractspec/bundle.library",
+            "@contractspec/app.web-landing"
+          ]
+        },
+        {
+          "kind": "integrator",
+          "summary": "Integrators can find ContractSpec-first i18n runtime, SSR/hydration, and optional i18next adapter guidance from the website docs and `/llms*` surfaces.",
+          "affectedPackages": [
+            "@contractspec/app.web-landing"
+          ]
+        },
+        {
+          "kind": "customer",
+          "summary": "Public docs now explain how to keep ContractSpec translations canonical while using the optional i18next adapter for downstream app interoperability.",
+          "affectedPackages": [
+            "@contractspec/app.web-landing"
+          ]
+        }
+      ],
+      "deprecations": [],
+      "migrationInstructions": [
+        {
+          "id": "read-translation-runtime-guide",
+          "title": "Use the translation runtime guide for production i18n adoption",
+          "summary": "Start from `/docs/libraries/translation-runtime` when wiring ContractSpec translations into server, React, React Native, or i18next-backed app surfaces.",
+          "required": false,
+          "steps": [
+            "Open `/docs/libraries/translation-runtime` from the docs sidebar or libraries overview.",
+            "Use `/llms/lib.translation-runtime` when prompting agents for package-specific implementation context.",
+            "Keep `TranslationSpec` catalogs canonical and treat i18next resources as generated downstream adapter data."
+          ]
+        }
+      ],
+      "upgradeSteps": [
+        {
+          "id": "align-translation-doc-surfaces",
+          "title": "Keep website docs and LLM guides aligned for translation runtime work",
+          "summary": "When translation runtime behavior changes, update the web docs route, package README, `/llms.txt`, and package-specific `/llms` guide together.",
+          "level": "manual",
+          "instructions": [
+            "Update `@contractspec/lib.translation-runtime` README for package-level API behavior.",
+            "Update the shared library docs page for website readers.",
+            "Regenerate or verify `/llms*` package guides before release."
+          ]
+        }
+      ],
+      "validation": {
+        "commands": [
+          "node scripts/biome.cjs check packages/bundles/library/src/components/docs/libraries/LibrariesTranslationRuntimePage.tsx packages/bundles/library/src/components/docs/libraries/LibrariesTranslationRuntimePage.content.ts packages/apps/web-landing/src/app/docs/libraries/translation-runtime/page.tsx packages/bundles/library/src/components/docs/docsManifest.ts packages/bundles/library/src/components/docs/docsManifest.test.ts packages/bundles/library/src/components/docs/libraries/index.ts",
+          "bun test packages/bundles/library/src/components/docs/docsManifest.test.ts",
+          "bun run --cwd packages/apps/web-landing build:types",
+          "bun run --cwd packages/apps/web-landing llms:generate"
+        ],
+        "evidence": [
+          "Docs manifest tests assert `/docs/libraries/translation-runtime` resolves, carries the i18next adapter alias, and appears in the build sidebar traversal.",
+          "The public guide includes install guidance, runtime usage, i18next projection, SSR/hydration notes, production checks, and an agent implementation prompt."
         ]
       }
     }

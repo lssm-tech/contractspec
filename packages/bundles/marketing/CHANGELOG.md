@@ -1,5 +1,55 @@
 # @contractspec/bundle.marketing
 
+## 3.8.22
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Promote object-reference detail panels to a reusable adaptive sheet/drawer surface.
+- Updated dependencies because of Route design-system mobile menu overlays through the shared AdaptivePanel primitive.
+- Updated dependencies because of Document AppShell in-app notification adoption and refresh shell implementation prompts.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add a ContractSpec-native production-grade translation runtime and optional i18next adapter.
+- Updated dependencies because of Add preference-aware DataView collection defaults and personalization adapters.
+- Updated dependencies because of Document and link object-reference adoption and adaptive panel guidance in the public docs bundle.
+- Updated dependencies because of Move notifications to library-first contracts/runtime surfaces and add AppShell in-app notification affordances.
+- Updated dependencies because of Add first-class FormSpec phone input support with country detection, split outputs, and flag rendering.
+- Updated dependencies because of Add PWA update management contracts and runtime helpers.
+- Updated dependencies because of Add a shared roles and permissions policy system across contracts, RBAC evaluation, AppShell adaptation, and personalization suppression.
+- Updated dependencies because of Add public website docs and prompts for flexible data-exchange import templates and user column mapping review.
+- Updated dependencies because of Add public docs and LLM guidance for preference-aware DataViews.
+- Updated dependencies because of Add public web docs and agent guidance for the ContractSpec translation runtime and optional i18next adapter.
+  - @contractspec/lib.design-system@4.4.0
+  - @contractspec/bundle.library@3.9.9
+  - @contractspec/example.agent-console@3.8.21
+  - @contractspec/example.ai-chat-assistant@3.8.21
+  - @contractspec/example.analytics-dashboard@3.9.21
+  - @contractspec/example.data-grid-showcase@3.8.21
+  - @contractspec/example.finance-ops-ai-workflows@1.1.1
+  - @contractspec/example.form-showcase@1.1.2
+  - @contractspec/example.in-app-docs@3.7.29
+  - @contractspec/example.integration-hub@3.8.21
+  - @contractspec/example.learning-journey-registry@4.0.9
+  - @contractspec/example.marketplace@3.8.21
+  - @contractspec/example.pocket-family-office@3.8.1
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.29
+  - @contractspec/example.visualization-showcase@3.9.21
+  - @contractspec/example.workflow-system@3.8.21
+  - @contractspec/lib.email@3.7.20
+  - @contractspec/lib.example-shared-ui@7.0.6
+  - @contractspec/lib.logger@3.7.20
+  - @contractspec/lib.runtime-sandbox@3.0.6
+  - @contractspec/lib.surface-runtime@0.5.27
+  - @contractspec/lib.ui-kit-core@3.8.7
+  - @contractspec/lib.ui-kit-web@3.13.2
+  - @contractspec/lib.ui-link@3.7.22
+  - @contractspec/module.examples@4.0.6
+  - @contractspec/lib.contracts-spec@6.2.0
+  - @contractspec/example.crm-pipeline@3.7.29
+  - @contractspec/example.wealth-snapshot@3.8.1
+  - @contractspec/example.saas-boilerplate@3.8.21
+  - @contractspec/lib.contracts-runtime-client-react@3.14.0
+
 ## 3.8.21
 
 ### Patch Changes

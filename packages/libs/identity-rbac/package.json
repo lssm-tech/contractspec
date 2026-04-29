@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.identity-rbac",
-	"version": "3.7.26",
+	"version": "3.8.0",
 	"description": "Identity, Organizations, and RBAC module for ContractSpec applications",
 	"keywords": [
 		"contractspec",

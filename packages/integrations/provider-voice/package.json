@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/integration.provider.voice",
-	"version": "0.2.2",
+	"version": "0.2.3",
 	"description": "Voice, speech, and conversational provider implementations for ContractSpec.",
 	"type": "module",
 	"types": "./dist/index.d.ts",

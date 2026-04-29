@@ -1,5 +1,37 @@
 # @contractspec/integration.providers-impls
 
+## 4.1.3
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add a ContractSpec-native production-grade translation runtime and optional i18next adapter.
+- Updated dependencies because of Add preference-aware DataView collection defaults and personalization adapters.
+- Updated dependencies because of Move notifications to library-first contracts/runtime surfaces and add AppShell in-app notification affordances.
+- Updated dependencies because of Add first-class FormSpec phone input support with country detection, split outputs, and flag rendering.
+- Updated dependencies because of Add PWA update management contracts and runtime helpers.
+- Updated dependencies because of Add a shared roles and permissions policy system across contracts, RBAC evaluation, AppShell adaptation, and personalization suppression.
+  - @contractspec/integration.provider.analytics@0.2.3
+  - @contractspec/integration.provider.calendar@0.2.3
+  - @contractspec/integration.provider.database@0.2.3
+  - @contractspec/integration.provider.email@0.2.3
+  - @contractspec/integration.provider.embedding@0.2.3
+  - @contractspec/integration.provider.health@0.2.3
+  - @contractspec/integration.provider.llm@0.2.3
+  - @contractspec/integration.provider.meeting-recorder@0.2.3
+  - @contractspec/integration.provider.messaging@0.2.3
+  - @contractspec/integration.provider.openbanking@0.2.3
+  - @contractspec/integration.provider.payments@0.2.3
+  - @contractspec/integration.provider.project-management@0.2.3
+  - @contractspec/integration.provider.sms@0.2.3
+  - @contractspec/integration.provider.storage@0.2.3
+  - @contractspec/integration.provider.vector-store@0.2.3
+  - @contractspec/integration.provider.voice@0.2.3
+  - @contractspec/integration.runtime@3.9.9
+  - @contractspec/lib.contracts-integrations@3.8.19
+  - @contractspec/lib.contracts-spec@6.2.0
+
 ## 4.1.2
 
 ### Patch Changes

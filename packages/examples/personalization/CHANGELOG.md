@@ -1,5 +1,24 @@
 # @contractspec/example.personalization
 
+## 3.7.27
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add a ContractSpec-native production-grade translation runtime and optional i18next adapter.
+- Updated dependencies because of Add preference-aware DataView collection defaults and personalization adapters.
+- Updated dependencies because of Move notifications to library-first contracts/runtime surfaces and add AppShell in-app notification affordances.
+- Updated dependencies because of Add first-class FormSpec phone input support with country detection, split outputs, and flag rendering.
+- Updated dependencies because of Add PWA update management contracts and runtime helpers.
+- Updated dependencies because of Add a shared roles and permissions policy system across contracts, RBAC evaluation, AppShell adaptation, and personalization suppression.
+- Updated dependencies because of Add public docs and LLM guidance for preference-aware DataViews.
+  - @contractspec/lib.logger@3.7.20
+  - @contractspec/lib.overlay-engine@3.7.27
+  - @contractspec/lib.workflow-composer@3.7.27
+  - @contractspec/lib.contracts-spec@6.2.0
+  - @contractspec/lib.personalization@6.1.0
+
 ## 3.7.26
 
 ### Patch Changes

@@ -1,5 +1,82 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 3.8.23
+
+### Patch Changes
+
+- Document AppShell in-app notification adoption and refresh shell implementation prompts.
+  - Packages: @contractspec/bundle.library (patch), @contractspec/app.web-landing (patch)
+  - Migration: Keep notification contracts and runtime helpers outside the design system, then pass render-ready notification center state into AppShell.
+- Stabilize release artifact generation so customer-facing release files stay current-release-only and deterministic.
+  - Packages: @contractspec/bundle.workspace (minor), @contractspec/app.cli-contractspec (minor), @contractspec/app.web-landing (patch), contractspec (patch)
+  - Migration: Consumers that previously treated `generated/releases/manifest.json` as a full historical changelog should build the history output path.
+- Add public website docs and prompts for flexible data-exchange import templates and user column mapping review.
+  - Packages: @contractspec/bundle.library (patch), @contractspec/app.web-landing (patch)
+  - Migration: Start from `/docs/guides/data-exchange-import-templates` when adding a recommended import template that still accepts partner-specific files.
+- Add public docs and LLM guidance for preference-aware DataViews.
+  - Packages: @contractspec/app.web-landing (patch), @contractspec/bundle.library (patch), @contractspec/lib.personalization (patch)
+- Add public web docs and agent guidance for the ContractSpec translation runtime and optional i18next adapter.
+  - Packages: @contractspec/bundle.library (patch), @contractspec/app.web-landing (patch)
+  - Migration: Start from `/docs/libraries/translation-runtime` when wiring ContractSpec translations into server, React, React Native, or i18next-backed app surfaces.
+- Updated dependencies because of Promote object-reference detail panels to a reusable adaptive sheet/drawer surface.
+- Updated dependencies because of Route design-system mobile menu overlays through the shared AdaptivePanel primitive.
+- Updated dependencies because of Document AppShell in-app notification adoption and refresh shell implementation prompts.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add a ContractSpec-native production-grade translation runtime and optional i18next adapter.
+- Updated dependencies because of Add preference-aware DataView collection defaults and personalization adapters.
+- Updated dependencies because of Document and link object-reference adoption and adaptive panel guidance in the public docs bundle.
+- Updated dependencies because of Move notifications to library-first contracts/runtime surfaces and add AppShell in-app notification affordances.
+- Updated dependencies because of Add first-class FormSpec phone input support with country detection, split outputs, and flag rendering.
+- Updated dependencies because of Add PWA update management contracts and runtime helpers.
+- Updated dependencies because of Add a shared roles and permissions policy system across contracts, RBAC evaluation, AppShell adaptation, and personalization suppression.
+- Updated dependencies because of Add public website docs and prompts for flexible data-exchange import templates and user column mapping review.
+- Updated dependencies because of Add public docs and LLM guidance for preference-aware DataViews.
+- Updated dependencies because of Add public web docs and agent guidance for the ContractSpec translation runtime and optional i18next adapter.
+  - @contractspec/lib.design-system@4.4.0
+  - @contractspec/bundle.library@3.9.9
+  - @contractspec/bundle.marketing@3.8.22
+  - @contractspec/example.agent-console@3.8.21
+  - @contractspec/example.ai-chat-assistant@3.8.21
+  - @contractspec/example.analytics-dashboard@3.9.21
+  - @contractspec/example.data-grid-showcase@3.8.21
+  - @contractspec/example.finance-ops-ai-workflows@1.1.1
+  - @contractspec/example.form-showcase@1.1.2
+  - @contractspec/example.in-app-docs@3.7.29
+  - @contractspec/example.integration-hub@3.8.21
+  - @contractspec/example.learning-journey-registry@4.0.9
+  - @contractspec/example.marketplace@3.8.21
+  - @contractspec/example.pocket-family-office@3.8.1
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.29
+  - @contractspec/example.visualization-showcase@3.9.21
+  - @contractspec/example.workflow-system@3.8.21
+  - @contractspec/integration.provider.claude-code@0.2.8
+  - @contractspec/integration.provider.codex@0.2.8
+  - @contractspec/integration.provider.copilot@0.2.8
+  - @contractspec/integration.provider.gemini@0.2.8
+  - @contractspec/integration.provider.local-model@0.2.8
+  - @contractspec/integration.provider.stt@0.2.8
+  - @contractspec/integration.runtime.hybrid@0.2.9
+  - @contractspec/integration.runtime.local@0.2.9
+  - @contractspec/integration.runtime.managed@0.2.9
+  - @contractspec/lib.ai-providers@3.7.20
+  - @contractspec/lib.builder-spec@0.2.9
+  - @contractspec/lib.example-shared-ui@7.0.6
+  - @contractspec/lib.progressive-delivery@34.0.26
+  - @contractspec/lib.provider-spec@0.2.7
+  - @contractspec/lib.surface-runtime@0.5.27
+  - @contractspec/lib.ui-kit@4.1.4
+  - @contractspec/lib.ui-kit-core@3.8.7
+  - @contractspec/lib.ui-kit-web@3.13.2
+  - @contractspec/lib.ui-link@3.7.22
+  - @contractspec/module.ai-chat@4.3.29
+  - @contractspec/module.builder-workbench@0.2.11
+  - @contractspec/module.examples@4.0.6
+  - @contractspec/module.mobile-review@0.2.11
+  - @contractspec/lib.contracts-spec@6.2.0
+  - @contractspec/example.crm-pipeline@3.7.29
+  - @contractspec/example.wealth-snapshot@3.8.1
+  - @contractspec/example.saas-boilerplate@3.8.21
+
 ## 3.8.22
 
 ### Patch Changes

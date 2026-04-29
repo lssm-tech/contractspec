@@ -1,5 +1,20 @@
 # @contractspec/example.locale-jurisdiction-gate
 
+## 3.7.27
+
+### Patch Changes
+
+- Add a ContractSpec-native production-grade translation runtime and optional i18next adapter.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.translation-runtime (minor), @contractspec/lib.design-system (minor), @contractspec/example.locale-jurisdiction-gate (patch)
+  - Migration: Prefer `meta.key: "bundle.messages"` with `locale: "fr-FR"` over stable keys that encode locale suffixes.; The i18next adapter exports ContractSpec ICU messages intact and does not make i18next canonical.
+- Updated dependencies because of Add a ContractSpec-native production-grade translation runtime and optional i18next adapter.
+- Updated dependencies because of Add preference-aware DataView collection defaults and personalization adapters.
+- Updated dependencies because of Move notifications to library-first contracts/runtime surfaces and add AppShell in-app notification affordances.
+- Updated dependencies because of Add first-class FormSpec phone input support with country detection, split outputs, and flag rendering.
+- Updated dependencies because of Add PWA update management contracts and runtime helpers.
+- Updated dependencies because of Add a shared roles and permissions policy system across contracts, RBAC evaluation, AppShell adaptation, and personalization suppression.
+  - @contractspec/lib.contracts-spec@6.2.0
+
 ## 3.7.26
 
 ### Patch Changes

@@ -1,5 +1,28 @@
 # @contractspec/example.agent-console
 
+## 3.8.21
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Promote object-reference detail panels to a reusable adaptive sheet/drawer surface.
+- Updated dependencies because of Route design-system mobile menu overlays through the shared AdaptivePanel primitive.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add a ContractSpec-native production-grade translation runtime and optional i18next adapter.
+- Updated dependencies because of Add preference-aware DataView collection defaults and personalization adapters.
+- Updated dependencies because of Move notifications to library-first contracts/runtime surfaces and add AppShell in-app notification affordances.
+- Updated dependencies because of Add first-class FormSpec phone input support with country detection, split outputs, and flag rendering.
+- Updated dependencies because of Add PWA update management contracts and runtime helpers.
+- Updated dependencies because of Add a shared roles and permissions policy system across contracts, RBAC evaluation, AppShell adaptation, and personalization suppression.
+  - @contractspec/lib.design-system@4.4.0
+  - @contractspec/lib.example-shared-ui@7.0.6
+  - @contractspec/lib.presentation-runtime-core@5.2.1
+  - @contractspec/lib.presentation-runtime-react@40.0.1
+  - @contractspec/lib.runtime-sandbox@3.0.6
+  - @contractspec/lib.ui-kit-web@3.13.2
+  - @contractspec/module.execution-console@0.1.12
+  - @contractspec/lib.contracts-spec@6.2.0
+
 ## 3.8.20
 
 ### Patch Changes

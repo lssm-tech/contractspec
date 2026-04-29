@@ -1,5 +1,23 @@
 # @contractspec/lib.data-exchange-core
 
+## 0.3.0
+
+### Minor Changes
+
+- Add template-aware import mapping with column aliases, flexible value formatting, codec options, client review state, and server audit evidence.
+  - Packages: @contractspec/lib.data-exchange-core (minor), @contractspec/lib.data-exchange-client (minor), @contractspec/lib.data-exchange-server (minor)
+  - Migration: Existing explicit mappings continue to work; new flows can pass an import template to plan creation, dry-run, or execution APIs.
+
+### Patch Changes
+
+- Updated dependencies because of Add a ContractSpec-native production-grade translation runtime and optional i18next adapter.
+- Updated dependencies because of Add preference-aware DataView collection defaults and personalization adapters.
+- Updated dependencies because of Move notifications to library-first contracts/runtime surfaces and add AppShell in-app notification affordances.
+- Updated dependencies because of Add first-class FormSpec phone input support with country detection, split outputs, and flag rendering.
+- Updated dependencies because of Add PWA update management contracts and runtime helpers.
+- Updated dependencies because of Add a shared roles and permissions policy system across contracts, RBAC evaluation, AppShell adaptation, and personalization suppression.
+  - @contractspec/lib.contracts-spec@6.2.0
+
 ## 0.2.6
 
 ### Patch Changes

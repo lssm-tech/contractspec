@@ -1,5 +1,57 @@
 # @contractspec/bundle.library
 
+## 3.9.9
+
+### Patch Changes
+
+- Document AppShell in-app notification adoption and refresh shell implementation prompts.
+  - Packages: @contractspec/bundle.library (patch), @contractspec/app.web-landing (patch)
+  - Migration: Keep notification contracts and runtime helpers outside the design system, then pass render-ready notification center state into AppShell.
+- Add preference-aware DataView collection defaults and personalization adapters.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.design-system (minor), @contractspec/lib.personalization (minor), @contractspec/bundle.library (patch)
+- Document and link object-reference adoption and adaptive panel guidance in the public docs bundle.
+  - Packages: @contractspec/bundle.library (patch)
+- Add public website docs and prompts for flexible data-exchange import templates and user column mapping review.
+  - Packages: @contractspec/bundle.library (patch), @contractspec/app.web-landing (patch)
+  - Migration: Start from `/docs/guides/data-exchange-import-templates` when adding a recommended import template that still accepts partner-specific files.
+- Add public docs and LLM guidance for preference-aware DataViews.
+  - Packages: @contractspec/app.web-landing (patch), @contractspec/bundle.library (patch), @contractspec/lib.personalization (patch)
+- Add public web docs and agent guidance for the ContractSpec translation runtime and optional i18next adapter.
+  - Packages: @contractspec/bundle.library (patch), @contractspec/app.web-landing (patch)
+  - Migration: Start from `/docs/libraries/translation-runtime` when wiring ContractSpec translations into server, React, React Native, or i18next-backed app surfaces.
+- Updated dependencies because of Promote object-reference detail panels to a reusable adaptive sheet/drawer surface.
+- Updated dependencies because of Route design-system mobile menu overlays through the shared AdaptivePanel primitive.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add a ContractSpec-native production-grade translation runtime and optional i18next adapter.
+- Updated dependencies because of Add preference-aware DataView collection defaults and personalization adapters.
+- Updated dependencies because of Move notifications to library-first contracts/runtime surfaces and add AppShell in-app notification affordances.
+- Updated dependencies because of Add first-class FormSpec phone input support with country detection, split outputs, and flag rendering.
+- Updated dependencies because of Add PWA update management contracts and runtime helpers.
+- Updated dependencies because of Add a shared roles and permissions policy system across contracts, RBAC evaluation, AppShell adaptation, and personalization suppression.
+- Updated dependencies because of Stabilize release artifact generation so customer-facing release files stay current-release-only and deterministic.
+  - @contractspec/lib.design-system@4.4.0
+  - @contractspec/example.data-grid-showcase@3.8.21
+  - @contractspec/lib.ai-providers@3.7.20
+  - @contractspec/lib.content-gen@3.7.27
+  - @contractspec/lib.contracts-integrations@3.8.19
+  - @contractspec/lib.contracts-library@3.7.27
+  - @contractspec/lib.contracts-runtime-server-graphql@3.8.6
+  - @contractspec/lib.contracts-runtime-server-mcp@3.8.7
+  - @contractspec/lib.example-shared-ui@7.0.6
+  - @contractspec/lib.knowledge@3.8.3
+  - @contractspec/lib.logger@3.7.20
+  - @contractspec/lib.provider-ranking@0.7.20
+  - @contractspec/lib.runtime-sandbox@3.0.6
+  - @contractspec/lib.surface-runtime@0.5.27
+  - @contractspec/lib.ui-kit-web@3.13.2
+  - @contractspec/lib.ui-link@3.7.22
+  - @contractspec/module.context-storage@0.7.26
+  - @contractspec/module.examples@4.0.6
+  - @contractspec/lib.contracts-spec@6.2.0
+  - @contractspec/lib.contracts-runtime-client-react@3.14.0
+  - @contractspec/lib.contracts-runtime-server-rest@3.9.0
+  - @contractspec/bundle.workspace@4.6.0
+
 ## 3.9.8
 
 ### Patch Changes

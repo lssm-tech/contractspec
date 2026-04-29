@@ -1,5 +1,35 @@
 # @contractspec/app.api-library
 
+## 3.8.22
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Document AppShell in-app notification adoption and refresh shell implementation prompts.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add a ContractSpec-native production-grade translation runtime and optional i18next adapter.
+- Updated dependencies because of Add preference-aware DataView collection defaults and personalization adapters.
+- Updated dependencies because of Document and link object-reference adoption and adaptive panel guidance in the public docs bundle.
+- Updated dependencies because of Move notifications to library-first contracts/runtime surfaces and add AppShell in-app notification affordances.
+- Updated dependencies because of Add first-class FormSpec phone input support with country detection, split outputs, and flag rendering.
+- Updated dependencies because of Add PWA update management contracts and runtime helpers.
+- Updated dependencies because of Add a shared roles and permissions policy system across contracts, RBAC evaluation, AppShell adaptation, and personalization suppression.
+- Updated dependencies because of Stabilize release artifact generation so customer-facing release files stay current-release-only and deterministic.
+- Updated dependencies because of Add public website docs and prompts for flexible data-exchange import templates and user column mapping review.
+- Updated dependencies because of Add public docs and LLM guidance for preference-aware DataViews.
+- Updated dependencies because of Add public web docs and agent guidance for the ContractSpec translation runtime and optional i18next adapter.
+  - @contractspec/bundle.library@3.9.9
+  - @contractspec/bundle.marketing@3.8.22
+  - @contractspec/integration.builder-telegram@0.2.9
+  - @contractspec/integration.builder-whatsapp@0.2.9
+  - @contractspec/integration.provider.codex@0.2.8
+  - @contractspec/integration.provider.messaging@0.2.3
+  - @contractspec/integration.runtime@3.9.9
+  - @contractspec/integration.runtime.managed@0.2.9
+  - @contractspec/lib.builder-runtime@0.2.9
+  - @contractspec/lib.contracts-spec@6.2.0
+  - @contractspec/bundle.workspace@4.6.0
+
 ## 3.8.21
 
 ### Patch Changes

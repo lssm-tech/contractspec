@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/action.drift",
-	"version": "2.7.26",
+	"version": "2.7.27",
 	"description": "GitHub Action for ContractSpec drift detection",
 	"repository": {
 		"type": "git",

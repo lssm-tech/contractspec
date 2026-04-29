@@ -1,5 +1,27 @@
 # Changelog
 
+## 3.10.10
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add a ContractSpec-native production-grade translation runtime and optional i18next adapter.
+- Updated dependencies because of Add preference-aware DataView collection defaults and personalization adapters.
+- Updated dependencies because of Move notifications to library-first contracts/runtime surfaces and add AppShell in-app notification affordances.
+- Updated dependencies because of Add first-class FormSpec phone input support with country detection, split outputs, and flag rendering.
+- Updated dependencies because of Add PWA update management contracts and runtime helpers.
+- Updated dependencies because of Add a shared roles and permissions policy system across contracts, RBAC evaluation, AppShell adaptation, and personalization suppression.
+- Updated dependencies because of Stabilize release artifact generation so customer-facing release files stay current-release-only and deterministic.
+  - @contractspec/lib.ai-agent@8.0.15
+  - @contractspec/lib.ai-providers@3.7.20
+  - @contractspec/lib.contracts-transformers@3.7.27
+  - @contractspec/module.ai-chat@4.3.29
+  - @contractspec/module.examples@4.0.6
+  - @contractspec/module.workspace@4.3.7
+  - @contractspec/lib.contracts-spec@6.2.0
+  - @contractspec/bundle.workspace@4.6.0
+
 ## 3.10.9
 
 ### Patch Changes

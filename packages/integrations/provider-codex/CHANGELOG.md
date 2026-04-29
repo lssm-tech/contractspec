@@ -1,5 +1,14 @@
 # @contractspec/integration.provider.codex
 
+## 0.2.8
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/lib.contracts-integrations@3.8.19
+  - @contractspec/lib.provider-spec@0.2.7
+
 ## 0.2.7
 
 ### Patch Changes

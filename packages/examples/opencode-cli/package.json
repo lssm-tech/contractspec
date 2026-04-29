@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/example.opencode-cli",
-	"version": "2.8.18",
+	"version": "2.8.19",
 	"type": "module",
 	"exports": {
 		".": "./src/index.ts",

@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/example.finance-ops-ai-workflows",
-	"version": "1.1.0",
+	"version": "1.1.1",
 	"description": "Deterministic finance operations AI workflow example with human review, fixed rules, and synthetic data only.",
 	"type": "module",
 	"exports": {

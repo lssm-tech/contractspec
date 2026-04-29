@@ -1,5 +1,24 @@
 # @contractspec/lib.accessibility
 
+## 3.7.28
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Promote object-reference detail panels to a reusable adaptive sheet/drawer surface.
+- Updated dependencies because of Route design-system mobile menu overlays through the shared AdaptivePanel primitive.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add a ContractSpec-native production-grade translation runtime and optional i18next adapter.
+- Updated dependencies because of Add preference-aware DataView collection defaults and personalization adapters.
+- Updated dependencies because of Move notifications to library-first contracts/runtime surfaces and add AppShell in-app notification affordances.
+- Updated dependencies because of Add first-class FormSpec phone input support with country detection, split outputs, and flag rendering.
+- Updated dependencies because of Add PWA update management contracts and runtime helpers.
+- Updated dependencies because of Add a shared roles and permissions policy system across contracts, RBAC evaluation, AppShell adaptation, and personalization suppression.
+  - @contractspec/lib.design-system@4.4.0
+  - @contractspec/lib.ui-kit@4.1.4
+  - @contractspec/lib.ui-kit-web@3.13.2
+  - @contractspec/lib.contracts-spec@6.2.0
+
 ## 3.7.27
 
 ### Patch Changes

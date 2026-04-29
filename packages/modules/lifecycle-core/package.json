@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/module.lifecycle-core",
-	"version": "3.7.25",
+	"version": "3.7.26",
 	"description": "Core lifecycle stage definitions and transitions",
 	"keywords": [
 		"contractspec",

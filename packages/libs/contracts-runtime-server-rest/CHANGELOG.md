@@ -1,5 +1,23 @@
 # @contractspec/lib.contracts-runtime-server-rest
 
+## 3.9.0
+
+### Minor Changes
+
+- Add PWA update management contracts and runtime helpers.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.contracts-runtime-server-rest (minor), @contractspec/lib.contracts-runtime-client-react (minor)
+  - Migration: Register the PWA update operation, bind it to a manifest resolver, and call it from the frontend on startup or polling intervals.
+
+### Patch Changes
+
+- Updated dependencies because of Add a ContractSpec-native production-grade translation runtime and optional i18next adapter.
+- Updated dependencies because of Add preference-aware DataView collection defaults and personalization adapters.
+- Updated dependencies because of Move notifications to library-first contracts/runtime surfaces and add AppShell in-app notification affordances.
+- Updated dependencies because of Add first-class FormSpec phone input support with country detection, split outputs, and flag rendering.
+- Updated dependencies because of Add PWA update management contracts and runtime helpers.
+- Updated dependencies because of Add a shared roles and permissions policy system across contracts, RBAC evaluation, AppShell adaptation, and personalization suppression.
+  - @contractspec/lib.contracts-spec@6.2.0
+
 ## 3.8.5
 
 ### Patch Changes

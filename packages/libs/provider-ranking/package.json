@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.provider-ranking",
-	"version": "0.7.19",
+	"version": "0.7.20",
 	"description": "AI provider ranking: benchmark ingestion, scoring, and model comparison",
 	"keywords": [
 		"contractspec",

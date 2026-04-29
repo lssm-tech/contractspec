@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/app.video-studio",
-	"version": "2.7.28",
+	"version": "2.7.29",
 	"private": true,
 	"type": "module",
 	"scripts": {
