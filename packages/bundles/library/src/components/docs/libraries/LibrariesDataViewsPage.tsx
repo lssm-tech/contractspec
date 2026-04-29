@@ -1,37 +1,47 @@
 import { CodeBlock, InstallCommand } from '@contractspec/lib.design-system';
+import { HStack, VStack } from '@contractspec/lib.design-system/layout';
+import { List, ListItem } from '@contractspec/lib.design-system/list';
+import {
+	Code,
+	H1,
+	H2,
+	H3,
+	P,
+	Text,
+} from '@contractspec/lib.design-system/typography';
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
 
 export function LibrariesDataViewsPage() {
 	return (
-		<div className="space-y-8">
-			<div className="space-y-4">
-				<h1 className="font-bold text-4xl">DataViews Runtime Library</h1>
-				<p className="text-lg text-muted-foreground">
-					The <code>@contractspec/lib.contracts-spec/data-views</code> and{' '}
-					<code>@contractspec/lib.design-system</code> libraries provide the
+		<VStack className="space-y-8">
+			<VStack className="space-y-4">
+				<H1 className="font-bold text-4xl">DataViews Runtime Library</H1>
+				<P className="text-lg text-muted-foreground">
+					The <Code>@contractspec/lib.contracts-spec/data-views</Code> and{' '}
+					<Code>@contractspec/lib.design-system</Code> libraries provide the
 					runtime logic and UI components to render DataViews in your
 					application.
-				</p>
-			</div>
+				</P>
+			</VStack>
 
-			<div className="space-y-4">
-				<h2 className="font-bold text-2xl">Installation</h2>
+			<VStack className="space-y-4">
+				<H2 className="font-bold text-2xl">Installation</H2>
 				<InstallCommand
 					package={[
 						'@contractspec/lib.contracts-spec',
 						'@contractspec/lib.design-system',
 					]}
 				/>
-			</div>
+			</VStack>
 
-			<div className="space-y-4">
-				<h2 className="font-bold text-2xl">DataViewRenderer</h2>
-				<p className="text-muted-foreground">
+			<VStack className="space-y-4">
+				<H2 className="font-bold text-2xl">DataViewRenderer</H2>
+				<P className="text-muted-foreground">
 					The primary component for rendering any DataView. It automatically
 					selects the correct layout (List, Table, Grid, Detail) based on the
 					spec.
-				</p>
+				</P>
 
 				<CodeBlock
 					language="tsx"
@@ -50,51 +60,78 @@ export function UserPage() {
 }`}
 				/>
 
-				<h3 className="font-semibold text-xl">Props</h3>
-				<ul className="list-disc space-y-2 pl-6 text-muted-foreground">
-					<li>
-						<code>spec</code>: The DataViewSpec definition.
-					</li>
-					<li>
-						<code>items</code>: Array of data items to render.
-					</li>
-					<li>
-						<code>filters</code>: Current filter state object.
-					</li>
-					<li>
-						<code>onFilterChange</code>: Callback when typed filters change.
-						Renderers emit <code>DataViewFilterValue</code> objects for numeric,
-						percent, currency, temporal, duration, and boolean filters.
-					</li>
-					<li>
-						<code>pagination</code>: Object with <code>page</code>,{' '}
-						<code>pageSize</code>, <code>total</code>.
-					</li>
-					<li>
-						<code>onPageChange</code>: Callback when page changes.
-					</li>
-					<li>
-						<code>viewMode</code> / <code>defaultViewMode</code>: Controlled
-						or initial collection mode for specs that allow <code>list</code>,{' '}
-						<code>grid</code>, or <code>table</code> projections through{' '}
-						<code>view.collection.viewModes</code>.
-					</li>
-					<li>
-						<code>density</code> / <code>defaultDensity</code>: Controlled or
-						initial density for collection renderers, seeded by{' '}
-						<code>view.collection.density</code> and table{' '}
-						<code>view.density</code>.
-					</li>
-				</ul>
-			</div>
+				<H3 className="font-semibold text-xl">Props</H3>
+				<List className="list-disc space-y-2 pl-6 text-muted-foreground">
+					<ListItem>
+						<Text>
+							<Code>spec</Code>: The DataViewSpec definition.
+						</Text>
+					</ListItem>
+					<ListItem>
+						<Text>
+							<Code>items</Code>: Array of data items to render.
+						</Text>
+					</ListItem>
+					<ListItem>
+						<Text>
+							<Code>filters</Code>: Current filter state object.
+						</Text>
+					</ListItem>
+					<ListItem>
+						<Text>
+							<Code>onFilterChange</Code>: Callback when typed filters change.
+							Renderers emit <Code>DataViewFilterValue</Code> objects for
+							numeric, percent, currency, temporal, duration, and boolean
+							filters.
+						</Text>
+					</ListItem>
+					<ListItem>
+						<Text>
+							<Code>pagination</Code>: Object with <Code>page</Code>,{' '}
+							<Code>pageSize</Code>, <Code>total</Code>.
+						</Text>
+					</ListItem>
+					<ListItem>
+						<Text>
+							<Code>onPageChange</Code>: Callback when page changes.
+						</Text>
+					</ListItem>
+					<ListItem>
+						<Text>
+							<Code>viewMode</Code> / <Code>defaultViewMode</Code>: Controlled
+							or initial collection mode for specs that allow <Code>list</Code>,{' '}
+							<Code>grid</Code>, or <Code>table</Code> projections through{' '}
+							<Code>view.collection.viewModes</Code>.
+						</Text>
+					</ListItem>
+					<ListItem>
+						<Text>
+							<Code>density</Code> / <Code>defaultDensity</Code>: Controlled or
+							initial density for collection renderers. Host apps can seed this
+							from <Code>@contractspec/lib.personalization</Code> while specs
+							can declare <Code>view.collection.density</Code> and table{' '}
+							<Code>view.density</Code> defaults.
+						</Text>
+					</ListItem>
+					<ListItem>
+						<Text>
+							<Code>dataDepth</Code> / <Code>defaultDataDepth</Code>: Controlled
+							or initial summary/standard/detailed/exhaustive projection. Fields
+							can declare <Code>visibility.minDataDepth</Code>, and collection
+							specs can opt into <Code>view.collection.personalization</Code>{' '}
+							persistence hints.
+						</Text>
+					</ListItem>
+				</List>
+			</VStack>
 
-			<div className="space-y-4">
-				<h2 className="font-bold text-2xl">Query Generation</h2>
-				<p className="text-muted-foreground">
-					The <code>DataViewQueryGenerator</code> utility helps translate
+			<VStack className="space-y-4">
+				<H2 className="font-bold text-2xl">Query Generation</H2>
+				<P className="text-muted-foreground">
+					The <Code>DataViewQueryGenerator</Code> utility helps translate
 					DataView parameters (filters, sorting, pagination) into query
 					arguments for your backend.
-				</p>
+				</P>
 				<CodeBlock
 					language="typescript"
 					code={`import { DataViewQueryGenerator } from '@contractspec/lib.contracts-spec/data-views/query-generator';
@@ -114,16 +151,16 @@ const query = generator.generate(params);
 
 // query.input contains skip/take plus the typed filter payloads.`}
 				/>
-			</div>
+			</VStack>
 
-			<div className="flex items-center gap-4 pt-4">
+			<HStack className="items-center gap-4 pt-4">
 				<Link href="/docs/libraries" className="btn-ghost">
-					Back to Libraries
+					<Text>Back to Libraries</Text>
 				</Link>
 				<Link href="/docs/libraries/data-backend" className="btn-primary">
-					Next: Data & Backend <ChevronRight size={16} />
+					<Text>Next: Data & Backend</Text> <ChevronRight size={16} />
 				</Link>
-			</div>
-		</div>
+			</HStack>
+		</VStack>
 	);
 }

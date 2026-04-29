@@ -5,6 +5,7 @@ import type {
 	DataViewAction,
 	DataViewCollectionMode,
 	DataViewConfig,
+	DataViewDataDepth,
 	DataViewDensity,
 	DataViewDetailConfig,
 	DataViewField,
@@ -396,7 +397,15 @@ describe('DataViewConfig', () => {
 	it('should support list config', () => {
 		const config: DataViewListConfig = {
 			kind: 'list',
-			fields: [{ key: 'name', label: 'Name', dataPath: 'name' }],
+			fields: [
+				{ key: 'name', label: 'Name', dataPath: 'name' },
+				{
+					key: 'auditTrail',
+					label: 'Audit Trail',
+					dataPath: 'auditTrail',
+					visibility: { minDataDepth: 'detailed' },
+				},
+			],
 			layout: 'card',
 			collection: {
 				viewModes: {
@@ -416,6 +425,7 @@ describe('DataViewConfig', () => {
 					viewMode: true,
 					filters: true,
 					density: true,
+					dataDepth: true,
 					actions: 'end',
 				},
 				pagination: {
@@ -423,12 +433,25 @@ describe('DataViewConfig', () => {
 					pageSizeOptions: [12, 24, 48],
 				},
 				density: 'comfortable',
+				dataDepth: 'standard',
+				personalization: {
+					enabled: true,
+					persist: {
+						viewMode: true,
+						density: true,
+						dataDepth: true,
+						pageSize: true,
+					},
+				},
 			},
 		};
 
 		expect(config.kind).toBe('list');
 		expect(config.layout).toBe('card');
 		expect(config.collection?.viewModes?.defaultMode).toBe('grid');
+		expect(config.fields[1]?.visibility?.minDataDepth).toBe('detailed');
+		expect(config.collection?.dataDepth).toBe('standard');
+		expect(config.collection?.personalization?.persist?.viewMode).toBe(true);
 	});
 
 	it('should support detail config with sections', () => {
@@ -478,7 +501,12 @@ describe('DataViewConfig', () => {
 			density: 'compact',
 			collection: {
 				density: 'comfortable',
+				dataDepth: 'detailed',
 				pagination: { pageSize: 25 },
+				personalization: {
+					enabled: true,
+					persist: { density: true, dataDepth: true },
+				},
 			},
 		};
 
@@ -490,6 +518,7 @@ describe('DataViewConfig', () => {
 		expect(config.initialState?.pageSize).toBe(50);
 		expect(config.columns?.[0]?.overflow).toBe('wrap');
 		expect(config.collection?.density).toBe('comfortable');
+		expect(config.collection?.dataDepth).toBe('detailed');
 	});
 
 	it('should support grid config', () => {
@@ -500,20 +529,32 @@ describe('DataViewConfig', () => {
 			collection: {
 				pagination: { pageSize: 16 },
 				viewModes: { allowedModes: ['grid', 'list'] },
+				dataDepth: 'summary',
+				personalization: {
+					persist: { viewMode: true },
+				},
 			},
 		};
 
 		expect(config.kind).toBe('grid');
 		expect(config.columns).toBe(4);
 		expect(config.collection?.pagination?.pageSize).toBe(16);
+		expect(config.collection?.dataDepth).toBe('summary');
 	});
 
-	it('exports collection mode and density types', () => {
+	it('exports collection mode, density, and data depth types', () => {
 		const modes: DataViewCollectionMode[] = ['list', 'grid', 'table'];
 		const densities: DataViewDensity[] = ['comfortable', 'compact'];
+		const depths: DataViewDataDepth[] = [
+			'summary',
+			'standard',
+			'detailed',
+			'exhaustive',
+		];
 
 		expect(modes).toEqual(['list', 'grid', 'table']);
 		expect(densities).toEqual(['comfortable', 'compact']);
+		expect(depths).toEqual(['summary', 'standard', 'detailed', 'exhaustive']);
 	});
 
 	it('should be a union type for DataViewConfig', () => {

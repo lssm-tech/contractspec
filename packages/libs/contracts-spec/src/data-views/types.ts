@@ -159,6 +159,12 @@ export type DataViewCollectionMode = 'list' | 'grid' | 'table';
 
 export type DataViewDensity = 'comfortable' | 'compact';
 
+export type DataViewDataDepth =
+	| 'summary'
+	| 'standard'
+	| 'detailed'
+	| 'exhaustive';
+
 export interface DataViewCollectionViewModesConfig {
 	defaultMode?: DataViewCollectionMode;
 	allowedModes?: DataViewCollectionMode[];
@@ -183,7 +189,20 @@ export interface DataViewCollectionToolbarConfig {
 	viewMode?: boolean | DataViewCollectionViewModesConfig;
 	filters?: boolean;
 	density?: boolean;
+	dataDepth?: boolean;
 	actions?: 'start' | 'end' | 'both' | 'hidden';
+}
+
+export interface DataViewCollectionPersonalizationPersistConfig {
+	viewMode?: boolean;
+	density?: boolean;
+	dataDepth?: boolean;
+	pageSize?: boolean;
+}
+
+export interface DataViewCollectionPersonalizationConfig {
+	enabled?: boolean;
+	persist?: DataViewCollectionPersonalizationPersistConfig;
 }
 
 export interface DataViewCollectionConfig {
@@ -191,6 +210,12 @@ export interface DataViewCollectionConfig {
 	toolbar?: DataViewCollectionToolbarConfig;
 	pagination?: DataViewCollectionPaginationConfig;
 	density?: DataViewDensity;
+	dataDepth?: DataViewDataDepth;
+	personalization?: DataViewCollectionPersonalizationConfig;
+}
+
+export interface DataViewFieldVisibility {
+	minDataDepth?: DataViewDataDepth;
 }
 
 /**
@@ -217,6 +242,8 @@ export interface DataViewField {
 	overflow?: DataViewTableOverflowBehavior;
 	/** Optional presentation override (e.g., card component). */
 	presentation?: PresentationRef;
+	/** Optional display-depth gates for preference-aware renderers. */
+	visibility?: DataViewFieldVisibility;
 }
 
 /**

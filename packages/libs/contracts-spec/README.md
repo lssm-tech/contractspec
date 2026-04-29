@@ -306,11 +306,13 @@ Collection data views (`list`, `grid`, and `table`) can now share production
 listing defaults under `view.collection`. Use `collection.viewModes` to declare
 which modes a renderer may project between, `collection.pagination.pageSize` to
 seed query generation, `collection.toolbar` to describe search/filter/view-mode
-controls, and `collection.density` for cross-mode spacing defaults. The
-authored `view.kind` remains the canonical shape; renderers derive alternate
-collection projections without mutating the source spec. Table `density`
-remains supported as a permanent compatibility alias and wins over shared
-collection density for table specs.
+controls, `collection.density` for cross-mode spacing defaults, and
+`collection.dataDepth` for summary/standard/detailed/exhaustive field
+projection. Fields can declare `visibility.minDataDepth` so richer fields are
+available to detailed experiences without forking the base spec. The authored
+`view.kind` remains the canonical shape; renderers derive alternate collection
+projections without mutating the source spec. Table `density` remains supported
+as a permanent compatibility alias.
 
 ```ts
 import { defineDataView } from '@contractspec/lib.contracts-spec/data-views';
@@ -343,8 +345,23 @@ export const DataGridShowcaseDataView = defineDataView({
         allowedModes: ['list', 'grid', 'table'],
       },
       pagination: { pageSize: 20 },
-      toolbar: { search: true, viewMode: true, filters: true, density: true },
+      toolbar: {
+        search: true,
+        viewMode: true,
+        filters: true,
+        density: true,
+        dataDepth: true,
+      },
       density: 'comfortable',
+      dataDepth: 'standard',
+      personalization: {
+        enabled: true,
+        persist: {
+          viewMode: true,
+          density: true,
+          dataDepth: true,
+        },
+      },
     },
     executionMode: 'client',
     selection: 'multiple',

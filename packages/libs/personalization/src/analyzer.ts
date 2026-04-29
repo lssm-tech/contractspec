@@ -1,3 +1,4 @@
+import type { DataViewCollectionMode } from '@contractspec/lib.contracts-spec/data-views';
 import type { BehaviorStore } from './store';
 import type { BehaviorInsights, BehaviorQuery, BehaviorSummary } from './types';
 
@@ -86,7 +87,29 @@ function buildInsights(
 		deniedActions,
 		workflowBottlenecks,
 		layoutPreference,
+		dataViewPreferences: detectDataViewPreferences(summary),
 	};
+}
+
+function detectDataViewPreferences(
+	summary: BehaviorSummary
+): BehaviorInsights['dataViewPreferences'] {
+	const entries = Object.entries(summary.dataViewViewModeCounts ?? {}).flatMap(
+		([dataViewKey, counts]) => {
+			const preferredViewMode = Object.entries(counts).sort(
+				([, leftCount], [, rightCount]) => (rightCount ?? 0) - (leftCount ?? 0)
+			)[0]?.[0];
+			if (!isCollectionMode(preferredViewMode)) {
+				return [];
+			}
+			return [[dataViewKey, { preferredViewMode }]] as const;
+		}
+	);
+	return entries.length ? Object.fromEntries(entries) : undefined;
+}
+
+function isCollectionMode(value: unknown): value is DataViewCollectionMode {
+	return value === 'list' || value === 'grid' || value === 'table';
 }
 
 function detectLayout(

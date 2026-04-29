@@ -57,6 +57,7 @@
 		".": "./src/index.ts",
 		"./adapter": "./src/adapter.ts",
 		"./analyzer": "./src/analyzer.ts",
+		"./data-view-preferences": "./src/data-view-preferences.ts",
 		"./docs": "./src/docs/index.ts",
 		"./docs/behavior-tracking.docblock": "./src/docs/behavior-tracking.docblock.ts",
 		"./docs/overlay-engine.docblock": "./src/docs/overlay-engine.docblock.ts",
@@ -90,6 +91,13 @@
 				"bun": "./dist/analyzer.js",
 				"node": "./dist/node/analyzer.js",
 				"default": "./dist/analyzer.js"
+			},
+			"./data-view-preferences": {
+				"types": "./dist/data-view-preferences.d.ts",
+				"browser": "./dist/browser/data-view-preferences.js",
+				"bun": "./dist/data-view-preferences.js",
+				"node": "./dist/node/data-view-preferences.js",
+				"default": "./dist/data-view-preferences.js"
 			},
 			"./docs": {
 				"types": "./dist/docs/index.d.ts",

@@ -3,7 +3,9 @@ import type {
 	DataViewCollectionMode,
 	DataViewCollectionViewModesConfig,
 	DataViewConfig,
+	DataViewDataDepth,
 	DataViewDensity,
+	DataViewField,
 	DataViewGridConfig,
 	DataViewListConfig,
 	DataViewSpec,
@@ -16,6 +18,24 @@ const ALL_COLLECTION_MODES: DataViewCollectionMode[] = [
 	'table',
 ];
 
+export const DATA_VIEW_DATA_DEPTHS: DataViewDataDepth[] = [
+	'summary',
+	'standard',
+	'detailed',
+	'exhaustive',
+];
+
+const DATA_VIEW_DATA_DEPTH_RANKS = new Map<DataViewDataDepth, number>(
+	DATA_VIEW_DATA_DEPTHS.map((depth, index) => [depth, index])
+);
+
+export function formatDataViewDataDepth(dataDepth: DataViewDataDepth): string {
+	if (dataDepth === 'summary') return 'Summary';
+	if (dataDepth === 'detailed') return 'Detailed';
+	if (dataDepth === 'exhaustive') return 'Exhaustive';
+	return 'Standard';
+}
+
 export interface ResolvedCollectionView {
 	spec: DataViewSpec;
 	mode: DataViewCollectionMode;
@@ -25,6 +45,11 @@ export interface ResolvedCollectionView {
 export interface ResolveCollectionDensityInput {
 	density?: DataViewDensity;
 	defaultDensity?: DataViewDensity;
+}
+
+export interface ResolveCollectionDataDepthInput {
+	dataDepth?: DataViewDataDepth;
+	defaultDataDepth?: DataViewDataDepth;
 }
 
 type DataViewCollectionView =
@@ -97,11 +122,73 @@ export function resolveCollectionDensity(
 		spec.view.kind === 'table' ? spec.view.density : undefined;
 	return (
 		input.density ??
+		input.defaultDensity ??
 		tableDensity ??
 		getDataViewCollectionConfig(spec.view)?.density ??
-		input.defaultDensity ??
 		'comfortable'
 	);
+}
+
+export function resolveCollectionDataDepth(
+	spec: DataViewSpec,
+	input: ResolveCollectionDataDepthInput = {}
+): DataViewDataDepth {
+	return (
+		input.dataDepth ??
+		input.defaultDataDepth ??
+		getDataViewCollectionConfig(spec.view)?.dataDepth ??
+		'standard'
+	);
+}
+
+export function projectCollectionDataDepth(
+	spec: DataViewSpec,
+	dataDepth: DataViewDataDepth
+): DataViewSpec {
+	if (!isDataViewCollectionKind(spec.view.kind)) return spec;
+	const fields = spec.view.fields.filter((field) =>
+		isFieldVisibleAtDepth(field, dataDepth)
+	);
+	const visibleFieldKeys = new Set(fields.map((field) => field.key));
+	const primaryField = visibleFieldKeys.has(spec.view.primaryField ?? '')
+		? spec.view.primaryField
+		: fields[0]?.key;
+	const secondaryFields = spec.view.secondaryFields?.filter((fieldKey) =>
+		visibleFieldKeys.has(fieldKey)
+	);
+
+	if (spec.view.kind === 'table') {
+		return {
+			...spec,
+			view: {
+				...spec.view,
+				fields,
+				primaryField,
+				secondaryFields,
+				columns: spec.view.columns?.filter((column) =>
+					visibleFieldKeys.has(column.field)
+				),
+				rowExpansion: spec.view.rowExpansion
+					? {
+							...spec.view.rowExpansion,
+							fields: spec.view.rowExpansion.fields.filter((fieldKey) =>
+								visibleFieldKeys.has(fieldKey)
+							),
+						}
+					: undefined,
+			},
+		};
+	}
+
+	return {
+		...spec,
+		view: {
+			...spec.view,
+			fields,
+			primaryField,
+			secondaryFields,
+		},
+	};
 }
 
 function resolveDefaultCollectionMode(
@@ -174,4 +261,17 @@ function uniqueModes(
 	modes: DataViewCollectionMode[]
 ): DataViewCollectionMode[] {
 	return ALL_COLLECTION_MODES.filter((mode) => modes.includes(mode));
+}
+
+function isFieldVisibleAtDepth(
+	field: DataViewField,
+	dataDepth: DataViewDataDepth
+): boolean {
+	const minDepth = field.visibility?.minDataDepth;
+	if (!minDepth) return true;
+	return dataDepthRank(dataDepth) >= dataDepthRank(minDepth);
+}
+
+function dataDepthRank(dataDepth: DataViewDataDepth): number {
+	return DATA_VIEW_DATA_DEPTH_RANKS.get(dataDepth) ?? 0;
 }

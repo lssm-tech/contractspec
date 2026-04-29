@@ -1,7 +1,11 @@
 import { describe, expect, it } from 'bun:test';
 import type { DataViewSpec } from '@contractspec/lib.contracts-spec/data-views';
 import { renderToStaticMarkup } from 'react-dom/server';
-import { resolveCollectionView } from './collection';
+import {
+	projectCollectionDataDepth,
+	resolveCollectionDataDepth,
+	resolveCollectionView,
+} from './collection';
 import { DataViewRenderer } from './DataViewRenderer';
 
 const tableSpec = {
@@ -81,6 +85,12 @@ const tableSpec = {
 				format: { type: 'duration', unit: 'minute', display: 'digital' },
 				overflow: 'wrap',
 			},
+			{
+				key: 'internalNotes',
+				label: 'Internal Notes',
+				dataPath: 'internalNotes',
+				visibility: { minDataDepth: 'detailed' },
+			},
 		],
 	},
 } as const;
@@ -136,8 +146,10 @@ const collectionListSpec = {
 			toolbar: {
 				viewMode: true,
 				density: true,
+				dataDepth: true,
 			},
 			density: 'compact',
+			dataDepth: 'summary',
 		},
 		filters: tableSpec.view.filters,
 		fields: tableSpec.view.fields,
@@ -219,6 +231,27 @@ describe('DataViewRenderer table mode', () => {
 		expect(resolved.mode).toBe('list');
 	});
 
+	it('projects collection data depth without mutating the source spec', () => {
+		const before = JSON.stringify(collectionTableSpec.view);
+		const standard = projectCollectionDataDepth(
+			collectionTableSpec,
+			'standard'
+		);
+		const detailed = projectCollectionDataDepth(
+			collectionTableSpec,
+			'detailed'
+		);
+
+		expect(resolveCollectionDataDepth(collectionListSpec)).toBe('summary');
+		expect(standard.view.fields.map((field) => field.key)).not.toContain(
+			'internalNotes'
+		);
+		expect(detailed.view.fields.map((field) => field.key)).toContain(
+			'internalNotes'
+		);
+		expect(JSON.stringify(collectionTableSpec.view)).toBe(before);
+	});
+
 	it('renders collection view controls only for multi-mode collections', () => {
 		const html = renderToStaticMarkup(
 			<DataViewRenderer
@@ -237,6 +270,41 @@ describe('DataViewRenderer table mode', () => {
 		expect(html.match(/Header action/g)?.length).toBe(1);
 		expect(html).toContain('Row action');
 		expect(html).toContain('Compact');
+		expect(html).toContain('Summary');
+	});
+
+	it('renders controlled data depth from collection specs', () => {
+		const standardHtml = renderToStaticMarkup(
+			<DataViewRenderer
+				spec={collectionTableSpec}
+				dataDepth="standard"
+				items={[
+					{
+						account: 'Northwind',
+						amount: 1234.56,
+						internalNotes: 'Escalated account',
+					},
+				]}
+			/>
+		);
+		const detailedHtml = renderToStaticMarkup(
+			<DataViewRenderer
+				spec={collectionTableSpec}
+				dataDepth="detailed"
+				items={[
+					{
+						account: 'Northwind',
+						amount: 1234.56,
+						internalNotes: 'Escalated account',
+					},
+				]}
+			/>
+		);
+
+		expect(standardHtml).not.toContain('Internal Notes');
+		expect(standardHtml).not.toContain('Escalated account');
+		expect(detailedHtml).toContain('Internal Notes');
+		expect(detailedHtml).toContain('Escalated account');
 	});
 
 	it('honors collection toolbar filter and action visibility config', () => {

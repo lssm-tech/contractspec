@@ -1,0 +1,57 @@
+schemaVersion: "1"
+slug: data-views-personalization-integration
+summary: Add preference-aware DataView collection defaults and personalization adapters.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.contracts-spec"
+    releaseType: minor
+  - name: "@contractspec/lib.design-system"
+    releaseType: minor
+  - name: "@contractspec/lib.personalization"
+    releaseType: minor
+  - name: "@contractspec/bundle.library"
+    releaseType: patch
+affectedRuntimes:
+  - browser
+  - react-native
+  - bun
+  - node
+affectedFrameworks:
+  - react
+audiences:
+  - kind: maintainer
+    summary: DataView contracts now expose neutral data-depth and collection personalization hints while keeping contracts-spec independent from personalization runtime code.
+    affectedPackages:
+      - "@contractspec/lib.contracts-spec"
+  - kind: integrator
+    summary: Apps can resolve preferred DataView mode, density, and data depth through personalization helpers and pass plain props to web/native DataViewRenderer.
+    affectedPackages:
+      - "@contractspec/lib.personalization"
+      - "@contractspec/lib.design-system"
+  - kind: customer
+    summary: Collection screens can remember or infer list/grid/table mode and compact/detail preferences without duplicating DataView specs.
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: adopt-data-view-preferences
+    title: Resolve personalized DataView defaults in the host app
+    summary: Keep DataViewRenderer dependency-free by resolving personalization preferences before rendering.
+    level: assisted
+    instructions:
+      - Import `resolveDataViewPreferences` from `@contractspec/lib.personalization/data-view-preferences`.
+      - Pass the resolved `viewMode`, `density`, and `dataDepth` values to `DataViewRenderer` as controlled or default props.
+      - Record user changes with `trackDataViewInteraction` when persistence or behavioral insights are desired.
+validation:
+  commands:
+    - "bun test packages/libs/contracts-spec/src/data-views"
+    - "bun test packages/libs/design-system/src/components/data-view/DataViewRenderer.test.tsx"
+    - "bun test packages/libs/personalization/src"
+    - "bun run --cwd packages/libs/contracts-spec typecheck"
+    - "bun run --cwd packages/libs/design-system typecheck"
+    - "bun run --cwd packages/libs/personalization typecheck"
+  evidence:
+    - "Contract tests cover data depth, field visibility, and collection personalization config."
+    - "Renderer tests cover pure data-depth projection and controlled DataViewRenderer dataDepth behavior."
+    - "Personalization tests cover preference resolution precedence, valid-mode fallback, and data_view_interaction insights."
+knownGaps:
+  - "Durable persistence for DataViewPreferenceRecord remains a host-application responsibility."

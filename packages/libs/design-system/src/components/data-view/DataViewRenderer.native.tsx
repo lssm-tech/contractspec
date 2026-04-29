@@ -2,6 +2,7 @@
 
 import type {
 	DataViewCollectionMode,
+	DataViewDataDepth,
 	DataViewDensity,
 	DataViewFilter,
 	DataViewFilterSet,
@@ -21,10 +22,14 @@ import { Button } from '../atoms/Button';
 import { Input } from '../atoms/Input';
 import { FiltersToolbar } from '../molecules/FiltersToolbar';
 import {
+	DATA_VIEW_DATA_DEPTHS,
+	formatDataViewDataDepth,
 	getDataViewCollectionConfig,
 	getDataViewCollectionViewModesConfig,
 	isDataViewCollectionKind,
+	projectCollectionDataDepth,
 	resolveAllowedCollectionModes,
+	resolveCollectionDataDepth,
 	resolveCollectionDensity,
 	resolveCollectionView,
 } from './collection';
@@ -52,6 +57,9 @@ export interface DataViewRendererProps {
 	density?: DataViewDensity;
 	defaultDensity?: DataViewDensity;
 	onDensityChange?: (density: DataViewDensity) => void;
+	dataDepth?: DataViewDataDepth;
+	defaultDataDepth?: DataViewDataDepth;
+	onDataDepthChange?: (dataDepth: DataViewDataDepth) => void;
 	search?: string;
 	onSearchChange?: (value: string) => void;
 	filters?: Record<string, unknown> | DataViewFilterSet;
@@ -85,6 +93,9 @@ export function DataViewRenderer({
 	density,
 	defaultDensity,
 	onDensityChange,
+	dataDepth,
+	defaultDataDepth,
+	onDataDepthChange,
 	search,
 	onSearchChange,
 	filters,
@@ -111,6 +122,13 @@ export function DataViewRenderer({
 	const effectiveDensity = resolveCollectionDensity(spec, {
 		density: density ?? internalDensity,
 		defaultDensity,
+	});
+	const [internalDataDepth, setInternalDataDepth] = React.useState<
+		DataViewDataDepth | undefined
+	>(defaultDataDepth);
+	const effectiveDataDepth = resolveCollectionDataDepth(spec, {
+		dataDepth: dataDepth ?? internalDataDepth,
+		defaultDataDepth,
 	});
 	const collectionConfig = getDataViewCollectionConfig(spec.view);
 	const viewModesConfig = getDataViewCollectionViewModesConfig(spec.view);
@@ -180,7 +198,7 @@ export function DataViewRenderer({
 		: Boolean(filters && Object.keys(filters).length > 0);
 	const viewContent = React.useMemo(() => {
 		const renderSpec = isDataViewCollectionKind(spec.view.kind)
-			? resolvedCollection.spec
+			? projectCollectionDataDepth(resolvedCollection.spec, effectiveDataDepth)
 			: spec;
 		switch (renderSpec.view.kind) {
 			case 'list':
@@ -255,6 +273,7 @@ export function DataViewRenderer({
 		emptyState,
 		footer,
 		effectiveDensity,
+		effectiveDataDepth,
 		toolbarEnabled,
 		translate,
 	]);
@@ -276,6 +295,7 @@ export function DataViewRenderer({
 				activeChips.length ||
 				allowedModes.length > 1 ||
 				collectionToolbar?.density ||
+				collectionToolbar?.dataDepth ||
 				toolbarActionsStart ||
 				toolbarActionsEnd) ? (
 				<FiltersToolbar
@@ -317,6 +337,17 @@ export function DataViewRenderer({
 								if (nextDensity === effectiveDensity) return;
 								if (density === undefined) setInternalDensity(nextDensity);
 								onDensityChange?.(nextDensity);
+							}}
+						/>
+					) : null}
+					{collectionToolbar?.dataDepth ? (
+						<DataViewDataDepthSwitcher
+							dataDepth={effectiveDataDepth}
+							onChange={(nextDataDepth) => {
+								if (nextDataDepth === effectiveDataDepth) return;
+								if (dataDepth === undefined)
+									setInternalDataDepth(nextDataDepth);
+								onDataDepthChange?.(nextDataDepth);
 							}}
 						/>
 					) : null}
@@ -628,6 +659,29 @@ function DataViewDensitySwitcher({
 			>
 				Compact
 			</Button>
+		</HStack>
+	);
+}
+
+function DataViewDataDepthSwitcher({
+	dataDepth,
+	onChange,
+}: {
+	dataDepth: DataViewDataDepth;
+	onChange: (dataDepth: DataViewDataDepth) => void;
+}) {
+	return (
+		<HStack className="items-center gap-1">
+			{DATA_VIEW_DATA_DEPTHS.map((item) => (
+				<Button
+					key={item}
+					size="sm"
+					variant={dataDepth === item ? 'default' : 'ghost'}
+					onPress={() => onChange(item)}
+				>
+					{formatDataViewDataDepth(item)}
+				</Button>
+			))}
 		</HStack>
 	);
 }

@@ -97,6 +97,37 @@ Typical flow:
 3. Analyze the summary with `BehaviorAnalyzer`.
 4. Convert insights into an `OverlaySpec` suggestion or workflow adaptation hints.
 
+## DataView preferences
+
+Use the data-view preference helpers when a collection `DataViewSpec` should
+honor preferred list/grid/table mode, density, or data depth without coupling
+the design-system renderer to personalization:
+
+```tsx
+import { DataViewRenderer } from "@contractspec/lib.design-system";
+import { resolveDataViewPreferences } from "@contractspec/lib.personalization/data-view-preferences";
+
+const resolved = resolveDataViewPreferences({
+  spec: AccountsDataView,
+  preferences: profile.canonical,
+  insights,
+  record: savedDataViewPreference,
+});
+
+<DataViewRenderer
+  spec={AccountsDataView}
+  items={rows}
+  defaultViewMode={resolved.viewMode}
+  defaultDensity={resolved.density}
+  defaultDataDepth={resolved.dataDepth}
+/>;
+```
+
+The helper returns plain data and never imports React or the design-system
+package. Stored data-view preference records win over behavior insights,
+preference dimensions, and authored contract defaults. Disallowed inferred view
+modes are ignored so the renderer only receives modes allowed by the spec.
+
 ## API map
 
 ### Main runtime APIs
@@ -111,7 +142,7 @@ Typical flow:
 
 ### Core data contracts
 
-- `BehaviorEvent`: discriminated union with three event kinds: `field_access`, `feature_usage`, and `workflow_step`.
+- `BehaviorEvent`: discriminated union with four event kinds: `field_access`, `feature_usage`, `workflow_step`, and `data_view_interaction`.
 - `BehaviorQuery`: filter shape used by `BehaviorStore.query()` and `BehaviorStore.summarize()`.
 - `BehaviorSummary`: aggregated counts returned by store summarization.
 - `BehaviorInsights`: analyzer output including hidden-field candidates, bottlenecks, and layout preference hints.
@@ -119,6 +150,7 @@ Typical flow:
 - `BehaviorAnalyzerOptions`: tuning knobs for inactivity threshold and minimum workflow sample size.
 - `OverlaySuggestionOptions`: metadata required to build an overlay suggestion.
 - `WorkflowAdaptation`: workflow, step, and note triple derived from bottlenecks.
+- DataView preference helpers: `resolveDataViewPreferences`, `DataViewPreferenceRecord`, `DataViewPreferencePatch`, and mapping helpers for density and view-mode patches.
 
 ### Preference model contracts
 
@@ -134,6 +166,7 @@ The root barrel at `src/index.ts` re-exports public symbols from:
 
 - `adapter`
 - `analyzer`
+- `data-view-preferences`
 - `preference-dimensions`
 - `store`
 - `tracker`
@@ -144,6 +177,7 @@ Published subpaths from `package.json`:
 - `.`
 - `./adapter`
 - `./analyzer`
+- `./data-view-preferences`
 - `./docs`
 - `./docs/behavior-tracking.docblock`
 - `./docs/overlay-engine.docblock`
@@ -163,7 +197,7 @@ For application code, prefer `.` or the focused subpaths above. The `./docs*` su
 - Each enqueue also emits OpenTelemetry metrics and tracing through `@opentelemetry/api`.
 - `BehaviorAnalyzer` uses deterministic threshold heuristics. It does not do ranking, learning, or probabilistic inference.
 - `insightsToOverlaySuggestion()` currently emits only `hideField` and `reorderFields` modifications.
-- `layoutPreference` is inferred from field-count thresholds, not from UI render telemetry.
+- `layoutPreference` is still inferred from field-count thresholds. Data-view-specific preferred modes are derived from `data_view_interaction` events when those events include a valid collection `viewMode`.
 - `PreferenceDimensions` and related types are contracts. Durable persistence and runtime resolution live elsewhere.
 
 ## When not to use this package

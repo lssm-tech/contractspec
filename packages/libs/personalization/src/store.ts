@@ -29,6 +29,8 @@ export class InMemoryBehaviorStore implements BehaviorStore {
 			fieldCounts: {},
 			featureCounts: {},
 			workflowStepCounts: {},
+			dataViewInteractionCounts: {},
+			dataViewViewModeCounts: {},
 			totalEvents: events.length,
 			deniedFieldCounts: {},
 			deniedActionCounts: {},
@@ -49,6 +51,17 @@ export class InMemoryBehaviorStore implements BehaviorStore {
 				case 'workflow_step': {
 					const workflow = (summary.workflowStepCounts[event.workflow] ??= {});
 					workflow[event.step] = (workflow[event.step] ?? 0) + 1;
+					break;
+				}
+				case 'data_view_interaction': {
+					const interactionCounts = (summary.dataViewInteractionCounts ??= {});
+					const actions = (interactionCounts[event.dataViewKey] ??= {});
+					actions[event.action] = (actions[event.action] ?? 0) + 1;
+					if (event.viewMode) {
+						const modeCounts = (summary.dataViewViewModeCounts ??= {});
+						const modes = (modeCounts[event.dataViewKey] ??= {});
+						modes[event.viewMode] = (modes[event.viewMode] ?? 0) + 1;
+					}
 					break;
 				}
 				default:
@@ -126,6 +139,20 @@ function filterEvents(
 			query.workflow &&
 			event.type === 'workflow_step' &&
 			event.workflow !== query.workflow
+		) {
+			return false;
+		}
+		if (
+			query.dataViewKey &&
+			event.type === 'data_view_interaction' &&
+			event.dataViewKey !== query.dataViewKey
+		) {
+			return false;
+		}
+		if (
+			query.dataViewAction &&
+			event.type === 'data_view_interaction' &&
+			event.action !== query.dataViewAction
 		) {
 			return false;
 		}

@@ -1,6 +1,15 @@
+import type {
+	DataViewCollectionMode,
+	DataViewDataDepth,
+	DataViewDensity,
+} from '@contractspec/lib.contracts-spec/data-views';
 import { metrics, trace } from '@opentelemetry/api';
 import type { BehaviorStore } from './store';
-import type { AuthorizationDecisionSummary, BehaviorEvent } from './types';
+import type {
+	AuthorizationDecisionSummary,
+	BehaviorEvent,
+	DataViewInteractionAction,
+} from './types';
 
 export interface BehaviorTrackerContext {
 	tenantId: string;
@@ -39,6 +48,20 @@ export interface TrackWorkflowStepInput {
 	workflow: string;
 	step: string;
 	status: 'entered' | 'completed' | 'skipped' | 'errored';
+	metadata?: Record<string, unknown>;
+}
+
+export interface TrackDataViewInteractionInput {
+	dataViewKey: string;
+	dataViewVersion?: string;
+	action: DataViewInteractionAction;
+	viewMode?: DataViewCollectionMode;
+	density?: DataViewDensity;
+	dataDepth?: DataViewDataDepth;
+	filterKey?: string;
+	sortField?: string;
+	page?: number;
+	pageSize?: number;
 	metadata?: Record<string, unknown>;
 }
 
@@ -98,6 +121,26 @@ export class BehaviorTracker {
 			workflow: input.workflow,
 			step: input.step,
 			status: input.status,
+			timestamp: Date.now(),
+			...this.context,
+			metadata: { ...this.context.metadata, ...input.metadata },
+		} as BehaviorEvent;
+		this.enqueue(event);
+	}
+
+	trackDataViewInteraction(input: TrackDataViewInteractionInput) {
+		const event = {
+			type: 'data_view_interaction',
+			dataViewKey: input.dataViewKey,
+			dataViewVersion: input.dataViewVersion,
+			action: input.action,
+			viewMode: input.viewMode,
+			density: input.density,
+			dataDepth: input.dataDepth,
+			filterKey: input.filterKey,
+			sortField: input.sortField,
+			page: input.page,
+			pageSize: input.pageSize,
 			timestamp: Date.now(),
 			...this.context,
 			metadata: { ...this.context.metadata, ...input.metadata },

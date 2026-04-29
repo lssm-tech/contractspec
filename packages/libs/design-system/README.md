@@ -387,9 +387,14 @@ compact scalar formats truncate, `expand` adds detail to the row expansion
 surface, and `hideColumn` starts hidden when column visibility is enabled.
 Collection `DataViewSpec` contracts can also declare `view.collection` defaults
 for list/grid/table mode switching, toolbar controls, query page size, and
-density. `DataViewRenderer` uses those defaults for web and native renderers
-while keeping caller props authoritative through `viewMode`, `density`,
-`onViewModeChange`, and `onDensityChange`.
+density. They can also declare `collection.dataDepth` and field-level
+`visibility.minDataDepth` so one spec can project summary, standard, detailed,
+or exhaustive fields. `DataViewRenderer` uses those defaults for web and native
+renderers while keeping caller props authoritative through `viewMode`,
+`density`, `dataDepth`, `onViewModeChange`, `onDensityChange`, and
+`onDataDepthChange`. Personalization integrations should resolve preferences in
+the host app and pass ordinary renderer props; the design system intentionally
+does not import `@contractspec/lib.personalization`.
 
 ## API map
 

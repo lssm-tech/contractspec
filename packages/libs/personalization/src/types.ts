@@ -1,9 +1,15 @@
 import type { PolicyDecision } from '@contractspec/lib.contracts-spec';
+import type {
+	DataViewCollectionMode,
+	DataViewDataDepth,
+	DataViewDensity,
+} from '@contractspec/lib.contracts-spec/data-views';
 
 export type BehaviorEventType =
 	| 'field_access'
 	| 'feature_usage'
-	| 'workflow_step';
+	| 'workflow_step'
+	| 'data_view_interaction';
 
 export interface AuthorizationDecisionSummary
 	extends Pick<
@@ -46,10 +52,35 @@ export interface WorkflowStepEvent extends BehaviorEventBase {
 	status: 'entered' | 'completed' | 'skipped' | 'errored';
 }
 
+export type DataViewInteractionAction =
+	| 'opened'
+	| 'view_mode_changed'
+	| 'density_changed'
+	| 'data_depth_changed'
+	| 'search_changed'
+	| 'filter_changed'
+	| 'sort_changed'
+	| 'page_changed';
+
+export interface DataViewInteractionEvent extends BehaviorEventBase {
+	type: 'data_view_interaction';
+	dataViewKey: string;
+	dataViewVersion?: string;
+	action: DataViewInteractionAction;
+	viewMode?: DataViewCollectionMode;
+	density?: DataViewDensity;
+	dataDepth?: DataViewDataDepth;
+	filterKey?: string;
+	sortField?: string;
+	page?: number;
+	pageSize?: number;
+}
+
 export type BehaviorEvent =
 	| FieldAccessEvent
 	| FeatureUsageEvent
-	| WorkflowStepEvent;
+	| WorkflowStepEvent
+	| DataViewInteractionEvent;
 
 export interface BehaviorQuery {
 	tenantId?: string;
@@ -61,6 +92,8 @@ export interface BehaviorQuery {
 	feature?: string;
 	operation?: string;
 	workflow?: string;
+	dataViewKey?: string;
+	dataViewAction?: DataViewInteractionAction;
 	since?: number;
 	until?: number;
 	limit?: number;
@@ -70,9 +103,21 @@ export interface BehaviorSummary {
 	fieldCounts: Record<string, number>;
 	featureCounts: Record<string, number>;
 	workflowStepCounts: Record<string, Record<string, number>>;
+	dataViewInteractionCounts?: Record<
+		string,
+		Partial<Record<DataViewInteractionAction, number>>
+	>;
+	dataViewViewModeCounts?: Record<
+		string,
+		Partial<Record<DataViewCollectionMode, number>>
+	>;
 	totalEvents: number;
 	deniedFieldCounts?: Record<string, number>;
 	deniedActionCounts?: Record<string, number>;
+}
+
+export interface DataViewPreferenceInsights {
+	preferredViewMode?: DataViewCollectionMode;
 }
 
 export interface BehaviorInsights {
@@ -87,4 +132,5 @@ export interface BehaviorInsights {
 		dropRate: number;
 	}[];
 	layoutPreference?: 'form' | 'grid' | 'list' | 'table';
+	dataViewPreferences?: Record<string, DataViewPreferenceInsights>;
 }
