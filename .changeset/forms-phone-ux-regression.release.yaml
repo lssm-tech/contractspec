@@ -1,0 +1,33 @@
+schemaVersion: "1"
+slug: forms-phone-ux-regression
+summary: Fix FormSpec phone country-select rendering to remove duplicated country adornments.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.design-system"
+    releaseType: patch
+affectedRuntimes:
+  - browser
+  - react-native
+affectedFrameworks:
+  - react
+audiences:
+  - kind: customer
+    summary: Split FormSpec phone fields now show one clear country selector instead of duplicating the flag and calling code beside the select.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+  - kind: integrator
+    summary: Design-system phone country options now honor the configured flag/calling-code display parts, while the selected country control owns those adornments in select mode.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+validation:
+  commands:
+    - "bun test packages/libs/design-system/src/renderers/form-contract.test.tsx packages/libs/design-system/src/renderers/form-contract/phone-country-control.test.tsx packages/libs/design-system/src/renderers/form-contract/phone-utils.test.ts"
+    - "bun test packages/libs/contracts-runtime-client-react/src/form-render.impl.test.tsx"
+    - "bun run --cwd packages/libs/design-system typecheck"
+    - "bun run --cwd packages/libs/contracts-runtime-client-react typecheck"
+    - "bun run --cwd packages/libs/design-system lint:check"
+    - "bun run --cwd packages/libs/design-system build"
+  evidence:
+    - "Regression test covers split phone country controls without duplicate external flag/calling-code adornments."
+    - "Phone helper test covers country option labels for full and compact display modes."
+    - "Runtime renderer tests confirm split phone output writes still work."

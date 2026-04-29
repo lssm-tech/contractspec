@@ -1,0 +1,21 @@
+schemaVersion: "1"
+slug: appshell-notification-layout
+summary: Fix AppShell desktop sidebar collapse/layout and web notification dismissal behavior.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.design-system"
+    releaseType: patch
+affectedRuntimes:
+  - browser
+  - react
+audiences:
+  - kind: integrator
+    summary: AppShell now keeps the desktop topbar inset beside the sidebar, exposes a shared sidebar collapse trigger, and dismisses the web notification panel on outside click, Escape, or trigger toggle.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+validation:
+  commands:
+    - bun test packages/libs/design-system/src/components/shell/AppShell.test.tsx
+    - cd packages/libs/design-system && bun run typecheck && bun run lint:check
+  evidence:
+    - "AppShell tests cover the shared sidebar provider, collapse trigger, notification trigger toggle, outside-click dismissal, and existing notification callbacks."
