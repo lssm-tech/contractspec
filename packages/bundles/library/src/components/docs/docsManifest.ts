@@ -410,7 +410,7 @@ export const DOCS_PAGES: readonly DocsPageEntry[] = [
 		href: '/docs/libraries/application-shell',
 		title: 'Application shell',
 		description:
-			'Implement reusable app navigation with desktop sidebars, topbar breadcrumbs, command search, mobile adapters, and PageOutline section navigation.',
+			'Implement reusable app navigation with desktop sidebars, topbar breadcrumbs, command search, in-app notifications, mobile adapters, and PageOutline section navigation.',
 		section: 'build',
 		order: 72,
 		audience: 'oss',

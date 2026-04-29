@@ -11,6 +11,8 @@ import {
 import Link from '@contractspec/lib.ui-link';
 import { ChevronRight } from 'lucide-react';
 import {
+	notificationCenterExample,
+	notificationGuide,
 	refactorPrompt,
 	scratchPrompt,
 	shellParts,
@@ -25,7 +27,8 @@ export function LibrariesApplicationShellPage() {
 				<P className="text-lg text-muted-foreground">
 					A reusable navigation system for product apps: desktop sidebar, topbar
 					breadcrumbs, command search, account actions, mobile adapters, and a
-					Notion-style <Code>PageOutline</Code> for page sections.
+					Notion-style <Code>PageOutline</Code> for page sections, with
+					prop-driven in-app notifications for web and native shells.
 				</P>
 			</VStack>
 
@@ -63,10 +66,36 @@ export function LibrariesApplicationShellPage() {
 			</VStack>
 
 			<VStack className="space-y-4">
+				<H2 className="font-bold text-2xl">Notification Center Boundary</H2>
+				<P className="text-muted-foreground">
+					Notifications are part of the shell experience, but the design system
+					only renders the affordance. Contracts, runtime helpers, persistence,
+					delivery, auth, and subscriptions stay outside the shell and feed a
+					render-ready <Code>ShellNotificationCenter</Code> into{' '}
+					<Code>AppShell</Code>.
+				</P>
+				<Box className="grid gap-4 md:grid-cols-2">
+					{notificationGuide.map((part) => (
+						<Box key={part.title} className="card-subtle p-4">
+							<H3 className="font-semibold">{part.title}</H3>
+							<P className="mt-2 text-muted-foreground text-sm leading-7">
+								{part.body}
+							</P>
+						</Box>
+					))}
+				</Box>
+				<CodeBlock
+					language="tsx"
+					filename="notification-center-boundary.ts"
+					code={notificationCenterExample}
+				/>
+			</VStack>
+
+			<VStack className="space-y-4">
 				<H2 className="font-bold text-2xl">AI Prompt: Build From Scratch</H2>
 				<P className="text-muted-foreground">
-					Use this prompt when the app does not already have a shell or when the
-					design-system package needs the reusable primitive first.
+					Use this prompt when the app does not already have a shell, command
+					surface, page outline, or in-app notification center.
 				</P>
 				<CodeBlock
 					language="markdown"
@@ -79,7 +108,8 @@ export function LibrariesApplicationShellPage() {
 				<H2 className="font-bold text-2xl">AI Prompt: Refactor An App</H2>
 				<P className="text-muted-foreground">
 					Use this prompt when an app already has custom navigation chrome and
-					needs to migrate without breaking route behavior.
+					notification UI that need to migrate without breaking route behavior,
+					unread counts, or delivery semantics.
 				</P>
 				<CodeBlock
 					language="markdown"
@@ -95,7 +125,10 @@ export function LibrariesApplicationShellPage() {
 					<Code>PageOutline</Code> for the in-page navigation helper. The latter
 					is the product-app equivalent of a table of contents, but it is
 					intentionally named for live page sections rather than static
-					documentation.
+					documentation. Use <Code>ShellNotifications</Code> for the
+					notification affordance when it is rendered directly, or pass the same
+					data contract through <Code>AppShell</Code> with the{' '}
+					<Code>notifications</Code> prop.
 				</P>
 			</VStack>
 

@@ -1,0 +1,47 @@
+schemaVersion: "1"
+slug: application-shell-notification-docs
+summary: Document AppShell in-app notification adoption and refresh shell implementation prompts.
+isBreaking: false
+packages:
+  - name: "@contractspec/bundle.library"
+    releaseType: patch
+  - name: "@contractspec/app.web-landing"
+    releaseType: patch
+affectedRuntimes:
+  - browser
+  - nextjs
+affectedFrameworks:
+  - react
+  - react-native
+audiences:
+  - kind: integrator
+    summary: App developers now have public guidance for wiring in-app notifications through AppShell without coupling the design system to notification runtime behavior.
+    affectedPackages:
+      - "@contractspec/bundle.library"
+      - "@contractspec/app.web-landing"
+  - kind: maintainer
+    summary: Maintainers get updated copy-ready AI prompts that include library-first notification imports, shell notification props, and migration from legacy notification module imports.
+    affectedPackages:
+      - "@contractspec/bundle.library"
+deprecations: []
+migrationInstructions:
+  - id: document-shell-notification-boundary
+    title: Use the shell notification boundary for app integrations
+    summary: Keep notification contracts and runtime helpers outside the design system, then pass render-ready notification center state into AppShell.
+    required: false
+    steps:
+      - Use `@contractspec/lib.contracts-spec/notifications` for canonical notification contracts.
+      - Use `@contractspec/lib.notification` for reusable schema, channel, template, and i18n helpers.
+      - Keep persistence, subscriptions, delivery, and mutation logic in the host app or runtime layer.
+      - Pass `ShellNotificationCenter` state to `AppShell.notifications`.
+upgradeSteps: []
+validation:
+  commands:
+    - "cd packages/bundles/library && bun run typecheck"
+    - "cd packages/bundles/library && bun run lint:check"
+    - "cd packages/apps/web-landing && bun run typecheck"
+    - "cd packages/apps/web-landing && bun run lint:check"
+  evidence:
+    - "The application shell docs page now covers sidebar, topbar, commands, breadcrumbs, PageOutline, mobile/native adapters, user menu, and in-app notifications."
+    - "The code sample shows AppShell receiving notifications with items, unreadCount, loading state, onSelect, onMarkRead, and onMarkAllRead."
+    - "The copy-ready prompts now cover greenfield and refactor paths for notification-aware shells."

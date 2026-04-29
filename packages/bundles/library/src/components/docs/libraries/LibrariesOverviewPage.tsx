@@ -51,7 +51,7 @@ const libraryGroups = [
 			{
 				title: 'Application shell',
 				description:
-					'Adopt the shared sidebar, topbar, command search, mobile navigation, and PageOutline patterns for product apps.',
+					'Adopt the shared sidebar, topbar, command search, notifications, mobile navigation, and PageOutline patterns for product apps.',
 				href: '/docs/libraries/application-shell',
 			},
 			{
