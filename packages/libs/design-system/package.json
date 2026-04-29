@@ -499,6 +499,12 @@
 		},
 		"./components/shell/PageOutline.native": "./src/components/shell/PageOutline.native.tsx",
 		"./components/shell/policy": "./src/components/shell/policy.ts",
+		"./components/shell/ShellNotifications": {
+			"types": "./src/components/shell/ShellNotifications.tsx",
+			"react-native": "./src/components/shell/ShellNotifications.native.tsx",
+			"default": "./src/components/shell/ShellNotifications.tsx"
+		},
+		"./components/shell/ShellNotifications.native": "./src/components/shell/ShellNotifications.native.tsx",
 		"./components/shell/ShellSidebar": "./src/components/shell/ShellSidebar.tsx",
 		"./components/shell/types": "./src/components/shell/types.ts",
 		"./components/templates/lists/ListPageTemplate": {
@@ -1983,6 +1989,18 @@
 				"browser": "./dist/browser/components/shell/policy.js",
 				"bun": "./dist/components/shell/policy.js",
 				"default": "./dist/components/shell/policy.js"
+			},
+			"./components/shell/ShellNotifications": {
+				"types": "./dist/components/shell/ShellNotifications.d.ts",
+				"browser": "./dist/browser/components/shell/ShellNotifications.js",
+				"react-native": "./dist/native/components/shell/ShellNotifications.native.js",
+				"bun": "./dist/components/shell/ShellNotifications.js",
+				"default": "./dist/components/shell/ShellNotifications.js"
+			},
+			"./components/shell/ShellNotifications.native": {
+				"types": "./dist/components/shell/ShellNotifications.native.d.ts",
+				"react-native": "./dist/native/components/shell/ShellNotifications.native.js",
+				"default": "./dist/native/components/shell/ShellNotifications.native.js"
 			},
 			"./components/shell/ShellSidebar": {
 				"types": "./dist/components/shell/ShellSidebar.d.ts",

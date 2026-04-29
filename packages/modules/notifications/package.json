@@ -28,10 +28,8 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@contractspec/lib.schema": "workspace:*",
 		"@contractspec/lib.contracts-spec": "workspace:*",
-		"@contractspec/lib.bus": "workspace:*",
-		"zod": "catalog:"
+		"@contractspec/lib.notification": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",

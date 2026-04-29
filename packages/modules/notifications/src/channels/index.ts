@@ -1,3 +1,1 @@
-export * from './base';
-export * from './provider-channels';
-export * from './types';
+export * from '@contractspec/lib.notification/channels';

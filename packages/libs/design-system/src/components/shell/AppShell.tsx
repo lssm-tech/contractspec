@@ -15,6 +15,7 @@ import { Breadcrumbs } from '../molecules/Breadcrumbs';
 import { CommandSearchTrigger } from '../molecules/CommandSearchTrigger';
 import type { AppShellProps } from './AppShell.types';
 import { PageOutline } from './PageOutline';
+import { ShellNotifications } from './ShellNotifications';
 import { ShellSidebar } from './ShellSidebar';
 import type { ShellNavItem, ShellNavSection } from './types';
 
@@ -138,6 +139,7 @@ export function AppShell({
 	homeHref,
 	navigation = [],
 	commands = [],
+	notifications,
 	breadcrumbs = [],
 	pageOutline = [],
 	activeHref,
@@ -195,6 +197,9 @@ export function AppShell({
 						>
 							<PanelRightIcon className="h-4 w-4" />
 						</Button>
+					) : null}
+					{notifications ? (
+						<ShellNotifications notifications={notifications} />
 					) : null}
 					{topbarEnd}
 					{userMenu}

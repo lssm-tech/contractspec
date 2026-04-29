@@ -5,6 +5,10 @@ export {
 	type PageOutlineProps,
 	usePageOutlineActiveItem,
 } from './PageOutline.native';
+export {
+	NativeShellNotificationsSection,
+	type NativeShellNotificationsSectionProps,
+} from './ShellNotifications.native';
 export type {
 	AppShellConfig,
 	PageOutlineItem,
@@ -15,6 +19,10 @@ export type {
 	ShellNavItem,
 	ShellNavMatch,
 	ShellNavSection,
+	ShellNotificationCenter,
+	ShellNotificationItem,
+	ShellNotificationRenderContext,
+	ShellNotificationStatus,
 	ShellUserMenu,
 	ShellUserMenuItem,
 } from './types';

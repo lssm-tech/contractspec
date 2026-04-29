@@ -1,0 +1,79 @@
+schemaVersion: "1"
+slug: notification-library-shell
+summary: Move notifications to library-first contracts/runtime surfaces and add AppShell in-app notification affordances.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.contracts-spec"
+    releaseType: minor
+  - name: "@contractspec/lib.notification"
+    releaseType: minor
+  - name: "@contractspec/module.notifications"
+    releaseType: patch
+  - name: "@contractspec/lib.design-system"
+    releaseType: minor
+  - name: "@contractspec/example.crm-pipeline"
+    releaseType: patch
+  - name: "@contractspec/example.wealth-snapshot"
+    releaseType: patch
+  - name: "@contractspec/example.saas-boilerplate"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - node
+affectedFrameworks:
+  - react
+  - react-native
+audiences:
+  - kind: maintainer
+    summary: Notification contracts now live in contracts-spec, reusable notification helpers live in lib.notification, and the old module remains as a compatibility shim.
+    affectedPackages:
+      - "@contractspec/lib.contracts-spec"
+      - "@contractspec/lib.notification"
+      - "@contractspec/module.notifications"
+  - kind: integrator
+    summary: Applications can adopt the new library imports without breaking existing module imports, then wire AppShell notification state through props.
+    affectedPackages:
+      - "@contractspec/lib.notification"
+      - "@contractspec/lib.design-system"
+      - "@contractspec/module.notifications"
+deprecations:
+  - "The `@contractspec/module.notifications` package remains import-compatible for this release, but new code should import contracts from `@contractspec/lib.contracts-spec/notifications` and runtime helpers from `@contractspec/lib.notification`."
+migrationInstructions:
+  - id: adopt-library-notification-imports
+    title: Prefer library-first notification imports
+    summary: Move new notification integrations away from the module shim.
+    required: false
+    steps:
+      - Import notification contracts from `@contractspec/lib.contracts-spec/notifications`.
+      - Import notification schema contribution, channels, templates, and i18n helpers from `@contractspec/lib.notification`.
+      - Keep existing `@contractspec/module.notifications` imports during migration when consumers need the legacy schema contribution module id.
+  - id: wire-shell-notification-center
+    title: Connect AppShell notifications through host state
+    summary: Provide notification items and callbacks to the design-system shell without coupling it to a delivery runtime.
+    required: false
+    steps:
+      - Pass the `notifications` prop to `AppShell` with items, unread count, and mark-read callbacks.
+      - Resolve live delivery, persistence, and subscriptions in the host app or runtime package.
+      - Use the native shell entrypoint for Expo surfaces so the same notification state appears through the native header/menu affordance.
+upgradeSteps:
+  - id: verify-schema-identity
+    title: Verify notification schema contribution identity
+    summary: Confirm old module imports keep the legacy module id while new library imports use the library module id.
+    level: manual
+    instructions:
+      - Check `notificationsSchemaContribution.moduleId` from `@contractspec/lib.notification` is `@contractspec/lib.notification`.
+      - Check `notificationsSchemaContribution.moduleId` from `@contractspec/module.notifications` is still `@contractspec/module.notifications`.
+validation:
+  commands:
+    - cd packages/libs/contracts-spec && bun run test && bun run typecheck && bun run lint:check
+    - cd packages/libs/notification && bun run test && bun run typecheck && bun run lint:check && bun run build
+    - cd packages/modules/notifications && bun run test && bun run typecheck && bun run lint:check && bun run build
+    - cd packages/libs/design-system && bun run test && bun run typecheck && bun run lint:check
+    - cd packages/examples/crm-pipeline && bun run typecheck
+    - cd packages/examples/wealth-snapshot && bun run typecheck
+    - cd packages/examples/saas-boilerplate && bun run typecheck
+  evidence:
+    - "Notification contract tests cover operation keys, model names, and canonical `libs.notifications` feature identity."
+    - "Notification library tests cover canonical and legacy schema contribution identities plus moved channel/template/i18n behavior."
+    - "Module compatibility tests cover all published notification subpaths and legacy `modules.notifications` feature identity."
+    - "Design-system shell tests cover unread badge rendering, loading/empty states, and notification callbacks without runtime package imports."

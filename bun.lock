@@ -767,12 +767,12 @@
         "@contractspec/lib.design-system": "workspace:*",
         "@contractspec/lib.example-shared-ui": "workspace:*",
         "@contractspec/lib.identity-rbac": "workspace:*",
+        "@contractspec/lib.notification": "workspace:*",
         "@contractspec/lib.presentation-runtime-core": "workspace:*",
         "@contractspec/lib.runtime-sandbox": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
         "@contractspec/lib.ui-kit-web": "workspace:*",
         "@contractspec/module.audit-trail": "workspace:*",
-        "@contractspec/module.notifications": "workspace:*",
         "react": "catalog:",
         "react-dom": "catalog:",
       },
@@ -1429,11 +1429,11 @@
         "@contractspec/lib.example-shared-ui": "workspace:*",
         "@contractspec/lib.identity-rbac": "workspace:*",
         "@contractspec/lib.jobs": "workspace:*",
+        "@contractspec/lib.notification": "workspace:*",
         "@contractspec/lib.presentation-runtime-core": "workspace:*",
         "@contractspec/lib.runtime-sandbox": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
         "@contractspec/module.audit-trail": "workspace:*",
-        "@contractspec/module.notifications": "workspace:*",
         "react": "catalog:",
         "react-dom": "catalog:",
       },
@@ -1568,9 +1568,9 @@
         "@contractspec/lib.contracts-spec": "workspace:*",
         "@contractspec/lib.design-system": "workspace:*",
         "@contractspec/lib.identity-rbac": "workspace:*",
+        "@contractspec/lib.notification": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
         "@contractspec/module.audit-trail": "workspace:*",
-        "@contractspec/module.notifications": "workspace:*",
         "react": "catalog:",
         "react-dom": "catalog:",
       },
@@ -2945,6 +2945,21 @@
         "typescript": "catalog:",
       },
     },
+    "packages/libs/notification": {
+      "name": "@contractspec/lib.notification",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/lib.bus": "workspace:*",
+        "@contractspec/lib.contracts-spec": "workspace:*",
+        "@contractspec/lib.schema": "workspace:*",
+        "zod": "catalog:",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
+      },
+    },
     "packages/libs/observability": {
       "name": "@contractspec/lib.observability",
       "version": "3.7.26",
@@ -3900,10 +3915,8 @@
       "name": "@contractspec/module.notifications",
       "version": "3.8.2",
       "dependencies": {
-        "@contractspec/lib.bus": "workspace:*",
         "@contractspec/lib.contracts-spec": "workspace:*",
-        "@contractspec/lib.schema": "workspace:*",
-        "zod": "catalog:",
+        "@contractspec/lib.notification": "workspace:*",
       },
       "devDependencies": {
         "@contractspec/tool.bun": "workspace:*",
@@ -4877,6 +4890,8 @@
     "@contractspec/lib.metering": ["@contractspec/lib.metering@workspace:packages/libs/metering"],
 
     "@contractspec/lib.mobile-control": ["@contractspec/lib.mobile-control@workspace:packages/libs/mobile-control"],
+
+    "@contractspec/lib.notification": ["@contractspec/lib.notification@workspace:packages/libs/notification"],
 
     "@contractspec/lib.observability": ["@contractspec/lib.observability@workspace:packages/libs/observability"],
 

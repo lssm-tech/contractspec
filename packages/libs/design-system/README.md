@@ -237,6 +237,12 @@ move behind accessible menu triggers. On native, the shell maps primary
 navigation to bottom tabs and keeps overflow navigation, actions, user content,
 and page outline inside the menu sheet.
 
+`AppShell` also accepts a prop-driven `notifications` center for in-app
+notifications. Hosts provide structural `items`, `unreadCount`, loading/empty
+state, and callbacks such as `onSelect`, `onMarkRead`, and `onMarkAllRead`; the
+design-system shell renders the web topbar trigger and native menu section
+without importing or owning any notification runtime package.
+
 Shell navigation and command items may carry optional `policy` metadata plus a `policyBehavior` of `hide`, `disable`, or `show-with-lock`. Use `filterShellNavigationForPolicy()` / `annotateShellCommandsDecisions()` with decisions produced by your application runtime; AppShell only adapts affordances and does not fetch permissions or enforce backend access.
 
 ### Render actionable object references

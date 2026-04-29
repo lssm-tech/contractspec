@@ -5,6 +5,7 @@ import type {
 	ShellCommandGroup,
 	ShellNavItem,
 	ShellNavSection,
+	ShellNotificationCenter,
 } from './types';
 
 export interface AppShellProps {
@@ -14,6 +15,7 @@ export interface AppShellProps {
 	homeHref?: string;
 	navigation?: ShellNavSection[];
 	commands?: ShellCommandGroup[];
+	notifications?: ShellNotificationCenter;
 	breadcrumbs?: ShellBreadcrumbItem[];
 	pageOutline?: PageOutlineItem[];
 	activeHref?: string;

@@ -17,6 +17,10 @@ export {
 	annotateShellNavigationDecisions,
 	filterShellNavigationForPolicy,
 } from './policy';
+export {
+	ShellNotifications,
+	type ShellNotificationsProps,
+} from './ShellNotifications';
 export { ShellSidebar, type ShellSidebarProps } from './ShellSidebar';
 export type {
 	AppShellConfig,
@@ -28,6 +32,10 @@ export type {
 	ShellNavItem,
 	ShellNavMatch,
 	ShellNavSection,
+	ShellNotificationCenter,
+	ShellNotificationItem,
+	ShellNotificationRenderContext,
+	ShellNotificationStatus,
 	ShellUserMenu,
 	ShellUserMenuItem,
 } from './types';

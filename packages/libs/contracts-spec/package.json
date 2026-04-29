@@ -320,6 +320,10 @@
 		"./markdown": "./src/markdown.ts",
 		"./migrations": "./src/migrations.ts",
 		"./model-registry": "./src/model-registry.ts",
+		"./notifications": "./src/notifications/index.ts",
+		"./notifications/contracts": "./src/notifications/contracts.ts",
+		"./notifications/notifications.capability": "./src/notifications/notifications.capability.ts",
+		"./notifications/notifications.feature": "./src/notifications/notifications.feature.ts",
 		"./onboarding-base": "./src/onboarding-base.ts",
 		"./openapi": "./src/openapi.ts",
 		"./operations": "./src/operations/index.ts",
@@ -2078,6 +2082,30 @@
 				"bun": "./dist/model-registry.js",
 				"node": "./dist/node/model-registry.js",
 				"default": "./dist/model-registry.js"
+			},
+			"./notifications": {
+				"types": "./dist/notifications/index.d.ts",
+				"bun": "./dist/notifications/index.js",
+				"node": "./dist/node/notifications/index.js",
+				"default": "./dist/notifications/index.js"
+			},
+			"./notifications/contracts": {
+				"types": "./dist/notifications/contracts.d.ts",
+				"bun": "./dist/notifications/contracts.js",
+				"node": "./dist/node/notifications/contracts.js",
+				"default": "./dist/notifications/contracts.js"
+			},
+			"./notifications/notifications.capability": {
+				"types": "./dist/notifications/notifications.capability.d.ts",
+				"bun": "./dist/notifications/notifications.capability.js",
+				"node": "./dist/node/notifications/notifications.capability.js",
+				"default": "./dist/notifications/notifications.capability.js"
+			},
+			"./notifications/notifications.feature": {
+				"types": "./dist/notifications/notifications.feature.d.ts",
+				"bun": "./dist/notifications/notifications.feature.js",
+				"node": "./dist/node/notifications/notifications.feature.js",
+				"default": "./dist/notifications/notifications.feature.js"
 			},
 			"./onboarding-base": {
 				"types": "./dist/onboarding-base.d.ts",

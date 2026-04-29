@@ -2,7 +2,7 @@
 
 Scope: `packages/modules/notifications/*`
 
-Notification center module for ContractSpec applications.
+Compatibility shim for the former notification center module package.
 
 ## Quick Context
 
@@ -13,13 +13,13 @@ Notification center module for ContractSpec applications.
 
 ## Architecture
 
-- `src/channels` is part of the package's public or composition surface.
-- `src/contracts/` contains contract specs, operations, entities, and registry exports.
-- `src/entities/` contains domain entities and value objects.
-- `src/i18n` is part of the package's public or composition surface.
+- `src/channels` re-exports channel helpers from `@contractspec/lib.notification`.
+- `src/contracts/` re-exports canonical contracts from `@contractspec/lib.contracts-spec/notifications`.
+- `src/entities/` re-exports notification entities from `@contractspec/lib.notification` while preserving the legacy schema contribution id.
+- `src/i18n` re-exports i18n helpers from `@contractspec/lib.notification`.
 - `src/index.ts` is the root public barrel and package entrypoint.
-- `src/notifications.capability.ts` defines a capability surface.
-- `src/notifications.feature.ts` defines a feature entrypoint.
+- `src/notifications.capability.ts` re-exports the canonical capability surface.
+- `src/notifications.feature.ts` preserves compatibility metadata with `meta.key === "modules.notifications"`.
 
 ## Public Surface
 
@@ -33,13 +33,13 @@ Notification center module for ContractSpec applications.
 - Export `./i18n/catalogs/es` resolves through `./src/i18n/catalogs/es.ts`.
 - Export `./i18n/catalogs/fr` resolves through `./src/i18n/catalogs/fr.ts`.
 - Export `./i18n/keys` resolves through `./src/i18n/keys.ts`.
-- The package publishes 15 total export subpaths; keep docs aligned with `package.json`.
+- The package publishes 18 total export subpaths; keep docs aligned with `package.json`.
 
 ## Guardrails
 
-- Depends on `lib.bus` for event dispatch -- channel adapters must not send directly.
-- i18n catalogs must stay in sync across all supported locales (en, es, fr).
-- Templates are the single source for notification content; do not inline message strings.
+- Do not reintroduce runtime implementation here; add reusable notification runtime code to `@contractspec/lib.notification`.
+- Keep `notificationsSchemaContribution.moduleId === "@contractspec/module.notifications"`.
+- Keep `NotificationsFeature.meta.key === "modules.notifications"`.
 - Changes here can affect downstream packages such as `@contractspec/lib.bus`, `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`, `@contractspec/tool.bun`, `@contractspec/tool.typescript`.
 
 ## Local Commands

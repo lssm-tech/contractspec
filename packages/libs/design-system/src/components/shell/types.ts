@@ -59,6 +59,45 @@ export interface ShellBreadcrumbItem {
 	label: React.ReactNode;
 }
 
+export type ShellNotificationStatus = 'unread' | 'read' | 'archived' | string;
+
+export interface ShellNotificationItem {
+	id: string;
+	title: React.ReactNode;
+	body?: React.ReactNode;
+	type?: string;
+	status?: ShellNotificationStatus;
+	readAt?: string | Date | null;
+	createdAt?: string | Date;
+	actionUrl?: string;
+	priority?: 'low' | 'normal' | 'high' | 'urgent' | string;
+	category?: string;
+	metadata?: Record<string, unknown>;
+}
+
+export interface ShellNotificationRenderContext {
+	unread: boolean;
+	onSelect: () => void;
+	onMarkRead: () => void;
+}
+
+export interface ShellNotificationCenter {
+	items?: ShellNotificationItem[];
+	unreadCount?: number;
+	loading?: boolean;
+	emptyLabel?: React.ReactNode;
+	label?: string;
+	markAllReadLabel?: string;
+	onOpenChange?: (open: boolean) => void;
+	onSelect?: (item: ShellNotificationItem) => void;
+	onMarkRead?: (item: ShellNotificationItem) => void;
+	onMarkAllRead?: () => void;
+	renderItem?: (
+		item: ShellNotificationItem,
+		context: ShellNotificationRenderContext
+	) => React.ReactNode;
+}
+
 export interface ShellUserMenuItem {
 	label: React.ReactNode;
 	href?: string;
@@ -88,6 +127,7 @@ export interface AppShellConfig {
 	brand?: React.ReactNode;
 	navigation?: ShellNavSection[];
 	commands?: ShellCommandGroup[];
+	notifications?: ShellNotificationCenter;
 	breadcrumbs?: ShellBreadcrumbItem[];
 	userMenu?: React.ReactNode;
 	pageOutline?: PageOutlineItem[];

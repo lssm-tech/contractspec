@@ -43,6 +43,7 @@ export * from './harness';
 export * from './install';
 export type { KnowledgeCategory } from './knowledge/spec';
 export * from './migrations';
+export * from './notifications';
 export * from './operations';
 export * from './ownership';
 export * from './presentations';

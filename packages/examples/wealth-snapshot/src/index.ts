@@ -10,7 +10,7 @@ import './docs';
 
 import { identityRbacSchemaContribution } from '@contractspec/lib.identity-rbac';
 import { auditTrailSchemaContribution } from '@contractspec/module.audit-trail';
-import { notificationsSchemaContribution } from '@contractspec/module.notifications';
+import { notificationsSchemaContribution } from '@contractspec/lib.notification';
 import { wealthSnapshotSchemaContribution } from './entities';
 
 export const schemaComposition = {

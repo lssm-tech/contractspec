@@ -76,8 +76,8 @@
 	"dependencies": {
 		"@contractspec/lib.identity-rbac": "workspace:*",
 		"@contractspec/lib.jobs": "workspace:*",
+		"@contractspec/lib.notification": "workspace:*",
 		"@contractspec/module.audit-trail": "workspace:*",
-		"@contractspec/module.notifications": "workspace:*",
 		"@contractspec/lib.contracts-spec": "workspace:*",
 		"@contractspec/lib.schema": "workspace:*",
 		"@contractspec/lib.example-shared-ui": "workspace:*",

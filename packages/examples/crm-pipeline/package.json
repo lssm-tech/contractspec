@@ -72,11 +72,11 @@
 		"@contractspec/lib.design-system": "workspace:*",
 		"@contractspec/lib.example-shared-ui": "workspace:*",
 		"@contractspec/lib.identity-rbac": "workspace:*",
+		"@contractspec/lib.notification": "workspace:*",
 		"@contractspec/lib.runtime-sandbox": "workspace:*",
 		"@contractspec/lib.schema": "workspace:*",
 		"@contractspec/lib.ui-kit-web": "workspace:*",
 		"@contractspec/module.audit-trail": "workspace:*",
-		"@contractspec/module.notifications": "workspace:*",
 		"react": "catalog:",
 		"react-dom": "catalog:",
 		"@contractspec/lib.presentation-runtime-core": "workspace:*"

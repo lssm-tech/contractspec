@@ -24,7 +24,7 @@ import { identityRbacSchemaContribution } from '@contractspec/lib.identity-rbac'
 import { jobsSchemaContribution } from '@contractspec/lib.jobs';
 import type { ModuleSchemaContribution } from '@contractspec/lib.schema';
 import { auditTrailSchemaContribution } from '@contractspec/module.audit-trail';
-import { notificationsSchemaContribution } from '@contractspec/module.notifications';
+import { notificationsSchemaContribution } from '@contractspec/lib.notification';
 import {
 	BillingUsageEntity,
 	SubscriptionEntity,

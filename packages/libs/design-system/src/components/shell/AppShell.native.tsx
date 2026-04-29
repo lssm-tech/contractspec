@@ -3,9 +3,11 @@
 import { cn } from '@contractspec/lib.ui-kit/ui/utils';
 import * as React from 'react';
 import { Pressable, Text, View } from 'react-native';
+import { SheetMenu } from '../native/SheetMenu.native';
 import { AppHeader } from '../organisms/AppHeader.native';
 import type { AppShellProps } from './AppShell.types';
 import { PageOutline } from './PageOutline.native';
+import { NativeShellNotificationsSection } from './ShellNotifications.native';
 import type { ShellNavItem, ShellNavSection } from './types';
 
 function labelToString(label: React.ReactNode) {
@@ -100,6 +102,7 @@ export function AppShell({
 	title,
 	navigation = [],
 	commands = [],
+	notifications,
 	breadcrumbs = [],
 	pageOutline = [],
 	activeHref,
@@ -114,7 +117,31 @@ export function AppShell({
 	onNavigate,
 }: AppShellProps) {
 	const primaryItems = flattenPrimaryItems(navigation);
+	const [notificationsOpen, setNotificationsOpen] = React.useState(false);
 	const resolvedBrand = brand ?? logo ?? title;
+	const notificationItems = notifications?.items ?? [];
+	const notificationUnreadCount =
+		notifications?.unreadCount ??
+		notificationItems.filter(
+			(item) => item.status === 'unread' || (!item.status && !item.readAt)
+		).length;
+	const setNotificationsMenuOpen = (open: boolean) => {
+		setNotificationsOpen(open);
+		notifications?.onOpenChange?.(open);
+	};
+	const notificationTrigger = notifications ? (
+		<Pressable
+			accessibilityRole="button"
+			accessibilityLabel={notifications.label ?? 'Notifications'}
+			onPress={() => setNotificationsMenuOpen(true)}
+			className="rounded-xs px-2 py-1"
+		>
+			<Text className="text-sm">
+				Notifications
+				{notificationUnreadCount > 0 ? ` ${notificationUnreadCount}` : ''}
+			</Text>
+		</Pressable>
+	) : null;
 	const menuContent = (
 		<View className="gap-5">
 			{breadcrumbs.length ? (
@@ -142,6 +169,9 @@ export function AppShell({
 						))
 					)}
 				</View>
+			) : null}
+			{notifications ? (
+				<NativeShellNotificationsSection notifications={notifications} />
 			) : null}
 			{navigation.map((section, index) => (
 				<View key={section.key ?? index} className="gap-2">
@@ -174,7 +204,12 @@ export function AppShell({
 		<View className={cn('min-h-full bg-background', className)}>
 			<AppHeader
 				logo={resolvedBrand}
-				toolbarRight={topbarEnd}
+				toolbarRight={
+					<View className="flex-row items-center gap-2">
+						{notificationTrigger}
+						{topbarEnd}
+					</View>
+				}
 				menuContent={menuContent}
 				bottomTabs={primaryItems.map((item) => ({
 					key: item.key ?? item.href ?? labelToString(item.label),
@@ -187,6 +222,15 @@ export function AppShell({
 					},
 				}))}
 			/>
+			{notifications ? (
+				<SheetMenu
+					open={notificationsOpen}
+					onOpenChange={setNotificationsMenuOpen}
+					title={notifications.label ?? 'Notifications'}
+				>
+					<NativeShellNotificationsSection notifications={notifications} />
+				</SheetMenu>
+			) : null}
 			<View className={cn('flex-1 px-4 py-5', contentClassName)}>
 				{children}
 			</View>
