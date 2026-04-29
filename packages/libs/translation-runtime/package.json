@@ -34,6 +34,7 @@
 	"devDependencies": {
 		"@contractspec/tool.bun": "workspace:*",
 		"@contractspec/tool.typescript": "workspace:*",
+		"i18next": "catalog:i18n",
 		"typescript": "catalog:"
 	},
 	"files": [
@@ -47,6 +48,7 @@
 		"./fallback": "./src/fallback.ts",
 		"./formatter": "./src/formatter.ts",
 		"./formatters/intl-messageformat": "./src/formatters/intl-messageformat.ts",
+		"./i18next": "./src/i18next.ts",
 		"./loader": "./src/loader.ts",
 		"./locale": "./src/locale.ts",
 		"./overrides": "./src/overrides.ts",
@@ -98,6 +100,13 @@
 				"bun": "./dist/formatters/intl-messageformat.js",
 				"node": "./dist/node/formatters/intl-messageformat.js",
 				"default": "./dist/formatters/intl-messageformat.js"
+			},
+			"./i18next": {
+				"types": "./dist/i18next.d.ts",
+				"browser": "./dist/browser/i18next.js",
+				"bun": "./dist/i18next.js",
+				"node": "./dist/node/i18next.js",
+				"default": "./dist/i18next.js"
 			},
 			"./loader": {
 				"types": "./dist/loader.d.ts",

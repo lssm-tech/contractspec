@@ -11,4 +11,6 @@ Introduce a ContractSpec-native translation runtime and strengthen translation c
 
 `@contractspec/lib.translation-runtime` is a new framework-independent runtime that consumes canonical `TranslationSpec` catalogs, uses a formatter abstraction backed by FormatJS/`intl-messageformat`, supports locale negotiation, fallback chains, override layers, diagnostics, async loading, request-isolated instances, and SSR snapshots.
 
+`@contractspec/lib.translation-runtime/i18next` now provides an optional downstream i18next projection that exports resources, sidecar metadata, safe init options, and caller-owned resource bundle installation without making i18next canonical.
+
 `@contractspec/lib.design-system` can now create a runtime-backed translation resolver while preserving the existing registry resolver path. The locale-jurisdiction-gate example now uses a stable translation bundle key with separate locale variants.

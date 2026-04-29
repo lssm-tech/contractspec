@@ -1,22 +1,78 @@
+schemaVersion: "1"
 slug: contractspec-i18n-runtime
-summary: Add a ContractSpec-native production-grade translation runtime and strengthen translation contracts.
+summary: Add a ContractSpec-native production-grade translation runtime and optional i18next adapter.
+isBreaking: false
 packages:
-  - "@contractspec/lib.contracts-spec"
-  - "@contractspec/lib.translation-runtime"
-  - "@contractspec/lib.design-system"
-  - "@contractspec/example.locale-jurisdiction-gate"
+  - name: "@contractspec/lib.contracts-spec"
+    releaseType: minor
+  - name: "@contractspec/lib.translation-runtime"
+    releaseType: minor
+  - name: "@contractspec/lib.design-system"
+    releaseType: minor
+  - name: "@contractspec/example.locale-jurisdiction-gate"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - node
+  - browser
+  - react-native
+affectedFrameworks:
+  - react
+  - i18next
+  - formatjs
 audiences:
-  maintainer:
-    - Translation specs now keep stable bundle identity separate from locale variants and validate BCP 47 tags.
-    - The new translation runtime owns formatter-backed ICU resolution, fallback chains, overrides, diagnostics, async loading, and SSR snapshots.
-  integrator:
-    - Use `@contractspec/lib.translation-runtime` for production server, React, React Native, and CLI translation resolution.
-    - Continue using legacy `createI18nFactory` for simple existing catalogs while migrating new production surfaces to runtime-backed APIs.
-verification:
-  - bun test packages/libs/contracts-spec/src/translations/validation.test.ts packages/libs/contracts-spec/src/translations/registry.test.ts packages/libs/translation-runtime/src/runtime.test.ts packages/libs/design-system/src/i18n/translation.test.tsx packages/examples/locale-jurisdiction-gate/src/contracts.test.ts
-  - bun run --cwd packages/libs/translation-runtime typecheck
-  - bun run --cwd packages/libs/contracts-spec typecheck
-  - bun run --cwd packages/libs/design-system typecheck
-  - bun run --cwd packages/libs/translation-runtime build
-  - bun run --cwd packages/libs/contracts-spec build
-  - bun run --cwd packages/libs/design-system build
+  - kind: maintainer
+    summary: Translation specs now keep stable bundle identity separate from locale variants while the runtime owns formatter-backed ICU resolution, fallback chains, overrides, diagnostics, async loading, SSR snapshots, and optional downstream i18next projection.
+    affectedPackages:
+      - "@contractspec/lib.contracts-spec"
+      - "@contractspec/lib.translation-runtime"
+  - kind: integrator
+    summary: Integrators should use the production translation runtime for server, React, React Native, and CLI resolution, and use the i18next subpath only as a downstream adapter with caller-owned ICU formatting configuration.
+    affectedPackages:
+      - "@contractspec/lib.translation-runtime"
+      - "@contractspec/lib.design-system"
+  - kind: customer
+    summary: Multilingual surfaces can now rely on BCP 47 locale variants, ICU formatting, deterministic SSR snapshots, and safer migration away from locale-suffixed translation bundle keys.
+    affectedPackages:
+      - "@contractspec/lib.translation-runtime"
+deprecations: []
+migrationInstructions:
+  - id: stable-translation-bundle-keys
+    title: Separate stable bundle keys from locale variants
+    summary: "Prefer `meta.key: \"bundle.messages\"` with `locale: \"fr-FR\"` over stable keys that encode locale suffixes."
+    required: false
+    steps:
+      - Move locale identity into `TranslationSpec.locale`.
+      - Keep fallback declarations on locale variants through `fallback` or `fallbacks`.
+      - Re-run translation validation after migration.
+  - id: i18next-adapter-formatting
+    title: Configure ICU formatting when rendering through i18next
+    summary: The i18next adapter exports ContractSpec ICU messages intact and does not make i18next canonical.
+    required: false
+    steps:
+      - Import adapter helpers from `@contractspec/lib.translation-runtime/i18next`.
+      - "Initialize a caller-owned i18next instance with generated resources and `keySeparator: false`."
+      - Configure an ICU-capable i18next format plugin before rendering ICU plural/select/selectordinal messages through i18next.
+upgradeSteps:
+  - id: adopt-translation-runtime
+    title: Adopt the ContractSpec translation runtime for production surfaces
+    summary: Use runtime instances or snapshots instead of legacy simple string interpolation for production i18n paths.
+    level: manual
+    instructions:
+      - Build runtime instances from canonical `TranslationSpec[]` catalogs.
+      - Create one runtime per SSR request and hydrate clients from serialized snapshots.
+      - Keep React, React Native, and i18next integrations downstream from the runtime.
+validation:
+  commands:
+    - "bun test packages/libs/translation-runtime/src/adapters/i18next.test.ts packages/libs/translation-runtime/src/runtime.test.ts"
+    - "bun run --cwd packages/libs/translation-runtime typecheck"
+    - "bun run --cwd packages/libs/translation-runtime build"
+    - "node scripts/biome.cjs check packages/libs/translation-runtime/src/i18next.ts packages/libs/translation-runtime/src/adapters/i18next.ts packages/libs/translation-runtime/src/adapters/i18next.test.ts packages/libs/translation-runtime/package.json packages/libs/translation-runtime/README.md packages/libs/contracts-spec/README.md package.json .changeset/contractspec-i18n-runtime.md .changeset/contractspec-i18n-runtime.release.yaml"
+    - "bun install --frozen-lockfile"
+  evidence:
+    - "Adapter tests cover resource export, Arabic/RTL/CJK resources, flat dotted keys, real i18next instance initialization, bundle installation, fallback projection diagnostics, SSR snapshot determinism, and collision diagnostics."
+    - "Build output includes the public `./i18next` facade without importing i18next from the core runtime barrel."
+    - "Docs describe i18next as optional downstream projection and preserve ContractSpec as canonical."
+knownGaps:
+  - "The adapter does not convert ContractSpec ICU to native i18next JSON v4 plural/context suffixes; consumers that render ICU through i18next must configure an ICU-capable i18next format plugin."
+  - "The i18next backend plugin is deferred until static resource export and installation APIs have downstream adoption evidence."

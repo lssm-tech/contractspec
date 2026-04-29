@@ -108,6 +108,7 @@
 			},
 			"i18n": {
 				"@formatjs/icu-messageformat-parser": "^3.5.5",
+				"i18next": "^26.0.8",
 				"intl-messageformat": "^11.2.2"
 			}
 		}

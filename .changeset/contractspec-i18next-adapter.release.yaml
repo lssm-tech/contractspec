@@ -1,0 +1,69 @@
+schemaVersion: "1"
+slug: contractspec-i18next-adapter
+summary: Add an optional ContractSpec-first i18next adapter for downstream interoperability.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.translation-runtime"
+    releaseType: minor
+affectedRuntimes:
+  - bun
+  - node
+  - browser
+  - react-native
+affectedFrameworks:
+  - i18next
+audiences:
+  - kind: maintainer
+    summary: The translation runtime now exposes an optional `./i18next` subpath while keeping the root runtime and ContractSpec registry i18next-free.
+    affectedPackages:
+      - "@contractspec/lib.translation-runtime"
+  - kind: integrator
+    summary: Apps that already use i18next can initialize isolated instances or add resource bundles from ContractSpec translation catalogs without making i18next canonical.
+    affectedPackages:
+      - "@contractspec/lib.translation-runtime"
+  - kind: customer
+    summary: Multilingual applications gain a safer migration path from ContractSpec translations to i18next-powered surfaces while preserving locale metadata and diagnostics.
+    affectedPackages:
+      - "@contractspec/lib.translation-runtime"
+deprecations: []
+migrationInstructions:
+  - id: use-i18next-adapter-subpath
+    title: Import i18next helpers from the adapter subpath
+    summary: Use `@contractspec/lib.translation-runtime/i18next` for downstream i18next projection instead of importing adapter internals.
+    required: false
+    steps:
+      - Import `exportContractSpecToI18next`, `createI18nextInitOptions`, or `addContractSpecResourceBundles` from `@contractspec/lib.translation-runtime/i18next`.
+      - Keep canonical translation contracts in `TranslationSpec` catalogs and use i18next resources as generated runtime interop data.
+      - Configure an ICU-capable i18next formatter plugin when rendering ContractSpec ICU plural/select/selectordinal messages through i18next.
+  - id: keep-locale-out-of-bundle-keys
+    title: Keep stable bundle identity separate from locale variants
+    summary: Namespace translation bundles with stable ContractSpec keys and use `TranslationSpec.locale` for BCP 47 language tags.
+    required: false
+    steps:
+      - Prefer bundle keys such as `commerce.checkout` rather than `commerce.checkout.en`.
+      - Let the adapter map locales like `en-US`, `ar-EG`, and `zh-Hans` to i18next language resource keys.
+      - Review adapter diagnostics for namespace, resource, ICU, and fallback projection issues.
+upgradeSteps:
+  - id: initialize-isolated-i18next-instance
+    title: Initialize i18next from ContractSpec exports
+    summary: Use generated resources and init options with caller-owned i18next instances for SSR and request isolation.
+    level: manual
+    instructions:
+      - Export resources from canonical specs or runtime snapshots.
+      - Pass `createI18nextInitOptions(...).options` to a caller-created i18next instance.
+      - Serialize the same runtime snapshot/exported resources for hydration when using SSR.
+validation:
+  commands:
+    - "bun test packages/libs/translation-runtime/src/adapters/i18next.test.ts packages/libs/translation-runtime/src/runtime.test.ts"
+    - "bun test packages/libs/translation-runtime"
+    - "bun run --cwd packages/libs/translation-runtime typecheck"
+    - "bun run --cwd packages/libs/translation-runtime build"
+    - "node scripts/biome.cjs check packages/libs/translation-runtime package.json packages/libs/contracts-spec/README.md .changeset/contractspec-i18n-runtime.md"
+    - "bun install --frozen-lockfile"
+  evidence:
+    - "Adapter tests cover resource export, Arabic/RTL/CJK resources, flat dotted keys, real i18next createInstance usage, resource bundle installation, fallback diagnostics, SSR snapshot export, and collision diagnostics."
+    - "Package exports expose `./i18next` and do not expose `./adapters/i18next`; the root runtime barrel remains i18next-free."
+    - "Docs describe i18next as optional downstream projection and preserve ContractSpec as canonical."
+knownGaps:
+  - "The adapter exports ContractSpec ICU messages intact; consumers rendering those messages through i18next must provide an ICU-capable i18next formatter plugin."
+  - "A lazy i18next backend plugin remains deferred until static export/install APIs have downstream adoption evidence."

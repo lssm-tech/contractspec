@@ -194,7 +194,9 @@ runtime.tUnknown("cart.items", { count: 3 }); // "3 items"
 
 - Prefer `meta.key: "bundle.messages"` plus `locale: "fr-FR"` over keys like `bundle.messages.fr-FR`.
 - Existing `createI18nFactory` helpers remain available for legacy/simple package catalogs, but new production integrations should use `@contractspec/lib.translation-runtime`.
-- i18next can be added as an export/adapter target, but it must remain downstream of ContractSpec specs and must not become the canonical representation.
+- i18next adapter support lives downstream at `@contractspec/lib.translation-runtime/i18next`. It projects ContractSpec specs/snapshots to i18next resources and metadata manifests, but ContractSpec specs remain canonical.
+- Do not encode locale in i18next namespaces or stable translation keys. Use `TranslationSpec.locale` for the language and `TranslationSpec.meta.key` (or an explicit namespace strategy) for the namespace.
+- ICU messages are exported intact for i18next. Configure an ICU-capable i18next format plugin when using i18next to render ContractSpec ICU plural/select/selectordinal messages.
 - For SSR, create a runtime per request, preload required catalogs, serialize `runtime.snapshot()`, and hydrate the client from the same snapshot before doing client-side locale detection.
 - For React Native, the core runtime uses no DOM APIs; hosts are responsible for locale detection and any required `Intl` polyfills.
 
