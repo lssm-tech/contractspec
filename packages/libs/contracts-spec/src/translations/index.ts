@@ -48,6 +48,7 @@ export type {
 } from './catalog';
 // I18n factory for package-level message helpers
 export * from './i18n-factory';
+export * from './locale';
 // Registry
 export * from './registry';
 // Core types and factory

@@ -105,6 +105,10 @@
 				"@ai-sdk/openai": "3.0.52",
 				"@ai-sdk/react": "3.0.158",
 				"ollama-ai-provider": "^1.2.0"
+			},
+			"i18n": {
+				"@formatjs/icu-messageformat-parser": "^3.5.5",
+				"intl-messageformat": "^11.2.2"
 			}
 		}
 	},

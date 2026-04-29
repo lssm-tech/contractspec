@@ -2475,6 +2475,7 @@
       "version": "6.1.0",
       "dependencies": {
         "@contractspec/lib.schema": "workspace:*",
+        "@formatjs/icu-messageformat-parser": "catalog:i18n",
         "compare-versions": "catalog:data",
         "zod": "catalog:",
       },
@@ -2570,6 +2571,7 @@
         "@contractspec/lib.contracts-runtime-client-react": "workspace:*",
         "@contractspec/lib.contracts-spec": "workspace:*",
         "@contractspec/lib.presentation-runtime-react": "workspace:*",
+        "@contractspec/lib.translation-runtime": "workspace:*",
         "@contractspec/lib.ui-kit": "workspace:*",
         "@contractspec/lib.ui-kit-web": "workspace:*",
         "@hookform/resolvers": "5.2.2",
@@ -3270,6 +3272,20 @@
       "dependencies": {
         "@contractspec/lib.contracts-spec": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
+      },
+      "devDependencies": {
+        "@contractspec/tool.bun": "workspace:*",
+        "@contractspec/tool.typescript": "workspace:*",
+        "typescript": "catalog:",
+      },
+    },
+    "packages/libs/translation-runtime": {
+      "name": "@contractspec/lib.translation-runtime",
+      "version": "0.1.0",
+      "dependencies": {
+        "@contractspec/lib.contracts-spec": "workspace:*",
+        "@formatjs/icu-messageformat-parser": "catalog:i18n",
+        "intl-messageformat": "catalog:i18n",
       },
       "devDependencies": {
         "@contractspec/tool.bun": "workspace:*",
@@ -4112,6 +4128,10 @@
       "@pothos/plugin-tracing": "^1.1.2",
       "graphql": "^16.13.2",
     },
+    "i18n": {
+      "@formatjs/icu-messageformat-parser": "^3.5.5",
+      "intl-messageformat": "^11.2.2",
+    },
     "integrations": {
       "@confiture-ai/gradium-sdk-js": "^0.1.1",
       "@fal-ai/client": "^1.9.5",
@@ -4851,6 +4871,8 @@
 
     "@contractspec/lib.design-system": ["@contractspec/lib.design-system@workspace:packages/libs/design-system"],
 
+    "@contractspec/lib.translation-runtime": ["@contractspec/lib.translation-runtime@workspace:packages/libs/translation-runtime"],
+
     "@contractspec/lib.email": ["@contractspec/lib.email@workspace:packages/libs/email"],
 
     "@contractspec/lib.error": ["@contractspec/lib.error@workspace:packages/libs/error"],
@@ -5146,6 +5168,12 @@
     "@floating-ui/react-dom": ["@floating-ui/react-dom@2.1.8", "", { "dependencies": { "@floating-ui/dom": "^1.7.6" }, "peerDependencies": { "react": ">=16.8.0", "react-dom": ">=16.8.0" } }, "sha512-cC52bHwM/n/CxS87FH0yWdngEZrjdtLW/qVruo68qg+prK7ZQ4YGdut2GyDVpoGeAYe/h899rVeOVm6Oi40k2A=="],
 
     "@floating-ui/utils": ["@floating-ui/utils@0.2.11", "", {}, "sha512-RiB/yIh78pcIxl6lLMG0CgBXAZ2Y0eVHqMPYugu+9U0AeT6YBeiJpf7lbdJNIugFP5SIjwNRgo4DhR1Qxi26Gg=="],
+
+    "@formatjs/fast-memoize": ["@formatjs/fast-memoize@3.1.2", "", {}, "sha512-vPnriihkfK0lzoQGaXq+qXH23VsYyansRTkTgo2aTG0k1NjLFyZimFVdfj4C9JkSE5dm7CEngcQ5TTc1yAyBfQ=="],
+
+    "@formatjs/icu-messageformat-parser": ["@formatjs/icu-messageformat-parser@3.5.5", "", { "dependencies": { "@formatjs/icu-skeleton-parser": "2.1.5" } }, "sha512-ASMon8BNlKHgQQpZx84xI80EXRS90GlsEU4wEulCKCzrMtUdrfEvFc9UEYmRbvEvtFQLZ4qHXnisUy6PuFjwyA=="],
+
+    "@formatjs/icu-skeleton-parser": ["@formatjs/icu-skeleton-parser@2.1.5", "", {}, "sha512-9Kc6tMaAPZKTGevdfcvx5zT3v4BTfamo+djJE29wF6ds1QLhoA09MZNDpWMZaebWzuoOTIXhDvgmqmjSlUOGlw=="],
 
     "@google-cloud/paginator": ["@google-cloud/paginator@5.0.2", "", { "dependencies": { "arrify": "^2.0.0", "extend": "^3.0.2" } }, "sha512-DJS3s0OVH4zFDB1PzjxAsHqJT6sKVbRwwML0ZBP9PbU7Yebtu/7SWMRzvO2J3nUi9pRNITCfu4LJeooM2w4pjg=="],
 
@@ -7842,6 +7870,8 @@
     "ip-address": ["ip-address@10.1.0", "", {}, "sha512-XXADHxXmvT9+CRxhXg56LJovE+bmWnEWB78LB83VZTprKTmaC5QfruXocxzTZ2Kl0DNwKuBdlIhjL8LeY8Sf8Q=="],
 
     "ipaddr.js": ["ipaddr.js@1.9.1", "", {}, "sha512-0KI/607xoxSToH7GjN1FfSbLoU0+btTicjsQSWQlh/hZykN8KpmMf7uYwPW3R+akZ6R/w18ZlXSHBYXiYUPO3g=="],
+
+    "intl-messageformat": ["intl-messageformat@11.2.2", "", { "dependencies": { "@formatjs/fast-memoize": "3.1.2", "@formatjs/icu-messageformat-parser": "3.5.5" } }, "sha512-yUfyIkPGqMvvk2onw2xBJeLsjXdiYUYebR8mmZVQYBuZUJsFGVht48Ftm1khgu8EZ0n+izX4rAEj3fLAilkh9g=="],
 
     "is": ["is@0.2.7", "", {}, "sha512-ajQCouIvkcSnl2iRdK70Jug9mohIHVX9uKpoWnl115ov0R5mzBvRrXxrnHbsA+8AdwCwc/sfw7HXmd4I5EJBdQ=="],
 

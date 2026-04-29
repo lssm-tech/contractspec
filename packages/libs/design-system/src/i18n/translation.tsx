@@ -1,10 +1,15 @@
 'use client';
 
 import type { TranslationRegistry } from '@contractspec/lib.contracts-spec/translations';
+import type {
+	RuntimeValues,
+	TranslationRuntime,
+} from '@contractspec/lib.translation-runtime';
 import * as React from 'react';
 
 export type DesignSystemTranslationResolver = (
-	key: string
+	key: string,
+	values?: RuntimeValues
 ) => string | undefined;
 
 const TranslationContext = React.createContext<
@@ -84,5 +89,21 @@ export function createTranslationResolver({
 		}
 
 		return undefined;
+	};
+}
+
+export function createRuntimeTranslationResolver({
+	runtime,
+	onMissing,
+}: {
+	runtime: TranslationRuntime;
+	onMissing?: 'key' | 'empty' | 'throw';
+}): DesignSystemTranslationResolver {
+	return (key, values) => {
+		const qualified = key.match(/^([^:]+)::(.+)$/);
+		const specKey = qualified?.[1];
+		const messageKey = qualified?.[2] ?? key;
+		const value = runtime.tUnknown(messageKey, values, { onMissing, specKey });
+		return value === messageKey && onMissing !== 'key' ? undefined : value;
 	};
 }

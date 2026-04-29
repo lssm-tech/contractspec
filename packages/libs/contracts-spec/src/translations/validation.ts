@@ -25,6 +25,11 @@
  * ```
  */
 
+import {
+	type MessageFormatElement,
+	parse,
+	TYPE,
+} from '@formatjs/icu-messageformat-parser';
 import type { TranslationRegistry } from './registry';
 import type {
 	Locale,
@@ -57,6 +62,7 @@ export interface ICUValidationResult {
 	placeholders: string[];
 	plurals: string[];
 	selects: string[];
+	selectOrdinals: string[];
 }
 
 export interface MissingTranslation {
@@ -148,20 +154,12 @@ function validateLocale(
 			message: 'Translation spec must specify a locale',
 			path: 'locale',
 		});
-	} else if (!isValidLocaleFormat(spec.locale)) {
-		issues.push({
-			level: 'warning',
-			message: `Locale "${spec.locale}" may not be a valid ISO 639-1 code`,
-			path: 'locale',
-		});
+	} else {
+		validateLocaleTag(spec.locale, 'locale', issues);
 	}
 
-	if (spec.fallback && !isValidLocaleFormat(spec.fallback)) {
-		issues.push({
-			level: 'warning',
-			message: `Fallback locale "${spec.fallback}" may not be a valid ISO 639-1 code`,
-			path: 'fallback',
-		});
+	if (spec.fallback) {
+		validateLocaleTag(spec.fallback, 'fallback', issues);
 	}
 
 	if (spec.fallback === spec.locale) {
@@ -171,6 +169,20 @@ function validateLocale(
 			path: 'fallback',
 		});
 	}
+
+	for (const [index, fallback] of (spec.fallbacks ?? []).entries()) {
+		validateLocaleTag(fallback, `fallbacks[${index}]`, issues);
+	}
+
+	if (spec.defaultLocale) {
+		validateLocaleTag(spec.defaultLocale, 'defaultLocale', issues);
+	}
+
+	for (const [index, locale] of (spec.supportedLocales ?? []).entries()) {
+		validateLocaleTag(locale, `supportedLocales[${index}]`, issues);
+	}
+
+	validateLocaleKeySeparation(spec, issues);
 }
 
 function validateMessages(
@@ -201,7 +213,8 @@ function validateMessages(
 		}
 
 		// Validate placeholders match value
-		const valueParams = extractPlaceholders(message.value);
+		const icuResult = validateICUFormat(message.value);
+		const valueParams = icuResult.placeholders;
 		const declaredPlaceholders = message.placeholders ?? [];
 
 		// Check for declared but unused placeholders
@@ -229,8 +242,6 @@ function validateMessages(
 			}
 		}
 
-		// Validate ICU format
-		const icuResult = validateICUFormat(message.value);
 		if (!icuResult.valid) {
 			issues.push({
 				level: 'error',
@@ -329,117 +340,116 @@ function validatePluralRules(
 /**
  * Validate ICU message format syntax.
  *
- * This is a simplified validator that checks for balanced braces
- * and extracts placeholders, plurals, and selects.
+ * Uses FormatJS' ICU parser as the syntax source of truth, then extracts
+ * ContractSpec metadata from the parser AST.
  *
  * @param message - Message string to validate
  * @returns Validation result with extracted components
  */
 export function validateICUFormat(message: string): ICUValidationResult {
-	const placeholders: string[] = [];
-	const plurals: string[] = [];
-	const selects: string[] = [];
-
-	let braceDepth = 0;
-	let currentPlaceholder = '';
-	let inPlaceholder = false;
+	const unmatchedClosingBrace = findUnmatchedClosingBrace(message);
+	if (unmatchedClosingBrace) {
+		return invalidICU(unmatchedClosingBrace);
+	}
 
 	try {
-		for (let i = 0; i < message.length; i++) {
-			const char = message[i];
-			const prevChar = i > 0 ? message[i - 1] : '';
-
-			// Handle escaped braces
-			if (char === "'" && i + 1 < message.length) {
-				const nextChar = message[i + 1];
-				if (nextChar === '{' || nextChar === '}') {
-					i++; // Skip escaped brace
-					continue;
-				}
-			}
-
-			if (char === '{') {
-				if (prevChar !== "'") {
-					braceDepth++;
-					if (braceDepth === 1) {
-						inPlaceholder = true;
-						currentPlaceholder = '';
-					}
-				}
-			} else if (char === '}') {
-				if (prevChar !== "'") {
-					braceDepth--;
-					if (braceDepth === 0 && inPlaceholder) {
-						const placeholder = currentPlaceholder.trim();
-						processPlaceholder(placeholder, placeholders, plurals, selects);
-						inPlaceholder = false;
-					}
-					if (braceDepth < 0) {
-						return {
-							valid: false,
-							error: 'Unbalanced closing brace',
-							placeholders: [],
-							plurals: [],
-							selects: [],
-						};
-					}
-				}
-			} else if (inPlaceholder) {
-				currentPlaceholder += char;
-			}
-		}
-
-		if (braceDepth !== 0) {
-			return {
-				valid: false,
-				error: 'Unbalanced opening brace',
-				placeholders: [],
-				plurals: [],
-				selects: [],
-			};
-		}
-
-		return {
-			valid: true,
-			placeholders,
-			plurals,
-			selects,
-		};
+		return collectICUMetadata(
+			parse(message, {
+				ignoreTag: true,
+				requiresOtherClause: true,
+				shouldParseSkeletons: true,
+			})
+		);
 	} catch (error) {
-		return {
-			valid: false,
-			error: error instanceof Error ? error.message : 'Unknown error',
-			placeholders: [],
-			plurals: [],
-			selects: [],
-		};
+		return invalidICU(error instanceof Error ? error.message : 'Unknown error');
 	}
 }
 
-function processPlaceholder(
-	placeholder: string,
-	placeholders: string[],
-	plurals: string[],
-	selects: string[]
-): void {
-	// Parse placeholder: name, type, format
-	const parts = placeholder.split(',').map((p) => p.trim());
-	const name = parts[0];
-	const type = parts[1]?.toLowerCase();
+function collectICUMetadata(ast: MessageFormatElement[]): ICUValidationResult {
+	const placeholders = new Set<string>();
+	const plurals = new Set<string>();
+	const selects = new Set<string>();
+	const selectOrdinals = new Set<string>();
 
-	if (name && !placeholders.includes(name)) {
-		placeholders.push(name);
-	}
+	const visit = (elements: MessageFormatElement[]) => {
+		for (const element of elements) {
+			if ('value' in element && isValueArgument(element.type)) {
+				placeholders.add(element.value);
+			}
+			if ('value' in element && element.type === TYPE.select) {
+				selects.add(element.value);
+			}
+			if ('value' in element && element.type === TYPE.plural) {
+				placeholders.add(element.value);
+				if (element.pluralType === 'ordinal') {
+					selectOrdinals.add(element.value);
+				} else {
+					plurals.add(element.value);
+				}
+			}
+			if ('options' in element) {
+				for (const option of Object.values(element.options)) {
+					visit(option.value);
+				}
+			}
+		}
+	};
 
-	if (type === 'plural' || type === 'selectordinal') {
-		if (name && !plurals.includes(name)) {
-			plurals.push(name);
-		}
-	} else if (type === 'select') {
-		if (name && !selects.includes(name)) {
-			selects.push(name);
+	visit(ast);
+	return {
+		valid: true,
+		placeholders: [...placeholders],
+		plurals: [...plurals],
+		selects: [...selects],
+		selectOrdinals: [...selectOrdinals],
+	};
+}
+
+function isValueArgument(type: number): boolean {
+	return (
+		type === TYPE.argument ||
+		type === TYPE.number ||
+		type === TYPE.date ||
+		type === TYPE.time ||
+		type === TYPE.select ||
+		type === TYPE.plural
+	);
+}
+
+function invalidICU(error: string): ICUValidationResult {
+	return {
+		valid: false,
+		error: friendlyICUError(error),
+		placeholders: [],
+		plurals: [],
+		selects: [],
+		selectOrdinals: [],
+	};
+}
+
+function friendlyICUError(error: string): string {
+	if (error.includes('EXPECT_ARGUMENT_CLOSING_BRACE')) {
+		return 'Unbalanced opening brace';
+	}
+	if (error.includes('MISSING_OTHER_CLAUSE')) {
+		return 'Plural/select/selectordinal messages must include an "other" branch';
+	}
+	return error;
+}
+
+function findUnmatchedClosingBrace(message: string): string | undefined {
+	let depth = 0;
+	for (let index = 0; index < message.length; index++) {
+		const char = message[index];
+		const previous = index > 0 ? message[index - 1] : '';
+		if (previous === "'") continue;
+		if (char === '{') depth++;
+		if (char === '}') {
+			depth--;
+			if (depth < 0) return 'Unbalanced closing brace';
 		}
 	}
+	return undefined;
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
@@ -574,12 +584,72 @@ export function assertTranslationSpecValid(spec: TranslationSpec): void {
 // Helper Functions
 // ─────────────────────────────────────────────────────────────────────────────
 
-function isValidLocaleFormat(locale: string): boolean {
-	// Basic check for ISO 639-1 (2 letters) or BCP 47 (e.g., en-US)
-	return /^[a-z]{2}(-[A-Z]{2})?$/.test(locale);
+export function canonicalizeLocale(locale: string): Locale | undefined {
+	if (isLikelyLanguageName(locale)) {
+		return undefined;
+	}
+	try {
+		return Intl.getCanonicalLocales(locale)[0];
+	} catch {
+		return undefined;
+	}
 }
 
-function extractPlaceholders(value: string): string[] {
-	const result = validateICUFormat(value);
-	return result.placeholders;
+function isLikelyLanguageName(locale: string): boolean {
+	return [
+		'arabic',
+		'chinese',
+		'english',
+		'french',
+		'japanese',
+		'spanish',
+	].includes(locale.trim().toLowerCase());
+}
+
+export function isValidLocaleFormat(locale: string): boolean {
+	return Boolean(canonicalizeLocale(locale));
+}
+
+function validateLocaleTag(
+	locale: string,
+	path: string,
+	issues: TranslationValidationIssue[]
+): void {
+	const canonical = canonicalizeLocale(locale);
+	if (!canonical) {
+		issues.push({
+			level: 'error',
+			message: `Locale "${locale}" is not a valid BCP 47 language tag`,
+			path,
+		});
+		return;
+	}
+
+	if (canonical !== locale) {
+		issues.push({
+			level: 'info',
+			message: `Locale "${locale}" canonicalizes to "${canonical}"`,
+			path,
+			context: { canonical },
+		});
+	}
+}
+
+function validateLocaleKeySeparation(
+	spec: TranslationSpec,
+	issues: TranslationValidationIssue[]
+): void {
+	const locale = canonicalizeLocale(spec.locale) ?? spec.locale;
+	const key = spec.meta.key;
+	const localeSuffix = locale.replace(/-/g, '[-_.]');
+	const localeInKey = new RegExp(`(^|[-_.])${localeSuffix}$`, 'i').test(key);
+	if (localeInKey) {
+		issues.push({
+			level: 'warning',
+			message:
+				'Translation spec key appears to include the locale. Prefer a stable bundle key and keep locale in the locale field.',
+			path: 'meta.key',
+			context: { locale },
+		});
+	}
 }

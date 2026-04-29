@@ -210,6 +210,36 @@ export class TranslationRegistry {
 	}
 
 	/**
+	 * Get a message with an explicit locale fallback chain.
+	 *
+	 * This resolves locale variants of the same stable bundle key in order and
+	 * does not require or encourage locale-specific bundle keys.
+	 */
+	getWithFallbackChain(
+		specKey: string,
+		messageKey: MessageKey,
+		locales: readonly Locale[],
+		version?: string
+	): TranslationLookupResult | undefined {
+		const primaryLocale = locales[0];
+		for (const locale of locales) {
+			const spec = version
+				? this.get(specKey, version, locale)
+				: this.getLatest(specKey, locale);
+			const message = spec?.messages[messageKey];
+			if (spec && message) {
+				return {
+					spec,
+					message,
+					locale,
+					fromFallback: locale !== primaryLocale,
+				};
+			}
+		}
+		return undefined;
+	}
+
+	/**
 	 * Get a message value string with fallback.
 	 *
 	 * Convenience method that returns just the string value or a fallback.

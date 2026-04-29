@@ -7,7 +7,7 @@ import { defineTranslation } from '@contractspec/lib.contracts-spec/translations
 
 export const AssistantGateMessagesEnUs = defineTranslation({
 	meta: {
-		key: 'locale-jurisdiction-gate.translation.assistant-gate.en-US',
+		key: 'locale-jurisdiction-gate.translation.assistant-gate',
 		version: '1.0.0',
 		domain: 'assistant',
 		description:

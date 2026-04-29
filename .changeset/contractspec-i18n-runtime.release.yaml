@@ -1,0 +1,22 @@
+slug: contractspec-i18n-runtime
+summary: Add a ContractSpec-native production-grade translation runtime and strengthen translation contracts.
+packages:
+  - "@contractspec/lib.contracts-spec"
+  - "@contractspec/lib.translation-runtime"
+  - "@contractspec/lib.design-system"
+  - "@contractspec/example.locale-jurisdiction-gate"
+audiences:
+  maintainer:
+    - Translation specs now keep stable bundle identity separate from locale variants and validate BCP 47 tags.
+    - The new translation runtime owns formatter-backed ICU resolution, fallback chains, overrides, diagnostics, async loading, and SSR snapshots.
+  integrator:
+    - Use `@contractspec/lib.translation-runtime` for production server, React, React Native, and CLI translation resolution.
+    - Continue using legacy `createI18nFactory` for simple existing catalogs while migrating new production surfaces to runtime-backed APIs.
+verification:
+  - bun test packages/libs/contracts-spec/src/translations/validation.test.ts packages/libs/contracts-spec/src/translations/registry.test.ts packages/libs/translation-runtime/src/runtime.test.ts packages/libs/design-system/src/i18n/translation.test.tsx packages/examples/locale-jurisdiction-gate/src/contracts.test.ts
+  - bun run --cwd packages/libs/translation-runtime typecheck
+  - bun run --cwd packages/libs/contracts-spec typecheck
+  - bun run --cwd packages/libs/design-system typecheck
+  - bun run --cwd packages/libs/translation-runtime build
+  - bun run --cwd packages/libs/contracts-spec build
+  - bun run --cwd packages/libs/design-system build

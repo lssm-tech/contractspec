@@ -145,7 +145,7 @@ describe('validateTranslationSpec', () => {
 			);
 		});
 
-		it('should warn on invalid locale format', () => {
+		it('should error on invalid BCP 47 locale format', () => {
 			const spec: TranslationSpec = {
 				...validSpec,
 				locale: 'english',
@@ -155,26 +155,51 @@ describe('validateTranslationSpec', () => {
 
 			expect(result.issues).toContainEqual(
 				expect.objectContaining({
-					level: 'warning',
+					level: 'error',
 					path: 'locale',
 				})
 			);
 		});
 
 		it('should accept valid locale formats', () => {
-			const spec1: TranslationSpec = { ...validSpec, locale: 'en' };
-			const spec2: TranslationSpec = { ...validSpec, locale: 'en-US' };
+			const specs: TranslationSpec[] = [
+				{ ...validSpec, locale: 'en' },
+				{ ...validSpec, locale: 'en-US' },
+				{ ...validSpec, locale: 'fr-FR' },
+				{ ...validSpec, locale: 'ar' },
+				{ ...validSpec, locale: 'ar-EG' },
+				{ ...validSpec, locale: 'zh-Hans' },
+				{ ...validSpec, locale: 'zh-Hant' },
+				{ ...validSpec, locale: 'ja-JP' },
+			];
 
-			expect(
-				validateTranslationSpec(spec1).issues.filter(
-					(i) => i.path === 'locale' && i.level === 'warning'
-				)
-			).toHaveLength(0);
-			expect(
-				validateTranslationSpec(spec2).issues.filter(
-					(i) => i.path === 'locale' && i.level === 'warning'
-				)
-			).toHaveLength(0);
+			for (const spec of specs) {
+				expect(
+					validateTranslationSpec(spec).issues.filter(
+						(i) => i.path === 'locale' && i.level === 'error'
+					)
+				).toHaveLength(0);
+			}
+		});
+
+		it('should warn when stable bundle key includes locale suffix', () => {
+			const spec: TranslationSpec = {
+				...validSpec,
+				meta: {
+					...validSpec.meta,
+					key: 'test.messages.en-US',
+				},
+				locale: 'en-US',
+			};
+
+			const result = validateTranslationSpec(spec);
+
+			expect(result.issues).toContainEqual(
+				expect.objectContaining({
+					level: 'warning',
+					path: 'meta.key',
+				})
+			);
 		});
 
 		it('should warn when fallback equals locale', () => {
@@ -483,6 +508,29 @@ describe('validateICUFormat', () => {
 
 		expect(result.valid).toBe(true);
 		expect(result.selects).toContain('gender');
+	});
+
+	it('should identify selectordinal placeholders', () => {
+		const result = validateICUFormat(
+			'{position, selectordinal, one {#st} two {#nd} few {#rd} other {#th}}'
+		);
+
+		expect(result.valid).toBe(true);
+		expect(result.selectOrdinals).toContain('position');
+	});
+
+	it('should reject plural/select messages without other branch', () => {
+		const result = validateICUFormat('{count, plural, one {item}}');
+
+		expect(result.valid).toBe(false);
+		expect(result.error).toContain('other');
+	});
+
+	it('should reject messages rejected by the FormatJS ICU parser', () => {
+		const result = validateICUFormat('{amount, number, ::}');
+
+		expect(result.valid).toBe(false);
+		expect(result.error).toContain('NUMBER_SKELETON');
 	});
 
 	it('should detect unbalanced opening brace', () => {

@@ -147,6 +147,51 @@ Recent authoring and setup flows use package-level validation APIs directly inst
 
 These entrypoints are the current public surface for workspace setup, CLI scaffolding, CI, and docs to verify `app-config`, `feature`, and `theme` authoring consistently.
 
+## Translation contracts and runtime i18n
+
+`@contractspec/lib.contracts-spec/translations` is the canonical translation contract surface. Keep stable bundle identity in `TranslationSpec.meta.key`, keep locale variants in `TranslationSpec.locale`, and use optional metadata such as `defaultLocale`, `supportedLocales`, `fallbacks`, `direction`, and `formatter` to describe runtime behavior without making a UI framework canonical.
+
+Production translation resolution lives in `@contractspec/lib.translation-runtime`. That package consumes `TranslationSpec[]` and provides locale negotiation, BCP 47 canonicalization, fallback chains, override layers, diagnostics, async catalog loading, compiled-message caching, and SSR snapshot serialization. Its default formatter is backed by FormatJS/`intl-messageformat` behind a small `MessageFormatter` abstraction so ContractSpec does not implement a custom ICU parser and can adopt MessageFormat 2 later.
+
+```ts
+import { defineTranslation } from "@contractspec/lib.contracts-spec/translations";
+import { createTranslationRuntime } from "@contractspec/lib.translation-runtime";
+
+const messages = defineTranslation({
+  meta: {
+    key: "commerce.cart.messages",
+    version: "1.0.0",
+    domain: "commerce",
+    owners: ["platform"],
+  },
+  locale: "en-US",
+  defaultLocale: "en-US",
+  supportedLocales: ["en-US", "ar-EG", "zh-Hans"],
+  messages: {
+    "cart.items": {
+      value: "{count, plural, =0 {No items} one {One item} other {{count} items}}",
+      placeholders: [{ name: "count", type: "plural" }],
+    },
+  },
+});
+
+const runtime = createTranslationRuntime({
+  defaultLocale: "en-US",
+  requestedLocales: ["en-US"],
+  specs: [messages],
+});
+
+runtime.tUnknown("cart.items", { count: 3 }); // "3 items"
+```
+
+### Migration notes
+
+- Prefer `meta.key: "bundle.messages"` plus `locale: "fr-FR"` over keys like `bundle.messages.fr-FR`.
+- Existing `createI18nFactory` helpers remain available for legacy/simple package catalogs, but new production integrations should use `@contractspec/lib.translation-runtime`.
+- i18next can be added as an export/adapter target, but it must remain downstream of ContractSpec specs and must not become the canonical representation.
+- For SSR, create a runtime per request, preload required catalogs, serialize `runtime.snapshot()`, and hydrate the client from the same snapshot before doing client-side locale detection.
+- For React Native, the core runtime uses no DOM APIs; hosts are responsible for locale detection and any required `Intl` polyfills.
+
 ## Agent Definitions
 
 Agent declarations now live in `@contractspec/lib.contracts-spec/agent`.

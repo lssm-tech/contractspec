@@ -37,7 +37,7 @@ import type { Owner, Stability, Tag } from '../ownership';
 // Core Types
 // ─────────────────────────────────────────────────────────────────────────────
 
-/** ISO 639-1 locale code (e.g., 'en', 'fr', 'de'). */
+/** BCP 47 locale tag (for example `en`, `en-US`, `ar-EG`, `zh-Hans`). */
 export type Locale = string;
 
 /** Message key identifier. */
@@ -100,6 +100,19 @@ export interface PluralRuleSet {
 
 export type VariantType = 'gender' | 'formality' | 'context';
 
+export type TranslationTextDirection = 'ltr' | 'rtl';
+
+export type TranslationMessageSyntax = 'plain' | 'icu';
+
+export interface TranslationFormatterSpec {
+	/** Formatter syntax used by message values. Defaults to `icu`. */
+	syntax?: TranslationMessageSyntax;
+	/** Formatter engine family, for example `intl-messageformat`. */
+	engine?: string;
+	/** Formatter or message syntax version. */
+	version?: string;
+}
+
 export interface MessageVariant {
 	/** Type of variant (gender, formality, context). */
 	type: VariantType;
@@ -160,6 +173,22 @@ export interface TranslationSpec {
 	locale: Locale;
 	/** Fallback locale when a message is missing. */
 	fallback?: Locale;
+	/**
+	 * Explicit fallback chain for this locale variant.
+	 *
+	 * The stable bundle identity remains `meta.key`; fallbacks resolve between
+	 * locale variants of the same bundle unless a runtime explicitly opts into
+	 * additional override sources.
+	 */
+	fallbacks?: Locale[];
+	/** Default/source locale for the stable translation bundle. */
+	defaultLocale?: Locale;
+	/** Supported locale variants for the stable translation bundle. */
+	supportedLocales?: Locale[];
+	/** Optional text direction hint for UI/runtime adapters. */
+	direction?: TranslationTextDirection;
+	/** Formatter metadata for message values. */
+	formatter?: TranslationFormatterSpec;
 	/** Translation messages keyed by message key. */
 	messages: TranslationMessages;
 	/** Plural rules for the locale. */

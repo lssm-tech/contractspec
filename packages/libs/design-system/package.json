@@ -48,7 +48,8 @@
 		"shiki": "^4.0.2",
 		"tailwind-merge": "catalog:ui",
 		"tailwindcss-animate": "catalog:ui",
-		"zod": "catalog:"
+		"zod": "catalog:",
+		"@contractspec/lib.translation-runtime": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",

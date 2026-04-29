@@ -20,8 +20,17 @@ describe('@contractspec/example.locale-jurisdiction-gate', () => {
 			'assistant.answer'
 		);
 		expect(AssistantGateMessagesEnUs.locale).toBe('en-US');
+		expect(AssistantGateMessagesEnUs.meta.key).toBe(
+			'locale-jurisdiction-gate.translation.assistant-gate'
+		);
+		expect(AssistantGateMessagesEnGb.meta.key).toBe(
+			AssistantGateMessagesEnUs.meta.key
+		);
 		expect(AssistantGateMessagesEnGb.fallback).toBe('en-US');
 		expect(AssistantGateMessagesFrFr.locale).toBe('fr-FR');
+		expect(AssistantGateMessagesFrFr.meta.key).toBe(
+			AssistantGateMessagesEnUs.meta.key
+		);
 		expect(LocaleJurisdictionGateFeature.policies).toEqual([
 			{
 				key: AssistantGatePolicy.meta.key,

@@ -1,0 +1,153 @@
+{
+	"name": "@contractspec/lib.translation-runtime",
+	"version": "0.1.0",
+	"description": "Framework-independent ContractSpec translation runtime",
+	"keywords": [
+		"contractspec",
+		"i18n",
+		"translations",
+		"messageformat",
+		"icu"
+	],
+	"type": "module",
+	"types": "./dist/index.d.ts",
+	"scripts": {
+		"publish:pkg": "bun publish --tolerate-republish --ignore-scripts --verbose",
+		"publish:pkg:canary": "bun publish:pkg --tag canary",
+		"build": "bun run build:bundle && bun run build:types",
+		"build:bundle": "contractspec-bun-build transpile",
+		"build:types": "contractspec-bun-build types",
+		"clean": "rm -rf dist",
+		"dev": "contractspec-bun-build dev",
+		"lint": "bun run lint:fix",
+		"lint:fix": "node ../../../scripts/biome.cjs check --write --unsafe --only=nursery/useSortedClasses . && node ../../../scripts/biome.cjs check --write .",
+		"lint:check": "node ../../../scripts/biome.cjs check .",
+		"prebuild": "contractspec-bun-build prebuild",
+		"test": "bun test",
+		"typecheck": "tsc --noEmit"
+	},
+	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@formatjs/icu-messageformat-parser": "catalog:i18n",
+		"intl-messageformat": "catalog:i18n"
+	},
+	"devDependencies": {
+		"@contractspec/tool.bun": "workspace:*",
+		"@contractspec/tool.typescript": "workspace:*",
+		"typescript": "catalog:"
+	},
+	"files": [
+		"dist",
+		"README.md"
+	],
+	"exports": {
+		".": "./src/index.ts",
+		"./diagnostics": "./src/diagnostics.ts",
+		"./direction": "./src/direction.ts",
+		"./fallback": "./src/fallback.ts",
+		"./formatter": "./src/formatter.ts",
+		"./formatters/intl-messageformat": "./src/formatters/intl-messageformat.ts",
+		"./loader": "./src/loader.ts",
+		"./locale": "./src/locale.ts",
+		"./overrides": "./src/overrides.ts",
+		"./registry": "./src/registry.ts",
+		"./runtime": "./src/runtime.ts",
+		"./runtime-helpers": "./src/runtime-helpers.ts",
+		"./snapshot": "./src/snapshot.ts"
+	},
+	"publishConfig": {
+		"exports": {
+			".": {
+				"types": "./dist/index.d.ts",
+				"browser": "./dist/browser/index.js",
+				"bun": "./dist/index.js",
+				"node": "./dist/node/index.js",
+				"default": "./dist/index.js"
+			},
+			"./diagnostics": {
+				"types": "./dist/diagnostics.d.ts",
+				"browser": "./dist/browser/diagnostics.js",
+				"bun": "./dist/diagnostics.js",
+				"node": "./dist/node/diagnostics.js",
+				"default": "./dist/diagnostics.js"
+			},
+			"./direction": {
+				"types": "./dist/direction.d.ts",
+				"browser": "./dist/browser/direction.js",
+				"bun": "./dist/direction.js",
+				"node": "./dist/node/direction.js",
+				"default": "./dist/direction.js"
+			},
+			"./fallback": {
+				"types": "./dist/fallback.d.ts",
+				"browser": "./dist/browser/fallback.js",
+				"bun": "./dist/fallback.js",
+				"node": "./dist/node/fallback.js",
+				"default": "./dist/fallback.js"
+			},
+			"./formatter": {
+				"types": "./dist/formatter.d.ts",
+				"browser": "./dist/browser/formatter.js",
+				"bun": "./dist/formatter.js",
+				"node": "./dist/node/formatter.js",
+				"default": "./dist/formatter.js"
+			},
+			"./formatters/intl-messageformat": {
+				"types": "./dist/formatters/intl-messageformat.d.ts",
+				"browser": "./dist/browser/formatters/intl-messageformat.js",
+				"bun": "./dist/formatters/intl-messageformat.js",
+				"node": "./dist/node/formatters/intl-messageformat.js",
+				"default": "./dist/formatters/intl-messageformat.js"
+			},
+			"./loader": {
+				"types": "./dist/loader.d.ts",
+				"browser": "./dist/browser/loader.js",
+				"bun": "./dist/loader.js",
+				"node": "./dist/node/loader.js",
+				"default": "./dist/loader.js"
+			},
+			"./locale": {
+				"types": "./dist/locale.d.ts",
+				"browser": "./dist/browser/locale.js",
+				"bun": "./dist/locale.js",
+				"node": "./dist/node/locale.js",
+				"default": "./dist/locale.js"
+			},
+			"./overrides": {
+				"types": "./dist/overrides.d.ts",
+				"browser": "./dist/browser/overrides.js",
+				"bun": "./dist/overrides.js",
+				"node": "./dist/node/overrides.js",
+				"default": "./dist/overrides.js"
+			},
+			"./registry": {
+				"types": "./dist/registry.d.ts",
+				"browser": "./dist/browser/registry.js",
+				"bun": "./dist/registry.js",
+				"node": "./dist/node/registry.js",
+				"default": "./dist/registry.js"
+			},
+			"./runtime": {
+				"types": "./dist/runtime.d.ts",
+				"browser": "./dist/browser/runtime.js",
+				"bun": "./dist/runtime.js",
+				"node": "./dist/node/runtime.js",
+				"default": "./dist/runtime.js"
+			},
+			"./runtime-helpers": {
+				"types": "./dist/runtime-helpers.d.ts",
+				"browser": "./dist/browser/runtime-helpers.js",
+				"bun": "./dist/runtime-helpers.js",
+				"node": "./dist/node/runtime-helpers.js",
+				"default": "./dist/runtime-helpers.js"
+			},
+			"./snapshot": {
+				"types": "./dist/snapshot.d.ts",
+				"browser": "./dist/browser/snapshot.js",
+				"bun": "./dist/snapshot.js",
+				"node": "./dist/node/snapshot.js",
+				"default": "./dist/snapshot.js"
+			}
+		}
+	}
+}
