@@ -214,3 +214,25 @@
     - Resolve static templates and dynamic role/binding records for the current tenant/workspace.
     - Mark explicit denies with `effect: "deny"` so they override static/template grants.
     - Treat provider failure as a protected-operation denial unless an audited break-glass path exists.
+
+### Stabilize release artifact generation so customer-facing release files stay current-release-only and deterministic.
+- @contractspec/bundle.workspace@4.5.6 (minor)
+- @contractspec/app.cli-contractspec@6.2.2 (minor)
+- @contractspec/app.web-landing (patch)
+- contractspec@1.46.2 (patch)
+- Integrator: Tooling that needs full changelog history should consume `generated/releases/history/manifest.json`; current release guidance stays under `generated/releases/*`.
+- Customer: Customer-facing release bundles are smaller and avoid repeatedly rewriting old release entries.
+- Generate full release history explicitly: Consumers that previously treated `generated/releases/manifest.json` as a full historical changelog should build the history output path.
+
+
+
+### Stabilize release artifact generation so customer-facing release files stay current-release-only and deterministic.
+- Customer: Customer-facing release bundles are smaller and avoid repeatedly rewriting old release entries.
+- Generate full release history explicitly: Consumers that previously treated `generated/releases/manifest.json` as a full historical changelog should build the history output path.
+  - Run `contractspec release build --scope all --output generated/releases/history` before building full changelog surfaces.
+  - Keep `generated/releases/*` for current GitHub Release notes, upgrade prompts, and customer AI guidance.
+- Upgrade steps:
+  - [manual] Keep current release artifacts compact: Use the default release build for current release communication and the explicit history scope only when a full changelog is required.
+    - Run `bun run release:build` for the current release bundle.
+    - Run `bun packages/apps/cli-contractspec/src/cli.ts release check --strict --baseline main` after regenerating artifacts.
+    - Use `--scope all --output generated/releases/history` for website changelog history builds.

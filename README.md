@@ -137,7 +137,8 @@ See [Host the Builder workbench](https://contractspec.io/docs/guides/host-builde
 
 - Published npm packages are shipped from provenance-enabled GitHub Actions runs, and each release run uploads a manifest artifact with package name, version, dist-tag, tarball filename, and SHA256.
 - Release communication is now changeset-backed in two files: `.changeset/<slug>.md` for package/version intent and `.changeset/<slug>.release.yaml` for summary, migration guidance, validation commands, and evidence.
-- Run `bun run release:build` to materialize generated release manifests before building changelog or upgrade surfaces that depend on them.
+- Run `bun run release:build` to materialize the compact current-release manifests used by GitHub Release notes and upgrade guidance.
+- Run `contractspec release build --scope all --output generated/releases/history` before building full historical changelog surfaces.
 - Run `bun run repo:health` in this repo to reproduce the baseline trust checks locally: doctor, contract CI, and example validation.
 - Verify the published CLI tag with `npm view contractspec dist-tags --json`.
 - Verify a specific published package with `npm view contractspec@<version> dist.tarball dist.integrity --json`.
@@ -158,7 +159,7 @@ contractspec release build
 contractspec release check --strict
 ```
 
-This keeps the website changelog, upgrade prompts, and maintainer guidance aligned with the same release metadata instead of ad hoc prose.
+This keeps current-release upgrade prompts and maintainer guidance compact. Full historical changelog builds should use the explicit history output path.
 
 ## GitHub Actions Quickstart
 

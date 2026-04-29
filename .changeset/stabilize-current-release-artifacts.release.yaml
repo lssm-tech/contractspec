@@ -1,0 +1,66 @@
+schemaVersion: "1"
+slug: stabilize-current-release-artifacts
+summary: Stabilize release artifact generation so customer-facing release files stay current-release-only and deterministic.
+isBreaking: false
+packages:
+  - name: "@contractspec/bundle.workspace"
+    releaseType: minor
+  - name: "@contractspec/app.cli-contractspec"
+    releaseType: minor
+  - name: "@contractspec/app.web-landing"
+    releaseType: patch
+  - name: "contractspec"
+    releaseType: patch
+affectedRuntimes:
+  - bun
+  - node
+  - github-actions
+affectedFrameworks:
+  - changesets
+  - nextjs
+audiences:
+  - kind: maintainer
+    summary: Release builds now default to compact current-release artifacts, while full historical output must be requested explicitly with `--scope all`.
+    affectedPackages:
+      - "@contractspec/bundle.workspace"
+      - "@contractspec/app.cli-contractspec"
+  - kind: integrator
+    summary: Tooling that needs full changelog history should consume `generated/releases/history/manifest.json`; current release guidance stays under `generated/releases/*`.
+    affectedPackages:
+      - "@contractspec/app.web-landing"
+      - "contractspec"
+  - kind: customer
+    summary: Customer-facing release bundles are smaller and avoid repeatedly rewriting old release entries.
+deprecations: []
+migrationInstructions:
+  - id: request-history-output-explicitly
+    title: Generate full release history explicitly
+    summary: Consumers that previously treated `generated/releases/manifest.json` as a full historical changelog should build the history output path.
+    required: false
+    steps:
+      - Run `contractspec release build --scope all --output generated/releases/history` before building full changelog surfaces.
+      - Keep `generated/releases/*` for current GitHub Release notes, upgrade prompts, and customer AI guidance.
+upgradeSteps:
+  - id: adopt-current-release-artifacts
+    title: Keep current release artifacts compact
+    summary: Use the default release build for current release communication and the explicit history scope only when a full changelog is required.
+    level: manual
+    instructions:
+      - Run `bun run release:build` for the current release bundle.
+      - Run `bun packages/apps/cli-contractspec/src/cli.ts release check --strict --baseline main` after regenerating artifacts.
+      - Use `--scope all --output generated/releases/history` for website changelog history builds.
+validation:
+  commands:
+    - "bun test packages/bundles/workspace/src/services/versioning/release-service.test.ts"
+    - "bun test packages/bundles/workspace/src/services/versioning/release-authoring.test.ts"
+    - "bun test packages/apps/cli-contractspec/src/commands/release/index.test.ts"
+    - "bun test packages/apps/web-landing/src/lib/changelog-service.test.ts"
+    - "bun packages/apps/cli-contractspec/src/cli.ts release build --dry-run"
+    - "bun packages/apps/cli-contractspec/src/cli.ts release check --strict --baseline main"
+    - "node scripts/biome.cjs check packages/bundles/workspace/src/services/versioning/release-service.ts packages/bundles/workspace/src/services/versioning/release-service.test.ts packages/bundles/workspace/src/services/versioning/release-files.ts packages/bundles/workspace/src/services/versioning/release-service.types.ts packages/bundles/workspace/src/adapters/git.ts packages/bundles/workspace/src/ports/git.ts packages/apps/cli-contractspec/src/commands/release/actions.ts packages/apps/cli-contractspec/src/commands/release/authoring.ts packages/apps/cli-contractspec/src/commands/release/index.ts packages/apps/cli-contractspec/src/commands/release/index.test.ts packages/apps/web-landing/src/lib/changelog-config.ts packages/apps/web-landing/src/lib/changelog-service.ts packages/apps/web-landing/src/lib/changelog-service.test.ts .changeset/phone-number-field-support.release.yaml docs/release-workflow.md README.md"
+  evidence:
+    - "Release service tests cover current-only builds, explicit full-history builds, local post-version selection, CI baseline selection, and stable generated timestamps."
+    - "CLI release command tests cover guided prepare, edit, rerun slug reuse, and invalid capsule messaging."
+    - "The generated current release bundle contains 12 releases, 0 historical entries, and is 121,562 bytes across the customer-facing files."
+knownGaps:
+  - "Package typechecks still fail on unrelated pre-existing `pwa-app` authoring/spec-scan errors outside the release pipeline changes."

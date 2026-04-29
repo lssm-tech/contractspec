@@ -109,3 +109,13 @@
 - @contractspec/lib.design-system@4.3.0 (minor)
 - @contractspec/lib.personalization@6.0.26 (minor)
 - Maintainer: Contract authors can declare shared static policy requirements while RBAC providers evaluate static, dynamic, and hybrid workspace-scoped grants.
+
+### Stabilize release artifact generation so customer-facing release files stay current-release-only and deterministic.
+- Slug: stabilize-current-release-artifacts
+- Date: 2026-04-29
+- Breaking: no
+- @contractspec/bundle.workspace@4.5.6 (minor)
+- @contractspec/app.cli-contractspec@6.2.2 (minor)
+- @contractspec/app.web-landing (patch)
+- contractspec@1.46.2 (patch)
+- Maintainer: Release builds now default to compact current-release artifacts, while full historical output must be requested explicitly with `--scope all`.

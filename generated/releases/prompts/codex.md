@@ -1,8 +1,10 @@
 Apply the ContractSpec upgrade plan in this workspace using codex.
 
 Target packages:
+@contractspec/app.cli-contractspec: unknown -> 6.2.2
 @contractspec/app.web-landing: unknown -> latest
 @contractspec/bundle.library: unknown -> 3.9.8
+@contractspec/bundle.workspace: unknown -> 4.5.6
 @contractspec/example.crm-pipeline: unknown -> 3.7.28
 @contractspec/example.locale-jurisdiction-gate: unknown -> 3.7.26
 @contractspec/example.saas-boilerplate: unknown -> 3.8.20
@@ -41,6 +43,10 @@ Required steps:
   - Resolve static templates and dynamic role/binding records for the current tenant/workspace.
   - Mark explicit denies with `effect: "deny"` so they override static/template grants.
   - Treat provider failure as a protected-operation denial unless an audited break-glass path exists.
+- [manual] Keep current release artifacts compact: Use the default release build for current release communication and the explicit history scope only when a full changelog is required.
+  - Run `bun run release:build` for the current release bundle.
+  - Run `bun packages/apps/cli-contractspec/src/cli.ts release check --strict --baseline main` after regenerating artifacts.
+  - Use `--scope all --output generated/releases/history` for website changelog history builds.
 - [assisted] Reuse AdaptivePanel for responsive overlay choices: Replace one-off sheet/drawer branching with AdaptivePanel when a surface should use sheets on desktop and drawers on mobile.
   - Import `AdaptivePanel` from `@contractspec/lib.design-system`.
   - Use the default responsive mode, or force `mode="sheet"` / `mode="drawer"` when product requirements need one presentation.
