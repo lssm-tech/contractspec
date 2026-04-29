@@ -262,28 +262,41 @@ const address = {
   kind: "address",
   label: "10 Downing Street",
   value: "10 Downing Street, London",
+  properties: [
+    { id: "site-phone", kind: "phone", label: "Phone", value: "+33 1 23 45 67 89" },
+    { id: "site-email", kind: "email", label: "Email", value: "hello@example.com" },
+  ],
 } as const;
 
 <ObjectReferenceHandler
   reference={address}
   interactivityVisibility="icon"
   actions={createMapsReferenceActions(address)}
-  openHref={(href) => window.open(href, "_blank", "noopener,noreferrer")}
+  openTarget="new-page"
+  panelMode="responsive"
 />;
 ```
 
 The descriptor and action descriptor types are intentionally data-only:
-`id`, `kind`, `label`, `value`, `href`, `metadata`, and optional `iconKey`.
+`id`, `kind`, `label`, `value`, `href`, `openTarget`, nested `properties`,
+`sections`, `metadata`, and optional `iconKey`. Nested properties are regular
+object reference descriptors, so a `user` reference can display email, phone,
+address, file, and URL interactions in the same panel.
 Runtime behavior belongs in props such as `actionHandlers`, `copyHandler`,
-`openHref`, `renderTrigger`, `renderDetail`, `renderAction`, and
-`iconRenderer`. This keeps the surface compatible with future declarative
-ContractSpec schema work without making React callbacks part of the descriptor
-contract.
+`openHref`, `renderTrigger`, `renderDetail`, `renderAction`, `renderProperty`,
+`renderSection`, and `iconRenderer`. This keeps the surface compatible with
+future declarative ContractSpec schema work without making React callbacks part
+of the descriptor contract.
 
-Web renders the interaction surface with the existing sheet primitives. Native
-exports the same prop contract through the focused object-reference subpath and
-uses a disclosure-style fallback until `@contractspec/lib.ui-kit` provides a
-real native sheet primitive.
+Web uses the exported `AdaptivePanel` primitive by default:
+`panelMode="responsive"` renders a sheet on desktop and a bottom drawer on small
+screens. Use `AdaptivePanel` directly for the same sheet/drawer decision outside
+object references, or set `panelMode="sheet"` / `panelMode="drawer"` to force
+one presentation. Detail links default to same-page navigation; set
+`openTarget="new-page"` on the handler, reference, or action to open in a new
+page. Native exports the same prop contract through the focused object-reference
+subpath and uses a disclosure-style fallback until `@contractspec/lib.ui-kit`
+provides a real native sheet primitive.
 
 ### Render forms on mobile through the shared renderer
 

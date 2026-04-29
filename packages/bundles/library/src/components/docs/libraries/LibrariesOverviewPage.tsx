@@ -51,7 +51,7 @@ const libraryGroups = [
 			{
 				title: '@contractspec/lib.design-system',
 				description:
-					'Build higher-level product surfaces and documented marketing/docs primitives on top of the web and native UI packages.',
+					'Build higher-level product surfaces, actionable object references, adaptive panels, and documented marketing/docs primitives on top of the web and native UI packages.',
 				href: '/docs/libraries/design-system',
 			},
 			{

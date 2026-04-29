@@ -430,6 +430,24 @@ export const DOCS_PAGES: readonly DocsPageEntry[] = [
 		ctaMode: 'oss-next',
 	},
 	{
+		href: '/docs/libraries/design-system',
+		title: 'Design system',
+		description:
+			'Adopt high-level product UI primitives, actionable object references, responsive AdaptivePanel overlays, forms, data tables, and theme helpers.',
+		section: 'build',
+		order: 74,
+		primaryNav: true,
+		audience: 'oss',
+		ctaMode: 'oss-next',
+		aliases: [
+			'object references',
+			'ObjectReferenceHandler',
+			'AdaptivePanel',
+			'adaptive panels',
+			'sheet drawer',
+		],
+	},
+	{
 		href: '/docs/architecture',
 		title: 'Architecture',
 		description:

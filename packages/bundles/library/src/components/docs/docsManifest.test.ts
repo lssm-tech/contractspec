@@ -46,6 +46,27 @@ describe('docs manifest learning paths', () => {
 		).toBeGreaterThan(buildHrefs.indexOf('/docs/libraries'));
 	});
 
+	it('promotes the design-system guide for object references and adaptive panels', () => {
+		const page = getDocsPageByHref('/docs/libraries/design-system');
+
+		expect(page).toBeDefined();
+		expect(page?.aliases).toContain('ObjectReferenceHandler');
+		expect(page?.aliases).toContain('AdaptivePanel');
+
+		const buildSection = getPrimaryDocsSections().find(
+			(section) => section.key === 'build'
+		);
+		const buildHrefs = buildSection?.items.map((item) => item.href) ?? [];
+
+		expect(buildHrefs).toContain('/docs/libraries/design-system');
+		expect(buildHrefs.indexOf('/docs/libraries/design-system')).toBeGreaterThan(
+			buildHrefs.indexOf('/docs/libraries/application-shell')
+		);
+		expect(buildHrefs.indexOf('/docs/libraries/design-system')).toBeLessThan(
+			buildHrefs.indexOf('/docs/architecture')
+		);
+	});
+
 	it('keeps cross-platform UI resolvable without promoting it to primary nav', () => {
 		expect(
 			getDocsPageByHref('/docs/libraries/cross-platform-ui')
@@ -94,6 +115,7 @@ describe('docs manifest learning paths', () => {
 			'/docs/studio',
 			'/docs/libraries/translation-runtime',
 			'/docs/libraries/cross-platform-ui',
+			'/docs/libraries/design-system',
 		]) {
 			expect(
 				getDocsPageByHref(href) != null || NON_MANIFEST_DOC_ROUTES.has(href)

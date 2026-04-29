@@ -9,6 +9,7 @@
 - Serves docs, registry, sandbox, and operate surfaces while keeping their shared shell consistent with the public brand system.
 - Shares example preview rendering across docs, `/templates`, and `/sandbox`, with rich UI for UI-backed examples and fallback cards for the rest of the discoverable catalog.
 - Publishes `/llms`, `/llms.txt`, `/llms-full.txt`, and package-specific `/llms/[slug]` endpoints for agent-friendly repo guidance.
+- Documents design-system adoption guidance for shared interaction patterns such as `ObjectReferenceHandler` and `AdaptivePanel`, including human-readable docs and agent-facing `/llms*` prompts.
 - Documents ContractSpec translation runtime guidance, including the optional i18next adapter, SSR/hydration rules, production checks, and an agent implementation prompt.
 
 ## Architecture
@@ -46,4 +47,5 @@ This package should stay thin:
 - Route changes here affect SEO, external links, and agent-discovery flows; keep URL stability high.
 - Branding changes in this package must stay aligned with root docs, generated root AGENTS content, and `public/llms.txt`.
 - When updating the public shell, verify that docs and `/llms*` remain readable; this package serves more than the marketing homepage.
+- Keep `/docs/libraries/design-system` and `/llms/lib.design-system` aligned when documenting object references, adaptive panels, or other interaction primitives that downstream apps should adopt consistently.
 - Keep `/docs/libraries/translation-runtime`, `/llms/[lib.translation-runtime]`, and `@contractspec/lib.translation-runtime` README guidance aligned when documenting i18n runtime or adapter behavior.

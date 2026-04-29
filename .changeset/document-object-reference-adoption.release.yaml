@@ -1,0 +1,41 @@
+schemaVersion: "1"
+slug: document-object-reference-adoption
+summary: Document and link object-reference adoption and adaptive panel guidance in the public docs bundle.
+isBreaking: false
+packages:
+  - name: "@contractspec/bundle.library"
+    releaseType: patch
+affectedRuntimes:
+  - browser
+affectedFrameworks:
+  - react
+audiences:
+  - kind: maintainer
+    summary: The design-system docs now cover ObjectReferenceHandler descriptors, rich properties and sections, action handlers, safe hrefs, AdaptivePanel behavior, adoption prompts, and sidebar discovery.
+    affectedPackages:
+      - "@contractspec/bundle.library"
+  - kind: integrator
+    summary: Downstream apps have concrete guidance for replacing inert references with ObjectReferenceHandler and using AdaptivePanel instead of direct Sheet/Drawer branching.
+    affectedPackages:
+      - "@contractspec/bundle.library"
+  - kind: customer
+    summary: Product teams get clearer guidance for making addresses, phone numbers, users, customers, files, and URLs actionable in responsive panels.
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: replace-inert-references
+    title: Replace inert references with ObjectReferenceHandler
+    summary: Use the documented adoption prompt and examples to find plain object references and wrap them with the shared handler.
+    level: assisted
+    instructions:
+      - Start with address, phone, email, user, customer, file, and URL text rendered in product workflows.
+      - Model each reference as a data-only descriptor and put runtime behavior in handler props.
+      - Use rich properties and sections when one object should expose multiple interaction targets.
+      - Keep responsive overlays on AdaptivePanel or ObjectReferenceHandler panel props.
+validation:
+  commands:
+    - "node scripts/biome.cjs check packages/bundles/library/src/components/docs/libraries/LibrariesDesignSystemPage.tsx packages/bundles/library/src/components/docs/libraries/LibrariesOverviewPage.tsx packages/apps/web-landing/README.md packages/apps/web-landing/public/llms-packages/lib.design-system.txt .changeset/document-object-reference-adoption.md .changeset/document-object-reference-adoption.release.yaml"
+  evidence:
+    - "The docs page and LLM package guidance now include rich reference examples, adaptive panel usage, safe runtime boundaries, and an adoption prompt."
+    - "The docs manifest registers /docs/libraries/design-system in the build sidebar with object-reference and AdaptivePanel aliases."
+knownGaps: []
