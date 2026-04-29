@@ -11,6 +11,7 @@
 - Publishes `/llms`, `/llms.txt`, `/llms-full.txt`, and package-specific `/llms/[slug]` endpoints for agent-friendly repo guidance.
 - Documents design-system adoption guidance for shared interaction patterns such as `ObjectReferenceHandler` and `AdaptivePanel`, including human-readable docs and agent-facing `/llms*` prompts.
 - Documents ContractSpec translation runtime guidance, including the optional i18next adapter, SSR/hydration rules, production checks, and an agent implementation prompt.
+- Documents data-exchange flexible import-template guidance at `/docs/guides/data-exchange-import-templates`, including developer templates, user remapping flows, server dry-runs, format profiles, verification commands, and copy-ready prompts.
 
 ## Architecture
 
@@ -49,3 +50,4 @@ This package should stay thin:
 - When updating the public shell, verify that docs and `/llms*` remain readable; this package serves more than the marketing homepage.
 - Keep `/docs/libraries/design-system` and `/llms/lib.design-system` aligned when documenting object references, adaptive panels, or other interaction primitives that downstream apps should adopt consistently.
 - Keep `/docs/libraries/translation-runtime`, `/llms/[lib.translation-runtime]`, and `@contractspec/lib.translation-runtime` README guidance aligned when documenting i18n runtime or adapter behavior.
+- Keep `/docs/guides/data-exchange-import-templates`, `/llms/lib.data-exchange-core`, `/llms/lib.data-exchange-client`, and `/llms/lib.data-exchange-server` aligned when documenting import templates, flexible column mapping, dry-runs, or mapping-review prompts.

@@ -32,8 +32,8 @@
 		"@contractspec/tool.bun": "workspace:*"
 	},
 	"dependencies": {
-		"zod": "catalog:",
-		"graphql": "catalog:graphql"
+		"graphql": "catalog:graphql",
+		"zod": "catalog:"
 	},
 	"files": [
 		"dist",

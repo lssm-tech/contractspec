@@ -212,6 +212,12 @@ export function detectAuthoringTargetFromCodeBlock(
 	) {
 		return 'product-intent';
 	}
+	if (
+		code.includes('definePwaAppManifest') ||
+		/PwaAppManifestSpec/.test(code)
+	) {
+		return 'pwa-app';
+	}
 	if (code.includes('definePolicy') || /PolicySpec/.test(code)) {
 		return 'policy';
 	}
@@ -319,6 +325,9 @@ export function inferAuthoringTargetFromFilePath(
 	}
 	if (filePath.includes('.product-intent.')) {
 		return 'product-intent';
+	}
+	if (filePath.includes('.pwa-app.')) {
+		return 'pwa-app';
 	}
 	if (filePath.includes('.policy.')) {
 		return 'policy';

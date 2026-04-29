@@ -32,7 +32,8 @@
 	},
 	"dependencies": {
 		"@contractspec/integration.provider.openbanking": "workspace:*",
-		"@contractspec/lib.contracts-spec": "workspace:*"
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"@contractspec/lib.schema": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",

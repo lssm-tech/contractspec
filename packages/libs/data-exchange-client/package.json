@@ -53,7 +53,10 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./controllers": "./src/controllers/index.ts",
+		"./controllers/controller-actions": "./src/controllers/controller-actions.ts",
+		"./controllers/mapping-state": "./src/controllers/mapping-state.ts",
 		"./controllers/model": "./src/controllers/model.ts",
+		"./controllers/model-rows": "./src/controllers/model-rows.ts",
 		"./controllers/useDataExchangeController": "./src/controllers/useDataExchangeController.tsx",
 		"./data-exchange-client.feature": "./src/data-exchange-client.feature.ts",
 		"./native": "./src/native/index.tsx",
@@ -81,12 +84,33 @@
 				"node": "./dist/node/controllers/index.js",
 				"default": "./dist/controllers/index.js"
 			},
+			"./controllers/controller-actions": {
+				"types": "./dist/controllers/controller-actions.d.ts",
+				"browser": "./dist/browser/controllers/controller-actions.js",
+				"bun": "./dist/controllers/controller-actions.js",
+				"node": "./dist/node/controllers/controller-actions.js",
+				"default": "./dist/controllers/controller-actions.js"
+			},
+			"./controllers/mapping-state": {
+				"types": "./dist/controllers/mapping-state.d.ts",
+				"browser": "./dist/browser/controllers/mapping-state.js",
+				"bun": "./dist/controllers/mapping-state.js",
+				"node": "./dist/node/controllers/mapping-state.js",
+				"default": "./dist/controllers/mapping-state.js"
+			},
 			"./controllers/model": {
 				"types": "./dist/controllers/model.d.ts",
 				"browser": "./dist/browser/controllers/model.js",
 				"bun": "./dist/controllers/model.js",
 				"node": "./dist/node/controllers/model.js",
 				"default": "./dist/controllers/model.js"
+			},
+			"./controllers/model-rows": {
+				"types": "./dist/controllers/model-rows.d.ts",
+				"browser": "./dist/browser/controllers/model-rows.js",
+				"bun": "./dist/controllers/model-rows.js",
+				"node": "./dist/node/controllers/model-rows.js",
+				"default": "./dist/controllers/model-rows.js"
 			},
 			"./controllers/useDataExchangeController": {
 				"types": "./dist/controllers/useDataExchangeController.d.ts",

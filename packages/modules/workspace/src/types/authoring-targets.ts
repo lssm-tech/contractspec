@@ -218,6 +218,15 @@ export const AUTHORING_TARGET_DEFINITIONS: readonly AuthoringTargetDefinition[] 
 			defaultSubdirectory: 'product-intent',
 		},
 		{
+			id: 'pwa-app',
+			title: 'PWA app manifest',
+			posture: 'file',
+			materialization: 'docs',
+			validation: 'structure',
+			defaultExtension: '.pwa-app.ts',
+			defaultSubdirectory: 'pwa',
+		},
+		{
 			id: 'policy',
 			title: 'Policy',
 			posture: 'file',

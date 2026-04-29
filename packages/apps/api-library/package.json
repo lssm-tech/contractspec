@@ -27,6 +27,7 @@
 		"@contractspec/integration.provider.messaging": "workspace:*",
 		"@contractspec/integration.runtime": "workspace:*",
 		"@contractspec/integration.runtime.managed": "workspace:*",
+		"@contractspec/lib.builder-runtime": "workspace:*",
 		"@contractspec/lib.contracts-spec": "workspace:*",
 		"elysia": "catalog:server",
 		"pg": "catalog:server",

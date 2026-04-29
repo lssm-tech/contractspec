@@ -47,13 +47,13 @@
 		"./contracts-adapter-hydration": "./src/contracts-adapter-hydration.ts",
 		"./contracts-adapter-input": "./src/contracts-adapter-input.ts",
 		"./contracts-runtime-server-rest.feature": "./src/contracts-runtime-server-rest.feature.ts",
+		"./pwa-update": "./src/pwa-update.ts",
 		"./rest-elysia": "./src/rest-elysia.ts",
 		"./rest-express": "./src/rest-express.ts",
 		"./rest-generic": "./src/rest-generic.ts",
 		"./rest-nest": "./src/rest-nest.ts",
 		"./rest-next-app": "./src/rest-next-app.ts",
 		"./rest-next-pages": "./src/rest-next-pages.ts",
-		"./pwa-update": "./src/pwa-update.ts",
 		"./result-response": "./src/result-response.ts"
 	},
 	"publishConfig": {
@@ -87,6 +87,13 @@
 				"bun": "./dist/contracts-runtime-server-rest.feature.js",
 				"node": "./dist/node/contracts-runtime-server-rest.feature.js",
 				"default": "./dist/contracts-runtime-server-rest.feature.js"
+			},
+			"./pwa-update": {
+				"types": "./dist/pwa-update.d.ts",
+				"browser": "./dist/browser/pwa-update.js",
+				"bun": "./dist/pwa-update.js",
+				"node": "./dist/node/pwa-update.js",
+				"default": "./dist/pwa-update.js"
 			},
 			"./rest-elysia": {
 				"types": "./dist/rest-elysia.d.ts",
@@ -129,13 +136,6 @@
 				"bun": "./dist/rest-next-pages.js",
 				"node": "./dist/node/rest-next-pages.js",
 				"default": "./dist/rest-next-pages.js"
-			},
-			"./pwa-update": {
-				"types": "./dist/pwa-update.d.ts",
-				"browser": "./dist/browser/pwa-update.js",
-				"bun": "./dist/pwa-update.js",
-				"node": "./dist/node/pwa-update.js",
-				"default": "./dist/pwa-update.js"
 			},
 			"./result-response": {
 				"types": "./dist/result-response.d.ts",

@@ -4,6 +4,7 @@ export { GuideCIDiffGatingPage } from './GuideCIDiffGatingPage';
 export { GuideConnectInRepoPage } from './GuideConnectInRepoPage';
 export { GuideContractDrivenFormsPage } from './GuideContractDrivenFormsPage';
 export { GuideContractTypesPage } from './GuideContractTypesPage';
+export { GuideDataExchangeImportTemplatesPage } from './GuideDataExchangeImportTemplatesPage';
 export { GuideDocsPipelinePage } from './GuideDocsPipelinePage';
 export { GuideFirstModuleBundlePage } from './GuideFirstModuleBundlePage';
 export { GuideGenerateDocsClientsSchemasPage } from './GuideGenerateDocsClientsSchemasPage';

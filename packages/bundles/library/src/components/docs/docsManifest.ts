@@ -339,6 +339,19 @@ export const DOCS_PAGES: readonly DocsPageEntry[] = [
 		ctaMode: 'oss-next',
 	},
 	{
+		href: '/docs/guides/data-exchange-import-templates',
+		title: 'Flexible import templates',
+		description:
+			'Publish a recommended data-exchange import shape while users import CSV, JSON, or XML files with alternate headers and localized values.',
+		section: 'build',
+		order: 47,
+		navTitle: 'Import templates',
+		primaryNav: true,
+		audience: 'oss',
+		ctaMode: 'oss-next',
+		aliases: ['/docs/guides/import-templates', '/docs/libraries/data-exchange'],
+	},
+	{
 		href: '/docs/guides/generate-docs-clients-schemas',
 		title: 'Generate docs, clients, and schemas',
 		description:

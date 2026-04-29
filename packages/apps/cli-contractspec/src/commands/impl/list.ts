@@ -13,7 +13,7 @@ import {
 	resolveImplementations,
 	type SpecImplementationResult,
 } from '@contractspec/bundle.workspace';
-import type { MaybeArray } from '@contractspec/libs/utils-typescript';
+import type { MaybeArray } from '@contractspec/lib.utils-typescript';
 import chalk from 'chalk';
 import { Command } from 'commander';
 import ora from 'ora';

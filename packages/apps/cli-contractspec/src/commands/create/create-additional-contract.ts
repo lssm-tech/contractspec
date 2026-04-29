@@ -21,6 +21,7 @@ type AdditionalCreateTarget = Extract<
 	| 'job'
 	| 'agent'
 	| 'product-intent'
+	| 'pwa-app'
 	| 'harness-scenario'
 	| 'harness-suite'
 >;
@@ -201,6 +202,8 @@ function renderAdditionalSpec(
 					data.targetQuestion ??
 					`How should we improve ${data.key.split('.').at(-1) ?? data.key}?`,
 			});
+		case 'pwa-app':
+			return templates.generatePwaAppManifestSpec(data);
 		case 'harness-scenario':
 			return templates.generateHarnessScenarioSpec(data);
 		case 'harness-suite':

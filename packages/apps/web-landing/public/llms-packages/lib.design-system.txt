@@ -307,6 +307,13 @@ Expo or React Native apps:
 import { formRenderer } from "@contractspec/lib.design-system/renderers";
 ```
 
+The shared FormSpec renderer includes a first-class phone field implementation
+that displays country flags, parses international input with
+`libphonenumber-js`, and keeps single-input or split country/national controls
+linked. Contracts can configure behavior through a phone field's `input`,
+`output`, `country`, and `display` options; host apps can set package-wide
+defaults by passing `phone` overrides to `createFormRenderer`.
+
 Expo apps must keep the presentation Metro aliases enabled so design-system
 imports of `@contractspec/lib.ui-kit-web/ui/*` are remapped to
 `@contractspec/lib.ui-kit/ui/*` at bundle time:

@@ -96,6 +96,8 @@
 		"./components/docs/guides/GuideContractDrivenFormsPage": "./src/components/docs/guides/GuideContractDrivenFormsPage.tsx",
 		"./components/docs/guides/GuideContractDrivenFormsPage.content": "./src/components/docs/guides/GuideContractDrivenFormsPage.content.ts",
 		"./components/docs/guides/GuideContractTypesPage": "./src/components/docs/guides/GuideContractTypesPage.tsx",
+		"./components/docs/guides/GuideDataExchangeImportTemplatesPage": "./src/components/docs/guides/GuideDataExchangeImportTemplatesPage.tsx",
+		"./components/docs/guides/GuideDataExchangeImportTemplatesPage.content": "./src/components/docs/guides/GuideDataExchangeImportTemplatesPage.content.ts",
 		"./components/docs/guides/GuideDocsPipelinePage": "./src/components/docs/guides/GuideDocsPipelinePage.tsx",
 		"./components/docs/guides/GuideFirstModuleBundlePage": "./src/components/docs/guides/GuideFirstModuleBundlePage.tsx",
 		"./components/docs/guides/GuideGenerateDocsClientsSchemasPage": "./src/components/docs/guides/GuideGenerateDocsClientsSchemasPage.tsx",
@@ -170,6 +172,8 @@
 		"./components/docs/libraries/LibrariesSLOPage": "./src/components/docs/libraries/LibrariesSLOPage.tsx",
 		"./components/docs/libraries/LibrariesSupportBotPage": "./src/components/docs/libraries/LibrariesSupportBotPage.tsx",
 		"./components/docs/libraries/LibrariesTestingPage": "./src/components/docs/libraries/LibrariesTestingPage.tsx",
+		"./components/docs/libraries/LibrariesTranslationRuntimePage": "./src/components/docs/libraries/LibrariesTranslationRuntimePage.tsx",
+		"./components/docs/libraries/LibrariesTranslationRuntimePage.content": "./src/components/docs/libraries/LibrariesTranslationRuntimePage.content.ts",
 		"./components/docs/libraries/LibrariesUIKitPage": "./src/components/docs/libraries/LibrariesUIKitPage.tsx",
 		"./components/docs/libraries/LibrariesUIKitWebPage": "./src/components/docs/libraries/LibrariesUIKitWebPage.tsx",
 		"./components/docs/libraries/LibrariesWorkflowComposerPage": "./src/components/docs/libraries/LibrariesWorkflowComposerPage.tsx",
@@ -872,6 +876,18 @@
 				"node": "./dist/node/components/docs/guides/GuideContractTypesPage.js",
 				"default": "./dist/components/docs/guides/GuideContractTypesPage.js"
 			},
+			"./components/docs/guides/GuideDataExchangeImportTemplatesPage": {
+				"types": "./dist/components/docs/guides/GuideDataExchangeImportTemplatesPage.d.ts",
+				"bun": "./dist/components/docs/guides/GuideDataExchangeImportTemplatesPage.js",
+				"node": "./dist/node/components/docs/guides/GuideDataExchangeImportTemplatesPage.js",
+				"default": "./dist/components/docs/guides/GuideDataExchangeImportTemplatesPage.js"
+			},
+			"./components/docs/guides/GuideDataExchangeImportTemplatesPage.content": {
+				"types": "./dist/components/docs/guides/GuideDataExchangeImportTemplatesPage.content.d.ts",
+				"bun": "./dist/components/docs/guides/GuideDataExchangeImportTemplatesPage.content.js",
+				"node": "./dist/node/components/docs/guides/GuideDataExchangeImportTemplatesPage.content.js",
+				"default": "./dist/components/docs/guides/GuideDataExchangeImportTemplatesPage.content.js"
+			},
 			"./components/docs/guides/GuideDocsPipelinePage": {
 				"types": "./dist/components/docs/guides/GuideDocsPipelinePage.d.ts",
 				"bun": "./dist/components/docs/guides/GuideDocsPipelinePage.js",
@@ -1315,6 +1331,18 @@
 				"bun": "./dist/components/docs/libraries/LibrariesTestingPage.js",
 				"node": "./dist/node/components/docs/libraries/LibrariesTestingPage.js",
 				"default": "./dist/components/docs/libraries/LibrariesTestingPage.js"
+			},
+			"./components/docs/libraries/LibrariesTranslationRuntimePage": {
+				"types": "./dist/components/docs/libraries/LibrariesTranslationRuntimePage.d.ts",
+				"bun": "./dist/components/docs/libraries/LibrariesTranslationRuntimePage.js",
+				"node": "./dist/node/components/docs/libraries/LibrariesTranslationRuntimePage.js",
+				"default": "./dist/components/docs/libraries/LibrariesTranslationRuntimePage.js"
+			},
+			"./components/docs/libraries/LibrariesTranslationRuntimePage.content": {
+				"types": "./dist/components/docs/libraries/LibrariesTranslationRuntimePage.content.d.ts",
+				"bun": "./dist/components/docs/libraries/LibrariesTranslationRuntimePage.content.js",
+				"node": "./dist/node/components/docs/libraries/LibrariesTranslationRuntimePage.content.js",
+				"default": "./dist/components/docs/libraries/LibrariesTranslationRuntimePage.content.js"
 			},
 			"./components/docs/libraries/LibrariesUIKitPage": {
 				"types": "./dist/components/docs/libraries/LibrariesUIKitPage.d.ts",

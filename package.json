@@ -187,12 +187,16 @@
 		"next": "catalog:",
 		"patch-package": "^8.0.1",
 		"postinstall-postinstall": "^2.1.0",
+		"tsdown": "catalog:build",
 		"turbo-ignore": "^2.9.6"
 	},
 	"dependencies": {
+		"@contractspec/lib.contracts-spec": "workspace:*",
+		"js-yaml": "^4.1.1",
 		"react": "catalog:",
 		"react-dom": "catalog:",
-		"turbo": "^2.9.6"
+		"turbo": "^2.9.6",
+		"zod": "catalog:"
 	},
 	"config": {
 		"commitizen": {

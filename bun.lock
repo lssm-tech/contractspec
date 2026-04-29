@@ -5,9 +5,12 @@
     "": {
       "name": "contractspec",
       "dependencies": {
+        "@contractspec/lib.contracts-spec": "workspace:*",
+        "js-yaml": "^4.1.1",
         "react": "catalog:",
         "react-dom": "catalog:",
         "turbo": "^2.9.6",
+        "zod": "catalog:",
       },
       "devDependencies": {
         "@biomejs/biome": "^2.4.13",
@@ -22,6 +25,7 @@
         "next": "catalog:",
         "patch-package": "^8.0.1",
         "postinstall-postinstall": "^2.1.0",
+        "tsdown": "catalog:build",
         "turbo-ignore": "^2.9.6",
       },
     },
@@ -126,6 +130,7 @@
         "@contractspec/integration.provider.messaging": "workspace:*",
         "@contractspec/integration.runtime": "workspace:*",
         "@contractspec/integration.runtime.managed": "workspace:*",
+        "@contractspec/lib.builder-runtime": "workspace:*",
         "@contractspec/lib.contracts-spec": "workspace:*",
         "elysia": "catalog:server",
         "pg": "catalog:server",
@@ -152,13 +157,16 @@
         "@contractspec/integration.runtime": "workspace:*",
         "@contractspec/lib.ai-agent": "workspace:*",
         "@contractspec/lib.ai-providers": "workspace:*",
+        "@contractspec/lib.builder-spec": "workspace:*",
         "@contractspec/lib.contracts-integrations": "workspace:*",
         "@contractspec/lib.contracts-spec": "workspace:*",
         "@contractspec/lib.contracts-transformers": "workspace:*",
+        "@contractspec/lib.execution-lanes": "workspace:*",
         "@contractspec/lib.harness": "workspace:*",
         "@contractspec/lib.plugins": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
         "@contractspec/lib.testing": "workspace:*",
+        "@contractspec/lib.utils-typescript": "workspace:*",
         "@contractspec/module.ai-chat": "workspace:*",
         "@contractspec/module.examples": "workspace:*",
         "@contractspec/module.workspace": "workspace:*",
@@ -179,6 +187,7 @@
         "@types/js-yaml": "^4.0.9",
         "@types/node": "catalog:types",
         "@types/sarif": "^2.1.7",
+        "elysia": "catalog:server",
         "rimraf": "catalog:build",
         "typescript": "catalog:",
       },
@@ -268,7 +277,10 @@
       },
       "devDependencies": {
         "@contractspec/tool.typescript": "workspace:*",
+        "@tailwindcss/postcss": "^4.2.2",
         "@types/react": "catalog:types",
+        "postcss": "catalog:build",
+        "postcss-load-config": "^6.0.1",
         "react-native-css": "catalog:native",
         "tailwindcss": "catalog:build",
         "typescript": "catalog:",
@@ -410,6 +422,7 @@
         "@contractspec/lib.design-system": "workspace:*",
         "@contractspec/lib.example-shared-ui": "workspace:*",
         "@contractspec/lib.progressive-delivery": "workspace:*",
+        "@contractspec/lib.provider-spec": "workspace:*",
         "@contractspec/lib.surface-runtime": "workspace:*",
         "@contractspec/lib.ui-kit": "workspace:*",
         "@contractspec/lib.ui-kit-core": "workspace:*",
@@ -418,6 +431,7 @@
         "@contractspec/module.ai-chat": "workspace:*",
         "@contractspec/module.builder-workbench": "workspace:*",
         "@contractspec/module.examples": "workspace:*",
+        "@contractspec/module.mobile-review": "workspace:*",
         "@hookform/resolvers": "catalog:ui",
         "@posthog/react": "^1.9.0",
         "@tanstack/react-query": "^5.100.6",
@@ -621,9 +635,11 @@
         "@contractspec/integration.runtime": "workspace:*",
         "@contractspec/lib.ai-agent": "workspace:*",
         "@contractspec/lib.ai-providers": "workspace:*",
+        "@contractspec/lib.builder-spec": "workspace:*",
         "@contractspec/lib.contracts-integrations": "workspace:*",
         "@contractspec/lib.contracts-spec": "workspace:*",
         "@contractspec/lib.contracts-transformers": "workspace:*",
+        "@contractspec/lib.provider-spec": "workspace:*",
         "@contractspec/lib.source-extractors": "workspace:*",
         "@contractspec/lib.surface-runtime": "workspace:*",
         "@contractspec/lib.utils-typescript": "workspace:*",
@@ -717,8 +733,10 @@
         "@contractspec/lib.design-system": "workspace:*",
         "@contractspec/lib.example-shared-ui": "workspace:*",
         "@contractspec/lib.presentation-runtime-core": "workspace:*",
+        "@contractspec/lib.presentation-runtime-react": "workspace:*",
         "@contractspec/lib.runtime-sandbox": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
+        "@contractspec/lib.ui-kit-web": "workspace:*",
         "react": "catalog:",
         "react-dom": "catalog:",
       },
@@ -769,6 +787,7 @@
         "@contractspec/lib.identity-rbac": "workspace:*",
         "@contractspec/lib.notification": "workspace:*",
         "@contractspec/lib.presentation-runtime-core": "workspace:*",
+        "@contractspec/lib.presentation-runtime-react": "workspace:*",
         "@contractspec/lib.runtime-sandbox": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
         "@contractspec/lib.ui-kit-web": "workspace:*",
@@ -791,6 +810,7 @@
       "dependencies": {
         "@contractspec/lib.contracts-spec": "workspace:*",
         "@contractspec/lib.design-system": "workspace:*",
+        "@contractspec/lib.presentation-runtime-core": "workspace:*",
         "@contractspec/lib.presentation-runtime-react": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
         "@contractspec/lib.ui-kit-web": "workspace:*",
@@ -903,8 +923,10 @@
         "@contractspec/lib.design-system": "workspace:*",
         "@contractspec/lib.example-shared-ui": "workspace:*",
         "@contractspec/lib.presentation-runtime-core": "workspace:*",
+        "@contractspec/lib.presentation-runtime-react": "workspace:*",
         "@contractspec/lib.runtime-sandbox": "workspace:*",
         "@contractspec/lib.schema": "workspace:*",
+        "@contractspec/lib.ui-kit-web": "workspace:*",
         "@contractspec/module.ai-chat": "workspace:*",
         "react": "catalog:",
         "react-dom": "catalog:",
@@ -1070,6 +1092,7 @@
         "@contractspec/example.learning-journey-ui-onboarding": "workspace:*",
         "@contractspec/example.learning-journey-ui-shared": "workspace:*",
         "@contractspec/lib.contracts-spec": "workspace:*",
+        "@contractspec/lib.presentation-runtime-core": "workspace:*",
         "@contractspec/module.learning-journey": "workspace:*",
         "react": "catalog:",
       },
@@ -1307,6 +1330,7 @@
       "dependencies": {
         "@contractspec/integration.provider.openbanking": "workspace:*",
         "@contractspec/lib.contracts-spec": "workspace:*",
+        "@contractspec/lib.schema": "workspace:*",
       },
       "devDependencies": {
         "@contractspec/tool.bun": "workspace:*",
@@ -1878,6 +1902,7 @@
       "dependencies": {
         "@contractspec/integration.runtime": "workspace:*",
         "@contractspec/lib.contracts-integrations": "workspace:*",
+        "fathom-typescript": "catalog:integrations",
       },
       "devDependencies": {
         "@contractspec/tool.bun": "workspace:*",
@@ -2278,6 +2303,7 @@
       "name": "@contractspec/lib.builder-runtime",
       "version": "0.2.8",
       "dependencies": {
+        "@contractspec/integration.runtime.local": "workspace:*",
         "@contractspec/lib.builder-spec": "workspace:*",
         "@contractspec/lib.contracts-spec": "workspace:*",
         "@contractspec/lib.execution-lanes": "workspace:*",
@@ -2556,6 +2582,7 @@
       "dependencies": {
         "@contractspec/lib.contracts-spec": "workspace:*",
         "@contractspec/lib.data-exchange-core": "workspace:*",
+        "@contractspec/lib.schema": "workspace:*",
       },
       "devDependencies": {
         "@contractspec/tool.bun": "workspace:*",
@@ -2570,20 +2597,26 @@
         "@contractspec/lib.ai-agent": "workspace:*",
         "@contractspec/lib.contracts-runtime-client-react": "workspace:*",
         "@contractspec/lib.contracts-spec": "workspace:*",
+        "@contractspec/lib.presentation-runtime-core": "workspace:*",
         "@contractspec/lib.presentation-runtime-react": "workspace:*",
+        "@contractspec/lib.schema": "workspace:*",
         "@contractspec/lib.translation-runtime": "workspace:*",
         "@contractspec/lib.ui-kit": "workspace:*",
+        "@contractspec/lib.ui-kit-core": "workspace:*",
         "@contractspec/lib.ui-kit-web": "workspace:*",
         "@hookform/resolvers": "5.2.2",
         "class-variance-authority": "catalog:ui",
         "clsx": "catalog:ui",
         "country-flag-icons": "^1.6.16",
+        "expo-router": "^6.0.23",
         "libphonenumber-js": "^1.12.42",
         "lucide-react": "catalog:ui",
         "next": "catalog:",
+        "posthog-react-native": "^4.16.1",
         "react": "catalog:",
         "react-dom": "catalog:",
-        "react-hook-form": "^7.74.0",
+        "react-hook-form": "^7.72.1",
+        "react-native-safe-area-context": "^5.6.2",
         "shiki": "^4.0.2",
         "tailwind-merge": "catalog:ui",
         "tailwindcss-animate": "catalog:ui",
@@ -2594,6 +2627,7 @@
         "@contractspec/tool.typescript": "workspace:*",
         "@types/node": "catalog:types",
         "@types/react-dom": "^19.0.14",
+        "happy-dom": "catalog:testing",
         "postcss": "catalog:build",
         "postcss-load-config": "^6.0.1",
         "react-native": "catalog:native",
@@ -3556,6 +3590,7 @@
       "dependencies": {
         "@contractspec/lib.contracts-spec": "workspace:*",
         "@contractspec/lib.presentation-runtime-core": "workspace:*",
+        "@contractspec/lib.presentation-runtime-react": "workspace:*",
         "@contractspec/lib.ui-kit-core": "workspace:*",
         "@radix-ui/react-accordion": "^1.2.11",
         "@radix-ui/react-alert-dialog": "^1.1.14",
@@ -3606,6 +3641,7 @@
         "@types/node": "catalog:types",
         "@types/react-dom": "catalog:types",
         "echarts": "catalog:ui",
+        "happy-dom": "catalog:testing",
         "jest": "catalog:testing",
         "maplibre-gl": "^5.24.0",
         "next": "catalog:",
@@ -3837,6 +3873,23 @@
       "version": "4.0.5",
       "dependencies": {
         "@apollo/client": "catalog:graphql",
+        "@contractspec/example.agent-console": "workspace:*",
+        "@contractspec/example.ai-chat-assistant": "workspace:*",
+        "@contractspec/example.analytics-dashboard": "workspace:*",
+        "@contractspec/example.crm-pipeline": "workspace:*",
+        "@contractspec/example.data-grid-showcase": "workspace:*",
+        "@contractspec/example.finance-ops-ai-workflows": "workspace:*",
+        "@contractspec/example.form-showcase": "workspace:*",
+        "@contractspec/example.in-app-docs": "workspace:*",
+        "@contractspec/example.integration-hub": "workspace:*",
+        "@contractspec/example.learning-journey-registry": "workspace:*",
+        "@contractspec/example.marketplace": "workspace:*",
+        "@contractspec/example.pocket-family-office": "workspace:*",
+        "@contractspec/example.policy-safe-knowledge-assistant": "workspace:*",
+        "@contractspec/example.saas-boilerplate": "workspace:*",
+        "@contractspec/example.visualization-showcase": "workspace:*",
+        "@contractspec/example.wealth-snapshot": "workspace:*",
+        "@contractspec/example.workflow-system": "workspace:*",
         "@contractspec/lib.contracts-runtime-client-react": "workspace:*",
         "@contractspec/lib.contracts-spec": "workspace:*",
         "@contractspec/lib.example-shared-ui": "workspace:*",
@@ -9453,6 +9506,8 @@
 
     "@contractspec/integration.provider.project-management/@linear/sdk": ["@linear/sdk@82.1.0", "", { "dependencies": { "@graphql-typed-document-node/core": "^3.2.0" } }, "sha512-Ok7o+LqXaenx6Um58NQqjQoQanDsCgAIe9yNgpVbqRSh5APz3Ds1kZUz2vWmSNTNATFZm1zDQtEktTMga2X7UQ=="],
 
+    "@contractspec/lib.design-system/expo-router": ["expo-router@6.0.23", "", { "dependencies": { "@expo/metro-runtime": "^6.1.2", "@expo/schema-utils": "^0.1.8", "@radix-ui/react-slot": "1.2.0", "@radix-ui/react-tabs": "^1.1.12", "@react-navigation/bottom-tabs": "^7.4.0", "@react-navigation/native": "^7.1.8", "@react-navigation/native-stack": "^7.3.16", "client-only": "^0.0.1", "debug": "^4.3.4", "escape-string-regexp": "^4.0.0", "expo-server": "^1.0.5", "fast-deep-equal": "^3.1.3", "invariant": "^2.2.4", "nanoid": "^3.3.8", "query-string": "^7.1.3", "react-fast-compare": "^3.2.2", "react-native-is-edge-to-edge": "^1.1.6", "semver": "~7.6.3", "server-only": "^0.0.1", "sf-symbols-typescript": "^2.1.0", "shallowequal": "^1.1.0", "use-latest-callback": "^0.2.1", "vaul": "^1.1.2" }, "peerDependencies": { "@react-navigation/drawer": "^7.5.0", "@testing-library/react-native": ">= 12.0.0", "expo": "*", "expo-constants": "^18.0.13", "expo-linking": "^8.0.11", "react": "*", "react-dom": "*", "react-native": "*", "react-native-gesture-handler": "*", "react-native-reanimated": "*", "react-native-safe-area-context": ">= 5.4.0", "react-native-screens": "*", "react-native-web": "*", "react-server-dom-webpack": "~19.0.4 || ~19.1.5 || ~19.2.4" }, "optionalPeers": ["@react-navigation/drawer", "@testing-library/react-native", "react-dom", "react-native-gesture-handler", "react-native-reanimated", "react-native-web", "react-server-dom-webpack"] }, "sha512-qCxVAiCrCyu0npky6azEZ6dJDMt77OmCzEbpF6RbUTlfkaCA417LvY14SBkk0xyGruSxy/7pvJOI6tuThaUVCA=="],
+
     "@contractspec/lib.video-gen/@remotion/cli": ["@remotion/cli@4.0.454", "", { "dependencies": { "@remotion/bundler": "4.0.454", "@remotion/media-utils": "4.0.454", "@remotion/player": "4.0.454", "@remotion/renderer": "4.0.454", "@remotion/studio": "4.0.454", "@remotion/studio-server": "4.0.454", "@remotion/studio-shared": "4.0.454", "dotenv": "17.3.1", "minimist": "1.2.6", "prompts": "2.4.2", "remotion": "4.0.454" }, "peerDependencies": { "react": ">=16.8.0", "react-dom": ">=16.8.0" }, "bin": { "remotion": "remotion-cli.js", "remotionb": "remotionb-cli.js", "remotiond": "remotiond-cli.js" } }, "sha512-SOrpd1XuxM5SDfQ3ctDsl0RTd21Y8ywFtpd8e6viu0LsMaOn8RdTtn4PXOfi92wE5wZXDd85F+EvOI9qWGwSZw=="],
 
     "@contractspec/lib.video-gen/remotion": ["remotion@4.0.454", "", { "peerDependencies": { "react": ">=16.8.0", "react-dom": ">=16.8.0" } }, "sha512-NGzA7HLBpzRPo1jAyLGXG7AaAdUYHJ18n06GM3nBvFkC5zVZua+2rhezxDTkMJFEMgL54cRQ2Zw/2yd3cWCRbg=="],
@@ -10541,6 +10596,16 @@
 
     "@composio/core/chalk/supports-color": ["supports-color@7.2.0", "", { "dependencies": { "has-flag": "^4.0.0" } }, "sha512-qpCAvRl9stuOHveKsn7HncJRvv501qIacKzQlO/+Lwxc9+0q2wLyv4Dfvt80/DPn2pqOBsJdDiogXGR9+OvwRw=="],
 
+    "@contractspec/lib.design-system/expo-router/@expo/metro-runtime": ["@expo/metro-runtime@6.1.2", "", { "dependencies": { "anser": "^1.4.9", "pretty-format": "^29.7.0", "stacktrace-parser": "^0.1.10", "whatwg-fetch": "^3.0.0" }, "peerDependencies": { "expo": "*", "react": "*", "react-dom": "*", "react-native": "*" }, "optionalPeers": ["react-dom"] }, "sha512-nvM+Qv45QH7pmYvP8JB1G8JpScrWND3KrMA6ZKe62cwwNiX/BjHU28Ear0v/4bQWXlOY0mv6B8CDIm8JxXde9g=="],
+
+    "@contractspec/lib.design-system/expo-router/@expo/schema-utils": ["@expo/schema-utils@0.1.8", "", {}, "sha512-9I6ZqvnAvKKDiO+ZF8BpQQFYWXOJvTAL5L/227RUbWG1OVZDInFifzCBiqAZ3b67NRfeAgpgvbA7rejsqhY62A=="],
+
+    "@contractspec/lib.design-system/expo-router/@radix-ui/react-slot": ["@radix-ui/react-slot@1.2.0", "", { "dependencies": { "@radix-ui/react-compose-refs": "1.1.2" }, "peerDependencies": { "@types/react": "*", "react": "^16.8 || ^17.0 || ^18.0 || ^19.0 || ^19.0.0-rc" }, "optionalPeers": ["@types/react"] }, "sha512-ujc+V6r0HNDviYqIK3rW4ffgYiZ8g5DEHrGJVk4x7kTlLXRDILnKX9vAUYeIsLOoDpDJ0ujpqMkjH4w2ofuo6w=="],
+
+    "@contractspec/lib.design-system/expo-router/expo-server": ["expo-server@1.0.6", "", {}, "sha512-vb5TBtskvEdzYuW79lATXutOEBfW5m6U4EFpNjCVZTnI7S//SAsLQkYEpn+EDfn84m6VQfzSGkIVR6YPaScKFA=="],
+
+    "@contractspec/lib.design-system/expo-router/semver": ["semver@7.6.3", "", { "bin": { "semver": "bin/semver.js" } }, "sha512-oVekP1cKtI+CTDvHWYFUcMtsK/00wmAEfyqKfNdARm8u1wNVhSgaX7A8d4UuIlUI5e84iEwOhs7ZPYRmzU9U6A=="],
+
     "@contractspec/lib.video-gen/@remotion/cli/@remotion/media-utils": ["@remotion/media-utils@4.0.454", "", { "dependencies": { "mediabunny": "1.42.0", "remotion": "4.0.454" }, "peerDependencies": { "react": ">=16.8.0", "react-dom": ">=16.8.0" } }, "sha512-s1d7546xr95Txpt6J4uxAhV19I4WsTjzB1RQRxXkwqqzDTkFkFiPOBMGVJKjFIdmg8VFhKwAk6dvohbd346gTw=="],
 
     "@contractspec/lib.video-gen/@remotion/cli/@remotion/studio": ["@remotion/studio@4.0.454", "", { "dependencies": { "@remotion/media-utils": "4.0.454", "@remotion/player": "4.0.454", "@remotion/renderer": "4.0.454", "@remotion/studio-shared": "4.0.454", "@remotion/web-renderer": "4.0.454", "@remotion/zod-types": "4.0.454", "mediabunny": "1.42.0", "memfs": "3.4.3", "open": "^8.4.2", "remotion": "4.0.454", "semver": "7.5.3", "source-map": "0.7.3", "zod": "4.3.6" }, "peerDependencies": { "react": ">=16.8.0", "react-dom": ">=16.8.0" } }, "sha512-uZPbmHS/+w9WbZ0o6sC/Ha2SHwEDfVnjjR8zmu2rJKfv3vtdAmIXkEuYFzJ3KHv9g0KRLV/GpiQLO+00dLb3mg=="],
@@ -11576,8 +11641,6 @@
     "normalize-package-data/hosted-git-info/lru-cache": ["lru-cache@10.4.3", "", {}, "sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ=="],
 
     "npm-package-arg/hosted-git-info/lru-cache": ["lru-cache@10.4.3", "", {}, "sha512-JNAzZcXrCt42VGLuYz0zfAzDfAvJWW6AfYlDBQyDV5DClI2m5sAmK+OIO7s59XfsRsWHp02jAJrRadPRGTt6SQ=="],
-
-    "ollama-ai-provider/@ai-sdk/provider-utils/zod": ["zod@3.25.76", "", {}, "sha512-gzUt/qt81nXsFGKIFcC3YnfEAx5NkunCfnDlvuBSSFS02bcXu4Lmea0AFIUwbLWxWPx3d9p8S5QoaujKcNQxcQ=="],
 
     "p-locate/p-limit/yocto-queue": ["yocto-queue@1.2.2", "", {}, "sha512-4LCcse/U2MHZ63HAJVE+v71o7yOdIe4cZ70Wpf8D/IyjDKYQLV5GD46B+hSTjJsvV5PztjvHoU580EftxjDZFQ=="],
 

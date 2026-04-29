@@ -29,7 +29,8 @@
 	},
 	"dependencies": {
 		"@contractspec/lib.contracts-spec": "workspace:*",
-		"@contractspec/lib.data-exchange-core": "workspace:*"
+		"@contractspec/lib.data-exchange-core": "workspace:*",
+		"@contractspec/lib.schema": "workspace:*"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",

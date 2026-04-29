@@ -40,6 +40,11 @@ describe('detectAuthoringTargetFromCodeBlock', () => {
 		).toBe('product-intent');
 		expect(
 			detectAuthoringTargetFromCodeBlock(
+				"export const PortalPwa = definePwaAppManifest({ meta: { key: 'portal.pwa', version: '1.0.0' }, defaultUpdatePolicy: { mode: 'optional', minimumVersion: '1.0.0' }, releases: [] });"
+			)
+		).toBe('pwa-app');
+		expect(
+			detectAuthoringTargetFromCodeBlock(
 				"export const SmokeSuite = defineHarnessSuite({ meta: { key: 'smoke.suite', version: '1.0.0' }, scenarios: [] });"
 			)
 		).toBe('harness-suite');
@@ -78,6 +83,9 @@ describe('inferAuthoringTargetFromFilePath', () => {
 				'src/product-intent/activation.product-intent.ts'
 			)
 		).toBe('product-intent');
+		expect(inferAuthoringTargetFromFilePath('src/pwa/portal.pwa-app.ts')).toBe(
+			'pwa-app'
+		);
 		expect(
 			inferAuthoringTargetFromFilePath('src/harness/smoke.harness-scenario.ts')
 		).toBe('harness-scenario');
@@ -107,6 +115,7 @@ describe('authoring target defaults', () => {
 		expect(getAuthoringTargetDefaultSubdirectory('product-intent')).toBe(
 			'product-intent'
 		);
+		expect(getAuthoringTargetDefaultSubdirectory('pwa-app')).toBe('pwa');
 		expect(getAuthoringTargetDefaultSubdirectory('harness-suite')).toBe(
 			'harness/suites'
 		);
@@ -121,6 +130,9 @@ describe('authoring target defaults', () => {
 				translationLocale: 'en-US',
 			})
 		).toBe('app-messages.en-US.translation.ts');
+		expect(getAuthoringTargetDefaultFileName('pwa-app', 'portal.web')).toBe(
+			'portal-web.pwa-app.ts'
+		);
 		expect(getAuthoringTargetDefaultFileName('example', 'any.key')).toBe(
 			'example.ts'
 		);

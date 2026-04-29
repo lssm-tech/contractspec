@@ -21,6 +21,10 @@ or
 
 Import the root entrypoint from `@contractspec/lib.contracts-runtime-server-rest`, or choose a documented subpath when you only need one part of the package surface.
 
+### PWA update checks
+
+`createPwaUpdateCheckHandler` from `@contractspec/lib.contracts-runtime-server-rest/pwa-update` turns a manifest resolver into a handler for the `pwa.update.check` contract. It merges app defaults with release overrides and returns `none`, `optional`, or `required` update decisions.
+
 ## Architecture
 
 - `src/contracts-adapter-hydration.ts` is part of the package's public or composition surface.
@@ -41,6 +45,7 @@ Import the root entrypoint from `@contractspec/lib.contracts-runtime-server-rest
 - Export `./rest-generic` resolves through `./src/rest-generic.ts`.
 - Export `./rest-next-app` resolves through `./src/rest-next-app.ts`.
 - Export `./rest-next-pages` resolves through `./src/rest-next-pages.ts`.
+- Export `./pwa-update` resolves through `./src/pwa-update.ts`.
 
 ## Local Commands
 

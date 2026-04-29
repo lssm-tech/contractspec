@@ -85,6 +85,9 @@ describe('inferSpecTypeFromFilePath', () => {
 				'src/product-intent/activation.product-intent.ts'
 			)
 		).toBe('product-intent');
+		expect(inferSpecTypeFromFilePath('src/pwa/portal.pwa-app.ts')).toBe(
+			'pwa-app'
+		);
 		expect(
 			inferSpecTypeFromFilePath('src/harness/smoke.harness-scenario.ts')
 		).toBe('harness-scenario');
@@ -212,6 +215,12 @@ describe('scanSpecSource', () => {
 				'src/activation.product-intent.ts'
 			)
 		).toMatchObject({ specType: 'product-intent', kind: 'product-intent' });
+		expect(
+			scanSpecSource(
+				"export const manifest = definePwaAppManifest({ meta: { key: 'portal.pwa', version: '1.0.0' }, defaultUpdatePolicy: { mode: 'optional', minimumVersion: '1.0.0' }, releases: [] });",
+				'src/portal.pwa-app.ts'
+			)
+		).toMatchObject({ specType: 'pwa-app', kind: 'pwa-app' });
 		expect(
 			scanSpecSource(
 				"export const scenario = defineHarnessScenario({ meta: { key: 'smoke.scenario', version: '1.0.0' }, target: {}, allowedModes: ['deterministic-browser'], steps: [], assertions: [] });",
@@ -358,6 +367,22 @@ describe('scanAllSpecsFromSource', () => {
 		expect(results).toHaveLength(1);
 		// Should include the closing );
 		expect(results[0]?.sourceBlock).toBe(code);
+	});
+
+	it('extracts PWA app manifests from exported definitions', () => {
+		const code = `export const manifest = definePwaAppManifest({
+  meta: { key: 'portal.pwa', version: '1.0.0' },
+  defaultUpdatePolicy: { mode: 'optional', minimumVersion: '1.0.0' },
+  releases: []
+});`;
+		const results = scanAllSpecsFromSource(code, 'src/portal.pwa-app.ts');
+		expect(results).toHaveLength(1);
+		expect(results[0]).toMatchObject({
+			exportName: 'manifest',
+			specType: 'pwa-app',
+			kind: 'pwa-app',
+			key: 'portal.pwa',
+		});
 	});
 
 	it('resolves spread variables in source block', () => {

@@ -82,7 +82,7 @@ export function scanAllSpecsFromSource(
 
 	// Match export definitions: export const X = defineXXX calls
 	const definitionRegex =
-		/export\s+const\s+(\w+)\s*=\s*define(Command|Query|Event|Presentation|Capability|Policy|Example|AppConfig|Integration|Workflow|TestSpec|Feature|FormSpec|DataView|Migration|Telemetry|Experiment|KnowledgeSpace|Visualization|Agent|HarnessScenario|HarnessSuite|Job|Translation|ProductIntentSpec|Theme|ModuleBundle)\s*\(/g;
+		/export\s+const\s+(\w+)\s*=\s*define(Command|Query|Event|Presentation|Capability|Policy|Example|AppConfig|Integration|Workflow|TestSpec|Feature|FormSpec|DataView|Migration|Telemetry|Experiment|KnowledgeSpace|Visualization|Agent|HarnessScenario|HarnessSuite|Job|Translation|ProductIntentSpec|PwaAppManifest|Theme|ModuleBundle)\s*\(/g;
 	let match;
 
 	while ((match = definitionRegex.exec(code)) !== null) {

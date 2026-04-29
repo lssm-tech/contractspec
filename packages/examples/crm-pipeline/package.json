@@ -73,13 +73,14 @@
 		"@contractspec/lib.example-shared-ui": "workspace:*",
 		"@contractspec/lib.identity-rbac": "workspace:*",
 		"@contractspec/lib.notification": "workspace:*",
+		"@contractspec/lib.presentation-runtime-core": "workspace:*",
+		"@contractspec/lib.presentation-runtime-react": "workspace:*",
 		"@contractspec/lib.runtime-sandbox": "workspace:*",
 		"@contractspec/lib.schema": "workspace:*",
 		"@contractspec/lib.ui-kit-web": "workspace:*",
 		"@contractspec/module.audit-trail": "workspace:*",
 		"react": "catalog:",
-		"react-dom": "catalog:",
-		"@contractspec/lib.presentation-runtime-core": "workspace:*"
+		"react-dom": "catalog:"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",

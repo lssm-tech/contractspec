@@ -26,6 +26,8 @@ import { createThemeSpec } from './create-theme';
 import { createWorkflowSpec } from './create-workflow';
 import type { CreateOptions } from './types';
 
+type CreateHandler = (options: CreateOptions, config: Config) => Promise<void>;
+
 export async function createCommand(options: CreateOptions, config: Config) {
 	console.log(chalk.bold.blue('\n📝 Contract Spec Creator\n'));
 
@@ -89,6 +91,8 @@ export async function createCommand(options: CreateOptions, config: Config) {
 			createAdditionalContractSpec('agent', opts, cfg),
 		'product-intent': (opts: CreateOptions, cfg: Config) =>
 			createAdditionalContractSpec('product-intent', opts, cfg),
+		'pwa-app': (opts: CreateOptions, cfg: Config) =>
+			createAdditionalContractSpec('pwa-app', opts, cfg),
 		'harness-scenario': (opts: CreateOptions, cfg: Config) =>
 			createAdditionalContractSpec('harness-scenario', opts, cfg),
 		'harness-suite': (opts: CreateOptions, cfg: Config) =>
@@ -96,7 +100,10 @@ export async function createCommand(options: CreateOptions, config: Config) {
 		'module-bundle': createModuleBundleSpec,
 		'builder-spec': createBuilderSpecPackage,
 		'provider-spec': createProviderSpecPackage,
-	} as const;
+	} as const satisfies Record<
+		NonNullable<CreateOptions['type']>,
+		CreateHandler
+	>;
 
 	const handler = specType ? handlers[specType] : undefined;
 	if (!handler) {

@@ -62,6 +62,12 @@ minimum-query metadata. The contract stays transport-neutral: host renderers
 provide the resolver/fetcher, and value submission is controlled by
 `valueMapping` (`scalar`, `object`, or `pick`).
 
+FormSpec phone fields support first-class country metadata. On a
+`kind: "phone"` field, use `input` to choose a single linked input or split
+country/national inputs, `output` to store a `PhoneFormValue`, one E.164
+string, or split linked paths, and `display`/`country` to control flags,
+calling codes, default country, and automatic country detection.
+
 ## Typed Results
 
 `@contractspec/lib.contracts-spec/results` is the canonical success/failure
@@ -188,7 +194,9 @@ runtime.tUnknown("cart.items", { count: 3 }); // "3 items"
 
 - Prefer `meta.key: "bundle.messages"` plus `locale: "fr-FR"` over keys like `bundle.messages.fr-FR`.
 - Existing `createI18nFactory` helpers remain available for legacy/simple package catalogs, but new production integrations should use `@contractspec/lib.translation-runtime`.
-- i18next can be added as an export/adapter target, but it must remain downstream of ContractSpec specs and must not become the canonical representation.
+- i18next adapter support lives downstream at `@contractspec/lib.translation-runtime/i18next`. It projects ContractSpec specs/snapshots to i18next resources and metadata manifests, but ContractSpec specs remain canonical.
+- Do not encode locale in i18next namespaces or stable translation keys. Use `TranslationSpec.locale` for the language and `TranslationSpec.meta.key` (or an explicit namespace strategy) for the namespace.
+- ICU messages are exported intact for i18next. Configure an ICU-capable i18next format plugin when using i18next to render ContractSpec ICU plural/select/selectordinal messages.
 - For SSR, create a runtime per request, preload required catalogs, serialize `runtime.snapshot()`, and hydrate the client from the same snapshot before doing client-side locale detection.
 - For React Native, the core runtime uses no DOM APIs; hosts are responsible for locale detection and any required `Intl` polyfills.
 
@@ -716,3 +724,9 @@ Runtime packages moved out:
 - MCP runtime -> `@contractspec/lib.contracts-runtime-server-mcp`
 - React runtime -> `@contractspec/lib.contracts-runtime-client-react`
 - Integration contracts -> `@contractspec/lib.contracts-integrations`
+
+## PWA Update Contracts
+
+Use `@contractspec/lib.contracts-spec/pwa` to declare app-level PWA update policy and the `pwa.update.check` query. `defaultUpdatePolicy` sets the application behavior, while each release can override it for required/blocking updates or heavily offline-compatible optional updates.
+
+The contract standardizes update decisions and prompt telemetry; host apps still own service worker registration and activation.

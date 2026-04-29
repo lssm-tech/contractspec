@@ -288,6 +288,32 @@ Website: https://contractspec.io
 - Web mapping studio components built on the existing web data-table stack.
 - Native mapping studio components built on the existing mobile data-table stack.
 
+## Template Mapping UI State
+
+The shared controller exposes template-aware rows so web and native surfaces can show recommended columns, matched source columns, confidence, formatting summaries, required gaps, and ignored source columns.
+
+```tsx
+import { useDataExchangeController } from "@contractspec/lib.data-exchange-client";
+
+function ImportReview({ preview }) {
+	const controller = useDataExchangeController({ preview });
+
+	return (
+		<ul>
+			{(controller.model.templateRows ?? []).map((row) => (
+				<li key={row.id}>
+					{row.label}: {row.sourceField || "Unmatched"} -&gt;{" "}
+					{row.targetField}
+					{row.formatLabel ? ` (${row.formatLabel})` : ""}
+				</li>
+			))}
+		</ul>
+	);
+}
+```
+
+Users can remap columns, select aliases, update field formats, reset to the developer template, or accept inferred mappings through controller actions.
+
 
 ---
 
@@ -1376,6 +1402,10 @@ or
 
 Import the root entrypoint from `@contractspec/lib.contracts-runtime-server-rest`, or choose a documented subpath when you only need one part of the package surface.
 
+### PWA update checks
+
+`createPwaUpdateCheckHandler` from `@contractspec/lib.contracts-runtime-server-rest/pwa-update` turns a manifest resolver into a handler for the `pwa.update.check` contract. It merges app defaults with release overrides and returns `none`, `optional`, or `required` update decisions.
+
 ## Architecture
 
 - `src/contracts-adapter-hydration.ts` is part of the package's public or composition surface.
@@ -1396,6 +1426,7 @@ Import the root entrypoint from `@contractspec/lib.contracts-runtime-server-rest
 - Export `./rest-generic` resolves through `./src/rest-generic.ts`.
 - Export `./rest-next-app` resolves through `./src/rest-next-app.ts`.
 - Export `./rest-next-pages` resolves through `./src/rest-next-pages.ts`.
+- Export `./pwa-update` resolves through `./src/pwa-update.ts`.
 
 ## Local Commands
 
@@ -2044,6 +2075,10 @@ different result set. Custom autocomplete driver slots can read optional
 `loading`, `error`, `emptyText`, `loadingText`, and `errorText` props to expose
 async state.
 
+### PWA update checks
+
+`usePwaUpdateChecker` from `@contractspec/lib.contracts-runtime-client-react/pwa-update-client` checks the `pwa.update.check` API, exposes required/blocking versus optional update state, supports polling, and delegates actual service worker activation to a host-provided `onApply` callback.
+
 ## Architecture
 
 - `src/drivers` is part of the package's public or composition surface.
@@ -2060,6 +2095,7 @@ async state.
 - Export `./feature-render` resolves through `./src/feature-render.ts`.
 - Export `./form-render` resolves through `./src/form-render.ts`.
 - Export `./form-render.impl` resolves through `./src/form-render.impl.tsx`.
+- Export `./pwa-update-client` resolves through `./src/pwa-update-client.tsx`.
 
 ## Local Commands
 
@@ -2632,6 +2668,12 @@ minimum-query metadata. The contract stays transport-neutral: host renderers
 provide the resolver/fetcher, and value submission is controlled by
 `valueMapping` (`scalar`, `object`, or `pick`).
 
+FormSpec phone fields support first-class country metadata. On a
+`kind: "phone"` field, use `input` to choose a single linked input or split
+country/national inputs, `output` to store a `PhoneFormValue`, one E.164
+string, or split linked paths, and `display`/`country` to control flags,
+calling codes, default country, and automatic country detection.
+
 ## Typed Results
 
 `@contractspec/lib.contracts-spec/results` is the canonical success/failure
@@ -2758,7 +2800,9 @@ runtime.tUnknown("cart.items", { count: 3 }); // "3 items"
 
 - Prefer `meta.key: "bundle.messages"` plus `locale: "fr-FR"` over keys like `bundle.messages.fr-FR`.
 - Existing `createI18nFactory` helpers remain available for legacy/simple package catalogs, but new production integrations should use `@contractspec/lib.translation-runtime`.
-- i18next can be added as an export/adapter target, but it must remain downstream of ContractSpec specs and must not become the canonical representation.
+- i18next adapter support lives downstream at `@contractspec/lib.translation-runtime/i18next`. It projects ContractSpec specs/snapshots to i18next resources and metadata manifests, but ContractSpec specs remain canonical.
+- Do not encode locale in i18next namespaces or stable translation keys. Use `TranslationSpec.locale` for the language and `TranslationSpec.meta.key` (or an explicit namespace strategy) for the namespace.
+- ICU messages are exported intact for i18next. Configure an ICU-capable i18next format plugin when using i18next to render ContractSpec ICU plural/select/selectordinal messages.
 - For SSR, create a runtime per request, preload required catalogs, serialize `runtime.snapshot()`, and hydrate the client from the same snapshot before doing client-side locale detection.
 - For React Native, the core runtime uses no DOM APIs; hosts are responsible for locale detection and any required `Intl` polyfills.
 
@@ -3287,6 +3331,12 @@ Runtime packages moved out:
 - React runtime -> `@contractspec/lib.contracts-runtime-client-react`
 - Integration contracts -> `@contractspec/lib.contracts-integrations`
 
+## PWA Update Contracts
+
+Use `@contractspec/lib.contracts-spec/pwa` to declare app-level PWA update policy and the `pwa.update.check` query. `defaultUpdatePolicy` sets the application behavior, while each release can override it for required/blocking updates or heavily offline-compatible optional updates.
+
+The contract standardizes update decisions and prompt telemetry; host apps still own service worker registration and activation.
+
 
 ---
 
@@ -3573,6 +3623,32 @@ runtime.t("cart.itemCount", { count: 3 });
 
 Create a runtime per request. Preload the catalogs needed by the server render, serialize `runtime.snapshot()`, and hydrate the client from `createTranslationRuntimeFromSnapshot(snapshot)`. Do not renegotiate locale during the first client render.
 
+## Optional i18next adapter
+
+i18next is an optional downstream adapter, not the canonical ContractSpec model. Import it through the dedicated subpath so core runtime consumers do not load i18next:
+
+```ts
+import { createInstance } from "i18next";
+import {
+  createI18nextInitOptions,
+  exportTranslationSnapshotToI18next,
+} from "@contractspec/lib.translation-runtime/i18next";
+
+const exported = exportTranslationSnapshotToI18next(runtime.snapshot(), {
+  assumeIcuFormatter: true,
+});
+const { options, diagnostics } = createI18nextInitOptions(exported);
+const i18next = createInstance();
+
+await i18next.init(options);
+```
+
+The adapter exports resources as `{ [locale]: { [namespace]: { [messageKey]: string } } }`. `TranslationSpec.locale` becomes the i18next language, while the namespace defaults to the stable `TranslationSpec.meta.key`. Flat ContractSpec keys such as `"cart.items"` remain flat because generated init options set `keySeparator: false`.
+
+ContractSpec ICU messages are exported intact. i18next does not use ICU as its default JSON format, so apps that call `i18next.t()` for ICU plural/select/selectordinal messages must install and configure an ICU-capable i18next format plugin such as `i18next-icu`. The adapter reports `i18next_icu_plugin_required` unless you explicitly acknowledge that formatting layer.
+
+For SSR, export from the same runtime snapshot used by the server render and reuse those resources/options on the client. Do not let client-only language detection renegotiate the first hydrated render. For React Native, pass the host-selected locale explicitly; the adapter does not use DOM APIs or browser storage.
+
 ## React Native
 
 The core runtime uses no DOM APIs. Locale detection is host-owned; pass device or user locales into `requestedLocales`. Ensure the host JS engine provides the required `Intl` APIs or install platform polyfills before using the default formatter.
@@ -3769,6 +3845,67 @@ Website: https://contractspec.io
 ## Usage
 
 Import the root entrypoint from `@contractspec/lib.data-exchange-server`, or use `./adapters`, `./services`, and `./workflow`.
+
+## Template-Aware Imports
+
+Server dry-runs and executions accept the same import templates as core. This lets users upload partner-specific CSV/JSON/XML layouts while the server previews normalized records before writing them.
+
+```ts
+import { defineDataExchangeTemplate } from "@contractspec/lib.data-exchange-core";
+import { dryRunImport, executeImport } from "@contractspec/lib.data-exchange-server";
+
+const template = defineDataExchangeTemplate({
+	key: "invoices.import",
+	version: "1.0.0",
+	columns: [
+		{
+			key: "id",
+			label: "Invoice ID",
+			targetField: "id",
+			required: true,
+			sourceAliases: ["Invoice Number", "No facture"],
+		},
+		{
+			key: "amount",
+			label: "Amount",
+			targetField: "amount",
+			format: {
+				kind: "number",
+				decimalSeparator: ",",
+				thousandsSeparator: ".",
+			},
+		},
+	],
+});
+
+const preview = await dryRunImport({
+	source: {
+		kind: "file",
+		path: "partner.csv",
+		format: "csv",
+		codecOptions: { csv: { delimiter: ";", skipRows: 1 } },
+	},
+	target: { kind: "memory", format: "json" },
+	schema: InvoiceImportSchema,
+	template,
+});
+
+if (preview.issues.every((issue) => issue.severity !== "error")) {
+	await executeImport({
+		source: {
+			kind: "file",
+			path: "partner.csv",
+			format: "csv",
+			codecOptions: { csv: { delimiter: ";", skipRows: 1 } },
+		},
+		target: { kind: "memory", format: "json" },
+		schema: InvoiceImportSchema,
+		template,
+	});
+}
+```
+
+Execution audit entries record whether mappings came from explicit mappings, template resolution, or inference.
 
 
 ---
@@ -6045,28 +6182,41 @@ const address = {
   kind: "address",
   label: "10 Downing Street",
   value: "10 Downing Street, London",
+  properties: [
+    { id: "site-phone", kind: "phone", label: "Phone", value: "+33 1 23 45 67 89" },
+    { id: "site-email", kind: "email", label: "Email", value: "hello@example.com" },
+  ],
 } as const;
 
 <ObjectReferenceHandler
   reference={address}
   interactivityVisibility="icon"
   actions={createMapsReferenceActions(address)}
-  openHref={(href) => window.open(href, "_blank", "noopener,noreferrer")}
+  openTarget="new-page"
+  panelMode="responsive"
 />;
 ```
 
 The descriptor and action descriptor types are intentionally data-only:
-`id`, `kind`, `label`, `value`, `href`, `metadata`, and optional `iconKey`.
+`id`, `kind`, `label`, `value`, `href`, `openTarget`, nested `properties`,
+`sections`, `metadata`, and optional `iconKey`. Nested properties are regular
+object reference descriptors, so a `user` reference can display email, phone,
+address, file, and URL interactions in the same panel.
 Runtime behavior belongs in props such as `actionHandlers`, `copyHandler`,
-`openHref`, `renderTrigger`, `renderDetail`, `renderAction`, and
-`iconRenderer`. This keeps the surface compatible with future declarative
-ContractSpec schema work without making React callbacks part of the descriptor
-contract.
+`openHref`, `renderTrigger`, `renderDetail`, `renderAction`, `renderProperty`,
+`renderSection`, and `iconRenderer`. This keeps the surface compatible with
+future declarative ContractSpec schema work without making React callbacks part
+of the descriptor contract.
 
-Web renders the interaction surface with the existing sheet primitives. Native
-exports the same prop contract through the focused object-reference subpath and
-uses a disclosure-style fallback until `@contractspec/lib.ui-kit` provides a
-real native sheet primitive.
+Web uses the exported `AdaptivePanel` primitive by default:
+`panelMode="responsive"` renders a sheet on desktop and a bottom drawer on small
+screens. Use `AdaptivePanel` directly for the same sheet/drawer decision outside
+object references, or set `panelMode="sheet"` / `panelMode="drawer"` to force
+one presentation. Detail links default to same-page navigation; set
+`openTarget="new-page"` on the handler, reference, or action to open in a new
+page. Native exports the same prop contract through the focused object-reference
+subpath and uses a disclosure-style fallback until `@contractspec/lib.ui-kit`
+provides a real native sheet primitive.
 
 ### Render forms on mobile through the shared renderer
 
@@ -6076,6 +6226,13 @@ Expo or React Native apps:
 ```tsx
 import { formRenderer } from "@contractspec/lib.design-system/renderers";
 ```
+
+The shared FormSpec renderer includes a first-class phone field implementation
+that displays country flags, parses international input with
+`libphonenumber-js`, and keeps single-input or split country/national controls
+linked. Contracts can configure behavior through a phone field's `input`,
+`output`, `country`, and `display` options; host apps can set package-wide
+defaults by passing `phone` overrides to `createFormRenderer`.
 
 Expo apps must keep the presentation Metro aliases enabled so design-system
 imports of `@contractspec/lib.ui-kit-web/ui/*` are remapped to
@@ -6543,6 +6700,60 @@ or
 ## Usage
 
 Import the root entrypoint from `@contractspec/lib.data-exchange-core`, or use subpaths such as `./codecs`, `./mapping`, `./plans`, `./preview`, `./records`, `./schema`, and `./types`.
+
+## Import Templates
+
+Developers can define the recommended import shape once, then let users upload files with different column labels or value formats:
+
+```ts
+import {
+	createImportPlan,
+	createRecordBatch,
+	defineDataExchangeTemplate,
+	previewImport,
+} from "@contractspec/lib.data-exchange-core";
+
+const template = defineDataExchangeTemplate({
+	key: "accounts.import",
+	version: "1.0.0",
+	columns: [
+		{
+			key: "id",
+			label: "Account ID",
+			targetField: "id",
+			required: true,
+			sourceAliases: ["Account Identifier", "External ID"],
+		},
+		{
+			key: "amount",
+			label: "Amount",
+			targetField: "amount",
+			format: {
+				kind: "number",
+				decimalSeparator: ",",
+				thousandsSeparator: ".",
+			},
+		},
+	],
+});
+
+const sourceBatch = createRecordBatch([
+	{ "Account Identifier": "acc-1", Amount: "1.234,50" },
+]);
+
+const preview = previewImport(
+	createImportPlan({
+		source: { kind: "memory", batch: sourceBatch, format: "csv" },
+		target: { kind: "memory", format: "json" },
+		schema: AccountImportSchema,
+		sourceBatch,
+		template,
+	})
+);
+```
+
+Template resolution uses exact headers, aliases, normalized labels, and SchemaModel fallback inference. Explicit `mappings` still override template mappings.
+`defineImportTemplate` remains available as a backwards-compatible import-specific alias.
 
 
 ---
@@ -8849,6 +9060,9 @@ URL: /llms/app.web-landing
 - Serves docs, registry, sandbox, and operate surfaces while keeping their shared shell consistent with the public brand system.
 - Shares example preview rendering across docs, `/templates`, and `/sandbox`, with rich UI for UI-backed examples and fallback cards for the rest of the discoverable catalog.
 - Publishes `/llms`, `/llms.txt`, `/llms-full.txt`, and package-specific `/llms/[slug]` endpoints for agent-friendly repo guidance.
+- Documents design-system adoption guidance for shared interaction patterns such as `ObjectReferenceHandler` and `AdaptivePanel`, including human-readable docs and agent-facing `/llms*` prompts.
+- Documents ContractSpec translation runtime guidance, including the optional i18next adapter, SSR/hydration rules, production checks, and an agent implementation prompt.
+- Documents data-exchange flexible import-template guidance at `/docs/guides/data-exchange-import-templates`, including developer templates, user remapping flows, server dry-runs, format profiles, verification commands, and copy-ready prompts.
 
 ## Architecture
 
@@ -8885,6 +9099,9 @@ This package should stay thin:
 - Route changes here affect SEO, external links, and agent-discovery flows; keep URL stability high.
 - Branding changes in this package must stay aligned with root docs, generated root AGENTS content, and `public/llms.txt`.
 - When updating the public shell, verify that docs and `/llms*` remain readable; this package serves more than the marketing homepage.
+- Keep `/docs/libraries/design-system` and `/llms/lib.design-system` aligned when documenting object references, adaptive panels, or other interaction primitives that downstream apps should adopt consistently.
+- Keep `/docs/libraries/translation-runtime`, `/llms/[lib.translation-runtime]`, and `@contractspec/lib.translation-runtime` README guidance aligned when documenting i18n runtime or adapter behavior.
+- Keep `/docs/guides/data-exchange-import-templates`, `/llms/lib.data-exchange-core`, `/llms/lib.data-exchange-client`, and `/llms/lib.data-exchange-server` aligned when documenting import templates, flexible column mapping, dry-runs, or mapping-review prompts.
 
 
 ---

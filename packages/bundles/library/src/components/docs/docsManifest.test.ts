@@ -26,6 +26,7 @@ describe('docs manifest learning paths', () => {
 		expect(buildHrefs).toContain('/docs/guides/connect-in-a-repo');
 		expect(buildHrefs).toContain('/docs/guides/first-module-bundle');
 		expect(buildHrefs).toContain('/docs/guides/host-builder-workbench');
+		expect(buildHrefs).toContain('/docs/guides/data-exchange-import-templates');
 	});
 
 	it('promotes DataView tutorial and preference docs in primary navigation', () => {
@@ -128,6 +129,14 @@ describe('docs manifest learning paths', () => {
 			buildHrefs.indexOf('/docs/guides/host-builder-workbench')
 		).toBeGreaterThan(buildHrefs.indexOf('/docs/guides/first-module-bundle'));
 		expect(
+			buildHrefs.indexOf('/docs/guides/data-exchange-import-templates')
+		).toBeGreaterThan(buildHrefs.indexOf('/docs/guides/contract-driven-forms'));
+		expect(
+			buildHrefs.indexOf('/docs/guides/data-exchange-import-templates')
+		).toBeLessThan(
+			buildHrefs.indexOf('/docs/guides/generate-docs-clients-schemas')
+		);
+		expect(
 			buildHrefs.indexOf('/docs/guides/connect-in-a-repo')
 		).toBeGreaterThan(
 			buildHrefs.indexOf('/docs/guides/host-builder-workbench')
@@ -140,6 +149,7 @@ describe('docs manifest learning paths', () => {
 			'/docs/guides/connect-in-a-repo',
 			'/docs/specs/module-bundles',
 			'/docs/guides/first-module-bundle',
+			'/docs/guides/data-exchange-import-templates',
 			'/docs/specs/builder-control-plane',
 			'/docs/guides/host-builder-workbench',
 			'/docs/architecture',

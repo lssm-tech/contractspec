@@ -37,6 +37,11 @@ export interface HarnessSuiteSpecTemplateData extends BaseTemplateData {
 	scenarioVersion?: string;
 }
 
+export interface PwaAppManifestSpecTemplateData extends BaseTemplateData {
+	appId?: string;
+	currentRelease?: string;
+}
+
 export function generateExampleSpec(data: ExampleSpecTemplateData): string {
 	const packageName =
 		data.packageName ??
@@ -184,6 +189,44 @@ export const ${toPascalCase(data.key)}HarnessSuite = defineHarnessSuite({
   ],
   summary: '${escape(data.description)}',
   tags: [${renderStringArray(data.tags)}],
+});
+`;
+}
+
+export function generatePwaAppManifestSpec(
+	data: PwaAppManifestSpecTemplateData
+): string {
+	const currentRelease = data.currentRelease ?? data.version;
+
+	return `import { definePwaAppManifest } from '@contractspec/lib.contracts-spec/pwa';
+
+export const ${toPascalCase(data.key)}PwaApp = definePwaAppManifest({
+  meta: {
+    key: '${data.key}',
+    version: '${data.version}',
+    appId: '${data.appId ?? data.key}',
+    title: '${escape(resolveTitle(data))}',
+    description: '${escape(data.description)}',
+    domain: '${escape(resolveDomain(data))}',
+    stability: '${data.stability}',
+    owners: [${renderStringArray(data.owners)}],
+    tags: [${renderStringArray(data.tags)}],
+  },
+  currentRelease: '${currentRelease}',
+  defaultUpdatePolicy: {
+    mode: 'optional',
+    minSupportedVersion: '${currentRelease}',
+  },
+  releases: [
+    {
+      version: '${currentRelease}',
+      releasedAt: new Date().toISOString(),
+      notes: 'Initial release manifest.',
+    },
+  ],
+  offline: {
+    supported: true,
+  },
 });
 `;
 }

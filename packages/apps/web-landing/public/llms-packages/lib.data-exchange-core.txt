@@ -22,3 +22,57 @@ or
 ## Usage
 
 Import the root entrypoint from `@contractspec/lib.data-exchange-core`, or use subpaths such as `./codecs`, `./mapping`, `./plans`, `./preview`, `./records`, `./schema`, and `./types`.
+
+## Import Templates
+
+Developers can define the recommended import shape once, then let users upload files with different column labels or value formats:
+
+```ts
+import {
+	createImportPlan,
+	createRecordBatch,
+	defineDataExchangeTemplate,
+	previewImport,
+} from "@contractspec/lib.data-exchange-core";
+
+const template = defineDataExchangeTemplate({
+	key: "accounts.import",
+	version: "1.0.0",
+	columns: [
+		{
+			key: "id",
+			label: "Account ID",
+			targetField: "id",
+			required: true,
+			sourceAliases: ["Account Identifier", "External ID"],
+		},
+		{
+			key: "amount",
+			label: "Amount",
+			targetField: "amount",
+			format: {
+				kind: "number",
+				decimalSeparator: ",",
+				thousandsSeparator: ".",
+			},
+		},
+	],
+});
+
+const sourceBatch = createRecordBatch([
+	{ "Account Identifier": "acc-1", Amount: "1.234,50" },
+]);
+
+const preview = previewImport(
+	createImportPlan({
+		source: { kind: "memory", batch: sourceBatch, format: "csv" },
+		target: { kind: "memory", format: "json" },
+		schema: AccountImportSchema,
+		sourceBatch,
+		template,
+	})
+);
+```
+
+Template resolution uses exact headers, aliases, normalized labels, and SchemaModel fallback inference. Explicit `mappings` still override template mappings.
+`defineImportTemplate` remains available as a backwards-compatible import-specific alias.

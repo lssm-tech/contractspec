@@ -49,6 +49,16 @@ describe('createCommand', () => {
 		);
 	});
 
+	it('dispatches PWA app manifests to the additional creator', async () => {
+		await createCommand({ type: 'pwa-app', ai: false } as never, {} as never);
+
+		expect(createAdditionalContractSpecMock).toHaveBeenCalledWith(
+			'pwa-app',
+			expect.objectContaining({ type: 'pwa-app' }),
+			expect.anything()
+		);
+	});
+
 	it('dispatches workspace package declaration sync when requested', async () => {
 		await createCommand(
 			{ packageDeclarations: true, dryRun: true } as never,

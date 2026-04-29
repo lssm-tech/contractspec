@@ -1,0 +1,58 @@
+schemaVersion: "1"
+slug: web-landing-data-exchange-import-template-docs
+summary: Add public website docs and prompts for flexible data-exchange import templates and user column mapping review.
+isBreaking: false
+packages:
+  - name: "@contractspec/bundle.library"
+    releaseType: patch
+  - name: "@contractspec/app.web-landing"
+    releaseType: patch
+affectedRuntimes:
+  - browser
+affectedFrameworks:
+  - nextjs
+  - react
+audiences:
+  - kind: maintainer
+    summary: Maintainers can point developers at a canonical website guide for import templates, alias matching, format profiles, codec options, and verification.
+    affectedPackages:
+      - "@contractspec/bundle.library"
+      - "@contractspec/app.web-landing"
+  - kind: integrator
+    summary: Integrators can use the public guide and prompts to accept partner CSV, JSON, or XML imports with alternate headers and localized value formats.
+    affectedPackages:
+      - "@contractspec/app.web-landing"
+  - kind: customer
+    summary: Import-review flows can now be explained from the public docs with matched columns, required gaps, ignored source columns, and user remapping actions.
+    affectedPackages:
+      - "@contractspec/app.web-landing"
+deprecations: []
+migrationInstructions:
+  - id: read-import-template-guide
+    title: Use the import-template guide for flexible ingestion flows
+    summary: Start from `/docs/guides/data-exchange-import-templates` when adding a recommended import template that still accepts partner-specific files.
+    required: false
+    steps:
+      - Define a reusable template with target fields, required columns, aliases, and value-format rules.
+      - Dry-run CSV, JSON, or XML files with codec options before execution.
+      - Show the client mapping-review state so users can remap columns or adjust formats before import.
+      - Use `/llms/lib.data-exchange-core`, `/llms/lib.data-exchange-client`, and `/llms/lib.data-exchange-server` for package-specific agent context.
+upgradeSteps:
+  - id: align-import-template-doc-surfaces
+    title: Keep website docs and LLM guides aligned for data-exchange imports
+    summary: When data-exchange template behavior changes, update the package READMEs, public guide, web-landing README, and generated `/llms*` package guides together.
+    level: manual
+    instructions:
+      - Update the data-exchange package READMEs for package-level API behavior.
+      - Update `/docs/guides/data-exchange-import-templates` for end-to-end website guidance.
+      - Regenerate or verify `/llms*` package guides before release.
+validation:
+  commands:
+    - "node scripts/biome.cjs check packages/apps/web-landing/README.md packages/bundles/library/package.json packages/bundles/library/src/components/docs/docsManifest.ts packages/bundles/library/src/components/docs/docsManifest.test.ts packages/bundles/library/src/components/docs/guides/GuidesIndexPage.tsx packages/bundles/library/src/components/docs/guides/GuideDataExchangeImportTemplatesPage.tsx packages/bundles/library/src/components/docs/guides/GuideDataExchangeImportTemplatesPage.content.ts packages/bundles/library/src/components/docs/guides/index.ts packages/apps/web-landing/src/app/docs/guides/data-exchange-import-templates/page.tsx"
+    - "bun test packages/bundles/library/src/components/docs/docsManifest.test.ts"
+    - "bun run --cwd packages/apps/web-landing typecheck"
+  evidence:
+    - "The docs manifest test asserts `/docs/guides/data-exchange-import-templates` resolves and appears in the expected build navigation order."
+    - "The public guide includes template definition, server dry-run, client review, prompt, and verification sections."
+knownGaps:
+  - "Full `@contractspec/bundle.library` typecheck is currently blocked by an unrelated existing `pwa-app` operation-kind mismatch in `packages/modules/workspace/src/analysis/spec-scan.ts`."

@@ -27,7 +27,8 @@
 	},
 	"dependencies": {
 		"@contractspec/integration.runtime": "workspace:*",
-		"@contractspec/lib.contracts-integrations": "workspace:*"
+		"@contractspec/lib.contracts-integrations": "workspace:*",
+		"fathom-typescript": "catalog:integrations"
 	},
 	"devDependencies": {
 		"@contractspec/tool.bun": "workspace:*",

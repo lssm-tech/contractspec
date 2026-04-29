@@ -3,7 +3,10 @@
  */
 
 import type { ContractSpecType } from '@contractspec/lib.contracts-spec';
-import type { PackageAuthoringTargetId } from './authoring-targets';
+import type {
+	AuthoringTargetId,
+	PackageAuthoringTargetId,
+} from './authoring-targets';
 import type { Stability } from './spec-types';
 
 /**
@@ -27,41 +30,20 @@ export type RefType =
 	| 'policy'
 	| 'test';
 
-/**
+type DirectAnalyzedOperationKind = Exclude<
+	AuthoringTargetId,
+	'operation' | 'knowledge'
+>;
+
 /**
  * Operation kind detected from file analysis.
  */
 export type AnalyzedOperationKind =
 	| 'command'
 	| 'query'
-	| 'event'
-	| 'presentation'
-	| 'form'
-	| 'capability'
-	| 'policy'
-	| 'type'
-	| 'example'
-	| 'visualization'
-	| 'agent'
-	| 'app-config'
-	| 'integration'
-	| 'workflow'
-	| 'feature'
-	| 'theme'
-	| 'data-view'
-	| 'migration'
-	| 'telemetry'
-	| 'experiment'
-	| 'job'
-	| 'translation'
-	| 'product-intent'
+	| DirectAnalyzedOperationKind
 	| 'knowledge-space'
-	| 'harness-scenario'
-	| 'harness-suite'
-	| 'module-bundle'
-	| 'builder-spec'
-	| 'provider-spec'
-	| 'test-spec'
+	| 'type'
 	| 'unknown';
 
 /**

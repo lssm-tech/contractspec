@@ -49,9 +49,15 @@
 		"./data-exchange-core.feature": "./src/data-exchange-core.feature.ts",
 		"./mapping": "./src/mapping/index.ts",
 		"./mapping/format": "./src/mapping/format.ts",
+		"./mapping/format-parsers": "./src/mapping/format-parsers.ts",
 		"./mapping/infer": "./src/mapping/infer.ts",
 		"./mapping/rules": "./src/mapping/rules.ts",
 		"./mapping/template": "./src/mapping/template.ts",
+		"./mapping/template-builders": "./src/mapping/template-builders.ts",
+		"./mapping/template-define": "./src/mapping/template-define.ts",
+		"./mapping/template-format": "./src/mapping/template-format.ts",
+		"./mapping/template-matchers": "./src/mapping/template-matchers.ts",
+		"./mapping/template-results": "./src/mapping/template-results.ts",
 		"./plans": "./src/plans/index.ts",
 		"./plans/export-plan": "./src/plans/export-plan.ts",
 		"./plans/import-plan": "./src/plans/import-plan.ts",
@@ -127,6 +133,13 @@
 				"node": "./dist/node/mapping/format.js",
 				"default": "./dist/mapping/format.js"
 			},
+			"./mapping/format-parsers": {
+				"types": "./dist/mapping/format-parsers.d.ts",
+				"browser": "./dist/browser/mapping/format-parsers.js",
+				"bun": "./dist/mapping/format-parsers.js",
+				"node": "./dist/node/mapping/format-parsers.js",
+				"default": "./dist/mapping/format-parsers.js"
+			},
 			"./mapping/infer": {
 				"types": "./dist/mapping/infer.d.ts",
 				"browser": "./dist/browser/mapping/infer.js",
@@ -147,6 +160,41 @@
 				"bun": "./dist/mapping/template.js",
 				"node": "./dist/node/mapping/template.js",
 				"default": "./dist/mapping/template.js"
+			},
+			"./mapping/template-builders": {
+				"types": "./dist/mapping/template-builders.d.ts",
+				"browser": "./dist/browser/mapping/template-builders.js",
+				"bun": "./dist/mapping/template-builders.js",
+				"node": "./dist/node/mapping/template-builders.js",
+				"default": "./dist/mapping/template-builders.js"
+			},
+			"./mapping/template-define": {
+				"types": "./dist/mapping/template-define.d.ts",
+				"browser": "./dist/browser/mapping/template-define.js",
+				"bun": "./dist/mapping/template-define.js",
+				"node": "./dist/node/mapping/template-define.js",
+				"default": "./dist/mapping/template-define.js"
+			},
+			"./mapping/template-format": {
+				"types": "./dist/mapping/template-format.d.ts",
+				"browser": "./dist/browser/mapping/template-format.js",
+				"bun": "./dist/mapping/template-format.js",
+				"node": "./dist/node/mapping/template-format.js",
+				"default": "./dist/mapping/template-format.js"
+			},
+			"./mapping/template-matchers": {
+				"types": "./dist/mapping/template-matchers.d.ts",
+				"browser": "./dist/browser/mapping/template-matchers.js",
+				"bun": "./dist/mapping/template-matchers.js",
+				"node": "./dist/node/mapping/template-matchers.js",
+				"default": "./dist/mapping/template-matchers.js"
+			},
+			"./mapping/template-results": {
+				"types": "./dist/mapping/template-results.d.ts",
+				"browser": "./dist/browser/mapping/template-results.js",
+				"bun": "./dist/mapping/template-results.js",
+				"node": "./dist/node/mapping/template-results.js",
+				"default": "./dist/mapping/template-results.js"
 			},
 			"./plans": {
 				"types": "./dist/plans/index.d.ts",

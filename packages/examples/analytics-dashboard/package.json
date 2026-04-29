@@ -20,15 +20,17 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@contractspec/lib.schema": "workspace:*",
-		"@contractspec/lib.contracts-spec": "workspace:*",
 		"@contractspec/lib.contracts-integrations": "workspace:*",
-		"@contractspec/lib.example-shared-ui": "workspace:*",
+		"@contractspec/lib.contracts-spec": "workspace:*",
 		"@contractspec/lib.design-system": "workspace:*",
+		"@contractspec/lib.example-shared-ui": "workspace:*",
+		"@contractspec/lib.presentation-runtime-core": "workspace:*",
+		"@contractspec/lib.presentation-runtime-react": "workspace:*",
 		"@contractspec/lib.runtime-sandbox": "workspace:*",
+		"@contractspec/lib.schema": "workspace:*",
+		"@contractspec/lib.ui-kit-web": "workspace:*",
 		"react": "catalog:",
-		"react-dom": "catalog:",
-		"@contractspec/lib.presentation-runtime-core": "workspace:*"
+		"react-dom": "catalog:"
 	},
 	"devDependencies": {
 		"@contractspec/tool.typescript": "workspace:*",

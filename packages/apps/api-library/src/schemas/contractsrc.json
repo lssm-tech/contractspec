@@ -632,7 +632,8 @@
 							"type",
 							"knowledge-space",
 							"job",
-							"translation"
+							"translation",
+							"pwa-app"
 						]
 					},
 					"additionalProperties": {
@@ -716,7 +717,8 @@
 						"type",
 						"knowledge-space",
 						"job",
-						"translation"
+						"translation",
+						"pwa-app"
 					]
 				}
 			},
@@ -775,7 +777,8 @@
 									"type",
 									"knowledge-space",
 									"job",
-									"translation"
+									"translation",
+									"pwa-app"
 								]
 							}
 						},
