@@ -101,6 +101,50 @@ describe('AppShell', () => {
 		expect(html).toContain('aria-current="page"');
 	});
 
+	it('renders page content without a reserved desktop outline column', () => {
+		const html = renderToStaticMarkup(
+			<AppShell
+				title="Console"
+				pageOutline={[
+					{ id: 'summary', label: 'Summary' },
+					{ id: 'details', label: 'Details', level: 2 },
+				]}
+			>
+				<section id="summary">Shell content</section>
+			</AppShell>
+		);
+
+		expect(html).not.toContain('lg:grid-cols-[minmax(0,1fr)_240px]');
+		expect(html).toContain('hover:w-64');
+		expect(html).toContain('focus-within:w-64');
+		expect(html).toContain('xl:block');
+		expect(html).toContain('xl:hidden');
+	});
+
+	it('keeps the compact page outline in the small-screen dialog', async () => {
+		await renderShell(
+			<AppShell
+				title="Console"
+				pageOutline={[
+					{ id: 'summary', label: 'Summary' },
+					{ id: 'details', label: 'Details', level: 2 },
+				]}
+			>
+				<section id="summary">Shell content</section>
+			</AppShell>
+		);
+
+		await click(
+			document.querySelector('button[aria-label="Open page outline"]')
+		);
+
+		const compactOutline = Array.from(document.querySelectorAll('nav')).find(
+			(nav) =>
+				nav.className.includes('rounded-md') && nav.className.includes('border')
+		);
+		expect(compactOutline?.textContent).toContain('Summary');
+	});
+
 	it('renders a shared desktop sidebar provider and collapse trigger', async () => {
 		await renderShell(
 			<AppShell

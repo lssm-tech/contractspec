@@ -11,6 +11,7 @@ export interface PageOutlineProps {
 	activeId?: string;
 	onNavigate?: (item: PageOutlineItem) => void;
 	ariaLabel?: string;
+	variant?: 'rail' | 'compact' | 'floating';
 	maxLevel?: PageOutlineLevel;
 	className?: string;
 }

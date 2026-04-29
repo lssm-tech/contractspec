@@ -232,11 +232,13 @@ import { AppShell } from "@contractspec/lib.design-system/shell";
 ```
 
 On desktop web, `AppShell` renders a collapsible sidebar, sticky topbar, content
-region, and optional `PageOutline` rail. The desktop topbar is inset beside the
-sidebar and includes a sidebar toggle. On small web screens, navigation and page
-outline move behind accessible menu triggers. On native, the shell maps primary
-navigation to bottom tabs and keeps overflow navigation, actions, user content,
-and page outline inside the menu sheet.
+region, and optional floating `PageOutline`. The outline does not reserve a
+right-side content column: it reduces to a slim rail while inactive and expands
+on hover or keyboard focus, keeping wide page content centered. The desktop
+topbar is inset beside the sidebar and includes a sidebar toggle. On small web
+screens, navigation and page outline move behind accessible menu triggers. On
+native, the shell maps primary navigation to bottom tabs and keeps overflow
+navigation, actions, user content, and page outline inside the menu sheet.
 
 `AppShell` also accepts a prop-driven `notifications` center for in-app
 notifications. Hosts provide structural `items`, `unreadCount`, loading/empty

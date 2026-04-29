@@ -212,7 +212,7 @@ export function AppShell({
 								<Button
 									variant="ghost"
 									size="icon"
-									className="lg:hidden"
+									className="xl:hidden"
 									ariaLabelI18n="Open page outline"
 									onPress={() => setOutlineOpen(true)}
 								>
@@ -229,13 +229,17 @@ export function AppShell({
 						</div>
 					</header>
 
-					<div className="grid min-h-0 flex-1 grid-cols-1 lg:grid-cols-[minmax(0,1fr)_240px]">
+					<div className="min-h-0 flex-1">
 						<div className={cn('min-w-0 px-4 py-5 md:px-6', contentClassName)}>
 							{children}
 						</div>
 						{pageOutline.length ? (
-							<aside className="hidden px-4 py-5 lg:block">
-								<PageOutline items={pageOutline} activeId={activeOutlineId} />
+							<aside className="hidden xl:block">
+								<PageOutline
+									items={pageOutline}
+									activeId={activeOutlineId}
+									variant="floating"
+								/>
 							</aside>
 						) : null}
 					</div>
