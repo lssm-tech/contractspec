@@ -730,3 +730,14 @@ Runtime packages moved out:
 Use `@contractspec/lib.contracts-spec/pwa` to declare app-level PWA update policy and the `pwa.update.check` query. `defaultUpdatePolicy` sets the application behavior, while each release can override it for required/blocking updates or heavily offline-compatible optional updates.
 
 The contract standardizes update decisions and prompt telemetry; host apps still own service worker registration and activation.
+
+## Monorepo environment configuration
+
+Use `@contractspec/lib.contracts-spec/workspace-config/environment` to declare logical environment variables for monorepos before framework-specific materialization.
+
+- `EnvironmentVariableDefinition` separates logical keys, sensitivity, lifecycle, allowed surfaces, defaults, value sources, and aliases.
+- `AppEnvironmentTarget` maps a logical app/package target to a framework such as Next, Expo, Node, or worker runtimes.
+- `EnvVariableAlias` maps one logical variable to concrete names such as `NEXT_PUBLIC_API_URL` or `EXPO_PUBLIC_API_URL`.
+- Validation rejects secret/sensitive variables exposed through public client aliases or Next config bundle env.
+
+Raw secrets still belong behind secret references and providers, never in `.contractsrc.json`.

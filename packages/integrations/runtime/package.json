@@ -103,6 +103,7 @@
 		"./channel/types": "./src/channel/types.ts",
 		"./channel/whatsapp-meta": "./src/channel/whatsapp-meta.ts",
 		"./channel/whatsapp-twilio": "./src/channel/whatsapp-twilio.ts",
+		"./environment": "./src/environment.ts",
 		"./health": "./src/health.ts",
 		"./integration": "./src/integration.ts",
 		"./runtime": "./src/runtime.ts",
@@ -424,6 +425,12 @@
 				"bun": "./dist/channel/whatsapp-twilio.js",
 				"node": "./dist/node/channel/whatsapp-twilio.js",
 				"default": "./dist/channel/whatsapp-twilio.js"
+			},
+			"./environment": {
+				"types": "./dist/environment.d.ts",
+				"bun": "./dist/environment.js",
+				"node": "./dist/node/environment.js",
+				"default": "./dist/environment.js"
 			},
 			"./health": {
 				"types": "./dist/health.d.ts",

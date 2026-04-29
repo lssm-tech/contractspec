@@ -4,6 +4,7 @@ export * from './integrations/auth';
 export * from './integrations/binding';
 export * from './integrations/byok';
 export * from './integrations/connection';
+export * from './integrations/credentials';
 export * from './integrations/health';
 export * from './integrations/health/contracts';
 export * from './integrations/integrations.capability';

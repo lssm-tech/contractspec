@@ -1,0 +1,41 @@
+schemaVersion: "1"
+slug: byok-env-ui-kit
+summary: Add reusable BYOK and environment alias UI helpers for integration setup.
+isBreaking: false
+packages:
+  - name: "@contractspec/bundle.library"
+    releaseType: minor
+affectedRuntimes:
+  - browser
+  - react
+affectedFrameworks:
+  - next
+  - expo
+  - typescript
+audiences:
+  - kind: integrator
+    summary: OSS consumers can render managed/BYOK credential setup blocks and monorepo-aware env alias previews from integration manifests.
+    affectedPackages:
+      - "@contractspec/bundle.library"
+  - kind: maintainer
+    summary: Integration UI helpers preserve redaction guarantees by displaying secret references and required status without serializing raw secret values.
+    affectedPackages:
+      - "@contractspec/bundle.library"
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: adopt-byok-env-ui-kit
+    title: Use the reusable credential setup block
+    summary: Replace bespoke integration credential setup panels with the shared setup model and components when rendering managed/BYOK flows.
+    level: optional
+    instructions:
+      - Import `IntegrationCredentialSetupBlock` or `buildIntegrationCredentialSetupModel` from `@contractspec/bundle.library/components/integrations`.
+      - Pass credential manifests and optional workspace environment config to render requirements and target-specific aliases.
+      - Pass secret references, not raw secret values, when displaying configured BYOK credentials.
+validation:
+  commands:
+    - "bun test packages/bundles/library/src/components/integrations/byok-env-ui-kit.test.tsx"
+    - "cd packages/bundles/library && bun run typecheck"
+  evidence:
+    - "Helper tests cover legacy schema fallback, explicit manifest precedence, missing BYOK secret refs, and secret redaction."
+    - "Render tests cover managed/BYOK setup actions and Next/Expo alias previews."

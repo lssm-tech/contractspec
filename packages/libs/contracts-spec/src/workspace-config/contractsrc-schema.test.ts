@@ -1,5 +1,9 @@
 import { describe, expect, it } from 'bun:test';
-import { ContractsrcSchema, TestingConfigSchema } from './contractsrc-schema';
+import {
+	ContractsrcSchema,
+	EnvironmentConfigSchema,
+	TestingConfigSchema,
+} from './contractsrc-schema';
 
 describe('TestingConfigSchema', () => {
 	it('should parse valid testing config', () => {
@@ -367,6 +371,141 @@ describe('ContractsrcSchema with testing', () => {
 		const result = ContractsrcSchema.safeParse({
 			builder: {
 				runtimeMode: 'self-hosted',
+			},
+		});
+
+		expect(result.success).toBe(false);
+	});
+
+	it('accepts monorepo environment targets and public aliases', () => {
+		const result = EnvironmentConfigSchema.safeParse({
+			profiles: {
+				local: {
+					envFiles: ['.env.local', '.env'],
+					secretProviders: ['env'],
+				},
+			},
+			targets: {
+				web: {
+					id: 'web',
+					packageName: '@contractspec/app.web-landing',
+					packagePath: 'packages/apps/web-landing',
+					appId: 'web-landing',
+					framework: 'next',
+					surfaces: ['server', 'public-client'],
+					envFiles: ['packages/apps/web-landing/.env.example'],
+				},
+				mobile: {
+					id: 'mobile',
+					packageName: '@contractspec/app.mobile-demo',
+					packagePath: 'packages/apps/mobile-demo',
+					appId: 'mobile-demo',
+					framework: 'expo',
+					surfaces: ['native-client'],
+					envFiles: ['packages/apps/mobile-demo/.env.example'],
+				},
+			},
+			variables: {
+				PUBLIC_API_URL: {
+					key: 'PUBLIC_API_URL',
+					sensitivity: 'public',
+					lifecycle: 'build-time',
+					allowedSurfaces: ['public-client', 'native-client'],
+					aliases: [
+						{
+							targetId: 'web',
+							framework: 'next',
+							name: 'NEXT_PUBLIC_API_URL',
+							exposure: 'public-client',
+						},
+						{
+							targetId: 'mobile',
+							framework: 'expo',
+							name: 'EXPO_PUBLIC_API_URL',
+							exposure: 'native-client',
+						},
+					],
+				},
+			},
+		});
+
+		expect(result.success).toBe(true);
+	});
+
+	it('rejects secret variables materialized through public framework aliases', () => {
+		const result = EnvironmentConfigSchema.safeParse({
+			variables: {
+				STRIPE_SECRET_KEY: {
+					key: 'STRIPE_SECRET_KEY',
+					sensitivity: 'secret',
+					aliases: [
+						{
+							targetId: 'web',
+							framework: 'next',
+							name: 'NEXT_PUBLIC_STRIPE_SECRET_KEY',
+							exposure: 'public-client',
+						},
+					],
+				},
+			},
+		});
+
+		expect(result.success).toBe(false);
+	});
+
+	it('rejects next config env exposure for non-public variables', () => {
+		const result = EnvironmentConfigSchema.safeParse({
+			variables: {
+				INTERNAL_API_URL: {
+					key: 'INTERNAL_API_URL',
+					sensitivity: 'internal',
+					aliases: [
+						{
+							targetId: 'web',
+							framework: 'next',
+							name: 'INTERNAL_API_URL',
+							materialization: 'next-config-env',
+						},
+					],
+				},
+			},
+		});
+
+		expect(result.success).toBe(false);
+	});
+
+	it('rejects alias collisions within one target scope', () => {
+		const result = EnvironmentConfigSchema.safeParse({
+			variables: {
+				PUBLIC_API_URL: {
+					key: 'PUBLIC_API_URL',
+					sensitivity: 'public',
+					aliases: [{ targetId: 'web', name: 'NEXT_PUBLIC_API_URL' }],
+				},
+				PUBLIC_GRAPHQL_URL: {
+					key: 'PUBLIC_GRAPHQL_URL',
+					sensitivity: 'public',
+					aliases: [{ targetId: 'web', name: 'NEXT_PUBLIC_API_URL' }],
+				},
+			},
+		});
+
+		expect(result.success).toBe(false);
+	});
+
+	it('rejects wildcard aliases that overlap framework-scoped aliases', () => {
+		const result = EnvironmentConfigSchema.safeParse({
+			variables: {
+				PUBLIC_API_URL: {
+					key: 'PUBLIC_API_URL',
+					sensitivity: 'public',
+					aliases: [{ name: 'NEXT_PUBLIC_API_URL' }],
+				},
+				PUBLIC_GRAPHQL_URL: {
+					key: 'PUBLIC_GRAPHQL_URL',
+					sensitivity: 'public',
+					aliases: [{ framework: 'next', name: 'NEXT_PUBLIC_API_URL' }],
+				},
 			},
 		});
 

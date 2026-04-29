@@ -107,11 +107,13 @@ The channel runtime keeps policy evaluation deterministic and auditable:
 - Resolve lint, build, and type errors across nine packages.
 - Add Composio universal fallback, fix provider-ranking types, and expand package exports.
 - Add first-class transport, auth, versioning, and BYOK support across all integrations.
+- Add monorepo-aware environment resolution helpers that materialize framework aliases and redact secret values in reports.
 - Upgrade dependencies.
 - Stabilize lint gate and runtime contract typing.
 
 ## Notes
 
 - Secret providers must implement the `provider` interface; never read secrets directly.
+- Environment resolution reports must stay redacted; secret and sensitive values are never serialized into examples, reports, telemetry, or errors.
 - Channel stores (memory, postgres) are swappable; do not couple to a specific backend.
 - Never import from apps or bundles.

@@ -6,6 +6,7 @@
 
 - Provides the reusable product-facing bundle consumed by API, web, and documentation surfaces.
 - Aggregates docs pages, integration marketplace UI, templates, example showcase pages, and library-side MCP implementations.
+- Includes reusable managed/BYOK credential setup UI for integration manifests and monorepo-aware env alias previews.
 - Acts as the main composition layer between lower-level libraries and app-specific delivery shells.
 - `src/presentation/` contains presentation-layer components and renderers.
 

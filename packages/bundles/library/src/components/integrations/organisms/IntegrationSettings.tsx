@@ -1,4 +1,14 @@
-import { Button, Input, Textarea } from '@contractspec/lib.design-system';
+import {
+	Box,
+	Button,
+	HStack,
+	Input,
+	Muted,
+	Small,
+	Text,
+	Textarea,
+	VStack,
+} from '@contractspec/lib.design-system';
 import { Checkbox } from '@contractspec/lib.ui-kit-web/ui/checkbox';
 import { Label } from '@contractspec/lib.ui-kit-web/ui/label';
 import {
@@ -10,6 +20,9 @@ import {
 } from '@contractspec/lib.ui-kit-web/ui/select';
 import { Key, ShieldCheck, TestTube2 } from 'lucide-react';
 import * as React from 'react';
+import { IntegrationCredentialSetupBlock } from '../blocks/IntegrationCredentialSetupBlock';
+import type { BuildIntegrationCredentialSetupModelInput } from '../helpers/credentialSetupModel';
+import { IntegrationSettingsSecretReference } from './IntegrationSettingsSecretReference';
 
 export interface IntegrationSettingsForm {
 	apiKey: string;
@@ -27,6 +40,10 @@ export interface IntegrationSettingsProps {
 	onSave?: (values: IntegrationSettingsForm) => Promise<void> | void;
 	isSaving?: boolean;
 	isTesting?: boolean;
+	credentialSetup?: Omit<
+		BuildIntegrationCredentialSetupModelInput,
+		'selectedMode'
+	>;
 }
 
 export function IntegrationSettings({
@@ -36,6 +53,7 @@ export function IntegrationSettings({
 	onSave,
 	isSaving,
 	isTesting,
+	credentialSetup,
 }: IntegrationSettingsProps) {
 	const [values, setValues] = React.useState<IntegrationSettingsForm>({
 		apiKey: initialValues?.apiKey ?? '',
@@ -49,31 +67,31 @@ export function IntegrationSettings({
 	const handleChange = (
 		event: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
 	) => {
-		const target = event.target;
-		const { name, value } = target;
-		setValues((prev) => ({
-			...prev,
-			[name]: value,
-		}));
+		const { name, value } = event.target;
+		setValues((prev) => ({ ...prev, [name]: value }));
 	};
 
 	return (
-		<div className="space-y-4 rounded-2xl border border-border bg-card p-4">
-			<header className="flex flex-wrap items-center justify-between gap-3">
-				<div>
-					<p className="font-semibold text-sm uppercase tracking-wide">
-						{provider} credentials
-					</p>
-					<p className="text-muted-foreground text-sm">
+		<VStack
+			align="stretch"
+			gap="md"
+			className="rounded-2xl border border-border bg-card p-4"
+		>
+			<HStack wrap="wrap" justify="between" gap="md">
+				<VStack gap="sm" align="start">
+					<Small className="uppercase tracking-wide">{`${provider} credentials`}</Small>
+					<Muted>
 						Store encrypted keys with BYOK and run safe connection tests.
-					</p>
-				</div>
+					</Muted>
+				</VStack>
 				<ShieldCheck className="h-5 w-5 text-muted-foreground" />
-			</header>
+			</HStack>
 
-			<div className="grid gap-4 md:grid-cols-2">
-				<div className="space-y-2">
-					<Label htmlFor="ownershipMode">Ownership</Label>
+			<Box className="grid gap-4 md:grid-cols-2">
+				<VStack gap="sm" align="stretch">
+					<Label htmlFor="ownershipMode">
+						<Text>Ownership</Text>
+					</Label>
 					<Select
 						value={values.ownershipMode ?? 'managed'}
 						onValueChange={(next) =>
@@ -87,21 +105,34 @@ export function IntegrationSettings({
 							<SelectValue />
 						</SelectTrigger>
 						<SelectContent>
-							<SelectItem value="managed">Managed (store encrypted)</SelectItem>
+							<SelectItem value="managed">
+								<Text>Managed (store encrypted)</Text>
+							</SelectItem>
 							<SelectItem value="byok">
-								BYOK (store secret reference)
+								<Text>BYOK (store secret reference)</Text>
 							</SelectItem>
 						</SelectContent>
 					</Select>
-				</div>
-			</div>
+				</VStack>
+			</Box>
 
-			<div className="grid gap-4 md:grid-cols-2">
-				<div className="space-y-1 text-sm">
+			{credentialSetup ? (
+				<IntegrationCredentialSetupBlock
+					{...credentialSetup}
+					selectedMode={values.ownershipMode}
+					title={`${provider} setup`}
+					onModeChange={(mode) =>
+						setValues((prev) => ({ ...prev, ownershipMode: mode }))
+					}
+				/>
+			) : null}
+
+			<Box className="grid gap-4 md:grid-cols-2">
+				<VStack gap="sm" align="stretch">
 					<Label htmlFor="apiKey" className="font-semibold">
-						API key
+						<Text>API key</Text>
 					</Label>
-					<div className="relative">
+					<Box className="relative">
 						<Key className="pointer-events-none absolute top-1/2 left-3 h-4 w-4 -translate-y-1/2 text-muted-foreground" />
 						<Input
 							type="text"
@@ -112,11 +143,11 @@ export function IntegrationSettings({
 							onChange={handleChange}
 							required
 						/>
-					</div>
-				</div>
-				<div className="space-y-1 text-sm">
+					</Box>
+				</VStack>
+				<VStack gap="sm" align="stretch">
 					<Label htmlFor="secret" className="font-semibold">
-						Secret
+						<Text>Secret</Text>
 					</Label>
 					<Input
 						type="password"
@@ -126,71 +157,34 @@ export function IntegrationSettings({
 						value={values.secret}
 						onChange={handleChange}
 					/>
-				</div>
-			</div>
+				</VStack>
+			</Box>
 
 			{values.ownershipMode === 'byok' ? (
-				<div className="space-y-4 rounded-xl border border-blue-500/20 bg-blue-500/5 p-4">
-					<p className="font-semibold text-sm">BYOK secret reference</p>
-					<div className="grid gap-4 md:grid-cols-2">
-						<div className="space-y-2">
-							<Label htmlFor="secretProvider">Secret provider</Label>
-							<Select
-								value={values.secretProvider ?? 'env'}
-								onValueChange={(next) =>
-									setValues((prev) => ({
-										...prev,
-										secretProvider:
-											next as IntegrationSettingsForm['secretProvider'],
-									}))
-								}
-							>
-								<SelectTrigger id="secretProvider" className="w-full">
-									<SelectValue />
-								</SelectTrigger>
-								<SelectContent>
-									<SelectItem value="env">Environment</SelectItem>
-									<SelectItem value="gcp">GCP Secret Manager</SelectItem>
-								</SelectContent>
-							</Select>
-						</div>
-						<div className="space-y-2">
-							<Label htmlFor="secretRef">Secret reference</Label>
-							<Input
-								id="secretRef"
-								name="secretRef"
-								placeholder={
-									values.secretProvider === 'gcp'
-										? 'gcp://projects/.../secrets/...'
-										: 'env://MY_TOKEN_ENV_VAR'
-								}
-								value={values.secretRef ?? ''}
-								onChange={handleChange}
-							/>
-						</div>
-					</div>
-				</div>
+				<IntegrationSettingsSecretReference
+					values={values}
+					onChange={handleChange}
+					onSecretProviderChange={(secretProvider) =>
+						setValues((prev) => ({ ...prev, secretProvider }))
+					}
+				/>
 			) : (
-				<div className="flex items-center gap-3 rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4 text-sm">
-					<Checkbox
-						checked
-						onCheckedChange={() => {
-							/* no-op */
-						}}
-						aria-label="Managed"
-					/>
-					<div>
-						<p className="font-semibold">Managed encryption enabled</p>
-						<p className="text-muted-foreground">
-							Secrets are encrypted server-side for this tenant.
-						</p>
-					</div>
-				</div>
+				<HStack
+					align="center"
+					gap="md"
+					className="rounded-xl border border-emerald-500/20 bg-emerald-500/5 p-4 text-sm"
+				>
+					<Checkbox checked onCheckedChange={() => {}} aria-label="Managed" />
+					<VStack gap="sm" align="start">
+						<Small>Managed encryption enabled</Small>
+						<Muted>Secrets are encrypted server-side for this tenant.</Muted>
+					</VStack>
+				</HStack>
 			)}
 
-			<div className="space-y-1 text-sm">
+			<VStack gap="sm" align="stretch">
 				<Label htmlFor="config" className="font-semibold">
-					Configuration (JSON)
+					<Text>Configuration (JSON)</Text>
 				</Label>
 				<Textarea
 					id="config"
@@ -199,25 +193,25 @@ export function IntegrationSettings({
 					value={values.config}
 					onChange={handleChange}
 				/>
-			</div>
+			</VStack>
 
-			<div className="flex flex-wrap items-center gap-3">
+			<HStack wrap="wrap" gap="md" align="center">
 				<Button
 					variant="ghost"
 					onPress={() => onTestConnection?.(values)}
 					disabled={isTesting}
 				>
 					<TestTube2 className="h-4 w-4" />
-					Test connection
+					<Text>Test connection</Text>
 				</Button>
 				<Button
 					variant="default"
 					onPress={() => onSave?.(values)}
 					disabled={isSaving}
 				>
-					Save settings
+					<Text>Save settings</Text>
 				</Button>
-			</div>
-		</div>
+			</HStack>
+		</VStack>
 	);
 }

@@ -224,9 +224,16 @@
 		"./components/docs/studio/StudioVisualBuilderPage": "./src/components/docs/studio/StudioVisualBuilderPage.tsx",
 		"./components/docs/tech/contracts/tech-docs.docblocks": "./src/components/docs/tech/contracts/tech-docs.docblocks.ts",
 		"./components/integrations": "./src/components/integrations/index.ts",
+		"./components/integrations/atoms/IntegrationCredentialFieldList": "./src/components/integrations/atoms/IntegrationCredentialFieldList.tsx",
+		"./components/integrations/atoms/IntegrationCredentialModeTabs": "./src/components/integrations/atoms/IntegrationCredentialModeTabs.tsx",
+		"./components/integrations/atoms/IntegrationEnvAliasPreview": "./src/components/integrations/atoms/IntegrationEnvAliasPreview.tsx",
+		"./components/integrations/blocks/IntegrationCredentialSetupBlock": "./src/components/integrations/blocks/IntegrationCredentialSetupBlock.tsx",
+		"./components/integrations/helpers/credentialSetupAliases": "./src/components/integrations/helpers/credentialSetupAliases.ts",
+		"./components/integrations/helpers/credentialSetupModel": "./src/components/integrations/helpers/credentialSetupModel.ts",
 		"./components/integrations/molecules/IntegrationCard": "./src/components/integrations/molecules/IntegrationCard.tsx",
 		"./components/integrations/organisms/IntegrationMarketplace": "./src/components/integrations/organisms/IntegrationMarketplace.tsx",
 		"./components/integrations/organisms/IntegrationSettings": "./src/components/integrations/organisms/IntegrationSettings.tsx",
+		"./components/integrations/organisms/IntegrationSettingsSecretReference": "./src/components/integrations/organisms/IntegrationSettingsSecretReference.tsx",
 		"./components/integrations/organisms/KnowledgeSourceList": "./src/components/integrations/organisms/KnowledgeSourceList.tsx",
 		"./components/legal": "./src/components/legal/index.ts",
 		"./components/legal/PrivacyTemplate": "./src/components/legal/PrivacyTemplate.tsx",
@@ -1644,6 +1651,42 @@
 				"node": "./dist/node/components/integrations/index.js",
 				"default": "./dist/components/integrations/index.js"
 			},
+			"./components/integrations/atoms/IntegrationCredentialFieldList": {
+				"types": "./dist/components/integrations/atoms/IntegrationCredentialFieldList.d.ts",
+				"bun": "./dist/components/integrations/atoms/IntegrationCredentialFieldList.js",
+				"node": "./dist/node/components/integrations/atoms/IntegrationCredentialFieldList.js",
+				"default": "./dist/components/integrations/atoms/IntegrationCredentialFieldList.js"
+			},
+			"./components/integrations/atoms/IntegrationCredentialModeTabs": {
+				"types": "./dist/components/integrations/atoms/IntegrationCredentialModeTabs.d.ts",
+				"bun": "./dist/components/integrations/atoms/IntegrationCredentialModeTabs.js",
+				"node": "./dist/node/components/integrations/atoms/IntegrationCredentialModeTabs.js",
+				"default": "./dist/components/integrations/atoms/IntegrationCredentialModeTabs.js"
+			},
+			"./components/integrations/atoms/IntegrationEnvAliasPreview": {
+				"types": "./dist/components/integrations/atoms/IntegrationEnvAliasPreview.d.ts",
+				"bun": "./dist/components/integrations/atoms/IntegrationEnvAliasPreview.js",
+				"node": "./dist/node/components/integrations/atoms/IntegrationEnvAliasPreview.js",
+				"default": "./dist/components/integrations/atoms/IntegrationEnvAliasPreview.js"
+			},
+			"./components/integrations/blocks/IntegrationCredentialSetupBlock": {
+				"types": "./dist/components/integrations/blocks/IntegrationCredentialSetupBlock.d.ts",
+				"bun": "./dist/components/integrations/blocks/IntegrationCredentialSetupBlock.js",
+				"node": "./dist/node/components/integrations/blocks/IntegrationCredentialSetupBlock.js",
+				"default": "./dist/components/integrations/blocks/IntegrationCredentialSetupBlock.js"
+			},
+			"./components/integrations/helpers/credentialSetupAliases": {
+				"types": "./dist/components/integrations/helpers/credentialSetupAliases.d.ts",
+				"bun": "./dist/components/integrations/helpers/credentialSetupAliases.js",
+				"node": "./dist/node/components/integrations/helpers/credentialSetupAliases.js",
+				"default": "./dist/components/integrations/helpers/credentialSetupAliases.js"
+			},
+			"./components/integrations/helpers/credentialSetupModel": {
+				"types": "./dist/components/integrations/helpers/credentialSetupModel.d.ts",
+				"bun": "./dist/components/integrations/helpers/credentialSetupModel.js",
+				"node": "./dist/node/components/integrations/helpers/credentialSetupModel.js",
+				"default": "./dist/components/integrations/helpers/credentialSetupModel.js"
+			},
 			"./components/integrations/molecules/IntegrationCard": {
 				"types": "./dist/components/integrations/molecules/IntegrationCard.d.ts",
 				"bun": "./dist/components/integrations/molecules/IntegrationCard.js",
@@ -1661,6 +1704,12 @@
 				"bun": "./dist/components/integrations/organisms/IntegrationSettings.js",
 				"node": "./dist/node/components/integrations/organisms/IntegrationSettings.js",
 				"default": "./dist/components/integrations/organisms/IntegrationSettings.js"
+			},
+			"./components/integrations/organisms/IntegrationSettingsSecretReference": {
+				"types": "./dist/components/integrations/organisms/IntegrationSettingsSecretReference.d.ts",
+				"bun": "./dist/components/integrations/organisms/IntegrationSettingsSecretReference.js",
+				"node": "./dist/node/components/integrations/organisms/IntegrationSettingsSecretReference.js",
+				"default": "./dist/components/integrations/organisms/IntegrationSettingsSecretReference.js"
 			},
 			"./components/integrations/organisms/KnowledgeSourceList": {
 				"types": "./dist/components/integrations/organisms/KnowledgeSourceList.d.ts",

@@ -28,7 +28,7 @@ const integrationHubDocBlocks: DocBlock[] = [
 
 ## UI / Presentations
 
-- Dashboard, integration list, connection detail, sync config editor, and shared ContractSpec tables for connections/sync configs.
+- Dashboard, integration list, connection detail, sync config editor, BYOK/env setup preview, and shared ContractSpec tables for connections/sync configs.
 - Templates registered as \`integration-hub\` in Template Registry.
 
 ## Notes
@@ -36,6 +36,7 @@ const integrationHubDocBlocks: DocBlock[] = [
 - Providers remain agnostic; keep mappings declarative for safe regeneration.
 - Seed data includes voice integrations for \`ai-voice.gradium\` and \`ai-voice.fal\`.
 - Feature flags can gate specific providers; metering can track sync volume.
+- \`src/setup/credential-setup.ts\` demonstrates managed/BYOK credential manifests, secret references, and app-specific \`NEXT_PUBLIC_*\` / \`EXPO_PUBLIC_*\` aliases.
 - The dashboard tables demonstrate client-mode sorting, pagination, visibility, pinning, resizing, and row expansion on the shared table stack.
 `,
 	},
@@ -70,7 +71,8 @@ const integrationHubDocBlocks: DocBlock[] = [
 		body: `## Setup
 1) Seed integrations/connections (if available) or create connector definitions.
 2) Configure sync jobs with Jobs module; store payload archives via Files.
-3) Use \`src/run-mcp.ts\` to validate MCP connectivity for provider adapters.
+3) Use \`src/setup/credential-setup.ts\` to map managed/BYOK fields to per-app env aliases.
+4) Use \`src/run-mcp.ts\` to validate MCP connectivity for provider adapters.
 
 ## Extend & regenerate
 1) Add mapping fields or provider configs in the spec; include validation and PII paths.
@@ -99,6 +101,7 @@ const integrationHubDocBlocks: DocBlock[] = [
 ## PII & Payloads
 - Treat payload archives as potentially sensitive; mark policy.pii paths.
 - For MCP/web, avoid exposing raw credentials/tokens; store via provider adapters only.
+- Secret fields must not be materialized through public aliases such as \`NEXT_PUBLIC_*\` or \`EXPO_PUBLIC_*\`.
 - Keep MCP endpoint URLs, headers, and tokens in provider connection config, never in mappings.
 
 ## Verification

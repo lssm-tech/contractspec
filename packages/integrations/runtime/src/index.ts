@@ -1,5 +1,6 @@
 export * from './builder';
 export * from './channel';
+export * from './environment';
 export * from './health';
 export * from './integration';
 export * from './runtime';

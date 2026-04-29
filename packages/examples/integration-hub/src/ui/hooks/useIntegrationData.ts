@@ -18,11 +18,12 @@ export interface IntegrationStats {
 	activeSyncs: number;
 }
 
-export function useIntegrationData(projectId = 'local-project') {
-	const { handlers } = useTemplateRuntime<{
+export function useIntegrationData(projectIdOverride?: string) {
+	const { handlers, projectId } = useTemplateRuntime<{
 		integration: IntegrationHandlers;
 	}>();
 	const integration = handlers.integration;
+	const effectiveProjectId = projectIdOverride ?? projectId;
 	const [integrations, setIntegrations] = useState<Integration[]>([]);
 	const [connections, setConnections] = useState<Connection[]>([]);
 	const [syncConfigs, setSyncConfigs] = useState<SyncConfig[]>([]);
@@ -35,7 +36,10 @@ export function useIntegrationData(projectId = 'local-project') {
 			setError(null);
 
 			const [integResult, connResult, syncResult] = await Promise.all([
-				integration.listIntegrations({ projectId, limit: 100 }),
+				integration.listIntegrations({
+					projectId: effectiveProjectId,
+					limit: 100,
+				}),
 				integration.listConnections({ limit: 100 }),
 				integration.listSyncConfigs({ limit: 100 }),
 			]);
@@ -50,7 +54,7 @@ export function useIntegrationData(projectId = 'local-project') {
 		} finally {
 			setLoading(false);
 		}
-	}, [integration, projectId]);
+	}, [effectiveProjectId, integration]);
 
 	useEffect(() => {
 		fetchData();

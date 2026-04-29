@@ -48,6 +48,7 @@
 		"./integrations/binding": "./src/integrations/binding.ts",
 		"./integrations/byok": "./src/integrations/byok.ts",
 		"./integrations/connection": "./src/integrations/connection.ts",
+		"./integrations/credentials": "./src/integrations/credentials.ts",
 		"./integrations/docs/integrations.docblock": "./src/integrations/docs/integrations.docblock.ts",
 		"./integrations/health": "./src/integrations/health.ts",
 		"./integrations/health/contracts": "./src/integrations/health/contracts/index.ts",
@@ -215,6 +216,12 @@
 				"bun": "./dist/integrations/connection.js",
 				"node": "./dist/node/integrations/connection.js",
 				"default": "./dist/integrations/connection.js"
+			},
+			"./integrations/credentials": {
+				"types": "./dist/integrations/credentials.d.ts",
+				"bun": "./dist/integrations/credentials.js",
+				"node": "./dist/node/integrations/credentials.js",
+				"default": "./dist/integrations/credentials.js"
 			},
 			"./integrations/docs/integrations.docblock": {
 				"types": "./dist/integrations/docs/integrations.docblock.d.ts",

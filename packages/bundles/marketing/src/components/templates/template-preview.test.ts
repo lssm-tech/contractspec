@@ -18,6 +18,19 @@ describe('template preview actions', () => {
 		});
 	});
 
+	test('opens integration hub through the runtime-backed template modal', () => {
+		const template = buildLocalTemplateCatalog().find(
+			(candidate) => candidate.id === 'integration-hub'
+		);
+
+		expect(template).toBeDefined();
+		expect(getLocalTemplatePreviewAction(template!)).toEqual({
+			kind: 'modal',
+			templateId: 'integration-hub',
+		});
+		expect(requiresTemplateRuntimePreview('integration-hub')).toBe(true);
+	});
+
 	test('uses sandbox previews for non-inline template examples', () => {
 		const template = buildLocalTemplateCatalog().find(
 			(candidate) => candidate.id === 'calendar-google'

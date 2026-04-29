@@ -9,6 +9,7 @@ import type {
 import type { OwnerShipMeta } from '@contractspec/lib.contracts-spec/ownership';
 import { SpecContractRegistry } from '@contractspec/lib.contracts-spec/registry';
 import type { IntegrationAuthConfig } from './auth';
+import type { IntegrationCredentialManifest } from './credentials';
 import type {
 	IntegrationTransportConfig,
 	IntegrationTransportType,
@@ -85,6 +86,8 @@ export interface IntegrationSpec {
 	};
 	/** Provider-specific metadata for BYOK setup flows. */
 	byokSetup?: IntegrationByokSetup;
+	/** Managed/BYOK credential setup requirements for config, secrets, env aliases, validation, and rotation. */
+	credentialManifest?: IntegrationCredentialManifest;
 
 	/** Transports this integration supports (REST, MCP, Webhook, SDK). */
 	transports?: IntegrationTransportConfig[];

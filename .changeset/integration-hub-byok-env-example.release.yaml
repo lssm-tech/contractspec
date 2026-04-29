@@ -1,0 +1,45 @@
+schemaVersion: "1"
+slug: integration-hub-byok-env-example
+summary: Teach the Integration Hub example to model managed/BYOK credential setup and monorepo-aware env aliases.
+isBreaking: false
+packages:
+  - name: "@contractspec/example.integration-hub"
+    releaseType: minor
+affectedRuntimes:
+  - browser
+affectedFrameworks:
+  - react
+  - nextjs
+  - expo
+audiences:
+  - kind: integrator
+    summary: The Integration Hub example now exposes credential setup manifests, safe secret references, and app-specific Next/Expo env aliases for managed and BYOK integrations.
+    affectedPackages:
+      - "@contractspec/example.integration-hub"
+  - kind: maintainer
+    summary: Maintainers get regression-covered setup fixtures that exercise public-prefix aliasing without exposing secret fields through client env names.
+    affectedPackages:
+      - "@contractspec/example.integration-hub"
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: adopt-integration-hub-setup-fixtures
+    title: Reuse the Integration Hub credential setup fixtures
+    summary: Import the setup metadata when building docs, previews, or custom BYOK onboarding flows from the example package.
+    level: assisted
+    instructions:
+      - Import `integrationHubCredentialManifest` and `integrationHubEnvironmentConfig` from `@contractspec/example.integration-hub/setup`.
+      - Keep raw provider secrets out of config values; pass secret references such as `env://POSTHOG_PERSONAL_API_KEY` instead.
+      - Materialize public app aliases only for non-secret fields such as public origins or project keys.
+validation:
+  commands:
+    - "bun run --cwd packages/examples/integration-hub test"
+    - "bun run --cwd packages/examples/integration-hub typecheck"
+    - "bun run --cwd packages/examples/integration-hub build"
+    - "node scripts/biome.cjs check packages/examples/integration-hub/package.json packages/examples/integration-hub/src/index.ts packages/examples/integration-hub/src/setup/credential-setup.ts packages/examples/integration-hub/src/setup/index.ts packages/examples/integration-hub/src/ui/IntegrationDashboard.tsx packages/examples/integration-hub/src/ui/IntegrationHubCredentialSetupPreview.tsx packages/examples/integration-hub/src/ui/IntegrationHubCredentialSetupPreview.model.ts packages/examples/integration-hub/src/ui/IntegrationHubCredentialSetupPreview.test.tsx packages/examples/integration-hub/src/ui/index.ts packages/examples/integration-hub/src/docs/integration-hub.docblock.ts"
+  evidence:
+    - "Server-render coverage asserts BYOK guidance, Next/Expo public aliases, safe secret references, and absence of public aliases for secret fields."
+    - "Build output includes the new setup and credential setup preview entrypoints for bun and node targets."
+knownGaps:
+  - "Package-wide lint:check still reports pre-existing raw-element diagnostics in untouched Integration Hub visualization, chat, and table files."
+  - "contractspec validate currently fails before this change's setup fixtures because the workspace cannot resolve the pre-existing lib.contracts-spec features/install import."

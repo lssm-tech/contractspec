@@ -305,21 +305,21 @@ export function createIntegrationHandlers(db: DatabasePort) {
 	): Promise<ListIntegrationsOutput> {
 		const { projectId, type, status, search, limit = 20, offset = 0 } = input;
 
-		let whereClause = 'WHERE projectId = ?';
+		let whereClause = 'WHERE "projectId" = $1';
 		const params: (string | number)[] = [projectId];
 
 		if (type && type !== 'all') {
-			whereClause += ' AND type = ?';
+			whereClause += ` AND type = $${params.length + 1}`;
 			params.push(type);
 		}
 
 		if (status && status !== 'all') {
-			whereClause += ' AND status = ?';
+			whereClause += ` AND status = $${params.length + 1}`;
 			params.push(status);
 		}
 
 		if (search) {
-			whereClause += ' AND name LIKE ?';
+			whereClause += ` AND name LIKE $${params.length + 1}`;
 			params.push(`%${search}%`);
 		}
 
@@ -333,7 +333,7 @@ export function createIntegrationHandlers(db: DatabasePort) {
 
 		const rows = (
 			await db.query(
-				`SELECT * FROM integration ${whereClause} ORDER BY name LIMIT ? OFFSET ?`,
+				`SELECT * FROM integration ${whereClause} ORDER BY name LIMIT $${params.length + 1} OFFSET $${params.length + 2}`,
 				[...params, limit, offset]
 			)
 		).rows as unknown as IntegrationRow[];
@@ -355,8 +355,8 @@ export function createIntegrationHandlers(db: DatabasePort) {
 		const now = new Date().toISOString();
 
 		await db.execute(
-			`INSERT INTO integration (id, projectId, organizationId, name, description, type, status, iconUrl, createdAt, updatedAt)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+			`INSERT INTO integration (id, "projectId", "organizationId", name, description, type, status, "iconUrl", "createdAt", "updatedAt")
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
 			[
 				id,
 				context.projectId,
@@ -372,7 +372,7 @@ export function createIntegrationHandlers(db: DatabasePort) {
 		);
 
 		const rows = (
-			await db.query(`SELECT * FROM integration WHERE id = ?`, [id])
+			await db.query(`SELECT * FROM integration WHERE id = $1`, [id])
 		).rows as unknown as IntegrationRow[];
 
 		return rowToIntegration(rows[0]!);
@@ -390,12 +390,12 @@ export function createIntegrationHandlers(db: DatabasePort) {
 		const params: (string | number)[] = [];
 
 		if (integrationId) {
-			whereClause += ' AND integrationId = ?';
+			whereClause += ` AND "integrationId" = $${params.length + 1}`;
 			params.push(integrationId);
 		}
 
 		if (status && status !== 'all') {
-			whereClause += ' AND status = ?';
+			whereClause += ` AND status = $${params.length + 1}`;
 			params.push(status);
 		}
 
@@ -409,7 +409,7 @@ export function createIntegrationHandlers(db: DatabasePort) {
 
 		const rows = (
 			await db.query(
-				`SELECT * FROM integration_connection ${whereClause} ORDER BY updatedAt DESC LIMIT ? OFFSET ?`,
+				`SELECT * FROM integration_connection ${whereClause} ORDER BY "updatedAt" DESC LIMIT $${params.length + 1} OFFSET $${params.length + 2}`,
 				[...params, limit, offset]
 			)
 		).rows as unknown as ConnectionRow[];
@@ -430,8 +430,8 @@ export function createIntegrationHandlers(db: DatabasePort) {
 		const now = new Date().toISOString();
 
 		await db.execute(
-			`INSERT INTO integration_connection (id, integrationId, name, status, credentials, config, createdAt, updatedAt)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?)`,
+			`INSERT INTO integration_connection (id, "integrationId", name, status, credentials, config, "createdAt", "updatedAt")
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8)`,
 			[
 				id,
 				input.integrationId,
@@ -446,18 +446,18 @@ export function createIntegrationHandlers(db: DatabasePort) {
 
 		// Simulate connection success
 		await db.execute(
-			`UPDATE integration_connection SET status = 'CONNECTED', updatedAt = ? WHERE id = ?`,
+			`UPDATE integration_connection SET status = 'CONNECTED', "updatedAt" = $1 WHERE id = $2`,
 			[now, id]
 		);
 
 		// Activate integration
 		await db.execute(
-			`UPDATE integration SET status = 'ACTIVE', updatedAt = ? WHERE id = ?`,
+			`UPDATE integration SET status = 'ACTIVE', "updatedAt" = $1 WHERE id = $2`,
 			[now, input.integrationId]
 		);
 
 		const rows = (
-			await db.query(`SELECT * FROM integration_connection WHERE id = ?`, [id])
+			await db.query(`SELECT * FROM integration_connection WHERE id = $1`, [id])
 		).rows as unknown as ConnectionRow[];
 
 		return rowToConnection(rows[0]!);
@@ -470,12 +470,12 @@ export function createIntegrationHandlers(db: DatabasePort) {
 		const now = new Date().toISOString();
 
 		await db.execute(
-			`UPDATE integration_connection SET status = 'DISCONNECTED', updatedAt = ? WHERE id = ?`,
+			`UPDATE integration_connection SET status = 'DISCONNECTED', "updatedAt" = $1 WHERE id = $2`,
 			[now, connectionId]
 		);
 
 		const rows = (
-			await db.query(`SELECT * FROM integration_connection WHERE id = ?`, [
+			await db.query(`SELECT * FROM integration_connection WHERE id = $1`, [
 				connectionId,
 			])
 		).rows as unknown as ConnectionRow[];
@@ -495,12 +495,12 @@ export function createIntegrationHandlers(db: DatabasePort) {
 		const params: (string | number)[] = [];
 
 		if (connectionId) {
-			whereClause += ' AND connectionId = ?';
+			whereClause += ` AND "connectionId" = $${params.length + 1}`;
 			params.push(connectionId);
 		}
 
 		if (status && status !== 'all') {
-			whereClause += ' AND status = ?';
+			whereClause += ` AND status = $${params.length + 1}`;
 			params.push(status);
 		}
 
@@ -514,7 +514,7 @@ export function createIntegrationHandlers(db: DatabasePort) {
 
 		const rows = (
 			await db.query(
-				`SELECT * FROM integration_sync_config ${whereClause} ORDER BY updatedAt DESC LIMIT ? OFFSET ?`,
+				`SELECT * FROM integration_sync_config ${whereClause} ORDER BY "updatedAt" DESC LIMIT $${params.length + 1} OFFSET $${params.length + 2}`,
 				[...params, limit, offset]
 			)
 		).rows as unknown as SyncConfigRow[];
@@ -533,8 +533,8 @@ export function createIntegrationHandlers(db: DatabasePort) {
 		const now = new Date().toISOString();
 
 		await db.execute(
-			`INSERT INTO integration_sync_config (id, connectionId, name, sourceEntity, targetEntity, frequency, status, recordsSynced, createdAt, updatedAt)
-       VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)`,
+			`INSERT INTO integration_sync_config (id, "connectionId", name, "sourceEntity", "targetEntity", frequency, status, "recordsSynced", "createdAt", "updatedAt")
+       VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)`,
 			[
 				id,
 				input.connectionId,
@@ -550,7 +550,9 @@ export function createIntegrationHandlers(db: DatabasePort) {
 		);
 
 		const rows = (
-			await db.query(`SELECT * FROM integration_sync_config WHERE id = ?`, [id])
+			await db.query(`SELECT * FROM integration_sync_config WHERE id = $1`, [
+				id,
+			])
 		).rows as unknown as SyncConfigRow[];
 
 		return rowToSyncConfig(rows[0]!);
@@ -565,7 +567,7 @@ export function createIntegrationHandlers(db: DatabasePort) {
 
 		// Clear existing mappings
 		await db.execute(
-			`DELETE FROM integration_field_mapping WHERE syncConfigId = ?`,
+			`DELETE FROM integration_field_mapping WHERE "syncConfigId" = $1`,
 			[input.syncConfigId]
 		);
 
@@ -573,8 +575,8 @@ export function createIntegrationHandlers(db: DatabasePort) {
 			const id = generateId('fmap');
 
 			await db.execute(
-				`INSERT INTO integration_field_mapping (id, syncConfigId, sourceField, targetField, transformType, transformConfig, createdAt)
-         VALUES (?, ?, ?, ?, ?, ?, ?)`,
+				`INSERT INTO integration_field_mapping (id, "syncConfigId", "sourceField", "targetField", "transformType", "transformConfig", "createdAt")
+         VALUES ($1, $2, $3, $4, $5, $6, $7)`,
 				[
 					id,
 					input.syncConfigId,
@@ -589,9 +591,10 @@ export function createIntegrationHandlers(db: DatabasePort) {
 			);
 
 			const rows = (
-				await db.query(`SELECT * FROM integration_field_mapping WHERE id = ?`, [
-					id,
-				])
+				await db.query(
+					`SELECT * FROM integration_field_mapping WHERE id = $1`,
+					[id]
+				)
 			).rows as unknown as FieldMappingRow[];
 
 			mappings.push(rowToFieldMapping(rows[0]!));
@@ -608,7 +611,7 @@ export function createIntegrationHandlers(db: DatabasePort) {
 	): Promise<FieldMapping[]> {
 		const rows = (
 			await db.query(
-				`SELECT * FROM integration_field_mapping WHERE syncConfigId = ?`,
+				`SELECT * FROM integration_field_mapping WHERE "syncConfigId" = $1`,
 				[syncConfigId]
 			)
 		).rows as unknown as FieldMappingRow[];
@@ -626,26 +629,26 @@ export function createIntegrationHandlers(db: DatabasePort) {
 		const recordsSynced = Math.floor(Math.random() * 1000) + 50;
 
 		await db.execute(
-			`UPDATE integration_sync_config SET lastRunAt = ?, lastRunStatus = 'SUCCESS', recordsSynced = recordsSynced + ?, updatedAt = ? WHERE id = ?`,
+			`UPDATE integration_sync_config SET "lastRunAt" = $1, "lastRunStatus" = 'SUCCESS', "recordsSynced" = "recordsSynced" + $2, "updatedAt" = $3 WHERE id = $4`,
 			[now, recordsSynced, now, syncConfigId]
 		);
 
 		// Update connection lastSyncAt
 		const config = (
-			await db.query(`SELECT * FROM integration_sync_config WHERE id = ?`, [
+			await db.query(`SELECT * FROM integration_sync_config WHERE id = $1`, [
 				syncConfigId,
 			])
 		).rows as unknown as SyncConfigRow[];
 
 		if (config[0]) {
 			await db.execute(
-				`UPDATE integration_connection SET lastSyncAt = ?, updatedAt = ? WHERE id = ?`,
+				`UPDATE integration_connection SET "lastSyncAt" = $1, "updatedAt" = $2 WHERE id = $3`,
 				[now, now, config[0].connectionId]
 			);
 		}
 
 		const rows = (
-			await db.query(`SELECT * FROM integration_sync_config WHERE id = ?`, [
+			await db.query(`SELECT * FROM integration_sync_config WHERE id = $1`, [
 				syncConfigId,
 			])
 		).rows as unknown as SyncConfigRow[];
@@ -661,7 +664,7 @@ export function createIntegrationHandlers(db: DatabasePort) {
 		input: ValidateByokKeyInput
 	): Promise<ValidateByokKeyOutput> {
 		const rows = (
-			await db.query(`SELECT * FROM integration_connection WHERE id = ?`, [
+			await db.query(`SELECT * FROM integration_connection WHERE id = $1`, [
 				input.connectionId,
 			])
 		).rows as unknown as ConnectionRow[];
@@ -699,7 +702,7 @@ export function createIntegrationHandlers(db: DatabasePort) {
 		const now = new Date().toISOString();
 
 		await db.execute(
-			`UPDATE integration_connection SET updatedAt = ? WHERE id = ?`,
+			`UPDATE integration_connection SET "updatedAt" = $1 WHERE id = $2`,
 			[now, input.connectionId]
 		);
 

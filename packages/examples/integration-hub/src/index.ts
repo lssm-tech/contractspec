@@ -14,6 +14,7 @@ export {
 export * from './integration';
 // MCP example exports
 export * from './mcp-example';
+export * from './setup';
 export * from './sync';
 // Sync engine exports
 export * from './sync-engine';

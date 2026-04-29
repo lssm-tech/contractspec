@@ -14,6 +14,7 @@ import type {
 	AgentTarget as VersioningAgentTarget,
 	ReleaseEnforceOn as VersioningReleaseEnforceOn,
 } from '../versioning/release-types';
+import type { EnvironmentConfig } from './environment';
 
 export type AgentTarget = VersioningAgentTarget;
 export type ReleaseEnforceOn = VersioningReleaseEnforceOn;
@@ -728,6 +729,8 @@ export interface ContractsrcFileConfig {
 	builder?: BuilderConfig;
 	// ContractSpec Connect configuration
 	connect?: ConnectConfig;
+	// Monorepo-aware environment/configuration declaration
+	environment?: EnvironmentConfig;
 }
 
 /**

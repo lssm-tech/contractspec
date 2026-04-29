@@ -1556,6 +1556,333 @@
 				}
 			},
 			"additionalProperties": false
+		},
+		"environment": {
+			"type": "object",
+			"properties": {
+				"profiles": {
+					"type": "object",
+					"propertyNames": {
+						"type": "string"
+					},
+					"additionalProperties": {
+						"type": "object",
+						"properties": {
+							"envFiles": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							},
+							"secretProviders": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							},
+							"variables": {
+								"type": "object",
+								"propertyNames": {
+									"type": "string"
+								},
+								"additionalProperties": {
+									"type": "object",
+									"properties": {
+										"type": {
+											"type": "string",
+											"enum": [
+												"literal",
+												"env",
+												"secret",
+												"managed-connection",
+												"byok-connection"
+											]
+										},
+										"ref": {
+											"type": "string"
+										},
+										"envVar": {
+											"type": "string"
+										},
+										"value": {
+											"anyOf": [
+												{
+													"type": "string"
+												},
+												{
+													"type": "number"
+												},
+												{
+													"type": "boolean"
+												}
+											]
+										},
+										"connectionId": {
+											"type": "string"
+										},
+										"secretRef": {
+											"type": "string"
+										}
+									},
+									"required": ["type"],
+									"additionalProperties": false
+								}
+							}
+						},
+						"additionalProperties": false
+					}
+				},
+				"variables": {
+					"type": "object",
+					"propertyNames": {
+						"type": "string"
+					},
+					"additionalProperties": {
+						"type": "object",
+						"properties": {
+							"key": {
+								"type": "string",
+								"minLength": 1
+							},
+							"description": {
+								"type": "string"
+							},
+							"sensitivity": {
+								"default": "internal",
+								"type": "string",
+								"enum": ["public", "internal", "sensitive", "secret"]
+							},
+							"lifecycle": {
+								"default": "runtime",
+								"type": "string",
+								"enum": ["build-time", "runtime", "both"]
+							},
+							"allowedSurfaces": {
+								"type": "array",
+								"items": {
+									"type": "string",
+									"enum": [
+										"server",
+										"public-client",
+										"native-client",
+										"edge",
+										"worker",
+										"ci"
+									]
+								}
+							},
+							"requiredProfiles": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							},
+							"defaultValue": {
+								"anyOf": [
+									{
+										"type": "string"
+									},
+									{
+										"type": "number"
+									},
+									{
+										"type": "boolean"
+									}
+								]
+							},
+							"example": {
+								"type": "string"
+							},
+							"valueSource": {
+								"type": "object",
+								"properties": {
+									"type": {
+										"type": "string",
+										"enum": [
+											"literal",
+											"env",
+											"secret",
+											"managed-connection",
+											"byok-connection"
+										]
+									},
+									"ref": {
+										"type": "string"
+									},
+									"envVar": {
+										"type": "string"
+									},
+									"value": {
+										"anyOf": [
+											{
+												"type": "string"
+											},
+											{
+												"type": "number"
+											},
+											{
+												"type": "boolean"
+											}
+										]
+									},
+									"connectionId": {
+										"type": "string"
+									},
+									"secretRef": {
+										"type": "string"
+									}
+								},
+								"required": ["type"],
+								"additionalProperties": false
+							},
+							"aliases": {
+								"type": "array",
+								"items": {
+									"type": "object",
+									"properties": {
+										"name": {
+											"type": "string",
+											"minLength": 1
+										},
+										"targetId": {
+											"type": "string"
+										},
+										"framework": {
+											"type": "string",
+											"enum": [
+												"next",
+												"expo",
+												"node",
+												"vite",
+												"worker",
+												"custom"
+											]
+										},
+										"profile": {
+											"type": "string"
+										},
+										"exposure": {
+											"type": "string",
+											"enum": [
+												"server",
+												"public-client",
+												"native-client",
+												"edge",
+												"worker",
+												"ci"
+											]
+										},
+										"materialization": {
+											"default": "env-file",
+											"type": "string",
+											"enum": ["env-file", "process-env", "next-config-env"]
+										}
+									},
+									"required": ["name"],
+									"additionalProperties": false
+								}
+							}
+						},
+						"required": ["key"],
+						"additionalProperties": false
+					}
+				},
+				"targets": {
+					"type": "object",
+					"propertyNames": {
+						"type": "string"
+					},
+					"additionalProperties": {
+						"type": "object",
+						"properties": {
+							"id": {
+								"type": "string",
+								"minLength": 1
+							},
+							"packageName": {
+								"type": "string"
+							},
+							"packagePath": {
+								"type": "string"
+							},
+							"appId": {
+								"type": "string"
+							},
+							"framework": {
+								"type": "string",
+								"enum": ["next", "expo", "node", "vite", "worker", "custom"]
+							},
+							"surfaces": {
+								"type": "array",
+								"items": {
+									"type": "string",
+									"enum": [
+										"server",
+										"public-client",
+										"native-client",
+										"edge",
+										"worker",
+										"ci"
+									]
+								}
+							},
+							"profiles": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							},
+							"envFiles": {
+								"type": "array",
+								"items": {
+									"type": "string"
+								}
+							}
+						},
+						"required": ["id"],
+						"additionalProperties": false
+					}
+				},
+				"secretRequirements": {
+					"type": "object",
+					"propertyNames": {
+						"type": "string"
+					},
+					"additionalProperties": {
+						"type": "object",
+						"properties": {
+							"key": {
+								"type": "string",
+								"minLength": 1
+							},
+							"description": {
+								"type": "string"
+							},
+							"required": {
+								"default": true,
+								"type": "boolean"
+							},
+							"provider": {
+								"type": "string"
+							},
+							"envVar": {
+								"type": "string"
+							},
+							"secretRefPattern": {
+								"type": "string"
+							},
+							"rotationDays": {
+								"type": "integer",
+								"exclusiveMinimum": 0,
+								"maximum": 9007199254740991
+							}
+						},
+						"required": ["key"],
+						"additionalProperties": false
+					}
+				}
+			},
+			"additionalProperties": false
 		}
 	},
 	"additionalProperties": false,

@@ -1765,6 +1765,7 @@ Typical flow:
 - `IntegrationTransportConfig`, `findTransportConfig`, `supportsTransport`: transport contract and helpers.
 - `IntegrationVersionPolicy`, `resolveApiVersion`, `getVersionInfo`, `isVersionDeprecated`, `getActiveVersions`: API-version policy helpers.
 - `ByokKeyLifecycle` and BYOK metadata/result types: key validation and rotation contracts.
+- `IntegrationCredentialManifest` and helpers from `./integrations/credentials`: managed/BYOK credential requirements, env aliases, validation strategy, rotation policy, and compatibility mapping from legacy schemas.
 
 ### Runtime, health, and telemetry
 
@@ -1819,6 +1820,7 @@ Use the README as a guide to the main clusters. Use `package.json` as the author
 - `resolveApiVersion()` uses connection override first, then policy default.
 - `IntegrationHealthService.check()` returns structured results instead of throwing health failures upward.
 - Registry filters only match specs that explicitly declare auth methods, transports, version policies, or BYOK support.
+- Credential manifests describe required config and secret references per ownership mode; they do not carry raw credential values.
 - This package defines contracts and shipped spec registrations. SDK-backed implementations live elsewhere.
 
 ## When not to use this package
@@ -3336,6 +3338,17 @@ Runtime packages moved out:
 Use `@contractspec/lib.contracts-spec/pwa` to declare app-level PWA update policy and the `pwa.update.check` query. `defaultUpdatePolicy` sets the application behavior, while each release can override it for required/blocking updates or heavily offline-compatible optional updates.
 
 The contract standardizes update decisions and prompt telemetry; host apps still own service worker registration and activation.
+
+## Monorepo environment configuration
+
+Use `@contractspec/lib.contracts-spec/workspace-config/environment` to declare logical environment variables for monorepos before framework-specific materialization.
+
+- `EnvironmentVariableDefinition` separates logical keys, sensitivity, lifecycle, allowed surfaces, defaults, value sources, and aliases.
+- `AppEnvironmentTarget` maps a logical app/package target to a framework such as Next, Expo, Node, or worker runtimes.
+- `EnvVariableAlias` maps one logical variable to concrete names such as `NEXT_PUBLIC_API_URL` or `EXPO_PUBLIC_API_URL`.
+- Validation rejects secret/sensitive variables exposed through public client aliases or Next config bundle env.
+
+Raw secrets still belong behind secret references and providers, never in `.contractsrc.json`.
 
 
 ---
@@ -6151,17 +6164,22 @@ import { AppShell } from "@contractspec/lib.design-system/shell";
 </AppShell>;
 ```
 
-On desktop web, `AppShell` renders a sidebar, sticky topbar, content region, and
-optional `PageOutline` rail. On small web screens, navigation and page outline
-move behind accessible menu triggers. On native, the shell maps primary
-navigation to bottom tabs and keeps overflow navigation, actions, user content,
-and page outline inside the menu sheet.
+On desktop web, `AppShell` renders a collapsible sidebar, sticky topbar, content
+region, and optional floating `PageOutline`. The outline does not reserve a
+right-side content column: it reduces to a slim rail while inactive and expands
+on hover or keyboard focus, keeping wide page content centered. The desktop
+topbar is inset beside the sidebar and includes a sidebar toggle. On small web
+screens, navigation and page outline move behind accessible menu triggers. On
+native, the shell maps primary navigation to bottom tabs and keeps overflow
+navigation, actions, user content, and page outline inside the menu sheet.
 
 `AppShell` also accepts a prop-driven `notifications` center for in-app
 notifications. Hosts provide structural `items`, `unreadCount`, loading/empty
 state, and callbacks such as `onSelect`, `onMarkRead`, and `onMarkAllRead`; the
 design-system shell renders the web topbar trigger and native menu section
-without importing or owning any notification runtime package.
+without importing or owning any notification runtime package. On web, the
+notification panel closes when users select an item, press the close button,
+click outside the panel, press Escape, or click the notification trigger again.
 
 Shell navigation and command items may carry optional `policy` metadata plus a `policyBehavior` of `hide`, `disable`, or `show-with-lock`. Use `filterShellNavigationForPolicy()` / `annotateShellCommandsDecisions()` with decisions produced by your application runtime; AppShell only adapts affordances and does not fetch permissions or enforce backend access.
 
@@ -8290,6 +8308,7 @@ Import the root entrypoint from `@contractspec/bundle.workspace`, or choose a do
 
 - Root bundle export with namespaced services, adapters, ports, formatters, templates, contracts, AI helpers, and utilities.
 - Export `.` resolves through `./src/index.ts`.
+- Environment templates can generate root and app-target `.env.example` content from the shared logical environment contract while preserving per-framework aliases such as `NEXT_PUBLIC_*` and `EXPO_PUBLIC_*`.
 
 ## Local Commands
 
@@ -8340,6 +8359,7 @@ URL: /llms/bundle.library
 
 - Provides the reusable product-facing bundle consumed by API, web, and documentation surfaces.
 - Aggregates docs pages, integration marketplace UI, templates, example showcase pages, and library-side MCP implementations.
+- Includes reusable managed/BYOK credential setup UI for integration manifests and monorepo-aware env alias previews.
 - Acts as the main composition layer between lower-level libraries and app-specific delivery shells.
 - `src/presentation/` contains presentation-layer components and renderers.
 
@@ -13190,6 +13210,7 @@ Website: https://contractspec.io
 - Contract-backed visualizations for integration mix, connection health, and sync-state comparison.
 - Client-mode table capabilities including sorting, pagination, column visibility, pinning, resizing, and expanded operational details.
 - Event definitions and operation test-specs.
+- Managed/BYOK credential setup metadata with monorepo-aware Next and Expo env aliases.
 
 ## Running Locally
 
@@ -13212,6 +13233,7 @@ Use `@contractspec/example.integration-hub` as a reference implementation, or im
 - `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
 - `src/index.ts` is the root public barrel and package entrypoint.
 - `src/integration` is part of the package's public or composition surface.
+- `src/setup` exposes BYOK credential manifests, secret-reference fixtures, and monorepo env aliases.
 
 ## Public Entry Points
 
@@ -13225,7 +13247,9 @@ Use `@contractspec/example.integration-hub` as a reference implementation, or im
 - Export `./docs/integration-hub.docblock` resolves through `./src/docs/integration-hub.docblock.ts`.
 - Export `./events` resolves through `./src/events.ts`.
 - Export `./example` resolves through `./src/example.ts`.
-- The package publishes 36 total export subpaths; keep docs aligned with `package.json`.
+- Export `./setup` resolves through `./src/setup/index.ts`.
+- Export `./setup/credential-setup` resolves through `./src/setup/credential-setup.ts`.
+- The package publishes 46 total export subpaths; keep docs aligned with `package.json`.
 
 ## Local Commands
 
@@ -13252,6 +13276,7 @@ Use `@contractspec/example.integration-hub` as a reference implementation, or im
 - Resolve lint, build, and type errors across nine packages.
 - Add Composio universal fallback, fix provider-ranking types, and expand package exports.
 - Add first-class transport, auth, versioning, and BYOK support across all integrations.
+- Add Integration Hub BYOK credential setup metadata and Next/Expo alias previews.
 
 ## Notes
 
@@ -15821,12 +15846,14 @@ The channel runtime keeps policy evaluation deterministic and auditable:
 - Resolve lint, build, and type errors across nine packages.
 - Add Composio universal fallback, fix provider-ranking types, and expand package exports.
 - Add first-class transport, auth, versioning, and BYOK support across all integrations.
+- Add monorepo-aware environment resolution helpers that materialize framework aliases and redact secret values in reports.
 - Upgrade dependencies.
 - Stabilize lint gate and runtime contract typing.
 
 ## Notes
 
 - Secret providers must implement the `provider` interface; never read secrets directly.
+- Environment resolution reports must stay redacted; secret and sensitive values are never serialized into examples, reports, telemetry, or errors.
 - Channel stores (memory, postgres) are swappable; do not couple to a specific backend.
 - Never import from apps or bundles.
 

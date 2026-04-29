@@ -117,6 +117,7 @@ Typical flow:
 - `IntegrationTransportConfig`, `findTransportConfig`, `supportsTransport`: transport contract and helpers.
 - `IntegrationVersionPolicy`, `resolveApiVersion`, `getVersionInfo`, `isVersionDeprecated`, `getActiveVersions`: API-version policy helpers.
 - `ByokKeyLifecycle` and BYOK metadata/result types: key validation and rotation contracts.
+- `IntegrationCredentialManifest` and helpers from `./integrations/credentials`: managed/BYOK credential requirements, env aliases, validation strategy, rotation policy, and compatibility mapping from legacy schemas.
 
 ### Runtime, health, and telemetry
 
@@ -171,6 +172,7 @@ Use the README as a guide to the main clusters. Use `package.json` as the author
 - `resolveApiVersion()` uses connection override first, then policy default.
 - `IntegrationHealthService.check()` returns structured results instead of throwing health failures upward.
 - Registry filters only match specs that explicitly declare auth methods, transports, version policies, or BYOK support.
+- Credential manifests describe required config and secret references per ownership mode; they do not carry raw credential values.
 - This package defines contracts and shipped spec registrations. SDK-backed implementations live elsewhere.
 
 ## When not to use this package

@@ -919,6 +919,7 @@
       "version": "3.8.22",
       "dependencies": {
         "@contractspec/lib.ai-agent": "workspace:*",
+        "@contractspec/lib.contracts-integrations": "workspace:*",
         "@contractspec/lib.contracts-spec": "workspace:*",
         "@contractspec/lib.design-system": "workspace:*",
         "@contractspec/lib.example-shared-ui": "workspace:*",

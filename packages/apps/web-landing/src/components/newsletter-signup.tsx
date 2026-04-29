@@ -11,8 +11,22 @@ import {
 import { HStack, VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import { Muted, Small } from '@contractspec/lib.ui-kit-web/ui/typography';
 import { AlertCircle, CheckCircle, Mail } from 'lucide-react';
-import { useActionState } from 'react';
+import { useActionState, useEffect, useState } from 'react';
 import { submitNewsletterSignup } from '../lib/newsletter-action';
+
+function HydratedMailIcon() {
+	const [isHydrated, setIsHydrated] = useState(false);
+
+	useEffect(() => {
+		setIsHydrated(true);
+	}, []);
+
+	if (!isHydrated) {
+		return <span aria-hidden="true" className="size-4" />;
+	}
+
+	return <Mail aria-hidden="true" className="size-4" />;
+}
 
 export default function NewsletterSignup() {
 	const [submitResult, submitAction, isPending] = useActionState<
@@ -41,8 +55,8 @@ export default function NewsletterSignup() {
 								className="border-0 bg-transparent p-0 shadow-none focus-visible:ring-0"
 								required
 							/>
-							<InputGroupAddon aria-hidden="true" suppressHydrationWarning>
-								<Mail aria-hidden="true" />
+							<InputGroupAddon aria-hidden="true">
+								<HydratedMailIcon />
 							</InputGroupAddon>
 							<InputGroupAddon align="inline-end">
 								<InputGroupButton

@@ -15,6 +15,7 @@ Website: https://contractspec.io
 - Contract-backed visualizations for integration mix, connection health, and sync-state comparison.
 - Client-mode table capabilities including sorting, pagination, column visibility, pinning, resizing, and expanded operational details.
 - Event definitions and operation test-specs.
+- Managed/BYOK credential setup metadata with monorepo-aware Next and Expo env aliases.
 
 ## Running Locally
 
@@ -37,6 +38,7 @@ Use `@contractspec/example.integration-hub` as a reference implementation, or im
 - `src/handlers/` contains handlers or demo adapters wired to contract surfaces.
 - `src/index.ts` is the root public barrel and package entrypoint.
 - `src/integration` is part of the package's public or composition surface.
+- `src/setup` exposes BYOK credential manifests, secret-reference fixtures, and monorepo env aliases.
 
 ## Public Entry Points
 
@@ -50,7 +52,9 @@ Use `@contractspec/example.integration-hub` as a reference implementation, or im
 - Export `./docs/integration-hub.docblock` resolves through `./src/docs/integration-hub.docblock.ts`.
 - Export `./events` resolves through `./src/events.ts`.
 - Export `./example` resolves through `./src/example.ts`.
-- The package publishes 36 total export subpaths; keep docs aligned with `package.json`.
+- Export `./setup` resolves through `./src/setup/index.ts`.
+- Export `./setup/credential-setup` resolves through `./src/setup/credential-setup.ts`.
+- The package publishes 46 total export subpaths; keep docs aligned with `package.json`.
 
 ## Local Commands
 
@@ -77,6 +81,7 @@ Use `@contractspec/example.integration-hub` as a reference implementation, or im
 - Resolve lint, build, and type errors across nine packages.
 - Add Composio universal fallback, fix provider-ranking types, and expand package exports.
 - Add first-class transport, auth, versioning, and BYOK support across all integrations.
+- Add Integration Hub BYOK credential setup metadata and Next/Expo alias previews.
 
 ## Notes
 

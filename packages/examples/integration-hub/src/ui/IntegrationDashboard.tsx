@@ -1,11 +1,15 @@
 'use client';
 
 import {
+	Box,
 	Button,
 	ErrorState,
+	HStack,
 	LoaderBlock,
 	StatCard,
 	StatCardGroup,
+	Text,
+	VStack,
 } from '@contractspec/lib.design-system';
 /**
  * Integration Hub Dashboard
@@ -17,9 +21,10 @@ import { useState } from 'react';
 import { useIntegrationData } from './hooks/useIntegrationData';
 import { IntegrationVisualizationOverview } from './IntegrationDashboard.visualizations';
 import { IntegrationHubChat } from './IntegrationHubChat';
+import { IntegrationHubCredentialSetupPreview } from './IntegrationHubCredentialSetupPreview';
 import { ConnectionsTable, SyncConfigsTable } from './tables/IntegrationTables';
 
-type Tab = 'integrations' | 'connections' | 'syncs' | 'chat';
+type Tab = 'integrations' | 'credentials' | 'connections' | 'syncs' | 'chat';
 
 const STATUS_COLORS: Record<string, string> = {
 	ACTIVE:
@@ -47,6 +52,9 @@ const TYPE_ICONS: Record<string, string> = {
 
 export function IntegrationDashboard() {
 	const [activeTab, setActiveTab] = useState<Tab>('integrations');
+	const [credentialMode, setCredentialMode] = useState<'managed' | 'byok'>(
+		'byok'
+	);
 	const {
 		integrations,
 		connections,
@@ -59,6 +67,7 @@ export function IntegrationDashboard() {
 
 	const tabs: { id: Tab; label: string; icon: string }[] = [
 		{ id: 'integrations', label: 'Integrations', icon: '🔌' },
+		{ id: 'credentials', label: 'BYOK/env', icon: '🔐' },
 		{ id: 'connections', label: 'Connections', icon: '🔗' },
 		{ id: 'syncs', label: 'Sync Configs', icon: '🔄' },
 		{ id: 'chat', label: 'Chat', icon: '💬' },
@@ -80,14 +89,17 @@ export function IntegrationDashboard() {
 	}
 
 	return (
-		<div className="space-y-6">
+		<VStack gap="lg" align="stretch">
 			{/* Header */}
-			<div className="flex items-center justify-between">
-				<h2 className="font-bold text-2xl">Integration Hub</h2>
+			<HStack className="items-center justify-between">
+				<Text className="font-bold text-2xl">Integration Hub</Text>
 				<Button onClick={() => alert('Add integration modal')}>
-					<span className="mr-2">+</span> Add Integration
+					<HStack className="items-center gap-2">
+						<Text aria-hidden="true">+</Text>
+						<Text>Add Integration</Text>
+					</HStack>
 				</Button>
-			</div>
+			</HStack>
 
 			{/* Stats Row */}
 			<StatCardGroup>
@@ -115,7 +127,7 @@ export function IntegrationDashboard() {
 			/>
 
 			{/* Navigation Tabs */}
-			<nav className="flex gap-1 rounded-lg bg-muted p-1" role="tablist">
+			<Box className="flex gap-1 rounded-lg bg-muted p-1" role="tablist">
 				{tabs.map((tab) => (
 					<Button
 						key={tab.id}
@@ -129,50 +141,59 @@ export function IntegrationDashboard() {
 								: 'text-muted-foreground hover:text-foreground'
 						}`}
 					>
-						<span>{tab.icon}</span>
-						{tab.label}
+						<Text aria-hidden="true">{tab.icon}</Text>
+						<Text>{tab.label}</Text>
 					</Button>
 				))}
-			</nav>
+			</Box>
 
 			{/* Tab Content */}
-			<div className="min-h-[400px]" role="tabpanel">
+			<Box className="min-h-[400px]" role="tabpanel">
 				{activeTab === 'integrations' && (
-					<div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+					<Box className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
 						{integrations.map((integration) => (
-							<div
+							<Box
 								key={integration.id}
 								className="cursor-pointer rounded-lg border border-border bg-card p-4 transition-colors hover:bg-muted/50"
 							>
-								<div className="mb-3 flex items-center gap-3">
-									<span className="text-2xl">
+								<HStack className="mb-3 items-center gap-3">
+									<Text className="text-2xl">
 										{TYPE_ICONS[integration.type] ?? '⚙️'}
-									</span>
-									<div>
-										<h3 className="font-medium">{integration.name}</h3>
-										<p className="text-muted-foreground text-sm">
+									</Text>
+									<VStack gap="xs" align="stretch">
+										<Text className="font-medium">{integration.name}</Text>
+										<Text className="text-muted-foreground text-sm">
 											{integration.type}
-										</p>
-									</div>
-								</div>
-								<div className="flex items-center justify-between">
-									<span
+										</Text>
+									</VStack>
+								</HStack>
+								<HStack className="items-center justify-between">
+									<Text
 										className={`inline-flex rounded-full px-2 py-0.5 font-medium text-xs ${STATUS_COLORS[integration.status] ?? ''}`}
 									>
 										{integration.status}
-									</span>
-									<span className="text-muted-foreground text-xs">
+									</Text>
+									<Text className="text-muted-foreground text-xs">
 										{integration.createdAt.toLocaleDateString()}
-									</span>
-								</div>
-							</div>
+									</Text>
+								</HStack>
+							</Box>
 						))}
 						{integrations.length === 0 && (
-							<div className="col-span-full flex h-64 items-center justify-center text-muted-foreground">
-								No integrations configured
-							</div>
+							<Box className="col-span-full flex h-64 items-center justify-center">
+								<Text className="text-muted-foreground">
+									No integrations configured
+								</Text>
+							</Box>
 						)}
-					</div>
+					</Box>
+				)}
+
+				{activeTab === 'credentials' && (
+					<IntegrationHubCredentialSetupPreview
+						mode={credentialMode}
+						onModeChange={setCredentialMode}
+					/>
 				)}
 
 				{activeTab === 'connections' && (
@@ -195,7 +216,7 @@ export function IntegrationDashboard() {
 				{activeTab === 'syncs' && (
 					<SyncConfigsTable syncConfigs={syncConfigs} />
 				)}
-			</div>
-		</div>
+			</Box>
+		</VStack>
 	);
 }

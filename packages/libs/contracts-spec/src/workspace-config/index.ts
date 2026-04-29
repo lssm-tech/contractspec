@@ -105,6 +105,33 @@ export type {
 	AgentMode,
 	AgentProvider,
 } from './contractsrc-types';
+export {
+	type AppEnvironmentFramework,
+	AppEnvironmentFrameworkSchema,
+	type AppEnvironmentTarget,
+	AppEnvironmentTargetSchema,
+	type EnvironmentAliasMaterialization,
+	type EnvironmentConfig,
+	EnvironmentConfigSchema,
+	type EnvironmentLifecycle,
+	EnvironmentLifecycleSchema,
+	type EnvironmentProfileConfig,
+	EnvironmentProfileConfigSchema,
+	type EnvironmentSensitivity,
+	EnvironmentSensitivitySchema,
+	type EnvironmentSurface,
+	EnvironmentSurfaceSchema,
+	type EnvironmentValueSource,
+	EnvironmentValueSourceSchema,
+	type EnvironmentValueSourceType,
+	type EnvironmentVariableDefinition,
+	EnvironmentVariableDefinitionSchema,
+	type EnvVariableAlias,
+	EnvVariableAliasSchema,
+	isPublicEnvironmentAlias,
+	type SecretRequirementConfig,
+	SecretRequirementConfigSchema,
+} from './environment';
 
 export const tech_workspace_config_DocBlocks: DocBlock[] = [
 	{

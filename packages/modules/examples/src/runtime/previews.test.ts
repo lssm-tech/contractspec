@@ -66,6 +66,20 @@ describe('example previews', () => {
 		);
 	});
 
+	test('loads the integration hub inline preview module', async () => {
+		const preview = listInlineExamplePreviews().find(
+			(candidate) => candidate.key === 'integration-hub'
+		);
+
+		expect(preview).toBeDefined();
+		expect(preview?.exportName).toBe('IntegrationDashboard');
+
+		const module = await preview!.loadModule();
+
+		expect(typeof module.IntegrationDashboard).toBe('function');
+		expect(typeof module.IntegrationHubCredentialSetupPreview).toBe('function');
+	});
+
 	test('exposes finance templates as inline previews', () => {
 		expect(supportsInlineExamplePreview('finance-ops-ai-workflows')).toBe(true);
 		expect(supportsInlineExamplePreview('wealth-snapshot')).toBe(true);

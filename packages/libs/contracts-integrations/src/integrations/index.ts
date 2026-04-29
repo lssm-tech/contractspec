@@ -2,6 +2,7 @@ export * from './auth';
 export * from './binding';
 export * from './byok';
 export * from './connection';
+export * from './credentials';
 export * from './health/contracts';
 export * from './health/guards';
 export * from './health/health.capability';

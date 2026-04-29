@@ -7,6 +7,7 @@ export * from './advanced-contracts.template';
 export * from './app-config.template';
 export * from './data-view.template';
 export * from './data-view-renderer.template';
+export * from './environment.template';
 export * from './event.template';
 export * from './experiment.template';
 export * from './feature.template';

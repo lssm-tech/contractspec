@@ -11,6 +11,10 @@ import {
 	AgentTargetSchema,
 	ReleaseEnforceOnSchema,
 } from '../versioning/schema';
+import { EnvironmentConfigSchema } from './environment';
+
+export * from './environment';
+
 import type {
 	BuilderApiConfig,
 	BuilderBootstrapPreset,
@@ -972,6 +976,8 @@ export const ContractsrcSchema: z.ZodType<ContractsrcFileConfig> = z.object({
 	builder: BuilderConfigSchema.optional(),
 	// ContractSpec Connect configuration
 	connect: ConnectConfigSchema.optional(),
+	// Monorepo-aware environment/configuration declaration
+	environment: EnvironmentConfigSchema.optional(),
 });
 
 /**

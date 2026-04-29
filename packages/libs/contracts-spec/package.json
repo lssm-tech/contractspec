@@ -467,7 +467,10 @@
 		"./workflow/workflow-sdk": "./src/workflow/workflow-sdk.ts",
 		"./workspace-config": "./src/workspace-config/index.ts",
 		"./workspace-config/contractsrc-schema": "./src/workspace-config/contractsrc-schema.ts",
-		"./workspace-config/contractsrc-types": "./src/workspace-config/contractsrc-types.ts"
+		"./workspace-config/contractsrc-types": "./src/workspace-config/contractsrc-types.ts",
+		"./workspace-config/environment": "./src/workspace-config/environment.ts",
+		"./workspace-config/environment-validation": "./src/workspace-config/environment-validation.ts",
+		"./workspace-config/environment-validation-alias": "./src/workspace-config/environment-validation-alias.ts"
 	},
 	"publishConfig": {
 		"access": "public",
@@ -2980,6 +2983,24 @@
 				"bun": "./dist/workspace-config/contractsrc-types.js",
 				"node": "./dist/node/workspace-config/contractsrc-types.js",
 				"default": "./dist/workspace-config/contractsrc-types.js"
+			},
+			"./workspace-config/environment": {
+				"types": "./dist/workspace-config/environment.d.ts",
+				"bun": "./dist/workspace-config/environment.js",
+				"node": "./dist/node/workspace-config/environment.js",
+				"default": "./dist/workspace-config/environment.js"
+			},
+			"./workspace-config/environment-validation": {
+				"types": "./dist/workspace-config/environment-validation.d.ts",
+				"bun": "./dist/workspace-config/environment-validation.js",
+				"node": "./dist/node/workspace-config/environment-validation.js",
+				"default": "./dist/workspace-config/environment-validation.js"
+			},
+			"./workspace-config/environment-validation-alias": {
+				"types": "./dist/workspace-config/environment-validation-alias.d.ts",
+				"bun": "./dist/workspace-config/environment-validation-alias.js",
+				"node": "./dist/node/workspace-config/environment-validation-alias.js",
+				"default": "./dist/workspace-config/environment-validation-alias.js"
 			}
 		}
 	}

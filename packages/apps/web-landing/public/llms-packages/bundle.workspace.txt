@@ -38,6 +38,7 @@ Import the root entrypoint from `@contractspec/bundle.workspace`, or choose a do
 
 - Root bundle export with namespaced services, adapters, ports, formatters, templates, contracts, AI helpers, and utilities.
 - Export `.` resolves through `./src/index.ts`.
+- Environment templates can generate root and app-target `.env.example` content from the shared logical environment contract while preserving per-framework aliases such as `NEXT_PUBLIC_*` and `EXPO_PUBLIC_*`.
 
 ## Local Commands
 

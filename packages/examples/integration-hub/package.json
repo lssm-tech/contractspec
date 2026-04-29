@@ -23,6 +23,7 @@
 	},
 	"dependencies": {
 		"@contractspec/lib.ai-agent": "workspace:*",
+		"@contractspec/lib.contracts-integrations": "workspace:*",
 		"@contractspec/lib.contracts-spec": "workspace:*",
 		"@contractspec/lib.design-system": "workspace:*",
 		"@contractspec/lib.example-shared-ui": "workspace:*",
@@ -66,6 +67,8 @@
 		"./mcp-example": "./src/mcp-example.ts",
 		"./run-mcp": "./src/run-mcp.ts",
 		"./seeders": "./src/seeders/index.ts",
+		"./setup": "./src/setup/index.ts",
+		"./setup/credential-setup": "./src/setup/credential-setup.ts",
 		"./sync": "./src/sync/index.ts",
 		"./sync-engine": "./src/sync-engine/index.ts",
 		"./sync/sync.enum": "./src/sync/sync.enum.ts",
@@ -79,6 +82,8 @@
 		"./ui/IntegrationDashboard": "./src/ui/IntegrationDashboard.tsx",
 		"./ui/IntegrationDashboard.visualizations": "./src/ui/IntegrationDashboard.visualizations.tsx",
 		"./ui/IntegrationHubChat": "./src/ui/IntegrationHubChat.tsx",
+		"./ui/IntegrationHubCredentialSetupPreview": "./src/ui/IntegrationHubCredentialSetupPreview.tsx",
+		"./ui/IntegrationHubCredentialSetupPreview.model": "./src/ui/IntegrationHubCredentialSetupPreview.model.ts",
 		"./ui/renderers": "./src/ui/renderers/index.ts",
 		"./ui/renderers/integration.markdown": "./src/ui/renderers/integration.markdown.ts",
 		"./ui/tables/ConnectionsTable": "./src/ui/tables/ConnectionsTable.tsx",
@@ -228,6 +233,18 @@
 				"node": "./dist/node/seeders/index.js",
 				"default": "./dist/seeders/index.js"
 			},
+			"./setup": {
+				"types": "./dist/setup/index.d.ts",
+				"bun": "./dist/setup/index.js",
+				"node": "./dist/node/setup/index.js",
+				"default": "./dist/setup/index.js"
+			},
+			"./setup/credential-setup": {
+				"types": "./dist/setup/credential-setup.d.ts",
+				"bun": "./dist/setup/credential-setup.js",
+				"node": "./dist/node/setup/credential-setup.js",
+				"default": "./dist/setup/credential-setup.js"
+			},
 			"./sync": {
 				"types": "./dist/sync/index.d.ts",
 				"bun": "./dist/sync/index.js",
@@ -305,6 +322,18 @@
 				"bun": "./dist/ui/IntegrationHubChat.js",
 				"node": "./dist/node/ui/IntegrationHubChat.js",
 				"default": "./dist/ui/IntegrationHubChat.js"
+			},
+			"./ui/IntegrationHubCredentialSetupPreview": {
+				"types": "./dist/ui/IntegrationHubCredentialSetupPreview.d.ts",
+				"bun": "./dist/ui/IntegrationHubCredentialSetupPreview.js",
+				"node": "./dist/node/ui/IntegrationHubCredentialSetupPreview.js",
+				"default": "./dist/ui/IntegrationHubCredentialSetupPreview.js"
+			},
+			"./ui/IntegrationHubCredentialSetupPreview.model": {
+				"types": "./dist/ui/IntegrationHubCredentialSetupPreview.model.d.ts",
+				"bun": "./dist/ui/IntegrationHubCredentialSetupPreview.model.js",
+				"node": "./dist/node/ui/IntegrationHubCredentialSetupPreview.model.js",
+				"default": "./dist/ui/IntegrationHubCredentialSetupPreview.model.js"
 			},
 			"./ui/renderers": {
 				"types": "./dist/ui/renderers/index.d.ts",
