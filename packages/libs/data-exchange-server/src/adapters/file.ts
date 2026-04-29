@@ -39,13 +39,18 @@ export async function readFileSource(
 	switch (format) {
 		case 'csv':
 			return parseCsvContent(content, {
+				...source.codecOptions?.csv,
 				name: source.name,
 				metadata: source.metadata,
 			});
 		case 'xml':
-			return parseXmlContent(content, { name: source.name });
+			return parseXmlContent(content, {
+				...source.codecOptions?.xml,
+				name: source.name,
+			});
 		default:
 			return parseJsonContent(content, {
+				...source.codecOptions?.json,
 				name: source.name,
 				metadata: source.metadata,
 			});
@@ -59,10 +64,10 @@ export async function writeFileTarget(
 	const format = resolveFileFormat(target.path, target.format ?? batch.format);
 	const body =
 		format === 'csv'
-			? formatCsvBatch(batch)
+			? formatCsvBatch(batch, target.codecOptions?.csv)
 			: format === 'xml'
-				? formatXmlBatch(batch)
-				: formatJsonBatch(batch);
+				? formatXmlBatch(batch, target.codecOptions?.xml)
+				: formatJsonBatch(batch, target.codecOptions?.json);
 	await writeFile(target.path, body, 'utf-8');
 	return {
 		path: target.path,

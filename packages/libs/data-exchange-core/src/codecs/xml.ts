@@ -1,5 +1,12 @@
 import { createRecordBatch, flattenRecord, unflattenRecord } from '../records';
-import type { InterchangeRecord, JsonValue, RecordBatch } from '../types';
+import type {
+	InterchangeRecord,
+	JsonValue,
+	RecordBatch,
+	XmlCodecOptions,
+} from '../types';
+
+export type { XmlCodecOptions } from '../types';
 
 function escapeXml(value: unknown): string {
 	const normalized =
@@ -30,8 +37,18 @@ function readSection(content: string, tag: string): string | null {
 	return match?.[1] ?? null;
 }
 
-function parseFieldBlock(block: string): InterchangeRecord {
+function parseAttributes(block: string): InterchangeRecord {
 	const record: InterchangeRecord = {};
+	const attributeMatches = block.matchAll(/([\w.-]+)="([^"]*)"/g);
+	for (const match of attributeMatches) {
+		record[match[1]!] = unescapeXml(match[2] ?? '');
+	}
+	return record;
+}
+
+function parseFieldBlock(block: string, attributes = ''): InterchangeRecord {
+	const record: InterchangeRecord = {};
+	Object.assign(record, parseAttributes(attributes));
 	const fieldMatches = block.matchAll(/<([\w.-]+)>([\s\S]*?)<\/\1>/g);
 	for (const match of fieldMatches) {
 		record[match[1]!] = unescapeXml(match[2] ?? '');
@@ -51,25 +68,23 @@ function parseMetadata(
 	return metadata;
 }
 
-export interface XmlCodecOptions {
-	rootTag?: string;
-	recordTag?: string;
-	attributeFields?: string[];
-}
-
 export function parseXmlContent(
 	content: string,
 	options: Pick<RecordBatch, 'name'> & XmlCodecOptions = {}
 ): RecordBatch {
 	const rootTag = options.rootTag ?? 'records';
 	const recordTag = options.recordTag ?? 'record';
+	const metadataTag = options.metadataTag ?? 'meta';
 	const rootContent = readSection(content, rootTag) ?? content;
-	const metadata = parseMetadata(readSection(rootContent, 'meta'));
+	const metadata =
+		options.includeMetadata === false
+			? {}
+			: parseMetadata(readSection(rootContent, metadataTag));
 	const recordMatches = rootContent.matchAll(
-		new RegExp(`<${recordTag}[^>]*>([\\s\\S]*?)</${recordTag}>`, 'g')
+		new RegExp(`<${recordTag}([^>]*)>([\\s\\S]*?)</${recordTag}>`, 'g')
 	);
 	const records = Array.from(recordMatches, (match) =>
-		parseFieldBlock(match[1]!)
+		parseFieldBlock(match[2]!, match[1])
 	);
 
 	return createRecordBatch(records, {
@@ -85,10 +100,14 @@ export function formatXmlBatch(
 ): string {
 	const rootTag = options.rootTag ?? 'records';
 	const recordTag = options.recordTag ?? 'record';
+	const metadataTag = options.metadataTag ?? 'meta';
 	const attributeFields = new Set(options.attributeFields ?? []);
-	const metadata = Object.entries(batch.metadata ?? {})
-		.map(([key, value]) => `    <${key}>${escapeXml(value)}</${key}>`)
-		.join('\n');
+	const metadata =
+		options.includeMetadata === false
+			? ''
+			: Object.entries(batch.metadata ?? {})
+					.map(([key, value]) => `    <${key}>${escapeXml(value)}</${key}>`)
+					.join('\n');
 	const records = batch.records
 		.map((record) => {
 			const flattened = flattenRecord(record);
@@ -104,6 +123,8 @@ export function formatXmlBatch(
 		})
 		.join('\n');
 
-	const metaBlock = metadata ? `  <meta>\n${metadata}\n  </meta>\n` : '';
+	const metaBlock = metadata
+		? `  <${metadataTag}>\n${metadata}\n  </${metadataTag}>\n`
+		: '';
 	return `<?xml version="1.0" encoding="UTF-8"?>\n<${rootTag}>\n${metaBlock}  <items>\n${records}\n  </items>\n</${rootTag}>`;
 }

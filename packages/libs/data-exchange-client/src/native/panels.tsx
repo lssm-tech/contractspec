@@ -3,6 +3,34 @@ import type {
 	PreviewResult,
 } from '@contractspec/lib.data-exchange-core';
 import { Text, View } from 'react-native';
+import type { DataExchangeViewModel } from '../types';
+
+export function NativeTemplateMappingPanel({
+	model,
+}: {
+	model: DataExchangeViewModel;
+}) {
+	const templateRows = model.templateRows ?? [];
+	const ignoredSourceColumns = model.ignoredSourceColumns ?? [];
+	if (templateRows.length === 0) {
+		return null;
+	}
+
+	return (
+		<View>
+			<Text>Column Mapping</Text>
+			{templateRows.map((row) => (
+				<Text key={row.id}>
+					{row.label}: {row.sourceField || 'Unmatched'} -&gt; {row.targetField}
+					{row.formatLabel ? ` (${row.formatLabel})` : ''}
+				</Text>
+			))}
+			{ignoredSourceColumns.length > 0 ? (
+				<Text>Ignored source columns: {ignoredSourceColumns.join(', ')}</Text>
+			) : null}
+		</View>
+	);
+}
 
 export function NativeValidationPanel({ preview }: { preview: PreviewResult }) {
 	return (

@@ -1,8 +1,15 @@
 import { createRecordBatch, flattenRecord } from '../records';
-import type { InterchangeRecord, RecordBatch } from '../types';
+import type { CsvCodecOptions, InterchangeRecord, RecordBatch } from '../types';
 
-function parseCsvRows(content: string): string[][] {
+export type { CsvCodecOptions } from '../types';
+
+function parseCsvRows(
+	content: string,
+	options: CsvCodecOptions = {}
+): string[][] {
 	const rows: string[][] = [];
+	const delimiter = options.delimiter ?? ',';
+	const quote = options.quote ?? '"';
 	let currentCell = '';
 	let currentRow: string[] = [];
 	let inQuotes = false;
@@ -11,9 +18,9 @@ function parseCsvRows(content: string): string[][] {
 		const char = content[index]!;
 		const next = content[index + 1];
 
-		if (char === '"') {
-			if (inQuotes && next === '"') {
-				currentCell += '"';
+		if (char === quote) {
+			if (inQuotes && next === quote) {
+				currentCell += quote;
 				index += 1;
 				continue;
 			}
@@ -21,7 +28,7 @@ function parseCsvRows(content: string): string[][] {
 			continue;
 		}
 
-		if (!inQuotes && char === ',') {
+		if (!inQuotes && char === delimiter) {
 			currentRow.push(currentCell);
 			currentCell = '';
 			continue;
@@ -51,7 +58,11 @@ function parseCsvRows(content: string): string[][] {
 	return rows;
 }
 
-function escapeCsv(value: unknown): string {
+function escapeDelimited(
+	value: unknown,
+	delimiter: string,
+	quote: string
+): string {
 	const normalized =
 		value === undefined || value === null
 			? ''
@@ -60,21 +71,26 @@ function escapeCsv(value: unknown): string {
 				: JSON.stringify(value);
 
 	if (
-		normalized.includes(',') ||
-		normalized.includes('"') ||
+		normalized.includes(delimiter) ||
+		normalized.includes(quote) ||
 		normalized.includes('\n')
 	) {
-		return `"${normalized.replace(/"/g, '""')}"`;
+		return `${quote}${normalized.split(quote).join(`${quote}${quote}`)}${quote}`;
 	}
 	return normalized;
 }
 
 export function parseCsvContent(
 	content: string,
-	options: Pick<RecordBatch, 'name' | 'metadata'> = {}
+	options: Pick<RecordBatch, 'name' | 'metadata'> & CsvCodecOptions = {}
 ): RecordBatch {
-	const rows = parseCsvRows(content.trim());
-	const [header = [], ...dataRows] = rows;
+	const rows = parseCsvRows(content.trim(), options).slice(
+		options.skipRows ?? 0
+	);
+	const headerRow = options.headerRow ?? (options.columns ? -1 : 0);
+	const header =
+		options.columns ?? (headerRow >= 0 ? rows[headerRow] : []) ?? [];
+	const dataRows = headerRow >= 0 ? rows.slice(headerRow + 1) : rows;
 	const records: InterchangeRecord[] = dataRows.map((row) =>
 		Object.fromEntries(header.map((key, index) => [key, row[index] ?? '']))
 	);
@@ -88,8 +104,10 @@ export function parseCsvContent(
 
 export function formatCsvBatch(
 	batch: RecordBatch,
-	options: { columns?: string[] } = {}
+	options: CsvCodecOptions = {}
 ): string {
+	const delimiter = options.delimiter ?? ',';
+	const quote = options.quote ?? '"';
 	const flattenedRows = batch.records.map((record) => flattenRecord(record));
 	const columns =
 		options.columns ??
@@ -100,9 +118,13 @@ export function formatCsvBatch(
 				).sort());
 
 	const lines = [
-		columns.join(','),
+		columns
+			.map((column) => escapeDelimited(column, delimiter, quote))
+			.join(delimiter),
 		...flattenedRows.map((row) =>
-			columns.map((column) => escapeCsv(row[column])).join(',')
+			columns
+				.map((column) => escapeDelimited(row[column], delimiter, quote))
+				.join(delimiter)
 		),
 	];
 

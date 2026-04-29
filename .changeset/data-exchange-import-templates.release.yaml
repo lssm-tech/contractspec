@@ -1,0 +1,55 @@
+schemaVersion: "1"
+slug: data-exchange-import-templates
+summary: Add template-aware import mapping with column aliases, flexible value formatting, codec options, client review state, and server audit evidence.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.data-exchange-core"
+    releaseType: minor
+  - name: "@contractspec/lib.data-exchange-client"
+    releaseType: minor
+  - name: "@contractspec/lib.data-exchange-server"
+    releaseType: minor
+affectedRuntimes:
+  - bun
+  - node
+  - nextjs
+  - expo
+affectedFrameworks:
+  - react
+  - react-native
+audiences:
+  - kind: maintainer
+    summary: Maintainers can define reusable import templates that resolve incoming file columns through aliases, normalized labels, and SchemaModel fallback inference.
+    affectedPackages:
+      - "@contractspec/lib.data-exchange-core"
+      - "@contractspec/lib.data-exchange-client"
+      - "@contractspec/lib.data-exchange-server"
+  - kind: integrator
+    summary: Integrators can accept partner CSV/JSON/XML layouts with localized number, boolean, date, JSON, split/join, currency, and percentage formatting before preview or execution.
+    affectedPackages:
+      - "@contractspec/lib.data-exchange-core"
+      - "@contractspec/lib.data-exchange-server"
+  - kind: customer
+    summary: Import review screens can show matched columns, required gaps, formatting summaries, and ignored source columns before users execute an import.
+    affectedPackages:
+      - "@contractspec/lib.data-exchange-client"
+migrationInstructions:
+  - id: adopt-import-templates
+    title: Add templates to new import flows
+    summary: Existing explicit mappings continue to work; new flows can pass an import template to plan creation, dry-run, or execution APIs.
+    required: false
+    when: When an import has a recommended column shape but users may upload partner-specific headers or localized values.
+    steps:
+      - Define a template with `defineDataExchangeTemplate` or the backwards-compatible `defineImportTemplate` alias.
+      - Add `sourceAliases` and `format` hints to template columns where partner files differ.
+      - Pass `template` to core plan creation or server dry-run/execute calls.
+      - Use the client controller model to show matched, unmatched, and ignored columns.
+validation:
+  commands:
+    - cd packages/libs/data-exchange-core && bun test && bun run typecheck && bun run lint:check
+    - cd packages/libs/data-exchange-client && bun test && bun run typecheck && bun run lint:check
+    - cd packages/libs/data-exchange-server && bun test && bun run typecheck && bun run lint:check
+  evidence:
+    - "`@contractspec/lib.data-exchange-core` exposes import templates, value formatting, template mapping resolution, and flexible CSV/JSON/XML codec options."
+    - "`@contractspec/lib.data-exchange-client` exposes template-aware controller/view-model rows and user mapping actions."
+    - "`@contractspec/lib.data-exchange-server` threads templates through dry-run and execution and records mapping-source audit evidence."

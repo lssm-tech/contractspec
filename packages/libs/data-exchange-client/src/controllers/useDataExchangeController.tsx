@@ -1,43 +1,50 @@
-import type { FieldMapping } from '@contractspec/lib.data-exchange-core';
+import type {
+	FieldMapping,
+	FormatProfile,
+} from '@contractspec/lib.data-exchange-core';
 import * as React from 'react';
-import type { UseDataExchangeControllerOptions } from '../types';
+import type {
+	DataExchangeController,
+	UseDataExchangeControllerOptions,
+} from '../types';
+import { useMappingActions } from './controller-actions';
 import { createDataExchangeViewModel } from './model';
 
 export function useDataExchangeController({
 	preview,
 	initialMappings,
+	initialFormatProfile,
 	executionResult,
-}: UseDataExchangeControllerOptions) {
+}: UseDataExchangeControllerOptions): DataExchangeController {
 	const [mappings, setMappings] = React.useState<FieldMapping[]>(
-		initialMappings ?? preview.plan.mappings
+		() => initialMappings ?? preview.plan.mappings
+	);
+	const [formatProfile, setFormatProfile] = React.useState<
+		FormatProfile | undefined
+	>(
+		() =>
+			initialFormatProfile ??
+			preview.plan.formatProfile ??
+			preview.plan.template?.formatProfile
 	);
 
-	const updateMapping = React.useCallback(
-		(targetField: string, next: Partial<FieldMapping>) => {
-			setMappings((current) =>
-				current.map((mapping) =>
-					mapping.targetField === targetField
-						? { ...mapping, ...next }
-						: mapping
-				)
-			);
-		},
-		[]
-	);
-
-	const resetMappings = React.useCallback(() => {
-		setMappings(preview.plan.mappings);
-	}, [preview.plan.mappings]);
+	const actions = useMappingActions({ preview, setMappings, setFormatProfile });
 
 	const model = React.useMemo(
-		() => createDataExchangeViewModel({ preview, mappings, executionResult }),
-		[executionResult, mappings, preview]
+		() =>
+			createDataExchangeViewModel({
+				preview,
+				mappings,
+				formatProfile,
+				executionResult,
+			}),
+		[executionResult, formatProfile, mappings, preview]
 	);
 
 	return {
+		formatProfile,
 		mappings,
 		model,
-		updateMapping,
-		resetMappings,
+		...actions,
 	};
 }

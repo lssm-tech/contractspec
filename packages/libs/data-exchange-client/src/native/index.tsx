@@ -4,7 +4,11 @@ import type {
 } from '@contractspec/lib.data-exchange-core';
 import { Text, View } from 'react-native';
 import { useDataExchangeController } from '../controllers';
-import { NativeRunAuditView, NativeValidationPanel } from './panels';
+import {
+	NativeRunAuditView,
+	NativeTemplateMappingPanel,
+	NativeValidationPanel,
+} from './panels';
 import { NativePreviewTable } from './table';
 
 export function NativeMappingStudio({
@@ -19,6 +23,7 @@ export function NativeMappingStudio({
 	return (
 		<View>
 			<Text>Data Exchange Studio</Text>
+			<NativeTemplateMappingPanel model={controller.model} />
 			<NativeValidationPanel preview={preview} />
 			<NativePreviewTable
 				title="Source Preview"
@@ -33,5 +38,9 @@ export function NativeMappingStudio({
 	);
 }
 
-export { NativeRunAuditView, NativeValidationPanel } from './panels';
+export {
+	NativeRunAuditView,
+	NativeTemplateMappingPanel,
+	NativeValidationPanel,
+} from './panels';
 export { NativePreviewTable } from './table';

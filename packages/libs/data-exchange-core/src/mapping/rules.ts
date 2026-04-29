@@ -1,5 +1,6 @@
 import { getValueAtPath, setValueAtPath } from '../records/path';
 import type { FieldMapping, InterchangeRecord, MappingRule } from '../types';
+import { applyColumnValueFormat } from './format';
 
 function parseBoolean(value: unknown): boolean {
 	if (typeof value === 'boolean') return value;
@@ -50,7 +51,10 @@ export function applyMappingToRecord(
 	const output: Record<string, unknown> = {};
 
 	for (const mapping of mappings) {
-		let value = getValueAtPath(record, mapping.sourceField);
+		let value = applyColumnValueFormat(
+			getValueAtPath(record, mapping.sourceField),
+			mapping.format
+		);
 		for (const rule of mapping.rules ?? []) {
 			value = applyRule(value, rule);
 		}

@@ -1,5 +1,6 @@
 import type { WorkflowSpec } from '@contractspec/lib.contracts-spec/workflow';
 import type {
+	DataExchangeTemplate,
 	InterchangeSource,
 	InterchangeTarget,
 } from '@contractspec/lib.data-exchange-core';
@@ -21,6 +22,7 @@ export function createInterchangeWorkflowSpec(args: {
 	description: string;
 	source: InterchangeSource;
 	target: InterchangeTarget;
+	template?: DataExchangeTemplate;
 }): WorkflowSpec {
 	return {
 		meta: {
@@ -109,6 +111,8 @@ export function createInterchangeWorkflowSpec(args: {
 		metadata: {
 			sourceKind: args.source.kind,
 			targetKind: args.target.kind,
+			templateKey: args.template?.key,
+			templateVersion: args.template?.version,
 		},
 	};
 }

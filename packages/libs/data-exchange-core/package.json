@@ -48,8 +48,10 @@
 		"./codecs/xml": "./src/codecs/xml.ts",
 		"./data-exchange-core.feature": "./src/data-exchange-core.feature.ts",
 		"./mapping": "./src/mapping/index.ts",
+		"./mapping/format": "./src/mapping/format.ts",
 		"./mapping/infer": "./src/mapping/infer.ts",
 		"./mapping/rules": "./src/mapping/rules.ts",
+		"./mapping/template": "./src/mapping/template.ts",
 		"./plans": "./src/plans/index.ts",
 		"./plans/export-plan": "./src/plans/export-plan.ts",
 		"./plans/import-plan": "./src/plans/import-plan.ts",
@@ -118,6 +120,13 @@
 				"node": "./dist/node/mapping/index.js",
 				"default": "./dist/mapping/index.js"
 			},
+			"./mapping/format": {
+				"types": "./dist/mapping/format.d.ts",
+				"browser": "./dist/browser/mapping/format.js",
+				"bun": "./dist/mapping/format.js",
+				"node": "./dist/node/mapping/format.js",
+				"default": "./dist/mapping/format.js"
+			},
 			"./mapping/infer": {
 				"types": "./dist/mapping/infer.d.ts",
 				"browser": "./dist/browser/mapping/infer.js",
@@ -131,6 +140,13 @@
 				"bun": "./dist/mapping/rules.js",
 				"node": "./dist/node/mapping/rules.js",
 				"default": "./dist/mapping/rules.js"
+			},
+			"./mapping/template": {
+				"types": "./dist/mapping/template.d.ts",
+				"browser": "./dist/browser/mapping/template.js",
+				"bun": "./dist/mapping/template.js",
+				"node": "./dist/node/mapping/template.js",
+				"default": "./dist/mapping/template.js"
 			},
 			"./plans": {
 				"types": "./dist/plans/index.d.ts",

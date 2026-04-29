@@ -1,5 +1,12 @@
 import { createRecordBatch } from '../records';
-import type { InterchangeRecord, JsonValue, RecordBatch } from '../types';
+import type {
+	InterchangeRecord,
+	JsonCodecOptions,
+	JsonValue,
+	RecordBatch,
+} from '../types';
+
+export type { JsonCodecOptions } from '../types';
 
 function toRecords(value: JsonValue): InterchangeRecord[] {
 	if (Array.isArray(value)) {
@@ -19,20 +26,31 @@ function toRecords(value: JsonValue): InterchangeRecord[] {
 	return [{ value }];
 }
 
-export interface JsonCodecOptions {
-	pretty?: boolean;
-	recordsKey?: string;
-	metadataKey?: string;
-}
-
 export function parseJsonContent(
 	content: string,
-	options: Pick<RecordBatch, 'name' | 'metadata'> = {}
+	options: Pick<RecordBatch, 'name' | 'metadata'> & JsonCodecOptions = {}
 ): RecordBatch {
 	const parsed = JSON.parse(content) as JsonValue;
-	return createRecordBatch(toRecords(parsed), {
+	const recordsPayload =
+		options.recordsKey &&
+		typeof parsed === 'object' &&
+		parsed !== null &&
+		!Array.isArray(parsed)
+			? parsed[options.recordsKey]
+			: parsed;
+	const metadata =
+		options.metadataKey &&
+		typeof parsed === 'object' &&
+		parsed !== null &&
+		!Array.isArray(parsed) &&
+		typeof parsed[options.metadataKey] === 'object' &&
+		parsed[options.metadataKey] !== null &&
+		!Array.isArray(parsed[options.metadataKey])
+			? (parsed[options.metadataKey] as Record<string, JsonValue | undefined>)
+			: options.metadata;
+	return createRecordBatch(toRecords(recordsPayload ?? []), {
 		name: options.name,
-		metadata: options.metadata,
+		metadata,
 		format: 'json',
 	});
 }

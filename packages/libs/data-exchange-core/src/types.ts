@@ -41,10 +41,39 @@ export interface RecordBatch {
 	metadata?: Record<string, JsonValue | undefined>;
 }
 
+export interface CsvCodecOptions {
+	delimiter?: string;
+	quote?: string;
+	headerRow?: number;
+	skipRows?: number;
+	columns?: string[];
+}
+
+export interface JsonCodecOptions {
+	pretty?: boolean;
+	recordsKey?: string;
+	metadataKey?: string;
+}
+
+export interface XmlCodecOptions {
+	rootTag?: string;
+	recordTag?: string;
+	attributeFields?: string[];
+	metadataTag?: string;
+	includeMetadata?: boolean;
+}
+
+export interface InterchangeCodecOptions {
+	csv?: CsvCodecOptions;
+	json?: JsonCodecOptions;
+	xml?: XmlCodecOptions;
+}
+
 interface InterchangeEndpointBase {
 	kind: InterchangeLocationKind;
 	name?: string;
 	format?: InterchangeFormat;
+	codecOptions?: InterchangeCodecOptions;
 	metadata?: Record<string, JsonValue | undefined>;
 }
 
@@ -140,13 +169,101 @@ export type MappingRule =
 	| { kind: 'split'; delimiter: string }
 	| { kind: 'join'; delimiter: string };
 
+export type ColumnValueFormatKind =
+	| 'text'
+	| 'number'
+	| 'boolean'
+	| 'date'
+	| 'datetime'
+	| 'json'
+	| 'split'
+	| 'join'
+	| 'currency'
+	| 'percentage';
+
+export interface ColumnValueFormat {
+	kind: ColumnValueFormatKind;
+	trim?: boolean;
+	case?: 'uppercase' | 'lowercase';
+	decimalSeparator?: string;
+	thousandsSeparator?: string;
+	trueValues?: string[];
+	falseValues?: string[];
+	inputFormats?: string[];
+	emptyAsNull?: boolean;
+	defaultValue?: JsonValue;
+	delimiter?: string;
+	currencySymbol?: string;
+	percentScale?: 'fraction' | 'whole';
+}
+
+export interface FormatProfile {
+	key?: string;
+	locale?: string;
+	defaultFormat?: ColumnValueFormat;
+	columns?: Record<string, ColumnValueFormat | undefined>;
+}
+
 export interface FieldMapping {
 	sourceField: string;
 	targetField: string;
 	required?: boolean;
 	confidence?: number;
 	rules?: MappingRule[];
+	sourceAliases?: string[];
+	format?: ColumnValueFormat;
+	templateColumnKey?: string;
+	status?: 'matched' | 'inferred' | 'manual' | 'unmatched';
 	notes?: string[];
+}
+
+export interface ImportTemplateColumn {
+	key: string;
+	targetField: string;
+	label: string;
+	required?: boolean;
+	sourceAliases?: string[];
+	format?: ColumnValueFormat;
+	description?: string;
+}
+
+export interface ImportTemplate {
+	key: string;
+	version: string;
+	title?: string;
+	description?: string;
+	columns: ImportTemplateColumn[];
+	formatProfile?: FormatProfile;
+	metadata?: Record<string, JsonValue | undefined>;
+}
+
+export type DataExchangeTemplate = ImportTemplate;
+export type ExportTemplate = DataExchangeTemplate;
+
+export interface TemplateColumnMatch {
+	templateColumnKey: string;
+	targetField: string;
+	sourceField: string;
+	confidence: number;
+	strategy: 'exact' | 'alias' | 'normalized' | 'schema';
+}
+
+export interface TemplateMappingResult {
+	mappings: FieldMapping[];
+	issues: ValidationIssue[];
+	matchedColumns: TemplateColumnMatch[];
+	unmatchedTemplateColumns: ImportTemplateColumn[];
+	unmatchedSourceColumns: InterchangeColumn[];
+	source: 'explicit' | 'template' | 'inferred';
+}
+
+export type MappingResolutionSource = TemplateMappingResult['source'];
+
+export interface ResolveImportTemplateMappingsArgs {
+	batch: RecordBatch;
+	schema: AnySchemaModel;
+	template?: ImportTemplate;
+	formatProfile?: FormatProfile;
 }
 
 export interface ValidationIssue {
@@ -204,6 +321,10 @@ export interface ReconciliationPolicy {
 interface BasePlan {
 	schema: AnySchemaModel;
 	mappings: FieldMapping[];
+	mappingSource?: MappingResolutionSource;
+	template?: DataExchangeTemplate;
+	formatProfile?: FormatProfile;
+	templateMapping?: TemplateMappingResult;
 	reconciliationPolicy: ReconciliationPolicy;
 	issues: ValidationIssue[];
 	sampleSize: number;

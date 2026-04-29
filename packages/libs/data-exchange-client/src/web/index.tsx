@@ -3,7 +3,11 @@ import type {
 	PreviewResult,
 } from '@contractspec/lib.data-exchange-core';
 import { useDataExchangeController } from '../controllers';
-import { WebRunAuditView, WebValidationPanel } from './panels';
+import {
+	WebRunAuditView,
+	WebTemplateMappingPanel,
+	WebValidationPanel,
+} from './panels';
 import { WebPreviewTable } from './table';
 
 export function WebMappingStudio({
@@ -18,6 +22,7 @@ export function WebMappingStudio({
 	return (
 		<div>
 			<h2>Data Exchange Studio</h2>
+			<WebTemplateMappingPanel model={controller.model} />
 			<WebValidationPanel preview={preview} />
 			<WebPreviewTable
 				title="Source Preview"
@@ -36,5 +41,9 @@ export function WebMappingStudio({
 	);
 }
 
-export { WebRunAuditView, WebValidationPanel } from './panels';
+export {
+	WebRunAuditView,
+	WebTemplateMappingPanel,
+	WebValidationPanel,
+} from './panels';
 export { WebPreviewTable } from './table';

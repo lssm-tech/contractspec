@@ -39,13 +39,18 @@ export async function readHttpSource(
 	switch (format) {
 		case 'csv':
 			return parseCsvContent(body, {
+				...source.codecOptions?.csv,
 				name: source.name,
 				metadata: source.metadata,
 			});
 		case 'xml':
-			return parseXmlContent(body, { name: source.name });
+			return parseXmlContent(body, {
+				...source.codecOptions?.xml,
+				name: source.name,
+			});
 		default:
 			return parseJsonContent(body, {
+				...source.codecOptions?.json,
 				name: source.name,
 				metadata: source.metadata,
 			});
@@ -60,10 +65,10 @@ export async function writeHttpTarget(
 	const format = target.format ?? batch.format ?? 'json';
 	const body =
 		format === 'csv'
-			? formatCsvBatch(batch)
+			? formatCsvBatch(batch, target.codecOptions?.csv)
 			: format === 'xml'
-				? formatXmlBatch(batch)
-				: formatJsonBatch(batch);
+				? formatXmlBatch(batch, target.codecOptions?.xml)
+				: formatJsonBatch(batch, target.codecOptions?.json);
 	const contentType =
 		format === 'csv'
 			? 'text/csv'

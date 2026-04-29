@@ -2,8 +2,11 @@ import {
 	createExportPlan,
 	createImportPlan,
 	createRecordBatch,
+	type DataExchangeTemplate,
 	type ExecutionResult,
+	type ExportTemplate,
 	type FieldMapping,
+	type FormatProfile,
 	type PreviewResult,
 	previewExport,
 	previewImport,
@@ -29,6 +32,8 @@ export async function dryRunImport(
 	args: ExecuteRunArgs & {
 		schema: AnySchemaModel;
 		mappings?: FieldMapping[];
+		template?: DataExchangeTemplate;
+		formatProfile?: FormatProfile;
 		reconciliationPolicy?: ReconciliationPolicy;
 		registry?: AdapterRegistry;
 		sampleSize?: number;
@@ -42,6 +47,8 @@ export async function dryRunImport(
 			schema: args.schema,
 			sourceBatch,
 			mappings: args.mappings,
+			template: args.template,
+			formatProfile: args.formatProfile,
 			reconciliationPolicy: args.reconciliationPolicy,
 			sampleSize: args.sampleSize,
 		})
@@ -52,6 +59,8 @@ export async function dryRunExport(
 	args: ExecuteRunArgs & {
 		schema: AnySchemaModel;
 		mappings?: FieldMapping[];
+		template?: ExportTemplate;
+		formatProfile?: FormatProfile;
 		reconciliationPolicy?: ReconciliationPolicy;
 		registry?: AdapterRegistry;
 		sampleSize?: number;
@@ -65,6 +74,8 @@ export async function dryRunExport(
 			schema: args.schema,
 			sourceBatch,
 			mappings: args.mappings,
+			template: args.template,
+			formatProfile: args.formatProfile,
 			reconciliationPolicy: args.reconciliationPolicy,
 			sampleSize: args.sampleSize,
 		})
@@ -87,6 +98,15 @@ async function executePreviewWrite(args: {
 			skipped: args.preview.sampleRecords.length,
 			issues: args.preview.issues,
 			auditTrail: [
+				createAuditTrail(
+					'mapping',
+					`Resolved mappings using ${args.preview.plan.mappingSource ?? 'inferred'} mapping.`,
+					args.preview.plan.issues.some(
+						(issue) => issue.code === 'mapping.required-unmatched'
+					)
+						? 'error'
+						: 'success'
+				),
 				createAuditTrail(
 					'validate',
 					'Execution halted because preview produced blocking issues.',
@@ -118,6 +138,15 @@ async function executePreviewWrite(args: {
 		issues: args.preview.issues,
 		auditTrail: [
 			createAuditTrail('profile', 'Source batch profiled.', 'success'),
+			createAuditTrail(
+				'mapping',
+				`Resolved mappings using ${args.preview.plan.mappingSource ?? 'inferred'} mapping.`,
+				args.preview.plan.issues.some(
+					(issue) => issue.code === 'mapping.required-unmatched'
+				)
+					? 'error'
+					: 'success'
+			),
 			createAuditTrail('preview', 'Preview executed successfully.', 'success'),
 			createAuditTrail(
 				'write',
@@ -133,6 +162,8 @@ export async function executeImport(
 	args: ExecuteRunArgs & {
 		schema: AnySchemaModel;
 		mappings?: FieldMapping[];
+		template?: DataExchangeTemplate;
+		formatProfile?: FormatProfile;
 		reconciliationPolicy?: ReconciliationPolicy;
 		registry?: AdapterRegistry;
 		sampleSize?: number;
@@ -151,6 +182,8 @@ export async function executeExport(
 	args: ExecuteRunArgs & {
 		schema: AnySchemaModel;
 		mappings?: FieldMapping[];
+		template?: ExportTemplate;
+		formatProfile?: FormatProfile;
 		reconciliationPolicy?: ReconciliationPolicy;
 		registry?: AdapterRegistry;
 		sampleSize?: number;

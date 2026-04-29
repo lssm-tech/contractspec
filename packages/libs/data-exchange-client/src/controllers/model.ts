@@ -2,10 +2,15 @@ import {
 	describeSchemaFields,
 	type ExecutionResult,
 	type FieldMapping,
+	type FormatProfile,
 	flattenRecord,
 	type PreviewResult,
 } from '@contractspec/lib.data-exchange-core';
-import type { DataExchangeViewModel } from '../types';
+import type {
+	DataExchangeViewModel,
+	ResolvedDataExchangeViewModel,
+} from '../types';
+import { createMappingRows, createTemplateRows } from './model-rows';
 
 function countIssues(preview: PreviewResult) {
 	return preview.issues.reduce(
@@ -20,19 +25,33 @@ function countIssues(preview: PreviewResult) {
 export function createDataExchangeViewModel(args: {
 	preview: PreviewResult;
 	mappings?: FieldMapping[];
+	formatProfile?: FormatProfile;
 	executionResult?: ExecutionResult;
-}): DataExchangeViewModel {
+}): ResolvedDataExchangeViewModel {
 	const mappings = args.mappings ?? args.preview.plan.mappings;
 	const schemaFields = describeSchemaFields(args.preview.plan.schema);
+	const mappingRows = createMappingRows(mappings);
+	const mappedSourceFields = new Set(
+		mappings.map((mapping) => mapping.sourceField).filter(Boolean)
+	);
+	const ignoredSourceColumns = args.preview.plan.sourceBatch.columns
+		.filter((column) => !mappedSourceFields.has(column.key))
+		.map((column) => column.key);
+	const templateRows = createTemplateRows({
+		preview: args.preview,
+		mappings,
+		mappingRows,
+		formatProfile: args.formatProfile,
+		ignoredSourceColumns,
+	});
 
 	return {
-		mappingRows: mappings.map((mapping: FieldMapping, index: number) => ({
-			id: `${mapping.targetField}-${index}`,
-			sourceField: mapping.sourceField,
-			targetField: mapping.targetField,
-			confidence: mapping.confidence,
-			required: mapping.required,
-		})),
+		mappingRows,
+		templateRows,
+		unmatchedRequiredRows: templateRows.filter(
+			(row) => row.required && row.unmatched
+		),
+		ignoredSourceColumns,
 		sourceRows: args.preview.sampleRecords.map((record, index: number) => ({
 			id: `source-${index}`,
 			...flattenRecord(record),
