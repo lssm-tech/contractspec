@@ -742,6 +742,22 @@ export const contractsSpecDocManifest = {
 			},
 		},
 		{
+			id: 'docs.tech.contracts.pwa-updates',
+			exportName: 'tech_contracts_pwa_updates_DocBlocks',
+			sourceModule: 'pwa/types',
+			block: {
+				id: 'docs.tech.contracts.pwa-updates',
+				title: 'PWA update management',
+				summary:
+					'Configure frontend update checks with app defaults and release overrides.',
+				kind: 'reference',
+				visibility: 'public',
+				route: '/docs/tech/contracts/pwa-updates',
+				tags: ['tech', 'contracts', 'pwa', 'updates'],
+				body: '# PWA update management\n\nPWA manifests describe the latest frontend release and the policy a runtime should apply when a browser is running an older version.\n\nUse `defaultUpdatePolicy` for application-wide behavior and `release.updatePolicy` when a release needs a stricter or looser policy. Host applications still own service worker registration and activation; ContractSpec standardizes the API contract, decision state, and update prompt behavior.\n',
+			},
+		},
+		{
 			id: 'docs.tech.contracts.README',
 			exportName: 'tech_contracts_README_DocBlocks',
 			sourceModule: 'index',

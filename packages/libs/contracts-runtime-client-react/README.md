@@ -31,6 +31,10 @@ different result set. Custom autocomplete driver slots can read optional
 `loading`, `error`, `emptyText`, `loadingText`, and `errorText` props to expose
 async state.
 
+### PWA update checks
+
+`usePwaUpdateChecker` from `@contractspec/lib.contracts-runtime-client-react/pwa-update-client` checks the `pwa.update.check` API, exposes required/blocking versus optional update state, supports polling, and delegates actual service worker activation to a host-provided `onApply` callback.
+
 ## Architecture
 
 - `src/drivers` is part of the package's public or composition surface.
@@ -47,6 +51,7 @@ async state.
 - Export `./feature-render` resolves through `./src/feature-render.ts`.
 - Export `./form-render` resolves through `./src/form-render.ts`.
 - Export `./form-render.impl` resolves through `./src/form-render.impl.tsx`.
+- Export `./pwa-update-client` resolves through `./src/pwa-update-client.tsx`.
 
 ## Local Commands
 

@@ -50,6 +50,7 @@ export * from './presentations';
 export * from './prompt';
 export * from './promptRegistry';
 export * from './provider-ranking';
+export * from './pwa';
 export * from './registry-utils';
 export * from './resources';
 export * from './results';

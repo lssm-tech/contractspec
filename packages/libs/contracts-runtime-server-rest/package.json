@@ -53,6 +53,7 @@
 		"./rest-nest": "./src/rest-nest.ts",
 		"./rest-next-app": "./src/rest-next-app.ts",
 		"./rest-next-pages": "./src/rest-next-pages.ts",
+		"./pwa-update": "./src/pwa-update.ts",
 		"./result-response": "./src/result-response.ts"
 	},
 	"publishConfig": {
@@ -128,6 +129,13 @@
 				"bun": "./dist/rest-next-pages.js",
 				"node": "./dist/node/rest-next-pages.js",
 				"default": "./dist/rest-next-pages.js"
+			},
+			"./pwa-update": {
+				"types": "./dist/pwa-update.d.ts",
+				"browser": "./dist/browser/pwa-update.js",
+				"bun": "./dist/pwa-update.js",
+				"node": "./dist/node/pwa-update.js",
+				"default": "./dist/pwa-update.js"
 			},
 			"./result-response": {
 				"types": "./dist/result-response.d.ts",

@@ -102,6 +102,7 @@ export const CONTRACT_SPEC_TYPES = [
 	'knowledge-space',
 	'job',
 	'translation',
+	'pwa-app',
 ] as const satisfies readonly string[];
 
 export type ContractSpecType = (typeof CONTRACT_SPEC_TYPES)[number];

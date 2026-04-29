@@ -1,6 +1,7 @@
 export * from './contracts-adapter-hydration';
 export * from './contracts-adapter-input';
 export * from './contracts-runtime-server-rest.feature';
+export * from './pwa-update';
 export * from './rest-elysia';
 export * from './rest-express';
 export * from './rest-generic';

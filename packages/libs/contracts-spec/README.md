@@ -699,3 +699,9 @@ Runtime packages moved out:
 - MCP runtime -> `@contractspec/lib.contracts-runtime-server-mcp`
 - React runtime -> `@contractspec/lib.contracts-runtime-client-react`
 - Integration contracts -> `@contractspec/lib.contracts-integrations`
+
+## PWA Update Contracts
+
+Use `@contractspec/lib.contracts-spec/pwa` to declare app-level PWA update policy and the `pwa.update.check` query. `defaultUpdatePolicy` sets the application behavior, while each release can override it for required/blocking updates or heavily offline-compatible optional updates.
+
+The contract standardizes update decisions and prompt telemetry; host apps still own service worker registration and activation.

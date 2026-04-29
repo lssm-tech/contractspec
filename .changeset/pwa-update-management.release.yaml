@@ -1,0 +1,51 @@
+schemaVersion: "1"
+slug: pwa-update-management
+summary: Add PWA update management contracts and runtime helpers.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.contracts-spec"
+    releaseType: minor
+  - name: "@contractspec/lib.contracts-runtime-server-rest"
+    releaseType: minor
+  - name: "@contractspec/lib.contracts-runtime-client-react"
+    releaseType: minor
+affectedRuntimes:
+  - browser
+  - server
+affectedFrameworks:
+  - react
+audiences:
+  - kind: integrator
+    summary: App developers can define PWA release policy once, override it per release, and consume a standard update-check API from the frontend.
+    affectedPackages:
+      - "@contractspec/lib.contracts-spec"
+      - "@contractspec/lib.contracts-runtime-server-rest"
+      - "@contractspec/lib.contracts-runtime-client-react"
+  - kind: maintainer
+    summary: Maintainers get typed contracts, registry helpers, server evaluation helpers, and React prompt state helpers for PWA update workflows.
+    affectedPackages:
+      - "@contractspec/lib.contracts-spec"
+      - "@contractspec/lib.contracts-runtime-server-rest"
+      - "@contractspec/lib.contracts-runtime-client-react"
+deprecations: []
+migrationInstructions:
+  - id: adopt-pwa-update-check
+    title: Adopt the PWA update-check contract
+    summary: Register the PWA update operation, bind it to a manifest resolver, and call it from the frontend on startup or polling intervals.
+    required: false
+    steps:
+      - Define a PWA app manifest with `defaultUpdatePolicy` and release entries.
+      - Add per-release `updatePolicy` overrides when a release must be optional, required, or disabled.
+      - Bind `createPwaUpdateCheckHandler` to the `pwa.update.check` operation.
+      - Use `usePwaUpdateChecker` in the frontend and keep service worker activation inside the host app callback.
+upgradeSteps: []
+validation:
+  commands:
+    - "bun test packages/libs/contracts-spec/src/pwa/contracts.test.ts packages/libs/contracts-runtime-server-rest/src/pwa-update.test.ts packages/libs/contracts-runtime-client-react/src/pwa-update-client.test.tsx"
+    - "cd packages/libs/contracts-spec && bun run typecheck && bun run lint:check"
+    - "cd packages/libs/contracts-runtime-server-rest && bun run typecheck && bun run lint:check"
+    - "cd packages/libs/contracts-runtime-client-react && bun run typecheck && bun run lint:check"
+  evidence:
+    - "PWA contracts register the update check query, update events, capability, and feature."
+    - "Server helpers merge app default policy with release overrides and distinguish required, optional, and no-update decisions."
+    - "React helpers expose prompt/blocking predicates and a hook that delegates actual update application to the host app."

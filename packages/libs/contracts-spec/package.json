@@ -364,6 +364,20 @@
 		"./product-intent/ui-wireframe": "./src/product-intent/ui-wireframe.ts",
 		"./prompt": "./src/prompt.ts",
 		"./promptRegistry": "./src/promptRegistry.ts",
+		"./pwa": "./src/pwa/index.ts",
+		"./pwa/capabilities": "./src/pwa/capabilities/index.ts",
+		"./pwa/capabilities/pwaUpdateManagement.capability": "./src/pwa/capabilities/pwaUpdateManagement.capability.ts",
+		"./pwa/constants": "./src/pwa/constants.ts",
+		"./pwa/contracts": "./src/pwa/contracts.ts",
+		"./pwa/events": "./src/pwa/events/index.ts",
+		"./pwa/events/pwaUpdateApplied.event": "./src/pwa/events/pwaUpdateApplied.event.ts",
+		"./pwa/events/pwaUpdateDeferred.event": "./src/pwa/events/pwaUpdateDeferred.event.ts",
+		"./pwa/events/pwaUpdatePrompted.event": "./src/pwa/events/pwaUpdatePrompted.event.ts",
+		"./pwa/pwa.feature": "./src/pwa/pwa.feature.ts",
+		"./pwa/queries": "./src/pwa/queries/index.ts",
+		"./pwa/queries/pwaUpdateCheck.query": "./src/pwa/queries/pwaUpdateCheck.query.ts",
+		"./pwa/registry": "./src/pwa/registry.ts",
+		"./pwa/types": "./src/pwa/types.ts",
 		"./provider-ranking": "./src/provider-ranking/index.ts",
 		"./provider-ranking/capabilities": "./src/provider-ranking/capabilities/index.ts",
 		"./provider-ranking/capabilities/providerRanking.capability": "./src/provider-ranking/capabilities/providerRanking.capability.ts",
@@ -2342,6 +2356,90 @@
 				"bun": "./dist/promptRegistry.js",
 				"node": "./dist/node/promptRegistry.js",
 				"default": "./dist/promptRegistry.js"
+			},
+			"./pwa": {
+				"types": "./dist/pwa/index.d.ts",
+				"bun": "./dist/pwa/index.js",
+				"node": "./dist/node/pwa/index.js",
+				"default": "./dist/pwa/index.js"
+			},
+			"./pwa/capabilities": {
+				"types": "./dist/pwa/capabilities/index.d.ts",
+				"bun": "./dist/pwa/capabilities/index.js",
+				"node": "./dist/node/pwa/capabilities/index.js",
+				"default": "./dist/pwa/capabilities/index.js"
+			},
+			"./pwa/capabilities/pwaUpdateManagement.capability": {
+				"types": "./dist/pwa/capabilities/pwaUpdateManagement.capability.d.ts",
+				"bun": "./dist/pwa/capabilities/pwaUpdateManagement.capability.js",
+				"node": "./dist/node/pwa/capabilities/pwaUpdateManagement.capability.js",
+				"default": "./dist/pwa/capabilities/pwaUpdateManagement.capability.js"
+			},
+			"./pwa/constants": {
+				"types": "./dist/pwa/constants.d.ts",
+				"bun": "./dist/pwa/constants.js",
+				"node": "./dist/node/pwa/constants.js",
+				"default": "./dist/pwa/constants.js"
+			},
+			"./pwa/contracts": {
+				"types": "./dist/pwa/contracts.d.ts",
+				"bun": "./dist/pwa/contracts.js",
+				"node": "./dist/node/pwa/contracts.js",
+				"default": "./dist/pwa/contracts.js"
+			},
+			"./pwa/events": {
+				"types": "./dist/pwa/events/index.d.ts",
+				"bun": "./dist/pwa/events/index.js",
+				"node": "./dist/node/pwa/events/index.js",
+				"default": "./dist/pwa/events/index.js"
+			},
+			"./pwa/events/pwaUpdateApplied.event": {
+				"types": "./dist/pwa/events/pwaUpdateApplied.event.d.ts",
+				"bun": "./dist/pwa/events/pwaUpdateApplied.event.js",
+				"node": "./dist/node/pwa/events/pwaUpdateApplied.event.js",
+				"default": "./dist/pwa/events/pwaUpdateApplied.event.js"
+			},
+			"./pwa/events/pwaUpdateDeferred.event": {
+				"types": "./dist/pwa/events/pwaUpdateDeferred.event.d.ts",
+				"bun": "./dist/pwa/events/pwaUpdateDeferred.event.js",
+				"node": "./dist/node/pwa/events/pwaUpdateDeferred.event.js",
+				"default": "./dist/pwa/events/pwaUpdateDeferred.event.js"
+			},
+			"./pwa/events/pwaUpdatePrompted.event": {
+				"types": "./dist/pwa/events/pwaUpdatePrompted.event.d.ts",
+				"bun": "./dist/pwa/events/pwaUpdatePrompted.event.js",
+				"node": "./dist/node/pwa/events/pwaUpdatePrompted.event.js",
+				"default": "./dist/pwa/events/pwaUpdatePrompted.event.js"
+			},
+			"./pwa/pwa.feature": {
+				"types": "./dist/pwa/pwa.feature.d.ts",
+				"bun": "./dist/pwa/pwa.feature.js",
+				"node": "./dist/node/pwa/pwa.feature.js",
+				"default": "./dist/pwa/pwa.feature.js"
+			},
+			"./pwa/queries": {
+				"types": "./dist/pwa/queries/index.d.ts",
+				"bun": "./dist/pwa/queries/index.js",
+				"node": "./dist/node/pwa/queries/index.js",
+				"default": "./dist/pwa/queries/index.js"
+			},
+			"./pwa/queries/pwaUpdateCheck.query": {
+				"types": "./dist/pwa/queries/pwaUpdateCheck.query.d.ts",
+				"bun": "./dist/pwa/queries/pwaUpdateCheck.query.js",
+				"node": "./dist/node/pwa/queries/pwaUpdateCheck.query.js",
+				"default": "./dist/pwa/queries/pwaUpdateCheck.query.js"
+			},
+			"./pwa/registry": {
+				"types": "./dist/pwa/registry.d.ts",
+				"bun": "./dist/pwa/registry.js",
+				"node": "./dist/node/pwa/registry.js",
+				"default": "./dist/pwa/registry.js"
+			},
+			"./pwa/types": {
+				"types": "./dist/pwa/types.d.ts",
+				"bun": "./dist/pwa/types.js",
+				"node": "./dist/node/pwa/types.js",
+				"default": "./dist/pwa/types.js"
 			},
 			"./provider-ranking": {
 				"types": "./dist/provider-ranking/index.d.ts",

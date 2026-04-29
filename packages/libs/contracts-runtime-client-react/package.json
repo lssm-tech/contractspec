@@ -52,6 +52,7 @@
 		"./feature-render": "./src/feature-render.ts",
 		"./form-render": "./src/form-render.ts",
 		"./form-render.impl": "./src/form-render.impl.tsx",
+		"./pwa-update-client": "./src/pwa-update-client.tsx",
 		"./transform-engine": "./src/transform-engine.ts"
 	},
 	"publishConfig": {
@@ -113,6 +114,13 @@
 				"bun": "./dist/form-render.impl.js",
 				"node": "./dist/node/form-render.impl.js",
 				"default": "./dist/form-render.impl.js"
+			},
+			"./pwa-update-client": {
+				"types": "./dist/pwa-update-client.d.ts",
+				"browser": "./dist/browser/pwa-update-client.js",
+				"bun": "./dist/pwa-update-client.js",
+				"node": "./dist/node/pwa-update-client.js",
+				"default": "./dist/pwa-update-client.js"
 			},
 			"./transform-engine": {
 				"types": "./dist/transform-engine.d.ts",
