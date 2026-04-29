@@ -1,0 +1,56 @@
+schemaVersion: "1"
+slug: web-landing-translation-runtime-docs
+summary: Add public web docs and agent guidance for the ContractSpec translation runtime and optional i18next adapter.
+isBreaking: false
+packages:
+  - name: "@contractspec/bundle.library"
+    releaseType: patch
+  - name: "@contractspec/app.web-landing"
+    releaseType: patch
+affectedRuntimes:
+  - browser
+affectedFrameworks:
+  - nextjs
+audiences:
+  - kind: maintainer
+    summary: The shared docs bundle now registers a translation-runtime library guide and primary-nav entry so the public web shell can expose ContractSpec i18n guidance consistently.
+    affectedPackages:
+      - "@contractspec/bundle.library"
+      - "@contractspec/app.web-landing"
+  - kind: integrator
+    summary: Integrators can find ContractSpec-first i18n runtime, SSR/hydration, and optional i18next adapter guidance from the website docs and `/llms*` surfaces.
+    affectedPackages:
+      - "@contractspec/app.web-landing"
+  - kind: customer
+    summary: Public docs now explain how to keep ContractSpec translations canonical while using the optional i18next adapter for downstream app interoperability.
+    affectedPackages:
+      - "@contractspec/app.web-landing"
+deprecations: []
+migrationInstructions:
+  - id: read-translation-runtime-guide
+    title: Use the translation runtime guide for production i18n adoption
+    summary: Start from `/docs/libraries/translation-runtime` when wiring ContractSpec translations into server, React, React Native, or i18next-backed app surfaces.
+    required: false
+    steps:
+      - Open `/docs/libraries/translation-runtime` from the docs sidebar or libraries overview.
+      - Use `/llms/lib.translation-runtime` when prompting agents for package-specific implementation context.
+      - Keep `TranslationSpec` catalogs canonical and treat i18next resources as generated downstream adapter data.
+upgradeSteps:
+  - id: align-translation-doc-surfaces
+    title: Keep website docs and LLM guides aligned for translation runtime work
+    summary: When translation runtime behavior changes, update the web docs route, package README, `/llms.txt`, and package-specific `/llms` guide together.
+    level: manual
+    instructions:
+      - Update `@contractspec/lib.translation-runtime` README for package-level API behavior.
+      - Update the shared library docs page for website readers.
+      - Regenerate or verify `/llms*` package guides before release.
+validation:
+  commands:
+    - "node scripts/biome.cjs check packages/bundles/library/src/components/docs/libraries/LibrariesTranslationRuntimePage.tsx packages/bundles/library/src/components/docs/libraries/LibrariesTranslationRuntimePage.content.ts packages/apps/web-landing/src/app/docs/libraries/translation-runtime/page.tsx packages/bundles/library/src/components/docs/docsManifest.ts packages/bundles/library/src/components/docs/docsManifest.test.ts packages/bundles/library/src/components/docs/libraries/index.ts"
+    - "bun test packages/bundles/library/src/components/docs/docsManifest.test.ts"
+    - "bun run --cwd packages/apps/web-landing build:types"
+    - "bun run --cwd packages/apps/web-landing llms:generate"
+  evidence:
+    - "Docs manifest tests assert `/docs/libraries/translation-runtime` resolves, carries the i18next adapter alias, and appears in the build sidebar traversal."
+    - "The public guide includes install guidance, runtime usage, i18next projection, SSR/hydration notes, production checks, and an agent implementation prompt."
+knownGaps: []

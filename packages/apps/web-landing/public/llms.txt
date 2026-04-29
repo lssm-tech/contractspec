@@ -30,7 +30,7 @@ Examples may depend on any lower layer to demonstrate the stack, and tools suppo
 - **Contracts and generation**: `@contractspec/lib.contracts-spec`, `@contractspec/lib.schema`, and `@contractspec/app.cli-contractspec`.
 - **Connect and governed repo workflows**: ContractSpec Connect for context packs, plan packets, patch verdicts, review packets, replay/eval artifacts, and adoption-aware reuse guidance.
 - **Builder control plane**: governed authoring, managed/local/hybrid runtime modes, Builder bootstrap presets, previews, readiness gates, exports, and mobile review surfaces.
-- **Runtime adapters**: REST, GraphQL, MCP, React runtime packages under `packages/libs/contracts-runtime-*`, and Workflow DevKit support via `@contractspec/integration.workflow-devkit`.
+- **Runtime adapters**: REST, GraphQL, MCP, React runtime packages under `packages/libs/contracts-runtime-*`, the ContractSpec-native translation runtime with optional i18next projection, and Workflow DevKit support via `@contractspec/integration.workflow-devkit`.
 - **Agent systems**: `@contractspec/lib.ai-agent` and `@contractspec/module.ai-chat`.
 - **Harness and evaluation**: `@contractspec/lib.harness` and `@contractspec/integration.harness-runtime`.
 - **Ranking and MCP workflows**: provider-ranking module and MCP server surfaces.
@@ -45,6 +45,7 @@ Examples may depend on any lower layer to demonstrate the stack, and tools suppo
 ## Recommended Package Guides
 
 - `lib.contracts-spec` — foundational contracts, registries, capabilities, and shared execution primitives
+- `lib.translation-runtime` — ContractSpec-first i18n runtime, ICU formatting, SSR snapshots, locale fallback, overrides, diagnostics, and optional i18next adapter
 - `lib.ai-agent` — core agent runtime, tools, sessions, memory, approvals, and telemetry
 - `lib.harness` — harness orchestration, policy, replay, and evidence normalization
 - `integration.harness-runtime` — browser, sandbox, artifact, and MCP-backed harness runtime adapters
@@ -79,4 +80,6 @@ Examples may depend on any lower layer to demonstrate the stack, and tools suppo
 - GitHub: https://github.com/lssm-tech/contractspec
 - npm CLI package: https://www.npmjs.com/package/contractspec
 - Studio: https://www.contractspec.studio
+- Translation runtime docs: /docs/libraries/translation-runtime
+- Translation runtime package guide: /llms/lib.translation-runtime
 - Full package corpus: /llms-full.txt

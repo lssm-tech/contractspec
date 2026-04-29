@@ -28,6 +28,24 @@ describe('docs manifest learning paths', () => {
 		expect(buildHrefs).toContain('/docs/guides/host-builder-workbench');
 	});
 
+	it('registers the translation runtime guide for i18n and i18next adoption', () => {
+		const page = getDocsPageByHref('/docs/libraries/translation-runtime');
+
+		expect(page).toBeDefined();
+		expect(page?.aliases).toContain('i18next adapter');
+		expect(page?.description).toContain('i18next');
+
+		const buildSection = getPrimaryDocsSections().find(
+			(section) => section.key === 'build'
+		);
+		const buildHrefs = buildSection?.items.map((item) => item.href) ?? [];
+
+		expect(buildHrefs).toContain('/docs/libraries/translation-runtime');
+		expect(
+			buildHrefs.indexOf('/docs/libraries/translation-runtime')
+		).toBeGreaterThan(buildHrefs.indexOf('/docs/libraries'));
+	});
+
 	it('keeps cross-platform UI resolvable without promoting it to primary nav', () => {
 		expect(
 			getDocsPageByHref('/docs/libraries/cross-platform-ui')
@@ -74,6 +92,7 @@ describe('docs manifest learning paths', () => {
 			'/docs/architecture/control-plane',
 			'/docs/specs/overlays',
 			'/docs/studio',
+			'/docs/libraries/translation-runtime',
 			'/docs/libraries/cross-platform-ui',
 		]) {
 			expect(

@@ -31,6 +31,12 @@ const libraryGroups = [
 				href: '/docs/libraries/runtime',
 			},
 			{
+				title: '@contractspec/lib.translation-runtime',
+				description:
+					'Resolve ContractSpec TranslationSpec catalogs with ICU formatting, SSR snapshots, BCP 47 locales, overrides, and optional i18next projection.',
+				href: '/docs/libraries/translation-runtime',
+			},
+			{
 				title: '@contractspec/lib.ui-kit',
 				description:
 					'Render shared surfaces across web and React Native without forking the contract layer.',

@@ -397,12 +397,25 @@ export const DOCS_PAGES: readonly DocsPageEntry[] = [
 		ctaMode: 'oss-next',
 	},
 	{
+		href: '/docs/libraries/translation-runtime',
+		title: 'Translation runtime',
+		description:
+			'Use ContractSpec TranslationSpec catalogs as the canonical i18n layer, then resolve, format, snapshot, and optionally project messages to i18next.',
+		section: 'build',
+		order: 71,
+		navTitle: 'Translation runtime',
+		primaryNav: true,
+		audience: 'oss',
+		ctaMode: 'oss-next',
+		aliases: ['i18n runtime', 'i18next adapter', 'translations'],
+	},
+	{
 		href: '/docs/libraries/cross-platform-ui',
 		title: 'Cross-platform UI',
 		description:
 			'Understand how the presentation runtimes, ui-kit-web, ui-kit, and design-system stay aligned across React and React Native.',
 		section: 'build',
-		order: 71,
+		order: 72,
 		audience: 'oss',
 		ctaMode: 'oss-next',
 	},
@@ -412,7 +425,7 @@ export const DOCS_PAGES: readonly DocsPageEntry[] = [
 		description:
 			'Implement reusable app navigation with desktop sidebars, topbar breadcrumbs, command search, in-app notifications, mobile adapters, and PageOutline section navigation.',
 		section: 'build',
-		order: 72,
+		order: 73,
 		audience: 'oss',
 		ctaMode: 'oss-next',
 	},
