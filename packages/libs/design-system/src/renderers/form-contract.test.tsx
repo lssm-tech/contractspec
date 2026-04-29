@@ -168,11 +168,10 @@ describe('design-system form renderer', () => {
 		expect(html).toContain('type="email"');
 		expect(html).toContain('autoComplete="email"');
 		expect(html).toContain('1 Main Street');
-		expect(html).toContain('+33');
-		expect(html).toContain('🇫🇷');
 		expect(html).toContain('id="phone"');
 		expect(html).toContain('name="phone"');
 		expect(html).toContain('id="phone-country"');
+		expect(html).toContain('value="612345678"');
 		expect(html).toContain('Support');
 		expect(html).toContain('Current password');
 		expect(html).toContain('autoComplete="current-password"');

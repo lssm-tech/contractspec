@@ -53,7 +53,7 @@ export const PhoneField = (props: PhoneFieldProps) => {
 	const selectedIso2 = value.countryIso2;
 	const selectOptions = props.countryOptions?.length
 		? props.countryOptions
-		: phoneCountryOptions(props.country);
+		: phoneCountryOptions(props.country, display);
 	const selectedCountryValue = selectOptions.some(
 		(option) => String(option.value).toUpperCase() === selectedIso2
 	)

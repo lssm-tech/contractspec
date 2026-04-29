@@ -32,10 +32,14 @@ export function PhoneCountryControl(props: {
 	onCountryChange: (raw: string) => void;
 }) {
 	const translate = useTranslatedText();
+	const usesCountrySelect = props.display.countrySelect;
 	return (
 		<HStack align="center" gap="sm">
-			<PhoneFlag iso2={props.countryIso2} hidden={!props.display.flag} />
-			{props.display.countrySelect ? (
+			<PhoneFlag
+				iso2={props.countryIso2}
+				hidden={usesCountrySelect || !props.display.flag}
+			/>
+			{usesCountrySelect ? (
 				<Select
 					value={props.selectValue}
 					onChange={(next) => props.onCountryChange(optionValue(next))}
@@ -55,7 +59,7 @@ export function PhoneCountryControl(props: {
 					disabled={props.disabled}
 				/>
 			)}
-			{props.display.callingCode ? (
+			{!usesCountrySelect && props.display.callingCode ? (
 				<Text className="min-w-12 text-muted-foreground text-sm">
 					{countryCallingCode(props.countryIso2) || props.countryCode}
 				</Text>

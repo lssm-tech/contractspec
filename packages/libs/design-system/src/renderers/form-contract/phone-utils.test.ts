@@ -1,5 +1,9 @@
 import { describe, expect, it } from 'bun:test';
-import { countryFlag, countryFromInput } from './phone-country-utils';
+import {
+	countryFlag,
+	countryFromInput,
+	phoneCountryOptions,
+} from './phone-country-utils';
 import { normalizePhoneForDisplay, parsePhoneInput } from './phone-utils';
 
 describe('phone form-contract helpers', () => {
@@ -58,5 +62,19 @@ describe('phone form-contract helpers', () => {
 		expect(value.nationalNumber).toBe('+33612345678');
 		expect(value.e164).toBeUndefined();
 		expect(countryFromInput('FR', { allowedIso2: ['US'] })).toBeUndefined();
+	});
+
+	it('builds country option labels from the requested display parts', () => {
+		const [option] = phoneCountryOptions(
+			{ allowedIso2: ['FR'] },
+			{ flag: true, callingCode: true }
+		);
+		const [compactOption] = phoneCountryOptions(
+			{ allowedIso2: ['FR'] },
+			{ flag: false, callingCode: false }
+		);
+
+		expect(option?.labelI18n).toBe('🇫🇷 FR +33');
+		expect(compactOption?.labelI18n).toBe('FR');
 	});
 });

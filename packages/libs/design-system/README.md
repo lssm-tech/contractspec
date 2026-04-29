@@ -231,9 +231,10 @@ import { AppShell } from "@contractspec/lib.design-system/shell";
 </AppShell>;
 ```
 
-On desktop web, `AppShell` renders a sidebar, sticky topbar, content region, and
-optional `PageOutline` rail. On small web screens, navigation and page outline
-move behind accessible menu triggers. On native, the shell maps primary
+On desktop web, `AppShell` renders a collapsible sidebar, sticky topbar, content
+region, and optional `PageOutline` rail. The desktop topbar is inset beside the
+sidebar and includes a sidebar toggle. On small web screens, navigation and page
+outline move behind accessible menu triggers. On native, the shell maps primary
 navigation to bottom tabs and keeps overflow navigation, actions, user content,
 and page outline inside the menu sheet.
 
@@ -241,7 +242,9 @@ and page outline inside the menu sheet.
 notifications. Hosts provide structural `items`, `unreadCount`, loading/empty
 state, and callbacks such as `onSelect`, `onMarkRead`, and `onMarkAllRead`; the
 design-system shell renders the web topbar trigger and native menu section
-without importing or owning any notification runtime package.
+without importing or owning any notification runtime package. On web, the
+notification panel closes when users select an item, press the close button,
+click outside the panel, press Escape, or click the notification trigger again.
 
 Shell navigation and command items may carry optional `policy` metadata plus a `policyBehavior` of `hide`, `disable`, or `show-with-lock`. Use `filterShellNavigationForPolicy()` / `annotateShellCommandsDecisions()` with decisions produced by your application runtime; AppShell only adapts affordances and does not fetch permissions or enforce backend access.
 

@@ -26,6 +26,7 @@ export interface ShellSidebarProps {
 	footer?: React.ReactNode;
 	activeHref?: string;
 	className?: string;
+	withProvider?: boolean;
 }
 
 function isActive(item: ShellNavItem, activeHref?: string) {
@@ -117,39 +118,40 @@ export function ShellSidebar({
 	footer,
 	activeHref,
 	className,
+	withProvider = true,
 }: ShellSidebarProps) {
-	return (
-		<SidebarProvider>
-			<Sidebar className={className}>
-				<SidebarRail />
-				<SidebarHeader
-					className={cn('gap-3', !brand && !commandTrigger && 'hidden')}
-				>
-					{brand}
-					{commandTrigger}
-				</SidebarHeader>
-				<SidebarContent>
-					{sections.map((section, index) => (
-						<SidebarGroup key={section.key ?? index}>
-							{section.title && (
-								<SidebarGroupLabel>{section.title}</SidebarGroupLabel>
-							)}
-							<SidebarGroupContent>
-								<SidebarMenu>
-									{section.items.map((item) => (
-										<ShellSidebarItem
-											key={itemKey(item)}
-											item={item}
-											activeHref={activeHref}
-										/>
-									))}
-								</SidebarMenu>
-							</SidebarGroupContent>
-						</SidebarGroup>
-					))}
-				</SidebarContent>
-				{footer && <SidebarFooter>{footer}</SidebarFooter>}
-			</Sidebar>
-		</SidebarProvider>
+	const sidebar = (
+		<Sidebar className={className}>
+			<SidebarRail />
+			<SidebarHeader
+				className={cn('gap-3', !brand && !commandTrigger && 'hidden')}
+			>
+				{brand}
+				{commandTrigger}
+			</SidebarHeader>
+			<SidebarContent>
+				{sections.map((section, index) => (
+					<SidebarGroup key={section.key ?? index}>
+						{section.title && (
+							<SidebarGroupLabel>{section.title}</SidebarGroupLabel>
+						)}
+						<SidebarGroupContent>
+							<SidebarMenu>
+								{section.items.map((item) => (
+									<ShellSidebarItem
+										key={itemKey(item)}
+										item={item}
+										activeHref={activeHref}
+									/>
+								))}
+							</SidebarMenu>
+						</SidebarGroupContent>
+					</SidebarGroup>
+				))}
+			</SidebarContent>
+			{footer && <SidebarFooter>{footer}</SidebarFooter>}
+		</Sidebar>
 	);
+
+	return withProvider ? <SidebarProvider>{sidebar}</SidebarProvider> : sidebar;
 }

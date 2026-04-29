@@ -23,6 +23,7 @@ beforeAll(() => {
 		HTMLButtonElement: windowInstance.HTMLButtonElement,
 		Node: windowInstance.Node,
 		Event: windowInstance.Event,
+		KeyboardEvent: windowInstance.KeyboardEvent,
 		MouseEvent: windowInstance.MouseEvent,
 		MutationObserver: windowInstance.MutationObserver,
 		DocumentFragment: windowInstance.DocumentFragment,
@@ -100,6 +101,41 @@ describe('AppShell', () => {
 		expect(html).toContain('aria-current="page"');
 	});
 
+	it('renders a shared desktop sidebar provider and collapse trigger', async () => {
+		await renderShell(
+			<AppShell
+				title="Console"
+				activeHref="/projects"
+				navigation={[
+					{
+						title: 'Workspace',
+						items: [{ label: 'Projects', href: '/projects' }],
+					},
+				]}
+			>
+				<section>Shell content</section>
+			</AppShell>
+		);
+
+		expect(
+			document.querySelectorAll('[data-slot="sidebar-wrapper"]').length
+		).toBe(1);
+		expect(document.querySelector('[data-slot="sidebar-inset"]')).toBeTruthy();
+		expect(
+			document
+				.querySelector('[data-slot="sidebar"]')
+				?.getAttribute('data-state')
+		).toBe('expanded');
+
+		await click(document.querySelector('[data-slot="sidebar-trigger"]'));
+
+		expect(
+			document
+				.querySelector('[data-slot="sidebar"]')
+				?.getAttribute('data-state')
+		).toBe('collapsed');
+	});
+
 	it('renders notification trigger, unread badge, list, and callback wiring', async () => {
 		const calls: string[] = [];
 		await renderShell(
@@ -157,6 +193,61 @@ describe('AppShell', () => {
 		expect(calls).toContain('read:all');
 		expect(calls).toContain('select:deploy-failed');
 		expect(calls).toContain('open:false');
+	});
+
+	it('closes notifications from the trigger, outside clicks, and Escape', async () => {
+		const calls: string[] = [];
+		await renderShell(
+			<AppShell
+				title="Console"
+				notifications={{
+					items: [
+						{
+							id: 'deploy-failed',
+							title: 'Deploy failed',
+							status: 'unread',
+						},
+					],
+					onOpenChange: (open) => calls.push(`open:${open}`),
+				}}
+			>
+				<section>Shell content</section>
+			</AppShell>
+		);
+
+		const trigger = document.querySelector(
+			'button[aria-label="Notifications"]'
+		);
+		await click(trigger);
+		expect(document.querySelector('[role="dialog"]')?.textContent).toContain(
+			'Deploy failed'
+		);
+
+		await click(trigger);
+		expect(document.querySelector('[role="dialog"]')).toBeNull();
+
+		await click(trigger);
+		await click(document.body);
+		expect(document.querySelector('[role="dialog"]')).toBeNull();
+		await click(trigger);
+		await act(async () => {
+			document.dispatchEvent(
+				new window.KeyboardEvent('keydown', {
+					bubbles: true,
+					cancelable: true,
+					key: 'Escape',
+				})
+			);
+		});
+		expect(document.querySelector('[role="dialog"]')).toBeNull();
+		expect(calls).toEqual([
+			'open:true',
+			'open:false',
+			'open:true',
+			'open:false',
+			'open:true',
+			'open:false',
+		]);
 	});
 
 	it('renders notification loading and empty states', async () => {

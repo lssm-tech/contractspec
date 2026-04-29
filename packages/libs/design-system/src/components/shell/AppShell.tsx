@@ -6,6 +6,11 @@ import {
 	DialogHeader,
 	DialogTitle,
 } from '@contractspec/lib.ui-kit-web/ui/dialog';
+import {
+	SidebarInset,
+	SidebarProvider,
+	SidebarTrigger,
+} from '@contractspec/lib.ui-kit-web/ui/sidebar';
 import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 import { MenuIcon, PanelRightIcon } from 'lucide-react';
 import * as React from 'react';
@@ -168,63 +173,74 @@ export function AppShell({
 
 	return (
 		<div className={cn('min-h-svh bg-background', className)}>
-			<header className="sticky top-0 z-30 border-b bg-background/95 backdrop-blur-xs supports-backdrop-filter:bg-background/60">
-				<div className="flex h-14 items-center gap-3 px-3 md:px-4">
-					<Button
-						variant="ghost"
-						size="icon"
-						className="md:hidden"
-						aria-label="Open navigation"
-						onPress={() => setMenuOpen(true)}
-					>
-						<MenuIcon className="h-4 w-4" />
-					</Button>
-					<div className="min-w-0 md:hidden">{resolvedBrand}</div>
-					<div className="hidden min-w-0 md:block">{topbarStart}</div>
-					<div className="min-w-0 flex-1">
-						{breadcrumbs.length ? <Breadcrumbs items={breadcrumbs} /> : null}
-					</div>
-					<div className="hidden shrink-0 md:block">
-						{renderCommandTrigger()}
-					</div>
-					{pageOutline.length ? (
-						<Button
-							variant="ghost"
-							size="icon"
-							className="lg:hidden"
-							aria-label="Open page outline"
-							onPress={() => setOutlineOpen(true)}
-						>
-							<PanelRightIcon className="h-4 w-4" />
-						</Button>
-					) : null}
-					{notifications ? (
-						<ShellNotifications notifications={notifications} />
-					) : null}
-					{topbarEnd}
-					{userMenu}
-				</div>
-			</header>
+			<SidebarProvider>
+				<ShellSidebar
+					sections={navigation}
+					brand={resolvedBrand}
+					commandTrigger={renderCommandTrigger()}
+					footer={userMenu}
+					activeHref={activeHref}
+					withProvider={false}
+				/>
+				<SidebarInset className="min-h-svh min-w-0">
+					<header className="sticky top-0 z-30 border-b bg-background/95 backdrop-blur-xs supports-backdrop-filter:bg-background/60">
+						<div className="flex h-14 min-w-0 items-center gap-3 px-3 md:px-4">
+							<Button
+								variant="ghost"
+								size="icon"
+								className="md:hidden"
+								ariaLabelI18n="Open navigation"
+								onPress={() => setMenuOpen(true)}
+							>
+								<MenuIcon className="h-4 w-4" />
+							</Button>
+							<SidebarTrigger
+								aria-label="Toggle sidebar"
+								className="hidden md:inline-flex"
+							/>
+							<div className="min-w-0 md:hidden">{resolvedBrand}</div>
+							<div className="hidden min-w-0 md:block">{topbarStart}</div>
+							<div className="min-w-0 flex-1 overflow-hidden">
+								{breadcrumbs.length ? (
+									<Breadcrumbs items={breadcrumbs} />
+								) : null}
+							</div>
+							<div className="hidden shrink-0 md:block">
+								{renderCommandTrigger()}
+							</div>
+							{pageOutline.length ? (
+								<Button
+									variant="ghost"
+									size="icon"
+									className="lg:hidden"
+									ariaLabelI18n="Open page outline"
+									onPress={() => setOutlineOpen(true)}
+								>
+									<PanelRightIcon className="h-4 w-4" />
+								</Button>
+							) : null}
+							<div className="flex shrink-0 items-center gap-2">
+								{notifications ? (
+									<ShellNotifications notifications={notifications} />
+								) : null}
+								{topbarEnd}
+								{userMenu}
+							</div>
+						</div>
+					</header>
 
-			<div className="grid min-h-[calc(100svh-3.5rem)] grid-cols-1 md:grid-cols-[280px_minmax(0,1fr)] lg:grid-cols-[280px_minmax(0,1fr)_240px]">
-				<aside className="hidden border-r md:block">
-					<ShellSidebar
-						sections={navigation}
-						brand={resolvedBrand}
-						commandTrigger={renderCommandTrigger()}
-						footer={userMenu}
-						activeHref={activeHref}
-					/>
-				</aside>
-				<main className={cn('min-w-0 px-4 py-5 md:px-6', contentClassName)}>
-					{children}
-				</main>
-				{pageOutline.length ? (
-					<aside className="hidden px-4 py-5 lg:block">
-						<PageOutline items={pageOutline} activeId={activeOutlineId} />
-					</aside>
-				) : null}
-			</div>
+					<div className="grid min-h-0 flex-1 grid-cols-1 lg:grid-cols-[minmax(0,1fr)_240px]">
+						<div className={cn('min-w-0 px-4 py-5 md:px-6', contentClassName)}>
+							{children}
+						</div>
+						{pageOutline.length ? (
+							<aside className="hidden px-4 py-5 lg:block">
+								<PageOutline items={pageOutline} activeId={activeOutlineId} />
+							</aside>
+						) : null}
+					</div>
+				</SidebarInset>
+			</SidebarProvider>
 
 			<Dialog open={menuOpen} onOpenChange={setMenuOpen}>
 				<DialogContent className="max-h-[85svh] overflow-auto sm:max-w-sm">

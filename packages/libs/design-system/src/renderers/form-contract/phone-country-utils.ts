@@ -1,6 +1,7 @@
 import type {
 	FormOption,
 	PhoneCountrySpec,
+	PhoneFieldSpec,
 } from '@contractspec/lib.contracts-spec/forms';
 import getCountryFlag from 'country-flag-icons/unicode';
 import {
@@ -77,11 +78,19 @@ export function countryFromInput(
 	);
 }
 
-export function phoneCountryOptions(country?: PhoneCountrySpec): FormOption[] {
+export function phoneCountryOptions(
+	country?: PhoneCountrySpec,
+	display?: Pick<NonNullable<PhoneFieldSpec['display']>, 'flag' | 'callingCode'>
+): FormOption[] {
 	return allowedCountries(country).map((iso2) => {
 		const callingCode = countryCallingCode(iso2);
+		const labelParts = [
+			display?.flag === false ? undefined : countryFlag(iso2),
+			iso2,
+			display?.callingCode === false ? undefined : callingCode,
+		].filter((part): part is string => Boolean(part));
 		return {
-			labelI18n: `${countryFlag(iso2)} ${iso2} ${callingCode}`,
+			labelI18n: labelParts.join(' '),
 			value: iso2,
 		};
 	});

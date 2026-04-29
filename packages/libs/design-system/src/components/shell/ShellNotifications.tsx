@@ -24,6 +24,8 @@ function formatNotificationTime(value?: string | Date) {
 
 export function ShellNotifications({ notifications }: ShellNotificationsProps) {
 	const [open, setOpen] = React.useState(false);
+	const panelRef = React.useRef<HTMLDivElement>(null);
+	const triggerRef = React.useRef<HTMLSpanElement>(null);
 	const items = notifications.items ?? [];
 	const unreadCount =
 		notifications.unreadCount ??
@@ -33,35 +35,78 @@ export function ShellNotifications({ notifications }: ShellNotificationsProps) {
 	const markAllReadLabel =
 		notifications.markAllReadLabel ?? 'Mark all notifications as read';
 
-	const setNotificationOpen = (nextOpen: boolean) => {
-		setOpen(nextOpen);
-		notifications.onOpenChange?.(nextOpen);
-	};
+	const setNotificationOpen = React.useCallback(
+		(nextOpen: boolean) => {
+			setOpen(nextOpen);
+			notifications.onOpenChange?.(nextOpen);
+		},
+		[notifications]
+	);
+
+	React.useEffect(() => {
+		if (!open) {
+			return;
+		}
+
+		const closeOnOutsideClick = (event: MouseEvent) => {
+			const target = event.target;
+			if (!(target instanceof Node)) {
+				return;
+			}
+
+			if (
+				panelRef.current?.contains(target) ||
+				triggerRef.current?.contains(target)
+			) {
+				return;
+			}
+
+			setNotificationOpen(false);
+		};
+
+		const closeOnEscape = (event: KeyboardEvent) => {
+			if (event.key === 'Escape') {
+				setNotificationOpen(false);
+			}
+		};
+
+		document.addEventListener('click', closeOnOutsideClick, true);
+		document.addEventListener('keydown', closeOnEscape);
+		return () => {
+			document.removeEventListener('click', closeOnOutsideClick, true);
+			document.removeEventListener('keydown', closeOnEscape);
+		};
+	}, [open, setNotificationOpen]);
 
 	return (
 		<>
-			<Button
-				variant="ghost"
-				size="icon"
-				className="relative"
-				ariaLabelI18n={label}
-				onPress={() => setNotificationOpen(true)}
-			>
-				<BellIcon className="h-4 w-4" />
-				{unreadCount > 0 ? (
-					<span
-						aria-label={`${unreadCount} unread notifications`}
-						className="absolute -top-1 -right-1 inline-flex min-h-4 min-w-4 items-center justify-center rounded-full bg-destructive px-1 font-medium text-[10px] text-destructive-foreground leading-none"
-					>
-						{unreadCount > 99 ? '99+' : unreadCount}
-					</span>
-				) : null}
-			</Button>
+			<span ref={triggerRef} className="inline-flex">
+				<Button
+					variant="ghost"
+					size="icon"
+					className="relative"
+					aria-expanded={open}
+					aria-haspopup="dialog"
+					ariaLabelI18n={label}
+					onPress={() => setNotificationOpen(!open)}
+				>
+					<BellIcon className="h-4 w-4" />
+					{unreadCount > 0 ? (
+						<span
+							aria-label={`${unreadCount} unread notifications`}
+							className="absolute -top-1 -right-1 inline-flex min-h-4 min-w-4 items-center justify-center rounded-full bg-destructive px-1 font-medium text-[10px] text-destructive-foreground leading-none"
+						>
+							{unreadCount > 99 ? '99+' : unreadCount}
+						</span>
+					) : null}
+				</Button>
+			</span>
 
 			{open ? (
 				<div
+					ref={panelRef}
 					aria-label={label}
-					aria-modal="true"
+					aria-modal="false"
 					className="fixed top-16 right-4 z-50 max-h-[calc(100svh-5rem)] w-[min(24rem,calc(100vw-2rem))] overflow-auto rounded-md border bg-background p-4 shadow-lg"
 					role="dialog"
 				>
