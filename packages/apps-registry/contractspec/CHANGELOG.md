@@ -1,5 +1,13 @@
 # contractspec
 
+## 4.0.11
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/app.cli-contractspec@6.3.1
+
 ## 4.0.10
 
 ### Patch Changes

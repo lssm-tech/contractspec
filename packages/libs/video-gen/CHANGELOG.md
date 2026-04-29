@@ -1,5 +1,14 @@
 # @contractspec/lib.video-gen
 
+## 3.0.7
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Fix AppShell desktop sidebar collapse/layout and web notification dismissal behavior.
+- Updated dependencies because of Fix FormSpec phone country-select rendering to remove duplicated country adornments.
+  - @contractspec/lib.design-system@4.4.1
+
 ## 3.0.6
 
 ### Patch Changes

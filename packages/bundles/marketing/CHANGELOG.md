@@ -1,5 +1,35 @@
 # @contractspec/bundle.marketing
 
+## 3.8.23
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Fix AppShell desktop sidebar collapse/layout and web notification dismissal behavior.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Fix FormSpec phone country-select rendering to remove duplicated country adornments.
+  - @contractspec/lib.design-system@4.4.1
+  - @contractspec/bundle.library@3.9.10
+  - @contractspec/example.agent-console@3.8.22
+  - @contractspec/example.ai-chat-assistant@3.8.22
+  - @contractspec/example.analytics-dashboard@3.9.22
+  - @contractspec/example.crm-pipeline@3.7.30
+  - @contractspec/example.data-grid-showcase@3.8.22
+  - @contractspec/example.finance-ops-ai-workflows@1.1.2
+  - @contractspec/example.form-showcase@1.1.3
+  - @contractspec/example.in-app-docs@3.7.30
+  - @contractspec/example.integration-hub@3.8.22
+  - @contractspec/example.learning-journey-registry@4.0.10
+  - @contractspec/example.marketplace@3.8.22
+  - @contractspec/example.pocket-family-office@3.8.2
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.30
+  - @contractspec/example.saas-boilerplate@3.8.22
+  - @contractspec/example.visualization-showcase@3.9.22
+  - @contractspec/example.wealth-snapshot@3.8.2
+  - @contractspec/example.workflow-system@3.8.22
+  - @contractspec/lib.example-shared-ui@7.0.7
+  - @contractspec/module.examples@4.0.7
+
 ## 3.8.22
 
 ### Patch Changes

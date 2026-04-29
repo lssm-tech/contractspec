@@ -1,5 +1,14 @@
 # @contractspec/lib.design-system
 
+## 4.4.1
+
+### Patch Changes
+
+- Fix AppShell desktop sidebar collapse/layout and web notification dismissal behavior.
+  - Packages: @contractspec/lib.design-system (patch)
+- Fix FormSpec phone country-select rendering to remove duplicated country adornments.
+  - Packages: @contractspec/lib.design-system (patch)
+
 ## 4.4.0
 
 ### Minor Changes

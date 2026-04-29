@@ -1,5 +1,17 @@
 # @contractspec/example.learning-journey-ui-coaching
 
+## 4.0.10
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Fix AppShell desktop sidebar collapse/layout and web notification dismissal behavior.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Fix FormSpec phone country-select rendering to remove duplicated country adornments.
+  - @contractspec/lib.design-system@4.4.1
+  - @contractspec/example.learning-journey-crm-onboarding@4.0.10
+  - @contractspec/example.learning-journey-ui-shared@4.0.10
+
 ## 4.0.9
 
 ### Patch Changes

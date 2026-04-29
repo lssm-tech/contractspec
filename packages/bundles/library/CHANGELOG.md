@@ -1,5 +1,18 @@
 # @contractspec/bundle.library
 
+## 3.9.10
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Fix AppShell desktop sidebar collapse/layout and web notification dismissal behavior.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Fix FormSpec phone country-select rendering to remove duplicated country adornments.
+  - @contractspec/lib.design-system@4.4.1
+  - @contractspec/example.data-grid-showcase@3.8.22
+  - @contractspec/lib.example-shared-ui@7.0.7
+  - @contractspec/module.examples@4.0.7
+
 ## 3.9.9
 
 ### Patch Changes

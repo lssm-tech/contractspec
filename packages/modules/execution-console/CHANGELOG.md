@@ -1,5 +1,14 @@
 # @contractspec/module.execution-console
 
+## 0.1.13
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Fix AppShell desktop sidebar collapse/layout and web notification dismissal behavior.
+- Updated dependencies because of Fix FormSpec phone country-select rendering to remove duplicated country adornments.
+  - @contractspec/lib.design-system@4.4.1
+
 ## 0.1.12
 
 ### Patch Changes

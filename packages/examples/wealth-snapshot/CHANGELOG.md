@@ -1,5 +1,14 @@
 # @contractspec/example.wealth-snapshot
 
+## 3.8.2
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Fix AppShell desktop sidebar collapse/layout and web notification dismissal behavior.
+- Updated dependencies because of Fix FormSpec phone country-select rendering to remove duplicated country adornments.
+  - @contractspec/lib.design-system@4.4.1
+
 ## 3.8.1
 
 ### Patch Changes

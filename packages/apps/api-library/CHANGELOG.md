@@ -1,5 +1,14 @@
 # @contractspec/app.api-library
 
+## 3.8.23
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/bundle.library@3.9.10
+  - @contractspec/bundle.marketing@3.8.23
+
 ## 3.8.22
 
 ### Patch Changes
