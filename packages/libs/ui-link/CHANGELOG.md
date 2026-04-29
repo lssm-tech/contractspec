@@ -1,5 +1,15 @@
 # @contractspec/lib.ui-link
 
+## 3.7.23
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/lib.ui-kit-core@3.8.8
+  - @contractspec/lib.contracts-spec@6.3.0
+
 ## 3.7.22
 
 ### Patch Changes

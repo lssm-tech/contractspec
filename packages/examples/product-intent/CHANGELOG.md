@@ -1,5 +1,20 @@
 # @contractspec/example.product-intent
 
+## 3.7.29
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/integration.provider.analytics@0.2.4
+  - @contractspec/integration.provider.project-management@0.2.4
+  - @contractspec/lib.ai-agent@8.0.16
+  - @contractspec/lib.analytics@3.7.28
+  - @contractspec/lib.product-intent-utils@3.7.28
+  - @contractspec/lib.contracts-spec@6.3.0
+  - @contractspec/lib.contracts-integrations@3.9.0
+
 ## 3.7.28
 
 ### Patch Changes

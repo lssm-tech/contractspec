@@ -1,5 +1,28 @@
 # @contractspec/example.integration-hub
 
+## 3.9.0
+
+### Minor Changes
+
+- Teach the Integration Hub example to model managed/BYOK credential setup and monorepo-aware env aliases.
+  - Packages: @contractspec/example.integration-hub (minor)
+
+### Patch Changes
+
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+- Updated dependencies because of Improve PageOutline desktop behavior with a Notion-like floating rail that keeps AppShell content centered while expanding on hover or keyboard focus.
+  - @contractspec/lib.ai-agent@8.0.16
+  - @contractspec/lib.example-shared-ui@7.0.8
+  - @contractspec/lib.presentation-runtime-core@5.2.2
+  - @contractspec/lib.presentation-runtime-react@40.0.2
+  - @contractspec/lib.runtime-sandbox@3.0.7
+  - @contractspec/lib.ui-kit-web@3.13.3
+  - @contractspec/module.ai-chat@4.3.31
+  - @contractspec/lib.contracts-spec@6.3.0
+  - @contractspec/lib.contracts-integrations@3.9.0
+  - @contractspec/lib.design-system@4.4.2
+
 ## 3.8.22
 
 ### Patch Changes

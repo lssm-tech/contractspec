@@ -1,5 +1,21 @@
 # Changelog
 
+## 3.10.12
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/lib.ai-agent@8.0.16
+  - @contractspec/lib.ai-providers@3.7.21
+  - @contractspec/lib.contracts-transformers@3.7.28
+  - @contractspec/module.ai-chat@4.3.31
+  - @contractspec/module.examples@4.0.8
+  - @contractspec/module.workspace@4.3.8
+  - @contractspec/lib.contracts-spec@6.3.0
+  - @contractspec/bundle.workspace@4.7.0
+
 ## 3.10.11
 
 ### Patch Changes

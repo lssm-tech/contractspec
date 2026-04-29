@@ -1,5 +1,15 @@
 # @contractspec/example.form-showcase
 
+## 1.1.4
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+- Updated dependencies because of Improve PageOutline desktop behavior with a Notion-like floating rail that keeps AppShell content centered while expanding on hover or keyboard focus.
+  - @contractspec/lib.contracts-spec@6.3.0
+  - @contractspec/lib.design-system@4.4.2
+
 ## 1.1.3
 
 ### Patch Changes

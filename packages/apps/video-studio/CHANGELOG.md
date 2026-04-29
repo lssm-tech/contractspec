@@ -1,5 +1,18 @@
 # @contractspec/app.video-studio
 
+## 2.7.31
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+- Updated dependencies because of Improve PageOutline desktop behavior with a Notion-like floating rail that keeps AppShell content centered while expanding on hover or keyboard focus.
+  - @contractspec/lib.content-gen@3.7.28
+  - @contractspec/lib.video-gen@3.0.8
+  - @contractspec/lib.contracts-spec@6.3.0
+  - @contractspec/lib.design-system@4.4.2
+
 ## 2.7.30
 
 ### Patch Changes

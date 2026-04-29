@@ -1,5 +1,18 @@
 # @contractspec/lib.personalization
 
+## 6.1.1
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/lib.bus@3.7.28
+  - @contractspec/lib.knowledge@3.8.4
+  - @contractspec/lib.overlay-engine@3.7.28
+  - @contractspec/lib.surface-runtime@0.5.28
+  - @contractspec/lib.contracts-spec@6.3.0
+
 ## 6.1.0
 
 ### Minor Changes

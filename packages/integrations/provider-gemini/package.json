@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/integration.provider.gemini",
-	"version": "0.2.8",
+	"version": "0.2.9",
 	"description": "Gemini provider compatibility wrapper for Builder.",
 	"type": "module",
 	"types": "./dist/index.d.ts",

@@ -27,7 +27,7 @@ upgradeSteps:
   - id: adopt-byok-env-ui-kit
     title: Use the reusable credential setup block
     summary: Replace bespoke integration credential setup panels with the shared setup model and components when rendering managed/BYOK flows.
-    level: optional
+    level: assisted
     instructions:
       - Import `IntegrationCredentialSetupBlock` or `buildIntegrationCredentialSetupModel` from `@contractspec/bundle.library/components/integrations`.
       - Pass credential manifests and optional workspace environment config to render requirements and target-specific aliases.

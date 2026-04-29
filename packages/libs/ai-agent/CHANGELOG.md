@@ -1,5 +1,17 @@
 # @contractspec/lib.ai-agent
 
+## 8.0.16
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/lib.ai-providers@3.7.21
+  - @contractspec/lib.knowledge@3.8.4
+  - @contractspec/lib.surface-runtime@0.5.28
+  - @contractspec/lib.contracts-spec@6.3.0
+
 ## 8.0.15
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @contractspec/lib.workflow-composer
 
+## 3.7.28
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/lib.ai-providers@3.7.21
+  - @contractspec/lib.contracts-spec@6.3.0
+
 ## 3.7.27
 
 ### Patch Changes

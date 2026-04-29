@@ -1,5 +1,36 @@
 # @contractspec/module.examples
 
+## 4.0.8
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+- Updated dependencies because of Teach the Integration Hub example to model managed/BYOK credential setup and monorepo-aware env aliases.
+  - @contractspec/example.agent-console@3.8.23
+  - @contractspec/example.ai-chat-assistant@3.8.23
+  - @contractspec/example.analytics-dashboard@3.9.23
+  - @contractspec/example.crm-pipeline@3.7.31
+  - @contractspec/example.data-grid-showcase@3.8.23
+  - @contractspec/example.finance-ops-ai-workflows@1.1.3
+  - @contractspec/example.form-showcase@1.1.4
+  - @contractspec/example.in-app-docs@3.7.31
+  - @contractspec/example.learning-journey-registry@4.0.11
+  - @contractspec/example.marketplace@3.8.23
+  - @contractspec/example.pocket-family-office@3.8.3
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.31
+  - @contractspec/example.saas-boilerplate@3.8.23
+  - @contractspec/example.visualization-showcase@3.9.23
+  - @contractspec/example.wealth-snapshot@3.8.3
+  - @contractspec/example.workflow-system@3.8.23
+  - @contractspec/lib.contracts-runtime-client-react@3.14.1
+  - @contractspec/lib.example-shared-ui@7.0.8
+  - @contractspec/lib.presentation-runtime-core@5.2.2
+  - @contractspec/lib.runtime-sandbox@3.0.7
+  - @contractspec/lib.contracts-spec@6.3.0
+  - @contractspec/example.integration-hub@3.9.0
+
 ## 4.0.7
 
 ### Patch Changes

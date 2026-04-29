@@ -1,5 +1,21 @@
 # @contractspec/lib.video-gen
 
+## 3.0.8
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+- Updated dependencies because of Improve PageOutline desktop behavior with a Notion-like floating rail that keeps AppShell content centered while expanding on hover or keyboard focus.
+  - @contractspec/lib.ai-providers@3.7.21
+  - @contractspec/lib.content-gen@3.7.28
+  - @contractspec/lib.image-gen@1.7.28
+  - @contractspec/lib.voice@1.7.28
+  - @contractspec/lib.contracts-spec@6.3.0
+  - @contractspec/lib.contracts-integrations@3.9.0
+  - @contractspec/lib.design-system@4.4.2
+
 ## 3.0.7
 
 ### Patch Changes

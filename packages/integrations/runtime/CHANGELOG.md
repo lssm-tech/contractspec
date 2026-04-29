@@ -1,5 +1,25 @@
 # @contractspec/integration.runtime
 
+## 3.10.0
+
+### Minor Changes
+
+- Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.contracts-integrations (minor), @contractspec/integration.runtime (minor), @contractspec/bundle.workspace (minor)
+
+### Patch Changes
+
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/lib.builder-runtime@0.2.10
+  - @contractspec/lib.builder-spec@0.2.10
+  - @contractspec/lib.execution-lanes@0.1.11
+  - @contractspec/lib.jobs@3.8.7
+  - @contractspec/lib.logger@3.7.21
+  - @contractspec/lib.provider-spec@0.2.8
+  - @contractspec/lib.contracts-spec@6.3.0
+  - @contractspec/lib.contracts-integrations@3.9.0
+
 ## 3.9.9
 
 ### Patch Changes

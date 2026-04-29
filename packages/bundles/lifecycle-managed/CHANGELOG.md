@@ -1,5 +1,20 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 3.7.28
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/lib.analytics@3.7.28
+  - @contractspec/lib.lifecycle@3.7.28
+  - @contractspec/lib.observability@3.7.28
+  - @contractspec/lib.surface-runtime@0.5.28
+  - @contractspec/module.lifecycle-advisor@3.7.27
+  - @contractspec/module.lifecycle-core@3.7.27
+  - @contractspec/lib.contracts-spec@6.3.0
+
 ## 3.7.27
 
 ### Patch Changes

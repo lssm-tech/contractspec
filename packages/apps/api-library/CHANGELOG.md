@@ -1,5 +1,25 @@
 # @contractspec/app.api-library
 
+## 3.8.24
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add reusable BYOK and environment alias UI helpers for integration setup.
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/bundle.marketing@3.8.24
+  - @contractspec/integration.builder-telegram@0.2.10
+  - @contractspec/integration.builder-whatsapp@0.2.10
+  - @contractspec/integration.provider.codex@0.2.9
+  - @contractspec/integration.provider.messaging@0.2.4
+  - @contractspec/integration.runtime.managed@0.2.10
+  - @contractspec/lib.builder-runtime@0.2.10
+  - @contractspec/bundle.library@3.10.0
+  - @contractspec/lib.contracts-spec@6.3.0
+  - @contractspec/integration.runtime@3.10.0
+  - @contractspec/bundle.workspace@4.7.0
+
 ## 3.8.23
 
 ### Patch Changes

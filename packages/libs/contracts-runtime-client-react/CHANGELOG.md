@@ -1,5 +1,15 @@
 # @contractspec/lib.contracts-runtime-client-react
 
+## 3.14.1
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/lib.presentation-runtime-core@5.2.2
+  - @contractspec/lib.contracts-spec@6.3.0
+
 ## 3.14.0
 
 ### Minor Changes

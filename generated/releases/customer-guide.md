@@ -2,22 +2,43 @@
 
 
 
-### Fix AppShell desktop sidebar collapse/layout and web notification dismissal behavior.
-- @contractspec/lib.design-system@4.4.1 (patch)
-- Integrator: AppShell now keeps the desktop topbar inset beside the sidebar, exposes a shared sidebar collapse trigger, and dismisses the web notification panel on outside click, Escape, or trigger toggle.
+### Add reusable BYOK and environment alias UI helpers for integration setup.
+- @contractspec/bundle.library@3.10.0 (minor)
+- Integrator: OSS consumers can render managed/BYOK credential setup blocks and monorepo-aware env alias previews from integration manifests.
 
 
 
-### Fix AppShell desktop sidebar collapse/layout and web notification dismissal behavior.
+### Add reusable BYOK and environment alias UI helpers for integration setup.
 - No manual migration steps recorded.
 
-### Fix FormSpec phone country-select rendering to remove duplicated country adornments.
-- @contractspec/lib.design-system@4.4.1 (patch)
-- Customer: Split FormSpec phone fields now show one clear country selector instead of duplicating the flag and calling code beside the select.
-- Integrator: Design-system phone country options now honor the configured flag/calling-code display parts, while the selected country control owns those adornments in select mode.
+### Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+- @contractspec/lib.contracts-spec@6.3.0 (minor)
+- @contractspec/lib.contracts-integrations@3.9.0 (minor)
+- @contractspec/integration.runtime@3.10.0 (minor)
+- @contractspec/bundle.workspace@4.7.0 (minor)
+- Integrator: Monorepos can declare logical environment variables once and materialize framework-specific aliases such as NEXT_PUBLIC_* and EXPO_PUBLIC_* per app target.
+- Customer: BYOK setup can be validated from shared contracts without placing raw secrets in specs, docs, reports, or generated env examples.
 
 
 
-### Fix FormSpec phone country-select rendering to remove duplicated country adornments.
-- Customer: Split FormSpec phone fields now show one clear country selector instead of duplicating the flag and calling code beside the select.
+### Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+- Customer: BYOK setup can be validated from shared contracts without placing raw secrets in specs, docs, reports, or generated env examples.
+- No manual migration steps recorded.
+
+### Teach the Integration Hub example to model managed/BYOK credential setup and monorepo-aware env aliases.
+- @contractspec/example.integration-hub@3.9.0 (minor)
+- Integrator: The Integration Hub example now exposes credential setup manifests, safe secret references, and app-specific Next/Expo env aliases for managed and BYOK integrations.
+
+
+
+### Teach the Integration Hub example to model managed/BYOK credential setup and monorepo-aware env aliases.
+- No manual migration steps recorded.
+
+### Improve PageOutline desktop behavior with a Notion-like floating rail that keeps AppShell content centered while expanding on hover or keyboard focus.
+- @contractspec/lib.design-system@4.4.2 (patch)
+- Integrator: AppShell consumers get a floating desktop PageOutline that no longer reserves a right content column, while mobile and native outline behavior remains menu-contained.
+
+
+
+### Improve PageOutline desktop behavior with a Notion-like floating rail that keeps AppShell content centered while expanding on hover or keyboard focus.
 - No manual migration steps recorded.

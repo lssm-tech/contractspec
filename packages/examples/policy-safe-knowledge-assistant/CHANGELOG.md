@@ -1,5 +1,24 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 3.7.31
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+- Updated dependencies because of Improve PageOutline desktop behavior with a Notion-like floating rail that keeps AppShell content centered while expanding on hover or keyboard focus.
+  - @contractspec/example.kb-update-pipeline@3.7.28
+  - @contractspec/example.learning-patterns@4.0.8
+  - @contractspec/example.locale-jurisdiction-gate@3.7.28
+  - @contractspec/example.versioned-knowledge-base@3.7.28
+  - @contractspec/lib.example-shared-ui@7.0.8
+  - @contractspec/lib.runtime-sandbox@3.0.7
+  - @contractspec/lib.ui-kit-web@3.13.3
+  - @contractspec/module.learning-journey@4.0.8
+  - @contractspec/lib.contracts-spec@6.3.0
+  - @contractspec/lib.design-system@4.4.2
+
 ## 3.7.30
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # @contractspec/lib.presentation-runtime-react-native
 
+## 40.0.2
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/lib.presentation-runtime-core@5.2.2
+  - @contractspec/lib.presentation-runtime-react@40.0.2
+  - @contractspec/lib.ui-kit@4.1.5
+  - @contractspec/lib.contracts-spec@6.3.0
+
 ## 40.0.1
 
 ### Patch Changes

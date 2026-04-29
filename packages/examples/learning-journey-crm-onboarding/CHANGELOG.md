@@ -1,5 +1,16 @@
 # @contractspec/example.learning-journey-crm-onboarding
 
+## 4.0.11
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/example.crm-pipeline@3.7.31
+  - @contractspec/module.learning-journey@4.0.8
+  - @contractspec/lib.contracts-spec@6.3.0
+
 ## 4.0.10
 
 ### Patch Changes

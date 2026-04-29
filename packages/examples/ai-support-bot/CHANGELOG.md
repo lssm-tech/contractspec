@@ -1,5 +1,17 @@
 # @contractspec/example.ai-support-bot
 
+## 3.7.28
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/lib.knowledge@3.8.4
+  - @contractspec/lib.logger@3.7.21
+  - @contractspec/lib.support-bot@4.0.8
+  - @contractspec/lib.contracts-spec@6.3.0
+
 ## 3.7.27
 
 ### Patch Changes

@@ -1,5 +1,21 @@
 # @contractspec/module.builder-workbench
 
+## 0.2.13
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+- Updated dependencies because of Improve PageOutline desktop behavior with a Notion-like floating rail that keeps AppShell content centered while expanding on hover or keyboard focus.
+  - @contractspec/lib.builder-runtime@0.2.10
+  - @contractspec/lib.builder-spec@0.2.10
+  - @contractspec/lib.provider-spec@0.2.8
+  - @contractspec/lib.ui-kit-web@3.13.3
+  - @contractspec/module.ai-chat@4.3.31
+  - @contractspec/lib.contracts-spec@6.3.0
+  - @contractspec/lib.design-system@4.4.2
+
 ## 0.2.12
 
 ### Patch Changes

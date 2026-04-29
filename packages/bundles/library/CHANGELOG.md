@@ -1,5 +1,40 @@
 # @contractspec/bundle.library
 
+## 3.10.0
+
+### Minor Changes
+
+- Add reusable BYOK and environment alias UI helpers for integration setup.
+  - Packages: @contractspec/bundle.library (minor)
+
+### Patch Changes
+
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+- Updated dependencies because of Improve PageOutline desktop behavior with a Notion-like floating rail that keeps AppShell content centered while expanding on hover or keyboard focus.
+  - @contractspec/example.data-grid-showcase@3.8.23
+  - @contractspec/lib.ai-providers@3.7.21
+  - @contractspec/lib.content-gen@3.7.28
+  - @contractspec/lib.contracts-library@3.7.28
+  - @contractspec/lib.contracts-runtime-client-react@3.14.1
+  - @contractspec/lib.contracts-runtime-server-graphql@3.8.7
+  - @contractspec/lib.contracts-runtime-server-mcp@3.8.8
+  - @contractspec/lib.contracts-runtime-server-rest@3.9.1
+  - @contractspec/lib.example-shared-ui@7.0.8
+  - @contractspec/lib.knowledge@3.8.4
+  - @contractspec/lib.logger@3.7.21
+  - @contractspec/lib.provider-ranking@0.7.21
+  - @contractspec/lib.runtime-sandbox@3.0.7
+  - @contractspec/lib.surface-runtime@0.5.28
+  - @contractspec/lib.ui-kit-web@3.13.3
+  - @contractspec/lib.ui-link@3.7.23
+  - @contractspec/module.context-storage@0.7.27
+  - @contractspec/module.examples@4.0.8
+  - @contractspec/lib.contracts-spec@6.3.0
+  - @contractspec/lib.contracts-integrations@3.9.0
+  - @contractspec/bundle.workspace@4.7.0
+  - @contractspec/lib.design-system@4.4.2
+
 ## 3.9.10
 
 ### Patch Changes

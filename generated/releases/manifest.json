@@ -2,56 +2,236 @@
   "generatedAt": "2026-04-29T00:00:00.000Z",
   "releases": [
     {
-      "slug": "appshell-notification-layout",
-      "version": "4.4.1",
-      "summary": "Fix AppShell desktop sidebar collapse/layout and web notification dismissal behavior.",
+      "slug": "byok-env-ui-kit",
+      "version": "3.10.0",
+      "summary": "Add reusable BYOK and environment alias UI helpers for integration setup.",
       "date": "2026-04-29",
       "isBreaking": false,
       "packages": [
         {
-          "name": "@contractspec/lib.design-system",
-          "releaseType": "patch",
-          "version": "4.4.1"
+          "name": "@contractspec/bundle.library",
+          "releaseType": "minor",
+          "version": "3.10.0"
         }
       ],
       "affectedRuntimes": [
         "browser",
         "react"
       ],
-      "affectedFrameworks": [],
+      "affectedFrameworks": [
+        "next",
+        "expo",
+        "typescript"
+      ],
       "audiences": [
         {
           "kind": "integrator",
-          "summary": "AppShell now keeps the desktop topbar inset beside the sidebar, exposes a shared sidebar collapse trigger, and dismisses the web notification panel on outside click, Escape, or trigger toggle.",
+          "summary": "OSS consumers can render managed/BYOK credential setup blocks and monorepo-aware env alias previews from integration manifests.",
           "affectedPackages": [
-            "@contractspec/lib.design-system"
+            "@contractspec/bundle.library"
+          ]
+        },
+        {
+          "kind": "maintainer",
+          "summary": "Integration UI helpers preserve redaction guarantees by displaying secret references and required status without serializing raw secret values.",
+          "affectedPackages": [
+            "@contractspec/bundle.library"
           ]
         }
       ],
       "deprecations": [],
       "migrationInstructions": [],
-      "upgradeSteps": [],
+      "upgradeSteps": [
+        {
+          "id": "adopt-byok-env-ui-kit",
+          "title": "Use the reusable credential setup block",
+          "summary": "Replace bespoke integration credential setup panels with the shared setup model and components when rendering managed/BYOK flows.",
+          "level": "assisted",
+          "instructions": [
+            "Import `IntegrationCredentialSetupBlock` or `buildIntegrationCredentialSetupModel` from `@contractspec/bundle.library/components/integrations`.",
+            "Pass credential manifests and optional workspace environment config to render requirements and target-specific aliases.",
+            "Pass secret references, not raw secret values, when displaying configured BYOK credentials."
+          ]
+        }
+      ],
       "validation": {
         "commands": [
-          "bun test packages/libs/design-system/src/components/shell/AppShell.test.tsx",
-          "cd packages/libs/design-system && bun run typecheck && bun run lint:check"
+          "bun test packages/bundles/library/src/components/integrations/byok-env-ui-kit.test.tsx",
+          "cd packages/bundles/library && bun run typecheck"
         ],
         "evidence": [
-          "AppShell tests cover the shared sidebar provider, collapse trigger, notification trigger toggle, outside-click dismissal, and existing notification callbacks."
+          "Helper tests cover legacy schema fallback, explicit manifest precedence, missing BYOK secret refs, and secret redaction.",
+          "Render tests cover managed/BYOK setup actions and Next/Expo alias previews."
         ]
       }
     },
     {
-      "slug": "forms-phone-ux-regression",
-      "version": "4.4.1",
-      "summary": "Fix FormSpec phone country-select rendering to remove duplicated country adornments.",
+      "slug": "byok-monorepo-env-config",
+      "version": "6.3.0",
+      "summary": "Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.",
+      "date": "2026-04-29",
+      "isBreaking": false,
+      "packages": [
+        {
+          "name": "@contractspec/lib.contracts-spec",
+          "releaseType": "minor",
+          "version": "6.3.0"
+        },
+        {
+          "name": "@contractspec/lib.contracts-integrations",
+          "releaseType": "minor",
+          "version": "3.9.0"
+        },
+        {
+          "name": "@contractspec/integration.runtime",
+          "releaseType": "minor",
+          "version": "3.10.0"
+        },
+        {
+          "name": "@contractspec/bundle.workspace",
+          "releaseType": "minor",
+          "version": "4.7.0"
+        }
+      ],
+      "affectedRuntimes": [
+        "node",
+        "bun"
+      ],
+      "affectedFrameworks": [
+        "next",
+        "expo",
+        "typescript"
+      ],
+      "audiences": [
+        {
+          "kind": "integrator",
+          "summary": "Monorepos can declare logical environment variables once and materialize framework-specific aliases such as NEXT_PUBLIC_* and EXPO_PUBLIC_* per app target.",
+          "affectedPackages": [
+            "@contractspec/lib.contracts-spec",
+            "@contractspec/bundle.workspace"
+          ]
+        },
+        {
+          "kind": "maintainer",
+          "summary": "Integration specs can expose managed/BYOK credential manifests while runtime reports redact secret and sensitive values.",
+          "affectedPackages": [
+            "@contractspec/lib.contracts-integrations",
+            "@contractspec/integration.runtime"
+          ]
+        },
+        {
+          "kind": "customer",
+          "summary": "BYOK setup can be validated from shared contracts without placing raw secrets in specs, docs, reports, or generated env examples."
+        }
+      ],
+      "deprecations": [],
+      "migrationInstructions": [],
+      "upgradeSteps": [
+        {
+          "id": "adopt-logical-environment-definitions",
+          "title": "Declare logical env variables before framework aliases",
+          "summary": "Use workspace environment definitions and app targets instead of duplicating public env names across apps.",
+          "level": "assisted",
+          "instructions": [
+            "Define shared logical variables under `.contractsrc.json > environment.variables`.",
+            "Add app targets for each package/framework that needs concrete aliases.",
+            "Keep secret values behind `secretRef` or environment/secret providers."
+          ]
+        }
+      ],
+      "validation": {
+        "commands": [
+          "bun test packages/libs/contracts-spec/src/workspace-config/contractsrc-schema.test.ts",
+          "bun test packages/libs/contracts-integrations/src/integrations/credentials.test.ts",
+          "bun test packages/integrations/runtime/src/environment.test.ts",
+          "bun test packages/bundles/workspace/src/templates/environment.template.test.ts",
+          "cd packages/libs/contracts-spec && bun run typecheck",
+          "cd packages/libs/contracts-integrations && bun run typecheck",
+          "cd packages/integrations/runtime && bun run typecheck"
+        ],
+        "evidence": [
+          "Schema tests reject sensitive and secret values exposed through public Next/Expo aliases.",
+          "Runtime tests prove alias materialization and redaction do not serialize secret values.",
+          "Template tests split root and app-target env example output."
+        ]
+      }
+    },
+    {
+      "slug": "integration-hub-byok-env-example",
+      "version": "3.9.0",
+      "summary": "Teach the Integration Hub example to model managed/BYOK credential setup and monorepo-aware env aliases.",
+      "date": "2026-04-29",
+      "isBreaking": false,
+      "packages": [
+        {
+          "name": "@contractspec/example.integration-hub",
+          "releaseType": "minor",
+          "version": "3.9.0"
+        }
+      ],
+      "affectedRuntimes": [
+        "browser"
+      ],
+      "affectedFrameworks": [
+        "react",
+        "nextjs",
+        "expo"
+      ],
+      "audiences": [
+        {
+          "kind": "integrator",
+          "summary": "The Integration Hub example now exposes credential setup manifests, safe secret references, and app-specific Next/Expo env aliases for managed and BYOK integrations.",
+          "affectedPackages": [
+            "@contractspec/example.integration-hub"
+          ]
+        },
+        {
+          "kind": "maintainer",
+          "summary": "Maintainers get regression-covered setup fixtures that exercise public-prefix aliasing without exposing secret fields through client env names.",
+          "affectedPackages": [
+            "@contractspec/example.integration-hub"
+          ]
+        }
+      ],
+      "deprecations": [],
+      "migrationInstructions": [],
+      "upgradeSteps": [
+        {
+          "id": "adopt-integration-hub-setup-fixtures",
+          "title": "Reuse the Integration Hub credential setup fixtures",
+          "summary": "Import the setup metadata when building docs, previews, or custom BYOK onboarding flows from the example package.",
+          "level": "assisted",
+          "instructions": [
+            "Import `integrationHubCredentialManifest` and `integrationHubEnvironmentConfig` from `@contractspec/example.integration-hub/setup`.",
+            "Keep raw provider secrets out of config values; pass secret references such as `env://POSTHOG_PERSONAL_API_KEY` instead.",
+            "Materialize public app aliases only for non-secret fields such as public origins or project keys."
+          ]
+        }
+      ],
+      "validation": {
+        "commands": [
+          "bun run --cwd packages/examples/integration-hub test",
+          "bun run --cwd packages/examples/integration-hub typecheck",
+          "bun run --cwd packages/examples/integration-hub build",
+          "node scripts/biome.cjs check packages/examples/integration-hub/package.json packages/examples/integration-hub/src/index.ts packages/examples/integration-hub/src/setup/credential-setup.ts packages/examples/integration-hub/src/setup/index.ts packages/examples/integration-hub/src/ui/IntegrationDashboard.tsx packages/examples/integration-hub/src/ui/IntegrationHubCredentialSetupPreview.tsx packages/examples/integration-hub/src/ui/IntegrationHubCredentialSetupPreview.model.ts packages/examples/integration-hub/src/ui/IntegrationHubCredentialSetupPreview.test.tsx packages/examples/integration-hub/src/ui/index.ts packages/examples/integration-hub/src/docs/integration-hub.docblock.ts"
+        ],
+        "evidence": [
+          "Server-render coverage asserts BYOK guidance, Next/Expo public aliases, safe secret references, and absence of public aliases for secret fields.",
+          "Build output includes the new setup and credential setup preview entrypoints for bun and node targets."
+        ]
+      }
+    },
+    {
+      "slug": "notion-page-outline",
+      "version": "4.4.2",
+      "summary": "Improve PageOutline desktop behavior with a Notion-like floating rail that keeps AppShell content centered while expanding on hover or keyboard focus.",
       "date": "2026-04-29",
       "isBreaking": false,
       "packages": [
         {
           "name": "@contractspec/lib.design-system",
           "releaseType": "patch",
-          "version": "4.4.1"
+          "version": "4.4.2"
         }
       ],
       "affectedRuntimes": [
@@ -59,19 +239,20 @@
         "react-native"
       ],
       "affectedFrameworks": [
-        "react"
+        "react",
+        "react-native"
       ],
       "audiences": [
         {
-          "kind": "customer",
-          "summary": "Split FormSpec phone fields now show one clear country selector instead of duplicating the flag and calling code beside the select.",
+          "kind": "integrator",
+          "summary": "AppShell consumers get a floating desktop PageOutline that no longer reserves a right content column, while mobile and native outline behavior remains menu-contained.",
           "affectedPackages": [
             "@contractspec/lib.design-system"
           ]
         },
         {
-          "kind": "integrator",
-          "summary": "Design-system phone country options now honor the configured flag/calling-code display parts, while the selected country control owns those adornments in select mode.",
+          "kind": "maintainer",
+          "summary": "Design-system maintainers can opt PageOutline into a floating variant while preserving existing rail and compact variants.",
           "affectedPackages": [
             "@contractspec/lib.design-system"
           ]
@@ -79,20 +260,28 @@
       ],
       "deprecations": [],
       "migrationInstructions": [],
-      "upgradeSteps": [],
+      "upgradeSteps": [
+        {
+          "id": "adopt-floating-page-outline",
+          "title": "Use the floating PageOutline variant for wide desktop shells",
+          "summary": "AppShell now uses the floating outline automatically; direct PageOutline consumers can opt in with `variant=\"floating\"`.",
+          "level": "assisted",
+          "instructions": [
+            "Use `variant=\"floating\"` for direct web PageOutline usage that should reduce when inactive.",
+            "Keep `variant=\"rail\"` or `variant=\"compact\"` where a static inline outline is still preferred."
+          ]
+        }
+      ],
       "validation": {
         "commands": [
-          "bun test packages/libs/design-system/src/renderers/form-contract.test.tsx packages/libs/design-system/src/renderers/form-contract/phone-country-control.test.tsx packages/libs/design-system/src/renderers/form-contract/phone-utils.test.ts",
-          "bun test packages/libs/contracts-runtime-client-react/src/form-render.impl.test.tsx",
-          "bun run --cwd packages/libs/design-system typecheck",
-          "bun run --cwd packages/libs/contracts-runtime-client-react typecheck",
-          "bun run --cwd packages/libs/design-system lint:check",
-          "bun run --cwd packages/libs/design-system build"
+          "cd packages/libs/design-system && bun run test",
+          "cd packages/libs/design-system && bun run typecheck",
+          "cd packages/libs/design-system && bun run lint:check"
         ],
         "evidence": [
-          "Regression test covers split phone country controls without duplicate external flag/calling-code adornments.",
-          "Phone helper test covers country option labels for full and compact display modes.",
-          "Runtime renderer tests confirm split phone output writes still work."
+          "PageOutline render coverage exercises floating, rail, compact, anchors, and active state.",
+          "AppShell render coverage confirms page content no longer reserves the fixed right outline column.",
+          "AppShell dialog coverage confirms small-screen outline rendering remains compact."
         ]
       }
     }

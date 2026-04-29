@@ -1,5 +1,13 @@
 # @contractspec/lib.data-exchange-core
 
+## 0.3.1
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/lib.contracts-spec@6.3.0
+
 ## 0.3.0
 
 ### Minor Changes

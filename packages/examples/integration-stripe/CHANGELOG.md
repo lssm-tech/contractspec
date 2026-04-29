@@ -1,5 +1,14 @@
 # @contractspec/example.integration-stripe
 
+## 3.7.28
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/lib.contracts-spec@6.3.0
+  - @contractspec/lib.contracts-integrations@3.9.0
+
 ## 3.7.27
 
 ### Patch Changes

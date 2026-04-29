@@ -1,5 +1,12 @@
 # @contractspec/lib.contracts-spec
 
+## 6.3.0
+
+### Minor Changes
+
+- Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.contracts-integrations (minor), @contractspec/integration.runtime (minor), @contractspec/bundle.workspace (minor)
+
 ## 6.2.0
 
 ### Minor Changes

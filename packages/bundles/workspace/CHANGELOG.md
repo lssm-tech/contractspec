@@ -1,5 +1,29 @@
 # @contractspec/bundle.workspace
 
+## 4.7.0
+
+### Minor Changes
+
+- Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - Packages: @contractspec/lib.contracts-spec (minor), @contractspec/lib.contracts-integrations (minor), @contractspec/integration.runtime (minor), @contractspec/bundle.workspace (minor)
+
+### Patch Changes
+
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/lib.ai-agent@8.0.16
+  - @contractspec/lib.ai-providers@3.7.21
+  - @contractspec/lib.builder-spec@0.2.10
+  - @contractspec/lib.contracts-transformers@3.7.28
+  - @contractspec/lib.provider-spec@0.2.8
+  - @contractspec/lib.source-extractors@2.7.28
+  - @contractspec/lib.surface-runtime@0.5.28
+  - @contractspec/lib.utils-typescript@3.7.21
+  - @contractspec/module.workspace@4.3.8
+  - @contractspec/lib.contracts-spec@6.3.0
+  - @contractspec/lib.contracts-integrations@3.9.0
+  - @contractspec/integration.runtime@3.10.0
+
 ## 4.6.0
 
 ### Minor Changes

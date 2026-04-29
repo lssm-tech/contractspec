@@ -1,5 +1,24 @@
 # @contractspec/module.ai-chat
 
+## 4.3.31
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+- Updated dependencies because of Improve PageOutline desktop behavior with a Notion-like floating rail that keeps AppShell content centered while expanding on hover or keyboard focus.
+  - @contractspec/integration.workflow-devkit@0.1.14
+  - @contractspec/lib.ai-agent@8.0.16
+  - @contractspec/lib.ai-providers@3.7.21
+  - @contractspec/lib.cost-tracking@3.7.21
+  - @contractspec/lib.metering@3.7.28
+  - @contractspec/lib.surface-runtime@0.5.28
+  - @contractspec/lib.ui-kit-web@3.13.3
+  - @contractspec/lib.workflow-composer@3.7.28
+  - @contractspec/lib.contracts-spec@6.3.0
+  - @contractspec/lib.design-system@4.4.2
+
 ## 4.3.30
 
 ### Patch Changes

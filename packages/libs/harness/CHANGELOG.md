@@ -1,5 +1,13 @@
 # @contractspec/lib.harness
 
+## 0.3.4
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/lib.contracts-spec@6.3.0
+
 ## 0.3.3
 
 ### Patch Changes

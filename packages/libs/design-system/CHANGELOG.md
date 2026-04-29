@@ -1,5 +1,23 @@
 # @contractspec/lib.design-system
 
+## 4.4.2
+
+### Patch Changes
+
+- Improve PageOutline desktop behavior with a Notion-like floating rail that keeps AppShell content centered while expanding on hover or keyboard focus.
+  - Packages: @contractspec/lib.design-system (patch)
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/lib.ai-agent@8.0.16
+  - @contractspec/lib.contracts-runtime-client-react@3.14.1
+  - @contractspec/lib.presentation-runtime-core@5.2.2
+  - @contractspec/lib.presentation-runtime-react@40.0.2
+  - @contractspec/lib.translation-runtime@0.2.1
+  - @contractspec/lib.ui-kit@4.1.5
+  - @contractspec/lib.ui-kit-core@3.8.8
+  - @contractspec/lib.ui-kit-web@3.13.3
+  - @contractspec/lib.contracts-spec@6.3.0
+
 ## 4.4.1
 
 ### Patch Changes

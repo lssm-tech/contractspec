@@ -1,5 +1,16 @@
 # @contractspec/example.voice-providers
 
+## 3.7.29
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/integration.provider.voice@0.2.4
+  - @contractspec/lib.contracts-spec@6.3.0
+  - @contractspec/lib.contracts-integrations@3.9.0
+
 ## 3.7.28
 
 ### Patch Changes

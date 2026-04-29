@@ -1,5 +1,15 @@
 # @contractspec/lib.execution-lanes
 
+## 0.1.11
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/lib.harness@0.3.4
+  - @contractspec/lib.contracts-spec@6.3.0
+
 ## 0.1.10
 
 ### Patch Changes

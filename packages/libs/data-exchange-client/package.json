@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.data-exchange-client",
-	"version": "0.3.0",
+	"version": "0.3.1",
 	"description": "Shared controllers plus web and native UI surfaces for data interchange",
 	"keywords": [
 		"contractspec",

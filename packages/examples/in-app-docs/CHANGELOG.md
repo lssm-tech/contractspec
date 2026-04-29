@@ -1,5 +1,15 @@
 # @contractspec/example.in-app-docs
 
+## 3.7.31
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/lib.example-shared-ui@7.0.8
+  - @contractspec/lib.contracts-spec@6.3.0
+
 ## 3.7.30
 
 ### Patch Changes

@@ -1,5 +1,19 @@
 # @contractspec/app.provider-ranking-mcp
 
+## 1.6.30
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/lib.ai-providers@3.7.21
+  - @contractspec/lib.contracts-runtime-server-mcp@3.8.8
+  - @contractspec/lib.logger@3.7.21
+  - @contractspec/lib.provider-ranking@0.7.21
+  - @contractspec/module.provider-ranking@0.7.27
+  - @contractspec/lib.contracts-spec@6.3.0
+
 ## 1.6.29
 
 ### Patch Changes

@@ -1,5 +1,16 @@
 # @contractspec/lib.surface-runtime
 
+## 0.5.28
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/lib.observability@3.7.28
+  - @contractspec/lib.overlay-engine@3.7.28
+  - @contractspec/lib.contracts-spec@6.3.0
+
 ## 0.5.27
 
 ### Patch Changes

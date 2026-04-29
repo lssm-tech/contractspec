@@ -1,5 +1,16 @@
 # @contractspec/lib.ui-kit
 
+## 4.1.5
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/lib.presentation-runtime-core@5.2.2
+  - @contractspec/lib.ui-kit-core@3.8.8
+  - @contractspec/lib.contracts-spec@6.3.0
+
 ## 4.1.4
 
 ### Patch Changes

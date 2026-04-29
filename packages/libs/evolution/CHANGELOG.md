@@ -1,5 +1,19 @@
 # @contractspec/lib.evolution
 
+## 3.7.28
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/lib.ai-agent@8.0.16
+  - @contractspec/lib.ai-providers@3.7.21
+  - @contractspec/lib.lifecycle@3.7.28
+  - @contractspec/lib.observability@3.7.28
+  - @contractspec/lib.contracts-spec@6.3.0
+  - @contractspec/lib.contracts-integrations@3.9.0
+
 ## 3.7.27
 
 ### Patch Changes

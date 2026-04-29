@@ -1,5 +1,15 @@
 # @contractspec/module.notifications
 
+## 3.8.4
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/lib.notification@0.2.1
+  - @contractspec/lib.contracts-spec@6.3.0
+
 ## 3.8.3
 
 ### Patch Changes

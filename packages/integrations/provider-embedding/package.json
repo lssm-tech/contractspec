@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/integration.provider.embedding",
-	"version": "0.2.3",
+	"version": "0.2.4",
 	"description": "Embedding provider implementations for ContractSpec.",
 	"type": "module",
 	"types": "./dist/index.d.ts",

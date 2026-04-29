@@ -1,5 +1,30 @@
 # Changelog
 
+## 6.3.2
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/integration.harness-runtime@0.3.4
+  - @contractspec/lib.ai-agent@8.0.16
+  - @contractspec/lib.ai-providers@3.7.21
+  - @contractspec/lib.builder-spec@0.2.10
+  - @contractspec/lib.contracts-transformers@3.7.28
+  - @contractspec/lib.execution-lanes@0.1.11
+  - @contractspec/lib.harness@0.3.4
+  - @contractspec/lib.plugins@3.7.28
+  - @contractspec/lib.testing@3.7.28
+  - @contractspec/lib.utils-typescript@3.7.21
+  - @contractspec/module.ai-chat@4.3.31
+  - @contractspec/module.examples@4.0.8
+  - @contractspec/module.workspace@4.3.8
+  - @contractspec/lib.contracts-spec@6.3.0
+  - @contractspec/lib.contracts-integrations@3.9.0
+  - @contractspec/integration.runtime@3.10.0
+  - @contractspec/bundle.workspace@4.7.0
+
 ## 6.3.1
 
 ### Patch Changes

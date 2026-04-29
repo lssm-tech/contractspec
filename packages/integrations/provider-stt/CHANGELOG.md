@@ -1,5 +1,15 @@
 # @contractspec/integration.provider.stt
 
+## 0.2.9
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/lib.provider-spec@0.2.8
+  - @contractspec/lib.contracts-integrations@3.9.0
+
 ## 0.2.8
 
 ### Patch Changes

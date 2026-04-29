@@ -1,5 +1,19 @@
 # @contractspec/example.wealth-snapshot
 
+## 3.8.3
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+- Updated dependencies because of Improve PageOutline desktop behavior with a Notion-like floating rail that keeps AppShell content centered while expanding on hover or keyboard focus.
+  - @contractspec/lib.identity-rbac@3.8.1
+  - @contractspec/lib.notification@0.2.1
+  - @contractspec/module.audit-trail@3.7.28
+  - @contractspec/lib.contracts-spec@6.3.0
+  - @contractspec/lib.design-system@4.4.2
+
 ## 3.8.2
 
 ### Patch Changes

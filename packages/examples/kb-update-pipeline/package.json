@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/example.kb-update-pipeline",
-	"version": "3.7.27",
+	"version": "3.7.28",
 	"description": "Example: KB update automation pipeline with HITL review and auditability.",
 	"type": "module",
 	"types": "./dist/index.d.ts",

@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.example-shared-ui",
-	"version": "7.0.7",
+	"version": "7.0.8",
 	"type": "module",
 	"exports": {
 		".": "./src/index.ts",

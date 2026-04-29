@@ -37,7 +37,7 @@ upgradeSteps:
   - id: adopt-logical-environment-definitions
     title: Declare logical env variables before framework aliases
     summary: Use workspace environment definitions and app targets instead of duplicating public env names across apps.
-    level: optional
+    level: assisted
     instructions:
       - Define shared logical variables under `.contractsrc.json > environment.variables`.
       - Add app targets for each package/framework that needs concrete aliases.

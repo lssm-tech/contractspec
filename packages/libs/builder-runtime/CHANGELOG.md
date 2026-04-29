@@ -1,5 +1,22 @@
 # @contractspec/lib.builder-runtime
 
+## 0.2.10
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/lib.builder-spec@0.2.10
+  - @contractspec/lib.execution-lanes@0.1.11
+  - @contractspec/lib.files@3.7.28
+  - @contractspec/lib.harness@0.3.4
+  - @contractspec/lib.mobile-control@0.2.10
+  - @contractspec/lib.provider-runtime@0.2.10
+  - @contractspec/lib.provider-spec@0.2.8
+  - @contractspec/lib.voice@1.7.28
+  - @contractspec/lib.contracts-spec@6.3.0
+
 ## 0.2.9
 
 ### Patch Changes

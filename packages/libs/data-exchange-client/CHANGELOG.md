@@ -1,5 +1,17 @@
 # @contractspec/lib.data-exchange-client
 
+## 0.3.1
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/lib.data-exchange-core@0.3.1
+  - @contractspec/lib.presentation-runtime-react@40.0.2
+  - @contractspec/lib.ui-kit-web@3.13.3
+  - @contractspec/lib.contracts-spec@6.3.0
+
 ## 0.3.0
 
 ### Minor Changes

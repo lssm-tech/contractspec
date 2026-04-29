@@ -1,5 +1,18 @@
 # @contractspec/integration.builder-voice
 
+## 0.2.10
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/lib.builder-runtime@0.2.10
+  - @contractspec/lib.builder-spec@0.2.10
+  - @contractspec/lib.provider-spec@0.2.8
+  - @contractspec/lib.voice@1.7.28
+  - @contractspec/lib.contracts-integrations@3.9.0
+
 ## 0.2.9
 
 ### Patch Changes

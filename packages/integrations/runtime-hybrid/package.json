@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/integration.runtime.hybrid",
-	"version": "0.2.9",
+	"version": "0.2.10",
 	"description": "Hybrid runtime compatibility wrapper for Builder.",
 	"type": "module",
 	"types": "./dist/index.d.ts",

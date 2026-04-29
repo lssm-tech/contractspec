@@ -1,5 +1,32 @@
 # @contractspec/integration.providers-impls
 
+## 4.1.4
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/integration.provider.analytics@0.2.4
+  - @contractspec/integration.provider.calendar@0.2.4
+  - @contractspec/integration.provider.database@0.2.4
+  - @contractspec/integration.provider.email@0.2.4
+  - @contractspec/integration.provider.embedding@0.2.4
+  - @contractspec/integration.provider.health@0.2.4
+  - @contractspec/integration.provider.llm@0.2.4
+  - @contractspec/integration.provider.meeting-recorder@0.2.4
+  - @contractspec/integration.provider.messaging@0.2.4
+  - @contractspec/integration.provider.openbanking@0.2.4
+  - @contractspec/integration.provider.payments@0.2.4
+  - @contractspec/integration.provider.project-management@0.2.4
+  - @contractspec/integration.provider.sms@0.2.4
+  - @contractspec/integration.provider.storage@0.2.4
+  - @contractspec/integration.provider.vector-store@0.2.4
+  - @contractspec/integration.provider.voice@0.2.4
+  - @contractspec/lib.contracts-spec@6.3.0
+  - @contractspec/lib.contracts-integrations@3.9.0
+  - @contractspec/integration.runtime@3.10.0
+
 ## 4.1.3
 
 ### Patch Changes

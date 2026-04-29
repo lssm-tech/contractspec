@@ -1,5 +1,16 @@
 # @contractspec/app.alpic-mcp
 
+## 3.7.27
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/bundle.alpic@3.7.27
+  - @contractspec/lib.logger@3.7.21
+  - @contractspec/lib.contracts-spec@6.3.0
+
 ## 3.7.26
 
 ### Patch Changes

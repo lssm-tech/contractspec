@@ -1,5 +1,17 @@
 # @contractspec/module.mobile-review
 
+## 0.2.13
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/lib.builder-spec@0.2.10
+  - @contractspec/lib.ui-kit-web@3.13.3
+  - @contractspec/module.builder-workbench@0.2.13
+  - @contractspec/lib.contracts-spec@6.3.0
+
 ## 0.2.12
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @contractspec/module.workspace
 
+## 4.3.8
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/lib.contracts-spec@6.3.0
+  - @contractspec/lib.contracts-integrations@3.9.0
+
 ## 4.3.7
 
 ### Patch Changes

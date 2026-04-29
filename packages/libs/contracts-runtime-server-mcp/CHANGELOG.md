@@ -1,5 +1,16 @@
 # @contractspec/lib.contracts-runtime-server-mcp
 
+## 3.8.8
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/lib.logger@3.7.21
+  - @contractspec/lib.presentation-runtime-core@5.2.2
+  - @contractspec/lib.contracts-spec@6.3.0
+
 ## 3.8.7
 
 ### Patch Changes

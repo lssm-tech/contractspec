@@ -1,5 +1,15 @@
 # @contractspec/lib.progressive-delivery
 
+## 34.0.27
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/lib.observability@3.7.28
+  - @contractspec/lib.contracts-spec@6.3.0
+
 ## 34.0.26
 
 ### Patch Changes

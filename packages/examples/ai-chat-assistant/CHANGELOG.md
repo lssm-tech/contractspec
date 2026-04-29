@@ -1,5 +1,16 @@
 # @contractspec/example.ai-chat-assistant
 
+## 3.8.23
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add first-class monorepo-aware environment contracts and managed/BYOK credential setup helpers.
+  - @contractspec/lib.ai-agent@8.0.16
+  - @contractspec/module.ai-chat@4.3.31
+  - @contractspec/lib.contracts-spec@6.3.0
+
 ## 3.8.22
 
 ### Patch Changes
