@@ -53,7 +53,7 @@
 		"@types/bun": "catalog:types",
 		"@contractspec/tool.bun": "workspace:*",
 		"@apollo/client": "catalog:graphql",
-		"@graphql-tools/schema": "^10.0.32",
+		"@graphql-tools/schema": "^10.0.33",
 		"graphql": "catalog:graphql"
 	},
 	"types": "./dist/index.d.ts",

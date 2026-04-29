@@ -4,6 +4,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 
 let manifestPath = '';
+let historyManifestPath = '';
 let cacheKey = '';
 
 mock.module('@/lib/changelog-config', () => ({
@@ -11,6 +12,7 @@ mock.module('@/lib/changelog-config', () => ({
 		monorepoRoot: '/tmp/contractspec-test-root',
 		changelogGlob: '/tmp/contractspec-test-root/packages/*/*/CHANGELOG.md',
 		generatedManifestPath: manifestPath,
+		historyManifestPath,
 		includeLayers: ['apps', 'bundles', 'integrations', 'libs', 'modules'],
 		excludeLayers: ['examples', 'tools'],
 		defaultPageSize: 20,
@@ -26,7 +28,14 @@ describe('changelog service', () => {
 	beforeEach(async () => {
 		tempDir = await mkdtemp(join(tmpdir(), 'contractspec-changelog-service-'));
 		manifestPath = join(tempDir, 'generated', 'releases', 'manifest.json');
-		cacheKey = manifestPath;
+		historyManifestPath = join(
+			tempDir,
+			'generated',
+			'releases',
+			'history',
+			'manifest.json'
+		);
+		cacheKey = `${manifestPath}:${historyManifestPath}`;
 		await mkdir(join(tempDir, 'generated', 'releases'), { recursive: true });
 		({ getChangelogManifest, getChangelogReleaseByVersion } = await import(
 			'@/lib/changelog-service'
@@ -138,7 +147,7 @@ describe('changelog service', () => {
 
 	it('fails if the canonical generated release manifest is missing', async () => {
 		await expect(getChangelogManifest()).rejects.toThrow(
-			'Run `contractspec release build` before building the website.'
+			'Run `contractspec release build --scope all --output generated/releases/history` before building the website changelog.'
 		);
 	});
 });

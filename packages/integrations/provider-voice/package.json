@@ -33,7 +33,7 @@
 		"@confiture-ai/gradium-sdk-js": "catalog:integrations",
 		"@contractspec/tool.bun": "workspace:*",
 		"@contractspec/tool.typescript": "workspace:*",
-		"@elevenlabs/elevenlabs-js": "^2.44.0",
+		"@elevenlabs/elevenlabs-js": "^2.45.0",
 		"@fal-ai/client": "catalog:integrations",
 		"@types/bun": "catalog:types",
 		"typescript": "catalog:"

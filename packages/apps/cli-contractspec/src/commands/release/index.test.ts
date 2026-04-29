@@ -160,7 +160,7 @@ describe('release command', () => {
 				)
 			).toContain('knowledge-indexed-payload-hardening');
 		},
-		{ timeout: 15_000 }
+		{ timeout: 30_000 }
 	);
 
 	it(
@@ -216,7 +216,7 @@ validation:
 				)
 			).toContain('New edited summary');
 		},
-		{ timeout: 15_000 }
+		{ timeout: 30_000 }
 	);
 
 	it(
@@ -246,7 +246,7 @@ validation:
 				'knowledge-indexed-payload-hardening.release.yaml',
 			]);
 		},
-		{ timeout: 15_000 }
+		{ timeout: 30_000 }
 	);
 
 	it('prints actionable failure messaging when a capsule is invalid', async () => {

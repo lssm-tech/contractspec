@@ -42,7 +42,7 @@
 		"@contractspec/lib.ui-kit": "workspace:*",
 		"@contractspec/lib.ui-kit-core": "workspace:*",
 		"@contractspec/module.examples": "workspace:*",
-		"expo": "^~55.0.17",
+		"expo": "^55.0.18",
 		"expo-router": "~55.0.13",
 		"expo-status-bar": "catalog:native",
 		"expo-system-ui": "~55.0.16",

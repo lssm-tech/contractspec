@@ -136,7 +136,7 @@
 		"lucide-react": "catalog:ui",
 		"next": "catalog:",
 		"react": "catalog:",
-		"react-hook-form": "^7.72.1",
+		"react-hook-form": "^7.74.0",
 		"zod": "catalog:"
 	},
 	"devDependencies": {

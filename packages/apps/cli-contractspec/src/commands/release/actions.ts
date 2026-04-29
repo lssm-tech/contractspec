@@ -13,6 +13,8 @@ import chalk from 'chalk';
 import { loadConfig, mergeConfig } from '../../utils/config';
 import { promptForReleaseDraft } from './authoring';
 
+type ReleaseBuildScope = 'current' | 'all';
+
 export interface ReleaseAuthoringCliOptions {
 	baseline?: string;
 	slug?: string;
@@ -28,12 +30,15 @@ export interface ReleaseAuthoringCliOptions {
 export interface ReleaseBuildCliOptions {
 	output?: string;
 	dryRun?: boolean;
+	scope?: ReleaseBuildScope;
+	baseline?: string;
 }
 
 export interface ReleaseCheckCliOptions {
 	baseline?: string;
 	output?: string;
 	strict?: boolean;
+	scope?: ReleaseBuildScope;
 }
 
 export interface ReleaseBriefCliOptions {
@@ -75,8 +80,10 @@ export async function runReleaseBuild(
 	options: ReleaseBuildCliOptions
 ): Promise<void> {
 	const result = await versioning.buildReleaseArtifacts(baseAdapters(), {
+		baseline: options.baseline,
 		outputDir: options.output,
 		dryRun: options.dryRun,
+		scope: options.scope,
 	});
 
 	console.log(chalk.blue.bold('Release build'));
@@ -94,6 +101,7 @@ export async function runReleaseCheck(
 		baseline: options.baseline,
 		outputDir: options.output,
 		strict: options.strict,
+		scope: options.scope,
 	});
 
 	printCheckResult(result);

@@ -6,7 +6,12 @@ import { spawnSync } from 'node:child_process';
 import { existsSync, readFileSync } from 'node:fs';
 import { access } from 'node:fs/promises';
 import { resolve } from 'node:path';
-import type { GitAdapter, GitCleanOptions, GitLogEntry } from '../ports/git';
+import type {
+	GitAdapter,
+	GitChangedFile,
+	GitCleanOptions,
+	GitLogEntry,
+} from '../ports/git';
 
 /**
  * Create a Node.js git adapter.
@@ -103,6 +108,39 @@ export function createNodeGitAdapter(cwd?: string): GitAdapter {
 				return [];
 			}
 		},
+
+		async statusFiles(patterns?: string[]): Promise<GitChangedFile[]> {
+			try {
+				const pathSpecs =
+					patterns && patterns.length > 0 ? ['--', ...patterns] : [];
+				const output = runGit(
+					['status', '--short', '--untracked-files=all', ...pathSpecs],
+					baseCwd
+				);
+
+				return parseStatusOutput(output);
+			} catch {
+				return [];
+			}
+		},
+
+		async diffNameStatus(
+			baseline: string,
+			patterns?: string[]
+		): Promise<GitChangedFile[]> {
+			try {
+				const pathSpecs =
+					patterns && patterns.length > 0 ? ['--', ...patterns] : [];
+				const output = runGit(
+					['diff', '--name-status', `${baseline}..HEAD`, ...pathSpecs],
+					baseCwd
+				);
+
+				return parseNameStatusOutput(output);
+			} catch {
+				return [];
+			}
+		},
 	};
 }
 
@@ -148,4 +186,38 @@ function runGit(
 		);
 	}
 	return typeof result.stdout === 'string' ? result.stdout : '';
+}
+
+function parseStatusOutput(output: string): GitChangedFile[] {
+	return output
+		.split('\n')
+		.map((line) => line.trimEnd())
+		.filter(Boolean)
+		.map((line) => {
+			const status = line.slice(0, 2).trim() || line.slice(0, 1);
+			const pathPart = line.slice(3);
+			const [previousPath, path] = pathPart.includes(' -> ')
+				? pathPart.split(' -> ')
+				: [undefined, pathPart];
+			return {
+				status,
+				path: path ?? pathPart,
+				previousPath,
+			};
+		});
+}
+
+function parseNameStatusOutput(output: string): GitChangedFile[] {
+	return output
+		.split('\n')
+		.map((line) => line.trim())
+		.filter(Boolean)
+		.map((line) => {
+			const [status = '', firstPath = '', secondPath] = line.split('\t');
+			return {
+				status,
+				path: secondPath ?? firstPath,
+				previousPath: secondPath ? firstPath : undefined,
+			};
+		});
 }

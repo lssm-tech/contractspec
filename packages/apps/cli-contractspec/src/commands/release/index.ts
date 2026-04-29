@@ -75,6 +75,15 @@ export function createReleaseCommand(): Command {
 		.command('build')
 		.description('Build generated release artifacts in generated/releases')
 		.option('-o, --output <dir>', 'Output directory', 'generated/releases')
+		.option(
+			'--scope <scope>',
+			'Release artifact scope: current or all',
+			'current'
+		)
+		.option(
+			'-b, --baseline <ref>',
+			'Git ref for post-version current release selection'
+		)
 		.option('--dry-run', 'Preview output without writing files')
 		.action((options: ReleaseBuildCliOptions) =>
 			withReleaseErrorHandling(() => runReleaseBuild(options))
@@ -88,6 +97,11 @@ export function createReleaseCommand(): Command {
 			'-o, --output <dir>',
 			'Artifact output directory',
 			'generated/releases'
+		)
+		.option(
+			'--scope <scope>',
+			'Release artifact scope: current or all',
+			'current'
 		)
 		.option('--strict', 'Fail on missing generated artifacts')
 		.action((options: ReleaseCheckCliOptions) =>

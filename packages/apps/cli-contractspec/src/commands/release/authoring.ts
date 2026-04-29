@@ -15,37 +15,50 @@ export async function promptForReleaseDraft(
 		message: 'Release type',
 		choices: releaseTypeChoices(draft.releaseType),
 	});
-	const packageNames = splitCsv(
-		await input({
-			message: 'Published packages (comma-separated)',
-			default: draft.packages.map((pkg) => pkg.name).join(', '),
-		})
-	);
+	const packageNamesInput = await input({
+		message: 'Published packages (comma-separated)',
+		default: draft.packages.map((pkg) => pkg.name).join(', '),
+	});
+	const packageNames =
+		packageNamesInput.trim().length > 0
+			? splitCsv(packageNamesInput)
+			: draft.packages.map((pkg) => pkg.name);
 	const packageMap = new Map(draft.packages.map((pkg) => [pkg.name, pkg]));
-	const summary = await input({
+	const summaryInput = await input({
 		message: 'Release summary',
 		default: draft.summary,
 	});
-	const slug = await input({
+	const summary = summaryInput.trim() || draft.summary;
+	const slugInput = await input({
 		message: 'Release slug',
 		default: draft.slug || slugify(summary),
 	});
+	const slug = slugInput.trim() || draft.slug || slugify(summary);
 	const isBreaking = await confirm({
 		message: 'Does this release contain breaking changes?',
 		default: draft.isBreaking || releaseType === 'major',
 	});
-	const maintainerSummary = await input({
+	const maintainerSummaryInput = await input({
 		message: 'Maintainer summary',
 		default: getAudienceSummary(draft.audiences, 'maintainer', summary),
 	});
-	const customerSummary = await input({
+	const maintainerSummary =
+		maintainerSummaryInput.trim() ||
+		getAudienceSummary(draft.audiences, 'maintainer', summary);
+	const customerSummaryInput = await input({
 		message: 'Customer summary',
 		default: getAudienceSummary(draft.audiences, 'customer', summary),
 	});
-	const integratorSummary = await input({
+	const customerSummary =
+		customerSummaryInput.trim() ||
+		getAudienceSummary(draft.audiences, 'customer', summary);
+	const integratorSummaryInput = await input({
 		message: 'Integrator summary',
 		default: getAudienceSummary(draft.audiences, 'integrator', summary),
 	});
+	const integratorSummary =
+		integratorSummaryInput.trim() ||
+		getAudienceSummary(draft.audiences, 'integrator', summary);
 
 	return {
 		...draft,

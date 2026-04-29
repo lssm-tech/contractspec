@@ -74,10 +74,12 @@ function getDataset(): ChangelogDataset {
 		return cachedDataset;
 	}
 
-	const manifestPath = config.generatedManifestPath;
+	const manifestPath = fs.existsSync(config.historyManifestPath)
+		? config.historyManifestPath
+		: config.generatedManifestPath;
 	if (!fs.existsSync(manifestPath)) {
 		throw new Error(
-			`Missing canonical release manifest at ${manifestPath}. Run \`contractspec release build\` before building the website.`
+			`Missing canonical release manifest at ${manifestPath}. Run \`contractspec release build --scope all --output generated/releases/history\` before building the website changelog.`
 		);
 	}
 

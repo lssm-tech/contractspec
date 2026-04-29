@@ -79,7 +79,8 @@ export async function readReleaseCapsules(
 export async function readReleaseCapsulesDetailed(
 	fs: FsAdapter,
 	workspaceRoot: string,
-	changesets: ParsedChangesetFile[]
+	changesets: ParsedChangesetFile[],
+	selectedSlugs?: Set<string>
 ): Promise<ReadReleaseCapsulesResult> {
 	const files = await fs.glob({
 		pattern: RELEASE_CAPSULE_PATTERN,
@@ -94,6 +95,9 @@ export async function readReleaseCapsulesDetailed(
 
 	for (const filePath of files) {
 		const slug = fs.basename(filePath).replace(/\.release\.yaml$/, '');
+		if (selectedSlugs && !selectedSlugs.has(slug)) {
+			continue;
+		}
 		try {
 			const parsed = load(await fs.readFile(filePath));
 			const capsule = normalizeCapsule(

@@ -43,6 +43,8 @@ export function Select({
 	onChange,
 	placeholder,
 	disabled,
+	id,
+	name,
 	className,
 	componentKey,
 	themeVariant,
@@ -63,9 +65,10 @@ export function Select({
 			value={value == null ? '' : selectOptionValue(value)}
 			onValueChange={(next) => onChange?.(next)}
 			disabled={disabled}
+			name={name}
 			{...props}
 		>
-			<SelectTrigger className={themed.className}>
+			<SelectTrigger id={id} className={themed.className}>
 				<SelectValue placeholder={translate(placeholderI18n ?? placeholder)} />
 			</SelectTrigger>
 			<SelectContent>

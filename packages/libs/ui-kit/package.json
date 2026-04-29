@@ -77,7 +77,7 @@
 		"@rn-primitives/tooltip": "~1.4.0",
 		"burnt": "^0.13.0",
 		"echarts": "catalog:ui",
-		"expo": "^~55.0.17",
+		"expo": "^55.0.18",
 		"expo-application": "~55.0.14",
 		"expo-build-properties": "~55.0.13",
 		"expo-constants": "^55.0.15",

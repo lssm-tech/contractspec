@@ -1,5 +1,6 @@
 import {
 	type GeneratedReleaseManifest,
+	type GeneratedReleaseManifestEntry,
 	GeneratedReleaseManifestSchema,
 	type ReleaseCapsule,
 	type ReleaseCapsulePackage,
@@ -11,7 +12,7 @@ import {
 } from '@contractspec/lib.contracts-spec/workspace-config/contractsrc-schema';
 import { findWorkspaceRoot } from '../../adapters/workspace';
 import type { FsAdapter } from '../../ports/fs';
-import type { GitAdapter } from '../../ports/git';
+import type { GitAdapter, GitChangedFile } from '../../ports/git';
 import type { LoggerAdapter } from '../../ports/logger';
 import { detectImpact } from '../impact';
 import {
@@ -32,6 +33,7 @@ import { createUpgradePlan } from './release-plan';
 import type {
 	ReleaseBuildOptions,
 	ReleaseBuildResult,
+	ReleaseBuildScope,
 	ReleaseCheckOptions,
 	ReleaseCheckResult,
 	ReleaseCheckStatus,
@@ -50,6 +52,7 @@ interface ServiceAdapters {
 }
 
 const DEFAULT_OUTPUT_DIR = 'generated/releases';
+const RELEASE_ARTIFACTS_GENERATED_AT = '1970-01-01T00:00:00.000Z';
 const DEFAULT_RELEASE_CONFIG = DEFAULT_CONTRACTSRC.release ?? {
 	enforceOn: 'release-branch',
 	requireChangesetForPublished: true,
@@ -172,39 +175,55 @@ export async function buildReleaseArtifacts(
 		workspaceRoot,
 		options.outputDir ?? DEFAULT_OUTPUT_DIR
 	);
+	const manifestPath = fs.join(outputDir, 'manifest.json');
+	const existingManifest = await readExistingManifest(fs, manifestPath);
 	const changesets = await readChangesets(fs, workspaceRoot);
+	const selectedSlugs = await selectReleaseSlugs(adapters, {
+		workspaceRoot,
+		changesets,
+		scope: options.scope ?? 'current',
+		baseline: options.baseline,
+	});
 	const capsuleResult = await readReleaseCapsulesDetailed(
 		fs,
 		workspaceRoot,
-		changesets
+		changesets,
+		selectedSlugs
 	);
 	if (capsuleResult.issues.length > 0) {
 		throw new Error(formatReleaseCapsuleReadIssues(capsuleResult.issues));
 	}
 	const capsules = capsuleResult.capsules;
 	const workspacePackages = await discoverWorkspacePackages(fs, workspaceRoot);
+	const existingEntries = new Map(
+		(existingManifest?.releases ?? []).map((entry) => [entry.slug, entry])
+	);
+	const preferCurrentVersions = (options.scope ?? 'current') !== 'all';
 
-	const releases = await Promise.all(
-		Array.from(capsules.entries()).map(async ([slug, capsule]) => {
-			const filePath = fs.join(
-				workspaceRoot,
-				'.changeset',
-				`${slug}.release.yaml`
-			);
-			const stats = await fs.stat(filePath);
+	const releases = Array.from(capsules.entries()).map(
+		([slug, capsule]): GeneratedReleaseManifestEntry => {
+			const existingEntry = existingEntries.get(slug);
+			const packages = capsule.packages.map((pkg) => ({
+				...pkg,
+				version: resolvePackageVersion(
+					pkg,
+					workspacePackages,
+					existingEntry,
+					preferCurrentVersions
+				),
+			}));
 			return {
 				slug,
-				version: resolveReleaseVersion(capsule, workspacePackages),
+				version: resolveReleaseVersion(
+					capsule,
+					workspacePackages,
+					existingEntry,
+					preferCurrentVersions
+				),
 				summary: capsule.summary,
-				date:
-					stats.mtime.toISOString().split('T')[0] ?? new Date().toISOString(),
+				date: existingEntry?.date ?? currentDate(),
 				isBreaking: capsule.isBreaking,
-				packages: capsule.packages.map((pkg) => ({
-					...pkg,
-					version:
-						workspacePackages.find((candidate) => candidate.name === pkg.name)
-							?.version ?? pkg.version,
-				})),
+				packages,
 				affectedRuntimes: [...capsule.affectedRuntimes],
 				affectedFrameworks: [...capsule.affectedFrameworks],
 				audiences: [...capsule.audiences],
@@ -213,11 +232,11 @@ export async function buildReleaseArtifacts(
 				upgradeSteps: [...capsule.upgradeSteps],
 				validation: capsule.validation,
 			};
-		})
+		}
 	);
 
 	const manifest = GeneratedReleaseManifestSchema.parse({
-		generatedAt: new Date().toISOString(),
+		generatedAt: resolveGeneratedAt(releases),
 		releases,
 	}) as GeneratedReleaseManifest;
 	const agentTargets = options.agentTargets ?? config.agentTargets ?? ['codex'];
@@ -227,7 +246,6 @@ export async function buildReleaseArtifacts(
 		agentTargets,
 		renderUpgradePrompt
 	);
-	const manifestPath = fs.join(outputDir, 'manifest.json');
 	const upgradeManifestPath = fs.join(outputDir, 'upgrade-manifest.json');
 	const patchNotesPath = fs.join(outputDir, 'patch-notes.md');
 	const customerGuidePath = fs.join(outputDir, 'customer-guide.md');
@@ -282,10 +300,17 @@ export async function checkReleaseArtifacts(
 	const warnings: string[] = [];
 	const errors: string[] = [];
 	const changesets = await readChangesets(fs, workspaceRoot);
+	const selectedSlugs = await selectReleaseSlugs(adapters, {
+		workspaceRoot,
+		changesets,
+		scope: options.scope ?? 'current',
+		baseline: options.baseline,
+	});
 	const capsuleResult = await readReleaseCapsulesDetailed(
 		fs,
 		workspaceRoot,
-		changesets
+		changesets,
+		selectedSlugs
 	);
 	const capsules = capsuleResult.capsules;
 	const hasPendingChangesets = changesets.length > 0;
@@ -418,23 +443,144 @@ async function readWorkspaceReleaseConfig(
 	}
 }
 
+async function selectReleaseSlugs(
+	adapters: ServiceAdapters,
+	options: {
+		workspaceRoot: string;
+		changesets: Awaited<ReturnType<typeof readChangesets>>;
+		scope: ReleaseBuildScope;
+		baseline?: string;
+	}
+): Promise<Set<string> | undefined> {
+	if (options.scope === 'all') {
+		return undefined;
+	}
+
+	if (options.changesets.length > 0) {
+		return new Set(options.changesets.map((changeset) => changeset.slug));
+	}
+
+	const changedFiles = await changedReleaseFiles(
+		adapters.git,
+		options.baseline
+	);
+	const slugs = new Set<string>();
+	for (const file of changedFiles) {
+		const slug = slugFromChangesetPath(file.path);
+		if (!slug) {
+			continue;
+		}
+		if (file.path.endsWith('.release.yaml') || file.path.endsWith('.md')) {
+			slugs.add(slug);
+		}
+	}
+
+	return slugs.size > 0 ? slugs : undefined;
+}
+
+async function changedReleaseFiles(
+	git: GitAdapter,
+	baseline?: string
+): Promise<GitChangedFile[]> {
+	if (baseline && baseline !== 'HEAD' && git.diffNameStatus) {
+		return git.diffNameStatus(baseline, ['.changeset']);
+	}
+	if (git.statusFiles) {
+		return git.statusFiles(['.changeset']);
+	}
+	if (baseline) {
+		const files = await git.diffFiles(baseline, ['.changeset']);
+		return files.map((path) => ({ status: 'M', path }));
+	}
+	return [];
+}
+
+function slugFromChangesetPath(filePath: string): string | undefined {
+	const normalized = filePath.replace(/\\/g, '/');
+	const fileName = normalized.split('/').pop();
+	if (!fileName || fileName === 'README.md') {
+		return undefined;
+	}
+	if (fileName.endsWith('.release.yaml')) {
+		return fileName.replace(/\.release\.yaml$/, '');
+	}
+	if (fileName.endsWith('.md')) {
+		return fileName.replace(/\.md$/, '');
+	}
+	return undefined;
+}
+
+async function readExistingManifest(
+	fs: FsAdapter,
+	manifestPath: string
+): Promise<GeneratedReleaseManifest | undefined> {
+	if (!(await fs.exists(manifestPath))) {
+		return undefined;
+	}
+	try {
+		return GeneratedReleaseManifestSchema.parse(
+			JSON.parse(await fs.readFile(manifestPath))
+		) as GeneratedReleaseManifest;
+	} catch {
+		return undefined;
+	}
+}
+
 function inferReleaseType(packageNames: string[]): VersionBumpType {
 	return packageNames.length > 0 ? 'minor' : 'patch';
 }
 
 function resolveReleaseVersion(
 	capsule: ReleaseCapsule,
-	workspacePackages: Array<{ name: string; version: string }>
+	workspacePackages: Array<{ name: string; version: string }>,
+	existingEntry: GeneratedReleaseManifestEntry | undefined,
+	preferCurrentVersions: boolean
 ): string {
 	const version = capsule.packages
-		.map(
-			(pkg) =>
-				workspacePackages.find((candidate) => candidate.name === pkg.name)
-					?.version ?? pkg.version
+		.map((pkg) =>
+			resolvePackageVersion(
+				pkg,
+				workspacePackages,
+				existingEntry,
+				preferCurrentVersions
+			)
 		)
 		.find((value): value is string => typeof value === 'string');
 
 	return version ?? '0.0.0';
+}
+
+function resolvePackageVersion(
+	pkg: ReleaseCapsulePackage,
+	workspacePackages: Array<{ name: string; version: string }>,
+	existingEntry: GeneratedReleaseManifestEntry | undefined,
+	preferCurrentVersions: boolean
+): string | undefined {
+	const currentVersion = workspacePackages.find(
+		(candidate) => candidate.name === pkg.name
+	)?.version;
+	const existingVersion = existingEntry?.packages.find(
+		(candidate) => candidate.name === pkg.name
+	)?.version;
+
+	return preferCurrentVersions
+		? (currentVersion ?? pkg.version ?? existingVersion)
+		: (pkg.version ?? existingVersion ?? currentVersion);
+}
+
+function resolveGeneratedAt(releases: GeneratedReleaseManifestEntry[]): string {
+	const dates = releases
+		.map((release) => release.date)
+		.filter(Boolean)
+		.sort();
+	const latestDate = dates.at(-1);
+	return latestDate
+		? `${latestDate}T00:00:00.000Z`
+		: RELEASE_ARTIFACTS_GENERATED_AT;
+}
+
+function currentDate(): string {
+	return new Date().toISOString().split('T')[0] ?? '1970-01-01';
 }
 
 function slugify(value: string): string {

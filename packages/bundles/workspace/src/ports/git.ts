@@ -36,6 +36,28 @@ export interface GitAdapter {
 	 * Uses three-dot diff (baseline...HEAD) to show changes since branches diverged.
 	 */
 	diffFiles(baseline: string, patterns?: string[]): Promise<string[]>;
+
+	/**
+	 * Get changed file status entries in the working tree.
+	 */
+	statusFiles?(patterns?: string[]): Promise<GitChangedFile[]>;
+
+	/**
+	 * Get changed file status entries between a baseline ref and HEAD.
+	 */
+	diffNameStatus?(
+		baseline: string,
+		patterns?: string[]
+	): Promise<GitChangedFile[]>;
+}
+
+/**
+ * Changed file entry from git status or diff --name-status.
+ */
+export interface GitChangedFile {
+	status: string;
+	path: string;
+	previousPath?: string;
 }
 
 /**

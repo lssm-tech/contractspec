@@ -34,7 +34,7 @@ migrationInstructions: []
 upgradeSteps:
   - id: configure-phone-fields
     title: Configure phone fields where split values or single-input UX are needed
-    summary: Existing `kind: "phone"` object-valued fields continue to work; opt into new modes through field metadata.
+    summary: "Existing `kind: \"phone\"` object-valued fields continue to work; opt into new modes through field metadata."
     level: assisted
     instructions:
       - Use `phone.input.mode` to choose `single` or `split` rendering.

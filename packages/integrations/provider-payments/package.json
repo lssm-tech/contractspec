@@ -33,7 +33,7 @@
 		"@contractspec/tool.bun": "workspace:*",
 		"@contractspec/tool.typescript": "workspace:*",
 		"@types/bun": "catalog:types",
-		"stripe": "^22.0.1",
+		"stripe": "^22.1.0",
 		"typescript": "catalog:"
 	},
 	"exports": {

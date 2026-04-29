@@ -903,7 +903,7 @@
 		"ai": "catalog:ai"
 	},
 	"optionalDependencies": {
-		"@swc/wasm": "1.15.30"
+		"@swc/wasm": "1.15.32"
 	},
 	"devDependencies": {
 		"@types/vscode": "^1.104.0",

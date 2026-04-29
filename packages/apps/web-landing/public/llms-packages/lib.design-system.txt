@@ -191,6 +191,60 @@ and keeps native rendering aligned for query, selected options, loading, error,
 and empty states. FormSpec renderers pass resolver-backed async state through
 these props without requiring product surfaces to know the underlying transport.
 
+### Compose application shells
+
+Use the shell subpath for app frames that need sidebar navigation, topbar
+breadcrumbs, command search, account actions, and a right-side page outline.
+The same typed shell contract has web and native entrypoints.
+
+```tsx
+import { AppShell } from "@contractspec/lib.design-system/shell";
+
+<AppShell
+  title="Workspace"
+  commands={[
+    {
+      heading: "Actions",
+      items: [{ id: "new-project", label: "New project" }],
+    },
+  ]}
+  navigation={[
+    {
+      title: "Main",
+      items: [
+        {
+          label: "Projects",
+          href: "/projects",
+          children: [{ label: "Active", href: "/projects/active" }],
+        },
+      ],
+    },
+  ]}
+  breadcrumbs={[{ href: "/", label: "Home" }, { label: "Projects" }]}
+  pageOutline={[
+    { id: "summary", label: "Summary" },
+    { id: "details", label: "Details", level: 2 },
+    { id: "audit", label: "Audit trail", level: 3 },
+  ]}
+>
+  {children}
+</AppShell>;
+```
+
+On desktop web, `AppShell` renders a sidebar, sticky topbar, content region, and
+optional `PageOutline` rail. On small web screens, navigation and page outline
+move behind accessible menu triggers. On native, the shell maps primary
+navigation to bottom tabs and keeps overflow navigation, actions, user content,
+and page outline inside the menu sheet.
+
+`AppShell` also accepts a prop-driven `notifications` center for in-app
+notifications. Hosts provide structural `items`, `unreadCount`, loading/empty
+state, and callbacks such as `onSelect`, `onMarkRead`, and `onMarkAllRead`; the
+design-system shell renders the web topbar trigger and native menu section
+without importing or owning any notification runtime package.
+
+Shell navigation and command items may carry optional `policy` metadata plus a `policyBehavior` of `hide`, `disable`, or `show-with-lock`. Use `filterShellNavigationForPolicy()` / `annotateShellCommandsDecisions()` with decisions produced by your application runtime; AppShell only adapts affordances and does not fetch permissions or enforce backend access.
+
 ### Render actionable object references
 
 Use `ObjectReferenceHandler` when product surfaces render references that usually

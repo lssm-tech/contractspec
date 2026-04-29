@@ -18,6 +18,12 @@ const gitAdapter = {
 	diffFiles: async () => [],
 };
 
+const cleanGitAdapter = {
+	...gitAdapter,
+	statusFiles: async () => [],
+	diffNameStatus: async () => [],
+};
+
 function getCheck(
 	result: Awaited<ReturnType<typeof checkReleaseArtifacts>>,
 	name: string
@@ -97,6 +103,23 @@ validation:
 `
 	);
 	writeFileSync(
+		join(dir, '.changeset', 'historical-release.release.yaml'),
+		`schemaVersion: "1"
+slug: historical-release
+summary: Historical release
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.contracts-spec"
+    releaseType: patch
+    version: "5.0.4"
+validation:
+  commands:
+    - contractspec release check --strict
+  evidence:
+    - historical fixture
+`
+	);
+	writeFileSync(
 		join(dir, 'packages', 'libs', 'contracts-spec', 'package.json'),
 		JSON.stringify(
 			{
@@ -130,6 +153,184 @@ describe('buildReleaseArtifacts', () => {
 		expect(await fs.exists(result.upgradeManifestPath)).toBe(true);
 		expect(await fs.exists(result.promptPaths['codex'] ?? '')).toBe(true);
 		expect(result.manifest.releases[0]?.version).toBe('5.0.5');
+		expect(result.manifest.releases.map((release) => release.slug)).toEqual([
+			'workflow-runtime',
+		]);
+	});
+
+	it('can explicitly emit full-history release artifacts', async () => {
+		const workspaceRoot = seedReleaseWorkspace();
+		const fs = createNodeFsAdapter(workspaceRoot);
+
+		const result = await buildReleaseArtifacts(
+			{
+				fs,
+				git: gitAdapter,
+				logger: createNoopLoggerAdapter(),
+			},
+			{ workspaceRoot, scope: 'all' }
+		);
+
+		expect(result.releasesBuilt).toBe(2);
+		expect(
+			result.manifest.releases.map((release) => release.slug).sort()
+		).toEqual(['historical-release', 'workflow-runtime']);
+		expect(
+			result.manifest.releases.find(
+				(release) => release.slug === 'historical-release'
+			)?.packages[0]?.version
+		).toBe('5.0.4');
+	});
+
+	it('selects changed capsule-only releases after local versioning', async () => {
+		const workspaceRoot = seedWorkspaceRoot(
+			'contractspec-release-post-version-build-'
+		);
+		mkdirSync(join(workspaceRoot, 'packages', 'libs', 'contracts-spec'), {
+			recursive: true,
+		});
+		writeFileSync(
+			join(workspaceRoot, 'packages', 'libs', 'contracts-spec', 'package.json'),
+			JSON.stringify(
+				{
+					name: '@contractspec/lib.contracts-spec',
+					version: '5.0.6',
+				},
+				null,
+				2
+			)
+		);
+		writeFileSync(
+			join(workspaceRoot, '.changeset', 'post-version.release.yaml'),
+			`schemaVersion: "1"
+slug: post-version
+summary: Post-version release capsule
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.contracts-spec"
+    releaseType: patch
+validation:
+  commands:
+    - contractspec release check --strict
+  evidence:
+    - local fixture
+`
+		);
+		writeFileSync(
+			join(workspaceRoot, '.changeset', 'historical.release.yaml'),
+			`schemaVersion: "1"
+slug: historical
+summary: Historical release capsule
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.contracts-spec"
+    releaseType: patch
+    version: "5.0.1"
+validation:
+  commands:
+    - contractspec release check --strict
+  evidence:
+    - historical fixture
+`
+		);
+		const fs = createNodeFsAdapter(workspaceRoot);
+
+		const result = await buildReleaseArtifacts(
+			{
+				fs,
+				git: {
+					...gitAdapter,
+					statusFiles: async () => [
+						{ status: 'M', path: '.changeset/post-version.release.yaml' },
+					],
+				},
+				logger: createNoopLoggerAdapter(),
+			},
+			{ workspaceRoot }
+		);
+
+		expect(result.manifest.releases.map((release) => release.slug)).toEqual([
+			'post-version',
+		]);
+	});
+
+	it('selects changed capsule-only releases from an explicit CI baseline', async () => {
+		const workspaceRoot = seedWorkspaceRoot('contractspec-release-ci-build-');
+		writeFileSync(
+			join(workspaceRoot, '.changeset', 'ci-current.release.yaml'),
+			`schemaVersion: "1"
+slug: ci-current
+summary: CI current release capsule
+isBreaking: false
+packages:
+  - name: "fixture"
+    releaseType: patch
+validation:
+  commands:
+    - contractspec release check --strict
+  evidence:
+    - ci fixture
+`
+		);
+		writeFileSync(
+			join(workspaceRoot, '.changeset', 'ci-history.release.yaml'),
+			`schemaVersion: "1"
+slug: ci-history
+summary: CI historical release capsule
+isBreaking: false
+packages:
+  - name: "fixture"
+    releaseType: patch
+validation:
+  commands:
+    - contractspec release check --strict
+  evidence:
+    - historical fixture
+`
+		);
+		const fs = createNodeFsAdapter(workspaceRoot);
+
+		const result = await buildReleaseArtifacts(
+			{
+				fs,
+				git: {
+					...gitAdapter,
+					diffNameStatus: async () => [
+						{ status: 'A', path: '.changeset/ci-current.release.yaml' },
+					],
+				},
+				logger: createNoopLoggerAdapter(),
+			},
+			{ workspaceRoot, baseline: 'event-base' }
+		);
+
+		expect(result.manifest.releases.map((release) => release.slug)).toEqual([
+			'ci-current',
+		]);
+	});
+
+	it('keeps generated timestamps stable across identical rebuilds', async () => {
+		const workspaceRoot = seedReleaseWorkspace();
+		const fs = createNodeFsAdapter(workspaceRoot);
+		const adapters = {
+			fs,
+			git: cleanGitAdapter,
+			logger: createNoopLoggerAdapter(),
+		};
+
+		await buildReleaseArtifacts(adapters, { workspaceRoot });
+		const manifestPath = join(
+			workspaceRoot,
+			'generated',
+			'releases',
+			'manifest.json'
+		);
+		const first = await fs.readFile(manifestPath);
+		await buildReleaseArtifacts(adapters, { workspaceRoot });
+		const second = await fs.readFile(manifestPath);
+
+		expect(JSON.parse(second).generatedAt).toBe(JSON.parse(first).generatedAt);
+		expect(second).toBe(first);
 	});
 });
 

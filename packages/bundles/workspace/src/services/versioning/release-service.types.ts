@@ -34,10 +34,14 @@ export interface ReleaseInitResult {
 
 export interface ReleaseBuildOptions {
 	workspaceRoot?: string;
+	baseline?: string;
 	outputDir?: string;
 	dryRun?: boolean;
 	agentTargets?: AgentTarget[];
+	scope?: ReleaseBuildScope;
 }
+
+export type ReleaseBuildScope = 'current' | 'all';
 
 export interface ReleaseBuildResult {
 	outputDir: string;
@@ -114,6 +118,7 @@ export interface ReleaseCheckOptions {
 	baseline?: string;
 	outputDir?: string;
 	strict?: boolean;
+	scope?: ReleaseBuildScope;
 }
 
 export interface ReleaseCheckStatus {
