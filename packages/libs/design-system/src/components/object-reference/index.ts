@@ -1,6 +1,7 @@
 export {
 	createCopyReferenceAction,
 	createDefaultObjectReferenceActions,
+	createEmailReferenceAction,
 	createMapsProviderHref,
 	createMapsReferenceActions,
 	createOpenReferenceAction,
@@ -10,6 +11,10 @@ export {
 	type ObjectReferenceMapsProvider,
 } from './actions';
 export { ObjectReferenceHandler } from './ObjectReferenceHandler';
+export {
+	ObjectReferencePanel,
+	type ObjectReferencePanelProps,
+} from './ObjectReferencePanel';
 export {
 	type ExecuteObjectReferenceActionOptions,
 	executeObjectReferenceAction,
@@ -30,5 +35,15 @@ export type {
 	ObjectReferenceKind,
 	ObjectReferenceMetadata,
 	ObjectReferenceOpenHrefHandler,
+	ObjectReferenceOpenTarget,
+	ObjectReferencePanelBreakpoint,
+	ObjectReferencePanelMode,
+	ObjectReferencePropertyRenderContext,
 	ObjectReferenceRenderContext,
+	ObjectReferenceSectionDescriptor,
+	ObjectReferenceSectionRenderContext,
 } from './types';
+export {
+	normalizeSafeObjectReferenceHref,
+	SAFE_OBJECT_REFERENCE_PROTOCOLS,
+} from './url-safety';

@@ -2,7 +2,9 @@ import { getObjectReferenceDisplayValue } from './actions';
 import type {
 	ObjectReferenceActionEvent,
 	ObjectReferenceHandlerProps,
+	ObjectReferenceOpenTarget,
 } from './types';
+import { normalizeSafeObjectReferenceHref } from './url-safety';
 
 export interface ExecuteObjectReferenceActionOptions {
 	actionHandlers?: ObjectReferenceHandlerProps['actionHandlers'];
@@ -11,6 +13,7 @@ export interface ExecuteObjectReferenceActionOptions {
 	openHref?: ObjectReferenceHandlerProps['openHref'];
 	onAction?: ObjectReferenceHandlerProps['onAction'];
 	onActionError?: ObjectReferenceHandlerProps['onActionError'];
+	defaultOpenTarget?: ObjectReferenceOpenTarget;
 	defaultCopy?: ObjectReferenceHandlerProps['copyHandler'];
 	defaultOpenHref?: ObjectReferenceHandlerProps['openHref'];
 }
@@ -26,7 +29,16 @@ export async function executeObjectReferenceAction(
 		} else if (event.action.id === 'copy') {
 			await copyReferenceText(event, options);
 		} else if (event.action.href) {
-			await openReferenceHref(event.action.href, event, options);
+			const safeHref = normalizeSafeObjectReferenceHref(event.action.href);
+			if (!safeHref) {
+				throw new Error('Unsafe object reference href.');
+			}
+			await openReferenceHref(
+				safeHref,
+				event,
+				resolveOpenTarget(event, options),
+				options
+			);
 		}
 
 		await options.onAction?.(event);
@@ -58,15 +70,35 @@ function copyReferenceText(
 function openReferenceHref(
 	href: string,
 	event: ObjectReferenceActionEvent,
+	target: ObjectReferenceOpenTarget,
 	options: ExecuteObjectReferenceActionOptions
 ): Promise<void> | void {
 	if (options.openHref) {
-		return options.openHref(href, event);
+		return options.openHref(href, event, { target });
 	}
 
-	return options.defaultOpenHref?.(href, event);
+	return options.defaultOpenHref?.(href, event, { target });
+}
+
+function resolveOpenTarget(
+	event: ObjectReferenceActionEvent,
+	options: ExecuteObjectReferenceActionOptions
+): ObjectReferenceOpenTarget {
+	return (
+		event.action.openTarget ??
+		getMetadataOpenTarget(event.action.metadata?.openTarget) ??
+		event.reference.openTarget ??
+		options.defaultOpenTarget ??
+		'same-page'
+	);
 }
 
 function getMetadataString(value: unknown): string | undefined {
 	return typeof value === 'string' ? value : undefined;
+}
+
+function getMetadataOpenTarget(
+	value: unknown
+): ObjectReferenceOpenTarget | undefined {
+	return value === 'same-page' || value === 'new-page' ? value : undefined;
 }

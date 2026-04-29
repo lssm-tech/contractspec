@@ -1,6 +1,7 @@
 import type {
 	ObjectReferenceActionDescriptor,
 	ObjectReferenceDescriptor,
+	ObjectReferenceOpenTarget,
 } from './types';
 
 export {
@@ -11,6 +12,11 @@ export {
 } from './maps';
 
 import { createMapsReferenceActions } from './maps';
+
+export interface ObjectReferenceOpenActionOptions {
+	label?: string;
+	openTarget?: ObjectReferenceOpenTarget;
+}
 
 function compact(value: string): string {
 	return value.trim().replace(/\s+/g, ' ');
@@ -39,18 +45,44 @@ export function createCopyReferenceAction(
 
 export function createOpenReferenceAction(
 	reference: ObjectReferenceDescriptor,
-	label = 'Open details'
+	options: string | ObjectReferenceOpenActionOptions = {}
 ): ObjectReferenceActionDescriptor | null {
 	if (!reference.href) {
 		return null;
 	}
 
+	const resolvedOptions =
+		typeof options === 'string' ? { label: options } : options;
+
 	return {
 		id: 'open',
-		label,
+		label: resolvedOptions.label ?? 'Open details',
 		description: 'Open the related page or resource',
 		href: reference.href,
+		openTarget: resolvedOptions.openTarget ?? reference.openTarget,
 		iconKey: 'external-link',
+	};
+}
+
+export function createEmailReferenceAction(
+	reference: ObjectReferenceDescriptor,
+	label = 'Email'
+): ObjectReferenceActionDescriptor | null {
+	if (reference.kind !== 'email') {
+		return null;
+	}
+
+	const email = compact(reference.value ?? reference.label);
+	if (!email) {
+		return null;
+	}
+
+	return {
+		id: 'email',
+		label,
+		description: 'Send an email',
+		href: `mailto:${email}`,
+		iconKey: 'email',
 	};
 }
 
@@ -82,6 +114,7 @@ export function createDefaultObjectReferenceActions(
 	return [
 		createCopyReferenceAction(reference),
 		createOpenReferenceAction(reference),
+		createEmailReferenceAction(reference),
 		createPhoneReferenceAction(reference),
 		...createMapsReferenceActions(reference),
 	].filter((action): action is ObjectReferenceActionDescriptor =>

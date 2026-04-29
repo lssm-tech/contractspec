@@ -1,0 +1,42 @@
+schemaVersion: "1"
+slug: adaptive-object-reference-panel
+summary: Promote object-reference detail panels to a reusable adaptive sheet/drawer surface.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.design-system"
+    releaseType: minor
+affectedRuntimes:
+  - browser
+  - react-native
+affectedFrameworks:
+  - react
+  - react-native
+audiences:
+  - kind: maintainer
+    summary: Design-system now exposes AdaptivePanel as the shared responsive sheet/drawer primitive and wires object-reference details through it.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+  - kind: integrator
+    summary: ObjectReferenceHandler supports same-page vs new-page detail opening, rich nested properties, and configurable sheet/drawer behavior with responsive defaults.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+  - kind: customer
+    summary: Reference interactions can show richer details in a desktop sheet or mobile drawer without custom per-screen logic.
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: adopt-adaptive-panel
+    title: Reuse AdaptivePanel for responsive overlay choices
+    summary: Replace one-off sheet/drawer branching with AdaptivePanel when a surface should use sheets on desktop and drawers on mobile.
+    level: assisted
+    instructions:
+      - Import `AdaptivePanel` from `@contractspec/lib.design-system`.
+      - Use the default responsive mode, or force `mode="sheet"` / `mode="drawer"` when product requirements need one presentation.
+validation:
+  commands:
+    - "bun test packages/libs/design-system/src/components/object-reference/ObjectReferenceHandler.test.tsx"
+    - "bun run --cwd packages/libs/design-system typecheck"
+  evidence:
+    - "Object-reference tests cover same-page defaults, new-page detail opening, rich nested properties, and AdaptivePanel sheet/drawer rendering."
+knownGaps:
+  - "Native object-reference rendering still uses the existing disclosure fallback until a real native sheet/drawer primitive is available."

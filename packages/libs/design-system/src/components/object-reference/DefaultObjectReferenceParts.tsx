@@ -1,5 +1,4 @@
 import { cn } from '../../lib/utils';
-import { getObjectReferenceDisplayValue } from './actions';
 import { ReferenceIcon, ReferenceSearchIcon } from './ReferenceIcon';
 import type {
 	ObjectReferenceActionDescriptor,
@@ -39,37 +38,6 @@ export function DefaultObjectReferenceTrigger({
 				<ReferenceSearchIcon className="h-3.5 w-3.5 shrink-0 text-muted-foreground" />
 			) : null}
 		</span>
-	);
-}
-
-export function DefaultReferenceDetail({
-	reference,
-}: {
-	reference: ObjectReferenceHandlerProps['reference'];
-}) {
-	const value = getObjectReferenceDisplayValue(reference);
-	const metadataEntries = Object.entries(reference.metadata ?? {});
-	return (
-		<div className="rounded-md border border-border bg-muted/30 p-3 text-sm">
-			<div className="font-medium text-foreground">{value}</div>
-			{reference.href ? (
-				<div className="mt-1 break-all text-muted-foreground">
-					{reference.href}
-				</div>
-			) : null}
-			{metadataEntries.length > 0 ? (
-				<dl className="mt-3 grid gap-2">
-					{metadataEntries.map(([key, value]) => (
-						<div className="grid gap-0.5" key={key}>
-							<dt className="font-medium text-muted-foreground text-xs uppercase">
-								{key}
-							</dt>
-							<dd className="break-words text-foreground">{String(value)}</dd>
-						</div>
-					))}
-				</dl>
-			) : null}
-		</div>
 	);
 }
 

@@ -161,11 +161,13 @@ export {
 export {
 	createCopyReferenceAction,
 	createDefaultObjectReferenceActions,
+	createEmailReferenceAction,
 	createMapsProviderHref,
 	createMapsReferenceActions,
 	createOpenReferenceAction,
 	createPhoneReferenceAction,
 	getObjectReferenceDisplayValue,
+	normalizeSafeObjectReferenceHref,
 	type ObjectReferenceActionDescriptor,
 	type ObjectReferenceActionEvent,
 	type ObjectReferenceActionHandler,
@@ -178,6 +180,13 @@ export {
 	type ObjectReferenceMapsProvider,
 	type ObjectReferenceMetadata,
 	type ObjectReferenceOpenHrefHandler,
+	type ObjectReferenceOpenTarget,
+	type ObjectReferencePanelBreakpoint,
+	type ObjectReferencePanelMode,
+	type ObjectReferencePropertyRenderContext,
+	type ObjectReferenceSectionDescriptor,
+	type ObjectReferenceSectionRenderContext,
+	SAFE_OBJECT_REFERENCE_PROTOCOLS,
 } from './components/object-reference';
 export { AcademyLayout } from './components/organisms/AcademyLayout';
 export { AppHeader } from './components/organisms/AppHeader';
@@ -214,6 +223,7 @@ export { PageHeaderResponsive } from './components/organisms/PageHeaderResponsiv
 export { PricingCarousel } from './components/organisms/PricingCarousel';
 export { PricingSection } from './components/organisms/PricingSection';
 export { TestimonialCarousel } from './components/organisms/TestimonialCarousel';
+export * from './components/overlays';
 export {
 	PackageManagerProvider,
 	type PackageManagerProviderProps,

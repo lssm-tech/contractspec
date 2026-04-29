@@ -1,23 +1,19 @@
 import * as React from 'react';
 import { Linking, Pressable, View } from 'react-native';
-import { createDefaultObjectReferenceActions } from './actions';
 import {
 	NativeActionButton,
 	NativeObjectReferenceTrigger,
 	NativeReferenceDetail,
 } from './DefaultObjectReferenceParts.native';
-import { executeObjectReferenceAction } from './runtime';
-import type {
-	ObjectReferenceActionDescriptor,
-	ObjectReferenceActionEvent,
-	ObjectReferenceHandlerProps,
-	ObjectReferenceRenderContext,
-} from './types';
+import type { ObjectReferenceHandlerProps } from './types';
+import { normalizeSafeObjectReferenceHref } from './url-safety';
+import { useObjectReferenceController } from './useObjectReferenceController';
 
 export function ObjectReferenceHandler({
 	reference,
 	actions,
 	interactivityVisibility = 'underline',
+	openTarget,
 	defaultOpen = false,
 	open,
 	onOpenChange,
@@ -30,77 +26,45 @@ export function ObjectReferenceHandler({
 	renderTrigger,
 	renderDetail,
 	renderAction,
+	renderProperty,
+	renderSection,
 	iconRenderer,
 	className,
 	panelClassName,
 }: ObjectReferenceHandlerProps) {
-	const [uncontrolledOpen, setUncontrolledOpen] = React.useState(defaultOpen);
-	const isControlled = open !== undefined;
-	const resolvedOpen = open ?? uncontrolledOpen;
-	const resolvedActions = React.useMemo(
-		() => actions ?? createDefaultObjectReferenceActions(reference),
-		[actions, reference]
-	);
-
-	const setOpen = React.useCallback(
-		(nextOpen: boolean) => {
-			if (!isControlled) {
-				setUncontrolledOpen(nextOpen);
-			}
-			onOpenChange?.(nextOpen);
+	const {
+		context,
+		openDetail,
+		resolvedActions,
+		resolvedOpen,
+		runAction,
+		runReferenceAction,
+	} = useObjectReferenceController({
+		reference,
+		actions,
+		defaultOpen,
+		open,
+		onOpenChange,
+		actionHandlers,
+		copyText,
+		copyHandler,
+		openHref,
+		openTarget,
+		onAction,
+		onActionError,
+		defaultOpenTarget: openTarget,
+		defaultOpenHref: (href) => {
+			const safeHref = normalizeSafeObjectReferenceHref(href);
+			return safeHref ? Linking.openURL(safeHref) : undefined;
 		},
-		[isControlled, onOpenChange]
-	);
-
-	const context = React.useMemo<ObjectReferenceRenderContext>(
-		() => ({
-			reference,
-			actions: resolvedActions,
-			open: resolvedOpen,
-			setOpen,
-		}),
-		[reference, resolvedActions, resolvedOpen, setOpen]
-	);
-
-	const runAction = React.useCallback(
-		(action: ObjectReferenceActionDescriptor) => {
-			if (action.disabled) {
-				return;
-			}
-
-			const event: ObjectReferenceActionEvent = {
-				reference,
-				action,
-				source: 'action',
-			};
-
-			void executeObjectReferenceAction(event, {
-				actionHandlers,
-				copyText,
-				copyHandler,
-				openHref,
-				onAction,
-				onActionError,
-				defaultOpenHref: (href) => Linking.openURL(href),
-			});
-		},
-		[
-			actionHandlers,
-			copyHandler,
-			copyText,
-			onAction,
-			onActionError,
-			openHref,
-			reference,
-		]
-	);
+	});
 
 	return (
 		<View className={className}>
 			<Pressable
 				accessibilityRole="button"
 				accessibilityLabel={reference.ariaLabel ?? `Open ${reference.label}`}
-				onPress={() => setOpen(!resolvedOpen)}
+				onPress={() => (resolvedOpen ? context.setOpen(false) : openDetail())}
 			>
 				{renderTrigger ? (
 					renderTrigger(context)
@@ -117,7 +81,12 @@ export function ObjectReferenceHandler({
 					{renderDetail ? (
 						renderDetail(context)
 					) : (
-						<NativeReferenceDetail reference={reference} />
+						<NativeReferenceDetail
+							context={context}
+							renderProperty={renderProperty}
+							renderSection={renderSection}
+							runReferenceAction={runReferenceAction}
+						/>
 					)}
 					<View className="gap-2">
 						{resolvedActions.map((action) =>

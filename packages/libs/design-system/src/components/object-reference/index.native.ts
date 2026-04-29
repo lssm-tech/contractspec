@@ -1,6 +1,7 @@
 export {
 	createCopyReferenceAction,
 	createDefaultObjectReferenceActions,
+	createEmailReferenceAction,
 	createMapsProviderHref,
 	createMapsReferenceActions,
 	createOpenReferenceAction,
@@ -30,5 +31,11 @@ export type {
 	ObjectReferenceKind,
 	ObjectReferenceMetadata,
 	ObjectReferenceOpenHrefHandler,
+	ObjectReferenceOpenTarget,
+	ObjectReferencePanelBreakpoint,
+	ObjectReferencePanelMode,
+	ObjectReferencePropertyRenderContext,
 	ObjectReferenceRenderContext,
+	ObjectReferenceSectionDescriptor,
+	ObjectReferenceSectionRenderContext,
 } from './types';

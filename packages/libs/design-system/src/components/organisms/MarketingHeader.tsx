@@ -9,12 +9,6 @@ import {
 	NavigationMenuTrigger as NavTrigger,
 } from '@contractspec/lib.ui-kit-web/ui/navigation-menu';
 import { Separator } from '@contractspec/lib.ui-kit-web/ui/separator';
-import {
-	Sheet,
-	SheetContent,
-	SheetHeader,
-	SheetTrigger,
-} from '@contractspec/lib.ui-kit-web/ui/sheet';
 import { Box, HStack, VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import { Text } from '@contractspec/lib.ui-kit-web/ui/text';
 import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
@@ -35,6 +29,7 @@ import { LangSwitchDropdown } from '../molecules/LangSwitchDropdown';
 import { MobileNavMenu } from '../molecules/MobileNavMenu';
 import { NavItemCard } from '../molecules/NavItemCard';
 import { NavUser } from '../molecules/NavUser';
+import { AdaptivePanel } from '../overlays';
 
 export interface MarketingHeaderProps {
 	logo: React.ReactNode;
@@ -93,20 +88,24 @@ export function MarketingHeader({
 			>
 				{/* Mobile: compact left cluster */}
 				<VStack className="flex items-center gap-2 md:hidden">
-					{/* Menu trigger (sheet) */}
-					<Sheet open={open} onOpenChange={setOpen}>
-						<SheetTrigger asChild>
+					<AdaptivePanel
+						mode="drawer"
+						drawerDirection="left"
+						open={open}
+						onOpenChange={setOpen}
+						trigger={
 							<Button variant="ghost" size="icon" aria-label="Open menu">
 								<Menu className="h-5 w-5" />
 							</Button>
-						</SheetTrigger>
-
-						<SheetContent side="left" className="w-[320px] p-4">
+						}
+						title="Menu"
+						className="w-[320px]"
+					>
+						<div className="px-4 pb-4">
 							{!!commandPaletteGroups?.length && (
-								<SheetHeader>
+								<div className="mb-3">
 									<CommandSearchTrigger groups={commandPaletteGroups} />
-									{/*<SheetTitle>Menu</SheetTitle>*/}
-								</SheetHeader>
+								</div>
 							)}
 
 							{cta && (
@@ -123,8 +122,8 @@ export function MarketingHeader({
 							)}
 
 							<MobileNavMenu items={nav} />
-						</SheetContent>
-					</Sheet>
+						</div>
+					</AdaptivePanel>
 				</VStack>
 
 				{logo}

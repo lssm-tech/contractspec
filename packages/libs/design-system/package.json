@@ -400,12 +400,14 @@
 			"default": "./src/components/object-reference/index.ts"
 		},
 		"./components/object-reference/actions": "./src/components/object-reference/actions.ts",
+		"./components/object-reference/DefaultObjectReferenceDetail": "./src/components/object-reference/DefaultObjectReferenceDetail.tsx",
 		"./components/object-reference/DefaultObjectReferenceParts": {
 			"types": "./src/components/object-reference/DefaultObjectReferenceParts.tsx",
 			"react-native": "./src/components/object-reference/DefaultObjectReferenceParts.native.tsx",
 			"default": "./src/components/object-reference/DefaultObjectReferenceParts.tsx"
 		},
 		"./components/object-reference/DefaultObjectReferenceParts.native": "./src/components/object-reference/DefaultObjectReferenceParts.native.tsx",
+		"./components/object-reference/DefaultObjectReferenceProperty": "./src/components/object-reference/DefaultObjectReferenceProperty.tsx",
 		"./components/object-reference/index.native": "./src/components/object-reference/index.native.ts",
 		"./components/object-reference/maps": "./src/components/object-reference/maps.ts",
 		"./components/object-reference/ObjectReferenceHandler": {
@@ -414,9 +416,11 @@
 			"default": "./src/components/object-reference/ObjectReferenceHandler.tsx"
 		},
 		"./components/object-reference/ObjectReferenceHandler.native": "./src/components/object-reference/ObjectReferenceHandler.native.tsx",
+		"./components/object-reference/ObjectReferencePanel": "./src/components/object-reference/ObjectReferencePanel.tsx",
 		"./components/object-reference/ReferenceIcon": "./src/components/object-reference/ReferenceIcon.tsx",
 		"./components/object-reference/runtime": "./src/components/object-reference/runtime.ts",
 		"./components/object-reference/types": "./src/components/object-reference/types.ts",
+		"./components/object-reference/url-safety": "./src/components/object-reference/url-safety.ts",
 		"./components/object-reference/useObjectReferenceController": "./src/components/object-reference/useObjectReferenceController.ts",
 		"./components/organisms/AcademyLayout": "./src/components/organisms/AcademyLayout.tsx",
 		"./components/organisms/AppHeader": {
@@ -476,6 +480,8 @@
 		"./components/organisms/PricingCarousel": "./src/components/organisms/PricingCarousel.tsx",
 		"./components/organisms/PricingSection": "./src/components/organisms/PricingSection.tsx",
 		"./components/organisms/TestimonialCarousel": "./src/components/organisms/TestimonialCarousel.tsx",
+		"./components/overlays": "./src/components/overlays/index.ts",
+		"./components/overlays/AdaptivePanel": "./src/components/overlays/AdaptivePanel.tsx",
 		"./components/primitives/control": "./src/components/primitives/control.ts",
 		"./components/primitives/themed": "./src/components/primitives/themed.tsx",
 		"./components/providers/PackageManagerProvider": "./src/components/providers/PackageManagerProvider.tsx",
@@ -1656,6 +1662,12 @@
 				"bun": "./dist/components/object-reference/actions.js",
 				"default": "./dist/components/object-reference/actions.js"
 			},
+			"./components/object-reference/DefaultObjectReferenceDetail": {
+				"types": "./dist/components/object-reference/DefaultObjectReferenceDetail.d.ts",
+				"browser": "./dist/browser/components/object-reference/DefaultObjectReferenceDetail.js",
+				"bun": "./dist/components/object-reference/DefaultObjectReferenceDetail.js",
+				"default": "./dist/components/object-reference/DefaultObjectReferenceDetail.js"
+			},
 			"./components/object-reference/DefaultObjectReferenceParts": {
 				"types": "./dist/components/object-reference/DefaultObjectReferenceParts.d.ts",
 				"browser": "./dist/browser/components/object-reference/DefaultObjectReferenceParts.js",
@@ -1667,6 +1679,12 @@
 				"types": "./dist/components/object-reference/DefaultObjectReferenceParts.native.d.ts",
 				"react-native": "./dist/native/components/object-reference/DefaultObjectReferenceParts.native.js",
 				"default": "./dist/native/components/object-reference/DefaultObjectReferenceParts.native.js"
+			},
+			"./components/object-reference/DefaultObjectReferenceProperty": {
+				"types": "./dist/components/object-reference/DefaultObjectReferenceProperty.d.ts",
+				"browser": "./dist/browser/components/object-reference/DefaultObjectReferenceProperty.js",
+				"bun": "./dist/components/object-reference/DefaultObjectReferenceProperty.js",
+				"default": "./dist/components/object-reference/DefaultObjectReferenceProperty.js"
 			},
 			"./components/object-reference/index.native": {
 				"types": "./dist/components/object-reference/index.native.d.ts",
@@ -1691,6 +1709,12 @@
 				"react-native": "./dist/native/components/object-reference/ObjectReferenceHandler.native.js",
 				"default": "./dist/native/components/object-reference/ObjectReferenceHandler.native.js"
 			},
+			"./components/object-reference/ObjectReferencePanel": {
+				"types": "./dist/components/object-reference/ObjectReferencePanel.d.ts",
+				"browser": "./dist/browser/components/object-reference/ObjectReferencePanel.js",
+				"bun": "./dist/components/object-reference/ObjectReferencePanel.js",
+				"default": "./dist/components/object-reference/ObjectReferencePanel.js"
+			},
 			"./components/object-reference/ReferenceIcon": {
 				"types": "./dist/components/object-reference/ReferenceIcon.d.ts",
 				"browser": "./dist/browser/components/object-reference/ReferenceIcon.js",
@@ -1708,6 +1732,12 @@
 				"browser": "./dist/browser/components/object-reference/types.js",
 				"bun": "./dist/components/object-reference/types.js",
 				"default": "./dist/components/object-reference/types.js"
+			},
+			"./components/object-reference/url-safety": {
+				"types": "./dist/components/object-reference/url-safety.d.ts",
+				"browser": "./dist/browser/components/object-reference/url-safety.js",
+				"bun": "./dist/components/object-reference/url-safety.js",
+				"default": "./dist/components/object-reference/url-safety.js"
 			},
 			"./components/object-reference/useObjectReferenceController": {
 				"types": "./dist/components/object-reference/useObjectReferenceController.d.ts",
@@ -1918,6 +1948,18 @@
 				"browser": "./dist/browser/components/organisms/TestimonialCarousel.js",
 				"bun": "./dist/components/organisms/TestimonialCarousel.js",
 				"default": "./dist/components/organisms/TestimonialCarousel.js"
+			},
+			"./components/overlays": {
+				"types": "./dist/components/overlays/index.d.ts",
+				"browser": "./dist/browser/components/overlays/index.js",
+				"bun": "./dist/components/overlays/index.js",
+				"default": "./dist/components/overlays/index.js"
+			},
+			"./components/overlays/AdaptivePanel": {
+				"types": "./dist/components/overlays/AdaptivePanel.d.ts",
+				"browser": "./dist/browser/components/overlays/AdaptivePanel.js",
+				"bun": "./dist/components/overlays/AdaptivePanel.js",
+				"default": "./dist/components/overlays/AdaptivePanel.js"
 			},
 			"./components/primitives/control": {
 				"types": "./dist/components/primitives/control.d.ts",

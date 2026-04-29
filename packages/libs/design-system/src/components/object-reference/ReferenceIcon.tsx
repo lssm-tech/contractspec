@@ -2,6 +2,7 @@ import {
 	Copy,
 	ExternalLink,
 	FileText,
+	Mail,
 	MapPin,
 	Phone,
 	Search,
@@ -15,6 +16,7 @@ import type {
 
 const KIND_ICON: Record<string, React.ComponentType<{ className?: string }>> = {
 	address: MapPin,
+	email: Mail,
 	phone: Phone,
 	user: User,
 	customer: User,
@@ -22,6 +24,7 @@ const KIND_ICON: Record<string, React.ComponentType<{ className?: string }>> = {
 	url: ExternalLink,
 	custom: Search,
 	copy: Copy,
+	emailAction: Mail,
 	map: MapPin,
 	phoneAction: Phone,
 	'external-link': ExternalLink,

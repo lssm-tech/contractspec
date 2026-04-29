@@ -1,13 +1,5 @@
 'use client';
 
-import {
-	Sheet,
-	SheetContent,
-	SheetFooter,
-	SheetHeader,
-	SheetTitle,
-	SheetTrigger,
-} from '@contractspec/lib.ui-kit-web/ui/sheet';
 import { VStack } from '@contractspec/lib.ui-kit-web/ui/stack';
 import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 import { Menu } from 'lucide-react';
@@ -16,6 +8,7 @@ import { Button } from '../atoms/Button';
 import { CommandSearchTrigger } from '../molecules/CommandSearchTrigger';
 import { LangSwitchDropdown } from '../molecules/LangSwitchDropdown';
 import { MobileNavMenu } from '../molecules/MobileNavMenu';
+import { AdaptivePanel } from '../overlays';
 import type { MarketingHeaderProps } from './MarketingHeader';
 
 export function MarketingHeaderMobile({
@@ -36,30 +29,31 @@ export function MarketingHeaderMobile({
 		>
 			<div className="mx-auto flex w-full max-w-7xl items-center justify-between px-3 py-2">
 				<div className="flex items-center gap-2">
-					<Sheet open={open} onOpenChange={setOpen}>
-						<SheetTrigger asChild>
+					<AdaptivePanel
+						mode="drawer"
+						drawerDirection="left"
+						open={open}
+						onOpenChange={setOpen}
+						trigger={
 							<Button variant="ghost" size="icon" aria-label="Open menu">
 								<Menu className="h-5 w-5" />
 							</Button>
-						</SheetTrigger>
-						<SheetContent side="left" className="w-[320px] p-4">
-							<SheetHeader>
-								<SheetTitle>Menu</SheetTitle>
-								{!!commandPaletteGroups?.length && (
-									<div className="mb-3">
-										<CommandSearchTrigger
-											groups={commandPaletteGroups}
-											compact
-										/>
-									</div>
-								)}
-							</SheetHeader>
+						}
+						title="Menu"
+						className="w-[320px]"
+					>
+						<div className="px-4 pb-4">
+							{!!commandPaletteGroups?.length && (
+								<div className="mb-3">
+									<CommandSearchTrigger groups={commandPaletteGroups} compact />
+								</div>
+							)}
 							<VStack>
 								<MobileNavMenu items={nav} />
 							</VStack>
-							<SheetFooter>{right}</SheetFooter>
-						</SheetContent>
-					</Sheet>
+							{right ? <div className="mt-4">{right}</div> : null}
+						</div>
+					</AdaptivePanel>
 					{logo}
 				</div>
 				<div className="flex items-center gap-2">

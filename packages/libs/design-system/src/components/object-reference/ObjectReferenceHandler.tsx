@@ -1,34 +1,34 @@
 'use client';
 
 import {
-	Sheet,
-	SheetContent,
-	SheetDescription,
-	SheetHeader,
-	SheetTitle,
-} from '@contractspec/lib.ui-kit-web/ui/sheet';
-import {
 	Tooltip,
 	TooltipContent,
 	TooltipTrigger,
 } from '@contractspec/lib.ui-kit-web/ui/tooltip';
 import * as React from 'react';
-import { cn } from '../../lib/utils';
+import { DefaultReferenceDetail } from './DefaultObjectReferenceDetail';
 import {
 	DefaultActionButton,
 	DefaultObjectReferenceTrigger,
-	DefaultReferenceDetail,
 } from './DefaultObjectReferenceParts';
+import { ObjectReferencePanel } from './ObjectReferencePanel';
 import type {
 	ObjectReferenceActionEvent,
 	ObjectReferenceHandlerProps,
+	ObjectReferenceOpenTarget,
 } from './types';
+import { normalizeSafeObjectReferenceHref } from './url-safety';
 import { useObjectReferenceController } from './useObjectReferenceController';
 
 export function ObjectReferenceHandler({
 	reference,
 	actions,
 	interactivityVisibility = 'underline',
+	openTarget,
+	panelMode,
+	mobilePanelMode,
+	desktopPanelMode,
+	responsiveBreakpoint,
 	defaultOpen = false,
 	open,
 	onOpenChange,
@@ -41,26 +41,37 @@ export function ObjectReferenceHandler({
 	renderTrigger,
 	renderDetail,
 	renderAction,
+	renderProperty,
+	renderSection,
 	iconRenderer,
 	className,
 	panelClassName,
 }: ObjectReferenceHandlerProps) {
-	const { context, resolvedActions, resolvedOpen, runAction, setOpen } =
-		useObjectReferenceController({
-			reference,
-			actions,
-			defaultOpen,
-			open,
-			onOpenChange,
-			actionHandlers,
-			copyText,
-			copyHandler,
-			openHref,
-			onAction,
-			onActionError,
-			defaultCopy: copyReferenceText,
-			defaultOpenHref: openReferenceHref,
-		});
+	const {
+		context,
+		openDetail,
+		resolvedActions,
+		resolvedOpen,
+		runAction,
+		runReferenceAction,
+		setOpen,
+	} = useObjectReferenceController({
+		reference,
+		actions,
+		defaultOpen,
+		open,
+		onOpenChange,
+		actionHandlers,
+		copyText,
+		copyHandler,
+		openHref,
+		openTarget,
+		onAction,
+		onActionError,
+		defaultOpenTarget: openTarget,
+		defaultCopy: copyReferenceText,
+		defaultOpenHref: openReferenceHref,
+	});
 
 	const trigger = renderTrigger ? (
 		renderTrigger(context)
@@ -74,55 +85,70 @@ export function ObjectReferenceHandler({
 	);
 
 	return (
-		<Sheet open={resolvedOpen} onOpenChange={setOpen}>
-			<Tooltip>
-				<TooltipTrigger asChild>
-					<button
-						type="button"
-						className="contents"
-						aria-label={reference.ariaLabel ?? `Open ${reference.label}`}
-						onClick={() => setOpen(true)}
-					>
-						{trigger}
-					</button>
-				</TooltipTrigger>
-				<TooltipContent>
-					{reference.ariaLabel ?? reference.label}
-				</TooltipContent>
-			</Tooltip>
-			<SheetContent className={cn('sm:max-w-md', panelClassName)}>
-				<SheetHeader>
-					<SheetTitle>{reference.label}</SheetTitle>
-					{reference.description ? (
-						<SheetDescription>{reference.description}</SheetDescription>
-					) : null}
-				</SheetHeader>
-				<div className="flex flex-col gap-4 px-4 pb-4">
-					{renderDetail ? (
-						renderDetail(context)
-					) : (
-						<DefaultReferenceDetail reference={reference} />
+		<ObjectReferencePanel
+			open={resolvedOpen}
+			onOpenChange={setOpen}
+			mode={panelMode}
+			mobileMode={mobilePanelMode}
+			desktopMode={desktopPanelMode}
+			breakpoint={responsiveBreakpoint}
+			title={reference.label}
+			description={reference.description}
+			className={panelClassName}
+			trigger={
+				<Tooltip>
+					<TooltipTrigger asChild>
+						<button
+							type="button"
+							className="contents"
+							aria-label={reference.ariaLabel ?? `Open ${reference.label}`}
+							onClick={(event) => {
+								if (shouldOpenTriggerInNewPage(openTarget, reference)) {
+									event.preventDefault();
+								}
+								openDetail();
+							}}
+						>
+							{trigger}
+						</button>
+					</TooltipTrigger>
+					<TooltipContent>
+						{reference.ariaLabel ?? reference.label}
+					</TooltipContent>
+				</Tooltip>
+			}
+		>
+			<div className="flex flex-col gap-4 px-4 pb-4">
+				{renderDetail ? (
+					renderDetail(context)
+				) : (
+					<DefaultReferenceDetail
+						context={context}
+						iconRenderer={iconRenderer}
+						renderProperty={renderProperty}
+						renderSection={renderSection}
+						runReferenceAction={runReferenceAction}
+					/>
+				)}
+				<div className="flex flex-col gap-2">
+					{resolvedActions.map((action) =>
+						renderAction ? (
+							<React.Fragment key={action.id}>
+								{renderAction({ ...context, action, runAction })}
+							</React.Fragment>
+						) : (
+							<DefaultActionButton
+								key={action.id}
+								action={action}
+								reference={reference}
+								iconRenderer={iconRenderer}
+								onClick={() => runAction(action)}
+							/>
+						)
 					)}
-					<div className="flex flex-col gap-2">
-						{resolvedActions.map((action) =>
-							renderAction ? (
-								<React.Fragment key={action.id}>
-									{renderAction({ ...context, action, runAction })}
-								</React.Fragment>
-							) : (
-								<DefaultActionButton
-									key={action.id}
-									action={action}
-									reference={reference}
-									iconRenderer={iconRenderer}
-									onClick={() => runAction(action)}
-								/>
-							)
-						)}
-					</div>
 				</div>
-			</SheetContent>
-		</Sheet>
+			</div>
+		</ObjectReferencePanel>
 	);
 }
 
@@ -140,9 +166,26 @@ async function copyReferenceText(
 
 async function openReferenceHref(
 	href: string,
-	_event: ObjectReferenceActionEvent
+	_event: ObjectReferenceActionEvent,
+	{ target }: { target: ObjectReferenceOpenTarget }
 ) {
-	if (typeof window !== 'undefined') {
-		window.open(href, '_blank', 'noopener,noreferrer');
+	const safeHref = normalizeSafeObjectReferenceHref(href);
+	if (!safeHref || typeof window === 'undefined') return;
+	if (target === 'new-page') {
+		const opened = window.open(safeHref, '_blank', 'noopener,noreferrer');
+		if (opened) opened.opener = null;
+		return;
 	}
+
+	window.location.assign(safeHref);
+}
+
+function shouldOpenTriggerInNewPage(
+	openTarget: ObjectReferenceHandlerProps['openTarget'],
+	reference: ObjectReferenceHandlerProps['reference']
+): boolean {
+	return (
+		(openTarget ?? reference.openTarget) === 'new-page' &&
+		Boolean(reference.href)
+	);
 }

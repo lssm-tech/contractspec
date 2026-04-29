@@ -1,0 +1,36 @@
+schemaVersion: "1"
+slug: adaptive-panel-menu-migration
+summary: Route design-system mobile menu overlays through the shared AdaptivePanel primitive.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.design-system"
+    releaseType: patch
+affectedRuntimes:
+  - browser
+affectedFrameworks:
+  - react
+audiences:
+  - kind: maintainer
+    summary: Header and marketing header mobile menus now use AdaptivePanel instead of direct sheet composition, leaving sheet/drawer primitives behind the shared overlay adapter.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+  - kind: integrator
+    summary: Design-system overlay behavior is more consistent because mobile menu panels and object references share the AdaptivePanel boundary.
+    affectedPackages:
+      - "@contractspec/lib.design-system"
+  - kind: customer
+    summary: Mobile menus keep the same behavior while using the shared responsive panel implementation.
+deprecations: []
+migrationInstructions: []
+upgradeSteps: []
+validation:
+  commands:
+    - "cd packages/libs/design-system && bun run typecheck"
+    - "cd packages/libs/design-system && bun run lint:check"
+    - "cd packages/libs/design-system && bun run test"
+    - "cd packages/libs/design-system && bun run build"
+  evidence:
+    - "A direct sheet/drawer usage scan has no remaining app-level design-system matches outside AdaptivePanel and lower-level primitives."
+    - "Design-system tests and build pass after migrating Header, MarketingHeader, and MarketingHeaderMobile."
+knownGaps:
+  - "No browser visual pass was run for exact mobile menu animation and spacing."

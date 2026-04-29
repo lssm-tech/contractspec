@@ -1,11 +1,5 @@
 'use client';
 import { Separator } from '@contractspec/lib.ui-kit-web/ui/separator';
-import {
-	Sheet,
-	SheetContent,
-	SheetTitle,
-	SheetTrigger,
-} from '@contractspec/lib.ui-kit-web/ui/sheet';
 import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
 import { cva } from 'class-variance-authority';
 import { Menu } from 'lucide-react';
@@ -19,6 +13,7 @@ import { Button } from '../atoms/Button';
 import { ButtonLink } from '../atoms/ButtonLink';
 import { NavMain } from '../molecules/NavMain';
 import { NavUser } from '../molecules/NavUser';
+import { AdaptivePanel } from '../overlays';
 import { AppSidebar } from './AppSidebar';
 
 export interface HeaderProps {
@@ -95,28 +90,34 @@ export function MobileHeader({
 	className,
 	density,
 }: HeaderProps) {
+	const [open, setOpen] = React.useState(false);
 	return (
 		<header className={cn(mobileHeaderVariants({ density }), className)}>
-			<Sheet>
-				<SheetTrigger asChild>
+			<AdaptivePanel
+				mode="drawer"
+				drawerDirection="left"
+				open={open}
+				onOpenChange={setOpen}
+				trigger={
 					<Button variant="ghost" size="icon" aria-label="Open menu">
 						<Menu className="h-5 w-5" />
 					</Button>
-				</SheetTrigger>
-				<SheetContent side="left" className="w-[300px] p-0">
-					<SheetTitle className="sr-only">Menu</SheetTitle>
-					{mobileSidebar ? (
-						<AppSidebar
-							sections={mobileSidebar.sections}
-							top={mobileSidebar.top}
-							bottom={mobileSidebar.bottom}
-							className="h-svh"
-						/>
-					) : (
-						<div className="p-4">No sidebar configured</div>
-					)}
-				</SheetContent>
-			</Sheet>
+				}
+				title="Menu"
+				headerClassName="sr-only"
+				className="w-[300px] p-0"
+			>
+				{mobileSidebar ? (
+					<AppSidebar
+						sections={mobileSidebar.sections}
+						top={mobileSidebar.top}
+						bottom={mobileSidebar.bottom}
+						className="h-svh"
+					/>
+				) : (
+					<div className="p-4">No sidebar configured</div>
+				)}
+			</AdaptivePanel>
 			<div className="flex-1 px-2">{logo}</div>
 			<div className="flex items-center gap-2">
 				{userMenu && <NavUser {...userMenu} />}

@@ -2,6 +2,7 @@ import { describe, expect, it } from 'bun:test';
 import { ObjectReferenceHandler, Tabs } from '@contractspec/lib.design-system';
 import {
 	createCopyReferenceAction,
+	createEmailReferenceAction,
 	ObjectReferenceHandler as ObjectReferenceHandlerSubpath,
 } from '@contractspec/lib.design-system/components/object-reference';
 import { createMapsProviderHref } from '@contractspec/lib.design-system/components/object-reference/actions';
@@ -34,6 +35,13 @@ describe('design-system public subpaths', () => {
 		expect(
 			createCopyReferenceAction({ id: 'ref', kind: 'custom', label: 'Ref' }).id
 		).toBe('copy');
+		expect(
+			createEmailReferenceAction({
+				id: 'email',
+				kind: 'email',
+				label: 'ada@example.com',
+			})?.href
+		).toBe('mailto:ada@example.com');
 		expect(createMapsProviderHref('apple', '1 Main St')).toContain(
 			'maps.apple.com'
 		);
