@@ -33,7 +33,6 @@
 	"dependencies": {
 		"@contractspec/lib.contracts-spec": "workspace:*",
 		"@contractspec/lib.presentation-runtime-core": "workspace:*",
-		"@contractspec/lib.presentation-runtime-react": "workspace:*",
 		"@contractspec/lib.ui-kit-core": "workspace:*",
 		"@radix-ui/react-accordion": "^1.2.11",
 		"@radix-ui/react-alert-dialog": "^1.1.14",

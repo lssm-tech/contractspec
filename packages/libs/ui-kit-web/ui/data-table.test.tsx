@@ -1,5 +1,9 @@
 import { afterEach, beforeAll, describe, expect, test } from 'bun:test';
-import { useContractTable } from '@contractspec/lib.presentation-runtime-react';
+import type {
+	ContractTableColumnRenderModel,
+	ContractTableController,
+	ContractTableOverflowBehavior,
+} from '@contractspec/lib.presentation-runtime-core';
 import Window from 'happy-dom/lib/window/Window.js';
 import * as React from 'react';
 import { act } from 'react';
@@ -60,6 +64,240 @@ const ROWS = Array.from({ length: 6 }, (_, index) => ({
 	notes: `Note ${index + 1}`,
 }));
 
+type TestRow = (typeof ROWS)[number];
+
+interface TestColumnDef {
+	id: string;
+	header: React.ReactNode;
+	accessorKey?: keyof TestRow;
+	accessor?: (row: TestRow) => React.ReactNode;
+	canSort?: boolean;
+	canHide?: boolean;
+	canPin?: boolean;
+	canResize?: boolean;
+	overflow?: ContractTableOverflowBehavior;
+}
+
+interface TestTableOptions {
+	data: TestRow[];
+	columns: TestColumnDef[];
+	selectionMode?: 'none' | 'multiple';
+	initialHiddenColumnIds?: string[];
+	initialExpandedRowIds?: string[];
+	initialSortingDesc?: boolean;
+	renderExpandedContent?: (row: TestRow) => React.ReactNode;
+	getCanExpand?: (row: TestRow) => boolean;
+}
+
+function createBaseColumn(
+	overrides: Partial<ContractTableColumnRenderModel<React.ReactNode>>
+): ContractTableColumnRenderModel<React.ReactNode> {
+	return {
+		id: '',
+		kind: 'data',
+		header: null,
+		label: '',
+		align: 'left',
+		size: 160,
+		pinState: false,
+		canSort: false,
+		sortDirection: false,
+		canHide: false,
+		visible: true,
+		canPin: false,
+		canResize: false,
+		isResizing: false,
+		...overrides,
+	};
+}
+
+function useTestTableController({
+	data,
+	columns,
+	selectionMode = 'none',
+	initialHiddenColumnIds = [],
+	initialExpandedRowIds = [],
+	initialSortingDesc = false,
+	renderExpandedContent,
+	getCanExpand,
+}: TestTableOptions): ContractTableController<TestRow, React.ReactNode> {
+	const [sortDesc, setSortDesc] = React.useState(initialSortingDesc);
+	const [visibility, setVisibility] = React.useState<Record<string, boolean>>(
+		() =>
+			Object.fromEntries(
+				columns.map((column) => [
+					column.id,
+					!initialHiddenColumnIds.includes(column.id),
+				])
+			)
+	);
+	const [sizes, setSizes] = React.useState<Record<string, number>>({});
+	const [selected, setSelected] = React.useState<Record<string, boolean>>({});
+	const [expanded, setExpanded] = React.useState<Record<string, boolean>>(() =>
+		Object.fromEntries(initialExpandedRowIds.map((rowId) => [rowId, true]))
+	);
+
+	const renderColumns = React.useMemo(() => {
+		const utilityColumns: ContractTableColumnRenderModel<React.ReactNode>[] =
+			[];
+		if (selectionMode === 'multiple') {
+			utilityColumns.push(
+				createBaseColumn({
+					id: '__select',
+					kind: 'selection',
+					label: 'Select',
+					align: 'center',
+					size: 44,
+				})
+			);
+		}
+		if (getCanExpand) {
+			utilityColumns.push(
+				createBaseColumn({
+					id: '__expand',
+					kind: 'expansion',
+					label: 'Expand',
+					align: 'center',
+					size: 44,
+				})
+			);
+		}
+		return [
+			...utilityColumns,
+			...columns.map((column) =>
+				createBaseColumn({
+					id: column.id,
+					header: column.header,
+					label: typeof column.header === 'string' ? column.header : column.id,
+					size: sizes[column.id] ?? 160,
+					overflow: column.overflow,
+					canSort: column.canSort ?? true,
+					sortDirection:
+						column.id === 'account' ? (sortDesc ? 'desc' : 'asc') : false,
+					canHide: column.canHide ?? true,
+					visible: visibility[column.id] ?? true,
+					canPin: column.canPin ?? true,
+					canResize: column.canResize ?? true,
+					toggleSorting:
+						(column.canSort ?? true)
+							? () => setSortDesc((value) => !value)
+							: undefined,
+					toggleVisibility:
+						(column.canHide ?? true)
+							? (next?: boolean) =>
+									setVisibility((previous) => ({
+										...previous,
+										[column.id]: Boolean(next),
+									}))
+							: undefined,
+					resizeBy:
+						(column.canResize ?? true)
+							? (delta: number) =>
+									setSizes((previous) => ({
+										...previous,
+										[column.id]: (previous[column.id] ?? 160) + delta,
+									}))
+							: undefined,
+				})
+			),
+		];
+	}, [columns, getCanExpand, selectionMode, sizes, sortDesc, visibility]);
+
+	const visibleColumns = renderColumns.filter(
+		(column) => column.kind !== 'data' || column.visible
+	);
+	const sortedData = React.useMemo(
+		() =>
+			[...data].sort((left, right) =>
+				sortDesc
+					? right.account.localeCompare(left.account)
+					: left.account.localeCompare(right.account)
+			),
+		[data, sortDesc]
+	);
+	const rows = sortedData.map((row) => ({
+		id: row.id,
+		original: row,
+		depth: 0,
+		cells: visibleColumns.map((column) => {
+			const definition = columns.find(
+				(candidate) => candidate.id === column.id
+			);
+			const content =
+				column.kind === 'data'
+					? (definition?.accessor?.(row) ??
+						(definition?.accessorKey ? row[definition.accessorKey] : ''))
+					: null;
+			return {
+				id: `${row.id}_${column.id}`,
+				columnId: column.id,
+				kind: column.kind,
+				content,
+				align: column.align,
+				size: column.size,
+				overflow: column.overflow,
+				pinState: column.pinState,
+				stickyOffset: column.stickyOffset,
+			};
+		}),
+		canSelect: selectionMode !== 'none',
+		isSelected: Boolean(selected[row.id]),
+		toggleSelected:
+			selectionMode !== 'none'
+				? (next?: boolean) =>
+						setSelected((previous) => ({
+							...previous,
+							[row.id]: Boolean(next),
+						}))
+				: undefined,
+		canExpand: getCanExpand?.(row) ?? false,
+		isExpanded: Boolean(expanded[row.id]),
+		toggleExpanded: getCanExpand?.(row)
+			? (next?: boolean) =>
+					setExpanded((previous) => ({
+						...previous,
+						[row.id]: next ?? !previous[row.id],
+					}))
+			: undefined,
+		expandedContent:
+			expanded[row.id] && renderExpandedContent
+				? renderExpandedContent(row)
+				: undefined,
+	}));
+	const selectedRowIds = Object.entries(selected)
+		.filter(([, isSelected]) => isSelected)
+		.map(([rowId]) => rowId);
+
+	return {
+		executionMode: 'client',
+		selectionMode,
+		columns: renderColumns,
+		visibleColumns,
+		rows,
+		selectedRowIds,
+		allRowsSelected: rows.length > 0 && selectedRowIds.length === rows.length,
+		someRowsSelected:
+			selectedRowIds.length > 0 && selectedRowIds.length < rows.length,
+		toggleAllRowsSelected:
+			selectionMode !== 'none'
+				? (next?: boolean) =>
+						setSelected(
+							Object.fromEntries(rows.map((row) => [row.id, Boolean(next)]))
+						)
+				: undefined,
+		pageIndex: 0,
+		pageSize: data.length,
+		pageCount: 1,
+		totalItems: data.length,
+		canNextPage: false,
+		canPreviousPage: false,
+		nextPage: () => void 0,
+		previousPage: () => void 0,
+		setPageIndex: () => void 0,
+		setPageSize: () => void 0,
+	};
+}
+
 function WideTableHarness({
 	onRowPress,
 	onController,
@@ -67,11 +305,11 @@ function WideTableHarness({
 }: {
 	onRowPress?: (rowId: string) => void;
 	onController?: (
-		controller: ReturnType<typeof useContractTable<(typeof ROWS)[number]>>
+		controller: ContractTableController<TestRow, React.ReactNode>
 	) => void;
 	initialSortingDesc?: boolean;
 }) {
-	const columns = React.useMemo(
+	const columns = React.useMemo<TestColumnDef[]>(
 		() => [
 			{
 				id: 'account',
@@ -109,14 +347,12 @@ function WideTableHarness({
 		[]
 	);
 
-	const controller = useContractTable({
+	const controller = useTestTableController({
 		data: ROWS,
 		columns,
 		selectionMode: 'multiple',
-		initialState: {
-			sorting: [{ id: 'account', desc: initialSortingDesc }],
-			columnVisibility: { notes: false },
-		},
+		initialHiddenColumnIds: ['notes'],
+		initialSortingDesc,
 		renderExpandedContent: (row) => row.notes,
 		getCanExpand: () => true,
 	});
@@ -137,7 +373,7 @@ function WideTableHarness({
 }
 
 function OverflowTableHarness() {
-	const controller = useContractTable({
+	const controller = useTestTableController({
 		data: ROWS.slice(0, 1),
 		columns: [
 			{
@@ -167,9 +403,7 @@ function OverflowTableHarness() {
 		],
 		renderExpandedContent: (row) => row.notes,
 		getCanExpand: () => true,
-		initialState: {
-			expanded: { 'row-1': true },
-		},
+		initialExpandedRowIds: ['row-1'],
 	});
 
 	return <DataTable controller={controller} />;
@@ -182,7 +416,7 @@ function renderTable({
 }: {
 	onRowPress?: (rowId: string) => void;
 	onController?: (
-		controller: ReturnType<typeof useContractTable<(typeof ROWS)[number]>>
+		controller: ContractTableController<TestRow, React.ReactNode>
 	) => void;
 	initialSortingDesc?: boolean;
 } = {}) {
@@ -430,7 +664,7 @@ describe('ui-kit-web data-table', () => {
 
 	test('handles repeated resize and visibility churn on wide tables without throwing', async () => {
 		let controllerRef:
-			| ReturnType<typeof useContractTable<(typeof ROWS)[number]>>
+			| ContractTableController<TestRow, React.ReactNode>
 			| undefined;
 		const { root } = renderTable({
 			onController: (controller) => {

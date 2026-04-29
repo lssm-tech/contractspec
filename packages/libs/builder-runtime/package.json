@@ -31,7 +31,6 @@
 		"typecheck": "tsc --noEmit"
 	},
 	"dependencies": {
-		"@contractspec/integration.runtime.local": "workspace:*",
 		"@contractspec/lib.builder-spec": "workspace:*",
 		"@contractspec/lib.contracts-spec": "workspace:*",
 		"@contractspec/lib.execution-lanes": "workspace:*",
