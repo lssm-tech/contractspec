@@ -59,3 +59,12 @@ export interface BundlePreferenceAdapter {
 		scope: 'user' | 'workspace-user' | 'surface';
 	}): Promise<void>;
 }
+
+export * from './adaptive-evolution';
+export * from './adaptive-experience';
+export * from './adaptive-onboarding';
+export * from './behavior-signals';
+export * from './behavior-support';
+export * from './preference-evolution';
+export * from './preference-onboarding';
+export * from './preference-presets';

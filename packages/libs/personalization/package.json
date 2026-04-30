@@ -56,7 +56,15 @@
 	"exports": {
 		".": "./src/index.ts",
 		"./adapter": "./src/adapter.ts",
+		"./adaptive-evolution": "./src/adaptive-evolution.ts",
+		"./adaptive-experience": "./src/adaptive-experience.ts",
+		"./adaptive-onboarding": "./src/adaptive-onboarding.ts",
+		"./adaptive-onboarding-scores": "./src/adaptive-onboarding-scores.ts",
 		"./analyzer": "./src/analyzer.ts",
+		"./behavior-signals": "./src/behavior-signals.ts",
+		"./behavior-support": "./src/behavior-support.ts",
+		"./behavior-support-preset-definitions": "./src/behavior-support-preset-definitions.ts",
+		"./behavior-support-presets": "./src/behavior-support-presets.ts",
 		"./data-view-preferences": "./src/data-view-preferences.ts",
 		"./docs": "./src/docs/index.ts",
 		"./docs/behavior-tracking.docblock": "./src/docs/behavior-tracking.docblock.ts",
@@ -64,6 +72,10 @@
 		"./docs/workflow-composition.docblock": "./src/docs/workflow-composition.docblock.ts",
 		"./personalization.feature": "./src/personalization.feature.ts",
 		"./preference-dimensions": "./src/preference-dimensions.ts",
+		"./preference-evolution": "./src/preference-evolution.ts",
+		"./preference-evolution-types": "./src/preference-evolution-types.ts",
+		"./preference-onboarding": "./src/preference-onboarding.ts",
+		"./preference-presets": "./src/preference-presets.ts",
 		"./store": "./src/store.ts",
 		"./tracker": "./src/tracker.ts",
 		"./types": "./src/types.ts"
@@ -83,11 +95,59 @@
 				"node": "./dist/node/adapter.js",
 				"default": "./dist/adapter.js"
 			},
+			"./adaptive-evolution": {
+				"types": "./dist/adaptive-evolution.d.ts",
+				"bun": "./dist/adaptive-evolution.js",
+				"node": "./dist/node/adaptive-evolution.js",
+				"default": "./dist/adaptive-evolution.js"
+			},
+			"./adaptive-experience": {
+				"types": "./dist/adaptive-experience.d.ts",
+				"bun": "./dist/adaptive-experience.js",
+				"node": "./dist/node/adaptive-experience.js",
+				"default": "./dist/adaptive-experience.js"
+			},
+			"./adaptive-onboarding": {
+				"types": "./dist/adaptive-onboarding.d.ts",
+				"bun": "./dist/adaptive-onboarding.js",
+				"node": "./dist/node/adaptive-onboarding.js",
+				"default": "./dist/adaptive-onboarding.js"
+			},
+			"./adaptive-onboarding-scores": {
+				"types": "./dist/adaptive-onboarding-scores.d.ts",
+				"bun": "./dist/adaptive-onboarding-scores.js",
+				"node": "./dist/node/adaptive-onboarding-scores.js",
+				"default": "./dist/adaptive-onboarding-scores.js"
+			},
 			"./analyzer": {
 				"types": "./dist/analyzer.d.ts",
 				"bun": "./dist/analyzer.js",
 				"node": "./dist/node/analyzer.js",
 				"default": "./dist/analyzer.js"
+			},
+			"./behavior-signals": {
+				"types": "./dist/behavior-signals.d.ts",
+				"bun": "./dist/behavior-signals.js",
+				"node": "./dist/node/behavior-signals.js",
+				"default": "./dist/behavior-signals.js"
+			},
+			"./behavior-support": {
+				"types": "./dist/behavior-support.d.ts",
+				"bun": "./dist/behavior-support.js",
+				"node": "./dist/node/behavior-support.js",
+				"default": "./dist/behavior-support.js"
+			},
+			"./behavior-support-preset-definitions": {
+				"types": "./dist/behavior-support-preset-definitions.d.ts",
+				"bun": "./dist/behavior-support-preset-definitions.js",
+				"node": "./dist/node/behavior-support-preset-definitions.js",
+				"default": "./dist/behavior-support-preset-definitions.js"
+			},
+			"./behavior-support-presets": {
+				"types": "./dist/behavior-support-presets.d.ts",
+				"bun": "./dist/behavior-support-presets.js",
+				"node": "./dist/node/behavior-support-presets.js",
+				"default": "./dist/behavior-support-presets.js"
 			},
 			"./data-view-preferences": {
 				"types": "./dist/data-view-preferences.d.ts",
@@ -130,6 +190,30 @@
 				"bun": "./dist/preference-dimensions.js",
 				"node": "./dist/node/preference-dimensions.js",
 				"default": "./dist/preference-dimensions.js"
+			},
+			"./preference-evolution": {
+				"types": "./dist/preference-evolution.d.ts",
+				"bun": "./dist/preference-evolution.js",
+				"node": "./dist/node/preference-evolution.js",
+				"default": "./dist/preference-evolution.js"
+			},
+			"./preference-evolution-types": {
+				"types": "./dist/preference-evolution-types.d.ts",
+				"bun": "./dist/preference-evolution-types.js",
+				"node": "./dist/node/preference-evolution-types.js",
+				"default": "./dist/preference-evolution-types.js"
+			},
+			"./preference-onboarding": {
+				"types": "./dist/preference-onboarding.d.ts",
+				"bun": "./dist/preference-onboarding.js",
+				"node": "./dist/node/preference-onboarding.js",
+				"default": "./dist/preference-onboarding.js"
+			},
+			"./preference-presets": {
+				"types": "./dist/preference-presets.d.ts",
+				"bun": "./dist/preference-presets.js",
+				"node": "./dist/node/preference-presets.js",
+				"default": "./dist/preference-presets.js"
 			},
 			"./store": {
 				"types": "./dist/store.d.ts",

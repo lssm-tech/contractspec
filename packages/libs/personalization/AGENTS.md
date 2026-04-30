@@ -9,7 +9,7 @@ Mission: keep `@contractspec/lib.personalization` small, deterministic, and sour
 Treat these exports as compatibility surface:
 
 - Root barrel: `./src/index.ts`
-- Runtime subpaths: `./adapter`, `./analyzer`, `./preference-dimensions`, `./store`, `./tracker`, `./types`
+- Runtime subpaths: `./adapter`, `./adaptive-evolution`, `./adaptive-experience`, `./adaptive-onboarding`, `./adaptive-onboarding-scores`, `./analyzer`, `./behavior-signals`, `./behavior-support`, `./behavior-support-preset-definitions`, `./behavior-support-presets`, `./data-view-preferences`, `./personalization.feature`, `./preference-dimensions`, `./preference-evolution`, `./preference-evolution-types`, `./preference-onboarding`, `./preference-presets`, `./store`, `./tracker`, `./types`
 - Docs subpaths: `./docs`, `./docs/behavior-tracking.docblock`, `./docs/overlay-engine.docblock`, `./docs/workflow-composition.docblock`
 
 Stable contracts readers are likely to depend on:
@@ -20,6 +20,7 @@ Stable contracts readers are likely to depend on:
 - `BehaviorAnalyzer`, `BehaviorAnalyzerOptions`, and analysis params
 - `OverlaySuggestionOptions` and `WorkflowAdaptation`
 - `PreferenceDimensions`, `PreferenceScope`, `ResolvedPreferenceProfile`, `PreferenceResolutionContext`, `BundlePreferenceAdapter`
+- `BehaviorSupportDimensions`, `BehaviorSignalModel`, `ResolvedAdaptiveExperience`, `BehaviorSupportPresetId`, and adaptive onboarding/evolution suggestion types
 
 ## Change boundaries
 
@@ -72,6 +73,14 @@ Stable contracts readers are likely to depend on:
 - Treat `preference-dimensions.ts` as cross-package contract work.
 - Check downstream consumers before changing dimension names, allowed values, scope order, or adapter contracts.
 - Keep this file aligned with runtime consumers rather than inventing a parallel preference model here.
+
+### Adaptive experience model
+
+- Keep `PreferenceDimensions` focused on software/tool presentation.
+- Keep `BehaviorSupportDimensions` focused on neutral support strategy, not user identity or psychology.
+- Behavior signals must describe scoped evidence and must not encode moral, clinical, value, or manipulability labels.
+- `ResolvedAdaptiveExperience` is runtime-only. Do not persist it as a hidden user profile.
+- Adaptation suggestions must remain scoped, explainable, reversible, and bounded by permissions, product constraints, and explicit overrides.
 
 ## Docs maintenance rules
 

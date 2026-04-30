@@ -1,0 +1,46 @@
+schemaVersion: "1"
+slug: adaptive-experience-foundation
+summary: Add transparent adaptive-experience primitives to the personalization library.
+isBreaking: false
+packages:
+  - name: "@contractspec/lib.personalization"
+    releaseType: minor
+affectedRuntimes:
+  - browser
+  - bun
+  - node
+affectedFrameworks: []
+audiences:
+  - kind: maintainer
+    summary: Personalization now separates interaction preferences, behavior support strategy, behavior evidence, and runtime adaptive decisions into additive public contracts.
+    affectedPackages:
+      - "@contractspec/lib.personalization"
+  - kind: integrator
+    summary: Apps can recommend editable interaction and behavior support presets, represent behavior signals as scoped evidence, and resolve runtime-only adaptive actions bounded by permissions and policy.
+    affectedPackages:
+      - "@contractspec/lib.personalization"
+  - kind: customer
+    summary: Adaptive experiences can explain what changed, why it changed, and how users can override or undo the change.
+deprecations: []
+migrationInstructions: []
+upgradeSteps:
+  - id: adopt-adaptive-experience-primitives
+    title: Use adaptive experience primitives for transparent personalization
+    summary: Layer behavior support and evidence-based suggestions on top of existing PreferenceDimensions without replacing authorization or business rules.
+    level: optional
+    instructions:
+      - Keep `PreferenceDimensions` focused on software/tool interaction.
+      - Use `BehaviorSupportDimensions` for action, recovery, reflection, and accountability support.
+      - Represent observed behavior with `BehaviorSignalModel` and user-facing reasons.
+      - Resolve `ResolvedAdaptiveExperience` at runtime instead of storing it as a hidden profile.
+validation:
+  commands:
+    - "cd packages/libs/personalization && bun run test"
+    - "cd packages/libs/personalization && bun run typecheck"
+    - "cd packages/libs/personalization && bun run lint:check"
+    - "cd packages/libs/personalization && bun run build"
+  evidence:
+    - "Personalization tests cover behavior support presets, adaptive onboarding, behavior signal safety, runtime resolution, scoped evolution, DataView preferences, and authorization suppression."
+    - "Typecheck and lint validate the additive public API surface."
+knownGaps:
+  - "Durable persistence remains a host-application responsibility; resolved adaptive experience output is intentionally runtime-only."
