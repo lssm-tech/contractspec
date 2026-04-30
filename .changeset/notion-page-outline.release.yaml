@@ -26,7 +26,7 @@ upgradeSteps:
   - id: adopt-floating-page-outline
     title: Use the floating PageOutline variant for wide desktop shells
     summary: AppShell now uses the floating outline automatically on wide desktop and hides it on smaller web layouts; direct PageOutline consumers can still opt in with `variant="floating"` or `variant="compact"`.
-    level: optional
+    level: auto
     instructions:
       - Use `variant="floating"` for direct web PageOutline usage that should reduce when inactive.
       - Keep `variant="rail"` or `variant="compact"` where a static inline outline is still preferred.
