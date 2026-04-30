@@ -1,5 +1,13 @@
 # @contractspec/module.mobile-review
 
+## 0.2.14
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/module.builder-workbench@0.2.14
+
 ## 0.2.13
 
 ### Patch Changes

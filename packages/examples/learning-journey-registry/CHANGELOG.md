@@ -1,5 +1,17 @@
 # @contractspec/example.learning-journey-registry
 
+## 4.0.12
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/example.learning-journey-crm-onboarding@4.0.12
+  - @contractspec/example.learning-journey-ui-coaching@4.0.12
+  - @contractspec/example.learning-journey-ui-gamified@4.0.12
+  - @contractspec/example.learning-journey-ui-onboarding@4.0.12
+  - @contractspec/example.learning-journey-ui-shared@4.0.12
+
 ## 4.0.11
 
 ### Patch Changes

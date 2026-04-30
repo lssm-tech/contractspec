@@ -1,5 +1,15 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 3.7.32
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Improve PageOutline desktop behavior with a Notion-like floating rail, and hide the AppShell page outline on small web screens to preserve layout stability.
+  - @contractspec/lib.example-shared-ui@7.0.9
+  - @contractspec/lib.design-system@4.4.3
+
 ## 3.7.31
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @contractspec/example.video-docs-terminal
 
+## 3.7.32
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/lib.video-gen@3.0.9
+
 ## 3.7.31
 
 ### Patch Changes

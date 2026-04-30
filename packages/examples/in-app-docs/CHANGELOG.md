@@ -1,5 +1,13 @@
 # @contractspec/example.in-app-docs
 
+## 3.7.32
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/lib.example-shared-ui@7.0.9
+
 ## 3.7.31
 
 ### Patch Changes

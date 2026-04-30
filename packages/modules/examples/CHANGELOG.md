@@ -1,5 +1,30 @@
 # @contractspec/module.examples
 
+## 4.0.9
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+  - @contractspec/example.agent-console@3.8.24
+  - @contractspec/example.ai-chat-assistant@3.8.24
+  - @contractspec/example.analytics-dashboard@3.9.24
+  - @contractspec/example.crm-pipeline@3.7.32
+  - @contractspec/example.data-grid-showcase@3.8.24
+  - @contractspec/example.finance-ops-ai-workflows@1.1.4
+  - @contractspec/example.form-showcase@1.1.5
+  - @contractspec/example.in-app-docs@3.7.32
+  - @contractspec/example.integration-hub@3.9.1
+  - @contractspec/example.learning-journey-registry@4.0.12
+  - @contractspec/example.marketplace@3.8.24
+  - @contractspec/example.pocket-family-office@3.8.4
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.32
+  - @contractspec/example.saas-boilerplate@3.8.24
+  - @contractspec/example.visualization-showcase@3.9.24
+  - @contractspec/example.wealth-snapshot@3.8.4
+  - @contractspec/example.workflow-system@3.8.24
+  - @contractspec/lib.example-shared-ui@7.0.9
+
 ## 4.0.8
 
 ### Patch Changes

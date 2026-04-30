@@ -1,5 +1,13 @@
 # @contractspec/module.execution-console
 
+## 0.1.15
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Improve PageOutline desktop behavior with a Notion-like floating rail, and hide the AppShell page outline on small web screens to preserve layout stability.
+  - @contractspec/lib.design-system@4.4.3
+
 ## 0.1.14
 
 ### Patch Changes

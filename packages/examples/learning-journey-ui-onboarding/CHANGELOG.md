@@ -1,5 +1,15 @@
 # @contractspec/example.learning-journey-ui-onboarding
 
+## 4.0.12
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Improve PageOutline desktop behavior with a Notion-like floating rail, and hide the AppShell page outline on small web screens to preserve layout stability.
+  - @contractspec/example.learning-journey-ui-shared@4.0.12
+  - @contractspec/lib.design-system@4.4.3
+
 ## 4.0.11
 
 ### Patch Changes

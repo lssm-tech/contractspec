@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/module.execution-console",
-	"version": "0.1.14",
+	"version": "0.1.15",
 	"description": "Operator-facing execution lane console module.",
 	"keywords": [
 		"contractspec",
