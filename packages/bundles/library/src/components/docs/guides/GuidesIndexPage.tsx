@@ -77,6 +77,13 @@ const guides = [
 		time: '15 min',
 	},
 	{
+		title: 'Adopt provider-backed knowledge',
+		description:
+			'Sync Gmail and Google Drive into governed knowledge spaces with provider checkpoints, tombstones, and mutation gates.',
+		href: '/docs/guides/provider-backed-knowledge',
+		time: '30 min',
+	},
+	{
 		title: 'Author release capsules',
 		description:
 			'Pair changesets with structured release capsules and generate the artifacts that changelog and upgrade flows consume.',

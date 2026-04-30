@@ -1,51 +1,62 @@
 import type {
 	EmailInboundProvider,
 	EmailThread,
-	EmbeddingProvider,
+	EmailThreadListQuery,
 	GetObjectResult,
-	LLMProvider,
-	VectorStoreProvider,
+	GoogleDriveListFilesQuery,
+	GoogleDriveProvider,
+	GoogleDriveWatchInput,
+	GoogleDriveWatchResult,
+	ProviderDeltaSyncState,
 } from '@contractspec/lib.contracts-integrations';
+import {
+	executeGovernedKnowledgeMutation,
+	type KnowledgeMutationExecutionOptions,
+	type KnowledgeMutationRequest,
+	type KnowledgeMutationResult,
+} from './governance';
 import {
 	type DocumentFragment,
 	DocumentProcessor,
 	type RawDocument,
 } from './ingestion/document-processor';
+import {
+	DriveIngestionAdapter,
+	type DriveIngestionResult,
+} from './ingestion/drive-adapter';
 import { EmbeddingService } from './ingestion/embedding-service';
 import { GmailIngestionAdapter } from './ingestion/gmail-adapter';
 import { StorageIngestionAdapter } from './ingestion/storage-adapter';
-import {
-	type VectorIndexConfig,
-	VectorIndexer,
-} from './ingestion/vector-indexer';
+import { VectorIndexer } from './ingestion/vector-indexer';
 import {
 	type KnowledgeAnswer,
-	type KnowledgeQueryConfig,
 	type KnowledgeQueryOptions,
 	KnowledgeQueryService,
 } from './query/service';
 import {
 	createVectorRetriever,
 	type VectorRetriever,
-	type VectorRetrieverConfig,
 } from './retriever/vector-retriever';
+import {
+	type KnowledgeRuntimeConfig,
+	resolveSpaceCollections,
+} from './runtime-config';
+import {
+	type KnowledgeProviderDeltaCheckpointStore,
+	type KnowledgeProviderSyncOptions,
+	syncDriveProvider,
+	syncGmailProvider,
+	watchDriveProvider,
+} from './runtime-provider-sync';
 import type { RetrievalOptions, RetrievalResult } from './types';
 
-export interface KnowledgeRuntimeConfig extends VectorIndexConfig {
-	embeddings: EmbeddingProvider;
-	vectorStore: VectorStoreProvider;
-	llm?: LLMProvider;
-	gmail?: EmailInboundProvider;
-	spaceKey?: string;
-	spaceCollections?: VectorRetrieverConfig['spaceCollections'];
-	staticContent?: VectorRetrieverConfig['staticContent'];
-	defaultTopK?: number;
-	defaultMinScore?: number;
-	embeddingBatchSize?: number;
-	systemPrompt?: KnowledgeQueryConfig['systemPrompt'];
-	locale?: KnowledgeQueryConfig['locale'];
-	processor?: DocumentProcessor;
-}
+export type { KnowledgeRuntimeConfig } from './runtime-config';
+export type {
+	KnowledgeProviderDeltaCheckpoint,
+	KnowledgeProviderDeltaCheckpointKey,
+	KnowledgeProviderDeltaCheckpointStore,
+	KnowledgeProviderSyncOptions,
+} from './runtime-provider-sync';
 
 export class KnowledgeRuntime {
 	readonly processor: DocumentProcessor;
@@ -55,6 +66,8 @@ export class KnowledgeRuntime {
 	readonly queryService?: KnowledgeQueryService;
 
 	private readonly gmail?: EmailInboundProvider;
+	private readonly drive?: GoogleDriveProvider;
+	private readonly deltaCheckpointStore?: KnowledgeProviderDeltaCheckpointStore;
 	private readonly locale?: string;
 
 	constructor(private readonly config: KnowledgeRuntimeConfig) {
@@ -91,6 +104,8 @@ export class KnowledgeRuntime {
 				)
 			: undefined;
 		this.gmail = config.gmail;
+		this.drive = config.drive;
+		this.deltaCheckpointStore = config.deltaCheckpointStore;
 		this.locale = config.locale;
 	}
 
@@ -115,6 +130,63 @@ export class KnowledgeRuntime {
 		query?: Parameters<EmailInboundProvider['listThreads']>[0]
 	): Promise<void> {
 		await this.createGmailAdapter().syncThreads(query);
+	}
+
+	async syncGmail(
+		query?: EmailThreadListQuery,
+		options: KnowledgeProviderSyncOptions = {}
+	): Promise<{ threadsIndexed: number; delta?: ProviderDeltaSyncState }> {
+		const provider = this.gmail;
+		if (!provider) {
+			throw new Error(
+				'KnowledgeRuntime.syncGmail() requires an EmailInboundProvider.'
+			);
+		}
+		return syncGmailProvider({
+			provider,
+			query,
+			options,
+			context: { checkpointStore: this.deltaCheckpointStore },
+			adapter: this.createGmailAdapter(provider),
+		});
+	}
+
+	async syncDriveFiles(
+		query?: GoogleDriveListFilesQuery,
+		options: KnowledgeProviderSyncOptions = {}
+	): Promise<DriveIngestionResult> {
+		return syncDriveProvider({
+			query,
+			options,
+			context: { checkpointStore: this.deltaCheckpointStore },
+			adapter: this.createDriveAdapter(),
+		});
+	}
+
+	async watchDriveChanges(
+		input: GoogleDriveWatchInput,
+		options: KnowledgeProviderSyncOptions = {}
+	): Promise<GoogleDriveWatchResult> {
+		const provider = this.drive;
+		if (!provider) {
+			throw new Error(
+				'KnowledgeRuntime.watchDriveChanges() requires a GoogleDriveProvider.'
+			);
+		}
+		return watchDriveProvider({
+			provider,
+			input,
+			options,
+			context: { checkpointStore: this.deltaCheckpointStore },
+		});
+	}
+
+	async runGovernedMutation<T>(
+		request: KnowledgeMutationRequest,
+		execute: () => Promise<T>,
+		options?: KnowledgeMutationExecutionOptions
+	): Promise<KnowledgeMutationResult<T>> {
+		return executeGovernedKnowledgeMutation(request, execute, options);
 	}
 
 	async retrieve(
@@ -158,21 +230,21 @@ export class KnowledgeRuntime {
 			this.locale
 		);
 	}
-}
 
-export function createKnowledgeRuntime(
-	config: KnowledgeRuntimeConfig
-): KnowledgeRuntime {
-	return new KnowledgeRuntime(config);
-}
-
-function resolveSpaceCollections(
-	config: KnowledgeRuntimeConfig
-): VectorRetrieverConfig['spaceCollections'] {
-	if (config.spaceCollections) {
-		return config.spaceCollections;
+	createDriveAdapter(provider = this.drive): DriveIngestionAdapter {
+		if (!provider) {
+			throw new Error(
+				'KnowledgeRuntime.createDriveAdapter() requires a GoogleDriveProvider.'
+			);
+		}
+		return new DriveIngestionAdapter(
+			provider,
+			this.processor,
+			this.embeddingService,
+			this.indexer
+		);
 	}
-	return {
-		[config.spaceKey ?? 'default']: config.collection,
-	};
 }
+
+export const createKnowledgeRuntime = (config: KnowledgeRuntimeConfig) =>
+	new KnowledgeRuntime(config);

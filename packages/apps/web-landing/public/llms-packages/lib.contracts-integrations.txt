@@ -21,6 +21,7 @@ This package owns the contract layer for external integrations:
 - Runtime guards and health/telemetry helpers.
 - Secret provider abstraction and secret-provider manager.
 - Capability-level provider interfaces such as `LLMProvider` and `VectorStoreProvider`.
+- Provider delta contracts for cursor, lease, webhook, replay, dedupe, idempotency, and tombstone state.
 - Shipped provider/domain spec registrations.
 - Integration connection operations contracts.
 
@@ -99,6 +100,39 @@ Typical flow:
 3. Bind tenant connections and secret references outside this package.
 4. Resolve secrets and execute guarded runtime calls through `IntegrationCallGuard`.
 
+### Model provider delta sync state
+
+```ts
+import type {
+  ProviderDeltaSyncState,
+} from "@contractspec/lib.contracts-integrations/integrations/providers/provider-delta";
+
+const delta: ProviderDeltaSyncState = {
+  lease: {
+    holder: "knowledge-sync-worker",
+    expiresAt: "2026-04-30T13:00:00.000Z",
+    renewalWindowMs: 60_000,
+  },
+  cursor: {
+    cursor: "gmail-history-123",
+    watermarkVersion: "history-v1",
+  },
+  webhookChannel: {
+    channelId: "google-channel-1",
+    resourceId: "google-resource-1",
+    expiresAt: "2026-04-30T14:00:00.000Z",
+  },
+  providerEventId: "provider-event-1",
+  dedupeKey: "gmail:provider-event-1",
+  idempotencyKey: "tenant:gmail:provider-event-1",
+  replayCheckpoint: {
+    checkpointId: "replay-1",
+  },
+};
+```
+
+Delta-aware providers should attach this state before runtime sync starts so callers can renew leases, resume from provider cursors/watermarks, preserve webhook expiry, dedupe provider events, run idempotently, replay from checkpoints, and skip tombstoned source records.
+
 ## API map
 
 ### Spec model and registries
@@ -143,7 +177,12 @@ Typical flow:
   - `VectorStoreProvider`
   - `EmailInboundProvider`
   - `EmailOutboundProvider`
+  - `GoogleDriveProvider`
   - `ObjectStorageProvider`
+- Delta-aware provider contracts:
+  - `ProviderDeltaSyncState`
+  - `ProviderDeltaEnvelope`
+  - `isProviderDeltaTombstoned`
 
 ## Public surface
 
@@ -173,6 +212,8 @@ Use the README as a guide to the main clusters. Use `package.json` as the author
 - `IntegrationHealthService.check()` returns structured results instead of throwing health failures upward.
 - Registry filters only match specs that explicitly declare auth methods, transports, version policies, or BYOK support.
 - Credential manifests describe required config and secret references per ownership mode; they do not carry raw credential values.
+- `ProviderDeltaSyncState` is the shared contract for sync leases, provider cursors/watermarks, webhook channel expiry, replay checkpoints, dedupe/idempotency keys, provider event IDs, and tombstones.
+- Gmail and Google Drive specs advertise `provider.delta.watch`; Drive also advertises `knowledge.ingestion.drive`.
 - This package defines contracts and shipped spec registrations. SDK-backed implementations live elsewhere.
 
 ## When not to use this package

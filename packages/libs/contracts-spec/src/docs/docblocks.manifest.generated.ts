@@ -646,6 +646,22 @@ export const contractsSpecDocManifest = {
 			},
 		},
 		{
+			id: 'docs.tech.contracts.knowledge-provider-backed',
+			exportName: 'tech_contracts_knowledge_DocBlocks',
+			sourceModule: 'knowledge/spec',
+			block: {
+				id: 'docs.tech.contracts.knowledge-provider-backed',
+				title: 'Provider-backed knowledge',
+				summary:
+					'Provider-backed knowledge syncs Gmail and Google Drive through explicit provider delta and mutation governance evidence.',
+				kind: 'reference',
+				visibility: 'public',
+				route: '/docs/tech/contracts/knowledge-provider-backed',
+				tags: ['tech', 'contracts', 'knowledge', 'integrations'],
+				body: '# Provider-backed knowledge\n\nProvider-backed knowledge starts from the same `KnowledgeSpaceSpec` and\n`KnowledgeSourceConfig` surfaces, then adds explicit provider delta and\nmutation governance evidence before runtime sync begins.\n\nGmail and Google Drive ingestion should persist `ProviderDeltaSyncState` per\nsource so leases, cursors, webhook channel expiry, provider event IDs,\ndedupe/idempotency keys, replay checkpoints, and tombstones survive retries.\n\nExternal mutations should route through\n`knowledge.mutation.evaluateGovernance` or\n`@contractspec/lib.knowledge/governance` so dry-runs, approval refs,\nidempotency keys, audit evidence, and outbound-send gates are recorded before\nprovider writes happen.',
+			},
+		},
+		{
 			id: 'docs.tech.contracts.migrations',
 			exportName: 'tech_contracts_migrations_DocBlocks',
 			sourceModule: 'migrations',

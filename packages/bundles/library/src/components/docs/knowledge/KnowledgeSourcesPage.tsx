@@ -231,6 +231,43 @@ export function KnowledgeSourcesPage() {
 			</div>
 
 			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Provider delta state</h2>
+				<p className="text-muted-foreground">
+					Runtime-backed providers should persist a{' '}
+					<strong>ProviderDeltaSyncState</strong> per source before sync work is
+					acknowledged. Gmail and Google Drive adapters use that checkpoint to
+					resume cursors, renew watches, skip tombstones, dedupe webhook events,
+					and replay from a known point after retries.
+				</p>
+				<div className="overflow-x-auto rounded-lg border border-border bg-background/50 p-4 font-mono text-muted-foreground text-sm">
+					<pre>{`type ProviderDeltaSyncState = {
+  lease?: { holder: string; expiresAt: string; renewalWindowMs: number };
+  cursor?: { cursor?: string; watermark?: string; watermarkVersion?: string };
+  webhookChannel?: { channelId: string; resourceId?: string; expiresAt?: string };
+  providerEventId?: string;
+  dedupeKey?: string;
+  idempotencyKey?: string;
+  replayCheckpoint?: { checkpointId: string; sequence?: string | number };
+  tombstone?: { deletedAt: string; reason?: string };
+};`}</pre>
+				</div>
+				<div className="flex flex-wrap gap-3">
+					<Link href="/docs/integrations/gmail" className="btn-ghost">
+						Gmail integration
+					</Link>
+					<Link href="/docs/integrations/google-drive" className="btn-ghost">
+						Google Drive integration
+					</Link>
+					<Link
+						href="/docs/guides/provider-backed-knowledge"
+						className="btn-ghost"
+					>
+						Provider-backed guide
+					</Link>
+				</div>
+			</div>
+
+			<div className="space-y-4">
 				<h2 className="font-bold text-2xl">Best practices</h2>
 				<ul className="list-inside list-disc space-y-2 text-muted-foreground">
 					<li>
@@ -247,6 +284,14 @@ export function KnowledgeSourcesPage() {
 						Document the purpose and ownership of each source for your team
 					</li>
 					<li>Use manual sync for sensitive or infrequently updated content</li>
+					<li>
+						Run external mutations through{' '}
+						<Link href="/docs/knowledge/governance" className="text-primary">
+							knowledge mutation governance
+						</Link>{' '}
+						before sending email, changing Drive permissions, or repairing
+						replay state.
+					</li>
 				</ul>
 			</div>
 

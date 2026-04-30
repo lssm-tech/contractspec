@@ -2,6 +2,7 @@ import type {
 	EmailInboundProvider,
 	EmailThread,
 } from '@contractspec/lib.contracts-integrations';
+import { isProviderDeltaTombstoned } from '@contractspec/lib.contracts-integrations';
 import type { KnowledgeI18n } from '../i18n/messages';
 import { createKnowledgeI18n, getDefaultI18n } from '../i18n/messages';
 import type { DocumentProcessor, RawDocument } from './document-processor';
@@ -31,6 +32,9 @@ export class GmailIngestionAdapter {
 	}
 
 	async ingestThread(thread: EmailThread) {
+		if (isProviderDeltaTombstoned(thread.delta)) {
+			return;
+		}
 		const document = this.toRawDocument(thread);
 		const fragments = await this.processor.process(document);
 		const embeddings = await this.embeddings.embedFragments(fragments);

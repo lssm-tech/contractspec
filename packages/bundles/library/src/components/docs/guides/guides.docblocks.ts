@@ -120,6 +120,26 @@ Use the generated manifest and chunks under \`docs-index.manifest.json\` and \`d
 
 Run ContractSpec CI checks to detect drift and breaking changes before merge.`,
 	},
+	{
+		id: 'docs.guides.provider-backed-knowledge',
+		title: 'Adopt provider-backed knowledge',
+		summary:
+			'Ingest Gmail and Google Drive with persisted deltas, replay checkpoints, tombstones, and mutation governance.',
+		kind: 'usage',
+		visibility: 'public',
+		route: '/docs/guides/provider-backed-knowledge',
+		tags: ['guides', 'knowledge', 'integrations', 'governance'],
+		body: `# Adopt provider-backed knowledge
+
+Use \`@contractspec/lib.knowledge\` with Gmail and Google Drive providers to sync external knowledge through explicit \`ProviderDeltaSyncState\` checkpoints.
+
+## Production baseline
+
+- Persist provider cursor, watermark, webhook, replay, dedupe, idempotency, and tombstone state per source.
+- Register \`knowledge.mutation.evaluateGovernance\` for mutation approval and audit evidence.
+- Gate outbound sends and provider mutations through dry-run, approval, idempotency, and audit checks.
+- Keep Connect review packets tied to the provider source and mutation evidence refs.`,
+	},
 ];
 
 registerDocBlocks(guideDocBlocks);

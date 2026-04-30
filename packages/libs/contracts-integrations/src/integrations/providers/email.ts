@@ -1,3 +1,5 @@
+import type { ProviderDeltaSyncState } from './provider-delta';
+
 export interface EmailAddress {
 	email: string;
 	name?: string;
@@ -42,6 +44,7 @@ export interface EmailThread {
 	updatedAt: Date;
 	labels?: string[];
 	metadata?: Record<string, string>;
+	delta?: ProviderDeltaSyncState;
 }
 
 export interface EmailMessage {
@@ -69,6 +72,7 @@ export interface EmailThreadListQuery {
 	pageToken?: string;
 	includeArchived?: boolean;
 	updatedSince?: Date;
+	delta?: ProviderDeltaSyncState;
 }
 
 export interface EmailMessagesSinceQuery {
@@ -76,6 +80,7 @@ export interface EmailMessagesSinceQuery {
 	since?: Date;
 	pageSize?: number;
 	pageToken?: string;
+	delta?: ProviderDeltaSyncState;
 }
 
 export interface EmailOutboundProvider {

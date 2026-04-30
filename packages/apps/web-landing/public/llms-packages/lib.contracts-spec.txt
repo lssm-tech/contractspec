@@ -257,6 +257,7 @@ Those settings are consumed by the shared setup layer used by the CLI, VS Code e
 - Theme color tokens may carry `format` metadata such as `oklch`, with CSS color strings passed through to design-system bridges.
 - Route `app-config`, `feature`, and `theme` checks through the package-level validators above when building setup, editor, or CI automation.
 - Use `connect.adoption` and the broader authoring-target discovery flows when the CLI or editors should prefer existing workspace or ContractSpec surfaces before scaffolding new code.
+- Use `knowledge.mutation.evaluateGovernance` when provider-backed knowledge writes need a contracted dry-run, approval, idempotency, audit-evidence, or outbound-send decision surface before runtime mutation.
 
 ## Migration Note
 

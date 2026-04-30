@@ -3,6 +3,7 @@ import { OperationSpecRegistry } from '../operations/registry';
 import {
 	CreateKnowledgeSource,
 	DeleteKnowledgeSource,
+	EvaluateKnowledgeMutationGovernance,
 	ListKnowledgeSources,
 	registerKnowledgeContracts,
 	TriggerKnowledgeSourceSync,
@@ -27,6 +28,9 @@ describe('knowledge contracts', () => {
 		);
 		expect(registry.get('knowledge.source.triggerSync', '1.0.0')).toBe(
 			TriggerKnowledgeSourceSync
+		);
+		expect(registry.get('knowledge.mutation.evaluateGovernance', '1.0.0')).toBe(
+			EvaluateKnowledgeMutationGovernance
 		);
 	});
 });

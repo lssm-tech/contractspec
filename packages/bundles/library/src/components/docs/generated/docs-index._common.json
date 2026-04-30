@@ -1393,6 +1393,22 @@
     "visibility": "public"
   },
   {
+    "id": "docs.tech.contracts.knowledge-provider-backed",
+    "title": "Provider-backed knowledge",
+    "summary": "Provider-backed knowledge syncs Gmail and Google Drive through explicit provider delta and mutation governance evidence.",
+    "route": "/docs/tech/contracts/knowledge-provider-backed",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/contracts/knowledge-provider-backed.md",
+    "tags": [
+      "tech",
+      "contracts",
+      "knowledge",
+      "integrations"
+    ],
+    "kind": "reference",
+    "visibility": "public"
+  },
+  {
     "id": "docs.tech.contracts.migrations",
     "title": "MigrationSpec Overview",
     "summary": "`MigrationSpec` provides a declarative plan for schema/data/validation steps so migrations can be generated, reviewed, and executed safely by tooling. Each spec captures ownership metadata, ordered up/down steps, and optional dependency information. Runtime tooling can consume the spec to run SQL/data scripts with pre/post checks and produce audit logs.",
@@ -1478,6 +1494,22 @@
       "tech",
       "contracts",
       "presentations-conventions"
+    ],
+    "kind": "reference",
+    "visibility": "public"
+  },
+  {
+    "id": "docs.tech.contracts.pwa-updates",
+    "title": "PWA update management",
+    "summary": "Configure frontend update checks with app defaults and release overrides.",
+    "route": "/docs/tech/contracts/pwa-updates",
+    "source": "docblock",
+    "contentPath": "docblocks/docs/tech/contracts/pwa-updates.md",
+    "tags": [
+      "tech",
+      "contracts",
+      "pwa",
+      "updates"
     ],
     "kind": "reference",
     "visibility": "public"

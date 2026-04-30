@@ -17,6 +17,16 @@ const knowledgeTracks = [
 		href: '/docs/knowledge/sources',
 	},
 	{
+		title: 'Governance',
+		body: 'Gate provider-backed mutations with dry-runs, approvals, idempotency, audit evidence, and outbound-send policy.',
+		href: '/docs/knowledge/governance',
+	},
+	{
+		title: 'Provider-backed adoption',
+		body: 'Wire Gmail and Google Drive ingestion through checkpointed deltas, tombstones, watches, and Connect evidence.',
+		href: '/docs/guides/provider-backed-knowledge',
+	},
+	{
 		title: 'Examples',
 		body: 'See how support, compliance, and product systems consume trusted knowledge at runtime.',
 		href: '/docs/knowledge/examples',

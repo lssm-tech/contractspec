@@ -3,6 +3,7 @@ export { IntegrationsElevenLabsPage } from './IntegrationsElevenLabsPage';
 export { IntegrationsGithubPage } from './IntegrationsGithubPage';
 export { IntegrationsGmailPage } from './IntegrationsGmailPage';
 export { IntegrationsGoogleCalendarPage } from './IntegrationsGoogleCalendarPage';
+export { IntegrationsGoogleDrivePage } from './IntegrationsGoogleDrivePage';
 export { IntegrationsHealthRoutingPage } from './IntegrationsHealthRoutingPage';
 export { IntegrationsMistralPage } from './IntegrationsMistralPage';
 export { IntegrationsOpenAIPage } from './IntegrationsOpenAIPage';

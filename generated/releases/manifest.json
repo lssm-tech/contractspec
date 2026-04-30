@@ -1,40 +1,73 @@
 {
-  "generatedAt": "2026-04-29T00:00:00.000Z",
+  "generatedAt": "2026-04-30T00:00:00.000Z",
   "releases": [
     {
-      "slug": "notion-page-outline",
-      "version": "4.4.3",
-      "summary": "Improve PageOutline desktop behavior with a Notion-like floating rail, and hide the AppShell page outline on small web screens to preserve layout stability.",
-      "date": "2026-04-29",
+      "slug": "knowledge-provider-delta-orchestration",
+      "version": "3.9.0",
+      "summary": "Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.",
+      "date": "2026-04-30",
       "isBreaking": false,
       "packages": [
         {
-          "name": "@contractspec/lib.design-system",
+          "name": "@contractspec/lib.contracts-integrations",
+          "releaseType": "minor",
+          "version": "3.9.0"
+        },
+        {
+          "name": "@contractspec/lib.contracts-spec",
+          "releaseType": "minor",
+          "version": "6.3.0"
+        },
+        {
+          "name": "@contractspec/lib.knowledge",
+          "releaseType": "minor",
+          "version": "3.8.4"
+        },
+        {
+          "name": "@contractspec/bundle.library",
           "releaseType": "patch",
-          "version": "4.4.3"
+          "version": "3.10.1"
+        },
+        {
+          "name": "@contractspec/bundle.marketing",
+          "releaseType": "patch",
+          "version": "3.8.25"
+        },
+        {
+          "name": "@contractspec/app.web-landing",
+          "releaseType": "patch"
+        },
+        {
+          "name": "@contractspec/example.knowledge-canon",
+          "releaseType": "patch",
+          "version": "3.8.4"
         }
       ],
       "affectedRuntimes": [
-        "browser",
-        "react-native"
+        "bun",
+        "node"
       ],
-      "affectedFrameworks": [
-        "react",
-        "react-native"
-      ],
+      "affectedFrameworks": [],
       "audiences": [
         {
-          "kind": "integrator",
-          "summary": "AppShell consumers get a floating desktop PageOutline that no longer reserves a right content column, while small web screens hide the outline instead of rendering a compact dialog.",
+          "kind": "maintainer",
+          "summary": "Maintainers get shared delta sync contracts and package-local tests for Gmail/Drive ingestion and governed mutations.",
           "affectedPackages": [
-            "@contractspec/lib.design-system"
+            "@contractspec/lib.contracts-integrations",
+            "@contractspec/lib.contracts-spec",
+            "@contractspec/lib.knowledge",
+            "@contractspec/bundle.library",
+            "@contractspec/app.web-landing"
           ]
         },
         {
-          "kind": "maintainer",
-          "summary": "Design-system maintainers can opt PageOutline into a floating variant while preserving existing rail and compact variants for direct component usage.",
+          "kind": "integrator",
+          "summary": "Integrators can model provider leases, cursors, webhook expiry, dedupe/idempotency, replay checkpoints, tombstones, Drive files, and governed outbound mutations before wiring runtime sync.",
           "affectedPackages": [
-            "@contractspec/lib.design-system"
+            "@contractspec/lib.contracts-integrations",
+            "@contractspec/lib.contracts-spec",
+            "@contractspec/lib.knowledge",
+            "@contractspec/bundle.library"
           ]
         }
       ],
@@ -42,27 +75,48 @@
       "migrationInstructions": [],
       "upgradeSteps": [
         {
-          "id": "adopt-floating-page-outline",
-          "title": "Use the floating PageOutline variant for wide desktop shells",
-          "summary": "AppShell now uses the floating outline automatically on wide desktop and hides it on smaller web layouts; direct PageOutline consumers can still opt in with `variant=\"floating\"` or `variant=\"compact\"`.",
-          "level": "auto",
+          "id": "adopt-provider-delta-state",
+          "title": "Attach delta state before runtime sync",
+          "summary": "Use `ProviderDeltaSyncState` for provider cursors, leases, webhook expiry, dedupe, idempotency, replay, and tombstone state.",
+          "level": "manual",
           "instructions": [
-            "Use `variant=\"floating\"` for direct web PageOutline usage that should reduce when inactive.",
-            "Keep `variant=\"rail\"` or `variant=\"compact\"` where a static inline outline is still preferred.",
-            "Place any custom small-screen outline UI outside AppShell if a product needs one."
+            "Pass provider cursor or watermark state into Gmail and Drive sync calls.",
+            "Persist returned delta state before acknowledging runtime sync work.",
+            "Skip or delete records marked with tombstones before re-indexing."
+          ]
+        },
+        {
+          "id": "gate-external-knowledge-mutations",
+          "title": "Gate knowledge mutations before provider writes",
+          "summary": "Wrap external writes with `executeGovernedKnowledgeMutation(...)` so dry-runs, approvals, idempotency, audit evidence, and outbound-send gates are explicit.",
+          "level": "manual",
+          "instructions": [
+            "Use `dryRun` for preview-only flows.",
+            "Provide `idempotencyKey` and `auditEvidence.evidenceRef` for non-dry-run mutations.",
+            "Require approval refs and an approved outbound-send gate before sending external messages."
           ]
         }
       ],
       "validation": {
         "commands": [
-          "cd packages/libs/design-system && bun run test",
-          "cd packages/libs/design-system && bun run typecheck",
-          "cd packages/libs/design-system && bun run lint:check"
+          "bun test packages/libs/contracts-integrations/src/integrations/providers/provider-delta.test.ts packages/libs/contracts-integrations/src/integrations/providers/providers.test.ts",
+          "cd packages/libs/knowledge && bun run test && bun run typecheck && bun run lint:check",
+          "cd packages/libs/contracts-integrations && bun run typecheck && bun run lint:check",
+          "cd packages/libs/contracts-spec && bun run test src/knowledge/operations.test.ts && bun run typecheck && bun run lint:check",
+          "cd packages/bundles/library && bun run typecheck && bun run lint:check",
+          "cd packages/bundles/marketing && bun run typecheck && bun run lint:check",
+          "cd packages/apps/web-landing && bun run build:types && bun run lint:check",
+          "bun run docs:generate && bun run release:build",
+          "cd packages/apps/web-landing && bun run llms:generate",
+          "bun run release:check"
         ],
         "evidence": [
-          "PageOutline render coverage exercises floating, rail, compact, anchors, and active state.",
-          "AppShell render coverage confirms page content no longer reserves the fixed right outline column.",
-          "AppShell coverage confirms the small-screen outline trigger and compact dialog path are not rendered."
+          "`ProviderDeltaSyncState` models lease holder/expiry, renewal windows, cursors/watermark versions, webhook expiry, provider event IDs, dedupe/idempotency, replay checkpoints, and tombstones.",
+          "`googleDriveIntegrationSpec` registers `storage.google-drive` with Drive ingestion and provider delta watch capabilities.",
+          "`KnowledgeRuntime.syncGmail()`, `KnowledgeRuntime.syncDriveFiles()`, and `KnowledgeRuntime.watchDriveChanges()` load and save checkpoint deltas before acknowledging sync work.",
+          "`knowledge.mutation.evaluateGovernance` exposes mutation governance as a ContractSpec operation for Connect, ops, and review packets.",
+          "`executeGovernedKnowledgeMutation()` blocks missing evidence, preserves dry-runs, gates outbound sends behind approvals, and returns an audit envelope.",
+          "Web docs include the provider-backed knowledge guide, Google Drive integration page, knowledge governance page, docblock entry, generated docs, release artifacts, and `/llms*` outputs."
         ]
       }
     }

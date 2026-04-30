@@ -1,6 +1,7 @@
 import type { CapabilityRef, CapabilityRegistry } from '../capabilities';
 import type { DataViewRegistry } from '../data-views';
 import type { KnowledgeSourceConfig } from '../knowledge/source';
+import { isKnowledgeSourceAvailableForBinding } from '../knowledge/source';
 import type { KnowledgeSpaceRegistry } from '../knowledge/spec';
 import type {
 	BlueprintTranslationCatalog,
@@ -629,13 +630,12 @@ const tenantKnowledgeRule: TenantRule = {
 				return;
 			}
 
-			const hasSources = sources.some((source) => {
-				if (source.meta.spaceKey !== binding.spaceKey) return false;
-				if (binding.spaceVersion != null) {
-					return source.meta.spaceVersion === binding.spaceVersion;
-				}
-				return true;
-			});
+			const hasSources = sources.some((source) =>
+				isKnowledgeSourceAvailableForBinding(source, binding, {
+					tenantId: tenant.meta.tenantId,
+					environment: tenant.meta.environment,
+				})
+			);
 
 			if (!hasSources) {
 				issues.push(

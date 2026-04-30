@@ -13,6 +13,7 @@ Treat these clusters as compatibility surface:
 - runtime and health
 - secrets
 - provider interfaces
+- provider delta contracts
 - shipped provider and domain subpaths
 - integration connection operations
 
@@ -28,8 +29,9 @@ Stable APIs readers are likely to depend on:
 - `SecretProvider`, `SecretProviderManager`, `SecretProviderError`
 - `parseSecretUri`, `normalizeSecretPayload`
 - `createDefaultIntegrationSpecRegistry` and registry filter helpers
+- `ProviderDeltaSyncState`, `ProviderDeltaEnvelope`, `isProviderDeltaTombstoned`
 - `CreateIntegrationConnection`, `UpdateIntegrationConnection`, `DeleteIntegrationConnection`, `ListIntegrationConnections`, `TestIntegrationConnection`
-- key provider interfaces such as `LLMProvider`, `EmbeddingProvider`, `VectorStoreProvider`, `EmailInboundProvider`, `EmailOutboundProvider`, and `ObjectStorageProvider`
+- key provider interfaces such as `LLMProvider`, `EmbeddingProvider`, `VectorStoreProvider`, `EmailInboundProvider`, `EmailOutboundProvider`, `GoogleDriveProvider`, and `ObjectStorageProvider`
 
 ## Change boundaries
 
@@ -48,6 +50,7 @@ Stable APIs readers are likely to depend on:
 - `IntegrationCallGuard` retry, telemetry, and connection-readiness semantics must remain predictable.
 - Version negotiation semantics stay `connection override -> policy default`.
 - Shipped provider registration helpers must not silently drop or rename existing providers.
+- Delta-aware providers must model lease holder/expiry, renewal windows, cursor/watermark versions, webhook channel/resource expiry, provider event IDs, dedupe keys, idempotency keys, replay checkpoints, and tombstones before runtime sync starts.
 - This package defines contracts and shipped spec registrations, not SDK-backed implementations.
 
 ## Editing guidance by area
@@ -81,6 +84,8 @@ Stable APIs readers are likely to depend on:
 - Treat provider interface changes as contract work with broad downstream impact.
 - Keep capability-level interfaces provider-agnostic.
 - Avoid leaking implementation-specific SDK details into shared interfaces.
+- Keep provider delta state generic enough for Gmail, Drive, messaging, storage, and future providers.
+- Tombstone helpers must fail closed for deleted records so ingestion layers can skip indexing before runtime sync continues.
 
 ### Domain contracts and operations
 

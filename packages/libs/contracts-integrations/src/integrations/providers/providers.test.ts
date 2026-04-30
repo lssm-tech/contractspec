@@ -6,6 +6,11 @@ import {
 	firefliesIntegrationSpec,
 	registerFirefliesIntegration,
 } from './fireflies';
+import { gmailIntegrationSpec, registerGmailIntegration } from './gmail';
+import {
+	googleDriveIntegrationSpec,
+	registerGoogleDriveIntegration,
+} from './google-drive';
 import { gradiumIntegrationSpec, registerGradiumIntegration } from './gradium';
 import { granolaIntegrationSpec, registerGranolaIntegration } from './granola';
 import { jiraIntegrationSpec, registerJiraIntegration } from './jira';
@@ -79,6 +84,46 @@ describe('integration provider specs', () => {
 		expect(registered?.secretSchema.schema).toMatchObject({
 			required: ['serverToken'],
 		});
+	});
+
+	it('registers Gmail integration with delta watch capability', () => {
+		const registry = registerGmailIntegration(new IntegrationSpecRegistry());
+		const registered = registry.get('email.gmail', '1.0.0');
+		expect(registered).toBe(gmailIntegrationSpec);
+		expect(registered?.capabilities.provides).toEqual(
+			expect.arrayContaining([
+				{ key: 'email.inbound', version: '1.0.0' },
+				{ key: 'email.outbound', version: '1.0.0' },
+				{ key: 'provider.delta.watch', version: '1.0.0' },
+			])
+		);
+		expect(registered?.configSchema.schema).toMatchObject({
+			properties: expect.objectContaining({
+				historyCursor: expect.any(Object),
+				webhookTopic: expect.any(Object),
+			}),
+		});
+	});
+
+	it('registers Google Drive integration', () => {
+		const registry = registerGoogleDriveIntegration(
+			new IntegrationSpecRegistry()
+		);
+		const registered = registry.get('storage.google-drive', '1.0.0');
+		expect(registered).toBe(googleDriveIntegrationSpec);
+		expect(registered?.capabilities.provides).toEqual(
+			expect.arrayContaining([
+				{ key: 'storage.objects', version: '1.0.0' },
+				{ key: 'knowledge.ingestion.drive', version: '1.0.0' },
+				{ key: 'provider.delta.watch', version: '1.0.0' },
+			])
+		);
+		expect(registered?.supportedAuthMethods).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({ type: 'oauth2' }),
+				expect.objectContaining({ type: 'service-account' }),
+			])
+		);
 	});
 
 	it('registers Qdrant integration', () => {

@@ -16,6 +16,7 @@ import { registerGarminIntegration } from './garmin';
 import { registerGcsStorageIntegration } from './gcs-storage';
 import { registerGmailIntegration } from './gmail';
 import { registerGoogleCalendarIntegration } from './google-calendar';
+import { registerGoogleDriveIntegration } from './google-drive';
 import { registerGradiumIntegration } from './gradium';
 import { registerGranolaIntegration } from './granola';
 import { registerJiraIntegration } from './jira';
@@ -66,6 +67,7 @@ export function createDefaultIntegrationSpecRegistry(): IntegrationSpecRegistry 
 	registerFalIntegration(registry);
 	registerGmailIntegration(registry);
 	registerGoogleCalendarIntegration(registry);
+	registerGoogleDriveIntegration(registry);
 	registerPosthogIntegration(registry);
 	registerTwilioSmsIntegration(registry);
 	registerMessagingSlackIntegration(registry);

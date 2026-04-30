@@ -105,6 +105,7 @@
 		"./integrations/providers/gcs-storage": "./src/integrations/providers/gcs-storage.ts",
 		"./integrations/providers/gmail": "./src/integrations/providers/gmail.ts",
 		"./integrations/providers/google-calendar": "./src/integrations/providers/google-calendar.ts",
+		"./integrations/providers/google-drive": "./src/integrations/providers/google-drive.ts",
 		"./integrations/providers/gradium": "./src/integrations/providers/gradium.ts",
 		"./integrations/providers/granola": "./src/integrations/providers/granola.ts",
 		"./integrations/providers/health": "./src/integrations/providers/health.ts",
@@ -137,6 +138,7 @@
 		"./integrations/providers/postmark": "./src/integrations/providers/postmark.ts",
 		"./integrations/providers/powens": "./src/integrations/providers/powens.ts",
 		"./integrations/providers/project-management": "./src/integrations/providers/project-management.ts",
+		"./integrations/providers/provider-delta": "./src/integrations/providers/provider-delta.ts",
 		"./integrations/providers/qdrant": "./src/integrations/providers/qdrant.ts",
 		"./integrations/providers/registry": "./src/integrations/providers/registry.ts",
 		"./integrations/providers/sms": "./src/integrations/providers/sms.ts",
@@ -559,6 +561,12 @@
 				"node": "./dist/node/integrations/providers/google-calendar.js",
 				"default": "./dist/integrations/providers/google-calendar.js"
 			},
+			"./integrations/providers/google-drive": {
+				"types": "./dist/integrations/providers/google-drive.d.ts",
+				"bun": "./dist/integrations/providers/google-drive.js",
+				"node": "./dist/node/integrations/providers/google-drive.js",
+				"default": "./dist/integrations/providers/google-drive.js"
+			},
 			"./integrations/providers/gradium": {
 				"types": "./dist/integrations/providers/gradium.d.ts",
 				"bun": "./dist/integrations/providers/gradium.js",
@@ -750,6 +758,12 @@
 				"bun": "./dist/integrations/providers/project-management.js",
 				"node": "./dist/node/integrations/providers/project-management.js",
 				"default": "./dist/integrations/providers/project-management.js"
+			},
+			"./integrations/providers/provider-delta": {
+				"types": "./dist/integrations/providers/provider-delta.d.ts",
+				"bun": "./dist/integrations/providers/provider-delta.js",
+				"node": "./dist/node/integrations/providers/provider-delta.js",
+				"default": "./dist/integrations/providers/provider-delta.js"
 			},
 			"./integrations/providers/qdrant": {
 				"types": "./dist/integrations/providers/qdrant.d.ts",

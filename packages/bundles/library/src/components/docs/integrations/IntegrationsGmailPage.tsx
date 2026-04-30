@@ -67,15 +67,36 @@ outputs:
 					<li>Extract attachments and process them</li>
 					<li>Build email-to-task workflows</li>
 					<li>Monitor specific email threads</li>
+					<li>Sync threads into governed knowledge spaces with checkpointed deltas</li>
 				</ul>
+			</div>
+
+			<div className="space-y-4">
+				<h2 className="font-bold text-2xl">Knowledge sync and mutation gates</h2>
+				<p className="text-muted-foreground">
+					Gmail supports the shared <code>provider.delta.watch</code>{' '}
+					capability. Knowledge runtimes should persist provider cursor,
+					watermark, dedupe, idempotency, replay, and tombstone state before
+					acknowledging sync work. Outbound email sends should pass through
+					knowledge mutation governance so dry-runs, approvals, audit evidence,
+					and outbound-send gates are recorded.
+				</p>
+				<div className="flex flex-wrap gap-3">
+					<Link href="/docs/guides/provider-backed-knowledge" className="btn-ghost">
+						Provider-backed knowledge guide
+					</Link>
+					<Link href="/docs/knowledge/governance" className="btn-ghost">
+						Mutation governance
+					</Link>
+				</div>
 			</div>
 
 			<div className="flex items-center gap-4 pt-4">
 				<Link href="/docs/integrations/resend" className="btn-ghost">
 					Previous: Resend
 				</Link>
-				<Link href="/docs/integrations/google-calendar" className="btn-primary">
-					Next: Google Calendar <ChevronRight size={16} />
+				<Link href="/docs/integrations/google-drive" className="btn-primary">
+					Next: Google Drive <ChevronRight size={16} />
 				</Link>
 			</div>
 		</div>

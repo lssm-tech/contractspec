@@ -10,6 +10,7 @@ Treat these clusters as compatibility surface:
 
 - `./access`
 - `./ingestion`
+- `./governance`
 - `./query`
 - `./retriever`
 - `./i18n`
@@ -27,7 +28,10 @@ Stable APIs readers are likely to depend on:
 - `RawDocument`, `DocumentFragment`, `DocumentProcessor`
 - `EmbeddingService`
 - `VectorIndexer`, `VectorIndexConfig`
-- `GmailIngestionAdapter`, `StorageIngestionAdapter`
+- `GmailIngestionAdapter`, `DriveIngestionAdapter`, `StorageIngestionAdapter`
+- `KnowledgeRuntime`, `createKnowledgeRuntime`
+- `KnowledgeMutationRequest`, `KnowledgeMutationGovernance`, `KnowledgeMutationResult`
+- `evaluateKnowledgeMutationGovernance`, `executeGovernedKnowledgeMutation`
 - `createKnowledgeI18n`, `getDefaultI18n`, locale/catalog exports
 
 ## Change boundaries
@@ -43,6 +47,8 @@ Stable APIs readers are likely to depend on:
 - `KnowledgeRetriever` method shape and semantics must stay stable across implementations.
 - `RetrievalResult` and `RetrievalOptions` remain broadly compatible for AI consumers and higher-level orchestration libs.
 - Ingestion should stay deterministic enough to rerun safely with stable fragment IDs and stable document-derived metadata.
+- Drive/Gmail orchestration should preserve provider delta state and skip tombstoned provider records before indexing.
+- Mutation governance should keep dry-run, approval refs, idempotency, audit evidence, and outbound-send gates explicit.
 - `KnowledgeAccessGuard` behavior must stay aligned with `ResolvedKnowledge` and `ResolvedAppConfig` semantics from `@contractspec/lib.contracts-spec`.
 - `KnowledgeQueryService` answer shape stays `answer`, `references`, and optional `usage`.
 - i18n keys and catalogs must stay synchronized across locales.
@@ -73,6 +79,13 @@ Stable APIs readers are likely to depend on:
 - Protect fragment IDs, MIME handling, batching behavior, and upsert semantics.
 - New extractors should be explicit and documented.
 - Keep adapters as thin orchestration layers over processor -> embeddings -> indexer.
+- Do not put credential refresh, scheduler ownership, or provider SDK retry logic in this package; those belong in integrations/runtime layers.
+
+### Mutation governance
+
+- Preserve dry-run semantics: dry-run plans must not execute the mutation callback.
+- Non-dry-run mutations must keep explicit idempotency and audit evidence requirements.
+- Outbound-send gates should fail closed unless explicitly approved.
 
 ### i18n
 

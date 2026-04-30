@@ -60,8 +60,8 @@ outputs:
 			</div>
 
 			<div className="flex items-center gap-4 pt-4">
-				<Link href="/docs/integrations/gmail" className="btn-ghost">
-					Previous: Gmail API
+				<Link href="/docs/integrations/google-drive" className="btn-ghost">
+					Previous: Google Drive
 				</Link>
 				<Link href="/docs/integrations/openai" className="btn-primary">
 					Next: OpenAI <ChevronRight size={16} />

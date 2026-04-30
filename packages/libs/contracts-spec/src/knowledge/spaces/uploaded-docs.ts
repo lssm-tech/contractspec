@@ -1,5 +1,6 @@
 import { StabilityEnum } from '../../ownership';
-import type { KnowledgeSpaceRegistry, KnowledgeSpaceSpec } from '../spec';
+import type { KnowledgeSpaceRegistry } from '../registry';
+import type { KnowledgeSpaceSpec } from '../spec';
 
 export const uploadedDocsKnowledgeSpace: KnowledgeSpaceSpec = {
 	meta: {

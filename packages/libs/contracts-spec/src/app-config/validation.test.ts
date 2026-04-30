@@ -1,4 +1,5 @@
 import { describe, expect, it } from 'bun:test';
+import type { KnowledgeSourceConfig } from '../knowledge/source';
 import { KnowledgeSpaceRegistry } from '../knowledge/spec';
 import {
 	type AppConfigIntegrationConnection,
@@ -224,6 +225,206 @@ describe('validateTenantConfig', () => {
 				}),
 				expect.objectContaining({
 					code: 'LOW_TRUST_KNOWLEDGE',
+					path: 'knowledge[0]',
+				}),
+			])
+		);
+	});
+
+	it('does not satisfy knowledge bindings with another tenant source', () => {
+		const tenant: TenantAppConfig = {
+			meta: {
+				id: 'cfg-knowledge-tenant',
+				tenantId: 'tenant-a',
+				appId: 'example',
+				blueprintName: baseBlueprint.meta.key,
+				blueprintVersion: '1.0.0',
+				version: '1.0.0',
+				status: 'draft',
+			},
+			integrations: [],
+			knowledge: [{ spaceKey: 'support.faq', spaceVersion: '1.0.0' }],
+		};
+		const timestamp = new Date().toISOString();
+		const source: KnowledgeSourceConfig = {
+			meta: {
+				id: 'source-tenant-b',
+				tenantId: 'tenant-b',
+				spaceKey: 'support.faq',
+				spaceVersion: '1.0.0',
+				label: 'Tenant B FAQ',
+				sourceType: 'manual',
+				createdAt: timestamp,
+				updatedAt: timestamp,
+			},
+			config: {},
+		};
+		const knowledgeRegistry = new KnowledgeSpaceRegistry().register({
+			meta: {
+				key: 'support.faq',
+				version: '1.0.0',
+				category: 'operational',
+				title: 'Support FAQ',
+				description: 'Support knowledge base.',
+				domain: 'knowledge',
+				owners: ['product.artisanos'],
+				tags: [],
+				stability: 'experimental',
+			},
+			retention: {},
+			access: {
+				trustLevel: 'medium',
+				automationWritable: false,
+			},
+		});
+
+		const result = validateTenantConfig(baseBlueprint, tenant, {
+			knowledgeSpaces: knowledgeRegistry,
+			knowledgeSources: [source],
+		});
+
+		expect(result.errors).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({
+					code: 'MISSING_KNOWLEDGE_SOURCES',
+					path: 'knowledge[0]',
+				}),
+			])
+		);
+	});
+
+	it('does not satisfy knowledge bindings with tombstoned sources', () => {
+		const tenant: TenantAppConfig = {
+			meta: {
+				id: 'cfg-knowledge-tombstone',
+				tenantId: 'tenant-a',
+				appId: 'example',
+				blueprintName: baseBlueprint.meta.key,
+				blueprintVersion: '1.0.0',
+				version: '1.0.0',
+				status: 'draft',
+			},
+			integrations: [],
+			knowledge: [{ spaceKey: 'support.faq', spaceVersion: '1.0.0' }],
+		};
+		const timestamp = new Date().toISOString();
+		const source: KnowledgeSourceConfig = {
+			meta: {
+				id: 'source-deleted',
+				tenantId: 'tenant-a',
+				spaceKey: 'support.faq',
+				spaceVersion: '1.0.0',
+				label: 'Deleted FAQ',
+				sourceType: 'manual',
+				createdAt: timestamp,
+				updatedAt: timestamp,
+			},
+			config: {},
+			tombstone: {
+				deletedAt: timestamp,
+				reason: 'revoked',
+			},
+		};
+		const knowledgeRegistry = new KnowledgeSpaceRegistry().register({
+			meta: {
+				key: 'support.faq',
+				version: '1.0.0',
+				category: 'operational',
+				title: 'Support FAQ',
+				description: 'Support knowledge base.',
+				domain: 'knowledge',
+				owners: ['product.artisanos'],
+				tags: [],
+				stability: 'experimental',
+			},
+			retention: {},
+			access: {
+				trustLevel: 'medium',
+				automationWritable: false,
+			},
+		});
+
+		const result = validateTenantConfig(baseBlueprint, tenant, {
+			knowledgeSpaces: knowledgeRegistry,
+			knowledgeSources: [source],
+		});
+
+		expect(result.errors).toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({
+					code: 'MISSING_KNOWLEDGE_SOURCES',
+					path: 'knowledge[0]',
+				}),
+			])
+		);
+	});
+
+	it('requires opt-in and evidence for shared knowledge sources', () => {
+		const tenant: TenantAppConfig = {
+			meta: {
+				id: 'cfg-knowledge-shared',
+				tenantId: 'tenant-a',
+				appId: 'example',
+				blueprintName: baseBlueprint.meta.key,
+				blueprintVersion: '1.0.0',
+				version: '1.0.0',
+				status: 'draft',
+			},
+			integrations: [],
+			knowledge: [
+				{
+					spaceKey: 'support.faq',
+					spaceVersion: '1.0.0',
+					source: { allowShared: true },
+				},
+			],
+		};
+		const timestamp = new Date().toISOString();
+		const knowledgeRegistry = new KnowledgeSpaceRegistry().register({
+			meta: {
+				key: 'support.faq',
+				version: '1.0.0',
+				category: 'operational',
+				title: 'Support FAQ',
+				description: 'Support knowledge base.',
+				domain: 'knowledge',
+				owners: ['product.artisanos'],
+				tags: [],
+				stability: 'experimental',
+			},
+			retention: {},
+			access: {
+				trustLevel: 'medium',
+				automationWritable: false,
+			},
+		});
+		const source: KnowledgeSourceConfig = {
+			meta: {
+				id: 'source-shared',
+				tenantId: 'platform',
+				spaceKey: 'support.faq',
+				spaceVersion: '1.0.0',
+				label: 'Shared FAQ',
+				sourceType: 'manual',
+				createdAt: timestamp,
+				updatedAt: timestamp,
+			},
+			access: {
+				visibility: 'shared',
+				aclSnapshotRef: 'acl://knowledge/source-shared',
+			},
+			config: {},
+		};
+
+		const result = validateTenantConfig(baseBlueprint, tenant, {
+			knowledgeSpaces: knowledgeRegistry,
+			knowledgeSources: [source],
+		});
+
+		expect(result.errors).not.toEqual(
+			expect.arrayContaining([
+				expect.objectContaining({
+					code: 'MISSING_KNOWLEDGE_SOURCES',
 					path: 'knowledge[0]',
 				}),
 			])

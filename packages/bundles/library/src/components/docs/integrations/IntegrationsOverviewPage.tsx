@@ -24,6 +24,7 @@ const groups = [
 			{ title: 'Qdrant', href: '/docs/integrations/qdrant' },
 			{ title: 'S3 storage', href: '/docs/integrations/s3' },
 			{ title: 'Gmail', href: '/docs/integrations/gmail' },
+			{ title: 'Google Drive', href: '/docs/integrations/google-drive' },
 			{ title: 'Google Calendar', href: '/docs/integrations/google-calendar' },
 		],
 	},

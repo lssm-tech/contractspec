@@ -25,16 +25,16 @@ export interface DataViewSpec {
 - **DataViewMeta**: `name`, `version`, `entity`, ownership metadata (title, description, domain, owners, tags, stability).
 - **DataViewSource**:
   - `primary`: required query operation (`OpRef`) for fetching collections.
-  - `item`: optional detail query (recommended for `detail` views).
+  - `item`: optional operation used to fetch a single item (detail views).
   - `mutations`: optional create/update/delete operation refs.
   - `refreshEvents`: events that should trigger refresh.
 - **DataViewConfig** (union):
-  - `list`: card/compact list, `primaryField`, `secondaryFields`, optional shared `collection` defaults.
-  - `table`: column configuration plus execution mode, selection, column visibility, column resizing, column pinning, row expansion, initial state, and optional shared `collection` defaults.
+  - `list`: card/compact list, `primaryField`, `secondaryFields`.
+  - `table`: column configuration plus execution mode, selection, column visibility, column resizing, column pinning, row expansion, overflow behavior, and initial state.
   - `detail`: sections of fields for record inspection.
-  - `grid`: multi-column card grid with optional shared `collection` defaults.
-- **DataViewCollectionConfig**: shared listing defaults for `list`, `grid`, and `table`, including allowed/default view modes, toolbar controls, query page size, density, data depth, and personalization persistence hints. `view.kind` remains the authored canonical shape; renderers may project to allowed collection modes without mutating the source spec.
-- **DataViewField**: `key`, `label`, `dataPath`, formatting hints (`format`), sort/filter toggles, optional presentation override, and optional `visibility.minDataDepth` for summary/standard/detailed/exhaustive projection.
+  - `grid`: multi-column grid (rendered as card list today).
+- **DataViewField**: `key`, `label`, `dataPath`, formatting hints (`format`), sort/filter toggles, optional table overflow hint, optional presentation override.
+- **DataViewTableColumn**: per-table column metadata. Column `overflow` overrides field `overflow`, which overrides type-aware defaults. Supported overflow values are `truncate`, `wrap`, `expand`, `hideColumn`, and `none`.
 - **DataViewFilter**: describes filter inputs (search, enum, number, date, boolean).
 - **DataViewAction**: simple declarative actions (`navigation` or `operation`).
 
@@ -72,16 +72,10 @@ function ResidentsTable({ rows }: { rows: Record<string, unknown>[] }) {
 For more control, use specific components:
 
 - `DataViewList` – friendly cards/rows
-- `DataViewTable` – tabular presentation with shared sorting, pagination, visibility, pinning, resizing, and expansion controls
+- `DataViewTable` – tabular presentation with shared sorting, pagination, visibility, pinning, resizing, expansion controls, and overflow handling
 - `DataViewDetail` – two-column grouped layout for record inspection
 
-Renderers rely on the field definitions (`dataPath`, `format`) to extract values and render them consistently.
-
-Collection renderers can also accept `viewMode`, `density`, and `dataDepth`
-props directly. Apps that use `@contractspec/lib.personalization` should resolve
-user or behavior-derived preferences with `resolveDataViewPreferences(...)` and
-pass the resulting plain values into `DataViewRenderer`; the design-system
-renderer intentionally has no hard dependency on personalization.
+Renderers rely on the field definitions (`dataPath`, `format`) to extract values and render them consistently. Table overflow defaults are type-aware: markdown wraps; text, badges, numbers, currency, percentages, dates, times, durations, and booleans truncate. `expand` keeps the compact cell and adds the field to row expansion; `hideColumn` starts hidden when column visibility is enabled.
 
 ## CLI Scaffolding
 

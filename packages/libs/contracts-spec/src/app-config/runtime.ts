@@ -15,7 +15,11 @@ import type {
 	FeatureRegistry,
 } from '../features';
 import type { AppKnowledgeBinding } from '../knowledge/binding';
-import type { KnowledgeSourceConfig } from '../knowledge/source';
+import type {
+	KnowledgeSourceBindingContext,
+	KnowledgeSourceConfig,
+} from '../knowledge/source';
+import { isKnowledgeSourceAvailableForBinding } from '../knowledge/source';
 import type {
 	KnowledgeSpaceRegistry,
 	KnowledgeSpaceSpec,
@@ -219,7 +223,11 @@ export function resolveAppConfig(
 	const knowledge = resolveKnowledgeBindings(
 		tenant.knowledge,
 		deps.knowledgeSpaces,
-		deps.knowledgeSources
+		deps.knowledgeSources,
+		{
+			tenantId: tenant.meta.tenantId,
+			environment: tenant.meta.environment,
+		}
 	);
 	const branding = resolveBranding(blueprint.branding, tenant);
 	const translation = resolveTranslation(
@@ -275,7 +283,11 @@ export function composeAppConfig(
 		...collectMissingKnowledge(
 			tenant.knowledge ?? [],
 			deps.knowledgeSpaces,
-			deps.knowledgeSources
+			deps.knowledgeSources,
+			{
+				tenantId: tenant.meta.tenantId,
+				environment: tenant.meta.environment,
+			}
 		)
 	);
 
@@ -815,7 +827,8 @@ function integrationProvidesCapability(
 function resolveKnowledgeBindings(
 	bindings: AppKnowledgeBinding[] | undefined,
 	spaces: KnowledgeSpaceRegistry | undefined,
-	sources: KnowledgeSourceConfig[] | undefined
+	sources: KnowledgeSourceConfig[] | undefined,
+	context: KnowledgeSourceBindingContext
 ): ResolvedKnowledge[] {
 	if (!bindings?.length || !spaces) return [];
 	const sourceList = sources ?? [];
@@ -824,11 +837,7 @@ function resolveKnowledgeBindings(
 			const space = spaces.get(binding.spaceKey, binding.spaceVersion);
 			if (!space) return null;
 			const relevantSources = sourceList.filter((source) => {
-				if (source.meta.spaceKey !== binding.spaceKey) return false;
-				if (binding.spaceVersion != null) {
-					return source.meta.spaceVersion === binding.spaceVersion;
-				}
-				return true;
+				return isKnowledgeSourceAvailableForBinding(source, binding, context);
 			});
 			return {
 				binding,
@@ -842,7 +851,8 @@ function resolveKnowledgeBindings(
 function collectMissingKnowledge(
 	bindings: AppKnowledgeBinding[],
 	spaces: KnowledgeSpaceRegistry | undefined,
-	sources: KnowledgeSourceConfig[] | undefined
+	sources: KnowledgeSourceConfig[] | undefined,
+	context: KnowledgeSourceBindingContext
 ): MissingReference[] {
 	if (!bindings.length || !spaces) return [];
 	const missing: MissingReference[] = [];
@@ -861,11 +871,7 @@ function collectMissingKnowledge(
 		}
 		if (sources) {
 			const relevantSources = sourceList.filter((source) => {
-				if (source.meta.spaceKey !== binding.spaceKey) return false;
-				if (binding.spaceVersion != null) {
-					return source.meta.spaceVersion === binding.spaceVersion;
-				}
-				return true;
+				return isKnowledgeSourceAvailableForBinding(source, binding, context);
 			});
 			if (relevantSources.length === 0) {
 				missing.push({

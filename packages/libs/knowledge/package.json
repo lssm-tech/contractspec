@@ -43,6 +43,7 @@
 		".": "./src/index.ts",
 		"./access": "./src/access/index.ts",
 		"./access/guard": "./src/access/guard.ts",
+		"./governance": "./src/governance.ts",
 		"./i18n": "./src/i18n/index.ts",
 		"./i18n/catalogs": "./src/i18n/catalogs/index.ts",
 		"./i18n/catalogs/en": "./src/i18n/catalogs/en.ts",
@@ -53,6 +54,7 @@
 		"./i18n/messages": "./src/i18n/messages.ts",
 		"./ingestion": "./src/ingestion/index.ts",
 		"./ingestion/document-processor": "./src/ingestion/document-processor.ts",
+		"./ingestion/drive-adapter": "./src/ingestion/drive-adapter.ts",
 		"./ingestion/embedding-service": "./src/ingestion/embedding-service.ts",
 		"./ingestion/gmail-adapter": "./src/ingestion/gmail-adapter.ts",
 		"./ingestion/storage-adapter": "./src/ingestion/storage-adapter.ts",
@@ -65,6 +67,8 @@
 		"./retriever/static-retriever": "./src/retriever/static-retriever.ts",
 		"./retriever/vector-retriever": "./src/retriever/vector-retriever.ts",
 		"./runtime": "./src/runtime.ts",
+		"./runtime-config": "./src/runtime-config.ts",
+		"./runtime-provider-sync": "./src/runtime-provider-sync.ts",
 		"./types": "./src/types.ts",
 		"./vector-payload": "./src/vector-payload.ts"
 	},
@@ -88,6 +92,12 @@
 				"bun": "./dist/access/guard.js",
 				"node": "./dist/node/access/guard.js",
 				"default": "./dist/access/guard.js"
+			},
+			"./governance": {
+				"types": "./dist/governance.d.ts",
+				"bun": "./dist/governance.js",
+				"node": "./dist/node/governance.js",
+				"default": "./dist/governance.js"
 			},
 			"./i18n": {
 				"types": "./dist/i18n/index.d.ts",
@@ -148,6 +158,12 @@
 				"bun": "./dist/ingestion/document-processor.js",
 				"node": "./dist/node/ingestion/document-processor.js",
 				"default": "./dist/ingestion/document-processor.js"
+			},
+			"./ingestion/drive-adapter": {
+				"types": "./dist/ingestion/drive-adapter.d.ts",
+				"bun": "./dist/ingestion/drive-adapter.js",
+				"node": "./dist/node/ingestion/drive-adapter.js",
+				"default": "./dist/ingestion/drive-adapter.js"
 			},
 			"./ingestion/embedding-service": {
 				"types": "./dist/ingestion/embedding-service.d.ts",
@@ -220,6 +236,18 @@
 				"bun": "./dist/runtime.js",
 				"node": "./dist/node/runtime.js",
 				"default": "./dist/runtime.js"
+			},
+			"./runtime-config": {
+				"types": "./dist/runtime-config.d.ts",
+				"bun": "./dist/runtime-config.js",
+				"node": "./dist/node/runtime-config.js",
+				"default": "./dist/runtime-config.js"
+			},
+			"./runtime-provider-sync": {
+				"types": "./dist/runtime-provider-sync.d.ts",
+				"bun": "./dist/runtime-provider-sync.js",
+				"node": "./dist/node/runtime-provider-sync.js",
+				"default": "./dist/runtime-provider-sync.js"
 			},
 			"./types": {
 				"types": "./dist/types.d.ts",

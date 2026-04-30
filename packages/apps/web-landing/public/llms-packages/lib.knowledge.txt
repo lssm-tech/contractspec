@@ -14,12 +14,14 @@ or
 
 ## What belongs here
 
-This package currently owns four related concerns:
+This package currently owns these related concerns:
 
 - Retrieval contracts and implementations: `KnowledgeRetriever`, `StaticRetriever`, and `VectorRetriever`.
 - Ingestion and indexing pipeline pieces: `DocumentProcessor`, `EmbeddingService`, `VectorIndexer`, and ingestion adapters.
 - Retrieval-augmented query flow: `KnowledgeQueryService` and `KnowledgeQueryOptions`.
 - Runtime convenience for OSS consumers: `KnowledgeRuntime` and `createKnowledgeRuntime`.
+- First-class Gmail and Google Drive orchestration for ingestion/query flows.
+- Mutation governance helpers for dry-runs, approvals, idempotency, audit evidence, and outbound-send gates.
 - Access guardrails and localization: `KnowledgeAccessGuard` and the `i18n` surface.
 
 Use this package when you need the knowledge-layer primitives inside ContractSpec. It is not the source of truth for knowledge-space specs, tenant bindings, provider SDKs, or background job orchestration.
@@ -59,6 +61,78 @@ const answer = await knowledge.query("How do I rotate a key?", {
   filter: { locale: "en" },
 });
 ```
+
+### Sync Gmail and Google Drive into knowledge
+
+```ts
+import { createKnowledgeRuntime } from "@contractspec/lib.knowledge";
+
+const knowledge = createKnowledgeRuntime({
+  collection: "knowledge-workspace",
+  namespace: "tenant-acme",
+  spaceKey: "workspace",
+  embeddings: embeddingProvider,
+  vectorStore: vectorStoreProvider,
+  gmail: gmailProvider,
+  drive: googleDriveProvider,
+  deltaCheckpointStore,
+});
+
+await knowledge.syncGmail(
+  { label: "support" },
+  {
+    sourceId: "src_gmail_support",
+    evidenceRef: "audit://sync/gmail/support",
+  },
+);
+
+await knowledge.syncDriveFiles(
+  { query: "mimeType = 'text/plain' and trashed = false" },
+  {
+    sourceId: "src_drive_support",
+    evidenceRef: "audit://sync/drive/support",
+  },
+);
+
+await knowledge.watchDriveChanges(
+  {
+    channelId: "drive-support-watch",
+    webhookUrl: "https://app.example.com/webhooks/google-drive",
+  },
+  { sourceId: "src_drive_support" },
+);
+```
+
+Gmail and Drive sync use provider contracts from `@contractspec/lib.contracts-integrations`. Delta-aware callers can pass and receive lease, cursor/watermark, webhook channel, provider-event, dedupe, idempotency, replay-checkpoint, and tombstone state through `ProviderDeltaSyncState`. When `deltaCheckpointStore` is configured, `syncGmail()`, `syncDriveFiles()`, and `watchDriveChanges()` load the last checkpoint by source ID before calling the provider, then save the returned provider delta before the caller acknowledges sync work.
+
+### Govern knowledge mutations
+
+```ts
+import {
+  executeGovernedKnowledgeMutation,
+} from "@contractspec/lib.knowledge/governance";
+
+const result = await executeGovernedKnowledgeMutation(
+  {
+    operation: "gmail.message.send",
+    requiresApproval: true,
+    outboundSend: true,
+    governance: {
+      idempotencyKey: "tenant:gmail-send:123",
+      auditEvidence: { evidenceRef: "audit://gmail-send/123" },
+      approvalRefs: [{ id: "approval-123" }],
+      outboundSendGate: {
+        status: "approved",
+        evidenceRef: "gate://gmail-send/123",
+      },
+    },
+  },
+  () => gmailProvider.sendMessage(message),
+  { audit: (envelope) => auditTrail.write(envelope) },
+);
+```
+
+Set `governance.dryRun` to inspect the plan without executing. Non-dry-run mutations require an idempotency key and audit evidence; approval-required and outbound-send operations require approval refs, and outbound sends require an approved send gate. Every result includes an `auditEnvelope` so app runtimes, Connect review packets, and provider replay tooling can reference the same decision evidence.
 
 ### Ingest documents into a vector index
 
@@ -152,8 +226,9 @@ Typical flow:
 
 1. Extract fragments from raw content.
 2. Embed fragments and upsert them into a vector collection.
-3. Retrieve snippets through a retriever or generate an answer through `KnowledgeQueryService`.
-4. Gate reads and writes with `KnowledgeAccessGuard` when operating against resolved knowledge bindings.
+3. Use `GmailIngestionAdapter`, `DriveIngestionAdapter`, or runtime sync helpers when content originates from workspace providers.
+4. Retrieve snippets through a retriever or generate an answer through `KnowledgeQueryService`.
+5. Gate reads and writes with `KnowledgeAccessGuard`, and gate mutations with the governance helpers when operating against external systems.
 
 ## API map
 
@@ -179,8 +254,17 @@ Typical flow:
 - `EmbeddingService`: batch fragment embeddings through an `EmbeddingProvider`.
 - `VectorIndexer` and `VectorIndexConfig`: map embeddings to `VectorStoreProvider.upsert()` requests and persist canonical `payload.text` content for later retrieval/query use.
 - `GmailIngestionAdapter`: convert email threads into plaintext documents and index them.
+- `DriveIngestionAdapter`: convert Google Drive files into raw documents, skip tombstones, and index them.
 - `StorageIngestionAdapter`: fetch object content and run the same process/index pipeline.
-- `KnowledgeRuntime` and `createKnowledgeRuntime`: convenience composition for the common ingest -> retrieve -> answer path.
+- `KnowledgeRuntime` and `createKnowledgeRuntime`: convenience composition for the common ingest -> sync -> retrieve -> answer path.
+- `KnowledgeProviderDeltaCheckpointStore`: optional runtime checkpoint store for loading and saving Gmail/Drive provider delta state per source.
+
+### Mutation governance
+
+- `KnowledgeMutationRequest`: describes a proposed mutation, whether it needs approval, and whether it sends outbound content.
+- `KnowledgeMutationGovernance`: carries dry-run, approval refs, idempotency key, audit evidence, and outbound-send gate state.
+- `evaluateKnowledgeMutationGovernance`: returns the plan, missing evidence, and block reasons without executing.
+- `executeGovernedKnowledgeMutation`: executes only when the plan is allowed; otherwise returns `dry_run` or `blocked`.
 
 ### Guardrails and i18n
 
@@ -207,7 +291,8 @@ Published subpaths from `package.json` are grouped around:
 - access: `./access`, `./access/guard`
 - retrieval: `./retriever`, `./retriever/interface`, `./retriever/static-retriever`, `./retriever/vector-retriever`
 - query: `./query`, `./query/service`
-- ingestion: `./ingestion`, `./ingestion/document-processor`, `./ingestion/embedding-service`, `./ingestion/gmail-adapter`, `./ingestion/storage-adapter`, `./ingestion/vector-indexer`
+- ingestion: `./ingestion`, `./ingestion/document-processor`, `./ingestion/drive-adapter`, `./ingestion/embedding-service`, `./ingestion/gmail-adapter`, `./ingestion/storage-adapter`, `./ingestion/vector-indexer`
+- governance: `./governance`
 - feature/runtime helpers: `./knowledge.feature`, root `KnowledgeRuntime` / `createKnowledgeRuntime`
 - i18n: `./i18n`, `./i18n/catalogs`, `./i18n/catalogs/en`, `./i18n/catalogs/es`, `./i18n/catalogs/fr`, `./i18n/keys`, `./i18n/locale`, `./i18n/messages`
 - shared types/helpers: `./types`, `./vector-payload`
@@ -230,6 +315,13 @@ Use `package.json` as the exhaustive source of truth for subpaths; the README ca
 - `KnowledgeAccessGuard` also blocks writes when `ResolvedKnowledge.space.access.automationWritable` is `false`.
 - `KnowledgeAccessGuard` defaults to requiring workflow binding and not requiring agent binding. If a scoped workflow or agent allow-list exists, missing names are denied rather than silently bypassed.
 - `GmailIngestionAdapter` converts threads into plaintext and strips HTML when text bodies are missing.
+- `DriveIngestionAdapter` indexes Google Drive files through the same processor -> embedding -> indexer path and skips tombstoned metadata or file records before indexing.
+- `KnowledgeRuntime.syncGmail()`, `KnowledgeRuntime.syncDriveFiles()`, and `KnowledgeRuntime.watchDriveChanges()` are convenience orchestration methods; provider scheduling, credential refresh, and long-running background sync remain outside this package.
+- Runtime sync helpers load and save `ProviderDeltaSyncState` through the optional checkpoint store when a source ID is provided.
+- `executeGovernedKnowledgeMutation()` never executes dry-runs or blocked mutations.
+- Non-dry-run mutations require `idempotencyKey` and `auditEvidence.evidenceRef`.
+- Mutation execution returns an audit envelope and can call an audit sink before returning.
+- Outbound sends require an approved `outboundSendGate` and at least one approval ref.
 - This package localizes access messages, query prompts, and Gmail formatting through the `i18n` surface.
 
 ## When not to use this package

@@ -38,6 +38,7 @@ The contracts library ships twenty-two priority providers in \`packages/libs/con
 | vector-db     | Supabase pgvector| \`vectordb.supabase\`        | Embedding storage & search on Supabase Postgres   |
 | database      | Supabase Postgres| \`database.supabase\`        | SQL queries and transactions on Supabase Postgres |
 | storage       | Google Cloud     | \`storage.gcs\`              | Object storage                                    |
+| storage       | Google Drive     | \`storage.google-drive\`     | File search, retrieval, and knowledge ingestion   |
 | ai-llm        | Mistral          | \`ai-llm.mistral\`           | Primary chat + embedding provider                 |
 | ai-voice      | ElevenLabs       | \`ai-voice.elevenlabs\`      | Text-to-speech synthesis                          |
 | ai-voice      | Gradium          | \`ai-voice.gradium\`         | Low-latency text-to-speech synthesis              |
@@ -59,6 +60,11 @@ Each provider ships with:
 - Strongly typed adapter interfaces (\`payments.ts\`, \`llm.ts\`, etc.)
 - A concrete SDK-backed implementation under \`providers/impls\`
 - Unit tests validating adapter behaviour and health checks
+
+Provider delta-capable integrations such as Gmail and Google Drive can also
+carry lease ownership, cursor/watermark versions, webhook channel expiry,
+provider event IDs, dedupe/idempotency keys, replay checkpoints, and
+tombstones before runtime sync workers begin.
 
 ### Example package
 

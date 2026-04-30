@@ -34,6 +34,7 @@ export const gmailIntegrationSpec = defineIntegration({
 		provides: [
 			{ key: 'email.inbound', version: '1.0.0' },
 			{ key: 'email.outbound', version: '1.0.0' },
+			{ key: 'provider.delta.watch', version: '1.0.0' },
 		],
 	},
 	configSchema: {
@@ -48,6 +49,16 @@ export const gmailIntegrationSpec = defineIntegration({
 				includeSpamTrash: {
 					type: 'boolean',
 					description: 'Whether to include spam or trash messages during sync.',
+				},
+				webhookTopic: {
+					type: 'string',
+					description:
+						'Optional Pub/Sub topic used for Gmail watch notifications.',
+				},
+				historyCursor: {
+					type: 'string',
+					description:
+						'Optional Gmail history cursor to resume incremental sync.',
 				},
 			},
 		},

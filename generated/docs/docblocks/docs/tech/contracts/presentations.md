@@ -24,7 +24,7 @@ type PresentationSource =
 
 interface PresentationSpec {
   meta: PresentationMeta; // includes partial OwnerShipMeta + description
-  policy?: { flags?: string[]; pii?: string[] };
+  policy?: SurfacePolicyRequirement;
   source: PresentationSource;
   targets: PresentationTarget[];
 }

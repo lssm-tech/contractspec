@@ -304,7 +304,9 @@
 		"./knowledge/binding": "./src/knowledge/binding.ts",
 		"./knowledge/knowledge.capability": "./src/knowledge/knowledge.capability.ts",
 		"./knowledge/knowledge.feature": "./src/knowledge/knowledge.feature.ts",
+		"./knowledge/operation-models": "./src/knowledge/operation-models.ts",
 		"./knowledge/operations": "./src/knowledge/operations.ts",
+		"./knowledge/registry": "./src/knowledge/registry.ts",
 		"./knowledge/source": "./src/knowledge/source.ts",
 		"./knowledge/spaces": "./src/knowledge/spaces/index.ts",
 		"./knowledge/spaces/email-threads": "./src/knowledge/spaces/email-threads.ts",
@@ -2000,11 +2002,23 @@
 				"node": "./dist/node/knowledge/knowledge.feature.js",
 				"default": "./dist/knowledge/knowledge.feature.js"
 			},
+			"./knowledge/operation-models": {
+				"types": "./dist/knowledge/operation-models.d.ts",
+				"bun": "./dist/knowledge/operation-models.js",
+				"node": "./dist/node/knowledge/operation-models.js",
+				"default": "./dist/knowledge/operation-models.js"
+			},
 			"./knowledge/operations": {
 				"types": "./dist/knowledge/operations.d.ts",
 				"bun": "./dist/knowledge/operations.js",
 				"node": "./dist/node/knowledge/operations.js",
 				"default": "./dist/knowledge/operations.js"
+			},
+			"./knowledge/registry": {
+				"types": "./dist/knowledge/registry.d.ts",
+				"bun": "./dist/knowledge/registry.js",
+				"node": "./dist/node/knowledge/registry.js",
+				"default": "./dist/knowledge/registry.js"
 			},
 			"./knowledge/source": {
 				"types": "./dist/knowledge/source.d.ts",

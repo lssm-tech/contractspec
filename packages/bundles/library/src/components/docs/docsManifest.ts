@@ -412,6 +412,23 @@ export const DOCS_PAGES: readonly DocsPageEntry[] = [
 		ctaMode: 'oss-next',
 	},
 	{
+		href: '/docs/guides/provider-backed-knowledge',
+		title: 'Adopt provider-backed knowledge',
+		description:
+			'Ingest Gmail and Google Drive into governed knowledge spaces with persisted provider deltas and mutation gates.',
+		section: 'build',
+		order: 68,
+		navTitle: 'Provider-backed knowledge',
+		primaryNav: true,
+		audience: 'operator',
+		ctaMode: 'oss-next',
+		aliases: [
+			'Gmail knowledge ingestion',
+			'Google Drive knowledge ingestion',
+			'ProviderDeltaSyncState',
+		],
+	},
+	{
 		href: '/docs/libraries',
 		title: 'Libraries overview',
 		description:
@@ -605,6 +622,23 @@ export const DOCS_PAGES: readonly DocsPageEntry[] = [
 		ctaMode: 'oss-next',
 	},
 	{
+		href: '/docs/knowledge/governance',
+		title: 'Knowledge mutation governance',
+		description:
+			'Gate provider-backed knowledge mutations with dry-runs, approvals, idempotency, audit evidence, and outbound-send policy.',
+		section: 'operate',
+		order: 72,
+		navTitle: 'Knowledge governance',
+		primaryNav: true,
+		audience: 'operator',
+		ctaMode: 'oss-next',
+		aliases: [
+			'knowledge.mutation.evaluateGovernance',
+			'KnowledgeMutationGovernance',
+			'outbound-send gates',
+		],
+	},
+	{
 		href: '/docs/advanced/telemetry',
 		title: 'Telemetry',
 		description:
@@ -691,6 +725,34 @@ export const DOCS_PAGES: readonly DocsPageEntry[] = [
 		primaryNav: true,
 		audience: 'operator',
 		ctaMode: 'oss-next',
+	},
+	{
+		href: '/docs/integrations/gmail',
+		title: 'Gmail integration',
+		description:
+			'Ingest email threads through delta-aware provider contracts and governed outbound-send mutations.',
+		section: 'integrations',
+		order: 55,
+		primaryNav: true,
+		audience: 'operator',
+		ctaMode: 'oss-next',
+		aliases: ['email knowledge ingestion', 'Gmail delta sync'],
+	},
+	{
+		href: '/docs/integrations/google-drive',
+		title: 'Google Drive integration',
+		description:
+			'Ingest Drive files and watches through explicit cursor, webhook, replay, dedupe, and tombstone contracts.',
+		section: 'integrations',
+		order: 56,
+		primaryNav: true,
+		audience: 'operator',
+		ctaMode: 'oss-next',
+		aliases: [
+			'Drive knowledge ingestion',
+			'Google Drive watchChanges',
+			'ProviderDeltaSyncState',
+		],
 	},
 	{
 		href: '/docs/integrations/stripe',

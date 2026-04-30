@@ -2,9 +2,15 @@
 
 
 
-### Improve PageOutline desktop behavior with a Notion-like floating rail, and hide the AppShell page outline on small web screens to preserve layout stability.
-- Slug: notion-page-outline
-- Date: 2026-04-29
+### Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+- Slug: knowledge-provider-delta-orchestration
+- Date: 2026-04-30
 - Breaking: no
-- @contractspec/lib.design-system@4.4.3 (patch)
-- Maintainer: Design-system maintainers can opt PageOutline into a floating variant while preserving existing rail and compact variants for direct component usage.
+- @contractspec/lib.contracts-integrations@3.9.0 (minor)
+- @contractspec/lib.contracts-spec@6.3.0 (minor)
+- @contractspec/lib.knowledge@3.8.4 (minor)
+- @contractspec/bundle.library@3.10.1 (patch)
+- @contractspec/bundle.marketing@3.8.25 (patch)
+- @contractspec/app.web-landing (patch)
+- @contractspec/example.knowledge-canon@3.8.4 (patch)
+- Maintainer: Maintainers get shared delta sync contracts and package-local tests for Gmail/Drive ingestion and governed mutations.

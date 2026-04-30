@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'bun:test';
-import { KnowledgeSpaceRegistry } from '../spec';
+import { KnowledgeSpaceRegistry } from '../registry';
 import {
 	emailThreadsKnowledgeSpace,
 	registerEmailThreadsKnowledgeSpace,

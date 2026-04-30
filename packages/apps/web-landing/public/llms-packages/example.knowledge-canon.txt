@@ -13,6 +13,7 @@ Website: https://contractspec.io
 - Agent helper backed by `@contractspec/lib.knowledge` static retrieval.
 - Minimal contract-only example pattern.
 - `src/docs/` contains docblocks and documentation-facing exports.
+- The same runtime primitives can ingest Gmail and Google Drive sources through `KnowledgeRuntime` when a workspace wires provider implementations.
 
 ## Running Locally
 
@@ -27,6 +28,8 @@ From `packages/examples/knowledge-canon`:
 Use `@contractspec/example.knowledge-canon` as a reference implementation, or import its exported surfaces into a workspace that composes ContractSpec examples and bundles.
 
 The public `answerWithKnowledge(...)` helper now performs a real retrieval step through `@contractspec/lib.knowledge`, so the example is suitable as a copy-pasteable lightweight knowledge-routing pattern.
+
+For provider-backed workspaces, compose the same package with `createKnowledgeRuntime({ gmail, drive, ... })` and call `syncGmail(...)` or `syncDriveFiles(...)` before retrieval. Mutating external knowledge systems should use the governance helpers from `@contractspec/lib.knowledge/governance` so dry-runs, approval refs, idempotency keys, audit evidence, and outbound-send gates are captured consistently.
 
 ## Architecture
 

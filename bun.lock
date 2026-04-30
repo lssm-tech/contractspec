@@ -10,7 +10,7 @@
         "react": "catalog:",
         "react-dom": "catalog:",
         "turbo": "^2.9.6",
-        "zod": "^4.3.6",
+        "zod": "^4.4.1",
       },
       "devDependencies": {
         "@biomejs/biome": "^2.4.13",

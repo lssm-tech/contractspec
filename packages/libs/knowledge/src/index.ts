@@ -2,6 +2,7 @@
 
 // Access control
 export * from './access';
+export * from './governance';
 // Ingestion pipeline
 export * from './ingestion';
 export * from './knowledge.feature';

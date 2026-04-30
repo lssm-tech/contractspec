@@ -558,6 +558,86 @@ describe('resolveAppConfig', () => {
 		expect(resolved.knowledge[0]?.space.meta.key).toBe('product-canon');
 		expect(resolved.knowledge[0]?.sources).toHaveLength(1);
 	});
+
+	it('filters knowledge sources to the active tenant', () => {
+		const knowledgeSpaces = new KnowledgeSpaceRegistry().register(
+			makeKnowledgeSpace()
+		);
+		const resolved = resolveAppConfig(blueprint, tenantConfig, {
+			knowledgeSpaces,
+			knowledgeSources: [
+				makeKnowledgeSource('source-tenant-a', 'tenant'),
+				makeKnowledgeSource('source-tenant-b', 'tenant-b'),
+			],
+		});
+
+		expect(resolved.knowledge[0]?.sources).toHaveLength(1);
+		expect(resolved.knowledge[0]?.sources[0]?.meta.id).toBe('source-tenant-a');
+	});
+
+	it('excludes tombstoned knowledge sources from runtime bindings', () => {
+		const knowledgeSpaces = new KnowledgeSpaceRegistry().register(
+			makeKnowledgeSpace()
+		);
+		const timestamp = new Date().toISOString();
+		const resolved = resolveAppConfig(blueprint, tenantConfig, {
+			knowledgeSpaces,
+			knowledgeSources: [
+				{
+					...makeKnowledgeSource('source-deleted', 'tenant'),
+					tombstone: {
+						deletedAt: timestamp,
+						reason: 'source revoked',
+					},
+				},
+			],
+		});
+
+		expect(resolved.knowledge[0]?.sources).toHaveLength(0);
+	});
+
+	it('requires explicit shared knowledge source binding evidence', () => {
+		const knowledgeSpaces = new KnowledgeSpaceRegistry().register(
+			makeKnowledgeSpace()
+		);
+		const sharedSource: KnowledgeSourceConfig = {
+			...makeKnowledgeSource('source-shared', 'platform'),
+			access: {
+				visibility: 'shared',
+				aclSnapshotRef: 'acl://knowledge/source-shared',
+			},
+		};
+
+		const withoutSharedBinding = resolveAppConfig(blueprint, tenantConfig, {
+			knowledgeSpaces,
+			knowledgeSources: [sharedSource],
+		});
+
+		expect(withoutSharedBinding.knowledge[0]?.sources).toHaveLength(0);
+
+		const withSharedBinding = resolveAppConfig(
+			blueprint,
+			{
+				...tenantConfig,
+				knowledge: [
+					{
+						spaceKey: 'product-canon',
+						spaceVersion: '1.0.0',
+						source: { allowShared: true },
+					},
+				],
+			},
+			{
+				knowledgeSpaces,
+				knowledgeSources: [sharedSource],
+			}
+		);
+
+		expect(withSharedBinding.knowledge[0]?.sources).toHaveLength(1);
+		expect(withSharedBinding.knowledge[0]?.sources[0]?.meta.id).toBe(
+			'source-shared'
+		);
+	});
 });
 
 describe('composeAppConfig', () => {

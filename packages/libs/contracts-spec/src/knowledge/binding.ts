@@ -2,6 +2,12 @@ export interface AppKnowledgeBinding {
 	/** Which KnowledgeSpace to use. */
 	spaceKey: string;
 	spaceVersion?: string;
+	/** Optional source selector for tenant-safe provider-backed knowledge. */
+	source?: {
+		sourceIds?: string[];
+		integrationConnectionId?: string;
+		allowShared?: boolean;
+	};
 	/** Optional: scope to specific workflows/agents. */
 	scope?: {
 		workflows?: string[];

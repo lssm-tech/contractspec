@@ -43,11 +43,13 @@ import { HelloWorldPage } from '@contractspec/bundle.library/components/docs/get
 import { InstallationPage } from '@contractspec/bundle.library/components/docs/getting-started/InstallationPage';
 import { StartHerePage } from '@contractspec/bundle.library/components/docs/getting-started/StartHerePage';
 import { TroubleshootingPage } from '@contractspec/bundle.library/components/docs/getting-started/TroubleshootingPage';
+import { GuideProviderBackedKnowledgePage } from '@contractspec/bundle.library/components/docs/guides/GuideProviderBackedKnowledgePage';
 // Integrations
 import { IntegrationsCircuitBreakersPage } from '@contractspec/bundle.library/components/docs/integrations/IntegrationsCircuitBreakersPage';
 import { IntegrationsElevenLabsPage } from '@contractspec/bundle.library/components/docs/integrations/IntegrationsElevenLabsPage';
 import { IntegrationsGmailPage } from '@contractspec/bundle.library/components/docs/integrations/IntegrationsGmailPage';
 import { IntegrationsGoogleCalendarPage } from '@contractspec/bundle.library/components/docs/integrations/IntegrationsGoogleCalendarPage';
+import { IntegrationsGoogleDrivePage } from '@contractspec/bundle.library/components/docs/integrations/IntegrationsGoogleDrivePage';
 import { IntegrationsOpenAIPage } from '@contractspec/bundle.library/components/docs/integrations/IntegrationsOpenAIPage';
 import { IntegrationsOverviewPage } from '@contractspec/bundle.library/components/docs/integrations/IntegrationsOverviewPage';
 import { IntegrationsPostmarkPage } from '@contractspec/bundle.library/components/docs/integrations/IntegrationsPostmarkPage';
@@ -61,6 +63,7 @@ import { IntegrationsTwilioPage } from '@contractspec/bundle.library/components/
 // Knowledge
 import { KnowledgeCategoriesPage } from '@contractspec/bundle.library/components/docs/knowledge/KnowledgeCategoriesPage';
 import { KnowledgeExamplesPage } from '@contractspec/bundle.library/components/docs/knowledge/KnowledgeExamplesPage';
+import { KnowledgeGovernancePage } from '@contractspec/bundle.library/components/docs/knowledge/KnowledgeGovernancePage';
 import { KnowledgeOverviewPage } from '@contractspec/bundle.library/components/docs/knowledge/KnowledgeOverviewPage';
 import { KnowledgeSourcesPage } from '@contractspec/bundle.library/components/docs/knowledge/KnowledgeSourcesPage';
 import { KnowledgeSpacesPage } from '@contractspec/bundle.library/components/docs/knowledge/KnowledgeSpacesPage';
@@ -192,6 +195,7 @@ export const docsComponentMap: ComponentMap = {
 	IntegrationsElevenLabsPage,
 	IntegrationsGmailPage,
 	IntegrationsGoogleCalendarPage,
+	IntegrationsGoogleDrivePage,
 	IntegrationsOpenAIPage,
 	IntegrationsPostmarkPage,
 	IntegrationsPowensPage,
@@ -205,8 +209,10 @@ export const docsComponentMap: ComponentMap = {
 	KnowledgeOverviewPage,
 	KnowledgeCategoriesPage,
 	KnowledgeExamplesPage,
+	KnowledgeGovernancePage,
 	KnowledgeSourcesPage,
 	KnowledgeSpacesPage,
+	GuideProviderBackedKnowledgePage,
 	// Comparison
 	ComparisonOverviewPage,
 	ComparisonAutomationPlatformsPage,
@@ -647,6 +653,12 @@ export const docsPresentations: [string, PresentationSpec][] = [
 		'ContractSpec Gmail integration'
 	),
 	docsEntry(
+		'/docs/integrations/google-drive',
+		'web-landing.docs.integrations.google-drive',
+		'IntegrationsGoogleDrivePage',
+		'ContractSpec Google Drive integration'
+	),
+	docsEntry(
 		'/docs/integrations/google-calendar',
 		'web-landing.docs.integrations.google-calendar',
 		'IntegrationsGoogleCalendarPage',
@@ -727,6 +739,12 @@ export const docsPresentations: [string, PresentationSpec][] = [
 		'ContractSpec knowledge examples'
 	),
 	docsEntry(
+		'/docs/knowledge/governance',
+		'web-landing.docs.knowledge.governance',
+		'KnowledgeGovernancePage',
+		'ContractSpec knowledge mutation governance'
+	),
+	docsEntry(
 		'/docs/knowledge/sources',
 		'web-landing.docs.knowledge.sources',
 		'KnowledgeSourcesPage',
@@ -737,6 +755,12 @@ export const docsPresentations: [string, PresentationSpec][] = [
 		'web-landing.docs.knowledge.spaces',
 		'KnowledgeSpacesPage',
 		'ContractSpec knowledge spaces'
+	),
+	docsEntry(
+		'/docs/guides/provider-backed-knowledge',
+		'web-landing.docs.guides.provider-backed-knowledge',
+		'GuideProviderBackedKnowledgePage',
+		'ContractSpec provider-backed knowledge adoption guide'
 	),
 
 	// Comparison

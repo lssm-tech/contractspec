@@ -104,6 +104,7 @@
 		"./components/docs/guides/GuideHostBuilderWorkbenchPage": "./src/components/docs/guides/GuideHostBuilderWorkbenchPage.tsx",
 		"./components/docs/guides/GuideImportExistingCodebasesPage": "./src/components/docs/guides/GuideImportExistingCodebasesPage.tsx",
 		"./components/docs/guides/GuideNextjsOneEndpointPage": "./src/components/docs/guides/GuideNextjsOneEndpointPage.tsx",
+		"./components/docs/guides/GuideProviderBackedKnowledgePage": "./src/components/docs/guides/GuideProviderBackedKnowledgePage.tsx",
 		"./components/docs/guides/GuideReleaseCapsulesPage": "./src/components/docs/guides/GuideReleaseCapsulesPage.tsx",
 		"./components/docs/guides/guides.docblocks": "./src/components/docs/guides/guides.docblocks.ts",
 		"./components/docs/guides/GuidesIndexPage": "./src/components/docs/guides/GuidesIndexPage.tsx",
@@ -114,6 +115,7 @@
 		"./components/docs/integrations/IntegrationsGithubPage": "./src/components/docs/integrations/IntegrationsGithubPage.tsx",
 		"./components/docs/integrations/IntegrationsGmailPage": "./src/components/docs/integrations/IntegrationsGmailPage.tsx",
 		"./components/docs/integrations/IntegrationsGoogleCalendarPage": "./src/components/docs/integrations/IntegrationsGoogleCalendarPage.tsx",
+		"./components/docs/integrations/IntegrationsGoogleDrivePage": "./src/components/docs/integrations/IntegrationsGoogleDrivePage.tsx",
 		"./components/docs/integrations/IntegrationsHealthRoutingPage": "./src/components/docs/integrations/IntegrationsHealthRoutingPage.tsx",
 		"./components/docs/integrations/IntegrationsMistralPage": "./src/components/docs/integrations/IntegrationsMistralPage.tsx",
 		"./components/docs/integrations/IntegrationsOpenAIPage": "./src/components/docs/integrations/IntegrationsOpenAIPage.tsx",
@@ -140,6 +142,7 @@
 		"./components/docs/knowledge": "./src/components/docs/knowledge/index.ts",
 		"./components/docs/knowledge/KnowledgeCategoriesPage": "./src/components/docs/knowledge/KnowledgeCategoriesPage.tsx",
 		"./components/docs/knowledge/KnowledgeExamplesPage": "./src/components/docs/knowledge/KnowledgeExamplesPage.tsx",
+		"./components/docs/knowledge/KnowledgeGovernancePage": "./src/components/docs/knowledge/KnowledgeGovernancePage.tsx",
 		"./components/docs/knowledge/KnowledgeOverviewPage": "./src/components/docs/knowledge/KnowledgeOverviewPage.tsx",
 		"./components/docs/knowledge/KnowledgeSourcesPage": "./src/components/docs/knowledge/KnowledgeSourcesPage.tsx",
 		"./components/docs/knowledge/KnowledgeSpacesPage": "./src/components/docs/knowledge/KnowledgeSpacesPage.tsx",
@@ -931,6 +934,12 @@
 				"node": "./dist/node/components/docs/guides/GuideNextjsOneEndpointPage.js",
 				"default": "./dist/components/docs/guides/GuideNextjsOneEndpointPage.js"
 			},
+			"./components/docs/guides/GuideProviderBackedKnowledgePage": {
+				"types": "./dist/components/docs/guides/GuideProviderBackedKnowledgePage.d.ts",
+				"bun": "./dist/components/docs/guides/GuideProviderBackedKnowledgePage.js",
+				"node": "./dist/node/components/docs/guides/GuideProviderBackedKnowledgePage.js",
+				"default": "./dist/components/docs/guides/GuideProviderBackedKnowledgePage.js"
+			},
 			"./components/docs/guides/GuideReleaseCapsulesPage": {
 				"types": "./dist/components/docs/guides/GuideReleaseCapsulesPage.d.ts",
 				"bun": "./dist/components/docs/guides/GuideReleaseCapsulesPage.js",
@@ -990,6 +999,12 @@
 				"bun": "./dist/components/docs/integrations/IntegrationsGoogleCalendarPage.js",
 				"node": "./dist/node/components/docs/integrations/IntegrationsGoogleCalendarPage.js",
 				"default": "./dist/components/docs/integrations/IntegrationsGoogleCalendarPage.js"
+			},
+			"./components/docs/integrations/IntegrationsGoogleDrivePage": {
+				"types": "./dist/components/docs/integrations/IntegrationsGoogleDrivePage.d.ts",
+				"bun": "./dist/components/docs/integrations/IntegrationsGoogleDrivePage.js",
+				"node": "./dist/node/components/docs/integrations/IntegrationsGoogleDrivePage.js",
+				"default": "./dist/components/docs/integrations/IntegrationsGoogleDrivePage.js"
 			},
 			"./components/docs/integrations/IntegrationsHealthRoutingPage": {
 				"types": "./dist/components/docs/integrations/IntegrationsHealthRoutingPage.d.ts",
@@ -1146,6 +1161,12 @@
 				"bun": "./dist/components/docs/knowledge/KnowledgeExamplesPage.js",
 				"node": "./dist/node/components/docs/knowledge/KnowledgeExamplesPage.js",
 				"default": "./dist/components/docs/knowledge/KnowledgeExamplesPage.js"
+			},
+			"./components/docs/knowledge/KnowledgeGovernancePage": {
+				"types": "./dist/components/docs/knowledge/KnowledgeGovernancePage.d.ts",
+				"bun": "./dist/components/docs/knowledge/KnowledgeGovernancePage.js",
+				"node": "./dist/node/components/docs/knowledge/KnowledgeGovernancePage.js",
+				"default": "./dist/components/docs/knowledge/KnowledgeGovernancePage.js"
 			},
 			"./components/docs/knowledge/KnowledgeOverviewPage": {
 				"types": "./dist/components/docs/knowledge/KnowledgeOverviewPage.d.ts",

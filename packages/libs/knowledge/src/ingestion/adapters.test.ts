@@ -6,6 +6,11 @@ import type {
 	EmbeddingProvider,
 	EmbeddingResult,
 	GetObjectResult,
+	GoogleDriveFile,
+	GoogleDriveFileMetadata,
+	GoogleDriveListFilesQuery,
+	GoogleDriveListFilesResult,
+	GoogleDriveProvider,
 	VectorDeleteRequest,
 	VectorSearchQuery,
 	VectorSearchResult,
@@ -13,6 +18,7 @@ import type {
 	VectorUpsertRequest,
 } from '@contractspec/lib.contracts-integrations';
 import { DocumentProcessor } from './document-processor';
+import { DriveIngestionAdapter } from './drive-adapter';
 import { EmbeddingService } from './embedding-service';
 import { GmailIngestionAdapter } from './gmail-adapter';
 import { StorageIngestionAdapter } from './storage-adapter';
@@ -74,6 +80,38 @@ class FakeEmailInboundProvider implements EmailInboundProvider {
 
 	async listMessagesSince(): Promise<{ messages: []; nextPageToken?: string }> {
 		return { messages: [] };
+	}
+}
+
+class FakeDriveProvider implements GoogleDriveProvider {
+	lastQuery?: GoogleDriveListFilesQuery;
+
+	constructor(
+		private readonly files: GoogleDriveFile[],
+		private readonly listedFiles: GoogleDriveFileMetadata[] = files
+	) {}
+
+	async listFiles(
+		query?: GoogleDriveListFilesQuery
+	): Promise<GoogleDriveListFilesResult> {
+		this.lastQuery = query;
+		return {
+			files: this.listedFiles,
+			nextPageToken: 'next-page',
+			delta: {
+				cursor: {
+					cursor: 'drive-cursor-2',
+					watermarkVersion: 'v2',
+				},
+				replayCheckpoint: {
+					checkpointId: 'replay-2',
+				},
+			},
+		};
+	}
+
+	async getFile(fileId: string): Promise<GoogleDriveFile | null> {
+		return this.files.find((file) => file.id === fileId) ?? null;
 	}
 }
 
@@ -210,5 +248,172 @@ describe('knowledge ingestion adapters', () => {
 		expect(vectorStore.lastUpsert?.documents[0]?.payload?.text).toEqual(
 			expect.stringContaining('Objet : Question produit')
 		);
+	});
+
+	it('skips tombstoned Gmail threads before indexing', async () => {
+		const vectorStore = new FakeVectorStoreProvider();
+		const adapter = new GmailIngestionAdapter(
+			new FakeEmailInboundProvider([
+				{
+					id: 'thread-deleted',
+					subject: 'Deleted thread',
+					snippet: 'Do not index',
+					participants: [{ email: 'ops@example.com' }],
+					updatedAt: new Date('2025-01-03T12:00:00.000Z'),
+					messages: [
+						{
+							id: 'message-deleted',
+							threadId: 'thread-deleted',
+							from: { email: 'ops@example.com' },
+							to: [{ email: 'support@example.com' }],
+							sentAt: new Date('2025-01-03T12:00:00.000Z'),
+							textBody: 'This deleted thread must not be indexed.',
+						},
+					],
+					delta: {
+						tombstone: {
+							deletedAt: '2025-01-03T12:01:00.000Z',
+							reason: 'provider_deleted',
+						},
+					},
+				},
+			]),
+			new DocumentProcessor(),
+			new EmbeddingService(new FakeEmbeddingProvider()),
+			createIndexer(vectorStore)
+		);
+
+		await adapter.syncThreads();
+
+		expect(vectorStore.lastUpsert).toBeUndefined();
+	});
+
+	it('indexes Google Drive files with delta metadata', async () => {
+		const vectorStore = new FakeVectorStoreProvider();
+		const drive = new FakeDriveProvider([
+			{
+				id: 'drive-file-1',
+				name: 'Runbook.txt',
+				mimeType: 'text/plain',
+				modifiedTime: '2025-02-03T10:00:00.000Z',
+				webViewLink: 'https://drive.google.com/file/d/drive-file-1',
+				md5Checksum: 'md5-123',
+				data: new TextEncoder().encode('Escalate Sev1 incidents in PagerDuty.'),
+				delta: {
+					lease: {
+						holder: 'knowledge-sync',
+						expiresAt: '2025-02-03T10:05:00.000Z',
+						renewalWindowMs: 60_000,
+					},
+					providerEventId: 'drive-event-1',
+					dedupeKey: 'drive-file-1:v2',
+					idempotencyKey: 'drive-sync-1',
+				},
+			},
+		]);
+		const adapter = new DriveIngestionAdapter(
+			drive,
+			new DocumentProcessor(),
+			new EmbeddingService(new FakeEmbeddingProvider()),
+			createIndexer(vectorStore)
+		);
+
+		const result = await adapter.syncFiles({
+			query: "mimeType = 'text/plain'",
+			delta: {
+				cursor: {
+					cursor: 'drive-cursor-1',
+					watermarkVersion: 'v1',
+				},
+			},
+		});
+
+		expect(drive.lastQuery?.delta?.cursor?.watermarkVersion).toBe('v1');
+		expect(result).toMatchObject({
+			filesSeen: 1,
+			filesIndexed: 1,
+			filesSkipped: 0,
+			nextPageToken: 'next-page',
+		});
+		expect(result.delta?.cursor?.watermarkVersion).toBe('v2');
+		expect(vectorStore.lastUpsert?.documents[0]?.payload).toMatchObject({
+			documentId: 'drive:drive-file-1',
+			provider: 'google-drive',
+			fileId: 'drive-file-1',
+			name: 'Runbook.txt',
+			md5Checksum: 'md5-123',
+		});
+	});
+
+	it('skips tombstoned Google Drive files before indexing', async () => {
+		const vectorStore = new FakeVectorStoreProvider();
+		const drive = new FakeDriveProvider(
+			[
+				{
+					id: 'drive-file-2',
+					name: 'Deleted.txt',
+					mimeType: 'text/plain',
+					data: new TextEncoder().encode('Do not index me.'),
+					delta: {
+						tombstone: {
+							deletedAt: '2025-02-04T10:00:00.000Z',
+							reason: 'provider_deleted',
+						},
+					},
+				},
+			],
+			[
+				{
+					id: 'drive-file-2',
+					name: 'Deleted.txt',
+					mimeType: 'text/plain',
+					delta: {
+						tombstone: {
+							deletedAt: '2025-02-04T10:00:00.000Z',
+						},
+					},
+				},
+			]
+		);
+		const adapter = new DriveIngestionAdapter(
+			drive,
+			new DocumentProcessor(),
+			new EmbeddingService(new FakeEmbeddingProvider()),
+			createIndexer(vectorStore)
+		);
+
+		const result = await adapter.syncFiles();
+
+		expect(result).toMatchObject({
+			filesSeen: 1,
+			filesIndexed: 0,
+			filesSkipped: 1,
+		});
+		expect(vectorStore.lastUpsert).toBeUndefined();
+	});
+
+	it('skips direct Google Drive ingest when the file is tombstoned', async () => {
+		const vectorStore = new FakeVectorStoreProvider();
+		const adapter = new DriveIngestionAdapter(
+			new FakeDriveProvider([]),
+			new DocumentProcessor(),
+			new EmbeddingService(new FakeEmbeddingProvider()),
+			createIndexer(vectorStore)
+		);
+
+		const fragments = await adapter.ingestFile({
+			id: 'drive-file-direct-deleted',
+			name: 'Direct deleted.txt',
+			mimeType: 'text/plain',
+			data: new TextEncoder().encode('Do not index direct tombstones.'),
+			delta: {
+				tombstone: {
+					deletedAt: '2025-02-04T10:00:00.000Z',
+				},
+			},
+		});
+
+		expect(fragments).toEqual([]);
+		expect(vectorStore.lastUpsert).toBeUndefined();
 	});
 });

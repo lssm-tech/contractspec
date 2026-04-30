@@ -1,112 +1,22 @@
-import { ScalarTypeEnum, SchemaModel } from '@contractspec/lib.schema';
 import {
 	type AnyOperationSpec,
 	defineCommand,
 	defineQuery,
 } from '../operations/';
 import type { OperationSpecRegistry } from '../operations/registry';
-
-const KnowledgeSyncSchedule = new SchemaModel({
-	name: 'KnowledgeSyncSchedule',
-	fields: {
-		enabled: { type: ScalarTypeEnum.Boolean(), isOptional: false },
-		cron: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-		intervalMs: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
-	},
-});
-
-const KnowledgeSourceRecord = new SchemaModel({
-	name: 'KnowledgeSourceRecord',
-	fields: {
-		id: { type: ScalarTypeEnum.ID(), isOptional: false },
-		tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
-		spaceKey: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
-		spaceVersion: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-		label: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-		sourceType: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-		syncSchedule: { type: KnowledgeSyncSchedule, isOptional: true },
-		lastSyncStatus: {
-			type: ScalarTypeEnum.String_unsecure(),
-			isOptional: true,
-		},
-		lastSyncAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
-		itemsProcessed: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
-		createdAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
-		updatedAt: { type: ScalarTypeEnum.DateTime(), isOptional: true },
-	},
-});
-
-const CreateKnowledgeSourceInput = new SchemaModel({
-	name: 'CreateKnowledgeSourceInput',
-	fields: {
-		tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
-		spaceKey: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
-		spaceVersion: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-		label: { type: ScalarTypeEnum.String_unsecure(), isOptional: false },
-		sourceType: { type: ScalarTypeEnum.NonEmptyString(), isOptional: false },
-		config: { type: ScalarTypeEnum.JSONObject(), isOptional: false },
-		syncSchedule: { type: KnowledgeSyncSchedule, isOptional: true },
-	},
-});
-
-const UpdateKnowledgeSourceInput = new SchemaModel({
-	name: 'UpdateKnowledgeSourceInput',
-	fields: {
-		sourceId: { type: ScalarTypeEnum.ID(), isOptional: false },
-		label: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-		config: { type: ScalarTypeEnum.JSONObject(), isOptional: true },
-		syncSchedule: { type: KnowledgeSyncSchedule, isOptional: true },
-	},
-});
-
-const DeleteKnowledgeSourceInput = new SchemaModel({
-	name: 'DeleteKnowledgeSourceInput',
-	fields: {
-		sourceId: { type: ScalarTypeEnum.ID(), isOptional: false },
-	},
-});
-
-const DeleteKnowledgeSourceOutput = new SchemaModel({
-	name: 'DeleteKnowledgeSourceOutput',
-	fields: {
-		success: { type: ScalarTypeEnum.Boolean(), isOptional: false },
-	},
-});
-
-const ListKnowledgeSourcesInput = new SchemaModel({
-	name: 'ListKnowledgeSourcesInput',
-	fields: {
-		tenantId: { type: ScalarTypeEnum.ID(), isOptional: false },
-		spaceKey: { type: ScalarTypeEnum.NonEmptyString(), isOptional: true },
-	},
-});
-
-const ListKnowledgeSourcesOutput = new SchemaModel({
-	name: 'ListKnowledgeSourcesOutput',
-	fields: {
-		sources: {
-			type: KnowledgeSourceRecord,
-			isOptional: false,
-			isArray: true,
-		},
-	},
-});
-
-const TriggerKnowledgeSyncInput = new SchemaModel({
-	name: 'TriggerKnowledgeSyncInput',
-	fields: {
-		sourceId: { type: ScalarTypeEnum.ID(), isOptional: false },
-	},
-});
-
-const TriggerKnowledgeSyncOutput = new SchemaModel({
-	name: 'TriggerKnowledgeSyncOutput',
-	fields: {
-		success: { type: ScalarTypeEnum.Boolean(), isOptional: false },
-		itemsProcessed: { type: ScalarTypeEnum.Int_unsecure(), isOptional: true },
-		error: { type: ScalarTypeEnum.String_unsecure(), isOptional: true },
-	},
-});
+import {
+	CreateKnowledgeSourceInput,
+	DeleteKnowledgeSourceInput,
+	DeleteKnowledgeSourceOutput,
+	EvaluateKnowledgeMutationGovernanceInput,
+	EvaluateKnowledgeMutationGovernanceOutput,
+	KnowledgeSourceRecord,
+	ListKnowledgeSourcesInput,
+	ListKnowledgeSourcesOutput,
+	TriggerKnowledgeSyncInput,
+	TriggerKnowledgeSyncOutput,
+	UpdateKnowledgeSourceInput,
+} from './operation-models';
 
 export const CreateKnowledgeSource = defineCommand({
 	meta: {
@@ -223,12 +133,37 @@ export const TriggerKnowledgeSourceSync = defineCommand({
 	},
 });
 
+export const EvaluateKnowledgeMutationGovernance = defineCommand({
+	meta: {
+		key: 'knowledge.mutation.evaluateGovernance',
+		title: 'Evaluate Knowledge Mutation Governance',
+		version: '1.0.0',
+		description:
+			'Evaluate dry-run, approval, idempotency, audit, and outbound-send evidence before mutating an external knowledge provider.',
+		goal: 'Create an auditable decision envelope for governed knowledge mutations.',
+		context:
+			'Used by runtime flows before sending email, changing Drive permissions, or mutating provider-backed knowledge sources.',
+		owners: ['@platform.knowledge'],
+		tags: ['knowledge', 'governance', 'mutation'],
+		stability: 'experimental',
+	},
+	io: {
+		input: EvaluateKnowledgeMutationGovernanceInput,
+		output: EvaluateKnowledgeMutationGovernanceOutput,
+	},
+	policy: {
+		auth: 'admin',
+		policies: [{ key: 'platform.knowledge.manage', version: '1.0.0' }],
+	},
+});
+
 export const knowledgeContracts: Record<string, AnyOperationSpec> = {
 	CreateKnowledgeSource,
 	UpdateKnowledgeSource,
 	DeleteKnowledgeSource,
 	ListKnowledgeSources,
 	TriggerKnowledgeSourceSync,
+	EvaluateKnowledgeMutationGovernance,
 };
 
 export function registerKnowledgeContracts(registry: OperationSpecRegistry) {
@@ -237,5 +172,6 @@ export function registerKnowledgeContracts(registry: OperationSpecRegistry) {
 		.register(UpdateKnowledgeSource)
 		.register(DeleteKnowledgeSource)
 		.register(ListKnowledgeSources)
-		.register(TriggerKnowledgeSourceSync);
+		.register(TriggerKnowledgeSourceSync)
+		.register(EvaluateKnowledgeMutationGovernance);
 }

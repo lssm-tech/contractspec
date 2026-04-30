@@ -1,10 +1,20 @@
 Apply the ContractSpec upgrade plan in this workspace using codex.
 
 Target packages:
-@contractspec/lib.design-system: unknown -> 4.4.3
+@contractspec/app.web-landing: unknown -> latest
+@contractspec/bundle.library: unknown -> 3.10.1
+@contractspec/bundle.marketing: unknown -> 3.8.25
+@contractspec/example.knowledge-canon: unknown -> 3.8.4
+@contractspec/lib.contracts-integrations: unknown -> 3.9.0
+@contractspec/lib.contracts-spec: unknown -> 6.3.0
+@contractspec/lib.knowledge: unknown -> 3.8.4
 
 Required steps:
-- [auto] Use the floating PageOutline variant for wide desktop shells: AppShell now uses the floating outline automatically on wide desktop and hides it on smaller web layouts; direct PageOutline consumers can still opt in with `variant="floating"` or `variant="compact"`.
-  - Use `variant="floating"` for direct web PageOutline usage that should reduce when inactive.
-  - Keep `variant="rail"` or `variant="compact"` where a static inline outline is still preferred.
-  - Place any custom small-screen outline UI outside AppShell if a product needs one.
+- [manual] Attach delta state before runtime sync: Use `ProviderDeltaSyncState` for provider cursors, leases, webhook expiry, dedupe, idempotency, replay, and tombstone state.
+  - Pass provider cursor or watermark state into Gmail and Drive sync calls.
+  - Persist returned delta state before acknowledging runtime sync work.
+  - Skip or delete records marked with tombstones before re-indexing.
+- [manual] Gate knowledge mutations before provider writes: Wrap external writes with `executeGovernedKnowledgeMutation(...)` so dry-runs, approvals, idempotency, audit evidence, and outbound-send gates are explicit.
+  - Use `dryRun` for preview-only flows.
+  - Provide `idempotencyKey` and `auditEvidence.evidenceRef` for non-dry-run mutations.
+  - Require approval refs and an approved outbound-send gate before sending external messages.
