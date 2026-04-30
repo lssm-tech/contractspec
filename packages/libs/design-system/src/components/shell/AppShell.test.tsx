@@ -118,10 +118,10 @@ describe('AppShell', () => {
 		expect(html).toContain('hover:w-64');
 		expect(html).toContain('focus-within:w-64');
 		expect(html).toContain('xl:block');
-		expect(html).toContain('xl:hidden');
+		expect(html).not.toContain('Open page outline');
 	});
 
-	it('keeps the compact page outline in the small-screen dialog', async () => {
+	it('hides the page outline trigger and compact dialog path on small screens', async () => {
 		await renderShell(
 			<AppShell
 				title="Console"
@@ -134,15 +134,15 @@ describe('AppShell', () => {
 			</AppShell>
 		);
 
-		await click(
+		expect(
 			document.querySelector('button[aria-label="Open page outline"]')
-		);
-
-		const compactOutline = Array.from(document.querySelectorAll('nav')).find(
-			(nav) =>
-				nav.className.includes('rounded-md') && nav.className.includes('border')
-		);
-		expect(compactOutline?.textContent).toContain('Summary');
+		).toBeNull();
+		expect(document.body.textContent).not.toContain('On this page');
+		expect(
+			Array.from(document.querySelectorAll('nav')).some((nav) =>
+				nav.className.includes('rounded-md border p-3')
+			)
+		).toBe(false);
 	});
 
 	it('renders a shared desktop sidebar provider and collapse trigger', async () => {

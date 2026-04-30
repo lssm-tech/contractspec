@@ -12,7 +12,7 @@ import {
 	SidebarTrigger,
 } from '@contractspec/lib.ui-kit-web/ui/sidebar';
 import { cn } from '@contractspec/lib.ui-kit-web/ui/utils';
-import { MenuIcon, PanelRightIcon } from 'lucide-react';
+import { MenuIcon } from 'lucide-react';
 import * as React from 'react';
 import { Button } from '../atoms/Button';
 import { NavBrand } from '../atoms/NavBrand';
@@ -158,7 +158,6 @@ export function AppShell({
 	onNavigate: _onNavigate,
 }: AppShellProps) {
 	const [menuOpen, setMenuOpen] = React.useState(false);
-	const [outlineOpen, setOutlineOpen] = React.useState(false);
 	const resolvedBrand = brand ?? (
 		<NavBrand href={homeHref} logo={logo} title={title} />
 	);
@@ -208,17 +207,6 @@ export function AppShell({
 							<div className="hidden shrink-0 md:block">
 								{renderCommandTrigger()}
 							</div>
-							{pageOutline.length ? (
-								<Button
-									variant="ghost"
-									size="icon"
-									className="xl:hidden"
-									ariaLabelI18n="Open page outline"
-									onPress={() => setOutlineOpen(true)}
-								>
-									<PanelRightIcon className="h-4 w-4" />
-								</Button>
-							) : null}
 							<div className="flex shrink-0 items-center gap-2">
 								{notifications ? (
 									<ShellNotifications notifications={notifications} />
@@ -256,20 +244,6 @@ export function AppShell({
 						<ShellNavList sections={navigation} activeHref={activeHref} />
 						{userMenu}
 					</div>
-				</DialogContent>
-			</Dialog>
-
-			<Dialog open={outlineOpen} onOpenChange={setOutlineOpen}>
-				<DialogContent className="max-h-[85svh] overflow-auto sm:max-w-sm">
-					<DialogHeader>
-						<DialogTitle>On this page</DialogTitle>
-					</DialogHeader>
-					<PageOutline
-						items={pageOutline}
-						activeId={activeOutlineId}
-						variant="compact"
-						onNavigate={() => setOutlineOpen(false)}
-					/>
 				</DialogContent>
 			</Dialog>
 		</div>
