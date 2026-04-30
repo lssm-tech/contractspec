@@ -1,10 +1,16 @@
 import type { AgentSpec } from '@contractspec/lib.contracts-spec/agent';
 import { sanitizeMcpName } from '@contractspec/lib.contracts-spec/jsonschema';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import type { AnySchema } from '@modelcontextprotocol/sdk/server/zod-compat.js';
+import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
 import * as z from 'zod';
 import type { ContractSpecAgent } from '../agent/contract-spec-agent';
 import { createAgentI18n } from '../i18n';
 import { jsonSchemaToZodSafe } from '../schema/json-schema-to-zod';
+
+function toMcpInputSchema(schema: z.ZodType<unknown>): AnySchema {
+	return schema as unknown as AnySchema;
+}
 
 /**
  * Generate an MCP server that exposes a ContractSpec agent as a tool.
@@ -35,6 +41,13 @@ export function agentToMcpServer(
 		name: spec.meta.key,
 		version: `${spec.meta.version}`,
 	});
+	const agentInputSchema = z.object({
+		message: z.string().describe(i18n.t('tool.mcp.param.message')),
+		sessionId: z
+			.string()
+			.optional()
+			.describe(i18n.t('tool.mcp.param.sessionId')),
+	});
 
 	// Expose agent as a conversational tool using registerTool
 	server.registerTool(
@@ -43,16 +56,10 @@ export function agentToMcpServer(
 			description:
 				spec.description ??
 				i18n.t('tool.mcp.agentDescription', { key: spec.meta.key }),
-			inputSchema: z.object({
-				message: z.string().describe(i18n.t('tool.mcp.param.message')),
-				sessionId: z
-					.string()
-					.optional()
-					.describe(i18n.t('tool.mcp.param.sessionId')),
-			}),
+			inputSchema: toMcpInputSchema(agentInputSchema),
 		},
-		async (args) => {
-			const { message, sessionId } = args;
+		async (args: unknown): Promise<CallToolResult> => {
+			const { message, sessionId } = agentInputSchema.parse(args ?? {});
 
 			const result = await agent.generate({
 				prompt: message,
@@ -82,13 +89,14 @@ export function agentToMcpServer(
 				description:
 					toolConfig.description ??
 					i18n.t('tool.mcp.toolDescription', { name: toolConfig.name }),
-				inputSchema,
+				inputSchema: toMcpInputSchema(inputSchema),
 			},
-			async (args) => {
+			async (args: unknown): Promise<CallToolResult> => {
+				const input = inputSchema.parse(args ?? {});
 				const result = await agent.generate({
 					prompt: i18n.t('tool.mcp.executePrompt', {
 						name: toolConfig.name,
-						args: JSON.stringify(args),
+						args: JSON.stringify(input),
 					}),
 				});
 

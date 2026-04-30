@@ -4,6 +4,7 @@ import {
 } from '@contractspec/lib.contracts-spec/jsonschema';
 import type { OperationSpecRegistry } from '@contractspec/lib.contracts-spec/operations/registry';
 import type { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
+import type { AnySchema } from '@modelcontextprotocol/sdk/server/zod-compat.js';
 import type { CallToolResult } from '@modelcontextprotocol/sdk/types.js';
 import type { McpCtxFactories } from './mcpTypes';
 
@@ -24,7 +25,7 @@ export function registerMcpTools(
 			toolName,
 			{
 				description: spec.meta.description,
-				inputSchema: spec.io.input?.getZod(),
+				inputSchema: spec.io.input?.getZod() as AnySchema | undefined,
 			},
 			async (args: unknown): Promise<CallToolResult> => {
 				const result = await ops.executeResult(
