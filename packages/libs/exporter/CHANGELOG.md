@@ -1,5 +1,15 @@
 # @contractspec/lib.exporter
 
+## 3.7.23
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/lib.data-exchange-core@0.3.2
+  - @contractspec/lib.contracts-spec@6.4.0
+
 ## 3.7.22
 
 ### Patch Changes

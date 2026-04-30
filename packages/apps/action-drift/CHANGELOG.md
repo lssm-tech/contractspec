@@ -1,5 +1,15 @@
 # Changelog
 
+## 2.7.29
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/bundle.workspace@4.7.1
+  - @contractspec/lib.contracts-spec@6.4.0
+
 ## 2.7.28
 
 ### Patch Changes

@@ -1,5 +1,14 @@
 # @contractspec/integration.example-generator
 
+## 49.0.0
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/lib.contracts-integrations@3.10.0
+  - @contractspec/lib.contracts-spec@6.4.0
+
 ## 48.0.0
 
 ### Patch Changes

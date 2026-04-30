@@ -1,5 +1,13 @@
 # @contractspec/lib.presentation-runtime-core
 
+## 5.2.3
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/lib.contracts-spec@6.4.0
+
 ## 5.2.2
 
 ### Patch Changes

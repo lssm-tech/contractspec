@@ -1,5 +1,23 @@
 # @contractspec/module.ai-chat
 
+## 4.3.33
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/integration.workflow-devkit@0.1.15
+  - @contractspec/lib.ai-agent@8.0.17
+  - @contractspec/lib.ai-providers@3.7.22
+  - @contractspec/lib.cost-tracking@3.7.22
+  - @contractspec/lib.design-system@4.4.4
+  - @contractspec/lib.metering@3.7.29
+  - @contractspec/lib.surface-runtime@0.5.29
+  - @contractspec/lib.ui-kit-web@3.13.4
+  - @contractspec/lib.workflow-composer@3.7.29
+  - @contractspec/lib.contracts-spec@6.4.0
+
 ## 4.3.32
 
 ### Patch Changes

@@ -1,5 +1,21 @@
 # @contractspec/integration.runtime
 
+## 3.10.1
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/lib.builder-runtime@0.2.11
+  - @contractspec/lib.builder-spec@0.2.11
+  - @contractspec/lib.execution-lanes@0.1.12
+  - @contractspec/lib.jobs@3.8.8
+  - @contractspec/lib.logger@3.7.22
+  - @contractspec/lib.provider-spec@0.2.9
+  - @contractspec/lib.contracts-integrations@3.10.0
+  - @contractspec/lib.contracts-spec@6.4.0
+
 ## 3.10.0
 
 ### Minor Changes

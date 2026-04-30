@@ -1,5 +1,15 @@
 # @contractspec/module.notifications
 
+## 3.8.5
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/lib.notification@0.2.2
+  - @contractspec/lib.contracts-spec@6.4.0
+
 ## 3.8.4
 
 ### Patch Changes

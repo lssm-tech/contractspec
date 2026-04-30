@@ -1,5 +1,17 @@
 # @contractspec/module.mobile-review
 
+## 0.2.15
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/lib.builder-spec@0.2.11
+  - @contractspec/lib.ui-kit-web@3.13.4
+  - @contractspec/module.builder-workbench@0.2.15
+  - @contractspec/lib.contracts-spec@6.4.0
+
 ## 0.2.14
 
 ### Patch Changes

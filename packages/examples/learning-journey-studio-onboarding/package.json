@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/example.learning-journey-studio-onboarding",
-	"version": "4.0.8",
+	"version": "4.0.9",
 	"description": "Learning journey track for first 30 minutes in ContractSpec Studio.",
 	"type": "module",
 	"types": "./dist/index.d.ts",

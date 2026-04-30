@@ -1,5 +1,16 @@
 # @contractspec/app.alpic-mcp
 
+## 3.7.28
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/bundle.alpic@3.7.28
+  - @contractspec/lib.logger@3.7.22
+  - @contractspec/lib.contracts-spec@6.4.0
+
 ## 3.7.27
 
 ### Patch Changes

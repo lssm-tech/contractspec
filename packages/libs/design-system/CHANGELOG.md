@@ -1,5 +1,22 @@
 # @contractspec/lib.design-system
 
+## 4.4.4
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/lib.ai-agent@8.0.17
+  - @contractspec/lib.contracts-runtime-client-react@3.14.2
+  - @contractspec/lib.presentation-runtime-core@5.2.3
+  - @contractspec/lib.presentation-runtime-react@40.0.3
+  - @contractspec/lib.translation-runtime@0.2.2
+  - @contractspec/lib.ui-kit@4.1.6
+  - @contractspec/lib.ui-kit-core@3.8.9
+  - @contractspec/lib.ui-kit-web@3.13.4
+  - @contractspec/lib.contracts-spec@6.4.0
+
 ## 4.4.3
 
 ### Patch Changes

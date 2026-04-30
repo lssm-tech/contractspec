@@ -1,5 +1,24 @@
 # @contractspec/app.api-library
 
+## 3.8.26
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/bundle.workspace@4.7.1
+  - @contractspec/integration.builder-telegram@0.2.11
+  - @contractspec/integration.builder-whatsapp@0.2.11
+  - @contractspec/integration.provider.codex@0.2.10
+  - @contractspec/integration.provider.messaging@0.2.5
+  - @contractspec/integration.runtime@3.10.1
+  - @contractspec/integration.runtime.managed@0.2.11
+  - @contractspec/lib.builder-runtime@0.2.11
+  - @contractspec/lib.contracts-spec@6.4.0
+  - @contractspec/bundle.library@3.10.2
+  - @contractspec/bundle.marketing@3.8.26
+
 ## 3.8.25
 
 ### Patch Changes

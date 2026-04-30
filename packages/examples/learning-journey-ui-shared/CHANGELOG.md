@@ -1,5 +1,17 @@
 # @contractspec/example.learning-journey-ui-shared
 
+## 4.0.13
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/lib.design-system@4.4.4
+  - @contractspec/lib.ui-kit-web@3.13.4
+  - @contractspec/module.learning-journey@4.0.9
+  - @contractspec/lib.contracts-spec@6.4.0
+
 ## 4.0.12
 
 ### Patch Changes

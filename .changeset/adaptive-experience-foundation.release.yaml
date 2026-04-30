@@ -27,7 +27,7 @@ upgradeSteps:
   - id: adopt-adaptive-experience-primitives
     title: Use adaptive experience primitives for transparent personalization
     summary: Layer behavior support and evidence-based suggestions on top of existing PreferenceDimensions without replacing authorization or business rules.
-    level: optional
+    level: assisted
     instructions:
       - Keep `PreferenceDimensions` focused on software/tool interaction.
       - Use `BehaviorSupportDimensions` for action, recovery, reflection, and accountability support.

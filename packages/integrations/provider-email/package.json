@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/integration.provider.email",
-	"version": "0.2.4",
+	"version": "0.2.5",
 	"description": "Email provider implementations for ContractSpec.",
 	"type": "module",
 	"types": "./dist/index.d.ts",

@@ -1,5 +1,23 @@
 # @contractspec/example.policy-safe-knowledge-assistant
 
+## 3.7.33
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/example.kb-update-pipeline@3.7.29
+  - @contractspec/example.learning-patterns@4.0.9
+  - @contractspec/example.locale-jurisdiction-gate@3.7.29
+  - @contractspec/example.versioned-knowledge-base@3.7.29
+  - @contractspec/lib.design-system@4.4.4
+  - @contractspec/lib.example-shared-ui@7.0.10
+  - @contractspec/lib.runtime-sandbox@3.0.8
+  - @contractspec/lib.ui-kit-web@3.13.4
+  - @contractspec/module.learning-journey@4.0.9
+  - @contractspec/lib.contracts-spec@6.4.0
+
 ## 3.7.32
 
 ### Patch Changes

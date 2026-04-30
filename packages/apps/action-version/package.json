@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/action.version",
-	"version": "3.0.8",
+	"version": "3.0.9",
 	"description": "GitHub Action for ContractSpec version management",
 	"main": "action.yml",
 	"keywords": [

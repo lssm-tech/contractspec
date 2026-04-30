@@ -1,5 +1,16 @@
 # @contractspec/example.meeting-recorder-providers
 
+## 3.7.30
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/integration.provider.meeting-recorder@0.2.5
+  - @contractspec/lib.contracts-integrations@3.10.0
+  - @contractspec/lib.contracts-spec@6.4.0
+
 ## 3.7.29
 
 ### Patch Changes

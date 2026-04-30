@@ -1,5 +1,13 @@
 # @contractspec/lib.provider-ranking
 
+## 0.7.22
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/lib.contracts-spec@6.4.0
+
 ## 0.7.21
 
 ### Patch Changes

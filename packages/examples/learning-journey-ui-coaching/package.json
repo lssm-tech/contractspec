@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/example.learning-journey-ui-coaching",
-	"version": "4.0.12",
+	"version": "4.0.13",
 	"description": "Contextual coaching UI with tip cards and engagement tracking.",
 	"type": "module",
 	"types": "./dist/index.d.ts",

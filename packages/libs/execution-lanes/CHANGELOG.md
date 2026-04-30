@@ -1,5 +1,15 @@
 # @contractspec/lib.execution-lanes
 
+## 0.1.12
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/lib.harness@0.3.5
+  - @contractspec/lib.contracts-spec@6.4.0
+
 ## 0.1.11
 
 ### Patch Changes

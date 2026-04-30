@@ -1,5 +1,15 @@
 # @contractspec/integration.provider.local-model
 
+## 0.2.10
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/lib.provider-spec@0.2.9
+  - @contractspec/lib.contracts-integrations@3.10.0
+
 ## 0.2.9
 
 ### Patch Changes

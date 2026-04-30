@@ -1,5 +1,15 @@
 # @contractspec/lib.contracts-runtime-server-graphql
 
+## 3.8.8
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/lib.contracts-runtime-server-rest@3.9.2
+  - @contractspec/lib.contracts-spec@6.4.0
+
 ## 3.8.7
 
 ### Patch Changes

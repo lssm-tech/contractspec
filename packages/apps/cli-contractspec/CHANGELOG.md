@@ -1,5 +1,30 @@
 # Changelog
 
+## 6.3.4
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/bundle.workspace@4.7.1
+  - @contractspec/integration.harness-runtime@0.3.5
+  - @contractspec/integration.runtime@3.10.1
+  - @contractspec/lib.ai-agent@8.0.17
+  - @contractspec/lib.ai-providers@3.7.22
+  - @contractspec/lib.builder-spec@0.2.11
+  - @contractspec/lib.contracts-transformers@3.7.29
+  - @contractspec/lib.execution-lanes@0.1.12
+  - @contractspec/lib.harness@0.3.5
+  - @contractspec/lib.plugins@3.7.29
+  - @contractspec/lib.testing@3.7.29
+  - @contractspec/lib.utils-typescript@3.7.22
+  - @contractspec/module.ai-chat@4.3.33
+  - @contractspec/module.examples@4.0.10
+  - @contractspec/module.workspace@4.3.9
+  - @contractspec/lib.contracts-integrations@3.10.0
+  - @contractspec/lib.contracts-spec@6.4.0
+
 ## 6.3.3
 
 ### Patch Changes

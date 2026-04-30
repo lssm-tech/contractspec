@@ -1,5 +1,15 @@
 # @contractspec/example.learning-journey-platform-tour
 
+## 4.0.9
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/module.learning-journey@4.0.9
+  - @contractspec/lib.contracts-spec@6.4.0
+
 ## 4.0.8
 
 ### Patch Changes

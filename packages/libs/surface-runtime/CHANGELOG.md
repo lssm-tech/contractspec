@@ -1,5 +1,16 @@
 # @contractspec/lib.surface-runtime
 
+## 0.5.29
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/lib.observability@3.7.29
+  - @contractspec/lib.overlay-engine@3.7.29
+  - @contractspec/lib.contracts-spec@6.4.0
+
 ## 0.5.28
 
 ### Patch Changes

@@ -1,5 +1,13 @@
 # @contractspec/lib.contracts-runtime-server-rest
 
+## 3.9.2
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/lib.contracts-spec@6.4.0
+
 ## 3.9.1
 
 ### Patch Changes

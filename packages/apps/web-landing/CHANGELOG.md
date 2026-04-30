@@ -1,5 +1,58 @@
 # @contractspec/apps.web-contractspec-landing
 
+## 3.8.27
+
+### Patch Changes
+
+- Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - Packages: @contractspec/lib.contracts-integrations (minor), @contractspec/lib.contracts-spec (minor), @contractspec/lib.knowledge (minor), @contractspec/bundle.library (patch), @contractspec/bundle.marketing (patch), @contractspec/app.web-landing (patch), @contractspec/example.knowledge-canon (patch)
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/example.agent-console@3.8.25
+  - @contractspec/example.ai-chat-assistant@3.8.25
+  - @contractspec/example.analytics-dashboard@3.9.25
+  - @contractspec/example.crm-pipeline@3.7.33
+  - @contractspec/example.data-grid-showcase@3.8.25
+  - @contractspec/example.finance-ops-ai-workflows@1.1.5
+  - @contractspec/example.form-showcase@1.1.6
+  - @contractspec/example.in-app-docs@3.7.33
+  - @contractspec/example.integration-hub@3.9.2
+  - @contractspec/example.learning-journey-registry@4.0.13
+  - @contractspec/example.marketplace@3.8.25
+  - @contractspec/example.pocket-family-office@3.8.5
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.33
+  - @contractspec/example.saas-boilerplate@3.8.25
+  - @contractspec/example.visualization-showcase@3.9.25
+  - @contractspec/example.wealth-snapshot@3.8.5
+  - @contractspec/example.workflow-system@3.8.25
+  - @contractspec/integration.provider.claude-code@0.2.10
+  - @contractspec/integration.provider.codex@0.2.10
+  - @contractspec/integration.provider.copilot@0.2.10
+  - @contractspec/integration.provider.gemini@0.2.10
+  - @contractspec/integration.provider.local-model@0.2.10
+  - @contractspec/integration.provider.stt@0.2.10
+  - @contractspec/integration.runtime.hybrid@0.2.11
+  - @contractspec/integration.runtime.local@0.2.11
+  - @contractspec/integration.runtime.managed@0.2.11
+  - @contractspec/lib.ai-providers@3.7.22
+  - @contractspec/lib.builder-spec@0.2.11
+  - @contractspec/lib.design-system@4.4.4
+  - @contractspec/lib.example-shared-ui@7.0.10
+  - @contractspec/lib.progressive-delivery@34.0.28
+  - @contractspec/lib.provider-spec@0.2.9
+  - @contractspec/lib.surface-runtime@0.5.29
+  - @contractspec/lib.ui-kit@4.1.6
+  - @contractspec/lib.ui-kit-core@3.8.9
+  - @contractspec/lib.ui-kit-web@3.13.4
+  - @contractspec/lib.ui-link@3.7.24
+  - @contractspec/module.ai-chat@4.3.33
+  - @contractspec/module.builder-workbench@0.2.15
+  - @contractspec/module.examples@4.0.10
+  - @contractspec/module.mobile-review@0.2.15
+  - @contractspec/lib.contracts-spec@6.4.0
+  - @contractspec/bundle.library@3.10.2
+  - @contractspec/bundle.marketing@3.8.26
+
 ## 3.8.26
 
 ### Patch Changes

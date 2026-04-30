@@ -1,5 +1,38 @@
 # @contractspec/app.expo-demo
 
+## 1.1.35
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/example.agent-console@3.8.25
+  - @contractspec/example.ai-chat-assistant@3.8.25
+  - @contractspec/example.analytics-dashboard@3.9.25
+  - @contractspec/example.crm-pipeline@3.7.33
+  - @contractspec/example.data-grid-showcase@3.8.25
+  - @contractspec/example.in-app-docs@3.7.33
+  - @contractspec/example.integration-hub@3.9.2
+  - @contractspec/example.learning-journey-registry@4.0.13
+  - @contractspec/example.marketplace@3.8.25
+  - @contractspec/example.meeting-recorder-providers@3.7.30
+  - @contractspec/example.pocket-family-office@3.8.5
+  - @contractspec/example.policy-safe-knowledge-assistant@3.7.33
+  - @contractspec/example.saas-boilerplate@3.8.25
+  - @contractspec/example.video-api-showcase@3.7.33
+  - @contractspec/example.video-docs-terminal@3.7.33
+  - @contractspec/example.visualization-showcase@3.9.25
+  - @contractspec/example.voice-providers@3.7.30
+  - @contractspec/example.workflow-system@3.8.25
+  - @contractspec/lib.presentation-runtime-core@5.2.3
+  - @contractspec/lib.presentation-runtime-react-native@40.0.3
+  - @contractspec/lib.ui-kit@4.1.6
+  - @contractspec/lib.ui-kit-core@3.8.9
+  - @contractspec/module.examples@4.0.10
+  - @contractspec/lib.contracts-spec@6.4.0
+  - @contractspec/bundle.marketing@3.8.26
+
 ## 1.1.34
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # contractspec
 
+## 4.0.14
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/app.cli-contractspec@6.3.4
+  - @contractspec/lib.contracts-spec@6.4.0
+
 ## 4.0.13
 
 ### Patch Changes

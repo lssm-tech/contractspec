@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/integration.provider.stt",
-	"version": "0.2.9",
+	"version": "0.2.10",
 	"description": "Speech-to-text provider compatibility wrapper for Builder.",
 	"type": "module",
 	"types": "./dist/index.d.ts",

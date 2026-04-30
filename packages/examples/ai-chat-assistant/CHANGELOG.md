@@ -1,5 +1,16 @@
 # @contractspec/example.ai-chat-assistant
 
+## 3.8.25
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/lib.ai-agent@8.0.17
+  - @contractspec/module.ai-chat@4.3.33
+  - @contractspec/lib.contracts-spec@6.4.0
+
 ## 3.8.24
 
 ### Patch Changes

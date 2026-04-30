@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.notification",
-	"version": "0.2.1",
+	"version": "0.2.2",
 	"description": "Library-first notification contracts, schema, channels, templates, and i18n for ContractSpec applications",
 	"keywords": [
 		"contractspec",

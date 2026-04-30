@@ -1,5 +1,23 @@
 # @contractspec/example.integration-hub
 
+## 3.9.2
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/lib.ai-agent@8.0.17
+  - @contractspec/lib.design-system@4.4.4
+  - @contractspec/lib.example-shared-ui@7.0.10
+  - @contractspec/lib.presentation-runtime-core@5.2.3
+  - @contractspec/lib.presentation-runtime-react@40.0.3
+  - @contractspec/lib.runtime-sandbox@3.0.8
+  - @contractspec/lib.ui-kit-web@3.13.4
+  - @contractspec/module.ai-chat@4.3.33
+  - @contractspec/lib.contracts-integrations@3.10.0
+  - @contractspec/lib.contracts-spec@6.4.0
+
 ## 3.9.1
 
 ### Patch Changes

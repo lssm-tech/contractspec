@@ -1,5 +1,19 @@
 # @contractspec/example.personalization
 
+## 3.7.29
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Add transparent adaptive-experience primitives to the personalization library.
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/lib.personalization@6.2.0
+  - @contractspec/lib.logger@3.7.22
+  - @contractspec/lib.overlay-engine@3.7.29
+  - @contractspec/lib.workflow-composer@3.7.29
+  - @contractspec/lib.contracts-spec@6.4.0
+
 ## 3.7.28
 
 ### Patch Changes

@@ -1,5 +1,15 @@
 # @contractspec/lib.support-bot
 
+## 4.0.9
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/lib.contracts-integrations@3.10.0
+  - @contractspec/lib.contracts-spec@6.4.0
+  - @contractspec/lib.knowledge@3.9.0
+
 ## 4.0.8
 
 ### Patch Changes

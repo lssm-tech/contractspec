@@ -1,5 +1,15 @@
 # @contractspec/lib.contracts-runtime-client-react
 
+## 3.14.2
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/lib.presentation-runtime-core@5.2.3
+  - @contractspec/lib.contracts-spec@6.4.0
+
 ## 3.14.1
 
 ### Patch Changes

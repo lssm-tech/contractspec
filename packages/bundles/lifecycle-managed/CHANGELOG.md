@@ -1,5 +1,20 @@
 # @contractspec/bundle.lifecycle-managed
 
+## 3.7.29
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/lib.analytics@3.7.29
+  - @contractspec/lib.lifecycle@3.7.29
+  - @contractspec/lib.observability@3.7.29
+  - @contractspec/lib.surface-runtime@0.5.29
+  - @contractspec/module.lifecycle-advisor@3.7.28
+  - @contractspec/module.lifecycle-core@3.7.28
+  - @contractspec/lib.contracts-spec@6.4.0
+
 ## 3.7.28
 
 ### Patch Changes

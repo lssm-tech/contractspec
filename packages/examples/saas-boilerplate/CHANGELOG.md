@@ -1,5 +1,22 @@
 # @contractspec/example.saas-boilerplate
 
+## 3.8.25
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/lib.design-system@4.4.4
+  - @contractspec/lib.example-shared-ui@7.0.10
+  - @contractspec/lib.identity-rbac@3.8.2
+  - @contractspec/lib.jobs@3.8.8
+  - @contractspec/lib.notification@0.2.2
+  - @contractspec/lib.presentation-runtime-core@5.2.3
+  - @contractspec/lib.runtime-sandbox@3.0.8
+  - @contractspec/module.audit-trail@3.7.29
+  - @contractspec/lib.contracts-spec@6.4.0
+
 ## 3.8.24
 
 ### Patch Changes

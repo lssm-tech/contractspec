@@ -1,5 +1,16 @@
 # @contractspec/example.learning-journey-crm-onboarding
 
+## 4.0.13
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/example.crm-pipeline@3.7.33
+  - @contractspec/module.learning-journey@4.0.9
+  - @contractspec/lib.contracts-spec@6.4.0
+
 ## 4.0.12
 
 ### Patch Changes

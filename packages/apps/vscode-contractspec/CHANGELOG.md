@@ -1,5 +1,21 @@
 # Changelog
 
+## 3.10.14
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/bundle.workspace@4.7.1
+  - @contractspec/lib.ai-agent@8.0.17
+  - @contractspec/lib.ai-providers@3.7.22
+  - @contractspec/lib.contracts-transformers@3.7.29
+  - @contractspec/module.ai-chat@4.3.33
+  - @contractspec/module.examples@4.0.10
+  - @contractspec/module.workspace@4.3.9
+  - @contractspec/lib.contracts-spec@6.4.0
+
 ## 3.10.13
 
 ### Patch Changes

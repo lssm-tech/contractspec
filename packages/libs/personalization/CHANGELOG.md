@@ -1,5 +1,22 @@
 # @contractspec/lib.personalization
 
+## 6.2.0
+
+### Minor Changes
+
+- Add transparent adaptive-experience primitives to the personalization library.
+  - Packages: @contractspec/lib.personalization (minor)
+
+### Patch Changes
+
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/lib.bus@3.7.29
+  - @contractspec/lib.overlay-engine@3.7.29
+  - @contractspec/lib.surface-runtime@0.5.29
+  - @contractspec/lib.contracts-spec@6.4.0
+  - @contractspec/lib.knowledge@3.9.0
+
 ## 6.1.1
 
 ### Patch Changes

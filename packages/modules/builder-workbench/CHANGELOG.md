@@ -1,5 +1,20 @@
 # @contractspec/module.builder-workbench
 
+## 0.2.15
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/lib.builder-runtime@0.2.11
+  - @contractspec/lib.builder-spec@0.2.11
+  - @contractspec/lib.design-system@4.4.4
+  - @contractspec/lib.provider-spec@0.2.9
+  - @contractspec/lib.ui-kit-web@3.13.4
+  - @contractspec/module.ai-chat@4.3.33
+  - @contractspec/lib.contracts-spec@6.4.0
+
 ## 0.2.14
 
 ### Patch Changes

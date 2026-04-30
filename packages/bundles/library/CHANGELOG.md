@@ -1,5 +1,36 @@
 # @contractspec/bundle.library
 
+## 3.10.2
+
+### Patch Changes
+
+- Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - Packages: @contractspec/lib.contracts-integrations (minor), @contractspec/lib.contracts-spec (minor), @contractspec/lib.knowledge (minor), @contractspec/bundle.library (patch), @contractspec/bundle.marketing (patch), @contractspec/app.web-landing (patch), @contractspec/example.knowledge-canon (patch)
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/bundle.workspace@4.7.1
+  - @contractspec/example.data-grid-showcase@3.8.25
+  - @contractspec/lib.ai-providers@3.7.22
+  - @contractspec/lib.content-gen@3.7.29
+  - @contractspec/lib.contracts-library@3.7.29
+  - @contractspec/lib.contracts-runtime-client-react@3.14.2
+  - @contractspec/lib.contracts-runtime-server-graphql@3.8.8
+  - @contractspec/lib.contracts-runtime-server-mcp@3.8.9
+  - @contractspec/lib.contracts-runtime-server-rest@3.9.2
+  - @contractspec/lib.design-system@4.4.4
+  - @contractspec/lib.example-shared-ui@7.0.10
+  - @contractspec/lib.logger@3.7.22
+  - @contractspec/lib.provider-ranking@0.7.22
+  - @contractspec/lib.runtime-sandbox@3.0.8
+  - @contractspec/lib.surface-runtime@0.5.29
+  - @contractspec/lib.ui-kit-web@3.13.4
+  - @contractspec/lib.ui-link@3.7.24
+  - @contractspec/module.context-storage@0.7.28
+  - @contractspec/module.examples@4.0.10
+  - @contractspec/lib.contracts-integrations@3.10.0
+  - @contractspec/lib.contracts-spec@6.4.0
+  - @contractspec/lib.knowledge@3.9.0
+
 ## 3.10.1
 
 ### Patch Changes

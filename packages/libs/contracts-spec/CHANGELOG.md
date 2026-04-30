@@ -1,5 +1,12 @@
 # @contractspec/lib.contracts-spec
 
+## 6.4.0
+
+### Minor Changes
+
+- Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - Packages: @contractspec/lib.contracts-integrations (minor), @contractspec/lib.contracts-spec (minor), @contractspec/lib.knowledge (minor), @contractspec/bundle.library (patch), @contractspec/bundle.marketing (patch), @contractspec/app.web-landing (patch), @contractspec/example.knowledge-canon (patch)
+
 ## 6.3.0
 
 ### Minor Changes

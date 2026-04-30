@@ -1,5 +1,18 @@
 # @contractspec/lib.example-shared-ui
 
+## 7.0.10
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/lib.design-system@4.4.4
+  - @contractspec/lib.presentation-runtime-core@5.2.3
+  - @contractspec/lib.surface-runtime@0.5.29
+  - @contractspec/lib.ui-kit-web@3.13.4
+  - @contractspec/lib.contracts-spec@6.4.0
+
 ## 7.0.9
 
 ### Patch Changes

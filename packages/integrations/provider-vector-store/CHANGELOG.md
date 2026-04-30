@@ -1,5 +1,16 @@
 # @contractspec/integration.provider.vector-store
 
+## 0.2.5
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/integration.provider.database@0.2.5
+  - @contractspec/integration.runtime@3.10.1
+  - @contractspec/lib.contracts-integrations@3.10.0
+
 ## 0.2.4
 
 ### Patch Changes

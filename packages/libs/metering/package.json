@@ -1,6 +1,6 @@
 {
 	"name": "@contractspec/lib.metering",
-	"version": "3.7.28",
+	"version": "3.7.29",
 	"description": "Usage metering and billing core module for ContractSpec applications",
 	"keywords": [
 		"contractspec",

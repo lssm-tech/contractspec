@@ -1,5 +1,17 @@
 # @contractspec/lib.data-exchange-client
 
+## 0.3.2
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/lib.data-exchange-core@0.3.2
+  - @contractspec/lib.presentation-runtime-react@40.0.3
+  - @contractspec/lib.ui-kit-web@3.13.4
+  - @contractspec/lib.contracts-spec@6.4.0
+
 ## 0.3.1
 
 ### Patch Changes

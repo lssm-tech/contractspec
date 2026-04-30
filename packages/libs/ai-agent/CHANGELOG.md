@@ -1,5 +1,17 @@
 # @contractspec/lib.ai-agent
 
+## 8.0.17
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/lib.ai-providers@3.7.22
+  - @contractspec/lib.surface-runtime@0.5.29
+  - @contractspec/lib.contracts-spec@6.4.0
+  - @contractspec/lib.knowledge@3.9.0
+
 ## 8.0.16
 
 ### Patch Changes

@@ -1,5 +1,17 @@
 # @contractspec/lib.accessibility
 
+## 3.7.32
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/lib.design-system@4.4.4
+  - @contractspec/lib.ui-kit@4.1.6
+  - @contractspec/lib.ui-kit-web@3.13.4
+  - @contractspec/lib.contracts-spec@6.4.0
+
 ## 3.7.31
 
 ### Patch Changes

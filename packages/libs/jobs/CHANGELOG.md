@@ -1,5 +1,17 @@
 # @contractspec/lib.jobs
 
+## 3.8.8
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/lib.logger@3.7.22
+  - @contractspec/lib.contracts-integrations@3.10.0
+  - @contractspec/lib.contracts-spec@6.4.0
+  - @contractspec/lib.knowledge@3.9.0
+
 ## 3.8.7
 
 ### Patch Changes

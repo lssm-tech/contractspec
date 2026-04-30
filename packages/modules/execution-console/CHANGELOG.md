@@ -1,5 +1,17 @@
 # @contractspec/module.execution-console
 
+## 0.1.16
+
+### Patch Changes
+
+- chore: auto-bump internal dependents
+- Updated dependencies because of chore: auto-bump internal dependents
+- Updated dependencies because of Add provider delta contracts, Google Drive knowledge ingestion, and governed mutation execution for workspace knowledge.
+  - @contractspec/lib.design-system@4.4.4
+  - @contractspec/lib.execution-lanes@0.1.12
+  - @contractspec/lib.ui-kit-web@3.13.4
+  - @contractspec/lib.contracts-spec@6.4.0
+
 ## 0.1.15
 
 ### Patch Changes
